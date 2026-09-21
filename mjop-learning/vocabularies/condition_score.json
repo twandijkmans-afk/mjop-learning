@@ -1,0 +1,37 @@
+{
+  "$id": "condition_score.json",
+  "description": "NEN 2767-achtige conditiescore (1=uitstekend .. 6=zeer slecht), samengesteld uit ernst x omvang x intensiteit. Zie schemas/observation.schema.json -> condition_score. Alleen gebruiken als het brondocument expliciet een schaal/score noemt - anders null laten en NIET automatisch NEN2767-certificering claimen (CLAUDE.md).",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": 1,
+      "label_nl": "uitstekend",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": 2,
+      "label_nl": "goed",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": 3,
+      "label_nl": "redelijk",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": 4,
+      "label_nl": "matig",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": 5,
+      "label_nl": "slecht",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": 6,
+      "label_nl": "zeer slecht",
+      "validated_against_batch1": false
+    }
+  ]
+}

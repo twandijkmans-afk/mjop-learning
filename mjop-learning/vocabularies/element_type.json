@@ -1,0 +1,241 @@
+{
+  "$id": "element_type.json",
+  "description": "Gecontroleerde vocabulaire voor bouwdeel/elementtypen (schemas/element.schema.json -> element_type.normalized_value).",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "facade",
+      "label_nl": "gevel",
+      "known_original_values": [
+        "gevel"
+      ],
+      "occurrences_in_batch1": 306,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "window_frame",
+      "label_nl": "kozijn",
+      "known_original_values": [
+        "kozijn",
+        "raam"
+      ],
+      "occurrences_in_batch1": 151,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "door",
+      "label_nl": "deur",
+      "known_original_values": [
+        "deur"
+      ],
+      "occurrences_in_batch1": 70,
+      "validated_against_batch1": true,
+      "notes": "Buitendeuren niet samenvoegen tot 1 element: traphuisdeuren zijn gemeenschappelijk, tuin-/balkondeuren doorgaans prive (zie CLAUDE.md/element.schema.json: gemeenschappelijk_of_prive)."
+    },
+    {
+      "normalized_value": "render_coating",
+      "label_nl": "stucwerk",
+      "known_original_values": [
+        "stucwerk"
+      ],
+      "occurrences_in_batch1": 70,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "roof_covering",
+      "label_nl": "dakbedekking",
+      "known_original_values": [
+        "dakbedekking"
+      ],
+      "occurrences_in_batch1": 30,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "balcony",
+      "label_nl": "balkon",
+      "known_original_values": [
+        "balkon"
+      ],
+      "occurrences_in_batch1": 28,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "floor_finish",
+      "label_nl": "vloerafwerking",
+      "known_original_values": [
+        "vloerafwerking"
+      ],
+      "occurrences_in_batch1": 26,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "masonry",
+      "label_nl": "metselwerk",
+      "known_original_values": [
+        "metselwerk"
+      ],
+      "occurrences_in_batch1": 24,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "joint_sealing",
+      "label_nl": "voegwerk",
+      "known_original_values": [
+        "voegwerk"
+      ],
+      "occurrences_in_batch1": 21,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "roof_edge",
+      "label_nl": "dakrand",
+      "known_original_values": [
+        "dakrand"
+      ],
+      "occurrences_in_batch1": 17,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "rainwater_drainage",
+      "label_nl": "hemelwaterafvoer",
+      "known_original_values": [
+        "hemelwaterafvoer"
+      ],
+      "occurrences_in_batch1": 17,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "elevator",
+      "label_nl": "lift / transportinstallatie",
+      "known_original_values": [
+        "lift",
+        "transportinstallatie",
+        "liftinstallatie"
+      ],
+      "occurrences_in_batch1": 16,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "storage_units",
+      "label_nl": "bergingen",
+      "known_original_values": [
+        "bergingen"
+      ],
+      "occurrences_in_batch1": 10,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "stairwell",
+      "label_nl": "trappenhuis",
+      "known_original_values": [
+        "trappenhuis"
+      ],
+      "occurrences_in_batch1": 9,
+      "validated_against_batch1": true,
+      "notes": "Onderscheiden van 'staircase' (de trap zelf, apart element indien relevant)."
+    },
+    {
+      "normalized_value": "water_supply_piping",
+      "label_nl": "waterleiding",
+      "known_original_values": [
+        "waterleiding"
+      ],
+      "occurrences_in_batch1": 8,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "entrance",
+      "label_nl": "entree",
+      "known_original_values": [
+        "entree"
+      ],
+      "occurrences_in_batch1": 7,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "sewerage",
+      "label_nl": "riolering",
+      "known_original_values": [
+        "riolering",
+        "rioolreiniging"
+      ],
+      "occurrences_in_batch1": 6,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "ventilation",
+      "label_nl": "ventilatie",
+      "known_original_values": [
+        "ventilatie",
+        "mechanische ventilatie"
+      ],
+      "occurrences_in_batch1": 6,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "heating_boiler",
+      "label_nl": "cv-ketel",
+      "known_original_values": [
+        "ketel",
+        "cv-ketel"
+      ],
+      "occurrences_in_batch1": 3,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "gallery",
+      "label_nl": "galerij",
+      "known_original_values": [
+        "galerij"
+      ],
+      "occurrences_in_batch1": 1,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "glazing",
+      "label_nl": "beglazing",
+      "known_original_values": [
+        "beglazing"
+      ],
+      "occurrences_in_batch1": 1,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "paving",
+      "label_nl": "bestrating",
+      "known_original_values": [
+        "bestrating"
+      ],
+      "occurrences_in_batch1": 1,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "boundary_fencing",
+      "label_nl": "erfafscheiding",
+      "known_original_values": [
+        "erfafscheiding"
+      ],
+      "occurrences_in_batch1": 1,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "hardware_locks",
+      "label_nl": "hang- en sluitwerk",
+      "known_original_values": [
+        "hang- en sluitwerk",
+        "hang en sluitwerk"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "fire_detection",
+      "label_nl": "brandmeldinstallatie",
+      "known_original_values": [
+        "brandmeldinstallatie"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    }
+  ]
+}

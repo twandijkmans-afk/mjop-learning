@@ -1,0 +1,102 @@
+{
+  "$id": "maintenance_action.json",
+  "description": "Gecontroleerde vocabulaire voor onderhoudsacties (schemas/maintenance_action.schema.json -> action.normalized_value).",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "replace",
+      "label_nl": "vervangen",
+      "known_original_values": [
+        "vervangen"
+      ],
+      "occurrences_in_batch1": 145,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "repair",
+      "label_nl": "herstellen / repareren",
+      "known_original_values": [
+        "herstellen",
+        "repareren"
+      ],
+      "occurrences_in_batch1": 97,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "clean",
+      "label_nl": "reinigen",
+      "known_original_values": [
+        "reinigen"
+      ],
+      "occurrences_in_batch1": 13,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "maintain",
+      "label_nl": "onderhouden",
+      "known_original_values": [
+        "onderhouden"
+      ],
+      "occurrences_in_batch1": 12,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "inspect",
+      "label_nl": "inspecteren",
+      "known_original_values": [
+        "inspecteren"
+      ],
+      "occurrences_in_batch1": 9,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "exterior_painting",
+      "label_nl": "buitenschilderwerk",
+      "known_original_values": [
+        "buitenschilderwerk",
+        "schilderwerk buiten"
+      ],
+      "occurrences_in_batch1": 95,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "interior_painting",
+      "label_nl": "binnenschilderwerk",
+      "known_original_values": [
+        "binnenschilderwerk",
+        "schilderwerk binnen"
+      ],
+      "occurrences_in_batch1": 59,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "paint",
+      "label_nl": "schilderen (algemeen, indien buiten/binnen niet gespecificeerd)",
+      "known_original_values": [
+        "schilderen",
+        "schilderwerk"
+      ],
+      "occurrences_in_batch1": 5,
+      "validated_against_batch1": true,
+      "notes": "'schilderwerk' zonder 'buiten'/'binnen'-aanduiding (242x) blijft bij voorkeur original_value met normalized_value=null totdat een mens het aan exterior_painting of interior_painting koppelt."
+    },
+    {
+      "normalized_value": "impregnate",
+      "label_nl": "impregneren",
+      "known_original_values": [
+        "impregneren"
+      ],
+      "occurrences_in_batch1": 3,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "renovate",
+      "label_nl": "renoveren",
+      "known_original_values": [
+        "renoveren"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+#!/usr/bin/env python3
+"""
+normalize_batch.py  (stap 8 van de pipeline: EXTRACTED -> NORMALIZED)
+
+In tegenstelling tot extract_batch.py IS dit script wel echt werkend: het
+bevat geen LLM-call, alleen deterministische logica (woordenboek-lookup en
+decimal-rekenwerk), precies zoals CLAUDE.md voorschrijft ("berekeningen
+altijd deterministisch, nooit door het taalmodel").
+
+Wat dit script doet per element/maintenance_action in data/extracted/*.json:
+  1. Zoekt original_value op in de bijpassende vocabulaire (vocabularies/*.json).
+     - Exacte match (case-insensitive) -> normalized_value invullen.
+     - Geen match -> normalized_value=null, requires_human_review=True.
+       (NOOIT gokken/fuzzy-matchen zonder menselijke controle, zie CLAUDE.md.)
+  2. Berekent bij maintenance_actions, als quantity en unit_cost beide
+     aanwezig zijn: direct_cost_calculated = quantity x unit_cost (Decimal).
+     Als het document ook een total_cost_as_stated bevat en dat wijkt af van
+     de berekening: cost_conflict=True + requires_human_review=True (nooit
+     automatisch een van de twee kiezen).
+
+Gebruik:
+    python3 scripts/normalize_batch.py --batch batch_1
+"""
+import argparse
+import glob
+import json
+import os
+from decimal import Decimal, InvalidOperation
+
+
+def load_vocab(vocab_dir, name):
+    path = os.path.join(vocab_dir, f"{name}.json")
+    if not os.path.exists(path):
+        return {}
+    doc = json.load(open(path))
+    lookup = {}
+    for entry in doc.get("entries", []):
+        norm = entry.get("normalized_value")
+        for orig in entry.get("known_original_values", []):
+            lookup[str(orig).strip().lower()] = norm
+    return lookup
+
+
+def normalize_pair(pair, lookup):
+    """pair = {"original_value": ..., "normalized_value": ...}"""
+    if not pair or not pair.get("original_value"):
+        return pair
+    key = str(pair["original_value"]).strip().lower()
+    if key in lookup:
+        pair["normalized_value"] = lookup[key]
+    else:
+        pair["normalized_value"] = None  # niet gokken
+        pair["requires_human_review"] = True
+    return pair
+
+
+def to_decimal(v):
+    if v is None or v == "":
+        return None
+    try:
+        return Decimal(str(v).replace(".", "").replace(",", ".")) if "," in str(v) else Decimal(str(v))
+    except (InvalidOperation, ValueError):
+        return None
+
+
+def normalize_maintenance_action(action):
+    qty = to_decimal((action.get("quantity") or {}).get("value"))
+    unit_cost_field = action.get("unit_cost") or {}
+    unit_cost = to_decimal(unit_cost_field.get("value"))
+
+    if qty is not None and unit_cost is not None:
+        direct_cost = (qty * unit_cost).quantize(Decimal("0.01"))
+        action["direct_cost_calculated"] = str(direct_cost)
+
+        stated = action.get("total_cost_as_stated")
+        stated_dec = to_decimal(stated)
+        if stated_dec is not None and stated_dec != direct_cost:
+            action["cost_conflict"] = True
+            action["requires_human_review"] = True
+    return action
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--batch", default="batch_1")
+    ap.add_argument("--extracted-dir", default="data/extracted")
+    ap.add_argument("--normalized-dir", default="data/normalized")
+    ap.add_argument("--vocab-dir", default="vocabularies")
+    args = ap.parse_args()
+
+    lookups = {
+        "element_type": load_vocab(args.vocab_dir, "element_type"),
+        "material": load_vocab(args.vocab_dir, "material"),
+        "unit": load_vocab(args.vocab_dir, "unit"),
+        "defect_type": load_vocab(args.vocab_dir, "defect_type"),
+        "action": load_vocab(args.vocab_dir, "maintenance_action"),
+    }
+
+    os.makedirs(args.normalized_dir, exist_ok=True)
+    n_files = 0
+    n_review = 0
+
+    for path in sorted(glob.glob(os.path.join(args.extracted_dir, "*.json"))):
+        rec = json.load(open(path))
+        if rec.get("status") == "pending_extraction":
+            continue  # nog niets om te normaliseren
+
+        for el in rec.get("elements", []):
+            if "element_type" in el:
+                normalize_pair(el["element_type"], lookups["element_type"])
+            if "material" in el:
+                normalize_pair(el["material"], lookups["material"])
+            if "unit" in el:
+                normalize_pair(el["unit"], lookups["unit"])
+
+        for obs in rec.get("observations", []):
+            if "defect" in obs:
+                normalize_pair(obs["defect"], lookups["defect_type"])
+
+        for action in rec.get("maintenance_actions", []):
+            if "action" in action:
+                normalize_pair(action["action"], lookups["action"])
+            if "unit" in action:
+                normalize_pair(action["unit"], lookups["unit"])
+            normalize_maintenance_action(action)
+            if action.get("requires_human_review"):
+                n_review += 1
+
+        out_path = os.path.join(args.normalized_dir, os.path.basename(path))
+        json.dump(rec, open(out_path, "w"), ensure_ascii=False, indent=2)
+        n_files += 1
+
+    print(f"{n_files} bestanden genormaliseerd -> {args.normalized_dir}/")
+    print(f"{n_review} maintenance_actions gemarkeerd voor menselijke controle.")
+
+
+if __name__ == "__main__":
+    main()

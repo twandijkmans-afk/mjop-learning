@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "document.schema.json",
+  "title": "Document",
+  "description": "Eén brondocument uit data/raw/, met de inventarismetadata uit stap 4 van het masterplan. Wordt één keer aangemaakt bij inventarisatie en daarna nooit meer overschreven op basis van geraden waarden.",
+  "type": "object",
+  "properties": {
+    "document_id": { "type": "string", "pattern": "^DOC-[0-9]{3,}$" },
+    "filename": { "type": "string" },
+    "relative_path": { "type": "string", "description": "Pad t.o.v. data/raw/" },
+    "project_folder": { "type": "string", "description": "VvE/pand-map waar dit document bij hoort" },
+    "file_type": { "type": "string", "enum": ["pdf", "xls", "xlsx", "docx"] },
+    "file_size_bytes": { "type": "integer" },
+    "sha256": { "type": "string", "description": "Checksum t.o.v. reports/raw_manifest.json - gebruikt om te bewijzen dat data/raw/ niet is aangepast" },
+    "page_count": { "type": ["integer", "null"] },
+    "text_pdf_or_scan": { "type": "string", "enum": ["text_pdf", "scan_or_image", "mixed_low_text", "n/a_spreadsheet", "n/a_docx"] },
+    "has_tables": { "type": "boolean" },
+    "has_photos": { "type": "boolean" },
+    "has_inspection_data": { "type": "boolean" },
+    "has_quantities": { "type": "boolean" },
+    "has_costs": { "type": "boolean" },
+    "has_condition_scores": { "type": "boolean" },
+    "has_source_dates": { "type": "boolean" },
+    "document_type": {
+      "type": ["string", "null"],
+      "description": "Vrije classificatie, bijv. mjop_rapport, mop_actualisatie, offerte, gunningsadvies, jarenplan_overzicht, bewonersinformatie. null als onduidelijk - niet gokken."
+    },
+    "possible_building_year": { "type": ["integer", "null"] },
+    "possible_number_of_units": { "type": ["integer", "null"] },
+    "possible_mjop_period": { "type": ["string", "null"], "description": "bijv. '2023-2038'" },
+    "possible_inspection_date": { "type": ["string", "null"], "format": "date" },
+    "possible_advisor": { "type": ["string", "null"] },
+    "quality_estimate": { "type": ["string", "null"], "enum": ["hoog", "matig", "laag", null] },
+    "batch": { "type": ["string", "null"], "description": "bijv. 'batch_1'" },
+    "notes": { "type": "string" }
+  },
+  "required": ["document_id", "filename", "relative_path", "file_type", "file_size_bytes", "sha256"],
+  "additionalProperties": false
+}

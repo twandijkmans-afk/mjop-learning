@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "observation.schema.json",
+  "title": "Observation",
+  "description": "Eén inspectiebevinding/waarneming bij een element, inclusief conditiescore indien aanwezig (bijv. NEN 2767). Nooit automatisch een NEN 2767-certificering claimen als het brondocument dat niet expliciet stelt (zie CLAUDE.md).",
+  "type": "object",
+  "properties": {
+    "observation_id": { "type": "string" },
+    "element_id": { "type": "string" },
+    "description": { "$ref": "_extracted_value.schema.json" },
+    "defect": {
+      "type": "object",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] }
+      }
+    },
+    "condition_score": {
+      "type": "object",
+      "description": "Conditiescore zoals in het brondocument (bijv. NEN 2767 1-6). original_value = zoals genoteerd, normalized_value = gemapt op de schaal in vocabularies/condition_score.json",
+      "properties": {
+        "original_value": {},
+        "normalized_value": { "type": ["integer", "null"], "minimum": 1, "maximum": 6 },
+        "scale": { "type": ["string", "null"], "description": "bijv. 'NEN2767-1to6' - null als schaal niet expliciet benoemd is" }
+      }
+    },
+    "severity": {
+      "type": "object",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] }
+      }
+    },
+    "source": { "$ref": "_provenance.schema.json" },
+    "requires_human_review": { "type": "boolean", "default": false }
+  },
+  "required": ["observation_id", "element_id", "source"],
+  "additionalProperties": false
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "extracted_value.schema.json",
+  "title": "ExtractedValue",
+  "description": "Herbruikbaar patroon voor een enkel geëxtraheerd gegeven met verplichte onzekerheidsmarkering. Gebruik dit patroon (niet een los primitief veld) voor elk veld dat rechtstreeks uit een brondocument komt, zodat null/conflict/provenance altijd meereist.",
+  "type": "object",
+  "properties": {
+    "value": {
+      "description": "De geëxtraheerde waarde. null als niet gevonden - NOOIT een aanname invullen (zie CLAUDE.md)."
+    },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "requires_human_review": { "type": "boolean", "default": false },
+    "conflict": { "type": "boolean", "default": false },
+    "possible_values": {
+      "type": "array",
+      "description": "Bij conflict: alle gevonden kandidaat-waarden met hun eigen provenance, in plaats van er automatisch één te kiezen.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {},
+          "provenance": { "$ref": "_provenance.schema.json" }
+        },
+        "required": ["value", "provenance"]
+      }
+    },
+    "provenance": { "$ref": "_provenance.schema.json" },
+    "human_verification": {
+      "type": "object",
+      "description": "Ingevuld zodra een mens dit veld heeft beoordeeld (ACCEPT/EDIT/REJECT, zie CLAUDE.md).",
+      "properties": {
+        "status": { "type": "string", "enum": ["accept", "edit", "reject"] },
+        "original_ai_value": {},
+        "edited_value": {},
+        "reviewer": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["status", "reviewer", "timestamp"]
+    }
+  },
+  "required": ["value", "requires_human_review"],
+  "additionalProperties": false
+}

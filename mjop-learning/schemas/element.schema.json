@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "element.schema.json",
+  "title": "BuildingElement",
+  "description": "Eén bouwdeel/element binnen een gebouw, zoals letterlijk of ingedikt uit het brondocument gehaald (zie CLAUDE.md sectie normalisatie: original_value altijd bewaren).",
+  "type": "object",
+  "properties": {
+    "element_id": { "type": "string" },
+    "building_id": { "type": "string" },
+    "element_type": {
+      "type": "object",
+      "description": "original_value = letterlijke tekst uit het document; normalized_value = gemapte term uit vocabularies/element_type.json (null als onzeker, zie CLAUDE.md)",
+      "properties": {
+        "original_value": { "type": "string" },
+        "normalized_value": { "type": ["string", "null"] }
+      },
+      "required": ["original_value", "normalized_value"]
+    },
+    "element_name": { "$ref": "_extracted_value.schema.json" },
+    "location": { "$ref": "_extracted_value.schema.json", "description": "bijv. 'traphuis', 'balkon prive', 'winkelgedeelte begane grond'" },
+    "material": {
+      "type": "object",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] }
+      }
+    },
+    "quantity": { "$ref": "_extracted_value.schema.json" },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] }
+      }
+    },
+    "construction_year": { "$ref": "_extracted_value.schema.json" },
+    "gemeenschappelijk_of_prive": {
+      "type": ["string", "null"],
+      "enum": ["gemeenschappelijk", "prive", null],
+      "description": "Belangrijk bij buitendeuren/kozijnen voor kostenverdeling - traphuisdeuren gemeenschappelijk, tuin/balkondeuren doorgaans prive (zie CLAUDE.md / mjop-oprognose werkwijze). Niet samenvoegen met andere elementen als dit verschilt."
+    }
+  },
+  "required": ["element_id", "building_id", "element_type"],
+  "additionalProperties": false
+}

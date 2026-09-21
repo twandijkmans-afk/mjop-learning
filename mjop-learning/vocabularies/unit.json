@@ -1,0 +1,57 @@
+{
+  "$id": "unit.json",
+  "description": "Gecontroleerde vocabulaire voor eenheden (schemas/element.schema.json en maintenance_action.schema.json -> unit.normalized_value).",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "m2",
+      "label_nl": "vierkante meter",
+      "known_original_values": [
+        "m2",
+        "m²"
+      ],
+      "occurrences_in_batch1": 228,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "m1",
+      "label_nl": "strekkende meter",
+      "known_original_values": [
+        "m1",
+        "strekkende meter"
+      ],
+      "occurrences_in_batch1": 140,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "piece",
+      "label_nl": "stuks",
+      "known_original_values": [
+        "st.",
+        "stuks",
+        "stk"
+      ],
+      "occurrences_in_batch1": 48,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "m3",
+      "label_nl": "kubieke meter",
+      "known_original_values": [
+        "m3",
+        "m³"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "lump_sum",
+      "label_nl": "stelpost",
+      "known_original_values": [
+        "stelpost"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    }
+  ]
+}

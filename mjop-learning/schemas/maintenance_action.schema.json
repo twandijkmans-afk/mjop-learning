@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "maintenance_action.schema.json",
+  "title": "MaintenanceAction",
+  "description": "Eén onderhoudsactie/kostenpost gekoppeld aan een element. Alle bedragen zijn strings/decimals (nooit float) en calculated_cost wordt ALTIJD door deterministische code berekend, nooit door een taalmodel (zie CLAUDE.md sectie 'Berekeningen').",
+  "type": "object",
+  "properties": {
+    "action_id": { "type": "string" },
+    "element_id": { "type": "string" },
+    "action": {
+      "type": "object",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] }
+      }
+    },
+    "planned_year": { "$ref": "_extracted_value.schema.json" },
+    "quantity": { "$ref": "_extracted_value.schema.json" },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] }
+      }
+    },
+    "unit_cost": {
+      "type": "object",
+      "description": "Decimal als string (bijv. '125.50'), nooit float, om afrondingsfouten te voorkomen.",
+      "properties": {
+        "value": { "type": ["string", "null"] },
+        "is_estimated": { "type": "boolean", "default": false, "description": "true als ingevuld met kentallen/normramingen i.p.v. uit het document (zie mjop-oprognose werkwijze)" },
+        "provenance": { "$ref": "_provenance.schema.json" }
+      }
+    },
+    "cost_year": { "type": ["integer", "null"], "description": "Prijspeiljaar van unit_cost" },
+    "total_cost_as_stated": {
+      "type": ["string", "null"],
+      "description": "Totaalbedrag zoals letterlijk in het document staat, indien aanwezig - voor conflict-detectie tegen quantity x unit_cost"
+    },
+    "direct_cost_calculated": {
+      "type": ["string", "null"],
+      "description": "= quantity x unit_cost, berekend door scripts/normalize_batch.py (deterministisch, decimal arithmetic)"
+    },
+    "indexation_rate": { "type": ["string", "null"] },
+    "indexation_factor": { "type": ["string", "null"] },
+    "indexed_cost": { "type": ["string", "null"], "description": "= direct_cost_calculated x indexation_factor" },
+    "cost_conflict": {
+      "type": "boolean",
+      "default": false,
+      "description": "true als total_cost_as_stated afwijkt van direct_cost_calculated - zie CLAUDE.md: nooit automatisch oplossen"
+    },
+    "requires_human_review": { "type": "boolean", "default": false },
+    "source_page": { "type": ["integer", "null"] }
+  },
+  "required": ["action_id", "element_id"],
+  "additionalProperties": false
+}

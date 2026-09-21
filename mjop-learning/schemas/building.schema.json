@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "building.schema.json",
+  "title": "Building",
+  "description": "Het gebouw/de VvE waarop één of meerdere documenten betrekking hebben. Elk veld is een ExtractedValue (zie _extracted_value.schema.json) - dus met null-optie, confidence en provenance, in plaats van een los primitief veld.",
+  "type": "object",
+  "properties": {
+    "building_id": { "type": "string" },
+    "document_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Alle document_id's die over dit gebouw gaan (bijv. MOP 2018 + MJOP 2026 van hetzelfde pand)"
+    },
+    "name": { "type": "string", "description": "Herkenbare naam, bijv. VvE-naam of adres - geen extractieveld, mag door mens ingevuld worden" },
+    "construction_year": { "$ref": "_extracted_value.schema.json" },
+    "number_of_units": { "$ref": "_extracted_value.schema.json" },
+    "building_type": { "$ref": "_extracted_value.schema.json", "description": "bijv. appartementencomplex, gemengd winkel/woon, portiekflat" },
+    "address": { "$ref": "_extracted_value.schema.json" },
+    "inspection_date": { "$ref": "_extracted_value.schema.json" },
+    "mjop_period": { "$ref": "_extracted_value.schema.json", "description": "bijv. '2023-2038'" }
+  },
+  "required": ["building_id", "document_ids"],
+  "additionalProperties": false
+}

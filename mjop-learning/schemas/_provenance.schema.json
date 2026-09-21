@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "provenance.schema.json",
+  "title": "Provenance",
+  "description": "Verplichte bronverwijzing voor elk belangrijk geëxtraheerd gegeven. Elk veld dat via provenance.schema.json wordt gerefereerd, moet hiermee herleidbaar zijn naar het brondocument (zie CLAUDE.md: 'provenance is verplicht').",
+  "type": "object",
+  "properties": {
+    "document_id": { "type": "string", "description": "Verwijzing naar document_id in document.schema.json" },
+    "page": { "type": ["integer", "null"], "minimum": 1 },
+    "table_index": { "type": ["integer", "null"], "description": "Index van de tabel op de pagina, indien het gegeven uit een tabel komt" },
+    "text_fragment": { "type": ["string", "null"], "description": "Kort citaat uit de brontekst dat het gegeven onderbouwt" },
+    "source_confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "default": "medium"
+    }
+  },
+  "required": ["document_id", "source_confidence"],
+  "additionalProperties": false
+}

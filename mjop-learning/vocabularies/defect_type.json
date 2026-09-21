@@ -1,0 +1,71 @@
+{
+  "$id": "defect_type.json",
+  "description": "Gecontroleerde vocabulaire voor gebreken/defecten (schemas/observation.schema.json -> defect.normalized_value).",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "corrosion",
+      "label_nl": "corrosie / roest",
+      "known_original_values": [
+        "corrosie",
+        "roest"
+      ],
+      "occurrences_in_batch1": 14,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "water_infiltration",
+      "label_nl": "lekkage",
+      "known_original_values": [
+        "lekkage"
+      ],
+      "occurrences_in_batch1": 10,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "surface_damage",
+      "label_nl": "beschadiging",
+      "known_original_values": [
+        "beschadiging"
+      ],
+      "occurrences_in_batch1": 5,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "wood_rot",
+      "label_nl": "houtrot",
+      "known_original_values": [
+        "houtrot"
+      ],
+      "occurrences_in_batch1": 3,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "cracking",
+      "label_nl": "scheurvorming",
+      "known_original_values": [
+        "scheurvorming"
+      ],
+      "occurrences_in_batch1": 1,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "settlement",
+      "label_nl": "verzakking",
+      "known_original_values": [
+        "verzakking"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "wear",
+      "label_nl": "slijtage",
+      "known_original_values": [
+        "slijtage"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    }
+  ]
+}

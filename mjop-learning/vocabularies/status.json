@@ -1,0 +1,28 @@
+{
+  "$id": "status.json",
+  "description": "Uitvoeringsstatus van een onderhoudsactie. Generiek eerste voorstel, nog niet tegen batch-1 brontekst gevalideerd.",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "planned",
+      "label_nl": "gepland",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "in_progress",
+      "label_nl": "in uitvoering",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "completed",
+      "label_nl": "uitgevoerd",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "deferred",
+      "label_nl": "doorgeschoven / vervallen",
+      "validated_against_batch1": false,
+      "notes": "Zie mjop-oprognose werkwijze: verstreken startjaren doorschuiven met hele cycli, cyclus zelf ongewijzigd."
+    }
+  ]
+}

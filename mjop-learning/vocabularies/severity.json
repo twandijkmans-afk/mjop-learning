@@ -1,0 +1,34 @@
+{
+  "$id": "severity.json",
+  "description": "De drie NEN2767-invoerfactoren die samen de conditiescore bepalen (schemas/observation.schema.json -> severity + condition_score). 'ernst', 'omvang' en 'intensiteit' kwamen alle drie expliciet voor in batch-1 (resp. 68/40/40x) - deze factoren apart bewaren i.p.v. alleen het eindresultaat, zodat de berekening controleerbaar blijft.",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "ernst",
+      "label_nl": "ernst",
+      "known_original_values": [
+        "ernst"
+      ],
+      "occurrences_in_batch1": 68,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "omvang",
+      "label_nl": "omvang",
+      "known_original_values": [
+        "omvang"
+      ],
+      "occurrences_in_batch1": 40,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "intensiteit",
+      "label_nl": "intensiteit",
+      "known_original_values": [
+        "intensiteit"
+      ],
+      "occurrences_in_batch1": 40,
+      "validated_against_batch1": true
+    }
+  ]
+}

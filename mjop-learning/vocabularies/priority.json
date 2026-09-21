@@ -1,0 +1,27 @@
+{
+  "$id": "priority.json",
+  "description": "Prioriteit/urgentie van een onderhoudsactie. In batch-1 niet expliciet als apart veld herkend (geen gerichte scan op uitgevoerd) - dit is een generiek eerste voorstel op basis van gangbare MJOP-praktijk en moet bij batch 2 tegen echte brontekst gevalideerd worden.",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "urgent",
+      "label_nl": "urgent / direct",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "short_term",
+      "label_nl": "korte termijn (1-2 jaar)",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "medium_term",
+      "label_nl": "middellange termijn (3-10 jaar)",
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "long_term",
+      "label_nl": "lange termijn (>10 jaar)",
+      "validated_against_batch1": false
+    }
+  ]
+}

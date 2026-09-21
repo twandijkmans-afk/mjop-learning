@@ -1,0 +1,110 @@
+{
+  "$id": "material.json",
+  "description": "Gecontroleerde vocabulaire voor materialen (schemas/element.schema.json -> material.normalized_value).",
+  "note": "original_value blijft altijd bewaard naast normalized_value (zie CLAUDE.md). Dit is een EERSTE voorstel op basis van een snelle scan van de 10 batch-1-documenten - niet uitputtend. Termen met validated_against_batch1: false zijn nog niet in batch-1 aangetroffen en moeten bij latere batches bevestigd of aangepast worden.",
+  "entries": [
+    {
+      "normalized_value": "wood",
+      "label_nl": "hout",
+      "known_original_values": [
+        "hout",
+        "houten"
+      ],
+      "occurrences_in_batch1": 280,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "steel",
+      "label_nl": "staal",
+      "known_original_values": [
+        "staal"
+      ],
+      "occurrences_in_batch1": 53,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "concrete",
+      "label_nl": "beton",
+      "known_original_values": [
+        "beton"
+      ],
+      "occurrences_in_batch1": 51,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "bitumen",
+      "label_nl": "bitumen",
+      "known_original_values": [
+        "bitumen",
+        "bitumineus"
+      ],
+      "occurrences_in_batch1": 27,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "natural_stone",
+      "label_nl": "natuursteen",
+      "known_original_values": [
+        "natuursteen"
+      ],
+      "occurrences_in_batch1": 22,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "zinc",
+      "label_nl": "zink",
+      "known_original_values": [
+        "zink"
+      ],
+      "occurrences_in_batch1": 21,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "aluminium",
+      "label_nl": "aluminium",
+      "known_original_values": [
+        "aluminium"
+      ],
+      "occurrences_in_batch1": 19,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "pvc",
+      "label_nl": "pvc / kunststof",
+      "known_original_values": [
+        "pvc",
+        "kunststof"
+      ],
+      "occurrences_in_batch1": 17,
+      "validated_against_batch1": true,
+      "notes": "pvc en kunststof overlappen (kunststof is breder). Bij twijfel normalized_value=null en requires_human_review=true laten in plaats van gokken."
+    },
+    {
+      "normalized_value": "glass",
+      "label_nl": "glas",
+      "known_original_values": [
+        "glas"
+      ],
+      "occurrences_in_batch1": 12,
+      "validated_against_batch1": true
+    },
+    {
+      "normalized_value": "copper",
+      "label_nl": "koper",
+      "known_original_values": [
+        "koper"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "stainless_steel",
+      "label_nl": "rvs",
+      "known_original_values": [
+        "rvs"
+      ],
+      "occurrences_in_batch1": 0,
+      "validated_against_batch1": false
+    }
+  ]
+}
