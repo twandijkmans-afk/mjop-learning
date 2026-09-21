@@ -145,7 +145,7 @@ def build_document_text(doc_meta, raw_dir):
 def load_vocabulary_context(vocab_dir):
     parts = []
     for name in (
-        "element_type", "material", "defect_type", "condition_score",
+        "element_code", "element_type", "material", "defect_type", "condition_score",
         "severity", "maintenance_action", "priority", "status", "unit",
     ):
         path = os.path.join(vocab_dir, f"{name}.json")
@@ -237,6 +237,7 @@ ELEMENT_TOOL_SCHEMA = {
     "type": "object",
     "properties": {
         "element_id": {"type": "string", "description": "Lokale referentie binnen dit document, bijv. 'el-1'."},
+        "element_code": _pair_schema(),
         "element_type": _pair_schema(),
         "element_name": EXTRACTED_VALUE_SCHEMA,
         "location": EXTRACTED_VALUE_SCHEMA,
@@ -325,10 +326,13 @@ Regels (niet onderhandelbaar):
 4. Vind je twee verschillende waarden voor hetzelfde gegeven (bijv. bouwjaar op
    twee plekken)? Kies er GEEN. Zet conflict: true, requires_human_review: true,
    en zet beide waarden (met eigen provenance) in possible_values.
-5. Voor element_type/material/unit/defect/severity/action/condition_score: geef
-   alleen original_value (de letterlijke tekst uit het document). Laat
-   normalized_value altijd null - de mapping naar de gecontroleerde vocabulaire
-   gebeurt in een latere, deterministische stap, niet door jou.
+5. Voor element_code/element_type/material/unit/defect/severity/action/
+   condition_score: geef alleen original_value (de letterlijke tekst uit het
+   document). Laat normalized_value altijd null - de mapping naar de
+   gecontroleerde vocabulaire gebeurt in een latere, deterministische stap,
+   niet door jou. element_code is de code uit de 'Code'-kolom van het
+   elementenoverzicht (bijv. '4711'), indien het document die kolom heeft -
+   original_value: null als er geen zo'n kolom/code is, nooit zelf verzinnen.
 6. Bereken NOOIT zelf kosten (quantity x unit_cost, indexatie). Geef alleen de
    waarden zoals ze in het document staan; de berekening gebeurt elders.
 7. Claim nooit NEN 2767-certificering of een officiele conditieschaal als het

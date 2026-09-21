@@ -14037,7 +14037,13 @@
       "action": {
         "original_value": "Doorvoer leidingen brandveilig maken",
         "normalized_value": null,
-        "requires_human_review": true
+        "requires_human_review": false,
+        "human_verification": {
+          "status": "accept",
+          "original_ai_value": null,
+          "reviewer": "twandijkmans@gmail.com",
+          "timestamp": "2026-09-21T14:34:49Z"
+        }
       },
       "planned_year": {
         "value": 2026,
@@ -14082,9 +14088,10 @@
       },
       "cost_year": 2026,
       "total_cost_as_stated": "303.00",
-      "requires_human_review": true,
+      "requires_human_review": false,
       "source_page": 20,
-      "unit_cost_calculated": "303.00"
+      "unit_cost_calculated": "303.00",
+      "review_note": "[accept door twandijkmans@gmail.com op 2026-09-21T14:34:49Z]"
     },
     {
       "action_id": "DOC-002-ACT-111",

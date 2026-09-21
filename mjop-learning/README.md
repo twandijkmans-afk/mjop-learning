@@ -11,19 +11,27 @@ verplicht, nooit gegevens verzinnen, deterministische berekeningen, etc.).
 
 Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in
 `data/raw/` en is volledig geëxtraheerd (`data/extracted/`) en genormaliseerd
-(`data/normalized/`) — zie "Volgende stap" hieronder voor de huidige
-review-status. Onderstaande onderdelen zijn opgeleverd en getest
-(71/71 tests slagen):
+(`data/normalized/`). 9 van de 10 documenten zijn door onszelf opgesteld (in
+opdracht van Pro VvE Beheer / VvE Beheer B.V.); alleen DOC-004 (Innax, 2018)
+is van een andere partij en telt niet mee voor de eigen-stijl-categorisering
+hieronder. Zie "Volgende stap" hieronder voor de huidige review-status.
+Onderstaande onderdelen zijn opgeleverd en getest (80/80 tests slagen):
 
 - `schemas/` — datamodel voor document, building, element, observation,
   maintenance_action, plus twee gedeelde bouwstenen
   (`_extracted_value.schema.json`, `_provenance.schema.json`) die het
   "null i.p.v. gokken" + provenance-patroon afdwingen.
-- `vocabularies/` — eerste voorstel voor gecontroleerde termenlijsten
-  (element_type, material, defect_type, condition_score, severity,
-  maintenance_action, priority, status, unit), grotendeels gevalideerd tegen
-  een woordfrequentie-scan van de 10 batch-1-documenten
-  (`validated_against_batch1: true/false` per term).
+- `vocabularies/` — gecontroleerde termenlijsten (element_type, material,
+  defect_type, condition_score, severity, maintenance_action, priority,
+  status, unit), grotendeels gevalideerd tegen een woordfrequentie-scan van
+  de 10 batch-1-documenten (`validated_against_batch1: true/false` per
+  term).
+- `vocabularies/element_code.json` — **nieuw**: het eigen NL-SfB-achtige
+  coderingssysteem (29 hoofdgroepen, ~65 subcodes, plus `ZZZZ` voor
+  staartkosten-percentages) zoals dat letterlijk in de 9 door onszelf
+  opgestelde documenten staat (de 'Code'-kolom van het elementenoverzicht).
+  Dit is de basis voor kentallen "op de manier waarop wij onze MJOP's
+  opbouwen" i.p.v. een generieke, vrij-tekst-gebaseerde indeling.
 - `scripts/inventory_documents.py` — **werkend**: bouwt
   `reports/document_inventory.{csv,json}` uit `data/raw/`.
 - `scripts/normalize_batch.py` — **werkend**: deterministische
@@ -70,39 +78,64 @@ review-status. Onderstaande onderdelen zijn opgeleverd en getest
   zonder ingevulde correctie wordt geweigerd (nooit zelf een waarde
   verzinnen); een `reject` blijft `requires_human_review: true` - dat
   betekent "ook een mens weet het niet", niet "opgelost".
-- `scripts/evaluate_dataset.py` — **werkend, maar nog niets te evalueren**:
-  zolang `data/verified/` leeg is (nog geen menselijke verificatie) geeft dit
-  script terecht geen accuracy-cijfer — zie CLAUDE.md: geen claims zonder
-  meting.
-- `tests/` — 71 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
+- `scripts/backfill_element_codes.py` — **nieuw, eenmalige migratie**: vult
+  `element_code` met terugwerkende kracht in voor de 9 al-geëxtraheerde
+  eigen documenten (element_code bestond nog niet toen ze geëxtraheerd
+  werden). Methode A: het document citeert de code al letterlijk in een
+  bestaand `provenance.text_fragment` (492 van de 549 elementen). Methode B
+  (alleen DOC-001, dat vóór provenance-tracking handmatig is opgebouwd):
+  positionele koppeling aan een herscan van de brontekst, alleen als de
+  beschrijving daadwerkelijk overeenkomt (52 elementen). 5 restgevallen met
+  een regel-wrap in de PDF zijn stuk voor stuk tegen de brontekst geverifieerd
+  (`DOC_001_MANUAL_OVERRIDES`). 0 van de 549 bleef onopgelost.
+- `scripts/evaluate_dataset.py` — **werkend, maar het cijfer dat nu uitkomt
+  is nog geen echte meting**: `data/verified/` bestaat, maar is nu alleen
+  een kopie van `data/normalized/` waarin de eerder gevlagde posten
+  bevestigd zijn (zie hieronder) - niet elk veld is onafhankelijk
+  herleid uit het brondocument. Zie CLAUDE.md: geen accuracy-claims zonder
+  een cijfer dat dat ook echt meet.
+- `tests/` — 80 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert
   (`reports/raw_manifest.json` met sha256 per bronbestand), de review-
   ondergrens, id-canonicalisatie, dat normalisatie nooit door het model
   gebeurt, dat een ontbrekend brondocument nooit tot een modelaanroep leidt,
   de schilderwerk-afleidingsregel en de review-vlag-bubbling in
-  `normalize_batch.py`, en (nieuw) dat apply_review.py nooit een waarde
-  verzint en een correctie altijd op het juiste veld toepast. Deze tests
-  gebruiken overal een gestubde `model_fn` — er wordt in de testsuite
-  nergens een echte Anthropic-call gemaakt.
+  `normalize_batch.py`, dat apply_review.py nooit een waarde verzint en een
+  correctie altijd op het juiste veld toepast, en (nieuw) dat de
+  element_code-backfill nooit een code raadt/forceert. Deze tests gebruiken
+  overal een gestubde `model_fn` — er wordt in de testsuite nergens een
+  echte Anthropic-call gemaakt.
 
 ## Volgende stap
 
-Batch 1 is geëxtraheerd en genormaliseerd. Van de 670 maintenance_actions
-staan er 220 (was 648 vóór de vocabulaire-uitbreiding en de
-schilderwerk-afleidingsregel — dat aantal was voorheen niet zichtbaar door
-een bug in de review-bubbling) en van de observations 91 met
-`requires_human_review: true`, meestal omdat de extractie zelf al een lage
-confidence gaf (bijv. ontbrekende unit_cost) of omdat de actietekst een
-unieke, niet-generaliseerbare beschrijving is (zie
-`vocabularies/maintenance_action.json` voor wat al wel gemapt is).
+Batch 1 is geëxtraheerd, genormaliseerd, en de review-ronde is afgerond: van
+de 670 maintenance_actions waren er 220 (was eerlijk gezegd 648 vóór de
+vocabulaire-uitbreiding/schilderwerk-afleidingsregel - dat lagere aantal
+klopte niet, zie git-historie) `requires_human_review: true`; deze zijn via
+`reports/review_batch1.xlsx` allemaal met "accept" bevestigd (geen edits/
+rejects nodig bevonden). De 91 gevlagde observations zijn nog niet
+doorlopen.
 
-Menselijke verificatie:
+**Wat nu ontbreekt (de kern van het doel: kentallen)**: er bestaat nog geen
+script dat `data/normalized/` (of `verified/`) omzet in daadwerkelijke
+kentallen (bijv. "gemiddelde/mediane prijs per m² voor element_code 4711 -
+Dakbedekking APP, over N documenten, met bandbreedte"). `element_code` (zie
+hierboven) geeft nu de sleutel om dat te doen op de manier waarop wij onze
+eigen MJOP's opbouwen, i.p.v. een generieke indeling. Dat is de volgende
+bouwsteen.
+
+Ook nog open: het accuracy-cijfer uit `evaluate_dataset.py` is nog geen
+echte, onafhankelijke meting (zie hierboven) - dat kan later alsnog met een
+blinde steekproef als daar behoefte aan is, maar staat niet in de weg voor
+het bouwen van de kentallen-berekening.
+
+Menselijke verificatie (herhaalbaar zodra er nieuwe posten zijn):
 ```bash
 python3 scripts/export_review_sheet.py            # -> reports/review_batch1.xlsx
 # ... vul BESLISSING (accept/edit/reject) + evt. GECORRIGEERDE_WAARDE/NOTITIES in ...
 python3 scripts/apply_review.py --reviewer "jij@voorbeeld.nl"   # -> data/verified/*.json
-python3 scripts/evaluate_dataset.py                # eerste accuracy-cijfer
+python3 scripts/evaluate_dataset.py                # accuracy-cijfer (zie caveat hierboven)
 ```
 
 ## Gebruik

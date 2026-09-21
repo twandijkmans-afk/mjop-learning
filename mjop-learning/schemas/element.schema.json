@@ -7,6 +7,16 @@
   "properties": {
     "element_id": { "type": "string" },
     "building_id": { "type": "string" },
+    "element_code": {
+      "type": "object",
+      "description": "Code uit ons eigen NL-SfB-achtige coderingssysteem (bijv. '4711' = Dakbedekking APP onder hoofdgroep 47 Dakafwerkingen), letterlijk overgenomen uit de 'Code'-kolom van het brondocument. normalized_value is dezelfde code, maar alleen ingevuld als de code voorkomt in vocabularies/element_code.json (validatie tegen typefouten/onbekende codes, nooit gokken). Zie vocabularies/element_code.json voor de hoofdgroep-indeling.",
+      "properties": {
+        "original_value": { "type": ["string", "null"] },
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
+      }
+    },
     "element_type": {
       "type": "object",
       "description": "original_value = letterlijke tekst uit het document; normalized_value = gemapte term uit vocabularies/element_type.json (null als onzeker, zie CLAUDE.md)",

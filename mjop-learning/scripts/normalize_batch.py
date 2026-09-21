@@ -201,6 +201,7 @@ def main():
 
     lookups = {
         "element_type": load_vocab(args.vocab_dir, "element_type"),
+        "element_code": load_vocab(args.vocab_dir, "element_code"),
         "material": load_vocab(args.vocab_dir, "material"),
         "unit": load_vocab(args.vocab_dir, "unit"),
         "defect_type": load_vocab(args.vocab_dir, "defect_type"),
@@ -220,6 +221,8 @@ def main():
         for el in rec.get("elements", []):
             if "element_type" in el:
                 normalize_pair(el["element_type"], lookups["element_type"])
+            if "element_code" in el:
+                normalize_pair(el["element_code"], lookups["element_code"])
             if "material" in el:
                 normalize_pair(el["material"], lookups["material"])
             if "unit" in el:
