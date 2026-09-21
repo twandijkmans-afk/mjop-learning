@@ -125,6 +125,28 @@ def test_unit_cost_calculated_skipped_when_unit_unknown():
     )
 
 
+def test_to_decimal_handles_euro_formatted_thousands():
+    """Regressie: 'total_cost_as_stated' komt bij een LLM-extractie soms
+    letterlijk met eurosymbool en Nederlandse duizendtal-punt uit het
+    document ('€ 17.910'), i.p.v. de schone vorm die normalize_batch zelf
+    schrijft ('1815.00'). Beide moeten correct geparsed worden."""
+    assert normalize_batch.to_decimal("€ 17.910") == normalize_batch.to_decimal("17910.00")
+    assert normalize_batch.to_decimal("1.815,00") == normalize_batch.to_decimal("1815.00")
+    assert normalize_batch.to_decimal("€ 989") == normalize_batch.to_decimal("989.00")
+    assert normalize_batch.to_decimal("125.50") == normalize_batch.to_decimal("125.50")  # ongewijzigd gedrag
+
+
+def test_unit_cost_calculated_from_euro_formatted_total():
+    action = {
+        "quantity": {"value": "815,95"},
+        "unit": {"original_value": "m2", "normalized_value": "m2"},
+        "unit_cost": {"value": None},
+        "total_cost_as_stated": "€ 17.910",
+    }
+    out = normalize_batch.normalize_maintenance_action(dict(action))
+    assert out["unit_cost_calculated"] is not None
+
+
 def test_unit_cost_calculated_skipped_when_literal_unit_cost_present():
     action = {
         "quantity": {"value": "10"},

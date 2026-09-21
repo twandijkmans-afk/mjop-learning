@@ -352,15 +352,18 @@ def call_model(document_text, vocab_context, doc_id, retry_error=None):
             f"(vormfout, geen inhoudelijke fout):\n{retry_error}\n"
             "Corrigeer alleen de vorm/structuur - verzin geen nieuwe inhoud."
         )
-    response = client.messages.create(
+    # claude-opus-5 accepteert geen temperature/sampling-parameters meer (denken
+    # vervangt dat) en grote documenten kunnen veel outputtokens vergen, dus
+    # streamen (voorkomt HTTP-timeouts) met een ruime max_tokens.
+    with client.messages.stream(
         model=DEFAULT_MODEL,
-        max_tokens=16000,
-        temperature=0,
+        max_tokens=64000,
         system=EXTRACTION_SYSTEM_PROMPT,
         tools=[EXTRACTION_TOOL],
         tool_choice={"type": "tool", "name": EXTRACTION_TOOL["name"]},
         messages=[{"role": "user", "content": user_content}],
-    )
+    ) as stream:
+        response = stream.get_final_message()
     for block in response.content:
         if block.type == "tool_use":
             return block.input
@@ -449,7 +452,9 @@ def enforce_review_floor(node):
 
 
 def _validate_against_schema(instance, schemas_dir, schema_filename):
-    schema_path = os.path.join(schemas_dir, schema_filename)
+    # Absoluut pad nodig: bij een relatief pad breekt de file://-resolutie van
+    # interne $ref's (bijv. "_extracted_value.schema.json") in RefResolver.
+    schema_path = os.path.abspath(os.path.join(schemas_dir, schema_filename))
     schema = json.load(open(schema_path))
     resolver = jsonschema.RefResolver(base_uri=f"file://{schema_path}", referrer=schema)
     validator_cls = jsonschema.validators.validator_for(schema)
@@ -457,8 +462,19 @@ def _validate_against_schema(instance, schemas_dir, schema_filename):
     return list(validator.iter_errors(instance))
 
 
+REQUIRED_TOP_LEVEL_KEYS = ("building", "elements", "observations", "maintenance_actions")
+
+
 def validate_record(record, schemas_dir):
     errors = []
+    # EXTRACTION_TOOL vereist deze velden altijd (desnoods als lege array) -
+    # als het model er eentje weglaat is dat een schemafout, geen "toevallig
+    # niets gevonden": anders passeert een onvolledig antwoord stilzwijgend
+    # omdat de rest van deze functie overal record.get(key, []) gebruikt.
+    missing = [key for key in REQUIRED_TOP_LEVEL_KEYS if key not in record]
+    if missing:
+        errors.append(f"top-level velden ontbreken in modelantwoord: {missing}")
+
     if record.get("building") is not None:
         for err in _validate_against_schema(record["building"], schemas_dir, "building.schema.json"):
             errors.append(f"building: {err.message} (pad: {list(err.absolute_path)})")

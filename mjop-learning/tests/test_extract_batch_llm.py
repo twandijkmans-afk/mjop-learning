@@ -90,6 +90,32 @@ def make_valid_record():
 # enforce_review_floor
 # ---------------------------------------------------------------------------
 
+def test_validate_against_schema_works_with_relative_schemas_dir():
+    """Regressie: bij een relatief schemas_dir-pad (zoals de CLI standaard
+    gebruikt, --schemas-dir schemas) brak de file://-resolutie van interne
+    $ref's zoals '_extracted_value.schema.json'."""
+    cwd = os.getcwd()
+    try:
+        os.chdir(PROJECT_ROOT)
+        errors = extract_batch._validate_against_schema(
+            make_extracted_value(value="1998", confidence=0.9, requires_human_review=False, source_confidence="high"),
+            "schemas", "_extracted_value.schema.json",
+        )
+        assert errors == []
+    finally:
+        os.chdir(cwd)
+
+
+def test_validate_record_flags_missing_top_level_key():
+    """Regressie: een model dat 'observations' helemaal weglaat (i.p.v. een
+    lege array) moet een schemafout opleveren, niet stilzwijgend 0 observaties
+    worden (dat gebeurde echt bij een van de batch-1-documenten)."""
+    record = make_valid_record()
+    del record["observations"]
+    errors = extract_batch.validate_record(record, SCHEMAS_DIR)
+    assert any("observations" in e for e in errors)
+
+
 def test_review_floor_flags_low_confidence():
     node = make_extracted_value(value="1998", confidence=0.3, requires_human_review=False, source_confidence="high")
     extract_batch.enforce_review_floor(node)

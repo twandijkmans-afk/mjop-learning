@@ -1,10 +1,5095 @@
 {
-  "status": "pending_extraction",
+  "building": {
+    "construction_year": {
+      "value": 1981,
+      "confidence": 0.97,
+      "requires_human_review": false,
+      "provenance": {
+        "document_id": "DOC-005",
+        "page": 2,
+        "source_confidence": "high",
+        "text_fragment": "Bouwjaar 1981"
+      }
+    },
+    "number_of_units": {
+      "value": 29,
+      "confidence": 0.96,
+      "requires_human_review": false,
+      "provenance": {
+        "document_id": "DOC-005",
+        "page": 2,
+        "source_confidence": "high",
+        "text_fragment": "Aantal eenheden 29"
+      }
+    },
+    "building_type": {
+      "value": "VvE / appartementencomplex (woongebouw)",
+      "confidence": 0.4,
+      "requires_human_review": true,
+      "provenance": {
+        "document_id": "DOC-005",
+        "page": 2,
+        "source_confidence": "low",
+        "text_fragment": "Naam VvE Maldenhof 240-296"
+      }
+    },
+    "address": {
+      "value": "Maldenhof 240 - 296, 1106 EZ Amsterdam",
+      "confidence": 0.95,
+      "requires_human_review": false,
+      "provenance": {
+        "document_id": "DOC-005",
+        "page": 2,
+        "source_confidence": "high",
+        "text_fragment": "Adres Maldenhof 240 - 296 Postcode 1106 EZ Plaats Amsterdam"
+      }
+    },
+    "inspection_date": {
+      "value": "14-8-2026",
+      "confidence": 0.95,
+      "requires_human_review": false,
+      "provenance": {
+        "document_id": "DOC-005",
+        "page": 2,
+        "source_confidence": "high",
+        "text_fragment": "Inspectiedatum 14-8-2026"
+      }
+    },
+    "mjop_period": {
+      "value": "2026-2040 (15-jarenplan)",
+      "confidence": 0.85,
+      "requires_human_review": false,
+      "provenance": {
+        "document_id": "DOC-005",
+        "page": 10,
+        "source_confidence": "medium",
+        "text_fragment": "Overzicht 15 - Jarenplan (Gedetailleerd)"
+      }
+    },
+    "building_id": "DOC-005-BLD-001",
+    "document_ids": [
+      "DOC-005"
+    ]
+  },
+  "elements": [
+    {
+      "element_id": "DOC-005-EL-001",
+      "element_type": {
+        "original_value": "Gevelconstructie metselwerk",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Gevelconstructie metselwerk",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 0,
+          "source_confidence": "high",
+          "text_fragment": "2110 Gevelconstructie metselwerk Alle gevels 1631,90m2 2"
+        }
+      },
+      "material": {
+        "original_value": "metselwerk",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 0,
+          "source_confidence": "high",
+          "text_fragment": "Gevelconstructie metselwerk Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "1631,90",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 0,
+          "source_confidence": "high",
+          "text_fragment": "1631,90m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-002",
+      "element_type": {
+        "original_value": "Loodslabben opgaand werk",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Loodslabben opgaand werk",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 1,
+          "source_confidence": "high",
+          "text_fragment": "2110 Loodslabben opgaand werk Platte dak 1,00m1 2"
+        }
+      },
+      "material": {
+        "original_value": "lood",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Platte dak",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 1,
+          "source_confidence": "high",
+          "text_fragment": "Loodslabben opgaand werk | Platte dak"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 1,
+          "source_confidence": "high",
+          "text_fragment": "1,00 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-003",
+      "element_type": {
+        "original_value": "Dilatatie kitvoeg",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Dilatatie kitvoeg",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "2110 Dilatatie kitvoeg Alle gevels 10,00m1 2"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Dilatatie kitvoeg Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "10,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "10,00m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-004",
+      "element_type": {
+        "original_value": "Dakgoot zink",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Dakgoot zink",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 2,
+          "source_confidence": "high",
+          "text_fragment": "2716 | Dakgoot zink | Alle gevels | 165,80 | m1"
+        }
+      },
+      "material": {
+        "original_value": "zink",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 2,
+          "source_confidence": "high",
+          "text_fragment": "Dakgoot zink | Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "165,80",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 2,
+          "source_confidence": "high",
+          "text_fragment": "165,80 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-005",
+      "element_type": {
+        "original_value": "Betonband/latei",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Betonband/latei",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "3120 Betonband/latei Alle gevels 196,30m1 2"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Betonband/latei Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "196,30",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "196,30m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-006",
+      "element_type": {
+        "original_value": "Raamdorpel gres/ijzerklinker",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Raamdorpel gres/ijzerklinker",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 4,
+          "source_confidence": "high",
+          "text_fragment": "3120 | Raamdorpel gres/ijzerklinker | Alle gevels | 281,20 | m1"
+        }
+      },
+      "material": {
+        "original_value": "gres/ijzerklinker",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 4,
+          "source_confidence": "high",
+          "text_fragment": "Raamdorpel gres/ijzerklinker | Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "281,20",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 4,
+          "source_confidence": "high",
+          "text_fragment": "281,20 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-007",
+      "element_type": {
+        "original_value": "Kozijn buiten hout",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Kozijn buiten hout",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 2"
+        }
+      },
+      "material": {
+        "original_value": "hout",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Kozijn buiten hout Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "756,80",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "756,80m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-008",
+      "element_type": {
+        "original_value": "Balustrade afdekking beton",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Balustrade afdekking beton",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 5,
+          "source_confidence": "high",
+          "text_fragment": "3410 | Balustrade afdekking beton | Achtergevel - balkons | 59,10 | m1"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Achtergevel - balkons",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 5,
+          "source_confidence": "high",
+          "text_fragment": "Balustrade afdekking beton | Achtergevel - balkons"
+        }
+      },
+      "quantity": {
+        "value": "59,10",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 5,
+          "source_confidence": "high",
+          "text_fragment": "59,10 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-009",
+      "element_type": {
+        "original_value": "Balustrade staal",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Balustrade staal",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "3410 Balustrade staal Achtergevel - balkons 20,00m1 2"
+        }
+      },
+      "material": {
+        "original_value": "staal",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Achtergevel - balkons",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Balustrade staal Achtergevel - balkons"
+        }
+      },
+      "quantity": {
+        "value": "20,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "20,00m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-010",
+      "element_type": {
+        "original_value": "Leuning staal",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Leuning staal",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 6,
+          "source_confidence": "high",
+          "text_fragment": "3420 | Leuning staal | Voorgevel - trappenhuizen | 42,00 | m1"
+        }
+      },
+      "material": {
+        "original_value": "staal",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 6,
+          "source_confidence": "high",
+          "text_fragment": "Leuning staal | Voorgevel - trappenhuizen"
+        }
+      },
+      "quantity": {
+        "value": "42,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 6,
+          "source_confidence": "high",
+          "text_fragment": "42,00 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-011",
+      "element_type": {
+        "original_value": "Gevelafwerking voegwerk platvol",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Gevelafwerking voegwerk platvol",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "4111 Gevelafwerking voegwerk platvol Alle gevels 1631,90m2 2"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Gevelafwerking voegwerk platvol Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "1631,90",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "1631,90m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-012",
+      "element_type": {
+        "original_value": "Gevelbekleding hout",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Gevelbekleding hout",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 8,
+          "source_confidence": "high",
+          "text_fragment": "4112 | Gevelbekleding hout | Voorgevel - gevelbekleding | 332,00 | m2"
+        }
+      },
+      "material": {
+        "original_value": "hout",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - gevelbekleding",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 8,
+          "source_confidence": "high",
+          "text_fragment": "Gevelbekleding hout | Voorgevel - gevelbekleding"
+        }
+      },
+      "quantity": {
+        "value": "332,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 8,
+          "source_confidence": "high",
+          "text_fragment": "332,00 | m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-013",
+      "element_type": {
+        "original_value": "Balkon afwerking betontegels",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Balkon afwerking betontegels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "4322 Balkon afwerking betontegels Achtergevel - balkons 49,00m2 1"
+        }
+      },
+      "material": {
+        "original_value": "betontegels",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Achtergevel - balkons",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Balkon afwerking betontegels Achtergevel - balkons"
+        }
+      },
+      "quantity": {
+        "value": "49,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "49,00m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": null,
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-014",
+      "element_type": {
+        "original_value": "Plafondafwerking multiplex",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Plafondafwerking multiplex",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 10,
+          "source_confidence": "high",
+          "text_fragment": "4511 | Plafondafwerking multiplex | Voorgevel - trappenhuizen | 85,70 | m2"
+        }
+      },
+      "material": {
+        "original_value": "multiplex",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 10,
+          "source_confidence": "high",
+          "text_fragment": "Plafondafwerking multiplex | Voorgevel - trappenhuizen"
+        }
+      },
+      "quantity": {
+        "value": "85,70",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 10,
+          "source_confidence": "high",
+          "text_fragment": "85,70 | m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-015",
+      "element_type": {
+        "original_value": "Buitenschilderwerk gevelbekleding hout",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk gevelbekleding hout",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "4621 Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1"
+        }
+      },
+      "material": {
+        "original_value": "hout",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - gevelbekleding",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding"
+        }
+      },
+      "quantity": {
+        "value": "332,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "332,00m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-016",
+      "element_type": {
+        "original_value": "Buitenschilderwerk balustrades staal",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk balustrades staal",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 12,
+          "source_confidence": "high",
+          "text_fragment": "4621 | Buitenschilderwerk balustrades staal | Achtergevel - balkons | 75,00 | m2"
+        }
+      },
+      "material": {
+        "original_value": "staal",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Achtergevel - balkons",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 12,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk balustrades staal | Achtergevel - balkons"
+        }
+      },
+      "quantity": {
+        "value": "75,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 12,
+          "source_confidence": "high",
+          "text_fragment": "75,00 | m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-017",
+      "element_type": {
+        "original_value": "Buitenschilderwerk leuning staal",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk leuning staal",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "4621 Buitenschilderwerk leuning staal Voorgevel - trappenhuizen 61,00m1 1"
+        }
+      },
+      "material": {
+        "original_value": "staal",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk leuning staal Voorgevel - trappenhuizen"
+        }
+      },
+      "quantity": {
+        "value": "61,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "high",
+          "text_fragment": "61,00m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-018",
+      "element_type": {
+        "original_value": "Buitenschilderwerk metselwerk",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk metselwerk",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 13,
+          "source_confidence": "high",
+          "text_fragment": "4621 | Buitenschilderwerk metselwerk | Achtergevel - balkons | 34,90 | m2"
+        }
+      },
+      "material": {
+        "original_value": "metselwerk",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Achtergevel - balkons",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 13,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk metselwerk | Achtergevel - balkons"
+        }
+      },
+      "quantity": {
+        "value": "34,90",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "table_index": 13,
+          "source_confidence": "high",
+          "text_fragment": "34,90 | m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-019",
+      "element_type": {
+        "original_value": "Buitenschilderwerk (beton) trappen coating (polyurethaan)",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk (beton) trappen coating (polyurethaan)",
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "4623 Buitenschilderwerk (beton) trappen coating Voorgevel - trappenhuizen 80,00m2 1 (polyurethaan)"
+        }
+      },
+      "material": {
+        "original_value": "beton / coating (polyurethaan)",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Voorgevel - trappenhuizen 80,00m2"
+        }
+      },
+      "quantity": {
+        "value": "80,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "80,00m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-020",
+      "element_type": {
+        "original_value": "Buitenschilderwerk afdekking beton",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk afdekking beton",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 1,
+          "source_confidence": "high",
+          "text_fragment": "4628 | Buitenschilderwerk afdekking beton | Achtergevel - balkons | 59,10 | m1"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Achtergevel - balkons",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 1,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk afdekking beton | Achtergevel - balkons"
+        }
+      },
+      "quantity": {
+        "value": "59,10",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 1,
+          "source_confidence": "high",
+          "text_fragment": "59,10 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-021",
+      "element_type": {
+        "original_value": "Buitenschilderwerk betonlateien",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk betonlateien",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "4628 Buitenschilderwerk betonlateien Alle gevels 196,30m1 1"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk betonlateien Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "196,30",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "196,30m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-022",
+      "element_type": {
+        "original_value": "Buitenschilderwerk kozijn hout dekkend",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk kozijn hout dekkend",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 2,
+          "source_confidence": "high",
+          "text_fragment": "4631 | Buitenschilderwerk kozijn hout dekkend | Alle gevels | 756,80 | m2"
+        }
+      },
+      "material": {
+        "original_value": "hout",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 2,
+          "source_confidence": "high",
+          "text_fragment": "Buitenschilderwerk kozijn hout dekkend | Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "756,80",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 2,
+          "source_confidence": "high",
+          "text_fragment": "756,80 | m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-023",
+      "element_type": {
+        "original_value": "Buitenschilderwerk betonconstructie plafond",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Buitenschilderwerk betonconstructie plafond",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "4645 Buitenschilderwerk betonconstructie plafond Voorgevel - trappenhuizen 50,00m2 1"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Voorgevel - trappenhuizen 50,00m2"
+        }
+      },
+      "quantity": {
+        "value": "50,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "50,00m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-024",
+      "element_type": {
+        "original_value": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 3,
+          "source_confidence": "high",
+          "text_fragment": "4645 | Binnenschilderwerk plafond hout (multiplex) dekkend | Voorgevel - trappenhuizen | 105,08 | m2"
+        }
+      },
+      "material": {
+        "original_value": "hout (multiplex)",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 3,
+          "source_confidence": "high",
+          "text_fragment": "Voorgevel - trappenhuizen | 105,08 | m2"
+        }
+      },
+      "quantity": {
+        "value": "105,08",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 3,
+          "source_confidence": "high",
+          "text_fragment": "105,08 | m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-025",
+      "element_type": {
+        "original_value": "Dakbedekking APP",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Dakbedekking APP",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3"
+        }
+      },
+      "material": {
+        "original_value": "APP",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Platte dak",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Dakbedekking APP Platte dak"
+        }
+      },
+      "quantity": {
+        "value": "425,80",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "425,80m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-026",
+      "element_type": {
+        "original_value": "Dakrandafwerking zink",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Dakrandafwerking zink",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 5,
+          "source_confidence": "high",
+          "text_fragment": "4711 | Dakrandafwerking zink | Alle gevels | 70,00 | m1"
+        }
+      },
+      "material": {
+        "original_value": "zink",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 5,
+          "source_confidence": "high",
+          "text_fragment": "Dakrandafwerking zink | Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "70,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 5,
+          "source_confidence": "high",
+          "text_fragment": "70,00 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-027",
+      "element_type": {
+        "original_value": "Dakpan beton",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Dakpan beton",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Hellend dak",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Dakpan beton Hellend dak"
+        }
+      },
+      "quantity": {
+        "value": "1485,60",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "1485,60m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-028",
+      "element_type": {
+        "original_value": "Schoorsteen aluminium",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Schoorsteen aluminium",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 6,
+          "source_confidence": "high",
+          "text_fragment": "5124 | Schoorsteen aluminium | Hellend dak | 14,00 | st"
+        }
+      },
+      "material": {
+        "original_value": "aluminium",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Hellend dak",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 6,
+          "source_confidence": "high",
+          "text_fragment": "Schoorsteen aluminium | Hellend dak"
+        }
+      },
+      "quantity": {
+        "value": "14,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 6,
+          "source_confidence": "high",
+          "text_fragment": "14,00 | st"
+        }
+      },
+      "unit": {
+        "original_value": "st",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-029",
+      "element_type": {
+        "original_value": "Hemelwaterafvoer staal",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Hemelwaterafvoer staal",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 2"
+        }
+      },
+      "material": {
+        "original_value": "staal",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Hemelwaterafvoer staal Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "41,40",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "41,40m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-030",
+      "element_type": {
+        "original_value": "Hemelwaterafvoer pvc",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Hemelwaterafvoer pvc",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 8,
+          "source_confidence": "high",
+          "text_fragment": "5211 | Hemelwaterafvoer pvc | Alle gevels | 91,60 | m1"
+        }
+      },
+      "material": {
+        "original_value": "pvc",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Alle gevels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 8,
+          "source_confidence": "high",
+          "text_fragment": "Hemelwaterafvoer pvc | Alle gevels"
+        }
+      },
+      "quantity": {
+        "value": "91,60",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 8,
+          "source_confidence": "high",
+          "text_fragment": "91,60 | m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-031",
+      "element_type": {
+        "original_value": "Elektra armaturen buiten LED",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Elektra armaturen buiten LED",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "6311 Elektra armaturen buiten LED Voorgevel - trappenhuizen 1,00st 1"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Voorgevel - trappenhuizen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Elektra armaturen buiten LED Voorgevel - trappenhuizen"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "1,00st"
+        }
+      },
+      "unit": {
+        "original_value": "st",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-032",
+      "element_type": {
+        "original_value": "Valbeveiliging algemeen",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Valbeveiliging algemeen",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 10,
+          "source_confidence": "high",
+          "text_fragment": "6710 | Valbeveiliging algemeen | Platte dak | 1,00 | pst"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Platte dak",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 10,
+          "source_confidence": "high",
+          "text_fragment": "Valbeveiliging algemeen | Platte dak"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 10,
+          "source_confidence": "high",
+          "text_fragment": "1,00 | pst"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-033",
+      "element_type": {
+        "original_value": "Betontegels",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Betontegels",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "9041 Betontegels Terrein 200,00m2 1"
+        }
+      },
+      "material": {
+        "original_value": "beton",
+        "normalized_value": null
+      },
+      "location": {
+        "value": "Terrein",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "Betontegels Terrein 200,00m2"
+        }
+      },
+      "quantity": {
+        "value": "200,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "200,00m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": "gemeenschappelijk",
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-034",
+      "element_type": {
+        "original_value": "Herinspectie / actualisatie MJOP",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Herinspectie / actualisatie MJOP",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 12,
+          "source_confidence": "high",
+          "text_fragment": "9999 | Herinspectie / actualisatie MJOP |  | 1,00 | pst"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": "9999 Herinspectie / actualisatie MJOP 1,00pst 8"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 12,
+          "source_confidence": "high",
+          "text_fragment": "1,00 | pst"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": null,
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-035",
+      "element_type": {
+        "original_value": "Inspectie conditie dak",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Inspectie conditie dak",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "9999 Inspectie conditie dak 1,00pst 8"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": "9999 Inspectie conditie dak 1,00pst 8"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "high",
+          "text_fragment": "1,00pst"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": null,
+      "building_id": "DOC-005-BLD-001"
+    },
+    {
+      "element_id": "DOC-005-EL-036",
+      "element_type": {
+        "original_value": "Bereikbaarheidskosten",
+        "normalized_value": null
+      },
+      "element_name": {
+        "value": "Bereikbaarheidskosten",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 13,
+          "source_confidence": "high",
+          "text_fragment": "9999 | Bereikbaarheidskosten |  | 1,00 | pst"
+        }
+      },
+      "material": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "location": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": "9999 Bereikbaarheidskosten 1,00pst 0"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.95,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "table_index": 13,
+          "source_confidence": "high",
+          "text_fragment": "1,00 | pst"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "construction_year": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": null,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "gemeenschappelijk_of_prive": null,
+      "building_id": "DOC-005-BLD-001"
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "DOC-005-OBS-001",
+      "element_id": "DOC-005-EL-001",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal zoals toegelicht op pagina 5 (1 = Uitstekende conditie ... 6 = Zeer slecht)"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 0,
+        "source_confidence": "high",
+        "text_fragment": "2110 Gevelconstructie metselwerk Alle gevels 1631,90m2 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-002",
+      "element_id": "DOC-005-EL-002",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 1,
+        "source_confidence": "high",
+        "text_fragment": "2110 Loodslabben opgaand werk Platte dak 1,00m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-003",
+      "element_id": "DOC-005-EL-003",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "2110 Dilatatie kitvoeg Alle gevels 10,00m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-004",
+      "element_id": "DOC-005-EL-004",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 2,
+        "source_confidence": "high",
+        "text_fragment": "2716 Dakgoot zink Alle gevels 165,80m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-005",
+      "element_id": "DOC-005-EL-005",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "3120 Betonband/latei Alle gevels 196,30m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-006",
+      "element_id": "DOC-005-EL-006",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 4,
+        "source_confidence": "high",
+        "text_fragment": "3120 Raamdorpel gres/ijzerklinker Alle gevels 281,20m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-007",
+      "element_id": "DOC-005-EL-007",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-008",
+      "element_id": "DOC-005-EL-008",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 5,
+        "source_confidence": "high",
+        "text_fragment": "3410 Balustrade afdekking beton Achtergevel - balkons 59,10m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-009",
+      "element_id": "DOC-005-EL-009",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "3410 Balustrade staal Achtergevel - balkons 20,00m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-010",
+      "element_id": "DOC-005-EL-010",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 6,
+        "source_confidence": "high",
+        "text_fragment": "3420 Leuning staal Voorgevel - trappenhuizen 42,00m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-011",
+      "element_id": "DOC-005-EL-011",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "4111 Gevelafwerking voegwerk platvol Alle gevels 1631,90m2 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-012",
+      "element_id": "DOC-005-EL-012",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 8,
+        "source_confidence": "high",
+        "text_fragment": "4112 Gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-013",
+      "element_id": "DOC-005-EL-013",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "4322 Balkon afwerking betontegels Achtergevel - balkons 49,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-014",
+      "element_id": "DOC-005-EL-014",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 10,
+        "source_confidence": "high",
+        "text_fragment": "4511 Plafondafwerking multiplex Voorgevel - trappenhuizen 85,70m2 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-015",
+      "element_id": "DOC-005-EL-015",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "4621 Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-016",
+      "element_id": "DOC-005-EL-016",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 12,
+        "source_confidence": "high",
+        "text_fragment": "4621 Buitenschilderwerk balustrades staal Achtergevel - balkons 75,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-017",
+      "element_id": "DOC-005-EL-017",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "source_confidence": "high",
+        "text_fragment": "4621 Buitenschilderwerk leuning staal Voorgevel - trappenhuizen 61,00m1 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-018",
+      "element_id": "DOC-005-EL-018",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 6,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 6,
+        "table_index": 13,
+        "source_confidence": "high",
+        "text_fragment": "4621 Buitenschilderwerk metselwerk Achtergevel - balkons 34,90m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-019",
+      "element_id": "DOC-005-EL-019",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "4623 Buitenschilderwerk (beton) trappen coating Voorgevel - trappenhuizen 80,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-020",
+      "element_id": "DOC-005-EL-020",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 1,
+        "source_confidence": "high",
+        "text_fragment": "4628 Buitenschilderwerk afdekking beton Achtergevel - balkons 59,10m1 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-021",
+      "element_id": "DOC-005-EL-021",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "4628 Buitenschilderwerk betonlateien Alle gevels 196,30m1 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-022",
+      "element_id": "DOC-005-EL-022",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 2,
+        "source_confidence": "high",
+        "text_fragment": "4631 Buitenschilderwerk kozijn hout dekkend Alle gevels 756,80m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-023",
+      "element_id": "DOC-005-EL-023",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "4645 Buitenschilderwerk betonconstructie plafond Voorgevel - trappenhuizen 50,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-024",
+      "element_id": "DOC-005-EL-024",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 3,
+        "source_confidence": "high",
+        "text_fragment": "4645 Binnenschilderwerk plafond hout (multiplex) Voorgevel - trappenhuizen 105,08m2 1 dekkend"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-025",
+      "element_id": "DOC-005-EL-025",
+      "condition_score": {
+        "original_value": "3",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-026",
+      "element_id": "DOC-005-EL-025",
+      "condition_score": {
+        "original_value": "3",
+        "normalized_value": null,
+        "scale": "Conditie-veld in bevindingentabel; pagina heeft kop 'Bevindingen NEN 2767' (pagina 8)"
+      },
+      "defect": {
+        "original_value": "B6GA03 Plantengroei op dakbedekking",
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": "Ernst: Gering; Intensiteit: 3; Omvang: 4",
+        "normalized_value": null
+      },
+      "description": {
+        "value": "Op dabedekking is aangroei geconstateerd. Dit kan mogelijk de dakbedekking aantasten. Advies is om de begroeining te verwijderen.",
+        "confidence": 0.92,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 9,
+          "table_index": 0,
+          "source_confidence": "high",
+          "text_fragment": "Op dabedekking is aangroei geconstateerd. Dit kan mogelijk de dakbedekking aantasten."
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 9,
+        "table_index": 0,
+        "source_confidence": "high",
+        "text_fragment": "B6GA03 Plantengroei op dakbedekking Ernst Intensiteit Omvang Conditie Risico/prioriteit Gering 3 4 3"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-027",
+      "element_id": "DOC-005-EL-026",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 5,
+        "source_confidence": "high",
+        "text_fragment": "4711 Dakrandafwerking zink Alle gevels 70,00m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-028",
+      "element_id": "DOC-005-EL-027",
+      "condition_score": {
+        "original_value": "3",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": "Technischecommissie-lid gaf aan dat dakpannen poreus zijn. Onderzoek/ inspectie is raadzaam.",
+        "confidence": 0.5,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 3,
+          "source_confidence": "low",
+          "text_fragment": "- Technischecommissie-lid gaf aan dat dakpannen poreus zijn. Onderzoek/ inspectie is raadzaam."
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+      },
+      "requires_human_review": true
+    },
+    {
+      "observation_id": "DOC-005-OBS-029",
+      "element_id": "DOC-005-EL-028",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 6,
+        "source_confidence": "high",
+        "text_fragment": "5124 Schoorsteen aluminium Hellend dak 14,00st 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-030",
+      "element_id": "DOC-005-EL-029",
+      "condition_score": {
+        "original_value": "2",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 2"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-031",
+      "element_id": "DOC-005-EL-030",
+      "condition_score": {
+        "original_value": "3",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 8,
+        "source_confidence": "high",
+        "text_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 3"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-032",
+      "element_id": "DOC-005-EL-031",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "6311 Elektra armaturen buiten LED Voorgevel - trappenhuizen 1,00st 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-033",
+      "element_id": "DOC-005-EL-032",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 10,
+        "source_confidence": "high",
+        "text_fragment": "6710 Valbeveiliging algemeen Platte dak 1,00pst 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-034",
+      "element_id": "DOC-005-EL-033",
+      "condition_score": {
+        "original_value": "1",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "9041 Betontegels Terrein 200,00m2 1"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-035",
+      "element_id": "DOC-005-EL-034",
+      "condition_score": {
+        "original_value": "8",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5 (8 = Nader onderzoek nodig)"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 12,
+        "source_confidence": "high",
+        "text_fragment": "9999 Herinspectie / actualisatie MJOP 1,00pst 8"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-036",
+      "element_id": "DOC-005-EL-035",
+      "condition_score": {
+        "original_value": "8",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5 (8 = Nader onderzoek nodig)"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "source_confidence": "high",
+        "text_fragment": "9999 Inspectie conditie dak 1,00pst 8"
+      },
+      "requires_human_review": false
+    },
+    {
+      "observation_id": "DOC-005-OBS-037",
+      "element_id": "DOC-005-EL-036",
+      "condition_score": {
+        "original_value": "0",
+        "normalized_value": null,
+        "scale": "1-6 / 8 / 9 conditieschaal pagina 5; waarde 0 komt niet voor in de toelichting"
+      },
+      "defect": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "severity": {
+        "original_value": null,
+        "normalized_value": null
+      },
+      "description": {
+        "value": null,
+        "confidence": 0,
+        "requires_human_review": true,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 7,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "source": {
+        "document_id": "DOC-005",
+        "page": 7,
+        "table_index": 13,
+        "source_confidence": "high",
+        "text_fragment": "9999 Bereikbaarheidskosten 1,00pst 0"
+      },
+      "requires_human_review": true
+    }
+  ],
+  "maintenance_actions": [
+    {
+      "action_id": "DOC-005-ACT-001",
+      "element_id": "DOC-005-EL-001",
+      "action": {
+        "original_value": "Reinigen metselwerk",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Reinigen metselwerk 815,95m2 2033 7 € 8.955 € 8.955 € 17.910"
+        }
+      },
+      "quantity": {
+        "value": "815,95",
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Reinigen metselwerk 815,95m2"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 17.910",
+      "cost_year": 2033,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-002",
+      "element_id": "DOC-005-EL-003",
+      "action": {
+        "original_value": "Vervangen dilatatie kitvoeg",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen dilatatie kitvoeg 10,00m1 2033 14 € 989 € 989"
+        }
+      },
+      "quantity": {
+        "value": "10,00",
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen dilatatie kitvoeg 10,00m1"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 989",
+      "cost_year": 2033,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-003",
+      "element_id": "DOC-005-EL-002",
+      "action": {
+        "original_value": "Vervangen loodslabben opgaand werk",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2070,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen loodslabben opgaand 1,00m1 2070 48 € 0"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "1,00m1 2070 48"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-004",
+      "element_id": "DOC-005-EL-004",
+      "action": {
+        "original_value": "Vervangen goot zink",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2046,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen goot zink 165,80m1 2046 24 € 0"
+        }
+      },
+      "quantity": {
+        "value": "165,80",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "165,80m1 2046 24"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-005",
+      "element_id": "DOC-005-EL-007",
+      "action": {
+        "original_value": "Reinigen en controleren ventilatierooster",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2040,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Reinigen en controleren 756,80st 2040 14 € 4.991 € 4.991"
+        }
+      },
+      "quantity": {
+        "value": "756,80",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "756,80st 2040 14"
+        }
+      },
+      "unit": {
+        "original_value": "st",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 4.991",
+      "cost_year": 2040,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-006",
+      "element_id": "DOC-005-EL-007",
+      "action": {
+        "original_value": "Vervangen kozijn hout",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2070,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen kozijn hout 756,80m2 2070 48 € 0"
+        }
+      },
+      "quantity": {
+        "value": "756,80",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "756,80m2 2070 48"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-007",
+      "element_id": "DOC-005-EL-009",
+      "action": {
+        "original_value": "Vervangen balustrade (verz.) staal",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2062,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen balustrade (verz.) staal 20,00m1 2062 40 € 0"
+        }
+      },
+      "quantity": {
+        "value": "20,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "20,00m1 2062 40"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-008",
+      "element_id": "DOC-005-EL-008",
+      "action": {
+        "original_value": "Vervangen balustrade afdekking beton tot 400mm breedt",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2097,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen balustrade afdekking 59,10m1 2097 75 € 0"
+        }
+      },
+      "quantity": {
+        "value": "59,10",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "59,10m1 2097 75"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-009",
+      "element_id": "DOC-005-EL-010",
+      "action": {
+        "original_value": "Vervangen leuning staal",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2062,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen leuning staal 42,00m1 2062 40 € 0"
+        }
+      },
+      "quantity": {
+        "value": "42,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "42,00m1 2062 40"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-010",
+      "element_id": "DOC-005-EL-012",
+      "action": {
+        "original_value": "Vervangen gevelbekleding zachthout",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2070,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen gevelbekleding zachthout 332,00m2 2070 48 € 0"
+        }
+      },
+      "quantity": {
+        "value": "332,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "332,00m2 2070 48"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-011",
+      "element_id": "DOC-005-EL-014",
+      "action": {
+        "original_value": "Vervangen plafondafwerking multiplex",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2070,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen plafondafwerking 85,70m2 2070 48 € 0"
+        }
+      },
+      "quantity": {
+        "value": "85,70",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "85,70m2 2070 48"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-012",
+      "element_id": "DOC-005-EL-018",
+      "action": {
+        "original_value": "Groot schilderwerk metselwerk",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk metselwerk 34,90m2 2033 14 € 1.451 € 1.451"
+        }
+      },
+      "quantity": {
+        "value": "34,90",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "34,90m2 2033 14"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 1.451",
+      "cost_year": 2033,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-013",
+      "element_id": "DOC-005-EL-015",
+      "action": {
+        "original_value": "Groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk gevelbekleding 332,00m2 2033 7 € 11.833 € 11.833 € 23.667"
+        }
+      },
+      "quantity": {
+        "value": "332,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "high",
+          "text_fragment": "332,00m2 2033 7"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 11,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 23.667",
+      "cost_year": null,
+      "source_page": 11,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-014",
+      "element_id": "DOC-005-EL-016",
+      "action": {
+        "original_value": "Groot schilderwerk metaal (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk metaal 75,00m2 2033 7 € 3.564 € 3.564 € 7.129"
+        }
+      },
+      "quantity": {
+        "value": "75,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "75,00m2 2033 7"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 7.129",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-015",
+      "element_id": "DOC-005-EL-017",
+      "action": {
+        "original_value": "Groot schilderwerk metaal (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk metaal 61,00m1 2033 7 € 1.703 € 1.703 € 3.407"
+        }
+      },
+      "quantity": {
+        "value": "61,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "61,00m1 2033 7"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 3.407",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-016",
+      "element_id": "DOC-005-EL-019",
+      "action": {
+        "original_value": "Aanbrengen coating beton (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2040,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Aanbrengen coating beton 80,00m2 2040 14 € 11.712 € 11.712"
+        }
+      },
+      "quantity": {
+        "value": "80,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "80,00m2 2040 14"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 11.712",
+      "cost_year": 2040,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-017",
+      "element_id": "DOC-005-EL-021",
+      "action": {
+        "original_value": "Groot schilderwerk betonlateien (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2040,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk betonlateien 196,30m1 2040 14 € 1.633 € 1.633"
+        }
+      },
+      "quantity": {
+        "value": "196,30",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "196,30m1 2040 14"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 1.633",
+      "cost_year": 2040,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-018",
+      "element_id": "DOC-005-EL-020",
+      "action": {
+        "original_value": "Groot schilderwerk beton afdekkers balkon (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2040,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk beton afdekkers 59,10m1 2040 14 € 1.264 € 1.264"
+        }
+      },
+      "quantity": {
+        "value": "59,10",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "59,10m1 2040 14"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 1.264",
+      "cost_year": 2040,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-019",
+      "element_id": "DOC-005-EL-022",
+      "action": {
+        "original_value": "Groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk kozijn (en 756,80m2 2033 7 € 32.823 € 32.823 € 65.647"
+        }
+      },
+      "quantity": {
+        "value": "756,80",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "756,80m2 2033 7"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 65.647",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-020",
+      "element_id": "DOC-005-EL-024",
+      "action": {
+        "original_value": "Groot schilderwerk plafond hout dekkend (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2047,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk plafond hout 105,08m2 2047 21 € 0"
+        }
+      },
+      "quantity": {
+        "value": "105,08",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "105,08m2 2047 21"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-021",
+      "element_id": "DOC-005-EL-023",
+      "action": {
+        "original_value": "Groot schilderwerk betonconstructie plafond (uitgevoerd 2026)",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2040,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Groot schilderwerk betonconstructie 50,00m2 2040 14 € 594 € 594"
+        }
+      },
+      "quantity": {
+        "value": "50,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "50,00m2 2040 14"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 594",
+      "cost_year": 2040,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-022",
+      "element_id": "DOC-005-EL-025",
+      "action": {
+        "original_value": "Verwijderen begroeining dakbedekking",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2027,
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Verwijderen begroeining Plantengroei op 1,00pst 2027 € 1.452 € 1.452"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.93,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "1,00pst 2027"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 1.452",
+      "cost_year": 2027,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-023",
+      "element_id": "DOC-005-EL-025",
+      "action": {
+        "original_value": "Vervangen dakbedekking APP",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2058,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen dakbedekking APP 425,80m2 2058 50 € 0"
+        }
+      },
+      "quantity": {
+        "value": "425,80",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "425,80m2 2058 50"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 0",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-024",
+      "element_id": "DOC-005-EL-025",
+      "action": {
+        "original_value": "Aanbrengen nieuwe laag dakbedekking APP",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Aanbrengen nieuwe laag 425,80m2 2033 50 € 32.562 € 32.562"
+        }
+      },
+      "quantity": {
+        "value": "425,80",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "425,80m2 2033 50"
+        }
+      },
+      "unit": {
+        "original_value": "m2",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 32.562",
+      "cost_year": 2033,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-025",
+      "element_id": "DOC-005-EL-026",
+      "action": {
+        "original_value": "Vervangen dakrandafwerking zink",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2040,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen dakrandafwerking zink 70,00m1 2040 18 € 4.347 € 4.347"
+        }
+      },
+      "quantity": {
+        "value": "70,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "70,00m1 2040 18"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 4.347",
+      "cost_year": 2040,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-026",
+      "element_id": "DOC-005-EL-030",
+      "action": {
+        "original_value": "Vervangen hemelwaterafvoer pvc",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen hemelwaterafvoer pvc 91,60m1 2033 25 € 5.429 € 5.429"
+        }
+      },
+      "quantity": {
+        "value": "91,60",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "91,60m1 2033 25"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 5.429",
+      "cost_year": 2033,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-027",
+      "element_id": "DOC-005-EL-029",
+      "action": {
+        "original_value": "Vervangen hemelwaterafvoer staal",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Vervangen hemelwaterafvoer staal 41,40m1 2033 25 € 5.526 € 5.526"
+        }
+      },
+      "quantity": {
+        "value": "41,40",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "41,40m1 2033 25"
+        }
+      },
+      "unit": {
+        "original_value": "m1",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 5.526",
+      "cost_year": 2033,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-028",
+      "element_id": "DOC-005-EL-036",
+      "action": {
+        "original_value": "Bereikbaarheidskosten en bijkomende kosten",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2033,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Bereikbaarheidskosten en 1,00pst 2033 7 € 35.610 € 35.610 € 71.221"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "1,00pst 2033 7"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 71.221",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-029",
+      "element_id": "DOC-005-EL-034",
+      "action": {
+        "original_value": "Technisch advies <adviesbureau>",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2031,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Technisch advies <adviesbureau> 1,00pst 2031 5 € 2.374 € 2.374 € 4.748"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "1,00pst 2031 5"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 4.748",
+      "cost_year": null,
+      "source_page": 12,
+      "requires_human_review": true
+    },
+    {
+      "action_id": "DOC-005-ACT-030",
+      "element_id": "DOC-005-EL-035",
+      "action": {
+        "original_value": "Technisch advies",
+        "normalized_value": null
+      },
+      "planned_year": {
+        "value": 2027,
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "Technisch advies 1,00pst 2027 € 3.328 € 3.328"
+        }
+      },
+      "quantity": {
+        "value": "1,00",
+        "confidence": 0.9,
+        "requires_human_review": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "high",
+          "text_fragment": "1,00pst 2027"
+        }
+      },
+      "unit": {
+        "original_value": "pst",
+        "normalized_value": null
+      },
+      "unit_cost": {
+        "value": null,
+        "is_estimated": false,
+        "provenance": {
+          "document_id": "DOC-005",
+          "page": 12,
+          "source_confidence": "low",
+          "text_fragment": null
+        }
+      },
+      "total_cost_as_stated": "€ 3.328",
+      "cost_year": 2027,
+      "source_page": 12,
+      "requires_human_review": true
+    }
+  ],
+  "extraction_notes": "Bron: MJOP 92570-1 VvE Maldenhof 240-296, Amsterdam (Pro VvE Beheer), printdatum 27-8-2026, prijspeil 1-8-2026, indexatie 0% vanaf 2027, bedragen incl. BTW.\n\n- building_type is niet expliciet als veld benoemd; afgeleid uit 'VvE' en teksten over 'woongebouw'/'appartementencomplexen' -> source_confidence low, requires_human_review true.\n- mjop_period afgeleid uit titel 'Overzicht 15 - Jarenplan' en kolomjaren 2026 t/m 2040 (pagina 11-15); ook pagina 4 noemt 'termijn van 15 jaar'.\n- Conditiescores komen uit het elementenoverzicht (pagina 6-7) met de eigen schaal die op pagina 5 wordt toegelicht (1=Uitstekend ... 6=Zeer slecht, 8=Nader onderzoek, 9=Niet te inspecteren). Het document zet alleen op pagina 8 de kop 'Bevindingen NEN 2767'; er wordt geen certificering geclaimd. De schaal is als scale-tekst overgenomen, niet genormaliseerd.\n- Element 'Bereikbaarheidskosten' heeft conditie 0, een waarde die niet in de toelichting voorkomt -> requires_human_review true.\n- Eenheidsprijzen (prijs per eenheid) staan niet in de geleverde tekst van het 15-jarenplan; alleen jaarbedragen en totalen. unit_cost is daarom overal null; er is niets teruggerekend.\n- Bij handelingen met twee bedragen in verschillende jaren (bijv. 2033 en 2040) is alleen het startjaar (kolom 'Stj') als planned_year vastgelegd en het letterlijke totaalbedrag in total_cost_as_stated; cost_year is leeg gelaten als het totaal over meerdere jaren loopt.\n- Opmerking eigenaar (pagina 3) over poreuze dakpannen is als observatie bij 'Dakpan beton' gekoppeld, maar is een melding van de technische commissie en geen inspecteursbevinding -> low confidence, requires_human_review true.\n- Enkele elementen uit het elementenoverzicht (o.a. Betonband/latei, Raamdorpel, Gevelafwerking voegwerk, Balkon afwerking betontegels, Dakpan beton, Schoorsteen aluminium, Elektra armaturen, Valbeveiliging, Betontegels terrein) hebben geen bijbehorende handeling in het 15-jarenplan; er zijn daarvoor geen maintenance_actions aangemaakt.\n- Regelafbrekingen in de pdf-tekst (bijv. 'Verwijderen begroeining ... dakbedekking', 'Aanbrengen nieuwe laag dakbedekking APP') zijn samengevoegd tot de logische handelingsnaam; typefout 'dabedekking' en 'begroeining' letterlijk overgenomen in citaten.",
+  "status": "extracted",
   "document_id": "DOC-005",
-  "building": null,
-  "elements": [],
-  "observations": [],
-  "maintenance_actions": [],
-  "extraction_notes": "TODO: implementeer de LLM-extractiestap hier. Zie prompts/ voor de extractieprompt (aan te maken/te verfijnen samen met de gebruiker). Elk veld moet een ExtractedValue zijn (schemas/_extracted_value.schema.json) met provenance en confidence - nooit een los primitief veld.",
-  "batch": "batch_1"
+  "batch": "batch_1",
+  "extraction_model": "claude-opus-5",
+  "extraction_prompt_version": "v1",
+  "extracted_at": "2026-09-21T11:50:03.316868+00:00",
+  "temperature": 0
 }

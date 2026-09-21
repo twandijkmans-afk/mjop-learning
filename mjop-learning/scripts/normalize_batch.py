@@ -62,10 +62,26 @@ def normalize_pair(pair, lookup):
 
 
 def to_decimal(v):
+    """Parseert een bedrag/hoeveelheid naar Decimal. Moet zowel schone
+    decimaalstrings ('1815.00') als letterlijk uit het document overgenomen,
+    Nederlands opgemaakte bedragen aankunnen ('€ 17.910', '1.815,00') - beide
+    komen voor, afhankelijk van of een veld door normalize_batch zelf is
+    geschreven of letterlijk (total_cost_as_stated) uit de bron komt."""
     if v is None or v == "":
         return None
+    s = str(v).strip().replace("€", "").replace("\xa0", "").replace(" ", "")
+    if not s:
+        return None
     try:
-        return Decimal(str(v).replace(".", "").replace(",", ".")) if "," in str(v) else Decimal(str(v))
+        if "," in s:
+            # Nederlands: punt = duizendtal-scheiding, komma = decimaal
+            s = s.replace(".", "").replace(",", ".")
+        elif "." in s and len(s.split(".")[-1]) == 3:
+            # bijv. "17.910" - geen decimalen genoemd, punt is hier
+            # duizendtal-scheiding (geldbedragen hebben altijd 2 decimalen,
+            # nooit 3 - dat onderscheidt dit betrouwbaar van een decimaalpunt)
+            s = s.replace(".", "")
+        return Decimal(s)
     except (InvalidOperation, ValueError):
         return None
 
