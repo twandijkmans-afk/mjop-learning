@@ -12,7 +12,9 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
       }
     },
     "condition_score": {
@@ -32,7 +34,11 @@
       }
     },
     "source": { "$ref": "_provenance.schema.json" },
-    "requires_human_review": { "type": "boolean", "default": false }
+    "requires_human_review": { "type": "boolean", "default": false },
+    "review_note": {
+      "type": ["string", "null"],
+      "description": "Ingevuld door scripts/apply_review.py bij elke ACCEPT/EDIT/REJECT-beslissing (zie CLAUDE.md), ook als de beslissing geen vocabulaire-veld betreft. Vocabulaire-correcties zelf staan bovendien in defect.human_verification."
+    }
   },
   "required": ["observation_id", "element_id", "source"],
   "additionalProperties": false

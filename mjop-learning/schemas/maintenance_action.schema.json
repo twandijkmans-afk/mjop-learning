@@ -11,7 +11,13 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "normalization_source": {
+          "type": "string",
+          "description": "Aanwezig als normalized_value niet uit een letterlijke vocabulaire-lookup komt, bijv. 'derived_from_linked_element_type' (zie scripts/normalize_batch.py::derive_action_from_linked_element)."
+        },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
       }
     },
     "planned_year": { "$ref": "_extracted_value.schema.json" },
@@ -20,7 +26,9 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
       }
     },
     "unit_cost": {
@@ -54,7 +62,11 @@
       "description": "true als total_cost_as_stated afwijkt van direct_cost_calculated - zie CLAUDE.md: nooit automatisch oplossen"
     },
     "requires_human_review": { "type": "boolean", "default": false },
-    "source_page": { "type": ["integer", "null"] }
+    "source_page": { "type": ["integer", "null"] },
+    "review_note": {
+      "type": ["string", "null"],
+      "description": "Ingevuld door scripts/apply_review.py bij elke ACCEPT/EDIT/REJECT-beslissing (zie CLAUDE.md), ook als de beslissing geen vocabulaire-veld betreft (bijv. bij cost_conflict of een afgeleide unit_cost_calculated zonder letterlijke documentprijs) - vocabulaire-correcties zelf staan bovendien in action.human_verification/unit.human_verification."
+    }
   },
   "required": ["action_id", "element_id"],
   "additionalProperties": false

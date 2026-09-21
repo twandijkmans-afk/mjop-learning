@@ -12,7 +12,9 @@
       "description": "original_value = letterlijke tekst uit het document; normalized_value = gemapte term uit vocabularies/element_type.json (null als onzeker, zie CLAUDE.md)",
       "properties": {
         "original_value": { "type": "string" },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
       },
       "required": ["original_value", "normalized_value"]
     },
@@ -22,7 +24,9 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
       }
     },
     "quantity": { "$ref": "_extracted_value.schema.json" },
@@ -30,7 +34,9 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" }
       }
     },
     "construction_year": { "$ref": "_extracted_value.schema.json" },
