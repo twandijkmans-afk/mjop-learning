@@ -7,9 +7,35 @@
       "normalized_value": "replace",
       "label_nl": "vervangen",
       "known_original_values": [
-        "vervangen"
+        "vervangen",
+        "vervangen hemelwaterafvoer pvc",
+        "vervangen stucwerk",
+        "vervangen hydrofoor",
+        "vervangen hemelwaterafvoer staal",
+        "vervangen balustrade (verz.) staal",
+        "vervangen loodslabben opgaand werk",
+        "vervangen plafondafwerking multiplex",
+        "vervangen dakbedekking app",
+        "vervangen armaturen binnenlamp",
+        "vervangen binneriolering ijzer->pvc (3 st/app)",
+        "vervangen deurbelinstallatie",
+        "vervangen huistelefooninstallatie",
+        "vervangen kozijn hardhout",
+        "vervangen dilatatie kitvoeg",
+        "vervangen goot zink",
+        "vervangen kozijn hout",
+        "vervangen balustrade afdekking beton tot 400mm breedt",
+        "vervangen leuning staal",
+        "vervangen gevelbekleding zachthout",
+        "vervangen dakrandafwerking zink",
+        "vervangen tapijt",
+        "vervangen stadsuitloop lood",
+        "vervangen grind",
+        "vervangen dakdoorvoer metaal plat",
+        "vervangen kitvoeg achterzijde gelijktijdig met schilderwerk",
+        "vervangen kitvoeg voorzijde gelijktijdig met schilderwerk"
       ],
-      "occurrences_in_batch1": 145,
+      "occurrences_in_batch1": 76,
       "validated_against_batch1": true
     },
     {
@@ -17,36 +43,66 @@
       "label_nl": "herstellen / repareren",
       "known_original_values": [
         "herstellen",
-        "repareren"
+        "repareren",
+        "herstellen kozijn hardhout",
+        "herstellen waterslag hout",
+        "herstellen raam hout",
+        "herstellen gevelankers staal",
+        "herstellen boeiboord hout",
+        "herstellen gootconstructie hout",
+        "herstellen trapleuning hout",
+        "herstellen gevelbekleding hout",
+        "herstellen binnendeur hout",
+        "herstellen stucwerk",
+        "herstellen plafondafwerking stucwerk",
+        "herstellen ondergrond gelijktijdig met schilderwek",
+        "herstellen ondergrond gelijktijdig met schilderwerk achterzijde",
+        "herstellen ondergrond gelijktijdig met schilderwerk voorzijde",
+        "herstel div. scheuren, achter-/ kopgevel"
       ],
-      "occurrences_in_batch1": 97,
+      "occurrences_in_batch1": 111,
       "validated_against_batch1": true
     },
     {
       "normalized_value": "clean",
       "label_nl": "reinigen",
       "known_original_values": [
-        "reinigen"
+        "reinigen",
+        "reinigen goot zink",
+        "reinigen gevelafdekking natuursteen",
+        "reinigen boeiboord volkern",
+        "reinigen kozijn aluminium",
+        "reinigen metselwerk",
+        "standleidingen schoon frezen"
       ],
-      "occurrences_in_batch1": 13,
+      "occurrences_in_batch1": 27,
       "validated_against_batch1": true
     },
     {
       "normalized_value": "maintain",
       "label_nl": "onderhouden",
       "known_original_values": [
-        "onderhouden"
+        "onderhouden",
+        "werkzaamheden conform dlr",
+        "controleren en afstellen hang en sluitwerk buitenramen"
       ],
-      "occurrences_in_batch1": 12,
+      "occurrences_in_batch1": 5,
       "validated_against_batch1": true
     },
     {
       "normalized_value": "inspect",
       "label_nl": "inspecteren",
       "known_original_values": [
-        "inspecteren"
+        "inspecteren",
+        "herinspectie <adviesbureau>",
+        "herinspectie (op basis van reeds aanwezige gegevens)",
+        "keuren hijsbalk",
+        "herinspectie actualisatie begroting",
+        "keuren hanebalk",
+        "keuren hijsbalk staal",
+        "keuren hijsbalk hout"
       ],
-      "occurrences_in_batch1": 9,
+      "occurrences_in_batch1": 25,
       "validated_against_batch1": true
     },
     {
@@ -56,7 +112,7 @@
         "buitenschilderwerk",
         "schilderwerk buiten"
       ],
-      "occurrences_in_batch1": 95,
+      "occurrences_in_batch1": 192,
       "validated_against_batch1": true
     },
     {
@@ -66,7 +122,7 @@
         "binnenschilderwerk",
         "schilderwerk binnen"
       ],
-      "occurrences_in_batch1": 59,
+      "occurrences_in_batch1": 52,
       "validated_against_batch1": true
     },
     {
@@ -76,17 +132,20 @@
         "schilderen",
         "schilderwerk"
       ],
-      "occurrences_in_batch1": 5,
+      "occurrences_in_batch1": 1,
       "validated_against_batch1": true,
-      "notes": "'schilderwerk' zonder 'buiten'/'binnen'-aanduiding (242x) blijft bij voorkeur original_value met normalized_value=null totdat een mens het aan exterior_painting of interior_painting koppelt."
+      "notes": "'schilderwerk'/'schilderen' zonder buiten/binnen-aanduiding blijft bij voorkeur original_value met normalized_value=null totdat het aan exterior_painting of interior_painting gekoppeld is. Sinds scripts/normalize_batch.py::derive_action_from_linked_element lost dit zich in de praktijk vanzelf op via het gekoppelde element (244x in batch 1) zonder dat deze vocabulaire-entry ooit hoeft te 'raden' - alleen echt niet te herleiden gevallen (bijv. geen/ambigu gekoppeld element) blijven hier hangen."
     },
     {
       "normalized_value": "impregnate",
       "label_nl": "impregneren",
       "known_original_values": [
-        "impregneren"
+        "impregneren",
+        "hydrofoberen / impregneren metselwerk achtergevel",
+        "hydrofoberen / impregneren metselwerk voorgevel",
+        "hydrofoberen/impregneren metselwerk"
       ],
-      "occurrences_in_batch1": 3,
+      "occurrences_in_batch1": 4,
       "validated_against_batch1": true
     },
     {
@@ -97,6 +156,90 @@
       ],
       "occurrences_in_batch1": 0,
       "validated_against_batch1": false
+    },
+    {
+      "normalized_value": "advice",
+      "label_nl": "technisch advies",
+      "known_original_values": [
+        "technisch advies <adviesbureau>",
+        "technisch advies"
+      ],
+      "occurrences_in_batch1": 7,
+      "validated_against_batch1": true,
+      "notes": "Losstaande adviesregel van het adviesbureau (geen fysieke onderhoudsactie aan een bouwdeel)."
+    },
+    {
+      "normalized_value": "contingency",
+      "label_nl": "onvoorzien",
+      "known_original_values": [
+        "onvoorzien"
+      ],
+      "occurrences_in_batch1": 10,
+      "validated_against_batch1": true,
+      "notes": "Post voor onvoorziene kosten binnen een hoofdgroep/jaar, geen actie aan een specifiek bouwdeel."
+    },
+    {
+      "normalized_value": "project_management",
+      "label_nl": "directievoering",
+      "known_original_values": [
+        "directievoering",
+        "directievoering 2025",
+        "directievoering 2030",
+        "directievoering 2032",
+        "directievoering 2033",
+        "directievoering 2038"
+      ],
+      "occurrences_in_batch1": 19,
+      "validated_against_batch1": true,
+      "notes": "Begeleidingskosten van het adviesbureau/directievoerder bij uitvoering van werkzaamheden."
+    },
+    {
+      "normalized_value": "scaffolding",
+      "label_nl": "steiger",
+      "known_original_values": [
+        "vaste steiger",
+        "vaste steiger (incl. precario en bouwplaatsvoorzieningen)"
+      ],
+      "occurrences_in_batch1": 6,
+      "validated_against_batch1": true,
+      "notes": "Steigerkosten als losse kostenpost (niet gekoppeld aan het onderhoud van een specifiek bouwdeel)."
+    },
+    {
+      "normalized_value": "site_access_cost",
+      "label_nl": "bereikbaarheidskosten",
+      "known_original_values": [
+        "bereikbaarheidskosten",
+        "bereikbaarheidskosten (ivm achterzijde)",
+        "bereikbaarheidskosten en bijkomende kosten",
+        "voorgevel bereikbaarheid, vergunningen en parkeren",
+        "achtergevel bereikbaarheid"
+      ],
+      "occurrences_in_batch1": 8,
+      "validated_against_batch1": true,
+      "notes": "Kosten om een werklocatie bereikbaar te maken (bijv. steiger, vergunningen, parkeren), geen onderhoud aan het bouwdeel zelf."
+    },
+    {
+      "normalized_value": "install",
+      "label_nl": "aanbrengen (nieuwe laag/systeem, geen vervanging van bestaand)",
+      "known_original_values": [
+        "aanbrengen vervolgsysteem",
+        "vervolgsysteem",
+        "vervolgsysteem coating beton",
+        "vervolgsysteem vloercoating",
+        "kale vloeren bekleden met linoleum",
+        "aanbrengen nieuwe laag dakbedekking app",
+        "aanbrengen nieuwe laag dakbedekking app dakvlak 1-4-5",
+        "aanbrengen nieuwe laag dakbedekking app dakvlak 2-3",
+        "aanbrengen valbeveiliging",
+        "aanbrengen aluminium schoorsteenkap",
+        "aanbrengen coating beton",
+        "aanbrengen coating beton (uitgevoerd 2026)",
+        "aanbrengen schoonwerk metselwerk",
+        "aanbrengen nieuwe laag dakbedekking bitumen geballast"
+      ],
+      "occurrences_in_batch1": 25,
+      "validated_against_batch1": true,
+      "notes": "Een nieuwe laag/systeem aanbrengen bovenop een bestaand bouwdeel, zonder dat het bestaande wordt verwijderd (dus geen 'vervangen')."
     }
   ]
 }

@@ -24,6 +24,13 @@ Wat dit script doet per element/maintenance_action in data/extracted/*.json:
      documenten die alleen een totaalbedrag per post vermelden, zonder zelf
      iets te verzinnen (het is een deling van twee al-bekende getallen) en
      zonder een niet-deelbare stelpost als "prijs per eenheid" te presenteren.
+  4. Lost kale "schilderwerk"-actieteksten (buiten/binnen niet gespecificeerd)
+     op via het gekoppelde element (derive_action_from_linked_element) i.p.v.
+     ze allemaal handmatig te laten controleren - zie de docstring daar.
+     Nested review-vlaggen (op action["action"]/action["unit"]/
+     obs["defect"]) worden opgeteld naar het top-level requires_human_review
+     van de action/observation, zodat de menselijke review-wachtrij niet
+     stilzwijgend posten mist.
 
 Gebruik:
     python3 scripts/normalize_batch.py --batch batch_1
@@ -90,6 +97,56 @@ def to_decimal(v):
 # heeft (stelpost/lump sum is per definitie niet deelbaar).
 NON_DIVISIBLE_UNITS = {"lump_sum"}
 
+# Voorvoegsels van element_type.original_value die ondubbelzinnig aangeven
+# of een gekoppeld schilderwerk-element buiten- of binnenschilderwerk is.
+PAINTING_ELEMENT_PREFIXES = {
+    "buitenschilderwerk": "exterior_painting",
+    "binnenschilderwerk": "interior_painting",
+}
+
+
+def derive_action_from_linked_element(action, element_by_id):
+    """Lost de "schilderwerk"-post zonder buiten/binnen-aanduiding deterministisch
+    op via het gekoppelde element, i.p.v. het aan een mens over te laten.
+
+    vocabularies/maintenance_action.json laat kale 'schilderwerk'-teksten
+    bewust ongemapt (normalized_value=null), omdat de actietekst zelf niet
+    zegt of het om buiten- of binnenschilderwerk gaat (zie de notes bij de
+    "paint"-entry aldaar). Maar de post is altijd gekoppeld aan een element
+    (action["element_id"]), en diens element_type.original_value
+    begint in de praktijk vrijwel altijd met "Buitenschilderwerk" of
+    "Binnenschilderwerk". Dat is geen gok: het antwoord staat al, letterlijk,
+    elders in hetzelfde record. Dit raadpleegt dus alleen reeds bekende data
+    binnen hetzelfde document, net als de bestaande kostenberekeningen
+    hierboven, en verzint niets.
+
+    Grijpt alleen in als de gewone vocabulaire-lookup (normalize_pair) geen
+    normalized_value heeft gevonden en de actietekst "schilderwerk" bevat.
+    Bij een niet-ondubbelzinnig gekoppeld element (bijv. een kitvoeg- of
+    kozijn-element dat toevallig "schilderwerk" in de actietekst noemt)
+    blijft normalized_value=null en requires_human_review=True staan, exact
+    zoals normalize_pair dat al had gezet.
+    """
+    action_pair = action.get("action") or {}
+    if action_pair.get("normalized_value") is not None:
+        return action
+    original = str(action_pair.get("original_value") or "").strip().lower()
+    if "schilderwerk" not in original:
+        return action
+
+    element = element_by_id.get(action.get("element_id"))
+    if not element:
+        return action
+    element_type = str((element.get("element_type") or {}).get("original_value") or "").strip().lower()
+
+    for prefix, normalized in PAINTING_ELEMENT_PREFIXES.items():
+        if element_type.startswith(prefix):
+            action_pair["normalized_value"] = normalized
+            action_pair["requires_human_review"] = False
+            action_pair["normalization_source"] = "derived_from_linked_element_type"
+            return action
+    return action
+
 
 def normalize_maintenance_action(action):
     qty = to_decimal((action.get("quantity") or {}).get("value"))
@@ -114,6 +171,26 @@ def normalize_maintenance_action(action):
     return action
 
 
+def bubble_action_review_flag(action):
+    """Zet het top-level requires_human_review van een maintenance_action als
+    een genest veld (action- of eenheidsterm) niet in de vocabulaire is
+    gevonden. normalize_pair zet requires_human_review alleen op de genest
+    pair zelf; zonder deze stap blijft de post buiten de menselijke
+    review-wachtrij terwijl normalized_value wel degelijk null is."""
+    if (action.get("action") or {}).get("requires_human_review"):
+        action["requires_human_review"] = True
+    if (action.get("unit") or {}).get("requires_human_review"):
+        action["requires_human_review"] = True
+    return action
+
+
+def bubble_observation_review_flag(obs):
+    """Zelfde principe als bubble_action_review_flag, voor observations."""
+    if (obs.get("defect") or {}).get("requires_human_review"):
+        obs["requires_human_review"] = True
+    return obs
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--batch", default="batch_1")
@@ -133,6 +210,7 @@ def main():
     os.makedirs(args.normalized_dir, exist_ok=True)
     n_files = 0
     n_review = 0
+    n_obs_review = 0
 
     for path in sorted(glob.glob(os.path.join(args.extracted_dir, "*.json"))):
         rec = json.load(open(path))
@@ -150,13 +228,20 @@ def main():
         for obs in rec.get("observations", []):
             if "defect" in obs:
                 normalize_pair(obs["defect"], lookups["defect_type"])
+            bubble_observation_review_flag(obs)
+            if obs.get("requires_human_review"):
+                n_obs_review += 1
+
+        element_by_id = {el.get("element_id"): el for el in rec.get("elements", [])}
 
         for action in rec.get("maintenance_actions", []):
             if "action" in action:
                 normalize_pair(action["action"], lookups["action"])
             if "unit" in action:
                 normalize_pair(action["unit"], lookups["unit"])
+            derive_action_from_linked_element(action, element_by_id)
             normalize_maintenance_action(action)
+            bubble_action_review_flag(action)
             if action.get("requires_human_review"):
                 n_review += 1
 
@@ -166,6 +251,7 @@ def main():
 
     print(f"{n_files} bestanden genormaliseerd -> {args.normalized_dir}/")
     print(f"{n_review} maintenance_actions gemarkeerd voor menselijke controle.")
+    print(f"{n_obs_review} observations gemarkeerd voor menselijke controle.")
 
 
 if __name__ == "__main__":

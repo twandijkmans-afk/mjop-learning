@@ -147,6 +147,110 @@ def test_unit_cost_calculated_from_euro_formatted_total():
     assert out["unit_cost_calculated"] is not None
 
 
+def test_derive_exterior_painting_from_linked_element():
+    action = {
+        "element_id": "EL-1",
+        "action": {"original_value": "Groot schilderwerk kozijn en raam hout dekkend", "normalized_value": None, "requires_human_review": True},
+    }
+    element_by_id = {"EL-1": {"element_type": {"original_value": "Buitenschilderwerk kozijn en raam hout"}}}
+    out = normalize_batch.derive_action_from_linked_element(action, element_by_id)
+    assert out["action"]["normalized_value"] == "exterior_painting"
+    assert out["action"]["requires_human_review"] is False, (
+        "Eenmaal ondubbelzinnig afgeleid via het gekoppelde element hoeft dit niet meer gecontroleerd te worden"
+    )
+    assert out["action"]["normalization_source"] == "derived_from_linked_element_type"
+
+
+def test_derive_interior_painting_from_linked_element():
+    action = {
+        "element_id": "EL-2",
+        "action": {"original_value": "Groot schilderwerk stucwerk", "normalized_value": None, "requires_human_review": True},
+    }
+    element_by_id = {"EL-2": {"element_type": {"original_value": "Binnenschilderwerk stucwerk"}}}
+    out = normalize_batch.derive_action_from_linked_element(action, element_by_id)
+    assert out["action"]["normalized_value"] == "interior_painting"
+
+
+def test_derive_skips_when_already_normalized():
+    action = {
+        "element_id": "EL-1",
+        "action": {"original_value": "buitenschilderwerk", "normalized_value": "exterior_painting"},
+    }
+    element_by_id = {"EL-1": {"element_type": {"original_value": "Binnenschilderwerk stucwerk"}}}
+    out = normalize_batch.derive_action_from_linked_element(action, element_by_id)
+    assert out["action"]["normalized_value"] == "exterior_painting", (
+        "Een al opgeloste waarde mag nooit overschreven worden door de afleidingsregel"
+    )
+
+
+def test_derive_skips_when_action_text_has_no_schilderwerk():
+    action = {
+        "element_id": "EL-1",
+        "action": {"original_value": "Herstellen kozijn hardhout", "normalized_value": None, "requires_human_review": True},
+    }
+    element_by_id = {"EL-1": {"element_type": {"original_value": "Buitenschilderwerk kozijn"}}}
+    out = normalize_batch.derive_action_from_linked_element(action, element_by_id)
+    assert out["action"]["normalized_value"] is None
+    assert out["action"]["requires_human_review"] is True
+
+
+def test_derive_skips_when_linked_element_type_ambiguous():
+    action = {
+        "element_id": "EL-3",
+        "action": {
+            "original_value": "Vervangen kitvoeg achterzijde gelijktijdig met schilderwerk",
+            "normalized_value": None,
+            "requires_human_review": True,
+        },
+    }
+    element_by_id = {"EL-3": {"element_type": {"original_value": "Kitvoeg t.p.v. elementen > 5mm tot 10 mm"}}}
+    out = normalize_batch.derive_action_from_linked_element(action, element_by_id)
+    assert out["action"]["normalized_value"] is None, (
+        "Geen ondubbelzinnige buiten/binnen-koppeling -> niet gokken, blijft voor mens"
+    )
+    assert out["action"]["requires_human_review"] is True
+
+
+def test_derive_skips_when_element_missing():
+    action = {
+        "element_id": "EL-DOES-NOT-EXIST",
+        "action": {"original_value": "Groot schilderwerk hout dekkend", "normalized_value": None, "requires_human_review": True},
+    }
+    out = normalize_batch.derive_action_from_linked_element(action, {})
+    assert out["action"]["normalized_value"] is None
+
+
+def test_bubble_action_review_flag_from_nested_action_pair():
+    action = {
+        "action": {"original_value": "een compleet onbekende actie", "normalized_value": None, "requires_human_review": True},
+    }
+    out = normalize_batch.bubble_action_review_flag(action)
+    assert out["requires_human_review"] is True, (
+        "Zonder deze bubbling verdwijnt een post met een onbekende actieterm stilzwijgend uit de review-wachtrij"
+    )
+
+
+def test_bubble_action_review_flag_from_nested_unit_pair():
+    action = {
+        "action": {"original_value": "vervangen", "normalized_value": "replace"},
+        "unit": {"original_value": "een rare eenheid", "normalized_value": None, "requires_human_review": True},
+    }
+    out = normalize_batch.bubble_action_review_flag(action)
+    assert out["requires_human_review"] is True
+
+
+def test_bubble_action_review_flag_leaves_resolved_action_untouched():
+    action = {"action": {"original_value": "vervangen", "normalized_value": "replace"}}
+    out = normalize_batch.bubble_action_review_flag(action)
+    assert out.get("requires_human_review", False) is False
+
+
+def test_bubble_observation_review_flag():
+    obs = {"defect": {"original_value": "een rare term", "normalized_value": None, "requires_human_review": True}}
+    out = normalize_batch.bubble_observation_review_flag(obs)
+    assert out["requires_human_review"] is True
+
+
 def test_unit_cost_calculated_skipped_when_literal_unit_cost_present():
     action = {
         "quantity": {"value": "10"},

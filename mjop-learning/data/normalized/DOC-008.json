@@ -1062,7 +1062,7 @@
         "source_confidence": "high",
         "text_fragment": "4320 Parkeerdek vloer ... B6EW02 Lekkage Ernstig 2 2 2"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-008-OBS-002",
@@ -1100,7 +1100,7 @@
         "source_confidence": "high",
         "text_fragment": "B6SW02 Defecten aan isolatieplaten (nat, kieren, ingebrand) ... Serieus 3 2 2"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-008-OBS-003",
@@ -1138,7 +1138,7 @@
         "source_confidence": "high",
         "text_fragment": "B6GA03 Plantengroei op dakbedekking ... Gering 3 3 2"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-008-OBS-004",
@@ -1176,7 +1176,7 @@
         "source_confidence": "high",
         "text_fragment": "5124 Schoorsteen metselwerk (hoofddakdak) ... Ernstig 2 3 3"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-008-OBS-005",
@@ -1344,8 +1344,7 @@
       "element_id": "DOC-008-EL-001",
       "action": {
         "original_value": "vervolgsysteem",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2033,
@@ -1545,8 +1544,7 @@
       "element_id": "DOC-008-EL-003",
       "action": {
         "original_value": "Vervangen dakbedekking APP",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2025,
@@ -1595,8 +1593,7 @@
       "element_id": "DOC-008-EL-003",
       "action": {
         "original_value": "Aanbrengen nieuwe laag dakbedekking APP",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2050,
@@ -1645,8 +1642,7 @@
       "element_id": "DOC-008-EL-003",
       "action": {
         "original_value": "Vervangen grind",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2025,
@@ -1795,8 +1791,7 @@
       "element_id": "DOC-008-EL-004",
       "action": {
         "original_value": "Aanbrengen nieuwe laag dakbedekking bitumen geballast",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2050,
@@ -1845,8 +1840,7 @@
       "element_id": "DOC-008-EL-004",
       "action": {
         "original_value": "Vervangen grind",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2025,
@@ -2045,8 +2039,7 @@
       "element_id": "DOC-008-EL-008",
       "action": {
         "original_value": "Aanbrengen aluminium schoorsteenkap",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2038,
@@ -2195,8 +2188,7 @@
       "element_id": "DOC-008-EL-011",
       "action": {
         "original_value": "Vervangen dakdoorvoer metaal plat",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2025,
@@ -2245,8 +2237,7 @@
       "element_id": "DOC-008-EL-010",
       "action": {
         "original_value": "Vervangen dakdoorvoer metaal plat",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2025,
@@ -2295,8 +2286,7 @@
       "element_id": "DOC-008-EL-012",
       "action": {
         "original_value": "Aanbrengen valbeveiliging",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2025,
@@ -2444,8 +2434,7 @@
       "element_id": "DOC-008-EL-015",
       "action": {
         "original_value": "Directievoering 2025",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2025,
@@ -2494,8 +2483,7 @@
       "element_id": "DOC-008-EL-015",
       "action": {
         "original_value": "Directievoering 2030",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2030,
@@ -2544,8 +2532,7 @@
       "element_id": "DOC-008-EL-015",
       "action": {
         "original_value": "Directievoering 2032",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2032,
@@ -2594,8 +2581,7 @@
       "element_id": "DOC-008-EL-015",
       "action": {
         "original_value": "Directievoering 2033",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2033,
@@ -2644,8 +2630,7 @@
       "element_id": "DOC-008-EL-015",
       "action": {
         "original_value": "Directievoering 2038",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2038,

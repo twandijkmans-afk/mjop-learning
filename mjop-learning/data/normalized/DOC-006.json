@@ -2699,7 +2699,7 @@
         "source_confidence": "high",
         "text_fragment": "4111 Gevelafwerking voegwerk platvol ... B8SM04 Erosie, verwering, verzanding ... Serieus 2 3 2"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-012",
@@ -2844,7 +2844,7 @@
         "source_confidence": "high",
         "text_fragment": "4621 Buitenschilderwerk gevelbekleding hout ... B11SM10 Krijten ... Serieus 2 4 3"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-016",
@@ -2918,7 +2918,7 @@
         "source_confidence": "high",
         "text_fragment": "4621 Buitenschilderwerk leuning staal Tag Trappenhuizen B11SM01 Beschadiging ... Serieus 2 4 3"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-018",
@@ -2992,7 +2992,7 @@
         "source_confidence": "high",
         "text_fragment": "4623 Buitenschilderwerk (beton) trappen coating (polyurethaan) ... Ernstig 3 2 3"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-020",
@@ -3030,7 +3030,7 @@
         "source_confidence": "high",
         "text_fragment": "4628 Buitenschilderwerk afdekking beton Tag Afdekkers balkons B11EM01 Onthechting van ondergrond ... Ernstig 2 3 3"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-021",
@@ -3103,7 +3103,7 @@
         "source_confidence": "high",
         "text_fragment": "4631 Buitenschilderwerk kozijn hout dekkend Tag Kozijnen hout B11SM02 Barsten ... Serieus 3 3 3"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-023",
@@ -3425,7 +3425,7 @@
         "source_confidence": "high",
         "text_fragment": "6311 Elektra armaturen buiten LED Tag Trappenhuis E7SB01 Ontbrekende beschermkap of rooster ... Serieus 3 1 1"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-006-OBS-032",
@@ -3576,8 +3576,7 @@
       "element_id": "DOC-006-EL-001",
       "action": {
         "original_value": "Reinigen metselwerk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "clean"
       },
       "planned_year": {
         "value": 2025,
@@ -3626,8 +3625,7 @@
       "element_id": "DOC-006-EL-003",
       "action": {
         "original_value": "Vervangen dilatatie kitvoeg",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2032,
@@ -3676,8 +3674,7 @@
       "element_id": "DOC-006-EL-002",
       "action": {
         "original_value": "Vervangen loodslabben opgaand werk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2070,
@@ -3726,8 +3723,7 @@
       "element_id": "DOC-006-EL-004",
       "action": {
         "original_value": "Vervangen goot zink",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2046,
@@ -3776,8 +3772,7 @@
       "element_id": "DOC-006-EL-007",
       "action": {
         "original_value": "Vervangen kozijn hout",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2070,
@@ -3826,8 +3821,7 @@
       "element_id": "DOC-006-EL-009",
       "action": {
         "original_value": "Vervangen balustrade (verz.) staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2062,
@@ -3876,8 +3870,7 @@
       "element_id": "DOC-006-EL-008",
       "action": {
         "original_value": "Vervangen balustrade afdekking beton tot 400mm breedt",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2097,
@@ -3926,8 +3919,7 @@
       "element_id": "DOC-006-EL-010",
       "action": {
         "original_value": "Vervangen leuning staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2062,
@@ -4026,8 +4018,7 @@
       "element_id": "DOC-006-EL-012",
       "action": {
         "original_value": "Vervangen gevelbekleding zachthout",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2070,
@@ -4076,8 +4067,7 @@
       "element_id": "DOC-006-EL-014",
       "action": {
         "original_value": "Vervangen plafondafwerking multiplex",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2070,
@@ -4126,8 +4116,9 @@
       "element_id": "DOC-006-EL-018",
       "action": {
         "original_value": "Groot schilderwerk metselwerk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4176,8 +4167,7 @@
       "element_id": "DOC-006-EL-015",
       "action": {
         "original_value": "Aanbrengen vervolgsysteem",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2025,
@@ -4226,8 +4216,9 @@
       "element_id": "DOC-006-EL-015",
       "action": {
         "original_value": "Groot schilderwerk gevelbekleding hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4276,8 +4267,9 @@
       "element_id": "DOC-006-EL-016",
       "action": {
         "original_value": "Groot schilderwerk metaal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4326,8 +4318,7 @@
       "element_id": "DOC-006-EL-017",
       "action": {
         "original_value": "Aanbrengen vervolgsysteem",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2025,
@@ -4376,8 +4367,9 @@
       "element_id": "DOC-006-EL-017",
       "action": {
         "original_value": "Groot schilderwerk metaal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4426,8 +4418,7 @@
       "element_id": "DOC-006-EL-019",
       "action": {
         "original_value": "Aanbrengen vervolgsysteem",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2025,
@@ -4476,8 +4467,7 @@
       "element_id": "DOC-006-EL-019",
       "action": {
         "original_value": "Aanbrengen coating beton",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2039,
@@ -4526,8 +4516,9 @@
       "element_id": "DOC-006-EL-021",
       "action": {
         "original_value": "Groot schilderwerk betonlateien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4626,8 +4617,9 @@
       "element_id": "DOC-006-EL-020",
       "action": {
         "original_value": "Groot schilderwerk beton afdekkers balkon",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -4676,8 +4668,7 @@
       "element_id": "DOC-006-EL-022",
       "action": {
         "original_value": "Aanbrengen vervolgsysteem",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2025,
@@ -4726,8 +4717,9 @@
       "element_id": "DOC-006-EL-022",
       "action": {
         "original_value": "Groot schilderwerk kozijn (en draaiende delen) hout dekkend (conform PO cyclus)",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4776,8 +4768,9 @@
       "element_id": "DOC-006-EL-024",
       "action": {
         "original_value": "Groot schilderwerk plafond hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -4826,8 +4819,9 @@
       "element_id": "DOC-006-EL-023",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -4876,8 +4870,7 @@
       "element_id": "DOC-006-EL-025",
       "action": {
         "original_value": "Vervangen dakbedekking APP",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2057,
@@ -4926,8 +4919,7 @@
       "element_id": "DOC-006-EL-025",
       "action": {
         "original_value": "Aanbrengen nieuwe laag dakbedekking APP",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2032,
@@ -4976,8 +4968,7 @@
       "element_id": "DOC-006-EL-026",
       "action": {
         "original_value": "Vervangen dakrandafwerking zink",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2040,
@@ -5026,8 +5017,7 @@
       "element_id": "DOC-006-EL-030",
       "action": {
         "original_value": "Vervangen hemelwaterafvoer pvc",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2032,
@@ -5076,8 +5066,7 @@
       "element_id": "DOC-006-EL-029",
       "action": {
         "original_value": "Vervangen hemelwaterafvoer staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2032,
@@ -5226,8 +5215,7 @@
       "element_id": "DOC-006-EL-035",
       "action": {
         "original_value": "Bereikbaarheidskosten en bijkomende kosten",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "site_access_cost"
       },
       "planned_year": {
         "value": 2025,
@@ -5276,8 +5264,7 @@
       "element_id": "DOC-006-EL-034",
       "action": {
         "original_value": "Technisch advies <adviesbureau>",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "advice"
       },
       "planned_year": {
         "value": 2028,

@@ -3972,7 +3972,7 @@
         "source_confidence": "high",
         "text_fragment": "2110 Gevelconstructie metselwerk Tag Achtergevel B2EC02 Scheuren constructief"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-002",
@@ -4010,7 +4010,7 @@
         "source_confidence": "high",
         "text_fragment": "2716 Boeiboord-beton dakopbouw Tag Dakrand B5EM01 Breuk"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-003",
@@ -4048,7 +4048,7 @@
         "source_confidence": "high",
         "text_fragment": "4111 Gevelafwerking voegwerk verdiept Tag Dakopbouwen B8EC01 Uitgespoeld/afwezig voegwerk"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-004",
@@ -4086,7 +4086,7 @@
         "source_confidence": "high",
         "text_fragment": "3231 Binnendeur woning-toegangsdeur Tag Trappenheuizen B7EW01 Afdichting, manco"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-005",
@@ -4124,7 +4124,7 @@
         "source_confidence": "high",
         "text_fragment": "3410 Balustrade leuning staal (achtergevel) 1e verdieping ... B4EM03 Corrosie aan dragende onderdelen"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-006",
@@ -4162,7 +4162,7 @@
         "source_confidence": "high",
         "text_fragment": "4623 Buitenschilderwerk betonvloer coating voor- en achtergevels Tag Voorgevel B11EM01 Onthechting van ondergrond"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-007",
@@ -4200,7 +4200,7 @@
         "source_confidence": "high",
         "text_fragment": "4631 Buitenschilderwerk kozijn,raam en deur hout dekkend achtergevel ... B11SM07 Verpoederen"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-008",
@@ -4238,7 +4238,7 @@
         "source_confidence": "high",
         "text_fragment": "4631 Buitenschilderwerk kozijn en raam hout/staal dekkend achtergevel ... B11SM07 Verpoederen"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-009",
@@ -4276,7 +4276,7 @@
         "source_confidence": "high",
         "text_fragment": "5310 Waterleiding Tag Trappenhuizen achter paneel K5EM01 Corrosie"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-010",
@@ -4314,7 +4314,7 @@
         "source_confidence": "high",
         "text_fragment": "4623 Buitenschilderwerk betonvloer coating achtergevel 1e verd Tag Balkons 1e verdieping achterzijde B11GA05 Vuil, aanslag, verkleuring"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-011",
@@ -4352,7 +4352,7 @@
         "source_confidence": "high",
         "text_fragment": "2221 Metselwerk betonsteen Tag Entree bergingen naar kelder B3EW03 Scheuren"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-012",
@@ -4390,7 +4390,7 @@
         "source_confidence": "high",
         "text_fragment": "3410 Balkonscherm staal/draadglas (achtergevel balkon) Tag Voetjes B7EW01 Corrosie"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-013",
@@ -4428,7 +4428,7 @@
         "source_confidence": "high",
         "text_fragment": "4628 Buitenschilderwerk beton diktekanten Tag Balkons achterzijde B11EM01 Onthechting van ondergrond"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-014",
@@ -4466,7 +4466,7 @@
         "source_confidence": "high",
         "text_fragment": "2410 Vloertegel trappenhuizen Tag Voor liftdeuren B4EM01 Breuk"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     },
     {
       "observation_id": "DOC-009-OBS-015",
@@ -4504,7 +4504,7 @@
         "source_confidence": "high",
         "text_fragment": "6311 Elektra armaturen binnenlamp alg ruimte bergingen Tag !e deel bergingsgang E7GO02 Defecte lampen"
       },
-      "requires_human_review": false
+      "requires_human_review": true
     }
   ],
   "status": "extracted",
@@ -4521,8 +4521,7 @@
       "element_id": "DOC-009-EL-001",
       "action": {
         "original_value": "Herstel div. scheuren, achter-/ kopgevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "repair"
       },
       "planned_year": {
         "value": 2025,
@@ -4576,8 +4575,7 @@
       "element_id": "DOC-009-EL-001",
       "action": {
         "original_value": "Herstel div. scheuren, achter-/ kopgevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "repair"
       },
       "planned_year": {
         "value": 2035,
@@ -4631,8 +4629,7 @@
       "element_id": "DOC-009-EL-001",
       "action": {
         "original_value": "Hydrofoberen / impregneren metselwerk achtergevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "impregnate"
       },
       "planned_year": {
         "value": 2025,
@@ -4686,8 +4683,7 @@
       "element_id": "DOC-009-EL-001",
       "action": {
         "original_value": "Hydrofoberen / impregneren metselwerk achtergevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "impregnate"
       },
       "planned_year": {
         "value": 2037,
@@ -4741,8 +4737,7 @@
       "element_id": "DOC-009-EL-001",
       "action": {
         "original_value": "Hydrofoberen / impregneren metselwerk voorgevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "impregnate"
       },
       "planned_year": {
         "value": 2032,
@@ -4850,8 +4845,7 @@
       "element_id": "DOC-009-EL-006",
       "action": {
         "original_value": "Herstellen ondergrond gelijktijdig met schilderwek",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "repair"
       },
       "planned_year": {
         "value": 2034,
@@ -4905,8 +4899,7 @@
       "element_id": "DOC-009-EL-005",
       "action": {
         "original_value": "Herstellen ondergrond gelijktijdig met schilderwek",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "repair"
       },
       "planned_year": {
         "value": 2032,
@@ -4960,8 +4953,7 @@
       "element_id": "DOC-009-EL-004",
       "action": {
         "original_value": "Herstellen ondergrond gelijktijdig met schilderwek",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "repair"
       },
       "planned_year": {
         "value": 2032,
@@ -5169,7 +5161,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "2566.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 18,
       "unit_cost_calculated": "11.25"
     },
@@ -5178,8 +5170,7 @@
       "element_id": "DOC-009-EL-016",
       "action": {
         "original_value": "Reinigen kozijn aluminium",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "clean"
       },
       "planned_year": {
         "value": 2026,
@@ -5233,8 +5224,7 @@
       "element_id": "DOC-009-EL-016",
       "action": {
         "original_value": "Reinigen kozijn aluminium",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "clean"
       },
       "planned_year": {
         "value": 2032,
@@ -5288,8 +5278,7 @@
       "element_id": "DOC-009-EL-016",
       "action": {
         "original_value": "Reinigen kozijn aluminium",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "clean"
       },
       "planned_year": {
         "value": 2038,
@@ -5389,7 +5378,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "4631.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 18,
       "unit_cost_calculated": "30.25"
     },
@@ -5398,8 +5387,7 @@
       "element_id": "DOC-009-EL-013",
       "action": {
         "original_value": "Controleren en afstellen hang en sluitwerk buitenramen",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "maintain"
       },
       "planned_year": {
         "value": 2026,
@@ -5453,8 +5441,7 @@
       "element_id": "DOC-009-EL-013",
       "action": {
         "original_value": "Controleren en afstellen hang en sluitwerk buitenramen",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "maintain"
       },
       "planned_year": {
         "value": 2038,
@@ -5554,7 +5541,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "107811.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 19,
       "unit_cost_calculated": "272.25"
     },
@@ -5609,7 +5596,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "192175.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 19,
       "unit_cost_calculated": "1452.02"
     },
@@ -5664,7 +5651,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "41446.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 19,
       "unit_cost_calculated": "1210.10"
     },
@@ -5773,7 +5760,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "52272.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 19,
       "unit_cost_calculated": "1452.00"
     },
@@ -5882,7 +5869,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "1422.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 19,
       "unit_cost_calculated": "177.75"
     },
@@ -5891,8 +5878,7 @@
       "element_id": "DOC-009-EL-020",
       "action": {
         "original_value": "Vervangen balustrade (verz.) staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2035,
@@ -6054,8 +6040,9 @@
       "element_id": "DOC-009-EL-029",
       "action": {
         "original_value": "Groot schilderwerk stucwerk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -6109,8 +6096,9 @@
       "element_id": "DOC-009-EL-028",
       "action": {
         "original_value": "Groot schilderwerk metaal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -6164,8 +6152,9 @@
       "element_id": "DOC-009-EL-028",
       "action": {
         "original_value": "Groot schilderwerk metaal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2038,
@@ -6219,8 +6208,9 @@
       "element_id": "DOC-009-EL-026",
       "action": {
         "original_value": "Groot schilderwerk hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -6328,8 +6318,7 @@
       "element_id": "DOC-009-EL-031",
       "action": {
         "original_value": "Vervolgsysteem coating beton",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2032,
@@ -6383,8 +6372,7 @@
       "element_id": "DOC-009-EL-030",
       "action": {
         "original_value": "Vervolgsysteem vloercoating",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "install"
       },
       "planned_year": {
         "value": 2032,
@@ -6484,7 +6472,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "4235.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 20,
       "unit_cost_calculated": null
     },
@@ -6493,8 +6481,9 @@
       "element_id": "DOC-009-EL-032",
       "action": {
         "original_value": "Groot schilderwerk diktekanten balkons achterzijde",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -6548,8 +6537,9 @@
       "element_id": "DOC-009-EL-032",
       "action": {
         "original_value": "Groot schilderwerk diktekanten balkons voorzijde",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2036,
@@ -6603,8 +6593,9 @@
       "element_id": "DOC-009-EL-033",
       "action": {
         "original_value": "Groot schilderwerk kop- en achtergevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2025,
@@ -6658,8 +6649,9 @@
       "element_id": "DOC-009-EL-033",
       "action": {
         "original_value": "Groot schilderwerk kop- en achtergevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -6713,8 +6705,9 @@
       "element_id": "DOC-009-EL-033",
       "action": {
         "original_value": "Groot schilderwerk voorgevel",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -6768,8 +6761,9 @@
       "element_id": "DOC-009-EL-034",
       "action": {
         "original_value": "Groot schilderwerk steenachtig",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -6877,8 +6871,9 @@
       "element_id": "DOC-009-EL-035",
       "action": {
         "original_value": "Groot schilderwerk kozijn en raam hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -6932,8 +6927,9 @@
       "element_id": "DOC-009-EL-035",
       "action": {
         "original_value": "Groot schilderwerk kozijn en raam hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -7041,8 +7037,9 @@
       "element_id": "DOC-009-EL-036",
       "action": {
         "original_value": "Groot schilderwerk kozijn en raam hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -7096,8 +7093,9 @@
       "element_id": "DOC-009-EL-036",
       "action": {
         "original_value": "Groot schilderwerk kozijn en raam hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -7151,8 +7149,9 @@
       "element_id": "DOC-009-EL-040",
       "action": {
         "original_value": "Groot schilderwerk hek staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -7206,8 +7205,9 @@
       "element_id": "DOC-009-EL-039",
       "action": {
         "original_value": "Groot schilderwerk hek hout transparant",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -7261,8 +7261,9 @@
       "element_id": "DOC-009-EL-037",
       "action": {
         "original_value": "Groot schilderwerk hek staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2025,
@@ -7316,8 +7317,9 @@
       "element_id": "DOC-009-EL-037",
       "action": {
         "original_value": "Groot schilderwerk hek staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -7371,8 +7373,9 @@
       "element_id": "DOC-009-EL-037",
       "action": {
         "original_value": "Groot schilderwerk hek staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -7426,8 +7429,9 @@
       "element_id": "DOC-009-EL-038",
       "action": {
         "original_value": "Groot schilderwerk hek staal achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2025,
@@ -7481,8 +7485,9 @@
       "element_id": "DOC-009-EL-038",
       "action": {
         "original_value": "Groot schilderwerk hek staal achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -7536,8 +7541,9 @@
       "element_id": "DOC-009-EL-038",
       "action": {
         "original_value": "Groot schilderwerk hek staal achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -7591,8 +7597,9 @@
       "element_id": "DOC-009-EL-038",
       "action": {
         "original_value": "Groot schilderwerk hek staal voor",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2026,
@@ -7646,8 +7653,9 @@
       "element_id": "DOC-009-EL-038",
       "action": {
         "original_value": "Groot schilderwerk hek staal voor",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -7701,8 +7709,9 @@
       "element_id": "DOC-009-EL-038",
       "action": {
         "original_value": "Groot schilderwerk hek staal voor",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2038,
@@ -7756,8 +7765,9 @@
       "element_id": "DOC-009-EL-042",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2025,
@@ -7811,8 +7821,9 @@
       "element_id": "DOC-009-EL-042",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -7866,8 +7877,9 @@
       "element_id": "DOC-009-EL-042",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond voor",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -7921,8 +7933,9 @@
       "element_id": "DOC-009-EL-041",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2025,
@@ -7976,8 +7989,9 @@
       "element_id": "DOC-009-EL-041",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond achter",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2039,
@@ -8031,8 +8045,9 @@
       "element_id": "DOC-009-EL-041",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond voor",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2032,
@@ -8086,8 +8101,9 @@
       "element_id": "DOC-009-EL-043",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2029,
@@ -8187,7 +8203,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "10386.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 21,
       "unit_cost_calculated": "143.49"
     },
@@ -8196,8 +8212,7 @@
       "element_id": "DOC-009-EL-047",
       "action": {
         "original_value": "Vervangen hemelwaterafvoer pvc",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2032,
@@ -8297,7 +8312,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "9340.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 21,
       "unit_cost_calculated": null
     },
@@ -8306,8 +8321,7 @@
       "element_id": "DOC-009-EL-048",
       "action": {
         "original_value": "Vervangen binneriolering ijzer->pvc (3 st/app)",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2026,
@@ -8361,8 +8375,7 @@
       "element_id": "DOC-009-EL-048",
       "action": {
         "original_value": "Vervangen binneriolering ijzer->pvc (3 st/app)",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2027,
@@ -8416,8 +8429,7 @@
       "element_id": "DOC-009-EL-048",
       "action": {
         "original_value": "Vervangen binneriolering ijzer->pvc (3 st/app)",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2028,
@@ -8517,7 +8529,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "26136.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 21,
       "unit_cost_calculated": null
     },
@@ -8626,7 +8638,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "5251.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 22,
       "unit_cost_calculated": null
     },
@@ -8681,7 +8693,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "6516.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 22,
       "unit_cost_calculated": "6516.00"
     },
@@ -8736,7 +8748,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "3684.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 22,
       "unit_cost_calculated": "175.43"
     },
@@ -8799,8 +8811,7 @@
       "element_id": "DOC-009-EL-051",
       "action": {
         "original_value": "Vervangen armaturen binnenlamp",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2030,
@@ -8900,7 +8911,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "17243.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 22,
       "unit_cost_calculated": "574.77"
     },
@@ -8909,8 +8920,7 @@
       "element_id": "DOC-009-EL-054",
       "action": {
         "original_value": "Werkzaamheden conform DLR",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "maintain"
       },
       "planned_year": {
         "value": 2025,
@@ -8964,8 +8974,7 @@
       "element_id": "DOC-009-EL-054",
       "action": {
         "original_value": "Werkzaamheden conform DLR",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "maintain"
       },
       "planned_year": {
         "value": 2029,
@@ -9019,8 +9028,7 @@
       "element_id": "DOC-009-EL-054",
       "action": {
         "original_value": "Werkzaamheden conform DLR",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "maintain"
       },
       "planned_year": {
         "value": 2032,
@@ -9074,8 +9082,7 @@
       "element_id": "DOC-009-EL-057",
       "action": {
         "original_value": "Herinspectie actualisatie begroting",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "inspect"
       },
       "planned_year": {
         "value": 2028,
@@ -9129,8 +9136,7 @@
       "element_id": "DOC-009-EL-057",
       "action": {
         "original_value": "Herinspectie actualisatie begroting",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "inspect"
       },
       "planned_year": {
         "value": 2031,
@@ -9184,8 +9190,7 @@
       "element_id": "DOC-009-EL-057",
       "action": {
         "original_value": "Herinspectie actualisatie begroting",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "inspect"
       },
       "planned_year": {
         "value": 2034,
@@ -9239,8 +9244,7 @@
       "element_id": "DOC-009-EL-057",
       "action": {
         "original_value": "Herinspectie actualisatie begroting",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "inspect"
       },
       "planned_year": {
         "value": 2037,
@@ -9340,7 +9344,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "3376.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 23,
       "unit_cost_calculated": null
     },
@@ -9395,7 +9399,7 @@
       },
       "cost_year": 2025,
       "total_cost_as_stated": "1815.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 23,
       "unit_cost_calculated": null
     },
@@ -9404,8 +9408,7 @@
       "element_id": "DOC-009-EL-060",
       "action": {
         "original_value": "Voorgevel bereikbaarheid, vergunningen en parkeren",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "site_access_cost"
       },
       "planned_year": {
         "value": 2032,
@@ -9459,8 +9462,7 @@
       "element_id": "DOC-009-EL-060",
       "action": {
         "original_value": "achtergevel bereikbaarheid",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "site_access_cost"
       },
       "planned_year": {
         "value": 2025,
@@ -9514,8 +9516,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2025,
@@ -9569,8 +9570,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2026,
@@ -9624,8 +9624,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2027,
@@ -9679,8 +9678,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2028,
@@ -9734,8 +9732,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2029,
@@ -9789,8 +9786,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2030,
@@ -9844,8 +9840,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2031,
@@ -9899,8 +9894,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2032,
@@ -9954,8 +9948,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2034,
@@ -10009,8 +10002,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2035,
@@ -10064,8 +10056,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2036,
@@ -10119,8 +10110,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2037,
@@ -10174,8 +10164,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2038,
@@ -10229,8 +10218,7 @@
       "element_id": "DOC-009-EL-061",
       "action": {
         "original_value": "Directievoering",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "project_management"
       },
       "planned_year": {
         "value": 2039,

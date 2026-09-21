@@ -5698,7 +5698,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "1351.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 10,
       "unit_cost_calculated": "227.82"
     },
@@ -5707,8 +5707,7 @@
       "element_id": "DOC-010-EL-003",
       "action": {
         "original_value": "Keuren hanebalk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "inspect"
       },
       "planned_year": {
         "value": 2028,
@@ -5762,8 +5761,7 @@
       "element_id": "DOC-010-EL-003",
       "action": {
         "original_value": "Keuren hanebalk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "inspect"
       },
       "planned_year": {
         "value": 2034,
@@ -5863,7 +5861,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "11024.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 10,
       "unit_cost_calculated": "130.80"
     },
@@ -5872,8 +5870,7 @@
       "element_id": "DOC-010-EL-021",
       "action": {
         "original_value": "Vervangen tapijt",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2030,
@@ -5973,7 +5970,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "361.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 11,
       "unit_cost_calculated": "122.79"
     },
@@ -5982,8 +5979,9 @@
       "element_id": "DOC-010-EL-024",
       "action": {
         "original_value": "Groot schilderwerk hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2028,
@@ -6037,8 +6035,9 @@
       "element_id": "DOC-010-EL-024",
       "action": {
         "original_value": "Groot schilderwerk hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2034,
@@ -6092,8 +6091,9 @@
       "element_id": "DOC-010-EL-025",
       "action": {
         "original_value": "Groot schilderwerk metaal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2028,
@@ -6147,8 +6147,9 @@
       "element_id": "DOC-010-EL-027",
       "action": {
         "original_value": "Groot schilderwerk hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2030,
@@ -6202,8 +6203,9 @@
       "element_id": "DOC-010-EL-028",
       "action": {
         "original_value": "Groot schilderwerk stucwerk",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2030,
@@ -6257,8 +6259,9 @@
       "element_id": "DOC-010-EL-026",
       "action": {
         "original_value": "Groot schilderwerk hout dekkend",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "interior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2030,
@@ -6358,7 +6361,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "1017.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 12,
       "unit_cost_calculated": "40.29"
     },
@@ -6413,7 +6416,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "2068.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 12,
       "unit_cost_calculated": "81.93"
     },
@@ -6422,8 +6425,9 @@
       "element_id": "DOC-010-EL-030",
       "action": {
         "original_value": "Groot schilderwerk betonconstructie plafond",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "exterior_painting",
+        "requires_human_review": false,
+        "normalization_source": "derived_from_linked_element_type"
       },
       "planned_year": {
         "value": 2028,
@@ -6523,7 +6527,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "111.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 12,
       "unit_cost_calculated": "111.00"
     },
@@ -6532,8 +6536,7 @@
       "element_id": "DOC-010-EL-039",
       "action": {
         "original_value": "Vervangen hemelwaterafvoer pvc",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2034,
@@ -6587,8 +6590,7 @@
       "element_id": "DOC-010-EL-038",
       "action": {
         "original_value": "Vervangen hemelwaterafvoer staal",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2034,
@@ -6688,7 +6690,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "1416.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 12,
       "unit_cost_calculated": "118.00"
     },
@@ -6743,7 +6745,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "818.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": null
     },
@@ -6752,8 +6754,7 @@
       "element_id": "DOC-010-EL-042",
       "action": {
         "original_value": "Standleidingen schoon frezen",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "clean"
       },
       "planned_year": {
         "value": 2024,
@@ -6799,7 +6800,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "1254.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": null
     },
@@ -6808,8 +6809,7 @@
       "element_id": "DOC-010-EL-042",
       "action": {
         "original_value": "Standleidingen schoon frezen",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "clean"
       },
       "planned_year": {
         "value": 2034,
@@ -6855,7 +6855,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "1254.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": null
     },
@@ -6910,7 +6910,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "1228.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": "245.60"
     },
@@ -6965,7 +6965,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "131.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": "131.00"
     },
@@ -6974,8 +6974,7 @@
       "element_id": "DOC-010-EL-047",
       "action": {
         "original_value": "Vervangen deurbelinstallatie",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2036,
@@ -7075,7 +7074,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "3270.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": null
     },
@@ -7084,8 +7083,7 @@
       "element_id": "DOC-010-EL-051",
       "action": {
         "original_value": "Vervangen huistelefooninstallatie",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "replace"
       },
       "planned_year": {
         "value": 2036,
@@ -7185,7 +7183,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "430.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 13,
       "unit_cost_calculated": "143.33"
     },
@@ -7240,7 +7238,7 @@
       },
       "cost_year": 2023,
       "total_cost_as_stated": "2725.00",
-      "requires_human_review": false,
+      "requires_human_review": true,
       "source_page": 14,
       "unit_cost_calculated": null
     },
@@ -7249,8 +7247,7 @@
       "element_id": "DOC-010-EL-055",
       "action": {
         "original_value": "Technisch advies <adviesbureau>",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "advice"
       },
       "planned_year": {
         "value": 2026,
@@ -7304,8 +7301,7 @@
       "element_id": "DOC-010-EL-055",
       "action": {
         "original_value": "Technisch advies <adviesbureau>",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "advice"
       },
       "planned_year": {
         "value": 2029,
@@ -7359,8 +7355,7 @@
       "element_id": "DOC-010-EL-055",
       "action": {
         "original_value": "Technisch advies <adviesbureau>",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "advice"
       },
       "planned_year": {
         "value": 2032,
@@ -7414,8 +7409,7 @@
       "element_id": "DOC-010-EL-055",
       "action": {
         "original_value": "Technisch advies <adviesbureau>",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "advice"
       },
       "planned_year": {
         "value": 2035,
@@ -7469,8 +7463,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2024,
@@ -7524,8 +7517,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2026,
@@ -7579,8 +7571,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2028,
@@ -7634,8 +7625,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2029,
@@ -7689,8 +7679,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2030,
@@ -7744,8 +7733,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2032,
@@ -7799,8 +7787,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2034,
@@ -7854,8 +7841,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2035,
@@ -7909,8 +7895,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2036,
@@ -7964,8 +7949,7 @@
       "element_id": "DOC-010-EL-057",
       "action": {
         "original_value": "Onvoorzien",
-        "normalized_value": null,
-        "requires_human_review": true
+        "normalized_value": "contingency"
       },
       "planned_year": {
         "value": 2037,
