@@ -15,7 +15,7 @@ Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in
 opdracht van Pro VvE Beheer / VvE Beheer B.V.); alleen DOC-004 (Innax, 2018)
 is van een andere partij en telt niet mee voor de eigen-stijl-categorisering
 hieronder. Zie "Volgende stap" hieronder voor de huidige review-status.
-Onderstaande onderdelen zijn opgeleverd en getest (80/80 tests slagen):
+Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
 
 - `schemas/` — datamodel voor document, building, element, observation,
   maintenance_action, plus twee gedeelde bouwstenen
@@ -94,7 +94,22 @@ Onderstaande onderdelen zijn opgeleverd en getest (80/80 tests slagen):
   bevestigd zijn (zie hieronder) - niet elk veld is onafhankelijk
   herleid uit het brondocument. Zie CLAUDE.md: geen accuracy-claims zonder
   een cijfer dat dat ook echt meet.
-- `tests/` — 80 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
+- `scripts/compute_kentallen.py` — **nieuw**: de eerste echte kentallen-
+  berekening. Groepeert `data/verified/*.json` per (element_code, actie,
+  eenheid) - dus op onze eigen indeling - en berekent per groep min/max/
+  gemiddelde/mediaan, apart voor `literal` (letterlijke documentprijs,
+  `unit_cost.value`) en `calculated` (afgeleid uit total/hoeveelheid,
+  minder betrouwbaar). Telt alleen mee zonder `cost_conflict` en zonder
+  openstaande `requires_human_review`. Schrijft naar
+  `data/kentallen/kentallen_batch1.json` en `reports/kentallen_batch1.xlsx`.
+  **Belangrijke bevinding onderweg**: `total_cost_as_stated: "€ 0"` betekent
+  in deze documenten niet "gratis" - het item valt vaak buiten het getoonde
+  jarenvenster (planned_year kan decennia verderop liggen), dus het totaal
+  in de huidige weergave is 0 terwijl de kosten pas in een latere cyclus
+  vallen. `normalize_batch.py` berekent nu geen `unit_cost_calculated` meer
+  als het totaal exact 0 is - dat leverde eerst 32 valse "€0,00 per m²"
+  kentallen op.
+- `tests/` — 91 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert
   (`reports/raw_manifest.json` met sha256 per bronbestand), de review-
@@ -102,8 +117,9 @@ Onderstaande onderdelen zijn opgeleverd en getest (80/80 tests slagen):
   gebeurt, dat een ontbrekend brondocument nooit tot een modelaanroep leidt,
   de schilderwerk-afleidingsregel en de review-vlag-bubbling in
   `normalize_batch.py`, dat apply_review.py nooit een waarde verzint en een
-  correctie altijd op het juiste veld toepast, en (nieuw) dat de
-  element_code-backfill nooit een code raadt/forceert. Deze tests gebruiken
+  correctie altijd op het juiste veld toepast, dat de element_code-backfill
+  nooit een code raadt/forceert, en (nieuw) dat een `total_cost_as_stated`
+  van 0 nooit tot een vals "gratis" kental leidt. Deze tests gebruiken
   overal een gestubde `model_fn` — er wordt in de testsuite nergens een
   echte Anthropic-call gemaakt.
 
@@ -117,24 +133,30 @@ klopte niet, zie git-historie) `requires_human_review: true`; deze zijn via
 rejects nodig bevonden). De 91 gevlagde observations zijn nog niet
 doorlopen.
 
-**Wat nu ontbreekt (de kern van het doel: kentallen)**: er bestaat nog geen
-script dat `data/normalized/` (of `verified/`) omzet in daadwerkelijke
-kentallen (bijv. "gemiddelde/mediane prijs per m² voor element_code 4711 -
-Dakbedekking APP, over N documenten, met bandbreedte"). `element_code` (zie
-hierboven) geeft nu de sleutel om dat te doen op de manier waarop wij onze
-eigen MJOP's opbouwen, i.p.v. een generieke indeling. Dat is de volgende
-bouwsteen.
+**Kentallen (het eigenlijke doel)**: `scripts/compute_kentallen.py` levert
+nu 59 kentallen-groepen op uit 358 bruikbare prijspunten, gegroepeerd per
+onze eigen `element_code`. Belangrijke kanttekening: **alle 358 punten zijn
+`calculated` (afgeleid uit total/hoeveelheid) - nog geen enkele komt uit een
+letterlijke documentprijs (`unit_cost.value`)**, simpelweg omdat deze 9
+documenten zelf zelden een expliciete eenheidsprijs vermelden, alleen een
+totaalbedrag per post. De kentallen zijn dus bruikbaar, maar minder
+betrouwbaar dan een kental uit een letterlijke prijs zou zijn (zie
+`schemas/maintenance_action.schema.json`). Ook zijn de prijzen NIET
+geïndexeerd naar één prijspeiljaar (zie `cost_years` per groep in de
+output) - vergelijk dus geen prijzen uit 2022 direct met 2026 zonder eerst
+te indexeren.
 
 Ook nog open: het accuracy-cijfer uit `evaluate_dataset.py` is nog geen
 echte, onafhankelijke meting (zie hierboven) - dat kan later alsnog met een
-blinde steekproef als daar behoefte aan is, maar staat niet in de weg voor
-het bouwen van de kentallen-berekening.
+blinde steekproef als daar behoefte aan is, maar staat niet in de weg van de
+kentallen-berekening.
 
 Menselijke verificatie (herhaalbaar zodra er nieuwe posten zijn):
 ```bash
 python3 scripts/export_review_sheet.py            # -> reports/review_batch1.xlsx
 # ... vul BESLISSING (accept/edit/reject) + evt. GECORRIGEERDE_WAARDE/NOTITIES in ...
 python3 scripts/apply_review.py --reviewer "jij@voorbeeld.nl"   # -> data/verified/*.json
+python3 scripts/compute_kentallen.py               # -> data/kentallen/ + reports/kentallen_batch1.xlsx
 python3 scripts/evaluate_dataset.py                # accuracy-cijfer (zie caveat hierboven)
 ```
 
@@ -148,6 +170,7 @@ python3 scripts/extract_batch.py            # placeholders, + echte extractie al
 python3 scripts/normalize_batch.py          # extracted -> normalized (deterministisch)
 python3 scripts/export_review_sheet.py      # normalized -> reports/review_batch1.xlsx (mens vult in)
 python3 scripts/apply_review.py --reviewer "jij@voorbeeld.nl"  # ingevuld Excel -> data/verified/
+python3 scripts/compute_kentallen.py        # verified -> data/kentallen/ + reports/kentallen_batch1.xlsx
 python3 scripts/evaluate_dataset.py         # normalized vs. verified -> reports/evaluation_report.json
 
 python3 -m pytest tests/ -v
@@ -158,14 +181,15 @@ python3 -m pytest tests/ -v
 ```
 data/
   raw/                 originele batch-1-documenten (nooit aanpassen)
-  extracted/            letterlijk uit het document (nu: placeholders)
+  extracted/            letterlijk uit het document, incl. element_code
   normalized/           gecontroleerde vocabulaire toegepast
-  verified/              door een mens gecontroleerd (nog leeg)
+  verified/              door een mens gecontroleerd (review-ronde 1 verwerkt)
+  kentallen/             eenheidsprijs-benchmarks per element_code x actie x eenheid
   evaluation/            evaluatieset (nog leeg, nooit gebruiken om op te optimaliseren)
   rejected_or_uncertain/ onbetrouwbaar/conflicterend (nog leeg)
 schemas/                datamodel (JSON Schema)
-vocabularies/            gecontroleerde termenlijsten
+vocabularies/            gecontroleerde termenlijsten, incl. element_code.json (eigen coderingssysteem)
 scripts/                 pipeline-scripts
-reports/                 inventaris, batch-selectie, raw-manifest
+reports/                 inventaris, batch-selectie, raw-manifest, review-/kentallen-Excel
 tests/                   pytest-tests voor de validatieregels
 ```

@@ -163,7 +163,12 @@ def normalize_maintenance_action(action):
             action["requires_human_review"] = True
 
     action.setdefault("unit_cost_calculated", None)
-    if unit_cost is None and qty is not None and qty != 0 and stated_dec is not None:
+    if unit_cost is None and qty is not None and qty != 0 and stated_dec is not None and stated_dec > 0:
+        # stated_dec == 0 betekent NIET "gratis": deze MJOP-tabellen tonen vaak
+        # alleen een venster van jaren, en een post met planned_year buiten dat
+        # venster krijgt daar "€ 0" als totaal terwijl de kosten in werkelijkheid
+        # pas in een latere cyclus vallen. Een unit_cost_calculated van 0.00
+        # zou dat verkeerd voorstellen als een echte (nul-)prijs.
         unit_normalized = (action.get("unit") or {}).get("normalized_value")
         if unit_normalized and unit_normalized not in NON_DIVISIBLE_UNITS:
             action["unit_cost_calculated"] = str((stated_dec / qty).quantize(Decimal("0.01")))

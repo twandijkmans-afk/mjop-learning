@@ -125,6 +125,22 @@ def test_unit_cost_calculated_skipped_when_unit_unknown():
     )
 
 
+def test_unit_cost_calculated_skipped_when_total_is_zero():
+    """Regressie: 'total_cost_as_stated: 0' betekent in deze MJOP-tabellen niet
+    'gratis' - het item valt buiten het getoonde jarenvenster (planned_year
+    ligt vaak decennia verderop) en krijgt daardoor '€ 0' als totaal in de
+    huidige weergave. Een unit_cost_calculated van 0.00 zou dat verkeerd
+    voorstellen als een echte prijs (en zo'n kental zou onbruikbaar zijn)."""
+    action = {
+        "quantity": {"value": "165,80"},
+        "unit": {"original_value": "m1", "normalized_value": "m1"},
+        "unit_cost": {"value": None},
+        "total_cost_as_stated": "€ 0",
+    }
+    out = normalize_batch.normalize_maintenance_action(dict(action))
+    assert out["unit_cost_calculated"] is None
+
+
 def test_to_decimal_handles_euro_formatted_thousands():
     """Regressie: 'total_cost_as_stated' komt bij een LLM-extractie soms
     letterlijk met eurosymbool en Nederlandse duizendtal-punt uit het
