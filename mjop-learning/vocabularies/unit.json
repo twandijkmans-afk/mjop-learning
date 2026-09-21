@@ -29,10 +29,12 @@
       "known_original_values": [
         "st.",
         "stuks",
-        "stk"
+        "stk",
+        "st"
       ],
       "occurrences_in_batch1": 48,
-      "validated_against_batch1": true
+      "validated_against_batch1": true,
+      "notes": "'st' (zonder punt) toegevoegd na handmatige extractie van DOC-001: komt daar tientallen keren voor als eenheid (bijv. '154,00st'), maar zat niet in de oorspronkelijke woordfrequentie-scan - vermoedelijk omdat 'st' in de pdfplumber-tekst zonder spatie aan het getal vastzit ('154,00st' als 1 token). occurrences_in_batch1 (48) is niet herteld voor deze toevoeging."
     },
     {
       "normalized_value": "m3",
@@ -48,10 +50,12 @@
       "normalized_value": "lump_sum",
       "label_nl": "stelpost",
       "known_original_values": [
-        "stelpost"
+        "stelpost",
+        "pst"
       ],
       "occurrences_in_batch1": 0,
-      "validated_against_batch1": false
+      "validated_against_batch1": true,
+      "notes": "'pst' toegevoegd na handmatige extractie van DOC-001, waar het zeer veel voorkomt (bijv. '1,00pst') als afkorting voor 'post' - dezelfde niet-deelbare stelpost-betekenis als 'stelpost'. Belangrijk voor normalize_batch.py: unit_cost_calculated (total/quantity) wordt NOOIT berekend voor 'lump_sum', want een stelpost is per definitie niet deelbaar tot een eenheidsprijs. occurrences_in_batch1 (0) is niet herteld voor deze toevoeging - in DOC-001 alleen komt 'pst' tientallen keren voor."
     }
   ]
 }

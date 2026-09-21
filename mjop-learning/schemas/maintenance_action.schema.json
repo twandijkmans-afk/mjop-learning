@@ -41,6 +41,10 @@
       "type": ["string", "null"],
       "description": "= quantity x unit_cost, berekend door scripts/normalize_batch.py (deterministisch, decimal arithmetic)"
     },
+    "unit_cost_calculated": {
+      "type": ["string", "null"],
+      "description": "= total_cost_as_stated / quantity, berekend door scripts/normalize_batch.py, ALLEEN als unit_cost.value niet is ingevuld en de genormaliseerde eenheid deelbaar is (niet 'lump_sum'/stelpost, niet onbekend). Minder betrouwbaar dan een letterlijke documentprijs in unit_cost.value - kan bijv. een gebundelde stelpost bevatten. Nooit door het taalmodel laten uitrekenen (zie CLAUDE.md)."
+    },
     "indexation_rate": { "type": ["string", "null"] },
     "indexation_factor": { "type": ["string", "null"] },
     "indexed_cost": { "type": ["string", "null"], "description": "= direct_cost_calculated x indexation_factor" },

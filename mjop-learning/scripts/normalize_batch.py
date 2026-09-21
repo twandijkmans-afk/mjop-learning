@@ -17,6 +17,13 @@ Wat dit script doet per element/maintenance_action in data/extracted/*.json:
      Als het document ook een total_cost_as_stated bevat en dat wijkt af van
      de berekening: cost_conflict=True + requires_human_review=True (nooit
      automatisch een van de twee kiezen).
+  3. Berekent het omgekeerde als er GEEN unit_cost.value is maar wel een
+     total_cost_as_stated en quantity: unit_cost_calculated = total / quantity
+     (Decimal) - maar alleen als de genormaliseerde eenheid deelbaar is (niet
+     'lump_sum'/stelpost, niet onbekend). Dit levert een kental op uit
+     documenten die alleen een totaalbedrag per post vermelden, zonder zelf
+     iets te verzinnen (het is een deling van twee al-bekende getallen) en
+     zonder een niet-deelbare stelpost als "prijs per eenheid" te presenteren.
 
 Gebruik:
     python3 scripts/normalize_batch.py --batch batch_1
@@ -63,20 +70,31 @@ def to_decimal(v):
         return None
 
 
+# Genormaliseerde eenheden waarvoor een "prijs per eenheid" geen betekenis
+# heeft (stelpost/lump sum is per definitie niet deelbaar).
+NON_DIVISIBLE_UNITS = {"lump_sum"}
+
+
 def normalize_maintenance_action(action):
     qty = to_decimal((action.get("quantity") or {}).get("value"))
     unit_cost_field = action.get("unit_cost") or {}
     unit_cost = to_decimal(unit_cost_field.get("value"))
+    stated_dec = to_decimal(action.get("total_cost_as_stated"))
 
     if qty is not None and unit_cost is not None:
         direct_cost = (qty * unit_cost).quantize(Decimal("0.01"))
         action["direct_cost_calculated"] = str(direct_cost)
 
-        stated = action.get("total_cost_as_stated")
-        stated_dec = to_decimal(stated)
         if stated_dec is not None and stated_dec != direct_cost:
             action["cost_conflict"] = True
             action["requires_human_review"] = True
+
+    action.setdefault("unit_cost_calculated", None)
+    if unit_cost is None and qty is not None and qty != 0 and stated_dec is not None:
+        unit_normalized = (action.get("unit") or {}).get("normalized_value")
+        if unit_normalized and unit_normalized not in NON_DIVISIBLE_UNITS:
+            action["unit_cost_calculated"] = str((stated_dec / qty).quantize(Decimal("0.01")))
+
     return action
 
 

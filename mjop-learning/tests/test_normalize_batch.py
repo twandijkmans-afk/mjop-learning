@@ -86,3 +86,54 @@ def test_missing_quantity_or_cost_no_calculation():
     assert "direct_cost_calculated" not in out, (
         "Zonder quantity mag er geen berekend bedrag verschijnen (geen aanname invullen)"
     )
+
+
+def test_unit_cost_calculated_from_total_and_quantity():
+    action = {
+        "quantity": {"value": "5911,10"},
+        "unit": {"original_value": "m1", "normalized_value": "m1"},
+        "unit_cost": {"value": None},
+        "total_cost_as_stated": "59508.00",
+    }
+    out = normalize_batch.normalize_maintenance_action(dict(action))
+    assert out["unit_cost_calculated"] == "10.07"
+
+
+def test_unit_cost_calculated_skipped_for_lump_sum():
+    action = {
+        "quantity": {"value": "1,00"},
+        "unit": {"original_value": "pst", "normalized_value": "lump_sum"},
+        "unit_cost": {"value": None},
+        "total_cost_as_stated": "225692.00",
+    }
+    out = normalize_batch.normalize_maintenance_action(dict(action))
+    assert out["unit_cost_calculated"] is None, (
+        "Een stelpost is niet deelbaar tot een eenheidsprijs - nooit total/1 als kental presenteren"
+    )
+
+
+def test_unit_cost_calculated_skipped_when_unit_unknown():
+    action = {
+        "quantity": {"value": "10"},
+        "unit": {"original_value": "een rare eenheid", "normalized_value": None},
+        "unit_cost": {"value": None},
+        "total_cost_as_stated": "1000.00",
+    }
+    out = normalize_batch.normalize_maintenance_action(dict(action))
+    assert out["unit_cost_calculated"] is None, (
+        "Onbekende eenheid -> niet gokken of hij deelbaar is, eerst vocabulaire aanvullen"
+    )
+
+
+def test_unit_cost_calculated_skipped_when_literal_unit_cost_present():
+    action = {
+        "quantity": {"value": "10"},
+        "unit": {"original_value": "m2", "normalized_value": "m2"},
+        "unit_cost": {"value": "50.00"},
+        "total_cost_as_stated": "500.00",
+    }
+    out = normalize_batch.normalize_maintenance_action(dict(action))
+    assert out["unit_cost_calculated"] is None, (
+        "Als het document al een letterlijke eenheidsprijs geeft, is een berekende versie overbodig"
+    )
+    assert out["direct_cost_calculated"] == "500.00"
