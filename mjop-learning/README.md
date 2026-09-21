@@ -10,7 +10,7 @@ verplicht, nooit gegevens verzinnen, deterministische berekeningen, etc.).
 ## Status
 
 Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in
-`data/raw/`. Voor deze batch zijn al opgeleverd en getest (23/23 tests slagen):
+`data/raw/`. Voor deze batch zijn al opgeleverd en getest (35/35 tests slagen):
 
 - `schemas/` — datamodel voor document, building, element, observation,
   maintenance_action, plus twee gedeelde bouwstenen
@@ -28,28 +28,43 @@ Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in
   Onbekende termen worden nooit geraden (`normalized_value: null` +
   `requires_human_review: true`); een afwijkend vermeld totaalbedrag wordt
   gemarkeerd als `cost_conflict`, niet automatisch opgelost.
-- `scripts/extract_batch.py` — **skeleton**: zet voor elk document in de
-  batch een `data/extracted/<document_id>.json` neer met
-  `status: "pending_extraction"`. Bevat nog GEEN LLM-call — dat is expliciet
-  de volgende stap (zie TODO's in het bestand), en mag pas na overleg
-  geïmplementeerd worden zodat de prompt/aanpak samen bepaald wordt.
+- `scripts/extract_batch.py` — **werkend** (na overleg over het extractie-
+  ontwerp geïmplementeerd): zet voor elk document in de batch eerst een
+  `data/extracted/<document_id>.json` placeholder neer, en voert daarna —
+  alleen als `ANTHROPIC_API_KEY` gezet is (anders, of met `--dry-run`, blijft
+  het bij placeholders) — de daadwerkelijke extractie uit via een
+  Claude tool-use-call met een schema-afgeleid input-schema. Elke waarde komt
+  terug als `{value, confidence, requires_human_review, provenance}`; de
+  output wordt na ontvangst gevalideerd tegen de echte schemas in `schemas/`
+  (1 herhaling bij een schemafout, daarna `status: "extraction_failed"`,
+  nooit verzonnen data). Een deterministische ondergrens
+  (`enforce_review_floor`) zet `requires_human_review` altijd op `true` bij
+  lage confidence, `source_confidence: "low"` of een conflict — los van wat
+  het model zelf claimt. `normalized_value` wordt door dit script altijd op
+  `null` gehouden (`strip_normalization`); de vocabulaire-mapping blijft
+  uitsluitend in `normalize_batch.py`. Elk bestand krijgt versie-metadata
+  (`extraction_model`, `extraction_prompt_version`, `extracted_at`,
+  `temperature`).
 - `scripts/evaluate_dataset.py` — **werkend, maar nog niets te evalueren**:
   zolang `data/verified/` leeg is (nog geen menselijke verificatie) geeft dit
   script terecht geen accuracy-cijfer — zie CLAUDE.md: geen claims zonder
   meting.
-- `tests/` — 23 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
+- `tests/` — 35 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
-  kostenberekening, en dat `data/raw/` niet stilzwijgend verandert
-  (`reports/raw_manifest.json` met sha256 per bronbestand).
+  kostenberekening, dat `data/raw/` niet stilzwijgend verandert
+  (`reports/raw_manifest.json` met sha256 per bronbestand), en (nieuw, voor de
+  extractiestap) de review-ondergrens, id-canonicalisatie, dat normalisatie
+  nooit door het model gebeurt, en dat een ontbrekend brondocument nooit tot
+  een modelaanroep leidt. Deze tests gebruiken overal een gestubde `model_fn`
+  — er wordt in de testsuite nergens een echte Anthropic-call gemaakt.
 
-## Volgende stap (nog NIET gedaan — wacht op overleg)
+## Volgende stap
 
-De daadwerkelijke extractiestap in `scripts/extract_batch.py` (LLM leest een
-document en vult building/elements/observations/maintenance_actions volgens
-de schemas in `schemas/`, met provenance en confidence per veld). Dit raakt
-direct aan datakwaliteit en AI-betrouwbaarheid — dus eerst de aanpak
-(prompt-ontwerp, welk model, hoe confidence bepaald wordt) samen vaststellen
-voordat dit wordt geïmplementeerd, conform CLAUDE.md.
+Batch 1 daadwerkelijk extraheren: `ANTHROPIC_API_KEY` zetten en
+`python3 scripts/extract_batch.py --batch batch_1` draaien, de 10
+`data/extracted/*.json`-bestanden beoordelen (met name de posten die
+`requires_human_review: true` kregen), en pas daarna normaliseren
+(`normalize_batch.py`) en evalueren.
 
 ## Gebruik
 
@@ -57,7 +72,7 @@ voordat dit wordt geïmplementeerd, conform CLAUDE.md.
 pip install -r requirements.txt
 
 python3 scripts/inventory_documents.py      # data/raw/ -> reports/document_inventory.*
-python3 scripts/extract_batch.py            # placeholders in data/extracted/
+python3 scripts/extract_batch.py            # placeholders, + echte extractie als ANTHROPIC_API_KEY gezet is
 python3 scripts/normalize_batch.py          # extracted -> normalized (deterministisch)
 python3 scripts/evaluate_dataset.py         # normalized vs. verified -> reports/evaluation_report.json
 
