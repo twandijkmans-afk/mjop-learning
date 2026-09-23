@@ -109,6 +109,25 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   vallen. `normalize_batch.py` berekent nu geen `unit_cost_calculated` meer
   als het totaal exact 0 is - dat leverde eerst 32 valse "€0,00 per m²"
   kentallen op.
+- `scripts/build_price_observations.py` + `scripts/mjop_source_sections.py`
+  — **nieuw**: de price observation source layer. Leest de bron-PDF's
+  opnieuw (via `pdftotext -table`, xpdf 4.06) en maakt van elke rij in
+  "Overzicht NN - Jarenplan (Gedetailleerd)" met een bedrag > 0 binnen het
+  venster precies één price observation, met Stj/Cy letterlijk (lege Cy =
+  null), jaarbedragen, `total_scope` (ONE_/MULTIPLE_EXECUTIONS binnen het
+  venster), prijspeil/BTW/indexatiezin letterlijk uit het document (geen
+  prijspeil afgeleid als de bron er geen geeft) en pagina/regel-provenance.
+  Jaarplan- en Bevindingen-regels worden als extra bronweergave aan dezelfde
+  observation gekoppeld, nooit als extra observation; wat niet eenduidig te
+  koppelen is, staat in `unlinked_section_rows` (UNKNOWN). DOC-003 (XLS van
+  DOC-002) levert als duplicate source geen observations op. Afhankelijkheid
+  alleen voor vastgestelde relaties (`data/price_observations/document_relations.json`);
+  `NO_DEPENDENCY_FOUND` betekent niet onafhankelijk. Koppeling aan de
+  bestaande `data/verified/`-acties is heuristisch (methode + score per
+  observation bewaard). Schrijft naar
+  `data/price_observations/price_observations_batch1.json`
+  (schema: `schemas/price_observation.schema.json`). Geen matching, geen
+  vergelijkbaarheid, geen kengetallen.
 - `tests/` — 91 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert
@@ -172,6 +191,9 @@ python3 scripts/export_review_sheet.py      # normalized -> reports/review_batch
 python3 scripts/apply_review.py --reviewer "jij@voorbeeld.nl"  # ingevuld Excel -> data/verified/
 python3 scripts/compute_kentallen.py        # verified -> data/kentallen/ + reports/kentallen_batch1.xlsx
 python3 scripts/evaluate_dataset.py         # normalized vs. verified -> reports/evaluation_report.json
+python3 scripts/build_price_observations.py --dry-run   # raw PDF + verified -> controles, niets geschreven
+python3 scripts/build_price_observations.py             # -> data/price_observations/price_observations_batch1.json
+                                                        # (vereist pdftotext van xpdf 4.06 in PATH, of --pdftotext / $PDFTOTEXT)
 
 python3 -m pytest tests/ -v
 ```
@@ -185,6 +207,7 @@ data/
   normalized/           gecontroleerde vocabulaire toegepast
   verified/              door een mens gecontroleerd (review-ronde 1 verwerkt)
   kentallen/             eenheidsprijs-benchmarks per element_code x actie x eenheid
+  price_observations/    source layer: 1 observation per jarenplan-rij + vastgestelde documentrelaties
   evaluation/            evaluatieset (nog leeg, nooit gebruiken om op te optimaliseren)
   rejected_or_uncertain/ onbetrouwbaar/conflicterend (nog leeg)
 schemas/                datamodel (JSON Schema)
