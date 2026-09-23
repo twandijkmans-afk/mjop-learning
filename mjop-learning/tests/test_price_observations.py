@@ -179,6 +179,32 @@ def test_euro_sign_tokens_do_not_break_amounts():
     assert o["annual_amounts"] == {"2026": "8955", "2028": "8955"}
 
 
+def test_zzzz_staartkosten_element_line_is_recognised():
+    """Regressie: 'ZZZZ Directievoering (4%)' is een elementregel; de rij mag
+    niet het vorige element (bijv. '9052 Vloerputten') erven."""
+    text = page(line("9052  Vloerputten"),
+                line("ZZ    Staartkosten"),
+                line("ZZZZ  Directievoering (4%)"),
+                line("      Directievoering 2026", "", [("Hvh", "0,04"), ("Ehd", "pst"), ("Stj", "2026"),
+                                                       ("2026", "6.641"), ("Totaal", "6.641")]))
+    o = obs_for(one_row(text))
+    assert o["element"]["element_code_original"] == "ZZZZ"
+    assert o["element"]["element_description_original"] == "Directievoering (4%)"
+
+
+def test_numeric_token_in_unit_column_stays_unit_and_not_cycle():
+    """Regressie: in DOC-009/010 staat in de Ehd-kolom letterlijk '20'. Dat is
+    de (onbekende) eenheid; Cy moet de letterlijke 18 blijven."""
+    text = page(line("6411  Deurbelinstallatie"),
+                line("      Vervangen deurbelinstallatie", "", [("Hvh", "30,00"), ("Ehd", "20"), ("Stj", "2027"),
+                                                               ("Cy", "18"), ("2027", "17.243"), ("Totaal", "17.243")]))
+    o = obs_for(one_row(text))
+    assert o["unit_original"] == "20"
+    assert o["unit_normalized"] is None
+    assert o["cycle_length_years"] == 18
+    assert o["cycle_start_year"] == 2027
+
+
 def test_element_on_previous_page_is_candidate_not_assigned():
     carry = {"code": "4621", "description": "Buitenschilderwerk gevelbekleding hout", "location": "", "page": 14, "line": 99}
     text = page(line("      Aanbrengen vervolgsysteem", "Krijten", [("Hvh", "1,00"), ("Ehd", "pst"), ("Stj", "2026"),

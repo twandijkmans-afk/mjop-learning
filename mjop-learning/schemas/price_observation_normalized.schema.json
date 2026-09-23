@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "price_observation_normalized.schema.json",
+  "title": "PriceObservationNormalized",
+  "description": "Afgeleide, genormaliseerde en gevalideerde weergave van één price observation (scripts/normalize_price_observations.py). Bronwaarden worden niet gewijzigd; source_ref verwijst naar de observation en het bronbestand (sha256). Onzekere normalisatie -> null + review_reasons. validation.flags zijn informatief.",
+  "type": "object",
+  "definitions": {
+    "decimal_string": { "type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$" },
+    "reason": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "category": { "type": "string", "enum": ["provenance", "price_data", "unit", "action", "classification", "source_relationship", "other"] },
+        "origin": { "type": "string", "enum": ["source_layer", "normalization"] }
+      },
+      "required": ["code", "category", "origin"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-P[0-9]{3}-L[0-9]{3}$" },
+    "document_id": { "type": "string" },
+    "source_ref": {
+      "type": "object",
+      "properties": {
+        "source_file": { "type": "string" },
+        "source_file_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "observation_id": { "type": "string" },
+        "source_representations": { "type": "array", "minItems": 1 },
+        "extraction_action_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["source_file", "source_file_sha256", "observation_id", "source_representations", "extraction_action_ids"],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "action_text_original": { "type": "string" },
+        "action_normalized": { "type": ["string", "null"] },
+        "normalization_basis": { "type": ["string", "null"] },
+        "candidates": { "type": "object" },
+        "possible_values": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["normalized", "unresolved", "conflict"] }
+      },
+      "required": ["action_text_original", "action_normalized", "normalization_basis", "candidates", "possible_values", "status"],
+      "additionalProperties": false
+    },
+    "unit": {
+      "type": "object",
+      "properties": {
+        "unit_original": { "type": ["string", "null"] },
+        "unit_normalized": { "type": ["string", "null"] },
+        "normalization_basis": { "type": ["string", "null"] },
+        "status": { "type": "string", "enum": ["normalized", "unknown", "missing_or_unreadable"] },
+        "divisible": { "type": "boolean" }
+      },
+      "required": ["unit_original", "unit_normalized", "normalization_basis", "status"],
+      "additionalProperties": false
+    },
+    "element": {
+      "type": "object",
+      "properties": {
+        "element_code_original": { "type": ["string", "null"] },
+        "element_code_internal": { "type": ["string", "null"] },
+        "element_code_system": { "type": "string", "const": "internal_project_coding" },
+        "element_code_system_note": { "type": "string" },
+        "internal_code_label": { "type": ["string", "null"] },
+        "internal_hoofdgroep_code": { "type": ["string", "null"] },
+        "element_description_original": { "type": ["string", "null"] },
+        "element_location_original": { "type": ["string", "null"] },
+        "element_id": { "type": ["string", "null"] },
+        "code_consistency": { "type": "string", "enum": ["match", "mismatch", "original_missing", "internal_missing", "both_missing"] }
+      },
+      "required": ["element_code_original", "element_code_internal", "element_code_system", "element_description_original", "code_consistency"],
+      "additionalProperties": false
+    },
+    "price": {
+      "type": "object",
+      "properties": {
+        "quantity_value": { "$ref": "#/definitions/decimal_string" },
+        "total_value": { "$ref": "#/definitions/decimal_string" },
+        "unit_price_calculated": { "$ref": "#/definitions/decimal_string" },
+        "total_scope": { "type": "string", "enum": ["ONE_EXECUTION", "MULTIPLE_EXECUTIONS", "UNKNOWN"] },
+        "price_level_basis": { "type": "string", "enum": ["explicit", "absent"] }
+      },
+      "required": ["quantity_as_stated", "quantity_value", "total_as_stated", "total_value", "annual_amounts", "total_scope",
+                   "occurrences_in_window", "cycle_start_year", "cycle_length_years", "unit_price_calculated",
+                   "calculated_unit_price_basis", "price_level_date", "price_level_basis", "vat_basis"]
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "checks": { "type": "object" },
+        "flags": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["checks", "flags"],
+      "additionalProperties": false
+    },
+    "dependency_status": { "type": "string", "enum": ["NO_DEPENDENCY_FOUND", "POSSIBLY_DEPENDENT", "UNKNOWN"] },
+    "relation_ids": { "type": "array", "items": { "type": "string" } },
+    "document_relation_ids": { "type": "array", "items": { "type": "string" } },
+    "source_review_reasons": { "type": "array", "items": { "type": "string" } },
+    "review_reasons": { "type": "array", "items": { "$ref": "#/definitions/reason" } },
+    "requires_human_review": { "type": "boolean" },
+    "review_status": { "type": "string" }
+  },
+  "required": ["observation_id", "document_id", "source_ref", "action", "unit", "element", "price", "validation",
+               "dependency_status", "source_review_reasons", "review_reasons", "requires_human_review", "review_status"],
+  "additionalProperties": false
+}

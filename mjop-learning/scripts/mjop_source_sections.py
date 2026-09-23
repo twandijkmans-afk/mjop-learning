@@ -39,8 +39,10 @@ QTY_TOKEN = re.compile(r"\d[\d.]*,\d{2}")
 YEAR_TOKEN = re.compile(r"(19|20)\d\d")
 FOOTER_STAMP = re.compile(r"Pro VVE Beheer B\.V\. \d+ - \d+")
 DATE_FOOTER = re.compile(r"^\s*\d{1,2}-\d{1,2}-20\d\d\s")
-ELEMENT_LINE = re.compile(r"^(\d{4})\s+(.*)$")
-GROUP_LINE = re.compile(r"^(\d{2})\s+")
+# Elementcodes zijn 4 cijfers, behalve de staartkosten: groep 'ZZ' met
+# element 'ZZZZ' (directievoering/onvoorzien) in DOC-008/009/010.
+ELEMENT_LINE = re.compile(r"^(\d{4}|ZZZZ)\s+(.*)$")
+GROUP_LINE = re.compile(r"^(\d{2}|ZZ)\s+")
 
 
 # --------------------------------------------------------------------------
@@ -228,8 +230,15 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
             text_b = " ".join(t[0] for t in left if t[1] >= loc - 1)
             unit = None
             rest = right[1:]
-            if rest and not re.fullmatch(r"[\d.,]+", rest[0][0]):
-                unit, rest = rest[0][0], rest[1:]
+            if rest:
+                # eenheid = token in de Ehd-kolom; een numerieke waarde daar
+                # (bijv. '20' in DOC-009/010) blijft letterlijk de eenheid en
+                # mag niet in Stj/Cy terechtkomen
+                c0 = (rest[0][1] + rest[0][2]) / 2
+                nearest = min(("Ehd", "Stj", "Cy"),
+                              key=lambda k: abs((cols[k][0] + cols[k][1]) / 2 - c0) if k in cols else 1e9)
+                if not re.fullmatch(r"[\d.,]+", rest[0][0]) or nearest == "Ehd":
+                    unit, rest = rest[0][0], rest[1:]
             assigned = {}
             for tok, s, e in rest:
                 c = (s + e) / 2
@@ -328,7 +337,7 @@ def total_scope(n_positive, reconciliation):
 # --------------------------------------------------------------------------
 
 JAARPLAN_ROW = re.compile(
-    r"^\s*(?:(\d{4})\s{2,}(\S.*?)\s{2,})?(\S.*?)\s{2,}(\d[\d.]*,\d{2})\s+(?:([A-Za-z]\S*)\s+)?([\d.]+)\s*$")
+    r"^\s*(?:(\d{4}|ZZZZ)\s{2,}(\S.*?)\s{2,})?(\S.*?)\s{2,}(\d[\d.]*,\d{2})\s+(?:([A-Za-z]\S*)\s+)?([\d.]+)\s*$")
 
 
 def parse_jaarplan_page(text, page_no):
