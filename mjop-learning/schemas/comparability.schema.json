@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "comparability.schema.json",
+  "title": "Comparability (regels v1)",
+  "description": "Output van scripts/build_comparability.py: per observation de eligibility (A) en afgeleide vergelijkingsklasse (D), per paar de beoordeling (B). Zie docs/comparability_rules_v1.md. Geen scores, geen kengetallen.",
+  "type": "object",
+  "definitions": {
+    "decimal_string": { "type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$" },
+    "observation_assessment": {
+      "type": "object",
+      "properties": {
+        "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-P[0-9]{3}-L[0-9]{3}$" },
+        "document_id": { "type": "string" },
+        "source_cluster": { "type": "string", "pattern": "^SC-" },
+        "candidate_key": { "type": "array", "items": { "type": ["string", "null"] }, "minItems": 3, "maxItems": 3 },
+        "eligibility": { "type": "string", "enum": ["ELIGIBLE", "ELIGIBLE_WITH_CAVEATS", "NOT_ELIGIBLE", "UNKNOWN"] },
+        "eligibility_reasons": { "type": "array", "items": { "type": "string" } },
+        "caveats": { "type": "array", "items": { "type": "string" } },
+        "info": { "type": "array", "items": { "type": "string" } },
+        "signals_found": { "type": "array" },
+        "material": { "type": "object" },
+        "derived_unit_price_per_execution": {
+          "type": ["object", "null"],
+          "properties": {
+            "value": { "$ref": "#/definitions/decimal_string" },
+            "executions_in_window": { "type": "integer", "minimum": 1 },
+            "annual_amount_used": { "$ref": "#/definitions/decimal_string" },
+            "quantity_value": { "$ref": "#/definitions/decimal_string" }
+          },
+          "required": ["value", "method", "annual_amount_used", "executions_in_window", "quantity_value",
+                       "source_total_as_stated", "source_unit_price_calculated"]
+        },
+        "per_execution_not_derived_reasons": { "type": "array", "items": { "type": "string" } },
+        "pair_ids": { "type": "array", "items": { "type": "string" } },
+        "comparison_class": { "type": "string", "enum": ["COMPARABLE", "COMPARABLE_WITH_CAVEATS", "NOT_COMPARABLE", "UNKNOWN"] },
+        "comparison_class_reason": { "type": "string" },
+        "tariff_group_id": { "type": ["string", "null"] },
+        "dependency_status": { "type": "string", "enum": ["NO_DEPENDENCY_FOUND", "POSSIBLY_DEPENDENT", "UNKNOWN"], "description": "Ongewijzigd overgenomen uit de price observation." },
+        "independent_input": { "type": "boolean", "description": "F6: afgeleide prijs mag als onafhankelijke input voor tariefgroepen/latere aggregatie dienen (eligible, afgeleide prijs aanwezig, niet POSSIBLY_DEPENDENT)." },
+        "independent_input_exclusion_reasons": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["observation_id", "document_id", "source_cluster", "candidate_key", "eligibility",
+                   "eligibility_reasons", "caveats", "derived_unit_price_per_execution", "pair_ids",
+                   "comparison_class", "comparison_class_reason", "dependency_status", "independent_input",
+                   "independent_input_exclusion_reasons"],
+      "additionalProperties": false
+    },
+    "pair": {
+      "type": "object",
+      "properties": {
+        "pair_id": { "type": "string", "pattern": "^PAIR-[0-9]{5}$" },
+        "candidate_key": { "type": "array", "minItems": 3, "maxItems": 3 },
+        "observation_ids": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2 },
+        "source_clusters": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2 },
+        "class": { "type": "string", "enum": ["COMPARABLE", "COMPARABLE_WITH_CAVEATS", "NOT_COMPARABLE", "UNKNOWN"] },
+        "hard_violations": { "type": "array", "items": { "type": "string" } },
+        "unknown_reasons": { "type": "array", "items": { "type": "string" } },
+        "pair_caveats": { "type": "array", "items": { "type": "string" } },
+        "observation_caveats": { "type": "object" },
+        "checks": { "type": "object" }
+      },
+      "required": ["pair_id", "candidate_key", "observation_ids", "source_clusters", "class", "hard_violations",
+                   "unknown_reasons", "pair_caveats", "observation_caveats", "checks"],
+      "additionalProperties": false
+    }
+  }
+}

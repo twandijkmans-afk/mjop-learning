@@ -128,6 +128,36 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   `data/price_observations/price_observations_batch1.json`
   (schema: `schemas/price_observation.schema.json`). Geen matching, geen
   vergelijkbaarheid, geen kengetallen.
+  Elementvelden per observation (`element`): een elementomschrijving die in
+  de PDF over meerdere regels doorloopt wordt samengevoegd in
+  `element_description_original`; de eerste bronregel blijft bewaard in
+  `element_description_first_line` en de regelnummers van de samengevoegde
+  vervolgregels in `element_description_continuation_lines`. Een laatste
+  token op een vervolgregel dat exact een bekende eenheid is (bijv. `m2`)
+  wordt niet samengevoegd maar met regel en reden vastgelegd in
+  `element_description_excluded_tokens`. `element_context_source` zegt waar
+  de elementregel vandaan komt: `same_page`, of `previous_page` als het
+  element zonder groep-/subtotaal-/totaalgrens doorloopt vanaf de vorige
+  pagina. Is dat niet eenduidig, dan blijft het element leeg en staat de
+  laatste elementregel van de vorige pagina alleen als kandidaat in
+  `element_candidate_previous_page` (niet toegekend).
+- `scripts/build_comparability.py` — **nieuw**: vergelijkbaarheidsregels
+  versie 1 (`docs/comparability_rules_v1.md`) op de genormaliseerde price
+  observations: eligibility per observation (O1–O11), source clusters uit
+  de documentrelaties (D1–D7) en beoordeling per observation-paar uit
+  verschillende clusters (P1–P11). Signaalwoorden uitsluitend uit
+  `vocabularies/comparability_signal_words.json`. Leidt waar toegestaan
+  `derived_unit_price_per_execution` af naast de ongewijzigde bronprijs.
+  Schrijft naar `data/comparability/comparability_batch1.json`. Geen
+  kengetallen, scores, indexatie of matching-aanbevelingen.
+  Per observation onderscheidt de output een technisch afgeleide prijs
+  (`derived_unit_price_per_execution`, ook bewaard bij NOT_ELIGIBLE/UNKNOWN
+  voor auditeerbaarheid) van `independent_input`: of die prijs als
+  onafhankelijke input voor tariefgroepen/latere aggregatie mag dienen
+  (eligible, afgeleide prijs aanwezig en niet `POSSIBLY_DEPENDENT`).
+  `independent_input_exclusion_reasons` geeft de redenen als dat niet zo is
+  (`NO_DERIVED_PRICE`, `ELIGIBILITY_NOT_ELIGIBLE`, `ELIGIBILITY_UNKNOWN`,
+  `POSSIBLY_DEPENDENT`). `dependency_status` wordt ongewijzigd overgenomen.
 - `tests/` — 91 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert
