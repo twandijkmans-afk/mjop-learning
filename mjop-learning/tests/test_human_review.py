@@ -61,10 +61,15 @@ def valid(r):
 # Schema en opslag
 # --------------------------------------------------------------------------
 
-def test_empty_store_is_valid_and_has_no_decisions():
+def test_empty_store_is_valid():
+    empty = {"store_version": "human_review_v1", "append_only": True, "records": []}
+    assert list(STORE_VALIDATOR.iter_errors(empty)) == []
+
+
+def test_current_store_is_valid_and_only_human_decisions():
     store = json.load(open(STORE, encoding="utf-8"))
-    assert list(STORE_VALIDATOR.iter_errors(store)) == []
-    assert store["records"] == [] and store["append_only"] is True
+    assert list(STORE_VALIDATOR.iter_errors(store)) == [] and store["append_only"] is True
+    assert all(r["reviewer"]["reviewer_type"] == "human" for r in store["records"])
 
 
 @pytest.mark.parametrize("decision", ["COMPARABLE", "COMPARABLE_WITH_CAVEATS", "NOT_COMPARABLE", "UNKNOWN"])
