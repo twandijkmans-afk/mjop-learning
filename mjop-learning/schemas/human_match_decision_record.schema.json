@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "human_match_decision_record.schema.json",
+  "title": "HumanMatchDecisionStore",
+  "description": "Append-only opslag van menselijke beslissingen over matchresultaten van scripts/match_kengetal.py (docs/human_match_review_v1.md). Het oorspronkelijke matchresultaat wordt volledig en ongewijzigd bewaard (met sha256); de menselijke beslissing staat apart. Een beslissing wordt nooit overschreven; een nieuwe beslissing verwijst via 'supersedes' naar de vorige. Een beslissing is nooit een historische prijsobservatie, kengetal-observatie of comparability-beslissing. Geen score- of confidencevelden.",
+  "type": "object",
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "decision_id": { "type": "string", "pattern": "^HMD-[0-9a-f]{16}$", "description": "Deterministische fingerprint (scripts/human_match_review.py: human_match_decision_record_id); geen tijdstempel of willekeur." },
+    "decimal_positive": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+    "evidence_item": {
+      "type": "object",
+      "properties": {
+        "reference": { "type": "string", "minLength": 1, "description": "bijv. een kengetal_id, observation_id, document/pagina/regel of bestandsverwijzing" },
+        "note": { "type": ["string", "null"] }
+      },
+      "required": ["reference", "note"],
+      "additionalProperties": false
+    },
+    "adjustment": {
+      "type": "object",
+      "description": "Alleen bij ADJUST. Minstens één van kengetal_id of amount_per_unit_exact. De eenheid is altijd die van het input-object (unit is een harde retrieval-sleutel).",
+      "properties": {
+        "kengetal_id": { "type": ["string", "null"], "pattern": "^KG-" },
+        "amount_per_unit_exact": { "oneOf": [{ "$ref": "#/definitions/decimal_positive" }, { "type": "null" }] },
+        "unit": { "type": ["string", "null"] },
+        "amount_basis": { "type": ["string", "null"], "description": "Toelichting van de reviewer op het bedrag (bijv. bron, prijspeil); niet geïndexeerd door het systeem." }
+      },
+      "required": ["kengetal_id", "amount_per_unit_exact", "unit", "amount_basis"],
+      "additionalProperties": false
+    },
+    "decision_record": {
+      "type": "object",
+      "properties": {
+        "decision_id": { "$ref": "#/definitions/decision_id" },
+        "match_result_id": { "type": "string", "pattern": "^MR-[0-9a-f]{16}$" },
+        "match_result_sha256": { "$ref": "#/definitions/sha256", "description": "sha256 van de canonieke JSON van match_result (sort_keys, compacte separators, UTF-8)." },
+        "match_result": { "type": "object", "description": "Het volledige, ongewijzigde matchresultaat waarop beslist is." },
+        "input_object_id": { "type": "string", "minLength": 1 },
+        "system_final_status": { "type": "string", "enum": ["CANDIDATE_FOUND", "HUMAN_REVIEW_REQUIRED", "NO_SUITABLE_KENGETAL"] },
+        "system_scope_status": { "type": "string", "enum": ["EXACT_MATCH", "MISMATCH", "HUMAN_REVIEW_REQUIRED", "NOT_EVALUATED"] },
+        "system_reasons": { "type": "array", "items": { "type": "string" } },
+        "system_candidate_kengetal_id": { "type": ["string", "null"] },
+        "system_candidate_kengetal_ids": { "type": "array", "items": { "type": "string" } },
+        "decision": { "type": "string", "enum": ["ACCEPT", "ADJUST", "REJECT"] },
+        "chosen_kengetal_id": { "type": ["string", "null"] },
+        "adjustment": { "oneOf": [{ "$ref": "#/definitions/adjustment" }, { "type": "null" }] },
+        "decision_reason": { "type": "string", "minLength": 1 },
+        "decision_caveats": { "type": "array", "items": { "type": "string" } },
+        "evidence": { "type": "array", "items": { "$ref": "#/definitions/evidence_item" } },
+        "reviewer": {
+          "type": "object",
+          "properties": {
+            "reviewer_id": { "type": "string", "minLength": 1 },
+            "reviewer_type": { "type": "string", "const": "human" }
+          },
+          "required": ["reviewer_id", "reviewer_type"],
+          "additionalProperties": false
+        },
+        "reviewed_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$" },
+        "rule_versions": {
+          "type": "object",
+          "properties": {
+            "human_match_review_version": { "type": "string", "const": "human_match_review_v1" },
+            "matching_rule_version": { "type": "string" },
+            "kengetallen_rule_version": { "type": "string" }
+          },
+          "required": ["human_match_review_version", "matching_rule_version", "kengetallen_rule_version"],
+          "additionalProperties": false
+        },
+        "input_hashes": { "type": "object", "description": "input_hashes van het matchresultaat (kengetallen-output, genormaliseerde observations, vocabularies)." },
+        "notes": { "type": ["string", "null"] },
+        "supersedes": { "oneOf": [{ "$ref": "#/definitions/decision_id" }, { "type": "null" }] },
+        "decision_status": { "type": "string", "enum": ["ACTIVE", "SUPERSEDED"] }
+      },
+      "required": ["decision_id", "match_result_id", "match_result_sha256", "match_result", "input_object_id",
+                   "system_final_status", "system_scope_status", "system_reasons", "system_candidate_kengetal_id",
+                   "system_candidate_kengetal_ids", "decision", "chosen_kengetal_id", "adjustment",
+                   "decision_reason", "decision_caveats", "evidence", "reviewer", "reviewed_at", "rule_versions",
+                   "input_hashes", "notes", "supersedes", "decision_status"],
+      "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "decision": { "const": "ACCEPT" } } },
+          "then": { "properties": { "chosen_kengetal_id": { "type": "string" }, "adjustment": { "type": "null" } } } },
+        { "if": { "properties": { "decision": { "const": "ADJUST" } } },
+          "then": { "properties": { "adjustment": { "$ref": "#/definitions/adjustment" } } } },
+        { "if": { "properties": { "decision": { "const": "REJECT" } } },
+          "then": { "properties": { "chosen_kengetal_id": { "type": "null" }, "adjustment": { "type": "null" } } } }
+      ]
+    }
+  },
+  "properties": {
+    "store_version": { "type": "string", "const": "human_match_review_v1" },
+    "description": { "type": "string" },
+    "append_only": { "type": "boolean", "const": true },
+    "records": { "type": "array", "items": { "$ref": "#/definitions/decision_record" } }
+  },
+  "required": ["store_version", "append_only", "records"],
+  "additionalProperties": false
+}
