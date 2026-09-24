@@ -21,6 +21,7 @@ Niets hier verzint waarden: een lege Cy blijft None, een ontbrekend
 prijspeil blijft None, en bedragen blijven Decimal (via
 normalize_batch.to_decimal) - nooit float.
 """
+import json
 import os
 import re
 import shutil
@@ -42,6 +43,20 @@ DATE_FOOTER = re.compile(r"^\s*\d{1,2}-\d{1,2}-20\d\d\s")
 # Elementcodes zijn 4 cijfers, behalve de staartkosten: groep 'ZZ' met
 # element 'ZZZZ' (directievoering/onvoorzien) in DOC-008/009/010.
 ELEMENT_LINE = re.compile(r"^(\d{4}|ZZZZ)\s+(.*)$")
+
+
+def _load_unit_tokens():
+    """Letterlijke eenheden uit vocabularies/unit.json (UTF-8), alleen gebruikt om
+    een losse eenheid aan het eind van een element-vervolgregel te herkennen."""
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "vocabularies", "unit.json")
+    try:
+        doc = json.load(open(path, encoding="utf-8"))
+    except OSError:
+        return frozenset()
+    return frozenset(str(v).strip().lower() for e in doc.get("entries", []) for v in e.get("known_original_values", []))
+
+
+UNIT_TOKENS = _load_unit_tokens()
 GROUP_LINE = re.compile(r"^(\d{2}|ZZ)\s+")
 
 
@@ -190,9 +205,20 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
     kolommidden, jaarkolommen en Totaal op rechterrand (bedragen zijn
     rechts uitgelijnd). Een lege Cy-kolom levert cy=None op.
 
-    carry_element: laatste elementregel van de vorige pagina. Die wordt NIET
-    stilzwijgend toegekend; rijen zonder elementregel op dezelfde pagina
-    krijgen element=None en element_candidate_previous_page=carry_element."""
+    Elementregels die in de PDF op een volgende regel doorlopen (alleen tekst
+    in de elementkolom, alleen lege regels ertussen, vóór de eerste rij) worden
+    aan de elementomschrijving toegevoegd. De eerste regel blijft bewaard in
+    `description_first_line`, de vervolgregels in `continuation_lines`. Een
+    laatste token op een vervolgregel dat exact een bekende eenheid is (bijv.
+    'dekkend m2', DOC-007 p17) wordt niet toegevoegd maar bewaard in
+    `excluded_tokens`.
+
+    carry_element: laatste elementregel van de vorige pagina, met
+    `open_at_page_end` = er kwam na dat element geen groep-, subtotaal- of
+    totaalgrens meer. Rijen vóór de eerste elementregel op deze pagina krijgen
+    dat element alleen als het element open was én er op deze pagina nog geen
+    grens voorafging (element_context_source='previous_page'); anders blijft
+    element=None met element_candidate_previous_page als kandidaat."""
     lines = text.splitlines()
     hi = next((i for i, l in enumerate(lines) if JARENPLAN_HEADER.search(l)), None)
     if hi is None:
@@ -208,6 +234,9 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
     cur = None
     last_cont = None
     totaal_object = None
+    elem_last = None          # regelindex van de elementregel (of laatste vervolgregel) zolang hij open is
+    boundary_before_element = False   # groep/subtotaal/totaal op deze pagina vóór de eerste elementregel
+    open_at_end = bool(carry_element and carry_element.get("open_at_page_end"))
     for i in range(hi + 1, len(lines)):
         line = _clean(lines[i])
         if not line.strip():
@@ -217,6 +246,10 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
             if nums:
                 totaal_object = to_decimal(nums[-1])
             cur = None
+            elem_last = None
+            open_at_end = False
+            if element is None:
+                boundary_before_element = True
             continue
         if "Printdatum" in line or DATE_FOOTER.match(line):
             cur = None
@@ -251,12 +284,19 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
                     k = "Stj" if re.fullmatch(r"\d{4}", tok) else "Cy"
                 assigned.setdefault(k, []).append(tok)
             row_element = element
+            context_source = "same_page" if element is not None else None
             m = ELEMENT_LINE.match(text_a)
             action_text = text_a
             if m:  # element en actie op dezelfde regel
-                row_element = element = {"code": m.group(1), "description": _squash(m.group(2)),
-                                         "location": _squash(text_b), "page": page_no, "line": i + 1}
+                row_element = element = _new_element(m, text_b, page_no, i + 1)
+                context_source = "same_page"
                 action_text = ""
+            elif row_element is None and open_at_end and not boundary_before_element:
+                # element loopt door vanaf de vorige pagina (geen grens ertussen)
+                row_element = {k: v for k, v in carry_element.items() if k != "open_at_page_end"}
+                context_source = "previous_page"
+            elem_last = None
+            open_at_end = row_element is not None
             annual_raw = {y: " ".join(assigned[y]) for y in years if y in assigned}
             cur = {
                 "page": page_no,
@@ -271,6 +311,7 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
                 "total_as_stated": " ".join(assigned.get("Totaal", [])) or None,
                 "window": [years[0], years[-1]] if years else None,
                 "element": row_element,
+                "element_context_source": context_source,
                 "element_candidate_previous_page": carry_element if row_element is None else None,
                 "raw_line": _squash(line),
                 "continuation_lines": [],
@@ -283,11 +324,27 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
         text_b = " ".join(t[0] for t in toks if loc - 1 <= t[1] < hv)
         m = ELEMENT_LINE.match(text_a)
         if m and not right:
-            element = {"code": m.group(1), "description": _squash(m.group(2)),
-                       "location": _squash(text_b), "page": page_no, "line": i + 1}
+            element = _new_element(m, text_b, page_no, i + 1)
             cur = None
+            elem_last = i
+            open_at_end = True
         elif GROUP_LINE.match(text_a):
             cur = None
+            elem_last = None
+            open_at_end = False
+            if element is None:
+                boundary_before_element = True
+        elif (element is not None and elem_last is not None and not right and text_a and not text_b
+              and all(not lines[k].strip() for k in range(elem_last + 1, i))):
+            # vervolgregel van de elementomschrijving (alleen elementkolom)
+            words = text_a.split()
+            if len(words) > 1 and words[-1].lower() in UNIT_TOKENS:
+                element["excluded_tokens"].append({"token": words[-1], "line": i + 1,
+                                                   "reason": "exact unit token at end of continuation line"})
+                words = words[:-1]
+            element["description"] = _squash(element["description"] + " " + " ".join(words))
+            element["continuation_lines"].append(i + 1)
+            elem_last = i
         elif (cur is not None and not right and last_cont is not None and (text_a or text_b)
               and all(not lines[k].strip() for k in range(last_cont + 1, i))):
             # directe vervolgregel van de actietekst (pdftotext -table zet
@@ -299,8 +356,24 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
             cur["continuation_lines"].append(i + 1)
             last_cont = i
         elif right:
+            # subtotaalregel (alleen bedragen): grens
             cur = None
-    return rows, (element or carry_element), totaal_object
+            elem_last = None
+            open_at_end = False
+            if element is None:
+                boundary_before_element = True
+        else:
+            elem_last = None
+    last = element or carry_element
+    carry = dict(last, open_at_page_end=open_at_end) if last else None
+    return rows, carry, totaal_object
+
+
+def _new_element(match, location_text, page_no, line_no):
+    desc = _squash(match.group(2))
+    return {"code": match.group(1), "description": desc, "description_first_line": desc,
+            "location": _squash(location_text), "page": page_no, "line": line_no,
+            "continuation_lines": [], "excluded_tokens": []}
 
 
 def reconcile_row_amounts(row):

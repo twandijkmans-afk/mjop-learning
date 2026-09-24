@@ -26,7 +26,11 @@
         "element_code_original": { "type": ["string", "null"], "description": "Code zoals in de elementregel boven de rij. Intern coderingssysteem, niet bevestigd als officiële NL/SfB." },
         "element_description_original": { "type": ["string", "null"] },
         "element_location_original": { "type": ["string", "null"] },
-        "element_candidate_previous_page": { "type": ["object", "null"], "description": "Laatste elementregel van de vorige pagina als op deze pagina geen elementregel boven de rij staat. Kandidaat, NIET toegekend." },
+        "element_candidate_previous_page": { "type": ["object", "null"], "description": "Laatste elementregel van de vorige pagina als op deze pagina geen elementregel boven de rij staat en het element niet eenduidig doorloopt. Kandidaat, NIET toegekend." },
+        "element_context_source": { "type": ["string", "null"], "enum": ["same_page", "previous_page", null], "description": "Waar de elementregel vandaan komt. 'previous_page': het element loopt zonder groep-/subtotaal-/totaalgrens door vanaf de vorige pagina (element_line wijst naar die pagina/regel)." },
+        "element_description_first_line": { "type": ["string", "null"], "description": "De eerste regel van de elementomschrijving zoals in de bron, vóór het samenvoegen van vervolgregels." },
+        "element_description_continuation_lines": { "type": "array", "items": { "type": "integer" }, "description": "Regelnummers (pdftotext -table) van samengevoegde vervolgregels van de elementomschrijving." },
+        "element_description_excluded_tokens": { "type": "array", "description": "Tokens van vervolgregels die niet zijn samengevoegd (bijv. een losse eenheid 'm2'), met regel en reden." },
         "element_id": { "type": ["string", "null"], "description": "Bestaande element_id uit data/verified via extraction_link." },
         "element_code_internal": { "type": ["string", "null"], "description": "element_code.normalized_value uit data/verified." }
       },

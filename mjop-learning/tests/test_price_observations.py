@@ -31,7 +31,7 @@ import build_price_observations as bpo  # noqa: E402
 import mjop_source_sections as src  # noqa: E402
 from normalize_batch import load_vocab  # noqa: E402
 
-HEADER = ("Code/Element/Handeling          Locatie Element/Gebrek        Hvh     Ehd  Stj   Cy    "
+HEADER = ("Code/Element/Handeling                              Locatie Element/Gebrek        Hvh     Ehd  Stj   Cy    "
           "2026    2027    2028    Totaal")
 
 
@@ -72,6 +72,7 @@ CTX_EXPLICIT = {"price_level_date": "1-8-2026", "price_level_basis": "explicit",
                 "vat_text": "De bedragen in de begrotingen zijn inclusief BTW", "vat_rate_text": None,
                 "indexation_statement": None}
 UNITS = load_vocab(os.path.join(PROJECT_ROOT, "vocabularies"), "unit")
+PDFTOTEXT = src.find_pdftotext()
 
 
 def one_row(text, page_no=11, carry=None):
@@ -205,6 +206,120 @@ def test_numeric_token_in_unit_column_stays_unit_and_not_cycle():
     assert o["cycle_start_year"] == 2027
 
 
+# --------------------------------------------------------------------------
+# Vervolgregels van elementomschrijvingen (source-layer fix 1)
+# --------------------------------------------------------------------------
+
+def _row_line(action="      Groot schilderwerk", qty="10,00", unit="m2"):
+    return line(action, "", [("Hvh", qty), ("Ehd", unit), ("Stj", "2026"), ("Cy", "6"),
+                             ("2026", "100"), ("Totaal", "100")])
+
+
+@pytest.mark.parametrize("first,continuation,expected", [
+    ("4621  Buitenschilderwerk gevelbekleding", "      hout dekkend", "Buitenschilderwerk gevelbekleding hout dekkend"),
+    ("4631  Buitenschilderwerk kozijn en", "      draaiende delen hout dekkend",
+     "Buitenschilderwerk kozijn en draaiende delen hout dekkend"),
+    ("4632  Binnenschilderwerk kozijn,ramen en", "      deuren hout dekkend",
+     "Binnenschilderwerk kozijn,ramen en deuren hout dekkend"),
+    ("4624  Binnenschilderwerk trap hout", "      dekkend", "Binnenschilderwerk trap hout dekkend"),
+    ("4624  Binnenschilderwerk trap hout", "      transparant", "Binnenschilderwerk trap hout transparant"),
+    ("6311  Elektra armaturen binnen TL naar", "      led", "Elektra armaturen binnen TL naar led"),
+    ("5211  Doorvoer staal (onderuitlopen platte", "      daken)", "Doorvoer staal (onderuitlopen platte daken)"),
+])
+def test_wrapped_element_description_is_joined(first, continuation, expected):
+    row = one_row(page(line(first), line(continuation), _row_line()))
+    el = row["element"]
+    assert el["description"] == expected
+    assert el["description_first_line"] == first.split(None, 1)[1].strip()  # eerste regel blijft bewaard
+    assert len(el["continuation_lines"]) == 1
+    assert row["action_text"] == "Groot schilderwerk"  # actietekst ongewijzigd
+
+
+def test_unit_token_at_end_of_continuation_is_excluded_not_joined():
+    """DOC-007 p17 r39: 'Buitenschilderwerk kozijn&raam hout' + 'dekkend m2'."""
+    row = one_row(page(line("4631  Buitenschilderwerk kozijn&raam hout"), line("      dekkend m2"), _row_line()))
+    el = row["element"]
+    assert el["description"] == "Buitenschilderwerk kozijn&raam hout dekkend"
+    assert el["excluded_tokens"] == [{"token": "m2", "line": el["continuation_lines"][0],
+                                      "reason": "exact unit token at end of continuation line"}]
+
+
+def test_non_unit_last_word_is_kept():
+    row = one_row(page(line("4631  Buitenschilderwerk kozijn hout"), line("      dekkend achtergevel"), _row_line()))
+    assert row["element"]["description"] == "Buitenschilderwerk kozijn hout dekkend achtergevel"
+    assert row["element"]["excluded_tokens"] == []
+
+
+def test_text_after_action_row_is_action_continuation_not_element():
+    row = one_row(page(line("4631  Buitenschilderwerk kozijn hout"), _row_line("      Groot schilderwerk kozijn"),
+                       line("      hout dekkend achterzijde")))
+    assert row["element"]["description"] == "Buitenschilderwerk kozijn hout"
+    assert row["action_text"] == "Groot schilderwerk kozijn hout dekkend achterzijde"
+
+
+def test_group_line_is_not_an_element_continuation():
+    rows, _, _ = src.parse_jarenplan_page(page(line("4621  Buitenschilderwerk deur hout"), line("46    Schilderwerk"),
+                                               _row_line()), 11)
+    # na de groepregel geen element meer open: rij krijgt het element (zelfde pagina) maar zonder vervolgtekst
+    assert rows[0]["element"]["description"] == "Buitenschilderwerk deur hout"
+
+
+# --------------------------------------------------------------------------
+# Elementcontext over een paginagrens (source-layer fix 2)
+# --------------------------------------------------------------------------
+
+def _carry(open_=True):
+    return {"code": "4621", "description": "Buitenschilderwerk gevelbekleding hout", "description_first_line":
+            "Buitenschilderwerk gevelbekleding", "location": "", "page": 14, "line": 89, "continuation_lines": [91],
+            "excluded_tokens": [], "open_at_page_end": open_}
+
+
+def test_previous_page_element_assigned_when_open_and_no_boundary():
+    row = one_row(page(_row_line("      Aanbrengen vervolgsysteem")), page_no=15, carry=_carry())
+    assert row["element"]["code"] == "4621" and row["element_context_source"] == "previous_page"
+    assert row["element"]["page"] == 14 and row["element"]["line"] == 89   # herleidbaar naar de bronregel
+    assert "open_at_page_end" not in row["element"]
+    o = obs_for(row)
+    assert o["element"]["element_context_source"] == "previous_page" and o["provenance_status"] == "complete"
+
+
+def test_previous_page_element_not_assigned_after_group_boundary():
+    row = one_row(page(line("46    Schilderwerk"), _row_line()), page_no=15, carry=_carry())
+    assert row["element"] is None and row["element_candidate_previous_page"]["code"] == "4621"
+
+
+def test_previous_page_element_not_assigned_when_closed_by_subtotal():
+    row = one_row(page(_row_line()), page_no=15, carry=_carry(open_=False))
+    assert row["element"] is None
+
+
+def test_page_ending_with_subtotal_closes_the_element():
+    subtotal = line("", "", [("2026", "100"), ("Totaal", "100")])
+    _, carry, _ = src.parse_jarenplan_page(page(line("4621  Buitenschilderwerk deur hout"), _row_line(), subtotal), 14)
+    assert carry["open_at_page_end"] is False
+
+
+@pytest.mark.skipif(not PDFTOTEXT, reason="pdftotext (xpdf 4.06) niet beschikbaar")
+def test_known_wrap_and_page_break_cases_on_batch1_sources():
+    result = bpo.build(PROJECT_ROOT, PDFTOTEXT, document_ids={"DOC-002", "DOC-006", "DOC-007", "DOC-009", "DOC-010"})
+    obs = {o["observation_id"]: o for o in result["observations"]}
+    expected_prev = {"PO-DOC-002-P015-L007": "3122", "PO-DOC-006-P015-L007": "4621", "PO-DOC-006-P015-L009": "4621",
+                     "PO-DOC-009-P019-L007": "3120", "PO-DOC-009-P021-L007": "4634"}
+    for oid, code in expected_prev.items():
+        el = obs[oid]["element"]
+        assert el["element_context_source"] == "previous_page" and el["element_code_original"] == code, oid
+    assert sum(1 for o in obs.values() if o["element"]["element_context_source"] == "previous_page") == 5
+    desc = lambda oid: obs[oid]["element"]["element_description_original"]
+    assert desc("PO-DOC-002-P018-L109") == "Buitenschilderwerk kozijn en draaiende delen hout dekkend"
+    assert desc("PO-DOC-007-P017-L055") == "Binnenschilderwerk kozijn,ramen en deuren hout dekkend"
+    assert desc("PO-DOC-002-P018-L093") == "Binnenschilderwerk trap hout dekkend"
+    assert desc("PO-DOC-007-P017-L025") == "Binnenschilderwerk trap hout transparant"
+    assert desc("PO-DOC-010-P013-L035") == "Elektra armaturen binnen TL naar led"
+    assert desc("PO-DOC-007-P018-L059") == "Doorvoer staal (onderuitlopen platte daken)"
+    assert desc("PO-DOC-007-P017-L043") == "Buitenschilderwerk kozijn&raam hout dekkend"
+    assert obs["PO-DOC-007-P017-L043"]["element"]["element_description_excluded_tokens"][0]["token"] == "m2"
+
+
 def test_element_on_previous_page_is_candidate_not_assigned():
     carry = {"code": "4621", "description": "Buitenschilderwerk gevelbekleding hout", "location": "", "page": 14, "line": 99}
     text = page(line("      Aanbrengen vervolgsysteem", "Krijten", [("Hvh", "1,00"), ("Ehd", "pst"), ("Stj", "2026"),
@@ -304,9 +419,6 @@ def test_observation_validates_against_schema():
 # --------------------------------------------------------------------------
 # Integratie op de echte bronbestanden
 # --------------------------------------------------------------------------
-
-PDFTOTEXT = src.find_pdftotext()
-
 
 @pytest.mark.skipif(not PDFTOTEXT, reason="pdftotext (xpdf 4.06) niet beschikbaar")
 def test_full_build_on_batch1_sources():
