@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "human_decision_record.schema.json",
+  "title": "HumanDecisionStore",
+  "description": "Append-only opslag van menselijke beslissingen over observation-paren (docs/human_review_v1.md). De systeemklasse (comparability v1) en de menselijke beslissing staan in aparte velden. Een beslissing wordt nooit overschreven; een nieuwe beslissing verwijst via 'supersedes' naar de oude. Geen score- of confidencevelden.",
+  "type": "object",
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "decision_id": { "type": "string", "pattern": "^HDR-[0-9]{5}$" },
+    "comparison_class": { "type": "string", "enum": ["COMPARABLE", "COMPARABLE_WITH_CAVEATS", "NOT_COMPARABLE", "UNKNOWN"] },
+    "evidence_item": {
+      "type": "object",
+      "description": "Bronverwijzing voor één observation zoals de reviewer die bekeek.",
+      "properties": {
+        "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-P[0-9]{3}-L[0-9]{3}$" },
+        "document_id": { "type": "string", "pattern": "^DOC-[0-9]{3,}$" },
+        "page": { "type": "integer", "minimum": 1 },
+        "line": { "type": "integer", "minimum": 1 },
+        "source_text": { "type": ["string", "null"] },
+        "reviewer_note": { "type": ["string", "null"] }
+      },
+      "required": ["observation_id", "document_id", "page", "line"],
+      "additionalProperties": false
+    },
+    "decision_record": {
+      "type": "object",
+      "properties": {
+        "decision_id": { "$ref": "#/definitions/decision_id" },
+        "pair_id": { "type": "string", "pattern": "^PAIR-[0-9]{5}$" },
+        "observation_ids": {
+          "type": "array", "minItems": 2, "maxItems": 2,
+          "items": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-P[0-9]{3}-L[0-9]{3}$" }
+        },
+        "candidate_key": { "type": "array", "minItems": 3, "maxItems": 3, "items": { "type": ["string", "null"] },
+                           "description": "[element_code_internal, action_normalized, unit_normalized] ter controle." },
+        "system_class": { "$ref": "#/definitions/comparison_class",
+                          "description": "Klasse die comparability v1 gaf op het moment van de review. Wordt nooit door de beslissing vervangen." },
+        "system_reasons": {
+          "type": "object",
+          "description": "Redenen van het systeem op het moment van de review, 1-op-1 uit het paar.",
+          "properties": {
+            "hard_violations": { "type": "array", "items": { "type": "string" } },
+            "unknown_reasons": { "type": "array", "items": { "type": "string" } },
+            "pair_caveats": { "type": "array", "items": { "type": "string" } },
+            "observation_caveats": {
+              "type": "object",
+              "properties": {
+                "a": { "type": "array", "items": { "type": "string" } },
+                "b": { "type": "array", "items": { "type": "string" } }
+              },
+              "required": ["a", "b"],
+              "additionalProperties": false
+            }
+          },
+          "required": ["hard_violations", "unknown_reasons", "pair_caveats", "observation_caveats"],
+          "additionalProperties": false
+        },
+        "decision": { "$ref": "#/definitions/comparison_class", "description": "Menselijke beslissing, apart van system_class." },
+        "decision_reason": { "type": "string", "minLength": 1 },
+        "decision_caveats": { "type": "array", "items": { "type": "string" },
+                              "description": "Voorbehouden die de reviewer accepteert of toevoegt (bestaande codes of vrije tekst)." },
+        "reviewer": {
+          "type": "object",
+          "properties": {
+            "reviewer_id": { "type": "string", "minLength": 1 },
+            "reviewer_type": { "type": "string", "const": "human" }
+          },
+          "required": ["reviewer_id", "reviewer_type"],
+          "additionalProperties": false
+        },
+        "reviewed_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$" },
+        "rule_version": { "type": "string", "minLength": 1 },
+        "input_hashes": {
+          "type": "object",
+          "description": "sha256 van de invoer waarop de review gebaseerd is. Een latere afwijking markeert het record ter controle; het wordt niet verwijderd.",
+          "properties": {
+            "comparability_output_sha256": { "$ref": "#/definitions/sha256" },
+            "normalized_observations_sha256": { "$ref": "#/definitions/sha256" }
+          },
+          "required": ["comparability_output_sha256", "normalized_observations_sha256"],
+          "additionalProperties": false
+        },
+        "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/evidence_item" } },
+        "notes": { "type": ["string", "null"] },
+        "supersedes": { "oneOf": [{ "$ref": "#/definitions/decision_id" }, { "type": "null" }] },
+        "status": { "type": "string", "enum": ["ACTIVE", "SUPERSEDED"] }
+      },
+      "required": ["decision_id", "pair_id", "observation_ids", "candidate_key", "system_class", "system_reasons",
+                   "decision", "decision_reason", "decision_caveats", "reviewer", "reviewed_at", "rule_version",
+                   "input_hashes", "evidence", "notes", "supersedes", "status"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "store_version": { "type": "string", "const": "human_review_v1" },
+    "description": { "type": "string" },
+    "append_only": { "type": "boolean", "const": true },
+    "records": { "type": "array", "items": { "$ref": "#/definitions/decision_record" } }
+  },
+  "required": ["store_version", "append_only", "records"],
+  "additionalProperties": false
+}

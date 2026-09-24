@@ -197,6 +197,31 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   elkaar tegen, dan blijft het materiaal onbekend
   (`conflict_verified_vs_element_text`). De gebruikte bron staat per
   observation in `material.source`. De regels P4/P9 zelf zijn ongewijzigd.
+- Human-reviewlaag v1 (`docs/human_review_v1.md`) — **nieuw**: een mens
+  beoordeelt observation-paren voordat ze als vergelijkbare kengetal-input
+  mogen dienen. Een human decision record
+  (`schemas/human_decision_record.schema.json`) legt per paar vast:
+  `system_class` en `system_reasons` (wat comparability v1 zei) en, apart
+  daarvan, de menselijke `decision` (COMPARABLE / COMPARABLE_WITH_CAVEATS /
+  NOT_COMPARABLE / UNKNOWN) met verplichte `decision_reason`,
+  `decision_caveats`, `reviewer` (altijd `human`), `reviewed_at`,
+  `rule_version`, `input_hashes`, `evidence` (document/pagina/regel),
+  `notes`, `supersedes` en `status`. De menselijke beslissing vervangt de
+  systeemklasse nooit. Geen scores of confidence. Opslag:
+  `data/review_decisions/human_decision_records.json` (source of truth,
+  nu nog leeg). Append-only: bestaande beslissingen worden nooit
+  overschreven; een herziening is een nieuw record met nieuw `decision_id`
+  en `supersedes` naar de vorige, die van `ACTIVE` naar `SUPERSEDED` gaat;
+  per `pair_id` hoogstens één `ACTIVE` record (gecontroleerd door
+  `store_invariant_errors` / `append_only_errors`). Een gewijzigde
+  `input_hashes` of `rule_version` markeert een record ter controle maar
+  verwijdert het niet.
+  `scripts/export_human_review_queue.py` bouwt reproduceerbaar (byte-identiek)
+  `reports/human_review_queue_v1.xlsx`: de CW-paren waarvan beide
+  observations onafhankelijke input zijn en geen onopgelost DOC-001-materiaal
+  hebben (batch 1: 22 paren), met bronverwijzingen en lege kolommen voor de
+  menselijke beslissing. De Excel is een reviewinstrument, niet de source of
+  truth; het script maakt nooit zelf een beslissing aan.
 - `tests/` — 91 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert

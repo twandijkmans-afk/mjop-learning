@@ -1,0 +1,6 @@
+{
+  "store_version": "human_review_v1",
+  "description": "Menselijke beslissingen over observation-paren (schema: schemas/human_decision_record.schema.json, werkwijze: docs/human_review_v1.md). Append-only: records worden nooit gewijzigd of verwijderd; een herziening is een nieuw record met 'supersedes'. Alleen door een mens in te vullen.",
+  "append_only": true,
+  "records": []
+}
