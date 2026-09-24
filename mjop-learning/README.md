@@ -94,7 +94,11 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   bevestigd zijn (zie hieronder) - niet elk veld is onafhankelijk
   herleid uit het brondocument. Zie CLAUDE.md: geen accuracy-claims zonder
   een cijfer dat dat ook echt meet.
-- `scripts/compute_kentallen.py` — **nieuw**: de eerste echte kentallen-
+- `scripts/compute_kentallen.py` — **LEGACY / EARLIER EXPERIMENTAL CALCULATION**:
+  niet de huidige kengetallen v1-pipeline (zie `scripts/build_kengetallen.py`
+  hieronder; actuele output onder `data/kengetallen/`). Blijft voorlopig
+  staan en kan later apart worden opgeschoond. Oorspronkelijke beschrijving:
+  de eerste kentallen-
   berekening. Groepeert `data/verified/*.json` per (element_code, actie,
   eenheid) - dus op onze eigen indeling - en berekent per groep min/max/
   gemiddelde/mediaan, apart voor `literal` (letterlijke documentprijs,
@@ -222,6 +226,43 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   hebben (batch 1: 22 paren), met bronverwijzingen en lege kolommen voor de
   menselijke beslissing. De Excel is een reviewinstrument, niet de source of
   truth; het script maakt nooit zelf een beslissing aan.
+- Kengetallen v1 — **nieuw**: de actuele kengetallenlaag. Regels:
+  `docs/kengetallen_rules_v1.md` (definitief v1). Generator:
+  `scripts/build_kengetallen.py` (deterministisch; leest alleen de
+  genormaliseerde observations, de comparability-output en de human decision
+  records). Schema: `schemas/kengetal.schema.json`. Huidige output:
+  `data/kengetallen/kengetallen_batch1.json`. Tests: `tests/test_kengetallen.py`.
+  Begrippen:
+  - *observation* — één jarenplanrij met prijs per uitvoering (source layer);
+  - *comparable group* — observations met dezelfde element_code, action,
+    unit en hetzelfde bekende materiaal, allemaal `independent_input`, waarvan
+    elke combinatie tussen verschillende source clusters een ACTIVE menselijke
+    COMPARABLE/COMPARABLE_WITH_CAVEATS-beslissing heeft, zonder
+    NOT_COMPARABLE en zonder aangenomen transitiviteit;
+  - *source cluster* — de onafhankelijke bewijs-eenheid (documenten die geen
+    onafhankelijke bronnen van elkaar zijn);
+  - *cluster contribution* — één waarde per cluster: mediaan van de
+    postwaarden, na post consolidation (voor/achter onder dezelfde
+    elementregel wordt één post; alle observations blijven bewaard);
+  - *kengetal* — mediaan van de cluster contributions bij minimaal 3 source
+    clusters, altijd met minimum, maximum, range, prijspeilen,
+    caveats en volledige herleiding naar observations, posten, clusters en
+    `decision_id`'s;
+  - `INSUFFICIENT_DATA` — geen centrale waarde (bijv. minder dan 3 clusters,
+    onvolledige menselijke review, NOT_COMPARABLE in de groep, materiaal
+    onbekend/verschillend); de reden en de spreiding blijven zichtbaar.
+
+  Batch 1: C1 betonplafond (4645 buitenschilderwerk, m²) en C2 hemelwaterafvoer
+  pvc (5211 vervangen, m1) zijn AVAILABLE (€33,48/m² resp. €51,79/m1, beide
+  met gemengde prijspeilen; C2 ook met een ontbrekend prijspeil); de overige
+  vier huidige groepen (stucwerk, impregneren, hek, tapijt) zijn
+  `INSUFFICIENT_DATA` (2 source clusters). Een kengetal is historisch, niet
+  geïndexeerd, geen marktprijs en geen normprijs. Er wordt geen confidence,
+  score of weging gebruikt. Er ontstaat nooit een kengetal alleen omdat
+  observations dezelfde code/actie/eenheid hebben. De generator overschrijft
+  een bestaande output met andere inhoud niet stilzwijgend (`--supersede`
+  bewaart de oude versie in `data/kengetallen/history/`; `--check` meldt of de
+  output nog bij de invoer hoort).
 - `tests/` — 91 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert
@@ -246,7 +287,9 @@ klopte niet, zie git-historie) `requires_human_review: true`; deze zijn via
 rejects nodig bevonden). De 91 gevlagde observations zijn nog niet
 doorlopen.
 
-**Kentallen (het eigenlijke doel)**: `scripts/compute_kentallen.py` levert
+**Kentallen — LEGACY / EARLIER EXPERIMENTAL CALCULATION** (niet de huidige
+kengetallen v1-pipeline; die staat onder `data/kengetallen/`, zie hierboven):
+`scripts/compute_kentallen.py` levert
 nu 59 kentallen-groepen op uit 358 bruikbare prijspunten, gegroepeerd per
 onze eigen `element_code`. Belangrijke kanttekening: **alle 358 punten zijn
 `calculated` (afgeleid uit total/hoeveelheid) - nog geen enkele komt uit een
@@ -269,7 +312,7 @@ Menselijke verificatie (herhaalbaar zodra er nieuwe posten zijn):
 python3 scripts/export_review_sheet.py            # -> reports/review_batch1.xlsx
 # ... vul BESLISSING (accept/edit/reject) + evt. GECORRIGEERDE_WAARDE/NOTITIES in ...
 python3 scripts/apply_review.py --reviewer "jij@voorbeeld.nl"   # -> data/verified/*.json
-python3 scripts/compute_kentallen.py               # -> data/kentallen/ + reports/kentallen_batch1.xlsx
+python3 scripts/compute_kentallen.py               # LEGACY -> data/kentallen/ + reports/kentallen_batch1.xlsx
 python3 scripts/evaluate_dataset.py                # accuracy-cijfer (zie caveat hierboven)
 ```
 
@@ -283,11 +326,15 @@ python3 scripts/extract_batch.py            # placeholders, + echte extractie al
 python3 scripts/normalize_batch.py          # extracted -> normalized (deterministisch)
 python3 scripts/export_review_sheet.py      # normalized -> reports/review_batch1.xlsx (mens vult in)
 python3 scripts/apply_review.py --reviewer "jij@voorbeeld.nl"  # ingevuld Excel -> data/verified/
-python3 scripts/compute_kentallen.py        # verified -> data/kentallen/ + reports/kentallen_batch1.xlsx
+python3 scripts/compute_kentallen.py        # LEGACY / experimenteel: verified -> data/kentallen/
 python3 scripts/evaluate_dataset.py         # normalized vs. verified -> reports/evaluation_report.json
 python3 scripts/build_price_observations.py --dry-run   # raw PDF + verified -> controles, niets geschreven
 python3 scripts/build_price_observations.py             # -> data/price_observations/price_observations_batch1.json
                                                         # (vereist pdftotext van xpdf 4.06 in PATH, of --pdftotext / $PDFTOTEXT)
+python3 scripts/normalize_price_observations.py         # -> ..._normalized.json
+python3 scripts/build_comparability.py                  # -> data/comparability/comparability_batch1.json
+python3 scripts/export_human_review_queue.py            # -> reports/human_review_queue_v1.xlsx
+python3 scripts/build_kengetallen.py                    # -> data/kengetallen/kengetallen_batch1.json (kengetallen v1)
 
 python3 -m pytest tests/ -v
 ```
@@ -300,7 +347,8 @@ data/
   extracted/            letterlijk uit het document, incl. element_code
   normalized/           gecontroleerde vocabulaire toegepast
   verified/              door een mens gecontroleerd (review-ronde 1 verwerkt)
-  kentallen/             eenheidsprijs-benchmarks per element_code x actie x eenheid
+  kentallen/             LEGACY / EARLIER EXPERIMENTAL CALCULATION (niet de v1-pipeline)
+  kengetallen/           kengetallen v1 (actuele output)
   price_observations/    source layer: 1 observation per jarenplan-rij + vastgestelde documentrelaties
   evaluation/            evaluatieset (nog leeg, nooit gebruiken om op te optimaliseren)
   rejected_or_uncertain/ onbetrouwbaar/conflicterend (nog leeg)
