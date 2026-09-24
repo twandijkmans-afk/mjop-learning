@@ -1413,6 +1413,550 @@
       "notes": null,
       "supersedes": null,
       "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00023",
+      "pair_id": "PAIR-00263",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L027"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; achterzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L027",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 27,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2025 14 3.866 3.866 7.733",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00024",
+      "pair_id": "PAIR-00264",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L031"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; achterzijde versus voorzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L031",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 31,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2032 12 3.866 3.866",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00025",
+      "pair_id": "PAIR-00265",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L039"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; de aanduiding dakoverstek maakt de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L039",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 39,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2025 14 3.451 3.451 6.902",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00026",
+      "pair_id": "PAIR-00266",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L043"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; dakoverstek en voor/achterzijde maken de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L043",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 43,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2032 12 3.451 3.451",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00027",
+      "pair_id": "PAIR-00268",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L027"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; voorzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L027",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 27,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2025 14 3.866 3.866 7.733",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00028",
+      "pair_id": "PAIR-00269",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L031"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; voorzijde versus achterzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L031",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 31,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2032 12 3.866 3.866",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00029",
+      "pair_id": "PAIR-00270",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L039"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; dakoverstek maakt de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L039",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 39,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2025 14 3.451 3.451 6.902",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00030",
+      "pair_id": "PAIR-00271",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L043"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; dakoverstek en voor/achterzijde maken de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L043",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 43,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2032 12 3.451 3.451",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
     }
   ]
 }
