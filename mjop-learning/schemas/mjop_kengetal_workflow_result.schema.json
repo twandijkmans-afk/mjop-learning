@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_kengetal_workflow_result.schema.json",
+  "title": "MjopKengetalWorkflowResult",
+  "description": "Resultaat van scripts/mjop_kengetal_workflow.py (MJOP kengetal workflow v1): één MJOP-onderhoudsregel door matching v1 en human match review v1. Systeemvoorstel (match_result, system_candidate_*) en menselijke keuze (current_decision, human_selected_*) staan apart; effective_* is alleen gevuld als de actieve menselijke beslissing dat rechtvaardigt. Geen indexatie, schaalcorrectie, score of confidence. Bedragen zijn Decimal-strings.",
+  "type": "object",
+  "definitions": {
+    "decimal_or_null": { "type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "properties": {
+    "workflow_result_id": { "type": "string", "pattern": "^WF-[0-9a-f]{16}$" },
+    "workflow_version": { "type": "string", "const": "mjop_kengetal_workflow_v1" },
+    "status": { "type": "string", "enum": ["NO_KENGETAL", "REVIEW_REQUIRED", "MATCH_PENDING_DECISION", "ACCEPTED", "ADJUSTED", "REJECTED"] },
+    "input": { "type": "object", "description": "Het ontvangen input-object, ongewijzigd." },
+    "normalization": { "type": "object", "description": "input_normalized uit het matchresultaat (normalisatie via de bestaande vocabularies)." },
+    "match_result": { "type": "object", "description": "Het volledige matchresultaat van scripts/match_kengetal.py." },
+    "current_decision": {
+      "type": "object",
+      "properties": {
+        "status": { "type": "string", "enum": ["NO_DECISION", "ACCEPTED", "ADJUSTED", "REJECTED"] },
+        "active_decision_id": { "type": ["string", "null"] },
+        "decision": { "type": ["string", "null"], "enum": ["ACCEPT", "ADJUST", "REJECT", null] },
+        "chosen_kengetal_id": { "type": ["string", "null"] },
+        "adjustment": { "type": ["object", "null"] },
+        "decision_reason": { "type": ["string", "null"] },
+        "decision_caveats": { "type": "array", "items": { "type": "string" } },
+        "reviewer": { "type": ["object", "null"] },
+        "history": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["status", "active_decision_id", "decision", "chosen_kengetal_id", "adjustment", "decision_reason",
+                   "decision_caveats", "reviewer", "history"],
+      "additionalProperties": false
+    },
+    "financial_result": {
+      "type": "object",
+      "properties": {
+        "unit": { "type": ["string", "null"] },
+        "quantity": { "$ref": "#/definitions/decimal_or_null" },
+        "system_candidate_kengetal_id": { "type": ["string", "null"] },
+        "system_candidate_amount": { "$ref": "#/definitions/decimal_or_null" },
+        "system_candidate_amount_display": { "$ref": "#/definitions/decimal_or_null" },
+        "human_selected_kengetal_id": { "type": ["string", "null"] },
+        "human_selected_amount": { "$ref": "#/definitions/decimal_or_null" },
+        "effective_amount": { "$ref": "#/definitions/decimal_or_null" },
+        "effective_amount_display": { "$ref": "#/definitions/decimal_or_null" },
+        "effective_amount_unit": { "type": ["string", "null"] },
+        "effective_amount_source": { "type": ["string", "null"], "enum": ["SYSTEM_KENGETAL_ACCEPTED", "HUMAN_SELECTED_KENGETAL", "HUMAN_ADJUSTMENT", null] },
+        "effective_total": { "$ref": "#/definitions/decimal_or_null" },
+        "effective_total_display": { "$ref": "#/definitions/decimal_or_null" },
+        "total_not_computed_reason": { "type": ["string", "null"], "enum": ["NO_EFFECTIVE_AMOUNT", "QUANTITY_MISSING", "QUANTITY_NOT_POSITIVE", "UNIT_MISMATCH", null] },
+        "calculation": { "type": ["string", "null"] },
+        "indexation": { "type": "string", "const": "none" },
+        "price_levels": { "type": ["object", "null"] },
+        "amount_basis": { "type": ["string", "null"] }
+      },
+      "required": ["unit", "quantity", "system_candidate_kengetal_id", "system_candidate_amount",
+                   "system_candidate_amount_display", "human_selected_kengetal_id", "human_selected_amount",
+                   "effective_amount", "effective_amount_display", "effective_amount_unit", "effective_amount_source",
+                   "effective_total", "effective_total_display", "total_not_computed_reason", "calculation",
+                   "indexation", "price_levels", "amount_basis"],
+      "additionalProperties": false
+    },
+    "caveats": {
+      "type": "object",
+      "properties": {
+        "match_reasons": { "type": "array", "items": { "type": "string" } },
+        "match_caveats": { "type": "array", "items": { "type": "string" } },
+        "kengetal_decision_caveats": { "type": "object" },
+        "kengetal_observation_caveats": { "type": "array", "items": { "type": "string" } },
+        "human_decision_caveats": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["match_reasons", "match_caveats", "kengetal_decision_caveats", "kengetal_observation_caveats",
+                   "human_decision_caveats"],
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "match_result_id": { "type": "string" },
+        "match_result_sha256": { "$ref": "#/definitions/sha256" },
+        "active_decision_id": { "type": ["string", "null"] },
+        "decision_store_sha256": { "$ref": "#/definitions/sha256" },
+        "rule_versions": { "type": "object" },
+        "input_hashes": { "type": "object" }
+      },
+      "required": ["match_result_id", "match_result_sha256", "active_decision_id", "decision_store_sha256",
+                   "rule_versions", "input_hashes"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["workflow_result_id", "workflow_version", "status", "input", "normalization", "match_result",
+               "current_decision", "financial_result", "caveats", "provenance"],
+  "additionalProperties": false
+}

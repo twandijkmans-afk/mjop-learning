@@ -19,7 +19,7 @@
     },
     "adjustment": {
       "type": "object",
-      "description": "Alleen bij ADJUST. Minstens één van kengetal_id of amount_per_unit_exact. De eenheid is altijd die van het input-object (unit is een harde retrieval-sleutel).",
+      "description": "Alleen bij ADJUST. Minstens één van kengetal_id of amount_per_unit_exact. Een gekozen kengetal moet AVAILABLE zijn en exact dezelfde genormaliseerde eenheid hebben als het input-object; een bedrag staat altijd in de eenheid van het input-object (unit is een harde retrieval-sleutel; geen conversie).",
       "properties": {
         "kengetal_id": { "type": ["string", "null"], "pattern": "^KG-" },
         "amount_per_unit_exact": { "oneOf": [{ "$ref": "#/definitions/decimal_positive" }, { "type": "null" }] },

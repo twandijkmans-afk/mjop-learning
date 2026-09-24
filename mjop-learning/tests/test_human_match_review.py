@@ -127,6 +127,24 @@ def test_invalid_decisions_are_refused(result, decision, kw):
         add(EMPTY, result, decision, **kw)
 
 
+def test_adjust_to_other_kengetal_requires_same_unit():
+    # ander kengetal met dezelfde eenheid (m2): toegestaan - via een kopie van C1 in de kengetallen-output
+    kengetallen = copy.deepcopy(KENGETALLEN)
+    twin = copy.deepcopy(next(k for k in kengetallen["kengetallen"] if k["kengetal_id"] == C1))
+    twin["kengetal_id"] = C1 + "-twin"
+    kengetallen["kengetallen"].append(twin)
+    _, rec = h.add_decision(EMPTY, C1_REVIEW, "ADJUST", "twandijkmans", "zelfde eenheid", schema=SCHEMA,
+                            match_schema=MATCH_SCHEMA, kengetallen_doc=kengetallen, chosen_kengetal_id=C1 + "-twin",
+                            reviewed_at="2026-09-24T12:00:00Z")
+    assert rec["chosen_kengetal_id"] == C1 + "-twin"
+    # ander kengetal met andere eenheid (C2 in m1 voor een m2-regel): geweigerd
+    with pytest.raises(ValueError, match="eenheid"):
+        add(EMPTY, C1_REVIEW, "ADJUST", chosen_kengetal_id=C2)
+    # eigen bedrag in de eenheid van de inputregel: toegestaan
+    _, rec = add(EMPTY, C1_REVIEW, "ADJUST", amount="40.00")
+    assert rec["adjustment"]["unit"] == "m2"
+
+
 def test_unknown_decision_value_and_non_human_are_refused():
     with pytest.raises(ValueError):
         add(EMPTY, C1_REVIEW, "APPROVE")

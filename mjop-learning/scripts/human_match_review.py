@@ -135,6 +135,10 @@ def record_errors(record, kengetallen_doc=None):
                 errors.append(f"{rid}: kengetal {adj['kengetal_id']} bestaat niet")
             elif k["status"] != "AVAILABLE":
                 errors.append(f"{rid}: kengetal {adj['kengetal_id']} heeft status {k['status']}")
+            elif k["unit"] != mr["input_normalized"]["unit"]:
+                # zelfde genormaliseerde eenheid vereist; geen conversie of unit-hiërarchie
+                errors.append(f"{rid}: kengetal {adj['kengetal_id']} heeft eenheid {k['unit']}, "
+                              f"de MJOP-regel {mr['input_normalized']['unit']}")
     return errors
 
 

@@ -56,8 +56,11 @@ De reviewer past het voorstel expliciet aan. Het oorspronkelijke voorstel
 blijft zichtbaar (`system_candidate_kengetal_id(s)`, `match_result`); de keuze
 staat in `adjustment`:
 
-- `kengetal_id`: een ander kengetal, alleen als dat bestaat en status
-  `AVAILABLE` heeft in de kengetallen-output; of null;
+- `kengetal_id`: een ander kengetal, alleen als dat bestaat, status
+  `AVAILABLE` heeft in de kengetallen-output **en exact dezelfde
+  genormaliseerde eenheid heeft als het input-object** (bijv. input m² →
+  kengetal in m²); een kengetal met een andere eenheid wordt geweigerd (geen
+  conversie, geen unit-hiërarchie); of null;
 - `amount_per_unit_exact`: een door de reviewer opgegeven positief bedrag per
   eenheid (Decimal-string), of null;
 - `unit`: bij een bedrag altijd de eenheid van het input-object (unit is een
