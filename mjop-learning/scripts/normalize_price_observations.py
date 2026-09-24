@@ -28,7 +28,15 @@ Wat het doet, per observation:
      hoeveelheid, totaal, eenheid, herberekening van unit_price_calculated,
      prijspeil, BTW, Stj/Cy (incl. of het cycluspatroon overeenkomt met de
      jaarbedragen), total_scope en meerdere uitvoeringen.
-  5. REVIEW: één lijst review_reasons met categorie en herkomst
+  5. MATERIAAL: neemt het materiaal van het gekoppelde verified-element over
+     (ongewijzigd). Alleen voor documenten waarvan de extractie geen
+     materiaalveld kende (MATERIAL_FROM_TEXT_DOCUMENTS, DOC-001) wordt een
+     materiaal uit de elementomschrijving afgeleid, in een APART veld
+     (material_from_text): precies één los woord dat letterlijk in
+     vocabularies/material.json staat, geen ander of wisselend materiaal in
+     de actietekst, en niet expliciet aangehouden voor menselijke
+     interpretatie. Geen fuzzy matching, geen hiërarchie.
+  6. REVIEW: één lijst review_reasons met categorie en herkomst
      (source_layer/normalization); de oorspronkelijke source-redenen blijven
      apart bewaard. Informatieve bevindingen staan in validation_flags en
      maken een observation niet automatisch review-plichtig.
@@ -98,6 +106,72 @@ def load_vocab_utf8(vocab_dir, name):
 
 def D(s):
     return None if s is None else Decimal(s)
+
+
+# --------------------------------------------------------------------------
+# 5: materiaal
+# --------------------------------------------------------------------------
+
+# Documenten waarvan de (handmatige v1-)extractie geen materiaalveld had en
+# waarvoor de gebruiker afleiding uit de elementtekst heeft goedgekeurd
+# (2026-09-24). DOC-004 mist het veld ook, maar valt hier bewust buiten.
+MATERIAL_FROM_TEXT_DOCUMENTS = {"DOC-001"}
+# Door de gebruiker als 'interpretatie nodig' aangemerkt (2026-09-24) terwijl
+# de woordregel wel een materiaal zou vinden: niet automatisch afleiden.
+MATERIAL_FROM_TEXT_HOLD = {
+    "PO-DOC-001-P025-L039": "'verzinkt staal': kwalificatie bij het materiaal; elders als 'staal (verzinkt)' "
+                            "zonder genormaliseerde waarde vastgelegd",
+}
+MATERIAL_CHANGE_MARKER = re.compile(r">")  # materiaalwissel-notatie in de bron: "->", "- >", ">"
+
+
+def material_tokens(text, material_vocab):
+    return [t for t in re.findall(r"[a-z0-9]+", (text or "").lower()) if t in material_vocab]
+
+
+def normalize_material(obs, verified_elements, material_vocab):
+    """Materiaal van het verified-element (ongewijzigd) en, alleen waar het
+    materiaalveld in de extractie ontbrak, een aparte afleiding uit de tekst."""
+    out = {"material_original": None, "material_normalized": None, "verified_material_field": None,
+           "material_from_text": None, "material_source": None, "material_status": "MATERIAL_UNKNOWN",
+           "material_not_derived_reason": None}
+    eid = obs["element"]["element_id"]
+    el = verified_elements.get(eid) if eid else None
+    if el is None:
+        out.update(verified_material_field="no_element_link", material_not_derived_reason="no_element_link")
+        return out
+    if "material" in el:
+        m = el["material"] or {}
+        out.update(verified_material_field="present", material_original=m.get("original_value"),
+                   material_normalized=m.get("normalized_value"))
+        if m.get("original_value"):
+            out.update(material_source="verified_element", material_status="MATERIAL_FROM_VERIFIED")
+        else:
+            out["material_not_derived_reason"] = "verified_material_empty"
+        return out
+    out["verified_material_field"] = "absent"
+    if obs["document_id"] not in MATERIAL_FROM_TEXT_DOCUMENTS:
+        out["material_not_derived_reason"] = "material_field_absent_document_not_in_scope"
+        return out
+    toks = material_tokens(obs["element"]["element_description_original"], material_vocab)
+    action = obs["action"]["action_text_original"]
+    if not toks:
+        reason = "no_vocabulary_token_in_element_text"
+    elif len({material_vocab[t] for t in toks}) > 1:
+        reason = "multiple_vocabulary_tokens_in_element_text"
+    elif MATERIAL_CHANGE_MARKER.search(action or ""):
+        reason = "material_change_in_action_text"
+    elif any(material_vocab[t] != material_vocab[toks[0]] for t in material_tokens(action, material_vocab)):
+        reason = "conflicting_material_in_action_text"
+    elif obs["observation_id"] in MATERIAL_FROM_TEXT_HOLD:
+        reason = "held_for_human_interpretation"
+    else:
+        out.update(material_from_text={"original_value": toks[0], "normalized_value": material_vocab[toks[0]],
+                                       "source_field": "element_description_original"},
+                   material_source="element_text", material_status="MATERIAL_FROM_TEXT")
+        return out
+    out["material_not_derived_reason"] = reason
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -290,8 +364,10 @@ def validate_price(obs, unit_norm):
 # Samenvoegen
 # --------------------------------------------------------------------------
 
-def normalize_observation(obs, action_vocab, unit_vocab, element_codes, source_ref):
+def normalize_observation(obs, action_vocab, unit_vocab, element_codes, source_ref,
+                          verified_elements=None, material_vocab=None):
     action, r_action = normalize_action(obs, action_vocab)
+    material = normalize_material(obs, verified_elements or {}, material_vocab or {})
     unit, r_unit = normalize_unit(obs, unit_vocab)
     element, r_element = normalize_element(obs, element_codes)
     checks, flags, r_price = validate_price(obs, unit["unit_normalized"])
@@ -316,6 +392,7 @@ def normalize_observation(obs, action_vocab, unit_vocab, element_codes, source_r
         "action": action,
         "unit": unit,
         "element": element,
+        "material": material,
         "price": {k: obs[k] for k in (
             "quantity_as_stated", "quantity_value", "total_as_stated", "total_value", "annual_amounts",
             "planned_years", "total_scope", "occurrences_in_window", "execution_window_start",
@@ -341,9 +418,14 @@ def normalize(project_root, source_path):
     unit_vocab = load_vocab_utf8(vocab_dir, "unit")
     element_codes = {e["normalized_value"]: e for e in
                      json.load(open(os.path.join(vocab_dir, "element_code.json"), encoding="utf-8"))["entries"]}
+    material_vocab = load_vocab_utf8(vocab_dir, "material")
+    verified_dir = os.path.join(project_root, "data", "verified")
+    verified_elements = {e["element_id"]: e for name in sorted(os.listdir(verified_dir)) if name.endswith(".json")
+                         for e in json.load(open(os.path.join(verified_dir, name), encoding="utf-8"))["elements"]}
     source_ref = {"source_file": os.path.relpath(source_path, project_root).replace("\\", "/"),
                   "source_file_sha256": sha256_file(source_path)}
-    out = [normalize_observation(o, action_vocab, unit_vocab, element_codes, source_ref) for o in src["observations"]]
+    out = [normalize_observation(o, action_vocab, unit_vocab, element_codes, source_ref,
+                                 verified_elements, material_vocab) for o in src["observations"]]
 
     summary = {
         "observations": len(out),
@@ -351,12 +433,15 @@ def normalize(project_root, source_path):
         "action_normalization_basis": dict(Counter(o["action"]["normalization_basis"] for o in out)),
         "unit_status": dict(Counter(o["unit"]["status"] for o in out)),
         "element_code_consistency": dict(Counter(o["element"]["code_consistency"] for o in out)),
+        "material_status": dict(Counter(o["material"]["material_status"] for o in out)),
+        "material_not_derived_reason": dict(Counter(o["material"]["material_not_derived_reason"] for o in out
+                                                    if o["material"]["material_not_derived_reason"])),
         "requires_human_review": sum(1 for o in out if o["requires_human_review"]),
         "review_reasons": dict(Counter(r["code"] for o in out for r in o["review_reasons"])),
         "review_categories": dict(Counter(c for o in out for c in {r["category"] for r in o["review_reasons"]})),
         "validation_flags": dict(Counter(f for o in out for f in o["validation"]["flags"])),
     }
-    vocab_files = {n: sha256_file(os.path.join(vocab_dir, f"{n}.json")) for n in ("maintenance_action", "unit", "element_code")}
+    vocab_files = {n: sha256_file(os.path.join(vocab_dir, f"{n}.json")) for n in ("maintenance_action", "unit", "element_code", "material")}
     return {
         "normalizer_version": NORMALIZER_VERSION,
         "source": source_ref,

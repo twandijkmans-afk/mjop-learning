@@ -36,7 +36,7 @@
         "comparison_class_reason": { "type": "string" },
         "tariff_group_id": { "type": ["string", "null"] },
         "dependency_status": { "type": "string", "enum": ["NO_DEPENDENCY_FOUND", "POSSIBLY_DEPENDENT", "UNKNOWN"], "description": "Ongewijzigd overgenomen uit de price observation." },
-        "independent_input": { "type": "boolean", "description": "F6: afgeleide prijs mag als onafhankelijke input voor tariefgroepen/latere aggregatie dienen (eligible, afgeleide prijs aanwezig, niet POSSIBLY_DEPENDENT)." },
+        "independent_input": { "type": "boolean", "description": "F6/F7: afgeleide prijs mag als onafhankelijke input voor tariefgroepen/latere aggregatie dienen (eligible, afgeleide prijs aanwezig, niet POSSIBLY_DEPENDENT, geen bronmarkering \"(uitgevoerd JJJJ)\")." },
         "independent_input_exclusion_reasons": { "type": "array", "items": { "type": "string" } }
       },
       "required": ["observation_id", "document_id", "source_cluster", "candidate_key", "eligibility",

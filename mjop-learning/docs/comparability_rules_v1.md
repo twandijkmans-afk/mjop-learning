@@ -144,3 +144,20 @@ mag een bekende documentrelatie niet overrulen.
    samenvatting telt `derived_price_per_execution` (technisch),
    `derived_price_per_execution_eligible` en
    `derived_price_per_execution_independent_input`. De paarregel blijft F2.
+7. **"(uitgevoerd JJJJ)" in de actietekst (DOC-005, 2026-09-24)**: de bron
+   vermeldt alleen "Tijdens de schouw werd PO (schilderwerk) uitgevoerd"; wat
+   de prijs van deze rijen betekent is niet vastgesteld (PARTIALLY_EXPLAINED).
+   Zulke observations blijven bestaan met ongewijzigde bron, prijs,
+   eligibility, dependency_status en paarbeoordeling, maar zijn geen
+   onafhankelijke input: `independent_input = false` met reden
+   `EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR`, en dus niet in
+   tariefgroepen.
+8. **Bron van het materiaal (2026-09-24)**: P4/P9 en O9 zijn ongewijzigd; alleen
+   de bron van de materiaalwaarde is uitgebreid, in deze volgorde:
+   1) het materiaal van het verified-element (leidend, nooit overschreven);
+   2) anders `material.material_from_text` uit de normalisatielaag, alleen bij
+   `material_status = MATERIAL_FROM_TEXT` en `material_source = element_text`
+   (de 10 goedgekeurde DOC-001-afleidingen; aangehouden en interpretatiegevallen
+   hebben geen waarde); 3) anders onbekend. Spreken 1 en 2 elkaar tegen, dan
+   blijft het materiaal onbekend (`source = conflict_verified_vs_element_text`).
+   De gebruikte bron staat per observation in `material.source`.

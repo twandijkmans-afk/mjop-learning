@@ -74,6 +74,31 @@
       "required": ["element_code_original", "element_code_internal", "element_code_system", "element_description_original", "code_consistency"],
       "additionalProperties": false
     },
+    "material": {
+      "type": "object",
+      "description": "Materiaal. material_original/material_normalized komen ongewijzigd uit het gekoppelde verified-element. material_from_text is een aparte afleiding uit de elementomschrijving (alleen DOC-001, exact woord uit vocabularies/material.json) en overschrijft niets.",
+      "properties": {
+        "material_original": { "type": ["string", "null"] },
+        "material_normalized": { "type": ["string", "null"] },
+        "verified_material_field": { "type": "string", "enum": ["present", "absent", "no_element_link"] },
+        "material_from_text": {
+          "type": ["object", "null"],
+          "properties": {
+            "original_value": { "type": "string" },
+            "normalized_value": { "type": ["string", "null"] },
+            "source_field": { "type": "string", "const": "element_description_original" }
+          },
+          "required": ["original_value", "normalized_value", "source_field"],
+          "additionalProperties": false
+        },
+        "material_source": { "type": ["string", "null"], "enum": ["verified_element", "element_text", null] },
+        "material_status": { "type": "string", "enum": ["MATERIAL_FROM_VERIFIED", "MATERIAL_FROM_TEXT", "MATERIAL_UNKNOWN"] },
+        "material_not_derived_reason": { "type": ["string", "null"] }
+      },
+      "required": ["material_original", "material_normalized", "verified_material_field", "material_from_text",
+                   "material_source", "material_status", "material_not_derived_reason"],
+      "additionalProperties": false
+    },
     "price": {
       "type": "object",
       "properties": {
@@ -104,7 +129,7 @@
     "requires_human_review": { "type": "boolean" },
     "review_status": { "type": "string" }
   },
-  "required": ["observation_id", "document_id", "source_ref", "action", "unit", "element", "price", "validation",
+  "required": ["observation_id", "document_id", "source_ref", "action", "unit", "element", "material", "price", "validation",
                "dependency_status", "source_review_reasons", "review_reasons", "requires_human_review", "review_status"],
   "additionalProperties": false
 }

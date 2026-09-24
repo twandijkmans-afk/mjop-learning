@@ -286,3 +286,111 @@ def test_normalize_full_batch1_source_layer():
         assert n["price"]["total_as_stated"] == s["total_as_stated"]
     errors = npo.validate_output(result, os.path.join(PROJECT_ROOT, "schemas", "price_observation_normalized.schema.json"))
     assert errors == []
+
+
+# --------------------------------------------------------------------------
+# Materiaal (DOC-001: afleiding uit elementtekst, apart veld)
+# --------------------------------------------------------------------------
+
+MATERIALS = npo.load_vocab_utf8(VOCAB, "material")
+
+
+def mat(desc, action, oid="PO-DOC-001-P099-L001", doc="DOC-001", verified=None):
+    obs = {"observation_id": oid, "document_id": doc,
+           "element": {"element_id": "EL-X", "element_description_original": desc},
+           "action": {"action_text_original": action}}
+    return npo.normalize_material(obs, {"EL-X": verified or {"element_id": "EL-X"}}, MATERIALS)
+
+
+@pytest.mark.parametrize("oid,desc,action,original,normalized", [
+    ("PO-DOC-001-P024-L019", "Gootbekleding zink", "Herstellen", "zink", "zinc"),
+    ("PO-DOC-001-P024-L021", "Gootbekleding zink", "Reinigen", "zink", "zinc"),
+    ("PO-DOC-001-P024-L023", "Gootbekleding zink", "Vervangen gootbekleding zink", "zink", "zinc"),
+    ("PO-DOC-001-P024-L057", "Ventilatierooster staal", "Herstellen", "staal", "steel"),
+    ("PO-DOC-001-P024-L061", "Buitendeur hout", "Vervangen", "hout", "wood"),
+    ("PO-DOC-001-P024-L069", "Balustrade aluminium", "Reinigen", "aluminium", "aluminium"),
+    ("PO-DOC-001-P025-L023", "Buitenschilderwerk deur hout dekkend", "Schilderen", "hout", "wood"),
+    ("PO-DOC-001-P025-L025", "Buitenschilderwerk deur hout dekkend", "Groot schilderwerk deur hout dekkend", "hout", "wood"),
+    ("PO-DOC-001-P025-L095", "Buitenschilderwerk kozijn en raam hout dekkend",
+     "Groot schilderwerk kozijn en raam hout dekkend", "hout", "wood"),
+    ("PO-DOC-001-P026-L029", "Hemelwaterafvoer pvc", "Vervangen hemelwaterafvoer pvc", "pvc", "pvc"),
+])
+def test_doc001_exact_material_from_element_text(oid, desc, action, original, normalized):
+    m = mat(desc, action, oid=oid)
+    assert m["material_status"] == "MATERIAL_FROM_TEXT" and m["material_source"] == "element_text"
+    assert m["material_from_text"] == {"original_value": original, "normalized_value": normalized,
+                                       "source_field": "element_description_original"}
+    assert m["material_original"] is None and m["material_normalized"] is None  # origineel veld niet overschreven
+    assert m["verified_material_field"] == "absent"
+
+
+@pytest.mark.parametrize("desc,action", [
+    ("Gevelconstructie metselwerk", "Reinigen"),                            # geen vocabulairewoord
+    ("Buitenschilderwerk betonconstructie plafond", "Groot schilderwerk"),  # 'beton' alleen in samenstelling
+    ("Boeiboord volkern", "Reinigen boeiboord volkern"),
+    ("Buitenbeglazing enkel", "Vervangen"),
+])
+def test_no_material_without_exact_vocabulary_word(desc, action):
+    m = mat(desc, action)
+    assert m["material_from_text"] is None and m["material_status"] == "MATERIAL_UNKNOWN"
+    assert m["material_not_derived_reason"] == "no_vocabulary_token_in_element_text"
+
+
+def test_metaal_versus_aluminium_is_not_resolved():
+    # element zegt 'metaal' (niet in vocabulaire), actie zegt 'aluminium': niets afleiden, zeker niet uit de actie
+    m = mat("Kozijn ventilatierooster metaal", "Reinigen ventilatierooster aluminium")
+    assert m["material_from_text"] is None and m["material_status"] == "MATERIAL_UNKNOWN"
+    # ook als het element wel een vocabulairewoord heeft: ander materiaal in de actie = conflict
+    m = mat("Ventilatierooster staal", "Reinigen ventilatierooster aluminium")
+    assert m["material_from_text"] is None
+    assert m["material_not_derived_reason"] == "conflicting_material_in_action_text"
+
+
+def test_material_change_ijzer_to_pvc_is_not_derived():
+    m = mat("Binnenriolering ijzer", "Vervangen binneriolering ijzer > pvc")
+    assert m["material_from_text"] is None  # 'pvc' uit de actie wordt nooit overgenomen
+    m = mat("Gootbetimmering asbestcement (onderzijde goot)", "Vervangen boeiboord asbestcement- >kunststof")
+    assert m["material_from_text"] is None
+    m = mat("Gootbekleding zink", "Vervangen gootbekleding zink -> pvc")
+    assert m["material_from_text"] is None and m["material_not_derived_reason"] == "material_change_in_action_text"
+
+
+def test_multiple_materials_and_held_case_are_not_derived():
+    assert mat("Hijsbalk hout en staal", "Vervangen")["material_not_derived_reason"] == \
+        "multiple_vocabulary_tokens_in_element_text"
+    m = mat("Buitenschilderwerk verzinkt staal roosters", "Groot schilderwerk verzinkt staal roosters",
+            oid="PO-DOC-001-P025-L039")
+    assert m["material_from_text"] is None and m["material_not_derived_reason"] == "held_for_human_interpretation"
+
+
+def test_verified_material_is_kept_and_never_replaced_by_text():
+    m = mat("Gootbekleding zink", "Vervangen", doc="DOC-002",
+            verified={"element_id": "EL-X", "material": {"original_value": "hout", "normalized_value": "wood"}})
+    assert (m["material_original"], m["material_normalized"], m["material_status"]) == \
+        ("hout", "wood", "MATERIAL_FROM_VERIFIED")
+    assert m["material_from_text"] is None
+    m = mat("Gootbekleding zink", "Vervangen", doc="DOC-002",
+            verified={"element_id": "EL-X", "material": {"original_value": None, "normalized_value": None}})
+    assert m["material_from_text"] is None and m["material_not_derived_reason"] == "verified_material_empty"
+
+
+def test_material_field_absent_outside_doc001_is_not_derived():
+    m = mat("Hemelwaterafvoer pvc", "Vervangen hemelwaterafvoer pvc", oid="PO-DOC-004-P010-L010", doc="DOC-004")
+    assert m["material_from_text"] is None
+    assert m["material_not_derived_reason"] == "material_field_absent_document_not_in_scope"
+
+
+@pytest.mark.skipif(not os.path.exists(SOURCE_PATH), reason="source layer niet gebouwd")
+def test_batch1_has_exactly_ten_material_from_text():
+    result = npo.normalize(PROJECT_ROOT, SOURCE_PATH)
+    derived = {o["observation_id"] for o in result["observations"] if o["material"]["material_from_text"]}
+    assert derived == {"PO-DOC-001-P024-L019", "PO-DOC-001-P024-L021", "PO-DOC-001-P024-L023",
+                       "PO-DOC-001-P024-L057", "PO-DOC-001-P024-L061", "PO-DOC-001-P024-L069",
+                       "PO-DOC-001-P025-L023", "PO-DOC-001-P025-L025", "PO-DOC-001-P025-L095",
+                       "PO-DOC-001-P026-L029"}
+    vdir = os.path.join(PROJECT_ROOT, "data", "verified")
+    verified = {e["element_id"]: e for n in os.listdir(vdir)
+                for e in json.load(open(os.path.join(vdir, n), encoding="utf-8"))["elements"]}
+    for o in result["observations"]:  # originele materiaalvelden 1-op-1 uit verified
+        el = verified.get(o["element"]["element_id"]) or {}
+        assert o["material"]["material_original"] == (el.get("material") or {}).get("original_value")

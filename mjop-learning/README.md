@@ -141,6 +141,31 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   pagina. Is dat niet eenduidig, dan blijft het element leeg en staat de
   laatste elementregel van de vorige pagina alleen als kandidaat in
   `element_candidate_previous_page` (niet toegekend).
+- `scripts/normalize_price_observations.py` — afgeleide normalisatie-/
+  validatielaag op de price observations (actie, eenheid, element,
+  prijsvalidatie, review-redenen). Schrijft naar
+  `data/price_observations/price_observations_batch1_normalized.json`
+  (schema: `schemas/price_observation_normalized.schema.json`); de source
+  observations worden niet aangepast.
+  Materiaalblok per observation (`material`):
+  `material_original` / `material_normalized` komen ongewijzigd uit het
+  gekoppelde verified-element (`verified_material_field` = `present`,
+  `absent` of `no_element_link`). `material_from_text` is een aparte
+  afleiding uit `element_description_original`, alleen voor documenten
+  waarvan de extractie geen materiaalveld had en die daarvoor zijn
+  goedgekeurd (nu alleen DOC-001): precies één los woord dat letterlijk in
+  `vocabularies/material.json` staat, geen ander of wisselend materiaal in
+  de actietekst, en niet aangehouden voor menselijke interpretatie
+  (`MATERIAL_FROM_TEXT_HOLD`). `material_source` = `verified_element` of
+  `element_text`; `material_status` = `MATERIAL_FROM_VERIFIED`,
+  `MATERIAL_FROM_TEXT` of `MATERIAL_UNKNOWN`; `material_not_derived_reason`
+  zegt waarom er geen materiaal is (bijv.
+  `no_vocabulary_token_in_element_text`, `held_for_human_interpretation`,
+  `material_field_absent_document_not_in_scope`). Verified materiaal blijft
+  leidend; in batch 1 hebben alleen de 10 goedgekeurde DOC-001-afleidingen
+  `MATERIAL_FROM_TEXT`. Gevallen die interpretatie vragen worden niet
+  automatisch afgeleid, en originele materiaaldata wordt nooit
+  overschreven.
 - `scripts/build_comparability.py` — **nieuw**: vergelijkbaarheidsregels
   versie 1 (`docs/comparability_rules_v1.md`) op de genormaliseerde price
   observations: eligibility per observation (O1–O11), source clusters uit
@@ -157,7 +182,21 @@ Onderstaande onderdelen zijn opgeleverd en getest (91/91 tests slagen):
   (eligible, afgeleide prijs aanwezig en niet `POSSIBLY_DEPENDENT`).
   `independent_input_exclusion_reasons` geeft de redenen als dat niet zo is
   (`NO_DERIVED_PRICE`, `ELIGIBILITY_NOT_ELIGIBLE`, `ELIGIBILITY_UNKNOWN`,
-  `POSSIBLY_DEPENDENT`). `dependency_status` wordt ongewijzigd overgenomen.
+  `POSSIBLY_DEPENDENT`, `EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR`).
+  `dependency_status` wordt ongewijzigd overgenomen.
+  F7: een observation met de letterlijke bronmarkering `(uitgevoerd JJJJ)` in
+  de actietekst (in batch 1: 8 rijen van DOC-005) blijft bestaan met
+  ongewijzigde bron, prijs, eligibility, dependency en paarbeoordeling, maar
+  is voorlopig geen onafhankelijke input
+  (`EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR`), omdat de
+  prijsbetekenis van die rijen niet uit de bron blijkt.
+  F8: het materiaal voor O9/P4/P9 komt in deze volgorde uit 1) het
+  verified-element (leidend), 2) anders `material.material_from_text` uit de
+  normalisatielaag, alleen bij `material_status = MATERIAL_FROM_TEXT` en
+  `material_source = element_text`, 3) anders onbekend. Spreken 1 en 2
+  elkaar tegen, dan blijft het materiaal onbekend
+  (`conflict_verified_vs_element_text`). De gebruikte bron staat per
+  observation in `material.source`. De regels P4/P9 zelf zijn ongewijzigd.
 - `tests/` — 91 tests die de belangrijkste regels afdwingen: null-bij-onzeker,
   requires_human_review bij conflicten, deterministische/reproduceerbare
   kostenberekening, dat `data/raw/` niet stilzwijgend verandert

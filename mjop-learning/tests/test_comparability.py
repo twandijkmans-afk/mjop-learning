@@ -480,3 +480,110 @@ def test_build_batch1_does_not_touch_sources_and_validates():
     walk(result)
     forbidden = [k for k in keys if any(w in k for w in ("score", "median", "mean", "average", "kengetal", "p25", "p75"))]
     assert forbidden == []  # geen score- of kengetalvelden
+
+
+# --------------------------------------------------------------------------
+# F7: "(uitgevoerd JJJJ)" (DOC-005) - geen onafhankelijke input
+# --------------------------------------------------------------------------
+
+def test_executed_marker_excludes_independent_input_only():
+    a = obs(oid="PO-DOC-005-P012-L029", doc="DOC-005", qty="51", annual={"2030": "926"},
+            action_text="Groot schilderwerk betonlateien (uitgevoerd 2026)")
+    b = obs(oid="PO-DOC-005-P012-L035", doc="DOC-005", qty="51", annual={"2030": "926"},
+            action_text="Groot schilderwerk betonlateien (uitgevoerd 2026)")
+    r = bc.evaluate([a, b], RELATIONS, ELEMENTS, SIGNALS)
+    for o in r["observations"]:
+        assert o["eligibility"] == "ELIGIBLE" and o["dependency_status"] == "NO_DEPENDENCY_FOUND"
+        assert o["derived_unit_price_per_execution"]["value"] == "18.16"  # prijs blijft
+        assert o["independent_input"] is False
+        assert o["independent_input_exclusion_reasons"] == ["EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"]
+    assert r["tariff_groups"] == []
+
+
+def test_executed_marker_does_not_change_pair_class():
+    a = obs(oid="PO-DOC-005-P012-L029", doc="DOC-005", action_text="Vervangen hemelwaterafvoer pvc (uitgevoerd 2026)")
+    b = other(action_text="Vervangen hemelwaterafvoer pvc (uitgevoerd 2026)")
+    r = bc.evaluate([a, b], RELATIONS, ELEMENTS, SIGNALS)
+    assert r["pairs"][0]["class"] == bc.assess_pair(assess(a), assess(b), a, b, set())["class"]
+
+
+@pytest.mark.parametrize("text", ["Groot schilderwerk (reeds uitgevoerd)", "Groot schilderwerk uitgevoerd 2026",
+                                  "Groot schilderwerk (conform PO cyclus)"])
+def test_executed_marker_only_literal_form(text):
+    a = assess(obs(action_text=text))
+    a["dependency_status"] = "NO_DEPENDENCY_FOUND"
+    ok, reasons = bc.independent_input(a, obs(action_text=text))
+    assert ok is True and reasons == []
+
+
+@pytest.mark.skipif(not os.path.exists(NORMALIZED), reason="normalized output ontbreekt")
+def test_batch1_executed_marker_and_possibly_dependent_are_not_independent():
+    r = bc.build(PROJECT_ROOT)
+    marked = [o for o in r["observations"]
+              if "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR" in o["independent_input_exclusion_reasons"]]
+    assert len(marked) == 8 and {o["document_id"] for o in marked} == {"DOC-005"}
+    assert all(not o["independent_input"] for o in marked)
+    assert not any(o["independent_input"] for o in r["observations"] if o["dependency_status"] == "POSSIBLY_DEPENDENT")
+
+
+# --------------------------------------------------------------------------
+# F8: bron van het materiaal (verified > goedgekeurd material_from_text > onbekend)
+# --------------------------------------------------------------------------
+
+def with_text_material(o, value, normalized, status="MATERIAL_FROM_TEXT", source="element_text"):
+    o["material"] = {"material_from_text": {"original_value": value, "normalized_value": normalized,
+                                            "source_field": "element_description_original"} if value else None,
+                     "material_status": status, "material_source": source}
+    return o
+
+
+def test_verified_material_stays_leading():
+    same = with_text_material(obs(), "pvc", "pvc")                          # EL-1: verified pvc
+    assert bc.material_of(same, ELEMENTS) == {"original": "pvc", "normalized": None, "source": "verified_element"}
+    conflict = with_text_material(obs(), "zink", "zinc")                    # verified pvc, tekst zink
+    m = bc.material_of(conflict, ELEMENTS)
+    assert m["original"] is None and m["source"] == "conflict_verified_vs_element_text"
+    assert ELEMENTS["EL-1"]["material"]["original_value"] == "pvc"          # verified niet overschreven
+
+
+def test_approved_material_from_text_used_when_verified_absent():
+    o = with_text_material(obs(doc="DOC-001", element_id="EL-ABSENT"), "pvc", "pvc")
+    a = assess(o)
+    assert a["material"] == {"original": "pvc", "normalized": "pvc", "source": "element_text"}
+    assert "MATERIAL_UNKNOWN" not in a["caveats"]
+
+
+def test_held_or_unapproved_text_material_is_ignored():
+    held = with_text_material(obs(doc="DOC-001", element_id="EL-ABSENT"), None, None, status="MATERIAL_UNKNOWN",
+                              source=None)
+    assert bc.material_of(held, ELEMENTS)["original"] is None
+    wrong_status = with_text_material(obs(doc="DOC-001", element_id="EL-ABSENT"), "staal", "steel",
+                                      status="MATERIAL_UNKNOWN")
+    assert bc.material_of(wrong_status, ELEMENTS)["original"] is None
+    assert "MATERIAL_UNKNOWN" in assess(wrong_status)["caveats"]
+
+
+def test_text_material_difference_uses_existing_hard_rule():
+    a = with_text_material(obs(doc="DOC-001", element_id="EL-ABSENT"), "hout", "wood")
+    p = pair(a, other(element_id="EL-STAAL"))
+    assert p["class"] == "NOT_COMPARABLE" and p["hard_violations"] == ["MATERIAL_DIFFERS"]
+
+
+def test_unknown_material_stays_unknown():
+    o = obs(element_id="EL-ABSENT")                                         # geen verified, geen tekstmateriaal
+    a = assess(o)
+    assert a["material"]["original"] is None and "MATERIAL_UNKNOWN" in a["caveats"]
+    assert pair(o, other())["checks"]["material"] is None
+
+
+@pytest.mark.skipif(not os.path.exists(NORMALIZED), reason="normalized output ontbreekt")
+def test_batch1_pairs_00306_00307_use_pvc_from_text():
+    r = bc.build(PROJECT_ROOT)
+    by_id = {p["pair_id"]: p for p in r["pairs"]}
+    for pid in ("PAIR-00306", "PAIR-00307"):
+        p = by_id[pid]
+        assert "PO-DOC-001-P026-L029" in p["observation_ids"] and p["checks"]["material"] == "equal"
+        assert p["class"] == "COMPARABLE_WITH_CAVEATS"
+    doc001 = next(o for o in r["observations"] if o["observation_id"] == "PO-DOC-001-P026-L029")
+    assert doc001["material"] == {"original": "pvc", "normalized": "pvc", "source": "element_text"}
+    assert sum(1 for o in r["observations"] if o["material"]["source"] == "element_text") == 10

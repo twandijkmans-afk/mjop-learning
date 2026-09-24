@@ -45,6 +45,10 @@ OPEN_REVIEW_BLOCKING = {"action_not_normalized", "conflicting_action_normalizati
                         "element_code_mismatch_source_vs_verified"}
 CLUSTER_RELATION_TYPES = {"version_of_same_mjop", "subplans_same_complex"}
 QUANTITY_RATIO_LIMIT = Decimal("10")
+# F7: letterlijke bronmarkering "(uitgevoerd JJJJ)" in de actietekst (DOC-005). De bron zegt alleen
+# "Tijdens de schouw werd PO (schilderwerk) uitgevoerd"; wat de prijs van zulke rijen betekent is
+# niet vastgesteld. Zulke observations blijven bestaan, maar zijn geen onafhankelijke input.
+EXECUTED_MARKER = re.compile(r"\(uitgevoerd \d{4}\)", re.IGNORECASE)
 
 
 # --------------------------------------------------------------------------
@@ -117,9 +121,24 @@ def find_signals(text, signals):
 # --------------------------------------------------------------------------
 
 def material_of(obs, elements):
+    """F8: bronvolgorde voor het materiaal. 1) verified-element (leidend, nooit
+    overschreven); 2) anders material_from_text uit de normalisatielaag, alleen
+    met status MATERIAL_FROM_TEXT en bron element_text; 3) anders onbekend.
+    Spreken 1 en 2 elkaar tegen, dan blijft het materiaal onbekend."""
     el = elements.get(obs["element"]["element_id"]) if obs["element"]["element_id"] else None
     m = (el or {}).get("material") or {}
-    return {"original": m.get("original_value"), "normalized": m.get("normalized_value")}
+    verified = {"original": m.get("original_value"), "normalized": m.get("normalized_value")}
+    nm = obs.get("material") or {}
+    text = (nm.get("material_from_text") if nm.get("material_status") == "MATERIAL_FROM_TEXT"
+            and nm.get("material_source") == "element_text" else None)
+    if verified["original"]:
+        if text and (text["normalized_value"] or text["original_value"].lower()) != \
+                (verified["normalized"] or verified["original"].lower()):
+            return {"original": None, "normalized": None, "source": "conflict_verified_vs_element_text"}
+        return dict(verified, source="verified_element")
+    if text:
+        return {"original": text["original_value"], "normalized": text["normalized_value"], "source": "element_text"}
+    return {"original": None, "normalized": None, "source": None}
 
 
 def derive_per_execution(obs):
@@ -266,8 +285,8 @@ def build_clusters(document_ids, doc_relations):
     return cluster_of, duplicates
 
 
-def independent_input(a):
-    """F6: mag de afgeleide prijs als onafhankelijke input voor tariefgroepen /
+def independent_input(a, obs=None):
+    """F6/F7: mag de afgeleide prijs als onafhankelijke input voor tariefgroepen /
     latere aggregatie dienen? Verandert eligibility en dependency_status niet."""
     reasons = []
     if not a["derived_unit_price_per_execution"]:
@@ -276,6 +295,8 @@ def independent_input(a):
         reasons.append(f"ELIGIBILITY_{a['eligibility']}")
     if a["dependency_status"] == "POSSIBLY_DEPENDENT":
         reasons.append("POSSIBLY_DEPENDENT")
+    if obs is not None and EXECUTED_MARKER.search(obs["action"]["action_text_original"] or ""):
+        reasons.append("EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR")
     return not reasons, reasons
 
 
@@ -474,7 +495,7 @@ def evaluate(observations, doc_relations, elements, signals):
         a["candidate_key"] = list(a["candidate_key"])
 
     for a in assessed:
-        a["independent_input"], a["independent_input_exclusion_reasons"] = independent_input(a)
+        a["independent_input"], a["independent_input_exclusion_reasons"] = independent_input(a, by_id[a["observation_id"]])
     tgs = tariff_groups(assessed)
     tg_of = {oid: t["tariff_group_id"] for t in tgs for oid in t["observation_ids"]}
     for a in assessed:

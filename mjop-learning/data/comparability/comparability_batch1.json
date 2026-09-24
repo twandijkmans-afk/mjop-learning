@@ -3,7 +3,7 @@
   "rules_document": "docs/comparability_rules_v1.md",
   "inputs": {
     "normalized_observations": "data/price_observations/price_observations_batch1_normalized.json",
-    "normalized_observations_sha256": "a501a0d87d53aba1081a87868eca5c026590cee3880641c407c4bd157b688bea",
+    "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0",
     "document_relations_sha256": "338326282acf7c2a160e8fb346188b0cbf17187b0c5b28d9d487e28fc0328ddf",
     "signal_words_sha256": "1158211089d3fe621fa6215786fd32eb5a099409852a78b2e1db756215274478"
   },
@@ -23,16 +23,16 @@
     },
     "pairs": 352,
     "pair_class": {
-      "NOT_COMPARABLE": 143,
+      "NOT_COMPARABLE": 154,
       "COMPARABLE_WITH_CAVEATS": 31,
-      "UNKNOWN": 178
+      "UNKNOWN": 167
     },
     "same_source_links": 195,
     "source_clusters": 7,
     "tariff_groups": 30,
     "derived_price_per_execution": 296,
     "derived_price_per_execution_eligible": 226,
-    "derived_price_per_execution_independent_input": 212,
+    "derived_price_per_execution_independent_input": 204,
     "eligibility_reasons": {
       "LUMP_SUM": 105,
       "BUNDLED_COST": 6,
@@ -44,7 +44,7 @@
       "OPEN_REVIEW:unit_unknown": 3
     },
     "observation_caveats": {
-      "MATERIAL_UNKNOWN": 185,
+      "MATERIAL_UNKNOWN": 175,
       "PRICE_LEVEL_ABSENT": 53,
       "CODE_LABEL_MISMATCH": 16,
       "FRACTIONAL_PIECE_COUNT": 8,
@@ -54,7 +54,7 @@
       "UPGRADE": 5
     },
     "pair_hard_violations": {
-      "MATERIAL_DIFFERS": 143
+      "MATERIAL_DIFFERS": 154
     },
     "pair_unknown_reasons": {
       "POSSIBLY_DEPENDENT_OBSERVATION": 60,
@@ -137,7 +137,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -168,14 +169,14 @@
         "LUMP_SUM"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "zink",
+        "normalized": "zinc",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -206,14 +207,14 @@
         "LUMP_SUM"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "zink",
+        "normalized": "zinc",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -242,14 +243,14 @@
       "eligibility": "ELIGIBLE_WITH_CAVEATS",
       "eligibility_reasons": [],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "zink",
+        "normalized": "zinc",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": {
         "value": "77.62",
@@ -288,7 +289,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "405.60",
@@ -329,7 +331,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -367,7 +370,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "4.47",
@@ -408,7 +412,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -444,7 +449,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "19.06",
@@ -485,7 +491,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -516,14 +523,14 @@
         "LUMP_SUM"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "staal",
+        "normalized": "steel",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -554,14 +561,14 @@
         "LUMP_SUM"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "hout",
+        "normalized": "wood",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -592,14 +599,14 @@
         "LUMP_SUM"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "aluminium",
+        "normalized": "aluminium",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -642,7 +649,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "78.65",
@@ -683,7 +691,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "84.97",
@@ -717,14 +726,14 @@
         "LUMP_SUM"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "hout",
+        "normalized": "wood",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -753,7 +762,6 @@
       "eligibility": "ELIGIBLE_WITH_CAVEATS",
       "eligibility_reasons": [],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [
@@ -761,8 +769,9 @@
       ],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "hout",
+        "normalized": "wood",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": {
         "value": "36.62",
@@ -818,7 +827,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "40.65",
@@ -874,7 +884,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "45.64",
@@ -930,7 +941,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "14.25",
@@ -974,7 +986,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12.26",
@@ -1014,7 +1027,6 @@
       "eligibility": "ELIGIBLE_WITH_CAVEATS",
       "eligibility_reasons": [],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [
@@ -1022,8 +1034,9 @@
       ],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "hout",
+        "normalized": "wood",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": {
         "value": "10.07",
@@ -1068,7 +1081,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "30.40",
@@ -1110,14 +1124,14 @@
       "eligibility": "ELIGIBLE_WITH_CAVEATS",
       "eligibility_reasons": [],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "info": [],
       "signals_found": [],
       "material": {
-        "original": null,
-        "normalized": null
+        "original": "pvc",
+        "normalized": "pvc",
+        "source": "element_text"
       },
       "derived_unit_price_per_execution": {
         "value": "51.79",
@@ -1168,7 +1182,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -1204,7 +1219,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "2751.38",
@@ -1243,7 +1259,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "605.00",
@@ -1284,7 +1301,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -1323,7 +1341,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -1361,7 +1380,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -1405,7 +1425,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -1440,7 +1461,8 @@
       "signals_found": [],
       "material": {
         "original": "natuursteen",
-        "normalized": "natural_stone"
+        "normalized": "natural_stone",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.50",
@@ -1481,7 +1503,8 @@
       "signals_found": [],
       "material": {
         "original": "hout en staal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "423.50",
@@ -1519,7 +1542,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.14",
@@ -1557,7 +1581,8 @@
       "signals_found": [],
       "material": {
         "original": "zink",
-        "normalized": "zinc"
+        "normalized": "zinc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "4.40",
@@ -1595,7 +1620,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "66.80",
@@ -1633,7 +1659,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "91.00",
@@ -1671,7 +1698,8 @@
       "signals_found": [],
       "material": {
         "original": "hardhout",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.00",
@@ -1712,7 +1740,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.15",
@@ -1750,7 +1779,8 @@
       "signals_found": [],
       "material": {
         "original": "hardhout",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.16",
@@ -1791,7 +1821,8 @@
       "signals_found": [],
       "material": {
         "original": "hardhout",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.00",
@@ -1832,7 +1863,8 @@
       "signals_found": [],
       "material": {
         "original": "hardhout",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.16",
@@ -1873,7 +1905,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "303.00",
@@ -1911,7 +1944,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "303.00",
@@ -1949,7 +1983,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "302.50",
@@ -1987,7 +2022,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.50",
@@ -2025,7 +2061,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.45",
@@ -2061,7 +2098,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.29",
@@ -2097,7 +2135,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.25",
@@ -2133,7 +2172,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "12.11",
@@ -2169,7 +2209,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "12.11",
@@ -2205,7 +2246,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "90.71",
@@ -2241,7 +2283,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "90.76",
@@ -2279,7 +2322,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.00",
@@ -2315,7 +2359,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "10.89",
@@ -2351,7 +2396,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "10.89",
@@ -2387,7 +2433,8 @@
       "signals_found": [],
       "material": {
         "original": "pleisterwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.52",
@@ -2423,7 +2470,8 @@
       "signals_found": [],
       "material": {
         "original": "pleisterwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.52",
@@ -2461,7 +2509,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.35",
@@ -2503,7 +2552,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "72.67",
@@ -2543,7 +2593,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "42.50",
@@ -2581,7 +2632,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.50",
@@ -2628,7 +2680,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "30.50",
@@ -2662,7 +2715,7 @@
         "PAIR-00099"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00045",
+      "comparison_class_reason": "best_pair:PAIR-00059",
       "independent_input": true,
       "independent_input_exclusion_reasons": [],
       "tariff_group_id": null
@@ -2677,7 +2730,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "73.00",
@@ -2715,7 +2769,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "72.50",
@@ -2753,7 +2808,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.36",
@@ -2795,7 +2851,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.36",
@@ -2837,7 +2894,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.00",
@@ -2879,7 +2937,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.00",
@@ -2921,7 +2980,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.36",
@@ -2963,7 +3023,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.00",
@@ -3001,7 +3062,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.00",
@@ -3039,7 +3101,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.00",
@@ -3088,7 +3151,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.00",
@@ -3137,7 +3201,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.25",
@@ -3177,7 +3242,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "30.29",
@@ -3211,7 +3277,7 @@
         "PAIR-00120"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00048",
+      "comparison_class_reason": "best_pair:PAIR-00062",
       "independent_input": true,
       "independent_input_exclusion_reasons": [],
       "tariff_group_id": null
@@ -3224,7 +3290,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "30.24",
@@ -3258,7 +3325,7 @@
         "PAIR-00127"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00049",
+      "comparison_class_reason": "best_pair:PAIR-00063",
       "independent_input": true,
       "independent_input_exclusion_reasons": [],
       "tariff_group_id": null
@@ -3271,7 +3338,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "30.24",
@@ -3305,7 +3373,7 @@
         "PAIR-00134"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00050",
+      "comparison_class_reason": "best_pair:PAIR-00064",
       "independent_input": true,
       "independent_input_exclusion_reasons": [],
       "tariff_group_id": null
@@ -3318,7 +3386,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.50",
@@ -3354,7 +3423,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.16",
@@ -3390,7 +3460,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.40",
@@ -3435,7 +3506,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.33",
@@ -3471,7 +3543,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "10.89",
@@ -3516,7 +3589,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.50",
@@ -3552,7 +3626,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.16",
@@ -3588,7 +3663,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.40",
@@ -3633,7 +3709,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "10.89",
@@ -3678,7 +3755,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.33",
@@ -3714,7 +3792,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "24.18",
@@ -3752,7 +3831,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "24.18",
@@ -3792,7 +3872,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.67",
@@ -3832,7 +3913,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.50",
@@ -3872,7 +3954,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.52",
@@ -3912,7 +3995,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "14.52",
@@ -3950,7 +4034,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "38.15",
@@ -3988,7 +4073,8 @@
       "signals_found": [],
       "material": {
         "original": "aluminium",
-        "normalized": "aluminium"
+        "normalized": "aluminium",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "38.13",
@@ -4026,7 +4112,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "49.06",
@@ -4064,7 +4151,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.50",
@@ -4106,7 +4194,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.33",
@@ -4146,7 +4235,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.50",
@@ -4186,7 +4276,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "1331.00",
@@ -4224,7 +4315,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "1331.00",
@@ -4264,7 +4356,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "303.00",
@@ -4306,7 +4399,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -4343,7 +4437,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -4380,7 +4475,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -4417,7 +4513,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12.00",
@@ -4459,7 +4556,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "350.00",
@@ -4501,7 +4599,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "350.00",
@@ -4543,7 +4642,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -4585,7 +4685,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "55.20",
@@ -4629,7 +4730,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "3.64",
@@ -4673,7 +4775,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "25.00",
@@ -4715,7 +4818,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -4757,7 +4861,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "483.00",
@@ -4799,7 +4904,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -4841,7 +4947,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "150.00",
@@ -4885,7 +4992,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -4929,7 +5037,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -4971,7 +5080,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -5013,7 +5123,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -5055,7 +5166,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -5097,7 +5209,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -5140,7 +5253,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "35.00",
@@ -5183,7 +5297,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "35.00",
@@ -5225,7 +5340,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "10.00",
@@ -5267,7 +5383,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "20.00",
@@ -5309,7 +5426,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "20.00",
@@ -5351,7 +5469,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -5393,7 +5512,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "50.00",
@@ -5435,7 +5555,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "50.00",
@@ -5477,7 +5598,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "50.00",
@@ -5519,7 +5641,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "50.00",
@@ -5563,7 +5686,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "60.00",
@@ -5605,7 +5729,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "20.00",
@@ -5647,7 +5772,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "55.00",
@@ -5689,7 +5815,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "45.00",
@@ -5731,7 +5858,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.00",
@@ -5773,7 +5901,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -5817,7 +5946,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "13.00",
@@ -5859,7 +5989,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.00",
@@ -5901,7 +6032,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12.00",
@@ -5943,7 +6075,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12.00",
@@ -5987,7 +6120,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.00",
@@ -6029,7 +6163,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -6071,7 +6206,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "55.00",
@@ -6113,7 +6249,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -6155,7 +6292,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "60.00",
@@ -6199,7 +6337,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12.00",
@@ -6241,7 +6380,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "20.00",
@@ -6283,7 +6423,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "15.00",
@@ -6325,7 +6466,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "60.00",
@@ -6367,7 +6509,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.00",
@@ -6409,7 +6552,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12.00",
@@ -6451,7 +6595,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "8.50",
@@ -6493,7 +6638,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "8.50",
@@ -6535,7 +6681,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "8.67",
@@ -6577,7 +6724,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "8.50",
@@ -6619,7 +6767,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "34.00",
@@ -6661,7 +6810,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "79.29",
@@ -6704,7 +6854,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "250.00",
@@ -6747,7 +6898,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -6785,7 +6937,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -6823,7 +6976,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -6858,7 +7012,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "10.97",
@@ -6900,7 +7055,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "98.90",
@@ -6947,7 +7103,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "6.59",
@@ -6985,7 +7142,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "41.58",
@@ -7021,7 +7179,7 @@
         "PAIR-00136"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00051",
+      "comparison_class_reason": "best_pair:PAIR-00065",
       "independent_input": false,
       "independent_input_exclusion_reasons": [
         "POSSIBLY_DEPENDENT"
@@ -7038,7 +7196,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "35.64",
@@ -7075,8 +7234,10 @@
       ],
       "comparison_class": "UNKNOWN",
       "comparison_class_reason": "best_pair:PAIR-00052",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7089,7 +7250,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "47.52",
@@ -7125,9 +7287,11 @@
         "PAIR-00140"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00053",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "comparison_class_reason": "best_pair:PAIR-00067",
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7140,7 +7304,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "27.92",
@@ -7172,8 +7337,10 @@
       ],
       "comparison_class": "NOT_COMPARABLE",
       "comparison_class_reason": "best_pair:PAIR-00023",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7186,7 +7353,8 @@
       "signals_found": [],
       "material": {
         "original": "beton / coating (polyurethaan)",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "146.40",
@@ -7212,8 +7380,10 @@
       ],
       "comparison_class": "UNKNOWN",
       "comparison_class_reason": "best_pair:PAIR-00198",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7224,7 +7394,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "8.32",
@@ -7254,8 +7425,10 @@
       ],
       "comparison_class": "UNKNOWN",
       "comparison_class_reason": "best_pair:PAIR-00201",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7266,7 +7439,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "21.39",
@@ -7296,8 +7470,10 @@
       ],
       "comparison_class": "UNKNOWN",
       "comparison_class_reason": "best_pair:PAIR-00202",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7310,7 +7486,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "43.37",
@@ -7339,8 +7516,10 @@
       ],
       "comparison_class": "UNKNOWN",
       "comparison_class_reason": "best_pair:PAIR-00226",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7353,7 +7532,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "11.88",
@@ -7387,8 +7567,10 @@
       ],
       "comparison_class": "COMPARABLE_WITH_CAVEATS",
       "comparison_class_reason": "best_pair:PAIR-00246",
-      "independent_input": true,
-      "independent_input_exclusion_reasons": [],
+      "independent_input": false,
+      "independent_input_exclusion_reasons": [
+        "EXECUTED_DURING_INSPECTION_PRICE_MEANING_UNCLEAR"
+      ],
       "tariff_group_id": null
     },
     {
@@ -7402,7 +7584,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -7435,7 +7618,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "76.47",
@@ -7475,7 +7659,8 @@
       "signals_found": [],
       "material": {
         "original": "zink",
-        "normalized": "zinc"
+        "normalized": "zinc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "62.10",
@@ -7515,7 +7700,8 @@
       "signals_found": [],
       "material": {
         "original": "pvc",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "59.27",
@@ -7560,7 +7746,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "133.48",
@@ -7590,7 +7777,7 @@
         "PAIR-00318"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00301",
+      "comparison_class_reason": "best_pair:PAIR-00318",
       "independent_input": false,
       "independent_input_exclusion_reasons": [
         "POSSIBLY_DEPENDENT"
@@ -7609,7 +7796,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -7646,7 +7834,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -7684,7 +7873,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -7719,7 +7909,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "9.07",
@@ -7759,7 +7950,8 @@
       "signals_found": [],
       "material": {
         "original": "kit",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "49.10",
@@ -7806,7 +7998,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -7839,7 +8032,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.35",
@@ -7875,7 +8069,7 @@
         "PAIR-00142"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00054",
+      "comparison_class_reason": "best_pair:PAIR-00068",
       "independent_input": false,
       "independent_input_exclusion_reasons": [
         "POSSIBLY_DEPENDENT"
@@ -7892,7 +8086,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -7925,7 +8120,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "53.17",
@@ -7974,7 +8170,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "78.65",
@@ -8018,7 +8215,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "62.12",
@@ -8054,7 +8252,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "68.98",
@@ -8102,7 +8301,8 @@
       "signals_found": [],
       "material": {
         "original": "beton / coating (polyurethaan)",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -8135,7 +8335,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "35.43",
@@ -8179,7 +8380,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -8214,7 +8416,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -8247,7 +8450,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "53.17",
@@ -8288,7 +8492,8 @@
       "signals_found": [],
       "material": {
         "original": "hout (multiplex)",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.45",
@@ -8327,7 +8532,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "63.20",
@@ -8367,7 +8573,8 @@
       "signals_found": [],
       "material": {
         "original": "pvc",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "48.98",
@@ -8412,7 +8619,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "110.31",
@@ -8442,7 +8650,7 @@
         "PAIR-00328"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00303",
+      "comparison_class_reason": "best_pair:PAIR-00328",
       "independent_input": false,
       "independent_input_exclusion_reasons": [
         "POSSIBLY_DEPENDENT"
@@ -8461,7 +8669,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -8498,7 +8707,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -8536,7 +8746,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -8571,7 +8782,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "95.92",
@@ -8610,7 +8822,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "17.71",
@@ -8657,7 +8870,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "66.43",
@@ -8704,7 +8918,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "66.43",
@@ -8743,7 +8958,8 @@
       "signals_found": [],
       "material": {
         "original": "lood",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "199.29",
@@ -8789,7 +9005,8 @@
       ],
       "material": {
         "original": "prefab beton",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "3.42",
@@ -8832,7 +9049,8 @@
       ],
       "material": {
         "original": "prefab beton",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "3.42",
@@ -8870,7 +9088,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "308.00",
@@ -8915,7 +9134,8 @@
       ],
       "material": {
         "original": "hardhout",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "8.57",
@@ -8965,7 +9185,8 @@
       ],
       "material": {
         "original": "hardhout",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "8.57",
@@ -9009,7 +9230,8 @@
       "signals_found": [],
       "material": {
         "original": "h.hout (hardhout)",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -9051,7 +9273,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "1452.02",
@@ -9091,7 +9314,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -9124,7 +9348,8 @@
       "signals_found": [],
       "material": {
         "original": "volkern",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "323.60",
@@ -9160,7 +9385,8 @@
       "signals_found": [],
       "material": {
         "original": "tapijt",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "80.63",
@@ -9200,7 +9426,8 @@
       "signals_found": [],
       "material": {
         "original": "coralmat",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "128.67",
@@ -9238,7 +9465,8 @@
       "signals_found": [],
       "material": {
         "original": "multiplex",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "147.10",
@@ -9276,7 +9504,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "45.39",
@@ -9325,7 +9554,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "46.52",
@@ -9374,7 +9604,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "50.51",
@@ -9413,7 +9644,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "37.86",
@@ -9451,7 +9683,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "37.86",
@@ -9491,7 +9724,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "56.78",
@@ -9534,7 +9768,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "56.78",
@@ -9575,7 +9810,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "44.18",
@@ -9617,7 +9853,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "95.74",
@@ -9655,7 +9892,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "95.74",
@@ -9693,7 +9931,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "37.85",
@@ -9739,7 +9978,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "37.85",
@@ -9787,7 +10027,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "56.79",
@@ -9833,7 +10074,8 @@
       "signals_found": [],
       "material": {
         "original": "hout / stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "44.18",
@@ -9877,7 +10119,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -9910,7 +10153,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "138.63",
@@ -9951,7 +10195,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "138.63",
@@ -9992,7 +10237,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "83.19",
@@ -10031,7 +10277,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "138.64",
@@ -10070,7 +10317,8 @@
       "signals_found": [],
       "material": {
         "original": "APP",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "83.17",
@@ -10106,7 +10354,8 @@
       "signals_found": [],
       "material": {
         "original": "Plastisol",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "98.68",
@@ -10147,7 +10396,8 @@
       "signals_found": [],
       "material": {
         "original": "lood",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "147.33",
@@ -10187,7 +10437,8 @@
       "signals_found": [],
       "material": {
         "original": "lood",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "147.32",
@@ -10227,7 +10478,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "16.79",
@@ -10267,7 +10519,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "16.84",
@@ -10307,7 +10560,8 @@
       "signals_found": [],
       "material": {
         "original": "pvc",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "52.55",
@@ -10356,7 +10610,8 @@
       "signals_found": [],
       "material": {
         "original": "pvc",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "52.55",
@@ -10405,7 +10660,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "319.00",
@@ -10443,7 +10699,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "175.08",
@@ -10486,7 +10743,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "333.92",
@@ -10529,7 +10787,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "187.55",
@@ -10567,7 +10826,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "1704.60",
@@ -10605,7 +10865,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "521.91",
@@ -10646,7 +10907,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -10681,7 +10943,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "479.76",
@@ -10719,7 +10982,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "69.59",
@@ -10759,7 +11023,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "69.50",
@@ -10802,7 +11067,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -10840,7 +11106,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -10876,7 +11143,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "114.95",
@@ -10914,7 +11182,8 @@
       "signals_found": [],
       "material": {
         "original": "lood",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "187.55",
@@ -10952,7 +11221,8 @@
       "signals_found": [],
       "material": {
         "original": "APP+ballast",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "175.45",
@@ -10993,7 +11263,8 @@
       "signals_found": [],
       "material": {
         "original": "APP+ballast",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "22.51",
@@ -11034,7 +11305,8 @@
       "signals_found": [],
       "material": {
         "original": "aluminium",
-        "normalized": "aluminium"
+        "normalized": "aluminium",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "39.06",
@@ -11076,7 +11348,8 @@
       "signals_found": [],
       "material": {
         "original": "bitumen",
-        "normalized": "bitumen"
+        "normalized": "bitumen",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "175.45",
@@ -11117,7 +11390,8 @@
       "signals_found": [],
       "material": {
         "original": "bitumen",
-        "normalized": "bitumen"
+        "normalized": "bitumen",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "22.51",
@@ -11158,7 +11432,8 @@
       "signals_found": [],
       "material": {
         "original": "lood",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "143.49",
@@ -11200,7 +11475,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11235,7 +11511,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "1492.88",
@@ -11274,7 +11551,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "12100.00",
@@ -11316,7 +11594,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11351,7 +11630,8 @@
       "signals_found": [],
       "material": {
         "original": "zink",
-        "normalized": "zinc"
+        "normalized": "zinc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "190.00",
@@ -11389,7 +11669,8 @@
       "signals_found": [],
       "material": {
         "original": "zink",
-        "normalized": "zinc"
+        "normalized": "zinc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "190.00",
@@ -11430,7 +11711,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11467,7 +11749,8 @@
       "signals_found": [],
       "material": {
         "original": "klinkers",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "21.46",
@@ -11510,7 +11793,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11548,7 +11832,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11586,7 +11871,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11624,7 +11910,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11662,7 +11949,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11697,7 +11985,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11732,7 +12021,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.38",
@@ -11770,7 +12060,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.38",
@@ -11810,7 +12101,8 @@
       "signals_found": [],
       "material": {
         "original": "betonsteen",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -11850,7 +12142,8 @@
       ],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "37.51",
@@ -11893,7 +12186,8 @@
       ],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "30.25",
@@ -11936,7 +12230,8 @@
       ],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "16.35",
@@ -11974,7 +12269,8 @@
       "signals_found": [],
       "material": {
         "original": "tegel",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12009,7 +12305,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12044,7 +12341,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "11.25",
@@ -12084,7 +12382,8 @@
       "signals_found": [],
       "material": {
         "original": "aluminium",
-        "normalized": "aluminium"
+        "normalized": "aluminium",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "22.50",
@@ -12122,7 +12421,8 @@
       "signals_found": [],
       "material": {
         "original": "gres/ijzerklinker",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "30.25",
@@ -12160,7 +12460,8 @@
       "signals_found": [],
       "material": {
         "original": "kunststof",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "18.15",
@@ -12196,7 +12497,8 @@
       "signals_found": [],
       "material": {
         "original": "kunststof",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "272.25",
@@ -12246,7 +12548,8 @@
       ],
       "material": {
         "original": "staal / houten kader",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "1452.02",
@@ -12291,7 +12594,8 @@
       ],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "1210.10",
@@ -12333,7 +12637,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12368,7 +12673,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "1452.00",
@@ -12408,7 +12714,8 @@
       "signals_found": [],
       "material": {
         "original": "staal/draadglas",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12445,7 +12752,8 @@
       "signals_found": [],
       "material": {
         "original": "staal/draadglas",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "177.75",
@@ -12483,7 +12791,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "245.48",
@@ -12521,7 +12830,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12556,7 +12866,8 @@
       "signals_found": [],
       "material": {
         "original": "voegwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12589,7 +12900,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "39.60",
@@ -12637,7 +12949,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "39.60",
@@ -12683,7 +12996,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "39.60",
@@ -12733,7 +13047,8 @@
       "signals_found": [],
       "material": {
         "original": "beton / coating",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12768,7 +13083,8 @@
       "signals_found": [],
       "material": {
         "original": "beton / coating",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "151.25",
@@ -12810,7 +13126,8 @@
       "signals_found": [],
       "material": {
         "original": "beton / coating",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12845,7 +13162,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -12878,7 +13196,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -12919,7 +13238,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -12962,7 +13282,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -13003,7 +13324,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -13046,7 +13368,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.33",
@@ -13084,7 +13407,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13119,7 +13443,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "60.82",
@@ -13164,7 +13489,8 @@
       "signals_found": [],
       "material": {
         "original": "hout/staal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13201,7 +13527,8 @@
       "signals_found": [],
       "material": {
         "original": "hout/staal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "87.85",
@@ -13242,7 +13569,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "70.85",
@@ -13281,7 +13609,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "24.33",
@@ -13321,7 +13650,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "43.99",
@@ -13364,7 +13694,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.33",
@@ -13407,7 +13738,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "24.33",
@@ -13449,7 +13781,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -13494,7 +13827,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -13541,7 +13875,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -13586,7 +13921,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "32.99",
@@ -13631,7 +13967,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "38.51",
@@ -13670,7 +14007,8 @@
       "signals_found": [],
       "material": {
         "original": "lood",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "143.49",
@@ -13708,7 +14046,8 @@
       "signals_found": [],
       "material": {
         "original": "pvc",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "54.91",
@@ -13757,7 +14096,8 @@
       "signals_found": [],
       "material": {
         "original": "ijzer",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13800,7 +14140,8 @@
       ],
       "material": {
         "original": "ijzer",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13843,7 +14184,8 @@
       ],
       "material": {
         "original": "ijzer",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13886,7 +14228,8 @@
       ],
       "material": {
         "original": "ijzer",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13929,7 +14272,8 @@
       ],
       "material": {
         "original": "ijzer",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -13966,7 +14310,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14003,7 +14348,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14045,7 +14391,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "6516.00",
@@ -14091,7 +14438,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "175.43",
@@ -14136,7 +14484,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14171,7 +14520,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "2251.00",
@@ -14223,7 +14573,8 @@
       ],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14260,7 +14611,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14297,7 +14649,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14334,7 +14687,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14371,7 +14725,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14409,7 +14764,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14447,7 +14803,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14484,7 +14841,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14521,7 +14879,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14558,7 +14917,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14595,7 +14955,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14632,7 +14993,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14669,7 +15031,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14706,7 +15069,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14743,7 +15107,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14780,7 +15145,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14817,7 +15183,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14854,7 +15221,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14891,7 +15259,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14928,7 +15297,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -14965,7 +15335,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -15002,7 +15373,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -15039,7 +15411,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -15072,7 +15445,8 @@
       "signals_found": [],
       "material": {
         "original": "metselwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "227.82",
@@ -15110,7 +15484,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "491.00",
@@ -15148,7 +15523,8 @@
       "signals_found": [],
       "material": {
         "original": "aluminium",
-        "normalized": "aluminium"
+        "normalized": "aluminium",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "130.80",
@@ -15186,7 +15562,8 @@
       "signals_found": [],
       "material": {
         "original": "tapijt",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "64.60",
@@ -15225,7 +15602,8 @@
       "signals_found": [],
       "material": {
         "original": "dubbel hard gebakken tegels",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "122.79",
@@ -15263,7 +15641,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "50.12",
@@ -15315,7 +15694,8 @@
       "signals_found": [],
       "material": {
         "original": "metaal",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "44.62",
@@ -15354,7 +15734,7 @@
         "PAIR-00144"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00057",
+      "comparison_class_reason": "best_pair:PAIR-00071",
       "independent_input": true,
       "independent_input_exclusion_reasons": [],
       "tariff_group_id": null
@@ -15367,7 +15747,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "42.35",
@@ -15413,7 +15794,8 @@
       "signals_found": [],
       "material": {
         "original": "stucwerk",
-        "normalized": null
+        "normalized": null,
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "24.20",
@@ -15459,7 +15841,8 @@
       "signals_found": [],
       "material": {
         "original": "hout",
-        "normalized": "wood"
+        "normalized": "wood",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "40.17",
@@ -15507,7 +15890,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "40.29",
@@ -15545,7 +15929,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "81.93",
@@ -15583,7 +15968,8 @@
       "signals_found": [],
       "material": {
         "original": "beton",
-        "normalized": "concrete"
+        "normalized": "concrete",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "33.48",
@@ -15631,7 +16017,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "111.00",
@@ -15667,7 +16054,8 @@
       "signals_found": [],
       "material": {
         "original": "pvc",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "45.23",
@@ -15712,7 +16100,8 @@
       "signals_found": [],
       "material": {
         "original": "staal",
-        "normalized": "steel"
+        "normalized": "steel",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "101.65",
@@ -15744,7 +16133,7 @@
         "PAIR-00336"
       ],
       "comparison_class": "UNKNOWN",
-      "comparison_class_reason": "best_pair:PAIR-00308",
+      "comparison_class_reason": "best_pair:PAIR-00318",
       "independent_input": true,
       "independent_input_exclusion_reasons": [],
       "tariff_group_id": null
@@ -15757,7 +16146,8 @@
       "signals_found": [],
       "material": {
         "original": "kunststof",
-        "normalized": "pvc"
+        "normalized": "pvc",
+        "source": "verified_element"
       },
       "derived_unit_price_per_execution": {
         "value": "118.00",
@@ -15803,7 +16193,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -15841,7 +16232,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -15876,7 +16268,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "245.60",
@@ -15919,7 +16312,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "131.00",
@@ -15965,7 +16359,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16002,7 +16397,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16039,7 +16435,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16074,7 +16471,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": {
         "value": "143.33",
@@ -16115,7 +16513,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16152,7 +16551,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16189,7 +16589,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16226,7 +16627,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16263,7 +16665,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16300,7 +16703,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16337,7 +16741,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16374,7 +16779,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16411,7 +16817,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16448,7 +16855,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16485,7 +16893,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -16522,7 +16931,8 @@
       "signals_found": [],
       "material": {
         "original": null,
-        "normalized": null
+        "normalized": null,
+        "source": null
       },
       "derived_unit_price_per_execution": null,
       "per_execution_not_derived_reasons": [
@@ -18498,7 +18908,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18506,7 +18915,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18533,8 +18942,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -18544,7 +18955,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18552,7 +18962,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18590,7 +19000,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18598,7 +19007,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18636,7 +19045,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18644,7 +19052,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18671,8 +19079,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -18682,7 +19092,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18690,7 +19099,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18717,8 +19126,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -18726,7 +19137,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18734,7 +19144,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18761,8 +19171,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -18772,7 +19184,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18780,7 +19191,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18807,8 +19218,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "POSSIBLY_DEPENDENT_OBSERVATION",
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
@@ -18817,7 +19230,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18825,7 +19237,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18861,7 +19273,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18869,7 +19280,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18896,8 +19307,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -18905,7 +19318,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18913,7 +19325,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18940,8 +19352,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "POSSIBLY_DEPENDENT_OBSERVATION",
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
@@ -18950,7 +19364,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -18958,7 +19371,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -18994,7 +19407,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -19002,7 +19414,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -19040,7 +19452,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -19048,7 +19459,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -19075,8 +19486,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -19084,7 +19497,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -19092,7 +19504,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -26430,7 +26842,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -26438,7 +26849,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -26476,7 +26887,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -26484,7 +26894,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -26522,7 +26932,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -26530,7 +26939,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -26568,7 +26977,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -26576,7 +26984,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -29986,7 +30394,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -29994,7 +30401,7 @@
       "checks": {
         "object_description": "equal",
         "action_text": "equal",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30021,8 +30428,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "POSSIBLY_DEPENDENT_OBSERVATION",
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
@@ -30031,7 +30440,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30039,7 +30447,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30074,7 +30482,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30082,7 +30489,7 @@
       "checks": {
         "object_description": "equal",
         "action_text": "equal",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30109,8 +30516,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "POSSIBLY_DEPENDENT_OBSERVATION",
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
@@ -30119,7 +30528,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30127,7 +30535,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30164,7 +30572,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30172,7 +30579,7 @@
       "checks": {
         "object_description": "equal",
         "action_text": "equal",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30209,7 +30616,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30217,7 +30623,7 @@
       "checks": {
         "object_description": "equal",
         "action_text": "equal",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30250,7 +30656,6 @@
       "pair_caveats": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30258,7 +30663,7 @@
       "checks": {
         "object_description": "equal",
         "action_text": "equal",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30293,7 +30698,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30301,7 +30705,7 @@
       "checks": {
         "object_description": "equal",
         "action_text": "equal",
-        "material": null,
+        "material": "equal",
         "vat_basis": [
           "inclusive",
           "inclusive"
@@ -30328,8 +30732,10 @@
       ]
     },
     {
-      "class": "UNKNOWN",
-      "hard_violations": [],
+      "class": "NOT_COMPARABLE",
+      "hard_violations": [
+        "MATERIAL_DIFFERS"
+      ],
       "unknown_reasons": [
         "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
         "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
@@ -30339,7 +30745,6 @@
       ],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": []
@@ -30347,7 +30752,7 @@
       "checks": {
         "object_description": "differs",
         "action_text": "differs",
-        "material": null,
+        "material": "differs",
         "vat_basis": [
           "inclusive",
           "inclusive"
