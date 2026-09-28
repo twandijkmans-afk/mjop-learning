@@ -463,3 +463,139 @@ def test_comparison_cli_refuses_output_in_data(record, tmp_path):
                        capture_output=True, text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
     assert r.returncode == 0, r.stderr
     assert json.load(open(out, encoding="utf-8"))["comparison"].startswith("read-only")
+
+
+# ------------------------------------------------------------------ conditielegenda + score 0 (synthetisch)
+# Kleine synthetische pagina's in het pdftotext-formaat van de fixture; geen PDF, geen xpdf nodig.
+
+_OVERVIEW = ("Code    Element                                   Locatie                     HvhEhd   Conditie\n"
+             "\n"
+             "21      Buitenwanden\n"
+             "\n"
+             "2110    Gevelconstructie metselwerk               Voor- en achtergevel      148,25m2      0\n"
+             "\n"
+             "2120    Hijsbalk staal                            Achtergevel                 1,00st      2\n")
+_LEGEND_16_89 = ("1 = Uitstekende conditie\n\n2 = Goed\n\n3 = Redelijk\n\n4 = Matig\n\n5 = Slecht\n\n"
+                 "6 = Zeer slecht\n\n8 = Nader onderzoek nodig\n\n9 = Niet te inspecteren\n")
+_EMPTY_LAYER = {"pages": [], "text_layer_sha256": "0" * 64, "generator": {}}
+_META = {"relative_path": "synthetisch.pdf", "sha256": "0" * 64}
+
+
+def _synthetic(pages):
+    return de.build_record("DOC-900", pages, _EMPTY_LAYER, de.DOCUMENT_PROFILES["DOC-010"], XPDF, _META)
+
+
+def _scores(rec):
+    return [(o["condition_score"]["original_value"], o["requires_human_review"]) for o in rec["observations"]]
+
+
+def test_legend_before_element_overview_is_found():
+    pages = ["Algemene Objectgegevens\n\nToelichting:\n\n" + _LEGEND_16_89,
+             "Elementenoverzicht\n\n" + _OVERVIEW]
+    rec = _synthetic(pages)
+    leg = rec["document_level_values"]["condition_legend"]
+    assert leg["value"][0] == "1 = Uitstekende conditie" and len(leg["value"]) == 8
+    assert leg["provenance"]["page"] == 1
+    assert leg["provenance"]["extraction_rule"] == "profile:pro_vve_overzicht15.condition_legend_before_elements"
+    assert _scores(rec) == [("0", True), ("2", False)]
+
+
+def test_legend_before_overview_requires_explicit_condition_word():
+    # '<cijfer> = <tekst>'-regels zonder het woord 'conditie' zijn geen expliciete conditielegenda
+    pages = ["Algemene Objectgegevens\n\n1 = Ja\n\n2 = Nee\n", "Elementenoverzicht\n\n" + _OVERVIEW]
+    rec = _synthetic(pages)
+    assert rec["document_level_values"]["condition_legend"]["value"] is None
+    assert _scores(rec) == [("0", True), ("2", True)]
+
+
+def test_legend_in_other_section_is_not_used():
+    # de kopie in Bevindingen (na het elementenoverzicht) telt niet
+    pages = ["Elementenoverzicht\n\n" + _OVERVIEW, "Bevindingen NEN 2767\n\n" + _LEGEND_16_89]
+    rec = _synthetic(pages)
+    assert rec["document_level_values"]["condition_legend"]["value"] is None
+
+
+def test_legend_on_overview_page_takes_precedence():
+    pages = ["Algemene Objectgegevens\n\n0 = Geen conditie\n",
+             "Elementenoverzicht\n\n" + _LEGEND_16_89 + "\n" + _OVERVIEW]
+    rec = _synthetic(pages)
+    leg = rec["document_level_values"]["condition_legend"]
+    assert leg["provenance"]["page"] == 2 and "0 = Geen conditie" not in leg["value"]
+    assert leg["provenance"]["extraction_rule"] == "profile:pro_vve_overzicht15.elements.condition_legend"
+
+
+def test_conflicting_legend_is_not_resolved():
+    pages = ["Elementenoverzicht\n\n2 = Goed\n\n2 = Slechte conditie\n\n" + _OVERVIEW]
+    rec = _synthetic(pages)
+    leg = rec["document_level_values"]["condition_legend"]
+    assert leg["value"] is None and leg["conflict"] and leg["requires_human_review"]
+    assert len(leg["possible_values"]) == 2
+    assert all(r for _, r in _scores(rec))
+
+
+def test_score_zero_without_legend_requires_review_and_is_kept():
+    rec = _synthetic(["Elementenoverzicht\n\n" + _OVERVIEW])
+    assert rec["document_level_values"]["condition_legend"]["value"] is None
+    assert _scores(rec) == [("0", True), ("2", True)]   # niets weggegooid, alles reviewplichtig
+
+
+def test_score_zero_outside_legend_requires_review():
+    rec = _synthetic(["Elementenoverzicht\n\n" + _LEGEND_16_89 + "\n" + _OVERVIEW])
+    assert _scores(rec) == [("0", True), ("2", False)]
+
+
+def test_score_zero_in_legend_is_not_reviewed_for_the_score():
+    rec = _synthetic(["Elementenoverzicht\n\n0 = Niet beoordeeld\n\n" + _LEGEND_16_89 + "\n" + _OVERVIEW])
+    assert "0 = Niet beoordeeld" in rec["document_level_values"]["condition_legend"]["value"]
+    assert _scores(rec) == [("0", False), ("2", False)]
+
+
+# ------------------------------------------------------------------ Batch-1 profielen
+
+@pytest.mark.parametrize("doc_id", ["DOC-001", "DOC-002", "DOC-005", "DOC-006", "DOC-007", "DOC-008", "DOC-009",
+                                    "DOC-010"])
+def test_batch1_profiles_share_parser_family(doc_id):
+    p = de.DOCUMENT_PROFILES[doc_id]
+    assert (p["profile_id"], p["profile_version"], p["currency_rule"]) == \
+        ("pro_vve_overzicht15", "1.0.0", "pdf_whole_euro_dot_thousands")
+
+
+def test_doc005_profile():
+    p = de.DOCUMENT_PROFILES["DOC-005"]
+    assert "(uitgevoerd 2026)" in p["note"] and "geen prijsinterpretatie" in p["note"] and "DREL-002" in p["note"]
+
+
+def test_doc007_profile():
+    p = de.DOCUMENT_PROFILES["DOC-007"]
+    assert "address blijft null" in p["note"] and "p20-26" in p["note"]
+    assert any("bijlage p20-26" in c for c in p["local_validation"])
+    assert not any(k in p for k in ("page_range", "pages", "max_page"))   # bijlage bewust niet begrensd
+
+
+def test_doc008_profile():
+    p = de.DOCUMENT_PROFILES["DOC-008"]
+    assert "price_level_date null" in p["note"] and "DOC-009" in p["note"] and "DREL-003" in p["note"]
+    assert "price_level_date" not in p and "price_level" not in json.dumps({k: v for k, v in p.items()
+                                                                            if k not in ("note", "local_validation")})
+
+
+def test_doc009_profile():
+    p = de.DOCUMENT_PROFILES["DOC-009"]
+    assert "DREL-003" in p["note"] and "geen automatische samenvoeging" in p["note"]
+
+
+def test_missing_price_level_stays_null():
+    # zoals DOC-008: geen 'Prijspeil' in de bron -> null, niets afgeleid
+    rec = _synthetic(["Elementenoverzicht\n\n" + _OVERVIEW])
+    assert rec["document_level_values"]["price_level_date"] == {"value": None, "requires_human_review": False,
+                                                                "conflict": False}
+
+
+def test_doc003_has_no_independent_deterministic_profile(fake):
+    assert "DOC-003" not in de.DOCUMENT_PROFILES
+    with pytest.raises(de.ExtractionError):
+        de.extract_document("DOC-003", PROJECT_ROOT, fake, XPDF)
+
+
+def test_doc004_not_yet_supported():
+    assert "DOC-004" not in de.DOCUMENT_PROFILES

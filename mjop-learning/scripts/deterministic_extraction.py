@@ -94,6 +94,47 @@ DOCUMENT_PROFILES = {
                 "identieke Jarenplan-rijen leiden tot een aantal niet-unieke block-koppelingen "
                 "(geen aanpassing aan de koppeling gedaan, bewust - zie deterministic_pilot-rapport).",
     },
+    "DOC-005": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Zelfde Pro VvE 2026-familie als DOC-002/DOC-006 - geen documentspecifieke regel. "
+                "Actieteksten met '(uitgevoerd 2026)' blijven letterlijk staan; de extractie geeft geen "
+                "prijsinterpretatie (die hoort bij comparability, F7). DREL-002 (versie van DOC-006, "
+                "zelfde source cluster) wordt hier niet gebruikt of gewijzigd.",
+        "local_validation": ["conditielegenda gevonden (verwacht bij Elementenoverzicht, p5)",
+                             "'(uitgevoerd 2026)'-actieteksten volledig incl. vervolgregels"],
+    },
+    "DOC-007": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Zelfde parserfamilie. Object-sectie zonder 'Adres' -> address blijft null (niet afgeleid "
+                "uit Naam/Plaats). 'met bijlage': p20-26 bewust NIET begrensd zonder echte xpdf-run.",
+        "local_validation": ["bijlage p20-26: geen extra objectvelden/elementen/jarenplan-rijen; "
+                             "som jarenplan blijft 679493",
+                             "elementkoppeling 'dekkend'-elementen (uitgesloten eenheidstoken m2)"],
+    },
+    "DOC-008": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Deelplan 'Hoofddak' van St. Jacobsstraat 251-321 (DREL-003 met DOC-009, zelfde source "
+                "cluster; posten worden niet samengevoegd). Geen 'Prijspeil' in de bron -> price_level_date "
+                "null, nooit overgenomen uit DOC-009 of de printdatum. Aantal eenheden/adres alleen als ze "
+                "letterlijk in de Object-sectie staan. Conditie '0' volgt de documentlegenda.",
+        "local_validation": ["conditielegenda gevonden (verwacht bij Elementenoverzicht, p3)",
+                             "price_level_date null", "conditie '0'-scores reviewplichtig tenzij in legenda"],
+    },
+    "DOC-009": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Deelplan 'Woningen' van St. Jacobsstraat 251-321 (DREL-003 met DOC-008, zelfde source "
+                "cluster; geen automatische samenvoeging). Lege Cy-kolommen blijven null.",
+        "local_validation": ["conditielegenda gevonden (verwacht bij Elementenoverzicht, p6)",
+                             "aantal jaaracties tegen 85 observations / Totaal object 1658825"],
+    },
 }
 
 OBJECT_LABELS = [
@@ -342,24 +383,50 @@ def parse_object_fields(pages, sections, doc_id, layer):
     return building, docvals, flags
 
 
-def parse_condition_legend(pages, sections, doc_id, layer):
-    items, first = [], None
-    related = []
-    for pno, sec in sections:
-        if sec != "ELEMENTEN":
-            continue
+def _legend_lines(pages, page_numbers, require_condition_word):
+    """Legendaregels ('<cijfer> = <tekst>') op de gegeven pagina's, in leesvolgorde.
+    require_condition_word: de pagina telt alleen mee als een van haar legendaregels
+    letterlijk 'conditie' bevat (bijv. '1 = Uitstekende conditie') - buiten het
+    elementenoverzicht is dat het expliciete bewijs dat het om de conditielegenda gaat."""
+    out = []
+    for pno in page_numbers:
+        hits = []
         for raw in pages[pno - 1].splitlines():
             m = LEGEND_RE.match(src._clean(raw))
             if m:
-                items.append(f"{m.group(1)} = {m.group(2)}")
-                if first is None:
-                    first = (pno, _squash(raw))
-                else:
-                    related.append(_squash(raw))
-    if not items:
+                hits.append((pno, raw, m.group(1), m.group(2)))
+        if require_condition_word and not any("conditie" in h[3].lower() for h in hits):
+            continue
+        out.extend(hits)
+    return out
+
+
+def parse_condition_legend(pages, sections, doc_id, layer):
+    """Conditielegenda van DIT document. Eerst de Elementenoverzicht-pagina's (zoals voorheen);
+    staat daar geen legenda, dan de pagina's vóór het eerste Elementenoverzicht (sectie None/OBJECT),
+    alleen als de legenda daar expliciet 'conditie' noemt. Geen pagina-afstand, geen andere
+    secties (bijv. de kopie in Bevindingen), geen afgeleide scores. Staat hetzelfde cijfer er met
+    verschillende tekst in, dan conflict -> geen legenda (value null, review)."""
+    elem_pages = [p for p, s in sections if s == "ELEMENTEN"]
+    rule = "profile:pro_vve_overzicht15.elements.condition_legend"
+    hits = _legend_lines(pages, elem_pages, require_condition_word=False)
+    if not hits and elem_pages:
+        before = [p for p, s in sections if p < elem_pages[0] and s in (None, "OBJECT")]
+        hits = _legend_lines(pages, before, require_condition_word=True)
+        rule = "profile:pro_vve_overzicht15.condition_legend_before_elements"
+    if not hits:
         return _ev_null()
-    return _ev(items, _prov(doc_id, first[0], first[1], "profile:pro_vve_overzicht15.elements.condition_legend",
-                            layer, related_texts=related))
+    texts = {}
+    for _, _, score, text in hits:
+        texts.setdefault(score, set()).add(text)
+    items = [f"{score} = {text}" for _, _, score, text in hits]
+    if any(len(v) > 1 for v in texts.values()):
+        return {"value": None, "requires_human_review": True, "conflict": True,
+                "possible_values": [{"value": f"{s} = {t}", "provenance": _prov(doc_id, p, _squash(r), rule, layer)}
+                                    for p, r, s, t in hits]}
+    first = hits[0]
+    related = [_squash(r) for _, r, _, _ in hits[1:]]
+    return _ev(items, _prov(doc_id, first[0], _squash(first[1]), rule, layer, related_texts=related))
 
 
 def _overview_header(lines):

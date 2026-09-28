@@ -143,8 +143,16 @@ Volgorde per document:
    melden. Ontbreekt of afwijkend (poppler, xpdf 3.04, 4.05…) → `DependencyError`,
    exitcode 3, vóór enig werk. Geen fallback, geen download/installatie.
 2. Registry: sha256 van het bronbestand moet kloppen (`document_registry.verify_file`).
-3. Documentprofiel verplicht (`DOCUMENT_PROFILES`); nu alleen DOC-010
-   (`pro_vve_overzicht15` 1.0.0, valutaregel `pdf_whole_euro_dot_thousands`).
+3. Documentprofiel verplicht (`DOCUMENT_PROFILES`); nu DOC-001, 002, 005, 006, 007,
+   008, 009 en 010, alle `pro_vve_overzicht15` 1.0.0, valutaregel
+   `pdf_whole_euro_dot_thousands`. DOC-003 (duplicaat van DOC-002) en DOC-004 hebben
+   bewust geen profiel. DOC-005/007/008/009 zijn nog niet met echte xpdf gevalideerd;
+   wat daarbij gecontroleerd moet worden staat per profiel in `local_validation`.
+   Conditielegenda: eerst de Elementenoverzicht-pagina's; anders de pagina's vóór het
+   eerste Elementenoverzicht (sectie leeg/Object), alleen als de legenda letterlijk
+   'conditie' noemt. Een score is alleen niet-reviewplichtig als hij letterlijk in de
+   legenda van dat document staat (ook '0'); geen legenda → alle scores reviewplichtig;
+   geen score wordt weggegooid.
 4. Waarden:
    - jarenplan-rijen, prijspeil, BTW, indexatie: **`mjop_source_sections`** (leidend);
    - objectblad-gebouwvelden, elementenoverzicht, conditielegenda: profielregels
