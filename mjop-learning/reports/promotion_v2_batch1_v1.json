@@ -1622,25 +1622,7 @@
   ],
   "amount_changes": 0,
   "batch_id": "batch1_v1",
-  "blockers": [
-    {
-      "blocker": "material_information_loss",
-      "cause": "MATERIAL_FROM_TEXT (DOC-001, goedgekeurd) geldt alleen als het materiaalveld ontbreekt; batch1_v1 heeft het veld leeg. Oplossing vereist een expliciete beslissing (geen nieuwe businessregel in deze dry-run).",
-      "count": 10,
-      "observations": [
-        "PO-DOC-001-P024-L019",
-        "PO-DOC-001-P024-L021",
-        "PO-DOC-001-P024-L023",
-        "PO-DOC-001-P024-L057",
-        "PO-DOC-001-P024-L061",
-        "PO-DOC-001-P024-L069",
-        "PO-DOC-001-P025-L023",
-        "PO-DOC-001-P025-L025",
-        "PO-DOC-001-P025-L095",
-        "PO-DOC-001-P026-L029"
-      ]
-    }
-  ],
+  "blockers": [],
   "comparability": {
     "changed": [
       {
@@ -6862,7 +6844,7 @@
   },
   "doc003": "DUPLICATE_SKIP: niet in de normalized/verified-dry-run; 0 observations (duplicate_source)",
   "dry_run_layer": {
-    "manifest_sha256": "2a887a01b043257eff0ee8cd91063781a091547e71f4eefa3d76ab828da5f90c",
+    "manifest_sha256": "e164c313cb8c49ba7cbe06829db41ed492d4646587b08e8b14f74b318947b06c",
     "path": "data/promotion_v2_dry_run/batch1_v1"
   },
   "follow_up": [
@@ -7591,7 +7573,7 @@
             "insufficient_data_reasons": [
               "MATERIAL_UNKNOWN"
             ],
-            "kengetal_id": "KG-5211-replace-m1-unknown-67920b77",
+            "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
             "source_cluster_count": 3,
             "source_cluster_ids": [
               "SC-DOC-001",
@@ -7670,14 +7652,28 @@
         "status": "INSUFFICIENT_DATA"
       },
       {
-        "change": "disappeared",
+        "change": "changed",
+        "fields": [
+          "status",
+          "value_exact",
+          "value_display",
+          "insufficient_data_reasons"
+        ],
         "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-        "status": "AVAILABLE"
-      },
-      {
-        "change": "new",
-        "kengetal_id": "KG-5211-replace-m1-unknown-67920b77",
-        "status": "INSUFFICIENT_DATA"
+        "new": {
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "status": "INSUFFICIENT_DATA",
+          "value_display": null,
+          "value_exact": null
+        },
+        "old": {
+          "insufficient_data_reasons": [],
+          "status": "AVAILABLE",
+          "value_display": "51.79",
+          "value_exact": "51.78706199460916442048517520"
+        }
       }
     ],
     "new": 6,
@@ -7969,8 +7965,7 @@
         "m1"
       ],
       "cause": [
-        "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2, 'C_regression': 1})",
-        "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+        "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2})"
       ],
       "content_changed": true,
       "fields_changed": [
@@ -7988,7 +7983,7 @@
           "MATERIAL_UNKNOWN"
         ],
         "kengetal_ids": [
-          "KG-5211-replace-m1-unknown-67920b77"
+          "KG-5211-replace-m1-pvc-67920b77"
         ],
         "status": "INSUFFICIENT_DATA",
         "value": null
@@ -8019,139 +8014,9 @@
     "counts": {
       "A_old_verified_derivation": 215,
       "B_unlinked_or_ambiguous": 4,
-      "C_regression": 10
+      "C_regression": 0
     },
     "details": [
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P024-L019",
-        "old": {
-          "source": "element_text",
-          "value": "zinc"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P024-L021",
-        "old": {
-          "source": "element_text",
-          "value": "zinc"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P024-L023",
-        "old": {
-          "source": "element_text",
-          "value": "zinc"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P024-L057",
-        "old": {
-          "source": "element_text",
-          "value": "steel"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P024-L061",
-        "old": {
-          "source": "element_text",
-          "value": "wood"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P024-L069",
-        "old": {
-          "source": "element_text",
-          "value": "aluminium"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P025-L023",
-        "old": {
-          "source": "element_text",
-          "value": "wood"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P025-L025",
-        "old": {
-          "source": "element_text",
-          "value": "wood"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P025-L095",
-        "old": {
-          "source": "element_text",
-          "value": "wood"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
-      {
-        "class": "C_regression",
-        "new": {
-          "field": "present",
-          "reason": "verified_material_empty"
-        },
-        "observation_id": "PO-DOC-001-P026-L029",
-        "old": {
-          "source": "element_text",
-          "value": "pvc"
-        },
-        "reason": "goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het veld wel (leeg)"
-      },
       {
         "class": "A_old_verified_derivation",
         "new": {
@@ -11232,7 +11097,7 @@
       "item": "explained_id_and_link_changes"
     },
     {
-      "count": 6,
+      "count": 5,
       "item": "kengetal_id_changes_same_candidate_key"
     }
   ],
@@ -11248,11 +11113,11 @@
   "price_observations": {
     "amount_blocking": [],
     "category_counts": {
-      "A_exact_equal": 113,
+      "A_exact_equal": 123,
       "B_link_changed": 135,
       "C_action_normalization_changed": 30,
       "D_internal_code_changed": 6,
-      "E_material_changed": 229,
+      "E_material_changed": 219,
       "F_missing_or_new": 0,
       "G_amount_changed": 0
     },
@@ -11289,7 +11154,7 @@
     },
     "PO-DOC-001-P024-L019": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11310,7 +11175,7 @@
     },
     "PO-DOC-001-P024-L021": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11331,7 +11196,7 @@
     },
     "PO-DOC-001-P024-L023": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11478,7 +11343,7 @@
     },
     "PO-DOC-001-P024-L057": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11499,7 +11364,7 @@
     },
     "PO-DOC-001-P024-L061": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11520,7 +11385,7 @@
     },
     "PO-DOC-001-P024-L069": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11583,7 +11448,7 @@
     },
     "PO-DOC-001-P025-L023": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11604,7 +11469,7 @@
     },
     "PO-DOC-001-P025-L025": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11709,7 +11574,7 @@
     },
     "PO-DOC-001-P025-L095": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {
@@ -11751,7 +11616,7 @@
     },
     "PO-DOC-001-P026-L029": {
       "categories": [
-        "E_material_changed"
+        "A_exact_equal"
       ],
       "link": "unique",
       "new": {

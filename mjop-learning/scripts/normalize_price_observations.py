@@ -146,13 +146,18 @@ def normalize_material(obs, verified_elements, material_vocab):
                    material_normalized=m.get("normalized_value"))
         if m.get("original_value"):
             out.update(material_source="verified_element", material_status="MATERIAL_FROM_VERIFIED")
-        else:
+            return out
+        if obs["document_id"] not in MATERIAL_FROM_TEXT_DOCUMENTS:
             out["material_not_derived_reason"] = "verified_material_empty"
-        return out
-    out["verified_material_field"] = "absent"
-    if obs["document_id"] not in MATERIAL_FROM_TEXT_DOCUMENTS:
-        out["material_not_derived_reason"] = "material_field_absent_document_not_in_scope"
-        return out
+            return out
+        # Leeg/null materiaalveld (bijv. deterministische extractie, die bewust geen materiaal
+        # invult) telt voor de bestaande MATERIAL_FROM_TEXT-regel als ontbrekend veld
+        # (besluit 2026-09-28) - zelfde regel, zelfde tekstpatronen, niets nieuws.
+    else:
+        out["verified_material_field"] = "absent"
+        if obs["document_id"] not in MATERIAL_FROM_TEXT_DOCUMENTS:
+            out["material_not_derived_reason"] = "material_field_absent_document_not_in_scope"
+            return out
     toks = material_tokens(obs["element"]["element_description_original"], material_vocab)
     action = obs["action"]["action_text_original"]
     if not toks:

@@ -250,7 +250,13 @@ def test_material_classes_cover_all_material_changes(built):
     _, report = built
     m = report["material_changes"]
     assert sum(m["counts"].values()) == report["price_observations"]["category_counts"]["E_material_changed"]
-    assert all(d["old"]["source"] == "element_text" for d in m["details"] if d["class"] == "C_regression")
+    assert m["counts"]["C_regression"] == 0   # besluit 2026-09-28: MATERIAL_FROM_TEXT ook bij leeg veld
+    assert not any(d["observation_id"].startswith("PO-DOC-001") for d in m["details"])
+
+
+def test_no_blockers_after_material_decision(built):
+    _, report = built
+    assert report["blockers"] == []
 
 
 def test_no_internal_code_regression(built):

@@ -9,7 +9,7 @@
   "inputs": {
     "document_relations_sha256": "338326282acf7c2a160e8fb346188b0cbf17187b0c5b28d9d487e28fc0328ddf",
     "normalized_observations": "data/price_observations/price_observations_batch1_normalized.json",
-    "normalized_observations_sha256": "91bc20d017d4e51e3a49d65a7c56beb555615f0e962a43415c927c1cf1a9250f",
+    "normalized_observations_sha256": "3883c9897e796d025e8338f827e0d2636be4d84faeeeb3346d6a88a52a8e33e0",
     "signal_words_sha256": "1158211089d3fe621fa6215786fd32eb5a099409852a78b2e1db756215274478"
   },
   "note": "Vergelijkbaarheid volgens regels v1. Geen kengetallen, gemiddelden, medianen, scores, indexatie of matching-aanbevelingen. Bronwaarden ongewijzigd; derived_unit_price_per_execution is een afgeleide waarde naast de bronprijs.",
@@ -60,7 +60,6 @@
         "lump_sum"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -79,9 +78,9 @@
       ],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "zinc",
+        "original": "zink",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P024-L019",
       "pair_ids": [],
@@ -99,7 +98,6 @@
         "lump_sum"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -118,9 +116,9 @@
       ],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "zinc",
+        "original": "zink",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P024-L021",
       "pair_ids": [],
@@ -138,7 +136,6 @@
         "m1"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -160,9 +157,9 @@
       "independent_input_exclusion_reasons": [],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "zinc",
+        "original": "zink",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P024-L023",
       "pair_ids": [],
@@ -417,7 +414,6 @@
         "lump_sum"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -436,9 +432,9 @@
       ],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "steel",
+        "original": "staal",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P024-L057",
       "pair_ids": [],
@@ -456,7 +452,6 @@
         "lump_sum"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -475,9 +470,9 @@
       ],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "wood",
+        "original": "hout",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P024-L061",
       "pair_ids": [],
@@ -495,7 +490,6 @@
         "lump_sum"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -514,9 +508,9 @@
       ],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "aluminium",
+        "original": "aluminium",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P024-L069",
       "pair_ids": [],
@@ -623,7 +617,6 @@
         "lump_sum"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "NOT_COMPARABLE",
@@ -642,9 +635,9 @@
       ],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "wood",
+        "original": "hout",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P025-L023",
       "pair_ids": [],
@@ -662,7 +655,6 @@
         "m2"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "UNKNOWN",
@@ -686,9 +678,9 @@
         "PRICE_PER_EXECUTION_DERIVED"
       ],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "wood",
+        "original": "hout",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P025-L025",
       "pair_ids": [
@@ -928,7 +920,6 @@
         "m1"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "UNKNOWN",
@@ -952,9 +943,9 @@
         "PRICE_PER_EXECUTION_DERIVED"
       ],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "wood",
+        "original": "hout",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P025-L095",
       "pair_ids": [
@@ -1026,7 +1017,6 @@
         "m1"
       ],
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "comparison_class": "COMPARABLE_WITH_CAVEATS",
@@ -1048,9 +1038,9 @@
       "independent_input_exclusion_reasons": [],
       "info": [],
       "material": {
-        "normalized": null,
-        "original": null,
-        "source": null
+        "normalized": "pvc",
+        "original": "pvc",
+        "source": "element_text"
       },
       "observation_id": "PO-DOC-001-P026-L029",
       "pair_ids": [
@@ -19118,7 +19108,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19166,7 +19155,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19214,7 +19202,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19262,7 +19249,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19310,7 +19296,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19358,7 +19343,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19404,7 +19388,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19452,7 +19435,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19499,7 +19481,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19545,7 +19526,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19591,7 +19571,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19638,7 +19617,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19684,7 +19662,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -19732,7 +19709,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -27491,7 +27467,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -27539,7 +27514,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -27587,7 +27561,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -27635,7 +27608,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31192,7 +31164,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31237,7 +31208,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31284,7 +31254,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31329,7 +31298,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31376,7 +31344,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31423,7 +31390,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31470,7 +31436,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31513,7 +31478,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -31558,7 +31522,6 @@
       "hard_violations": [],
       "observation_caveats": {
         "a": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "b": [
@@ -35954,7 +35917,7 @@
       "CODE_LABEL_MISMATCH": 16,
       "COMBINED_EXECUTION": 9,
       "FRACTIONAL_PIECE_COUNT": 8,
-      "MATERIAL_UNKNOWN": 404,
+      "MATERIAL_UNKNOWN": 394,
       "PARTIAL_SCOPE": 2,
       "PRICE_LEVEL_ABSENT": 53,
       "UPGRADE": 5

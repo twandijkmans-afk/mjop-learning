@@ -1,9 +1,9 @@
 {
   "comparability_rules_version": "comparability_rules_v1",
   "inputs": {
-    "comparability_output_sha256": "9de653ceef0cb5d92988185eb123d36858c3a269e4ecaa6e76e70ceae01bf0e0",
+    "comparability_output_sha256": "af144da8b0f25435d44fa2ebdbdad58c404f61d8c5155a12138a3702bd3aac1a",
     "human_decisions_sha256": "cc566395a458e0a2b4f3736d8ff8a595e41b59f4875b02d41f6c4dfba6a06267",
-    "normalized_observations_sha256": "91bc20d017d4e51e3a49d65a7c56beb555615f0e962a43415c927c1cf1a9250f",
+    "normalized_observations_sha256": "3883c9897e796d025e8338f827e0d2636be4d84faeeeb3346d6a88a52a8e33e0",
     "rules_document_sha256": "bc87f7549dad98e2688e508f8a84ace43d49205ac11654c2f5a9e7e2d0d56a11"
   },
   "kengetallen": [
@@ -1782,7 +1782,7 @@
             "PO-DOC-001-P026-L029"
           ],
           "post_ids": [
-            "KG-5211-replace-m1-unknown-67920b77-POST-01"
+            "KG-5211-replace-m1-pvc-67920b77-POST-01"
           ],
           "price_levels": [
             null
@@ -1796,7 +1796,7 @@
             "PO-DOC-009-P021-L095"
           ],
           "post_ids": [
-            "KG-5211-replace-m1-unknown-67920b77-POST-02"
+            "KG-5211-replace-m1-pvc-67920b77-POST-02"
           ],
           "price_levels": [
             "21-4-2025"
@@ -1810,7 +1810,7 @@
             "PO-DOC-010-P012-L093"
           ],
           "post_ids": [
-            "KG-5211-replace-m1-unknown-67920b77-POST-03"
+            "KG-5211-replace-m1-pvc-67920b77-POST-03"
           ],
           "price_levels": [
             "1-4-2023"
@@ -1868,13 +1868,14 @@
       "insufficient_data_reasons": [
         "MATERIAL_UNKNOWN"
       ],
-      "kengetal_id": "KG-5211-replace-m1-unknown-67920b77",
+      "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
       "material": {
-        "normalized": null,
-        "original": null
+        "normalized": "pvc",
+        "original": "pvc"
       },
       "material_source": [
-        null
+        null,
+        "element_text"
       ],
       "max_display": "54.91",
       "max_exact": "54.91186839012925969447708578",
@@ -1883,7 +1884,6 @@
       "missing_cross_cluster_reviews": [],
       "observation_caveats": {
         "PO-DOC-001-P026-L029": [
-          "MATERIAL_UNKNOWN",
           "PRICE_LEVEL_ABSENT"
         ],
         "PO-DOC-009-P021-L095": [
@@ -1921,7 +1921,7 @@
           "observation_ids": [
             "PO-DOC-001-P026-L029"
           ],
-          "post_id": "KG-5211-replace-m1-unknown-67920b77-POST-01",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
           "post_value_exact": "51.78706199460916442048517520",
           "source_cluster": "SC-DOC-001"
         },
@@ -1936,7 +1936,7 @@
           "observation_ids": [
             "PO-DOC-009-P021-L095"
           ],
-          "post_id": "KG-5211-replace-m1-unknown-67920b77-POST-02",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
           "post_value_exact": "54.91186839012925969447708578",
           "source_cluster": "SC-DOC-008+DOC-009"
         },
@@ -1951,7 +1951,7 @@
           "observation_ids": [
             "PO-DOC-010-P012-L093"
           ],
-          "post_id": "KG-5211-replace-m1-unknown-67920b77-POST-03",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
           "post_value_exact": "45.23076923076923076923076923",
           "source_cluster": "SC-DOC-010"
         }
@@ -2001,7 +2001,6 @@
         {
           "action_text": "Vervangen hemelwaterafvoer pvc",
           "caveats": [
-            "MATERIAL_UNKNOWN",
             "PRICE_LEVEL_ABSENT"
           ],
           "cycle_length_years": 25,
@@ -2015,14 +2014,14 @@
           "independent_input": true,
           "line": 29,
           "material": {
-            "normalized": null,
-            "original": null,
-            "source": null
+            "normalized": "pvc",
+            "original": "pvc",
+            "source": "element_text"
           },
           "object_description": "Hemelwaterafvoer pvc",
           "observation_id": "PO-DOC-001-P026-L029",
           "page": 26,
-          "post_id": "KG-5211-replace-m1-unknown-67920b77-POST-01",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
           "price_level_date": null,
           "price_per_execution_display": "51.79",
           "price_per_execution_exact": "51.78706199460916442048517520",
@@ -2055,7 +2054,7 @@
           "object_description": "Hemelwaterafvoer pvc",
           "observation_id": "PO-DOC-009-P021-L095",
           "page": 21,
-          "post_id": "KG-5211-replace-m1-unknown-67920b77-POST-02",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
           "price_level_date": "21-4-2025",
           "price_per_execution_display": "54.91",
           "price_per_execution_exact": "54.91186839012925969447708578",
@@ -2088,7 +2087,7 @@
           "object_description": "Hemelwaterafvoer pvc",
           "observation_id": "PO-DOC-010-P012-L093",
           "page": 12,
-          "post_id": "KG-5211-replace-m1-unknown-67920b77-POST-03",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
           "price_level_date": "1-4-2023",
           "price_per_execution_display": "45.23",
           "price_per_execution_exact": "45.23076923076923076923076923",

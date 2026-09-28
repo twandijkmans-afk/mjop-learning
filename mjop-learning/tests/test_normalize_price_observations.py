@@ -394,3 +394,49 @@ def test_batch1_has_exactly_ten_material_from_text():
     for o in result["observations"]:  # originele materiaalvelden 1-op-1 uit verified
         el = verified.get(o["element"]["element_id"]) or {}
         assert o["material"]["material_original"] == (el.get("material") or {}).get("original_value")
+
+
+# --------------------------------------------------------------------------
+# Besluit 2026-09-28: leeg/null materiaalveld (deterministische extractie) telt voor de
+# bestaande MATERIAL_FROM_TEXT-regel als ontbrekend veld - zelfde regel, zelfde patronen.
+# --------------------------------------------------------------------------
+
+EMPTY_MATERIAL_FIELDS = [
+    ("absent", {"element_id": "EL-X"}),
+    ("empty_pair", {"element_id": "EL-X", "material": {"original_value": None, "normalized_value": None}}),
+    ("empty_string", {"element_id": "EL-X", "material": {"original_value": "", "normalized_value": None}}),
+    ("null", {"element_id": "EL-X", "material": None}),
+]
+
+
+@pytest.mark.parametrize("label,verified", EMPTY_MATERIAL_FIELDS)
+def test_material_from_text_applies_when_field_missing_empty_or_null(label, verified):
+    m = mat("Gootbekleding zink", "Herstellen", oid="PO-DOC-001-P024-L019", verified=verified)
+    assert m["material_status"] == "MATERIAL_FROM_TEXT" and m["material_source"] == "element_text"
+    assert m["material_from_text"] == {"original_value": "zink", "normalized_value": "zinc",
+                                       "source_field": "element_description_original"}
+    assert m["material_original"] in (None, "") and m["material_normalized"] is None   # veld niet overschreven
+    assert m["verified_material_field"] == ("absent" if label == "absent" else "present")
+
+
+def test_non_empty_material_field_stays_leading_in_scope_document():
+    m = mat("Gootbekleding zink", "Herstellen", oid="PO-DOC-001-P024-L019",
+            verified={"element_id": "EL-X", "material": {"original_value": "koper", "normalized_value": "copper"}})
+    assert (m["material_original"], m["material_normalized"], m["material_status"]) == \
+        ("koper", "copper", "MATERIAL_FROM_VERIFIED")
+    assert m["material_from_text"] is None
+
+
+@pytest.mark.parametrize("label,verified", EMPTY_MATERIAL_FIELDS[1:])
+def test_empty_field_without_valid_text_rule_stays_unknown(label, verified):
+    m = mat("Gevelconstructie metselwerk", "Reinigen", verified=verified)
+    assert m["material_from_text"] is None and m["material_status"] == "MATERIAL_UNKNOWN"
+    assert m["material_not_derived_reason"] == "no_vocabulary_token_in_element_text"
+    m = mat("Gootbekleding zink", "Vervangen gootbekleding zink -> pvc", verified=verified)
+    assert m["material_from_text"] is None and m["material_not_derived_reason"] == "material_change_in_action_text"
+
+
+@pytest.mark.parametrize("label,verified", EMPTY_MATERIAL_FIELDS[1:])
+def test_empty_field_outside_scope_document_unchanged(label, verified):
+    m = mat("Gootbekleding zink", "Vervangen", doc="DOC-002", verified=verified)
+    assert m["material_from_text"] is None and m["material_not_derived_reason"] == "verified_material_empty"
