@@ -21,8 +21,11 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 import compare_extractions as ce  # noqa: E402
 import deterministic_extraction as de  # noqa: E402
+import mjop_source_sections as src  # noqa: E402
 import record_validation as rv  # noqa: E402
 import text_layer as tl  # noqa: E402
+
+REAL_PDFTOTEXT = src.find_pdftotext()
 
 FIXTURE = os.path.join(PROJECT_ROOT, "tests", "fixtures", "pdftotext_doc010", "pages.json")
 FAKE = os.path.join(PROJECT_ROOT, "tests", "fixtures", "fake_pdftotext.py")
@@ -570,6 +573,34 @@ def test_doc007_profile():
     assert "address blijft null" in p["note"] and "p20-26" in p["note"]
     assert any("bijlage p20-26" in c for c in p["local_validation"])
     assert not any(k in p for k in ("page_range", "pages", "max_page"))   # bijlage bewust niet begrensd
+
+
+@pytest.mark.skipif(not REAL_PDFTOTEXT, reason="pdftotext (xpdf 4.06) niet beschikbaar")
+def test_doc007_dekkend_actions_link_to_element():
+    """Regressietest voor de 'dekkend m2'-koppelingsfix (element 4631, p8/p17): de 2
+    jarenplanrijen (achterzijde/voorzijde, elk cyclus 2028+2035 -> 4 acties) moeten nu aan
+    het element koppelen i.p.v. EL-UNLINKED, omdat de elementomschrijving aan beide kanten
+    (Elementenoverzicht en Jarenplan) letterlijk 'Buitenschilderwerk kozijn&raam hout dekkend
+    m2' oplevert."""
+    b, v = de.check_pdftotext(REAL_PDFTOTEXT)
+    rec = de.extract_document("DOC-007", PROJECT_ROOT, b, v)
+    errors = rv.validate_entities(rec)
+    assert errors == []
+
+    kozijn_raam = [e for e in rec["elements"] if e["element_code"]["original_value"] == "4631"]
+    assert len(kozijn_raam) == 1
+    assert kozijn_raam[0]["element_name"]["value"] == "Buitenschilderwerk kozijn&raam hout dekkend m2"
+    el_id = kozijn_raam[0]["element_id"]
+
+    dekkend_actions = [a for a in rec["maintenance_actions"]
+                       if "kozijn & raam" in (a["action"]["original_value"] or "").lower()]
+    assert len(dekkend_actions) == 4  # achterzijde x{2028,2035} + voorzijde x{2028,2035}
+    for a in dekkend_actions:
+        assert a["element_id"] == el_id, a["action_id"]
+
+    unlinked_texts = {a["action"]["original_value"] for a in rec["maintenance_actions"]
+                      if a["element_id"].endswith("UNLINKED")}
+    assert not any("kozijn & raam" in t.lower() for t in unlinked_texts)
 
 
 def test_doc008_profile():

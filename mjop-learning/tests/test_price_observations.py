@@ -235,19 +235,31 @@ def test_wrapped_element_description_is_joined(first, continuation, expected):
     assert row["action_text"] == "Groot schilderwerk"  # actietekst ongewijzigd
 
 
-def test_unit_token_at_end_of_continuation_is_excluded_not_joined():
-    """DOC-007 p17 r39: 'Buitenschilderwerk kozijn&raam hout' + 'dekkend m2'."""
+def test_unit_token_at_end_of_continuation_is_kept_not_excluded():
+    """DOC-007 p17 r39: 'Buitenschilderwerk kozijn&raam hout' + 'dekkend m2' moet dezelfde
+    letterlijke naam opleveren als het Elementenoverzicht ('...dekkend m2', p8 r23) - anders
+    koppelt de jarenplanregel niet aan zijn element (element-linking key wijkt af)."""
     row = one_row(page(line("4631  Buitenschilderwerk kozijn&raam hout"), line("      dekkend m2"), _row_line()))
     el = row["element"]
-    assert el["description"] == "Buitenschilderwerk kozijn&raam hout dekkend"
-    assert el["excluded_tokens"] == [{"token": "m2", "line": el["continuation_lines"][0],
-                                      "reason": "exact unit token at end of continuation line"}]
+    assert el["description"] == "Buitenschilderwerk kozijn&raam hout dekkend m2"
+    assert el["excluded_tokens"] == []
 
 
 def test_non_unit_last_word_is_kept():
     row = one_row(page(line("4631  Buitenschilderwerk kozijn hout"), line("      dekkend achtergevel"), _row_line()))
     assert row["element"]["description"] == "Buitenschilderwerk kozijn hout dekkend achtergevel"
     assert row["element"]["excluded_tokens"] == []
+
+
+def test_element_continuation_unit_word_does_not_leak_into_row_unit_or_action_text():
+    """De fix raakt alleen de ELEMENTOMSCHRIJVING; de eenheid van de daaropvolgende rij zelf
+    (Ehd-kolom) blijft gewoon apart herkend en action_text bevat het woord 'm2' niet."""
+    row = one_row(page(line("4631  Buitenschilderwerk kozijn&raam hout"), line("      dekkend m2"),
+                       _row_line("      Groot schilderwerk kozijn & raam", qty="391,30", unit="m2")))
+    assert row["element"]["description"] == "Buitenschilderwerk kozijn&raam hout dekkend m2"
+    assert row["unit_original"] == "m2"
+    assert row["action_text"] == "Groot schilderwerk kozijn & raam"
+    assert "m2" not in row["action_text"]
 
 
 def test_text_after_action_row_is_action_continuation_not_element():
@@ -316,8 +328,8 @@ def test_known_wrap_and_page_break_cases_on_batch1_sources():
     assert desc("PO-DOC-007-P017-L025") == "Binnenschilderwerk trap hout transparant"
     assert desc("PO-DOC-010-P013-L035") == "Elektra armaturen binnen TL naar led"
     assert desc("PO-DOC-007-P018-L059") == "Doorvoer staal (onderuitlopen platte daken)"
-    assert desc("PO-DOC-007-P017-L043") == "Buitenschilderwerk kozijn&raam hout dekkend"
-    assert obs["PO-DOC-007-P017-L043"]["element"]["element_description_excluded_tokens"][0]["token"] == "m2"
+    assert desc("PO-DOC-007-P017-L043") == "Buitenschilderwerk kozijn&raam hout dekkend m2"
+    assert obs["PO-DOC-007-P017-L043"]["element"]["element_description_excluded_tokens"] == []
 
 
 def test_element_on_previous_page_is_candidate_not_assigned():

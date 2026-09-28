@@ -207,11 +207,15 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
 
     Elementregels die in de PDF op een volgende regel doorlopen (alleen tekst
     in de elementkolom, alleen lege regels ertussen, vóór de eerste rij) worden
-    aan de elementomschrijving toegevoegd. De eerste regel blijft bewaard in
-    `description_first_line`, de vervolgregels in `continuation_lines`. Een
-    laatste token op een vervolgregel dat exact een bekende eenheid is (bijv.
-    'dekkend m2', DOC-007 p17) wordt niet toegevoegd maar bewaard in
-    `excluded_tokens`.
+    letterlijk aan de elementomschrijving toegevoegd. De eerste regel blijft
+    bewaard in `description_first_line`, de vervolgregels in
+    `continuation_lines`. Geen enkel woord van de vervolgregel wordt
+    uitgesloten - ook niet als het toevallig een bekende eenheid is (bijv.
+    'dekkend m2', DOC-007 p17): de Elementenoverzicht-naamparsing sluit zulke
+    woorden ook niet uit, en deze functie moet dezelfde letterlijke naam
+    opleveren als die kant, anders koppelt een jarenplanregel niet aan zijn
+    element. `excluded_tokens` blijft aanwezig (nu altijd leeg) voor
+    compatibiliteit met bestaande consumenten van dit veld.
 
     carry_element: laatste elementregel van de vorige pagina, met
     `open_at_page_end` = er kwam na dat element geen groep-, subtotaal- of
@@ -336,12 +340,12 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
                 boundary_before_element = True
         elif (element is not None and elem_last is not None and not right and text_a and not text_b
               and all(not lines[k].strip() for k in range(elem_last + 1, i))):
-            # vervolgregel van de elementomschrijving (alleen elementkolom)
+            # vervolgregel van de elementomschrijving (alleen elementkolom): altijd
+            # letterlijk toevoegen, ook een woord dat toevallig een bekende eenheid is
+            # (bijv. 'dekkend m2') - de Elementenoverzicht-naamparsing sluit zulke
+            # woorden ook niet uit, en anders koppelt deze jarenplanregel niet aan
+            # zijn element (verschillende elementnaam aan beide kanten).
             words = text_a.split()
-            if len(words) > 1 and words[-1].lower() in UNIT_TOKENS:
-                element["excluded_tokens"].append({"token": words[-1], "line": i + 1,
-                                                   "reason": "exact unit token at end of continuation line"})
-                words = words[:-1]
             element["description"] = _squash(element["description"] + " " + " ".join(words))
             element["continuation_lines"].append(i + 1)
             elem_last = i
