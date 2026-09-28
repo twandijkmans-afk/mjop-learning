@@ -82,6 +82,18 @@ DOCUMENT_PROFILES = {
                 "ook hier ongebruikt. Object-sectie mist 'Aantal eenheden' en 'Postcode' - blijft null, "
                 "niet afgeleid uit de Opdrachtgever-sectie.",
     },
+    "DOC-002": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Vierde pilot, zelfde profiel als DOC-001/DOC-006/DOC-010 - geen enkele "
+                "documentprofielregel hoefde te wijzigen (bewijs: whole_euro_evidence, 0 "
+                "validatiefouten, 0 unclassified lines). Objectblad + Elementenoverzicht + "
+                "Overzicht 15 - Jarenplan (Gedetailleerd); Bevindingen/Jaarplan/Hoofdgroepen-secties "
+                "ook hier ongebruikt. Meerdere fysieke locaties (bijv. 'Th 144'/'Th 74') met "
+                "identieke Jarenplan-rijen leiden tot een aantal niet-unieke block-koppelingen "
+                "(geen aanpassing aan de koppeling gedaan, bewust - zie deterministic_pilot-rapport).",
+    },
 }
 
 OBJECT_LABELS = [
@@ -247,6 +259,19 @@ def _unit_needs_review(unit_original):
     if unit_original is None:
         return True
     return unit_original.strip().lower() not in src.UNIT_TOKENS
+
+
+def _legend_scores(legend_value):
+    """Score-cijfers die letterlijk in de conditielegenda van DIT document staan (bijv.
+    '8 = Nader onderzoek nodig' -> '8'). Geen hardcoded schaal (dus geen aanname dat 8/9
+    overal geldig zijn): staat de legenda er niet, of ontbreekt een score erin, dan blijft
+    die score reviewplichtig - nooit gokken welke scores het document toestaat."""
+    out = set()
+    for item in legend_value or []:
+        m = LEGEND_RE.match(item)
+        if m:
+            out.add(m.group(1))
+    return out
 
 
 def _parse(vtype, text):
@@ -453,6 +478,7 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
     # 2. elementenoverzicht (profielregels)
     ov_rows, uncl = parse_element_overview(pages, sections)
     trace["unclassified_element_overview_lines"] = uncl
+    legend_scores = _legend_scores(docvals["condition_legend"].get("value"))
     elements, observations, el_index = [], [], {}
     for n, r in enumerate(ov_rows, start=1):
         eid = f"{doc_id}-EL-{n:03d}"
@@ -475,7 +501,7 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
         elements.append(el)
         el_index.setdefault(_element_key(r["code"], r["name"], r["location"]), []).append(eid)
         if r["condition"] is not None:
-            review = r["condition"] not in {"1", "2", "3", "4", "5", "6"}
+            review = r["condition"] not in legend_scores
             cs = {"original_value": r["condition"], "normalized_value": None, "scale": None, "provenance": prov}
             observations.append({
                 "observation_id": f"{doc_id}-OBS-{len(observations) + 1:03d}", "element_id": eid,

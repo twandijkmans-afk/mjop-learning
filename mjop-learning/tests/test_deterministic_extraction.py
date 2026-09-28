@@ -249,7 +249,10 @@ def test_condition_scores(record):
     assert [o["condition_score"]["original_value"] for o in record["observations"]] == ["2", "2", "8", "3", "0", "0"]
     assert all(o["condition_score"]["normalized_value"] is None and o["condition_score"]["scale"] is None
                for o in record["observations"])
-    assert [o["requires_human_review"] for o in record["observations"]] == [False, False, True, False, True, True]
+    # "8" staat letterlijk in DOC-010's eigen conditielegenda ("8 = Nader onderzoek nodig") en is
+    # dus geen reviewreden meer (legend-bewuste _legend_scores i.p.v. een vaste {1..6}-set);
+    # "0" staat niet in de legenda en blijft reviewplichtig.
+    assert [o["requires_human_review"] for o in record["observations"]] == [False, False, False, False, True, True]
     assert obs["DOC-010-EL-003"]["condition_score"]["original_value"] == "8"
 
 
@@ -419,7 +422,9 @@ def test_review_export_from_pilot_path(record, tmp_path):
     obs = list(wb["observations"].iter_rows(values_only=True))
     header = obs[0]
     rows = [dict(zip(header, row)) for row in obs[1:]]
-    assert sorted(r["condition_score"] for r in rows) == ["0", "0", "8"]
+    # "8" staat in DOC-010's eigen conditielegenda en is dus geen reviewreden meer (zie
+    # test_condition_scores); alleen de twee scores "0" (buiten de legenda) blijven over.
+    assert sorted(r["condition_score"] for r in rows) == ["0", "0"]
     assert all(r["bron_pagina"] in (6, 8) and r["bron_block_id"] for r in rows)
 
 
