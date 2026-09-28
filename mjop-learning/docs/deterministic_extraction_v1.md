@@ -1,6 +1,6 @@
 # Deterministische extractie v1 — integratie in de bestaande pipeline
 
-Status: integratiefase 2 (voorbereiding). Geen externe AI-API, geen netwerk.
+Status: integratiefase 3 (deterministische route gebouwd; echte pilot nog lokaal uit te voeren). Geen externe AI-API, geen netwerk.
 Dit document legt de ontwerpbeslissingen vast die bij de integratie van
 "Extractie v1" in deze branch zijn genomen.
 
@@ -101,7 +101,7 @@ append-only log.
 
 `profile_overzicht15.py` zelf is niet overgenomen als zelfstandige parser.
 
-## Plan: extract_batch zonder externe API (fase 3, nog niet gebouwd)
+## Plan: extract_batch zonder externe API (oorspronkelijk plan; zie fase 3 hieronder)
 
 ```
 extract_batch.py --mode deterministic --document DOC-xxx
@@ -131,3 +131,75 @@ kent geen `-table`. In de huidige ontwikkelcontainer is pdftotext niet
 geïnstalleerd; er is bewust niets systeemwijd geïnstalleerd en niet van parser
 gewisseld. Twee tests in `test_price_observations.py` worden daarom
 overgeslagen.
+
+## Fase 3 — deterministische route (gebouwd, getest met fixtures)
+
+`python3 scripts/extract_batch.py --mode deterministic --document DOC-010 [--pdftotext PAD]`
+roept `scripts/deterministic_extraction.py` aan. De LLM-route is de standaard en
+is ongewijzigd.
+
+Volgorde per document:
+1. `check_pdftotext`: xpdf pdftotext moet exact `pdftotext version 4.06 [www.xpdfreader.com]`
+   melden. Ontbreekt of afwijkend (poppler, xpdf 3.04, 4.05…) → `DependencyError`,
+   exitcode 3, vóór enig werk. Geen fallback, geen download/installatie.
+2. Registry: sha256 van het bronbestand moet kloppen (`document_registry.verify_file`).
+3. Documentprofiel verplicht (`DOCUMENT_PROFILES`); nu alleen DOC-010
+   (`pro_vve_overzicht15` 1.0.0, valutaregel `pdf_whole_euro_dot_thousands`).
+4. Waarden:
+   - jarenplan-rijen, prijspeil, BTW, indexatie: **`mjop_source_sections`** (leidend);
+   - objectblad-gebouwvelden, elementenoverzicht, conditielegenda: profielregels
+     (`parse_object_fields`, `parse_element_overview`, `parse_condition_legend`),
+     die alleen aanvullen wat de bronlaag niet levert.
+   - Bedragen via `nl_values.parse_currency_profile` met documentbewijs; de regel
+     staat in `field_provenance.total_cost_as_stated.extraction_rule`.
+   - Eén onderhoudsactie per jaarbedrag > 0 (zelfde model als de bestaande
+     DOC-010-extractie). Rijen zonder bedrag in het venster staan in
+     `deterministic_trace.rows_without_positive_amount`.
+   - Niet ingevuld: building_type, materiaal, bouwjaar per element,
+     gemeenschappelijk/prive, unit_cost, cost_year.
+5. `text_layer` + `record_validation.link_source_row_to_blocks`: alleen `block_id`/
+   `related_block_ids`/`text_fragment` als aanvullende provenance. Dubbel voorkomende
+   regels (bijv. `Postcode`/`Plaats` op p2) krijgen geen block_id.
+6. Validatie: bestaande schemas (`validate_entities`), `verify_block_provenance`,
+   `document_level_values` tegen `_extracted_value`.
+7. Output: `data/extracted/_deterministic_pilot/<doc>.json` (of `--pilot-out-dir`).
+   Canonieke mappen (`data/extracted`, `data/normalized`, `data/verified`) worden
+   geweigerd. De pipeline-globs (`*.json`) zijn niet-recursief, dus de pilotmap
+   telt niet als canonieke extractie. Geen tijdstempels: runs zijn byte-identiek.
+
+Metadata in het record: `extraction_mode: deterministic`, `extraction_metadata`
+(extractor + versie, parser + modus, pdftotext-versie, profiel + versie,
+rules_version, valutaregel + bewijs, bron-sha256, tekstlaag-sha256 + generator).
+
+Review: `export_review_sheet.py --normalized-dir data/extracted/_deterministic_pilot
+--out reports/deterministic_pilot/DOC-010_pilot_review.xlsx` (bestaande tool,
+bestaande opties; exporteert zoals altijd alleen records met
+`requires_human_review`). **Niet** `apply_review.py` op de pilot draaien zolang
+de pilot niet is beoordeeld: dat zou naar `data/verified/` schrijven.
+
+Vergelijking: `scripts/compare_extractions.py` (read-only, weigert uitvoer in
+`data/`): koppelt op inhoud (element + locatie; actie + jaar), telt per
+categorie exact_equal / different_value / only_deterministic / only_existing /
+null_or_unknown / ambiguous_duplicate_key, markeert human_review_needed en kiest
+nooit een winnaar.
+
+Fixtures: `tests/fixtures/pdftotext_doc010/` (herkomst per regel in de README) en
+`tests/fixtures/fake_pdftotext.py`; alleen de externe executable wordt vervangen.
+
+## Lokale pilot (met xpdf 4.06)
+
+```bash
+git fetch origin && git checkout claude/extractie-v1-integratie   # of de branch met fase 3
+cd mjop-learning
+pip install -r requirements.txt
+# xpdf-tools 4.06 van https://www.xpdfreader.com/download.html; controleer:
+<pad>/pdftotext -v          # moet beginnen met: pdftotext version 4.06 [www.xpdfreader.com]
+python3 -m pytest -q        # de 2 pdftotext-tests draaien nu mee (niet meer skipped)
+python3 scripts/extract_batch.py --mode deterministic --document DOC-010 --pdftotext <pad>/pdftotext
+python3 scripts/export_review_sheet.py --normalized-dir data/extracted/_deterministic_pilot \
+    --out reports/deterministic_pilot/DOC-010_pilot_review.xlsx
+python3 scripts/compare_extractions.py --existing data/verified/DOC-010.json \
+    --pilot data/extracted/_deterministic_pilot/DOC-010.json \
+    --out reports/deterministic_pilot/DOC-010_comparison.json
+git status   # alleen de pilot- en rapportbestanden mogen nieuw zijn; data/verified ongewijzigd
+```

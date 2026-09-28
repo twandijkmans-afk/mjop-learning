@@ -44,6 +44,10 @@ Gebruik:
     python3 scripts/extract_batch.py --batch batch_1
     Vereist ANTHROPIC_API_KEY in de omgeving voor echte extractie; zonder key
     (of met --dry-run) worden alleen placeholders aangemaakt, zoals voorheen.
+
+    python3 scripts/extract_batch.py --mode deterministic --document DOC-010 [--pdftotext PAD]
+    Deterministische route zonder AI-API of netwerk (scripts/deterministic_extraction.py);
+    vereist xpdf pdftotext 4.06 en schrijft alleen naar data/extracted/_deterministic_pilot/.
 """
 import argparse
 import copy
@@ -578,6 +582,36 @@ def load_inventory(reports_dir):
     return json.load(open(path))
 
 
+def run_deterministic(args):
+    """--mode deterministic: geen AI-API, geen netwerk, geen placeholders; schrijft alleen
+    pilot-output buiten de canonieke datamappen. Returns exitcode."""
+    import sys
+    import deterministic_extraction as de
+
+    if not args.document:
+        print("--mode deterministic vereist minstens één --document", file=sys.stderr)
+        return 2
+    try:
+        binary, version = de.check_pdftotext(args.pdftotext)  # vroeg falen, vóór enig werk
+    except de.DependencyError as exc:
+        print(f"FOUT (dependency): {exc}", file=sys.stderr)
+        return 3
+    status = 0
+    for doc_id in args.document:
+        try:
+            record = de.extract_document(doc_id, PROJECT_ROOT, binary, version)
+            out = de.write_pilot(record, PROJECT_ROOT, args.pilot_out_dir)
+        except de.ExtractionError as exc:
+            print(f"FOUT {doc_id}: {exc}", file=sys.stderr)
+            for err in exc.errors[:20]:
+                print(f"  - {err}", file=sys.stderr)
+            status = 1
+            continue
+        print(f"{doc_id}: deterministisch geëxtraheerd -> {out} ({len(record['elements'])} elementen, "
+              f"{len(record['observations'])} observaties, {len(record['maintenance_actions'])} onderhoudsacties)")
+    return status
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--batch", default="batch_1")
@@ -590,7 +624,18 @@ def main():
         "--dry-run", action="store_true",
         help="Alleen placeholders aanmaken, geen LLM-call (ook als ANTHROPIC_API_KEY gezet is).",
     )
+    # Deterministische route (docs/deterministic_extraction_v1.md). De LLM-route hieronder
+    # is de standaard en blijft ongewijzigd.
+    ap.add_argument("--mode", choices=["llm", "deterministic"], default="llm")
+    ap.add_argument("--document", action="append", default=[], metavar="DOC-ID",
+                    help="alleen bij --mode deterministic: te extraheren document(en)")
+    ap.add_argument("--pdftotext", help="alleen bij --mode deterministic: pad naar xpdf pdftotext 4.06")
+    ap.add_argument("--pilot-out-dir", default=None,
+                    help="alleen bij --mode deterministic: uitvoermap (standaard data/extracted/_deterministic_pilot)")
     args = ap.parse_args()
+
+    if args.mode == "deterministic":
+        raise SystemExit(run_deterministic(args))
 
     inventory = load_inventory(args.reports_dir)
     os.makedirs(args.out_dir, exist_ok=True)
