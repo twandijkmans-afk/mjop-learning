@@ -62,6 +62,16 @@ DOCUMENT_PROFILES = {
         "note": "Pilot. Objectblad + Elementenoverzicht + Overzicht 15 - Jarenplan (Gedetailleerd); "
                 "bedragen in hele euro's met punt als duizendtal (bewijs: whole_euro_evidence).",
     },
+    "DOC-006": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Tweede pilot, zelfde profiel als DOC-010 (zelfde adviesbureau/rapportsjabloon: "
+                "identieke sectietitels, kolomkoppen en bedragformaat - bewijs: whole_euro_evidence, "
+                "geen enkele documentprofielregel hoefde te wijzigen). Objectblad + Elementenoverzicht + "
+                "Overzicht 15 - Jarenplan (Gedetailleerd); DOC-006 heeft ook Bevindingen/Jaarplan-secties "
+                "maar die worden (net als bij DOC-010) niet gebruikt - Jarenplan blijft de leidende bron.",
+    },
 }
 
 OBJECT_LABELS = [
@@ -328,7 +338,14 @@ def _overview_header(lines):
 def parse_element_overview(pages, sections):
     """Elementenoverzicht (Code / Element / Locatie / Hvh+Ehd / Conditie) op kolompositie
     uit de kopregel. Rijen die niet in deze structuur passen worden niet geraden maar
-    teruggegeven als 'unclassified'."""
+    teruggegeven als 'unclassified'.
+
+    Een lange elementnaam kan naar een eigen regel wrappen (net als actietekst in het
+    jarenplan al kan) - herkenbaar doordat zo'n regel geen code/groep heeft en volledig
+    in de Element-kolom staat (alle tokens vóór Locatie). Alleen dan wordt de tekst aan de
+    voorgaande rij toegevoegd (net als bij jarenplan-continuation_lines: de bronregel voor
+    provenance blijft de hoofdregel, de vervolgregel wordt apart als related_text
+    meegegeven in build_record) - anders blijft het 'unclassified', nooit geraden."""
     rows, unclassified = [], []
     group = None
     for pno, sec in sections:
@@ -350,6 +367,10 @@ def parse_element_overview(pages, sections):
                 group = {"code": toks[0][0], "label": " ".join(t[0] for t in toks[1:])}
                 continue
             if not (CODE_RE.match(toks[0][0]) and toks[0][1] < 4):
+                if rows and rows[-1]["page"] == pno and all(t[1] < loc_x for t in toks):
+                    rows[-1]["name"] = (rows[-1]["name"] + " " + " ".join(t[0] for t in toks)).strip()
+                    rows[-1]["continuation_lines"].append(i + 1)
+                    continue
                 unclassified.append({"page": pno, "line": i + 1, "text": _squash(line)})
                 continue
             qi = [j for j, t in enumerate(toks) if QTY_UNIT_RE.match(t[0])]
@@ -370,7 +391,7 @@ def parse_element_overview(pages, sections):
             rows.append({"page": pno, "line": i + 1, "code": toks[0][0], "name": " ".join(name),
                          "location": " ".join(loc) or None, "quantity_as_stated": qty_text,
                          "unit_original": unit or None, "condition": cond[0][0] if cond else None,
-                         "group": group, "raw_line": _squash(line)})
+                         "group": group, "raw_line": _squash(line), "continuation_lines": []})
     return rows, unclassified
 
 
@@ -425,7 +446,9 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
     elements, observations, el_index = [], [], {}
     for n, r in enumerate(ov_rows, start=1):
         eid = f"{doc_id}-EL-{n:03d}"
-        prov = _prov(doc_id, r["page"], r["raw_line"], f"{rule_prefix}.elements.overview_row", layer)
+        cont_texts = [src._clean(pages[r["page"] - 1].splitlines()[ln - 1]) for ln in r.get("continuation_lines", [])]
+        prov = _prov(doc_id, r["page"], r["raw_line"], f"{rule_prefix}.elements.overview_row", layer,
+                     related_texts=cont_texts)
         qty, qreason = nv.parse_quantity_nl(r["quantity_as_stated"])
         el = {
             "element_id": eid, "building_id": building["building_id"],
