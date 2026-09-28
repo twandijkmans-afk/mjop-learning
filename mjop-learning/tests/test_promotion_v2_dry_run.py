@@ -67,7 +67,7 @@ def test_observation_ids_stable_and_no_amount_changes(built):
     assert po["old_observations"] == po["new_observations"] == 404
     assert po["category_counts"]["F_missing_or_new"] == 0
     assert po["category_counts"]["G_amount_changed"] == 0 and report["amount_changes"] == 0
-    assert report["blocking_issues"] == []
+    assert not [b for b in report["blockers"] if b["blocker"] in ("amount_changed", "observation_missing_or_new")]
 
 
 def test_doc003_excluded(built):
@@ -94,7 +94,7 @@ def test_accept_simulation_counts(built):
     _, report = built
     sim = report["accept_simulation"]
     assert sum(sim["simulation"].values()) == 220
-    assert sim["classification"] == {"EXACT_MATCH_CANDIDATE": 133, "NO_MATCH": 87}
+    assert sim["classification"] == {"AMBIGUOUS": 2, "EXACT_MATCH_CANDIDATE": 131, "NO_MATCH": 87}
 
 
 def test_kengetallen_dry_run_compares_by_id_and_candidate_key(built):
@@ -215,3 +215,88 @@ def test_kengetallen_rename_detected_by_candidate_key():
 def test_strip_volatile_and_as_json():
     assert pv2.strip_volatile({"a": 1, "inputs": 2, "b": [{"source_file_sha256": "x", "c": 3}]}) == {"a": 1, "b": [{"c": 3}]}
     assert pv2.as_json({None: 1}) == {"null": 1}
+
+
+# ------------------------------------------------------------------ afronding: ambiguïteit, verklaringen, blockers
+
+def test_only_identical_rows_remain_ambiguous_and_are_not_amount_blockers(built):
+    _, report = built
+    groups = report["ambiguous_groups"]
+    assert groups, "verwacht de identieke DOC-007-rijen"
+    for g in groups:
+        assert g["document_id"] == "DOC-007"
+        assert g["rows_identical"] and g["amounts_equal"] and g["multiset_sizes_equal"]
+    assert not [b for b in report["blockers"] if b["blocker"] in ("amount_changed", "ambiguous_rows_not_identical")]
+    assert report["price_observations"]["link_counts"].get("none", 0) == 0
+
+
+def test_all_comparability_changes_explained(built):
+    _, report = built
+    pc = report["comparability_explained"]
+    assert pc["unexplained"] == 0
+    assert pc["counts"]["changed"] == report["comparability"]["counts"]["changed_class"]
+    assert pc["counts"]["disappeared"] == report["comparability"]["counts"]["disappeared"]
+
+
+def test_kengetallen_semantic_changes_traceable(built):
+    _, report = built
+    for k in report["kengetallen_semantic"]:
+        assert k["traceable"], k["candidate_key"]
+        if k["semantic_match"] and k["old"]["kengetal_ids"] != k["new"]["kengetal_ids"]:
+            assert any("zelfde candidate_key" in c for c in k["cause"])
+
+
+def test_material_classes_cover_all_material_changes(built):
+    _, report = built
+    m = report["material_changes"]
+    assert sum(m["counts"].values()) == report["price_observations"]["category_counts"]["E_material_changed"]
+    assert all(d["old"]["source"] == "element_text" for d in m["details"] if d["class"] == "C_regression")
+
+
+def test_no_internal_code_regression(built):
+    _, report = built
+    assert report["internal_code_changes"]["counts"]["C_regression"] == 0
+
+
+def _rows(*acts):
+    import promote_deterministic_batch as pdb
+    return pdb.new_rows({"maintenance_actions": list(acts)})
+
+
+def _act(aid, el, year=2025, text="Herstellen", frag="Herstellen 1,00 pst 2025 100", block=None):
+    return {"action_id": aid, "element_id": el, "source_page": 9,
+            "action": {"original_value": text, "provenance": {"text_fragment": frag, "block_id": block}},
+            "quantity": {"value": "1.00"}, "unit": {"original_value": "pst"}, "planned_year": {"value": year},
+            "total_cost_as_stated": "100"}
+
+
+def test_identical_text_rows_of_different_elements_are_not_merged():
+    rows = _rows(_act("A1", "E1"), _act("A2", "E2"))
+    assert [r["action_ids"] for r in rows] == [["A1"], ["A2"]]
+
+
+def test_repeated_year_starts_new_row_same_element():
+    rows = _rows(_act("A1", "E1"), _act("A2", "E1", year=2032), _act("A3", "E1"))
+    assert [r["action_ids"] for r in rows] == [["A1", "A2"], ["A3"]]
+
+
+def test_rows_identical_proof():
+    same = _rows(_act("A1", "E1"), _act("A2", "E2"))
+    assert pv2.rows_identical(same)
+    other = _rows(_act("A1", "E1"), dict(_act("A2", "E2"), total_cost_as_stated="101"))
+    assert not pv2.rows_identical(other)
+
+
+def test_explain_material_classes():
+    def norm(oid, source, value, field="present", reason=None):
+        return {"observation_id": oid, "material": {"material_original": value if source == "verified_element" else None,
+                "material_normalized": value if source == "verified_element" else None,
+                "material_from_text": {"normalized_value": value} if source == "element_text" else None,
+                "material_source": source, "verified_material_field": field, "material_not_derived_reason": reason}}
+    old = {"observations": [norm("A", "verified_element", "wood"), norm("B", "verified_element", "wood"),
+                            norm("C", "element_text", "pvc", field="absent")]}
+    new = {"observations": [norm("A", None, None, reason="verified_material_empty"),
+                            norm("B", None, None, field="no_element_link", reason="no_element_link"),
+                            norm("C", None, None, reason="verified_material_empty")]}
+    res = pv2.explain_material(old, new)
+    assert res["counts"] == {"A_old_verified_derivation": 1, "B_unlinked_or_ambiguous": 1, "C_regression": 1}

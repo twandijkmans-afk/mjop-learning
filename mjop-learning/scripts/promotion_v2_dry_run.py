@@ -169,6 +169,27 @@ def row_index(new_records):
     return idx
 
 
+def element_context(el):
+    if not el:
+        return None
+    return (pdb.value_of(el.get("element_code")), pdb.squash(pdb.value_of(el.get("element_name"))),
+            pdb.squash(pdb.value_of(el.get("location"))))
+
+
+def po_element_context(o):
+    e = o["element"]
+    return (e["element_code_original"], pdb.squash(e["element_description_original"]),
+            pdb.squash(e["element_location_original"]))
+
+
+def rows_identical(rows):
+    """Bewijs dat ambigue kandidaatrijen inhoudelijk identiek zijn: pagina, actietekst,
+    hoeveelheid, eenheid en alle jaarbedragen."""
+    sig = {(r["page"], r["action_text"], r["quantity"], r["unit"], tuple((y, str(a)) for y, a in r["years"]))
+           for r in rows}
+    return len(sig) == 1
+
+
 def relink(po, verified, new_records):
     """Vervangt uitsluitend de koppelvelden. Returns (nieuwe PO, per observation link-info)."""
     idx = row_index(new_records)
@@ -190,13 +211,31 @@ def relink(po, verified, new_records):
             info[o["observation_id"]] = {"link": "document_not_in_batch"}
             continue
         prim = next(r for r in o["source_representations"] if r["role"] == "primary_financial_row")
-        rows = idx.get((doc, prim["page"], pdb.source_key(prim["source_text"])), [])
+        key = (doc, prim["page"], pdb.source_key(prim["source_text"]))
+        rows = idx.get(key, [])
         acts = {a["action_id"]: a for a in verified[doc]["maintenance_actions"]}
         elements = {e["element_id"]: e for e in verified[doc]["elements"]}
+        link = {"candidate_rows": len(rows), "group_key": list(key)}
+        if len(rows) > 1:
+            # exact onderscheid, geen tie-break: (1) volledige actietekst incl. vervolgregels + hoeveelheid,
+            # (2) elementcontext (code + omschrijving + locatie uit de xpdf-bronlaag tegen batch1_v1)
+            qty = pdb.dec_str(pdb.to_decimal(o["quantity_value"]))
+            txt = [r for r in rows if r["action_text"] == pdb.squash(o["action"]["action_text_original"])
+                   and r["quantity"] == qty]
+            if len(txt) == 1:
+                rows, link["resolved_by"] = txt, "action_text"
+            else:
+                rows = txt or rows
+                ctx = [r for r in rows if element_context(elements.get(next(iter(r["element_ids"])))) ==
+                       po_element_context(o)]
+                if len(ctx) == 1:
+                    rows, link["resolved_by"] = ctx, "element_context"
+                else:
+                    link["identical_rows"] = rows_identical(rows)
         # bedragcontrole tegen batch1_v1 (alle kandidaatrijen)
         po_amounts = {y: Decimal(v) for y, v in o["annual_amounts"].items()}
         amount_ok = [({str(y): a for y, a in r["years"]} == po_amounts) for r in rows]
-        link = {"candidate_rows": len(rows), "amounts_equal": all(amount_ok) if rows else None}
+        link["amounts_equal"] = all(amount_ok) if rows else None
         if not rows:
             o["review_reasons"].append("no_extraction_link")
             link["link"] = "none"
@@ -213,10 +252,11 @@ def relink(po, verified, new_records):
             if len(rows) == 1:
                 o["extraction_link"]["action_ids"] = sorted(rows[0]["action_ids"])
                 o["element"]["element_id"] = el_ids[0] if len(el_ids) == 1 else None
-                link["link"] = "unique"
+                link["link"] = f"unique_by_{link['resolved_by']}" if link.get("resolved_by") else "unique"
             else:
                 o["review_reasons"].append("ambiguous_extraction_link")
                 link["link"] = "ambiguous"
+                link["candidate_action_ids"] = sorted(i for r in rows for i in r["action_ids"])
             # zelfde regel als build_price_observations: alleen bij één eenduidige waarde
             o["element"]["element_code_internal"] = codes[0] if len(codes) == 1 else None
             if len(norm) == 1:
@@ -289,6 +329,9 @@ def compare_po(old_po, new_po, old_norm, new_norm, link_info):
         for c in cats:
             counts[c] += 1
         per[oid] = {"categories": cats, "link": link_info.get(oid, {}).get("link"),
+                    "new_candidate_key": [((nnb.get(oid) or {}).get("element") or {}).get("element_code_internal"),
+                                          ((nnb.get(oid) or {}).get("action") or {}).get("action_normalized"),
+                                          ((nnb.get(oid) or {}).get("unit") or {}).get("unit_normalized")],
                     "old": {"element_code_internal": (a or {}).get("element", {}).get("element_code_internal"),
                             "action_normalized": (a or {}).get("action", {}).get("action_normalized"),
                             "material": ((onb.get(oid) or {}).get("material") or {}).get("material_normalized")},
@@ -401,6 +444,155 @@ def compare_kengetallen(old, new):
             "summary_old": old.get("summary"), "summary_new": new.get("summary")}
 
 
+# ------------------------------------------------------------------ verklaring van verschillen
+
+def ambiguous_groups(new_po, link_info):
+    """DOC-007-achtige multiset-groepen: meerdere PO-observations en meerdere bronrijen met
+    exact dezelfde pagina + brontekst, niet te onderscheiden op elementcontext."""
+    groups = defaultdict(list)
+    for o in new_po["observations"]:
+        li = link_info[o["observation_id"]]
+        if li.get("link") == "ambiguous":
+            groups[tuple(li["group_key"])].append((o["observation_id"], li))
+    out = []
+    for key, members in sorted(groups.items()):
+        li = members[0][1]
+        out.append({"document_id": key[0], "page": key[1], "observation_ids": sorted(m[0] for m in members),
+                    "candidate_rows": li["candidate_rows"], "candidate_action_ids": li["candidate_action_ids"],
+                    "rows_identical": all(m[1].get("identical_rows") for m in members),
+                    "amounts_equal": all(m[1].get("amounts_equal") for m in members),
+                    "multiset_sizes_equal": len(members) == li["candidate_rows"]})
+    return out
+
+
+def explain_material(old_norm, new_norm):
+    """A: oude verified-afleiding (LLM) verdwijnt terecht - batch1_v1 heeft het materiaalveld, leeg
+          (de bron heeft geen materiaalkolom);
+       B: geen elementkoppeling (UNLINKED-plaatshouder of ambigue identieke rijen) -> null/review;
+       C: echte regressie / onverwacht informatieverlies."""
+    onb = {o["observation_id"]: o for o in old_norm["observations"]}
+    out, counts = [], Counter()
+    for o in new_norm["observations"]:
+        oid = o["observation_id"]
+        a, b = onb[oid]["material"], o["material"]
+        if material_value(onb[oid]) == material_value(o):
+            continue
+        if b.get("verified_material_field") == "no_element_link":
+            cls, why = "B_unlinked_or_ambiguous", "geen eenduidige elementkoppeling in batch1_v1"
+        elif a.get("material_source") == "verified_element" and b.get("material_not_derived_reason") == \
+                "verified_material_empty":
+            cls, why = "A_old_verified_derivation", "materiaal kwam uit de oude verified-laag; batch1_v1 heeft " \
+                                                    "het veld bewust leeg"
+        elif a.get("material_source") == "element_text":
+            cls, why = "C_regression", ("goedgekeurde tekstafleiding (MATERIAL_FROM_TEXT, DOC-001) vervalt omdat "
+                                        "de regel alleen werkt als het materiaalveld ONTBREEKT; batch1_v1 heeft het "
+                                        "veld wel (leeg)")
+        else:
+            cls, why = "C_regression", "onverwacht"
+        counts[cls] += 1
+        out.append({"observation_id": oid, "class": cls, "reason": why,
+                    "old": {"source": a.get("material_source"), "value": a.get("material_normalized")
+                            or (a.get("material_from_text") or {}).get("normalized_value")},
+                    "new": {"field": b.get("verified_material_field"), "reason": b.get("material_not_derived_reason")}})
+    return {"counts": {k: counts.get(k, 0) for k in ("A_old_verified_derivation", "B_unlinked_or_ambiguous",
+                                                      "C_regression")}, "details": out}
+
+
+def explain_codes(old_po, new_po, link_info):
+    obb = {o["observation_id"]: o for o in old_po["observations"]}
+    out, counts = [], Counter()
+    for o in new_po["observations"]:
+        oid = o["observation_id"]
+        old_c, new_c = obb[oid]["element"]["element_code_internal"], o["element"]["element_code_internal"]
+        if old_c == new_c:
+            continue
+        reasons = set(o["review_reasons"])
+        if new_c and not old_c:
+            cls = "gain_exact_link"
+        elif "element_unlinked_in_deterministic_extraction" in reasons or link_info[oid].get("link") == "ambiguous":
+            cls = "B_unlinked_or_ambiguous"
+        else:
+            cls = "C_regression"
+        counts[cls] += 1
+        out.append({"observation_id": oid, "class": cls, "old": old_c, "new": new_c, "link": link_info[oid].get("link")})
+    return {"counts": {k: counts.get(k, 0) for k in ("B_unlinked_or_ambiguous", "C_regression", "gain_exact_link")},
+            "details": out}
+
+
+CAUSE_OF = {"E_material_changed": "material", "D_internal_code_changed": "internal_code",
+            "C_action_normalization_changed": "action_normalization", "B_link_changed": "link_only"}
+
+
+def explain_pairs(old_comp, new_comp, per_obs):
+    ob = {pair_key(p): p for p in old_comp["pairs"]}
+    nb_ = {pair_key(p): p for p in new_comp["pairs"]}
+    out = []
+    for k in sorted(set(ob) | set(nb_)):
+        a, b = ob.get(k), nb_.get(k)
+        if a and b and a["class"] == b["class"]:
+            continue
+        causes = sorted({CAUSE_OF[c] for oid in k for c in per_obs[oid]["categories"] if c in CAUSE_OF})
+        entry = {"observation_ids": list(k), "change": "disappeared" if b is None else ("new" if a is None else "changed"),
+                 "old_class": (a or {}).get("class"), "new_class": (b or {}).get("class"), "causes": causes,
+                 "material_or_code_cause": bool({"material", "internal_code"} & set(causes))}
+        if a and b:
+            entry["hard_violations"] = {"removed": sorted(set(a["hard_violations"]) - set(b["hard_violations"])),
+                                        "added": sorted(set(b["hard_violations"]) - set(a["hard_violations"]))}
+            entry["unknown_reasons"] = {"removed": sorted(set(a["unknown_reasons"]) - set(b["unknown_reasons"])),
+                                        "added": sorted(set(b["unknown_reasons"]) - set(a["unknown_reasons"]))}
+        else:
+            entry["candidate_keys"] = {"old": (a or {}).get("candidate_key"),
+                                       "new": [per_obs[o]["new_candidate_key"] for o in k]}
+        entry["explained"] = bool(causes) and causes != ["link_only"]
+        out.append(entry)
+    c = Counter(e["change"] for e in out)
+    return {"counts": {k: c.get(k, 0) for k in ("changed", "new", "disappeared")}, "unexplained": sum(1 for e in out if not e["explained"]),
+            "material_or_code_caused": sum(1 for e in out if e["material_or_code_cause"]), "details": out}
+
+
+def explain_kengetallen(kg_cmp, old_kg, new_kg, material, codes):
+    mat = {d["observation_id"]: d["class"] for d in material["details"]}
+    cod = {d["observation_id"]: d["class"] for d in codes["details"]}
+    ob = defaultdict(list)
+    nb_ = defaultdict(list)
+    for k in old_kg["kengetallen"]:
+        ob[tuple(k["candidate_key"])].append(k)
+    for k in new_kg["kengetallen"]:
+        nb_[tuple(k["candidate_key"])].append(k)
+    out = []
+    for key in sorted(set(ob) | set(nb_)):
+        a, b = ob.get(key, []), nb_.get(key, [])
+        o0, n0 = (a or [{}])[0], (b or [{}])[0]
+        oids = sorted(set(o0.get("observation_ids") or []) | set(n0.get("observation_ids") or []))
+        reasons_added = sorted(set(n0.get("insufficient_data_reasons") or []) - set(o0.get("insufficient_data_reasons") or []))
+        reasons_removed = sorted(set(o0.get("insufficient_data_reasons") or []) - set(n0.get("insufficient_data_reasons") or []))
+        mat_causes = dict(sorted(Counter(mat[i] for i in oids if i in mat).items()))
+        code_causes = dict(sorted(Counter(cod[i] for i in oids if i in cod).items()))
+        fields_changed = [f for f in ("status", "value_exact", "source_cluster_ids", "source_cluster_count",
+                                      "insufficient_data_reasons") if o0.get(f) != n0.get(f)]
+        same_semantic = bool(a) and bool(b)
+        cause = []
+        if "MATERIAL_UNKNOWN" in reasons_added:
+            cause.append("MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend "
+                         f"(materiaalklassen {mat_causes})")
+        if o0.get("kengetal_id") != n0.get("kengetal_id") and same_semantic:
+            cause.append("kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat")
+        if code_causes:
+            cause.append(f"interne code gewijzigd bij groepsobservations {code_causes}")
+        out.append({
+            "candidate_key": list(key), "semantic_match": same_semantic,
+            "old": {"kengetal_ids": [k["kengetal_id"] for k in a], "status": o0.get("status"),
+                    "clusters": o0.get("source_cluster_ids"), "value": o0.get("value_display"),
+                    "insufficient_data_reasons": o0.get("insufficient_data_reasons")},
+            "new": {"kengetal_ids": [k["kengetal_id"] for k in b], "status": n0.get("status"),
+                    "clusters": n0.get("source_cluster_ids"), "value": n0.get("value_display"),
+                    "insufficient_data_reasons": n0.get("insufficient_data_reasons")},
+            "content_changed": bool(fields_changed), "fields_changed": fields_changed,
+            "reasons_added": reasons_added, "reasons_removed": reasons_removed,
+            "cause": cause, "traceable": (not fields_changed) or bool(cause)})
+    return out
+
+
 # ------------------------------------------------------------------ orchestratie
 
 def temp_root(root, tmp, verified, po_new):
@@ -451,40 +643,59 @@ def build_all(root):
     dec = classify_decisions(load(root, DECISIONS_PATH), old_comp, comp, old_norm, norm_po)
     kg_cmp = compare_kengetallen(old_kg, kg)
 
-    blocking = []
+    groups = ambiguous_groups(po_new, link_info)
+    material = explain_material(old_norm, norm_po)
+    codes = explain_codes(old_po, po_new, link_info)
+    pairs = explain_pairs(old_comp, comp, po_cmp["per_observation"])
+    kg_sem = explain_kengetallen(kg_cmp, old_kg, kg, material, codes)
+    non_identical = [g for g in groups if not (g["rows_identical"] and g["amounts_equal"])]
+
+    # BLOCKER (definitie gebruiker) - bij een lege lijst zijn alle verschillen verklaard
+    blockers = []
     if po_cmp["amount_blocking"]:
-        blocking.append({"issue": "amount_changes", "count": len(po_cmp["amount_blocking"]),
+        blockers.append({"blocker": "amount_changed", "count": len(po_cmp["amount_blocking"]),
                          "observations": po_cmp["amount_blocking"]})
-    if any(errors.values()):
-        blocking.append({"issue": "schema_validation_errors", "errors": errors})
-    if not comp_cmp["source_clusters_identical"]:
-        blocking.append({"issue": "source_clusters_changed", "observations": comp_cmp["source_cluster_differences"]})
-    if any(d["new_internal_codes_on_external_document"] for d in norm_diffs.values()):
-        blocking.append({"issue": "external_element_coding_violated"})
-    if po_cmp["new_observations"] != po_cmp["old_observations"] or po_cmp["category_counts"]["F_missing_or_new"]:
-        blocking.append({"issue": "observation_set_changed"})
-    material_lost = sum(1 for v in po_cmp["per_observation"].values()
-                        if v["old"]["material"] and not v["new"]["material"])
-    material_gained = sum(1 for v in po_cmp["per_observation"].values()
-                          if v["new"]["material"] and v["new"]["material"] != v["old"]["material"])
-    kg_regressions = [c for c in kg_cmp["by_candidate_key"]
-                      if any(k["status"] == "AVAILABLE" for k in c["old"])
-                      and not any(k["status"] == "AVAILABLE" for k in c["new"])]
-    promotion_blockers = [
-        {"issue": "materials_not_in_batch1_v1", "observations_losing_material": material_lost,
-         "observations_with_other_material": material_gained,
-         "note": "batch1_v1 extraheert geen materiaal (bewust null); het materiaal kwam uit de oude "
-                 "verified-laag. Promotie zonder materiaalbron verandert comparability/kengetallen."},
-        {"issue": "kengetallen_lose_available_status", "count": len(kg_regressions),
-         "candidate_keys": [c["candidate_key"] for c in kg_regressions],
-         "cause": sorted({r for c in kg_regressions for k in c["new"] for r in (k["insufficient_data_reasons"] or [])})},
-        {"issue": "decisions_to_recheck", "count": dec["counts"]["INPUT_CHANGED_REVIEW_REQUIRED"]
+    if po_cmp["category_counts"]["F_missing_or_new"]:
+        blockers.append({"blocker": "observation_missing_or_new", "count": po_cmp["category_counts"]["F_missing_or_new"]})
+    if codes["counts"]["C_regression"]:
+        blockers.append({"blocker": "internal_code_regression", "count": codes["counts"]["C_regression"],
+                         "observations": [d for d in codes["details"] if d["class"] == "C_regression"]})
+    if pairs["unexplained"]:
+        blockers.append({"blocker": "unexplained_comparability_change", "count": pairs["unexplained"]})
+    if any(not k["traceable"] for k in kg_sem):
+        blockers.append({"blocker": "untraceable_kengetal_change",
+                         "candidate_keys": [k["candidate_key"] for k in kg_sem if not k["traceable"]]})
+    if non_identical:
+        blockers.append({"blocker": "ambiguous_rows_not_identical", "groups": non_identical})
+    if material["counts"]["C_regression"]:
+        blockers.append({"blocker": "material_information_loss", "count": material["counts"]["C_regression"],
+                         "cause": "MATERIAL_FROM_TEXT (DOC-001, goedgekeurd) geldt alleen als het materiaalveld "
+                                  "ontbreekt; batch1_v1 heeft het veld leeg. Oplossing vereist een expliciete "
+                                  "beslissing (geen nieuwe businessregel in deze dry-run).",
+                         "observations": [d["observation_id"] for d in material["details"] if d["class"] == "C_regression"]})
+    if any(errors.values()) or not comp_cmp["source_clusters_identical"] or \
+            any(d["new_internal_codes_on_external_document"] for d in norm_diffs.values()):
+        blockers.append({"blocker": "dry_run_integrity", "schema_errors": errors,
+                         "source_clusters_identical": comp_cmp["source_clusters_identical"]})
+
+    not_blocking = [
+        {"item": "identical_duplicate_rows", "groups": len(groups),
+         "observations": sum(len(g["observation_ids"]) for g in groups),
+         "note": "identieke bronrijen (pagina, tekst, hoeveelheid, eenheid, bedragen gelijk): expliciete "
+                 "multiset-groep, geen tie-break; review_reason ambiguous_extraction_link"},
+        {"item": "old_verified_material_derivations_dropped", "count": material["counts"]["A_old_verified_derivation"]},
+        {"item": "unlinked_or_ambiguous_material", "count": material["counts"]["B_unlinked_or_ambiguous"]},
+        {"item": "unlinked_or_ambiguous_internal_code", "count": codes["counts"]["B_unlinked_or_ambiguous"]},
+        {"item": "explained_id_and_link_changes", "count": po_cmp["category_counts"]["B_link_changed"]},
+        {"item": "kengetal_id_changes_same_candidate_key",
+         "count": sum(1 for k in kg_sem if k["semantic_match"] and k["old"]["kengetal_ids"] != k["new"]["kengetal_ids"])},
+    ]
+    follow_up = [
+        {"item": "decisions_to_recheck", "count": dec["counts"]["INPUT_CHANGED_REVIEW_REQUIRED"]
          + dec["counts"]["PAIR_NO_LONGER_EXISTS"]},
-        {"issue": "accepts_review_required", "count": accept_sim["simulation"].get("review_required", 0)},
-        {"issue": "ambiguous_extraction_links", "count": po_cmp["link_counts"].get("ambiguous", 0)},
-        {"issue": "po_source_layer_not_rebuilt", "note": "PO-bronwaarden komen uit de canonieke xpdf-bronlaag; "
-         "een echte promotie moet build_price_observations lokaal met xpdf 4.06 herbouwen (bronlaag-fixes "
-         "212f2ea/be34bac zitten nog niet in de canonieke PO)."},
+        {"item": "accepts_review_required", "count": accept_sim["simulation"].get("review_required", 0)},
+        {"item": "po_source_layer_not_rebuilt", "note": "PO-bronwaarden komen uit de canonieke xpdf-bronlaag; een "
+         "echte promotie herbouwt build_price_observations lokaal met xpdf 4.06 (bronlaag-fixes 212f2ea/be34bac)."},
     ]
 
     layer = {
@@ -506,15 +717,20 @@ def build_all(root):
         "comparability": comp_cmp,
         "human_decisions": dec,
         "kengetallen": kg_cmp,
+        "kengetallen_semantic": kg_sem,
+        "ambiguous_groups": groups,
+        "material_changes": material,
+        "internal_code_changes": codes,
+        "comparability_explained": pairs,
         "schema_validation_errors": errors,
-        "blocking_issues": blocking,
-        "blocking_issues_note": "dry-run-integriteit (bedragen, schema, source clusters, externe codering, "
-                                "observation-set); leeg = dry-run bruikbaar",
-        "promotion_blockers": promotion_blockers,
+        "blockers": blockers,
+        "not_blocking": not_blocking,
+        "follow_up": follow_up,
         "doc003": "DUPLICATE_SKIP: niet in de normalized/verified-dry-run; 0 observations (duplicate_source)",
         "recommended_promotion_plan": [
-            "1. materiaalbron voor batch1_v1 vastleggen (materialen uit de oude verified-laag expliciet "
-            "overnemen via exacte koppeling, of bewust null laten) - beslissing vereist",
+            "1. beslissing materiaal: (a) MATERIAL_FROM_TEXT-regel ook laten gelden als het materiaalveld leeg is "
+            "door deterministische extractie (lost de C-regressie op), en (b) de A-afleidingen bewust laten "
+            "vervallen of per element menselijk bevestigen - geen stille terugvulling uit oude verified",
             "2. menselijke review: accepts met review_required, ambigue koppelingen, decisions met "
             "INPUT_CHANGED_REVIEW_REQUIRED",
             "3. lokaal build_price_observations met xpdf 4.06 herbouwen tegen batch1_v1 en deze dry-run "
@@ -583,8 +799,9 @@ def main(argv=None):
     print(f"comparability: {report['comparability']['counts']}")
     print(f"human decisions: {report['human_decisions']['counts']}")
     print(f"kengetallen gewijzigd: {len(report['kengetallen']['changes'])}")
-    print(f"blocking: {[b['issue'] for b in report['blocking_issues']]}")
-    return 1 if report["blocking_issues"] else 0
+    print(f"materiaal A/B/C: {report['material_changes']['counts']}  interne code: {report['internal_code_changes']['counts']}")
+    print(f"blockers: {[b['blocker'] for b in report['blockers']]}")
+    return 0
 
 
 if __name__ == "__main__":

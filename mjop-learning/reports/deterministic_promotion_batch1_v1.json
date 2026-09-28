@@ -224,11 +224,11 @@
     },
     {
       "categories": {
-        "A_content_extraction": 4,
+        "A_content_extraction": 38,
         "B_id_difference": 2,
-        "C_format_provenance": 232,
-        "D_old_verified_derivations": 232,
-        "E_review_ambiguity": 2
+        "C_format_provenance": 198,
+        "D_old_verified_derivations": 198,
+        "E_review_ambiguity": 36
       },
       "counts": {
         "new": {
@@ -237,7 +237,7 @@
           "observations": 119
         },
         "new_requires_human_review": 2,
-        "new_source_rows": 63,
+        "new_source_rows": 75,
         "new_unlinked_actions": 0,
         "old_verified": {
           "elements": 119,
@@ -275,10 +275,562 @@
           },
           {
             "action_ids": [
+              "DOC-002-ACT-017",
+              "DOC-002-ACT-018",
+              "DOC-002-ACT-021",
+              "DOC-002-ACT-022",
+              "DOC-002-ACT-023",
+              "DOC-002-ACT-024",
+              "DOC-002-ACT-025",
+              "DOC-002-ACT-026",
+              "DOC-002-ACT-035",
+              "DOC-002-ACT-036",
+              "DOC-002-ACT-062",
+              "DOC-002-ACT-063",
+              "DOC-002-ACT-064",
+              "DOC-002-ACT-065",
+              "DOC-002-ACT-068",
+              "DOC-002-ACT-069",
+              "DOC-002-ACT-070",
+              "DOC-002-ACT-071",
+              "DOC-002-ACT-072",
+              "DOC-002-ACT-073",
+              "DOC-002-ACT-074",
+              "DOC-002-ACT-075",
+              "DOC-002-ACT-082",
+              "DOC-002-ACT-083",
+              "DOC-002-ACT-084",
+              "DOC-002-ACT-087",
+              "DOC-002-ACT-088",
+              "DOC-002-ACT-090",
+              "DOC-002-ACT-091",
+              "DOC-002-ACT-092",
               "DOC-002-ACT-097",
-              "DOC-002-ACT-098"
+              "DOC-002-ACT-098",
+              "DOC-002-ACT-104",
+              "DOC-002-ACT-107",
+              "DOC-002-ACT-108",
+              "DOC-002-ACT-109"
             ],
             "kind": "new_actions_without_exact_old_action"
+          }
+        ],
+        "E_review_ambiguity": [
+          {
+            "action_text": "herstellen kozijn hardhout",
+            "amount": "926",
+            "candidate_action_ids": [
+              "DOC-002-ACT-017",
+              "DOC-002-ACT-018",
+              "DOC-002-ACT-021",
+              "DOC-002-ACT-022"
+            ],
+            "old_action_id": "DOC-002-ACT-017",
+            "page": 14,
+            "planned_year": 2030,
+            "quantity": "51",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "herstellen kozijn hardhout",
+            "amount": "926",
+            "candidate_action_ids": [
+              "DOC-002-ACT-017",
+              "DOC-002-ACT-018",
+              "DOC-002-ACT-021",
+              "DOC-002-ACT-022"
+            ],
+            "old_action_id": "DOC-002-ACT-018",
+            "page": 14,
+            "planned_year": 2036,
+            "quantity": "51",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "herstellen kozijn hardhout",
+            "amount": "926",
+            "candidate_action_ids": [
+              "DOC-002-ACT-017",
+              "DOC-002-ACT-018",
+              "DOC-002-ACT-021",
+              "DOC-002-ACT-022"
+            ],
+            "old_action_id": "DOC-002-ACT-021",
+            "page": 14,
+            "planned_year": 2030,
+            "quantity": "51",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "herstellen kozijn hardhout",
+            "amount": "926",
+            "candidate_action_ids": [
+              "DOC-002-ACT-017",
+              "DOC-002-ACT-018",
+              "DOC-002-ACT-021",
+              "DOC-002-ACT-022"
+            ],
+            "old_action_id": "DOC-002-ACT-022",
+            "page": 14,
+            "planned_year": 2036,
+            "quantity": "51",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "herstellen waterslag hout",
+            "amount": "303",
+            "candidate_action_ids": [
+              "DOC-002-ACT-023",
+              "DOC-002-ACT-024",
+              "DOC-002-ACT-025",
+              "DOC-002-ACT-026"
+            ],
+            "old_action_id": "DOC-002-ACT-023",
+            "page": 14,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "herstellen waterslag hout",
+            "amount": "303",
+            "candidate_action_ids": [
+              "DOC-002-ACT-023",
+              "DOC-002-ACT-024",
+              "DOC-002-ACT-025",
+              "DOC-002-ACT-026"
+            ],
+            "old_action_id": "DOC-002-ACT-024",
+            "page": 14,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "herstellen waterslag hout",
+            "amount": "303",
+            "candidate_action_ids": [
+              "DOC-002-ACT-023",
+              "DOC-002-ACT-024",
+              "DOC-002-ACT-025",
+              "DOC-002-ACT-026"
+            ],
+            "old_action_id": "DOC-002-ACT-025",
+            "page": 14,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "herstellen waterslag hout",
+            "amount": "303",
+            "candidate_action_ids": [
+              "DOC-002-ACT-023",
+              "DOC-002-ACT-024",
+              "DOC-002-ACT-025",
+              "DOC-002-ACT-026"
+            ],
+            "old_action_id": "DOC-002-ACT-026",
+            "page": 14,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "herstellen trapleuning hout",
+            "amount": "230",
+            "candidate_action_ids": [
+              "DOC-002-ACT-035",
+              "DOC-002-ACT-036"
+            ],
+            "old_action_id": "DOC-002-ACT-035",
+            "page": 15,
+            "planned_year": 2030,
+            "quantity": "19",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "herstellen trapleuning hout",
+            "amount": "230",
+            "candidate_action_ids": [
+              "DOC-002-ACT-035",
+              "DOC-002-ACT-036"
+            ],
+            "old_action_id": "DOC-002-ACT-036",
+            "page": 15,
+            "planned_year": 2030,
+            "quantity": "19",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-062",
+              "DOC-002-ACT-063",
+              "DOC-002-ACT-064",
+              "DOC-002-ACT-065"
+            ],
+            "old_action_id": "DOC-002-ACT-062",
+            "page": 17,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-062",
+              "DOC-002-ACT-063",
+              "DOC-002-ACT-064",
+              "DOC-002-ACT-065"
+            ],
+            "old_action_id": "DOC-002-ACT-063",
+            "page": 17,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-062",
+              "DOC-002-ACT-063",
+              "DOC-002-ACT-064",
+              "DOC-002-ACT-065"
+            ],
+            "old_action_id": "DOC-002-ACT-064",
+            "page": 17,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-062",
+              "DOC-002-ACT-063",
+              "DOC-002-ACT-064",
+              "DOC-002-ACT-065"
+            ],
+            "old_action_id": "DOC-002-ACT-065",
+            "page": 17,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk hijsbalk",
+            "amount": "54",
+            "candidate_action_ids": [
+              "DOC-002-ACT-068",
+              "DOC-002-ACT-069",
+              "DOC-002-ACT-070",
+              "DOC-002-ACT-071"
+            ],
+            "old_action_id": "DOC-002-ACT-068",
+            "page": 17,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "groot schilderwerk hijsbalk",
+            "amount": "54",
+            "candidate_action_ids": [
+              "DOC-002-ACT-068",
+              "DOC-002-ACT-069",
+              "DOC-002-ACT-070",
+              "DOC-002-ACT-071"
+            ],
+            "old_action_id": "DOC-002-ACT-069",
+            "page": 17,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "groot schilderwerk hijsbalk",
+            "amount": "54",
+            "candidate_action_ids": [
+              "DOC-002-ACT-068",
+              "DOC-002-ACT-069",
+              "DOC-002-ACT-070",
+              "DOC-002-ACT-071"
+            ],
+            "old_action_id": "DOC-002-ACT-070",
+            "page": 17,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "groot schilderwerk hijsbalk",
+            "amount": "54",
+            "candidate_action_ids": [
+              "DOC-002-ACT-068",
+              "DOC-002-ACT-069",
+              "DOC-002-ACT-070",
+              "DOC-002-ACT-071"
+            ],
+            "old_action_id": "DOC-002-ACT-071",
+            "page": 17,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-072",
+              "DOC-002-ACT-073",
+              "DOC-002-ACT-074",
+              "DOC-002-ACT-075"
+            ],
+            "old_action_id": "DOC-002-ACT-072",
+            "page": 17,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-072",
+              "DOC-002-ACT-073",
+              "DOC-002-ACT-074",
+              "DOC-002-ACT-075"
+            ],
+            "old_action_id": "DOC-002-ACT-073",
+            "page": 17,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-072",
+              "DOC-002-ACT-073",
+              "DOC-002-ACT-074",
+              "DOC-002-ACT-075"
+            ],
+            "old_action_id": "DOC-002-ACT-074",
+            "page": 17,
+            "planned_year": 2030,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk hout dekkend",
+            "amount": "42",
+            "candidate_action_ids": [
+              "DOC-002-ACT-072",
+              "DOC-002-ACT-073",
+              "DOC-002-ACT-074",
+              "DOC-002-ACT-075"
+            ],
+            "old_action_id": "DOC-002-ACT-075",
+            "page": 17,
+            "planned_year": 2036,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk leuningen hout dekkend",
+            "amount": "345",
+            "candidate_action_ids": [
+              "DOC-002-ACT-082",
+              "DOC-002-ACT-087"
+            ],
+            "old_action_id": "DOC-002-ACT-082",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "19",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk panelen hout dekkend",
+            "amount": "136",
+            "candidate_action_ids": [
+              "DOC-002-ACT-083",
+              "DOC-002-ACT-088"
+            ],
+            "old_action_id": "DOC-002-ACT-083",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "2.5",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk postkast metaal",
+            "amount": "163",
+            "candidate_action_ids": [
+              "DOC-002-ACT-084",
+              "DOC-002-ACT-090"
+            ],
+            "old_action_id": "DOC-002-ACT-084",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "3",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "groot schilderwerk leuningen hout dekkend",
+            "amount": "345",
+            "candidate_action_ids": [
+              "DOC-002-ACT-082",
+              "DOC-002-ACT-087"
+            ],
+            "old_action_id": "DOC-002-ACT-087",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "19",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "groot schilderwerk panelen hout dekkend",
+            "amount": "136",
+            "candidate_action_ids": [
+              "DOC-002-ACT-083",
+              "DOC-002-ACT-088"
+            ],
+            "old_action_id": "DOC-002-ACT-088",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "2.5",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk postkast metaal",
+            "amount": "163",
+            "candidate_action_ids": [
+              "DOC-002-ACT-084",
+              "DOC-002-ACT-090"
+            ],
+            "old_action_id": "DOC-002-ACT-090",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "3",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "groot schilderwerk trap hout dekkend",
+            "amount": "532",
+            "candidate_action_ids": [
+              "DOC-002-ACT-091",
+              "DOC-002-ACT-092"
+            ],
+            "old_action_id": "DOC-002-ACT-091",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "22",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk trap hout dekkend",
+            "amount": "532",
+            "candidate_action_ids": [
+              "DOC-002-ACT-091",
+              "DOC-002-ACT-092"
+            ],
+            "old_action_id": "DOC-002-ACT-092",
+            "page": 18,
+            "planned_year": 2030,
+            "quantity": "22",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk hek hout dekkend",
+            "amount": "109",
+            "candidate_action_ids": [
+              "DOC-002-ACT-104",
+              "DOC-002-ACT-107"
+            ],
+            "old_action_id": "DOC-002-ACT-104",
+            "page": 19,
+            "planned_year": 2030,
+            "quantity": "2",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "groot schilderwerk hek hout dekkend",
+            "amount": "109",
+            "candidate_action_ids": [
+              "DOC-002-ACT-104",
+              "DOC-002-ACT-107"
+            ],
+            "old_action_id": "DOC-002-ACT-107",
+            "page": 19,
+            "planned_year": 2030,
+            "quantity": "2",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "vervangen hydrofoor",
+            "amount": "1331",
+            "candidate_action_ids": [
+              "DOC-002-ACT-108",
+              "DOC-002-ACT-109"
+            ],
+            "old_action_id": "DOC-002-ACT-108",
+            "page": 20,
+            "planned_year": 2034,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
+          },
+          {
+            "action_text": "vervangen hydrofoor",
+            "amount": "1331",
+            "candidate_action_ids": [
+              "DOC-002-ACT-108",
+              "DOC-002-ACT-109"
+            ],
+            "old_action_id": "DOC-002-ACT-109",
+            "page": 20,
+            "planned_year": 2034,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "st"
           }
         ]
       },
@@ -292,11 +844,11 @@
     },
     {
       "categories": {
-        "A_content_extraction": 4,
+        "A_content_extraction": 9,
         "B_id_difference": 5,
-        "C_format_provenance": 205,
-        "D_old_verified_derivations": 205,
-        "E_review_ambiguity": 4
+        "C_format_provenance": 200,
+        "D_old_verified_derivations": 200,
+        "E_review_ambiguity": 9
       },
       "counts": {
         "new": {
@@ -305,7 +857,7 @@
           "observations": 140
         },
         "new_requires_human_review": 3,
-        "new_source_rows": 55,
+        "new_source_rows": 58,
         "new_unlinked_actions": 0,
         "old_verified": {
           "elements": 140,
@@ -338,18 +890,37 @@
             "quantity": "4",
             "reason": "no_row_with_same_page_text_quantity_unit",
             "rows_equal_except_action_text": 0,
-            "same_text_rows_elsewhere": 3,
+            "same_text_rows_elsewhere": 4,
             "unit": "m1"
           },
           {
             "action_ids": [
+              "DOC-004-ACT-012",
+              "DOC-004-ACT-019",
               "DOC-004-ACT-020",
-              "DOC-004-ACT-021"
+              "DOC-004-ACT-021",
+              "DOC-004-ACT-028",
+              "DOC-004-ACT-029",
+              "DOC-004-ACT-031"
             ],
             "kind": "new_actions_without_exact_old_action"
           }
         ],
         "E_review_ambiguity": [
+          {
+            "action_text": "herstellen waterslag hout",
+            "amount": "15",
+            "candidate_action_ids": [
+              "DOC-004-ACT-012",
+              "DOC-004-ACT-019"
+            ],
+            "old_action_id": "DOC-004-ACT-012",
+            "page": 27,
+            "planned_year": 2024,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
           {
             "action_text": "herstellen kozijn hardhout",
             "amount": "153",
@@ -362,6 +933,65 @@
             "page": 27,
             "planned_year": 2024,
             "quantity": "10.2",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "herstellen waterslag hout",
+            "amount": "15",
+            "candidate_action_ids": [
+              "DOC-004-ACT-012",
+              "DOC-004-ACT-019"
+            ],
+            "old_action_id": "DOC-004-ACT-019",
+            "page": 27,
+            "planned_year": 2024,
+            "quantity": "1",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "kale vloeren bekleden met linoleum",
+            "amount": "200",
+            "candidate_action_ids": [
+              "DOC-004-ACT-028",
+              "DOC-004-ACT-029",
+              "DOC-004-ACT-031"
+            ],
+            "old_action_id": "DOC-004-ACT-028",
+            "page": 31,
+            "planned_year": 2018,
+            "quantity": "4",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "kale vloeren bekleden met linoleum",
+            "amount": "200",
+            "candidate_action_ids": [
+              "DOC-004-ACT-028",
+              "DOC-004-ACT-029",
+              "DOC-004-ACT-031"
+            ],
+            "old_action_id": "DOC-004-ACT-029",
+            "page": 31,
+            "planned_year": 2018,
+            "quantity": "4",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m2"
+          },
+          {
+            "action_text": "kale vloeren bekleden met linoleum",
+            "amount": "200",
+            "candidate_action_ids": [
+              "DOC-004-ACT-028",
+              "DOC-004-ACT-029",
+              "DOC-004-ACT-031"
+            ],
+            "old_action_id": "DOC-004-ACT-031",
+            "page": 31,
+            "planned_year": 2018,
+            "quantity": "4",
             "reason": "multiple_identical_source_rows",
             "unit": "m2"
           }
@@ -921,11 +1551,11 @@
     },
     {
       "categories": {
-        "A_content_extraction": 161,
-        "B_id_difference": 42,
-        "C_format_provenance": 44,
-        "D_old_verified_derivations": 94,
-        "E_review_ambiguity": 44,
+        "A_content_extraction": 163,
+        "B_id_difference": 40,
+        "C_format_provenance": 42,
+        "D_old_verified_derivations": 92,
+        "E_review_ambiguity": 46,
         "G_one_action_per_year_amount": 3
       },
       "counts": {
@@ -935,7 +1565,7 @@
           "observations": 50
         },
         "new_requires_human_review": 44,
-        "new_source_rows": 55,
+        "new_source_rows": 56,
         "new_unlinked_actions": 2,
         "old_verified": {
           "elements": 50,
@@ -2662,12 +3292,44 @@
               "DOC-007-ACT-040",
               "DOC-007-ACT-041",
               "DOC-007-ACT-043",
+              "DOC-007-ACT-054",
+              "DOC-007-ACT-055",
               "DOC-007-ACT-066",
               "DOC-007-ACT-067",
               "DOC-007-ACT-068",
               "DOC-007-ACT-069"
             ],
             "kind": "new_actions_without_exact_old_action"
+          }
+        ],
+        "E_review_ambiguity": [
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "amount": "1340",
+            "candidate_action_ids": [
+              "DOC-007-ACT-054",
+              "DOC-007-ACT-055"
+            ],
+            "old_action_id": "DOC-007-ACT-066",
+            "page": 18,
+            "planned_year": 2028,
+            "quantity": "25.5",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
+          },
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "amount": "1340",
+            "candidate_action_ids": [
+              "DOC-007-ACT-054",
+              "DOC-007-ACT-055"
+            ],
+            "old_action_id": "DOC-007-ACT-067",
+            "page": 18,
+            "planned_year": 2028,
+            "quantity": "25.5",
+            "reason": "multiple_identical_source_rows",
+            "unit": "m1"
           }
         ],
         "G_one_action_per_year_amount": [
@@ -7447,41 +8109,33 @@
       {
         "action_text": "vervangen hemelwaterafvoer pvc",
         "amount": "1340",
-        "amount_basis": "per_year_amount",
-        "classification": "EXACT_MATCH_CANDIDATE",
-        "document_id": "DOC-007",
-        "new_action_ids": [
+        "candidate_action_ids": [
           "DOC-007-ACT-054",
           "DOC-007-ACT-055"
         ],
-        "new_block_id": null,
-        "new_element_ids": [
-          "DOC-007-EL-038"
-        ],
+        "classification": "AMBIGUOUS",
+        "document_id": "DOC-007",
         "old_action_id": "DOC-007-ACT-066",
         "page": 18,
         "planned_year": 2028,
         "quantity": "25.5",
+        "reason": "multiple_identical_source_rows",
         "unit": "m1"
       },
       {
         "action_text": "vervangen hemelwaterafvoer pvc",
         "amount": "1340",
-        "amount_basis": "per_year_amount",
-        "classification": "EXACT_MATCH_CANDIDATE",
-        "document_id": "DOC-007",
-        "new_action_ids": [
+        "candidate_action_ids": [
           "DOC-007-ACT-054",
           "DOC-007-ACT-055"
         ],
-        "new_block_id": null,
-        "new_element_ids": [
-          "DOC-007-EL-038"
-        ],
+        "classification": "AMBIGUOUS",
+        "document_id": "DOC-007",
         "old_action_id": "DOC-007-ACT-067",
         "page": 18,
         "planned_year": 2028,
         "quantity": "25.5",
+        "reason": "multiple_identical_source_rows",
         "unit": "m1"
       },
       {
@@ -8841,7 +9495,8 @@
       }
     ],
     "counts": {
-      "EXACT_MATCH_CANDIDATE": 133,
+      "AMBIGUOUS": 2,
+      "EXACT_MATCH_CANDIDATE": 131,
       "NO_MATCH": 87
     },
     "total": 220
@@ -8855,11 +9510,11 @@
   "report": "deterministic_promotion_dry_run",
   "tool_version": "promote_deterministic_batch_v1.0.0",
   "totals": {
-    "A_content_extraction": 373,
-    "B_id_difference": 98,
-    "C_format_provenance": 916,
-    "D_old_verified_derivations": 1005,
-    "E_review_ambiguity": 121,
+    "A_content_extraction": 414,
+    "B_id_difference": 96,
+    "C_format_provenance": 875,
+    "D_old_verified_derivations": 964,
+    "E_review_ambiguity": 162,
     "F_duplicate_skip": 1,
     "G_one_action_per_year_amount": 6
   }

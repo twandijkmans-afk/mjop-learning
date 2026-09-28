@@ -396,22 +396,28 @@ def element_key(el, with_code):
 
 
 def new_rows(rec):
-    """Groepeert de nieuwe acties (één per jaarbedrag) per bronrij. Een bronrij =
-    zelfde pagina + zelfde provenance-tekst + zelfde block_id + actietekst/hoeveelheid/eenheid."""
-    rows = {}
+    """Groepeert de nieuwe acties (één per jaarbedrag) per bronrij, in extractievolgorde.
+    Een bronrij = opeenvolgende acties met dezelfde pagina, provenance-tekst, block_id,
+    actietekst, hoeveelheid, eenheid én element_id, met elk jaar hoogstens één keer.
+    Twee bronrijen met identieke tekst (bijv. dezelfde post bij twee locaties, zonder
+    unieke block_id) blijven zo twee rijen - ze worden nooit samengevoegd."""
+    rows, cur = [], None
     for a in rec.get("maintenance_actions", []):
         prov = (a.get("action") or {}).get("provenance") or {}
         key = (a.get("source_page"), prov.get("text_fragment"), prov.get("block_id"),
                squash(value_of(a.get("action"))), dec_str(to_decimal(value_of(a.get("quantity")))),
-               squash(value_of(a.get("unit"))))
-        r = rows.setdefault(key, {"page": a.get("source_page"), "action_text": squash(value_of(a.get("action"))),
-                                  "quantity": key[4], "unit": key[5], "block_id": prov.get("block_id"),
-                                  "text_fragment": prov.get("text_fragment"),
-                                  "years": [], "action_ids": [], "element_ids": set()})
-        r["years"].append((value_of(a.get("planned_year")), to_decimal(a.get("total_cost_as_stated"))))
-        r["action_ids"].append(a["action_id"])
-        r["element_ids"].add(a.get("element_id"))
-    return list(rows.values())
+               squash(value_of(a.get("unit"))), a.get("element_id"))
+        year = value_of(a.get("planned_year"))
+        if cur is None or cur["_key"] != key or any(y == year for y, _ in cur["years"]):
+            cur = {"_key": key, "page": a.get("source_page"), "action_text": key[3], "quantity": key[4],
+                   "unit": key[5], "block_id": prov.get("block_id"), "text_fragment": prov.get("text_fragment"),
+                   "years": [], "action_ids": [], "element_ids": {a.get("element_id")}}
+            rows.append(cur)
+        cur["years"].append((year, to_decimal(a.get("total_cost_as_stated"))))
+        cur["action_ids"].append(a["action_id"])
+    for r in rows:
+        del r["_key"]
+    return rows
 
 
 def match_old_action(old, rows):
