@@ -39,7 +39,10 @@ import argparse
 import glob
 import json
 import os
+import sys
 from decimal import Decimal, InvalidOperation
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 
 def load_vocab(vocab_dir, name):
@@ -196,6 +199,61 @@ def bubble_observation_review_flag(obs):
     return obs
 
 
+def uses_external_element_coding(rec):
+    """True als de elementcodes van dit document een externe codering zijn (bijv.
+    DOC-004, Innax): expliciet in extraction_metadata, of via het documentprofiel
+    van de deterministische route (DOCUMENT_PROFILES[...]['external_element_coding'])."""
+    if (rec.get("extraction_metadata") or {}).get("external_element_coding") is True:
+        return True
+    try:
+        from deterministic_extraction import DOCUMENT_PROFILES
+    except ImportError:
+        return False
+    return (DOCUMENT_PROFILES.get(rec.get("document_id")) or {}).get("external_element_coding") is True
+
+
+def normalize_record(rec, lookups):
+    """Normaliseert één extractierecord in place (zie de module-docstring).
+
+    Externe elementcodering: element_code wordt dan NIET via de interne
+    vocabulaire opgezocht - original_value blijft staan, normalized_value blijft
+    null (geen interne code, geen backfill). Het veld krijgt
+    normalization_skipped_reason zodat zichtbaar is waarom; het is geen onbekende
+    term, dus geen extra review-vlag."""
+    external_codes = uses_external_element_coding(rec)
+    for el in rec.get("elements", []):
+        if "element_type" in el:
+            normalize_pair(el["element_type"], lookups["element_type"])
+        if "element_code" in el:
+            if external_codes:
+                if el["element_code"]:
+                    el["element_code"]["normalized_value"] = None
+                    el["element_code"]["normalization_skipped_reason"] = "external_element_coding"
+            else:
+                normalize_pair(el["element_code"], lookups["element_code"])
+        if "material" in el:
+            normalize_pair(el["material"], lookups["material"])
+        if "unit" in el:
+            normalize_pair(el["unit"], lookups["unit"])
+
+    for obs in rec.get("observations", []):
+        if "defect" in obs:
+            normalize_pair(obs["defect"], lookups["defect_type"])
+        bubble_observation_review_flag(obs)
+
+    element_by_id = {el.get("element_id"): el for el in rec.get("elements", [])}
+
+    for action in rec.get("maintenance_actions", []):
+        if "action" in action:
+            normalize_pair(action["action"], lookups["action"])
+        if "unit" in action:
+            normalize_pair(action["unit"], lookups["unit"])
+        derive_action_from_linked_element(action, element_by_id)
+        normalize_maintenance_action(action)
+        bubble_action_review_flag(action)
+    return rec
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--batch", default="batch_1")
@@ -223,35 +281,9 @@ def main():
         if rec.get("status") == "pending_extraction":
             continue  # nog niets om te normaliseren
 
-        for el in rec.get("elements", []):
-            if "element_type" in el:
-                normalize_pair(el["element_type"], lookups["element_type"])
-            if "element_code" in el:
-                normalize_pair(el["element_code"], lookups["element_code"])
-            if "material" in el:
-                normalize_pair(el["material"], lookups["material"])
-            if "unit" in el:
-                normalize_pair(el["unit"], lookups["unit"])
-
-        for obs in rec.get("observations", []):
-            if "defect" in obs:
-                normalize_pair(obs["defect"], lookups["defect_type"])
-            bubble_observation_review_flag(obs)
-            if obs.get("requires_human_review"):
-                n_obs_review += 1
-
-        element_by_id = {el.get("element_id"): el for el in rec.get("elements", [])}
-
-        for action in rec.get("maintenance_actions", []):
-            if "action" in action:
-                normalize_pair(action["action"], lookups["action"])
-            if "unit" in action:
-                normalize_pair(action["unit"], lookups["unit"])
-            derive_action_from_linked_element(action, element_by_id)
-            normalize_maintenance_action(action)
-            bubble_action_review_flag(action)
-            if action.get("requires_human_review"):
-                n_review += 1
+        normalize_record(rec, lookups)
+        n_obs_review += sum(1 for obs in rec.get("observations", []) if obs.get("requires_human_review"))
+        n_review += sum(1 for a in rec.get("maintenance_actions", []) if a.get("requires_human_review"))
 
         out_path = os.path.join(args.normalized_dir, os.path.basename(path))
         json.dump(rec, open(out_path, "w"), ensure_ascii=False, indent=2)
