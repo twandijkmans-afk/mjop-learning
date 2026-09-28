@@ -43,6 +43,10 @@ ACTION_COLUMNS = [
     "quantity_value", "planned_year",
     "total_cost_as_stated", "direct_cost_calculated", "unit_cost_calculated",
     "BESLISSING", "GECORRIGEERDE_WAARDE", "NOTITIES",
+] + [
+    # Achteraan toegevoegd (backwards-compatible: apply_review.py leest op kolomnaam).
+    # Alleen informatief voor de reviewer; nooit teruggelezen als waarde.
+    "bron_pagina", "bron_block_id", "bron_fragment",
 ]
 
 OBSERVATION_COLUMNS = [
@@ -50,7 +54,28 @@ OBSERVATION_COLUMNS = [
     "defect_original_value", "defect_huidige_normalized_value",
     "description_value", "gekoppeld_element_type", "condition_score",
     "BESLISSING", "GECORRIGEERDE_WAARDE", "NOTITIES",
+    "bron_pagina", "bron_block_id", "bron_fragment",
 ]
+
+
+def source_columns(*provenances, page=None):
+    """Eerste provenance met een bron: (pagina, block_id, text_fragment). Toont
+    alleen wat er al in het record staat - leidt niets af."""
+    for prov in provenances:
+        if isinstance(prov, dict) and (prov.get("page") is not None or prov.get("block_id") or prov.get("text_fragment")):
+            return [prov.get("page") if prov.get("page") is not None else page, prov.get("block_id"), prov.get("text_fragment")]
+    return [page, None, None]
+
+
+def action_source_columns(action):
+    planned = action.get("planned_year")
+    return source_columns(
+        ((action.get("field_provenance") or {}).get("total_cost_as_stated")),
+        planned.get("provenance") if isinstance(planned, dict) else None,
+        (action.get("action") or {}).get("provenance"),
+        (action.get("quantity") or {}).get("provenance"),
+        page=action.get("source_page"),
+    )
 
 
 def action_review_reasons(action):
@@ -126,6 +151,7 @@ def build_action_rows(rec, element_by_id):
             action.get("direct_cost_calculated"),
             action.get("unit_cost_calculated"),
             None, None, None,
+            *action_source_columns(action),
         ])
     return rows
 
@@ -149,6 +175,7 @@ def build_observation_rows(rec, element_by_id):
             el_type,
             (obs.get("condition_score") or {}).get("original_value"),
             None, None, None,
+            *source_columns(obs.get("source"), (obs.get("description") or {}).get("provenance")),
         ])
     return rows
 

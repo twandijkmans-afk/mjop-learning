@@ -80,6 +80,60 @@ def parse_currency_nl(text, allow_dot_thousands=False):
     return canonical_decimal(d), reason
 
 
+# ---------------------------------------------------------------- expliciete profielregels
+#
+# Generiek blijft "1.250" dubbelzinnig (None + reden). Alleen een expliciet
+# benoemde profielregel mag zo'n bedrag als duizendtal lezen, en alleen als de
+# bedragen van dat document aantoonbaar hele euro's zijn (bewijs via
+# whole_euro_evidence). De regel-ID komt terug zodat hij in
+# provenance.extraction_rule zichtbaar wordt.
+
+PROFILE_RULES = {
+    "pdf_whole_euro_dot_thousands": (
+        "Bedragen in hele euro's met punt als duizendtalscheiding ('€ 1.351' = 1351). "
+        "Alleen toepassen op bedragtokens van een document waarvan alle bedragtokens "
+        "dit patroon volgen (geen enkel bedrag met decimalen)."
+    ),
+}
+
+_WHOLE_EURO_TOKEN_RE = re.compile(r"^\d{1,3}(\.\d{3})*$")
+_AMOUNT_WITH_DECIMALS_RE = re.compile(r"^\d{1,3}(\.\d{3})*,\d+$|^\d+,\d+$")
+
+
+def whole_euro_evidence(amount_tokens):
+    """Deterministisch bewijs voor de profielregel: telt bedragtokens (zonder '€')
+    in hele euro's versus met decimalen. consistent=True alleen als er minstens
+    één token met punt-groepering is en géén enkel token decimalen heeft."""
+    tokens = [t.strip().lstrip("€").strip() for t in amount_tokens if t and t.strip()]
+    whole = [t for t in tokens if _WHOLE_EURO_TOKEN_RE.match(t)]
+    grouped = [t for t in whole if "." in t]
+    decimals = [t for t in tokens if _AMOUNT_WITH_DECIMALS_RE.match(t)]
+    other = [t for t in tokens if t not in whole and t not in decimals]
+    return {
+        "tokens": len(tokens), "whole_euro": len(whole), "dot_grouped": len(grouped),
+        "with_decimals": len(decimals), "other": len(other),
+        "consistent": bool(grouped) and not decimals and not other,
+    }
+
+
+def parse_currency_profile(text, rule_id, evidence):
+    """Bedrag lezen onder een expliciete profielregel.
+    Returns (canonieke_string | None, reden | None, extraction_rule).
+    extraction_rule is 'nl_values.generic' als de generieke parser volstond en
+    'nl_values.profile:<rule_id>' als de profielregel de doorslag gaf."""
+    if rule_id not in PROFILE_RULES:
+        raise ValueError(f"onbekende profielregel {rule_id!r}")
+    val, reason = parse_currency_nl(text)
+    if reason is None:
+        return val, None, "nl_values.generic"
+    if reason != "ambiguous_thousands_or_decimal":
+        return None, reason, "nl_values.generic"
+    if not (evidence and evidence.get("consistent")):
+        return None, "profile_rule_not_supported_by_document_evidence", f"nl_values.profile:{rule_id}"
+    val, reason = parse_currency_nl(text, allow_dot_thousands=True)
+    return val, reason, f"nl_values.profile:{rule_id}"
+
+
 def parse_quantity_nl(text):
     d, reason = parse_decimal_nl(text)
     return canonical_decimal(d), reason

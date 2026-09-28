@@ -95,3 +95,49 @@ def test_human_values(text, vtype, expected):
 
 def test_human_value_ambiguous_rejected():
     assert nv.parse_human_value("1.250", "decimal")[1] == "ambiguous_thousands_or_decimal"
+
+
+# ---------------------------------------------------------------- C3: expliciete profielregel
+
+RULE = "pdf_whole_euro_dot_thousands"
+
+
+def test_profile_rule_requires_document_evidence():
+    ev_ok = nv.whole_euro_evidence(["1.351", "491", "11.024", "0"])
+    assert ev_ok["consistent"] is True
+    val, reason, rule = nv.parse_currency_profile("1.351", RULE, ev_ok)
+    assert (val, reason, rule) == ("1351", None, "nl_values.profile:" + RULE)
+
+
+def test_profile_rule_refused_when_document_has_decimal_amounts():
+    ev_mixed = nv.whole_euro_evidence(["1.351", "29,04"])
+    assert ev_mixed["consistent"] is False
+    val, reason, rule = nv.parse_currency_profile("1.351", RULE, ev_mixed)
+    assert val is None and reason == "profile_rule_not_supported_by_document_evidence"
+    assert nv.parse_currency_profile("1.351", RULE, None)[0] is None
+
+
+def test_profile_rule_not_used_when_generic_parse_is_unambiguous():
+    ev_ok = nv.whole_euro_evidence(["1.351"])
+    assert nv.parse_currency_profile("491", RULE, ev_ok) == ("491", None, "nl_values.generic")
+    assert nv.parse_currency_profile("1.234,50", RULE, ev_ok) == ("1234.50", None, "nl_values.generic")
+
+
+def test_unknown_profile_rule_is_an_error():
+    with pytest.raises(ValueError):
+        nv.parse_currency_profile("1.351", "bestaat_niet", nv.whole_euro_evidence(["1.351"]))
+
+
+def test_generic_stays_conservative_after_profile_rules():
+    assert nv.parse_currency_nl("1.250") == (None, "ambiguous_thousands_or_decimal")
+
+
+def test_evidence_on_doc010_is_consistent():
+    import text_layer as tl
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    layer = tl.build_text_layer("DOC-010", os.path.join(root, "data", "raw"),
+                                os.path.join(root, "reports", "document_registry.json"))
+    toks = [ws[i + 1]["text"] for p in layer["pages"] for l in p["lines"]
+            for ws in [l["words"]] for i in range(len(ws) - 1) if ws[i]["text"] == "€"]
+    ev = nv.whole_euro_evidence(toks)
+    assert ev["consistent"] and ev["with_decimals"] == 0 and ev["tokens"] == 568

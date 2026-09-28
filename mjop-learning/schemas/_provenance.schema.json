@@ -9,6 +9,11 @@
     "page": { "type": ["integer", "null"], "minimum": 1 },
     "table_index": { "type": ["integer", "null"], "description": "Index van de tabel op de pagina, indien het gegeven uit een tabel komt" },
     "text_fragment": { "type": ["string", "null"], "description": "Kort citaat uit de brontekst dat het gegeven onderbouwt" },
+    "block_id": { "type": ["string", "null"], "description": "Optioneel, aanvullend: blok-ID uit de deterministische tekstlaag (scripts/text_layer.py), bijv. 'P10-L012-W07' (PDF-woord), 'P10-L012' (regel) of 'S01-R0012-C003' (spreadsheetcel). Vervangt page/text_fragment niet." },
+    "related_block_ids": { "type": "array", "items": { "type": "string" }, "description": "Optioneel: andere tekstlaagblokken waarop de waarde steunt (vervolgregels, kolomkop met jaartal)." },
+    "sheet": { "type": ["string", "null"], "description": "Optioneel: werkbladnaam bij xls/xlsx-bronnen." },
+    "cell_ref": { "type": ["string", "null"], "description": "Optioneel: celadres in A1-notatie bij xls/xlsx-bronnen, bijv. 'C13'." },
+    "extraction_rule": { "type": ["string", "null"], "description": "Optioneel: ID van de deterministische of documentspecifieke regel die de waarde las/interpreteerde (bijv. 'nl_values.profile:pdf_whole_euro_dot_thousands'), zodat een profielregel altijd zichtbaar is." },
     "source_confidence": {
       "type": "string",
       "enum": ["high", "medium", "low"],

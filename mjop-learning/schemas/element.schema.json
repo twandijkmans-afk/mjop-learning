@@ -14,7 +14,8 @@
         "original_value": { "type": ["string", "null"] },
         "normalized_value": { "type": ["string", "null"] },
         "requires_human_review": { "type": "boolean", "default": false },
-        "human_verification": { "$ref": "_human_verification.schema.json" }
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "element_type": {
@@ -24,7 +25,8 @@
         "original_value": { "type": "string" },
         "normalized_value": { "type": ["string", "null"] },
         "requires_human_review": { "type": "boolean", "default": false },
-        "human_verification": { "$ref": "_human_verification.schema.json" }
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       },
       "required": ["original_value", "normalized_value"]
     },
@@ -36,7 +38,8 @@
         "original_value": { "type": ["string", "null"] },
         "normalized_value": { "type": ["string", "null"] },
         "requires_human_review": { "type": "boolean", "default": false },
-        "human_verification": { "$ref": "_human_verification.schema.json" }
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "quantity": { "$ref": "_extracted_value.schema.json" },
@@ -46,7 +49,8 @@
         "original_value": { "type": ["string", "null"] },
         "normalized_value": { "type": ["string", "null"] },
         "requires_human_review": { "type": "boolean", "default": false },
-        "human_verification": { "$ref": "_human_verification.schema.json" }
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "construction_year": { "$ref": "_extracted_value.schema.json" },
