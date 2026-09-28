@@ -48,11 +48,24 @@ def protected_data_unchanged():
 
 
 def _fake_bin(tmp_path, version=XPDF, name="pdftotext"):
+    """Bouwt een tijdelijke stand-in voor de EXTERNE executable pdftotext (alleen
+    fake_pdftotext.py wordt vervangen, mjop_source_sections.py roept 'm echt aan
+    via subprocess). Op Windows kan CreateProcess geen #!/bin/sh-script direct
+    starten (geen shebang-ondersteuning, geen .exe) - daar levert dit een .bat
+    op, die Windows wel rechtstreeks kan uitvoeren."""
     d = tmp_path / f"bin_{abs(hash(version))}"
     d.mkdir(exist_ok=True)
-    p = d / name
-    p.write_text(f'#!/bin/sh\nFAKE_PDFTOTEXT_VERSION="{version}" exec "{sys.executable}" "{FAKE}" "$@"\n')
-    p.chmod(0o755)
+    if os.name == "nt":
+        p = d / f"{name}.bat"
+        p.write_text(
+            "@echo off\r\n"
+            f'set "FAKE_PDFTOTEXT_VERSION={version}"\r\n'
+            f'"{sys.executable}" "{FAKE}" %*\r\n'
+        )
+    else:
+        p = d / name
+        p.write_text(f'#!/bin/sh\nFAKE_PDFTOTEXT_VERSION="{version}" exec "{sys.executable}" "{FAKE}" "$@"\n')
+        p.chmod(0o755)
     return str(p)
 
 
@@ -89,8 +102,9 @@ def test_fixture_content_is_literal_doc010(layer):
     """Elke inhoudsregel van de fixture bestaat letterlijk in DOC-010: jarenplanrijen in de vastgelegde
     xpdf-uitvoer (price_observations), overige regels in de tekstlaag van de echte PDF."""
     import mjop_source_sections as src
-    pages = json.load(open(FIXTURE))["pages"]
-    po = json.load(open(os.path.join(PROJECT_ROOT, "data", "price_observations", "price_observations_batch1.json")))
+    pages = json.load(open(FIXTURE, encoding="utf-8"))["pages"]
+    po = json.load(open(os.path.join(PROJECT_ROOT, "data", "price_observations", "price_observations_batch1.json"),
+                        encoding="utf-8"))
     recorded = {r["source_text"] for o in po["observations"] if o["document_id"] == "DOC-010"
                 for r in o["source_representations"]}
     rows, _, _ = src.parse_jarenplan_page(pages[9], 10)
@@ -265,10 +279,10 @@ def test_currency_profile_rule_visible_in_provenance(record):
 
 
 def test_currency_rule_refused_without_evidence(fake, tmp_path, monkeypatch):
-    pages = json.load(open(FIXTURE))
+    pages = json.load(open(FIXTURE, encoding="utf-8"))
     pages["pages"][9] = pages["pages"][9].replace("  491", "49,10", 1)   # één bedrag met decimalen -> geen bewijs
     alt = tmp_path / "pages.json"
-    alt.write_text(json.dumps(pages))
+    alt.write_text(json.dumps(pages), encoding="utf-8")
     monkeypatch.setenv("FAKE_PDFTOTEXT_PAGES", str(alt))
     rec = de.extract_document("DOC-010", PROJECT_ROOT, fake, XPDF)
     a = rec["maintenance_actions"][0]
@@ -297,7 +311,7 @@ def test_output_isolation_and_canonical_refusal(record, tmp_path):
     # de normale pipeline pakt de pilotmap niet op (niet-recursieve glob in normalize_batch)
     ext = tmp_path / "extracted"
     (ext / "_deterministic_pilot").mkdir(parents=True)
-    (ext / "_deterministic_pilot" / "DOC-010.json").write_text(de.dumps(record))
+    (ext / "_deterministic_pilot" / "DOC-010.json").write_text(de.dumps(record), encoding="utf-8")
     import normalize_batch
     old = sys.argv
     sys.argv = ["normalize_batch.py", "--extracted-dir", str(ext), "--normalized-dir", str(tmp_path / "norm")]
@@ -356,7 +370,7 @@ def test_review_export_from_pilot_path(record, tmp_path):
 def test_comparison_report(record, tmp_path):
     verified_path = os.path.join(PROJECT_ROOT, "data", "verified", "DOC-010.json")
     before = open(verified_path, "rb").read()
-    rep = ce.compare(json.load(open(verified_path)), record)
+    rep = ce.compare(json.load(open(verified_path, encoding="utf-8")), record)
     assert open(verified_path, "rb").read() == before
     by = {(i["category"], i["key"]): i for i in rep["items"]}
     assert by[("building", "construction_year")]["outcome"] == "exact_equal"
@@ -375,7 +389,7 @@ def test_comparison_report(record, tmp_path):
 
 def test_comparison_cli_refuses_output_in_data(record, tmp_path):
     p = tmp_path / "pilot.json"
-    p.write_text(de.dumps(record))
+    p.write_text(de.dumps(record), encoding="utf-8")
     r = subprocess.run([sys.executable, os.path.join(PROJECT_ROOT, "scripts", "compare_extractions.py"),
                         "--existing", os.path.join(PROJECT_ROOT, "data", "verified", "DOC-010.json"),
                         "--pilot", str(p), "--out", os.path.join(PROJECT_ROOT, "data", "x.json")],
@@ -386,4 +400,5 @@ def test_comparison_cli_refuses_output_in_data(record, tmp_path):
                         "--existing", os.path.join(PROJECT_ROOT, "data", "verified", "DOC-010.json"),
                         "--pilot", str(p), "--out", str(out)],
                        capture_output=True, text=True, env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
-    assert r.returncode == 0 and json.load(open(out))["comparison"].startswith("read-only")
+    assert r.returncode == 0, r.stderr
+    assert json.load(open(out, encoding="utf-8"))["comparison"].startswith("read-only")

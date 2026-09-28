@@ -42,14 +42,21 @@ def sha256_of(path):
 
 
 def list_raw_files(raw_dir):
-    """Alle bestanden onder raw_dir, gesorteerd op relatief pad (deterministisch)."""
+    """Alle bestanden onder raw_dir, gesorteerd op relatief pad (deterministisch).
+
+    relative_path wordt altijd met "/" opgeslagen/vergeleken (ongeacht platform) -
+    zelfde conventie als elders in de pipeline (bijv. build_kengetallen.py,
+    match_kengetal.py). os.path.relpath() geeft op Windows backslashes terug;
+    zonder deze normalisatie matchen paden nooit met het (met "/") gecommitte
+    register."""
     out = []
     for root, dirs, files in os.walk(raw_dir):
         dirs.sort()
         for fn in sorted(files):
             if fn.lower() == "thumbs.db" or fn.startswith("."):
                 continue
-            out.append(os.path.relpath(os.path.join(root, fn), raw_dir))
+            rel = os.path.relpath(os.path.join(root, fn), raw_dir).replace("\\", "/")
+            out.append(rel)
     return sorted(out)
 
 
@@ -134,7 +141,7 @@ def reconcile(registry, raw_dir, register_new=False):
             "document_id": doc_id,
             "relative_path": rel,
             "filename": os.path.basename(rel),
-            "project_folder": rel.split(os.sep)[0],
+            "project_folder": rel.split("/")[0],
             "sha256": sha,
             "file_size_bytes": os.path.getsize(os.path.join(raw_dir, rel)),
             "inventaris_document_id": None,
@@ -146,7 +153,7 @@ def reconcile(registry, raw_dir, register_new=False):
 def verify_file(registry, document_id, raw_dir):
     """Controleer vóór het lezen dat het bronbestand exact het geregistreerde is."""
     doc = get_document(registry, document_id)
-    path = os.path.join(raw_dir, doc["relative_path"])
+    path = os.path.join(raw_dir, *doc["relative_path"].split("/"))
     if not os.path.exists(path):
         raise RegistryError(f"{document_id}: bronbestand ontbreekt: {path}")
     actual = sha256_of(path)

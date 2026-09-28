@@ -54,6 +54,7 @@ import copy
 import json
 import os
 from datetime import datetime, timezone
+from pathlib import Path
 
 import jsonschema
 
@@ -462,9 +463,12 @@ def enforce_review_floor(node):
 def _validate_against_schema(instance, schemas_dir, schema_filename):
     # Absoluut pad nodig: bij een relatief pad breekt de file://-resolutie van
     # interne $ref's (bijv. "_extracted_value.schema.json") in RefResolver.
+    # pathlib.Path.as_uri() bouwt een correcte file://-URI op elk platform
+    # (o.a. de drive-prefix en /-scheiding op Windows) - een handmatige
+    # f"file://{pad}" met backslashes levert daar een ongeldige URI op.
     schema_path = os.path.abspath(os.path.join(schemas_dir, schema_filename))
     schema = json.load(open(schema_path))
-    resolver = jsonschema.RefResolver(base_uri=f"file://{schema_path}", referrer=schema)
+    resolver = jsonschema.RefResolver(base_uri=Path(schema_path).as_uri(), referrer=schema)
     validator_cls = jsonschema.validators.validator_for(schema)
     validator = validator_cls(schema, resolver=resolver)
     return list(validator.iter_errors(instance))

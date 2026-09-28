@@ -100,14 +100,14 @@ def build_inventory(raw_dir, registry_path="reports/document_registry.json"):
     for rel in document_registry.list_raw_files(raw_dir):
         if rel not in id_by_path:
             continue  # duplicate_content: zelfde inhoud als een geregistreerd document
-        full = os.path.join(raw_dir, rel)
+        full = os.path.join(raw_dir, *rel.split("/"))
         fn = os.path.basename(rel)
         ext = os.path.splitext(fn)[1].lower().lstrip(".")
         rec = {
             "document_id": id_by_path[rel],
             "filename": fn,
             "relative_path": rel,
-            "project_folder": rel.split(os.sep)[0],
+            "project_folder": rel.split("/")[0],
             "file_type": ext,
             "file_size_bytes": os.path.getsize(full),
             "sha256": sha256_of(full),
