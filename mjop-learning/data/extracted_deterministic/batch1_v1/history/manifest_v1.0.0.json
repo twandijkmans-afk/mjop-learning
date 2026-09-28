@@ -3,7 +3,6 @@
   "branch": "claude/extractie-v1-integratie",
   "documents": [
     {
-      "canonical_content_sha256": "5e958c75256cd25a63ec41df7577d1f7affd69cc5cfd0c5166e98c045e5a20e2",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -16,18 +15,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-001.json",
+      "output_sha256": "f2f194bd9dfbc836e941883e0e387fba2c64eb16821d179900cbf693b5d5ec8c",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "f824c8cd5b02bf39fd827c258d0903698f42fee659948259cac462e18df2d311",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/alkmaarstraat-1-83/9543_vvem_mop_14-01-2022_Pro VVEBeheer B.V._626720.pdf",
       "source_sha256": "a1a84e3333b20d2c0d75bd87c9af6a5c03b0a6d4c01a8e498a9f9486b13d1925",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "f2f194bd9dfbc836e941883e0e387fba2c64eb16821d179900cbf693b5d5ec8c"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "a2e6319ebd586ed3483f07d4b937e3a85c6449fa566f27dc597df8d424134591",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -40,15 +36,13 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-002.json",
+      "output_sha256": "d2a5a5962fd5bd80c24479281de34df5c5c22111ddcd8a052eb2cdab04332d2e",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "3159a09bf4207804ceed9475a83d2e32ace934502892012cbc477ef7902f44ae",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/jp-heijestraat/2026_Meerjarenonderhoudsplan_VvE 9690.pdf",
       "source_sha256": "cd3b67f3981f0cf336ce4bfc6699af57f5f67f3c04675c66c9ee1b08db1e9221",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "d2a5a5962fd5bd80c24479281de34df5c5c22111ddcd8a052eb2cdab04332d2e"
+      "status": "PASS"
     },
     {
       "document_id": "DOC-003",
@@ -59,7 +53,6 @@
       "status": "DUPLICATE_SKIP"
     },
     {
-      "canonical_content_sha256": "9647009dee151dee791e65c32026bcd2dbeb496144966ed640c21d30d03b4463",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -72,18 +65,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-004.json",
+      "output_sha256": "1e3cf640b1fa0b7c5d07ce72f1bbd00c17ffaf0f79d7c466bdeb495f01d23695",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "ad3a4f9a8b157a95de173324fae9388c6717a9a0381bbb5d6a0b360ee110beef",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/jp-heijestraat/9690_vvem_mop_v_15-03-2018_Innax_hele_schil_376215.pdf",
       "source_sha256": "24c5f3192529861a0561fef382a5f225bbff0ba887a416f97397533c173ec269",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "1e3cf640b1fa0b7c5d07ce72f1bbd00c17ffaf0f79d7c466bdeb495f01d23695"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "d68424936cbffe30ee65b807325cf9e0169124a2b0fc59b131135612c83c6c98",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -96,18 +86,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-005.json",
+      "output_sha256": "419b8adb3fabeeeed41a480635dd6ea81638bb1966639adbaf821bbd7f588b7d",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "e122a69e33ca89f359771df2d5273649cdd563d781407f42d25b7aa0d823a05f",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/maldenhof/2026_Meerjarenonderhoudsplan_VvE 9261 Maldenhof 240-296.pdf",
       "source_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "419b8adb3fabeeeed41a480635dd6ea81638bb1966639adbaf821bbd7f588b7d"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "584df246c457c7ce8b650312f849304984cbf7ebf244896c9c4aeeab44b673b7",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -120,18 +107,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-006.json",
+      "output_sha256": "19184e75da1521d816c4b289cad25dc4d34cf0ab5e876be1f697bb993ea20af6",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "776cc805ff34864e8bbf4d165e3939bf3fc27608ef0a69de3bf7c9d6b8e299ea",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/maldenhof/9261_vvem_mop_01-03-2023_Pro VVE Beheer B.V._851361.pdf",
       "source_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "19184e75da1521d816c4b289cad25dc4d34cf0ab5e876be1f697bb993ea20af6"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "bf35ca23733a16388caa8a35f0f64f9231290659d447c60c0d765d48ad38fe0c",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -144,18 +128,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-007.json",
+      "output_sha256": "f0dbbc85fcc9425544433770fd43d6626f4f0aaecb436e2319ce3a2be7d8279c",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "aa13b51cc48d9876947547a1922a6e448f6e50e7dd0ec7aa6fed5f67f2de0be5",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/mauritstaete/Actualisatie MOP 2023 met bijlage.pdf",
       "source_sha256": "6ee443cf5bc80bb6270698e281d1f2ae1be404346dbdcee3dc56af79a1c7fded",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "f0dbbc85fcc9425544433770fd43d6626f4f0aaecb436e2319ce3a2be7d8279c"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "d1d59a2e4988cc0287764e318d192c4c7fca30b2b096b6c7180980d51ac9d474",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -168,18 +149,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-008.json",
+      "output_sha256": "ce56dccde3319f9a3fcaaf39a681ee581553919b1a552b709427ae5cd28f80ac",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "216e59c4b560350571f341f963e04052c269c2e9b2a70792271341c42218e590",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/st-jacobstraat/Hoofd.pdf",
       "source_sha256": "741ba07755797c2fb2d720193deca6c65ff08ed167f4528ea0224d65d2b2004e",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "ce56dccde3319f9a3fcaaf39a681ee581553919b1a552b709427ae5cd28f80ac"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "ec97d676ef6e626940c51a348045651c9f165b048ea023325dfdcaa3809f5f1c",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -192,18 +170,15 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-009.json",
+      "output_sha256": "72cc9db5d28a7fbc7a213ebf8c02127b2d46558c59cd3fd51d563eb3d16860d1",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "88862364648a37a9ba8925809a2a4f250c9f9c220e4777c6c331ca8a3edbebd4",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/st-jacobstraat/Woningen.pdf",
       "source_sha256": "e8f13e275704857d9ab9ff2d873068099fb225eb324dd876a38d1a2e4ffd8782",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "72cc9db5d28a7fbc7a213ebf8c02127b2d46558c59cd3fd51d563eb3d16860d1"
+      "status": "PASS"
     },
     {
-      "canonical_content_sha256": "7258ce85aa8caedd83abb9785f436d3a2ff53c64fdd39cb9dc106ed8ecfd0279",
       "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
       "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
       "currency_rule": "pdf_whole_euro_dot_thousands",
@@ -216,29 +191,16 @@
       "extractor": "deterministic_extraction.py",
       "extractor_version": "deterministic_extraction_v1.0.0",
       "output_path": "data/extracted_deterministic/batch1_v1/DOC-010.json",
+      "output_sha256": "305e10765a3e80e984553225d3f933421d22db9fab568a16a5672107fd71f0bf",
       "parser_family": "pro_vve_overzicht15",
       "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
-      "repository_output_sha256": "70f110a2483c1f6514e3367697f6abc4053c6febcce947d75ce6ce5bac91735e",
       "rules_version": "pro_vve_overzicht_rules_v1",
       "source_path": "data/raw/zomerdijkstraat-14/Meerjarenonderhoudsplan 2023_VvE Zomerdijkstraat 14.pdf",
       "source_sha256": "d102f1f7f0faf8641e9874efab2a3d0516a7add2eb333e6c2f4e60965dc3099a",
-      "status": "PASS",
-      "validated_windows_newline": "CRLF",
-      "validated_windows_output_sha256": "305e10765a3e80e984553225d3f933421d22db9fab568a16a5672107fd71f0bf"
+      "status": "PASS"
     }
   ],
-  "hash_conventions": {
-    "canonical_content_sha256": "sha256 van json.dumps(parsed, ensure_ascii=False, sort_keys=True, separators=(',', ':')) in UTF-8; line-ending-onafhankelijk",
-    "repository_output_sha256": "sha256 van de gecommitte bytes (LF); strikt gecontroleerd",
-    "validated_windows_output_sha256": "sha256 van de bytes zoals lokaal (Windows, xpdf 4.06) gevalideerd; provenance, gecontroleerd als sha256(repository-bytes met LF->CRLF)"
-  },
-  "manifest_version": "1.1.0",
+  "manifest_version": "1.0.0",
   "source_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
-  "supersedes": {
-    "history_path": "data/extracted_deterministic/batch1_v1/history/manifest_v1.0.0.json",
-    "manifest_sha256": "9e96caf8892f817bc5900e84e7068dbdc497aaa02829ae002553ce7e90030738",
-    "manifest_version": "1.0.0",
-    "reason": "v1.0 output_sha256 was berekend over de Windows-CRLF-bytes; de repository bewaart LF"
-  },
   "xpdf_version": "pdftotext version 4.06 [www.xpdfreader.com]"
 }

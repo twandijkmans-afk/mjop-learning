@@ -53,13 +53,6 @@ def root(tmp_path):
     shutil.copy(os.path.join(PROJECT_ROOT, "data", "price_observations", "document_relations.json"),
                 tmp_path / "data" / "price_observations")
     os.symlink(os.path.join(PROJECT_ROOT, "data", "raw"), tmp_path / "data" / "raw")
-    # Alleen in deze tijdelijke kopie: output_sha256 = sha256 van de repository-bytes (LF),
-    # zoals een correct manifest het zou vastleggen. De echte batch1_v1 blijft ongewijzigd.
-    m = _manifest(tmp_path)
-    for e in m["documents"]:
-        if e["status"] == "PASS":
-            e["output_sha256"] = hashlib.sha256((tmp_path / e["output_path"]).read_bytes()).hexdigest()
-    _write_manifest(tmp_path, m)
     return tmp_path
 
 
@@ -86,38 +79,106 @@ def _errors(root, **kw):
 
 # ------------------------------------------------------------------ --check
 
-def test_committed_layer_fails_strictly_on_crlf_output_hashes_only():
-    """De gecommitte batch1_v1 heeft output_sha256's over de Windows-CRLF-bytes. --check is
-    strikt: dat is een fout (geen stille tolerantie); de diagnose maakt het niet geldig."""
+def test_committed_v11_handoff_passes():
     res = pdb.check_handoff(PROJECT_ROOT)
-    assert not res["ok"]
-    assert len(res["errors"]) == 9
-    assert all("output_sha256 klopt niet met de repository-bytes" in e for e in res["errors"])
+    assert res["ok"], res["errors"]
+    assert sorted(d for d, i in res["documents"].items() if i["status"] == "PASS") == pdb.EXPECTED_PASS
     for doc in pdb.EXPECTED_PASS:
-        diag = res["documents"][doc]["output_hash_diagnosis"]
-        assert diag["manifest_matches_lf_to_crlf_only"] is True
-        assert diag["json_equal_after_lf_to_crlf"] is True
-        assert diag["repository_contains_cr"] is False
-        assert len(diag["canonical_content_sha256"]) == 64
+        i = res["documents"][doc]
+        assert i["repository_output_sha256_ok"] and i["canonical_content_sha256_ok"]
+        assert i["windows_validation_bytes_reproducible"]
     assert res["documents"]["DOC-003"]["status"] == "DUPLICATE_SKIP"
-    assert res["manifest"]["xpdf_version"] == pdb.XPDF
+    assert res["manifest"]["manifest_version"] == "1.1.0" and res["manifest"]["xpdf_version"] == pdb.XPDF
 
 
-def test_crlf_equivalent_hash_is_never_accepted(root):
-    m = _manifest(root)
-    e = _entry(m, "DOC-006")
-    e["output_sha256"] = hashlib.sha256((root / e["output_path"]).read_bytes().replace(b"\n", b"\r\n")).hexdigest()
-    _write_manifest(root, m)
-    res = pdb.check_handoff(str(root))
-    assert not res["ok"] and res["documents"]["DOC-006"]["output_hash_diagnosis"]["manifest_matches_lf_to_crlf_only"]
-
-
-def test_handoff_with_repository_byte_hashes_passes(root):
+def test_copy_of_handoff_passes(root):
     ok, err = _errors(root)
     assert ok, err
-    res = pdb.check_handoff(str(root))
-    assert sorted(d for d, i in res["documents"].items() if i["status"] == "PASS") == pdb.EXPECTED_PASS
-    assert all("output_hash_diagnosis" not in i for i in res["documents"].values())
+
+
+def _crlf_sha(root, e):
+    return hashlib.sha256((root / e["output_path"]).read_bytes().replace(b"\n", b"\r\n")).hexdigest()
+
+
+def test_crlf_hash_as_repository_hash_is_never_accepted(root):
+    m = _manifest(root)
+    e = _entry(m, "DOC-006")
+    e["repository_output_sha256"] = _crlf_sha(root, e)
+    _write_manifest(root, m)
+    ok, err = _errors(root)
+    assert not ok and "DOC-006: repository_output_sha256 klopt niet" in err
+
+
+def test_wrong_canonical_content_sha_fails(root):
+    m = _manifest(root)
+    _entry(m, "DOC-001")["canonical_content_sha256"] = "a" * 64
+    _write_manifest(root, m)
+    ok, err = _errors(root)
+    assert not ok and "DOC-001: canonical_content_sha256 klopt niet" in err
+
+
+def test_wrong_windows_validation_hash_fails(root):
+    m = _manifest(root)
+    e = _entry(m, "DOC-002")
+    e["validated_windows_output_sha256"] = e["repository_output_sha256"]
+    _write_manifest(root, m)
+    ok, err = _errors(root)
+    assert not ok and "DOC-002: validated_windows_output_sha256 is niet exact reproduceerbaar" in err
+
+
+def test_output_file_with_cr_fails_windows_reproducibility(root):
+    """Een CRLF-bestand in de repository wordt niet 'goedgerekend': repository-hash en
+    Windows-relatie falen allebei."""
+    m = _manifest(root)
+    e = _entry(m, "DOC-008")
+    p = root / e["output_path"]
+    p.write_bytes(p.read_bytes().replace(b"\n", b"\r\n"))
+    ok, err = _errors(root)
+    assert not ok and "DOC-008: repository_output_sha256 klopt niet" in err
+    assert "DOC-008: validated_windows_output_sha256 is niet exact reproduceerbaar" in err
+
+
+def test_history_missing_fails(root):
+    (root / pdb.BATCH_DIR / "history" / "manifest_v1.0.0.json").unlink()
+    ok, err = _errors(root)
+    assert not ok and "historisch manifest ontbreekt" in err
+
+
+def test_history_changed_fails(root):
+    p = root / pdb.BATCH_DIR / "history" / "manifest_v1.0.0.json"
+    p.write_bytes(p.read_bytes() + b" ")
+    ok, err = _errors(root)
+    assert not ok and "historisch manifest heeft een andere sha256" in err
+
+
+def test_windows_hash_must_equal_history_output_sha(root):
+    """De Windows-hash moet exact de vastgelegde v1.0 output_sha256 zijn (historie consistent)."""
+    h = root / pdb.BATCH_DIR / "history" / "manifest_v1.0.0.json"
+    old = json.loads(h.read_text(encoding="utf-8"))
+    next(e for e in old["documents"] if e["document_id"] == "DOC-009")["output_sha256"] = "c" * 64
+    h.write_text(json.dumps(old, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    new_sha = hashlib.sha256(h.read_bytes()).hexdigest()
+    (h.parent / "manifest_v1.0.0.sha256").write_text(f"{new_sha}  manifest_v1.0.0.json\n", encoding="utf-8")
+    m = _manifest(root)
+    m["supersedes"]["manifest_sha256"] = new_sha
+    _write_manifest(root, m)
+    ok, err = _errors(root)
+    assert not ok and "DOC-009: validated_windows_output_sha256 is niet de historische v1.0 output_sha256" in err
+    assert "historisch manifest heeft een andere sha256" not in err
+
+
+def test_manifest_v10_is_not_accepted_as_current(root):
+    b = root / pdb.BATCH_DIR
+    shutil.copy(b / "history" / "manifest_v1.0.0.json", b / "manifest.json")
+    _write_manifest(root, _manifest(root))
+    ok, err = _errors(root)
+    assert not ok and "manifest_version is '1.0.0'" in err
+
+
+def test_unexpected_file_in_history_fails(root):
+    (root / pdb.BATCH_DIR / "history" / "extra.json").write_text("{}\n", encoding="utf-8")
+    ok, err = _errors(root)
+    assert not ok and "history/extra.json" in err
 
 
 def test_wrong_manifest_sha256_fails(root):
@@ -136,17 +197,18 @@ def test_changed_source_sha_fails(root):
 
 def test_changed_output_sha_fails(root):
     m = _manifest(root)
-    _entry(m, "DOC-007")["output_sha256"] = "e" * 64
+    _entry(m, "DOC-007")["repository_output_sha256"] = "e" * 64
     _write_manifest(root, m)
     ok, err = _errors(root)
-    assert not ok and "DOC-007: output_sha256 klopt niet" in err
+    assert not ok and "DOC-007: repository_output_sha256 klopt niet" in err
 
 
 def test_changed_output_file_fails(root):
     p = root / pdb.BATCH_DIR / "DOC-010.json"
     p.write_bytes(p.read_bytes().replace(b'"DOC-010"', b'"DOC-010" ', 1))
     ok, err = _errors(root)
-    assert not ok and "DOC-010: output_sha256 klopt niet" in err
+    assert not ok and "DOC-010: repository_output_sha256 klopt niet" in err
+    assert "DOC-010: canonical_content_sha256 klopt niet" not in err   # alleen witruimte: inhoud gelijk
 
 
 def test_missing_pass_document_fails(root):
@@ -318,23 +380,23 @@ def test_text_only_difference_is_reported_but_not_matched():
 
 # ------------------------------------------------------------------ --dry-run
 
-def test_dry_run_refuses_invalid_handoff_without_explicit_flag(tmp_path):
+def test_dry_run_refuses_invalid_handoff_without_explicit_flag(root, tmp_path):
+    (root / pdb.BATCH_DIR / "manifest.sha256").write_text("0" * 64 + "  manifest.json\n", encoding="utf-8")
     out = tmp_path / "r.json"
-    assert pdb.main(["--dry-run", "--root", PROJECT_ROOT, "--report", str(out)]) == 1
+    assert pdb.main(["--dry-run", "--root", str(root), "--report", str(out)]) == 1
     assert not out.exists()
 
 
 def test_dry_run_changes_no_canonical_data_and_is_byte_stable(tmp_path):
     before = _hashes()
     out1, out2 = tmp_path / "r1.json", tmp_path / "r2.json"
-    flag = "--analyse-despite-invalid-handoff"
-    assert pdb.main(["--dry-run", flag, "--root", PROJECT_ROOT, "--report", str(out1)]) == 0
-    assert pdb.main(["--dry-run", flag, "--root", PROJECT_ROOT, "--report", str(out2)]) == 0
+    assert pdb.main(["--dry-run", "--root", PROJECT_ROOT, "--report", str(out1)]) == 0
+    assert pdb.main(["--dry-run", "--root", PROJECT_ROOT, "--report", str(out2)]) == 0
     assert _hashes() == before
     b1 = out1.read_bytes()
     assert b1 == out2.read_bytes() and b"\r" not in b1 and b1.endswith(b"}\n")
     rep = json.loads(b1)
-    assert rep["handoff_valid"] is False and len(rep["check"]["errors"]) == 9
+    assert rep["handoff_valid"] is True and rep["check"]["errors"] == []
     assert rep["old_accepts"]["total"] == 220
     assert sum(rep["old_accepts"]["counts"].values()) == 220
     assert set(rep["old_accepts"]["counts"]) <= {"EXACT_MATCH_CANDIDATE", "AMBIGUOUS", "NO_MATCH"}
@@ -345,10 +407,15 @@ def test_dry_run_changes_no_canonical_data_and_is_byte_stable(tmp_path):
     assert "timestamp" not in b1.decode() and "generated_at" not in b1.decode()
 
 
+def test_committed_dry_run_report_is_current(tmp_path):
+    out = tmp_path / "r.json"
+    assert pdb.main(["--dry-run", "--root", PROJECT_ROOT, "--report", str(out)]) == 0
+    assert out.read_bytes() == open(os.path.join(PROJECT_ROOT, pdb.DEFAULT_REPORT), "rb").read()
+
+
 def test_dry_run_refuses_to_write_into_data(tmp_path):
     before = _hashes()
-    assert pdb.main(["--dry-run", "--analyse-despite-invalid-handoff", "--root", PROJECT_ROOT,
-                     "--report", "data/verified/x.json"]) == 2
+    assert pdb.main(["--dry-run", "--root", PROJECT_ROOT, "--report", "data/verified/x.json"]) == 2
     assert _hashes() == before
 
 

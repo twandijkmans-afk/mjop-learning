@@ -10,10 +10,9 @@ price observations, comparability, kengetallen en human decisions blijven ongewi
 
 ```bash
 python3 scripts/promote_deterministic_batch.py --check            # handoff-laag valideren, schrijft niets
-python3 scripts/promote_deterministic_batch.py --dry-run          # weigert bij een ongeldige handoff
-python3 scripts/promote_deterministic_batch.py --dry-run --analyse-despite-invalid-handoff
-                                                                  # -> reports/deterministic_promotion_batch1_v1.json
-                                                                  #    (handoff_valid: false + alle fouten)
+python3 scripts/promote_deterministic_batch.py --dry-run          # -> reports/deterministic_promotion_batch1_v1.json
+                                                                  #    (weigert bij een ongeldige handoff, tenzij
+                                                                  #    --analyse-despite-invalid-handoff)
 ```
 
 `--check` draait geen xpdf; het controleert de opgeslagen laag:
@@ -22,7 +21,7 @@ python3 scripts/promote_deterministic_batch.py --dry-run --analyse-despite-inval
 - documentset exact DOC-001..DOC-010: 9 PASS + DOC-003 `DUPLICATE_SKIP`
   (`duplicate_of` DOC-002, `relation` DREL-001, bevestigd in `document_relations.json`);
 - `source_sha256` tegen `reports/document_registry.json` én het ruwe bestand;
-- `output_path`/`output_sha256`, geen DOC-003-JSON, geen onverwachte bestanden;
+- `output_path` en de drie output-hashes (zie hieronder), geen DOC-003-JSON, geen onverwachte bestanden;
 - parser-/profiel-/extractormetadata en xpdf 4.06 in het manifest, en de inhoud van elk
   record (document_id, source_sha256, pdftotext-versie, profiel, regels, valutaregel,
   `uses_ai_api`/`network_calls` false) tegen zijn manifestregel.
@@ -32,48 +31,31 @@ verschillen per document in categorieën A–G, classificatie van de 220 oude ac
 (EXACT_MATCH_CANDIDATE / AMBIGUOUS / NO_MATCH, alleen exacte sleutels) en een read-only
 analyse van `data/review_decisions/human_decision_records.json`.
 
-## output_sha256 en CRLF (architectuurpunt, nog open)
+## Manifest v1.1 (uitgevoerd) en de CRLF-kwestie
 
-`--check` is strikt: `output_sha256` moet gelijk zijn aan de sha256 van de bytes in de
-repository. Er is geen line-ending-tolerantie. Bij een afwijking voegt `--check` alleen een
-diagnose toe (`output_hash_diagnosis`); die maakt de check nooit geldig.
+Manifest v1.0.0 legde per document één `output_sha256` vast, berekend op Windows over de
+CRLF-vorm van de bestanden; git bewaart ze als LF. Vastgesteld voor alle 9 PASS-documenten:
+de v1.0-hash wijkt af van de repository-bytes, is exact gelijk aan sha256 na uitsluitend
+LF → CRLF, de geparste JSON is gelijk, en er is geen ander byteverschil (geen CR, geen BOM).
 
-Stand van batch1_v1 (manifest v1.0.0, ongewijzigd):
+`manifest.json` is daarom `manifest_version: "1.1.0"` met per PASS-document:
 
-- 9 van de 9 `output_sha256`'s komen **niet** overeen met de bytes in Git (LF; blob == worktree,
-  `git ls-files --eol`: `i/lf w/lf`, geen `core.autocrlf` in de cloud).
-- 9 van de 9 komen **wel exact** overeen na uitsluitend LF → CRLF (elke `\n` → `\r\n`).
-- De geparste JSON is voor alle 9 semantisch gelijk (LF-versie == CRLF-versie).
-- Er is geen ander byteverschil: geen CR in de repository-bytes, geen BOM, eind-newline
-  aanwezig, en de sha256 van de exact getransformeerde bytes is gelijk aan de manifest-hash
-  (dus de Windows-bytes waren precies die transformatie). JSON-strings bevatten geen ruwe
-  newlines (json.dumps escapet ze), dus de transformatie raakt alleen witruimte tussen tokens.
-
-Gevolg: `--check` faalt nu op batch1_v1 met 9 fouten (en verder niets). Dat is bewust.
-
-### Voorstel manifest v1.1 (nog niet uitgevoerd)
-
-| Optie | Inhoud | Beoordeling |
+| Veld | Betekenis | Controle in `--check` |
 |---|---|---|
-| A | `output_sha256` = sha256 van de repository-bytes (LF) | strikt verifieerbaar in de cloud, maar de oorspronkelijke Windows/xpdf-validatiehash gaat verloren |
-| B | `repository_output_sha256` (LF, strikt) + `validated_windows_output_sha256` (CRLF, historisch) | beide hashes expliciet; cloud controleert alleen de eerste strikt; de tweede is provenance van de lokale validatie |
-| C | B + `canonical_content_sha256` (line-ending-onafhankelijk) | maakt content-equivalentie aantoonbaar en platformonafhankelijk vergelijkbaar |
+| `repository_output_sha256` | sha256 van de gecommitte bytes (LF) | strikt, exacte bytes |
+| `canonical_content_sha256` | sha256 van `json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":"))`, UTF-8 | strikt herberekend |
+| `validated_windows_output_sha256` + `validated_windows_newline: "CRLF"` | de oorspronkelijke Windows/xpdf 4.06-validatiehash (v1.0) | benoemde relatie `windows_validation_bytes_reproducible`: repository-bytes bevatten geen CR en sha256(LF → CRLF) is exact gelijk; én gelijk aan de `output_sha256` in het historische v1.0-manifest |
 
-Aanbeveling: **C**, als nieuwe `manifest_version: "1.1.0"` naast (niet over) v1.0.0:
+Er is geen tolerante hashcontrole: een CRLF-hash als repository-hash, een CR in de
+repository-bytes of een afwijkende canonieke hash is altijd een fout.
 
-- `repository_output_sha256`: strikt gecontroleerd door `--check` (exacte bytes);
-- `validated_windows_output_sha256`: de huidige v1.0-waarde, alleen als vastgelegd feit
-  (niet gebruikt voor geldigheid), met `validated_windows_newline: "CRLF"`;
-- `canonical_content_sha256`: sha256 van `json.dumps(obj, ensure_ascii=False, sort_keys=True,
-  separators=(",", ":"))` in UTF-8; `--check` herberekent en eist exacte gelijkheid;
-- `--check` controleert daarnaast expliciet dat `validated_windows_output_sha256` ==
-  sha256(repository-bytes LF → CRLF), als afzonderlijke, benoemde controle
-  (`windows_validation_bytes_reproducible`) - geen tolerantie, een vastgelegde relatie;
-- `supersedes: {"manifest_version": "1.0.0", "manifest_sha256": "<huidige>"}`; v1.0 blijft
-  bewaard (bijv. `history/manifest_v1.0.0.json`), niets verdwijnt;
-- voor nieuwe runs: extractor-output altijd met `newline="\n"` schrijven, zodat Windows en
-  cloud dezelfde bytes produceren; een gerichte `.gitattributes`-regel alleen voor
-  `data/extracted_deterministic/** -text` of `eol=lf` (geen brede renormalisatie).
+Historie: het oorspronkelijke manifest staat ongewijzigd in
+`batch1_v1/history/manifest_v1.0.0.json` (+ `.sha256`); `supersedes` legt versie, sha256,
+pad en reden vast en `--check` controleert ze. De JSON-bestanden van de documenten zelf
+zijn niet gewijzigd.
+
+Voor nieuwe runs (nog te doen): extractor-output altijd met `newline="\n"` schrijven, en
+een gerichte `.gitattributes`-regel alleen voor `data/extracted_deterministic/**`.
 
 ## Toolversies die batch1_v1 bepalen
 

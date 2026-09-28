@@ -8,7 +8,7 @@ data/extracted_deterministic/batch1_v1/ (9 PASS-documenten + manifest).
   --check    Controleert de opgeslagen handoff-laag zonder xpdf opnieuw te draaien:
              manifeststructuur, manifest.sha256, documentset DOC-001..DOC-010
              (exact 9 PASS + DOC-003 DUPLICATE_SKIP), source_sha256 tegen het
-             document_registry en het ruwe bestand, output_sha256, metadata
+             document_registry en het ruwe bestand, de output-hashes (manifest v1.1), metadata
              (parser/profiel/extractor, xpdf 4.06) en de inhoud van elk record
              tegen zijn manifestregel. Schrijft niets. Exitcode 0 = geldig.
 
@@ -25,12 +25,20 @@ exacte sleutels na witruimte-/hoofdletter-/getalnormalisatie); geen accept wordt
 overgenomen; human decisions worden nooit toegevoegd, gewijzigd of gesuperseded;
 pair_id-volgnummers worden niet als identiteit gebruikt.
 
-output_sha256 is STRIKT: het moet gelijk zijn aan de sha256 van de bytes in de
-repository. Er is geen line-ending-tolerantie. Wijkt de hash af, dan is dat een fout;
---check voegt alleen een diagnose toe (output_hash_diagnosis: of uitsluitend LF->CRLF
-de manifest-hash oplevert, of de geparste JSON gelijk is, de canonieke inhoudshash) -
-de diagnose maakt de check nooit geldig. Zie docs/promotion_foundations_v1.md
-(manifest v1.1-voorstel).
+Manifest v1.1 - drie hashes per PASS-document, alle drie exact (geen tolerantie):
+  repository_output_sha256        sha256 van de gecommitte bytes (LF) - strikt.
+  canonical_content_sha256        sha256 van de geparste JSON, opnieuw geserialiseerd met
+                                  sort_keys, compacte separators, UTF-8 - strikt herberekend.
+  validated_windows_output_sha256 provenance van de lokale Windows/xpdf-validatie. Wordt
+                                  alleen gecontroleerd als benoemde relatie
+                                  (windows_validation_bytes_reproducible): sha256 van de
+                                  repository-bytes met uitsluitend LF->CRLF moet exact gelijk
+                                  zijn, en de repository-bytes mogen geen CR bevatten. Dit
+                                  maakt de repository-hash niet tolerant; het bewijst alleen
+                                  welke bytes lokaal zijn gevalideerd.
+De oorspronkelijke manifest v1.0 staat in history/; supersedes legt haar sha256 vast en
+--check controleert dat de historische output_sha256's gelijk zijn aan
+validated_windows_output_sha256.
 
 --dry-run weigert bij een ongeldige handoff, tenzij expliciet
 --analyse-despite-invalid-handoff wordt meegegeven; het rapport zegt dan
@@ -59,10 +67,15 @@ XPDF = "pdftotext version 4.06 [www.xpdfreader.com]"
 DEFAULT_REPORT = os.path.join("reports", "deterministic_promotion_batch1_v1.json")
 CANONICAL_DIRS = ("extracted", "normalized", "verified")
 
-MANIFEST_TOP_KEYS = {"batch_id", "branch", "documents", "manifest_version", "source_commit", "xpdf_version"}
-PASS_KEYS = {"code_commit", "currency_rule", "document_id", "document_profile", "extraction_mode", "extractor",
-             "extractor_version", "output_path", "output_sha256", "parser_family", "pdftotext_version",
-             "rules_version", "source_path", "source_sha256", "status"}
+MANIFEST_VERSION = "1.1.0"
+MANIFEST_TOP_KEYS = {"batch_id", "branch", "documents", "hash_conventions", "manifest_version", "source_commit",
+                     "supersedes", "xpdf_version"}
+SUPERSEDES_KEYS = {"history_path", "manifest_sha256", "manifest_version", "reason"}
+HISTORY_FILES = {"manifest_v1.0.0.json", "manifest_v1.0.0.sha256"}
+PASS_KEYS = {"canonical_content_sha256", "code_commit", "currency_rule", "document_id", "document_profile",
+             "extraction_mode", "extractor", "extractor_version", "output_path", "parser_family",
+             "pdftotext_version", "repository_output_sha256", "rules_version", "source_path", "source_sha256",
+             "status", "validated_windows_newline", "validated_windows_output_sha256"}
 PASS_OPTIONAL_KEYS = {"code_commit_verification"}
 DUPLICATE_KEYS = {"document_id", "duplicate_of", "relation", "source_path", "source_sha256", "status"}
 
@@ -137,20 +150,40 @@ def canonical_content_sha256(obj):
     return sha256_bytes(json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))
 
 
-def diagnose_output_hash(data, expected):
-    """Alleen diagnose bij een afwijkende output_sha256 - maakt nooit iets geldig."""
-    crlf = data.replace(b"\n", b"\r\n")
-    diag = {"repository_sha256": sha256_bytes(data), "manifest_output_sha256": expected,
-            "repository_contains_cr": b"\r" in data,
-            "manifest_matches_lf_to_crlf_only": b"\r" not in data and sha256_bytes(crlf) == expected}
-    try:
-        parsed = json.loads(data.decode("utf-8"))
-        diag["json_equal_after_lf_to_crlf"] = parsed == json.loads(crlf.decode("utf-8"))
-        diag["canonical_content_sha256"] = canonical_content_sha256(parsed)
-    except ValueError:
-        diag["json_equal_after_lf_to_crlf"] = None
-        diag["canonical_content_sha256"] = None
-    return diag
+def check_supersedes(root, manifest, entries):
+    """v1.0 moet ongewijzigd in history/ staan; haar output_sha256's moeten exact de
+    validated_windows_output_sha256's van v1.1 zijn (de Windows-validatiehistorie)."""
+    errors = []
+    sup = manifest.get("supersedes")
+    if not isinstance(sup, dict) or set(sup) != SUPERSEDES_KEYS:
+        return [f"supersedes ontbreekt of heeft andere sleutels: {sorted(sup) if isinstance(sup, dict) else sup!r}"]
+    if sup.get("manifest_version") != "1.0.0":
+        errors.append("supersedes.manifest_version moet '1.0.0' zijn")
+    hpath = os.path.join(root, *str(sup.get("history_path", "")).split("/"))
+    if not os.path.isfile(hpath):
+        return errors + [f"historisch manifest ontbreekt: {sup.get('history_path')}"]
+    if sha256_file(hpath) != sup.get("manifest_sha256"):
+        errors.append("historisch manifest heeft een andere sha256 dan supersedes.manifest_sha256")
+    spath = os.path.splitext(hpath)[0] + ".sha256"
+    if not os.path.isfile(spath) or open(spath, encoding="utf-8").read().split()[:1] != [sup.get("manifest_sha256")]:
+        errors.append("historische .sha256 ontbreekt of klopt niet")
+    old = load_json(hpath)
+    if old.get("manifest_version") != "1.0.0":
+        errors.append("historisch manifest is geen v1.0.0")
+    old_by_doc = {e.get("document_id"): e for e in old.get("documents", [])}
+    for e in entries:
+        if not isinstance(e, dict):
+            continue
+        o = old_by_doc.get(e.get("document_id"))
+        if o is None:
+            errors.append(f"{e.get('document_id')}: ontbreekt in het historische manifest")
+            continue
+        if o.get("status") != e.get("status") or o.get("source_sha256") != e.get("source_sha256"):
+            errors.append(f"{e.get('document_id')}: status/source_sha256 wijkt af van het historische manifest")
+        if e.get("status") == "PASS" and o.get("output_sha256") != e.get("validated_windows_output_sha256"):
+            errors.append(f"{e.get('document_id')}: validated_windows_output_sha256 is niet de historische "
+                          "v1.0 output_sha256")
+    return errors
 
 
 def check_handoff(root, batch_dir=BATCH_DIR):
@@ -183,6 +216,8 @@ def check_handoff(root, batch_dir=BATCH_DIR):
     if not isinstance(manifest, dict) or set(manifest) != MANIFEST_TOP_KEYS:
         errors.append(f"manifest-sleutels wijken af: {sorted(manifest) if isinstance(manifest, dict) else type(manifest)}")
         manifest = manifest if isinstance(manifest, dict) else {}
+    if manifest.get("manifest_version") != MANIFEST_VERSION:
+        errors.append(f"manifest_version is {manifest.get('manifest_version')!r}, verwacht {MANIFEST_VERSION!r}")
     if manifest.get("batch_id") != BATCH_ID:
         errors.append(f"batch_id is {manifest.get('batch_id')!r}, verwacht {BATCH_ID!r}")
     if manifest.get("xpdf_version") != XPDF:
@@ -246,7 +281,7 @@ def check_handoff(root, batch_dir=BATCH_DIR):
                 if not (rel.get("type") == "duplicate_source" and rel.get("primary_document_id") == exp["duplicate_of"]
                         and rel.get("secondary_document_id") == doc):
                     errors.append(f"{doc}: {exp['relation']} in document_relations.json bevestigt de duplicaatrelatie niet")
-            if "output_path" in e or "output_sha256" in e:
+            if "output_path" in e or any(k.endswith("output_sha256") or k == "canonical_content_sha256" for k in e):
                 errors.append(f"{doc}: DUPLICATE_SKIP mag geen output hebben")
             if os.path.exists(os.path.join(bdir, f"{doc}.json")):
                 errors.append(f"{doc}: DUPLICATE_SKIP maar {doc}.json staat in {batch_dir}")
@@ -270,13 +305,27 @@ def check_handoff(root, batch_dir=BATCH_DIR):
             errors.append(f"{doc}: outputbestand ontbreekt ({e.get('output_path')})")
             continue
         data = open(out, "rb").read()
-        info["repository_sha256"] = sha256_bytes(data)
-        if sha256_bytes(data) != e.get("output_sha256"):
-            diag = diagnose_output_hash(data, e.get("output_sha256"))
-            info["output_hash_diagnosis"] = diag
-            errors.append(f"{doc}: output_sha256 klopt niet met de repository-bytes"
-                          + (" (diagnose: manifest-hash = sha256 van LF->CRLF; JSON-inhoud gelijk)"
-                             if diag["manifest_matches_lf_to_crlf_only"] and diag["json_equal_after_lf_to_crlf"] else ""))
+        # 1. repository-bytes: strikt
+        info["repository_output_sha256_ok"] = sha256_bytes(data) == e.get("repository_output_sha256")
+        if not info["repository_output_sha256_ok"]:
+            errors.append(f"{doc}: repository_output_sha256 klopt niet met de gecommitte bytes")
+        # 2. canonieke inhoud: strikt herberekend
+        try:
+            parsed = json.loads(data.decode("utf-8"))
+        except ValueError:
+            parsed = None
+        info["canonical_content_sha256_ok"] = (parsed is not None
+                                               and canonical_content_sha256(parsed) == e.get("canonical_content_sha256"))
+        if not info["canonical_content_sha256_ok"]:
+            errors.append(f"{doc}: canonical_content_sha256 klopt niet met de herberekende inhoudshash")
+        # 3. Windows-validatie: benoemde, exacte relatie (provenance), geen tolerantie
+        if e.get("validated_windows_newline") != "CRLF":
+            errors.append(f"{doc}: validated_windows_newline moet 'CRLF' zijn")
+        info["windows_validation_bytes_reproducible"] = (
+            b"\r" not in data and sha256_bytes(data.replace(b"\n", b"\r\n")) == e.get("validated_windows_output_sha256"))
+        if not info["windows_validation_bytes_reproducible"]:
+            errors.append(f"{doc}: validated_windows_output_sha256 is niet exact reproduceerbaar uit de "
+                          "repository-bytes (LF->CRLF)")
 
         # metadata in manifest
         if e.get("pdftotext_version") != XPDF:
@@ -322,11 +371,16 @@ def check_handoff(root, batch_dir=BATCH_DIR):
     if dup_docs != sorted(EXPECTED_DUPLICATES):
         errors.append(f"DUPLICATE_SKIP-set is {dup_docs}, verwacht {sorted(EXPECTED_DUPLICATES)}")
 
-    # geen onverwachte bestanden in de batchmap
-    allowed = {f"{d}.json" for d in EXPECTED_PASS} | {"manifest.json", "manifest.sha256"}
+    # geen onverwachte bestanden in de batchmap (history/ alleen met de v1.0-bestanden)
+    allowed = {f"{d}.json" for d in EXPECTED_PASS} | {"manifest.json", "manifest.sha256", "history"}
     extra = sorted(os.path.basename(p) for p in glob.glob(os.path.join(bdir, "*")) if os.path.basename(p) not in allowed)
+    hdir = os.path.join(bdir, "history")
+    if os.path.isdir(hdir):
+        extra += sorted("history/" + n for n in os.listdir(hdir) if n not in HISTORY_FILES)
     if extra:
         errors.append(f"onverwachte bestanden in {batch_dir}: {extra}")
+
+    errors += check_supersedes(root, manifest, entries)
 
     return {"ok": not errors, "errors": errors, "warnings": warnings, "documents": docs_out,
             "manifest": {k: manifest.get(k) for k in sorted(MANIFEST_TOP_KEYS - {"documents"})}}
