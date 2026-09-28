@@ -143,11 +143,13 @@ Volgorde per document:
    melden. Ontbreekt of afwijkend (poppler, xpdf 3.04, 4.05…) → `DependencyError`,
    exitcode 3, vóór enig werk. Geen fallback, geen download/installatie.
 2. Registry: sha256 van het bronbestand moet kloppen (`document_registry.verify_file`).
-3. Documentprofiel verplicht (`DOCUMENT_PROFILES`); nu DOC-001, 002, 005, 006, 007,
-   008, 009 en 010, alle `pro_vve_overzicht15` 1.0.0, valutaregel
-   `pdf_whole_euro_dot_thousands`. DOC-003 (duplicaat van DOC-002) en DOC-004 hebben
-   bewust geen profiel. DOC-005/007/008/009 zijn nog niet met echte xpdf gevalideerd;
-   wat daarbij gecontroleerd moet worden staat per profiel in `local_validation`.
+3. Documentprofiel verplicht (`DOCUMENT_PROFILES`); nu DOC-001, 002, 004, 005, 006,
+   007, 008, 009 en 010, alle `pro_vve_overzicht15` 1.0.0, valutaregel
+   `pdf_whole_euro_dot_thousands`. DOC-003 (duplicaat van DOC-002) heeft bewust geen
+   profiel. DOC-004 (Innax 2018) gebruikt hetzelfde profiel met `external_element_coding`:
+   elementcodes alleen als `original_value`, nooit als interne code; alleen het
+   10-jaars Jarenplan (2018-2027), nooit de hoofdgroepen 2028-2042. Wat per document
+   nog lokaal met echte xpdf gecontroleerd moet worden staat in `local_validation`.
    Conditielegenda: eerst de Elementenoverzicht-pagina's; anders de pagina's vóór het
    eerste Elementenoverzicht (sectie leeg/Object), alleen als de legenda letterlijk
    'conditie' noemt. Een score is alleen niet-reviewplichtig als hij letterlijk in de

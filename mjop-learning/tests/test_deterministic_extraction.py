@@ -555,7 +555,7 @@ def test_score_zero_in_legend_is_not_reviewed_for_the_score():
 
 # ------------------------------------------------------------------ Batch-1 profielen
 
-@pytest.mark.parametrize("doc_id", ["DOC-001", "DOC-002", "DOC-005", "DOC-006", "DOC-007", "DOC-008", "DOC-009",
+@pytest.mark.parametrize("doc_id", ["DOC-001", "DOC-002", "DOC-004", "DOC-005", "DOC-006", "DOC-007", "DOC-008", "DOC-009",
                                     "DOC-010"])
 def test_batch1_profiles_share_parser_family(doc_id):
     p = de.DOCUMENT_PROFILES[doc_id]
@@ -628,5 +628,81 @@ def test_doc003_has_no_independent_deterministic_profile(fake):
         de.extract_document("DOC-003", PROJECT_ROOT, fake, XPDF)
 
 
-def test_doc004_not_yet_supported():
-    assert "DOC-004" not in de.DOCUMENT_PROFILES
+# ------------------------------------------------------------------ DOC-004 (Innax 2018, synthetisch)
+
+_YEARS_2018 = [str(y) for y in range(2018, 2028)]
+_JP_HEADER_2018 = ("Code/Element/Handeling                              Locatie Element/Gebrek        Hvh     Ehd  Stj   Cy"
+                   + "".join(f"    {y}" for y in _YEARS_2018) + "    Totaal")
+
+
+def _jp_line(left="", loc_text="", cells=()):
+    """Tabelregel zoals pdftotext -table: bedragen rechts uitgelijnd onder hun kolom."""
+    buf = [" "] * (len(_JP_HEADER_2018) + 12)
+
+    def put(start, tok):
+        buf[start:start + len(tok)] = list(tok)
+
+    put(0, left)
+    if loc_text:
+        put(_JP_HEADER_2018.index("Locatie"), loc_text)
+    for col, tok in cells:
+        s = _JP_HEADER_2018.index(col)
+        put(s if col in ("Stj", "Cy", "Ehd") else s + len(col) - len(tok), tok)
+    return "".join(buf).rstrip()
+
+
+def _doc004_pages():
+    obj = ("Algemene Objectgegevens\n\nObject\n\nNaam VvE Voorbeeld\n\nAantal eenheden 7\n\n"
+           "Inspectiedatum 22-2-2018\n\nFinancieel\n\nPrijspeil 17-3-2018\n\n"
+           "BTW De bedragen in de begrotingen zijn exclusief BTW\n\nTechnisch\n\nBouwjaar 1900\n")
+    overview = ("Elementenoverzicht\n\n" + _LEGEND_16_89 + "\n"
+                "Code    Element                                   Locatie                     HvhEhd   Conditie\n\n"
+                "21      Buitenwanden\n\n"
+                "2110    Gevelafdekking natuursteen                Voorgevels woningen         2,00m2      3\n")
+    detail = "Overzicht 10 - Jarenplan (Gedetailleerd)\n\n" + "\n\n".join([
+        _JP_HEADER_2018,
+        _jp_line("2110  Gevelafdekking natuursteen", "Voorgevels woningen"),
+        _jp_line("      Reinigen gevelafdekking", "", [("Hvh", "2,00"), ("Ehd", "m2"), ("Stj", "2024"), ("Cy", "6"),
+                                                        ("2024", "24"), ("Totaal", "24")]),
+        _jp_line("Totaal  object", "", [("2024", "24"), ("Totaal", "24")]),
+    ])
+    hoofdgroepen = ("Overzicht 25 - Jarenplan (Hoofdgroepen)\n\n"
+                    "Code  Hoofdgroep                 2028      2029      2030\n\n"
+                    "21    Buitenwanden              1.200     3.400     5.600\n")
+    return [obj, overview, detail, hoofdgroepen]
+
+
+@pytest.fixture(scope="module")
+def doc004_record():
+    return de.build_record("DOC-004", _doc004_pages(), _EMPTY_LAYER, de.DOCUMENT_PROFILES["DOC-004"], XPDF, _META)
+
+
+def test_doc004_profile():
+    p = de.DOCUMENT_PROFILES["DOC-004"]
+    assert p["external_element_coding"] is True
+    for phrase in ("BTW exclusief", "17-3-2018", "2018-2027", "2028-2042", "normalized_value blijft null",
+                   "NO_INTERNAL_CODE", "SC-DOC-004", "geen gouden standaard"):
+        assert phrase in p["note"], phrase
+    assert not any(k in p for k in ("code_mapping", "element_code_map", "backfill", "indexation"))
+
+
+def test_doc004_external_code_kept_only_as_original(doc004_record):
+    els = doc004_record["elements"]
+    assert [e["element_code"]["original_value"] for e in els] == ["2110"]
+    assert all(e["element_code"]["normalized_value"] is None for e in els)
+    assert "element_code_internal" not in json.dumps(doc004_record)
+
+
+def test_doc004_vat_exclusive_and_price_level_kept(doc004_record):
+    dv = doc004_record["document_level_values"]
+    assert dv["vat_statement"]["value"] == "De bedragen in de begrotingen zijn exclusief BTW"
+    assert dv["price_level_date"]["value"] == "17-3-2018"
+    assert dv["indexation_statement"]["value"] is None
+
+
+def test_doc004_ten_year_window_and_no_hoofdgroepen_actions(doc004_record):
+    acts = doc004_record["maintenance_actions"]
+    assert [(a["planned_year"]["value"], a["total_cost_as_stated"]) for a in acts] == [(2024, "24")]
+    assert all(2018 <= a["planned_year"]["value"] <= 2027 for a in acts)
+    assert doc004_record["building"]["mjop_period"]["possible_values"][0]["value"] == "2018-2027"
+    assert acts[0]["element_id"] == "DOC-004-EL-001"

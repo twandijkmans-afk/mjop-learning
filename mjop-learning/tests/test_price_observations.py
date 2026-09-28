@@ -452,3 +452,33 @@ def test_full_build_on_batch1_sources():
     assert {(u["document_id"], u["amount_as_stated"]) for u in unlinked_bev} == {("DOC-007", "1.860"), ("DOC-007", "11.810")}
     errors = bpo.validate_observations(result, os.path.join(PROJECT_ROOT, "schemas", "price_observation.schema.json"))
     assert errors == []
+
+
+# --------------------------------------------------------------------------
+# 'Totaal object' - witruimte-tolerant (DOC-004: "Totaal  object")
+# --------------------------------------------------------------------------
+
+@pytest.mark.parametrize("label", ["Totaal object", "Totaal  object", "Totaal   object"])
+def test_totaal_object_is_recognised_with_any_whitespace(label):
+    text = page(
+        line("2110  Gevelconstructie metselwerk", "Alle gevels"),
+        _row_line(),
+        line(label, "", [("2026", "100"), ("Totaal", "17.080")]),
+    )
+    rows, _, totaal = src.parse_jarenplan_page(text, 11)
+    assert totaal == src.to_decimal("17.080")
+    assert len(rows) == 1   # de totaalregel is geen rij
+
+
+@pytest.mark.parametrize("label", ["Totaal object", "Totaal  object"])
+def test_totaal_object_line_is_skipped_in_jaarplan(label):
+    text = ("Code  Element/Locatie                  Handeling - Gebrek          Hvh    Ehd    2025\n\n"
+            f"{label}                                                                  10.285\n")
+    assert src.parse_jaarplan_page(text, 15) == []
+
+
+def test_totaal_without_object_is_not_a_totaal_object():
+    text = page(line("2110  Gevelconstructie metselwerk", "Alle gevels"), _row_line(),
+                line("Totaal Buitenwanden", "", [("Totaal", "100")]))
+    _, _, totaal = src.parse_jarenplan_page(text, 11)
+    assert totaal is None

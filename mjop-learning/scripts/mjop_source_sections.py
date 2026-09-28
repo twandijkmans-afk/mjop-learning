@@ -36,6 +36,9 @@ PDFTOTEXT_MODE = "-table"
 
 JARENPLAN_HEADER = re.compile(r"Hvh +Ehd +Stj +Cy")
 JAARPLAN_HEADER = re.compile(r"Handeling +- +Gebrek +Hvh +Ehd +\d{4}")
+# "Totaal object" met willekeurige witruimte ertussen (pdftotext -table kan het label
+# uitlijnen als "Totaal  object", bijv. DOC-004).
+TOTAAL_OBJECT = re.compile(r"Totaal\s+object")
 QTY_TOKEN = re.compile(r"\d[\d.]*,\d{2}")
 YEAR_TOKEN = re.compile(r"(19|20)\d\d")
 FOOTER_STAMP = re.compile(r"Pro VVE Beheer B\.V\. \d+ - \d+")
@@ -245,8 +248,9 @@ def parse_jarenplan_page(text, page_no, carry_element=None):
         line = _clean(lines[i])
         if not line.strip():
             continue
-        if "Totaal object" in line:
-            nums = re.findall(r"[\d.]+", line.split("Totaal object", 1)[1])
+        m_tot = TOTAAL_OBJECT.search(line)
+        if m_tot:
+            nums = re.findall(r"[\d.]+", line[m_tot.end():])
             if nums:
                 totaal_object = to_decimal(nums[-1])
             cur = None
@@ -427,7 +431,7 @@ def parse_jaarplan_page(text, page_no):
     out = []
     for i in range(hi + 1, len(lines)):
         line = _clean(lines[i])
-        if "Totaal object" in line or not line.strip():
+        if TOTAAL_OBJECT.search(line) or not line.strip():
             continue
         m = JAARPLAN_ROW.match(line)
         if m:

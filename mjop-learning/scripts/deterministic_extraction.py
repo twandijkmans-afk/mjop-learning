@@ -94,6 +94,23 @@ DOCUMENT_PROFILES = {
                 "identieke Jarenplan-rijen leiden tot een aantal niet-unieke block-koppelingen "
                 "(geen aanpassing aan de koppeling gedaan, bewust - zie deterministic_pilot-rapport).",
     },
+    "DOC-004": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Historisch document (Innax, 2018), zelfde vvem-rapportformaat - geen nieuwe parserfamilie. "
+                "BTW exclusief en prijspeil 17-3-2018 letterlijk uit de bron (geen indexatie). "
+                "'Overzicht 10 - Jarenplan (Gedetailleerd)' heeft een 10-jaarsvenster 2018-2027; de "
+                "hoofdgroepen 2028-2042 zijn alleen categorietotalen en worden nooit maintenance actions. "
+                "Externe/Innax-elementcodering: element_code alleen als original_value, normalized_value "
+                "blijft null - niet gelijkgesteld aan de interne codes (comparability E4, NO_INTERNAL_CODE), "
+                "geen mapping of backfill. Eigen source cluster SC-DOC-004; DREL-004 met DOC-002 is "
+                "same_building_other_inspection. data/verified/DOC-004.json is handmatig gemaakt en geen "
+                "gouden standaard.",
+        "external_element_coding": True,
+        "local_validation": ["jarenplan alleen 2018-2027; geen acties uit Hoofdgroepen 2028-2042",
+                             "'Totaal  object' herkend; verschil met de som van de rijen is bronafronding"],
+    },
     "DOC-005": {
         "profile_id": "pro_vve_overzicht15",
         "profile_version": "1.0.0",
