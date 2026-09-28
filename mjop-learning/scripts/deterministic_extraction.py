@@ -72,6 +72,16 @@ DOCUMENT_PROFILES = {
                 "Overzicht 15 - Jarenplan (Gedetailleerd); DOC-006 heeft ook Bevindingen/Jaarplan-secties "
                 "maar die worden (net als bij DOC-010) niet gebruikt - Jarenplan blijft de leidende bron.",
     },
+    "DOC-001": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0",
+        "currency_rule": "pdf_whole_euro_dot_thousands",
+        "note": "Derde pilot, zelfde profiel als DOC-010/DOC-006 - geen enkele documentprofielregel "
+                "hoefde te wijzigen (bewijs: whole_euro_evidence, 0 validatiefouten). Objectblad + "
+                "Elementenoverzicht + Overzicht 15 - Jarenplan (Gedetailleerd); Bevindingen/Jaarplan-secties "
+                "ook hier ongebruikt. Object-sectie mist 'Aantal eenheden' en 'Postcode' - blijft null, "
+                "niet afgeleid uit de Opdrachtgever-sectie.",
+    },
 }
 
 OBJECT_LABELS = [

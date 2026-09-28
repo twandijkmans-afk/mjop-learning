@@ -399,8 +399,9 @@ def test_llm_route_default_unchanged(tmp_path):
 
 
 def test_unknown_document_profile_refused(fake):
+    assert "DOC-999" not in de.DOCUMENT_PROFILES
     with pytest.raises(de.ExtractionError):
-        de.extract_document("DOC-001", PROJECT_ROOT, fake, XPDF)
+        de.extract_document("DOC-999", PROJECT_ROOT, fake, XPDF)
 
 
 # ------------------------------------------------------------------ review + vergelijking
