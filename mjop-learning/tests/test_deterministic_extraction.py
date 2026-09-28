@@ -297,9 +297,64 @@ def test_block_provenance(record, layer):
     p = a["field_provenance"]["total_cost_as_stated"]
     assert p["block_id"] == "P10-L033" and p["related_block_ids"] == ["P10-L034"]
     assert p["text_fragment"].split("\n")[1] == "Kemo)"
-    # dubbel voorkomende regels (Postcode/Plaats op p2) krijgen GEEN block_id
-    assert "block_id" not in record["document_level_values"]["object_city"]["provenance"]
+    # Postcode/Plaats komen letterlijk dubbel voor op p2 (Object- en Opdrachtgever-sectie) -
+    # geciteerd wordt altijd de Object-sectie-instantie (rangorde 0, zelfde principe als address).
+    assert record["document_level_values"]["object_city"]["provenance"]["block_id"] == "P02-L011"
+    assert record["document_level_values"]["object_postcode"]["provenance"]["block_id"] == "P02-L010"
     assert rv.validate_entities(record) == []
+
+
+def test_unknown_unit_flags_review_without_changing_value(record):
+    """Een eenheid buiten vocabularies/unit.json (bijv. een cijferreeks door een kolomafwijking
+    in de brontabel) moet requires_human_review=True krijgen, zonder de waarde te wijzigen."""
+    assert de._unit_needs_review(None) is True
+    assert de._unit_needs_review("st") is False
+    assert de._unit_needs_review("M2") is False        # hoofdletterongevoelig
+    assert de._unit_needs_review("20") is True          # niet in de eenhedenvocabulaire
+    for el in record["elements"]:
+        u = el["unit"]
+        assert u.get("requires_human_review", False) == de._unit_needs_review(u["original_value"])
+    for a in record["maintenance_actions"]:
+        u = a["unit"]
+        assert u.get("requires_human_review", False) == de._unit_needs_review(u["original_value"])
+        if de._unit_needs_review(u["original_value"]):
+            assert a["requires_human_review"] is True  # bubbelt door naar de actie (review-sheet)
+
+
+def test_duplicate_object_field_cites_object_section_instance(layer):
+    """Postcode/Plaats staan letterlijk twee keer op p.2 van DOC-010 (Object- en
+    Opdrachtgever-sectie, identieke tekst) - de geciteerde regel moet altijd de eerste
+    ('Object'-sectie) instantie zijn, net als bij address; de waarde zelf wordt niet afgeleid."""
+    prov = de._prov_object_field("DOC-010", 2, "Postcode 1079 XB",
+                                 "profile:pro_vve_overzicht15.object.Postcode", layer, occurrence_index=0)
+    assert prov["block_id"] == "P02-L010" and prov["text_fragment"] == "Postcode 1079 XB"
+    prov2 = de._prov_object_field("DOC-010", 2, "Postcode 1079 XB",
+                                  "profile:pro_vve_overzicht15.object.Postcode", layer, occurrence_index=1)
+    assert prov2["block_id"] == "P02-L018"  # bewijst dat de rangorde het onderscheid maakt
+
+
+def test_provenance_link_survives_ambiguous_continuation(layer):
+    """P.12: de jarenplanregel 'Groot schilderwerk betonconstructie ... 845 845' is zelf uniek
+    koppelbaar; de vervolgregel 'plafond' komt op die pagina twee keer voor (element- én
+    actietekst wrappen allebei naar hun eigen 'plafond'-regel) en is dus NIET uniek koppelbaar.
+    De hoofdregel moet gekoppeld BLIJVEN. De vervolgtekst wordt niet aan text_fragment
+    toegevoegd (verify_block_provenance eist dat elke regel daarin letterlijk uit een geciteerd
+    blok komt; voor de ambigue vervolgregel is dat niet aantoonbaar) en krijgt geen block_id."""
+    p = de._prov("DOC-010", 12, "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+                 "test.rule", layer, related_texts=["plafond"])
+    assert p["block_id"] == "P12-L019"
+    assert "plafond" not in p["text_fragment"]
+    assert "related_block_ids" not in p
+    assert rv.verify_block_provenance({"document_id": "DOC-010", "x": p}, layer) == []
+
+
+def test_ambiguity_stays_unresolved_without_forced_block_id(layer):
+    """Als een tekst zelf al niet uniek is (of de rangorde buiten bereik valt) mag er nooit een
+    block_id verzonnen worden - geen fuzzy matching, block_id blijft afwezig."""
+    p = de._prov("DOC-010", 12, "plafond", "test.rule", layer)   # 2x 'plafond' op p.12
+    assert "block_id" not in p
+    assert de._object_field_block(layer, 2, "Postcode 1079 XB", occurrence_index=5) is None
+    assert de._object_field_block(layer, 2, "geen-bestaande-regel-xyz", occurrence_index=0) is None
 
 
 def test_output_isolation_and_canonical_refusal(record, tmp_path):

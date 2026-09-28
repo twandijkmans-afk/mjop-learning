@@ -144,15 +144,57 @@ def _prov(doc_id, page, text, rule, layer, confidence="high", related_texts=()):
                 break
             related.append(l2["block_id"])
             frag.append(l2["text_fragment"])
-        if related is None:  # vervolgregel niet uniek te koppelen -> alleen de hoofdregel koppelen
-            p["text_fragment"] = "\n".join([link["text_fragment"]] + [_squash(t) for t in related_texts])
-            p.pop("block_id")
+        if related is None:
+            # Vervolgregel niet uniek te koppelen (dezelfde tekst komt elders op de pagina nog
+            # een keer voor, bijv. een tweede "plafond"-vervolgregel) - de hoofdregel blijft wel
+            # gekoppeld: die match was op zichzelf al uniek en ondubbelzinnig. De vervolgtekst
+            # wordt NIET aan text_fragment toegevoegd: verify_block_provenance eist dat elke
+            # text_fragment-regel letterlijk uit een geciteerd blok komt, en voor de vervolgregel
+            # is niet aantoonbaar welke van de identieke tekstlaagregels bedoeld is - geen fuzzy
+            # matching, geen verzonnen koppeling, dus ook niet ongekoppeld "erbij plakken".
+            p["text_fragment"] = link["text_fragment"]
         else:
             if related:
                 p["related_block_ids"] = related
             p["text_fragment"] = "\n".join(frag)
     else:
         p["text_fragment"] = "\n".join([_squash(text)] + [_squash(t) for t in related_texts])
+    return p
+
+
+def _object_field_block(layer, page, text, occurrence_index):
+    """Zoals _block(), maar voor OBJECT_LABELS-velden (objectblad) die letterlijk dubbel op
+    dezelfde pagina kunnen voorkomen (bijv. Postcode/Plaats in zowel de Object- als de
+    Opdrachtgever-sectie, met exact dezelfde tekst). occurrence_index is de rangorde (0 = eerst)
+    van deze regel binnen identieke regels op dezelfde pdftotext-pagina, in leesvolgorde -
+    parse_object_fields citeert altijd de eerste ('Object'-sectie) instantie, dus occurrence_index
+    is voor die kandidaat altijd 0. De tekstlaagregels op een pagina staan (net als de
+    pdftotext-regels) al in leesvolgorde (top naar onder), dus de occurrence_index-de match in
+    beide onafhankelijk opgebouwde weergaves verwijst naar dezelfde fysieke regel. Is er geen
+    tekstlaagregel op die rangorde (aantallen wijken af), dan geen block_id - geen gok."""
+    key = rv._source_key(text)
+    if not key:
+        return None
+    pg = next((p for p in layer.get("pages", []) if p["page"] == page), None)
+    if pg is None:
+        return None
+    hits = [l for l in pg["lines"] if rv._source_key(l["text"]) == key]
+    if occurrence_index >= len(hits):
+        return None
+    hit = hits[occurrence_index]
+    return {"block_id": hit["id"], "text_fragment": hit["text"]}
+
+
+def _prov_object_field(doc_id, page, text, rule, layer, occurrence_index, confidence="high"):
+    """Zoals _prov(), maar met _object_field_block() (rangorde-bewuste koppeling) i.p.v. _block()."""
+    link = _object_field_block(layer, page, text, occurrence_index)
+    p = {"document_id": doc_id, "page": page, "table_index": None, "source_confidence": confidence,
+         "extraction_rule": rule}
+    if link:
+        p["block_id"] = link["block_id"]
+        p["text_fragment"] = link["text_fragment"]
+    else:
+        p["text_fragment"] = _squash(text)
     return p
 
 
@@ -178,6 +220,15 @@ def _pair(original, prov=None, review=False):
     return out
 
 
+def _unit_needs_review(unit_original):
+    """True wanneer de eenheid ontbreekt, of aanwezig is maar niet voorkomt in de bestaande
+    eenhedenvocabulaire (vocabularies/unit.json via mjop_source_sections.UNIT_TOKENS) - nooit
+    een normalisatie gokken bij een onbekende eenheid, altijd naar een mens."""
+    if unit_original is None:
+        return True
+    return unit_original.strip().lower() not in src.UNIT_TOKENS
+
+
 def _parse(vtype, text):
     if vtype == "text":
         return (text, None) if text else (None, "empty")
@@ -195,22 +246,32 @@ def _parse(vtype, text):
 
 def parse_object_fields(pages, sections, doc_id, layer):
     """Objectblad: label + waarde per regel binnen de benoemde subsecties. Een label dat
-    meermaals in dezelfde subsectie staat -> conflict, geen keuze."""
+    meermaals in dezelfde subsectie staat -> conflict, geen keuze.
+
+    Sommige labels (Postcode, Plaats) staan letterlijk nog een keer op dezelfde pagina, in een
+    ANDERE subsectie (bijv. Opdrachtgever) die hier niet als kandidaat wordt gebruikt - maar de
+    tekstlaag kent geen subsecties, dus een gewone tekstkoppeling zou daar ambigu op stuklopen.
+    occurrence_index (rangorde van deze exacte regeltekst op de pagina, in leesvolgorde) lost dat
+    op: de Object-sectie-kandidaat is altijd de eerste van zulke identieke regels."""
     found = {}
     for pno, sec in sections:
         if sec != "OBJECT":
             continue
         sub = None
+        seen = {}
         for raw in pages[pno - 1].splitlines():
             line = _squash(src._clean(raw))
             if not line:
                 continue
+            occurrence_index = seen.get(line, 0)
+            seen[line] = occurrence_index + 1
             if line in OBJECT_SECTIONS:
                 sub = line
                 continue
             for s, label, dest, field, vtype in OBJECT_LABELS:
                 if s == sub and line.startswith(label + " "):
-                    found.setdefault(field, []).append((pno, line, line[len(label) + 1:].strip(), dest, vtype, label))
+                    found.setdefault(field, []).append(
+                        (pno, line, line[len(label) + 1:].strip(), dest, vtype, label, occurrence_index))
                     break
     building, docvals, flags = {}, {}, []
     for s, label, dest, field, vtype in OBJECT_LABELS:
@@ -222,13 +283,14 @@ def parse_object_fields(pages, sections, doc_id, layer):
         rule = f"profile:pro_vve_overzicht15.object.{label}"
         if len(cands) > 1:
             target[field] = {"value": None, "requires_human_review": True, "conflict": True,
-                             "possible_values": [{"value": c[2], "provenance": _prov(doc_id, c[0], c[1], rule, layer)}
-                                                 for c in cands]}
+                             "possible_values": [
+                                 {"value": c[2], "provenance": _prov_object_field(doc_id, c[0], c[1], rule, layer, c[6])}
+                                 for c in cands]}
             flags.append({"field": field, "reason": "label_multiple_times"})
             continue
-        pno, line, rawval, _, vt, _ = cands[0]
+        pno, line, rawval, _, vt, _, occurrence_index = cands[0]
         val, reason = _parse(vt, rawval)
-        prov = _prov(doc_id, pno, line, rule, layer)
+        prov = _prov_object_field(doc_id, pno, line, rule, layer, occurrence_index)
         target[field] = _ev(val, prov, review=bool(reason), raw=rawval if reason else None)
         if reason:
             flags.append({"field": field, "reason": reason})
@@ -373,7 +435,7 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
             "location": _ev(r["location"], prov) if r["location"] else _ev_null(),
             "material": {"original_value": None, "normalized_value": None},
             "quantity": _ev(qty, prov, review=bool(qreason), raw=r["quantity_as_stated"] if qreason else None),
-            "unit": _pair(r["unit_original"], prov, review=r["unit_original"] is None),
+            "unit": _pair(r["unit_original"], prov, review=_unit_needs_review(r["unit_original"])),
             "construction_year": _ev_null(),
             "gemeenschappelijk_of_prive": None,
         }
@@ -431,14 +493,15 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
             aid = f"{doc_id}-ACT-{len(actions) + 1:03d}"
             year_prov = dict(row_prov, extraction_rule="mjop_source_sections.jarenplan.year_column")
             amt_prov = dict(row_prov, extraction_rule=rule)
-            review = bool(reason) or bool(qreason) or element_id is None or status in ("mismatch", "unparseable")
+            review = (bool(reason) or bool(qreason) or element_id is None or status in ("mismatch", "unparseable")
+                      or _unit_needs_review(row["unit_original"]))
             actions.append({
                 "action_id": aid,
                 "element_id": element_id or f"{doc_id}-EL-UNLINKED",
                 "action": _pair(row["action_text"] or None, row_prov),
                 "planned_year": _ev(int(year), year_prov),
                 "quantity": _ev(qty, row_prov, review=bool(qreason), raw=row["quantity_as_stated"] if qreason else None),
-                "unit": _pair(row["unit_original"], row_prov),
+                "unit": _pair(row["unit_original"], row_prov, review=_unit_needs_review(row["unit_original"])),
                 "unit_cost": {"value": None, "is_estimated": False},
                 "cost_year": None,
                 "total_cost_as_stated": val,
