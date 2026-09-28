@@ -1,0 +1,239 @@
+{
+  "A_to_history": {
+    "files": [
+      "data/extracted/DOC-001.json",
+      "data/extracted/DOC-002.json",
+      "data/extracted/DOC-003.json",
+      "data/extracted/DOC-004.json",
+      "data/extracted/DOC-005.json",
+      "data/extracted/DOC-006.json",
+      "data/extracted/DOC-007.json",
+      "data/extracted/DOC-008.json",
+      "data/extracted/DOC-009.json",
+      "data/extracted/DOC-010.json",
+      "data/normalized/DOC-001.json",
+      "data/normalized/DOC-002.json",
+      "data/normalized/DOC-003.json",
+      "data/normalized/DOC-004.json",
+      "data/normalized/DOC-005.json",
+      "data/normalized/DOC-006.json",
+      "data/normalized/DOC-007.json",
+      "data/normalized/DOC-008.json",
+      "data/normalized/DOC-009.json",
+      "data/normalized/DOC-010.json",
+      "data/verified/DOC-001.json",
+      "data/verified/DOC-002.json",
+      "data/verified/DOC-003.json",
+      "data/verified/DOC-004.json",
+      "data/verified/DOC-005.json",
+      "data/verified/DOC-006.json",
+      "data/verified/DOC-007.json",
+      "data/verified/DOC-008.json",
+      "data/verified/DOC-009.json",
+      "data/verified/DOC-010.json",
+      "data/price_observations/price_observations_batch1.json",
+      "data/price_observations/price_observations_batch1_normalized.json",
+      "data/comparability/comparability_batch1.json",
+      "data/kengetallen/kengetallen_batch1.json (via build_kengetallen --supersede -> data/kengetallen/history/)",
+      "reports/review_batch1.xlsx (blijft staan; bron van de oude accepts, alleen historie)"
+    ],
+    "rule": "kopie + sha256-manifest vóór elke vervanging; niets verwijderen zonder history",
+    "target": "data/history/pre_deterministic_promotion_batch1_v1/<oorspronkelijk pad>"
+  },
+  "B_new_canonical": {
+    "data/comparability/comparability_batch1.json": "build_comparability",
+    "data/extracted": "9 PASS-documenten uit batch1_v1 (DOC-003 niet: DUPLICATE_SKIP, oude kopie alleen in history)",
+    "data/kengetallen/kengetallen_batch1.json": "build_kengetallen --supersede",
+    "data/normalized": "normalize_batch.normalize_record op batch1_v1 (external_element_coding DOC-004)",
+    "data/price_observations/document_relations.json": "ongewijzigd",
+    "data/price_observations/price_observations_batch1.json": "build_promoted_price_observations (cloud-only)",
+    "data/price_observations/price_observations_batch1_normalized.json": "normalize_price_observations",
+    "data/verified": "normalized + goedgekeurde materialen (approval-set) + bevestigde accepts, met provenance"
+  },
+  "C_ids": {
+    "kept": [
+      "document_id (registry)",
+      "observation_id (404, positioneel uit xpdf)",
+      "relation_id (DREL-*)",
+      "decision_id van bestaande records (historie)",
+      "kengetal-semantiek via candidate_key"
+    ],
+    "new": [
+      "element_id/action_id: batch1_v1-nummering; mapping oud->nieuw uit de accept- en materiaalreview wordt als bestand vastgelegd",
+      "pair_id: opnieuw genummerd (alleen metadata)",
+      "kengetal_id: kan wijzigen als het materiaal in de id wijzigt"
+    ]
+  },
+  "D_new_review_records": [
+    "één beleidsrecord voor de materiaal-approval-set (approval_set_sha256, besluitnemer, tijdstip)",
+    "human_verification op nieuwe acties voor bevestigde accepts (met verwijzing naar old_action_id)",
+    "nieuwe HDR-records voor opnieuw bevestigde of gewijzigde comparability-decisions (nieuwe input_hashes, supersedes = oud decision_id)"
+  ],
+  "E_active_to_superseded": {
+    "records": [
+      "HDR-00001",
+      "HDR-00002",
+      "HDR-00003",
+      "HDR-00004",
+      "HDR-00005",
+      "HDR-00006",
+      "HDR-00007",
+      "HDR-00008",
+      "HDR-00009",
+      "HDR-00010",
+      "HDR-00011",
+      "HDR-00012",
+      "HDR-00013",
+      "HDR-00014",
+      "HDR-00015",
+      "HDR-00016",
+      "HDR-00017",
+      "HDR-00018",
+      "HDR-00019",
+      "HDR-00023",
+      "HDR-00024",
+      "HDR-00025",
+      "HDR-00026",
+      "HDR-00027",
+      "HDR-00028",
+      "HDR-00029",
+      "HDR-00030",
+      "HDR-00020",
+      "HDR-00021",
+      "HDR-00022"
+    ],
+    "rule": "alleen ACTIVE -> SUPERSEDED bij aanmaak van het vervangende record (append-only store)"
+  },
+  "F_rollback": [
+    "promotie als één commit; rollback = git revert van die commit",
+    "daarnaast herstel uit data/history/... met verificatie tegen het pre-manifest (sha256 per bestand)",
+    "kengetallen: bestaande --supersede-historie terugzetten",
+    "human decision store: append-only; rollback zet alleen de SUPERSEDED-status van de nieuwe records terug"
+  ],
+  "G_hashes_manifests": {
+    "after": [
+      "post_promotion_manifest.json met dezelfde velden + verwijzing naar het pre-manifest",
+      "kengetallen inputs (normalized/comparability/decisions/regels) via build_kengetallen",
+      "alle JSON UTF-8 + LF; hashes over repository-bytes"
+    ],
+    "before": [
+      "pre_promotion_manifest.json: sha256 van elk bestand in data/extracted, normalized, verified, price_observations, comparability, kengetallen, review_decisions, match_review_decisions",
+      "batch1_v1 manifest.json sha256 (v1.1)",
+      "approval_set_sha256 + accept/decision set_sha256"
+    ]
+  },
+  "kengetallen_source_evidence": [
+    {
+      "candidate_key": [
+        "2110",
+        "impregnate",
+        "m2"
+      ],
+      "clusters": [
+        "SC-DOC-007",
+        "SC-DOC-008+DOC-009"
+      ],
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "value": null
+    },
+    {
+      "candidate_key": [
+        "4321",
+        "replace",
+        "m2"
+      ],
+      "clusters": [
+        "SC-DOC-007",
+        "SC-DOC-010"
+      ],
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "value": null
+    },
+    {
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "clusters": [
+        "SC-DOC-002",
+        "SC-DOC-008+DOC-009"
+      ],
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "value": null
+    },
+    {
+      "candidate_key": [
+        "4634",
+        "exterior_painting",
+        "m2"
+      ],
+      "clusters": [
+        "SC-DOC-002",
+        "SC-DOC-008+DOC-009"
+      ],
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "value": null
+    },
+    {
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "clusters": [
+        "SC-DOC-007",
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010"
+      ],
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "value": null
+    },
+    {
+      "candidate_key": [
+        "5211",
+        "replace",
+        "m1"
+      ],
+      "clusters": [
+        "SC-DOC-001",
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010"
+      ],
+      "insufficient_data_reasons": [],
+      "status": "AVAILABLE",
+      "value": "51.79"
+    }
+  ],
+  "plan_id": "CANONICAL_PROMOTION_PLAN_batch1_v1",
+  "preconditions": [
+    "promote_deterministic_batch.py --check: HANDOFF GELDIG",
+    "build_promoted_price_observations: 404 observations, 0 bedragverschillen, alle invarianten",
+    "materiaalbesluit op approval_set_sha256 e5f7836485106d4840b68c9c209effab31dd18359af06b12af60a4bb64d1461c",
+    "accept-batch (2) + 28 reviewgevallen beslist",
+    "decision-batch (3) + 3 patroonfamilies (10 groepen) beslist",
+    "git-tag pre-promotion op de uitgangscommit"
+  ],
+  "scenario": "SOURCE_EVIDENCE",
+  "status": "NOT_EXECUTED",
+  "tool_version": "prepare_promotion_review_v1.0.0"
+}

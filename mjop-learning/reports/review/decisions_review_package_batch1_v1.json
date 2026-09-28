@@ -1,0 +1,711 @@
+{
+  "counts": {
+    "material_only_decisions": 27,
+    "material_only_families": 3,
+    "material_only_groups": 10,
+    "other": 0,
+    "pair_no_longer_exists": 0,
+    "same_evidence_batch": 3
+  },
+  "material_only_families": [
+    {
+      "comparability_effects": {
+        "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS": 6,
+        "UNKNOWN -> UNKNOWN": 8
+      },
+      "decisions": 14,
+      "existing_human_decisions": {
+        "COMPARABLE_WITH_CAVEATS": 14
+      },
+      "family_id": "DF-1",
+      "groups": [
+        "DG-01",
+        "DG-02"
+      ],
+      "options": [
+        "RECONFIRM_FAMILY",
+        "REVIEW_BY_GROUP",
+        "REVIEW_INDIVIDUALLY"
+      ],
+      "pattern": "verified -> unknown[OLD_DERIVATION_ONLY]"
+    },
+    {
+      "comparability_effects": {
+        "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS": 11
+      },
+      "decisions": 11,
+      "existing_human_decisions": {
+        "COMPARABLE_WITH_CAVEATS": 6,
+        "NOT_COMPARABLE": 5
+      },
+      "family_id": "DF-2",
+      "groups": [
+        "DG-04",
+        "DG-05",
+        "DG-06",
+        "DG-07",
+        "DG-08",
+        "DG-09",
+        "DG-10"
+      ],
+      "options": [
+        "RECONFIRM_FAMILY",
+        "REVIEW_BY_GROUP",
+        "REVIEW_INDIVIDUALLY"
+      ],
+      "pattern": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+    },
+    {
+      "comparability_effects": {
+        "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS": 2
+      },
+      "decisions": 2,
+      "existing_human_decisions": {
+        "COMPARABLE_WITH_CAVEATS": 2
+      },
+      "family_id": "DF-3",
+      "groups": [
+        "DG-03"
+      ],
+      "options": [
+        "RECONFIRM_FAMILY",
+        "REVIEW_BY_GROUP",
+        "REVIEW_INDIVIDUALLY"
+      ],
+      "pattern": "verified -> explicit_source"
+    }
+  ],
+  "material_only_groups": [
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "UNKNOWN -> UNKNOWN",
+      "decisions": 8,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> unknown[OLD_DERIVATION_ONLY]",
+      "group_id": "DG-01",
+      "material_transition_per_observation": [
+        "verified:concrete -> unknown[OLD_DERIVATION_ONLY]",
+        "verified:concrete -> unknown[OLD_DERIVATION_ONLY]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00023",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-009-P021-L027"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00263",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00024",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-009-P021-L031"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00264",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00025",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-009-P021-L039"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00265",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00026",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-009-P021-L043"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00266",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00027",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L077",
+            "PO-DOC-009-P021-L027"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00268",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00028",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L077",
+            "PO-DOC-009-P021-L031"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00269",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00029",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L077",
+            "PO-DOC-009-P021-L039"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00270",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00030",
+          "new_class": "UNKNOWN",
+          "observation_ids": [
+            "PO-DOC-007-P017-L077",
+            "PO-DOC-009-P021-L043"
+          ],
+          "old_class": "UNKNOWN",
+          "pair_id_metadata": "PAIR-00271",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 6,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> unknown[OLD_DERIVATION_ONLY]",
+      "group_id": "DG-02",
+      "material_transition_per_observation": [
+        "verified:concrete -> unknown[OLD_DERIVATION_ONLY]",
+        "verified:concrete -> unknown[OLD_DERIVATION_ONLY]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00010",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-010-P012-L037"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00267",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00011",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P017-L077",
+            "PO-DOC-010-P012-L037"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00272",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00012",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-009-P021-L027",
+            "PO-DOC-010-P012-L037"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00278",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00013",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-009-P021-L031",
+            "PO-DOC-010-P012-L037"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00279",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00014",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-009-P021-L039",
+            "PO-DOC-010-P012-L037"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00280",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00015",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-009-P021-L043",
+            "PO-DOC-010-P012-L037"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00281",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 2,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> explicit_source",
+      "group_id": "DG-03",
+      "material_transition_per_observation": [
+        "material_from_text:pvc -> material_from_text:pvc",
+        "verified:pvc -> explicit_source:pvc"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00018",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-009-P021-L095"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00306",
+          "pair_reason_changes": []
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00019",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-010-P012-L093"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00307",
+          "pair_reason_changes": []
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 2,
+      "existing_human_decision": "NOT_COMPARABLE",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-04",
+      "material_transition_per_observation": [
+        "verified:original=APP -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=APP+ballast -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN",
+        "MATERIAL_VARIANT"
+      ],
+      "records": [
+        {
+          "decision": "NOT_COMPARABLE",
+          "decision_id": "HDR-00016",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P017-L119",
+            "PO-DOC-008-P009-L035"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00292",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN",
+            "MATERIAL_VARIANT"
+          ]
+        },
+        {
+          "decision": "NOT_COMPARABLE",
+          "decision_id": "HDR-00017",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P017-L123",
+            "PO-DOC-008-P009-L035"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00296",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN",
+            "MATERIAL_VARIANT"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 2,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-05",
+      "material_transition_per_observation": [
+        "verified:original=metselwerk -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=metselwerk -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00001",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P015-L017",
+            "PO-DOC-009-P018-L015"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00003",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00002",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P015-L017",
+            "PO-DOC-009-P018-L019"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00004",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 2,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-06",
+      "material_transition_per_observation": [
+        "verified:original=stucwerk -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=stucwerk -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00004",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-002-P018-L055",
+            "PO-DOC-009-P020-L023"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00155",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00006",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-002-P018-L083",
+            "PO-DOC-009-P020-L023"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00171",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 2,
+      "existing_human_decision": "NOT_COMPARABLE",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-07",
+      "material_transition_per_observation": [
+        "verified:original=stucwerk -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=stucwerk -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "NOT_COMPARABLE",
+          "decision_id": "HDR-00005",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-002-P018-L055",
+            "PO-DOC-010-P012-L017"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00159",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        },
+        {
+          "decision": "NOT_COMPARABLE",
+          "decision_id": "HDR-00007",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-002-P018-L083",
+            "PO-DOC-010-P012-L017"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00175",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 1,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-08",
+      "material_transition_per_observation": [
+        "verified:original=metaal -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=metaal -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00009",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-002-P019-L049",
+            "PO-DOC-009-P021-L015"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00241",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 1,
+      "existing_human_decision": "NOT_COMPARABLE",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-09",
+      "material_transition_per_observation": [
+        "verified:original=metaal -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=metaal -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "NOT_COMPARABLE",
+          "decision_id": "HDR-00008",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P017-L013",
+            "PO-DOC-009-P020-L035"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00178",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    },
+    {
+      "classification": "INPUT_CHANGED_MATERIAL_ONLY",
+      "comparability_effect": "COMPARABLE_WITH_CAVEATS -> COMPARABLE_WITH_CAVEATS",
+      "decisions": 1,
+      "existing_human_decision": "COMPARABLE_WITH_CAVEATS",
+      "family": "verified -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+      "group_id": "DG-10",
+      "material_transition_per_observation": [
+        "verified:original=tapijt -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]",
+        "verified:original=tapijt -> unknown[AMBIGUOUS_SOURCE_EVIDENCE]"
+      ],
+      "options": [
+        "RECONFIRM_GROUP: bestaande beslissing opnieuw bevestigen op de nieuwe invoer",
+        "REVIEW_INDIVIDUALLY",
+        "SUPERSEDE_WITH_OTHER_DECISION"
+      ],
+      "pair_reason_changes": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "records": [
+        {
+          "decision": "COMPARABLE_WITH_CAVEATS",
+          "decision_id": "HDR-00003",
+          "new_class": "COMPARABLE_WITH_CAVEATS",
+          "observation_ids": [
+            "PO-DOC-007-P016-L063",
+            "PO-DOC-010-P011-L057"
+          ],
+          "old_class": "COMPARABLE_WITH_CAVEATS",
+          "pair_id_metadata": "PAIR-00021",
+          "pair_reason_changes": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "Identiteit = observation_id-set; pair_id alleen metadata. Geen beslissing genomen.",
+  "same_evidence_batch": {
+    "records": [
+      {
+        "decision": "COMPARABLE_WITH_CAVEATS",
+        "decision_id": "HDR-00020",
+        "observation_ids": [
+          "PO-DOC-009-P021-L095",
+          "PO-DOC-010-P012-L093"
+        ],
+        "pair_id_metadata": "PAIR-00335"
+      },
+      {
+        "decision": "NOT_COMPARABLE",
+        "decision_id": "HDR-00021",
+        "observation_ids": [
+          "PO-DOC-007-P018-L079",
+          "PO-DOC-009-P022-L033"
+        ],
+        "pair_id_metadata": "PAIR-00341"
+      },
+      {
+        "decision": "NOT_COMPARABLE",
+        "decision_id": "HDR-00022",
+        "observation_ids": [
+          "PO-DOC-007-P018-L079",
+          "PO-DOC-009-P022-L043"
+        ],
+        "pair_id_metadata": "PAIR-00342"
+      }
+    ],
+    "set_sha256": "5899d5d327aa8e950df5ad6ae8d0e88c643319e5ab751b43813be81a5a1aef91",
+    "statement": "reconfirm SAME_EVIDENCE decisions in this set"
+  },
+  "scenario": "SOURCE_EVIDENCE",
+  "tool_version": "prepare_promotion_review_v1.0.0"
+}

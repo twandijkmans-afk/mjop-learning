@@ -1,0 +1,2314 @@
+{
+  "approval": {
+    "decided_at": null,
+    "decided_by": null,
+    "note": "Nog geen canonieke wijziging. Een besluit verwijst naar approval_set_sha256.",
+    "status": "PENDING_HUMAN_DECISION"
+  },
+  "approval_set_sha256": "e5f7836485106d4840b68c9c209effab31dd18359af06b12af60a4bb64d1461c",
+  "approval_statement": "approve all EXPLICIT_SOURCE_EVIDENCE candidates in this reviewed set",
+  "candidates": [
+    {
+      "action_texts": [
+        "Reinigen gevelafdekking natuursteen"
+      ],
+      "block_id": "P06-L007",
+      "candidate_id": "SEC-DOC-002-EL-003",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-003",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Gevelafdekking natuursteen",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "natural_stone",
+        "original": "natuursteen"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P013-L011"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "2110 Gevelafdekking natuursteen Voorgevels woningen 2,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen boeiboord hout"
+      ],
+      "block_id": "P06-L016",
+      "candidate_id": "SEC-DOC-002-EL-010",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-010",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Boeiboord hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P013-L075"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "2716 Boeiboord hout Voorgevels woningen 28,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Reinigen goot zink"
+      ],
+      "block_id": "P06-L017",
+      "candidate_id": "SEC-DOC-002-EL-011",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-011",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Gootbekleding zink",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "zinc",
+        "original": "zink"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P013-L081"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "2716 Gootbekleding zink Voorgevels woningen 25,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen gootconstructie hout"
+      ],
+      "block_id": "P06-L018",
+      "candidate_id": "SEC-DOC-002-EL-012",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-012",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Gootconstructie hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P013-L087"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "2716 Gootconstructie hout Voorgevels woningen 25,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen gevelankers staal"
+      ],
+      "block_id": "P06-L020",
+      "candidate_id": "SEC-DOC-002-EL-013",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-013",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Gevelankers staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P013-L095"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "2810 Gevelankers staal Achtergevel woningen 2,00st 3"
+    },
+    {
+      "action_texts": [
+        "Herstellen waterslag hout"
+      ],
+      "block_id": "P06-L023",
+      "candidate_id": "SEC-DOC-002-EL-015",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-015",
+      "element_location": "Achtergevel bog",
+      "element_name": "Raamdorpel hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P014-L065"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "3120 Raamdorpel hout Achtergevel bog 1,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Herstellen waterslag hout"
+      ],
+      "block_id": "P06-L026",
+      "candidate_id": "SEC-DOC-002-EL-018",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-018",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Raamdorpel hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P014-L071"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "3120 Raamdorpel hout Achtergevel woningen 1,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Herstellen waterslag hout"
+      ],
+      "block_id": "P07-L004",
+      "candidate_id": "SEC-DOC-002-EL-021",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-021",
+      "element_location": "Voorgevels bog",
+      "element_name": "Raamdorpel hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P014-L077"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3120 Raamdorpel hout Voorgevels bog 14,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Herstellen waterslag hout"
+      ],
+      "block_id": "P07-L006",
+      "candidate_id": "SEC-DOC-002-EL-023",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-023",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Raamdorpel hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P014-L025"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3120 Raamdorpel hout Voorgevels woningen 20,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Herstellen raam hout"
+      ],
+      "block_id": "P07-L008",
+      "candidate_id": "SEC-DOC-002-EL-025",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-025",
+      "element_location": "Voorgevels bog",
+      "element_name": "Draai/val/uitzet raam hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P014-L083"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3122 Draai/val/uitzet raam hout Voorgevels bog 8,00st 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen raam hout"
+      ],
+      "block_id": "P07-L009",
+      "candidate_id": "SEC-DOC-002-EL-026",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-026",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Draai/val/uitzet raam hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P015-L007"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3122 Draai/val/uitzet raam hout Voorgevels woningen 22,00st 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen binnendeur hout"
+      ],
+      "block_id": "P07-L020",
+      "candidate_id": "SEC-DOC-002-EL-036",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-036",
+      "element_location": "Th 144",
+      "element_name": "Binnendeur hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P015-L051"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3231 Binnendeur hout Th 144 7,00st 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen binnendeur hout"
+      ],
+      "block_id": "P07-L021",
+      "candidate_id": "SEC-DOC-002-EL-037",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-037",
+      "element_location": "Th 74",
+      "element_name": "Binnendeur hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P015-L057"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3231 Binnendeur hout Th 74 4,00st 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen trapleuning hout"
+      ],
+      "block_id": "P07-L023",
+      "candidate_id": "SEC-DOC-002-EL-038",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-038",
+      "element_location": "Th 144",
+      "element_name": "Binnentrapleuning hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P015-L073"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3431 Binnentrapleuning hout Th 144 19,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen trapleuning hout"
+      ],
+      "block_id": "P07-L024",
+      "candidate_id": "SEC-DOC-002-EL-039",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-039",
+      "element_location": "Th 74",
+      "element_name": "Binnentrapleuning hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P015-L067"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3431 Binnentrapleuning hout Th 74 19,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Herstellen gevelbekleding hout"
+      ],
+      "block_id": "P08-L012",
+      "candidate_id": "SEC-DOC-002-EL-050",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-050",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Gevelbekleding hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P016-L045"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4112 Gevelbekleding hout Voorgevels woningen 2,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P08-L023",
+      "candidate_id": "SEC-DOC-002-EL-057",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-057",
+      "element_location": "Achtergevel bog",
+      "element_name": "Buitenschilderwerk panelen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L109"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4621 Buitenschilderwerk panelen hout dekkend Achtergevel bog 1,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P08-L024",
+      "candidate_id": "SEC-DOC-002-EL-058",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-058",
+      "element_location": "Achtergevel bog",
+      "element_name": "Buitenschilderwerk raamdorpel hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L083"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4621 Buitenschilderwerk raamdorpel hout dekkend Achtergevel bog 1,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P08-L026",
+      "candidate_id": "SEC-DOC-002-EL-060",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-060",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Buitenschilderwerk boeiboord hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L011"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4621 Buitenschilderwerk boeiboord hout dekkend Achtergevel woningen 4,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P08-L027",
+      "candidate_id": "SEC-DOC-002-EL-061",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-061",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Buitenschilderwerk panelen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L115"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4621 Buitenschilderwerk panelen hout dekkend Achtergevel woningen 1,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P09-L004",
+      "candidate_id": "SEC-DOC-002-EL-063",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-063",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Buitenschilderwerk raamdorpel hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L089"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk raamdorpel hout dekkend Achtergevel woningen 1,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk deur hout dekkend"
+      ],
+      "block_id": "P09-L006",
+      "candidate_id": "SEC-DOC-002-EL-065",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-065",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Buitenschilderwerk deuren hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L055"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk deuren hout dekkend Achtergevel woningen 1,00st 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk deur hout dekkend"
+      ],
+      "block_id": "P09-L007",
+      "candidate_id": "SEC-DOC-002-EL-066",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-066",
+      "element_location": "Voorgevels bog",
+      "element_name": "Buitenschilderwerk deuren hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L063"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk deuren hout dekkend Voorgevels bog 4,00st 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P09-L008",
+      "candidate_id": "SEC-DOC-002-EL-067",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-067",
+      "element_location": "Voorgevels bog",
+      "element_name": "Buitenschilderwerk raamdorpel hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L095"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk raamdorpel hout dekkend Voorgevels bog 14,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P09-L010",
+      "candidate_id": "SEC-DOC-002-EL-069",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-069",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk gootconstructie hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L071"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk gootconstructie hout dekkend Voorgevels woningen 25,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hijsbalk"
+      ],
+      "block_id": "P09-L012",
+      "candidate_id": "SEC-DOC-002-EL-071",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-071",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk hijsbalk hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L099"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk hijsbalk hout Voorgevels woningen 1,00st 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hijsbalk"
+      ],
+      "block_id": "P09-L013",
+      "candidate_id": "SEC-DOC-002-EL-072",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-072",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk hijsbalk staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L103"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk hijsbalk staal Voorgevels woningen 1,00st 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P09-L014",
+      "candidate_id": "SEC-DOC-002-EL-073",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-073",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk raamdorpel hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L025"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk raamdorpel hout dekkend Voorgevels woningen 20,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk deur hout dekkend"
+      ],
+      "block_id": "P09-L015",
+      "candidate_id": "SEC-DOC-002-EL-074",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-074",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk deuren hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L031"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk deuren hout dekkend Voorgevels woningen 6,00st 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P09-L016",
+      "candidate_id": "SEC-DOC-002-EL-075",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-075",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk boeiboord hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L077"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk boeiboord hout dekkend Voorgevels woningen 28,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P09-L017",
+      "candidate_id": "SEC-DOC-002-EL-076",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-076",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk gevelbekleding hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P017-L045"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4621 Buitenschilderwerk gevelbekleding hout dekkend Voorgevels woningen 2,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk panelen hout dekkend"
+      ],
+      "block_id": "P09-L018",
+      "candidate_id": "SEC-DOC-002-EL-077",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-077",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk panelen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L077"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4622 Binnenschilderwerk panelen hout dekkend Th 144 2,50m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk deur hout dekkend"
+      ],
+      "block_id": "P09-L019",
+      "candidate_id": "SEC-DOC-002-EL-078",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-078",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk deuren hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L061"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4622 Binnenschilderwerk deuren hout dekkend Th 144 8,00st 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk leuningen hout dekkend"
+      ],
+      "block_id": "P09-L022",
+      "candidate_id": "SEC-DOC-002-EL-081",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-081",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk leuningen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L037"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4622 Binnenschilderwerk leuningen hout dekkend Th 144 19,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk leuningen hout dekkend"
+      ],
+      "block_id": "P09-L023",
+      "candidate_id": "SEC-DOC-002-EL-082",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-082",
+      "element_location": "Th 74",
+      "element_name": "Binnenschilderwerk leuningen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L069"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4622 Binnenschilderwerk leuningen hout dekkend Th 74 19,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk panelen hout dekkend"
+      ],
+      "block_id": "P09-L024",
+      "candidate_id": "SEC-DOC-002-EL-083",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-083",
+      "element_location": "Th 74",
+      "element_name": "Binnenschilderwerk panelen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L045"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4622 Binnenschilderwerk panelen hout dekkend Th 74 2,50m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk deur hout dekkend"
+      ],
+      "block_id": "P09-L025",
+      "candidate_id": "SEC-DOC-002-EL-084",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-084",
+      "element_location": "Th 74",
+      "element_name": "Binnenschilderwerk deuren hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L029"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "4622 Binnenschilderwerk deuren hout dekkend Th 74 6,00st 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk trap hout dekkend"
+      ],
+      "block_id": "P10-L004",
+      "candidate_id": "SEC-DOC-002-EL-087",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-087",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk trap hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L101"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4624 Binnenschilderwerk trap hout dekkend Th 144 22,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk trap hout dekkend"
+      ],
+      "block_id": "P10-L005",
+      "candidate_id": "SEC-DOC-002-EL-088",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-088",
+      "element_location": "Th 74",
+      "element_name": "Binnenschilderwerk trap hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L093"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4624 Binnenschilderwerk trap hout dekkend Th 74 22,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen hout dekkend"
+      ],
+      "block_id": "P10-L006",
+      "candidate_id": "SEC-DOC-002-EL-089",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-089",
+      "element_location": "Achtergevel bog",
+      "element_name": "Buitenschilderwerk kozijn en draaiende delen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L109"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4631 Buitenschilderwerk kozijn en draaiende delen hout Achtergevel bog 3,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen hout dekkend"
+      ],
+      "block_id": "P10-L008",
+      "candidate_id": "SEC-DOC-002-EL-090",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-090",
+      "element_location": "Achtergevel woningen",
+      "element_name": "Buitenschilderwerk kozijn en draaiende delen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L117"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4631 Buitenschilderwerk kozijn en draaiende delen hout Achtergevel woningen 18,00m1 4"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen hout dekkend"
+      ],
+      "block_id": "P10-L010",
+      "candidate_id": "SEC-DOC-002-EL-091",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-091",
+      "element_location": "Voorgevels bog",
+      "element_name": "Buitenschilderwerk kozijn en draaiende delen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P018-L125"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4631 Buitenschilderwerk kozijn en draaiende delen hout Voorgevels bog 177,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen hout dekkend"
+      ],
+      "block_id": "P10-L012",
+      "candidate_id": "SEC-DOC-002-EL-092",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-092",
+      "element_location": "Voorgevels woningen",
+      "element_name": "Buitenschilderwerk kozijn en draaiende delen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P019-L011"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4631 Buitenschilderwerk kozijn en draaiende delen hout Voorgevels woningen 259,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen hout dekkend"
+      ],
+      "block_id": "P10-L014",
+      "candidate_id": "SEC-DOC-002-EL-093",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-093",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk kozijn en draaiende delen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P019-L035"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4632 Binnenschilderwerk kozijn en draaiende delen Th 144 35,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen hout dekkend"
+      ],
+      "block_id": "P10-L016",
+      "candidate_id": "SEC-DOC-002-EL-094",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-094",
+      "element_location": "Th 74",
+      "element_name": "Binnenschilderwerk kozijn en draaiende delen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P019-L019"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4632 Binnenschilderwerk kozijn en draaiende delen Th 74 48,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en draaiende delen aluminium"
+      ],
+      "block_id": "P10-L018",
+      "candidate_id": "SEC-DOC-002-EL-095",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-095",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk kozijn en draaiende delen aluminium",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "aluminium",
+        "original": "aluminium"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P019-L027"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4632 Binnenschilderwerk kozijn en draaiende delen Th 144 23,00m2 3\naluminium"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hek hout dekkend"
+      ],
+      "block_id": "P10-L020",
+      "candidate_id": "SEC-DOC-002-EL-096",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-096",
+      "element_location": "Th 144",
+      "element_name": "Binnenschilderwerk hek hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P019-L055"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4634 Binnenschilderwerk hek hout dekkend Th 144 2,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hek hout dekkend"
+      ],
+      "block_id": "P10-L021",
+      "candidate_id": "SEC-DOC-002-EL-097",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-002",
+      "element_id": "DOC-002-EL-097",
+      "element_location": "Th 74",
+      "element_name": "Binnenschilderwerk hek hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-002-P019-L043"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 10,
+      "source_fragment": "4634 Binnenschilderwerk hek hout dekkend Th 74 2,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Reinigen en controleren ventilatierooster"
+      ],
+      "block_id": "P06-L013",
+      "candidate_id": "SEC-DOC-005-EL-007",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-007",
+      "element_location": "Alle gevels",
+      "element_name": "Kozijn buiten hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P011-L037"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 2"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)"
+      ],
+      "block_id": "P06-L026",
+      "candidate_id": "SEC-DOC-005-EL-015",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-015",
+      "element_location": "Voorgevel - gevelbekleding",
+      "element_name": "Buitenschilderwerk gevelbekleding hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P011-L091"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4621 Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk metaal (uitgevoerd 2026)"
+      ],
+      "block_id": "P06-L027",
+      "candidate_id": "SEC-DOC-005-EL-016",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-016",
+      "element_location": "Achtergevel - balkons",
+      "element_name": "Buitenschilderwerk balustrades staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L009"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4621 Buitenschilderwerk balustrades staal Achtergevel - balkons 75,00m2 1"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk metaal (uitgevoerd 2026)"
+      ],
+      "block_id": "P06-L028",
+      "candidate_id": "SEC-DOC-005-EL-017",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-017",
+      "element_location": "Voorgevel - trappenhuizen",
+      "element_name": "Buitenschilderwerk leuning staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L015"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4621 Buitenschilderwerk leuning staal Voorgevel - trappenhuizen 61,00m1 1"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk beton afdekkers balkon (uitgevoerd 2026)"
+      ],
+      "block_id": "P07-L006",
+      "candidate_id": "SEC-DOC-005-EL-020",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-020",
+      "element_location": "Achtergevel - balkons",
+      "element_name": "Buitenschilderwerk afdekking beton",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "concrete",
+        "original": "beton"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L035"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "4628 Buitenschilderwerk afdekking beton Achtergevel - balkons 59,10m1 1"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)"
+      ],
+      "block_id": "P07-L008",
+      "candidate_id": "SEC-DOC-005-EL-022",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-022",
+      "element_location": "Alle gevels",
+      "element_name": "Buitenschilderwerk kozijn hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L043"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "4631 Buitenschilderwerk kozijn hout dekkend Alle gevels 756,80m2 1"
+    },
+    {
+      "action_texts": [
+        "Vervangen dakrandafwerking zink"
+      ],
+      "block_id": "P07-L014",
+      "candidate_id": "SEC-DOC-005-EL-026",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-026",
+      "element_location": "Alle gevels",
+      "element_name": "Dakrandafwerking zink",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "zinc",
+        "original": "zink"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L083"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "4711 Dakrandafwerking zink Alle gevels 70,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer staal"
+      ],
+      "block_id": "P07-L019",
+      "candidate_id": "SEC-DOC-005-EL-029",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-029",
+      "element_location": "Alle gevels",
+      "element_name": "Hemelwaterafvoer staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L095"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 2"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer pvc"
+      ],
+      "block_id": "P07-L020",
+      "candidate_id": "SEC-DOC-005-EL-030",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-005",
+      "element_id": "DOC-005-EL-030",
+      "element_location": "Alle gevels",
+      "element_name": "Hemelwaterafvoer pvc",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "pvc",
+        "original": "pvc"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-005-P012-L091"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 3"
+    },
+    {
+      "action_texts": [
+        "Aanbrengen vervolgsysteem",
+        "Groot schilderwerk gevelbekleding hout dekkend"
+      ],
+      "block_id": "P06-L032",
+      "candidate_id": "SEC-DOC-006-EL-015",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-015",
+      "element_location": "Voorgevel - gevelbekleding",
+      "element_name": "Buitenschilderwerk gevelbekleding hout",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L007",
+        "PO-DOC-006-P015-L009"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4621 Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk metaal"
+      ],
+      "block_id": "P06-L033",
+      "candidate_id": "SEC-DOC-006-EL-016",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-016",
+      "element_location": "Achtergevel - balkons",
+      "element_name": "Buitenschilderwerk balustrades staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L015"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4621 Buitenschilderwerk balustrades staal Achtergevel - balkons 20,00m1 1"
+    },
+    {
+      "action_texts": [
+        "Aanbrengen vervolgsysteem",
+        "Groot schilderwerk metaal"
+      ],
+      "block_id": "P06-L034",
+      "candidate_id": "SEC-DOC-006-EL-017",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-017",
+      "element_location": "Voorgevel - trappenhuizen",
+      "element_name": "Buitenschilderwerk leuning staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L019",
+        "PO-DOC-006-P015-L021"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4621 Buitenschilderwerk leuning staal Voorgevel - trappenhuizen 42,00m1 3"
+    },
+    {
+      "action_texts": [
+        "Herstellen"
+      ],
+      "block_id": "P06-L038",
+      "candidate_id": "SEC-DOC-006-EL-020",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-020",
+      "element_location": "Achtergevel - balkons",
+      "element_name": "Buitenschilderwerk afdekking beton",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "concrete",
+        "original": "beton"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L037"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4628 Buitenschilderwerk afdekking beton Achtergevel - balkons 59,10m1 3"
+    },
+    {
+      "action_texts": [
+        "Aanbrengen vervolgsysteem",
+        "Groot schilderwerk kozijn (en draaiende delen) hout dekkend (conform PO cyclus)"
+      ],
+      "block_id": "P06-L040",
+      "candidate_id": "SEC-DOC-006-EL-022",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-022",
+      "element_location": "Alle gevels",
+      "element_name": "Buitenschilderwerk kozijn hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L047",
+        "PO-DOC-006-P015-L049"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "4631 Buitenschilderwerk kozijn hout dekkend Alle gevels 756,80m2 3"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer staal"
+      ],
+      "block_id": "P07-L013",
+      "candidate_id": "SEC-DOC-006-EL-029",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-029",
+      "element_location": "Alle gevels",
+      "element_name": "Hemelwaterafvoer staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L097"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 1"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer pvc"
+      ],
+      "block_id": "P07-L014",
+      "candidate_id": "SEC-DOC-006-EL-030",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-006",
+      "element_id": "DOC-006-EL-030",
+      "element_location": "Alle gevels",
+      "element_name": "Hemelwaterafvoer pvc",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "pvc",
+        "original": "pvc"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-006-P015-L093"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 1"
+    },
+    {
+      "action_texts": [
+        "Reinigen"
+      ],
+      "block_id": "P07-L015",
+      "candidate_id": "SEC-DOC-007-EL-008",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-008",
+      "element_location": null,
+      "element_name": "Buitentrap staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P015-L083"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "2410 Buitentrap staal 2,00st 0"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk leuningen"
+      ],
+      "block_id": "P08-L008",
+      "candidate_id": "SEC-DOC-007-EL-023",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-023",
+      "element_location": null,
+      "element_name": "Binnenschilderwerk leuningen hout transparant",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P017-L019"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4622 Binnenschilderwerk leuningen hout transparant 13,20m2 0"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk trap hout transparant"
+      ],
+      "block_id": "P08-L010",
+      "candidate_id": "SEC-DOC-007-EL-025",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-025",
+      "element_location": null,
+      "element_name": "Binnenschilderwerk trap hout transparant",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P017-L025"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4624 Binnenschilderwerk trap hout transparant 27,20m2 0"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn & raam hout dekkend achterzijde",
+        "Groot schilderwerk kozijn & raam hout dekkend voorzijde"
+      ],
+      "block_id": "P08-L012",
+      "candidate_id": "SEC-DOC-007-EL-027",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-027",
+      "element_location": null,
+      "element_name": "Buitenschilderwerk kozijn&raam hout dekkend m2",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P017-L043",
+        "PO-DOC-007-P017-L047"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4631 Buitenschilderwerk kozijn&raam hout dekkend m2 782,60m2 0"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn&raam hout dekkend"
+      ],
+      "block_id": "P08-L013",
+      "candidate_id": "SEC-DOC-007-EL-028",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-028",
+      "element_location": null,
+      "element_name": "Binnenschilderwerk kozijn,ramen en deuren hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P017-L055"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4632 Binnenschilderwerk kozijn,ramen en deuren hout 360,92m2 0"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk plafond hout dekkend"
+      ],
+      "block_id": "P08-L016",
+      "candidate_id": "SEC-DOC-007-EL-030",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-030",
+      "element_location": null,
+      "element_name": "Buitenschilderwerk plafond hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P017-L089"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4645 Buitenschilderwerk plafond hout dekkend 29,00m2 0"
+    },
+    {
+      "action_texts": [
+        "Vervangen onderuitloop",
+        "Vervangen onderuitloop dakvlak 2"
+      ],
+      "block_id": "P08-L029",
+      "candidate_id": "SEC-DOC-007-EL-039",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-007",
+      "element_id": "DOC-007-EL-039",
+      "element_location": null,
+      "element_name": "Doorvoer staal (onderuitlopen platte daken)",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-007-P018-L059",
+        "PO-DOC-007-P018-L061"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "5211 Doorvoer staal (onderuitlopen platte daken) 18,00st 0"
+    },
+    {
+      "action_texts": [
+        "Vervangen dakbedekking bitumen geballast",
+        "Vervangen grind"
+      ],
+      "block_id": "P04-L008",
+      "candidate_id": "SEC-DOC-008-EL-004",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-008",
+      "element_id": "DOC-008-EL-004",
+      "element_location": null,
+      "element_name": "Dakbedekking bitumen ballast (liftdak)",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "bitumen",
+        "original": "bitumen"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-008-P009-L051",
+        "PO-DOC-008-P009-L059"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 4,
+      "source_fragment": "4711 Dakbedekking bitumen ballast (liftdak) 89,78m2 0"
+    },
+    {
+      "action_texts": [
+        "Vervangen daktrim aluminium"
+      ],
+      "block_id": "P04-L009",
+      "candidate_id": "SEC-DOC-008-EL-005",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-008",
+      "element_id": "DOC-008-EL-005",
+      "element_location": null,
+      "element_name": "Dakrandafwerking aluminium trim",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "aluminium",
+        "original": "aluminium"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-008-P009-L045"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 4,
+      "source_fragment": "4711 Dakrandafwerking aluminium trim 119,60m1 0"
+    },
+    {
+      "action_texts": [
+        "Vervangen dakdoorvoer metaal plat"
+      ],
+      "block_id": "P04-L017",
+      "candidate_id": "SEC-DOC-008-EL-010",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-008",
+      "element_id": "DOC-008-EL-010",
+      "element_location": null,
+      "element_name": "Ventilatie dakdoorvoer zink (groot) (hoofddakdak)",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "zinc",
+        "original": "zink"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-008-P010-L017"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 4,
+      "source_fragment": "5710 Ventilatie dakdoorvoer zink (groot) (hoofddakdak) 3,00st 0"
+    },
+    {
+      "action_texts": [
+        "Vervangen dakdoorvoer metaal plat"
+      ],
+      "block_id": "P04-L018",
+      "candidate_id": "SEC-DOC-008-EL-011",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-008",
+      "element_id": "DOC-008-EL-011",
+      "element_location": null,
+      "element_name": "Ventilatie dakdoorvoer zink (klein) (hoofddakdak)",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "zinc",
+        "original": "zink"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-008-P010-L011"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 4,
+      "source_fragment": "5710 Ventilatie dakdoorvoer zink (klein) (hoofddakdak) 6,00st 0"
+    },
+    {
+      "action_texts": [
+        "Herstellen"
+      ],
+      "block_id": "P07-L018",
+      "candidate_id": "SEC-DOC-009-EL-009",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-009",
+      "element_location": null,
+      "element_name": "Boeiboord-beton dakopbouw",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "concrete",
+        "original": "beton"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P018-L075"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "2716 Boeiboord-beton dakopbouw 80,40m1 3"
+    },
+    {
+      "action_texts": [
+        "Controleren en afstellen hang en sluitwerk buitenramen",
+        "Vervangen blankglas dubbel Hr ++"
+      ],
+      "block_id": "P07-L024",
+      "candidate_id": "SEC-DOC-009-EL-013",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-013",
+      "element_location": null,
+      "element_name": "Kozijn buiten kunststof voorgevel",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "pvc",
+        "original": "kunststof"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P018-L105",
+        "PO-DOC-009-P019-L007"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3120 Kozijn buiten kunststof voorgevel 396,00m2 0"
+    },
+    {
+      "action_texts": [
+        "Reinigen kozijn aluminium"
+      ],
+      "block_id": "P07-L028",
+      "candidate_id": "SEC-DOC-009-EL-016",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-016",
+      "element_location": null,
+      "element_name": "Kozijnen buiten aluminium trappenhuis (voorgevel)",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "aluminium",
+        "original": "aluminium"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P018-L095"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "3120 Kozijnen buiten aluminium trappenhuis 129,75m2 0\n(voorgevel)"
+    },
+    {
+      "action_texts": [
+        "Vervangen"
+      ],
+      "block_id": "P08-L004",
+      "candidate_id": "SEC-DOC-009-EL-019",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-019",
+      "element_location": null,
+      "element_name": "Balustrade leuning staal (achtergevel) 1e verdieping",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P019-L073"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "3410 Balustrade leuning staal (achtergevel) 1e 59,49m1 5\nverdieping"
+    },
+    {
+      "action_texts": [
+        "Vervangen balustrade (verz.) staal"
+      ],
+      "block_id": "P08-L006",
+      "candidate_id": "SEC-DOC-009-EL-020",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-020",
+      "element_location": null,
+      "element_name": "Balustrade leuning staal (achtergevel) balcons (reling) op balcon",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P019-L067"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "3410 Balustrade leuning staal (achtergevel) balcons 213,00m1 0\n(reling) op balcon"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P08-L016",
+      "candidate_id": "SEC-DOC-009-EL-026",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-026",
+      "element_location": null,
+      "element_name": "Binnenschilderwerk hout dekkend entree bergingen",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P020-L041"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4622 Binnenschilderwerk hout dekkend entree 62,00m2 0\nbergingen"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk diktekanten balkons achterzijde",
+        "Groot schilderwerk diktekanten balkons voorzijde",
+        "Herstellen achterzijde"
+      ],
+      "block_id": "P08-L026",
+      "candidate_id": "SEC-DOC-009-EL-032",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-032",
+      "element_location": null,
+      "element_name": "Buitenschilderwerk beton diktekanten",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "concrete",
+        "original": "beton"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P020-L063",
+        "PO-DOC-009-P020-L065",
+        "PO-DOC-009-P020-L069"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4628 Buitenschilderwerk beton diktekanten 228,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk kozijn en raam hout dekkend",
+        "Herstellen"
+      ],
+      "block_id": "P08-L030",
+      "candidate_id": "SEC-DOC-009-EL-035",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-035",
+      "element_location": null,
+      "element_name": "Buitenschilderwerk kozijn,raam en deur hout dekkend achtergevel",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P020-L091",
+        "PO-DOC-009-P020-L093"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4631 Buitenschilderwerk kozijn,raam en deur hout 53,52m2 5"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hek hout transparant"
+      ],
+      "block_id": "P08-L036",
+      "candidate_id": "SEC-DOC-009-EL-039",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-039",
+      "element_location": null,
+      "element_name": "Binnenschilderwerk hek leuning hout transparant",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P021-L007"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 8,
+      "source_fragment": "4634 Binnenschilderwerk hek leuning hout transparant 62,40m1 0"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer pvc"
+      ],
+      "block_id": "P09-L014",
+      "candidate_id": "SEC-DOC-009-EL-047",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-009",
+      "element_id": "DOC-009-EL-047",
+      "element_location": null,
+      "element_name": "Hemelwaterafvoer pvc",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "pvc",
+        "original": "pvc"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-009-P021-L095"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 9,
+      "source_fragment": "5211 Hemelwaterafvoer pvc 170,20m1 0"
+    },
+    {
+      "action_texts": [
+        "Keuren hanebalk"
+      ],
+      "block_id": "P06-L007",
+      "candidate_id": "SEC-DOC-010-EL-003",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-003",
+      "element_location": "Achtergevel",
+      "element_name": "Hijsbalk staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P010-L023"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "2120 Hijsbalk staal Achtergevel 1,00st 8"
+    },
+    {
+      "action_texts": [
+        "Onderhoud kozijnen (confrom offerte Kemo)"
+      ],
+      "block_id": "P06-L016",
+      "candidate_id": "SEC-DOC-010-EL-009",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-009",
+      "element_location": "Voor- en achtergevel",
+      "element_name": "Kozijn buiten aluminium",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "aluminium",
+        "original": "aluminium"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P010-L065"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 6,
+      "source_fragment": "3120 Kozijn buiten aluminium Voor- en achtergevel 84,28m2 3"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P07-L008",
+      "candidate_id": "SEC-DOC-010-EL-024",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-024",
+      "element_location": "Voor- en achtergevel",
+      "element_name": "Buitenschilderwerk diversen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P011-L085"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "4621 Buitenschilderwerk diversen hout dekkend Voor- en achtergevel 4,13m2 2"
+    },
+    {
+      "action_texts": [
+        "Groot schilderwerk hout dekkend"
+      ],
+      "block_id": "P07-L010",
+      "candidate_id": "SEC-DOC-010-EL-026",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-026",
+      "element_location": "BG + trappenhuis",
+      "element_name": "Binnenschilderwerk diversen hout dekkend",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "wood",
+        "original": "hout"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P012-L023"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "4622 Binnenschilderwerk diversen hout dekkend BG + trappenhuis 30,05m2 2"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer staal"
+      ],
+      "block_id": "P07-L025",
+      "candidate_id": "SEC-DOC-010-EL-038",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-038",
+      "element_location": "Voorgevel",
+      "element_name": "Hemelwaterafvoer staal",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "steel",
+        "original": "staal"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P012-L097"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Hemelwaterafvoer staal Voorgevel 1,82m1 2"
+    },
+    {
+      "action_texts": [
+        "Vervangen hemelwaterafvoer pvc"
+      ],
+      "block_id": "P07-L026",
+      "candidate_id": "SEC-DOC-010-EL-039",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-039",
+      "element_location": "Voorgevel",
+      "element_name": "Hemelwaterafvoer pvc",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "pvc",
+        "original": "pvc"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P012-L093"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Hemelwaterafvoer pvc Voorgevel 13,00m1 2"
+    },
+    {
+      "action_texts": [
+        "Vervangen doorvoer kunststof"
+      ],
+      "block_id": "P07-L027",
+      "candidate_id": "SEC-DOC-010-EL-040",
+      "classification": "EXPLICIT_SOURCE_EVIDENCE",
+      "document_id": "DOC-010",
+      "element_id": "DOC-010-EL-040",
+      "element_location": "Voorgevel",
+      "element_name": "Doorvoer kunststof",
+      "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+      "material": {
+        "normalized": "pvc",
+        "original": "kunststof"
+      },
+      "material_rule": "promotion_v3.EXPLICIT_SOURCE_EVIDENCE: exact token uit vocabularies/material.json in elementnaam of -locatie van batch1_v1 (tokenisatie gelijk aan MATERIAL_FROM_TEXT), precies één materiaal, gelijk aan de oude afleiding; actietekst zonder ander materiaal en zonder materiaalwissel ('>')",
+      "observation_ids": [
+        "PO-DOC-010-P012-L101"
+      ],
+      "old_material_basis": "verified_element (oude extractie/LLM-afleiding)",
+      "page": 7,
+      "source_fragment": "5211 Doorvoer kunststof Voorgevel 12,00st 2"
+    }
+  ],
+  "material_vocabulary_sha256": "8cb64be09d1be53c679b872b89ec69bdaa3e101ebaf6e2370ce7e877e72a7324",
+  "policy": "materiaal alleen bij EXPLICIT_SOURCE_EVIDENCE; geen OLD_DERIVATION_ONLY/AMBIGUOUS, geen fuzzy, geen vocabulaire-uitbreiding (besluit 2026-09-28)",
+  "scenario": "SOURCE_EVIDENCE",
+  "set_id": "SOURCE_EVIDENCE_APPROVAL_SET_batch1_v1",
+  "source_review_file": "reports/review/material_evidence_batch1_v1.json",
+  "source_review_sha256": "208fcc0149bfd4208927aaebb76a0c95056ce3f883dfac09f1539a35dfdcfe61",
+  "summary": {
+    "by_document": {
+      "DOC-002": 48,
+      "DOC-005": 9,
+      "DOC-006": 10,
+      "DOC-007": 9,
+      "DOC-008": 5,
+      "DOC-009": 14,
+      "DOC-010": 7
+    },
+    "by_document_material": {
+      "DOC-002": {
+        "aluminium": 1,
+        "natural_stone": 1,
+        "steel": 2,
+        "wood": 43,
+        "zinc": 1
+      },
+      "DOC-005": {
+        "concrete": 1,
+        "pvc": 1,
+        "steel": 3,
+        "wood": 3,
+        "zinc": 1
+      },
+      "DOC-006": {
+        "concrete": 1,
+        "pvc": 1,
+        "steel": 4,
+        "wood": 4
+      },
+      "DOC-007": {
+        "steel": 3,
+        "wood": 6
+      },
+      "DOC-008": {
+        "aluminium": 1,
+        "bitumen": 2,
+        "zinc": 2
+      },
+      "DOC-009": {
+        "aluminium": 1,
+        "concrete": 4,
+        "pvc": 3,
+        "steel": 2,
+        "wood": 4
+      },
+      "DOC-010": {
+        "aluminium": 1,
+        "pvc": 2,
+        "steel": 2,
+        "wood": 2
+      }
+    },
+    "by_material": {
+      "aluminium": 4,
+      "bitumen": 2,
+      "concrete": 6,
+      "natural_stone": 1,
+      "pvc": 7,
+      "steel": 16,
+      "wood": 62,
+      "zinc": 4
+    },
+    "elements": 92,
+    "observations": 102
+  },
+  "tool_version": "prepare_promotion_review_v1.0.0"
+}
