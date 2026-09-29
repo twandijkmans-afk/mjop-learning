@@ -1,0 +1,1056 @@
+{
+  "candidate_group": "4711|replace|m1",
+  "compared_materials": [
+    "aluminium",
+    "zinc"
+  ],
+  "existing_kengetallen": [],
+  "groups": {
+    "aluminium": {
+      "combined_scenarios_after_material_decision": {
+        "ALL_OPEN_FAMILIES_COMPARABLE": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [],
+            "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+            "material": "aluminium",
+            "max_display": "39.06",
+            "min_display": "33.88",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": true,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-008-P009-L045",
+              "PO-DOC-011-P021-L083",
+              "PO-DOC-012-P014-L107"
+            ],
+            "simulated_value_display": "37.47",
+            "source_cluster_count": 3,
+            "source_cluster_ids": [
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-011",
+              "SC-DOC-012"
+            ],
+            "status": "AVAILABLE"
+          }
+        ],
+        "ALL_OPEN_FAMILIES_COMPARABLE_WITH_CAVEATS": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [],
+            "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+            "material": "aluminium",
+            "max_display": "39.06",
+            "min_display": "33.88",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": true,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-008-P009-L045",
+              "PO-DOC-011-P021-L083",
+              "PO-DOC-012-P014-L107"
+            ],
+            "simulated_value_display": "37.47",
+            "source_cluster_count": 3,
+            "source_cluster_ids": [
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-011",
+              "SC-DOC-012"
+            ],
+            "status": "AVAILABLE"
+          }
+        ],
+        "ALL_OPEN_FAMILIES_NOT_COMPARABLE": []
+      },
+      "cross_cluster_pairs": [
+        {
+          "active_decision": null,
+          "content_check": {
+            "deviations": [],
+            "differences": [
+              "quantity",
+              "price"
+            ],
+            "matches_description": true,
+            "material_sources": [
+              "verified_element",
+              "human_material_decision"
+            ]
+          },
+          "hard_violations": [],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": [
+              "PRICE_LEVEL_ABSENT"
+            ]
+          },
+          "open": true,
+          "pair_caveats": [],
+          "pair_id": "PAIR-00557",
+          "review_family_id_after_material_decision": "RF-4711-17297bd2b3",
+          "review_family_id_before_material_decision": "RF-4711-72afa054e3",
+          "sides": [
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen daktrim aluminium",
+              "caveats": [
+                "PRICE_LEVEL_ABSENT"
+              ],
+              "derived_price_per_execution": "39.06",
+              "document_id": "DOC-008",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 45,
+              "material": {
+                "source": "verified_element",
+                "value": "aluminium"
+              },
+              "material_decision_id": null,
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking aluminium trim",
+              "observation_id": "PO-DOC-008-P009-L045",
+              "page": 9,
+              "price_level_date": null,
+              "quantity": "119.60",
+              "source_cluster": "SC-DOC-008+DOC-009",
+              "source_text": "Vervangen daktrim aluminium 119,60 m1 2025 25 4.671 4.671",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            },
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen daktrim aluminium",
+              "caveats": [
+                "PRICE_LEVEL_ABSENT"
+              ],
+              "derived_price_per_execution": "33.88",
+              "document_id": "DOC-011",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 83,
+              "material": {
+                "source": "human_material_decision",
+                "value": "aluminium"
+              },
+              "material_decision_id": "MDR-00003",
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking aluminium trim",
+              "observation_id": "PO-DOC-011-P021-L083",
+              "page": 21,
+              "price_level_date": null,
+              "quantity": "250.20",
+              "source_cluster": "SC-DOC-011",
+              "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            }
+          ],
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "active_decision": null,
+          "content_check": {
+            "deviations": [],
+            "differences": [
+              "price_level",
+              "quantity",
+              "price"
+            ],
+            "matches_description": true,
+            "material_sources": [
+              "verified_element",
+              "human_material_decision"
+            ]
+          },
+          "hard_violations": [],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": []
+          },
+          "open": true,
+          "pair_caveats": [],
+          "pair_id": "PAIR-00558",
+          "review_family_id_after_material_decision": "RF-4711-17297bd2b3",
+          "review_family_id_before_material_decision": "RF-4711-72afa054e3",
+          "sides": [
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen daktrim aluminium",
+              "caveats": [
+                "PRICE_LEVEL_ABSENT"
+              ],
+              "derived_price_per_execution": "39.06",
+              "document_id": "DOC-008",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 45,
+              "material": {
+                "source": "verified_element",
+                "value": "aluminium"
+              },
+              "material_decision_id": null,
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking aluminium trim",
+              "observation_id": "PO-DOC-008-P009-L045",
+              "page": 9,
+              "price_level_date": null,
+              "quantity": "119.60",
+              "source_cluster": "SC-DOC-008+DOC-009",
+              "source_text": "Vervangen daktrim aluminium 119,60 m1 2025 25 4.671 4.671",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            },
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen daktrim aluminium",
+              "caveats": [],
+              "derived_price_per_execution": "37.47",
+              "document_id": "DOC-012",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 107,
+              "material": {
+                "source": "human_material_decision",
+                "value": "aluminium"
+              },
+              "material_decision_id": "MDR-00004",
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking aluminium trim",
+              "observation_id": "PO-DOC-012-P014-L107",
+              "page": 14,
+              "price_level_date": "1-4-2024",
+              "quantity": "152.54",
+              "source_cluster": "SC-DOC-012",
+              "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            }
+          ],
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "active_decision": null,
+          "content_check": {
+            "deviations": [],
+            "differences": [
+              "price_level",
+              "quantity",
+              "price"
+            ],
+            "matches_description": true,
+            "material_sources": [
+              "human_material_decision",
+              "human_material_decision"
+            ]
+          },
+          "hard_violations": [],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": []
+          },
+          "open": true,
+          "pair_caveats": [],
+          "pair_id": "PAIR-00561",
+          "review_family_id_after_material_decision": "RF-4711-0f1822792b",
+          "review_family_id_before_material_decision": "RF-4711-899cd9d239",
+          "sides": [
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen daktrim aluminium",
+              "caveats": [
+                "PRICE_LEVEL_ABSENT"
+              ],
+              "derived_price_per_execution": "33.88",
+              "document_id": "DOC-011",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 83,
+              "material": {
+                "source": "human_material_decision",
+                "value": "aluminium"
+              },
+              "material_decision_id": "MDR-00003",
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking aluminium trim",
+              "observation_id": "PO-DOC-011-P021-L083",
+              "page": 21,
+              "price_level_date": null,
+              "quantity": "250.20",
+              "source_cluster": "SC-DOC-011",
+              "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            },
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen daktrim aluminium",
+              "caveats": [],
+              "derived_price_per_execution": "37.47",
+              "document_id": "DOC-012",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 107,
+              "material": {
+                "source": "human_material_decision",
+                "value": "aluminium"
+              },
+              "material_decision_id": "MDR-00004",
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking aluminium trim",
+              "observation_id": "PO-DOC-012-P014-L107",
+              "page": 14,
+              "price_level_date": "1-4-2024",
+              "quantity": "152.54",
+              "source_cluster": "SC-DOC-012",
+              "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            }
+          ],
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        }
+      ],
+      "material": "aluminium",
+      "material_steps": [
+        {
+          "document_id": "DOC-011",
+          "evidence": {
+            "action_text_original": "Vervangen daktrim aluminium",
+            "element_description_original": "Dakrandafwerking aluminium trim",
+            "unit_original": "m1"
+          },
+          "line": 83,
+          "material": "aluminium",
+          "material_normalized": "aluminium",
+          "observation_id": "PO-DOC-011-P021-L083",
+          "page": 21,
+          "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
+          "refusal_reason": null,
+          "source_cluster": "SC-DOC-011",
+          "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477"
+        },
+        {
+          "document_id": "DOC-012",
+          "evidence": {
+            "action_text_original": "Vervangen daktrim aluminium",
+            "element_description_original": "Dakrandafwerking aluminium trim",
+            "unit_original": "m1"
+          },
+          "line": 107,
+          "material": "aluminium",
+          "material_normalized": "aluminium",
+          "observation_id": "PO-DOC-012-P014-L107",
+          "page": 14,
+          "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
+          "refusal_reason": null,
+          "source_cluster": "SC-DOC-012",
+          "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716"
+        }
+      ],
+      "observation_ids": [
+        "PO-DOC-008-P009-L045",
+        "PO-DOC-011-P021-L083",
+        "PO-DOC-012-P014-L107"
+      ],
+      "open_cross_cluster_pairs": 3,
+      "open_families_after_material_decision": [
+        {
+          "document_ids": [
+            "DOC-011",
+            "DOC-012"
+          ],
+          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+          "evidence_flags": [
+            "EXACT_SAME_SEMANTIC_INPUT"
+          ],
+          "family_input_sha256_after_simulated_material_decision": "6dc43665816c1bd6a3528f930c75af2bcfda384ef475129ac7269788e01e6777",
+          "observation_caveats": {
+            "PRICE_LEVEL_ABSENT": 1
+          },
+          "pair_caveats": {},
+          "pair_ids": [
+            "PAIR-00561"
+          ],
+          "review_family_id": "RF-4711-0f1822792b",
+          "review_family_id_before_material_decision": [
+            "RF-4711-899cd9d239"
+          ],
+          "simulations": {
+            "COMPARABLE": [
+              {
+                "excluded_observation_ids": [],
+                "insufficient_data_reasons": [
+                  "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-b488c178",
+                "material": "aluminium",
+                "max_display": "37.47",
+                "min_display": "33.88",
+                "missing_cross_cluster_reviews": [],
+                "missing_price_level": true,
+                "mixed_price_level": false,
+                "observation_ids": [
+                  "PO-DOC-011-P021-L083",
+                  "PO-DOC-012-P014-L107"
+                ],
+                "simulated_value_display": null,
+                "source_cluster_count": 2,
+                "source_cluster_ids": [
+                  "SC-DOC-011",
+                  "SC-DOC-012"
+                ],
+                "status": "INSUFFICIENT_DATA"
+              }
+            ],
+            "COMPARABLE_WITH_CAVEATS": [
+              {
+                "excluded_observation_ids": [],
+                "insufficient_data_reasons": [
+                  "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-b488c178",
+                "material": "aluminium",
+                "max_display": "37.47",
+                "min_display": "33.88",
+                "missing_cross_cluster_reviews": [],
+                "missing_price_level": true,
+                "mixed_price_level": false,
+                "observation_ids": [
+                  "PO-DOC-011-P021-L083",
+                  "PO-DOC-012-P014-L107"
+                ],
+                "simulated_value_display": null,
+                "source_cluster_count": 2,
+                "source_cluster_ids": [
+                  "SC-DOC-011",
+                  "SC-DOC-012"
+                ],
+                "status": "INSUFFICIENT_DATA"
+              }
+            ],
+            "NOT_COMPARABLE": []
+          },
+          "source_clusters": [
+            "SC-DOC-011",
+            "SC-DOC-012"
+          ]
+        },
+        {
+          "document_ids": [
+            "DOC-008",
+            "DOC-011",
+            "DOC-012"
+          ],
+          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+          "evidence_flags": [
+            "EXACT_SAME_SEMANTIC_INPUT"
+          ],
+          "family_input_sha256_after_simulated_material_decision": "d423a2e2789eb1c117ccf625226101a0ca0be81988b88ff90950dcac4f324277",
+          "observation_caveats": {
+            "PRICE_LEVEL_ABSENT": 3
+          },
+          "pair_caveats": {},
+          "pair_ids": [
+            "PAIR-00557",
+            "PAIR-00558"
+          ],
+          "review_family_id": "RF-4711-17297bd2b3",
+          "review_family_id_before_material_decision": [
+            "RF-4711-72afa054e3"
+          ],
+          "simulations": {
+            "COMPARABLE": [
+              {
+                "excluded_observation_ids": [],
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "material": "aluminium",
+                "max_display": "39.06",
+                "min_display": "33.88",
+                "missing_cross_cluster_reviews": [
+                  [
+                    "PO-DOC-011-P021-L083",
+                    "PO-DOC-012-P014-L107"
+                  ]
+                ],
+                "missing_price_level": true,
+                "mixed_price_level": false,
+                "observation_ids": [
+                  "PO-DOC-008-P009-L045",
+                  "PO-DOC-011-P021-L083",
+                  "PO-DOC-012-P014-L107"
+                ],
+                "simulated_value_display": null,
+                "source_cluster_count": 3,
+                "source_cluster_ids": [
+                  "SC-DOC-008+DOC-009",
+                  "SC-DOC-011",
+                  "SC-DOC-012"
+                ],
+                "status": "INSUFFICIENT_DATA"
+              }
+            ],
+            "COMPARABLE_WITH_CAVEATS": [
+              {
+                "excluded_observation_ids": [],
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "material": "aluminium",
+                "max_display": "39.06",
+                "min_display": "33.88",
+                "missing_cross_cluster_reviews": [
+                  [
+                    "PO-DOC-011-P021-L083",
+                    "PO-DOC-012-P014-L107"
+                  ]
+                ],
+                "missing_price_level": true,
+                "mixed_price_level": false,
+                "observation_ids": [
+                  "PO-DOC-008-P009-L045",
+                  "PO-DOC-011-P021-L083",
+                  "PO-DOC-012-P014-L107"
+                ],
+                "simulated_value_display": null,
+                "source_cluster_count": 3,
+                "source_cluster_ids": [
+                  "SC-DOC-008+DOC-009",
+                  "SC-DOC-011",
+                  "SC-DOC-012"
+                ],
+                "status": "INSUFFICIENT_DATA"
+              }
+            ],
+            "NOT_COMPARABLE": []
+          },
+          "source_clusters": [
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-011",
+            "SC-DOC-012"
+          ]
+        }
+      ],
+      "pairs_not_matching_description": [],
+      "potential_source_clusters": {
+        "count": 3,
+        "ids": [
+          "SC-DOC-008+DOC-009",
+          "SC-DOC-011",
+          "SC-DOC-012"
+        ],
+        "minimum_required": 3
+      },
+      "simulation_without_material_decision_all_pairs_positive": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+          "material": "aluminium",
+          "max_display": "39.06",
+          "min_display": "33.88",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": true,
+          "mixed_price_level": false,
+          "observation_ids": [
+            "PO-DOC-008-P009-L045",
+            "PO-DOC-011-P021-L083",
+            "PO-DOC-012-P014-L107"
+          ],
+          "simulated_value_display": null,
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-011",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ]
+    },
+    "zinc": {
+      "combined_scenarios_after_material_decision": {
+        "ALL_OPEN_FAMILIES_COMPARABLE": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_id": "KG-4711-replace-m1-zinc-5e892215",
+            "material": "zinc",
+            "max_display": "62.10",
+            "min_display": "56.97",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": false,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-005-P012-L083",
+              "PO-DOC-013-P018-L087"
+            ],
+            "simulated_value_display": null,
+            "source_cluster_count": 2,
+            "source_cluster_ids": [
+              "SC-DOC-005+DOC-006",
+              "SC-DOC-013"
+            ],
+            "status": "INSUFFICIENT_DATA"
+          }
+        ],
+        "ALL_OPEN_FAMILIES_COMPARABLE_WITH_CAVEATS": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_id": "KG-4711-replace-m1-zinc-5e892215",
+            "material": "zinc",
+            "max_display": "62.10",
+            "min_display": "56.97",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": false,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-005-P012-L083",
+              "PO-DOC-013-P018-L087"
+            ],
+            "simulated_value_display": null,
+            "source_cluster_count": 2,
+            "source_cluster_ids": [
+              "SC-DOC-005+DOC-006",
+              "SC-DOC-013"
+            ],
+            "status": "INSUFFICIENT_DATA"
+          }
+        ],
+        "ALL_OPEN_FAMILIES_NOT_COMPARABLE": []
+      },
+      "cross_cluster_pairs": [
+        {
+          "active_decision": null,
+          "content_check": {
+            "deviations": [],
+            "differences": [
+              "price_level",
+              "quantity",
+              "price"
+            ],
+            "matches_description": true,
+            "material_sources": [
+              "verified_element",
+              "human_material_decision"
+            ]
+          },
+          "hard_violations": [],
+          "observation_caveats": {
+            "a": [],
+            "b": []
+          },
+          "open": true,
+          "pair_caveats": [],
+          "pair_id": "PAIR-00546",
+          "review_family_id_after_material_decision": null,
+          "review_family_id_before_material_decision": "RF-4711-b9d21ea6f1",
+          "sides": [
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen dakrandafwerking zink",
+              "caveats": [],
+              "derived_price_per_execution": "62.10",
+              "document_id": "DOC-005",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 83,
+              "material": {
+                "source": "verified_element",
+                "value": "zinc"
+              },
+              "material_decision_id": null,
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking zink",
+              "observation_id": "PO-DOC-005-P012-L083",
+              "page": 12,
+              "price_level_date": "1-8-2026",
+              "quantity": "70.00",
+              "source_cluster": "SC-DOC-005+DOC-006",
+              "source_text": "Vervangen dakrandafwerking zink 70,00 m1 2040 18 4.347 4.347",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            },
+            {
+              "action_normalized": "replace",
+              "action_text": "Vervangen dakrandafwerking zink",
+              "caveats": [],
+              "derived_price_per_execution": "56.97",
+              "document_id": "DOC-013",
+              "executions_in_window": 1,
+              "independent_input": true,
+              "line": 87,
+              "material": {
+                "source": "human_material_decision",
+                "value": "zinc"
+              },
+              "material_decision_id": "MDR-00003",
+              "material_text_rule_would_derive": null,
+              "material_text_token": null,
+              "object_description": "Dakrandafwerking zink",
+              "observation_id": "PO-DOC-013-P018-L087",
+              "page": 18,
+              "price_level_date": "14-7-2026",
+              "quantity": "17.80",
+              "source_cluster": "SC-DOC-013",
+              "source_text": "Vervangen dakrandafwerking zink 17,80 m1 2037 25 1.014 1.014",
+              "unit_normalized": "m1",
+              "unit_original": "m1",
+              "vat_basis": "inclusive"
+            }
+          ],
+          "system_class": "COMPARABLE",
+          "unknown_reasons": []
+        }
+      ],
+      "material": "zinc",
+      "material_steps": [
+        {
+          "document_id": "DOC-013",
+          "evidence": {
+            "action_text_original": "Vervangen dakrandafwerking zink",
+            "element_description_original": "Dakrandafwerking zink",
+            "unit_original": "m1"
+          },
+          "line": 87,
+          "material": "zink",
+          "material_normalized": "zinc",
+          "observation_id": "PO-DOC-013-P018-L087",
+          "page": 18,
+          "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
+          "refusal_reason": null,
+          "source_cluster": "SC-DOC-013",
+          "source_text": "Vervangen dakrandafwerking zink 17,80 m1 2037 25 1.014 1.014"
+        }
+      ],
+      "observation_ids": [
+        "PO-DOC-005-P012-L083",
+        "PO-DOC-013-P018-L087"
+      ],
+      "open_cross_cluster_pairs": 1,
+      "open_families_after_material_decision": [],
+      "pairs_not_matching_description": [],
+      "potential_source_clusters": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-013"
+        ],
+        "minimum_required": 3
+      },
+      "simulation_without_material_decision_all_pairs_positive": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4711-replace-m1-zinc-5e892215",
+          "material": "zinc",
+          "max_display": "62.10",
+          "min_display": "56.97",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": false,
+          "mixed_price_level": false,
+          "observation_ids": [
+            "PO-DOC-005-P012-L083",
+            "PO-DOC-013-P018-L087"
+          ],
+          "simulated_value_display": null,
+          "source_cluster_count": 2,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-013"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ]
+    }
+  },
+  "inputs": {
+    "comparability_rules_version": "comparability_rules_v1",
+    "comparability_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
+    "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
+    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
+    "kengetallen_rules_version": "kengetallen_rules_v1",
+    "kengetallen_sha256": "575d3c4f8454c59c8a49f1043a569244e0586bf5a8af00fe0a507bb31fe84294",
+    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692"
+  },
+  "material": "aluminium",
+  "note": "Beslispakket, geen besluit. Materiaal-precheck: record_material_decision.validate met een placeholder-reviewer (schrijft niets). De toestand na het materiaalbesluit is gesimuleerd met record_material_decision.record op een tijdelijke kopie; family_input_sha256 daarvan is alleen indicatief - het echte familiebesluit bindt aan comparability_review_v2.json zoals dat NA het echte materiaalbesluit wordt herbouwd. Kengetalsimulaties gebruiken uitsluitend build_kengetallen.evaluate (kengetallen_rules_v1) met hypothetische ACTIVE records en worden nergens vastgelegd. COMPARABLE en COMPARABLE_WITH_CAVEATS tellen in de regels hetzelfde (regel 2). Toepassen alleen via scripts/record_material_decision.py en daarna scripts/apply_family_decision.py.",
+  "observations": [
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen dakrandafwerking zink",
+      "caveats": [],
+      "derived_price_per_execution": "62.10",
+      "document_id": "DOC-005",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 83,
+      "material": {
+        "source": "verified_element",
+        "value": "zinc"
+      },
+      "material_decision_id": null,
+      "material_status": "KNOWN:zinc",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
+      "object_description": "Dakrandafwerking zink",
+      "observation_id": "PO-DOC-005-P012-L083",
+      "page": 12,
+      "price_level_date": "1-8-2026",
+      "quantity": "70.00",
+      "source_cluster": "SC-DOC-005+DOC-006",
+      "source_text": "Vervangen dakrandafwerking zink 70,00 m1 2040 18 4.347 4.347",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen dakbedekking APP dakvlak 2-3",
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "derived_price_per_execution": "138.64",
+      "document_id": "DOC-007",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 15,
+      "material": {
+        "source": null,
+        "value": null
+      },
+      "material_decision_id": null,
+      "material_status": "NO_MATERIAL_EVIDENCE",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
+      "object_description": "Dakbedekking APP dakopstanden opgaande gevel",
+      "observation_id": "PO-DOC-007-P018-L015",
+      "page": 18,
+      "price_level_date": "28-4-2023",
+      "quantity": "15.40",
+      "source_cluster": "SC-DOC-007",
+      "source_text": "Vervangen dakbedekking APP 15,40 m1 2027 40 2.135 2.135",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen dakrandafwerking metaal 2-3",
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "derived_price_per_execution": "98.68",
+      "document_id": "DOC-007",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 33,
+      "material": {
+        "source": null,
+        "value": null
+      },
+      "material_decision_id": null,
+      "material_status": "NO_MATERIAL_EVIDENCE",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
+      "object_description": "Dakrandafwerking Plastisol afdekkap",
+      "observation_id": "PO-DOC-007-P018-L033",
+      "page": 18,
+      "price_level_date": "28-4-2023",
+      "quantity": "245.38",
+      "source_cluster": "SC-DOC-007",
+      "source_text": "Vervangen dakrandafwerking metaal 245,38 m1 2027 40 24.215 24.215",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen daktrim aluminium",
+      "caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "derived_price_per_execution": "39.06",
+      "document_id": "DOC-008",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 45,
+      "material": {
+        "source": "verified_element",
+        "value": "aluminium"
+      },
+      "material_decision_id": null,
+      "material_status": "KNOWN:aluminium",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
+      "object_description": "Dakrandafwerking aluminium trim",
+      "observation_id": "PO-DOC-008-P009-L045",
+      "page": 9,
+      "price_level_date": null,
+      "quantity": "119.60",
+      "source_cluster": "SC-DOC-008+DOC-009",
+      "source_text": "Vervangen daktrim aluminium 119,60 m1 2025 25 4.671 4.671",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen daktrim aluminium",
+      "caveats": [
+        "MATERIAL_UNKNOWN",
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "derived_price_per_execution": "33.88",
+      "document_id": "DOC-011",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 83,
+      "material": {
+        "source": null,
+        "value": null
+      },
+      "material_decision_id": null,
+      "material_status": "TEXT_EVIDENCE_PENDING_APPROVAL:aluminium",
+      "material_text_rule_would_derive": "aluminium",
+      "material_text_token": "aluminium",
+      "object_description": "Dakrandafwerking aluminium trim",
+      "observation_id": "PO-DOC-011-P021-L083",
+      "page": 21,
+      "price_level_date": null,
+      "quantity": "250.20",
+      "source_cluster": "SC-DOC-011",
+      "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen daktrim aluminium",
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "derived_price_per_execution": "37.47",
+      "document_id": "DOC-012",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 107,
+      "material": {
+        "source": null,
+        "value": null
+      },
+      "material_decision_id": null,
+      "material_status": "TEXT_EVIDENCE_PENDING_APPROVAL:aluminium",
+      "material_text_rule_would_derive": "aluminium",
+      "material_text_token": "aluminium",
+      "object_description": "Dakrandafwerking aluminium trim",
+      "observation_id": "PO-DOC-012-P014-L107",
+      "page": 14,
+      "price_level_date": "1-4-2024",
+      "quantity": "152.54",
+      "source_cluster": "SC-DOC-012",
+      "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen randstrook APP",
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "derived_price_per_execution": "45.59",
+      "document_id": "DOC-012",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 111,
+      "material": {
+        "source": null,
+        "value": null
+      },
+      "material_decision_id": null,
+      "material_status": "NO_MATERIAL_EVIDENCE",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
+      "object_description": "Randstrook APP",
+      "observation_id": "PO-DOC-012-P014-L111",
+      "page": 14,
+      "price_level_date": "1-4-2024",
+      "quantity": "152.54",
+      "source_cluster": "SC-DOC-012",
+      "source_text": "Vervangen randstrook APP 152,54 m1 2038 25 6.955 6.955",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen dakrandafwerking zink",
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "derived_price_per_execution": "56.97",
+      "document_id": "DOC-013",
+      "executions_in_window": 1,
+      "independent_input": true,
+      "line": 87,
+      "material": {
+        "source": null,
+        "value": null
+      },
+      "material_decision_id": null,
+      "material_status": "TEXT_EVIDENCE_PENDING_APPROVAL:zinc",
+      "material_text_rule_would_derive": "zinc",
+      "material_text_token": "zink",
+      "object_description": "Dakrandafwerking zink",
+      "observation_id": "PO-DOC-013-P018-L087",
+      "page": 18,
+      "price_level_date": "14-7-2026",
+      "quantity": "17.80",
+      "source_cluster": "SC-DOC-013",
+      "source_text": "Vervangen dakrandafwerking zink 17,80 m1 2037 25 1.014 1.014",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    }
+  ],
+  "package_version": "decision_package_4711_aluminium_v1"
+}
