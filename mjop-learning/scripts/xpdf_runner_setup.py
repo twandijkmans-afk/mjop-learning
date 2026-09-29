@@ -71,6 +71,26 @@ def version_line(binary):
     return text.splitlines()[0] if text else None
 
 
+def json_diff(expected, observed, path="", out=None, limit=40):
+    """Compacte lijst verschillen (pad, verwacht, waargenomen) voor diagnose in de CI-log."""
+    out = [] if out is None else out
+    if len(out) >= limit:
+        return out
+    if isinstance(expected, dict) and isinstance(observed, dict):
+        for k in sorted(set(expected) | set(observed)):
+            if k not in expected or k not in observed:
+                out.append({"path": f"{path}/{k}", "expected": repr(expected.get(k))[:160],
+                            "observed": repr(observed.get(k))[:160]})
+            else:
+                json_diff(expected[k], observed[k], f"{path}/{k}", out, limit)
+    elif isinstance(expected, list) and isinstance(observed, list) and len(expected) == len(observed):
+        for i, (a, b) in enumerate(zip(expected, observed)):
+            json_diff(a, b, f"{path}[{i}]", out, limit)
+    elif expected != observed:
+        out.append({"path": path, "expected": repr(expected)[:160], "observed": repr(observed)[:160]})
+    return out[:limit]
+
+
 def verify_reproduction(binary, version):
     import deterministic_extraction as de
     import promote_deterministic_batch as pdb
@@ -85,8 +105,13 @@ def verify_reproduction(binary, version):
         try:
             record = de.extract_document(did, ROOT, binary, version)
             got = pdb.canonical_content_sha256(record)
-            results.append({"document_id": did, "expected": entry["canonical_content_sha256"], "observed": got,
-                            "identical": got == entry["canonical_content_sha256"]})
+            res = {"document_id": did, "expected": entry["canonical_content_sha256"], "observed": got,
+                   "identical": got == entry["canonical_content_sha256"]}
+            if not res["identical"] and entry.get("output_path"):
+                ref = os.path.join(ROOT, *entry["output_path"].split("/"))
+                if os.path.exists(ref):
+                    res["diff"] = json_diff(json.load(open(ref, encoding="utf-8")), record)
+            results.append(res)
         except Exception as e:
             results.append({"document_id": did, "expected": entry["canonical_content_sha256"], "observed": None,
                             "identical": False, "error": f"{type(e).__name__}: {e}"})
@@ -154,6 +179,8 @@ def main(argv=None):
         for r in info["reproduction"]:
             state = {True: "IDENTIEK", False: "AFWIJKEND", None: f"OVERGESLAGEN ({r.get('skipped')})"}[r["identical"]]
             print(f"  {r['document_id']}: {state} {r.get('error', '')}")
+            for d in r.get("diff", []):
+                print(f"      {d['path']}: verwacht {d['expected']} | runner {d['observed']}")
     return 0   # de status staat in runner_setup.json; de pipeline beslist wat er mag
 
 
