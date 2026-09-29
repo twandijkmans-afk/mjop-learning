@@ -14,8 +14,10 @@
       "properties": {
         "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-(P[0-9]{3}-L[0-9]{3}|S[0-9]{2}-R[0-9]{4})$" },
         "document_id": { "type": "string", "pattern": "^DOC-[0-9]{3,}$" },
-        "page": { "type": "integer", "minimum": 1 },
-        "line": { "type": "integer", "minimum": 1 },
+        "page": { "type": ["integer", "null"], "minimum": 1, "description": "null alleen bij spreadsheetbronnen (dan sheet + row)" },
+        "line": { "type": ["integer", "null"], "minimum": 1 },
+        "sheet": { "type": ["string", "null"], "description": "spreadsheetbron: werkbladnaam" },
+        "row": { "type": ["integer", "null"], "minimum": 1, "description": "spreadsheetbron: rijnummer" },
         "source_text": { "type": ["string", "null"] },
         "reviewer_note": { "type": ["string", "null"] }
       },
@@ -83,6 +85,18 @@
         "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/evidence_item" } },
         "notes": { "type": ["string", "null"] },
         "supersedes": { "oneOf": [{ "$ref": "#/definitions/decision_id" }, { "type": "null" }] },
+        "family_decision": {
+          "type": "object",
+          "description": "Optioneel: dit record is aangemaakt uit één expliciet menselijk familiebesluit (scripts/apply_family_decision.py) dat exact opgesomde pair_ids noemt. Audit trail; het besluit zelf staat in data/review_decisions/family_decisions/.",
+          "properties": {
+            "family_decision_id": { "type": "string", "pattern": "^RFD-[0-9]{5}$" },
+            "review_family_id": { "type": "string", "minLength": 1 },
+            "review_package_sha256": { "$ref": "#/definitions/sha256" },
+            "family_input_sha256": { "$ref": "#/definitions/sha256" }
+          },
+          "required": ["family_decision_id", "review_family_id", "review_package_sha256", "family_input_sha256"],
+          "additionalProperties": false
+        },
         "status": { "type": "string", "enum": ["ACTIVE", "SUPERSEDED", "REVIEW_REQUIRED"], "description": "ACTIVE = geldt; SUPERSEDED = vervangen door een later record; REVIEW_REQUIRED = bewaard maar niet gebruikt omdat de invoer is veranderd (bijv. deterministische promotie) - wacht op een nieuwe menselijke beslissing." }
       },
       "required": ["decision_id", "pair_id", "observation_ids", "candidate_key", "system_class", "system_reasons",

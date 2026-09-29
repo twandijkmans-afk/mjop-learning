@@ -186,6 +186,10 @@ def decide(root, batch, approval=None, hypothetical=False):
     approved = set((approval or {}).get("approved_document_ids") or []) - excluded
     acks = (approval or {}).get("review_acknowledgements") or {}
     runner_ok = runner_verified(batch)
+    # menselijk bevestigde duplicate_source-relaties (document_relations.json, gebonden aan de bytes)
+    rel_path = os.path.join(root, "data", "price_observations", "document_relations.json")
+    confirmed_dup = {r["secondary_document_id"]: r for r in (load(rel_path)["relations"] if os.path.exists(rel_path) else [])
+                     if r["type"] == "duplicate_source" and (r.get("decision") or {}).get("secondary_sha256")}
     out = []
     for d in batch["documents"]:
         did = d["document_id"]
@@ -202,6 +206,10 @@ def decide(root, batch, approval=None, hypothetical=False):
             decision, reasons = "BLOCKED", [f"RUNNER_NOT_VERIFIED:{batch['manifest']['runner'].get('runner_setup_status')}"]
         elif did in canon_ids or d["sha256"] in canon_sha:
             decision, reasons = "BLOCKED", ["ALREADY_CANONICAL"]
+        elif did in confirmed_dup and confirmed_dup[did]["decision"]["secondary_sha256"] == d["sha256"]:
+            r = confirmed_dup[did]
+            decision = "SKIPPED_DUPLICATE"
+            reasons = [f"CONFIRMED_DUPLICATE_SOURCE:{r['relation_id']}", f"duplicate_of:{r['primary_document_id']}"]
         elif any(did not in batch["staged"][s] for s in ("extracted", "normalized", "price_observations")):
             decision, reasons = "BLOCKED", ["MISSING_STAGED_OUTPUT"]
         elif locate_source(root, d) is None:
