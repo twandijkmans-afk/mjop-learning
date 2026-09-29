@@ -15,6 +15,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 import build_comparability as bc  # noqa: E402
+import promotion_ledger as pl  # noqa: E402
 
 SIGNALS = bc.load_signals(os.path.join(PROJECT_ROOT, "vocabularies", "comparability_signal_words.json"))
 RELATIONS = json.load(open(os.path.join(PROJECT_ROOT, "data", "price_observations", "document_relations.json"),
@@ -461,8 +462,10 @@ def test_build_batch1_does_not_touch_sources_and_validates():
     before = (bc.sha256_file(NORMALIZED), bc.sha256_file(SOURCE))
     result = bc.build(PROJECT_ROOT)
     assert (bc.sha256_file(NORMALIZED), bc.sha256_file(SOURCE)) == before
-    assert result["summary"]["observations"] == 404
-    assert result["summary"]["source_clusters"] == 7
+    # batch 1 + wat via incoming-promoties is toegevoegd (elk gepromoveerd document: eigen cluster
+    # zolang document_relations.json geen beoordeelde relatie bevat)
+    assert result["summary"]["observations"] == 404 + pl.added_price_observations(PROJECT_ROOT)
+    assert result["summary"]["source_clusters"] == 7 + len(pl.promoted_document_ids(PROJECT_ROOT))
     assert result["duplicate_documents"] == [{"document_id": "DOC-003", "duplicate_of": "DOC-002",
                                               "source_cluster": "SC-DOC-002"}]
     assert all(p["source_clusters"][0] != p["source_clusters"][1] for p in result["pairs"])

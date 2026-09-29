@@ -5,6 +5,7 @@ incoming_registry.py, template_detection.py, xpdf_runner_setup.py).
 xpdf wordt vervangen door de bestaande fake pdftotext (tests/fixtures/fake_pdftotext.py, DOC-010-
 pagina's). Alle writes gaan naar tmp_path; canonieke data wordt alleen gelezen.
 """
+import copy
 import glob
 import hashlib
 import io
@@ -202,7 +203,8 @@ def test_staging_layout_and_check(mixed):
     assert m["canonical_write"] is False and m["uses_ai_api"] is False
     prop = json.load(open(os.path.join(bdir, "promotion_proposal.json"), encoding="utf-8"))
     assert prop["status"] == "PROPOSAL_ONLY_NOT_EXECUTED" and prop["requires_separate_promotion_step"] is True
-    assert all(d["proposal"] == "NOT_PROMOTABLE_YET" for d in prop["documents"])    # runner niet geverifieerd
+    assert {d["decision"] for d in prop["documents"]} <= {"BLOCKED", "SKIPPED_DUPLICATE"}   # runner niet geverifieerd
+    assert all(d["decision"] != "APPROVED_FOR_PROMOTION" for d in prop["documents"])
 
 
 def test_rerun_same_input_is_noop_and_byte_identical(mixed, fake_xpdf):
@@ -310,9 +312,17 @@ def test_new_supported_pdf_is_extracted_and_promotable_when_runner_verified(tmp_
     rec = plan["extracted"][d["document_id"]]
     assert rec["extraction_metadata"]["uses_ai_api"] is False
     assert rec["extraction_metadata"]["source_sha256"] == d["sha256"]
-    assert rec["extraction_metadata"]["source_relative_path"] == "incoming/plan.pdf"
+    assert rec["extraction_metadata"]["source_relative_path"] == f"incoming/{d['document_id']}/plan.pdf"
+    po = plan["price_observations"][d["document_id"]]
+    assert po["observations"] and all(o["document_id"] == d["document_id"] for o in po["observations"])
+    assert d["price_observation_candidates"] == len(po["observations"])
+    assert plan["normalized"][d["document_id"]]["document_id"] == d["document_id"]
+    for sub in ("normalized", "price_observations"):
+        assert f"data/incoming_batches/{plan['batch_id']}/{sub}/{d['document_id']}.json" in files
     prop = json.loads(files[f"data/incoming_batches/{plan['batch_id']}/promotion_proposal.json"])
-    assert prop["documents"][0]["proposal"] == "CANDIDATE_FOR_PROMOTION" and prop["global_blockers"] == []
+    assert prop["documents"][0]["decision"] == "REVIEW_REQUIRED" and prop["global_blockers"] == []
+    assert prop["documents"][0]["reasons"] == ["AWAITING_HUMAN_APPROVAL"]
+    assert prop["documents"][0]["eligible_for_direct_promotion"] is True
     val = {c["check"]: c["result"] for c in plan["validations"][d["document_id"]]["checks"]}
     for name in ("schema", "source_hash", "provenance", "elements", "maintenance_actions", "quantities", "units",
                  "amounts", "vat", "price_level", "condition_legend", "unlinked_records", "review_flags"):
@@ -467,10 +477,10 @@ def test_runner_setup_statuses(tmp_path, monkeypatch):
     assert r["status"] == "FAILED_RUNNER_SETUP" and r["reasons"] == ["VERSION_MISMATCH"]
     r = xs.setup(str(tmp_path / "d"), pin, fetch=lambda urls: (None, None, ["403"]))
     assert r["status"] == "FAILED_RUNNER_SETUP" and r["reasons"] == ["DOWNLOAD_FAILED"]
-    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v: [{"document_id": "DOC-010", "identical": True}])
+    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v, p=None: [{"document_id": "DOC-010", "identical": True}])
     r = xs.setup(str(tmp_path / "e"), dict(pin, sha256=sha), reproduce=True, fetch=fetch)
     assert r["status"] == "VERIFIED_RUNNER_SETUP" and r["reasons"] == []
-    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v: [{"document_id": "DOC-010", "identical": False}])
+    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v, p=None: [{"document_id": "DOC-010", "identical": False}])
     r = xs.setup(str(tmp_path / "f"), dict(pin, sha256=sha), reproduce=True, fetch=fetch)
     assert r["status"] == "UNVERIFIED_RUNNER_SETUP" and r["reasons"] == ["REPRODUCTION_MISMATCH:DOC-010"]
 
@@ -487,14 +497,75 @@ def test_reproduction_skips_entries_without_reference_hash(monkeypatch):
     assert all(r["identical"] for d, r in res.items() if d != "DOC-003")
 
 
-def test_text_layer_only_difference_is_named_but_not_self_approved(tmp_path, monkeypatch):
+def _batch1(did):
+    manifest = json.load(open(xs.HANDOFF, encoding="utf-8"))
+    entry = next(d for d in manifest["documents"] if d["document_id"] == did)
+    rec = json.load(open(os.path.join(PROJECT_ROOT, *entry["output_path"].split("/")), encoding="utf-8"))
+    return rec, entry["canonical_content_sha256"]
+
+
+def test_text_layer_policy_accepts_only_known_documents_and_exact_hashes():
+    pin = xs.load_pin()
+    policy = pin["accepted_text_layer_platform_variance"]["documents"]
+    assert sorted(policy) == ["DOC-007", "DOC-009"]
+    for did in ("DOC-007", "DOC-009"):
+        rec, sha = _batch1(did)
+        assert xs.classify_reproduction(did, rec, sha, pin)[0] == "IDENTICAL"
+        linux = copy.deepcopy(rec)
+        linux["extraction_metadata"]["text_layer_sha256"] = policy[did]["accepted_text_layer_sha256"]
+        cls, var = xs.classify_reproduction(did, linux, sha, pin)
+        assert cls == "IDENTICAL_EXCEPT_ACCEPTED_TEXT_LAYER_PLATFORM_VARIANCE" and var["field"] == xs.TEXT_LAYER_HASH_PATH
+        other = copy.deepcopy(rec)                                   # onbekende hash: geen acceptatie
+        other["extraction_metadata"]["text_layer_sha256"] = "f" * 64
+        assert xs.classify_reproduction(did, other, sha, pin)[0] == "DIFFERENT"
+
+
+@pytest.mark.parametrize("mutate", [
+    lambda r: r["maintenance_actions"][0].__setitem__("total_cost_as_stated", "999999"),      # bedrag
+    lambda r: r["maintenance_actions"][0]["quantity"].__setitem__("value", "123456.78"),     # hoeveelheid
+    lambda r: r["maintenance_actions"][0]["unit"].__setitem__("original_value", "st"),       # eenheid
+    lambda r: r["maintenance_actions"][0]["planned_year"].__setitem__("value", 1900),        # jaar
+    lambda r: r["maintenance_actions"].pop(),                                                # maintenance action
+    lambda r: r["elements"].pop(),                                                           # element
+    lambda r: r["maintenance_actions"][0]["action"]["provenance"].__setitem__("block_id", "P99-L999"),  # block-ref
+    lambda r: r["maintenance_actions"][0]["action"]["provenance"].__setitem__("page", 99),              # provenance
+    lambda r: r["document_level_values"]["condition_legend"].__setitem__("value", []),                  # condities
+    lambda r: r["extraction_metadata"].__setitem__("source_sha256", "0" * 64),                          # andere hash
+])
+def test_any_functional_difference_stays_hard_failure_even_with_accepted_text_layer(mutate):
+    pin = xs.load_pin()
+    rec, sha = _batch1("DOC-007")
+    bad = copy.deepcopy(rec)
+    bad["extraction_metadata"]["text_layer_sha256"] = \
+        pin["accepted_text_layer_platform_variance"]["documents"]["DOC-007"]["accepted_text_layer_sha256"]
+    mutate(bad)
+    assert xs.classify_reproduction("DOC-007", bad, sha, pin)[0] == "DIFFERENT"
+
+
+def test_text_layer_difference_on_other_document_is_not_accepted():
+    pin = xs.load_pin()
+    rec, sha = _batch1("DOC-010")
+    rec["extraction_metadata"]["text_layer_sha256"] = \
+        pin["accepted_text_layer_platform_variance"]["documents"]["DOC-007"]["accepted_text_layer_sha256"]
+    assert xs.classify_reproduction("DOC-010", rec, sha, pin)[0] == "DIFFERENT"
+
+
+def test_runner_verified_with_accepted_variance_metadata(tmp_path, monkeypatch):
     good = _archive(XPDF)
     pin = dict(xs.load_pin(), sha256=hashlib.sha256(good).hexdigest())
-    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v: [
+    V = "IDENTICAL_EXCEPT_ACCEPTED_TEXT_LAYER_PLATFORM_VARIANCE"
+    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v, p=None: [
         {"document_id": "DOC-001", "identical": True, "classification": "IDENTICAL"},
-        {"document_id": "DOC-007", "identical": False, "classification": "VALUES_IDENTICAL_TEXT_LAYER_HASH_DIFFERS"}])
-    r = xs.setup(str(tmp_path), pin, reproduce=True, fetch=lambda urls: (urls[0], good, []))
-    assert r["status"] == "UNVERIFIED_RUNNER_SETUP" and r["reasons"] == ["TEXT_LAYER_PLATFORM_DIFFERENCE:DOC-007"]
+        {"document_id": "DOC-003", "identical": None, "skipped": "DUPLICATE_SKIP"},
+        {"document_id": "DOC-007", "identical": True, "classification": V},
+        {"document_id": "DOC-009", "identical": True, "classification": V}])
+    r = xs.setup(str(tmp_path / "a"), pin, reproduce=True, fetch=lambda urls: (urls[0], good, []))
+    assert r["status"] == "VERIFIED_RUNNER_SETUP" and r["reasons"] == []
+    assert r["text_layer_platform_variance"] == ["DOC-007", "DOC-009"]
+    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v, p=None: [
+        {"document_id": "DOC-007", "identical": False, "classification": "DIFFERENT"}])
+    r = xs.setup(str(tmp_path / "b"), pin, reproduce=True, fetch=lambda urls: (urls[0], good, []))
+    assert r["status"] == "UNVERIFIED_RUNNER_SETUP" and r["reasons"] == ["REPRODUCTION_MISMATCH:DOC-007"]
 
 
 def test_json_diff_isolates_text_layer_hash():

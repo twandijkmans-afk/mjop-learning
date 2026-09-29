@@ -19,6 +19,7 @@ Status in runner_setup.json:
 Geen AI, geen andere netwerkverbindingen dan de download zelf.
 """
 import argparse
+import copy
 import hashlib
 import io
 import json
@@ -92,9 +93,33 @@ def json_diff(expected, observed, path="", out=None, limit=40):
     return out[:limit]
 
 
-def verify_reproduction(binary, version):
-    import deterministic_extraction as de
+def classify_reproduction(did, record, expected_sha, pin):
+    """Strikte vergelijking met de gevalideerde batch1_v1-uitvoer (canonical_content_sha256 van het hele record).
+
+    Enige uitzondering (besluit 2026-09-29, config/xpdf_pin.json accepted_text_layer_platform_variance):
+    voor een daar genoemd document mag UITSLUITEND extraction_metadata.text_layer_sha256 afwijken, en dan
+    alleen met exact de geaccepteerde Linux-hash. Bewijs: na terugzetten van de referentiehash is de
+    canonical_content_sha256 van het complete record (elementen, acties, condities, bedragen,
+    hoeveelheden, eenheden, jaren, provenance, block-references) identiek. Al het andere is DIFFERENT."""
     import promote_deterministic_batch as pdb
+    got = pdb.canonical_content_sha256(record)
+    if got == expected_sha:
+        return "IDENTICAL", None
+    accepted = ((pin or {}).get("accepted_text_layer_platform_variance") or {}).get("documents", {}).get(did)
+    observed_tl = (record.get("extraction_metadata") or {}).get("text_layer_sha256")
+    if accepted and observed_tl == accepted["accepted_text_layer_sha256"]:
+        probe = copy.deepcopy(record)
+        probe["extraction_metadata"]["text_layer_sha256"] = accepted["reference_text_layer_sha256"]
+        if pdb.canonical_content_sha256(probe) == expected_sha:
+            return "IDENTICAL_EXCEPT_ACCEPTED_TEXT_LAYER_PLATFORM_VARIANCE", {
+                "field": TEXT_LAYER_HASH_PATH, "reference": accepted["reference_text_layer_sha256"],
+                "observed": observed_tl}
+    return "DIFFERENT", None
+
+
+def verify_reproduction(binary, version, pin=None):
+    import deterministic_extraction as de
+    pin = pin if pin is not None else load_pin()
     manifest = json.load(open(HANDOFF, encoding="utf-8"))
     results = []
     for entry in manifest["documents"]:
@@ -105,30 +130,27 @@ def verify_reproduction(binary, version):
             continue
         try:
             record = de.extract_document(did, ROOT, binary, version)
-            got = pdb.canonical_content_sha256(record)
-            res = {"document_id": did, "expected": entry["canonical_content_sha256"], "observed": got,
-                   "identical": got == entry["canonical_content_sha256"]}
-            res["classification"] = "IDENTICAL" if res["identical"] else "DIFFERENT"
-            if not res["identical"] and entry.get("output_path"):
+            cls, variance = classify_reproduction(did, record, entry["canonical_content_sha256"], pin)
+            res = {"document_id": did, "expected": entry["canonical_content_sha256"], "classification": cls,
+                   "identical": cls != "DIFFERENT"}
+            if variance:
+                res["accepted_variance"] = variance
+            if cls == "DIFFERENT" and entry.get("output_path"):
                 ref = os.path.join(ROOT, *entry["output_path"].split("/"))
                 if os.path.exists(ref):
                     res["diff"] = json_diff(json.load(open(ref, encoding="utf-8")), record)
-                    if [d["path"] for d in res["diff"]] == [TEXT_LAYER_HASH_PATH]:
-                        # alle waarden, provenance en block_id's gelijk; alleen de hash van de aanvullende
-                        # pdfplumber-tekstlaag verschilt (platformverschil Windows/Linux). Geen zelfgoedkeuring:
-                        # blijft een expliciete reden tot een mens dit verschil accepteert.
-                        res["classification"] = "VALUES_IDENTICAL_TEXT_LAYER_HASH_DIFFERS"
             results.append(res)
         except Exception as e:
             results.append({"document_id": did, "expected": entry["canonical_content_sha256"], "observed": None,
-                            "identical": False, "error": f"{type(e).__name__}: {e}"})
+                            "identical": False, "classification": "ERROR", "error": f"{type(e).__name__}: {e}"})
     return results
 
 
 def setup(dest_dir, pin, reproduce=False, fetch=download):
     info = {"pinned_sha256": pin.get("sha256"), "archive_name": pin["archive_name"], "url": None,
             "observed_archive_sha256": None, "archive_member": None, "binary": None, "version_line": None,
-            "expected_version_line": pin["expected_version_line"], "reproduction": None, "reasons": []}
+            "expected_version_line": pin["expected_version_line"], "reproduction": None, "reasons": [],
+            "text_layer_platform_variance": []}
     url, data, errors = fetch(pin["urls"])
     info["download_errors"] = errors
     if data is None:
@@ -156,19 +178,18 @@ def setup(dest_dir, pin, reproduce=False, fetch=download):
         info["reasons"].append("ARCHIVE_SHA256_NOT_PINNED")
     if reproduce:
         try:
-            info["reproduction"] = verify_reproduction(binary, info["version_line"])
+            info["reproduction"] = verify_reproduction(binary, info["version_line"], pin)
         except Exception as e:  # reproductiecontrole kan de installatie nooit stilletjes goedkeuren
             info["reproduction"] = [{"error": f"{type(e).__name__}: {e}", "identical": False, "document_id": None}]
         checked = [r for r in info["reproduction"] if r["identical"] is not None]
-        tl_only = [str(r["document_id"]) for r in checked
-                   if r.get("classification") == "VALUES_IDENTICAL_TEXT_LAYER_HASH_DIFFERS"]
-        bad = [str(r["document_id"]) for r in checked if not r["identical"] and str(r["document_id"]) not in tl_only]
+        bad = [str(r["document_id"]) for r in checked if not r["identical"]]
         if not checked:
             info["reasons"].append("REPRODUCTION_NOTHING_CHECKED")
         if bad:
             info["reasons"].append("REPRODUCTION_MISMATCH:" + ",".join(bad))
-        if tl_only:
-            info["reasons"].append("TEXT_LAYER_PLATFORM_DIFFERENCE:" + ",".join(tl_only))
+        info["text_layer_platform_variance"] = sorted(
+            r["document_id"] for r in checked
+            if r.get("classification") == "IDENTICAL_EXCEPT_ACCEPTED_TEXT_LAYER_PLATFORM_VARIANCE")
     else:
         info["reasons"].append("REPRODUCTION_NOT_CHECKED")
     info["status"] = "UNVERIFIED_RUNNER_SETUP" if info["reasons"] else "VERIFIED_RUNNER_SETUP"
@@ -184,11 +205,14 @@ def main(argv=None):
     info = setup(args.install, load_pin(), reproduce=args.verify_reproduction)
     with open(args.out, "w", encoding="utf-8") as f:
         f.write(json.dumps(info, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
-    print(json.dumps({k: info[k] for k in ("status", "reasons", "url", "observed_archive_sha256", "version_line")},
+    print(json.dumps({k: info[k] for k in ("status", "reasons", "url", "observed_archive_sha256", "version_line",
+                                           "text_layer_platform_variance")},
                      ensure_ascii=False, indent=2))
     if info["reproduction"]:
         for r in info["reproduction"]:
             state = {True: "IDENTIEK", False: "AFWIJKEND", None: f"OVERGESLAGEN ({r.get('skipped')})"}[r["identical"]]
+            if r.get("classification") == "IDENTICAL_EXCEPT_ACCEPTED_TEXT_LAYER_PLATFORM_VARIANCE":
+                state = "IDENTIEK (functioneel; geaccepteerde text_layer_sha256-platformvariantie)"
             print(f"  {r['document_id']}: {state} {r.get('error', '')}")
             for d in r.get("diff", []):
                 print(f"      {d['path']}: verwacht {d['expected']} | runner {d['observed']}")

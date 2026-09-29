@@ -15,6 +15,7 @@ import tempfile
 import pytest
 
 import document_registry as dr
+import promotion_ledger as pl
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REGISTRY = os.path.join(PROJECT_ROOT, "reports", "document_registry.json")
@@ -24,7 +25,7 @@ RAW = os.path.join(PROJECT_ROOT, "data", "raw")
 def test_registry_keeps_batch1_ids():
     reg = dr.load_registry(REGISTRY)
     ids = [d["document_id"] for d in reg["documents"]]
-    assert ids == [f"DOC-{i:03d}" for i in range(1, 11)]
+    assert ids == [f"DOC-{i:03d}" for i in range(1, 11)] + pl.promoted_document_ids(PROJECT_ROOT)
     by_id = dr.by_id(reg)
     assert by_id["DOC-010"]["relative_path"].startswith("zomerdijkstraat-14/")
     # consistent met de eerdere inventaris
@@ -37,7 +38,8 @@ def test_registry_matches_raw_files():
     reg = dr.load_registry(REGISTRY)
     _, report = dr.reconcile(reg, RAW, register_new=False)
     assert report["new"] == [] and report["missing"] == [] and report["modified"] == []
-    assert sorted(report["unchanged"]) == [f"DOC-{i:03d}" for i in range(1, 11)]
+    assert sorted(report["unchanged"]) == [f"DOC-{i:03d}" for i in range(1, 11)] + \
+        pl.promoted_document_ids(PROJECT_ROOT)
 
 
 def _mini_env(tmp):

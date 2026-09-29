@@ -18,6 +18,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 import export_human_review_queue as q  # noqa: E402
+import promotion_ledger as pl  # noqa: E402
 
 SCHEMA = json.load(open(os.path.join(PROJECT_ROOT, "schemas", "human_decision_record.schema.json"), encoding="utf-8"))
 STORE = os.path.join(PROJECT_ROOT, "data", "review_decisions", "human_decision_records.json")
@@ -215,7 +216,10 @@ def test_queue_selection_on_batch1():
     cmp_ = json.load(open(COMPARABILITY, encoding="utf-8"))
     obs = {a["observation_id"]: a for a in cmp_["observations"]}
     pairs = {p["pair_id"]: p for p in cmp_["pairs"]}
-    assert meta["pairs_in_queue"] == len(rows) == 22
+    # batch-1-paren: precies 22; paren met gepromoveerde incoming-documenten komen daar bovenop
+    promoted = set(pl.promoted_document_ids(PROJECT_ROOT))
+    batch1_rows = [r for r in rows if not {obs[o]["document_id"] for o in pairs[r["pair_id"]]["observation_ids"]} & promoted]
+    assert meta["pairs_in_queue"] == len(rows) and len(batch1_rows) == 22
     for r in rows:
         p = pairs[r["pair_id"]]
         assert p["class"] == "COMPARABLE_WITH_CAVEATS" and r["system_class"] == p["class"]

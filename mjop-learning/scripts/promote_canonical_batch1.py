@@ -36,6 +36,7 @@ import export_human_review_queue as hrq  # noqa: E402
 import normalize_price_observations as npo  # noqa: E402
 import prepare_promotion_review as ppr  # noqa: E402
 import promote_deterministic_batch as pdb  # noqa: E402
+import promotion_ledger as pl  # noqa: E402
 import promotion_v2_dry_run as pv2  # noqa: E402
 import promotion_v3_dry_run as pv3  # noqa: E402
 
@@ -309,7 +310,11 @@ def verify(root):
     state = pdb.load_json(os.path.join(root, STATE))
     errors = []
     cur = file_hashes(root, AFFECTED)
-    if cur != state["post_manifest"]:
+    if pl.states(root):
+        # latere incoming-promoties: batch 1 is het beginpunt van de keten; de huidige toestand hoort
+        # bij de laatste incoming-promotie (promotion_ledger.chain_errors controleert beide)
+        errors += pl.chain_errors(root)
+    elif cur != state["post_manifest"]:
         errors.append(f"huidige bestanden wijken af van post-manifest: "
                       f"{sorted(set(cur.items()) ^ set(state['post_manifest'].items()))[:5]}")
     hist = os.path.join(root, state["history"])

@@ -76,12 +76,50 @@ Veelvoorkomende redenen voor `REVIEW_REQUIRED`:
   nog geen vaste uitleesroute; er wordt bewust niet gegokt.
 - `unlinked_records`, `amounts`, `template_recheck_xpdf`: zie het validatiebestand.
 
-## 5. Promoveren (later, aparte stap)
+## 5. Promoveren (aparte, expliciete stap)
 
-In elke batchmap staat `promotion_proposal.json`. Dat is alleen een **voorstel**: welke documenten
-in aanmerking komen (`CANDIDATE_FOR_PROMOTION`) en wat nog blokkeert. De promotie zelf gebeurt in
-een aparte, expliciete stap, net als bij batch 1. Zolang die niet is uitgevoerd, veranderen de
-bestaande kengetallen, prijsobservaties en andere canonieke gegevens niet.
+Na het batchrapport beslis je welke documenten canoniek worden. Alleen `APPROVED_FOR_PROMOTION` wordt
+opgenomen in de kennislaag.
+
+| beslissing | betekenis |
+|---|---|
+| `APPROVED_FOR_PROMOTION` | door jou goedgekeurd; wordt canoniek |
+| `REVIEW_REQUIRED` | wacht op je goedkeuring (`AWAITING_HUMAN_APPROVAL`) of heeft open reviewpunten |
+| `SKIPPED_DUPLICATE` | exact dubbel bestand; wordt nooit opgenomen |
+| `BLOCKED` | kan niet: onbekend sjabloon, spreadsheet, validatiefout, runner niet geverifieerd, ... |
+
+**Stap A: proefdraaien (dry-run).**
+
+- Start de workflow **"Promote incoming MJOP batch"** met je batch-id en actie `dry-run`.
+- De workflow simuleert de hele promotie op een tijdelijke kopie en schrijft het reviewrapport
+  `reports/incoming/<batch_id>.promotion_review.json`. Canonieke data verandert niet.
+- In het rapport staan:
+  - wat direct gepromoveerd kan worden;
+  - wat review nodig heeft;
+  - mogelijke duplicaten en relaties;
+  - hoeveel nieuwe prijsobservaties erbij komen;
+  - de impact op de vergelijkbaarheid;
+  - de kengetallen vóór en na.
+
+**Stap B: goedkeuren en promoveren.**
+
+- Start dezelfde workflow met actie `approve-and-promote` en je naam als `reviewer`.
+- Alle documenten met status EXTRACTED worden goedgekeurd.
+- Een document met REVIEW_REQUIRED neem je alleen mee door het DOC-ID in te vullen bij
+  `include_review`. Daarmee accepteer je de open punten van dat document. Een relatiekandidaat
+  wordt daarmee **niet** bevestigd: die blijft een voorstel.
+
+**Terugdraaien:** actie `rollback`. Dat kan alleen voor de laatste promotie. De oude toestand komt
+exact terug; de history blijft bewaard.
+
+Zolang de workflow nog niet op de hoofdbranch staat, verschijnt de knop "Run workflow" niet. Maak dan
+in de batchmap een bestand `promotion_request.json` aan, bijvoorbeeld:
+
+```json
+{"action": "approve-and-promote", "reviewer": "twandijkmans", "include_review": ["DOC-012"]}
+```
+
+De workflow start vanzelf. Gebruik `{"action": "dry-run"}` om eerst proef te draaien.
 
 ---
 
@@ -188,17 +226,85 @@ incoming-pipeline, in een tijdelijke map.
 
 `VERIFIED_RUNNER_SETUP` = gepinde sha256 klopt, versie klopt en alle reproducties zijn identiek.
 
-Stand op 2026-09-29 (runs 2 en 3):
+**Text-layer-platformbeleid (besluit twandijkmans, 2026-09-29).**
 
-- Het archief wordt gedownload van `dl.xpdfreader.com`; de sha256 is vastgepind.
-- De versieregel klopt exact.
-- 7 van de 9 batch-1-documenten zijn byte-identiek.
-- Bij DOC-007 en DOC-009 zijn alle waarden, provenance en block_id's gelijk. Alleen
-  `text_layer_sha256` verschilt: de hash van de aanvullende pdfplumber-tekstlaag, die op Windows
-  anders uitvalt dan op Linux, bij dezelfde bibliotheekversies.
+`text_layer_sha256` is de hash van de aanvullende pdfplumber-tekstlaag. Die hash telt als
+platform/toolchain-provenance. Voor DOC-007 en DOC-009 valt hij op Linux anders uit dan in de
+Windows-referentie van batch1_v1, bij dezelfde bibliotheekversies.
 
-De runner meldt daarom `UNVERIFIED_RUNNER_SETUP` met de reden
-`TEXT_LAYER_PLATFORM_DIFFERENCE:DOC-007,DOC-009`. Dit verschil wordt niet automatisch
-goedgekeurd: accepteren is een menselijke beslissing.
+- Het besluit is vastgelegd in `config/xpdf_pin.json` onder `accepted_text_layer_platform_variance`.
+  Daarin staan per document de Windows-referentiehash en de geaccepteerde Linux-hash.
+- `xpdf_runner_setup.classify_reproduction` accepteert een afwijking alleen als drie dingen tegelijk
+  gelden:
+  1. het document staat in die lijst;
+  2. de waargenomen hash is exact de geaccepteerde Linux-hash;
+  3. na terugzetten van de referentiehash is de `canonical_content_sha256` van het **hele** record
+     identiek.
+- De harde checks blijven dus ongewijzigd: elementen, maintenance actions, condities, bedragen,
+  hoeveelheden, eenheden, jaren, provenance-links en block-references.
+- Elk ander verschil is een harde failure (`REPRODUCTION_MISMATCH`). Dat geldt ook voor een
+  text-layer-afwijking bij een ander document of met een andere hash. Er is geen algemene
+  hash-ignore-regel.
+- De runner krijgt daarmee `VERIFIED_RUNNER_SETUP` met de metadata
+  `text_layer_platform_variance: ["DOC-007", "DOC-009"]`.
+
 Anders `UNVERIFIED_RUNNER_SETUP` of `FAILED_RUNNER_SETUP`. In dat geval blijft promotie
 geblokkeerd (`global_blockers` in het voorstel), maar de rest van de pipeline werkt wel.
+
+### Promotie (`scripts/promote_incoming_batch.py`)
+
+```
+python scripts/promote_incoming_batch.py --check
+python scripts/promote_incoming_batch.py --dry-run  --batch-id ID     # schrijft alleen het reviewrapport
+python scripts/promote_incoming_batch.py --approve  --batch-id ID --reviewer NAAM [--include-review DOC-...]
+python scripts/promote_incoming_batch.py --promote  --batch-id ID
+python scripts/promote_incoming_batch.py --rollback --batch-id ID
+```
+
+**Preflight** (alles verplicht):
+
+- het manifest is geldig en de hashes van de batchbestanden kloppen;
+- de runner is geverifieerd;
+- elk document heeft een expliciete status;
+- de canonieke keten is schoon (`promotion_ledger.chain_errors`, batch-1 `--verify`);
+- register en `data/raw` zijn in lijn;
+- de decision store voldoet aan zijn invarianten;
+- de kengetallen zijn actueel;
+- `approval.json` is gebonden aan de manifest-sha256 en noemt alleen promoveerbare documenten.
+
+**Downstream per goedgekeurd document** (bestaande regels, niets nieuws):
+
+- De bron gaat naar `data/raw/incoming/<DOC>/<bestand>`, met append in register, `raw_manifest` en
+  inventaris.
+- `data/extracted`, `normalized` en `verified` komen uit de staging. Verified is het genormaliseerde
+  record, zonder human verification op veldniveau: de documentgoedkeuring staat in de promotiestatus.
+- Price observations: de price observations uit de staging (gemaakt op de runner met
+  `build_price_observations.build_document`) worden toegevoegd. De relatie-ID's worden hernummerd.
+- Daarna worden de genormaliseerde PO, comparability en kengetallen opnieuw gebouwd.
+- Relatiekandidaten gaan alleen naar `data/price_observations/relation_proposals.json`.
+  `document_relations.json` wijzigt nooit automatisch. Elk gepromoveerd document is daardoor zijn
+  eigen source cluster totdat een mens een relatie vastlegt. De review toont paren tussen
+  documenten met een open relatiekandidaat apart.
+
+**Harde invarianten** (bij een fout wordt alles automatisch teruggezet):
+
+- bestaande price observations blijven byte-gelijk;
+- bestaande genormaliseerde observations blijven gelijk, op `source_ref.source_file_sha256` na;
+- bestaande paren (identiteit = observation-set) blijven inhoudelijk gelijk;
+- bestaande observation-beoordelingen blijven gelijk, op de afgeleide velden `pair_ids`,
+  `comparison_class`, `comparison_class_reason` en `tariff_group_id` na;
+- de human decision store blijft ongewijzigd;
+- de kengetallen blijven inhoudelijk gelijk. Nieuwe data telt pas mee na comparability-review met
+  ACTIVE human decisions.
+
+**History en rollback:**
+
+- De snapshot van alle gevolgde bestanden staat in `data/history/incoming_promotions/<promotion_id>/`
+  (`pre/` plus `pre_manifest.json`).
+- De status staat in `data/incoming_promotions/<promotion_id>.json`, met pre- en post-manifest,
+  beslissingen en goedkeuring.
+- Rollback kan alleen voor de laatste promotie. De tracked hashes komen exact terug op het
+  pre-manifest, en `rolled_back_state.json` blijft in de history.
+
+**Tests na een echte promotie:** de batch-1-snapshottests tellen gepromoveerde documenten en
+observations mee via `promotion_ledger` (bijvoorbeeld 404 + toegevoegde observations).

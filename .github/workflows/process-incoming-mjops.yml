@@ -71,7 +71,7 @@ jobs:
           fi
 
       - name: Tests (incoming pipeline + deterministische extractie)
-        run: python -m pytest -q tests/test_incoming_pipeline.py tests/test_deterministic_extraction.py
+        run: python -m pytest -q tests/test_incoming_pipeline.py tests/test_incoming_promotion.py tests/test_deterministic_extraction.py
 
       - name: End-to-end zelftest met echte xpdf (tijdelijke map, niets gecommit)
         run: |

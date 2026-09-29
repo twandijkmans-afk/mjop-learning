@@ -22,6 +22,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 import normalize_price_observations as npo  # noqa: E402
+import promotion_ledger as pl  # noqa: E402
 
 VOCAB = os.path.join(PROJECT_ROOT, "vocabularies")
 ACTIONS = npo.load_vocab_utf8(VOCAB, "maintenance_action")
@@ -276,7 +277,7 @@ def test_normalize_full_batch1_source_layer():
     before = npo.sha256_file(SOURCE_PATH)
     result = npo.normalize(PROJECT_ROOT, SOURCE_PATH)
     assert npo.sha256_file(SOURCE_PATH) == before  # bron niet aangeraakt
-    assert result["summary"]["observations"] == 404
+    assert result["summary"]["observations"] == 404 + pl.added_price_observations(PROJECT_ROOT)
     assert result["source"]["source_file_sha256"] == before
     src = {o["observation_id"]: o for o in json.load(open(SOURCE_PATH, encoding="utf-8"))["observations"]}
     for n in result["observations"]:

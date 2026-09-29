@@ -27,6 +27,7 @@ Gebruik:
 Opties: --batch-id ID, --incoming-dir DIR, --pdftotext PAD, --require-xpdf, --runner-setup JSON
 """
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -35,10 +36,12 @@ import sys
 from decimal import Decimal, InvalidOperation
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import build_price_observations as bpo  # noqa: E402
 import deterministic_extraction as de  # noqa: E402
 import document_registry  # noqa: E402
 import incoming_registry as ir  # noqa: E402
 import mjop_source_sections as src  # noqa: E402
+import normalize_batch as nb  # noqa: E402
 import record_validation as rv  # noqa: E402
 import template_detection as td  # noqa: E402
 import text_layer as tl  # noqa: E402
@@ -339,6 +342,7 @@ def plan_batch(root, incoming_dir=None, state_root=None, batch_id=None, runner=N
         raise PipelineError(f"ongeldige batch-id: {batch_id!r}")
 
     docs, extracted, validations, layers, signals = [], {}, {}, {}, {}
+    staged_extra = {"normalized": {}, "price_observations": {}}
     seen = {}
     for e in entries:
         d = {"input_path": e["input_path"], "sha256": e["sha256"], "file_size_bytes": e["file_size_bytes"],
@@ -376,8 +380,11 @@ def plan_batch(root, incoming_dir=None, state_root=None, batch_id=None, runner=N
                                           "first_observed_path": e["input_path"]})
             d.update(document_id=new_id, registration="new")
         reg_entry = next(r for r in registry["documents"] if r["document_id"] == d["document_id"])
-        doc_meta = {"relative_path": "incoming/" + reg_entry["first_observed_path"], "sha256": e["sha256"]}
-        _process_document(d, e, doc_meta, runner, extractor, extracted, validations, layers, signals)
+        # stabiel, botsingsvrij bronpad (= toekomstig pad onder data/raw na promotie)
+        doc_meta = {"relative_path": raw_relative_path(d["document_id"], reg_entry["first_observed_path"]),
+                    "sha256": e["sha256"]}
+        _process_document(d, e, doc_meta, runner, extractor, extracted, validations, layers, signals,
+                          staged_extra, root)
 
     batch_docs = {d["document_id"]: signals[d["document_id"]] for d in docs if d["document_id"] in signals}
     known = known_documents(root, state_root, set(batch_docs))
@@ -392,11 +399,43 @@ def plan_batch(root, incoming_dir=None, state_root=None, batch_id=None, runner=N
         d["status"] = d["status_history"][-1]
         assert d["status"] in STATUSES
     return {"batch_id": batch_id, "docs": docs, "extracted": extracted, "validations": validations,
+            "normalized": staged_extra["normalized"], "price_observations": staged_extra["price_observations"],
             "relations": relations, "registry_old": old_registry, "registry": registry, "runner": runner,
             "root": root, "state_root": state_root}
 
 
-def _process_document(d, e, doc_meta, runner, extractor, extracted, validations, layers, signals):
+def raw_relative_path(document_id, first_observed_path):
+    """Pad onder data/raw na promotie: incoming/<DOC-ID>/<bestandsnaam>. Het DOC-ID maakt het uniek."""
+    return f"incoming/{document_id}/{first_observed_path.split('/')[-1]}"
+
+
+def normalization_lookups(root):
+    vdir = os.path.join(root, "vocabularies")
+    return {k: nb.load_vocab(vdir, v) for k, v in
+            [("element_type", "element_type"), ("element_code", "element_code"), ("material", "material"),
+             ("unit", "unit"), ("defect_type", "defect_type"), ("action", "maintenance_action")]}
+
+
+def stage_downstream(record, pages, doc_meta, root):
+    """Genormaliseerd record + price-observation-kandidaten van één document, met exact de bestaande
+    regels (normalize_batch.normalize_record, build_price_observations.build_document). Alleen staging."""
+    normalized = nb.normalize_record(copy.deepcopy(record), normalization_lookups(root))
+    doc = {"document_id": record["document_id"], "relative_path": doc_meta["relative_path"],
+           "sha256": doc_meta["sha256"], "file_type": "pdf"}
+    unit_lookup = nb.load_vocab(os.path.join(root, "vocabularies"), "unit")
+    extra, obs, unlinked, checks = bpo.build_document(doc, pages, copy.deepcopy(normalized), unit_lookup, [])
+    relations = bpo.build_relations({doc["document_id"]: obs}, [])
+    po = {"builder_version": bpo.BUILDER_VERSION,
+          "note": "Kandidaat-price-observations (incoming staging). Relatie-ID's zijn lokaal en worden bij "
+                  "promotie hernummerd. Niet canoniek.",
+          "document": {**doc, "document_relation_ids": [], **extra},
+          "checks": checks, "observations": obs, "observation_relations": relations,
+          "unlinked_section_rows": unlinked}
+    return normalized, po
+
+
+def _process_document(d, e, doc_meta, runner, extractor, extracted, validations, layers, signals,
+                      staged_extra=None, root=None):
     did = d["document_id"]
     try:
         layer = tl.build_text_layer_for_file(e["abs"], did, e["sha256"], doc_meta["relative_path"])
@@ -452,8 +491,27 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
                            record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))}
     extracted[did] = record
     signals[did] = {"kind": "pdf", **_signals_from_record(record)}
-    d["price_observation_candidates"] = sum(1 for a in record.get("maintenance_actions", [])
-                                            if (_dec(a.get("total_cost_as_stated")) or 0) > 0)
+    if val["outcome"] != "FAILED_VALIDATION" and staged_extra is not None:
+        try:
+            normalized, po = stage_downstream(record, pages, doc_meta, root)
+        except Exception as ex:  # nooit half gestaged: dan faalt het document
+            val["checks"].append(_check("staging_downstream", "FAIL", 1, [f"{type(ex).__name__}: {ex}"]))
+            val["outcome"] = "FAILED_VALIDATION"
+        else:
+            po_errors = po_schema_errors(root, po)
+            diff = _dec(po["checks"].get("totaal_object_difference"))
+            val["checks"].append(_check("price_observations", "FAIL" if po_errors else
+                                        ("WARN" if diff not in (None, 0) else "PASS"),
+                                        len(po["observations"]),
+                                        po_errors or ([f"verschil met Totaal object: {diff}"] if diff else [])))
+            if po_errors:
+                val["outcome"] = "FAILED_VALIDATION"
+            else:
+                staged_extra["normalized"][did] = normalized
+                staged_extra["price_observations"][did] = po
+        d["validation_outcome"] = val["outcome"]
+    d["price_observation_candidates"] = len(staged_extra["price_observations"].get(did, {}).get("observations", [])) \
+        if staged_extra is not None else 0
     d["open_review_items"] += [f"{c['check']}: {c['count']}" for c in val["checks"] if c["result"] == "REVIEW"]
     if val["outcome"] == "FAILED_VALIDATION":
         d["status_history"].append("FAILED_VALIDATION")
@@ -463,7 +521,33 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
             d["status_history"].append("REVIEW_REQUIRED")
 
 
+def po_schema_errors(root, po):
+    import jsonschema
+    schema = json.load(open(os.path.join(root, "schemas", "price_observation.schema.json"), encoding="utf-8"))
+    v = jsonschema.Draft7Validator(schema)
+    return [f"{o['observation_id']}: {e.message}" for o in po["observations"] for e in v.iter_errors(o)][:MAX_DETAILS]
+
+
 # ------------------------------------------------------------------ outputs
+
+PROPOSAL_DECISIONS = ("APPROVED_FOR_PROMOTION", "REVIEW_REQUIRED", "SKIPPED_DUPLICATE", "BLOCKED")
+
+
+def proposal_decision(d, runner_ok, runner_status):
+    """Beslissing per document in het promotievoorstel (zelfde labels als promote_incoming_batch.py).
+    APPROVED_FOR_PROMOTION bestaat hier nog niet: dat vereist een menselijke goedkeuring (approval.json)."""
+    if d["status"] == "DUPLICATE_SKIP":
+        return "SKIPPED_DUPLICATE", [f"duplicate_of:{d['duplicate_of']}"]
+    if d["status"] in ("UNKNOWN_TEMPLATE", "UNSUPPORTED_FORMAT", "FAILED_VALIDATION", "READY_FOR_EXTRACTION"):
+        return "BLOCKED", [d["status"]] + d["reasons"]
+    if "UNSUPPORTED_EXTRACTION" in d["reasons"]:
+        return "BLOCKED", ["UNSUPPORTED_EXTRACTION"]
+    if not runner_ok:
+        return "BLOCKED", [f"RUNNER_NOT_VERIFIED:{runner_status}"]
+    if d["status"] == "EXTRACTED":
+        return "REVIEW_REQUIRED", ["AWAITING_HUMAN_APPROVAL"]
+    return "REVIEW_REQUIRED", sorted(d["open_review_items"]) or ["REVIEW_REQUIRED"]
+
 
 def kengetallen_impact(root, plan):
     """Mogelijke impact ALS de batch later wordt gepromoveerd. Er wordt niets gewijzigd."""
@@ -504,6 +588,10 @@ def build_outputs(plan):
         files[f"{bdir}/documents/{key}.json"] = dumps(rec)
     for did, record in sorted(plan["extracted"].items()):
         files[f"{bdir}/extracted/{did}.json"] = de.dumps(record)
+    for did, rec in sorted(plan.get("normalized", {}).items()):
+        files[f"{bdir}/normalized/{did}.json"] = de.dumps(rec)
+    for did, po in sorted(plan.get("price_observations", {}).items()):
+        files[f"{bdir}/price_observations/{did}.json"] = dumps(po)
     for did, val in sorted(plan["validations"].items()):
         files[f"{bdir}/validation/{did}.json"] = dumps({"document_id": did, "batch_id": bid, **val})
 
@@ -512,12 +600,11 @@ def build_outputs(plan):
     impact = kengetallen_impact(root, plan)
     proposal_docs = []
     for key, d in docs_out:
-        promotable = d["status"] == "EXTRACTED" and runner_ok
+        decision, reasons = proposal_decision(d, runner_ok, runner["runner_setup_status"])
         proposal_docs.append({
             "key": key, "document_id": d["document_id"], "input_path": d["input_path"], "status": d["status"],
-            "proposal": "CANDIDATE_FOR_PROMOTION" if promotable else "NOT_PROMOTABLE_YET",
-            "blocking": ([] if d["status"] == "EXTRACTED" else [d["status"]] + d["reasons"] + d["open_review_items"])
-                        + ([] if runner_ok or d["status"] != "EXTRACTED" else ["RUNNER_SETUP_NOT_VERIFIED"])})
+            "decision": decision, "reasons": reasons,
+            "eligible_for_direct_promotion": reasons == ["AWAITING_HUMAN_APPROVAL"]})
     proposal = {
         "batch_id": bid, "status": "PROPOSAL_ONLY_NOT_EXECUTED", "requires_separate_promotion_step": True,
         "canonical_targets_not_written": ["data/raw", "data/extracted", "data/normalized", "data/verified",

@@ -57,8 +57,8 @@ def integrity_errors(incoming, canonical):
     """Controles die altijd moeten gelden (ook vóór schrijven)."""
     errors = []
     ids, shas = set(), set()
-    canon_ids = {d["document_id"] for d in canonical["documents"]}
-    canon_shas = {d["sha256"] for d in canonical["documents"]}
+    canon_by_id = {d["document_id"]: d for d in canonical["documents"]}
+    canon_by_sha = {d["sha256"]: d for d in canonical["documents"]}
     for d in incoming.get("documents", []):
         missing = ENTRY_KEYS - set(d)
         if missing:
@@ -70,9 +70,11 @@ def integrity_errors(incoming, canonical):
             errors.append(str(e))
         if not SHA_RE.match(d["sha256"]):
             errors.append(f"{d['document_id']}: ongeldige sha256")
-        if d["document_id"] in ids or d["document_id"] in canon_ids:
+        # een gepromoveerd document staat in beide registers met exact hetzelfde ID en dezelfde sha256
+        promoted = canon_by_id.get(d["document_id"], {}).get("sha256") == d["sha256"]
+        if d["document_id"] in ids or (d["document_id"] in canon_by_id and not promoted):
             errors.append(f"{d['document_id']}: document_id dubbel (of botst met canoniek register)")
-        if d["sha256"] in shas or d["sha256"] in canon_shas:
+        if d["sha256"] in shas or (d["sha256"] in canon_by_sha and not promoted):
             errors.append(f"{d['document_id']}: sha256 dubbel (of al canoniek geregistreerd)")
         ids.add(d["document_id"])
         shas.add(d["sha256"])

@@ -58,10 +58,11 @@ def test_new_file_sorting_first_does_not_shift_ids_and_is_not_auto_registered():
         # zonder registratie: inventaris weigert (geen stille import)
         with pytest.raises(dr.RegistryError):
             inv.build_inventory(raw, reg)
-        # expliciet registreren: bestaande ID's blijven, nieuw bestand krijgt DOC-011
+        # expliciet registreren: bestaande ID's blijven, nieuw bestand krijgt het eerstvolgende ID
+        nxt = max(int(d["document_id"][4:]) for d in dr.load_registry(reg)["documents"]) + 1
         registry, report = dr.reconcile(dr.load_registry(reg), raw, register_new=True)
         dr.save_registry(registry, reg)
-        assert report["new"] == [{"relative_path": "aaa-nieuw-pand/nieuw.pdf", "document_id": "DOC-011"}]
+        assert report["new"] == [{"relative_path": "aaa-nieuw-pand/nieuw.pdf", "document_id": f"DOC-{nxt:03d}"}]
         committed = {r["relative_path"]: r["document_id"] for r in json.load(open(COMMITTED))}
         ids = {d["relative_path"]: d["document_id"] for d in dr.load_registry(reg)["documents"]}
         for path, doc_id in committed.items():

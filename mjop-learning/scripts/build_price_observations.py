@@ -381,6 +381,97 @@ def build_relations(observations_by_doc, doc_relations):
 # Build
 # --------------------------------------------------------------------------
 
+def build_document(doc, pages, verified, unit_lookup, document_relation_ids):
+    """Price observations van één document uit zijn pdftotext-pagina's (xpdf 4.06, -table).
+    Returns (entry-velden, observations, ongekoppelde sectieregels, checks). Gebruikt door build()
+    en door de incoming pipeline (zelfde regels, geen afwijkingen)."""
+    doc_id = doc["document_id"]
+    sections = src.classify_sections(pages)
+    ctx = src.parse_document_context(pages)
+    rows, jaarplan_rows, bev_rows = [], [], []
+    carry = None
+    totaal_object = None
+    for pno, sec in sections:
+        text = pages[pno - 1]
+        if sec == "JARENPLAN":
+            r, carry, t = src.parse_jarenplan_page(text, pno, carry)
+            rows.extend(r)
+            if t is not None:
+                totaal_object = t
+        elif sec == "JAARPLAN":
+            jaarplan_rows.extend(src.parse_jaarplan_page(text, pno))
+        elif sec == "BEVINDINGEN":
+            bev_rows.extend(src.parse_bevindingen_page(text, pno))
+
+    obs, zero_rows = [], 0
+    for row in rows:
+        o = build_row_observation(doc, row, ctx, unit_lookup)
+        if o["total_value"] is not None and Decimal(o["total_value"]) == 0 and not o["annual_amounts"]:
+            zero_rows += 1
+            continue
+        o["document_relation_ids"] = list(document_relation_ids)
+        obs.append(o)
+
+    link_verified_actions(obs, verified)
+    jl, ju = link_section_rows(obs, jaarplan_rows, "JAARPLAN")
+    bl, bu = link_section_rows(obs, bev_rows, "BEVINDINGEN")
+    for u in ju + bu:
+        u["document_id"] = doc_id
+
+    extra = {"status": "parsed", "pages": len(pages), "document_context": ctx,
+             "jarenplan_totaal_object": dec_str(totaal_object)}
+    obs_sum = sum((Decimal(o["total_value"]) for o in obs if o["total_value"]), Decimal("0"))
+    linked_actions = {a for o in obs for a in o["extraction_link"]["action_ids"]}
+    checks = {
+        "status": "parsed",
+        "jarenplan_rows_parsed": len(rows),
+        "zero_total_rows_not_observations": zero_rows,
+        "observations": len(obs),
+        "total_scope": dict(Counter(o["total_scope"] for o in obs)),
+        "cycle_length_blank_in_source": sum(1 for o in obs if o["cycle_length_as_stated"] is None),
+        "cycle_start_missing": sum(1 for o in obs if o["cycle_start_year"] is None),
+        "cycle_start_before_window": sum(1 for o in obs if o["cycle_start_year"] and o["execution_window_start"]
+                                         and o["cycle_start_year"] < o["execution_window_start"]),
+        "amount_reconciliation_not_consistent": sum(1 for o in obs if o["amount_reconciliation"] != "consistent"),
+        "sum_observation_totals": dec_str(obs_sum),
+        "jarenplan_totaal_object": dec_str(totaal_object),
+        "totaal_object_difference": dec_str(obs_sum - totaal_object) if totaal_object is not None else None,
+        "price_level_basis": ctx["price_level_basis"],
+        "price_level_date": ctx["price_level_date"],
+        "vat_basis": ctx["vat_basis"],
+        "provenance_incomplete": sum(1 for o in obs if o["provenance_status"] != "complete"),
+        "observations_without_extraction_link": sum(1 for o in obs if not o["extraction_link"]["action_ids"]),
+        "verified_actions_linked": len(linked_actions),
+        "verified_actions_total": len(verified.get("maintenance_actions", [])) if verified else 0,
+        "unit_price_calculated": sum(1 for o in obs if o["unit_price_calculated"]),
+        "calculated_over_multiple_executions": sum(1 for o in obs if o["calculated_unit_price_basis"] ==
+                                                   "row_total_over_multiple_executions_in_window"),
+        "jaarplan_rows_with_amount": sum(1 for r in jaarplan_rows if to_decimal(r["amount_as_stated"])),
+        "jaarplan_rows_linked": len(jl),
+        "bevindingen_rows_with_amount": sum(1 for r in bev_rows if r["amount_as_stated"] and to_decimal(r["amount_as_stated"])),
+        "bevindingen_rows_linked": len(bl),
+        "section_rows_unlinked": len(ju) + len(bu),
+    }
+    return extra, obs, ju + bu, checks
+
+
+def compute_totals(observations, relations, unlinked_rows):
+    return {
+        "observations": len(observations),
+        "total_scope": dict(Counter(o["total_scope"] for o in observations)),
+        "dependency_status": dict(Counter(o["dependency_status"] for o in observations)),
+        "price_level_basis": dict(Counter(o["price_level_basis"] for o in observations)),
+        "cycle_length_blank_in_source": sum(1 for o in observations if o["cycle_length_as_stated"] is None),
+        "provenance_incomplete": sum(1 for o in observations if o["provenance_status"] != "complete"),
+        "requires_human_review": sum(1 for o in observations if o["requires_human_review"]),
+        "unit_price_calculated": sum(1 for o in observations if o["unit_price_calculated"]),
+        "calculated_over_multiple_executions": sum(1 for o in observations if o["calculated_unit_price_basis"] ==
+                                                   "row_total_over_multiple_executions_in_window"),
+        "section_rows_unlinked": len(unlinked_rows),
+        "relations": dict(Counter(r["type"] for r in relations)),
+    }
+
+
 def build(project_root, pdftotext_bin, document_ids=None):
     inventory = json.load(open(os.path.join(project_root, "reports", "document_inventory.json"), encoding="utf-8"))
     rel_doc = json.load(open(os.path.join(project_root, "data", "price_observations", "document_relations.json"), encoding="utf-8"))
@@ -414,95 +505,18 @@ def build(project_root, pdftotext_bin, document_ids=None):
             continue
 
         pages = src.pdf_pages(os.path.join(project_root, "data", "raw", doc["relative_path"]), pdftotext_bin)
-        sections = src.classify_sections(pages)
-        ctx = src.parse_document_context(pages)
-        rows, jaarplan_rows, bev_rows = [], [], []
-        carry = None
-        totaal_object = None
-        for pno, sec in sections:
-            text = pages[pno - 1]
-            if sec == "JARENPLAN":
-                r, carry, t = src.parse_jarenplan_page(text, pno, carry)
-                rows.extend(r)
-                if t is not None:
-                    totaal_object = t
-            elif sec == "JAARPLAN":
-                jaarplan_rows.extend(src.parse_jaarplan_page(text, pno))
-            elif sec == "BEVINDINGEN":
-                bev_rows.extend(src.parse_bevindingen_page(text, pno))
-
-        obs, zero_rows = [], 0
-        for row in rows:
-            o = build_row_observation(doc, row, ctx, unit_lookup)
-            if o["total_value"] is not None and Decimal(o["total_value"]) == 0 and not o["annual_amounts"]:
-                zero_rows += 1
-                continue
-            o["document_relation_ids"] = list(entry["document_relation_ids"])
-            obs.append(o)
-
         vpath = os.path.join(project_root, "data", "verified", f"{doc_id}.json")
         verified = json.load(open(vpath, encoding="utf-8")) if os.path.exists(vpath) else None
-        link_verified_actions(obs, verified)
-        jl, ju = link_section_rows(obs, jaarplan_rows, "JAARPLAN")
-        bl, bu = link_section_rows(obs, bev_rows, "BEVINDINGEN")
-        for u in ju + bu:
-            u["document_id"] = doc_id
-        unlinked_rows.extend(ju + bu)
-
-        entry.update(status="parsed", pages=len(pages), document_context=ctx,
-                     jarenplan_totaal_object=dec_str(totaal_object))
+        extra, obs, unlinked, checks[doc_id] = build_document(doc, pages, verified, unit_lookup,
+                                                              entry["document_relation_ids"])
+        unlinked_rows.extend(unlinked)
+        entry.update(extra)
         documents.append(entry)
         by_doc[doc_id] = obs
         observations.extend(obs)
 
-        obs_sum = sum((Decimal(o["total_value"]) for o in obs if o["total_value"]), Decimal("0"))
-        linked_actions = {a for o in obs for a in o["extraction_link"]["action_ids"]}
-        checks[doc_id] = {
-            "status": "parsed",
-            "jarenplan_rows_parsed": len(rows),
-            "zero_total_rows_not_observations": zero_rows,
-            "observations": len(obs),
-            "total_scope": dict(Counter(o["total_scope"] for o in obs)),
-            "cycle_length_blank_in_source": sum(1 for o in obs if o["cycle_length_as_stated"] is None),
-            "cycle_start_missing": sum(1 for o in obs if o["cycle_start_year"] is None),
-            "cycle_start_before_window": sum(1 for o in obs if o["cycle_start_year"] and o["execution_window_start"]
-                                             and o["cycle_start_year"] < o["execution_window_start"]),
-            "amount_reconciliation_not_consistent": sum(1 for o in obs if o["amount_reconciliation"] != "consistent"),
-            "sum_observation_totals": dec_str(obs_sum),
-            "jarenplan_totaal_object": dec_str(totaal_object),
-            "totaal_object_difference": dec_str(obs_sum - totaal_object) if totaal_object is not None else None,
-            "price_level_basis": ctx["price_level_basis"],
-            "price_level_date": ctx["price_level_date"],
-            "vat_basis": ctx["vat_basis"],
-            "provenance_incomplete": sum(1 for o in obs if o["provenance_status"] != "complete"),
-            "observations_without_extraction_link": sum(1 for o in obs if not o["extraction_link"]["action_ids"]),
-            "verified_actions_linked": len(linked_actions),
-            "verified_actions_total": len(verified.get("maintenance_actions", [])) if verified else 0,
-            "unit_price_calculated": sum(1 for o in obs if o["unit_price_calculated"]),
-            "calculated_over_multiple_executions": sum(1 for o in obs if o["calculated_unit_price_basis"] ==
-                                                       "row_total_over_multiple_executions_in_window"),
-            "jaarplan_rows_with_amount": sum(1 for r in jaarplan_rows if to_decimal(r["amount_as_stated"])),
-            "jaarplan_rows_linked": len(jl),
-            "bevindingen_rows_with_amount": sum(1 for r in bev_rows if r["amount_as_stated"] and to_decimal(r["amount_as_stated"])),
-            "bevindingen_rows_linked": len(bl),
-            "section_rows_unlinked": len(ju) + len(bu),
-        }
-
     relations = build_relations(by_doc, doc_relations)
-    totals = {
-        "observations": len(observations),
-        "total_scope": dict(Counter(o["total_scope"] for o in observations)),
-        "dependency_status": dict(Counter(o["dependency_status"] for o in observations)),
-        "price_level_basis": dict(Counter(o["price_level_basis"] for o in observations)),
-        "cycle_length_blank_in_source": sum(1 for o in observations if o["cycle_length_as_stated"] is None),
-        "provenance_incomplete": sum(1 for o in observations if o["provenance_status"] != "complete"),
-        "requires_human_review": sum(1 for o in observations if o["requires_human_review"]),
-        "unit_price_calculated": sum(1 for o in observations if o["unit_price_calculated"]),
-        "calculated_over_multiple_executions": sum(1 for o in observations if o["calculated_unit_price_basis"] ==
-                                                   "row_total_over_multiple_executions_in_window"),
-        "section_rows_unlinked": len(unlinked_rows),
-        "relations": dict(Counter(r["type"] for r in relations)),
-    }
+    totals = compute_totals(observations, relations, unlinked_rows)
     return {
         "builder_version": BUILDER_VERSION,
         "text_extraction": {"tool": src.pdftotext_version(pdftotext_bin), "mode": src.PDFTOTEXT_MODE,
