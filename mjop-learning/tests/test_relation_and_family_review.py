@@ -222,8 +222,12 @@ def test_family_grouping_is_order_independent():
 
 def test_every_queue_pair_in_exactly_one_family(package):
     ids = [pid for f in package["families"] for pid in f["pair_ids"]]
-    assert len(ids) == len(set(ids)) == package["queue"]["pairs"] == 76
-    assert package["summary"]["review_families"] == len(package["families"]) < 76
+    v1 = [pid for f in package["families"] if f["review_track"] != crv.UNKNOWN_TRACK for pid in f["pair_ids"]]
+    unknown = [pid for f in package["families"] if f["review_track"] == crv.UNKNOWN_TRACK for pid in f["pair_ids"]]
+    assert len(ids) == len(set(ids)) == len(v1) + len(unknown)
+    assert len(v1) == package["queue"]["pairs"] == 76                        # queue v1 onveranderd
+    assert sorted(unknown) == sorted(package["unknown_pair_review"]["reviewable_pair_ids"])
+    assert package["summary"]["review_families"] == len(package["families"]) < len(ids)
 
 
 def test_family_members_share_the_same_review_question(package):
@@ -232,7 +236,8 @@ def test_family_members_share_the_same_review_question(package):
             assert "|".join(f["family_key"]["candidate_key"]) == f["candidate_group"]
             assert ("QUANTITY_SCALE_DIFFERENCE" in p["pair_caveats"]) == f["family_key"]["quantity_scale_difference"]
         assert f["evidence_category"] in crv.CATEGORY_ORDER and f["evidence_category"] in f["evidence_flags"]
-        assert {c["choice"] for c in f["allowed_human_choices"]} == set(crv.CHOICES)
+        expected = set(crv.UNKNOWN_TRACK_CHOICES) if f["review_track"] == crv.UNKNOWN_TRACK else set(crv.CHOICES)
+        assert {c["choice"] for c in f["allowed_human_choices"]} == expected
 
 
 def test_package_creates_no_decisions_and_no_kengetal(package):

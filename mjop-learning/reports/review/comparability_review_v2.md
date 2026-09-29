@@ -12,18 +12,38 @@ Invoer: comparability `b9ab04c6759d`, genormaliseerd `0d50de0f6607`, beslissinge
 | paren met status ACTIVE_DECISION | 15 |
 | paren met status NO_DECISION | 44 |
 | paren met status PREVIOUS_DECISION_REVIEW_REQUIRED | 17 |
-| reviewfamilies | 43 |
-| open reviewfamilies | 33 |
-| families met meer dan één paar | 17 |
+| reviewfamilies | 65 |
+| open reviewfamilies | 55 |
+| families met meer dan één paar | 27 |
 
 Families per bewijscategorie (families / paren):
 
 - `OTHER_REVIEW_REQUIRED`: 1 / 1
-- `OBJECT_TEXT_VARIANT`: 21 / 34
+- `OBJECT_TEXT_VARIANT`: 43 / 68
 - `ACTION_TEXT_VARIANT`: 4 / 16
 - `MATERIAL_EVIDENCE_ONE_SIDE`: 4 / 5
 - `QUANTITY_SCALE_DIFFERENCE`: 5 / 5
 - `EXACT_SAME_SEMANTIC_INPUT`: 8 / 15
+
+## Reviewtrack UNKNOWN_PAIR_REVIEW
+
+Paren met systeemklasse UNKNOWN komen alleen in een reviewfamilie als ALLE voorwaarden gelden: systeemklasse UNKNOWN (blijft UNKNOWN; geen automatische herclassificatie); beide observations independent_input = true; dezelfde volledige candidate key (element_code + genormaliseerde actie + eenheid) aan beide kanten; beide kanten hetzelfde bekende materiaal (verified element, goedgekeurde tekstregel of menselijk materiaalbesluit); verschillende onafhankelijke source clusters; geen hard violations; provenance aan beide kanten: brontekst en pagina+regel of blad+rij. De systeemklasse blijft UNKNOWN. Toegestane menselijke keuzes: COMPARABLE_WITH_CAVEATS (review_note verplicht) of NOT_COMPARABLE.
+
+| | aantal |
+|---|---|
+| UNKNOWN-paren totaal (vóór deze track allemaal buiten de queue) | 548 |
+| nu menselijk reviewbaar | 34 |
+| nog geblokkeerd | 514 |
+| geblokkeerd door NOT_INDEPENDENT_INPUT (per reden) | 144 |
+| geblokkeerd door CANDIDATE_KEY_INCOMPLETE (per reden) | 0 |
+| geblokkeerd door CANDIDATE_KEY_MISMATCH (per reden) | 0 |
+| geblokkeerd door MATERIAL_UNKNOWN (per reden) | 492 |
+| geblokkeerd door MATERIAL_DIFFERS (per reden) | 0 |
+| geblokkeerd door SAME_SOURCE_CLUSTER (per reden) | 0 |
+| geblokkeerd door HARD_VIOLATIONS (per reden) | 0 |
+| geblokkeerd door INSUFFICIENT_PROVENANCE (per reden) | 0 |
+
+Een paar kan meerdere redenen hebben (blocked_by_reason telt per reden). MATERIAL_UNKNOWN kan verdwijnen na een menselijk materiaalbesluit; de systeemklasse blijft altijd UNKNOWN.
 
 Groepering: candidate key + per kant (objectomschrijving en actietekst als woordtokens zonder de vaste gevelzijde-woorden, eenheid in de bron, materiaal + bron, inhoudelijke observation-caveats) + gevelzijde-woorden verschillen + QUANTITY_SCALE_DIFFERENCE + relatierisico. Gevelzijde-woorden: achter, achtergevel, achterzijde, voor, voorgevel, voorzijde.
 
@@ -226,7 +246,7 @@ Nieuwe observations (Testbatch 01):
 
 - observations: 22 (independent_input: 18)
 - source clusters (alle): 7; potentieel beschikbaar (independent_input): 7 - SC-DOC-001, SC-DOC-002, SC-DOC-005+DOC-006, SC-DOC-010, SC-DOC-011, SC-DOC-012, SC-DOC-013
-- paren: 193 (COMPARABLE_WITH_CAVEATS 3, NOT_COMPARABLE 5, UNKNOWN 185); in de reviewqueue: 3
+- paren: 193 (COMPARABLE_WITH_CAVEATS 3, NOT_COMPARABLE 5, UNKNOWN 185); in de reviewqueue: 15
 - ACTIVE decisions: -
 - bestaande kengetallen: -
 - materiaalbewijs (independent_input): KNOWN:wood: 6, NO_MATERIAL_EVIDENCE: 9, TEXT_EVIDENCE_PENDING_APPROVAL:wood: 3
@@ -237,15 +257,64 @@ Zonder materiaalbewijs: PO-DOC-001-P025-L031, PO-DOC-001-P025-L039, PO-DOC-002-P
 
 - materiaal **wood**: 9 observations, 7 potentiële clusters, status `REQUIRES_HUMAN_STEPS`
   - materiaalgoedkeuring nodig voor DOC-011, DOC-012, DOC-013: PO-DOC-011-P020-L067, PO-DOC-012-P014-L013, PO-DOC-013-P018-L059
-  - 33 cross-cluster paren zonder ACTIVE positieve beslissing (1 in de queue; families RF-4621-b30de14ab7; niet in de queue: PAIR-00054, PAIR-00056, PAIR-00057, PAIR-00065, PAIR-00066, PAIR-00068, PAIR-00071, PAIR-00072, PAIR-00115, PAIR-00116, PAIR-00118, PAIR-00121, PAIR-00122, PAIR-00139, PAIR-00140, PAIR-00142, PAIR-00145, PAIR-00146, PAIR-00151, PAIR-00152, PAIR-00154, PAIR-00157, PAIR-00158, PAIR-00223, PAIR-00225, PAIR-00228, PAIR-00229, PAIR-00230, PAIR-00234, PAIR-00240, PAIR-00241, PAIR-00246)
+  - 33 cross-cluster paren zonder ACTIVE positieve beslissing (13 in de queue; families RF-4621-004dc9d137, RF-4621-188ea6a44e, RF-4621-8656071600, RF-4621-907dfd2c65, RF-4621-a41aa495eb, RF-4621-af2b890f8f, RF-4621-b30de14ab7, RF-4621-bb9df7a5d2, RF-4621-cab376a22f, RF-4621-df3c57f3ca; niet in de queue: PAIR-00068, PAIR-00071, PAIR-00072, PAIR-00118, PAIR-00121, PAIR-00122, PAIR-00142, PAIR-00145, PAIR-00146, PAIR-00154, PAIR-00157, PAIR-00158, PAIR-00225, PAIR-00228, PAIR-00229, PAIR-00230, PAIR-00234, PAIR-00240, PAIR-00241, PAIR-00246)
 
 ### Reviewfamilies
 
 | familie | categorie | paren | status | documenten | bestaande beslissingen |
 |---|---|---|---|---|---|
+| `RF-4621-188ea6a44e` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-001, DOC-002 | - |
+| `RF-4621-af2b890f8f` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-006 | - |
+| `RF-4621-df3c57f3ca` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-010 | - |
+| `RF-4621-004dc9d137` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-001, DOC-002 | - |
 | `RF-4621-7f61dec7b0` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-010, DOC-011 | - |
+| `RF-4621-8656071600` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-006, DOC-010 | - |
+| `RF-4621-907dfd2c65` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-002, DOC-006 | - |
+| `RF-4621-a41aa495eb` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-001, DOC-006 | - |
 | `RF-4621-b30de14ab7` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-010, DOC-012 | - |
+| `RF-4621-bb9df7a5d2` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-002, DOC-010 | - |
+| `RF-4621-cab376a22f` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-001, DOC-010 | - |
 | `RF-4621-d67f32f753` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-010, DOC-011 | - |
+
+#### RF-4621-188ea6a44e - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: buitenschilderwerk deur hout dekkend / groot schilderwerk deur hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk panelen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'QUANTITY_SCALE_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk deur hout dekkend, Groot schilderwerk hout dekkend
+- hoeveelheden: 1.00, 293.60; prijspeilen: 20-8-2026, None
+- pair_ids: PAIR-00056, PAIR-00057
+- family_input_sha256: `ec527458b7789e1c9db0b628e661dcb3c0580e0157222ccfaf867ee506eceb63`
+
+#### RF-4621-af2b890f8f - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: buitenschilderwerk gevelbekleding hout / groot schilderwerk gevelbekleding hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk panelen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 2, 'QUANTITY_SCALE_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk gevelbekleding hout dekkend, Groot schilderwerk hout dekkend
+- hoeveelheden: 1.00, 332.00; prijspeilen: 1-3-2023, 20-8-2026
+- pair_ids: PAIR-00139, PAIR-00151
+- family_input_sha256: `c86815d49191ae950cc4e8c6a83aedd774ae0b07fdd4ba8c455d1c5572692a5d`
+
+#### RF-4621-df3c57f3ca - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: buitenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk panelen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk hout dekkend
+- hoeveelheden: 1.00, 4.13; prijspeilen: 1-4-2023, 20-8-2026
+- pair_ids: PAIR-00140, PAIR-00152
+- family_input_sha256: `ffd8f752b5fbc531bf2cf918dac341d1c4defbc8c4af7d2c998c69bef7727380`
+
+#### RF-4621-004dc9d137 - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk deur hout dekkend / groot schilderwerk deur hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk gevelbekleding hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'QUANTITY_SCALE_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk deur hout dekkend, Groot schilderwerk hout dekkend
+- hoeveelheden: 2.00, 293.60; prijspeilen: 20-8-2026, None
+- pair_ids: PAIR-00054
+- family_input_sha256: `a373c510a07e1ad50e3e8fa164fd175cd41d4bc410934cd16c20b2bcd433c128`
 
 #### RF-4621-7f61dec7b0 - OBJECT_TEXT_VARIANT (1 paren)
 
@@ -258,6 +327,36 @@ Zonder materiaalbewijs: PO-DOC-001-P025-L031, PO-DOC-001-P025-L039, PO-DOC-002-P
 - family_input_sha256: `e9ea3241645e291b2984858e70eb09b04a3244cf2ba02fa4ec6670524574282a`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
 
+#### RF-4621-8656071600 - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk gevelbekleding hout / groot schilderwerk gevelbekleding hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'QUANTITY_SCALE_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk gevelbekleding hout dekkend, Groot schilderwerk hout dekkend
+- hoeveelheden: 4.13, 332.00; prijspeilen: 1-3-2023, 1-4-2023
+- pair_ids: PAIR-00223
+- family_input_sha256: `ba0f8d06ad01ee8ecfc254685a92fe0a45080fa84c7ef911e7e1196c67828fe8`
+
+#### RF-4621-907dfd2c65 - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk gevelbekleding hout / groot schilderwerk gevelbekleding hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk gevelbekleding hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'GENERIC_VS_SPECIFIC_OBJECT': 1, 'PRICE_LEVEL_DIFFERENCE': 1, 'QUANTITY_SCALE_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk gevelbekleding hout dekkend, Groot schilderwerk hout dekkend
+- hoeveelheden: 2.00, 332.00; prijspeilen: 1-3-2023, 20-8-2026
+- pair_ids: PAIR-00115
+- family_input_sha256: `aa27c17c1e21086e545c36266861e127f4c704aa4ff1c5ea9686e9c5e5d527c1`
+
+#### RF-4621-a41aa495eb - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk deur hout dekkend / groot schilderwerk deur hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk gevelbekleding hout / groot schilderwerk gevelbekleding hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT; paarcaveats -
+- actieteksten: Groot schilderwerk deur hout dekkend, Groot schilderwerk gevelbekleding hout dekkend
+- hoeveelheden: 293.60, 332.00; prijspeilen: 1-3-2023, None
+- pair_ids: PAIR-00065
+- family_input_sha256: `9aacb2b6c12bbcd594248fd23344766ed4dd820150b8173ff87666781b5aab51`
+
 #### RF-4621-b30de14ab7 - OBJECT_TEXT_VARIANT (1 paren)
 
 - kant 1: buitenschilderwerk diversen hout dekkend alle gevels / groot schilderwerk hout dekkend / m2 / materiaal onbekend
@@ -268,6 +367,26 @@ Zonder materiaalbewijs: PO-DOC-001-P025-L031, PO-DOC-001-P025-L039, PO-DOC-002-P
 - pair_ids: PAIR-00233
 - family_input_sha256: `c817c15d4ea2cb9fdbe4fdc6bd3214c6b7451ffc40d3cb9155442fe53d0f2ee6`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+
+#### RF-4621-bb9df7a5d2 - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk gevelbekleding hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk hout dekkend
+- hoeveelheden: 2.00, 4.13; prijspeilen: 1-4-2023, 20-8-2026
+- pair_ids: PAIR-00116
+- family_input_sha256: `ac6c33a5056e7c819be80fd934b8753c9dfce6df54dfb03ae8475c140b7d9add`
+
+#### RF-4621-cab376a22f - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk deur hout dekkend / groot schilderwerk deur hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'QUANTITY_SCALE_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk deur hout dekkend, Groot schilderwerk hout dekkend
+- hoeveelheden: 4.13, 293.60; prijspeilen: 1-4-2023, None
+- pair_ids: PAIR-00066
+- family_input_sha256: `7b7a9dde76836fa2b3e23a374bb61de742f2a8c6de11d66f1840199bb6d4076a`
 
 #### RF-4621-d67f32f753 - OBJECT_TEXT_VARIANT (1 paren)
 
@@ -284,7 +403,7 @@ Zonder materiaalbewijs: PO-DOC-001-P025-L031, PO-DOC-001-P025-L039, PO-DOC-002-P
 
 - observations: 15 (independent_input: 15)
 - source clusters (alle): 6; potentieel beschikbaar (independent_input): 6 - SC-DOC-002, SC-DOC-007, SC-DOC-008+DOC-009, SC-DOC-010, SC-DOC-011, SC-DOC-013
-- paren: 91 (COMPARABLE_WITH_CAVEATS 9, UNKNOWN 82); in de reviewqueue: 9
+- paren: 91 (COMPARABLE_WITH_CAVEATS 9, UNKNOWN 82); in de reviewqueue: 18
 - ACTIVE decisions: -
 - bestaande kengetallen: -
 - materiaalbewijs (independent_input): KNOWN:wood: 5, NO_MATERIAL_EVIDENCE: 9, TEXT_EVIDENCE_PENDING_APPROVAL:wood: 1
@@ -295,17 +414,33 @@ Zonder materiaalbewijs: PO-DOC-002-P018-L055, PO-DOC-002-P018-L083, PO-DOC-007-P
 
 - materiaal **wood**: 6 observations, 5 potentiële clusters, status `REQUIRES_HUMAN_STEPS`
   - materiaalgoedkeuring nodig voor DOC-011: PO-DOC-011-P020-L091
-  - 14 cross-cluster paren zonder ACTIVE positieve beslissing (0 in de queue; families -; niet in de queue: PAIR-00250, PAIR-00253, PAIR-00256, PAIR-00257, PAIR-00272, PAIR-00275, PAIR-00278, PAIR-00279, PAIR-00304, PAIR-00307, PAIR-00308, PAIR-00325, PAIR-00326, PAIR-00335)
+  - 14 cross-cluster paren zonder ACTIVE positieve beslissing (9 in de queue; families RF-4622-11d576c7dc, RF-4622-354fcb80f6, RF-4622-46a974b31b, RF-4622-6a5b692ee7, RF-4622-8cf1dacd6d, RF-4622-a30aa9fefe; niet in de queue: PAIR-00257, PAIR-00279, PAIR-00308, PAIR-00326, PAIR-00335)
 
 ### Reviewfamilies
 
 | familie | categorie | paren | status | documenten | bestaande beslissingen |
 |---|---|---|---|---|---|
+| `RF-4622-11d576c7dc` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-009 | - |
 | `RF-4622-41fce7f574` | OBJECT_TEXT_VARIANT | 2 | OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED | DOC-002, DOC-010 | HDR-00005, HDR-00007 |
+| `RF-4622-46a974b31b` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-010 | - |
 | `RF-4622-52471f0bfc` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-013 | - |
 | `RF-4622-5556eb7fc2` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-013 | - |
 | `RF-4622-5de32cdb82` | OBJECT_TEXT_VARIANT | 2 | OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED | DOC-002, DOC-009 | HDR-00004, HDR-00006 |
+| `RF-4622-6a5b692ee7` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-002, DOC-007 | - |
+| `RF-4622-354fcb80f6` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-007, DOC-010 | - |
+| `RF-4622-8cf1dacd6d` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-007, DOC-009 | - |
 | `RF-4622-925c9e412c` | OBJECT_TEXT_VARIANT | 1 | OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED | DOC-007, DOC-009 | HDR-00008 |
+| `RF-4622-a30aa9fefe` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-009, DOC-010 | - |
+
+#### RF-4622-11d576c7dc - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: binnenschilderwerk hout dekkend entree bergingen / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: binnenschilderwerk panelen hout dekkend / groot schilderwerk panelen hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 2, 'QUANTITY_SCALE_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk hout dekkend, Groot schilderwerk panelen hout dekkend
+- hoeveelheden: 2.50, 62.00; prijspeilen: 20-8-2026, 21-4-2025
+- pair_ids: PAIR-00253, PAIR-00275
+- family_input_sha256: `0919929f7180a7eb70fc9a573284b6c7ab412b3b6f0700908bae2114c15222a9`
 
 #### RF-4622-41fce7f574 - OBJECT_TEXT_VARIANT (2 paren)
 
@@ -317,6 +452,16 @@ Zonder materiaalbewijs: PO-DOC-002-P018-L055, PO-DOC-002-P018-L083, PO-DOC-007-P
 - pair_ids: PAIR-00266, PAIR-00288
 - family_input_sha256: `f59fa682d7df3c1f6cba1e6f614d0775cfe5dcac97086d82a92247ec006baa25`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+
+#### RF-4622-46a974b31b - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: binnenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: binnenschilderwerk panelen hout dekkend / groot schilderwerk panelen hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 2, 'QUANTITY_SCALE_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk hout dekkend, Groot schilderwerk panelen hout dekkend
+- hoeveelheden: 2.50, 30.05; prijspeilen: 1-4-2023, 20-8-2026
+- pair_ids: PAIR-00256, PAIR-00278
+- family_input_sha256: `96ada3094712b064f43d3055203960a155caebb6c1b7457b41faac9ceb79de59`
 
 #### RF-4622-52471f0bfc - OBJECT_TEXT_VARIANT (2 paren)
 
@@ -351,6 +496,36 @@ Zonder materiaalbewijs: PO-DOC-002-P018-L055, PO-DOC-002-P018-L083, PO-DOC-007-P
 - family_input_sha256: `14b852dbc08ecf9fc775a616c95d04eb844a2643c4e6df4594cd17023bb61270`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
 
+#### RF-4622-6a5b692ee7 - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: binnenschilderwerk leuningen hout transparant / groot schilderwerk leuningen / m2 / materiaal wood
+- kant 2: binnenschilderwerk panelen hout dekkend / groot schilderwerk panelen hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk leuningen, Groot schilderwerk panelen hout dekkend
+- hoeveelheden: 2.50, 13.20; prijspeilen: 20-8-2026, 28-4-2023
+- pair_ids: PAIR-00250, PAIR-00272
+- family_input_sha256: `c3a3effd6f755cc0d041a794ca85af90e62198c7cb9f5f7aa3bbc09b4330d206`
+
+#### RF-4622-354fcb80f6 - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: binnenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: binnenschilderwerk leuningen hout transparant / groot schilderwerk leuningen / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT; paarcaveats -
+- actieteksten: Groot schilderwerk hout dekkend, Groot schilderwerk leuningen
+- hoeveelheden: 13.20, 30.05; prijspeilen: 1-4-2023, 28-4-2023
+- pair_ids: PAIR-00307
+- family_input_sha256: `00cf275c1206350e0f2d3a838336940d9fa5cc767bb6d5f92191a80e9f9de040`
+
+#### RF-4622-8cf1dacd6d - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: binnenschilderwerk hout dekkend entree bergingen / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: binnenschilderwerk leuningen hout transparant / groot schilderwerk leuningen / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk hout dekkend, Groot schilderwerk leuningen
+- hoeveelheden: 13.20, 62.00; prijspeilen: 21-4-2025, 28-4-2023
+- pair_ids: PAIR-00304
+- family_input_sha256: `87debb244b7ca4aa12f307bb159545e8963ce470fc976287a36263c449007e78`
+
 #### RF-4622-925c9e412c - OBJECT_TEXT_VARIANT (1 paren)
 
 - kant 1: binnenschilderwerk metaal liftdeuren en omlijsting / groot schilderwerk metaal / m2 / materiaal onbekend
@@ -362,11 +537,21 @@ Zonder materiaalbewijs: PO-DOC-002-P018-L055, PO-DOC-002-P018-L083, PO-DOC-007-P
 - family_input_sha256: `3bdf6c5d8085d96944b2f8f1381a4eb6f756758b01a1d2758bce75156216f022`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
 
+#### RF-4622-a30aa9fefe - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: binnenschilderwerk diversen hout dekkend / groot schilderwerk hout dekkend / m2 / materiaal wood
+- kant 2: binnenschilderwerk hout dekkend entree bergingen / groot schilderwerk hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk hout dekkend
+- hoeveelheden: 30.05, 62.00; prijspeilen: 1-4-2023, 21-4-2025
+- pair_ids: PAIR-00325
+- family_input_sha256: `86113e193dc3bfbb0950ced8114160617db093c4da9fa91f80f7604b0e5e7725`
+
 ## 4631|exterior_painting|m2
 
 - observations: 9 (independent_input: 8)
 - source clusters (alle): 6; potentieel beschikbaar (independent_input): 6 - SC-DOC-005+DOC-006, SC-DOC-007, SC-DOC-008+DOC-009, SC-DOC-011, SC-DOC-013, SC-DOC-015
-- paren: 33 (COMPARABLE_WITH_CAVEATS 5, UNKNOWN 28); in de reviewqueue: 5
+- paren: 33 (COMPARABLE_WITH_CAVEATS 5, UNKNOWN 28); in de reviewqueue: 10
 - ACTIVE decisions: -
 - bestaande kengetallen: -
 - materiaalbewijs (independent_input): KNOWN:wood: 4, NO_MATERIAL_EVIDENCE: 1, TEXT_EVIDENCE_PENDING_APPROVAL:wood: 3
@@ -377,15 +562,18 @@ Zonder materiaalbewijs: PO-DOC-009-P020-L103. Geen vastgesteld materiaal en de b
 
 - materiaal **wood**: 7 observations, 6 potentiële clusters, status `REQUIRES_HUMAN_STEPS`
   - materiaalgoedkeuring nodig voor DOC-011, DOC-013, DOC-015: PO-DOC-011-P021-L025, PO-DOC-013-P018-L069, PO-DOC-015-S01-R0113
-  - 20 cross-cluster paren zonder ACTIVE positieve beslissing (5 in de queue; families RF-4631-0514ebe15e, RF-4631-5b3207f54b, RF-4631-625ee73b91; niet in de queue: PAIR-00406, PAIR-00407, PAIR-00408, PAIR-00410, PAIR-00411, PAIR-00412, PAIR-00413, PAIR-00416, PAIR-00418, PAIR-00421, PAIR-00423, PAIR-00424, PAIR-00425, PAIR-00429, PAIR-00431)
+  - 20 cross-cluster paren zonder ACTIVE positieve beslissing (10 in de queue; families RF-4631-0514ebe15e, RF-4631-5b3207f54b, RF-4631-5f58c3592f, RF-4631-625ee73b91, RF-4631-8b375feff1, RF-4631-e554146912; niet in de queue: PAIR-00410, PAIR-00411, PAIR-00412, PAIR-00416, PAIR-00421, PAIR-00423, PAIR-00424, PAIR-00425, PAIR-00429, PAIR-00431)
 
 ### Reviewfamilies
 
 | familie | categorie | paren | status | documenten | bestaande beslissingen |
 |---|---|---|---|---|---|
 | `RF-4631-5b3207f54b` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-007, DOC-015 | - |
+| `RF-4631-5f58c3592f` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-006, DOC-007 | - |
 | `RF-4631-625ee73b91` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-007, DOC-011 | - |
+| `RF-4631-8b375feff1` | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION | DOC-007, DOC-009 | - |
 | `RF-4631-0514ebe15e` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-011, DOC-015 | - |
+| `RF-4631-e554146912` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-006, DOC-009 | - |
 
 #### RF-4631-5b3207f54b - OBJECT_TEXT_VARIANT (2 paren)
 
@@ -398,6 +586,16 @@ Zonder materiaalbewijs: PO-DOC-009-P020-L103. Geen vastgesteld materiaal en de b
 - family_input_sha256: `63ba2687993f95b05e781d601a286c179463e18c258d9aff17fb19c2fb8c4f85`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
 
+#### RF-4631-5f58c3592f - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: buitenschilderwerk kozijn hout dekkend / groot schilderwerk kozijn en draaiende delen hout dekkend conform po cyclus / m2 / materiaal wood
+- kant 2: buitenschilderwerk kozijn raam hout dekkend / groot schilderwerk kozijn raam hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT; paarcaveats -
+- actieteksten: Groot schilderwerk kozijn & raam hout dekkend achterzijde, Groot schilderwerk kozijn & raam hout dekkend voorzijde, Groot schilderwerk kozijn (en draaiende delen) hout dekkend (conform PO cyclus)
+- hoeveelheden: 391.30, 756.80; prijspeilen: 1-3-2023, 28-4-2023
+- pair_ids: PAIR-00406, PAIR-00407
+- family_input_sha256: `662f55f9a1291e43d24ec1afc8ac12cf1d67cd280627cee895c946f24e3738cc`
+
 #### RF-4631-625ee73b91 - OBJECT_TEXT_VARIANT (2 paren)
 
 - kant 1: buitenschilderwerk kozijn raam hout dekkend m2 bergingen / groot schilderwerk kozijn raam hout dekkend / m2 / materiaal onbekend
@@ -409,6 +607,16 @@ Zonder materiaalbewijs: PO-DOC-009-P020-L103. Geen vastgesteld materiaal en de b
 - family_input_sha256: `6793b6d25a09b002acd302633d24b520cc8c7a72da87fd3acc0be401f796f435`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
 
+#### RF-4631-8b375feff1 - OBJECT_TEXT_VARIANT (2 paren)
+
+- kant 1: buitenschilderwerk kozijn raam en deur hout dekkend / groot schilderwerk kozijn en raam hout dekkend / m2 / materiaal wood
+- kant 2: buitenschilderwerk kozijn raam hout dekkend / groot schilderwerk kozijn raam hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 2}
+- actieteksten: Groot schilderwerk kozijn & raam hout dekkend achterzijde, Groot schilderwerk kozijn & raam hout dekkend voorzijde, Groot schilderwerk kozijn en raam hout dekkend
+- hoeveelheden: 53.52, 391.30; prijspeilen: 21-4-2025, 28-4-2023
+- pair_ids: PAIR-00413, PAIR-00418
+- family_input_sha256: `558ea94dd019b158c16fdd312c2ed6636776082d5a12890ec24dc7791f47dc84`
+
 #### RF-4631-0514ebe15e - OBJECT_TEXT_VARIANT (1 paren)
 
 - kant 1: buitenschilderwerk kozijn raam hout dekkend m2 bergingen / groot schilderwerk kozijn raam hout dekkend / m2 / materiaal onbekend
@@ -419,6 +627,16 @@ Zonder materiaalbewijs: PO-DOC-009-P020-L103. Geen vastgesteld materiaal en de b
 - pair_ids: PAIR-00430
 - family_input_sha256: `5a664a54a543f4b636f0ea2af4815b07e46f034768cf0a8dada7b58391ddf884`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+
+#### RF-4631-e554146912 - OBJECT_TEXT_VARIANT (1 paren)
+
+- kant 1: buitenschilderwerk kozijn hout dekkend / groot schilderwerk kozijn en draaiende delen hout dekkend conform po cyclus / m2 / materiaal wood
+- kant 2: buitenschilderwerk kozijn raam en deur hout dekkend / groot schilderwerk kozijn en raam hout dekkend / m2 / materiaal wood
+- bewijs: OBJECT_TEXT_VARIANT, ACTION_TEXT_VARIANT, QUANTITY_SCALE_DIFFERENCE; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 1, 'QUANTITY_SCALE_DIFFERENCE': 1}
+- actieteksten: Groot schilderwerk kozijn (en draaiende delen) hout dekkend (conform PO cyclus), Groot schilderwerk kozijn en raam hout dekkend
+- hoeveelheden: 53.52, 756.80; prijspeilen: 1-3-2023, 21-4-2025
+- pair_ids: PAIR-00408
+- family_input_sha256: `b015a6f7c14be0b66dcf44bd2e7c870a3ff705581045b552262ccc8d57d7f9a5`
 
 ## 4711|replace|m1
 
@@ -622,6 +840,10 @@ Geen enkel materiaal is vastgesteld of afleidbaar; eerst materiaal via verified-
 | `RF-2716-4641f9baf5` | 2716|clean|m1 | MATERIAL_EVIDENCE_ONE_SIDE | 1 | OPEN_NO_DECISION |
 | `RF-2716-e2d3846b4b` | 2716|replace|m1 | MATERIAL_EVIDENCE_ONE_SIDE | 1 | OPEN_NO_DECISION |
 | `RF-4321-e60499fe10` | 4321|replace|m2 | OBJECT_TEXT_VARIANT | 1 | OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED |
+| `RF-4624-a1deaabc97` | 4624|interior_painting|m2 | OBJECT_TEXT_VARIANT | 2 | OPEN_NO_DECISION |
+| `RF-4631-f714c6d97b` | 4631|exterior_painting|m1 | OBJECT_TEXT_VARIANT | 4 | OPEN_NO_DECISION |
+| `RF-4632-52d231366e` | 4632|interior_painting|m2 | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION |
+| `RF-4632-611a2f74bf` | 4632|interior_painting|m2 | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION |
 | `RF-4634-55c895765a` | 4634|interior_painting|m2 | MATERIAL_EVIDENCE_ONE_SIDE | 2 | OPEN_NO_DECISION |
 | `RF-4711-f3bf3537a4` | 4711|install|m2 | ACTION_TEXT_VARIANT | 1 | OPEN_NO_DECISION |
 | `RF-4711-40377f0bc8` | 4711|replace|m2 | OBJECT_TEXT_VARIANT | 1 | OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED |

@@ -94,6 +94,37 @@ kengetalregels. Ze toont alleen status, clusters en redenen, geen waarden.
 
 `COMPARABLE`, `COMPARABLE_WITH_CAVEATS`, `NOT_COMPARABLE`, `UNKNOWN`. Er komt geen nieuwe semantiek bij.
 
+## Reviewtrack UNKNOWN_PAIR_REVIEW
+
+Paren met systeemklasse `UNKNOWN` vielen buiten queue v1. Ze kunnen nu expliciet door een mens beoordeeld
+worden, maar alleen als ALLE voorwaarden gelden (`UNKNOWN_SELECTION` in `scripts/comparability_review_v2.py`):
+
+- beide observations `independent_input = true`;
+- dezelfde volledige candidate key (element_code + genormaliseerde actie + eenheid) aan beide kanten;
+- beide kanten hetzelfde bekende materiaal (verified element, goedgekeurde tekstregel of menselijk
+  materiaalbesluit); zonder materiaal blijft het paar geblokkeerd (`MATERIAL_UNKNOWN`);
+- verschillende onafhankelijke source clusters;
+- geen hard violations;
+- provenance aan beide kanten: brontekst en pagina+regel of blad+rij.
+
+Zulke paren vormen eigen reviewfamilies (`review_track = UNKNOWN_PAIR_REVIEW`; de familiesleutel krijgt ook
+de `unknown_reasons`, zodat de bestaande family-ids ongewijzigd blijven). Het pakket bewaart per paar de
+systeemklasse, de oorspronkelijke `unknown_reasons`, object- en actietekst, hoeveelheid, afgeleide prijs,
+prijspeil, document-ids, observation-ids en de source-cluster-provenance. `unknown_pair_review` telt hoeveel
+UNKNOWN-paren reviewbaar zijn en waarom de rest geblokkeerd blijft.
+
+De systeemklasse blijft altijd `UNKNOWN`; er wordt niets automatisch besloten. Toegestane menselijke keuzes:
+
+- `COMPARABLE_WITH_CAVEATS`: per familie een verplichte `review_note` (menselijke onderbouwing); alle
+  bestaande paarcaveats van het systeem moeten in `decision_caveats` blijven; geen nieuwe caveat-types;
+- `NOT_COMPARABLE`.
+
+`COMPARABLE` en `UNKNOWN` worden voor deze track geweigerd. Verder gelden exact dezelfde controles en
+mechanismen als voor elk familiebesluit (hash binding, ACTIVE/SUPERSEDED, atomaire transactie over meerdere
+families, ledger, snapshot, rollback, `acknowledged_kengetal_effects`). Elk record bewaart `system_class`,
+`system_reasons.unknown_reasons` en in `family_decision` ook `review_track`, `unknown_reasons_at_review` en
+`review_note`.
+
 ## Een familiebesluit toepassen
 
 Een mens schrijft een besluitbestand; het veldformaat staat in `scripts/apply_family_decision.py`. Daarna:
