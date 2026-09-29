@@ -719,13 +719,21 @@ def extract_document(doc_id, project_root, pdftotext_binary, pdftotext_version):
     registry_path = os.path.join(project_root, "reports", "document_registry.json")
     registry = document_registry.load_registry(registry_path)
     path, doc_meta = document_registry.verify_file(registry, doc_id, raw_dir)
+    return extract_file(doc_id, path, doc_meta, profile, pdftotext_binary, pdftotext_version)[0]
+
+
+def extract_file(doc_id, path, doc_meta, profile, pdftotext_binary, pdftotext_version, layer=None):
+    """Zelfde extractie als extract_document, maar voor een al gecontroleerd bestand buiten
+    data/raw (incoming-pipeline). doc_meta levert relative_path en sha256; de aanroeper heeft
+    de sha256 al gecontroleerd. Returns (record, pages). Schrijft niets."""
     pages = src.pdf_pages(path, pdftotext_binary)
-    layer = tl.build_text_layer_for_file(path, doc_id, doc_meta["sha256"], doc_meta["relative_path"])
+    if layer is None:
+        layer = tl.build_text_layer_for_file(path, doc_id, doc_meta["sha256"], doc_meta["relative_path"])
     record = build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta)
     errors = validate(record, layer)
     if errors:
         raise ExtractionError(f"{doc_id}: validatie mislukt ({len(errors)} fouten)", errors)
-    return record
+    return record, pages
 
 
 def pilot_output_path(doc_id, project_root, out_dir=None):

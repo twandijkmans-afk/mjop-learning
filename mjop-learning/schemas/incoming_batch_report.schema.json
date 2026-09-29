@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Incoming batch report v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "batch_id",
+    "pipeline_version",
+    "staging_path",
+    "manifest_sha256",
+    "totals",
+    "by_status",
+    "families",
+    "runner_setup_status",
+    "xpdf_available",
+    "documents",
+    "relation_candidates",
+    "kengetallen_impact_if_promoted",
+    "canonical_data_changed",
+    "next_steps"
+  ],
+  "properties": {
+    "batch_id": {
+      "type": "string"
+    },
+    "pipeline_version": {
+      "const": "incoming_pipeline_v1"
+    },
+    "staging_path": {
+      "type": "string"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_files",
+        "new_documents",
+        "previously_registered_documents",
+        "duplicates",
+        "supported_templates",
+        "extracted_successfully",
+        "review_required",
+        "ready_for_extraction",
+        "unknown_templates",
+        "unsupported_formats",
+        "validation_failures",
+        "new_price_observation_candidates",
+        "relation_candidates"
+      ],
+      "properties": {
+        "total_files": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "new_documents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "previously_registered_documents": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duplicates": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "supported_templates": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "extracted_successfully": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "review_required": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ready_for_extraction": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknown_templates": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unsupported_formats": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "validation_failures": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "new_price_observation_candidates": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "relation_candidates": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "by_status": {
+      "type": "object"
+    },
+    "families": {
+      "type": "object"
+    },
+    "runner_setup_status": {
+      "type": "string"
+    },
+    "xpdf_available": {
+      "type": "boolean"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "status",
+          "input_path"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "NEW",
+              "DUPLICATE_SKIP",
+              "READY_FOR_EXTRACTION",
+              "EXTRACTED",
+              "REVIEW_REQUIRED",
+              "UNKNOWN_TEMPLATE",
+              "UNSUPPORTED_FORMAT",
+              "FAILED_VALIDATION"
+            ]
+          }
+        }
+      }
+    },
+    "relation_candidates": {
+      "type": "array"
+    },
+    "kengetallen_impact_if_promoted": {
+      "type": "object",
+      "required": [
+        "existing_kengetallen_changed"
+      ],
+      "properties": {
+        "existing_kengetallen_changed": {
+          "const": 0
+        }
+      }
+    },
+    "canonical_data_changed": {
+      "const": false
+    },
+    "next_steps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

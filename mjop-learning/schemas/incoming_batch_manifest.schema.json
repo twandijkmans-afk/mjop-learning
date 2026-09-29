@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Incoming batch manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifest_version",
+    "pipeline_version",
+    "batch_id",
+    "status",
+    "canonical_write",
+    "uses_ai_api",
+    "network_calls",
+    "inputs",
+    "runner",
+    "tool_versions",
+    "registry",
+    "files"
+  ],
+  "properties": {
+    "manifest_version": {
+      "const": "1.0.0"
+    },
+    "pipeline_version": {
+      "const": "incoming_pipeline_v1"
+    },
+    "batch_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"
+    },
+    "status": {
+      "const": "STAGED"
+    },
+    "canonical_write": {
+      "const": false
+    },
+    "uses_ai_api": {
+      "const": false
+    },
+    "network_calls": {
+      "const": false
+    },
+    "inputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "input_path",
+          "sha256",
+          "status",
+          "document_id"
+        ],
+        "properties": {
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "enum": [
+              "NEW",
+              "DUPLICATE_SKIP",
+              "READY_FOR_EXTRACTION",
+              "EXTRACTED",
+              "REVIEW_REQUIRED",
+              "UNKNOWN_TEMPLATE",
+              "UNSUPPORTED_FORMAT",
+              "FAILED_VALIDATION"
+            ]
+          },
+          "document_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^DOC-\\d{3,}$"
+          }
+        }
+      }
+    },
+    "runner": {
+      "type": "object",
+      "required": [
+        "xpdf_available",
+        "pdftotext_version",
+        "runner_setup_status"
+      ],
+      "properties": {
+        "runner_setup_status": {
+          "enum": [
+            "VERIFIED_RUNNER_SETUP",
+            "UNVERIFIED_RUNNER_SETUP",
+            "NO_XPDF",
+            "FAILED_RUNNER_SETUP"
+          ]
+        }
+      }
+    },
+    "tool_versions": {
+      "type": "object"
+    },
+    "registry": {
+      "type": "object",
+      "required": [
+        "path",
+        "new_document_ids",
+        "registry_sha256_after"
+      ]
+    },
+    "files": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    }
+  }
+}
