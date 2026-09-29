@@ -1,0 +1,1639 @@
+{
+  "append_only": true,
+  "applied_at": "2026-09-29T06:53:43Z",
+  "counts": {
+    "exact_candidates_not_migrated": 131,
+    "history_only": 59,
+    "migrated": 2,
+    "review_required": 28
+  },
+  "decided_by": "twandijkmans",
+  "decisions": {
+    "AMBIGUOUS": "REVIEW_REQUIRED",
+    "DUPLICATE_SKIP": "HISTORY_ONLY",
+    "EXACT_MATCH_CANDIDATE": "NOT_MIGRATED_NO_EXPLICIT_DECISION",
+    "NO_NEW_ACTION": "HISTORY_ONLY",
+    "SAFE_EXACT_RELINK": "CONFIRM_ON_NEW_ACTIONS",
+    "SOURCE_CHANGED_REVIEW": "REVIEW_REQUIRED"
+  },
+  "exact_candidates_not_migrated": [
+    {
+      "document_id": "DOC-001",
+      "new_action_ids": [
+        "DOC-001-ACT-004"
+      ],
+      "old_action_id": "DOC-001-ACT-004",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-001",
+      "new_action_ids": [
+        "DOC-001-ACT-011"
+      ],
+      "old_action_id": "DOC-001-ACT-011",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-001",
+      "new_action_ids": [
+        "DOC-001-ACT-016"
+      ],
+      "old_action_id": "DOC-001-ACT-016",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-001",
+      "new_action_ids": [
+        "DOC-001-ACT-017"
+      ],
+      "old_action_id": "DOC-001-ACT-017",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-001",
+      "new_action_ids": [
+        "DOC-001-ACT-037"
+      ],
+      "old_action_id": "DOC-001-ACT-037",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-001",
+      "new_action_ids": [
+        "DOC-001-ACT-040"
+      ],
+      "old_action_id": "DOC-001-ACT-040",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-002",
+      "new_action_ids": [
+        "DOC-002-ACT-110"
+      ],
+      "old_action_id": "DOC-002-ACT-110",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-004",
+      "new_action_ids": [
+        "DOC-004-ACT-013"
+      ],
+      "old_action_id": "DOC-004-ACT-013",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-004",
+      "new_action_ids": [
+        "DOC-004-ACT-063"
+      ],
+      "old_action_id": "DOC-004-ACT-063",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-001",
+        "DOC-005-ACT-002"
+      ],
+      "old_action_id": "DOC-005-ACT-001",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-003"
+      ],
+      "old_action_id": "DOC-005-ACT-002",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-004"
+      ],
+      "old_action_id": "DOC-005-ACT-005",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-005"
+      ],
+      "old_action_id": "DOC-005-ACT-012",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-012"
+      ],
+      "old_action_id": "DOC-005-ACT-016",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-013"
+      ],
+      "old_action_id": "DOC-005-ACT-017",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-014"
+      ],
+      "old_action_id": "DOC-005-ACT-018",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-017"
+      ],
+      "old_action_id": "DOC-005-ACT-021",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-018"
+      ],
+      "old_action_id": "DOC-005-ACT-022",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-019"
+      ],
+      "old_action_id": "DOC-005-ACT-024",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-020"
+      ],
+      "old_action_id": "DOC-005-ACT-025",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-021"
+      ],
+      "old_action_id": "DOC-005-ACT-026",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-022"
+      ],
+      "old_action_id": "DOC-005-ACT-027",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-025",
+        "DOC-005-ACT-026"
+      ],
+      "old_action_id": "DOC-005-ACT-029",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-005",
+      "new_action_ids": [
+        "DOC-005-ACT-027"
+      ],
+      "old_action_id": "DOC-005-ACT-030",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-003"
+      ],
+      "old_action_id": "DOC-006-ACT-002",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-005"
+      ],
+      "old_action_id": "DOC-006-ACT-012",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-006"
+      ],
+      "old_action_id": "DOC-006-ACT-013",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-007"
+      ],
+      "old_action_id": "DOC-006-ACT-014",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-008"
+      ],
+      "old_action_id": "DOC-006-ACT-015",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-009"
+      ],
+      "old_action_id": "DOC-006-ACT-016",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-010"
+      ],
+      "old_action_id": "DOC-006-ACT-017",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-011"
+      ],
+      "old_action_id": "DOC-006-ACT-018",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-012"
+      ],
+      "old_action_id": "DOC-006-ACT-020",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-014"
+      ],
+      "old_action_id": "DOC-006-ACT-023",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-015"
+      ],
+      "old_action_id": "DOC-006-ACT-024",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-016"
+      ],
+      "old_action_id": "DOC-006-ACT-025",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-017"
+      ],
+      "old_action_id": "DOC-006-ACT-028",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-018"
+      ],
+      "old_action_id": "DOC-006-ACT-030",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-019"
+      ],
+      "old_action_id": "DOC-006-ACT-031",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-020"
+      ],
+      "old_action_id": "DOC-006-ACT-033",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-006",
+      "new_action_ids": [
+        "DOC-006-ACT-021",
+        "DOC-006-ACT-022"
+      ],
+      "old_action_id": "DOC-006-ACT-035",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-002"
+      ],
+      "old_action_id": "DOC-007-ACT-002",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-003"
+      ],
+      "old_action_id": "DOC-007-ACT-003",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-004"
+      ],
+      "old_action_id": "DOC-007-ACT-005",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-005"
+      ],
+      "old_action_id": "DOC-007-ACT-006",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-006"
+      ],
+      "old_action_id": "DOC-007-ACT-008",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-007"
+      ],
+      "old_action_id": "DOC-007-ACT-009",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-008"
+      ],
+      "old_action_id": "DOC-007-ACT-010",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-011",
+        "DOC-007-ACT-012"
+      ],
+      "old_action_id": "DOC-007-ACT-017",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-013",
+        "DOC-007-ACT-014"
+      ],
+      "old_action_id": "DOC-007-ACT-018",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-016"
+      ],
+      "old_action_id": "DOC-007-ACT-025",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-018"
+      ],
+      "old_action_id": "DOC-007-ACT-028",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-019"
+      ],
+      "old_action_id": "DOC-007-ACT-029",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-020",
+        "DOC-007-ACT-021"
+      ],
+      "old_action_id": "DOC-007-ACT-030",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-022"
+      ],
+      "old_action_id": "DOC-007-ACT-032",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-029"
+      ],
+      "old_action_id": "DOC-007-ACT-037",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-030"
+      ],
+      "old_action_id": "DOC-007-ACT-038",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-035"
+      ],
+      "old_action_id": "DOC-007-ACT-041",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-036"
+      ],
+      "old_action_id": "DOC-007-ACT-042",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-037"
+      ],
+      "old_action_id": "DOC-007-ACT-043",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-038"
+      ],
+      "old_action_id": "DOC-007-ACT-044",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-039"
+      ],
+      "old_action_id": "DOC-007-ACT-045",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-042"
+      ],
+      "old_action_id": "DOC-007-ACT-048",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-044"
+      ],
+      "old_action_id": "DOC-007-ACT-051",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-045"
+      ],
+      "old_action_id": "DOC-007-ACT-052",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-046"
+      ],
+      "old_action_id": "DOC-007-ACT-053",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-047"
+      ],
+      "old_action_id": "DOC-007-ACT-056",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-048"
+      ],
+      "old_action_id": "DOC-007-ACT-057",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-049"
+      ],
+      "old_action_id": "DOC-007-ACT-060",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-050"
+      ],
+      "old_action_id": "DOC-007-ACT-062",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-051"
+      ],
+      "old_action_id": "DOC-007-ACT-063",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-052"
+      ],
+      "old_action_id": "DOC-007-ACT-064",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-053"
+      ],
+      "old_action_id": "DOC-007-ACT-065",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-056"
+      ],
+      "old_action_id": "DOC-007-ACT-068",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-057"
+      ],
+      "old_action_id": "DOC-007-ACT-069",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-058"
+      ],
+      "old_action_id": "DOC-007-ACT-072",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-059"
+      ],
+      "old_action_id": "DOC-007-ACT-073",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-060"
+      ],
+      "old_action_id": "DOC-007-ACT-074",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-061"
+      ],
+      "old_action_id": "DOC-007-ACT-075",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-062"
+      ],
+      "old_action_id": "DOC-007-ACT-079",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-063"
+      ],
+      "old_action_id": "DOC-007-ACT-080",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-064"
+      ],
+      "old_action_id": "DOC-007-ACT-081",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-007",
+      "new_action_ids": [
+        "DOC-007-ACT-065"
+      ],
+      "old_action_id": "DOC-007-ACT-082",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-002"
+      ],
+      "old_action_id": "DOC-008-ACT-002",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-003"
+      ],
+      "old_action_id": "DOC-008-ACT-003",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-004"
+      ],
+      "old_action_id": "DOC-008-ACT-006",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-005"
+      ],
+      "old_action_id": "DOC-008-ACT-008",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-006"
+      ],
+      "old_action_id": "DOC-008-ACT-009",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-007"
+      ],
+      "old_action_id": "DOC-008-ACT-010",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-008"
+      ],
+      "old_action_id": "DOC-008-ACT-012",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-009"
+      ],
+      "old_action_id": "DOC-008-ACT-014",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-011"
+      ],
+      "old_action_id": "DOC-008-ACT-016",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-012"
+      ],
+      "old_action_id": "DOC-008-ACT-017",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-013"
+      ],
+      "old_action_id": "DOC-008-ACT-018",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-014"
+      ],
+      "old_action_id": "DOC-008-ACT-019",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-015"
+      ],
+      "old_action_id": "DOC-008-ACT-020",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-016"
+      ],
+      "old_action_id": "DOC-008-ACT-021",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-017"
+      ],
+      "old_action_id": "DOC-008-ACT-022",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-018"
+      ],
+      "old_action_id": "DOC-008-ACT-024",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-019"
+      ],
+      "old_action_id": "DOC-008-ACT-025",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-020"
+      ],
+      "old_action_id": "DOC-008-ACT-026",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-021"
+      ],
+      "old_action_id": "DOC-008-ACT-027",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-008",
+      "new_action_ids": [
+        "DOC-008-ACT-022"
+      ],
+      "old_action_id": "DOC-008-ACT-028",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-012"
+      ],
+      "old_action_id": "DOC-009-ACT-012",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-016"
+      ],
+      "old_action_id": "DOC-009-ACT-016",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-019"
+      ],
+      "old_action_id": "DOC-009-ACT-019",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-020"
+      ],
+      "old_action_id": "DOC-009-ACT-020",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-021"
+      ],
+      "old_action_id": "DOC-009-ACT-021",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-023"
+      ],
+      "old_action_id": "DOC-009-ACT-023",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-025"
+      ],
+      "old_action_id": "DOC-009-ACT-025",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-036"
+      ],
+      "old_action_id": "DOC-009-ACT-036",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-069"
+      ],
+      "old_action_id": "DOC-009-ACT-069",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-075"
+      ],
+      "old_action_id": "DOC-009-ACT-075",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-076"
+      ],
+      "old_action_id": "DOC-009-ACT-076",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-077"
+      ],
+      "old_action_id": "DOC-009-ACT-077",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-088"
+      ],
+      "old_action_id": "DOC-009-ACT-088",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-009",
+      "new_action_ids": [
+        "DOC-009-ACT-089"
+      ],
+      "old_action_id": "DOC-009-ACT-089",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-001"
+      ],
+      "old_action_id": "DOC-010-ACT-001",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-006"
+      ],
+      "old_action_id": "DOC-010-ACT-006",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-013"
+      ],
+      "old_action_id": "DOC-010-ACT-013",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-014"
+      ],
+      "old_action_id": "DOC-010-ACT-014",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-016"
+      ],
+      "old_action_id": "DOC-010-ACT-016",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-019"
+      ],
+      "old_action_id": "DOC-010-ACT-019",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-020"
+      ],
+      "old_action_id": "DOC-010-ACT-020",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-021",
+        "DOC-010-ACT-022"
+      ],
+      "old_action_id": "DOC-010-ACT-021",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-021",
+        "DOC-010-ACT-022"
+      ],
+      "old_action_id": "DOC-010-ACT-022",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-023"
+      ],
+      "old_action_id": "DOC-010-ACT-023",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-024"
+      ],
+      "old_action_id": "DOC-010-ACT-024",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-026"
+      ],
+      "old_action_id": "DOC-010-ACT-026",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-028"
+      ],
+      "old_action_id": "DOC-010-ACT-028",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    },
+    {
+      "document_id": "DOC-010",
+      "new_action_ids": [
+        "DOC-010-ACT-029"
+      ],
+      "old_action_id": "DOC-010-ACT-029",
+      "result": "NOT_MIGRATED_NO_EXPLICIT_DECISION"
+    }
+  ],
+  "history_only": [
+    {
+      "classification": "DUPLICATE_SKIP",
+      "old_action_id": "DOC-003-ACT-110",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-003",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-004",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-006",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-007",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-008",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-009",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-010",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-011",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-020",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-023",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-003",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-004",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-005",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-006",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-007",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-008",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-010",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-011",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-019",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-022",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-026",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-027",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-029",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-032",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-034",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-004",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-007",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-011",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-012",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-013",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-014",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-016",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-019",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-020",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-022",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-023",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-024",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-027",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-031",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-033",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-046",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-050",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-054",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-055",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-058",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-059",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-061",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-070",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-071",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-076",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-077",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-078",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-004",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-005",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-007",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-011",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-013",
+      "result": "HISTORY_ONLY"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-023",
+      "result": "HISTORY_ONLY"
+    }
+  ],
+  "migrated": [
+    {
+      "new_action_ids": [
+        "DOC-001-ACT-005"
+      ],
+      "old_action_id": "DOC-001-ACT-005",
+      "result": "CONFIRM_ON_NEW_ACTIONS"
+    },
+    {
+      "new_action_ids": [
+        "DOC-009-ACT-073"
+      ],
+      "old_action_id": "DOC-009-ACT-073",
+      "result": "CONFIRM_ON_NEW_ACTIONS"
+    }
+  ],
+  "review_required": [
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-001-ACT-036"
+      ],
+      "old_action_id": "DOC-001-ACT-036",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-005-ACT-006",
+        "DOC-005-ACT-007"
+      ],
+      "old_action_id": "DOC-005-ACT-013",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-005-ACT-008",
+        "DOC-005-ACT-009"
+      ],
+      "old_action_id": "DOC-005-ACT-014",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-005-ACT-010",
+        "DOC-005-ACT-011"
+      ],
+      "old_action_id": "DOC-005-ACT-015",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-005-ACT-015",
+        "DOC-005-ACT-016"
+      ],
+      "old_action_id": "DOC-005-ACT-019",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-005-ACT-023",
+        "DOC-005-ACT-024"
+      ],
+      "old_action_id": "DOC-005-ACT-028",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-006-ACT-001",
+        "DOC-006-ACT-002"
+      ],
+      "old_action_id": "DOC-006-ACT-001",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-006-ACT-004"
+      ],
+      "old_action_id": "DOC-006-ACT-009",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-006-ACT-013"
+      ],
+      "old_action_id": "DOC-006-ACT-021",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-001"
+      ],
+      "old_action_id": "DOC-007-ACT-001",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-009",
+        "DOC-007-ACT-010"
+      ],
+      "old_action_id": "DOC-007-ACT-015",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-015"
+      ],
+      "old_action_id": "DOC-007-ACT-021",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-017"
+      ],
+      "old_action_id": "DOC-007-ACT-026",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-023",
+        "DOC-007-ACT-024"
+      ],
+      "old_action_id": "DOC-007-ACT-034",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-025",
+        "DOC-007-ACT-026"
+      ],
+      "old_action_id": "DOC-007-ACT-035",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-027",
+        "DOC-007-ACT-028"
+      ],
+      "old_action_id": "DOC-007-ACT-036",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "new_action_ids": [
+        "DOC-007-ACT-031",
+        "DOC-007-ACT-032",
+        "DOC-007-ACT-033",
+        "DOC-007-ACT-034"
+      ],
+      "old_action_id": "DOC-007-ACT-039",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "new_action_ids": [
+        "DOC-007-ACT-031",
+        "DOC-007-ACT-032",
+        "DOC-007-ACT-033",
+        "DOC-007-ACT-034"
+      ],
+      "old_action_id": "DOC-007-ACT-040",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-040",
+        "DOC-007-ACT-041"
+      ],
+      "old_action_id": "DOC-007-ACT-047",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-043"
+      ],
+      "old_action_id": "DOC-007-ACT-049",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "new_action_ids": [
+        "DOC-007-ACT-054",
+        "DOC-007-ACT-055"
+      ],
+      "old_action_id": "DOC-007-ACT-066",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "new_action_ids": [
+        "DOC-007-ACT-054",
+        "DOC-007-ACT-055"
+      ],
+      "old_action_id": "DOC-007-ACT-067",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-007-ACT-066",
+        "DOC-007-ACT-067",
+        "DOC-007-ACT-068",
+        "DOC-007-ACT-069"
+      ],
+      "old_action_id": "DOC-007-ACT-083",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-008-ACT-001"
+      ],
+      "old_action_id": "DOC-008-ACT-001",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-008-ACT-010"
+      ],
+      "old_action_id": "DOC-008-ACT-015",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-009-ACT-067"
+      ],
+      "old_action_id": "DOC-009-ACT-067",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-009-ACT-080"
+      ],
+      "old_action_id": "DOC-009-ACT-080",
+      "result": "REVIEW_REQUIRED"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "new_action_ids": [
+        "DOC-010-ACT-004"
+      ],
+      "old_action_id": "DOC-010-ACT-004",
+      "result": "REVIEW_REQUIRED"
+    }
+  ],
+  "store": "legacy_accept_migration_batch1_v1"
+}

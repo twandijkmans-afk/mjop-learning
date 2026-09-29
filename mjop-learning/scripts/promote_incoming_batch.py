@@ -182,7 +182,8 @@ def decide(root, batch, approval=None, hypothetical=False):
     canonical = dr.load_registry(os.path.join(root, REGISTRY))
     canon_ids = {d["document_id"] for d in canonical["documents"]}
     canon_sha = {d["sha256"] for d in canonical["documents"]}
-    approved = set((approval or {}).get("approved_document_ids") or [])
+    excluded = set((approval or {}).get("excluded_document_ids") or [])
+    approved = set((approval or {}).get("approved_document_ids") or []) - excluded
     acks = (approval or {}).get("review_acknowledgements") or {}
     runner_ok = runner_verified(batch)
     out = []
@@ -205,6 +206,9 @@ def decide(root, batch, approval=None, hypothetical=False):
             decision, reasons = "BLOCKED", ["MISSING_STAGED_OUTPUT"]
         elif locate_source(root, d) is None:
             decision, reasons = "BLOCKED", ["SOURCE_FILE_MISSING_OR_CHANGED"]
+        elif did in excluded:
+            decision = "REVIEW_REQUIRED"
+            reasons = ["EXCLUDED_BY_REVIEWER"] + [i for i in d["open_review_items"]]
         elif d["status"] == "EXTRACTED":
             if did in approved:
                 decision = "APPROVED_FOR_PROMOTION"
@@ -269,7 +273,7 @@ def preflight(root, batch_id, need_approval):
         else:
             fails += approval_errors(approval, batch)
     decisions = decide(root, batch, approval if not (approval and approval_errors(approval, batch)) else None,
-                       hypothetical=not need_approval)
+                       hypothetical=not need_approval and approval is None)
     bad_approvals = [d for d in decisions if "APPROVAL_FOR_NON_ELIGIBLE_DOCUMENT" in d["reasons"]]
     if need_approval and bad_approvals:
         fails.append(f"approval noemt niet-promoveerbare documenten: {[d['document_id'] for d in bad_approvals]}")
@@ -671,8 +675,20 @@ def review_report(root, batch, decisions, summary, post_errors, preflight_fails,
     }
 
 
-def dry_run(root, batch_id):
+def dry_run(root, batch_id, documents=None):
+    """Volledige simulatie op een tijdelijke kopie. Met een approval.json: exact die goedkeuring.
+    Zonder approval: hypothetisch alle promoveerbare documenten, of alleen `documents` (moeten
+    EXTRACTED en verder promoveerbaar zijn; REVIEW_REQUIRED-documenten nooit via deze route)."""
     fails, batch, approval, decisions = preflight(root, batch_id, need_approval=False)
+    if documents:
+        if approval is not None:
+            raise PromotionError("--documents alleen zonder approval.json (met approval wordt die exact gesimuleerd)")
+        eligible = {d["document_id"] for d in decisions if d["reasons"] == ["AWAITING_HUMAN_APPROVAL"]}
+        wrong = sorted(set(documents) - eligible)
+        if wrong:
+            raise PromotionError(f"niet promoveerbaar zonder aparte review: {wrong}")
+        for d in decisions:
+            d["simulate"] = d["document_id"] in set(documents)
     summary, post_errors = None, []
     if not [f for f in fails if not f.startswith("geen approval")] and any(d["simulate"] for d in decisions):
         summary, post_errors = simulate(root, batch, decisions, approval)
@@ -682,14 +698,21 @@ def dry_run(root, batch_id):
 
 # ------------------------------------------------------------------ approve
 
-def approve(root, batch_id, reviewer, include_review=(), now=None):
+def approve(root, batch_id, reviewer, include_review=(), now=None, exclude=(), exclude_reason=None):
     batch = load_batch(root, batch_id)
     errs = batch_integrity_errors(root, batch)
     if errs:
         raise PromotionError(f"batch ongeldig: {errs[:3]}")
     decisions = decide(root, batch, None)
+    known = {d["document_id"] for d in decisions if d["document_id"]}
+    unknown = sorted(set(exclude) - known)
+    if unknown:
+        raise PromotionError(f"uit te sluiten documenten horen niet bij deze batch: {unknown}")
+    if set(exclude) & set(include_review):
+        raise PromotionError("een document kan niet tegelijk goedgekeurd en uitgesloten worden")
     extracted = sorted(d["document_id"] for d in decisions
-                       if d["decision"] == "REVIEW_REQUIRED" and d["reasons"] == ["AWAITING_HUMAN_APPROVAL"])
+                       if d["decision"] == "REVIEW_REQUIRED" and d["reasons"] == ["AWAITING_HUMAN_APPROVAL"]
+                       and d["document_id"] not in set(exclude))
     acks = {}
     for did in include_review:
         d = next((x for x in decisions if x["document_id"] == did), None)
@@ -700,6 +723,8 @@ def approve(root, batch_id, reviewer, include_review=(), now=None):
                 "reviewer": reviewer, "approved_at": now or now_utc(),
                 "approved_document_ids": sorted(set(extracted) | set(acks), key=dr._id_num),
                 "review_acknowledgements": acks,
+                "excluded_document_ids": sorted(set(exclude), key=dr._id_num),
+                "exclusion_reason": exclude_reason if exclude else None,
                 "statement": "Menselijke goedkeuring voor promotie. Relatiekandidaten worden hiermee NIET bevestigd."}
     path = os.path.join(batch["dir"], "approval.json")
     if os.path.exists(path):
@@ -726,6 +751,10 @@ def main(argv=None):
     ap.add_argument("--reviewer")
     ap.add_argument("--include-review", nargs="*", default=[])
     ap.add_argument("--no-write", action="store_true", help="dry-run: ook het reviewrapport niet schrijven")
+    ap.add_argument("--exclude", nargs="*", default=[], help="--approve: documenten expliciet uitsluiten")
+    ap.add_argument("--exclude-reason", help="--approve: reden van de uitsluiting (vastgelegd in approval.json)")
+    ap.add_argument("--documents", nargs="*", default=[],
+                    help="dry-run zonder approval: simuleer alleen deze (EXTRACTED) documenten")
     args = ap.parse_args(argv)
     root = args.root
     try:
@@ -736,7 +765,7 @@ def main(argv=None):
         if not args.batch_id:
             ap.error("--batch-id is verplicht")
         if args.dry_run:
-            report = dry_run(root, args.batch_id)
+            report = dry_run(root, args.batch_id, args.documents or None)
             text = json.dumps(report, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
             if not args.no_write:
                 out = os.path.join(root, pib.REPORTS_DIR, f"{args.batch_id}.promotion_review.json")
@@ -753,7 +782,8 @@ def main(argv=None):
         if args.approve:
             if not args.reviewer:
                 ap.error("--reviewer is verplicht bij --approve")
-            a = approve(root, args.batch_id, args.reviewer, args.include_review)
+            a = approve(root, args.batch_id, args.reviewer, args.include_review, exclude=args.exclude,
+                        exclude_reason=args.exclude_reason)
             print(f"approval.json geschreven: {a['approved_document_ids']}")
             return 0
         if args.promote:
