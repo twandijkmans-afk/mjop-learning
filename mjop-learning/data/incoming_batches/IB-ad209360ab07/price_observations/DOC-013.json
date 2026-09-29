@@ -1,0 +1,3182 @@
+{
+  "builder_version": "price_observation_source_layer_v1",
+  "checks": {
+    "amount_reconciliation_not_consistent": 0,
+    "bevindingen_rows_linked": 10,
+    "bevindingen_rows_with_amount": 10,
+    "calculated_over_multiple_executions": 3,
+    "cycle_length_blank_in_source": 10,
+    "cycle_start_before_window": 0,
+    "cycle_start_missing": 0,
+    "jaarplan_rows_linked": 11,
+    "jaarplan_rows_with_amount": 11,
+    "jarenplan_rows_parsed": 34,
+    "jarenplan_totaal_object": "216889",
+    "observations": 29,
+    "observations_without_extraction_link": 0,
+    "price_level_basis": "explicit",
+    "price_level_date": "14-7-2026",
+    "provenance_incomplete": 0,
+    "section_rows_unlinked": 0,
+    "status": "parsed",
+    "sum_observation_totals": "216891",
+    "totaal_object_difference": "2",
+    "total_scope": {
+      "MULTIPLE_EXECUTIONS": 5,
+      "ONE_EXECUTION": 24
+    },
+    "unit_price_calculated": 16,
+    "vat_basis": "inclusive",
+    "verified_actions_linked": 37,
+    "verified_actions_total": 37,
+    "zero_total_rows_not_observations": 5
+  },
+  "document": {
+    "document_context": {
+      "indexation_source": {
+        "line": 13,
+        "page": 17
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_level_source": {
+        "line": 55,
+        "page": 2,
+        "text": "Prijspeil 14-7-2026"
+      },
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_source": {
+        "line": 57,
+        "page": 2,
+        "text": "BTW De bedragen in de begrotingen zijn inclusief BTW"
+      },
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    "document_id": "DOC-013",
+    "document_relation_ids": [],
+    "file_type": "pdf",
+    "jarenplan_totaal_object": "216889",
+    "pages": 28,
+    "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+    "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513",
+    "status": "parsed"
+  },
+  "note": "Kandidaat-price-observations (incoming staging). Relatie-ID's zijn lokaal en worden bij promotie hernummerd. Niet canoniek.",
+  "observation_relations": [],
+  "observations": [
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Verwijderen",
+        "gebrek_or_location_text_original": "Aantasting afwerklaag"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "908"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "2110",
+        "element_code_original": "2110",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Gevelconstructie metselwerk",
+        "element_description_original": "Gevelconstructie metselwerk",
+        "element_id": "DOC-013-EL-001",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-001"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L011",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 9,
+            "page": 18
+          },
+          "line": 11,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Verwijderen Aantasting afwerklaag 1,00 pst 2026 908 908"
+        },
+        {
+          "line": 9,
+          "match_text_similarity": 1.0,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2110 Gevelconstructie metselwerk Verwijderen 1,00 pst 908",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B2SB01",
+            "name": "Aantasting afwerklaag"
+          },
+          "inspection_scores_raw": "Serieus 2 1 1",
+          "line": 21,
+          "match_text_similarity": 1.0,
+          "page": 14,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Verwijderen 1,00 pst 908",
+          "tag_location": "Nummer 19",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "908",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "908",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Keuren hijswerk staal",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "1997",
+        "2031": "1997",
+        "2036": "1997"
+      },
+      "calculated_unit_price_basis": "row_total_over_multiple_executions_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "5",
+      "cycle_length_years": 5,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "2120",
+        "element_code_original": "2120",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Hijsbalk staal",
+        "element_description_original": "Hijsbalk staal",
+        "element_id": "DOC-013-EL-002",
+        "element_location_original": "Voorgevel"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-002",
+          "DOC-013-ACT-003",
+          "DOC-013-ACT-004"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L015",
+      "occurrences_in_window": 3,
+      "planned_years": [
+        "2026",
+        "2031",
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "3,00",
+      "quantity_value": "3.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 13,
+            "page": 18
+          },
+          "line": 15,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Keuren hijswerk staal 3,00 st 2026 5 1.997 1.997 1.997 5.990"
+        },
+        {
+          "line": 13,
+          "match_text_similarity": 1.0,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2120 Hijsbalk staal Keuren hijswerk staal 3,00 st 1.997",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "5.990",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "5990",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "1996.67",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen gootbekleding zink",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2036": "1451"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2036,
+      "cycle_start_year_as_stated": "2036",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "2716",
+        "element_code_original": "2716",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Gootbekleding zink",
+        "element_description_original": "Gootbekleding zink",
+        "element_id": "DOC-013-EL-004",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-005"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L023",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "17,80",
+      "quantity_value": "17.80",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 21,
+            "page": 18
+          },
+          "line": 23,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen gootbekleding zink 17,80 m1 2036 25 1.451 1.451"
+        }
+      ],
+      "total_as_stated": "1.451",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "1451",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "81.52",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Scheuren in houten kozijn"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "835"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3120",
+        "element_code_original": "3120",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Kozijn buiten hardhout",
+        "element_description_original": "Kozijn buiten hardhout",
+        "element_id": "DOC-013-EL-010",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-006"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L031",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 29,
+            "page": 18
+          },
+          "line": 31,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Scheuren in houten kozijn 1,00 pst 2026 835 835"
+        },
+        {
+          "line": 27,
+          "match_text_similarity": 1.0,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "3120 Kozijn buiten hardhout Herstellen 1,00 pst 835",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B7EM08",
+            "name": "Scheuren in houten kozijn"
+          },
+          "inspection_scores_raw": "Ernstig 2 1 1",
+          "line": 39,
+          "match_text_similarity": 1.0,
+          "page": 13,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 835",
+          "tag_location": "19-2",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "835",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "835",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Houtrot"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "3025"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3120",
+        "element_code_original": "3120",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Kozijn buiten hardhout",
+        "element_description_original": "Kozijn buiten hardhout",
+        "element_id": "DOC-013-EL-010",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-007"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L033",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 29,
+            "page": 18
+          },
+          "line": 33,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Houtrot 1,00 pst 2026 3.025 3.025"
+        },
+        {
+          "line": 19,
+          "match_text_similarity": 1.0,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "3120 Kozijn buiten hardhout Herstellen 1,00 pst 3.025",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B7EM05",
+            "name": "Houtrot"
+          },
+          "inspection_scores_raw": "Ernstig 2 1 1",
+          "line": 21,
+          "match_text_similarity": 1.0,
+          "page": 13,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 3.025",
+          "tag_location": "13-2",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "3.025",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "3025",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Afdichting, manco"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "363"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3120",
+        "element_code_original": "3120",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Kozijn buiten hardhout",
+        "element_description_original": "Kozijn buiten hardhout",
+        "element_id": "DOC-013-EL-010",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-008"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L035",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 29,
+            "page": 18
+          },
+          "line": 35,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Afdichting, manco 1,00 pst 2026 363 363"
+        },
+        {
+          "line": 23,
+          "match_text_similarity": 1.0,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "3120 Kozijn buiten hardhout Herstellen 1,00 pst 363",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B7EW01",
+            "name": "Afdichting, manco"
+          },
+          "inspection_scores_raw": "Ernstig 3 1 2",
+          "line": 41,
+          "match_text_similarity": 1.0,
+          "page": 12,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 363",
+          "tag_location": "13",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "363",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "363",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen lichtkoepel",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2037": "2230"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2037,
+      "cycle_start_year_as_stated": "2037",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3721",
+        "element_code_original": "3721",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Lichtkoepel kunststof klein",
+        "element_description_original": "Lichtkoepel kunststof klein",
+        "element_id": "DOC-013-EL-012",
+        "element_location_original": "Dak"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-009"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L043",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2037"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "2,00",
+      "quantity_value": "2.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 41,
+            "page": 18
+          },
+          "line": 43,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen lichtkoepel 2,00 st 2037 25 2.230 2.230"
+        }
+      ],
+      "total_as_stated": "2.230",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2230",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "1115.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen lichtkoepel",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2037": "2399"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2037,
+      "cycle_start_year_as_stated": "2037",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3721",
+        "element_code_original": "3721",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Lichtkoepel kunststof groot",
+        "element_description_original": "Lichtkoepel kunststof groot",
+        "element_id": "DOC-013-EL-013",
+        "element_location_original": "Dak"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-010"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L047",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2037"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 45,
+            "page": 18
+          },
+          "line": 47,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen lichtkoepel 1,00 st 2037 25 2.399 2.399"
+        }
+      ],
+      "total_as_stated": "2.399",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2399",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "2399.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Verpoederen"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "426"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4621",
+        "element_code_original": "4621",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          55
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk boeiboord hout",
+        "element_description_original": "Buitenschilderwerk boeiboord hout dekkend",
+        "element_id": "DOC-013-EL-016",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-011"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L057",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 53,
+            "page": 18
+          },
+          "line": 57,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Verpoederen 1,00 pst 2026 426 426"
+        },
+        {
+          "line": 33,
+          "match_text_similarity": 0.465,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4621 Buitenschilderwerk boeiboord hout dekkend Herstellen 1,00 pst 426",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B11SM07",
+            "name": "Verpoederen"
+          },
+          "inspection_scores_raw": "Serieus 3 5 5",
+          "line": 21,
+          "match_text_similarity": 1.0,
+          "page": 11,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 426",
+          "tag_location": "Voorgevel",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "426",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "426",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk boeiboord hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "384",
+        "2033": "384",
+        "2040": "384"
+      },
+      "calculated_unit_price_basis": "row_total_over_multiple_executions_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "7",
+      "cycle_length_years": 7,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4621",
+        "element_code_original": "4621",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          55
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk boeiboord hout",
+        "element_description_original": "Buitenschilderwerk boeiboord hout dekkend",
+        "element_id": "DOC-013-EL-016",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-012",
+          "DOC-013-ACT-013",
+          "DOC-013-ACT-014"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L059",
+      "occurrences_in_window": 3,
+      "planned_years": [
+        "2026",
+        "2033",
+        "2040"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "4,14",
+      "quantity_value": "4.14",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            61
+          ],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 53,
+            "page": 18
+          },
+          "line": 59,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk boeiboord hout 4,14 m2 2026 7 384 384 384 1.151"
+        },
+        {
+          "line": 37,
+          "match_text_similarity": 0.68,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4621 Buitenschilderwerk boeiboord hout dekkend Groot schilderwerk boeiboord hout 4,14 m2 384",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "1.151",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "1151",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "278.02",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Verpoederen"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "16169"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4631",
+        "element_code_original": "4631",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          65
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk kozijn en raam",
+        "element_description_original": "Buitenschilderwerk kozijn en raam hout dekkend",
+        "element_id": "DOC-013-EL-017",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-015"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L067",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 63,
+            "page": 18
+          },
+          "line": 67,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Verpoederen 1,00 pst 2026 16.169 16.169"
+        },
+        {
+          "line": 41,
+          "match_text_similarity": 0.667,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4631 Buitenschilderwerk kozijn en raam hout Herstellen 1,00 pst 16.169",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B11SM07",
+            "name": "Verpoederen"
+          },
+          "inspection_scores_raw": "Serieus 3 5 5",
+          "line": 39,
+          "match_text_similarity": 1.0,
+          "page": 11,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 16.169",
+          "tag_location": "Voorzijde",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "16.169",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "16169",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk kozijn en raam hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2033": "14565",
+        "2040": "14565"
+      },
+      "calculated_unit_price_basis": "row_total_over_multiple_executions_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "7",
+      "cycle_length_years": 7,
+      "cycle_start_year": 2033,
+      "cycle_start_year_as_stated": "2033",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4631",
+        "element_code_original": "4631",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          65
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk kozijn en raam",
+        "element_description_original": "Buitenschilderwerk kozijn en raam hout dekkend",
+        "element_id": "DOC-013-EL-017",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-016",
+          "DOC-013-ACT-017"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L069",
+      "occurrences_in_window": 2,
+      "planned_years": [
+        "2033",
+        "2040"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "106,90",
+      "quantity_value": "106.90",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            71
+          ],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 63,
+            "page": 18
+          },
+          "line": 69,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk kozijn en raam 106,90 m2 2033 7 14.565 14.565 29.130"
+        }
+      ],
+      "total_as_stated": "29.130",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "29130",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "272.50",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "install",
+        "action_text_original": "Aanbrengen nieuwe laag dakbedekking APP",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2037": "20786"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "50",
+      "cycle_length_years": 50,
+      "cycle_start_year": 2037,
+      "cycle_start_year_as_stated": "2037",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4711",
+        "element_code_original": "4711",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakbedekking APP",
+        "element_description_original": "Dakbedekking APP",
+        "element_id": "DOC-013-EL-018",
+        "element_location_original": "Dak"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-018"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L081",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2037"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "202,10",
+      "quantity_value": "202.10",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            83
+          ],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 77,
+            "page": 18
+          },
+          "line": 81,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Aanbrengen nieuwe laag 202,10 m2 2037 50 20.786 20.786"
+        }
+      ],
+      "total_as_stated": "20.786",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "20786",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "102.85",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "replace",
+        "action_text_original": "Vervangen dakrandafwerking zink",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2037": "1014"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2037,
+      "cycle_start_year_as_stated": "2037",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4711",
+        "element_code_original": "4711",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakrandafwerking zink",
+        "element_description_original": "Dakrandafwerking zink",
+        "element_id": "DOC-013-EL-019",
+        "element_location_original": "Dak"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-019"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P018-L087",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2037"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "17,80",
+      "quantity_value": "17.80",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 85,
+            "page": 18
+          },
+          "line": 87,
+          "page": 18,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen dakrandafwerking zink 17,80 m1 2037 25 1.014 1.014"
+        }
+      ],
+      "total_as_stated": "1.014",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "1014",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "56.97",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen dakbedekking shingles bitumen",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2036": "2859"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2036,
+      "cycle_start_year_as_stated": "2036",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4712",
+        "element_code_original": "4712",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakbedekking shingles bitumen",
+        "element_description_original": "Dakbedekking shingles bitumen",
+        "element_id": "DOC-013-EL-022",
+        "element_location_original": "Dak"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-020"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L007",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "36,35",
+      "quantity_value": "36.35",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            9
+          ],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 5,
+            "page": 19
+          },
+          "line": 7,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen dakbedekking shingles 36,35 m2 2036 25 2.859 2.859"
+        }
+      ],
+      "total_as_stated": "2.859",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2859",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "78.65",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen dakbedekking zink",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2036": "900"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2036,
+      "cycle_start_year_as_stated": "2036",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4712",
+        "element_code_original": "4712",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakbedekking zink",
+        "element_description_original": "Dakbedekking zink",
+        "element_id": "DOC-013-EL-023",
+        "element_location_original": "Dak"
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-021"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L013",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "4,25",
+      "quantity_value": "4.25",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 11,
+            "page": 19
+          },
+          "line": 13,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen dakbedekking zink 4,25 m2 2036 25 900 900"
+        }
+      ],
+      "total_as_stated": "900",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "900",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "211.76",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen doorvoer",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2036": "1413"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2036,
+      "cycle_start_year_as_stated": "2036",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5211",
+        "element_code_original": "5211",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Doorvoer lood",
+        "element_description_original": "Doorvoer lood",
+        "element_id": "DOC-013-EL-028",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-022"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L021",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "7,00",
+      "quantity_value": "7.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 19,
+            "page": 19
+          },
+          "line": 21,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen doorvoer 7,00 st 2036 25 1.413 1.413"
+        }
+      ],
+      "total_as_stated": "1.413",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "1413",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "201.86",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "replace",
+        "action_text_original": "Vervangen hemelwaterafvoer pvc",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2036": "3100"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2036,
+      "cycle_start_year_as_stated": "2036",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5211",
+        "element_code_original": "5211",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Hemelwaterafvoer pvc",
+        "element_description_original": "Hemelwaterafvoer pvc",
+        "element_id": "DOC-013-EL-027",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-023"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L025",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "57,00",
+      "quantity_value": "57.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 23,
+            "page": 19
+          },
+          "line": 25,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100"
+        }
+      ],
+      "total_as_stated": "3.100",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "3100",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "54.39",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Aanbrengen",
+        "gebrek_or_location_text_original": "Ontbreken"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "182"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": null,
+        "element_code_original": "9072",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Huisnummers",
+        "element_description_original": "Huisnummers",
+        "element_id": "DOC-013-EL-029",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-024"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L033",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 31,
+            "page": 19
+          },
+          "line": 33,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Aanbrengen Ontbreken 1,00 pst 2026 182 182"
+        },
+        {
+          "line": 49,
+          "match_text_similarity": 1.0,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "9072 Huisnummers Aanbrengen 1,00 pst 182",
+          "year": "2026"
+        },
+        {
+          "defect": null,
+          "inspection_scores_raw": "Ernstig 3 3 4",
+          "line": 21,
+          "match_text_similarity": 1.0,
+          "page": 12,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Aanbrengen 1,00 pst 182",
+          "tag_location": "Nummer 19",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "182",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "182",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Inspecteren en begroting aanpassen",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "1815",
+        "2036": "1815"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "5",
+      "cycle_length_years": 5,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9999",
+        "element_code_original": "9999",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Acualisatie MOP",
+        "element_description_original": "Acualisatie MOP",
+        "element_id": "DOC-013-EL-030",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-025",
+          "DOC-013-ACT-026"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L043",
+      "occurrences_in_window": 2,
+      "planned_years": [
+        "2031",
+        "2036"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 41,
+            "page": 19
+          },
+          "line": 43,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Inspecteren en begroting aanpassen 1,00 pst 2031 5 1.815 1.815 3.630"
+        }
+      ],
+      "total_as_stated": "3.630",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "3630",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Klimmaterieel",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "31460",
+        "2033": "31460",
+        "2040": "31460"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "7",
+      "cycle_length_years": 7,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9999",
+        "element_code_original": "9999",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          47
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Bereikbaarheids voorziening",
+        "element_description_original": "Bereikbaarheids voorziening schilderwerk",
+        "element_id": "DOC-013-EL-031",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-027",
+          "DOC-013-ACT-028",
+          "DOC-013-ACT-029"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L049",
+      "occurrences_in_window": 3,
+      "planned_years": [
+        "2026",
+        "2033",
+        "2040"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 45,
+            "page": 19
+          },
+          "line": 49,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Klimmaterieel 1,00 pst 2026 7 31.460 31.460 31.460 94.380"
+        },
+        {
+          "line": 55,
+          "match_text_similarity": 0.667,
+          "page": 26,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "9999 Bereikbaarheids voorziening schilderwerk Klimmaterieel 1,00 pst 31.460",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "94.380",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "94380",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Losstaande of instabiele leuningen, balustrades en hekwerken"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2026": "484"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2026,
+      "cycle_start_year_as_stated": "2026",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3431",
+        "element_code_original": "3431",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnentrapleuning hout",
+        "element_description_original": "Binnentrapleuning hout",
+        "element_id": "DOC-013-EL-032",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-030"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L061",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2026"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            63,
+            65
+          ],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 59,
+            "page": 19
+          },
+          "line": 61,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Losstaande of instabiele 1,00 pst 2026 484 484"
+        },
+        {
+          "line": 9,
+          "match_text_similarity": 1.0,
+          "page": 28,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "3431 Binnentrapleuning hout Herstellen 1,00 pst 484",
+          "year": "2026"
+        },
+        {
+          "defect": {
+            "code": "B4EB02",
+            "name": "Losstaande of instabiele leuningen, balustrades en hekwerken"
+          },
+          "inspection_scores_raw": "Ernstig 3 2 3",
+          "line": 21,
+          "match_text_similarity": 1.0,
+          "page": 16,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 484",
+          "tag_location": "19",
+          "year": "2026"
+        }
+      ],
+      "total_as_stated": "484",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "484",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk stucwerk",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "8869"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "21",
+      "cycle_length_years": 21,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4622",
+        "element_code_original": "4622",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          75
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk stucwerk",
+        "element_description_original": "Binnenschilderwerk stucwerk wanden",
+        "element_id": "DOC-013-EL-036",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-031"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L077",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "231,56",
+      "quantity_value": "231.56",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 73,
+            "page": 19
+          },
+          "line": 77,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk stucwerk 231,56 m2 2031 21 8.869 8.869"
+        }
+      ],
+      "total_as_stated": "8.869",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "8869",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "38.30",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk stucwerk",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "2398"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "21",
+      "cycle_length_years": 21,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4622",
+        "element_code_original": "4622",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          81
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk stucwerk",
+        "element_description_original": "Binnenschilderwerk stucwerk plafonds",
+        "element_id": "DOC-013-EL-035",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-032"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L083",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "62,60",
+      "quantity_value": "62.60",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 79,
+            "page": 19
+          },
+          "line": 83,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk stucwerk 62,60 m2 2031 21 2.398 2.398"
+        }
+      ],
+      "total_as_stated": "2.398",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2398",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "38.31",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "475"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "21",
+      "cycle_length_years": 21,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4622",
+        "element_code_original": "4622",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk hout dekkend",
+        "element_description_original": "Binnenschilderwerk hout dekkend",
+        "element_id": "DOC-013-EL-034",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-033"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P019-L087",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "39,60",
+      "quantity_value": "39.60",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 85,
+            "page": 19
+          },
+          "line": 87,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk hout dekkend 39,60 m1 2031 21 475 475"
+        }
+      ],
+      "total_as_stated": "475",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "475",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "11.99",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Beschadiging"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "1764"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4624",
+        "element_code_original": "4624",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          7
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk trap hout",
+        "element_description_original": "Binnenschilderwerk trap hout dekkend",
+        "element_id": "DOC-013-EL-037",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-034"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P020-L009",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 5,
+            "page": 20
+          },
+          "line": 9,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Beschadiging 1,00 pst 2031 1.764 1.764"
+        },
+        {
+          "defect": {
+            "code": "B11SM01",
+            "name": "Beschadiging"
+          },
+          "inspection_scores_raw": "Serieus 2 4 3",
+          "line": 39,
+          "match_text_similarity": 1.0,
+          "page": 16,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 1.764",
+          "tag_location": "Alle trappenhuizen",
+          "year": "2031"
+        }
+      ],
+      "total_as_stated": "1.764",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "1764",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk kozijn en raam hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "885"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "21",
+      "cycle_length_years": 21,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4632",
+        "element_code_original": "4632",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          17
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk kozijn en raam",
+        "element_description_original": "Binnenschilderwerk kozijn en raam hout dekkend",
+        "element_id": "DOC-013-EL-038",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-035"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P020-L019",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "23,76",
+      "quantity_value": "23.76",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            21
+          ],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 15,
+            "page": 20
+          },
+          "line": 19,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk kozijn en raam 23,76 m2 2031 21 885 885"
+        }
+      ],
+      "total_as_stated": "885",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "885",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "37.25",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Beschadiging"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "3020"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4634",
+        "element_code_original": "4634",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          25
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk hek hout",
+        "element_description_original": "Binnenschilderwerk hek hout dekkend",
+        "element_id": "DOC-013-EL-039",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-036"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P020-L027",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 23,
+            "page": 20
+          },
+          "line": 27,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Beschadiging 1,00 pst 2031 3.020 3.020"
+        },
+        {
+          "defect": {
+            "code": "B11SM01",
+            "name": "Beschadiging"
+          },
+          "inspection_scores_raw": "Serieus 2 2 1",
+          "line": 59,
+          "match_text_similarity": 1.0,
+          "page": 16,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 3.020",
+          "tag_location": "Plaatselijk",
+          "year": "2031"
+        }
+      ],
+      "total_as_stated": "3.020",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "3020",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "replace",
+        "action_text_original": "Vervangen deurbelinstallatie",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2030": "6655"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "eenheid '20' niet in vocabularies/unit.json",
+      "calculation_method": null,
+      "cycle_length_as_stated": "15",
+      "cycle_length_years": 15,
+      "cycle_start_year": 2030,
+      "cycle_start_year_as_stated": "2030",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-013",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "6411",
+        "element_code_original": "6411",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Deurbelinstallatie",
+        "element_description_original": "Deurbelinstallatie",
+        "element_id": "DOC-013-EL-041",
+        "element_location_original": null
+      },
+      "execution_window_end": 2040,
+      "execution_window_start": 2026,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-013-ACT-037"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2027).",
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-013-P020-L039",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2030"
+      ],
+      "price_level_basis": "explicit",
+      "price_level_date": "14-7-2026",
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "10,00",
+      "quantity_value": "10.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "unit_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-013",
+          "element_line": {
+            "line": 37,
+            "page": 20
+          },
+          "line": 39,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen deurbelinstallatie 10,00 20 2030 15 6.655 6.655"
+        }
+      ],
+      "total_as_stated": "6.655",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "6655",
+      "unit_normalized": null,
+      "unit_original": "20",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": "Hoog/Laag tarief is toegepast: Hoog = 21,0%; Laag = 9,0%",
+      "vat_text": "De bedragen in de begrotingen zijn inclusief BTW"
+    }
+  ],
+  "unlinked_section_rows": []
+}

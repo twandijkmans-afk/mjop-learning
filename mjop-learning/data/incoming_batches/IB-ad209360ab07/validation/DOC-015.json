@@ -39,13 +39,13 @@
     },
     {
       "check": "elements",
-      "count": 51,
+      "count": 23,
       "details": [],
       "result": "PASS"
     },
     {
       "check": "maintenance_actions",
-      "count": 64,
+      "count": 26,
       "details": [],
       "result": "PASS"
     },
@@ -81,39 +81,43 @@
     },
     {
       "check": "price_level",
+      "count": 1,
+      "details": [],
+      "result": "WARN"
+    },
+    {
+      "check": "condition_legend",
+      "count": 0,
+      "details": [],
+      "result": "WARN"
+    },
+    {
+      "check": "review_flags",
+      "count": 1,
+      "details": [],
+      "result": "WARN"
+    },
+    {
+      "check": "spreadsheet_structure",
       "count": 0,
       "details": [],
       "result": "PASS"
     },
     {
-      "check": "condition_legend",
-      "count": 8,
+      "check": "price_observations",
+      "count": 18,
       "details": [],
       "result": "PASS"
     },
     {
-      "check": "review_flags",
-      "count": 7,
-      "details": [],
-      "result": "WARN"
-    },
-    {
-      "check": "price_observations",
-      "count": 48,
-      "details": [
-        "verschil met Totaal object: 2"
-      ],
-      "result": "WARN"
-    },
-    {
       "check": "totaal_object_reconciliation",
-      "count": 1,
+      "count": 0,
       "details": [
-        "som observations - Totaal object = 2 (afrondingsgrens 24.5)"
+        "som observations - Totaal object = 0.00 (afrondingsgrens 9.5)"
       ],
-      "result": "WARN"
+      "result": "PASS"
     }
   ],
-  "document_id": "DOC-012",
+  "document_id": "DOC-015",
   "outcome": "EXTRACTED"
 }

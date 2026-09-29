@@ -2,11 +2,11 @@
   "batch_id": "IB-ad209360ab07",
   "by_status": {
     "DUPLICATE_SKIP": 0,
-    "EXTRACTED": 1,
+    "EXTRACTED": 4,
     "FAILED_VALIDATION": 0,
     "READY_FOR_EXTRACTION": 0,
-    "REVIEW_REQUIRED": 2,
-    "UNKNOWN_TEMPLATE": 2,
+    "REVIEW_REQUIRED": 1,
+    "UNKNOWN_TEMPLATE": 0,
     "UNSUPPORTED_FORMAT": 0
   },
   "canonical_data_changed": false,
@@ -14,15 +14,13 @@
     {
       "document_id": "DOC-011",
       "duplicate_of": null,
-      "family": null,
+      "family": "pro_vve_overzicht15",
       "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
       "key": "DOC-011",
       "open_review_items": [],
-      "price_observation_candidates": 0,
-      "reasons": [
-        "PARTIAL_FAMILY_MARKERS"
-      ],
-      "status": "UNKNOWN_TEMPLATE"
+      "price_observation_candidates": 46,
+      "reasons": [],
+      "status": "EXTRACTED"
     },
     {
       "document_id": "DOC-012",
@@ -38,15 +36,13 @@
     {
       "document_id": "DOC-013",
       "duplicate_of": null,
-      "family": null,
+      "family": "pro_vve_overzicht15",
       "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
       "key": "DOC-013",
       "open_review_items": [],
-      "price_observation_candidates": 0,
-      "reasons": [
-        "PARTIAL_FAMILY_MARKERS"
-      ],
-      "status": "UNKNOWN_TEMPLATE"
+      "price_observation_candidates": 29,
+      "reasons": [],
+      "status": "EXTRACTED"
     },
     {
       "document_id": "DOC-014",
@@ -67,18 +63,14 @@
       "family": "pro_vve_overzicht15_spreadsheet",
       "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
       "key": "DOC-015",
-      "open_review_items": [
-        "UNSUPPORTED_EXTRACTION: geen productie-parser voor dit spreadsheetformaat"
-      ],
-      "price_observation_candidates": 0,
-      "reasons": [
-        "UNSUPPORTED_EXTRACTION"
-      ],
-      "status": "REVIEW_REQUIRED"
+      "open_review_items": [],
+      "price_observation_candidates": 18,
+      "reasons": [],
+      "status": "EXTRACTED"
     }
   ],
   "families": {
-    "pro_vve_overzicht15": 2,
+    "pro_vve_overzicht15": 4,
     "pro_vve_overzicht15_spreadsheet": 1
   },
   "kengetallen_impact_if_promoted": {
@@ -86,18 +78,20 @@
     "existing_kengetallen_with_same_element_code": [
       {
         "documents": [
+          "DOC-011",
           "DOC-012",
-          "DOC-014"
+          "DOC-013",
+          "DOC-014",
+          "DOC-015"
         ],
         "kengetal_id": "KG-5211-replace-m1-pvc-67920b77"
       }
     ],
     "statement": "Geen directe impact: kengetallen veranderen pas na een aparte promotie, comparability en ACTIVE human decisions. Hieronder alleen welke bestaande kengetallen dezelfde elementcode hebben (geen match, geen berekening)."
   },
-  "manifest_sha256": "fa2e1cb1371377e2e00cad902ad3b14f45e9e31a3dbe819a0ef3ab93a6dd9c43",
+  "manifest_sha256": "27c37f6dca1e2d48269f9b6cb7ac0434f1df856618849d128972a365bb5a9289",
   "next_steps": [
     "Bekijk de documenten met REVIEW_REQUIRED (open_review_items) en de relatiekandidaten.",
-    "UNKNOWN_TEMPLATE: dit rapportformaat wordt nog niet ondersteund; een nieuw profiel is een aparte beslissing.",
     "Promotie naar canonieke data is een aparte stap; deze batch wijzigt niets canoniek."
   ],
   "pipeline_version": "incoming_pipeline_v1",
@@ -129,19 +123,20 @@
     }
   ],
   "runner_setup_status": "VERIFIED_RUNNER_SETUP",
+  "spreadsheet_content_overlap": [],
   "staging_path": "data/incoming_batches/IB-ad209360ab07",
   "totals": {
     "duplicates": 0,
-    "extracted_successfully": 2,
+    "extracted_successfully": 5,
     "new_documents": 5,
-    "new_price_observation_candidates": 68,
+    "new_price_observation_candidates": 161,
     "previously_registered_documents": 0,
     "ready_for_extraction": 0,
     "relation_candidates": 2,
-    "review_required": 2,
-    "supported_templates": 3,
+    "review_required": 1,
+    "supported_templates": 5,
     "total_files": 5,
-    "unknown_templates": 2,
+    "unknown_templates": 0,
     "unsupported_formats": 0,
     "validation_failures": 0
   },

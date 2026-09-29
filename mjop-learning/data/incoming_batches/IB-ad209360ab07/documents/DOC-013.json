@@ -2,34 +2,47 @@
   "batch_id": "IB-ad209360ab07",
   "document_id": "DOC-013",
   "duplicate_of": null,
-  "extraction": null,
+  "extraction": {
+    "canonical_content_sha256": "c3048069faa6285a50d3d549a8b3814fdd52c03df5eceb4d0641dc6fee1f7349",
+    "extractor_version": "deterministic_extraction_v1.0.0",
+    "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+    "profile_id": "pro_vve_overzicht15",
+    "profile_version": "1.0.0",
+    "rules_version": "pro_vve_overzicht_rules_v1"
+  },
   "family": {
     "detection_version": "template_detection_v1",
-    "family_id": null,
+    "explanation": [
+      "pro_vve_overzicht15/multi_object_projects: object_sheet@p2, element_overview@p5, jarenplan_header@p18, totaal_object@p14, projects_overview@p18, jarenplan_title_projects@p17; afwezig: jarenplan_title - zelfde vvem-software, meer objecten: gecombineerd 'Overzicht NN - jarenplan' / 'Overzicht projecten' met per object een objectregel en objectsubtotaal, en één 'Totaal object'",
+      "niet standard: ontbreekt ['jarenplan_title']; onverwacht aanwezig -"
+    ],
+    "family_id": "pro_vve_overzicht15",
     "markers": {
       "element_overview": "p5",
       "jarenplan_header": "p18",
       "jarenplan_title": null,
+      "jarenplan_title_projects": "p17",
       "object_sheet": "p2",
+      "projects_overview": "p18",
       "totaal_object": "p14"
     },
-    "reason": "PARTIAL_FAMILY_MARKERS"
+    "reason": null,
+    "variant": "multi_object_projects"
   },
   "file_size_bytes": 759147,
   "format": "pdf",
   "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
   "open_review_items": [],
   "pipeline_version": "incoming_pipeline_v1",
-  "price_observation_candidates": 0,
-  "reasons": [
-    "PARTIAL_FAMILY_MARKERS"
-  ],
+  "price_observation_candidates": 29,
+  "reasons": [],
   "registration": "new",
   "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513",
-  "status": "UNKNOWN_TEMPLATE",
+  "status": "EXTRACTED",
   "status_history": [
     "NEW",
-    "UNKNOWN_TEMPLATE"
+    "READY_FOR_EXTRACTION",
+    "EXTRACTED"
   ],
-  "validation_outcome": null
+  "validation_outcome": "EXTRACTED"
 }
