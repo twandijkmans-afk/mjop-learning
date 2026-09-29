@@ -473,3 +473,15 @@ def test_runner_setup_statuses(tmp_path, monkeypatch):
     monkeypatch.setattr(xs, "verify_reproduction", lambda b, v: [{"document_id": "DOC-010", "identical": False}])
     r = xs.setup(str(tmp_path / "f"), dict(pin, sha256=sha), reproduce=True, fetch=fetch)
     assert r["status"] == "UNVERIFIED_RUNNER_SETUP" and r["reasons"] == ["REPRODUCTION_MISMATCH:DOC-010"]
+
+
+def test_reproduction_skips_entries_without_reference_hash(monkeypatch):
+    import deterministic_extraction as de_mod
+    import promote_deterministic_batch as pdb
+    manifest = json.load(open(xs.HANDOFF, encoding="utf-8"))
+    expected = {d["document_id"]: d.get("canonical_content_sha256") for d in manifest["documents"]}
+    monkeypatch.setattr(de_mod, "extract_document", lambda did, root, b, v: {"doc": did})
+    monkeypatch.setattr(pdb, "canonical_content_sha256", lambda rec: expected[rec["doc"]])
+    res = {r["document_id"]: r for r in xs.verify_reproduction("pdftotext", XPDF)}
+    assert res["DOC-003"]["identical"] is None and res["DOC-003"]["skipped"]
+    assert all(r["identical"] for d, r in res.items() if d != "DOC-003")

@@ -78,6 +78,10 @@ def verify_reproduction(binary, version):
     results = []
     for entry in manifest["documents"]:
         did = entry["document_id"]
+        if not entry.get("canonical_content_sha256"):      # bijv. DOC-003 (DUPLICATE_SKIP): geen extractie
+            results.append({"document_id": did, "skipped": entry.get("status") or "NO_REFERENCE_HASH",
+                            "identical": None})
+            continue
         try:
             record = de.extract_document(did, ROOT, binary, version)
             got = pdb.canonical_content_sha256(record)
@@ -119,8 +123,14 @@ def setup(dest_dir, pin, reproduce=False, fetch=download):
     if not pin.get("sha256"):
         info["reasons"].append("ARCHIVE_SHA256_NOT_PINNED")
     if reproduce:
-        info["reproduction"] = verify_reproduction(binary, info["version_line"])
-        bad = [r["document_id"] for r in info["reproduction"] if not r["identical"]]
+        try:
+            info["reproduction"] = verify_reproduction(binary, info["version_line"])
+        except Exception as e:  # reproductiecontrole kan de installatie nooit stilletjes goedkeuren
+            info["reproduction"] = [{"error": f"{type(e).__name__}: {e}", "identical": False, "document_id": None}]
+        checked = [r for r in info["reproduction"] if r["identical"] is not None]
+        bad = [str(r["document_id"]) for r in checked if not r["identical"]]
+        if not checked:
+            info["reasons"].append("REPRODUCTION_NOTHING_CHECKED")
         if bad:
             info["reasons"].append("REPRODUCTION_MISMATCH:" + ",".join(bad))
     else:
@@ -142,7 +152,8 @@ def main(argv=None):
                      ensure_ascii=False, indent=2))
     if info["reproduction"]:
         for r in info["reproduction"]:
-            print(f"  {r['document_id']}: {'IDENTIEK' if r['identical'] else 'AFWIJKEND'} {r.get('error', '')}")
+            state = {True: "IDENTIEK", False: "AFWIJKEND", None: f"OVERGESLAGEN ({r.get('skipped')})"}[r["identical"]]
+            print(f"  {r['document_id']}: {state} {r.get('error', '')}")
     return 0   # de status staat in runner_setup.json; de pipeline beslist wat er mag
 
 

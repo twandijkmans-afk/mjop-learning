@@ -7,6 +7,13 @@ herleidbare, gestructureerde data als context voor een AI-MJOP-platform.
 Lees eerst `CLAUDE.md` — dat zijn de vaste regels voor dit project (provenance
 verplicht, nooit gegevens verzinnen, deterministische berekeningen, etc.).
 
+## Nieuwe MJOP's toevoegen
+
+Upload nieuwe PDF/XLS/XLSX-bestanden naar `data/incoming/`. De GitHub Actions-workflow
+"Process incoming MJOPs" verwerkt ze tot een staging-batch en een rapport in
+`reports/incoming/<batch_id>.json`, zonder AI en zonder canonieke data te wijzigen.
+Uitleg voor niet-programmeurs: `docs/incoming_pipeline_v1.md`.
+
 ## Status
 
 Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in
