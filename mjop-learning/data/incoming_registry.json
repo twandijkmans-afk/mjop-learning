@@ -1,5 +1,46 @@
 {
-  "documents": [],
+  "documents": [
+    {
+      "document_id": "DOC-011",
+      "file_size_bytes": 753605,
+      "first_batch_id": "IB-ad209360ab07",
+      "first_observed_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+      "format": "pdf",
+      "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+    },
+    {
+      "document_id": "DOC-012",
+      "file_size_bytes": 1017068,
+      "first_batch_id": "IB-ad209360ab07",
+      "first_observed_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
+      "format": "pdf",
+      "sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716"
+    },
+    {
+      "document_id": "DOC-013",
+      "file_size_bytes": 759147,
+      "first_batch_id": "IB-ad209360ab07",
+      "first_observed_path": "Testbatch 01/MOP 2026 totaal.pdf",
+      "format": "pdf",
+      "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+    },
+    {
+      "document_id": "DOC-014",
+      "file_size_bytes": 1685513,
+      "first_batch_id": "IB-ad209360ab07",
+      "first_observed_path": "Testbatch 01/Meerjarenonderhoudsplan 2023_VvE 9261.pdf",
+      "format": "pdf",
+      "sha256": "df698e6edd40c97ab9287ba912c10209a91a55222b7f6af2f1be0e2b6bf819da"
+    },
+    {
+      "document_id": "DOC-015",
+      "file_size_bytes": 112640,
+      "first_batch_id": "IB-ad209360ab07",
+      "first_observed_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
+      "format": "xls",
+      "sha256": "6a6779c2553489eb6c20f628371596db07bd0efdf633212b9ee3475e30f4734c"
+    }
+  ],
   "note": "Incoming-register: document_id is gekoppeld aan sha256 en verandert nooit; ID's worden nooit hergebruikt. Bestandsnamen zijn alleen metadata. Canonieke documenten staan in reports/document_registry.json.",
   "registry_version": 1
 }
