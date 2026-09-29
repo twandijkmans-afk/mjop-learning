@@ -174,11 +174,12 @@ def test_approval_of_blocked_document_is_refused(project):
 def test_dry_run_simulates_and_writes_nothing_canonical(project):
     root, bid = project
     before = pl.tracked_hashes(root)
+    n_before = len(json.load(open(os.path.join(root, pr.PO_PATH), encoding="utf-8"))["observations"])
     report = pr.dry_run(root, bid)
     assert pl.tracked_hashes(root) == before
     sim = report["simulation"]
     assert report["preflight_blockers"] == [] and report["canonical_checks_after_simulation"] == []
-    assert sim["price_observations"]["before"] == 404 and sim["price_observations"]["added"] > 0
+    assert sim["price_observations"]["before"] == n_before and sim["price_observations"]["added"] > 0
     assert sim["kengetallen"]["before"] == sim["kengetallen"]["after"] and sim["kengetallen"]["content_changed"] is False
     assert sim["comparability_impact"]["new_pairs_have_human_decisions"] == 0
     assert sim["comparability_impact"]["new_pairs_between_documents_with_open_relation_candidate"] >= 0
@@ -205,9 +206,10 @@ def promoted(project):
     old_kg = json.load(open(os.path.join(root, pr.KG_PATH), encoding="utf-8"))
     rel_before = pl.sha256_file(os.path.join(root, "data", "price_observations", "document_relations.json"))
     store_before = pl.sha256_file(os.path.join(root, pr.DECISIONS_PATH))
+    states_before = pl.states(root)                                    # eerdere promoties (bijv. Testbatch 01)
     state = pr.promote(root, bid, now="2026-09-29T12:00:00Z")
     return {"root": root, "bid": bid, "did": did, "pre": pre, "state": state, "old_po": old_po, "old_kg": old_kg,
-            "rel_before": rel_before, "store_before": store_before}
+            "rel_before": rel_before, "store_before": store_before, "states_before": states_before}
 
 
 def test_promotion_state_and_canonical_checks(promoted):
@@ -229,8 +231,9 @@ def test_new_document_is_canonical_and_existing_data_unchanged(promoted):
     for layer in ("extracted", "normalized", "verified"):
         assert os.path.isfile(os.path.join(root, "data", layer, f"{did}.json"))
     po = json.load(open(os.path.join(root, pr.PO_PATH), encoding="utf-8"))
-    assert po["observations"][:404] == promoted["old_po"]                          # bestaand: byte-gelijk
-    assert {o["document_id"] for o in po["observations"][404:]} == {did}
+    n = len(promoted["old_po"])
+    assert po["observations"][:n] == promoted["old_po"]                            # bestaand: byte-gelijk
+    assert {o["document_id"] for o in po["observations"][n:]} == {did}
     kg = json.load(open(os.path.join(root, pr.KG_PATH), encoding="utf-8"))
     assert kg["kengetallen"] == promoted["old_kg"]["kengetallen"] and kg["summary"] == promoted["old_kg"]["summary"]
     assert kg["supersedes"] and os.path.isfile(os.path.join(root, kg["supersedes"]["file"]))
@@ -263,8 +266,8 @@ def test_rollback_restores_exact_pre_state_and_keeps_history(promoted):
     assert pr.rollback(root, promoted["bid"]).startswith("ROLLBACK OK")
     assert pl.tracked_hashes(root) == promoted["pre"]
     assert os.path.isfile(os.path.join(hist, "rolled_back_state.json"))          # geen delete zonder history
-    assert pl.states(root) == [] and pcb.verify(root) == []
-    assert not os.path.exists(os.path.join(root, "data", "raw", "incoming"))
+    assert pl.states(root) == promoted["states_before"] and pcb.verify(root) == [] and pl.chain_errors(root) == []
+    assert not os.path.exists(os.path.join(root, "data", "raw", "incoming", promoted["did"]))
 
 
 # ------------------------------------------------------------------ fouten tijdens promotie
@@ -282,11 +285,11 @@ def approved_project(tmp_path, fake_xpdf):
 
 def test_failure_mid_promotion_restores_everything(approved_project, monkeypatch):
     root, bid = approved_project
-    pre = pl.tracked_hashes(root)
+    pre, states_before = pl.tracked_hashes(root), pl.states(root)
     monkeypatch.setattr(bc, "build", lambda r: (_ for _ in ()).throw(RuntimeError("gesimuleerde fout")))
     with pytest.raises(RuntimeError):
         pr.promote(root, bid, now="2026-09-29T12:00:00Z")
-    assert pl.tracked_hashes(root) == pre and pl.states(root) == []
+    assert pl.tracked_hashes(root) == pre and pl.states(root) == states_before
     assert glob.glob(os.path.join(root, pl.HISTORY_ROOT, "*", "failed_attempt.json"))
 
 
@@ -313,6 +316,37 @@ def test_approval_bound_to_manifest(approved_project):
     json.dump(a, open(path, "w", encoding="utf-8"))
     with pytest.raises(pr.PromotionError, match="manifest"):
         pr.promote(root, bid, now="2026-09-29T12:00:00Z")
+
+
+def test_explicit_exclusion_keeps_document_review_required(approved_project):
+    root, bid = approved_project
+    docs = by_input(pr.decide(root, pr.load_batch(root, bid), None))
+    did, xls = docs["gebouw-x/nieuw plan.pdf"]["document_id"], docs["export.xls"]["document_id"]
+    with pytest.raises(pr.PromotionError, match="tegelijk"):
+        pr.approve(root, bid, "twandijkmans", include_review=[did], exclude=[did])
+    with pytest.raises(pr.PromotionError, match="horen niet bij"):
+        pr.approve(root, bid, "twandijkmans", include_review=[did], exclude=["DOC-999"])
+    a = pr.approve(root, bid, "twandijkmans", include_review=[did], exclude=[xls], exclude_reason="relatiereview",
+                   now="2026-09-29T11:45:00Z")
+    assert a["excluded_document_ids"] == [xls] and a["exclusion_reason"] == "relatiereview"
+    assert xls not in a["approved_document_ids"]
+    d = by_input(pr.decide(root, pr.load_batch(root, bid), a))
+    assert d["export.xls"]["decision"] == "REVIEW_REQUIRED" and d["export.xls"]["reasons"][0] == "EXCLUDED_BY_REVIEWER"
+    assert d["gebouw-x/nieuw plan.pdf"]["decision"] == "APPROVED_FOR_PROMOTION"
+    report = pr.dry_run(root, bid)                                     # met approval: exact die goedkeuring
+    assert report["simulation"]["price_observations"]["added"] > 0
+
+
+def test_dry_run_documents_only_for_eligible_documents_without_approval(tmp_path, fake_xpdf):
+    root = make_project(str(tmp_path / "p"))
+    upload(root)
+    bid = process(root, runner(fake_xpdf))
+    did = by_input(pr.decide(root, pr.load_batch(root, bid), None))["gebouw-x/nieuw plan.pdf"]["document_id"]
+    with pytest.raises(pr.PromotionError, match="niet promoveerbaar"):
+        pr.dry_run(root, bid, documents=[did])                         # REVIEW_REQUIRED nooit via --documents
+    pr.approve(root, bid, "twandijkmans", include_review=[did], now="2026-09-29T11:00:00Z")
+    with pytest.raises(pr.PromotionError, match="zonder approval"):
+        pr.dry_run(root, bid, documents=[did])                         # met approval: alleen exact die simuleren
 
 
 def test_cli_check_on_real_repository():

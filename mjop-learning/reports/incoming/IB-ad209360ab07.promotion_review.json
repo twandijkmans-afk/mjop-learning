@@ -1,0 +1,231 @@
+{
+  "approval_present": true,
+  "batch_id": "IB-ad209360ab07",
+  "can_be_promoted_directly": [
+    "DOC-011",
+    "DOC-012",
+    "DOC-013",
+    "DOC-015"
+  ],
+  "canonical_checks_after_simulation": [],
+  "decisions": {
+    "APPROVED_FOR_PROMOTION": [
+      {
+        "document_id": "DOC-011",
+        "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "reasons": []
+      },
+      {
+        "document_id": "DOC-012",
+        "input_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
+        "reasons": []
+      },
+      {
+        "document_id": "DOC-013",
+        "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
+        "reasons": []
+      },
+      {
+        "document_id": "DOC-015",
+        "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
+        "reasons": []
+      }
+    ],
+    "BLOCKED": [],
+    "REVIEW_REQUIRED": [
+      {
+        "document_id": "DOC-014",
+        "input_path": "Testbatch 01/Meerjarenonderhoudsplan 2023_VvE 9261.pdf",
+        "reasons": [
+          "EXCLUDED_BY_REVIEWER",
+          "RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+        ]
+      }
+    ],
+    "SKIPPED_DUPLICATE": []
+  },
+  "manifest_sha256": "27c37f6dca1e2d48269f9b6cb7ac0434f1df856618849d128972a365bb5a9289",
+  "needs_review": [
+    {
+      "document_id": "DOC-014",
+      "open_review_items": [
+        "EXCLUDED_BY_REVIEWER",
+        "RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+      ]
+    }
+  ],
+  "note": "Dry-run: volledige promotie gesimuleerd op een tijdelijke kopie; canonieke data ongewijzigd.",
+  "possible_duplicates_and_relations": [
+    {
+      "document_ids": [
+        "DOC-005",
+        "DOC-014"
+      ],
+      "evidence": [
+        "objectpostcode gelijk: 1106EZ",
+        "adres gelijk: maldenhof 240 - 296"
+      ],
+      "kind": "SAME_BUILDING_CANDIDATE",
+      "origins": {
+        "DOC-005": "canonical",
+        "DOC-014": "this_batch"
+      },
+      "possible_meanings": [
+        "same_building_other_inspection",
+        "new_version",
+        "subplan",
+        "duplicate_other_bytes"
+      ],
+      "relation_candidate_id": "RC-d3e7e5179a",
+      "source_cluster": "NOT_ASSUMED",
+      "status": "CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+    },
+    {
+      "document_ids": [
+        "DOC-006",
+        "DOC-014"
+      ],
+      "evidence": [
+        "objectpostcode gelijk: 1106EZ",
+        "adres gelijk: maldenhof 240 - 296",
+        "prijspeil en inspectiedatum gelijk: 1-3-2023 / 23-3-2023"
+      ],
+      "kind": "POSSIBLE_DUPLICATE_OTHER_BYTES",
+      "origins": {
+        "DOC-006": "canonical",
+        "DOC-014": "this_batch"
+      },
+      "possible_meanings": [
+        "same_building_other_inspection",
+        "new_version",
+        "subplan",
+        "duplicate_other_bytes"
+      ],
+      "relation_candidate_id": "RC-c928b68de3",
+      "source_cluster": "NOT_ASSUMED",
+      "status": "CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+    }
+  ],
+  "preflight_blockers": [],
+  "runner_setup_status": "VERIFIED_RUNNER_SETUP",
+  "simulation": {
+    "comparability_impact": {
+      "new_pairs": 337,
+      "new_pairs_between_documents_with_open_relation_candidate": 0,
+      "new_pairs_by_candidate_key": {
+        "2110|repair|m2": 1,
+        "2110|replace|m1": 4,
+        "2716|clean|m1": 1,
+        "2716|replace|m1": 3,
+        "3120|clean|m2": 1,
+        "3721|replace|piece": 2,
+        "4111|replace|m2": 2,
+        "4621|exterior_painting|m2": 92,
+        "4622|interior_painting|m1": 2,
+        "4622|interior_painting|m2": 38,
+        "4622|interior_painting|piece": 4,
+        "4623|install|m2": 2,
+        "4623|repair|m2": 1,
+        "4628|exterior_painting|m1": 16,
+        "4628|exterior_painting|m2": 7,
+        "4628|interior_painting|m2": 1,
+        "4631|exterior_painting|m2": 21,
+        "4632|interior_painting|m2": 9,
+        "4634|exterior_painting|m2": 9,
+        "4634|interior_painting|m2": 3,
+        "4645|exterior_painting|m2": 32,
+        "4645|interior_painting|m2": 3,
+        "4711|install|m2": 3,
+        "4711|replace|m1": 21,
+        "5211|replace|m1": 32,
+        "5211|replace|piece": 11,
+        "5314|replace|piece": 2,
+        "6311|replace|piece": 12,
+        "6710|install|piece": 1,
+        "8111|replace|piece": 1
+      },
+      "new_pairs_by_class": {
+        "COMPARABLE_WITH_CAVEATS": 58,
+        "UNKNOWN": 279
+      },
+      "new_pairs_have_human_decisions": 0,
+      "pairs_after": 685,
+      "pairs_before": 348,
+      "source_clusters_after": [
+        "SC-DOC-001",
+        "SC-DOC-002",
+        "SC-DOC-004",
+        "SC-DOC-005+DOC-006",
+        "SC-DOC-007",
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010",
+        "SC-DOC-011",
+        "SC-DOC-012",
+        "SC-DOC-013",
+        "SC-DOC-015"
+      ],
+      "warning": null
+    },
+    "kengetallen": {
+      "after": [
+        {
+          "clusters": 3,
+          "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+          "status": "AVAILABLE",
+          "value": "51.79"
+        }
+      ],
+      "before": [
+        {
+          "clusters": 3,
+          "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+          "status": "AVAILABLE",
+          "value": "51.79"
+        }
+      ],
+      "content_changed": false,
+      "statement": "Nieuwe observations dragen pas bij na comparability-review met ACTIVE human decisions volgens de bestaande regels."
+    },
+    "price_observations": {
+      "added": 141,
+      "after": 545,
+      "before": 404
+    },
+    "promoted_documents": [
+      {
+        "acknowledged_review_items": [],
+        "document_id": "DOC-011",
+        "price_observations": 46,
+        "raw_relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5",
+        "status_in_batch": "EXTRACTED"
+      },
+      {
+        "acknowledged_review_items": [],
+        "document_id": "DOC-012",
+        "price_observations": 48,
+        "raw_relative_path": "incoming/DOC-012/Actualisatie MOP 2024.pdf",
+        "sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+        "status_in_batch": "EXTRACTED"
+      },
+      {
+        "acknowledged_review_items": [],
+        "document_id": "DOC-013",
+        "price_observations": 29,
+        "raw_relative_path": "incoming/DOC-013/MOP 2026 totaal.pdf",
+        "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513",
+        "status_in_batch": "EXTRACTED"
+      },
+      {
+        "acknowledged_review_items": [],
+        "document_id": "DOC-015",
+        "price_observations": 18,
+        "raw_relative_path": "incoming/DOC-015/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
+        "sha256": "6a6779c2553489eb6c20f628371596db07bd0efdf633212b9ee3475e30f4734c",
+        "status_in_batch": "EXTRACTED"
+      }
+    ],
+    "relation_proposals_added": 0
+  },
+  "tool_version": "promote_incoming_batch_v1.0.0"
+}

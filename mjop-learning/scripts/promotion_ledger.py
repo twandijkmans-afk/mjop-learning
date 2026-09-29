@@ -74,9 +74,10 @@ def chain_errors(root):
     for s in active:
         if prev is not None:
             name, post, dirs = prev
-            if restrict(s["pre_manifest"], dirs) != post:
+            pre = s["pre_manifest"] if dirs is None else restrict(s["pre_manifest"], dirs)
+            if pre != post:
                 errors.append(f"{s['promotion_id']}: pre_manifest sluit niet aan op {name}")
-        prev = (s["promotion_id"], s["post_manifest"], TRACKED_DIRS)
+        prev = (s["promotion_id"], s["post_manifest"], None)          # incoming -> incoming: volledige manifest
     if active:
         cur = tracked_hashes(root)
         last = active[-1]["post_manifest"]

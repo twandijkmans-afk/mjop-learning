@@ -303,11 +303,22 @@ geblokkeerd (`global_blockers` in het voorstel), maar de rest van de pipeline we
 
 ```
 python scripts/promote_incoming_batch.py --check
-python scripts/promote_incoming_batch.py --dry-run  --batch-id ID     # schrijft alleen het reviewrapport
-python scripts/promote_incoming_batch.py --approve  --batch-id ID --reviewer NAAM [--include-review DOC-...]
+python scripts/promote_incoming_batch.py --dry-run  --batch-id ID [--documents DOC-...]   # alleen reviewrapport
+python scripts/promote_incoming_batch.py --approve  --batch-id ID --reviewer NAAM [--include-review DOC-...] \
+                                         [--exclude DOC-... --exclude-reason "waarom"]
 python scripts/promote_incoming_batch.py --promote  --batch-id ID
 python scripts/promote_incoming_batch.py --rollback --batch-id ID
 ```
+
+**Selectie en uitsluiting:**
+
+- `--dry-run` zonder `approval.json` simuleert alle promoveerbare documenten; met `--documents` alleen
+  die documenten. Dat mogen alleen documenten met status EXTRACTED zijn die verder promoveerbaar zijn
+  (REVIEW_REQUIRED-documenten nooit via deze route).
+- `--dry-run` met een `approval.json` simuleert exact die goedkeuring (`--documents` is dan niet toegestaan).
+- `--approve --exclude DOC-...` sluit documenten expliciet uit. Ze staan met de reden in `approval.json`
+  (`excluded_document_ids`, `exclusion_reason`) en krijgen de beslissing `REVIEW_REQUIRED` met als
+  eerste reden `EXCLUDED_BY_REVIEWER`. Een document kan niet tegelijk goedgekeurd en uitgesloten zijn.
 
 **Preflight** (alles verplicht):
 
@@ -369,6 +380,25 @@ bewijs is:
 
 `document_relations.json` wijzigt nooit automatisch. Een document met een open relatiekandidaat blijft
 `REVIEW_REQUIRED` totdat een mens het beoordeelt.
+
+**Reviewpakket** (`scripts/prepare_relation_review.py`, alleen lezen):
+
+```
+python scripts/prepare_relation_review.py --document DOC-014 --batch-id IB-ad209360ab07 \
+    --against DOC-005 DOC-006 --out reports/review/relation_review_DOC-014.json
+```
+
+Het pakket vergelijkt het incoming document met de genoemde canonieke documenten op:
+
+- bron (sha256, grootte, pagina's) en objectmetadata;
+- elementen en condities;
+- price observations: exacte en gedeeltelijke rij-overlap en unieke rijen;
+- totalen;
+- tekstlaagverschillen.
+
+Het geeft de beslisopties met hun gevolgen: `DUPLICATE_OTHER_BYTES`, `SAME_MJOP_VERSION`,
+`SAME_BUILDING_DIFFERENT_INSPECTION` en `INDEPENDENT_SOURCE`. Het beslist zelf niets: status
+`OPEN_REQUIRES_HUMAN_DECISION`, `decision: null`. De uitvoer is deterministisch.
 
 ### xpdf-fixtures voor ontwikkeling en tests
 

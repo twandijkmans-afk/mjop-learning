@@ -86,10 +86,43 @@ def _state(tmp):
     return tmp
 
 
+TESTBATCH_PROMOTION = "IB-ad209360ab07"
+
+
+def pre_promotion_root(dst):
+    """Testbatch 01 is (deels) canoniek gepromoveerd. De profieltests beoordelen de Testbatch-documenten als
+    INCOMING documenten: tegen de canonieke toestand vlak vóór die promotie, exact zoals vastgelegd in de
+    promotiehistorie (data/history/incoming_promotions/<id>/pre, gecontroleerd tegen pre_manifest).
+    Alles wat de promotie niet raakte wordt gesymlinkt (alleen lezen). Zonder promotie: het echte project."""
+    state = next((s for s in pl.states(PROJECT_ROOT) if s["batch_id"] == TESTBATCH_PROMOTION), None)
+    if state is None:
+        return PROJECT_ROOT
+    pre = os.path.join(PROJECT_ROOT, state["history"], "pre")
+    for top in os.listdir(PROJECT_ROOT):
+        if top not in ("data", "reports"):
+            os.symlink(os.path.join(PROJECT_ROOT, top), os.path.join(dst, top))
+    for top in ("data", "reports"):
+        os.makedirs(os.path.join(dst, top))
+        for name in os.listdir(os.path.join(PROJECT_ROOT, top)):
+            snap = os.path.join(pre, top, name)
+            if os.path.exists(snap):
+                (shutil.copytree if os.path.isdir(snap) else shutil.copy2)(snap, os.path.join(dst, top, name))
+            else:
+                os.symlink(os.path.join(PROJECT_ROOT, top, name), os.path.join(dst, top, name))
+    view = pl.tracked_hashes(dst, dirs=[d for d in pl.TRACKED_DIRS if d != "data/raw"])
+    assert view == {k: v for k, v in state["pre_manifest"].items() if not k.startswith("data/raw/")}
+    return dst
+
+
 @pytest.fixture(scope="module")
-def batch(tmp_path_factory, runner):
+def pre_root(tmp_path_factory):
+    return pre_promotion_root(str(tmp_path_factory.mktemp("pre_root")))
+
+
+@pytest.fixture(scope="module")
+def batch(tmp_path_factory, runner, pre_root):
     state = _state(str(tmp_path_factory.mktemp("state")))
-    plan = p.plan_batch(PROJECT_ROOT, None, state_root=state, runner=runner)
+    plan = p.plan_batch(pre_root, os.path.join(PROJECT_ROOT, p.INCOMING_DIR), state_root=state, runner=runner)
     files, report = p.build_outputs(plan)
     p.apply_writes(state, p.plan_writes(state, files, plan["batch_id"]))
     return state, plan, files, report
@@ -160,13 +193,22 @@ def test_unknown_pdf_variant_stays_unknown():
     assert r["variant"] is None                        # objectblad zonder elementenoverzicht: geen variant
 
 
+# varianten van via de incoming pipeline gepromoveerde documenten (Testbatch 01); de rest is batch 1
+PROMOTED_VARIANTS = {"DOC-011": "jarenplan_without_objectblad", "DOC-012": "standard",
+                     "DOC-013": "multi_object_projects", "DOC-015": "jarenplan_sheet"}
+
+
 def test_batch1_documents_still_standard():
     reg = json.load(open(os.path.join(PROJECT_ROOT, "reports", "document_registry.json"), encoding="utf-8"))
+    promoted = set(pl.promoted_document_ids(PROJECT_ROOT))
+    assert promoted <= set(PROMOTED_VARIANTS)
     for d in reg["documents"]:
         path = os.path.join(PROJECT_ROOT, "data", "raw", *d["relative_path"].split("/"))
         fmt, _ = td.detect_format(path)
         fam = td.detect_family(fmt, tl.build_text_layer_for_file(path, d["document_id"], d["sha256"], "x"))
-        assert fam["variant"] == ("jarenplan_sheet" if fmt == "xls" else "standard"), d["document_id"]
+        expected = PROMOTED_VARIANTS[d["document_id"]] if d["document_id"] in promoted else (
+            "jarenplan_sheet" if fmt == "xls" else "standard")
+        assert fam["variant"] == expected, d["document_id"]
 
 
 # ------------------------------------------------------------------ spreadsheet (echt)
@@ -299,21 +341,22 @@ def test_corrupt_xls_fails_cleanly(tmp_path, runner):
 
 # ------------------------------------------------------------------ register, reproduceerbaarheid, relaties
 
-def test_same_hashes_keep_same_doc_ids(batch, runner, tmp_path):
+def test_same_hashes_keep_same_doc_ids(batch, runner, tmp_path, pre_root):
     state, plan, _, _ = batch
     committed = ir.load(os.path.join(PROJECT_ROOT, ir.REGISTRY_PATH))
     assert ir.load(os.path.join(state, ir.REGISTRY_PATH)) == committed               # geen nieuwe ID's
     by_sha = {e["sha256"]: e["document_id"] for e in committed["documents"]}
     assert {d["document_id"] for d in plan["docs"]} == {"DOC-011", "DOC-012", "DOC-013", "DOC-014", "DOC-015"}
     assert all(by_sha[d["sha256"]] == d["document_id"] for d in plan["docs"])
-    other = p.plan_batch(PROJECT_ROOT, None, state_root=_state(str(tmp_path)), runner=runner, batch_id="IB-rerun")
+    other = p.plan_batch(pre_root, os.path.join(PROJECT_ROOT, p.INCOMING_DIR), state_root=_state(str(tmp_path)),
+                         runner=runner, batch_id="IB-rerun")
     assert {d["registration"] for d in other["docs"]} == {"existing_incoming"}
     assert [d["document_id"] for d in other["docs"]] == [d["document_id"] for d in plan["docs"]]
 
 
-def test_rerun_is_byte_identical_and_noop(batch, runner):
+def test_rerun_is_byte_identical_and_noop(batch, runner, pre_root):
     state, plan, files, _ = batch
-    plan2 = p.plan_batch(PROJECT_ROOT, None, state_root=state, runner=runner)
+    plan2 = p.plan_batch(pre_root, os.path.join(PROJECT_ROOT, p.INCOMING_DIR), state_root=state, runner=runner)
     files2, _ = p.build_outputs(plan2)
     assert files2 == files and p.plan_writes(state, files2, plan2["batch_id"]) == []
 
