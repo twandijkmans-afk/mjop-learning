@@ -151,14 +151,39 @@ def test_valid_supersede_chain():
     s = store(record(status="SUPERSEDED"),
               record(decision_id="HDR-00002", decision="NOT_COMPARABLE", supersedes="HDR-00001"))
     assert q.store_invariant_errors(s) == []
-    assert q.store_invariant_errors(store(record(), record(decision_id="HDR-00002", pair_id="PAIR-00306"))) == []
+    other_pair = ["PO-DOC-009-P021-L095", "PO-DOC-001-P026-L029"]
+    assert q.store_invariant_errors(store(record(), record(decision_id="HDR-00002", pair_id="PAIR-00306",
+                                                           observation_ids=other_pair))) == []
+
+
+def test_pair_identity_is_observation_set_not_pair_id():
+    """pair_id is een volgnummer (metadata): na een herbouw mag hetzelfde paar een ander pair_id hebben."""
+    s = store(record(status="SUPERSEDED"),
+              record(decision_id="HDR-00002", pair_id="PAIR-00001", supersedes="HDR-00001",
+                     observation_ids=list(reversed(record()["observation_ids"]))))
+    assert q.store_invariant_errors(s) == []
+    two_active = store(record(), record(decision_id="HDR-00002", pair_id="PAIR-00001"))
+    assert any("meer dan één ACTIVE" in e for e in q.store_invariant_errors(two_active))
+
+
+def test_review_required_status_transitions():
+    old = store(record())
+    assert q.append_only_errors(old, store(record(status="REVIEW_REQUIRED"))) == []
+    assert list(STORE_VALIDATOR.iter_errors(store(record(status="REVIEW_REQUIRED")))) == []
+    rr = store(record(status="REVIEW_REQUIRED"))
+    assert q.append_only_errors(rr, store(record(status="SUPERSEDED"),
+                                          record(decision_id="HDR-00002", supersedes="HDR-00001"))) == []
+    assert q.append_only_errors(rr, store(record(status="ACTIVE"))) != []   # niet stil terug naar ACTIVE
+    # REVIEW_REQUIRED telt niet als ACTIVE
+    assert q.store_invariant_errors(store(record(status="REVIEW_REQUIRED"), record(decision_id="HDR-00002"))) == []
 
 
 @pytest.mark.parametrize("records,fragment", [
     ([record(), record(decision_id="HDR-00002", supersedes="HDR-00001")], "SUPERSEDED"),   # oude nog ACTIVE
     ([record(decision_id="HDR-00002", supersedes="HDR-00009")], "onbekende"),
-    ([record(status="SUPERSEDED"), record(decision_id="HDR-00002", pair_id="PAIR-00306",
-                                          supersedes="HDR-00001")], "hetzelfde paar"),
+    ([record(status="SUPERSEDED"), record(decision_id="HDR-00002", pair_id="PAIR-00306", supersedes="HDR-00001",
+                                          observation_ids=["PO-DOC-009-P021-L095", "PO-DOC-001-P026-L029"])],
+     "hetzelfde paar"),
     ([record(), record()], "meer dan eens"),
 ])
 def test_invalid_supersede_or_duplicate_ids(records, fragment):

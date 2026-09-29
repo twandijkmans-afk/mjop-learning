@@ -83,7 +83,7 @@
         "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/evidence_item" } },
         "notes": { "type": ["string", "null"] },
         "supersedes": { "oneOf": [{ "$ref": "#/definitions/decision_id" }, { "type": "null" }] },
-        "status": { "type": "string", "enum": ["ACTIVE", "SUPERSEDED"] }
+        "status": { "type": "string", "enum": ["ACTIVE", "SUPERSEDED", "REVIEW_REQUIRED"], "description": "ACTIVE = geldt; SUPERSEDED = vervangen door een later record; REVIEW_REQUIRED = bewaard maar niet gebruikt omdat de invoer is veranderd (bijv. deterministische promotie) - wacht op een nieuwe menselijke beslissing." }
       },
       "required": ["decision_id", "pair_id", "observation_ids", "candidate_key", "system_class", "system_reasons",
                    "decision", "decision_reason", "decision_caveats", "reviewer", "reviewed_at", "rule_version",

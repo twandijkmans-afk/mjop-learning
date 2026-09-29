@@ -23,10 +23,14 @@ kengetal mogen dienen. Deze laag bouwt geen kengetallen en geen matching.
    verwijderd. Een herziening is altijd een nieuw record:
    - het nieuwe record krijgt een nieuw `decision_id` en status `ACTIVE`;
    - `supersedes` verwijst naar het `decision_id` van de vorige beslissing
-     (van hetzelfde `pair_id`);
-   - de vorige beslissing krijgt status `SUPERSEDED` — de enige toegestane
-     wijziging aan een bestaand record (`ACTIVE` → `SUPERSEDED`);
-   - **per `pair_id` heeft hoogstens één record de status `ACTIVE`.**
+     van hetzelfde paar; **een paar is de set `observation_ids`**, `pair_id` is
+     alleen een volgnummer van `build_comparability` en kan na een herbouw anders zijn;
+   - de vorige beslissing krijgt status `SUPERSEDED`;
+   - toegestane statuswijzigingen aan een bestaand record: `ACTIVE` → `SUPERSEDED`,
+     `ACTIVE` → `REVIEW_REQUIRED` (invoer veranderd, bijv. deterministische promotie:
+     record blijft bewaard, telt niet mee in kengetallen, wacht op een nieuwe menselijke
+     beslissing) en `REVIEW_REQUIRED` → `SUPERSEDED`;
+   - **per paar heeft hoogstens één record de status `ACTIVE`.**
 
    Het JSON-schema controleert één record tegelijk en dwingt deze
    invarianten over records heen niet af. Dat doen

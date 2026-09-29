@@ -69,9 +69,11 @@ def sha256_file(path):
 
 def store_invariant_errors(store):
     """Invarianten over records heen die het JSON-schema niet afdwingt
-    (docs/human_review_v1.md): unieke decision_id, per pair_id hoogstens één
+    (docs/human_review_v1.md): unieke decision_id, per paar hoogstens één
     ACTIVE record, en 'supersedes' verwijst naar een bestaand record van
-    hetzelfde paar dat SUPERSEDED is."""
+    hetzelfde paar dat SUPERSEDED is. Een paar is de SET van observation_ids;
+    pair_id is een volgnummer van build_comparability (alleen metadata) en
+    kan na een herbouw anders zijn."""
     errors, by_id = [], {}
     for r in store["records"]:
         if r["decision_id"] in by_id:
@@ -79,22 +81,27 @@ def store_invariant_errors(store):
         by_id[r["decision_id"]] = r
     active = {}
     for r in store["records"]:
+        pair = tuple(sorted(r["observation_ids"]))
         if r["status"] == "ACTIVE":
-            active.setdefault(r["pair_id"], []).append(r["decision_id"])
+            active.setdefault(pair, []).append(r["decision_id"])
         old = by_id.get(r["supersedes"]) if r["supersedes"] else None
         if r["supersedes"] and old is None:
             errors.append(f"{r['decision_id']}: supersedes verwijst naar onbekende {r['supersedes']}")
-        elif old is not None and (old["pair_id"] != r["pair_id"] or old["status"] != "SUPERSEDED"):
+        elif old is not None and (tuple(sorted(old["observation_ids"])) != pair or old["status"] != "SUPERSEDED"):
             errors.append(f"{r['decision_id']}: vervangen record {old['decision_id']} moet hetzelfde paar "
                           f"hebben en SUPERSEDED zijn")
-    errors += [f"{pid}: meer dan één ACTIVE record ({', '.join(ids)})" for pid, ids in sorted(active.items())
+    errors += [f"{' + '.join(pid)}: meer dan één ACTIVE record ({', '.join(ids)})" for pid, ids in sorted(active.items())
                if len(ids) > 1]
     return errors
 
 
+ALLOWED_STATUS_TRANSITIONS = {("ACTIVE", "SUPERSEDED"), ("ACTIVE", "REVIEW_REQUIRED"), ("REVIEW_REQUIRED", "SUPERSEDED")}
+
+
 def append_only_errors(old_store, new_store):
     """Een nieuwe versie van de opslag mag alleen records toevoegen; een bestaand
-    record blijft ongewijzigd, behalve status ACTIVE -> SUPERSEDED."""
+    record blijft ongewijzigd, behalve de status: ACTIVE -> SUPERSEDED,
+    ACTIVE -> REVIEW_REQUIRED (invoer veranderd) en REVIEW_REQUIRED -> SUPERSEDED."""
     new = {r["decision_id"]: r for r in new_store["records"]}
     errors = []
     for r in old_store["records"]:
@@ -104,7 +111,7 @@ def append_only_errors(old_store, new_store):
             continue
         if {k: v for k, v in n.items() if k != "status"} != {k: v for k, v in r.items() if k != "status"}:
             errors.append(f"{r['decision_id']}: record overschreven")
-        if n["status"] != r["status"] and (r["status"], n["status"]) != ("ACTIVE", "SUPERSEDED"):
+        if n["status"] != r["status"] and (r["status"], n["status"]) not in ALLOWED_STATUS_TRANSITIONS:
             errors.append(f"{r['decision_id']}: statuswijziging {r['status']} -> {n['status']} niet toegestaan")
     return errors
 
