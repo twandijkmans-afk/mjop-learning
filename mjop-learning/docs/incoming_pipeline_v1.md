@@ -183,6 +183,22 @@ Workflow: `.github/workflows/process-incoming-mjops.yml`. Die draait bij uploads
 4. Draait de tests, `--check`, `--process` en opnieuw `--check`.
 5. Uploadt de artifacts en commit alleen de staging-uitvoer terug.
 
+Daarna draait een end-to-end zelftest: een gewijzigde kopie van DOC-010 gaat met echte xpdf door de
+incoming-pipeline, in een tijdelijke map.
+
 `VERIFIED_RUNNER_SETUP` = gepinde sha256 klopt, versie klopt en alle reproducties zijn identiek.
+
+Stand op 2026-09-29 (runs 2 en 3):
+
+- Het archief wordt gedownload van `dl.xpdfreader.com`; de sha256 is vastgepind.
+- De versieregel klopt exact.
+- 7 van de 9 batch-1-documenten zijn byte-identiek.
+- Bij DOC-007 en DOC-009 zijn alle waarden, provenance en block_id's gelijk. Alleen
+  `text_layer_sha256` verschilt: de hash van de aanvullende pdfplumber-tekstlaag, die op Windows
+  anders uitvalt dan op Linux, bij dezelfde bibliotheekversies.
+
+De runner meldt daarom `UNVERIFIED_RUNNER_SETUP` met de reden
+`TEXT_LAYER_PLATFORM_DIFFERENCE:DOC-007,DOC-009`. Dit verschil wordt niet automatisch
+goedgekeurd: accepteren is een menselijke beslissing.
 Anders `UNVERIFIED_RUNNER_SETUP` of `FAILED_RUNNER_SETUP`. In dat geval blijft promotie
 geblokkeerd (`global_blockers` in het voorstel), maar de rest van de pipeline werkt wel.

@@ -32,6 +32,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "scripts"))
 
 PIN = os.path.join(ROOT, "config", "xpdf_pin.json")
+TEXT_LAYER_HASH_PATH = "/extraction_metadata/text_layer_sha256"
 HANDOFF = os.path.join(ROOT, "data", "extracted_deterministic", "batch1_v1", "manifest.json")
 
 
@@ -107,10 +108,16 @@ def verify_reproduction(binary, version):
             got = pdb.canonical_content_sha256(record)
             res = {"document_id": did, "expected": entry["canonical_content_sha256"], "observed": got,
                    "identical": got == entry["canonical_content_sha256"]}
+            res["classification"] = "IDENTICAL" if res["identical"] else "DIFFERENT"
             if not res["identical"] and entry.get("output_path"):
                 ref = os.path.join(ROOT, *entry["output_path"].split("/"))
                 if os.path.exists(ref):
                     res["diff"] = json_diff(json.load(open(ref, encoding="utf-8")), record)
+                    if [d["path"] for d in res["diff"]] == [TEXT_LAYER_HASH_PATH]:
+                        # alle waarden, provenance en block_id's gelijk; alleen de hash van de aanvullende
+                        # pdfplumber-tekstlaag verschilt (platformverschil Windows/Linux). Geen zelfgoedkeuring:
+                        # blijft een expliciete reden tot een mens dit verschil accepteert.
+                        res["classification"] = "VALUES_IDENTICAL_TEXT_LAYER_HASH_DIFFERS"
             results.append(res)
         except Exception as e:
             results.append({"document_id": did, "expected": entry["canonical_content_sha256"], "observed": None,
@@ -153,11 +160,15 @@ def setup(dest_dir, pin, reproduce=False, fetch=download):
         except Exception as e:  # reproductiecontrole kan de installatie nooit stilletjes goedkeuren
             info["reproduction"] = [{"error": f"{type(e).__name__}: {e}", "identical": False, "document_id": None}]
         checked = [r for r in info["reproduction"] if r["identical"] is not None]
-        bad = [str(r["document_id"]) for r in checked if not r["identical"]]
+        tl_only = [str(r["document_id"]) for r in checked
+                   if r.get("classification") == "VALUES_IDENTICAL_TEXT_LAYER_HASH_DIFFERS"]
+        bad = [str(r["document_id"]) for r in checked if not r["identical"] and str(r["document_id"]) not in tl_only]
         if not checked:
             info["reasons"].append("REPRODUCTION_NOTHING_CHECKED")
         if bad:
             info["reasons"].append("REPRODUCTION_MISMATCH:" + ",".join(bad))
+        if tl_only:
+            info["reasons"].append("TEXT_LAYER_PLATFORM_DIFFERENCE:" + ",".join(tl_only))
     else:
         info["reasons"].append("REPRODUCTION_NOT_CHECKED")
     info["status"] = "UNVERIFIED_RUNNER_SETUP" if info["reasons"] else "VERIFIED_RUNNER_SETUP"

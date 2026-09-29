@@ -2,8 +2,9 @@
   "archive_name": "xpdf-tools-linux-4.06.tar.gz",
   "binary_suffix_in_archive": "bin64/pdftotext",
   "expected_version_line": "pdftotext version 4.06 [www.xpdfreader.com]",
-  "note": "Vastgepinde xpdf-installatie voor de cloud-runner (GitHub Actions). sha256 is de sha256 van het archief; zolang die null is, is de runner-installatie UNVERIFIED_RUNNER_SETUP (de runner meldt de waargenomen sha256, die na controle hier wordt vastgepind). Een andere versie of parser is nooit toegestaan.",
-  "sha256": null,
+  "note": "Vastgepinde xpdf-installatie voor de cloud-runner (GitHub Actions). sha256 is de sha256 van het archief; een afwijkende sha256 = FAILED_RUNNER_SETUP. Een andere versie of parser is nooit toegestaan.",
+  "sha256": "940c137cbd1856e45813da1a25c12e8dd3dc8997b8ea735feb858684603031e3",
+  "sha256_provenance": "Waargenomen in GitHub Actions-runs 36536826282 en 36537057037 (2026-09-29) bij download van https://dl.xpdfreader.com/xpdf-tools-linux-4.06.tar.gz; trust-on-first-use, ondersteund door de exacte versieregel en 7 van 9 byte-identieke reproducties van batch1_v1 (DOC-007/DOC-009: alleen text_layer_sha256 wijkt af).",
   "urls": [
     "https://dl.xpdfreader.com/xpdf-tools-linux-4.06.tar.gz",
     "https://dl.xpdfreader.com/old/xpdf-tools-linux-4.06.tar.gz"

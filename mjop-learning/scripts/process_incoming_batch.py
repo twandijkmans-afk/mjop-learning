@@ -766,11 +766,13 @@ def main(argv=None):
     ap.add_argument("--require-xpdf", action="store_true", help="stoppen als xpdf 4.06 ontbreekt (CI)")
     ap.add_argument("--runner-setup", help="runner_setup.json van scripts/xpdf_runner_setup.py")
     ap.add_argument("--summary-md", help="schrijf een korte markdown-samenvatting (bijv. GITHUB_STEP_SUMMARY)")
+    ap.add_argument("--state-root", help="andere map voor register/batches/rapport (zelftest); standaard de repo")
     args = ap.parse_args(argv)
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+    state_root = os.path.abspath(args.state_root) if args.state_root else root
     if args.check:
-        errors = check(root)
+        errors = check(root, state_root)
         print("\n".join(errors) if errors else "CHECK OK")
         return 1 if errors else 0
     runner = runner_info(args.pdftotext, args.runner_setup)
@@ -779,7 +781,7 @@ def main(argv=None):
               file=sys.stderr)
         return 3
     try:
-        plan = plan_batch(root, args.incoming_dir, batch_id=args.batch_id, runner=runner)
+        plan = plan_batch(root, args.incoming_dir, state_root=state_root, batch_id=args.batch_id, runner=runner)
         if plan is None:
             print("Geen bestanden in data/incoming/ - niets te doen.")
             return 0
@@ -792,7 +794,7 @@ def main(argv=None):
         return 2
     lines = summary_lines(report)
     if args.process:
-        written = apply_writes(root, plan_writes(root, files, plan["batch_id"]))
+        written = apply_writes(state_root, plan_writes(state_root, files, plan["batch_id"]))
         lines.append(f"Geschreven: {len(written)} bestand(en); rapport: reports/incoming/{plan['batch_id']}.json")
     else:
         lines.append("DRY-RUN: niets geschreven. Gebruik --process om de batch te schrijven.")

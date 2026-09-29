@@ -485,3 +485,24 @@ def test_reproduction_skips_entries_without_reference_hash(monkeypatch):
     res = {r["document_id"]: r for r in xs.verify_reproduction("pdftotext", XPDF)}
     assert res["DOC-003"]["identical"] is None and res["DOC-003"]["skipped"]
     assert all(r["identical"] for d, r in res.items() if d != "DOC-003")
+
+
+def test_text_layer_only_difference_is_named_but_not_self_approved(tmp_path, monkeypatch):
+    good = _archive(XPDF)
+    pin = dict(xs.load_pin(), sha256=hashlib.sha256(good).hexdigest())
+    monkeypatch.setattr(xs, "verify_reproduction", lambda b, v: [
+        {"document_id": "DOC-001", "identical": True, "classification": "IDENTICAL"},
+        {"document_id": "DOC-007", "identical": False, "classification": "VALUES_IDENTICAL_TEXT_LAYER_HASH_DIFFERS"}])
+    r = xs.setup(str(tmp_path), pin, reproduce=True, fetch=lambda urls: (urls[0], good, []))
+    assert r["status"] == "UNVERIFIED_RUNNER_SETUP" and r["reasons"] == ["TEXT_LAYER_PLATFORM_DIFFERENCE:DOC-007"]
+
+
+def test_json_diff_isolates_text_layer_hash():
+    a = {"extraction_metadata": {"text_layer_sha256": "a", "x": 1}, "v": [1, 2]}
+    b = {"extraction_metadata": {"text_layer_sha256": "b", "x": 1}, "v": [1, 2]}
+    assert [d["path"] for d in xs.json_diff(a, b)] == [xs.TEXT_LAYER_HASH_PATH]
+
+
+def test_pinned_archive_sha256():
+    pin = xs.load_pin()
+    assert pin["sha256"] and len(pin["sha256"]) == 64 and pin["urls"][0].startswith("https://dl.xpdfreader.com/")
