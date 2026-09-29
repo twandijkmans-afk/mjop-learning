@@ -4,7 +4,13 @@
     "aluminium",
     "zinc"
   ],
-  "existing_kengetallen": [],
+  "existing_kengetallen": [
+    {
+      "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+      "status": "AVAILABLE",
+      "value_display": "37.47"
+    }
+  ],
   "groups": {
     "aluminium": {
       "combined_scenarios_after_material_decision": {
@@ -60,11 +66,39 @@
             "status": "AVAILABLE"
           }
         ],
-        "ALL_OPEN_FAMILIES_NOT_COMPARABLE": []
+        "ALL_OPEN_FAMILIES_NOT_COMPARABLE": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [],
+            "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+            "material": "aluminium",
+            "max_display": "39.06",
+            "min_display": "33.88",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": true,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-008-P009-L045",
+              "PO-DOC-011-P021-L083",
+              "PO-DOC-012-P014-L107"
+            ],
+            "simulated_value_display": "37.47",
+            "source_cluster_count": 3,
+            "source_cluster_ids": [
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-011",
+              "SC-DOC-012"
+            ],
+            "status": "AVAILABLE"
+          }
+        ]
       },
       "cross_cluster_pairs": [
         {
-          "active_decision": null,
+          "active_decision": {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_id": "HDR-00043"
+          },
           "content_check": {
             "deviations": [],
             "differences": [
@@ -86,11 +120,11 @@
               "PRICE_LEVEL_ABSENT"
             ]
           },
-          "open": true,
+          "open": false,
           "pair_caveats": [],
           "pair_id": "PAIR-00557",
           "review_family_id_after_material_decision": "RF-4711-17297bd2b3",
-          "review_family_id_before_material_decision": "RF-4711-72afa054e3",
+          "review_family_id_before_material_decision": "RF-4711-17297bd2b3",
           "sides": [
             {
               "action_normalized": "replace",
@@ -155,7 +189,10 @@
           "unknown_reasons": []
         },
         {
-          "active_decision": null,
+          "active_decision": {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_id": "HDR-00044"
+          },
           "content_check": {
             "deviations": [],
             "differences": [
@@ -176,11 +213,11 @@
             ],
             "b": []
           },
-          "open": true,
+          "open": false,
           "pair_caveats": [],
           "pair_id": "PAIR-00558",
           "review_family_id_after_material_decision": "RF-4711-17297bd2b3",
-          "review_family_id_before_material_decision": "RF-4711-72afa054e3",
+          "review_family_id_before_material_decision": "RF-4711-17297bd2b3",
           "sides": [
             {
               "action_normalized": "replace",
@@ -243,7 +280,10 @@
           "unknown_reasons": []
         },
         {
-          "active_decision": null,
+          "active_decision": {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_id": "HDR-00045"
+          },
           "content_check": {
             "deviations": [],
             "differences": [
@@ -264,11 +304,11 @@
             ],
             "b": []
           },
-          "open": true,
+          "open": false,
           "pair_caveats": [],
           "pair_id": "PAIR-00561",
           "review_family_id_after_material_decision": "RF-4711-0f1822792b",
-          "review_family_id_before_material_decision": "RF-4711-899cd9d239",
+          "review_family_id_before_material_decision": "RF-4711-0f1822792b",
           "sides": [
             {
               "action_normalized": "replace",
@@ -332,229 +372,14 @@
         }
       ],
       "material": "aluminium",
-      "material_steps": [
-        {
-          "document_id": "DOC-011",
-          "evidence": {
-            "action_text_original": "Vervangen daktrim aluminium",
-            "element_description_original": "Dakrandafwerking aluminium trim",
-            "unit_original": "m1"
-          },
-          "line": 83,
-          "material": "aluminium",
-          "material_normalized": "aluminium",
-          "observation_id": "PO-DOC-011-P021-L083",
-          "page": 21,
-          "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
-          "refusal_reason": null,
-          "source_cluster": "SC-DOC-011",
-          "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477"
-        },
-        {
-          "document_id": "DOC-012",
-          "evidence": {
-            "action_text_original": "Vervangen daktrim aluminium",
-            "element_description_original": "Dakrandafwerking aluminium trim",
-            "unit_original": "m1"
-          },
-          "line": 107,
-          "material": "aluminium",
-          "material_normalized": "aluminium",
-          "observation_id": "PO-DOC-012-P014-L107",
-          "page": 14,
-          "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
-          "refusal_reason": null,
-          "source_cluster": "SC-DOC-012",
-          "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716"
-        }
-      ],
+      "material_steps": [],
       "observation_ids": [
         "PO-DOC-008-P009-L045",
         "PO-DOC-011-P021-L083",
         "PO-DOC-012-P014-L107"
       ],
-      "open_cross_cluster_pairs": 3,
-      "open_families_after_material_decision": [
-        {
-          "document_ids": [
-            "DOC-011",
-            "DOC-012"
-          ],
-          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-          "evidence_flags": [
-            "EXACT_SAME_SEMANTIC_INPUT"
-          ],
-          "family_input_sha256_after_simulated_material_decision": "6dc43665816c1bd6a3528f930c75af2bcfda384ef475129ac7269788e01e6777",
-          "observation_caveats": {
-            "PRICE_LEVEL_ABSENT": 1
-          },
-          "pair_caveats": {},
-          "pair_ids": [
-            "PAIR-00561"
-          ],
-          "review_family_id": "RF-4711-0f1822792b",
-          "review_family_id_before_material_decision": [
-            "RF-4711-899cd9d239"
-          ],
-          "simulations": {
-            "COMPARABLE": [
-              {
-                "excluded_observation_ids": [],
-                "insufficient_data_reasons": [
-                  "FEWER_THAN_3_SOURCE_CLUSTERS:2"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-aluminium-b488c178",
-                "material": "aluminium",
-                "max_display": "37.47",
-                "min_display": "33.88",
-                "missing_cross_cluster_reviews": [],
-                "missing_price_level": true,
-                "mixed_price_level": false,
-                "observation_ids": [
-                  "PO-DOC-011-P021-L083",
-                  "PO-DOC-012-P014-L107"
-                ],
-                "simulated_value_display": null,
-                "source_cluster_count": 2,
-                "source_cluster_ids": [
-                  "SC-DOC-011",
-                  "SC-DOC-012"
-                ],
-                "status": "INSUFFICIENT_DATA"
-              }
-            ],
-            "COMPARABLE_WITH_CAVEATS": [
-              {
-                "excluded_observation_ids": [],
-                "insufficient_data_reasons": [
-                  "FEWER_THAN_3_SOURCE_CLUSTERS:2"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-aluminium-b488c178",
-                "material": "aluminium",
-                "max_display": "37.47",
-                "min_display": "33.88",
-                "missing_cross_cluster_reviews": [],
-                "missing_price_level": true,
-                "mixed_price_level": false,
-                "observation_ids": [
-                  "PO-DOC-011-P021-L083",
-                  "PO-DOC-012-P014-L107"
-                ],
-                "simulated_value_display": null,
-                "source_cluster_count": 2,
-                "source_cluster_ids": [
-                  "SC-DOC-011",
-                  "SC-DOC-012"
-                ],
-                "status": "INSUFFICIENT_DATA"
-              }
-            ],
-            "NOT_COMPARABLE": []
-          },
-          "source_clusters": [
-            "SC-DOC-011",
-            "SC-DOC-012"
-          ]
-        },
-        {
-          "document_ids": [
-            "DOC-008",
-            "DOC-011",
-            "DOC-012"
-          ],
-          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-          "evidence_flags": [
-            "EXACT_SAME_SEMANTIC_INPUT"
-          ],
-          "family_input_sha256_after_simulated_material_decision": "d423a2e2789eb1c117ccf625226101a0ca0be81988b88ff90950dcac4f324277",
-          "observation_caveats": {
-            "PRICE_LEVEL_ABSENT": 3
-          },
-          "pair_caveats": {},
-          "pair_ids": [
-            "PAIR-00557",
-            "PAIR-00558"
-          ],
-          "review_family_id": "RF-4711-17297bd2b3",
-          "review_family_id_before_material_decision": [
-            "RF-4711-72afa054e3"
-          ],
-          "simulations": {
-            "COMPARABLE": [
-              {
-                "excluded_observation_ids": [],
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
-                "material": "aluminium",
-                "max_display": "39.06",
-                "min_display": "33.88",
-                "missing_cross_cluster_reviews": [
-                  [
-                    "PO-DOC-011-P021-L083",
-                    "PO-DOC-012-P014-L107"
-                  ]
-                ],
-                "missing_price_level": true,
-                "mixed_price_level": false,
-                "observation_ids": [
-                  "PO-DOC-008-P009-L045",
-                  "PO-DOC-011-P021-L083",
-                  "PO-DOC-012-P014-L107"
-                ],
-                "simulated_value_display": null,
-                "source_cluster_count": 3,
-                "source_cluster_ids": [
-                  "SC-DOC-008+DOC-009",
-                  "SC-DOC-011",
-                  "SC-DOC-012"
-                ],
-                "status": "INSUFFICIENT_DATA"
-              }
-            ],
-            "COMPARABLE_WITH_CAVEATS": [
-              {
-                "excluded_observation_ids": [],
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
-                "material": "aluminium",
-                "max_display": "39.06",
-                "min_display": "33.88",
-                "missing_cross_cluster_reviews": [
-                  [
-                    "PO-DOC-011-P021-L083",
-                    "PO-DOC-012-P014-L107"
-                  ]
-                ],
-                "missing_price_level": true,
-                "mixed_price_level": false,
-                "observation_ids": [
-                  "PO-DOC-008-P009-L045",
-                  "PO-DOC-011-P021-L083",
-                  "PO-DOC-012-P014-L107"
-                ],
-                "simulated_value_display": null,
-                "source_cluster_count": 3,
-                "source_cluster_ids": [
-                  "SC-DOC-008+DOC-009",
-                  "SC-DOC-011",
-                  "SC-DOC-012"
-                ],
-                "status": "INSUFFICIENT_DATA"
-              }
-            ],
-            "NOT_COMPARABLE": []
-          },
-          "source_clusters": [
-            "SC-DOC-008+DOC-009",
-            "SC-DOC-011",
-            "SC-DOC-012"
-          ]
-        }
-      ],
+      "open_cross_cluster_pairs": 0,
+      "open_families_after_material_decision": [],
       "pairs_not_matching_description": [],
       "potential_source_clusters": {
         "count": 3,
@@ -568,9 +393,7 @@
       "simulation_without_material_decision_all_pairs_positive": [
         {
           "excluded_observation_ids": [],
-          "insufficient_data_reasons": [
-            "MATERIAL_UNKNOWN"
-          ],
+          "insufficient_data_reasons": [],
           "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
           "material": "aluminium",
           "max_display": "39.06",
@@ -583,20 +406,44 @@
             "PO-DOC-011-P021-L083",
             "PO-DOC-012-P014-L107"
           ],
-          "simulated_value_display": null,
+          "simulated_value_display": "37.47",
           "source_cluster_count": 3,
           "source_cluster_ids": [
             "SC-DOC-008+DOC-009",
             "SC-DOC-011",
             "SC-DOC-012"
           ],
-          "status": "INSUFFICIENT_DATA"
+          "status": "AVAILABLE"
         }
       ]
     },
     "zinc": {
       "combined_scenarios_after_material_decision": {
         "ALL_OPEN_FAMILIES_COMPARABLE": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [],
+            "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+            "material": "aluminium",
+            "max_display": "39.06",
+            "min_display": "33.88",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": true,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-008-P009-L045",
+              "PO-DOC-011-P021-L083",
+              "PO-DOC-012-P014-L107"
+            ],
+            "simulated_value_display": "37.47",
+            "source_cluster_count": 3,
+            "source_cluster_ids": [
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-011",
+              "SC-DOC-012"
+            ],
+            "status": "AVAILABLE"
+          },
           {
             "excluded_observation_ids": [],
             "insufficient_data_reasons": [
@@ -625,6 +472,30 @@
         "ALL_OPEN_FAMILIES_COMPARABLE_WITH_CAVEATS": [
           {
             "excluded_observation_ids": [],
+            "insufficient_data_reasons": [],
+            "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+            "material": "aluminium",
+            "max_display": "39.06",
+            "min_display": "33.88",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": true,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-008-P009-L045",
+              "PO-DOC-011-P021-L083",
+              "PO-DOC-012-P014-L107"
+            ],
+            "simulated_value_display": "37.47",
+            "source_cluster_count": 3,
+            "source_cluster_ids": [
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-011",
+              "SC-DOC-012"
+            ],
+            "status": "AVAILABLE"
+          },
+          {
+            "excluded_observation_ids": [],
             "insufficient_data_reasons": [
               "FEWER_THAN_3_SOURCE_CLUSTERS:2"
             ],
@@ -648,7 +519,32 @@
             "status": "INSUFFICIENT_DATA"
           }
         ],
-        "ALL_OPEN_FAMILIES_NOT_COMPARABLE": []
+        "ALL_OPEN_FAMILIES_NOT_COMPARABLE": [
+          {
+            "excluded_observation_ids": [],
+            "insufficient_data_reasons": [],
+            "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+            "material": "aluminium",
+            "max_display": "39.06",
+            "min_display": "33.88",
+            "missing_cross_cluster_reviews": [],
+            "missing_price_level": true,
+            "mixed_price_level": false,
+            "observation_ids": [
+              "PO-DOC-008-P009-L045",
+              "PO-DOC-011-P021-L083",
+              "PO-DOC-012-P014-L107"
+            ],
+            "simulated_value_display": "37.47",
+            "source_cluster_count": 3,
+            "source_cluster_ids": [
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-011",
+              "SC-DOC-012"
+            ],
+            "status": "AVAILABLE"
+          }
+        ]
       },
       "cross_cluster_pairs": [
         {
@@ -717,7 +613,7 @@
                 "source": "human_material_decision",
                 "value": "zinc"
               },
-              "material_decision_id": "MDR-00003",
+              "material_decision_id": "MDR-00005",
               "material_text_rule_would_derive": null,
               "material_text_token": null,
               "object_description": "Dakrandafwerking zink",
@@ -774,6 +670,30 @@
       "simulation_without_material_decision_all_pairs_positive": [
         {
           "excluded_observation_ids": [],
+          "insufficient_data_reasons": [],
+          "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+          "material": "aluminium",
+          "max_display": "39.06",
+          "min_display": "33.88",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": true,
+          "mixed_price_level": false,
+          "observation_ids": [
+            "PO-DOC-008-P009-L045",
+            "PO-DOC-011-P021-L083",
+            "PO-DOC-012-P014-L107"
+          ],
+          "simulated_value_display": "37.47",
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-011",
+            "SC-DOC-012"
+          ],
+          "status": "AVAILABLE"
+        },
+        {
+          "excluded_observation_ids": [],
           "insufficient_data_reasons": [
             "MATERIAL_UNKNOWN",
             "FEWER_THAN_3_SOURCE_CLUSTERS:2"
@@ -802,12 +722,12 @@
   },
   "inputs": {
     "comparability_rules_version": "comparability_rules_v1",
-    "comparability_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
+    "comparability_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
     "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
-    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
+    "human_decisions_sha256": "6e1a34e4040c637b45d213bc8c66b5d19fa7ea93de24b9d5398071cbced55f63",
     "kengetallen_rules_version": "kengetallen_rules_v1",
-    "kengetallen_sha256": "575d3c4f8454c59c8a49f1043a569244e0586bf5a8af00fe0a507bb31fe84294",
-    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692"
+    "kengetallen_sha256": "e8b9b2260fb681da242817e51dfdb5ca3b1ab3ec1e3e5dcd6b56d3cc71761897",
+    "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
   },
   "material": "aluminium",
   "note": "Beslispakket, geen besluit. Materiaal-precheck: record_material_decision.validate met een placeholder-reviewer (schrijft niets). De toestand na het materiaalbesluit is gesimuleerd met record_material_decision.record op een tijdelijke kopie; family_input_sha256 daarvan is alleen indicatief - het echte familiebesluit bindt aan comparability_review_v2.json zoals dat NA het echte materiaalbesluit wordt herbouwd. Kengetalsimulaties gebruiken uitsluitend build_kengetallen.evaluate (kengetallen_rules_v1) met hypothetische ACTIVE records en worden nergens vastgelegd. COMPARABLE en COMPARABLE_WITH_CAVEATS tellen in de regels hetzelfde (regel 2). Toepassen alleen via scripts/record_material_decision.py en daarna scripts/apply_family_decision.py.",
@@ -934,7 +854,6 @@
       "action_normalized": "replace",
       "action_text": "Vervangen daktrim aluminium",
       "caveats": [
-        "MATERIAL_UNKNOWN",
         "PRICE_LEVEL_ABSENT"
       ],
       "derived_price_per_execution": "33.88",
@@ -943,13 +862,13 @@
       "independent_input": true,
       "line": 83,
       "material": {
-        "source": null,
-        "value": null
+        "source": "human_material_decision",
+        "value": "aluminium"
       },
-      "material_decision_id": null,
-      "material_status": "TEXT_EVIDENCE_PENDING_APPROVAL:aluminium",
-      "material_text_rule_would_derive": "aluminium",
-      "material_text_token": "aluminium",
+      "material_decision_id": "MDR-00003",
+      "material_status": "KNOWN:aluminium",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
       "object_description": "Dakrandafwerking aluminium trim",
       "observation_id": "PO-DOC-011-P021-L083",
       "page": 21,
@@ -964,22 +883,20 @@
     {
       "action_normalized": "replace",
       "action_text": "Vervangen daktrim aluminium",
-      "caveats": [
-        "MATERIAL_UNKNOWN"
-      ],
+      "caveats": [],
       "derived_price_per_execution": "37.47",
       "document_id": "DOC-012",
       "executions_in_window": 1,
       "independent_input": true,
       "line": 107,
       "material": {
-        "source": null,
-        "value": null
+        "source": "human_material_decision",
+        "value": "aluminium"
       },
-      "material_decision_id": null,
-      "material_status": "TEXT_EVIDENCE_PENDING_APPROVAL:aluminium",
-      "material_text_rule_would_derive": "aluminium",
-      "material_text_token": "aluminium",
+      "material_decision_id": "MDR-00004",
+      "material_status": "KNOWN:aluminium",
+      "material_text_rule_would_derive": null,
+      "material_text_token": null,
       "object_description": "Dakrandafwerking aluminium trim",
       "observation_id": "PO-DOC-012-P014-L107",
       "page": 14,

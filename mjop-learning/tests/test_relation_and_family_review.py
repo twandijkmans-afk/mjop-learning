@@ -362,8 +362,9 @@ def test_input_change_invalidates_family_decision(proj):
 
 
 def rollback_family_decisions(root):
-    """Latere familiebesluiten terugdraaien (laatste eerst) en het reviewpakket op die toestand herbouwen."""
-    while pl.latest(root).get("change_kind") == "family_decision":
+    """Alle familiebesluiten en de schakels daarna terugdraaien (laatste eerst) en het reviewpakket op die toestand
+    herbouwen."""
+    while any(s.get("change_kind") == "family_decision" for s in pl.states(root)):
         cc.rollback(root, pl.latest(root)["promotion_id"])
     crv.write(root)
 

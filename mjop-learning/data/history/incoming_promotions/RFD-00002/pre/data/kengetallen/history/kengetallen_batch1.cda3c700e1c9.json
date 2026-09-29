@@ -1,0 +1,359 @@
+{
+  "rules_version": "kengetallen_rules_v1",
+  "rules_document": "docs/kengetallen_rules_v1.md",
+  "comparability_rules_version": "comparability_rules_v1",
+  "generated_at": "2026-09-29T11:04:32Z",
+  "inputs": {
+    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692",
+    "comparability_output_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
+    "human_decisions_sha256": "bed01185bacbd20810c11cafba0c755df98b8b968dc9b77e5ef05fefdb284b2b",
+    "rules_document_sha256": "bc87f7549dad98e2688e508f8a84ace43d49205ac11654c2f5a9e7e2d0d56a11"
+  },
+  "supersedes": {
+    "file": "data/kengetallen/history/kengetallen_batch1.df56504fd811.json",
+    "sha256": "df56504fd811de5d19c3cbf4b387b72a9f243566ed06e951ef2bcf69beb91a70"
+  },
+  "note": "Kengetallen v1: mediaan van source-cluster contributions van volledig menselijk beoordeelde vergelijkbare groepen met minimaal 3 source clusters. Historisch, niet geïndexeerd, geen marktprijs of normprijs. Geen weging, score of confidence.",
+  "summary": {
+    "candidate_groups": 1,
+    "status": {
+      "AVAILABLE": 1
+    },
+    "insufficient_data_reasons": {},
+    "active_human_decisions": 5,
+    "human_positive_decisions": 3,
+    "human_not_comparable_decisions": 2
+  },
+  "kengetallen": [
+    {
+      "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+      "candidate_key": [
+        "5211",
+        "replace",
+        "m1"
+      ],
+      "element_code": "5211",
+      "action": "replace",
+      "unit": "m1",
+      "material": {
+        "original": "pvc",
+        "normalized": "pvc"
+      },
+      "material_source": [
+        "element_text",
+        "verified_element"
+      ],
+      "vat_basis": [
+        "inclusive"
+      ],
+      "status": "AVAILABLE",
+      "insufficient_data_reasons": [],
+      "value_exact": "51.78706199460916442048517520",
+      "value_display": "51.79",
+      "min_exact": "45.23076923076923076923076923",
+      "max_exact": "54.91186839012925969447708578",
+      "range_exact": "9.68109915936002892524631655",
+      "min_display": "45.23",
+      "max_display": "54.91",
+      "range_display": "9.68",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "source_cluster_ids": [
+        "SC-DOC-001",
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010"
+      ],
+      "source_cluster_count": 3,
+      "cluster_contributions": [
+        {
+          "source_cluster": "SC-DOC-001",
+          "contribution_exact": "51.78706199460916442048517520",
+          "contribution_display": "51.79",
+          "post_ids": [
+            "KG-5211-replace-m1-pvc-67920b77-POST-01"
+          ],
+          "observation_ids": [
+            "PO-DOC-001-P026-L029"
+          ],
+          "price_levels": [
+            null
+          ]
+        },
+        {
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "contribution_exact": "54.91186839012925969447708578",
+          "contribution_display": "54.91",
+          "post_ids": [
+            "KG-5211-replace-m1-pvc-67920b77-POST-02"
+          ],
+          "observation_ids": [
+            "PO-DOC-009-P021-L095"
+          ],
+          "price_levels": [
+            "21-4-2025"
+          ]
+        },
+        {
+          "source_cluster": "SC-DOC-010",
+          "contribution_exact": "45.23076923076923076923076923",
+          "contribution_display": "45.23",
+          "post_ids": [
+            "KG-5211-replace-m1-pvc-67920b77-POST-03"
+          ],
+          "observation_ids": [
+            "PO-DOC-010-P012-L093"
+          ],
+          "price_levels": [
+            "1-4-2023"
+          ]
+        }
+      ],
+      "posts": [
+        {
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
+          "source_cluster": "SC-DOC-001",
+          "document_id": "DOC-001",
+          "observation_ids": [
+            "PO-DOC-001-P026-L029"
+          ],
+          "element_line": {
+            "line": 27,
+            "page": 26
+          },
+          "consolidated": false,
+          "consolidation_reason": null,
+          "post_value_exact": "51.78706199460916442048517520"
+        },
+        {
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "document_id": "DOC-009",
+          "observation_ids": [
+            "PO-DOC-009-P021-L095"
+          ],
+          "element_line": {
+            "line": 93,
+            "page": 21
+          },
+          "consolidated": false,
+          "consolidation_reason": null,
+          "post_value_exact": "54.91186839012925969447708578"
+        },
+        {
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
+          "source_cluster": "SC-DOC-010",
+          "document_id": "DOC-010",
+          "observation_ids": [
+            "PO-DOC-010-P012-L093"
+          ],
+          "element_line": {
+            "line": 91,
+            "page": 12
+          },
+          "consolidated": false,
+          "consolidation_reason": null,
+          "post_value_exact": "45.23076923076923076923076923"
+        }
+      ],
+      "observation_ids": [
+        "PO-DOC-001-P026-L029",
+        "PO-DOC-009-P021-L095",
+        "PO-DOC-010-P012-L093"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-001": [
+          "PO-DOC-001-P026-L029"
+        ],
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-009-P021-L095"
+        ],
+        "SC-DOC-010": [
+          "PO-DOC-010-P012-L093"
+        ]
+      },
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "decision_ids": [
+        "HDR-00031",
+        "HDR-00032",
+        "HDR-00033"
+      ],
+      "human_review_complete": true,
+      "missing_cross_cluster_reviews": [],
+      "rule_version": "kengetallen_rules_v1",
+      "price_levels": {
+        "per_observation": {
+          "PO-DOC-001-P026-L029": null,
+          "PO-DOC-009-P021-L095": "21-4-2025",
+          "PO-DOC-010-P012-L093": "1-4-2023"
+        },
+        "per_cluster": {
+          "SC-DOC-001": [
+            null
+          ],
+          "SC-DOC-008+DOC-009": [
+            "21-4-2025"
+          ],
+          "SC-DOC-010": [
+            "1-4-2023"
+          ]
+        },
+        "years": [
+          2023,
+          2025
+        ],
+        "mixed_price_level": true,
+        "missing_price_level": true,
+        "indexation": "none",
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2025 en ontbrekend: niet presenteren als prijs van één specifiek jaar."
+      },
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision_id": "HDR-00031",
+            "pair_id": "PAIR-00302",
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "system_class": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT"
+            ]
+          },
+          {
+            "decision_id": "HDR-00032",
+            "pair_id": "PAIR-00303",
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "system_class": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT",
+              "QUANTITY_SCALE_DIFFERENCE"
+            ]
+          },
+          {
+            "decision_id": "HDR-00033",
+            "pair_id": "PAIR-00331",
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "system_class": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_DIFFERENCE",
+              "QUANTITY_SCALE_DIFFERENCE"
+            ]
+          }
+        ],
+        "counts": {
+          "PRICE_LEVEL_ABSENT": 2,
+          "PRICE_LEVEL_DIFFERENCE": 1,
+          "QUANTITY_SCALE_DIFFERENCE": 2
+        }
+      },
+      "observation_caveats": {
+        "PO-DOC-001-P026-L029": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "PO-DOC-009-P021-L095": [],
+        "PO-DOC-010-P012-L093": []
+      },
+      "quantity": {
+        "min": "13.00",
+        "max": "371.00",
+        "max_min_ratio": "28.54",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "source_references": [
+        {
+          "observation_id": "PO-DOC-001-P026-L029",
+          "document_id": "DOC-001",
+          "source_cluster": "SC-DOC-001",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
+          "page": 26,
+          "line": 29,
+          "element_line": {
+            "line": 27,
+            "page": 26
+          },
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "object_description": "Hemelwaterafvoer pvc",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "quantity": "371.00",
+          "unit_original": "m1",
+          "price_per_execution_exact": "51.78706199460916442048517520",
+          "price_per_execution_display": "51.79",
+          "executions_in_window": 1,
+          "cycle_start_year": 2029,
+          "cycle_length_years": 25,
+          "price_level_date": null,
+          "vat_basis": "inclusive",
+          "material": {
+            "normalized": "pvc",
+            "original": "pvc",
+            "source": "element_text"
+          },
+          "independent_input": true,
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ]
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L095",
+          "document_id": "DOC-009",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
+          "page": 21,
+          "line": 95,
+          "element_line": {
+            "line": 93,
+            "page": 21
+          },
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "object_description": "Hemelwaterafvoer pvc",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "quantity": "170.20",
+          "unit_original": "m1",
+          "price_per_execution_exact": "54.91186839012925969447708578",
+          "price_per_execution_display": "54.91",
+          "executions_in_window": 1,
+          "cycle_start_year": 2032,
+          "cycle_length_years": 30,
+          "price_level_date": "21-4-2025",
+          "vat_basis": "inclusive",
+          "material": {
+            "normalized": "pvc",
+            "original": "pvc",
+            "source": "verified_element"
+          },
+          "independent_input": true,
+          "caveats": []
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L093",
+          "document_id": "DOC-010",
+          "source_cluster": "SC-DOC-010",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
+          "page": 12,
+          "line": 93,
+          "element_line": {
+            "line": 91,
+            "page": 12
+          },
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "object_description": "Hemelwaterafvoer pvc",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "quantity": "13.00",
+          "unit_original": "m1",
+          "price_per_execution_exact": "45.23076923076923076923076923",
+          "price_per_execution_display": "45.23",
+          "executions_in_window": 1,
+          "cycle_start_year": 2034,
+          "cycle_length_years": 24,
+          "price_level_date": "1-4-2023",
+          "vat_basis": "inclusive",
+          "material": {
+            "normalized": "pvc",
+            "original": "pvc",
+            "source": "verified_element"
+          },
+          "independent_input": true,
+          "caveats": []
+        }
+      ]
+    }
+  ]
+}

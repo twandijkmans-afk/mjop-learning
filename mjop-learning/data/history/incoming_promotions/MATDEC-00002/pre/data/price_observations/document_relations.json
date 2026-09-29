@@ -1,0 +1,78 @@
+{
+  "description": "Handmatig vastgestelde relaties tussen brondocumenten van batch 1. Invoer voor scripts/build_price_observations.py. Elke relatie is gebaseerd op de read-only bronanalyses van 2026-09-23 (document relationship analysis); het bewijs staat per relatie. Dit bestand wordt NIET automatisch aangevuld - nieuwe relaties alleen na menselijke beoordeling.",
+  "relation_types": {
+    "duplicate_source": "Hetzelfde MJOP in een ander bestandsformaat. Het secundaire document levert GEEN eigen price observations op.",
+    "version_of_same_mjop": "Nieuwe inspectie/versie van hetzelfde MJOP-project. Tegenhangers zijn mogelijk afhankelijk (POSSIBLY_DEPENDENT), niet automatisch onafhankelijk.",
+    "subplans_same_complex": "Zelfde fysieke complex, ander deelplan. Identieke posten in beide deelplannen zijn mogelijk afhankelijk.",
+    "same_building_other_inspection": "Zelfde gebouw, andere inspectie. Op rijniveau is geen prijsafhankelijkheid vastgesteld (0 identieke totalen); alleen als documentcontext vastgelegd."
+  },
+  "relations": [
+    {
+      "relation_id": "DREL-001",
+      "type": "duplicate_source",
+      "primary_document_id": "DOC-002",
+      "secondary_document_id": "DOC-003",
+      "confidence": "certain",
+      "evidence": "XLS bevat objectcode 93531, 'Printdatum: 18-9-2026', sectietitel 'Overzicht 15 - Jarenplan (Gedetailleerd)', dezelfde indexatiezin en placeholder '9999 Herinspectie <adviesbureau>', totaal 83905,47 (PDF: 83.905); alle 33 actieteksten en 70 elementteksten van DOC-002 komen letterlijk voor. De XLS bevat alleen de sectie Jarenplan (Gedetailleerd).",
+      "row_level_verification": "niet rij-voor-rij geverifieerd (XLS niet geparst in de source layer)"
+    },
+    {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "document_ids": ["DOC-005", "DOC-006"],
+      "confidence": "high",
+      "evidence": "Zelfde klantcode 9261, adres, 29 eenheden, bouwjaar 1981; objectcode 92570 (2023) -> 92570-1 (2026); zelfde inspecteur, andere inspectiedatum en prijspeil; 31/40 elementen identiek in type+hoeveelheid+eenheid.",
+      "open_question": "Herkomst van de verhouding 1,210 tussen gedeelde posten is onbekend (niet aangenomen als indexatie)."
+    },
+    {
+      "relation_id": "DREL-003",
+      "type": "subplans_same_complex",
+      "document_ids": ["DOC-008", "DOC-009"],
+      "confidence": "high",
+      "evidence": "Beide 'VvE St. Jacobsstraat 251-321' ('Hoofddak' resp. 'Woningen'), zelfde inspecteur, inspectiedatum 16-4-2025 en printdatum 2-5-2025, codes 91134-2025/91132-2025; 3 gedeelde dakelementen en 1 identieke kostenpost (loodslabben plat dak, 72,38 m1, 10.386, 2025).",
+      "open_question": "VvE-structuur (hoofd-VvE/subVvE) onbekend; of overlap dubbele begroting is, is onbekend."
+    },
+    {
+      "relation_id": "DREL-004",
+      "type": "same_building_other_inspection",
+      "document_ids": ["DOC-002", "DOC-004"],
+      "confidence": "medium",
+      "evidence": "Zelfde adres, 7 eenheden, bouwjaar 1900; andere objectcode (93531 vs D9697), inspecteur en datum (2026 vs 2018); DOC-004 excl. BTW; 70 elementen identiek in type+hoeveelheid, 0 identieke prijsregels.",
+      "open_question": "Of de elementinventaris van 2026 bewust uit 2018 is overgenomen is onbekend; opsteller van DOC-004 blijkt alleen uit de bestandsnaam ('Innax')."
+    },
+    {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "primary_document_id": "DOC-006",
+      "secondary_document_id": "DOC-014",
+      "confidence": "certain",
+      "evidence": "Menselijk besluit op reviewpakket relation_review_v1: zelfde object VvE Maldenhof 240-296, Maldenhof 240 - 296, 1106 EZ Amsterdam; bouwjaar 1981, 29 eenheden; prijspeil 1-3-2023, inspectiedatum 23-3-2023; BTW- en indexatietekst gelijk. Elementen 35/35 gelijk, 0 conditieverschillen. Price-observation-rijen 20/20 exact gelijk (elementcode, actie, hoeveelheid, eenheid, Stj, Cy, jaarbedragen); som 206354 = 206354. Bytes verschillen (df698e6edd40 vs b593a3a2e62b); tekstlaag: 34/140 regels alleen in één van beide (weergave/rendering).",
+      "row_level_verification": "rij-voor-rij geverifieerd: 20 exacte rijen, 0 gedeeltelijk, 0 uniek (prepare_relation_review.py)",
+      "decision": {
+        "option": "DUPLICATE_OTHER_BYTES",
+        "decided_by": {
+          "reviewer_id": "twandijkmans",
+          "reviewer_type": "human"
+        },
+        "decided_at": "2026-09-29T10:34:19Z",
+        "decision_reason": "Menselijk besluit (twandijkmans): DOC-014 is DUPLICATE_OTHER_BYTES van DOC-006 - zelfde gebouw/adres/postcode, bouwjaar, 29 eenheden, prijspeil 1-3-2023, inspectiedatum 23-3-2023, BTW-/indexatietekst; 35/35 elementen, 0 conditieverschillen, 20/20 price-observation-rijen exact gelijk, totaal beide 206.354; alleen tekstlaag-/renderingverschillen; bytes verschillen.",
+        "review_package": "reports/review/relation_review_DOC-014.json",
+        "review_package_sha256": "4f62b6b78bc7e1ea4c93f938bfae5cc0a82718b8984f241f15ea98316ce5a20b",
+        "source_batch_id": "IB-ad209360ab07",
+        "secondary_sha256": "df698e6edd40c97ab9287ba912c10209a91a55222b7f6af2f1be0e2b6bf819da",
+        "primary_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+        "implied_relations": [
+          {
+            "document_id": "DOC-005",
+            "via": [
+              "DREL-005",
+              "DREL-002"
+            ],
+            "note": "DOC-014 is duplicate_source van DOC-006; de relatie met DOC-005 volgt daaruit en wordt niet apart vastgelegd."
+          }
+        ],
+        "effect": "Het secundaire document levert GEEN eigen price observations, telt niet als onafhankelijke bron, krijgt geen eigen source cluster en wordt niet als zelfstandige canonieke observation-bron gepromoveerd."
+      }
+    }
+  ]
+}

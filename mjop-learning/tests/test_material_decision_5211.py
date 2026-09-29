@@ -88,6 +88,7 @@ def decision(obs_ids=TARGETS, **over):
 
 def test_exactly_two_material_approvals(state):
     store = load("data", "review_decisions", "material_decision_records.json")
+    store["records"] = store["records"][:2]                                   # latere besluiten volgen erna
     assert [r["observation_id"] for r in store["records"]] == TARGETS
     assert [r["decision_id"] for r in store["records"]] == ["MDR-00001", "MDR-00002"]
     source = {o["observation_id"]: o for o in load("data", "price_observations",
@@ -122,17 +123,21 @@ def test_no_scope_leak_to_other_observations(state):
     new = {o["observation_id"]: o for o in load("data", "price_observations",
                                                   "price_observations_batch1_normalized.json")["observations"]}
     assert set(old) == set(new) and len(new) == 545
-    changed = sorted(i for i in new if new[i] != old[i])
+    # latere, eigen materiaalbesluiten (andere observations, eigen ketenschakel) tellen hier niet mee
+    later = {r["observation_id"] for r in load("data", "review_decisions", "material_decision_records.json")["records"]
+             if r["decision_id"] not in ("MDR-00001", "MDR-00002")}
+    assert not later & set(TARGETS)
+    changed = sorted(i for i in new if new[i] != old[i] and i not in later)
     assert changed == TARGETS
     for oid in TARGETS:
         assert {k: v for k, v in new[oid].items() if k != "material"} == \
             {k: v for k, v in old[oid].items() if k != "material"}               # bedragen/overige velden gelijk
-    assert sum(o["material"]["material_status"] == "MATERIAL_FROM_HUMAN_DECISION" for o in new.values()) == 2
+    assert sum(o["material"]["material_status"] == "MATERIAL_FROM_HUMAN_DECISION" for o in new.values()) == 2 + len(later)
     # andere observations van dezelfde documenten blijven zonder materiaal (bijv. staal gegalvaniseerd)
     assert new["PO-DOC-012-P015-L039"]["material"]["material_status"] == "MATERIAL_UNKNOWN"
     old_c = {a["observation_id"]: a for a in pre(state, pr.COMP_PATH)["observations"]}
     new_c = {a["observation_id"]: a for a in load("data", "comparability", "comparability_batch1.json")["observations"]}
-    moved = [i for i in new_c if i not in TARGETS and pr._assess_without_derived(new_c[i]) !=
+    moved = [i for i in new_c if i not in TARGETS and i not in later and pr._assess_without_derived(new_c[i]) !=
              pr._assess_without_derived(old_c[i])]
     assert moved == []
 
@@ -213,7 +218,7 @@ def test_rollback_and_reapply_on_copy(tmp_path, state):
     assert all(norm[i]["material"]["material_status"] == "MATERIAL_UNKNOWN" for i in TARGETS)
     # hetzelfde menselijke besluit opnieuw: exact dezelfde canonieke uitkomst (behalve kengetal-metadata)
     st = rmd.record(root, state["decision"]["material_decision"], now=state["applied_at"])
-    assert st["promotion_id"] == "MATDEC-00002"
+    assert st["promotion_id"].startswith("MATDEC-")                          # nieuw volgnummer; ids in history blijven
     for rel in (npo.MATERIAL_DECISIONS_PATH.replace(os.sep, "/"),
                 "data/price_observations/price_observations_batch1_normalized.json",
                 "data/comparability/comparability_batch1.json"):

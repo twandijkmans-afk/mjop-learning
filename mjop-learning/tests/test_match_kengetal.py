@@ -27,6 +27,8 @@ C1 = "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
 # C2 = canonieke 5211 pvc-versie na het menselijke familiebesluit RFD-00001 (5 clusters; vorige versie
 # KG-5211-replace-m1-pvc-67920b77 / 51.79 staat in data/kengetallen/history)
 C2 = "KG-5211-replace-m1-pvc-5cb98033"
+# C4 = 4711 replace m1 aluminium na materiaalbesluit MATDEC-00002 en familiebesluit RFD-00002 (3 clusters)
+C4 = "KG-4711-replace-m1-aluminium-d463b0a2"
 
 
 def item(**over):
@@ -59,7 +61,7 @@ def test_canonical_c1_no_longer_available_after_promotion():
     r = run(item())
     assert (r["retrieval_status"], r["final_status"]) == ("NO_CANDIDATE", "NO_SUITABLE_KENGETAL")
     assert r["reasons"] == ["NO_KENGETAL_FOR_KEY"] and r["candidate_kengetal_id"] is None
-    assert [k["kengetal_id"] for k in CTX[0]["kengetallen"]] == [C2]
+    assert [k["kengetal_id"] for k in CTX[0]["kengetallen"]] == [C4, C2]
 
 
 def test_c1_exact_retrieval_and_scope():
