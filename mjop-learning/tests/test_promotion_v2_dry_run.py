@@ -16,6 +16,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 import promotion_v2_dry_run as pv2  # noqa: E402
+import promotion_history as ph  # noqa: E402
 
 PROTECTED = ["data/raw", "data/extracted", "data/normalized", "data/verified", "data/price_observations",
              "data/comparability", "data/kengetallen", "data/review_decisions", "data/match_review_decisions",
@@ -100,10 +101,12 @@ def test_accept_simulation_counts(built):
 def test_kengetallen_dry_run_compares_by_id_and_candidate_key(built):
     layer, report = built
     kg = report["kengetallen"]
-    assert kg["old"] == len(json.load(open(os.path.join(PROJECT_ROOT, pv2.KG_PATH)))["kengetallen"])
+    with ph.pre_promotion_root(PROJECT_ROOT) as pre:   # v2 vergelijkt met de pre-promotie-kengetallen
+        old = json.load(open(os.path.join(pre, pv2.KG_PATH), encoding="utf-8"))["kengetallen"]
+    assert kg["old"] == len(old)
     assert {tuple(c["candidate_key"]) for c in kg["by_candidate_key"]} <= \
         {tuple(k["candidate_key"]) for k in layer["kengetallen"]["kengetallen"]} | \
-        {tuple(k["candidate_key"]) for k in json.load(open(os.path.join(PROJECT_ROOT, pv2.KG_PATH)))["kengetallen"]}
+        {tuple(k["candidate_key"]) for k in old}
     assert "generated_at" not in layer["kengetallen"]
 
 

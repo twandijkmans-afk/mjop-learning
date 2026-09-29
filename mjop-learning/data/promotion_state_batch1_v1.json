@@ -1,0 +1,144 @@
+{
+  "approval_set_sha256": "e5f7836485106d4840b68c9c209effab31dd18359af06b12af60a4bb64d1461c",
+  "batch_id": "batch1_v1",
+  "decisions": {
+    "accepts": {
+      "AMBIGUOUS": "REVIEW_REQUIRED",
+      "DUPLICATE_SKIP": "HISTORY_ONLY",
+      "EXACT_MATCH_CANDIDATE": "NOT_MIGRATED_NO_EXPLICIT_DECISION",
+      "NO_NEW_ACTION": "HISTORY_ONLY",
+      "SAFE_EXACT_RELINK": "CONFIRM_ON_NEW_ACTIONS",
+      "SOURCE_CHANGED_REVIEW": "REVIEW_REQUIRED"
+    },
+    "comparability": {
+      "DF-1": "REVIEW_REQUIRED",
+      "DF-2": "REVIEW_REQUIRED",
+      "DF-3": "RECONFIRM_FAMILY",
+      "SAME_EVIDENCE": "RECONFIRM"
+    },
+    "decided_by": "twandijkmans",
+    "decision_date": "2026-09-28",
+    "source_evidence": "APPROVE ALL EXPLICIT_SOURCE_EVIDENCE candidates in the reviewed set"
+  },
+  "handoff_manifest_sha256": "c7724cb3c756d28e964b0c0c375dfb71941607001e56ebc352d9fabb85dad478",
+  "history": "data/history/pre_deterministic_promotion_batch1_v1",
+  "post_manifest": {
+    "data/comparability/comparability_batch1.json": "f738440e57201b8d652be0eba61084adb413f3579cfae4455eac36e8fe8531d5",
+    "data/extracted/DOC-001.json": "f824c8cd5b02bf39fd827c258d0903698f42fee659948259cac462e18df2d311",
+    "data/extracted/DOC-002.json": "3159a09bf4207804ceed9475a83d2e32ace934502892012cbc477ef7902f44ae",
+    "data/extracted/DOC-004.json": "ad3a4f9a8b157a95de173324fae9388c6717a9a0381bbb5d6a0b360ee110beef",
+    "data/extracted/DOC-005.json": "e122a69e33ca89f359771df2d5273649cdd563d781407f42d25b7aa0d823a05f",
+    "data/extracted/DOC-006.json": "776cc805ff34864e8bbf4d165e3939bf3fc27608ef0a69de3bf7c9d6b8e299ea",
+    "data/extracted/DOC-007.json": "aa13b51cc48d9876947547a1922a6e448f6e50e7dd0ec7aa6fed5f67f2de0be5",
+    "data/extracted/DOC-008.json": "216e59c4b560350571f341f963e04052c269c2e9b2a70792271341c42218e590",
+    "data/extracted/DOC-009.json": "88862364648a37a9ba8925809a2a4f250c9f9c220e4777c6c331ca8a3edbebd4",
+    "data/extracted/DOC-010.json": "70f110a2483c1f6514e3367697f6abc4053c6febcce947d75ce6ce5bac91735e",
+    "data/kengetallen/history/kengetallen_batch1.b610b65a978e.json": "b610b65a978e40cb6b2dba9948c19e3ea71ab98cc60033a5b38693387a2a902b",
+    "data/kengetallen/kengetallen_batch1.json": "480e482ffbf267f8c32914e52eae49eefdb85ca359cb5b9c6d3aa3112435e99d",
+    "data/match_review_decisions/human_match_decision_records.json": "4695080650995297b4da5d9f5b1b9ac20382af96c623acb38361fd14858d8057",
+    "data/normalized/DOC-001.json": "001ea9a36e40c1a4bee87f8ff502c31c30c573efa966f6f568537476489f06f2",
+    "data/normalized/DOC-002.json": "c767a1d5e9915f3d217309e835ab3b801ff6072f40f293a270ee9cc0e8a19511",
+    "data/normalized/DOC-004.json": "4dbff59c947ebfc0dd90d09009b8bed3feffe9435ef8eb6d6ffc28f491550460",
+    "data/normalized/DOC-005.json": "382ab56f939d637f1655766d03d16b2cbddd42db53ae4afc2f22087e67c58568",
+    "data/normalized/DOC-006.json": "eaf357e9529430243e523987a48aafe3325682734d8afcf65dadffbb2b806095",
+    "data/normalized/DOC-007.json": "aaf72132b35e7fed4d6f274b6ffef0ccb75dc4a71d687967268612038af48268",
+    "data/normalized/DOC-008.json": "f77d18be392084e0e86df986f23f74749eb5db389d8473f9c43407f642c21dc4",
+    "data/normalized/DOC-009.json": "5abcd471d9a0778d8cdbc7bef267ad396d7fb72772c9a644e843c4912a923add",
+    "data/normalized/DOC-010.json": "b0e45ee7814c4c2dfb9ee71298698ce0639116889aeb72b974bc9ec407113c24",
+    "data/price_observations/document_relations.json": "338326282acf7c2a160e8fb346188b0cbf17187b0c5b28d9d487e28fc0328ddf",
+    "data/price_observations/price_observations_batch1.json": "961ae60f5eeea387d4581f798cf2d76da9dc615636cccc18c01fa3b33da25673",
+    "data/price_observations/price_observations_batch1_normalized.json": "cdc8313fde9fecdec5411314a58c20ea87d793beb3770dfdac8726164e473575",
+    "data/review_decisions/human_decision_records.json": "bed01185bacbd20810c11cafba0c755df98b8b968dc9b77e5ef05fefdb284b2b",
+    "data/review_decisions/legacy_accept_migration_batch1_v1.json": "fa7d9077fa1e8a497ec553aae69803dbcfe12832829dc023537439c6591c2d5c",
+    "data/verified/DOC-001.json": "89533abb1d58f96d992fe534edfdc06acb7574c790de74278a7e2694eff962ec",
+    "data/verified/DOC-002.json": "4b29ad90684368254bb1f03eef2ec2eeddeebb7d6c00e51bfb283a57bb26aa2d",
+    "data/verified/DOC-004.json": "4dbff59c947ebfc0dd90d09009b8bed3feffe9435ef8eb6d6ffc28f491550460",
+    "data/verified/DOC-005.json": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "data/verified/DOC-006.json": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "data/verified/DOC-007.json": "5155b6aff7377b06b8861b97c550bf93e7280d497438a4862f365da27dc7a24e",
+    "data/verified/DOC-008.json": "f65a10cc90cbcabf9feda645687d0fd1e07aceed27a874db7a50b14abdc6a4ce",
+    "data/verified/DOC-009.json": "b67bee8e53353311aa22f8336efed91980748be8ea7a3ae039f9bfe32b142046",
+    "data/verified/DOC-010.json": "348e0d31c53f83d63680c8b8d4e9657f31cda6122bb1f318f660ced8108f0a9c"
+  },
+  "pre_manifest_sha256": "8d8977b4f7a8c84ff1ebf0ce3b9f20fa8c608323172e68434493db16bc3d3025",
+  "promoted_at": "2026-09-29T06:53:43Z",
+  "statement": "Batch 1 cloud promotion gebruikt de reeds gevalideerde Xpdf-derived PO values; het voert geen nieuwe PDF parsing uit.",
+  "status": "PROMOTED",
+  "summary": {
+    "accepts": {
+      "exact_candidates_not_migrated": 131,
+      "history_only": 59,
+      "migrated": 2,
+      "review_required": 28
+    },
+    "amount_changes": 0,
+    "decisions": {
+      "new_records": [
+        "HDR-00031",
+        "HDR-00032",
+        "HDR-00033",
+        "HDR-00034",
+        "HDR-00035"
+      ],
+      "reconfirmed_old": [
+        "HDR-00018",
+        "HDR-00019",
+        "HDR-00020",
+        "HDR-00021",
+        "HDR-00022"
+      ],
+      "review_required": [
+        "HDR-00001",
+        "HDR-00002",
+        "HDR-00003",
+        "HDR-00004",
+        "HDR-00005",
+        "HDR-00006",
+        "HDR-00007",
+        "HDR-00008",
+        "HDR-00009",
+        "HDR-00010",
+        "HDR-00011",
+        "HDR-00012",
+        "HDR-00013",
+        "HDR-00014",
+        "HDR-00015",
+        "HDR-00016",
+        "HDR-00017",
+        "HDR-00023",
+        "HDR-00024",
+        "HDR-00025",
+        "HDR-00026",
+        "HDR-00027",
+        "HDR-00028",
+        "HDR-00029",
+        "HDR-00030"
+      ]
+    },
+    "kengetallen": [
+      {
+        "candidate_key": [
+          "5211",
+          "replace",
+          "m1"
+        ],
+        "clusters": [
+          "SC-DOC-001",
+          "SC-DOC-008+DOC-009",
+          "SC-DOC-010"
+        ],
+        "insufficient_data_reasons": [],
+        "status": "AVAILABLE",
+        "value": "51.79"
+      }
+    ],
+    "link_counts": {
+      "ambiguous": 2,
+      "unique": 361,
+      "unique_by_action_text": 12,
+      "unique_by_element_context": 29
+    },
+    "price_observations": 404
+  },
+  "tool_version": "promote_canonical_batch1_v1.0.0"
+}

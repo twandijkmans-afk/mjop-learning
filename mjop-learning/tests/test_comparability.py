@@ -578,11 +578,13 @@ def test_unknown_material_stays_unknown():
 
 @pytest.mark.skipif(not os.path.exists(NORMALIZED), reason="normalized output ontbreekt")
 def test_batch1_pairs_00306_00307_use_pvc_from_text():
+    # paridentiteit = observation-set (pair_id is na de canonieke promotie verschoven; vóór de
+    # promotie waren dit PAIR-00306 en PAIR-00307)
     r = bc.build(PROJECT_ROOT)
-    by_id = {p["pair_id"]: p for p in r["pairs"]}
-    for pid in ("PAIR-00306", "PAIR-00307"):
-        p = by_id[pid]
-        assert "PO-DOC-001-P026-L029" in p["observation_ids"] and p["checks"]["material"] == "equal"
+    by_obs = {tuple(p["observation_ids"]): p for p in r["pairs"]}
+    for obs_ids in (("PO-DOC-001-P026-L029", "PO-DOC-009-P021-L095"), ("PO-DOC-001-P026-L029", "PO-DOC-010-P012-L093")):
+        p = by_obs[obs_ids]
+        assert p["checks"]["material"] == "equal"
         assert p["class"] == "COMPARABLE_WITH_CAVEATS"
     doc001 = next(o for o in r["observations"] if o["observation_id"] == "PO-DOC-001-P026-L029")
     assert doc001["material"] == {"original": "pvc", "normalized": "pvc", "source": "element_text"}

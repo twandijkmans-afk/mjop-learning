@@ -17,6 +17,7 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 import build_promoted_price_observations as bpp  # noqa: E402
 import promote_deterministic_batch as pdb  # noqa: E402
 import promotion_v3_dry_run as pv3  # noqa: E402
+import promotion_history as ph  # noqa: E402
 
 PROTECTED = ["data/raw", "data/extracted", "data/normalized", "data/verified", "data/price_observations",
              "data/comparability", "data/kengetallen", "data/review_decisions", "data/match_review_decisions",
@@ -47,12 +48,18 @@ def promoted():
 
 # ------------------------------------------------------------------ cloud-only PO-promotie
 
+def pre_promotion_po():
+    """De onveranderlijke waardebron: de PO van vóór de canonieke promotie (na promotie uit data/history)."""
+    with ph.pre_promotion_root(PROJECT_ROOT) as pre:
+        return pdb.load_json(os.path.join(pre, "data", "price_observations", "price_observations_batch1.json"))
+
+
 def test_cloud_only_promotion_keeps_404_and_amounts(promoted):
     po, info, _, _, _ = promoted
     assert len(po["observations"]) == 404
     assert po["promotion"]["statement"] == bpp.STATEMENT and "geen nieuwe PDF parsing" in bpp.STATEMENT
     assert po["promotion"]["scope"].startswith("uitsluitend batch1_v1")
-    canonical = pdb.load_json(os.path.join(PROJECT_ROOT, "data", "price_observations", "price_observations_batch1.json"))
+    canonical = pre_promotion_po()
     assert bpp.invariant_violations(canonical, po, info) == []
     assert {i["link"] for i in info.values()} <= bpp.EXPLAINED_LINKS | {"ambiguous"}
 
@@ -65,14 +72,14 @@ def _drop_first(po):
 
 def test_missing_observation_is_hard_fail(promoted):
     po, info, _, _, _ = promoted
-    canonical = pdb.load_json(os.path.join(PROJECT_ROOT, "data", "price_observations", "price_observations_batch1.json"))
+    canonical = pre_promotion_po()
     v = bpp.invariant_violations(canonical, _drop_first(po), info)
     assert any("observation count" in x for x in v) and any("verdwenen" in x for x in v)
 
 
 def test_amount_change_is_hard_fail(promoted):
     po, info, _, _, _ = promoted
-    canonical = pdb.load_json(os.path.join(PROJECT_ROOT, "data", "price_observations", "price_observations_batch1.json"))
+    canonical = pre_promotion_po()
     bad = copy.deepcopy(po)
     o = bad["observations"][0]
     y = next(iter(o["annual_amounts"]))
@@ -83,7 +90,7 @@ def test_amount_change_is_hard_fail(promoted):
 
 def test_unexplained_or_unproven_link_is_hard_fail(promoted):
     po, info, _, _, _ = promoted
-    canonical = pdb.load_json(os.path.join(PROJECT_ROOT, "data", "price_observations", "price_observations_batch1.json"))
+    canonical = pre_promotion_po()
     info = copy.deepcopy(info)
     oid_none, oid_amb = sorted(info)[0], next(i for i, x in sorted(info.items()) if x["link"] == "ambiguous")
     info[oid_none] = {"link": "none"}

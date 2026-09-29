@@ -57,6 +57,9 @@ import sys
 from collections import Counter, defaultdict
 from decimal import Decimal, InvalidOperation
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import promotion_history as ph  # noqa: E402
+
 TOOL_VERSION = "promote_deterministic_batch_v1.0.0"
 BATCH_ID = "batch1_v1"
 BATCH_DIR = os.path.join("data", "extracted_deterministic", BATCH_ID)
@@ -641,6 +644,12 @@ def analyse_human_decisions(root, new_records):
 # ------------------------------------------------------------------ dry-run
 
 def dry_run(root, check):
+    """Na de canonieke promotie op de pre-promotie-toestand (data/history/...) - zie promotion_history."""
+    with ph.pre_promotion_root(root) as r:
+        return _dry_run_impl(r, check)
+
+
+def _dry_run_impl(root, check):
     new_records = {}
     for doc in EXPECTED_PASS:
         new_records[doc] = load_json(os.path.join(root, BATCH_DIR, f"{doc}.json"))

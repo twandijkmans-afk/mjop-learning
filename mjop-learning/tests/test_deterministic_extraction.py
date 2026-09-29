@@ -432,7 +432,11 @@ def test_review_export_from_pilot_path(record, tmp_path):
 
 
 def test_comparison_report(record, tmp_path):
-    verified_path = os.path.join(PROJECT_ROOT, "data", "verified", "DOC-010.json")
+    # vergelijking met de pre-promotie verified-laag (na de canonieke promotie bewaard in data/history)
+    verified_path = os.path.join(PROJECT_ROOT, "data", "history", "pre_deterministic_promotion_batch1_v1", "data",
+                                 "verified", "DOC-010.json")
+    if not os.path.exists(verified_path):
+        verified_path = os.path.join(PROJECT_ROOT, "data", "verified", "DOC-010.json")
     before = open(verified_path, "rb").read()
     rep = ce.compare(json.load(open(verified_path, encoding="utf-8")), record)
     assert open(verified_path, "rb").read() == before

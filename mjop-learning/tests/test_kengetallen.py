@@ -266,46 +266,37 @@ def by_key(result):
 
 
 def test_batch1_expected_outcomes():
+    # Canonieke toestand na de promotie van batch1_v1: alleen kengetallen die door geldige ACTIVE human
+    # decisions worden gedragen. De DF-1/DF-2-decisions staan op REVIEW_REQUIRED, dus C1 (4645) en de
+    # vier INSUFFICIENT_DATA-groepen van vóór de promotie ontstaan niet meer (besluit A).
     result = batch1()
     k = by_key(result)
-    assert result["summary"]["candidate_groups"] == 6 and result["summary"]["active_human_decisions"] == 30
-    c1, c2 = k[("4645", "exterior_painting", "m2")], k[("5211", "replace", "m1")]
-    assert (c1["status"], c1["value_display"], c1["source_cluster_count"]) == ("AVAILABLE", "33.48", 3)
+    assert result["summary"]["candidate_groups"] == 1 and result["summary"]["active_human_decisions"] == 5
+    assert set(k) == {("5211", "replace", "m1")}
+    c2 = k[("5211", "replace", "m1")]
     assert (c2["status"], c2["value_display"], c2["source_cluster_count"]) == ("AVAILABLE", "51.79", 3)
-    for key in [("4622", "interior_painting", "m2"), ("2110", "impregnate", "m2"),
-                ("4634", "exterior_painting", "m2"), ("4321", "replace", "m2")]:
-        assert k[key]["status"] == "INSUFFICIENT_DATA" and k[key]["value_exact"] is None
-        assert k[key]["insufficient_data_reasons"] == ["FEWER_THAN_3_SOURCE_CLUSTERS:2"]
-    c3 = k[("4622", "interior_painting", "m2")]
-    assert (c3["min_display"], c3["max_display"]) == ("10.89", "39.60")   # prijsafstand zichtbaar
+    assert (c2["min_display"], c2["max_display"]) == ("45.23", "54.91")
 
 
 def test_batch1_values_come_from_observation_data():
     result = batch1()
     cmp_ = json.load(open(os.path.join(PROJECT_ROOT, "data", "comparability", "comparability_batch1.json"), encoding="utf-8"))
     obs = {a["observation_id"]: a for a in cmp_["observations"]}
-    c1 = by_key(result)[("4645", "exterior_painting", "m2")]
+    c2 = by_key(result)[("5211", "replace", "m1")]
 
     def p(i):
         d = obs[i]["derived_unit_price_per_execution"]
         return Decimal(d["annual_amount_used"]) / Decimal(d["quantity_value"])
-    doc009 = (p("PO-DOC-009-P021-L027") + p("PO-DOC-009-P021-L039")) / 2   # twee posten, mediaan
-    expected = sorted([p("PO-DOC-007-P017-L073"), doc009, p("PO-DOC-010-P012-L037")])[1]
-    assert Decimal(c1["value_exact"]) == expected
-    consolidated = [p_["observation_ids"] for p_ in c1["posts"] if p_["consolidated"]]
-    assert consolidated == [["PO-DOC-007-P017-L073", "PO-DOC-007-P017-L077"],
-                            ["PO-DOC-009-P021-L027", "PO-DOC-009-P021-L031"],
-                            ["PO-DOC-009-P021-L039", "PO-DOC-009-P021-L043"]]
-    assert len(c1["observation_ids"]) == 7   # alle observations bewaard
+    ids = ["PO-DOC-001-P026-L029", "PO-DOC-009-P021-L095", "PO-DOC-010-P012-L093"]
+    assert Decimal(c2["value_exact"]) == sorted(p(i) for i in ids)[1]
+    assert not [p_ for p_ in c2["posts"] if p_["consolidated"]]
+    assert c2["observation_ids"] == ids   # alle observations bewaard
 
 
 def test_batch1_price_level_and_material_visibility():
-    k = by_key(batch1())
-    c1, c2 = k[("4645", "exterior_painting", "m2")], k[("5211", "replace", "m1")]
-    assert c1["price_levels"]["mixed_price_level"] and not c1["price_levels"]["missing_price_level"]
+    c2 = by_key(batch1())[("5211", "replace", "m1")]
     assert c2["price_levels"]["mixed_price_level"] and c2["price_levels"]["missing_price_level"]
     assert "element_text" in c2["material_source"]
-    assert all("CODE_LABEL_MISMATCH" in v for v in c1["observation_caveats"].values())
 
 
 def test_batch1_schema_and_determinism():

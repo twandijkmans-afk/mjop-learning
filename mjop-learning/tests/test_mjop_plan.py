@@ -18,11 +18,15 @@ import human_match_review as h  # noqa: E402
 import match_kengetal as m  # noqa: E402
 import mjop_maintenance_line as L  # noqa: E402
 import mjop_plan as P  # noqa: E402
+import promotion_history as ph  # noqa: E402
 
-HP = h.paths(PROJECT_ROOT)
+# Na de canonieke promotie van batch1_v1 is C1 (4645) geen canoniek kengetal meer. Deze workflowtests
+# gebruiken de pre-promotie-kengetallen (C1/C2) uit data/history als vaste, alleen-lezen fixture.
+FIXTURE_ROOT = ph.pre_promotion_fixture_root(PROJECT_ROOT)
+HP = h.paths(FIXTURE_ROOT)
 DECISION_SCHEMA, MATCH_SCHEMA = h.load_json(HP["schema"]), h.load_json(HP["match_schema"])
 KENGETALLEN, EMPTY = h.load_json(HP["kengetallen"]), h.load_json(HP["store"])
-CTX = m.load_context(PROJECT_ROOT)
+CTX = m.load_context(FIXTURE_ROOT)
 T0, T1, T2, T3 = ("2026-09-24T10:00:00Z", "2026-09-24T11:00:00Z", "2026-09-24T12:00:00Z", "2026-09-24T13:00:00Z")
 MJOP = "MJOP-TEST"
 

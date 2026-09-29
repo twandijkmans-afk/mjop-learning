@@ -45,6 +45,7 @@ from collections import Counter, defaultdict
 from decimal import Decimal
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import promotion_history as ph  # noqa: E402
 import build_comparability as bc  # noqa: E402
 import build_kengetallen as bk  # noqa: E402
 import normalize_batch as nb  # noqa: E402
@@ -613,6 +614,12 @@ def temp_root(root, tmp, verified, po_new):
 
 
 def build_all(root):
+    """Na de canonieke promotie op de pre-promotie-toestand (data/history/...) - zie promotion_history."""
+    with ph.pre_promotion_root(root) as _r:
+        return _build_all_impl(_r)
+
+
+def _build_all_impl(root):
     check = pdb.check_handoff(root)
     if not check["ok"]:
         raise SystemExit("HANDOFF ONGELDIG - eerst promote_deterministic_batch.py --check groen maken:\n"

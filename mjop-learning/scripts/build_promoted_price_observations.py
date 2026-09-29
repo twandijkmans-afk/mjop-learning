@@ -36,6 +36,7 @@ import sys
 from collections import Counter
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import promotion_history as ph  # noqa: E402
 import promote_deterministic_batch as pdb  # noqa: E402
 import promotion_v2_dry_run as pv2  # noqa: E402
 
@@ -107,6 +108,12 @@ def invariant_violations(old_po, new_po, link_info, expected=EXPECTED_OBSERVATIO
 
 
 def build_promoted(root):
+    """Na de canonieke promotie op de pre-promotie-toestand (data/history/...) - zie promotion_history."""
+    with ph.pre_promotion_root(root) as _r:
+        return _build_promoted_impl(_r)
+
+
+def _build_promoted_impl(root):
     """Returns (promoted_po, link_info, normalized, verified, accept_simulation). Schrijft niets."""
     check = pdb.check_handoff(root)
     if not check["ok"]:

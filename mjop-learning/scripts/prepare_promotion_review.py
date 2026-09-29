@@ -31,6 +31,7 @@ import tempfile
 from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import promotion_history as ph  # noqa: E402
 import promote_deterministic_batch as pdb  # noqa: E402
 import promotion_v2_dry_run as pv2  # noqa: E402
 import promotion_v3_dry_run as pv3  # noqa: E402
@@ -326,6 +327,12 @@ def readiness_plan(root, approval, accepts, decisions):
 
 
 def build(root):
+    """Na de canonieke promotie op de pre-promotie-toestand (data/history/...) - zie promotion_history."""
+    with ph.pre_promotion_root(root) as _r:
+        return _build_impl(_r)
+
+
+def _build_impl(root):
     approval = approval_set(root)
     accepts = accepts_package(root)
     decisions = decisions_package(root)

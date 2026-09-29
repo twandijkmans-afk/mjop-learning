@@ -15,9 +15,14 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 
 import match_kengetal as m  # noqa: E402
+import promotion_history as ph  # noqa: E402
 
 SCHEMA = os.path.join(PROJECT_ROOT, "schemas", "match_result.schema.json")
 CTX = m.load_context(PROJECT_ROOT)
+# Na de canonieke promotie van batch1_v1 is C1 (4645) geen canoniek kengetal meer (het steunde op
+# DF-1/DF-2-decisions die nu REVIEW_REQUIRED zijn). De matching-mechaniek met C1/C3 wordt daarom
+# getest tegen de pre-promotie-kengetallen uit data/history als vaste, alleen-lezen fixture.
+FIX_CTX = m.load_context(ph.pre_promotion_fixture_root(PROJECT_ROOT))
 C1 = "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
 C2 = "KG-5211-replace-m1-pvc-67920b77"
 
@@ -48,8 +53,15 @@ def run(raw, ctx=CTX):
 # Exacte retrieval
 # --------------------------------------------------------------------------
 
-def test_c1_exact_retrieval_and_scope():
+def test_canonical_c1_no_longer_available_after_promotion():
     r = run(item())
+    assert (r["retrieval_status"], r["final_status"]) == ("NO_CANDIDATE", "NO_SUITABLE_KENGETAL")
+    assert r["reasons"] == ["NO_KENGETAL_FOR_KEY"] and r["candidate_kengetal_id"] is None
+    assert [k["kengetal_id"] for k in CTX[0]["kengetallen"]] == [C2]
+
+
+def test_c1_exact_retrieval_and_scope():
+    r = run(item(), FIX_CTX)
     assert (r["retrieval_status"], r["scope_status"], r["final_status"]) == ("CANDIDATES_RETRIEVED", "EXACT_MATCH", "CANDIDATE_FOUND")
     assert r["candidate_kengetal_id"] == C1 and r["historical_range"]["value_display"] == "33.48"
     assert all(f["equal"] for f in r["hard_match_fields"].values())
@@ -57,7 +69,7 @@ def test_c1_exact_retrieval_and_scope():
 
 
 def test_c1_other_wording_is_candidate_but_needs_human_scope_review():
-    r = run(item(object_description="betonconstructie plafond buiten"))
+    r = run(item(object_description="betonconstructie plafond buiten"), FIX_CTX)
     assert r["retrieval_status"] == "CANDIDATES_RETRIEVED" and r["candidate_kengetal_id"] == C1
     assert r["final_status"] == "HUMAN_REVIEW_REQUIRED" and r["reasons"] == ["SCOPE_NOT_DETERMINISTIC"]
     assert r["required_human_review"] is True
@@ -135,13 +147,13 @@ def test_kunststof_doorvoer_is_retrieved_but_not_auto_matched():
 
 def test_insufficient_data_kengetal_is_not_a_candidate():
     r = run(item(element_code_internal="4622", action_normalized="interior_painting", material_normalized=None,
-                 material_text="stucwerk", object_description="Binnenschilderwerk stucwerk"))
+                 material_text="stucwerk", object_description="Binnenschilderwerk stucwerk"), FIX_CTX)
     assert r["final_status"] == "NO_SUITABLE_KENGETAL" and r["reasons"] == ["KENGETAL_INSUFFICIENT_DATA"]
     assert r["provenance"]["insufficient_data_kengetal_ids"] == ["KG-4622-interior_painting-m2-stucwerk-1a17b521"]
 
 
 def synthetic_ctx(**changes):
-    kengetallen, normalized, vocabs, hashes, rel = copy.deepcopy(CTX)
+    kengetallen, normalized, vocabs, hashes, rel = copy.deepcopy(FIX_CTX)
     c3 = next(k for k in kengetallen["kengetallen"] if k["kengetal_id"].startswith("KG-4622"))
     c3.update(changes)
     return (kengetallen, normalized, vocabs, hashes, rel), c3
@@ -161,12 +173,12 @@ def test_scope_mismatch_from_human_not_comparable_evidence():
 
 
 def test_missing_description_needs_review():
-    r = run(item(object_description=None))
+    r = run(item(object_description=None), FIX_CTX)
     assert r["final_status"] == "HUMAN_REVIEW_REQUIRED" and r["reasons"] == ["OBJECT_DESCRIPTION_MISSING"]
 
 
 def test_multiple_candidates_are_not_ranked():
-    kengetallen, normalized, vocabs, hashes, rel = copy.deepcopy(CTX)
+    kengetallen, normalized, vocabs, hashes, rel = copy.deepcopy(FIX_CTX)
     c1 = next(k for k in kengetallen["kengetallen"] if k["kengetal_id"] == C1)
     twin = copy.deepcopy(c1)
     twin["kengetal_id"] = C1 + "-twin"
@@ -203,7 +215,7 @@ def test_no_score_rank_or_confidence_fields():
         elif isinstance(x, list):
             for v in x:
                 walk(v)
-    walk(run(item()))
+    walk(run(item(), FIX_CTX))
     assert not any(w in k for k in keys for w in ("score", "rank", "confidence", "weight"))
 
 

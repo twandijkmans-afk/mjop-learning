@@ -20,13 +20,17 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 import human_match_review as h  # noqa: E402
 import match_kengetal as m  # noqa: E402
 import mjop_kengetal_workflow as w  # noqa: E402
+import promotion_history as ph  # noqa: E402
 
-HP = h.paths(PROJECT_ROOT)
+# Na de canonieke promotie van batch1_v1 is C1 (4645) geen canoniek kengetal meer. Deze workflowtests
+# gebruiken de pre-promotie-kengetallen (C1/C2) uit data/history als vaste, alleen-lezen fixture.
+FIXTURE_ROOT = ph.pre_promotion_fixture_root(PROJECT_ROOT)
+HP = h.paths(FIXTURE_ROOT)
 DECISION_SCHEMA, MATCH_SCHEMA = h.load_json(HP["schema"]), h.load_json(HP["match_schema"])
 KENGETALLEN = h.load_json(HP["kengetallen"])
 EMPTY = h.load_json(HP["store"])
 RESULT_SCHEMA = w.paths(PROJECT_ROOT)["schema"]
-CTX = m.load_context(PROJECT_ROOT)
+CTX = m.load_context(FIXTURE_ROOT)
 C1 = "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
 C2 = "KG-5211-replace-m1-pvc-67920b77"
 C1_VALUE = next(k for k in KENGETALLEN["kengetallen"] if k["kengetal_id"] == C1)["value_exact"]
@@ -290,7 +294,8 @@ def test_provenance_uses_existing_ids_and_hashes():
 def test_cli(tmp_path):
     inp, store_file = tmp_path / "in.json", tmp_path / "store.json"
     inp.write_text(json.dumps(c2()), encoding="utf-8")
-    store, _ = decide(c2(), "ACCEPT")
+    # de CLI draait op de canonieke kengetallen (C2 staat daar nog AVAILABLE)
+    store, _ = decide(c2(), "ACCEPT", ctx=m.load_context(PROJECT_ROOT))
     store_file.write_text(json.dumps(store), encoding="utf-8")
     script = os.path.join(PROJECT_ROOT, "scripts", "mjop_kengetal_workflow.py")
     ok = subprocess.run([sys.executable, script, "--input", str(inp), "--decisions", str(store_file)],

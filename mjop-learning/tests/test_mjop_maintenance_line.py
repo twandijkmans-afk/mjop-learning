@@ -17,11 +17,15 @@ sys.path.insert(0, os.path.join(PROJECT_ROOT, "scripts"))
 import human_match_review as h  # noqa: E402
 import match_kengetal as m  # noqa: E402
 import mjop_maintenance_line as L  # noqa: E402
+import promotion_history as ph  # noqa: E402
 
-HP = h.paths(PROJECT_ROOT)
+# Na de canonieke promotie van batch1_v1 is C1 (4645) geen canoniek kengetal meer. Deze workflowtests
+# gebruiken de pre-promotie-kengetallen (C1/C2) uit data/history als vaste, alleen-lezen fixture.
+FIXTURE_ROOT = ph.pre_promotion_fixture_root(PROJECT_ROOT)
+HP = h.paths(FIXTURE_ROOT)
 DECISION_SCHEMA, MATCH_SCHEMA = h.load_json(HP["schema"]), h.load_json(HP["match_schema"])
 KENGETALLEN, EMPTY = h.load_json(HP["kengetallen"]), h.load_json(HP["store"])
-CTX = m.load_context(PROJECT_ROOT)
+CTX = m.load_context(FIXTURE_ROOT)
 C1 = "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
 C1_VALUE = next(k for k in KENGETALLEN["kengetallen"] if k["kengetal_id"] == C1)["value_exact"]
 

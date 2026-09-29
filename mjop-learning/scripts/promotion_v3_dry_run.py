@@ -39,6 +39,7 @@ import tempfile
 from collections import Counter, defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import promotion_history as ph  # noqa: E402
 import build_comparability as bc  # noqa: E402
 import build_kengetallen as bk  # noqa: E402
 import build_promoted_price_observations as bpp  # noqa: E402
@@ -370,6 +371,12 @@ def scenario_summary(name, root, promoted_po, link_info, norm, comp, kg, errors,
 # ------------------------------------------------------------------ orchestratie
 
 def build_all(root):
+    """Na de canonieke promotie op de pre-promotie-toestand (data/history/...) - zie promotion_history."""
+    with ph.pre_promotion_root(root) as _r:
+        return _build_all_impl(_r)
+
+
+def _build_all_impl(root):
     promoted, link_info, normalized, verified, accept_sim = bpp.build_promoted(root)
     new_records = {d: pdb.load_json(os.path.join(root, pdb.BATCH_DIR, f"{d}.json")) for d in pdb.EXPECTED_PASS}
     old = (pdb.load_json(os.path.join(root, pv2.PO_PATH)), pdb.load_json(os.path.join(root, pv2.NORM_PO_PATH)),
