@@ -18,6 +18,13 @@ Een familiebesluit is een JSON-bestand dat een mens invult op basis van reports/
       "acknowledged_kengetal_effects": []                # verplicht exact als het besluit een AVAILABLE
     }                                                    # kengetal laat verdwijnen of laat ontstaan
 
+Reviewtrack UNKNOWN_PAIR_REVIEW (families met systeemklasse UNKNOWN, zie comparability_review_v2):
+  - alleen decision COMPARABLE_WITH_CAVEATS of NOT_COMPARABLE (geen COMPARABLE, geen UNKNOWN);
+  - bij COMPARABLE_WITH_CAVEATS per familie een expliciete menselijke "review_note" (verplicht);
+  - de systeemklasse blijft UNKNOWN; system_class, unknown_reasons en de systeemcaveats worden 1-op-1 in elk
+    record bewaard, plus family_decision.review_track / unknown_reasons_at_review / review_note;
+  - verder exact dezelfde controles (hash binding, geen nieuwe caveats, kengetal-bevestiging, atomair, rollback).
+
 Veiligheid (geen silent batch approval):
   - het bekeken pakket moet byte-gelijk zijn aan reports/review/comparability_review_v2.json (sha256);
   - het pakket wordt opnieuw opgebouwd uit de HUIDIGE invoer; comparability en genormaliseerde observations
@@ -74,7 +81,8 @@ def entries(decision):
     decision_caveats op het hoogste niveau) of transactie: 'families': [{...}, ...] - één atomaire toepassing."""
     if "families" in decision:
         return decision["families"]
-    return [{k: decision.get(k) for k in ("review_family_id", "family_input_sha256", "pair_ids", "decision_caveats")}]
+    return [{k: decision.get(k) for k in ("review_family_id", "family_input_sha256", "pair_ids", "decision_caveats",
+                                          "review_note")}]
 
 
 def _system_caveats(p):
@@ -116,6 +124,7 @@ def validate(root, decision):
             raise FamilyDecisionError(f"invoer gewijzigd sinds het pakket ({k}); besluit vervallen")
     comp = pr.load(os.path.join(root, crv.COMP))
     pairs = {p["pair_id"]: p for p in comp["pairs"]}
+    ctx = crv.Context(root)
     out = []
     for e in ents:
         fid = e["review_family_id"]
@@ -123,6 +132,13 @@ def validate(root, decision):
         fam = next((f for f in fresh["families"] if f["review_family_id"] == fid), None)
         if fam_seen is None or fam is None:
             raise FamilyDecisionError(f"familie {fid} bestaat niet (meer)")
+        if fam.get("review_track") == crv.UNKNOWN_TRACK:
+            if decision["decision"] not in crv.UNKNOWN_TRACK_CHOICES:
+                raise FamilyDecisionError(f"{fid}: systeemklasse UNKNOWN - alleen {list(crv.UNKNOWN_TRACK_CHOICES)} "
+                                          f"toegestaan, niet {decision['decision']!r}")
+            if decision["decision"] == "COMPARABLE_WITH_CAVEATS" and not str(e.get("review_note") or "").strip():
+                raise FamilyDecisionError(f"{fid}: review_note (menselijke onderbouwing) verplicht voor "
+                                          f"COMPARABLE_WITH_CAVEATS op een UNKNOWN-paar")
         if not (fam_seen["family_input_sha256"] == fam["family_input_sha256"] == e["family_input_sha256"]):
             raise FamilyDecisionError(f"{fid}: family_input_sha256 wijkt af: paren, observations of bestaande "
                                       f"beslissingen zijn gewijzigd; besluit vervallen, opnieuw beoordelen")
@@ -134,6 +150,15 @@ def validate(root, decision):
             p = pairs.get(pid)
             if p is None or p["observation_ids"] != fam_pairs[pid]["observation_ids"]:
                 raise FamilyDecisionError(f"{pid}: paar niet (meer) gelijk aan het pakket")
+            if fam.get("review_track") == crv.UNKNOWN_TRACK and (p["class"] != "UNKNOWN" or
+                                                                 crv.unknown_pair_blockers(ctx, p)):
+                raise FamilyDecisionError(f"{pid}: niet (meer) reviewbaar in de UNKNOWN-track")
+            if fam.get("review_track") == crv.UNKNOWN_TRACK and decision["decision"] == "COMPARABLE_WITH_CAVEATS":
+                # bestaande paarcaveats van het systeem blijven behouden (niet wegkiezen)
+                dropped = sorted(set(p["pair_caveats"]) - set(e["decision_caveats"]))
+                if dropped:
+                    raise FamilyDecisionError(f"{pid}: UNKNOWN-paar - bestaande systeemcaveats {dropped} moeten in "
+                                              f"decision_caveats blijven")
             # alleen voorbehouden die het systeem voor DIT paar al gaf: geen nieuwe caveat-types
             extra = sorted(set(e["decision_caveats"]) - _system_caveats(p))
             if extra:
@@ -141,7 +166,7 @@ def validate(root, decision):
                                           f"van dit paar (geen nieuwe caveats)")
         out.append((fam, [pairs[pid] for pid in e["pair_ids"]], list(e["decision_caveats"])))
     # effect op AVAILABLE kengetallen van ALLE paren samen (bestaande regels): nooit stil - exact bevestigd
-    effect = crv.kengetal_effect(crv.Context(root), [p["observation_ids"] for _, ps, _ in out for p in ps],
+    effect = crv.kengetal_effect(ctx, [p["observation_ids"] for _, ps, _ in out for p in ps],
                                  decision["decision"])
     ack = sorted(decision.get("acknowledged_kengetal_effects") or [])
     if ack != effect["acknowledgement_required"]:
@@ -167,6 +192,7 @@ def build_records(root, decision, validated, fdid, store):
     n = max((int(r["decision_id"].split("-")[1]) for r in new["records"]), default=0)
     by_id = {r["decision_id"]: r for r in new["records"]}
     fam_sha = {e["review_family_id"]: e["family_input_sha256"] for e in entries(decision)}
+    notes = {e["review_family_id"]: e.get("review_note") for e in entries(decision)}
     created = []
     for fam, pairs, caveats in validated:
         for p in pairs:
@@ -194,6 +220,10 @@ def build_records(root, decision, validated, fdid, store):
                                     "review_package_sha256": decision["review_package_sha256"],
                                     "family_input_sha256": fam_sha[fam["review_family_id"]]},
             }
+            if fam.get("review_track") == crv.UNKNOWN_TRACK:
+                rec["family_decision"].update({"review_track": crv.UNKNOWN_TRACK,
+                                               "unknown_reasons_at_review": list(p["unknown_reasons"]),
+                                               "review_note": notes[fam["review_family_id"]]})
             if supersede:
                 by_id[supersede["decision_id"]]["status"] = "SUPERSEDED"
             new["records"].append(rec)

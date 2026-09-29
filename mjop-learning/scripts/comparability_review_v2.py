@@ -8,7 +8,13 @@ Uitvoer (deterministisch, geen tijdstempels):
     reports/review/comparability_review_v2.json   machineleesbaar
     reports/review/comparability_review_v2.md     menselijk leesbaar overzicht
 
-1. REVIEWQUEUE: exact de selectie van queue v1 (export_human_review_queue.select_pairs).
+1. REVIEWQUEUE: exact de selectie van queue v1 (export_human_review_queue.select_pairs), plus de reviewtrack
+   UNKNOWN_PAIR_REVIEW: paren met systeemklasse UNKNOWN die een mens expliciet mag beoordelen, alleen als ALLE
+   voorwaarden gelden (UNKNOWN_SELECTION): beide independent_input, dezelfde volledige candidate key, beide hetzelfde
+   BEKENDE materiaal (na een eventueel materiaalbesluit), verschillende source clusters, geen hard violations en
+   provenance (brontekst + pagina/regel of blad/rij) aan beide kanten. De systeemklasse blijft UNKNOWN; er wordt
+   niets automatisch besloten. Toegestane menselijke keuzes: COMPARABLE_WITH_CAVEATS (met verplichte review_note)
+   of NOT_COMPARABLE.
 
 2. REVIEWFAMILIES: paren worden alleen samengevoegd als ze EXACT dezelfde reviewvraag stellen. Sleutel:
    - candidate key (elementcode, genormaliseerde actie, genormaliseerde eenheid);
@@ -80,6 +86,19 @@ FOCUS_GROUPS = PRIORITY_GROUPS + [("4621", "exterior_painting", "m2"), ("4622", 
                                   ("4628", "exterior_painting", "m2"), ("4634", "exterior_painting", "m2"),
                                   ("6311", "replace", "piece")]
 DETAILED_GROUPS = PRIORITY_GROUPS
+UNKNOWN_TRACK = "UNKNOWN_PAIR_REVIEW"
+UNKNOWN_SELECTION = [
+    "systeemklasse UNKNOWN (blijft UNKNOWN; geen automatische herclassificatie)",
+    "beide observations independent_input = true",
+    "dezelfde volledige candidate key (element_code + genormaliseerde actie + eenheid) aan beide kanten",
+    "beide kanten hetzelfde bekende materiaal (verified element, goedgekeurde tekstregel of menselijk materiaalbesluit)",
+    "verschillende onafhankelijke source clusters",
+    "geen hard violations",
+    "provenance aan beide kanten: brontekst en pagina+regel of blad+rij",
+]
+UNKNOWN_BLOCKERS = ("NOT_INDEPENDENT_INPUT", "CANDIDATE_KEY_INCOMPLETE", "CANDIDATE_KEY_MISMATCH", "MATERIAL_UNKNOWN",
+                    "MATERIAL_DIFFERS", "SAME_SOURCE_CLUSTER", "HARD_VIOLATIONS", "INSUFFICIENT_PROVENANCE")
+UNKNOWN_TRACK_CHOICES = ("COMPARABLE_WITH_CAVEATS", "NOT_COMPARABLE")
 CHOICES = {
     "COMPARABLE": "Vergelijkbaar zonder voorbehoud.",
     "COMPARABLE_WITH_CAVEATS": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
@@ -234,6 +253,65 @@ class Context:
         return "NO_DECISION"
 
 
+# ------------------------------------------------------------------ UNKNOWN-paren (reviewtrack)
+
+def has_provenance(norm_obs):
+    p = primary(norm_obs)
+    located = (p.get("page") and p.get("line")) or (p.get("sheet") and p.get("row"))
+    return bool((p.get("source_text") or "").strip() and located)
+
+
+def unknown_pair_blockers(ctx, pair):
+    """Waarom een UNKNOWN-paar (nog) niet menselijk reviewbaar is; leeg = reviewbaar. Alleen bestaande velden."""
+    if pair["class"] != "UNKNOWN":
+        return ["NOT_SYSTEM_CLASS_UNKNOWN"]
+    a, b = pair["observation_ids"]
+    out = []
+    if not (ctx.assess[a]["independent_input"] and ctx.assess[b]["independent_input"]):
+        out.append("NOT_INDEPENDENT_INPUT")
+    ka, kb = ctx.assess[a]["candidate_key"], ctx.assess[b]["candidate_key"]
+    if None in ka or None in kb or None in pair["candidate_key"]:
+        out.append("CANDIDATE_KEY_INCOMPLETE")
+    elif not (list(ka) == list(kb) == list(pair["candidate_key"])):
+        out.append("CANDIDATE_KEY_MISMATCH")
+    ma, mb = ctx.material(a)["value"], ctx.material(b)["value"]
+    if not ma or not mb:
+        out.append("MATERIAL_UNKNOWN")
+    elif ma != mb:
+        out.append("MATERIAL_DIFFERS")
+    if ctx.assess[a]["source_cluster"] == ctx.assess[b]["source_cluster"]:
+        out.append("SAME_SOURCE_CLUSTER")
+    if pair["hard_violations"]:
+        out.append("HARD_VIOLATIONS")
+    if not (has_provenance(ctx.norm[a]) and has_provenance(ctx.norm[b])):
+        out.append("INSUFFICIENT_PROVENANCE")
+    return out
+
+
+def select_unknown_pairs(ctx):
+    """UNKNOWN-paren die aan ALLE voorwaarden (UNKNOWN_SELECTION) voldoen, gesorteerd op pair_id."""
+    return sorted((p for p in ctx.comp["pairs"] if p["class"] == "UNKNOWN" and not unknown_pair_blockers(ctx, p)),
+                  key=lambda p: p["pair_id"])
+
+
+def unknown_pair_summary(ctx, unknown_queue):
+    unknown = [p for p in ctx.comp["pairs"] if p["class"] == "UNKNOWN"]
+    blocked = {p["pair_id"]: unknown_pair_blockers(ctx, p) for p in unknown}
+    blocked = {k: v for k, v in blocked.items() if v}
+    return {
+        "selection": UNKNOWN_SELECTION,
+        "unknown_pairs_total": len(unknown),
+        "outside_review_queue_before_unknown_track": len(unknown),
+        "reviewable": len(unknown_queue),
+        "reviewable_pair_ids": [p["pair_id"] for p in unknown_queue],
+        "blocked": len(blocked),
+        "blocked_by_reason": {r: sum(1 for v in blocked.values() if r in v) for r in UNKNOWN_BLOCKERS},
+        "blocked_by_first_reason": dict(sorted(Counter(v[0] for v in blocked.values()).items())),
+        "note": "Een paar kan meerdere redenen hebben (blocked_by_reason telt per reden). MATERIAL_UNKNOWN kan "
+                "verdwijnen na een menselijk materiaalbesluit; de systeemklasse blijft altijd UNKNOWN.",
+    }
+
+
 # ------------------------------------------------------------------ families
 
 def family_key(ctx, pair):
@@ -242,10 +320,15 @@ def family_key(ctx, pair):
     na, nb = ctx.norm[a], ctx.norm[b]
     facade = (facade_words(na["action"]["action_text_original"]) + facade_words(na["element"]["element_description_original"])) != \
              (facade_words(nb["action"]["action_text_original"]) + facade_words(nb["element"]["element_description_original"]))
-    return {"candidate_key": list(pair["candidate_key"]), "sides": sides,
-            "facade_side_words_differ": facade,
-            "quantity_scale_difference": "QUANTITY_SCALE_DIFFERENCE" in pair["pair_caveats"],
-            "source_relation_risk": bool(ctx.relation_risk(pair))}
+    key = {"candidate_key": list(pair["candidate_key"]), "sides": sides,
+           "facade_side_words_differ": facade,
+           "quantity_scale_difference": "QUANTITY_SCALE_DIFFERENCE" in pair["pair_caveats"],
+           "source_relation_risk": bool(ctx.relation_risk(pair))}
+    if pair["class"] == "UNKNOWN":
+        # eigen reviewtrack; zonder deze velden blijven de bestaande family-ids ongewijzigd
+        key["review_track"] = UNKNOWN_TRACK
+        key["unknown_reasons"] = sorted(pair["unknown_reasons"])
+    return key
 
 
 def evidence_flags(key):
@@ -339,6 +422,20 @@ def choice_effects(ctx, fam):
             "cross-cluster review en >= 3 source clusters).")
     sets = [p["observation_ids"] for p in fam["pairs"]]
     pos_effect = kengetal_effect(ctx, sets, "COMPARABLE_WITH_CAVEATS")
+    if fam["review_track"] == UNKNOWN_TRACK:
+        # systeemklasse UNKNOWN: alleen een expliciet menselijk oordeel met voorbehoud of een afwijzing
+        return [
+            {"choice": "COMPARABLE_WITH_CAVEATS", "meaning": CHOICES["COMPARABLE_WITH_CAVEATS"],
+             "effect": positive + " De systeemklasse blijft UNKNOWN; de unknown_reasons worden in het record bewaard.",
+             "requires_review_note": True,
+             "suggested_caveats_from_system": sorted({c for p in fam["pairs"] for c in p["pair_caveats"]}),
+             "kengetal_effect": pos_effect},
+            {"choice": "NOT_COMPARABLE", "meaning": CHOICES["NOT_COMPARABLE"],
+             "effect": common + " Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA "
+                                "(NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
+             "requires_review_note": False,
+             "kengetal_effect": kengetal_effect(ctx, sets, "NOT_COMPARABLE")},
+        ]
     return [
         {"choice": "COMPARABLE", "meaning": CHOICES["COMPARABLE"], "effect": positive, "kengetal_effect": pos_effect},
         {"choice": "COMPARABLE_WITH_CAVEATS", "meaning": CHOICES["COMPARABLE_WITH_CAVEATS"], "effect": positive,
@@ -387,6 +484,11 @@ def build_families(ctx, queue):
                                                 for i in (a, b)],
                 "price_level_dates": [na["price"]["price_level_date"], nb["price"]["price_level_date"]],
                 "relation_risk": ctx.relation_risk(p),
+                "review_track": UNKNOWN_TRACK if p["class"] == "UNKNOWN" else "SYSTEM_COMPARABLE_WITH_CAVEATS",
+                "provenance": [{"observation_id": i, "document_id": ctx.norm[i]["document_id"],
+                                "source_cluster": ctx.assess[i]["source_cluster"],
+                                **{k: crv_p.get(k) for k in ("page", "line", "sheet", "row", "source_text")}}
+                               for i in (a, b) for crv_p in [primary(ctx.norm[i])]],
                 "status": ctx.pair_status(p),
                 "existing_decisions": ctx.existing_records(p),
             })
@@ -405,6 +507,8 @@ def build_families(ctx, queue):
             "candidate_group": key_str(k["candidate_key"]),
             "evidence_category": category,
             "evidence_flags": flags,
+            "review_track": k.get("review_track", "SYSTEM_COMPARABLE_WITH_CAVEATS"),
+            "unknown_reasons": k.get("unknown_reasons", []),
             "family_key": k,
             "pair_ids": [pv["pair_id"] for pv in pair_views],
             "document_ids": sorted({d for pv in pair_views for d in pv["document_ids"]}),
@@ -594,7 +698,8 @@ def classify_new_5211(ctx, group):
 def build(root):
     ctx = Context(root)
     queue = hrq.select_pairs(ctx.comp)
-    families = build_families(ctx, queue)
+    unknown_queue = select_unknown_pairs(ctx)
+    families = build_families(ctx, queue + unknown_queue)
     groups = [group_review(ctx, g, families) for g in FOCUS_GROUPS]
     g5211 = next(g for g in groups if g["candidate_group"] == "5211|replace|m1")
     kg5211 = [k for k in ctx.kg["kengetallen"] if k["kengetal_id"].startswith("KG-5211-replace-m1-pvc")]
@@ -623,6 +728,7 @@ def build(root):
             "category_order": list(CATEGORY_ORDER),
             "no_fuzzy_matching": True,
         },
+        "unknown_pair_review": unknown_pair_summary(ctx, unknown_queue),
         "queue": {"selection": hrq.SELECTION, "pairs": len(queue),
                   "by_pair_status": dict(sorted(status_counts.items())),
                   "open_pairs": sum(v for k, v in status_counts.items() if k != "ACTIVE_DECISION")},
@@ -668,6 +774,18 @@ def render_md(pkg):
     for c in CATEGORY_ORDER:
         if c in s["families_by_category"]:
             lines.append(f"- `{c}`: {s['families_by_category'][c]} / {s['pairs_by_category'][c]}")
+    u = pkg["unknown_pair_review"]
+    lines += ["", "## Reviewtrack UNKNOWN_PAIR_REVIEW", "",
+              "Paren met systeemklasse UNKNOWN komen alleen in een reviewfamilie als ALLE voorwaarden gelden: "
+              + "; ".join(u["selection"]) + ". De systeemklasse blijft UNKNOWN. Toegestane menselijke keuzes: "
+              "COMPARABLE_WITH_CAVEATS (review_note verplicht) of NOT_COMPARABLE.", "",
+              "| | aantal |", "|---|---|",
+              f"| UNKNOWN-paren totaal (vóór deze track allemaal buiten de queue) | {u['unknown_pairs_total']} |",
+              f"| nu menselijk reviewbaar | {u['reviewable']} |",
+              f"| nog geblokkeerd | {u['blocked']} |"]
+    for r, n in u["blocked_by_reason"].items():
+        lines.append(f"| geblokkeerd door {r} (per reden) | {n} |")
+    lines += ["", u["note"]]
     lines += ["", "Groepering: " + pkg["family_rules"]["grouping"] + ". Gevelzijde-woorden: "
               + ", ".join(pkg["family_rules"]["facade_side_words"]) + ".", ""]
 

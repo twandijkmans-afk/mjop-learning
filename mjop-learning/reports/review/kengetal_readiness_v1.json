@@ -2234,6 +2234,204 @@
       "unit": "piece"
     },
     {
+      "action": "interior_painting",
+      "active_human_decisions": [],
+      "available_directly_after_steps": false,
+      "blockers": [
+        "CROSS_CLUSTER_REVIEW_NEEDED",
+        "INSUFFICIENT_CLUSTERS"
+      ],
+      "blocking_pairs": [],
+      "candidate_group": "4624|interior_painting|m2|wood",
+      "candidate_key": "4624|interior_painting|m2",
+      "element_code": "4624",
+      "existing_available_kengetal": null,
+      "expected_kengetal_effect": {
+        "insufficient_data_reasons": [
+          "FEWER_THAN_3_SOURCE_CLUSTERS"
+        ],
+        "max_display": "50.51",
+        "min_display": "24.18",
+        "missing_price_level": false,
+        "mixed_price_level": true,
+        "observation_ids": [
+          "PO-DOC-002-P018-L093",
+          "PO-DOC-002-P018-L101",
+          "PO-DOC-007-P017-L025"
+        ],
+        "simulated_value_display": null,
+        "source_cluster_count": 2,
+        "source_cluster_ids": [
+          "SC-DOC-002",
+          "SC-DOC-007"
+        ],
+        "status": "INSUFFICIENT_DATA"
+      },
+      "human_actions": {
+        "complete_with_existing_chain": false,
+        "material_approvals": 0,
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 1,
+        "total": 1
+      },
+      "independent_source_clusters": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-002",
+          "SC-DOC-007"
+        ]
+      },
+      "material": "wood",
+      "material_approvals_refused": {},
+      "material_status": {
+        "known": 3,
+        "no_evidence": 0,
+        "pending_approval": 0
+      },
+      "missing_material_approvals": [],
+      "observation_ids": [
+        "PO-DOC-002-P018-L093",
+        "PO-DOC-002-P018-L101",
+        "PO-DOC-007-P017-L025"
+      ],
+      "observations": 3,
+      "open_review_families_current": [
+        "RF-4624-a1deaabc97"
+      ],
+      "other_blockers": [
+        "INSUFFICIENT_CLUSTERS"
+      ],
+      "pairs_outside_review_queue": [],
+      "potential_source_clusters_after_steps": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-002",
+          "SC-DOC-007"
+        ]
+      },
+      "rank": 38,
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00348",
+            "PAIR-00349"
+          ],
+          "indicative_family_input_sha256": "b922786c678ea62afce9350eefa4aac715c70f18db6d0bf977ed4af0848552c7",
+          "pair_ids": [
+            "PAIR-00348",
+            "PAIR-00349"
+          ],
+          "review_family_id": "RF-4624-a1deaabc97"
+        }
+      ],
+      "unit": "m2"
+    },
+    {
+      "action": "exterior_painting",
+      "active_human_decisions": [],
+      "available_directly_after_steps": false,
+      "blockers": [
+        "CROSS_CLUSTER_REVIEW_NEEDED",
+        "INSUFFICIENT_CLUSTERS"
+      ],
+      "blocking_pairs": [],
+      "candidate_group": "4631|exterior_painting|m1|wood",
+      "candidate_key": "4631|exterior_painting|m1",
+      "element_code": "4631",
+      "existing_available_kengetal": null,
+      "expected_kengetal_effect": {
+        "insufficient_data_reasons": [
+          "FEWER_THAN_3_SOURCE_CLUSTERS"
+        ],
+        "max_display": "14.52",
+        "min_display": "10.07",
+        "missing_price_level": true,
+        "mixed_price_level": false,
+        "observation_ids": [
+          "PO-DOC-001-P025-L095",
+          "PO-DOC-002-P018-L109",
+          "PO-DOC-002-P018-L117",
+          "PO-DOC-002-P018-L125",
+          "PO-DOC-002-P019-L011"
+        ],
+        "simulated_value_display": null,
+        "source_cluster_count": 2,
+        "source_cluster_ids": [
+          "SC-DOC-001",
+          "SC-DOC-002"
+        ],
+        "status": "INSUFFICIENT_DATA"
+      },
+      "human_actions": {
+        "complete_with_existing_chain": false,
+        "material_approvals": 0,
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 1,
+        "total": 1
+      },
+      "independent_source_clusters": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-001",
+          "SC-DOC-002"
+        ]
+      },
+      "material": "wood",
+      "material_approvals_refused": {},
+      "material_status": {
+        "known": 5,
+        "no_evidence": 0,
+        "pending_approval": 0
+      },
+      "missing_material_approvals": [],
+      "observation_ids": [
+        "PO-DOC-001-P025-L095",
+        "PO-DOC-002-P018-L109",
+        "PO-DOC-002-P018-L117",
+        "PO-DOC-002-P018-L125",
+        "PO-DOC-002-P019-L011"
+      ],
+      "observations": 5,
+      "open_review_families_current": [
+        "RF-4631-f714c6d97b"
+      ],
+      "other_blockers": [
+        "INSUFFICIENT_CLUSTERS"
+      ],
+      "pairs_outside_review_queue": [],
+      "potential_source_clusters_after_steps": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-001",
+          "SC-DOC-002"
+        ]
+      },
+      "rank": 39,
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00395",
+            "PAIR-00396",
+            "PAIR-00397",
+            "PAIR-00398"
+          ],
+          "indicative_family_input_sha256": "e5da113c4c23e0451f23193d797bb49857ca3bd01cbfa4e94c36fa5516aa8ded",
+          "pair_ids": [
+            "PAIR-00395",
+            "PAIR-00396",
+            "PAIR-00397",
+            "PAIR-00398"
+          ],
+          "review_family_id": "RF-4631-f714c6d97b"
+        }
+      ],
+      "unit": "m1"
+    },
+    {
       "action": "replace",
       "active_human_decisions": [],
       "available_directly_after_steps": false,
@@ -2285,7 +2483,7 @@
           "SC-DOC-015"
         ]
       },
-      "rank": 38,
+      "rank": 40,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -2342,7 +2540,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 39,
+      "rank": 41,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -2399,7 +2597,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 40,
+      "rank": 42,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -2456,7 +2654,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 41,
+      "rank": 43,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -2513,7 +2711,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 42,
+      "rank": 44,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -2570,7 +2768,7 @@
           "SC-DOC-013"
         ]
       },
-      "rank": 43,
+      "rank": 45,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -2627,96 +2825,7 @@
           "SC-DOC-013"
         ]
       },
-      "rank": 44,
-      "readiness": "INSUFFICIENT_CLUSTERS",
-      "review_families_to_decide": [],
-      "unit": "m2"
-    },
-    {
-      "action": "interior_painting",
-      "active_human_decisions": [],
-      "available_directly_after_steps": false,
-      "blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE",
-        "INSUFFICIENT_CLUSTERS"
-      ],
-      "blocking_pairs": [],
-      "candidate_group": "4624|interior_painting|m2|wood",
-      "candidate_key": "4624|interior_painting|m2",
-      "element_code": "4624",
-      "existing_available_kengetal": null,
-      "expected_kengetal_effect": {
-        "insufficient_data_reasons": [
-          "FEWER_THAN_3_SOURCE_CLUSTERS"
-        ],
-        "max_display": "50.51",
-        "min_display": "24.18",
-        "missing_price_level": false,
-        "mixed_price_level": true,
-        "observation_ids": [
-          "PO-DOC-002-P018-L093",
-          "PO-DOC-002-P018-L101",
-          "PO-DOC-007-P017-L025"
-        ],
-        "simulated_value_display": null,
-        "source_cluster_count": 2,
-        "source_cluster_ids": [
-          "SC-DOC-002",
-          "SC-DOC-007"
-        ],
-        "status": "INSUFFICIENT_DATA"
-      },
-      "human_actions": {
-        "complete_with_existing_chain": false,
-        "material_approvals": 0,
-        "pair_decisions_outside_review_queue": 2,
-        "review_family_decisions": 0,
-        "total": 2
-      },
-      "independent_source_clusters": {
-        "count": 2,
-        "ids": [
-          "SC-DOC-002",
-          "SC-DOC-007"
-        ]
-      },
-      "material": "wood",
-      "material_approvals_refused": {},
-      "material_status": {
-        "known": 3,
-        "no_evidence": 0,
-        "pending_approval": 0
-      },
-      "missing_material_approvals": [],
-      "observation_ids": [
-        "PO-DOC-002-P018-L093",
-        "PO-DOC-002-P018-L101",
-        "PO-DOC-007-P017-L025"
-      ],
-      "observations": 3,
-      "open_review_families_current": [],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE",
-        "INSUFFICIENT_CLUSTERS"
-      ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00348",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00349",
-          "system_class": "UNKNOWN"
-        }
-      ],
-      "potential_source_clusters_after_steps": {
-        "count": 2,
-        "ids": [
-          "SC-DOC-002",
-          "SC-DOC-007"
-        ]
-      },
-      "rank": 45,
+      "rank": 46,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -2775,7 +2884,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 46,
+      "rank": 47,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -2834,7 +2943,7 @@
           "SC-DOC-013"
         ]
       },
-      "rank": 47,
+      "rank": 48,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -2895,119 +3004,18 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 48,
+      "rank": 49,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
     },
     {
-      "action": "exterior_painting",
-      "active_human_decisions": [],
-      "available_directly_after_steps": false,
-      "blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE",
-        "INSUFFICIENT_CLUSTERS"
-      ],
-      "blocking_pairs": [],
-      "candidate_group": "4631|exterior_painting|m1|wood",
-      "candidate_key": "4631|exterior_painting|m1",
-      "element_code": "4631",
-      "existing_available_kengetal": null,
-      "expected_kengetal_effect": {
-        "insufficient_data_reasons": [
-          "FEWER_THAN_3_SOURCE_CLUSTERS"
-        ],
-        "max_display": "14.52",
-        "min_display": "10.07",
-        "missing_price_level": true,
-        "mixed_price_level": false,
-        "observation_ids": [
-          "PO-DOC-001-P025-L095",
-          "PO-DOC-002-P018-L109",
-          "PO-DOC-002-P018-L117",
-          "PO-DOC-002-P018-L125",
-          "PO-DOC-002-P019-L011"
-        ],
-        "simulated_value_display": null,
-        "source_cluster_count": 2,
-        "source_cluster_ids": [
-          "SC-DOC-001",
-          "SC-DOC-002"
-        ],
-        "status": "INSUFFICIENT_DATA"
-      },
-      "human_actions": {
-        "complete_with_existing_chain": false,
-        "material_approvals": 0,
-        "pair_decisions_outside_review_queue": 4,
-        "review_family_decisions": 0,
-        "total": 4
-      },
-      "independent_source_clusters": {
-        "count": 2,
-        "ids": [
-          "SC-DOC-001",
-          "SC-DOC-002"
-        ]
-      },
-      "material": "wood",
-      "material_approvals_refused": {},
-      "material_status": {
-        "known": 5,
-        "no_evidence": 0,
-        "pending_approval": 0
-      },
-      "missing_material_approvals": [],
-      "observation_ids": [
-        "PO-DOC-001-P025-L095",
-        "PO-DOC-002-P018-L109",
-        "PO-DOC-002-P018-L117",
-        "PO-DOC-002-P018-L125",
-        "PO-DOC-002-P019-L011"
-      ],
-      "observations": 5,
-      "open_review_families_current": [],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE",
-        "INSUFFICIENT_CLUSTERS"
-      ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00395",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00396",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00397",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00398",
-          "system_class": "UNKNOWN"
-        }
-      ],
-      "potential_source_clusters_after_steps": {
-        "count": 2,
-        "ids": [
-          "SC-DOC-001",
-          "SC-DOC-002"
-        ]
-      },
-      "rank": 49,
-      "readiness": "INSUFFICIENT_CLUSTERS",
-      "review_families_to_decide": [],
-      "unit": "m1"
-    },
-    {
       "action": "interior_painting",
       "active_human_decisions": [],
-      "available_directly_after_steps": false,
+      "available_directly_after_steps": true,
       "blockers": [
         "MATERIAL_APPROVAL_NEEDED",
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
+        "CROSS_CLUSTER_REVIEW_NEEDED"
       ],
       "blocking_pairs": [],
       "candidate_group": "4645|interior_painting|m2|wood",
@@ -3035,10 +3043,10 @@
         "status": "AVAILABLE"
       },
       "human_actions": {
-        "complete_with_existing_chain": false,
+        "complete_with_existing_chain": true,
         "material_approvals": 3,
-        "pair_decisions_outside_review_queue": 3,
-        "review_family_decisions": 0,
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 3,
         "total": 6
       },
       "independent_source_clusters": {
@@ -3068,23 +3076,8 @@
       ],
       "observations": 3,
       "open_review_families_current": [],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
-      ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00529",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00531",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00533",
-          "system_class": "UNKNOWN"
-        }
-      ],
+      "other_blockers": [],
+      "pairs_outside_review_queue": [],
       "potential_source_clusters_after_steps": {
         "count": 3,
         "ids": [
@@ -3094,17 +3087,51 @@
         ]
       },
       "rank": 50,
-      "readiness": "BLOCKED_OTHER",
-      "review_families_to_decide": [],
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00533"
+          ],
+          "indicative_family_input_sha256": "5a5a584acd74871259aeb596de3f94e3f6346f03796c6ce0834ab2e215b26e9f",
+          "pair_ids": [
+            "PAIR-00533"
+          ],
+          "review_family_id": "RF-4645-203095b1cf"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00531"
+          ],
+          "indicative_family_input_sha256": "cbe443ecb6a9ec0f955d43f68b03dd1dcdd9190177685ed97acb4566a58106ad",
+          "pair_ids": [
+            "PAIR-00531"
+          ],
+          "review_family_id": "RF-4645-9ac13fa8d5"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00529"
+          ],
+          "indicative_family_input_sha256": "8eae7cdaf02b8e1ec60dd491c76fbb9be7db56cc779cda621e1d615b4f2c4687",
+          "pair_ids": [
+            "PAIR-00529"
+          ],
+          "review_family_id": "RF-4645-f273568c78"
+        }
+      ],
       "unit": "m2"
     },
     {
       "action": "interior_painting",
       "active_human_decisions": [],
-      "available_directly_after_steps": false,
+      "available_directly_after_steps": true,
       "blockers": [
         "MATERIAL_APPROVAL_NEEDED",
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
+        "CROSS_CLUSTER_REVIEW_NEEDED"
       ],
       "blocking_pairs": [],
       "candidate_group": "4632|interior_painting|m2|wood",
@@ -3135,11 +3162,11 @@
         "status": "AVAILABLE"
       },
       "human_actions": {
-        "complete_with_existing_chain": false,
+        "complete_with_existing_chain": true,
         "material_approvals": 2,
-        "pair_decisions_outside_review_queue": 9,
-        "review_family_decisions": 0,
-        "total": 11
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 7,
+        "total": 9
       },
       "independent_source_clusters": {
         "count": 4,
@@ -3169,48 +3196,12 @@
         "PO-DOC-013-P020-L019"
       ],
       "observations": 5,
-      "open_review_families_current": [],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
+      "open_review_families_current": [
+        "RF-4632-52d231366e",
+        "RF-4632-611a2f74bf"
       ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00432",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00433",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00434",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00438",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00439",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00440",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00441",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00442",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00443",
-          "system_class": "UNKNOWN"
-        }
-      ],
+      "other_blockers": [],
+      "pairs_outside_review_queue": [],
       "potential_source_clusters_after_steps": {
         "count": 4,
         "ids": [
@@ -3221,17 +3212,99 @@
         ]
       },
       "rank": 51,
-      "readiness": "BLOCKED_OTHER",
-      "review_families_to_decide": [],
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00438"
+          ],
+          "indicative_family_input_sha256": "c2562d1a7e70c9cfdd4961cc38ce9725dab29d9b984727e7c0de67eb4655c929",
+          "pair_ids": [
+            "PAIR-00438"
+          ],
+          "review_family_id": "RF-4632-52d231366e"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00432"
+          ],
+          "indicative_family_input_sha256": "7a3ea4f97419af26c598150115f5a58fa4cf2c99286182fbfa2de1e2d10db1e6",
+          "pair_ids": [
+            "PAIR-00432"
+          ],
+          "review_family_id": "RF-4632-611a2f74bf"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00434",
+            "PAIR-00440"
+          ],
+          "indicative_family_input_sha256": "d8538ff0ba9e6c7bf88824d0bb0482b0e03dd4072d3b485e5f43cf6170984d13",
+          "pair_ids": [
+            "PAIR-00434",
+            "PAIR-00440"
+          ],
+          "review_family_id": "RF-4632-85a71e1609"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00443"
+          ],
+          "indicative_family_input_sha256": "ced0460459d04a36b51e514174e0242891c473fe82a2608ea7fa65b71b2ff40d",
+          "pair_ids": [
+            "PAIR-00443"
+          ],
+          "review_family_id": "RF-4632-9358a3b02a"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00433",
+            "PAIR-00439"
+          ],
+          "indicative_family_input_sha256": "a51662c65345cff4898cf781151c4e4cc26af74872e0c9efe36063cf4cb86656",
+          "pair_ids": [
+            "PAIR-00433",
+            "PAIR-00439"
+          ],
+          "review_family_id": "RF-4632-db0fe26fd7"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00441"
+          ],
+          "indicative_family_input_sha256": "500a2cef7d3f5b879377852024d42b649b6bd56be0aa2067eb2a524f349f8d3f",
+          "pair_ids": [
+            "PAIR-00441"
+          ],
+          "review_family_id": "RF-4632-db2353a39c"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00442"
+          ],
+          "indicative_family_input_sha256": "cfa6dcb763c5ba0efc959d83d92817054e50daeb1eea5ac34dd20a8b5d1a3ec3",
+          "pair_ids": [
+            "PAIR-00442"
+          ],
+          "review_family_id": "RF-4632-fd803a49c6"
+        }
+      ],
       "unit": "m2"
     },
     {
       "action": "interior_painting",
       "active_human_decisions": [],
-      "available_directly_after_steps": false,
+      "available_directly_after_steps": true,
       "blockers": [
         "MATERIAL_APPROVAL_NEEDED",
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
+        "CROSS_CLUSTER_REVIEW_NEEDED"
       ],
       "blocking_pairs": [],
       "candidate_group": "4622|interior_painting|m2|wood",
@@ -3264,11 +3337,11 @@
         "status": "AVAILABLE"
       },
       "human_actions": {
-        "complete_with_existing_chain": false,
+        "complete_with_existing_chain": true,
         "material_approvals": 1,
-        "pair_decisions_outside_review_queue": 14,
-        "review_family_decisions": 0,
-        "total": 15
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 10,
+        "total": 11
       },
       "independent_source_clusters": {
         "count": 5,
@@ -3299,68 +3372,16 @@
         "PO-DOC-011-P020-L091"
       ],
       "observations": 6,
-      "open_review_families_current": [],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
+      "open_review_families_current": [
+        "RF-4622-11d576c7dc",
+        "RF-4622-354fcb80f6",
+        "RF-4622-46a974b31b",
+        "RF-4622-6a5b692ee7",
+        "RF-4622-8cf1dacd6d",
+        "RF-4622-a30aa9fefe"
       ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00250",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00253",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00256",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00257",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00272",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00275",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00278",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00279",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00304",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00307",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00308",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00325",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00326",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00335",
-          "system_class": "UNKNOWN"
-        }
-      ],
+      "other_blockers": [],
+      "pairs_outside_review_queue": [],
       "potential_source_clusters_after_steps": {
         "count": 5,
         "ids": [
@@ -3372,8 +3393,836 @@
         ]
       },
       "rank": 52,
-      "readiness": "BLOCKED_OTHER",
-      "review_families_to_decide": [],
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00308"
+          ],
+          "indicative_family_input_sha256": "c2d9dbbae42d8d811aea6204f5cb93a6dedd9dd0166a430bb4399abde1a2b3bf",
+          "pair_ids": [
+            "PAIR-00308"
+          ],
+          "review_family_id": "RF-4622-034f0e58c7"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00253",
+            "PAIR-00275"
+          ],
+          "indicative_family_input_sha256": "0919929f7180a7eb70fc9a573284b6c7ab412b3b6f0700908bae2114c15222a9",
+          "pair_ids": [
+            "PAIR-00253",
+            "PAIR-00275"
+          ],
+          "review_family_id": "RF-4622-11d576c7dc"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00307"
+          ],
+          "indicative_family_input_sha256": "00cf275c1206350e0f2d3a838336940d9fa5cc767bb6d5f92191a80e9f9de040",
+          "pair_ids": [
+            "PAIR-00307"
+          ],
+          "review_family_id": "RF-4622-354fcb80f6"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00256",
+            "PAIR-00278"
+          ],
+          "indicative_family_input_sha256": "96ada3094712b064f43d3055203960a155caebb6c1b7457b41faac9ceb79de59",
+          "pair_ids": [
+            "PAIR-00256",
+            "PAIR-00278"
+          ],
+          "review_family_id": "RF-4622-46a974b31b"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00326"
+          ],
+          "indicative_family_input_sha256": "1fc0be51b5ccc9b0520a858e97b2d827ecbe6731f0e381004b38042cb8aeeee3",
+          "pair_ids": [
+            "PAIR-00326"
+          ],
+          "review_family_id": "RF-4622-51cb0dd068"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00257",
+            "PAIR-00279"
+          ],
+          "indicative_family_input_sha256": "4ff470b2efeeb1edeebffd9c36608566a28f8ad4c0b4fcdeabccaacfcd4b3f4a",
+          "pair_ids": [
+            "PAIR-00257",
+            "PAIR-00279"
+          ],
+          "review_family_id": "RF-4622-65dd31a8d3"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00335"
+          ],
+          "indicative_family_input_sha256": "7ab7f5cba60a25cf98729851dd67b58bacca95477fe32eef4d74fea98ff4b8a4",
+          "pair_ids": [
+            "PAIR-00335"
+          ],
+          "review_family_id": "RF-4622-66494f8df6"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00250",
+            "PAIR-00272"
+          ],
+          "indicative_family_input_sha256": "c3a3effd6f755cc0d041a794ca85af90e62198c7cb9f5f7aa3bbc09b4330d206",
+          "pair_ids": [
+            "PAIR-00250",
+            "PAIR-00272"
+          ],
+          "review_family_id": "RF-4622-6a5b692ee7"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00304"
+          ],
+          "indicative_family_input_sha256": "87debb244b7ca4aa12f307bb159545e8963ce470fc976287a36263c449007e78",
+          "pair_ids": [
+            "PAIR-00304"
+          ],
+          "review_family_id": "RF-4622-8cf1dacd6d"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00325"
+          ],
+          "indicative_family_input_sha256": "86113e193dc3bfbb0950ced8114160617db093c4da9fa91f80f7604b0e5e7725",
+          "pair_ids": [
+            "PAIR-00325"
+          ],
+          "review_family_id": "RF-4622-a30aa9fefe"
+        }
+      ],
+      "unit": "m2"
+    },
+    {
+      "action": "exterior_painting",
+      "active_human_decisions": [],
+      "available_directly_after_steps": true,
+      "blockers": [
+        "MATERIAL_APPROVAL_NEEDED",
+        "CROSS_CLUSTER_REVIEW_NEEDED"
+      ],
+      "blocking_pairs": [],
+      "candidate_group": "4631|exterior_painting|m2|wood",
+      "candidate_key": "4631|exterior_painting|m2",
+      "element_code": "4631",
+      "existing_available_kengetal": null,
+      "expected_kengetal_effect": {
+        "insufficient_data_reasons": [],
+        "max_display": "136.25",
+        "min_display": "51.76",
+        "missing_price_level": true,
+        "mixed_price_level": true,
+        "observation_ids": [
+          "PO-DOC-006-P015-L049",
+          "PO-DOC-007-P017-L043",
+          "PO-DOC-007-P017-L047",
+          "PO-DOC-009-P020-L093",
+          "PO-DOC-011-P021-L025",
+          "PO-DOC-013-P018-L069",
+          "PO-DOC-015-S01-R0113"
+        ],
+        "simulated_value_display": "58.47",
+        "source_cluster_count": 6,
+        "source_cluster_ids": [
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-007",
+          "SC-DOC-008+DOC-009",
+          "SC-DOC-011",
+          "SC-DOC-013",
+          "SC-DOC-015"
+        ],
+        "status": "AVAILABLE"
+      },
+      "human_actions": {
+        "complete_with_existing_chain": true,
+        "material_approvals": 3,
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 15,
+        "total": 18
+      },
+      "independent_source_clusters": {
+        "count": 6,
+        "ids": [
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-007",
+          "SC-DOC-008+DOC-009",
+          "SC-DOC-011",
+          "SC-DOC-013",
+          "SC-DOC-015"
+        ]
+      },
+      "material": "wood",
+      "material_approvals_refused": {},
+      "material_status": {
+        "known": 4,
+        "no_evidence": 0,
+        "pending_approval": 3
+      },
+      "missing_material_approvals": [
+        "PO-DOC-011-P021-L025",
+        "PO-DOC-013-P018-L069",
+        "PO-DOC-015-S01-R0113"
+      ],
+      "observation_ids": [
+        "PO-DOC-006-P015-L049",
+        "PO-DOC-007-P017-L043",
+        "PO-DOC-007-P017-L047",
+        "PO-DOC-009-P020-L093",
+        "PO-DOC-011-P021-L025",
+        "PO-DOC-013-P018-L069",
+        "PO-DOC-015-S01-R0113"
+      ],
+      "observations": 7,
+      "open_review_families_current": [
+        "RF-4631-0514ebe15e",
+        "RF-4631-5b3207f54b",
+        "RF-4631-5f58c3592f",
+        "RF-4631-625ee73b91",
+        "RF-4631-8b375feff1",
+        "RF-4631-e554146912"
+      ],
+      "other_blockers": [],
+      "pairs_outside_review_queue": [],
+      "potential_source_clusters_after_steps": {
+        "count": 6,
+        "ids": [
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-007",
+          "SC-DOC-008+DOC-009",
+          "SC-DOC-011",
+          "SC-DOC-013",
+          "SC-DOC-015"
+        ]
+      },
+      "rank": 53,
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00411"
+          ],
+          "indicative_family_input_sha256": "98fdb913f7dcdc2baba67bc0c6139e800004e74f560972bb9185d3136af73560",
+          "pair_ids": [
+            "PAIR-00411"
+          ],
+          "review_family_id": "RF-4631-01fabc7da5"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00429"
+          ],
+          "indicative_family_input_sha256": "4333c00604dbdac7b46f141ba1bc9335eaeba9d75bc95f96ac38f507e13b325d",
+          "pair_ids": [
+            "PAIR-00429"
+          ],
+          "review_family_id": "RF-4631-1acde90dae"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00415",
+            "PAIR-00420"
+          ],
+          "indicative_family_input_sha256": "2badb010ff8a3ff2810e2ae04c70b3df4f6e92de28328db0972ba9baed94d35e",
+          "pair_ids": [
+            "PAIR-00415",
+            "PAIR-00420"
+          ],
+          "review_family_id": "RF-4631-474ed3a23f"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00410"
+          ],
+          "indicative_family_input_sha256": "a5d1de86d804ee8ee134a3bc310b7300075e09b7d38f3abb6ff111dd04231e04",
+          "pair_ids": [
+            "PAIR-00410"
+          ],
+          "review_family_id": "RF-4631-5023971a0d"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00406",
+            "PAIR-00407"
+          ],
+          "indicative_family_input_sha256": "662f55f9a1291e43d24ec1afc8ac12cf1d67cd280627cee895c946f24e3738cc",
+          "pair_ids": [
+            "PAIR-00406",
+            "PAIR-00407"
+          ],
+          "review_family_id": "RF-4631-5f58c3592f"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00424"
+          ],
+          "indicative_family_input_sha256": "cba302bd8d2a40acc43cf363a99e5bf7e58f83c8dd708c90239bd74c54663044",
+          "pair_ids": [
+            "PAIR-00424"
+          ],
+          "review_family_id": "RF-4631-7510f90c47"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00413",
+            "PAIR-00418"
+          ],
+          "indicative_family_input_sha256": "558ea94dd019b158c16fdd312c2ed6636776082d5a12890ec24dc7791f47dc84",
+          "pair_ids": [
+            "PAIR-00413",
+            "PAIR-00418"
+          ],
+          "review_family_id": "RF-4631-8b375feff1"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00431"
+          ],
+          "indicative_family_input_sha256": "f3c51686192c5fb4068f45a1ae01d26b36fd1946d79d24323d5069d59135fb0b",
+          "pair_ids": [
+            "PAIR-00431"
+          ],
+          "review_family_id": "RF-4631-a03802a83b"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00417",
+            "PAIR-00422"
+          ],
+          "indicative_family_input_sha256": "3f0799b9e99229e93d326a456e112ac26c8be72f16fd9b1321b6e10ec9f7a85b",
+          "pair_ids": [
+            "PAIR-00417",
+            "PAIR-00422"
+          ],
+          "review_family_id": "RF-4631-a76b249460"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00412"
+          ],
+          "indicative_family_input_sha256": "88cff73d32ac8f0694db7015654aa51b8a882f252b25e1661fa7708a92b4b368",
+          "pair_ids": [
+            "PAIR-00412"
+          ],
+          "review_family_id": "RF-4631-b42c8dd8c1"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00430"
+          ],
+          "indicative_family_input_sha256": "d0803382ab703a155061c276e06e5ab9ae527ba9648efdc4a0dec15b5ecbb7c5",
+          "pair_ids": [
+            "PAIR-00430"
+          ],
+          "review_family_id": "RF-4631-be40178fc5"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00425"
+          ],
+          "indicative_family_input_sha256": "bd0ab92de4ab331f2c6461211fe7ac2eecfa3d9be3b0a967229ed5853bfb7abc",
+          "pair_ids": [
+            "PAIR-00425"
+          ],
+          "review_family_id": "RF-4631-c8411da63d"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00423"
+          ],
+          "indicative_family_input_sha256": "9c4d466cb455e4891b0c9e82981877b7ca6f34f8d57a1109c2ec9e40b9a77ff9",
+          "pair_ids": [
+            "PAIR-00423"
+          ],
+          "review_family_id": "RF-4631-cf6bdf3a4a"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00408"
+          ],
+          "indicative_family_input_sha256": "b015a6f7c14be0b66dcf44bd2e7c870a3ff705581045b552262ccc8d57d7f9a5",
+          "pair_ids": [
+            "PAIR-00408"
+          ],
+          "review_family_id": "RF-4631-e554146912"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00416",
+            "PAIR-00421"
+          ],
+          "indicative_family_input_sha256": "0e50704618356fce25a8b8285cbb505a6759645fb68c54c5481c1ab4ba796e38",
+          "pair_ids": [
+            "PAIR-00416",
+            "PAIR-00421"
+          ],
+          "review_family_id": "RF-4631-ef2eeb54f2"
+        }
+      ],
+      "unit": "m2"
+    },
+    {
+      "action": "exterior_painting",
+      "active_human_decisions": [],
+      "available_directly_after_steps": true,
+      "blockers": [
+        "MATERIAL_APPROVAL_NEEDED",
+        "CROSS_CLUSTER_REVIEW_NEEDED"
+      ],
+      "blocking_pairs": [],
+      "candidate_group": "4621|exterior_painting|m2|wood",
+      "candidate_key": "4621|exterior_painting|m2",
+      "element_code": "4621",
+      "existing_available_kengetal": null,
+      "expected_kengetal_effect": {
+        "insufficient_data_reasons": [],
+        "max_display": "92.75",
+        "min_display": "36.62",
+        "missing_price_level": true,
+        "mixed_price_level": true,
+        "observation_ids": [
+          "PO-DOC-001-P025-L025",
+          "PO-DOC-002-P017-L045",
+          "PO-DOC-002-P017-L109",
+          "PO-DOC-002-P017-L115",
+          "PO-DOC-006-P015-L009",
+          "PO-DOC-010-P011-L085",
+          "PO-DOC-011-P020-L067",
+          "PO-DOC-012-P014-L013",
+          "PO-DOC-013-P018-L059"
+        ],
+        "simulated_value_display": "53.17",
+        "source_cluster_count": 7,
+        "source_cluster_ids": [
+          "SC-DOC-001",
+          "SC-DOC-002",
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-010",
+          "SC-DOC-011",
+          "SC-DOC-012",
+          "SC-DOC-013"
+        ],
+        "status": "AVAILABLE"
+      },
+      "human_actions": {
+        "complete_with_existing_chain": true,
+        "material_approvals": 3,
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 27,
+        "total": 30
+      },
+      "independent_source_clusters": {
+        "count": 7,
+        "ids": [
+          "SC-DOC-001",
+          "SC-DOC-002",
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-010",
+          "SC-DOC-011",
+          "SC-DOC-012",
+          "SC-DOC-013"
+        ]
+      },
+      "material": "wood",
+      "material_approvals_refused": {},
+      "material_status": {
+        "known": 6,
+        "no_evidence": 0,
+        "pending_approval": 3
+      },
+      "missing_material_approvals": [
+        "PO-DOC-011-P020-L067",
+        "PO-DOC-012-P014-L013",
+        "PO-DOC-013-P018-L059"
+      ],
+      "observation_ids": [
+        "PO-DOC-001-P025-L025",
+        "PO-DOC-002-P017-L045",
+        "PO-DOC-002-P017-L109",
+        "PO-DOC-002-P017-L115",
+        "PO-DOC-006-P015-L009",
+        "PO-DOC-010-P011-L085",
+        "PO-DOC-011-P020-L067",
+        "PO-DOC-012-P014-L013",
+        "PO-DOC-013-P018-L059"
+      ],
+      "observations": 9,
+      "open_review_families_current": [
+        "RF-4621-004dc9d137",
+        "RF-4621-188ea6a44e",
+        "RF-4621-8656071600",
+        "RF-4621-907dfd2c65",
+        "RF-4621-a41aa495eb",
+        "RF-4621-af2b890f8f",
+        "RF-4621-b30de14ab7",
+        "RF-4621-bb9df7a5d2",
+        "RF-4621-cab376a22f",
+        "RF-4621-df3c57f3ca"
+      ],
+      "other_blockers": [],
+      "pairs_outside_review_queue": [],
+      "potential_source_clusters_after_steps": {
+        "count": 7,
+        "ids": [
+          "SC-DOC-001",
+          "SC-DOC-002",
+          "SC-DOC-005+DOC-006",
+          "SC-DOC-010",
+          "SC-DOC-011",
+          "SC-DOC-012",
+          "SC-DOC-013"
+        ]
+      },
+      "rank": 54,
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00054"
+          ],
+          "indicative_family_input_sha256": "a373c510a07e1ad50e3e8fa164fd175cd41d4bc410934cd16c20b2bcd433c128",
+          "pair_ids": [
+            "PAIR-00054"
+          ],
+          "review_family_id": "RF-4621-004dc9d137"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00230"
+          ],
+          "indicative_family_input_sha256": "d419bbd6b377ebfcae051235ebc386fd119043b7f635d6ae877449da33dfc963",
+          "pair_ids": [
+            "PAIR-00230"
+          ],
+          "review_family_id": "RF-4621-0e58576565"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00229"
+          ],
+          "indicative_family_input_sha256": "fcbbeea42e9f3dc6533a63e75fb5564e901a29dd1405a1982a4161de52761850",
+          "pair_ids": [
+            "PAIR-00229"
+          ],
+          "review_family_id": "RF-4621-0ed4cdf3bf"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00071"
+          ],
+          "indicative_family_input_sha256": "ad5730066a100fc32d688e4e96fca037f1b347012e91f00db84903cecf7e3773",
+          "pair_ids": [
+            "PAIR-00071"
+          ],
+          "review_family_id": "RF-4621-0f48fdef2d"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00068"
+          ],
+          "indicative_family_input_sha256": "c42da7bc0afe84b078e0c64a87842e576630e743effeade2406a1675b9c077e8",
+          "pair_ids": [
+            "PAIR-00068"
+          ],
+          "review_family_id": "RF-4621-175e6d6524"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00056",
+            "PAIR-00057"
+          ],
+          "indicative_family_input_sha256": "ec527458b7789e1c9db0b628e661dcb3c0580e0157222ccfaf867ee506eceb63",
+          "pair_ids": [
+            "PAIR-00056",
+            "PAIR-00057"
+          ],
+          "review_family_id": "RF-4621-188ea6a44e"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00234"
+          ],
+          "indicative_family_input_sha256": "cabcc04f86efb1798e46fdffd38b712dd92c47b929110f66cf86a825e2ef4eb7",
+          "pair_ids": [
+            "PAIR-00234"
+          ],
+          "review_family_id": "RF-4621-2b335b1676"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00145",
+            "PAIR-00157"
+          ],
+          "indicative_family_input_sha256": "ec7f73e7e03e278f304d16f661604f7c50cbcde55a2e7d7d16ed017499333aea",
+          "pair_ids": [
+            "PAIR-00145",
+            "PAIR-00157"
+          ],
+          "review_family_id": "RF-4621-2b42c09458"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00233"
+          ],
+          "indicative_family_input_sha256": "d57b92dc91f245c188387dea962e6b168f948ff2726249ab747bc0d4b58e08c1",
+          "pair_ids": [
+            "PAIR-00233"
+          ],
+          "review_family_id": "RF-4621-40b6e91317"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00121"
+          ],
+          "indicative_family_input_sha256": "832db8466ed3be15926568bb33c9d0f25a19c98e6207cc873a899ddd9ebb9992",
+          "pair_ids": [
+            "PAIR-00121"
+          ],
+          "review_family_id": "RF-4621-4d24de9650"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00146",
+            "PAIR-00158"
+          ],
+          "indicative_family_input_sha256": "8414ecb8924299c8a3aaa8da277955d5f860e4a938452b057c540616fa232b38",
+          "pair_ids": [
+            "PAIR-00146",
+            "PAIR-00158"
+          ],
+          "review_family_id": "RF-4621-5f62f8d61f"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00246"
+          ],
+          "indicative_family_input_sha256": "2e1db3d034d6cedfa5846503e608f4d78273b8522fc3dcc99b5e1faf771d4f79",
+          "pair_ids": [
+            "PAIR-00246"
+          ],
+          "review_family_id": "RF-4621-64f92e19e4"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00241"
+          ],
+          "indicative_family_input_sha256": "9886c6bcc03d596815e9730a13642b45b9a47f44c1596882a924b365c5eeb352",
+          "pair_ids": [
+            "PAIR-00241"
+          ],
+          "review_family_id": "RF-4621-6c1ca39386"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00142",
+            "PAIR-00154"
+          ],
+          "indicative_family_input_sha256": "49d9c2921579d571a1889a5795141e0c7335ff7e695daee5e319f3ee396f1022",
+          "pair_ids": [
+            "PAIR-00142",
+            "PAIR-00154"
+          ],
+          "review_family_id": "RF-4621-75b34f9647"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00223"
+          ],
+          "indicative_family_input_sha256": "ba0f8d06ad01ee8ecfc254685a92fe0a45080fa84c7ef911e7e1196c67828fe8",
+          "pair_ids": [
+            "PAIR-00223"
+          ],
+          "review_family_id": "RF-4621-8656071600"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00115"
+          ],
+          "indicative_family_input_sha256": "aa27c17c1e21086e545c36266861e127f4c704aa4ff1c5ea9686e9c5e5d527c1",
+          "pair_ids": [
+            "PAIR-00115"
+          ],
+          "review_family_id": "RF-4621-907dfd2c65"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00228"
+          ],
+          "indicative_family_input_sha256": "9a7cf8e5510201d9c716e89094724424b0d51eb005d22512ed49dbb229a00dd2",
+          "pair_ids": [
+            "PAIR-00228"
+          ],
+          "review_family_id": "RF-4621-a35f445afa"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00065"
+          ],
+          "indicative_family_input_sha256": "9aacb2b6c12bbcd594248fd23344766ed4dd820150b8173ff87666781b5aab51",
+          "pair_ids": [
+            "PAIR-00065"
+          ],
+          "review_family_id": "RF-4621-a41aa495eb"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00139",
+            "PAIR-00151"
+          ],
+          "indicative_family_input_sha256": "c86815d49191ae950cc4e8c6a83aedd774ae0b07fdd4ba8c455d1c5572692a5d",
+          "pair_ids": [
+            "PAIR-00139",
+            "PAIR-00151"
+          ],
+          "review_family_id": "RF-4621-af2b890f8f"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00116"
+          ],
+          "indicative_family_input_sha256": "ac6c33a5056e7c819be80fd934b8753c9dfce6df54dfb03ae8475c140b7d9add",
+          "pair_ids": [
+            "PAIR-00116"
+          ],
+          "review_family_id": "RF-4621-bb9df7a5d2"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00118"
+          ],
+          "indicative_family_input_sha256": "5cdbf1062687801f325ca6cec3be3712e21a7994a919280beba708cf551b9c6e",
+          "pair_ids": [
+            "PAIR-00118"
+          ],
+          "review_family_id": "RF-4621-be79d914a8"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00066"
+          ],
+          "indicative_family_input_sha256": "7b7a9dde76836fa2b3e23a374bb61de742f2a8c6de11d66f1840199bb6d4076a",
+          "pair_ids": [
+            "PAIR-00066"
+          ],
+          "review_family_id": "RF-4621-cab376a22f"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00240"
+          ],
+          "indicative_family_input_sha256": "5b487c4c91362642ba3a9f4d0c8fcfbd82405e11f749361d2c0632cbb1ffee02",
+          "pair_ids": [
+            "PAIR-00240"
+          ],
+          "review_family_id": "RF-4621-d5aecc3141"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00122"
+          ],
+          "indicative_family_input_sha256": "7aa4201522d85ef8afe1bdd2055675966631b1c9bd6b1ca5cac500b71729b572",
+          "pair_ids": [
+            "PAIR-00122"
+          ],
+          "review_family_id": "RF-4621-d5ea2f46ef"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00140",
+            "PAIR-00152"
+          ],
+          "indicative_family_input_sha256": "ffd8f752b5fbc531bf2cf918dac341d1c4defbc8c4af7d2c998c69bef7727380",
+          "pair_ids": [
+            "PAIR-00140",
+            "PAIR-00152"
+          ],
+          "review_family_id": "RF-4621-df3c57f3ca"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00072"
+          ],
+          "indicative_family_input_sha256": "e3307a5a370396232502d14006a3f04d56993643584d4c15df5e0dc6ea8fdc18",
+          "pair_ids": [
+            "PAIR-00072"
+          ],
+          "review_family_id": "RF-4621-eabdf2ab4e"
+        },
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00225"
+          ],
+          "indicative_family_input_sha256": "3a51f9c6dbeb7c360148e268fa4153b51184377096ca2841d029218040659cc7",
+          "pair_ids": [
+            "PAIR-00225"
+          ],
+          "review_family_id": "RF-4621-ebf49919b5"
+        }
+      ],
       "unit": "m2"
     },
     {
@@ -3433,7 +4282,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 53,
+      "rank": 55,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3492,7 +4341,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 54,
+      "rank": 56,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3552,7 +4401,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 55,
+      "rank": 57,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -3615,7 +4464,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 56,
+      "rank": 58,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3675,7 +4524,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 57,
+      "rank": 59,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3737,7 +4586,7 @@
           "SC-DOC-010"
         ]
       },
-      "rank": 58,
+      "rank": 60,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3797,7 +4646,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 59,
+      "rank": 61,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -3856,7 +4705,7 @@
           "SC-DOC-015"
         ]
       },
-      "rank": 60,
+      "rank": 62,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3915,7 +4764,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 61,
+      "rank": 63,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -3974,7 +4823,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 62,
+      "rank": 64,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4035,7 +4884,7 @@
           "SC-DOC-013"
         ]
       },
-      "rank": 63,
+      "rank": 65,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4095,7 +4944,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 64,
+      "rank": 66,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -4159,7 +5008,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 65,
+      "rank": 67,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4221,7 +5070,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 66,
+      "rank": 68,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4282,7 +5131,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 67,
+      "rank": 69,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4343,7 +5192,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 68,
+      "rank": 70,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4399,7 +5248,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 69,
+      "rank": 71,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -4455,7 +5304,7 @@
           "SC-DOC-002"
         ]
       },
-      "rank": 70,
+      "rank": 72,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4511,7 +5360,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 71,
+      "rank": 73,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4567,7 +5416,7 @@
           "SC-DOC-001"
         ]
       },
-      "rank": 72,
+      "rank": 74,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4623,7 +5472,7 @@
           "SC-DOC-001"
         ]
       },
-      "rank": 73,
+      "rank": 75,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4679,7 +5528,7 @@
           "SC-DOC-001"
         ]
       },
-      "rank": 74,
+      "rank": 76,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4735,7 +5584,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 75,
+      "rank": 77,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -4791,7 +5640,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 76,
+      "rank": 78,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4847,7 +5696,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 77,
+      "rank": 79,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -4903,7 +5752,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 78,
+      "rank": 80,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -4959,7 +5808,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 79,
+      "rank": 81,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -5015,7 +5864,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 80,
+      "rank": 82,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5072,7 +5921,7 @@
           "SC-DOC-002"
         ]
       },
-      "rank": 81,
+      "rank": 83,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5128,7 +5977,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 82,
+      "rank": 84,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5184,7 +6033,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 83,
+      "rank": 85,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -5240,7 +6089,7 @@
           "SC-DOC-001"
         ]
       },
-      "rank": 84,
+      "rank": 86,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5296,7 +6145,7 @@
           "SC-DOC-010"
         ]
       },
-      "rank": 85,
+      "rank": 87,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5352,7 +6201,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 86,
+      "rank": 88,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5409,7 +6258,7 @@
           "SC-DOC-002"
         ]
       },
-      "rank": 87,
+      "rank": 89,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5465,7 +6314,7 @@
           "SC-DOC-002"
         ]
       },
-      "rank": 88,
+      "rank": 90,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -5521,7 +6370,7 @@
           "SC-DOC-010"
         ]
       },
-      "rank": 89,
+      "rank": 91,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5577,7 +6426,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 90,
+      "rank": 92,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5634,7 +6483,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 91,
+      "rank": 93,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -5690,7 +6539,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 92,
+      "rank": 94,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5746,7 +6595,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 93,
+      "rank": 95,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m2"
@@ -5802,7 +6651,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 94,
+      "rank": 96,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -5858,7 +6707,7 @@
           "SC-DOC-010"
         ]
       },
-      "rank": 95,
+      "rank": 97,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -5914,7 +6763,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 96,
+      "rank": 98,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -5970,7 +6819,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 97,
+      "rank": 99,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6026,7 +6875,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 98,
+      "rank": 100,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6082,7 +6931,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 99,
+      "rank": 101,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6138,7 +6987,7 @@
           "SC-DOC-008+DOC-009"
         ]
       },
-      "rank": 100,
+      "rank": 102,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -6195,7 +7044,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 101,
+      "rank": 103,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6251,7 +7100,7 @@
           "SC-DOC-001"
         ]
       },
-      "rank": 102,
+      "rank": 104,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6307,7 +7156,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 103,
+      "rank": 105,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6364,7 +7213,7 @@
           "SC-DOC-007"
         ]
       },
-      "rank": 104,
+      "rank": 106,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "piece"
@@ -6420,7 +7269,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 105,
+      "rank": 107,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -6502,7 +7351,7 @@
           "SC-DOC-015"
         ]
       },
-      "rank": 106,
+      "rank": 108,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [
         {
@@ -6596,7 +7445,7 @@
           "SC-DOC-013"
         ]
       },
-      "rank": 107,
+      "rank": 109,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [
         {
@@ -6609,6 +7458,102 @@
             "PAIR-00015"
           ],
           "review_family_id": "RF-2716-d063777b15"
+        }
+      ],
+      "unit": "m1"
+    },
+    {
+      "action": "interior_painting",
+      "active_human_decisions": [],
+      "available_directly_after_steps": false,
+      "blockers": [
+        "MATERIAL_APPROVAL_NEEDED",
+        "CROSS_CLUSTER_REVIEW_NEEDED",
+        "INSUFFICIENT_CLUSTERS"
+      ],
+      "blocking_pairs": [],
+      "candidate_group": "4622|interior_painting|m1|wood",
+      "candidate_key": "4622|interior_painting|m1",
+      "element_code": "4622",
+      "existing_available_kengetal": null,
+      "expected_kengetal_effect": {
+        "insufficient_data_reasons": [
+          "FEWER_THAN_3_SOURCE_CLUSTERS"
+        ],
+        "max_display": "18.16",
+        "min_display": "11.99",
+        "missing_price_level": false,
+        "mixed_price_level": false,
+        "observation_ids": [
+          "PO-DOC-002-P018-L037",
+          "PO-DOC-002-P018-L069",
+          "PO-DOC-013-P019-L087"
+        ],
+        "simulated_value_display": null,
+        "source_cluster_count": 2,
+        "source_cluster_ids": [
+          "SC-DOC-002",
+          "SC-DOC-013"
+        ],
+        "status": "INSUFFICIENT_DATA"
+      },
+      "human_actions": {
+        "complete_with_existing_chain": false,
+        "material_approvals": 1,
+        "pair_decisions_outside_review_queue": 0,
+        "review_family_decisions": 1,
+        "total": 2
+      },
+      "independent_source_clusters": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-002",
+          "SC-DOC-013"
+        ]
+      },
+      "material": "wood",
+      "material_approvals_refused": {},
+      "material_status": {
+        "known": 2,
+        "no_evidence": 0,
+        "pending_approval": 1
+      },
+      "missing_material_approvals": [
+        "PO-DOC-013-P019-L087"
+      ],
+      "observation_ids": [
+        "PO-DOC-002-P018-L037",
+        "PO-DOC-002-P018-L069",
+        "PO-DOC-013-P019-L087"
+      ],
+      "observations": 3,
+      "open_review_families_current": [],
+      "other_blockers": [
+        "INSUFFICIENT_CLUSTERS"
+      ],
+      "pairs_outside_review_queue": [],
+      "potential_source_clusters_after_steps": {
+        "count": 2,
+        "ids": [
+          "SC-DOC-002",
+          "SC-DOC-013"
+        ]
+      },
+      "rank": 110,
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "review_families_to_decide": [
+        {
+          "evidence_category": "OBJECT_TEXT_VARIANT",
+          "family_pair_ids": [
+            "PAIR-00247",
+            "PAIR-00248"
+          ],
+          "indicative_family_input_sha256": "892f1cd713a2bfcc00cfe482c232d5c9c96f72c392f63428604145db3f7d2391",
+          "pair_ids": [
+            "PAIR-00247",
+            "PAIR-00248"
+          ],
+          "review_family_id": "RF-4622-37d4f9874f"
         }
       ],
       "unit": "m1"
@@ -6692,7 +7637,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 108,
+      "rank": 111,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [
         {
@@ -6788,7 +7733,7 @@
           "SC-DOC-011"
         ]
       },
-      "rank": 109,
+      "rank": 112,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [
         {
@@ -6888,7 +7833,7 @@
           "SC-DOC-013"
         ]
       },
-      "rank": 110,
+      "rank": 113,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [],
       "unit": "m1"
@@ -6970,7 +7915,7 @@
           "SC-DOC-012"
         ]
       },
-      "rank": 111,
+      "rank": 114,
       "readiness": "INSUFFICIENT_CLUSTERS",
       "review_families_to_decide": [
         {
@@ -6986,558 +7931,15 @@
         }
       ],
       "unit": "m1"
-    },
-    {
-      "action": "interior_painting",
-      "active_human_decisions": [],
-      "available_directly_after_steps": false,
-      "blockers": [
-        "MATERIAL_APPROVAL_NEEDED",
-        "PAIRS_OUTSIDE_REVIEW_QUEUE",
-        "INSUFFICIENT_CLUSTERS"
-      ],
-      "blocking_pairs": [],
-      "candidate_group": "4622|interior_painting|m1|wood",
-      "candidate_key": "4622|interior_painting|m1",
-      "element_code": "4622",
-      "existing_available_kengetal": null,
-      "expected_kengetal_effect": {
-        "insufficient_data_reasons": [
-          "FEWER_THAN_3_SOURCE_CLUSTERS"
-        ],
-        "max_display": "18.16",
-        "min_display": "11.99",
-        "missing_price_level": false,
-        "mixed_price_level": false,
-        "observation_ids": [
-          "PO-DOC-002-P018-L037",
-          "PO-DOC-002-P018-L069",
-          "PO-DOC-013-P019-L087"
-        ],
-        "simulated_value_display": null,
-        "source_cluster_count": 2,
-        "source_cluster_ids": [
-          "SC-DOC-002",
-          "SC-DOC-013"
-        ],
-        "status": "INSUFFICIENT_DATA"
-      },
-      "human_actions": {
-        "complete_with_existing_chain": false,
-        "material_approvals": 1,
-        "pair_decisions_outside_review_queue": 2,
-        "review_family_decisions": 0,
-        "total": 3
-      },
-      "independent_source_clusters": {
-        "count": 2,
-        "ids": [
-          "SC-DOC-002",
-          "SC-DOC-013"
-        ]
-      },
-      "material": "wood",
-      "material_approvals_refused": {},
-      "material_status": {
-        "known": 2,
-        "no_evidence": 0,
-        "pending_approval": 1
-      },
-      "missing_material_approvals": [
-        "PO-DOC-013-P019-L087"
-      ],
-      "observation_ids": [
-        "PO-DOC-002-P018-L037",
-        "PO-DOC-002-P018-L069",
-        "PO-DOC-013-P019-L087"
-      ],
-      "observations": 3,
-      "open_review_families_current": [],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE",
-        "INSUFFICIENT_CLUSTERS"
-      ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00247",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00248",
-          "system_class": "UNKNOWN"
-        }
-      ],
-      "potential_source_clusters_after_steps": {
-        "count": 2,
-        "ids": [
-          "SC-DOC-002",
-          "SC-DOC-013"
-        ]
-      },
-      "rank": 112,
-      "readiness": "INSUFFICIENT_CLUSTERS",
-      "review_families_to_decide": [],
-      "unit": "m1"
-    },
-    {
-      "action": "exterior_painting",
-      "active_human_decisions": [],
-      "available_directly_after_steps": false,
-      "blockers": [
-        "MATERIAL_APPROVAL_NEEDED",
-        "CROSS_CLUSTER_REVIEW_NEEDED",
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
-      ],
-      "blocking_pairs": [],
-      "candidate_group": "4631|exterior_painting|m2|wood",
-      "candidate_key": "4631|exterior_painting|m2",
-      "element_code": "4631",
-      "existing_available_kengetal": null,
-      "expected_kengetal_effect": {
-        "insufficient_data_reasons": [],
-        "max_display": "136.25",
-        "min_display": "51.76",
-        "missing_price_level": true,
-        "mixed_price_level": true,
-        "observation_ids": [
-          "PO-DOC-006-P015-L049",
-          "PO-DOC-007-P017-L043",
-          "PO-DOC-007-P017-L047",
-          "PO-DOC-009-P020-L093",
-          "PO-DOC-011-P021-L025",
-          "PO-DOC-013-P018-L069",
-          "PO-DOC-015-S01-R0113"
-        ],
-        "simulated_value_display": "58.47",
-        "source_cluster_count": 6,
-        "source_cluster_ids": [
-          "SC-DOC-005+DOC-006",
-          "SC-DOC-007",
-          "SC-DOC-008+DOC-009",
-          "SC-DOC-011",
-          "SC-DOC-013",
-          "SC-DOC-015"
-        ],
-        "status": "AVAILABLE"
-      },
-      "human_actions": {
-        "complete_with_existing_chain": false,
-        "material_approvals": 3,
-        "pair_decisions_outside_review_queue": 15,
-        "review_family_decisions": 3,
-        "total": 21
-      },
-      "independent_source_clusters": {
-        "count": 6,
-        "ids": [
-          "SC-DOC-005+DOC-006",
-          "SC-DOC-007",
-          "SC-DOC-008+DOC-009",
-          "SC-DOC-011",
-          "SC-DOC-013",
-          "SC-DOC-015"
-        ]
-      },
-      "material": "wood",
-      "material_approvals_refused": {},
-      "material_status": {
-        "known": 4,
-        "no_evidence": 0,
-        "pending_approval": 3
-      },
-      "missing_material_approvals": [
-        "PO-DOC-011-P021-L025",
-        "PO-DOC-013-P018-L069",
-        "PO-DOC-015-S01-R0113"
-      ],
-      "observation_ids": [
-        "PO-DOC-006-P015-L049",
-        "PO-DOC-007-P017-L043",
-        "PO-DOC-007-P017-L047",
-        "PO-DOC-009-P020-L093",
-        "PO-DOC-011-P021-L025",
-        "PO-DOC-013-P018-L069",
-        "PO-DOC-015-S01-R0113"
-      ],
-      "observations": 7,
-      "open_review_families_current": [
-        "RF-4631-0514ebe15e",
-        "RF-4631-5b3207f54b",
-        "RF-4631-625ee73b91"
-      ],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
-      ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00406",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00407",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00408",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00410",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00411",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00412",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00413",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00416",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00418",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00421",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00423",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00424",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00425",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00429",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00431",
-          "system_class": "UNKNOWN"
-        }
-      ],
-      "potential_source_clusters_after_steps": {
-        "count": 6,
-        "ids": [
-          "SC-DOC-005+DOC-006",
-          "SC-DOC-007",
-          "SC-DOC-008+DOC-009",
-          "SC-DOC-011",
-          "SC-DOC-013",
-          "SC-DOC-015"
-        ]
-      },
-      "rank": 113,
-      "readiness": "BLOCKED_OTHER",
-      "review_families_to_decide": [
-        {
-          "evidence_category": "OBJECT_TEXT_VARIANT",
-          "family_pair_ids": [
-            "PAIR-00415",
-            "PAIR-00420"
-          ],
-          "indicative_family_input_sha256": "2badb010ff8a3ff2810e2ae04c70b3df4f6e92de28328db0972ba9baed94d35e",
-          "pair_ids": [
-            "PAIR-00415",
-            "PAIR-00420"
-          ],
-          "review_family_id": "RF-4631-474ed3a23f"
-        },
-        {
-          "evidence_category": "OBJECT_TEXT_VARIANT",
-          "family_pair_ids": [
-            "PAIR-00417",
-            "PAIR-00422"
-          ],
-          "indicative_family_input_sha256": "3f0799b9e99229e93d326a456e112ac26c8be72f16fd9b1321b6e10ec9f7a85b",
-          "pair_ids": [
-            "PAIR-00417",
-            "PAIR-00422"
-          ],
-          "review_family_id": "RF-4631-a76b249460"
-        },
-        {
-          "evidence_category": "OBJECT_TEXT_VARIANT",
-          "family_pair_ids": [
-            "PAIR-00430"
-          ],
-          "indicative_family_input_sha256": "d0803382ab703a155061c276e06e5ab9ae527ba9648efdc4a0dec15b5ecbb7c5",
-          "pair_ids": [
-            "PAIR-00430"
-          ],
-          "review_family_id": "RF-4631-be40178fc5"
-        }
-      ],
-      "unit": "m2"
-    },
-    {
-      "action": "exterior_painting",
-      "active_human_decisions": [],
-      "available_directly_after_steps": false,
-      "blockers": [
-        "MATERIAL_APPROVAL_NEEDED",
-        "CROSS_CLUSTER_REVIEW_NEEDED",
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
-      ],
-      "blocking_pairs": [],
-      "candidate_group": "4621|exterior_painting|m2|wood",
-      "candidate_key": "4621|exterior_painting|m2",
-      "element_code": "4621",
-      "existing_available_kengetal": null,
-      "expected_kengetal_effect": {
-        "insufficient_data_reasons": [],
-        "max_display": "92.75",
-        "min_display": "36.62",
-        "missing_price_level": true,
-        "mixed_price_level": true,
-        "observation_ids": [
-          "PO-DOC-001-P025-L025",
-          "PO-DOC-002-P017-L045",
-          "PO-DOC-002-P017-L109",
-          "PO-DOC-002-P017-L115",
-          "PO-DOC-006-P015-L009",
-          "PO-DOC-010-P011-L085",
-          "PO-DOC-011-P020-L067",
-          "PO-DOC-012-P014-L013",
-          "PO-DOC-013-P018-L059"
-        ],
-        "simulated_value_display": "53.17",
-        "source_cluster_count": 7,
-        "source_cluster_ids": [
-          "SC-DOC-001",
-          "SC-DOC-002",
-          "SC-DOC-005+DOC-006",
-          "SC-DOC-010",
-          "SC-DOC-011",
-          "SC-DOC-012",
-          "SC-DOC-013"
-        ],
-        "status": "AVAILABLE"
-      },
-      "human_actions": {
-        "complete_with_existing_chain": false,
-        "material_approvals": 3,
-        "pair_decisions_outside_review_queue": 32,
-        "review_family_decisions": 1,
-        "total": 36
-      },
-      "independent_source_clusters": {
-        "count": 7,
-        "ids": [
-          "SC-DOC-001",
-          "SC-DOC-002",
-          "SC-DOC-005+DOC-006",
-          "SC-DOC-010",
-          "SC-DOC-011",
-          "SC-DOC-012",
-          "SC-DOC-013"
-        ]
-      },
-      "material": "wood",
-      "material_approvals_refused": {},
-      "material_status": {
-        "known": 6,
-        "no_evidence": 0,
-        "pending_approval": 3
-      },
-      "missing_material_approvals": [
-        "PO-DOC-011-P020-L067",
-        "PO-DOC-012-P014-L013",
-        "PO-DOC-013-P018-L059"
-      ],
-      "observation_ids": [
-        "PO-DOC-001-P025-L025",
-        "PO-DOC-002-P017-L045",
-        "PO-DOC-002-P017-L109",
-        "PO-DOC-002-P017-L115",
-        "PO-DOC-006-P015-L009",
-        "PO-DOC-010-P011-L085",
-        "PO-DOC-011-P020-L067",
-        "PO-DOC-012-P014-L013",
-        "PO-DOC-013-P018-L059"
-      ],
-      "observations": 9,
-      "open_review_families_current": [
-        "RF-4621-b30de14ab7"
-      ],
-      "other_blockers": [
-        "PAIRS_OUTSIDE_REVIEW_QUEUE"
-      ],
-      "pairs_outside_review_queue": [
-        {
-          "pair_id": "PAIR-00054",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00056",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00057",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00065",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00066",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00068",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00071",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00072",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00115",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00116",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00118",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00121",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00122",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00139",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00140",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00142",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00145",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00146",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00151",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00152",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00154",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00157",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00158",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00223",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00225",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00228",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00229",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00230",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00234",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00240",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00241",
-          "system_class": "UNKNOWN"
-        },
-        {
-          "pair_id": "PAIR-00246",
-          "system_class": "UNKNOWN"
-        }
-      ],
-      "potential_source_clusters_after_steps": {
-        "count": 7,
-        "ids": [
-          "SC-DOC-001",
-          "SC-DOC-002",
-          "SC-DOC-005+DOC-006",
-          "SC-DOC-010",
-          "SC-DOC-011",
-          "SC-DOC-012",
-          "SC-DOC-013"
-        ]
-      },
-      "rank": 114,
-      "readiness": "BLOCKED_OTHER",
-      "review_families_to_decide": [
-        {
-          "evidence_category": "OBJECT_TEXT_VARIANT",
-          "family_pair_ids": [
-            "PAIR-00233"
-          ],
-          "indicative_family_input_sha256": "d57b92dc91f245c188387dea962e6b168f948ff2726249ab747bc0d4b58e08c1",
-          "pair_ids": [
-            "PAIR-00233"
-          ],
-          "review_family_id": "RF-4621-40b6e91317"
-        }
-      ],
-      "unit": "m2"
     }
   ],
-  "groups_reachable_with_existing_chain": [],
+  "groups_reachable_with_existing_chain": [
+    "4645|interior_painting|m2|wood",
+    "4632|interior_painting|m2|wood",
+    "4622|interior_painting|m2|wood",
+    "4631|exterior_painting|m2|wood",
+    "4621|exterior_painting|m2|wood"
+  ],
   "inputs": {
     "comparability_rules_version": "comparability_rules_v1",
     "comparability_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
@@ -7561,9 +7963,9 @@
   "summary": {
     "by_readiness": {
       "AVAILABLE": 2,
-      "BLOCKED_OTHER": 13,
+      "BLOCKED_OTHER": 8,
       "INSUFFICIENT_CLUSTERS": 99,
-      "MATERIAL_AND_REVIEW_NEEDED": 0,
+      "MATERIAL_AND_REVIEW_NEEDED": 5,
       "MATERIAL_APPROVAL_NEEDED": 0,
       "READY_AFTER_REVIEW": 0
     },

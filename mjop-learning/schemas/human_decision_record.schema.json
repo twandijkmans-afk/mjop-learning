@@ -92,7 +92,13 @@
             "family_decision_id": { "type": "string", "pattern": "^RFD-[0-9]{5}$" },
             "review_family_id": { "type": "string", "minLength": 1 },
             "review_package_sha256": { "$ref": "#/definitions/sha256" },
-            "family_input_sha256": { "$ref": "#/definitions/sha256" }
+            "family_input_sha256": { "$ref": "#/definitions/sha256" },
+            "review_track": { "type": "string", "const": "UNKNOWN_PAIR_REVIEW",
+                              "description": "Alleen bij een besluit over een paar met systeemklasse UNKNOWN (reviewtrack van comparability_review_v2); de systeemklasse blijft UNKNOWN." },
+            "unknown_reasons_at_review": { "type": "array", "items": { "type": "string" },
+                                           "description": "De unknown_reasons van het systeem op het moment van de review." },
+            "review_note": { "type": ["string", "null"],
+                             "description": "Menselijke onderbouwing per familie; verplicht bij COMPARABLE_WITH_CAVEATS op een UNKNOWN-paar." }
           },
           "required": ["family_decision_id", "review_family_id", "review_package_sha256", "family_input_sha256"],
           "additionalProperties": false

@@ -1,0 +1,1376 @@
+{
+  "candidate_group": "4645|interior_painting|m2|wood",
+  "candidate_key": "4645|interior_painting|m2",
+  "group_observations": [
+    "PO-DOC-006-P015-L059",
+    "PO-DOC-007-P017-L097",
+    "PO-DOC-012-P014-L085"
+  ],
+  "id_verification": {
+    "actual_observations": [
+      "PO-DOC-006-P015-L059",
+      "PO-DOC-007-P017-L097",
+      "PO-DOC-012-P014-L085"
+    ],
+    "actual_pairs": [
+      "PAIR-00529",
+      "PAIR-00531",
+      "PAIR-00533"
+    ],
+    "expected_observations": [
+      "PO-DOC-006-P015-L059",
+      "PO-DOC-007-P017-L097",
+      "PO-DOC-012-P014-L085"
+    ],
+    "expected_pairs": [
+      "PAIR-00529",
+      "PAIR-00531",
+      "PAIR-00533"
+    ],
+    "mapping": {},
+    "observations_match": true,
+    "pairs_match": true
+  },
+  "inputs": {
+    "comparability_rules_version": "comparability_rules_v1",
+    "comparability_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
+    "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
+    "human_decisions_sha256": "6e1a34e4040c637b45d213bc8c66b5d19fa7ea93de24b9d5398071cbced55f63",
+    "kengetallen_rules_version": "kengetallen_rules_v1",
+    "kengetallen_sha256": "e8b9b2260fb681da242817e51dfdb5ca3b1ab3ec1e3e5dcd6b56d3cc71761897",
+    "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
+  },
+  "material": [
+    {
+      "action_text": "Groot schilderwerk plafond hout dekkend",
+      "approval": {
+        "evidence": {
+          "action_text_original": "Groot schilderwerk plafond hout dekkend",
+          "element_description_original": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+          "unit_original": "m2"
+        },
+        "material": "hout",
+        "observation_id": "PO-DOC-006-P015-L059"
+      },
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "current_material": {
+        "source": null,
+        "value": null
+      },
+      "derived_price_per_execution": "54.45",
+      "document_id": "DOC-006",
+      "line": 59,
+      "object_description": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+      "observation_id": "PO-DOC-006-P015-L059",
+      "page": 15,
+      "price_level_date": "1-3-2023",
+      "proposed_material": "wood",
+      "proposed_material_token": "hout",
+      "quantity": "85.70",
+      "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
+      "refusal_reason": null,
+      "row": null,
+      "sheet": null,
+      "source_cluster": "SC-DOC-005+DOC-006",
+      "source_text": "Groot schilderwerk plafond hout 85,70 m2 2032 12 4.666 4.666",
+      "unit_original": "m2"
+    },
+    {
+      "action_text": "Groot schilderwerk plafond hout dekkend",
+      "approval": {
+        "evidence": {
+          "action_text_original": "Groot schilderwerk plafond hout dekkend",
+          "element_description_original": "Binnenschilderwerk plafond hout / stucwerk dekkend",
+          "unit_original": "m2"
+        },
+        "material": "hout",
+        "observation_id": "PO-DOC-007-P017-L097"
+      },
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "current_material": {
+        "source": null,
+        "value": null
+      },
+      "derived_price_per_execution": "44.18",
+      "document_id": "DOC-007",
+      "line": 97,
+      "object_description": "Binnenschilderwerk plafond hout / stucwerk dekkend",
+      "observation_id": "PO-DOC-007-P017-L097",
+      "page": 17,
+      "price_level_date": "28-4-2023",
+      "proposed_material": "wood",
+      "proposed_material_token": "hout",
+      "quantity": "580.00",
+      "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
+      "refusal_reason": null,
+      "row": null,
+      "sheet": null,
+      "source_cluster": "SC-DOC-007",
+      "source_text": "Groot schilderwerk plafond hout 580,00 m2 2030 14 25.623 25.623",
+      "unit_original": "m2"
+    },
+    {
+      "action_text": "Groot schilderwerk plafond hout transparant",
+      "approval": {
+        "evidence": {
+          "action_text_original": "Groot schilderwerk plafond hout transparant",
+          "element_description_original": "Binnenschilderwerk plafond hout transparant",
+          "unit_original": "m2"
+        },
+        "material": "hout",
+        "observation_id": "PO-DOC-012-P014-L085"
+      },
+      "caveats": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "current_material": {
+        "source": null,
+        "value": null
+      },
+      "derived_price_per_execution": "45.81",
+      "document_id": "DOC-012",
+      "line": 85,
+      "object_description": "Binnenschilderwerk plafond hout transparant",
+      "observation_id": "PO-DOC-012-P014-L085",
+      "page": 14,
+      "price_level_date": "1-4-2024",
+      "proposed_material": "wood",
+      "proposed_material_token": "hout",
+      "quantity": "12.90",
+      "record_material_decision_precheck": "WOULD_BE_ACCEPTED",
+      "refusal_reason": null,
+      "row": null,
+      "sheet": null,
+      "source_cluster": "SC-DOC-012",
+      "source_text": "Groot schilderwerk plafond hout 12,90 m2 2027 18 591 591",
+      "unit_original": "m2"
+    }
+  ],
+  "note": "READ-ONLY beslispakket: niets toegepast (geen materiaalbesluit, geen paar- of familiebesluit, geen kengetal). Materiaal-precheck via record_material_decision.validate (schrijft niets); de toestand na het materiaalbesluit is gesimuleerd op een tijdelijke kopie, dus family-ids en family_input_sha256 na het materiaalbesluit zijn indicatief - het echte familiebesluit bindt aan comparability_review_v2.json zoals dat NA het echte materiaalbesluit wordt herbouwd. Simulaties uitsluitend met build_kengetallen.evaluate (kengetallen_rules_v1).",
+  "package_version": "decision_package_4645_interior_painting_wood_v1",
+  "pairs_after_material_decision": [
+    {
+      "action_text": {
+        "a": "Groot schilderwerk plafond hout dekkend",
+        "b": "Groot schilderwerk plafond hout dekkend",
+        "equal": true,
+        "only_a": [],
+        "only_b": []
+      },
+      "active_decision": null,
+      "document_ids": [
+        "DOC-006",
+        "DOC-007"
+      ],
+      "hard_violations": [],
+      "object_text": {
+        "a": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+        "b": "Binnenschilderwerk plafond hout / stucwerk dekkend",
+        "equal": false,
+        "only_a": [
+          "multiplex"
+        ],
+        "only_b": [
+          "stucwerk"
+        ]
+      },
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "observation_ids": [
+        "PO-DOC-006-P015-L059",
+        "PO-DOC-007-P017-L097"
+      ],
+      "pair_caveats": [],
+      "pair_id": "PAIR-00529",
+      "price_level": {
+        "a": "1-3-2023",
+        "b": "28-4-2023",
+        "equal": false
+      },
+      "price_per_execution": {
+        "a": "54.45",
+        "b": "44.18",
+        "equal": false
+      },
+      "provenance": [
+        {
+          "document_id": "DOC-006",
+          "line": 59,
+          "observation_id": "PO-DOC-006-P015-L059",
+          "page": 15,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-005+DOC-006"
+        },
+        {
+          "document_id": "DOC-007",
+          "line": 97,
+          "observation_id": "PO-DOC-007-P017-L097",
+          "page": 17,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-007"
+        }
+      ],
+      "quantity": {
+        "a": "85.70",
+        "b": "580.00",
+        "equal": false,
+        "quantity_scale_difference": false
+      },
+      "source_clusters": [
+        "SC-DOC-005+DOC-006",
+        "SC-DOC-007"
+      ],
+      "source_texts": [
+        "Groot schilderwerk plafond hout 85,70 m2 2032 12 4.666 4.666",
+        "Groot schilderwerk plafond hout 580,00 m2 2030 14 25.623 25.623"
+      ],
+      "system_class": "UNKNOWN",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW"
+      ],
+      "unknown_track_blockers": [],
+      "unknown_track_family_id": "RF-4645-f273568c78"
+    },
+    {
+      "action_text": {
+        "a": "Groot schilderwerk plafond hout dekkend",
+        "b": "Groot schilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "active_decision": null,
+      "document_ids": [
+        "DOC-006",
+        "DOC-012"
+      ],
+      "hard_violations": [],
+      "object_text": {
+        "a": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+        "b": "Binnenschilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend",
+          "multiplex"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "observation_ids": [
+        "PO-DOC-006-P015-L059",
+        "PO-DOC-012-P014-L085"
+      ],
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00531",
+      "price_level": {
+        "a": "1-3-2023",
+        "b": "1-4-2024",
+        "equal": false
+      },
+      "price_per_execution": {
+        "a": "54.45",
+        "b": "45.81",
+        "equal": false
+      },
+      "provenance": [
+        {
+          "document_id": "DOC-006",
+          "line": 59,
+          "observation_id": "PO-DOC-006-P015-L059",
+          "page": 15,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-005+DOC-006"
+        },
+        {
+          "document_id": "DOC-012",
+          "line": 85,
+          "observation_id": "PO-DOC-012-P014-L085",
+          "page": 14,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-012"
+        }
+      ],
+      "quantity": {
+        "a": "85.70",
+        "b": "12.90",
+        "equal": false,
+        "quantity_scale_difference": false
+      },
+      "source_clusters": [
+        "SC-DOC-005+DOC-006",
+        "SC-DOC-012"
+      ],
+      "source_texts": [
+        "Groot schilderwerk plafond hout 85,70 m2 2032 12 4.666 4.666",
+        "Groot schilderwerk plafond hout 12,90 m2 2027 18 591 591"
+      ],
+      "system_class": "UNKNOWN",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
+        "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+      ],
+      "unknown_track_blockers": [],
+      "unknown_track_family_id": "RF-4645-9ac13fa8d5"
+    },
+    {
+      "action_text": {
+        "a": "Groot schilderwerk plafond hout dekkend",
+        "b": "Groot schilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "active_decision": null,
+      "document_ids": [
+        "DOC-007",
+        "DOC-012"
+      ],
+      "hard_violations": [],
+      "object_text": {
+        "a": "Binnenschilderwerk plafond hout / stucwerk dekkend",
+        "b": "Binnenschilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend",
+          "stucwerk"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "observation_ids": [
+        "PO-DOC-007-P017-L097",
+        "PO-DOC-012-P014-L085"
+      ],
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00533",
+      "price_level": {
+        "a": "28-4-2023",
+        "b": "1-4-2024",
+        "equal": false
+      },
+      "price_per_execution": {
+        "a": "44.18",
+        "b": "45.81",
+        "equal": false
+      },
+      "provenance": [
+        {
+          "document_id": "DOC-007",
+          "line": 97,
+          "observation_id": "PO-DOC-007-P017-L097",
+          "page": 17,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "document_id": "DOC-012",
+          "line": 85,
+          "observation_id": "PO-DOC-012-P014-L085",
+          "page": 14,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-012"
+        }
+      ],
+      "quantity": {
+        "a": "580.00",
+        "b": "12.90",
+        "equal": false,
+        "quantity_scale_difference": true
+      },
+      "source_clusters": [
+        "SC-DOC-007",
+        "SC-DOC-012"
+      ],
+      "source_texts": [
+        "Groot schilderwerk plafond hout 580,00 m2 2030 14 25.623 25.623",
+        "Groot schilderwerk plafond hout 12,90 m2 2027 18 591 591"
+      ],
+      "system_class": "UNKNOWN",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
+        "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+      ],
+      "unknown_track_blockers": [],
+      "unknown_track_family_id": "RF-4645-203095b1cf"
+    }
+  ],
+  "pairs_current": [
+    {
+      "action_text": {
+        "a": "Groot schilderwerk plafond hout dekkend",
+        "b": "Groot schilderwerk plafond hout dekkend",
+        "equal": true,
+        "only_a": [],
+        "only_b": []
+      },
+      "active_decision": null,
+      "document_ids": [
+        "DOC-006",
+        "DOC-007"
+      ],
+      "hard_violations": [],
+      "object_text": {
+        "a": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+        "b": "Binnenschilderwerk plafond hout / stucwerk dekkend",
+        "equal": false,
+        "only_a": [
+          "multiplex"
+        ],
+        "only_b": [
+          "stucwerk"
+        ]
+      },
+      "observation_caveats": {
+        "a": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "b": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-006-P015-L059",
+        "PO-DOC-007-P017-L097"
+      ],
+      "pair_caveats": [],
+      "pair_id": "PAIR-00529",
+      "price_level": {
+        "a": "1-3-2023",
+        "b": "28-4-2023",
+        "equal": false
+      },
+      "price_per_execution": {
+        "a": "54.45",
+        "b": "44.18",
+        "equal": false
+      },
+      "provenance": [
+        {
+          "document_id": "DOC-006",
+          "line": 59,
+          "observation_id": "PO-DOC-006-P015-L059",
+          "page": 15,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-005+DOC-006"
+        },
+        {
+          "document_id": "DOC-007",
+          "line": 97,
+          "observation_id": "PO-DOC-007-P017-L097",
+          "page": 17,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-007"
+        }
+      ],
+      "quantity": {
+        "a": "85.70",
+        "b": "580.00",
+        "equal": false,
+        "quantity_scale_difference": false
+      },
+      "source_clusters": [
+        "SC-DOC-005+DOC-006",
+        "SC-DOC-007"
+      ],
+      "source_texts": [
+        "Groot schilderwerk plafond hout 85,70 m2 2032 12 4.666 4.666",
+        "Groot schilderwerk plafond hout 580,00 m2 2030 14 25.623 25.623"
+      ],
+      "system_class": "UNKNOWN",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW"
+      ],
+      "unknown_track_blockers": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "unknown_track_family_id": null
+    },
+    {
+      "action_text": {
+        "a": "Groot schilderwerk plafond hout dekkend",
+        "b": "Groot schilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "active_decision": null,
+      "document_ids": [
+        "DOC-006",
+        "DOC-012"
+      ],
+      "hard_violations": [],
+      "object_text": {
+        "a": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+        "b": "Binnenschilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend",
+          "multiplex"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "observation_caveats": {
+        "a": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "b": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-006-P015-L059",
+        "PO-DOC-012-P014-L085"
+      ],
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00531",
+      "price_level": {
+        "a": "1-3-2023",
+        "b": "1-4-2024",
+        "equal": false
+      },
+      "price_per_execution": {
+        "a": "54.45",
+        "b": "45.81",
+        "equal": false
+      },
+      "provenance": [
+        {
+          "document_id": "DOC-006",
+          "line": 59,
+          "observation_id": "PO-DOC-006-P015-L059",
+          "page": 15,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-005+DOC-006"
+        },
+        {
+          "document_id": "DOC-012",
+          "line": 85,
+          "observation_id": "PO-DOC-012-P014-L085",
+          "page": 14,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-012"
+        }
+      ],
+      "quantity": {
+        "a": "85.70",
+        "b": "12.90",
+        "equal": false,
+        "quantity_scale_difference": false
+      },
+      "source_clusters": [
+        "SC-DOC-005+DOC-006",
+        "SC-DOC-012"
+      ],
+      "source_texts": [
+        "Groot schilderwerk plafond hout 85,70 m2 2032 12 4.666 4.666",
+        "Groot schilderwerk plafond hout 12,90 m2 2027 18 591 591"
+      ],
+      "system_class": "UNKNOWN",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
+        "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+      ],
+      "unknown_track_blockers": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "unknown_track_family_id": null
+    },
+    {
+      "action_text": {
+        "a": "Groot schilderwerk plafond hout dekkend",
+        "b": "Groot schilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "active_decision": null,
+      "document_ids": [
+        "DOC-007",
+        "DOC-012"
+      ],
+      "hard_violations": [],
+      "object_text": {
+        "a": "Binnenschilderwerk plafond hout / stucwerk dekkend",
+        "b": "Binnenschilderwerk plafond hout transparant",
+        "equal": false,
+        "only_a": [
+          "dekkend",
+          "stucwerk"
+        ],
+        "only_b": [
+          "transparant"
+        ]
+      },
+      "observation_caveats": {
+        "a": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "b": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-007-P017-L097",
+        "PO-DOC-012-P014-L085"
+      ],
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00533",
+      "price_level": {
+        "a": "28-4-2023",
+        "b": "1-4-2024",
+        "equal": false
+      },
+      "price_per_execution": {
+        "a": "44.18",
+        "b": "45.81",
+        "equal": false
+      },
+      "provenance": [
+        {
+          "document_id": "DOC-007",
+          "line": 97,
+          "observation_id": "PO-DOC-007-P017-L097",
+          "page": 17,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "document_id": "DOC-012",
+          "line": 85,
+          "observation_id": "PO-DOC-012-P014-L085",
+          "page": 14,
+          "row": null,
+          "sheet": null,
+          "source_cluster": "SC-DOC-012"
+        }
+      ],
+      "quantity": {
+        "a": "580.00",
+        "b": "12.90",
+        "equal": false,
+        "quantity_scale_difference": true
+      },
+      "source_clusters": [
+        "SC-DOC-007",
+        "SC-DOC-012"
+      ],
+      "source_texts": [
+        "Groot schilderwerk plafond hout 580,00 m2 2030 14 25.623 25.623",
+        "Groot schilderwerk plafond hout 12,90 m2 2027 18 591 591"
+      ],
+      "system_class": "UNKNOWN",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW",
+        "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+      ],
+      "unknown_track_blockers": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "unknown_track_family_id": null
+    }
+  ],
+  "readiness": {
+    "blockers": [
+      "MATERIAL_APPROVAL_NEEDED",
+      "CROSS_CLUSTER_REVIEW_NEEDED"
+    ],
+    "human_actions": {
+      "complete_with_existing_chain": true,
+      "material_approvals": 3,
+      "pair_decisions_outside_review_queue": 0,
+      "review_family_decisions": 3,
+      "total": 6
+    },
+    "rank": 50,
+    "readiness": "MATERIAL_AND_REVIEW_NEEDED"
+  },
+  "review_families_after_material_decision": [
+    {
+      "allowed_human_choices": [
+        "COMPARABLE_WITH_CAVEATS",
+        "NOT_COMPARABLE"
+      ],
+      "evidence_category": "OBJECT_TEXT_VARIANT",
+      "indicative_family_input_sha256": "1f73f9b3b4a6e1518ba79f8ac38bbfa22885aebe6807e77566c1c0b3718715d1",
+      "pair_ids": [
+        "PAIR-00533"
+      ],
+      "review_family_id": "RF-4645-203095b1cf",
+      "review_track": "UNKNOWN_PAIR_REVIEW",
+      "unknown_reasons": [
+        "ACTION_EQUIVALENCE_REQUIRES_REVIEW",
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW"
+      ]
+    },
+    {
+      "allowed_human_choices": [
+        "COMPARABLE_WITH_CAVEATS",
+        "NOT_COMPARABLE"
+      ],
+      "evidence_category": "OBJECT_TEXT_VARIANT",
+      "indicative_family_input_sha256": "5ca5581af73db040bf6fa8bbb6619d895656e8a450f76fb4fee755322db03544",
+      "pair_ids": [
+        "PAIR-00531"
+      ],
+      "review_family_id": "RF-4645-9ac13fa8d5",
+      "review_track": "UNKNOWN_PAIR_REVIEW",
+      "unknown_reasons": [
+        "ACTION_EQUIVALENCE_REQUIRES_REVIEW",
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW"
+      ]
+    },
+    {
+      "allowed_human_choices": [
+        "COMPARABLE_WITH_CAVEATS",
+        "NOT_COMPARABLE"
+      ],
+      "evidence_category": "OBJECT_TEXT_VARIANT",
+      "indicative_family_input_sha256": "23ae95bba0a3f777e48828bea3361fd0956cf48574e7383bc7aece4178dbd33d",
+      "pair_ids": [
+        "PAIR-00529"
+      ],
+      "review_family_id": "RF-4645-f273568c78",
+      "review_track": "UNKNOWN_PAIR_REVIEW",
+      "unknown_reasons": [
+        "OBJECT_EQUIVALENCE_REQUIRES_REVIEW"
+      ]
+    }
+  ],
+  "simulations": [
+    {
+      "available_kengetal": false,
+      "description": "huidige toestand",
+      "hypothetical_decisions": {},
+      "kengetal_groups": [],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": null,
+          "value": null
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": null,
+          "value": null
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": null,
+          "value": null
+        }
+      },
+      "note": "Geen kengetalgroep: build_kengetallen vormt alleen kandidaten uit ACTIVE positieve menselijke beslissingen (regel 2); zonder zulke beslissingen ontstaat er niets.",
+      "scenario": "CURRENT"
+    },
+    {
+      "available_kengetal": false,
+      "description": "na alleen de materiaalgoedkeuringen",
+      "hypothetical_decisions": {},
+      "kengetal_groups": [],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "note": "Geen kengetalgroep: build_kengetallen vormt alleen kandidaten uit ACTIVE positieve menselijke beslissingen (regel 2); zonder zulke beslissingen ontstaat er niets.",
+      "scenario": "CURRENT_PLUS_MATERIAL_ONLY"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + 1 positief paar/paren (PAIR-00529)",
+      "hypothetical_decisions": {
+        "PAIR-00529": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-0a54b8ba",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": false,
+          "mixed_price_level": false,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097"
+          ],
+          "source_cluster_count": 2,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_1_POSITIVE:PAIR-00529"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + 1 positief paar/paren (PAIR-00531)",
+      "hypothetical_decisions": {
+        "PAIR-00531": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-059f5174",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "45.81",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 2,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_1_POSITIVE:PAIR-00531"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + 1 positief paar/paren (PAIR-00533)",
+      "hypothetical_decisions": {
+        "PAIR-00533": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-7b16ab6d",
+          "material": "wood",
+          "max_display": "45.81",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 2,
+          "source_cluster_ids": [
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_1_POSITIVE:PAIR-00533"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + 2 positief paar/paren (PAIR-00529, PAIR-00531)",
+      "hypothetical_decisions": {
+        "PAIR-00529": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00531": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [
+            [
+              "PO-DOC-007-P017-L097",
+              "PO-DOC-012-P014-L085"
+            ]
+          ],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_2_POSITIVE:PAIR-00529+PAIR-00531"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + 2 positief paar/paren (PAIR-00529, PAIR-00533)",
+      "hypothetical_decisions": {
+        "PAIR-00529": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00533": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [
+            [
+              "PO-DOC-006-P015-L059",
+              "PO-DOC-012-P014-L085"
+            ]
+          ],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_2_POSITIVE:PAIR-00529+PAIR-00533"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + 2 positief paar/paren (PAIR-00531, PAIR-00533)",
+      "hypothetical_decisions": {
+        "PAIR-00531": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00533": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [
+            [
+              "PO-DOC-006-P015-L059",
+              "PO-DOC-007-P017-L097"
+            ]
+          ],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_2_POSITIVE:PAIR-00531+PAIR-00533"
+    },
+    {
+      "available_kengetal": true,
+      "description": "materiaal + alle 3 paren positief",
+      "hypothetical_decisions": {
+        "PAIR-00529": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00531": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00533": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": "45.81",
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "AVAILABLE"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_ALL_3_POSITIVE"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + PAIR-00529 NOT_COMPARABLE, de andere twee positief",
+      "hypothetical_decisions": {
+        "PAIR-00529": "NOT_COMPARABLE",
+        "PAIR-00531": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00533": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "NOT_COMPARABLE_WITHIN_GROUP:SIMULATED-00001",
+            "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [
+            [
+              "PO-DOC-006-P015-L059",
+              "PO-DOC-007-P017-L097"
+            ]
+          ],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_2_POSITIVE_1_NOT_COMPARABLE:PAIR-00529"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + PAIR-00531 NOT_COMPARABLE, de andere twee positief",
+      "hypothetical_decisions": {
+        "PAIR-00529": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00531": "NOT_COMPARABLE",
+        "PAIR-00533": "COMPARABLE_WITH_CAVEATS"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "NOT_COMPARABLE_WITHIN_GROUP:SIMULATED-00002",
+            "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [
+            [
+              "PO-DOC-006-P015-L059",
+              "PO-DOC-012-P014-L085"
+            ]
+          ],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_2_POSITIVE_1_NOT_COMPARABLE:PAIR-00531"
+    },
+    {
+      "available_kengetal": false,
+      "description": "materiaal + PAIR-00533 NOT_COMPARABLE, de andere twee positief",
+      "hypothetical_decisions": {
+        "PAIR-00529": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00531": "COMPARABLE_WITH_CAVEATS",
+        "PAIR-00533": "NOT_COMPARABLE"
+      },
+      "kengetal_groups": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [
+            "NOT_COMPARABLE_WITHIN_GROUP:SIMULATED-00003",
+            "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+          ],
+          "kengetal_id": "KG-4645-interior_painting-m2-wood-d8e3183f",
+          "material": "wood",
+          "max_display": "54.45",
+          "median_display": null,
+          "min_display": "44.18",
+          "missing_cross_cluster_reviews": [
+            [
+              "PO-DOC-007-P017-L097",
+              "PO-DOC-012-P014-L085"
+            ]
+          ],
+          "missing_price_level": false,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-006-P015-L059",
+            "PO-DOC-007-P017-L097",
+            "PO-DOC-012-P014-L085"
+          ],
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-005+DOC-006",
+            "SC-DOC-007",
+            "SC-DOC-012"
+          ],
+          "status": "INSUFFICIENT_DATA"
+        }
+      ],
+      "material_status": {
+        "PO-DOC-006-P015-L059": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-007-P017-L097": {
+          "source": "human_material_decision",
+          "value": "wood"
+        },
+        "PO-DOC-012-P014-L085": {
+          "source": "human_material_decision",
+          "value": "wood"
+        }
+      },
+      "scenario": "MATERIAL_PLUS_2_POSITIVE_1_NOT_COMPARABLE:PAIR-00533"
+    }
+  ]
+}

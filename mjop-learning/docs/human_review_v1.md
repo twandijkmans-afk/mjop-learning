@@ -63,7 +63,8 @@ Selectie, vastgelegd in `scripts/export_human_review_queue.py`:
   DOC-005-rijen met "(uitgevoerd JJJJ)" en `POSSIBLY_DEPENDENT` af);
 - geen DOC-001-observation zonder materiaal (`material.source` leeg: de nog
   onopgeloste DOC-001-materiaalgevallen);
-- geen UNKNOWN-paren.
+- geen UNKNOWN-paren (queue v1; UNKNOWN-paren hebben sinds comparability_review_v2 een eigen, strikt
+  begrensde reviewtrack, zie `docs/comparability_review_v2.md`).
 
 De Excel bevat lege kolommen voor de menselijke beslissing. Ingevulde
 beslissingen worden pas na een aparte, nog te bouwen stap als records in
