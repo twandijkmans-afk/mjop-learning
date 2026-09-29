@@ -2,7 +2,7 @@
 Controles op de canonieke promotie van Testbatch 01 (IB-ad209360ab07-P1).
 
   - DOC-011/012/013/015 canoniek, met dezelfde DOC-ID's als in het incoming register;
-  - DOC-014 NIET gepromoveerd (expliciet uitgesloten, blijft REVIEW_REQUIRED);
+  - DOC-014 NIET gepromoveerd (expliciet uitgesloten; later menselijk besluit: duplicate_source van DOC-006);
   - Batch 1 intact: de bestaande 404 price observations byte-gelijk aan de toestand vóór de promotie;
   - geen relatie of source cluster stil bevestigd (document_relations.json ongewijzigd);
   - kengetallen alleen volgens de officiële regels (inhoud gelijk, geen nieuwe human decisions);
@@ -106,7 +106,11 @@ def test_batch1_observations_unchanged(state):
 
 def test_no_relation_or_source_cluster_confirmed(state):
     rel = "data/price_observations/document_relations.json"
-    assert pl.sha256_file(os.path.join(PROJECT_ROOT, rel)) == state["pre_manifest"][rel]
+    assert state["post_manifest"][rel] == state["pre_manifest"][rel]                 # promotie wijzigde niets
+    # latere wijzigingen alleen via een vastgelegd menselijk relatiebesluit in de keten (RELDEC-*)
+    later = [s for s in pl.states(PROJECT_ROOT) if s["sequence"] > state["sequence"]]
+    if pl.sha256_file(os.path.join(PROJECT_ROOT, rel)) != state["pre_manifest"][rel]:
+        assert any(s.get("change_kind") == "relation_decision" for s in later)
     comp = load(pr.COMP_PATH)
     clusters = [c["source_cluster"] for c in comp["source_clusters"]]
     assert {f"SC-{d}" for d in PROMOTED} <= set(clusters)                            # elk eigen cluster
@@ -120,7 +124,7 @@ def test_kengetallen_follow_official_rules_only(state):
     kg = load(pr.KG_PATH)
     assert kg["kengetallen"] == old["kengetallen"] and kg["summary"] == old["summary"]
     rel = pr.DECISIONS_PATH.replace(os.sep, "/")
-    assert pl.sha256_file(os.path.join(PROJECT_ROOT, pr.DECISIONS_PATH)) == state["pre_manifest"][rel]
+    assert state["post_manifest"][rel] == state["pre_manifest"][rel]                 # promotie: geen beslissingen
     k = {x["kengetal_id"]: x for x in kg["kengetallen"]}["KG-5211-replace-m1-pvc-67920b77"]
     assert k["status"] == "AVAILABLE"
 
@@ -135,3 +139,7 @@ def test_relation_review_package_decides_nothing():
         "DUPLICATE_OTHER_BYTES", "SAME_MJOP_VERSION", "SAME_BUILDING_DIFFERENT_INSPECTION", "INDEPENDENT_SOURCE"}
     rebuilt = rr.build(PROJECT_ROOT, "DOC-014", BATCH, ["DOC-005", "DOC-006"])
     assert rebuilt == committed                                                      # deterministisch
+    # het besluit staat in document_relations.json, gebonden aan precies dit (bekeken) pakket
+    rels = load("data", "price_observations", "document_relations.json")["relations"]
+    decided = [r for r in rels if r.get("secondary_document_id") == "DOC-014"]
+    assert all(r["decision"]["review_package_sha256"] == pl.sha256_file(path) for r in decided)

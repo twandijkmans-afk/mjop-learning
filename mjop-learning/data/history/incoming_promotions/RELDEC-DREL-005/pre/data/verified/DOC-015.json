@@ -1,0 +1,5177 @@
+{
+  "batch": "incoming",
+  "building": {
+    "address": {
+      "conflict": false,
+      "provenance": {
+        "block_id": "S01-R0004-C001",
+        "cell_ref": "A4",
+        "document_id": "DOC-015",
+        "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.object_cell",
+        "page": null,
+        "sheet": "Sheet",
+        "source_confidence": "high",
+        "table_index": null,
+        "text_fragment": "92000-9546 2024 • VvE Groetstraat 110-140 Groetstraat 110-140 Amsterdam"
+      },
+      "requires_human_review": false,
+      "value": "Groetstraat 110-140"
+    },
+    "building_id": "DOC-015-BLD-001",
+    "building_type": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "construction_year": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "document_ids": [
+      "DOC-015"
+    ],
+    "inspection_date": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "mjop_period": {
+      "conflict": false,
+      "possible_values": [
+        {
+          "provenance": {
+            "block_id": "S01-R0018-C015",
+            "cell_ref": "O18",
+            "document_id": "DOC-015",
+            "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.window_candidate",
+            "page": null,
+            "sheet": "Sheet",
+            "source_confidence": "medium",
+            "table_index": null,
+            "text_fragment": "Code/Element/Handeling | Locatie Element/Gebrek | Hvh | Ehd | Stj | Cy | 2024 | 2025 | 2026 | 2027 | 2028 | 2029 | 2030 | 2031 | 2032 | 2033 | 2034 | 2035 | 2036 | 2037 | 2038 | Totaal"
+          },
+          "value": "2024-2038"
+        }
+      ],
+      "provenance": {
+        "block_id": "S01-R0018-C015",
+        "cell_ref": "O18",
+        "document_id": "DOC-015",
+        "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.window_candidate",
+        "page": null,
+        "sheet": "Sheet",
+        "source_confidence": "medium",
+        "table_index": null,
+        "text_fragment": "Code/Element/Handeling | Locatie Element/Gebrek | Hvh | Ehd | Stj | Cy | 2024 | 2025 | 2026 | 2027 | 2028 | 2029 | 2030 | 2031 | 2032 | 2033 | 2034 | 2035 | 2036 | 2037 | 2038 | Totaal"
+      },
+      "requires_human_review": true,
+      "value": null
+    },
+    "number_of_units": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    }
+  },
+  "deterministic_trace": {
+    "columns": {
+      "code": 1,
+      "cy": 12,
+      "location": 6,
+      "qty": 8,
+      "stj": 10,
+      "total": 34,
+      "unit": 9,
+      "years": {
+        "15": "2024",
+        "16": "2025",
+        "17": "2026",
+        "19": "2027",
+        "20": "2028",
+        "21": "2029",
+        "22": "2030",
+        "23": "2031",
+        "24": "2032",
+        "25": "2033",
+        "26": "2034",
+        "27": "2035",
+        "28": "2036",
+        "31": "2037",
+        "32": "2038"
+      }
+    },
+    "footer_rows": [
+      {
+        "row": 205,
+        "text": "1"
+      }
+    ],
+    "header_row": 18,
+    "provenance_without_block_link": 0,
+    "repeated_header_rows": [],
+    "row_reconciliation": [
+      {
+        "row": 25,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 36,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 40,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 46,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 50,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 52,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 61,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 70,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 83,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 88,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 93,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 98,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 103,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 108,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 113,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 119,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 125,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 130,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 136,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 145,
+        "sheet": "Sheet",
+        "status": "zero"
+      },
+      {
+        "row": 149,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 162,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 171,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 181,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 190,
+        "sheet": "Sheet",
+        "status": "consistent"
+      },
+      {
+        "row": 195,
+        "sheet": "Sheet",
+        "status": "consistent"
+      }
+    ],
+    "rows_without_positive_amount": [
+      {
+        "row": 52,
+        "stj": "2053",
+        "text": "Vervangen gootbekleding zink | 137 | m1 | 2053 | 25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 83,
+        "stj": "2042",
+        "text": "Groot schilderwerk stucwerk | 526 | m2 | 2042 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 88,
+        "stj": "2042",
+        "text": "Groot schilderwerk metaal | 67 | m1 | 2042 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 108,
+        "stj": "2042",
+        "text": "Groot schilderwerk steenachtig | 74 | m2 | 2042 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 119,
+        "stj": "2042",
+        "text": "Groot schilderwerk kozijn&raam hout dekkend | 207 | m2 | 2042 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 125,
+        "stj": "2042",
+        "text": "Groot schilderwerk hek staal | 66 | m2 | 2042 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 136,
+        "stj": "2042",
+        "text": "Groot schilderwerk plafond hwc dekkend | 52 | m2 | 2042 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      },
+      {
+        "row": 145,
+        "stj": "2045",
+        "text": "Vervangen hemelwaterafvoer pvc | 123 | m1 | 2045 | 25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0"
+      }
+    ],
+    "sheet": "Sheet",
+    "subtotal_rows": [
+      {
+        "row": 30,
+        "text": "0 | 27339.85 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27339.85"
+      },
+      {
+        "row": 55,
+        "text": "0 | 0 | 0 | 0 | 41833.53 | 0 | 0 | 0 | 0 | 0 | 0 | 734.36 | 0 | 0 | 0 | 42567.89"
+      },
+      {
+        "row": 65,
+        "text": "0 | 0 | 0 | 0 | 7489.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7489.9"
+      },
+      {
+        "row": 76,
+        "text": "0 | 5774.73 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5774.73"
+      },
+      {
+        "row": 140,
+        "text": "0 | 0 | 0 | 0 | 59702.83 | 0 | 0 | 0 | 0 | 0 | 0 | 38447.18 | 0 | 0 | 0 | 98150.01"
+      },
+      {
+        "row": 155,
+        "text": "0 | 0 | 0 | 0 | 4878.72 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4878.72"
+      },
+      {
+        "row": 166,
+        "text": "0 | 0 | 0 | 0 | 0 | 12083.5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12083.5"
+      },
+      {
+        "row": 175,
+        "text": "0 | 0 | 0 | 0 | 21217.2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 21217.2"
+      },
+      {
+        "row": 184,
+        "text": "0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+      },
+      {
+        "row": 198,
+        "text": "0 | 0 | 1836.78 | 0 | 55599.5 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 57436.28 | 0 | 0 | 1836.78 | 120382.9"
+      }
+    ],
+    "totaal_object": {
+      "row": 202,
+      "total": "343877.7"
+    },
+    "unclassified_element_overview_lines": [],
+    "unclassified_rows": []
+  },
+  "document_id": "DOC-015",
+  "document_level_values": {
+    "condition_legend": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "indexation_statement": {
+      "conflict": false,
+      "provenance": {
+        "block_id": "S01-R0010-C001",
+        "cell_ref": "A10",
+        "document_id": "DOC-015",
+        "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.indexation_statement",
+        "page": null,
+        "sheet": "Sheet",
+        "source_confidence": "high",
+        "table_index": null,
+        "text_fragment": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2023)."
+      },
+      "requires_human_review": false,
+      "value": "De bedragen in deze begroting zijn jaarlijks geindexeerd met 0 Procent (vanaf 2023)."
+    },
+    "object_city": {
+      "conflict": false,
+      "provenance": {
+        "block_id": "S01-R0004-C001",
+        "cell_ref": "A4",
+        "document_id": "DOC-015",
+        "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.object_cell",
+        "page": null,
+        "sheet": "Sheet",
+        "source_confidence": "high",
+        "table_index": null,
+        "text_fragment": "92000-9546 2024 • VvE Groetstraat 110-140 Groetstraat 110-140 Amsterdam"
+      },
+      "requires_human_review": false,
+      "value": "Amsterdam"
+    },
+    "object_name": {
+      "conflict": false,
+      "provenance": {
+        "block_id": "S01-R0004-C001",
+        "cell_ref": "A4",
+        "document_id": "DOC-015",
+        "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.object_cell",
+        "page": null,
+        "sheet": "Sheet",
+        "source_confidence": "high",
+        "table_index": null,
+        "text_fragment": "92000-9546 2024 • VvE Groetstraat 110-140 Groetstraat 110-140 Amsterdam"
+      },
+      "requires_human_review": false,
+      "value": "VvE Groetstraat 110-140"
+    },
+    "object_postcode": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "price_level_date": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "renovation_year": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "vat_rate_text": {
+      "conflict": false,
+      "requires_human_review": false,
+      "value": null
+    },
+    "vat_statement": {
+      "conflict": false,
+      "provenance": {
+        "block_id": "S01-R0010-C001",
+        "cell_ref": "A10",
+        "document_id": "DOC-015",
+        "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.vat_statement",
+        "page": null,
+        "sheet": "Sheet",
+        "source_confidence": "high",
+        "table_index": null,
+        "text_fragment": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+      },
+      "requires_human_review": false,
+      "value": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    }
+  },
+  "elements": [
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "2320",
+        "original_value": "2320",
+        "provenance": {
+          "block_id": "S01-R0022-C001",
+          "cell_ref": "A22",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0022-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2320 | Vloerconstructie beton - vloeren en bordessen"
+        }
+      },
+      "element_id": "DOC-015-EL-001",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0022-C001",
+          "cell_ref": "A22",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0022-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2320 | Vloerconstructie beton - vloeren en bordessen"
+        },
+        "requires_human_review": false,
+        "value": "Vloerconstructie beton - vloeren en bordessen"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Vloerconstructie beton - vloeren en bordessen",
+        "provenance": {
+          "block_id": "S01-R0022-C001",
+          "cell_ref": "A22",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0022-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2320 | Vloerconstructie beton - vloeren en bordessen"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "2716",
+        "original_value": "2716",
+        "provenance": {
+          "block_id": "S01-R0034-C001",
+          "cell_ref": "A34",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0034-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2716 | Boeiboord volkern (kunststof)"
+        }
+      },
+      "element_id": "DOC-015-EL-002",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0034-C001",
+          "cell_ref": "A34",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0034-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2716 | Boeiboord volkern (kunststof)"
+        },
+        "requires_human_review": false,
+        "value": "Boeiboord volkern (kunststof)"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Boeiboord volkern (kunststof)",
+        "provenance": {
+          "block_id": "S01-R0034-C001",
+          "cell_ref": "A34",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0034-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2716 | Boeiboord volkern (kunststof)"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "2716",
+        "original_value": "2716",
+        "provenance": {
+          "block_id": "S01-R0044-C001",
+          "cell_ref": "A44",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0044-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2716 | Gootbekleding zink"
+        }
+      },
+      "element_id": "DOC-015-EL-003",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0044-C001",
+          "cell_ref": "A44",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0044-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2716 | Gootbekleding zink"
+        },
+        "requires_human_review": false,
+        "value": "Gootbekleding zink"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Gootbekleding zink",
+        "provenance": {
+          "block_id": "S01-R0044-C001",
+          "cell_ref": "A44",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0044-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "2716 | Gootbekleding zink"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "3120",
+        "original_value": "3120",
+        "provenance": {
+          "block_id": "S01-R0059-C001",
+          "cell_ref": "A59",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0059-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "3120 | Kozijn buiten hout"
+        }
+      },
+      "element_id": "DOC-015-EL-004",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0059-C001",
+          "cell_ref": "A59",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0059-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "3120 | Kozijn buiten hout"
+        },
+        "requires_human_review": false,
+        "value": "Kozijn buiten hout"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Kozijn buiten hout",
+        "provenance": {
+          "block_id": "S01-R0059-C001",
+          "cell_ref": "A59",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0059-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "3120 | Kozijn buiten hout"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4111",
+        "original_value": "4111",
+        "provenance": {
+          "block_id": "S01-R0069-C001",
+          "cell_ref": "A69",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0069-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4111 | Gevelafwerking voegwerk platvol"
+        }
+      },
+      "element_id": "DOC-015-EL-005",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0069-C001",
+          "cell_ref": "A69",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0069-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4111 | Gevelafwerking voegwerk platvol"
+        },
+        "requires_human_review": false,
+        "value": "Gevelafwerking voegwerk platvol"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Gevelafwerking voegwerk platvol",
+        "provenance": {
+          "block_id": "S01-R0069-C001",
+          "cell_ref": "A69",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0069-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4111 | Gevelafwerking voegwerk platvol"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4622",
+        "original_value": "4622",
+        "provenance": {
+          "block_id": "S01-R0080-C001",
+          "cell_ref": "A80",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0080-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4622 | Binnenschilderwerk stucwerk- algemene trappenhuizen"
+        }
+      },
+      "element_id": "DOC-015-EL-006",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0080-C001",
+          "cell_ref": "A80",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0080-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4622 | Binnenschilderwerk stucwerk- algemene trappenhuizen"
+        },
+        "requires_human_review": false,
+        "value": "Binnenschilderwerk stucwerk- algemene trappenhuizen"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Binnenschilderwerk stucwerk- algemene trappenhuizen",
+        "provenance": {
+          "block_id": "S01-R0080-C001",
+          "cell_ref": "A80",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0080-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4622 | Binnenschilderwerk stucwerk- algemene trappenhuizen"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4622",
+        "original_value": "4622",
+        "provenance": {
+          "block_id": "S01-R0085-C001",
+          "cell_ref": "A85",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0085-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4622 | Binnenschilderwerk metaal- leuningen"
+        }
+      },
+      "element_id": "DOC-015-EL-007",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0085-C001",
+          "cell_ref": "A85",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0085-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4622 | Binnenschilderwerk metaal- leuningen"
+        },
+        "requires_human_review": false,
+        "value": "Binnenschilderwerk metaal- leuningen"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Binnenschilderwerk metaal- leuningen",
+        "provenance": {
+          "block_id": "S01-R0085-C001",
+          "cell_ref": "A85",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0085-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4622 | Binnenschilderwerk metaal- leuningen"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4623",
+        "original_value": "4623",
+        "provenance": {
+          "block_id": "S01-R0090-C001",
+          "cell_ref": "A90",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0090-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4623 | Buitenschilderwerk betonvloer coating- balkons"
+        }
+      },
+      "element_id": "DOC-015-EL-008",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0090-C001",
+          "cell_ref": "A90",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0090-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4623 | Buitenschilderwerk betonvloer coating- balkons"
+        },
+        "requires_human_review": false,
+        "value": "Buitenschilderwerk betonvloer coating- balkons"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Buitenschilderwerk betonvloer coating- balkons",
+        "provenance": {
+          "block_id": "S01-R0090-C001",
+          "cell_ref": "A90",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0090-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4623 | Buitenschilderwerk betonvloer coating- balkons"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4628",
+        "original_value": "4628",
+        "provenance": {
+          "block_id": "S01-R0095-C001",
+          "cell_ref": "A95",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0095-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Buitenschilderwerk diktekanten balkons"
+        }
+      },
+      "element_id": "DOC-015-EL-009",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0095-C001",
+          "cell_ref": "A95",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0095-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Buitenschilderwerk diktekanten balkons"
+        },
+        "requires_human_review": false,
+        "value": "Buitenschilderwerk diktekanten balkons"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Buitenschilderwerk diktekanten balkons",
+        "provenance": {
+          "block_id": "S01-R0095-C001",
+          "cell_ref": "A95",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0095-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Buitenschilderwerk diktekanten balkons"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4628",
+        "original_value": "4628",
+        "provenance": {
+          "block_id": "S01-R0100-C001",
+          "cell_ref": "A100",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0100-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Buitenschilderwerk betonconstructie (hijsbalken zonder ogen)"
+        }
+      },
+      "element_id": "DOC-015-EL-010",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0100-C001",
+          "cell_ref": "A100",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0100-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Buitenschilderwerk betonconstructie (hijsbalken zonder ogen)"
+        },
+        "requires_human_review": false,
+        "value": "Buitenschilderwerk betonconstructie (hijsbalken zonder ogen)"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Buitenschilderwerk betonconstructie (hijsbalken zonder ogen)",
+        "provenance": {
+          "block_id": "S01-R0100-C001",
+          "cell_ref": "A100",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0100-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Buitenschilderwerk betonconstructie (hijsbalken zonder ogen)"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4628",
+        "original_value": "4628",
+        "provenance": {
+          "block_id": "S01-R0105-C001",
+          "cell_ref": "A105",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0105-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Binnenschilderwerk betonconstructie- trap optreden algemene trappenhuizen"
+        }
+      },
+      "element_id": "DOC-015-EL-011",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0105-C001",
+          "cell_ref": "A105",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0105-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Binnenschilderwerk betonconstructie- trap optreden algemene trappenhuizen"
+        },
+        "requires_human_review": false,
+        "value": "Binnenschilderwerk betonconstructie- trap optreden algemene trappenhuizen"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Binnenschilderwerk betonconstructie- trap optreden algemene trappenhuizen",
+        "provenance": {
+          "block_id": "S01-R0105-C001",
+          "cell_ref": "A105",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0105-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4628 | Binnenschilderwerk betonconstructie- trap optreden algemene trappenhuizen"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4631",
+        "original_value": "4631",
+        "provenance": {
+          "block_id": "S01-R0110-C001",
+          "cell_ref": "A110",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0110-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4631 | Buitenschilderwerk kozijn&raam hout dekkend m2"
+        }
+      },
+      "element_id": "DOC-015-EL-012",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0110-C001",
+          "cell_ref": "A110",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0110-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4631 | Buitenschilderwerk kozijn&raam hout dekkend m2"
+        },
+        "requires_human_review": false,
+        "value": "Buitenschilderwerk kozijn&raam hout dekkend m2"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Buitenschilderwerk kozijn&raam hout dekkend m2",
+        "provenance": {
+          "block_id": "S01-R0110-C001",
+          "cell_ref": "A110",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0110-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4631 | Buitenschilderwerk kozijn&raam hout dekkend m2"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4632",
+        "original_value": "4632",
+        "provenance": {
+          "block_id": "S01-R0116-C001",
+          "cell_ref": "A116",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0116-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4632 | Binnenschilderwerk kozijn hout dekkend-kozijnen algmene ruimten"
+        }
+      },
+      "element_id": "DOC-015-EL-013",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0116-C001",
+          "cell_ref": "A116",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0116-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4632 | Binnenschilderwerk kozijn hout dekkend-kozijnen algmene ruimten"
+        },
+        "requires_human_review": false,
+        "value": "Binnenschilderwerk kozijn hout dekkend-kozijnen algmene ruimten"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Binnenschilderwerk kozijn hout dekkend-kozijnen algmene ruimten",
+        "provenance": {
+          "block_id": "S01-R0116-C001",
+          "cell_ref": "A116",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0116-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4632 | Binnenschilderwerk kozijn hout dekkend-kozijnen algmene ruimten"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4634",
+        "original_value": "4634",
+        "provenance": {
+          "block_id": "S01-R0122-C001",
+          "cell_ref": "A122",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0122-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4634 | Binnenschilderwerk hek metaal- traphekken"
+        }
+      },
+      "element_id": "DOC-015-EL-014",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0122-C001",
+          "cell_ref": "A122",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0122-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4634 | Binnenschilderwerk hek metaal- traphekken"
+        },
+        "requires_human_review": false,
+        "value": "Binnenschilderwerk hek metaal- traphekken"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Binnenschilderwerk hek metaal- traphekken",
+        "provenance": {
+          "block_id": "S01-R0122-C001",
+          "cell_ref": "A122",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0122-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4634 | Binnenschilderwerk hek metaal- traphekken"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4645",
+        "original_value": "4645",
+        "provenance": {
+          "block_id": "S01-R0127-C001",
+          "cell_ref": "A127",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0127-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4645 | Buitenschilderwerk betonconstructie plafond"
+        }
+      },
+      "element_id": "DOC-015-EL-015",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0127-C001",
+          "cell_ref": "A127",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0127-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4645 | Buitenschilderwerk betonconstructie plafond"
+        },
+        "requires_human_review": false,
+        "value": "Buitenschilderwerk betonconstructie plafond"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Buitenschilderwerk betonconstructie plafond",
+        "provenance": {
+          "block_id": "S01-R0127-C001",
+          "cell_ref": "A127",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0127-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4645 | Buitenschilderwerk betonconstructie plafond"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "4645",
+        "original_value": "4645",
+        "provenance": {
+          "block_id": "S01-R0133-C001",
+          "cell_ref": "A133",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0133-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4645 | Binnenschilderwerk plafond hwc dekkend"
+        }
+      },
+      "element_id": "DOC-015-EL-016",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0133-C001",
+          "cell_ref": "A133",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0133-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4645 | Binnenschilderwerk plafond hwc dekkend"
+        },
+        "requires_human_review": false,
+        "value": "Binnenschilderwerk plafond hwc dekkend"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Binnenschilderwerk plafond hwc dekkend",
+        "provenance": {
+          "block_id": "S01-R0133-C001",
+          "cell_ref": "A133",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0133-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "4645 | Binnenschilderwerk plafond hwc dekkend"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "5211",
+        "original_value": "5211",
+        "provenance": {
+          "block_id": "S01-R0144-C001",
+          "cell_ref": "A144",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0144-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5211 | Hemelwaterafvoer pvc - balkons"
+        }
+      },
+      "element_id": "DOC-015-EL-017",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0144-C001",
+          "cell_ref": "A144",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0144-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5211 | Hemelwaterafvoer pvc - balkons"
+        },
+        "requires_human_review": false,
+        "value": "Hemelwaterafvoer pvc - balkons"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Hemelwaterafvoer pvc - balkons",
+        "provenance": {
+          "block_id": "S01-R0144-C001",
+          "cell_ref": "A144",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0144-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5211 | Hemelwaterafvoer pvc - balkons"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "5211",
+        "original_value": "5211",
+        "provenance": {
+          "block_id": "S01-R0147-C001",
+          "cell_ref": "A147",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0147-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5211 | Hemelwaterafvoer gietijzer-bergingen"
+        }
+      },
+      "element_id": "DOC-015-EL-018",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0147-C001",
+          "cell_ref": "A147",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0147-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5211 | Hemelwaterafvoer gietijzer-bergingen"
+        },
+        "requires_human_review": false,
+        "value": "Hemelwaterafvoer gietijzer-bergingen"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Hemelwaterafvoer gietijzer-bergingen",
+        "provenance": {
+          "block_id": "S01-R0147-C001",
+          "cell_ref": "A147",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0147-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5211 | Hemelwaterafvoer gietijzer-bergingen"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": null,
+        "original_value": "5731",
+        "provenance": {
+          "block_id": "S01-R0159-C001",
+          "cell_ref": "A159",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0159-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5731 | Mechanische ventilatie collect. 5-10 woningen"
+        },
+        "requires_human_review": true
+      },
+      "element_id": "DOC-015-EL-019",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0159-C001",
+          "cell_ref": "A159",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0159-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5731 | Mechanische ventilatie collect. 5-10 woningen"
+        },
+        "requires_human_review": false,
+        "value": "Mechanische ventilatie collect. 5-10 woningen"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Mechanische ventilatie collect. 5-10 woningen",
+        "provenance": {
+          "block_id": "S01-R0159-C001",
+          "cell_ref": "A159",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0159-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "5731 | Mechanische ventilatie collect. 5-10 woningen"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "6411",
+        "original_value": "6411",
+        "provenance": {
+          "block_id": "S01-R0170-C001",
+          "cell_ref": "A170",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0170-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "6411 | Deurbelinstallatie"
+        }
+      },
+      "element_id": "DOC-015-EL-020",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0170-C001",
+          "cell_ref": "A170",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0170-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "6411 | Deurbelinstallatie"
+        },
+        "requires_human_review": false,
+        "value": "Deurbelinstallatie"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Deurbelinstallatie",
+        "provenance": {
+          "block_id": "S01-R0170-C001",
+          "cell_ref": "A170",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0170-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "6411 | Deurbelinstallatie"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": null,
+        "original_value": "7520",
+        "provenance": {
+          "block_id": "S01-R0179-C001",
+          "cell_ref": "A179",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0179-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "7520 | Flora en Fauna onderzoek"
+        },
+        "requires_human_review": true
+      },
+      "element_id": "DOC-015-EL-021",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0179-C001",
+          "cell_ref": "A179",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0179-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "7520 | Flora en Fauna onderzoek"
+        },
+        "requires_human_review": false,
+        "value": "Flora en Fauna onderzoek"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Flora en Fauna onderzoek",
+        "provenance": {
+          "block_id": "S01-R0179-C001",
+          "cell_ref": "A179",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0179-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "7520 | Flora en Fauna onderzoek"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "9999",
+        "original_value": "9999",
+        "provenance": {
+          "block_id": "S01-R0188-C001",
+          "cell_ref": "A188",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0188-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "9999 | Actualisatie meerjaren onderhoudsplanning"
+        }
+      },
+      "element_id": "DOC-015-EL-022",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0188-C001",
+          "cell_ref": "A188",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0188-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "9999 | Actualisatie meerjaren onderhoudsplanning"
+        },
+        "requires_human_review": false,
+        "value": "Actualisatie meerjaren onderhoudsplanning"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Actualisatie meerjaren onderhoudsplanning",
+        "provenance": {
+          "block_id": "S01-R0188-C001",
+          "cell_ref": "A188",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0188-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "9999 | Actualisatie meerjaren onderhoudsplanning"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    },
+    {
+      "building_id": "DOC-015-BLD-001",
+      "construction_year": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "element_code": {
+        "normalized_value": "9999",
+        "original_value": "9999",
+        "provenance": {
+          "block_id": "S01-R0193-C001",
+          "cell_ref": "A193",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0193-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "9999 | Vaste steiger"
+        }
+      },
+      "element_id": "DOC-015-EL-023",
+      "element_name": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0193-C001",
+          "cell_ref": "A193",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0193-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "9999 | Vaste steiger"
+        },
+        "requires_human_review": false,
+        "value": "Vaste steiger"
+      },
+      "element_type": {
+        "normalized_value": null,
+        "original_value": "Vaste steiger",
+        "provenance": {
+          "block_id": "S01-R0193-C001",
+          "cell_ref": "A193",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.elements.element_row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0193-C003"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "9999 | Vaste steiger"
+        },
+        "requires_human_review": true
+      },
+      "gemeenschappelijk_of_prive": null,
+      "location": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "material": {
+        "normalized_value": null,
+        "original_value": null
+      },
+      "quantity": {
+        "conflict": false,
+        "requires_human_review": false,
+        "value": null
+      },
+      "unit": {
+        "normalized_value": null,
+        "original_value": null
+      }
+    }
+  ],
+  "extraction_metadata": {
+    "currency_rule": "spreadsheet_numeric_cell_exact",
+    "document_profile": "pro_vve_overzicht15_spreadsheet",
+    "extractor": "spreadsheet_extraction.py",
+    "extractor_version": "spreadsheet_extraction_v1.0.0",
+    "file_type": "xls",
+    "network_calls": false,
+    "parser": "spreadsheet_extraction",
+    "profile_version": "1.0.0",
+    "rules_version": "pro_vve_overzicht15_spreadsheet_rules_v1",
+    "source_relative_path": "incoming/DOC-015/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
+    "source_sha256": "6a6779c2553489eb6c20f628371596db07bd0efdf633212b9ee3475e30f4734c",
+    "text_layer_generator": {
+      "libraries": {
+        "xlrd": "2.0.2"
+      },
+      "params": {
+        "line_tolerance_pt": 3.0,
+        "no_text_threshold_chars": 15
+      },
+      "script": "text_layer.py",
+      "version": "1.0.0"
+    },
+    "text_layer_sha256": "455cc6a49d610cb0cb32b114ccac7e6ce3cd6bd5f478f5f506dc3f23da4a65d1",
+    "uses_ai_api": false
+  },
+  "extraction_mode": "deterministic",
+  "extraction_notes": "Deterministische spreadsheet-extractie (xlrd/openpyxl via text_layer, geen AI, geen netwerk). Kolommen uit de kopregel; subtotaal-, Totaal object-, kop- en voettekstregels worden nooit acties. Provenance = werkblad + celadres + blok-ID.",
+  "maintenance_actions": [
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Vloerafwerking aanbrengen",
+        "provenance": {
+          "block_id": "S01-R0025-C003",
+          "cell_ref": "C25",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0025-C008",
+            "S01-R0025-C009",
+            "S01-R0025-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vloerafwerking aanbrengen | Vuil, aanslag, verkleuring | 1 | pst | 2025 | 0 | 0 | 27339.85 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27339.85"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-001",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-001",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0025-C016",
+          "cell_ref": "P25",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vloerafwerking aanbrengen | Vuil, aanslag, verkleuring | 1 | pst | 2025 | 0 | 0 | 27339.85 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27339.85"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0025-C016",
+          "cell_ref": "P25",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C016"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vloerafwerking aanbrengen | Vuil, aanslag, verkleuring | 1 | pst | 2025 | 0 | 0 | 27339.85 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27339.85"
+        },
+        "requires_human_review": false,
+        "value": 2025
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0025-C003",
+          "cell_ref": "C25",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0025-C008",
+            "S01-R0025-C009",
+            "S01-R0025-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vloerafwerking aanbrengen | Vuil, aanslag, verkleuring | 1 | pst | 2025 | 0 | 0 | 27339.85 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27339.85"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "27339.85",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0025-C003",
+          "cell_ref": "C25",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0025-C008",
+            "S01-R0025-C009",
+            "S01-R0025-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vloerafwerking aanbrengen | Vuil, aanslag, verkleuring | 1 | pst | 2025 | 0 | 0 | 27339.85 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27339.85"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": "clean",
+        "original_value": "Reinigen",
+        "provenance": {
+          "block_id": "S01-R0036-C003",
+          "cell_ref": "C36",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0036-C008",
+            "S01-R0036-C009",
+            "S01-R0036-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen | Aangroei mos, algen | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 1678.88 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1678.88"
+        }
+      },
+      "action_id": "DOC-015-ACT-002",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-002",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0036-C020",
+          "cell_ref": "T36",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen | Aangroei mos, algen | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 1678.88 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1678.88"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0036-C020",
+          "cell_ref": "T36",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen | Aangroei mos, algen | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 1678.88 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1678.88"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0036-C003",
+          "cell_ref": "C36",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0036-C008",
+            "S01-R0036-C009",
+            "S01-R0036-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen | Aangroei mos, algen | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 1678.88 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1678.88"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "1678.88",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0036-C003",
+          "cell_ref": "C36",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0036-C008",
+            "S01-R0036-C009",
+            "S01-R0036-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen | Aangroei mos, algen | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 1678.88 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1678.88"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Vervangen asbest gootbodems",
+        "provenance": {
+          "block_id": "S01-R0040-C003",
+          "cell_ref": "C40",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0040-C008",
+            "S01-R0040-C009",
+            "S01-R0040-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen asbest gootbodems | Asbest gootbodems | 137 | m1 | 2028 | 0 | 0 | 0 | 0 | 0 | 29009.75 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 29009.75"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-003",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-002",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0040-C020",
+          "cell_ref": "T40",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen asbest gootbodems | Asbest gootbodems | 137 | m1 | 2028 | 0 | 0 | 0 | 0 | 0 | 29009.75 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 29009.75"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0040-C020",
+          "cell_ref": "T40",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen asbest gootbodems | Asbest gootbodems | 137 | m1 | 2028 | 0 | 0 | 0 | 0 | 0 | 29009.75 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 29009.75"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0040-C003",
+          "cell_ref": "C40",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0040-C008",
+            "S01-R0040-C009",
+            "S01-R0040-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen asbest gootbodems | Asbest gootbodems | 137 | m1 | 2028 | 0 | 0 | 0 | 0 | 0 | 29009.75 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 29009.75"
+        },
+        "requires_human_review": false,
+        "value": "137"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "29009.75",
+      "unit": {
+        "normalized_value": "m1",
+        "original_value": "m1",
+        "provenance": {
+          "block_id": "S01-R0040-C003",
+          "cell_ref": "C40",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0040-C008",
+            "S01-R0040-C009",
+            "S01-R0040-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen asbest gootbodems | Asbest gootbodems | 137 | m1 | 2028 | 0 | 0 | 0 | 0 | 0 | 29009.75 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 29009.75"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "211.75"
+    },
+    {
+      "action": {
+        "normalized_value": "replace",
+        "original_value": "Vervangen",
+        "provenance": {
+          "block_id": "S01-R0046-C003",
+          "cell_ref": "C46",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0046-C008",
+            "S01-R0046-C009",
+            "S01-R0046-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval levensduur > 75% | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 11144.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 11144.9"
+        }
+      },
+      "action_id": "DOC-015-ACT-004",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-003",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0046-C020",
+          "cell_ref": "T46",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval levensduur > 75% | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 11144.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 11144.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0046-C020",
+          "cell_ref": "T46",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval levensduur > 75% | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 11144.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 11144.9"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0046-C003",
+          "cell_ref": "C46",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0046-C008",
+            "S01-R0046-C009",
+            "S01-R0046-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval levensduur > 75% | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 11144.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 11144.9"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "11144.9",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0046-C003",
+          "cell_ref": "C46",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0046-C008",
+            "S01-R0046-C009",
+            "S01-R0046-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval levensduur > 75% | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 11144.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 11144.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": "clean",
+        "original_value": "Reinigen goot zink",
+        "provenance": {
+          "block_id": "S01-R0050-C003",
+          "cell_ref": "C50",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0050-C008",
+            "S01-R0050-C009",
+            "S01-R0050-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen goot zink | 137 | m1 | 2035 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 734.36 | 0 | 0 | 0 | 734.36"
+        }
+      },
+      "action_id": "DOC-015-ACT-005",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-003",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0050-C027",
+          "cell_ref": "AA50",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen goot zink | 137 | m1 | 2035 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 734.36 | 0 | 0 | 0 | 734.36"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0050-C027",
+          "cell_ref": "AA50",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C027"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen goot zink | 137 | m1 | 2035 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 734.36 | 0 | 0 | 0 | 734.36"
+        },
+        "requires_human_review": false,
+        "value": 2035
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0050-C003",
+          "cell_ref": "C50",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0050-C008",
+            "S01-R0050-C009",
+            "S01-R0050-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen goot zink | 137 | m1 | 2035 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 734.36 | 0 | 0 | 0 | 734.36"
+        },
+        "requires_human_review": false,
+        "value": "137"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "734.36",
+      "unit": {
+        "normalized_value": "m1",
+        "original_value": "m1",
+        "provenance": {
+          "block_id": "S01-R0050-C003",
+          "cell_ref": "C50",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0050-C008",
+            "S01-R0050-C009",
+            "S01-R0050-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Reinigen goot zink | 137 | m1 | 2035 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 734.36 | 0 | 0 | 0 | 734.36"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "5.36"
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Controle hang- en sluitwerk gelijktijdig met schilderwerk",
+        "provenance": {
+          "block_id": "S01-R0061-C003",
+          "cell_ref": "C61",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0061-C008",
+            "S01-R0061-C009",
+            "S01-R0061-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Controle hang- en sluitwerk gelijktijdig met schilderwerk | 619 | pst | 2028 | 14 | 0 | 0 | 0 | 0 | 7489.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7489.9"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-006",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-004",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0061-C020",
+          "cell_ref": "T61",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Controle hang- en sluitwerk gelijktijdig met schilderwerk | 619 | pst | 2028 | 14 | 0 | 0 | 0 | 0 | 7489.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7489.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0061-C020",
+          "cell_ref": "T61",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Controle hang- en sluitwerk gelijktijdig met schilderwerk | 619 | pst | 2028 | 14 | 0 | 0 | 0 | 0 | 7489.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7489.9"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0061-C003",
+          "cell_ref": "C61",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0061-C008",
+            "S01-R0061-C009",
+            "S01-R0061-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Controle hang- en sluitwerk gelijktijdig met schilderwerk | 619 | pst | 2028 | 14 | 0 | 0 | 0 | 0 | 7489.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7489.9"
+        },
+        "requires_human_review": false,
+        "value": "619"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "7489.9",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0061-C003",
+          "cell_ref": "C61",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0061-C008",
+            "S01-R0061-C009",
+            "S01-R0061-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Controle hang- en sluitwerk gelijktijdig met schilderwerk | 619 | pst | 2028 | 14 | 0 | 0 | 0 | 0 | 7489.9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7489.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": "repair",
+        "original_value": "Herstellen",
+        "provenance": {
+          "block_id": "S01-R0070-C003",
+          "cell_ref": "C70",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0070-C008",
+            "S01-R0070-C009",
+            "S01-R0070-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Herstellen | Erosie, verwering, verzanding | 1 | pst | 2025 | 0 | 0 | 5774.73 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5774.73"
+        }
+      },
+      "action_id": "DOC-015-ACT-007",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-005",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0070-C016",
+          "cell_ref": "P70",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Herstellen | Erosie, verwering, verzanding | 1 | pst | 2025 | 0 | 0 | 5774.73 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5774.73"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0070-C016",
+          "cell_ref": "P70",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C016"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Herstellen | Erosie, verwering, verzanding | 1 | pst | 2025 | 0 | 0 | 5774.73 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5774.73"
+        },
+        "requires_human_review": false,
+        "value": 2025
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0070-C003",
+          "cell_ref": "C70",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0070-C008",
+            "S01-R0070-C009",
+            "S01-R0070-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Herstellen | Erosie, verwering, verzanding | 1 | pst | 2025 | 0 | 0 | 5774.73 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5774.73"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "5774.73",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0070-C003",
+          "cell_ref": "C70",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0070-C008",
+            "S01-R0070-C009",
+            "S01-R0070-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Herstellen | Erosie, verwering, verzanding | 1 | pst | 2025 | 0 | 0 | 5774.73 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5774.73"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": "install",
+        "original_value": "vervolgsysteem coating beton",
+        "provenance": {
+          "block_id": "S01-R0093-C003",
+          "cell_ref": "C93",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0093-C008",
+            "S01-R0093-C009",
+            "S01-R0093-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "vervolgsysteem coating beton | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 12797.25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12797.25"
+        }
+      },
+      "action_id": "DOC-015-ACT-008",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-008",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0093-C020",
+          "cell_ref": "T93",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "vervolgsysteem coating beton | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 12797.25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12797.25"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0093-C020",
+          "cell_ref": "T93",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "vervolgsysteem coating beton | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 12797.25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12797.25"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0093-C003",
+          "cell_ref": "C93",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0093-C008",
+            "S01-R0093-C009",
+            "S01-R0093-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "vervolgsysteem coating beton | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 12797.25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12797.25"
+        },
+        "requires_human_review": false,
+        "value": "146"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "12797.25",
+      "unit": {
+        "normalized_value": "m2",
+        "original_value": "m2",
+        "provenance": {
+          "block_id": "S01-R0093-C003",
+          "cell_ref": "C93",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0093-C008",
+            "S01-R0093-C009",
+            "S01-R0093-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "vervolgsysteem coating beton | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 12797.25 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12797.25"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "87.65"
+    },
+    {
+      "action": {
+        "normalization_source": "derived_from_linked_element_type",
+        "normalized_value": "exterior_painting",
+        "original_value": "Groot schilderwerk betonlateien",
+        "provenance": {
+          "block_id": "S01-R0098-C003",
+          "cell_ref": "C98",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0098-C008",
+            "S01-R0098-C009",
+            "S01-R0098-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonlateien | 104 | m1 | 2028 | 14 | 0 | 0 | 0 | 0 | 3518.69 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3518.69"
+        },
+        "requires_human_review": false
+      },
+      "action_id": "DOC-015-ACT-009",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-009",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0098-C020",
+          "cell_ref": "T98",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonlateien | 104 | m1 | 2028 | 14 | 0 | 0 | 0 | 0 | 3518.69 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3518.69"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0098-C020",
+          "cell_ref": "T98",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonlateien | 104 | m1 | 2028 | 14 | 0 | 0 | 0 | 0 | 3518.69 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3518.69"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0098-C003",
+          "cell_ref": "C98",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0098-C008",
+            "S01-R0098-C009",
+            "S01-R0098-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonlateien | 104 | m1 | 2028 | 14 | 0 | 0 | 0 | 0 | 3518.69 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3518.69"
+        },
+        "requires_human_review": false,
+        "value": "104"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "3518.69",
+      "unit": {
+        "normalized_value": "m1",
+        "original_value": "m1",
+        "provenance": {
+          "block_id": "S01-R0098-C003",
+          "cell_ref": "C98",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0098-C008",
+            "S01-R0098-C009",
+            "S01-R0098-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonlateien | 104 | m1 | 2028 | 14 | 0 | 0 | 0 | 0 | 3518.69 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 3518.69"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "33.83"
+    },
+    {
+      "action": {
+        "normalization_source": "derived_from_linked_element_type",
+        "normalized_value": "exterior_painting",
+        "original_value": "Groot schilderwerk steenachtig",
+        "provenance": {
+          "block_id": "S01-R0103-C003",
+          "cell_ref": "C103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0103-C008",
+            "S01-R0103-C009",
+            "S01-R0103-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        },
+        "requires_human_review": false
+      },
+      "action_id": "DOC-015-ACT-010",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-010",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0103-C020",
+          "cell_ref": "T103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0103-C020",
+          "cell_ref": "T103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0103-C003",
+          "cell_ref": "C103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0103-C008",
+            "S01-R0103-C009",
+            "S01-R0103-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        },
+        "requires_human_review": false,
+        "value": "16"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "541.34",
+      "unit": {
+        "normalized_value": "m1",
+        "original_value": "m1",
+        "provenance": {
+          "block_id": "S01-R0103-C003",
+          "cell_ref": "C103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0103-C008",
+            "S01-R0103-C009",
+            "S01-R0103-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "33.83"
+    },
+    {
+      "action": {
+        "normalization_source": "derived_from_linked_element_type",
+        "normalized_value": "exterior_painting",
+        "original_value": "Groot schilderwerk steenachtig",
+        "provenance": {
+          "block_id": "S01-R0103-C003",
+          "cell_ref": "C103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0103-C008",
+            "S01-R0103-C009",
+            "S01-R0103-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        },
+        "requires_human_review": false
+      },
+      "action_id": "DOC-015-ACT-011",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-010",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0103-C027",
+          "cell_ref": "AA103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0103-C027",
+          "cell_ref": "AA103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C027"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        },
+        "requires_human_review": false,
+        "value": 2035
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0103-C003",
+          "cell_ref": "C103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0103-C008",
+            "S01-R0103-C009",
+            "S01-R0103-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        },
+        "requires_human_review": false,
+        "value": "16"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "541.34",
+      "unit": {
+        "normalized_value": "m1",
+        "original_value": "m1",
+        "provenance": {
+          "block_id": "S01-R0103-C003",
+          "cell_ref": "C103",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0103-C008",
+            "S01-R0103-C009",
+            "S01-R0103-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk steenachtig | 16 | m1 | 2028 | 7 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 0 | 0 | 0 | 541.34 | 0 | 0 | 0 | 1082.68"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "33.83"
+    },
+    {
+      "action": {
+        "normalization_source": "derived_from_linked_element_type",
+        "normalized_value": "exterior_painting",
+        "original_value": "Groot schilderwerk kozijn & raam hout dekkend",
+        "provenance": {
+          "block_id": "S01-R0113-C003",
+          "cell_ref": "C113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0113-C008",
+            "S01-R0113-C009",
+            "S01-R0113-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        },
+        "requires_human_review": false
+      },
+      "action_id": "DOC-015-ACT-012",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-012",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0113-C020",
+          "cell_ref": "T113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0113-C020",
+          "cell_ref": "T113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0113-C003",
+          "cell_ref": "C113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0113-C008",
+            "S01-R0113-C009",
+            "S01-R0113-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        },
+        "requires_human_review": false,
+        "value": "630"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "37905.84",
+      "unit": {
+        "normalized_value": "m2",
+        "original_value": "m2",
+        "provenance": {
+          "block_id": "S01-R0113-C003",
+          "cell_ref": "C113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0113-C008",
+            "S01-R0113-C009",
+            "S01-R0113-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "60.17"
+    },
+    {
+      "action": {
+        "normalization_source": "derived_from_linked_element_type",
+        "normalized_value": "exterior_painting",
+        "original_value": "Groot schilderwerk kozijn & raam hout dekkend",
+        "provenance": {
+          "block_id": "S01-R0113-C003",
+          "cell_ref": "C113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0113-C008",
+            "S01-R0113-C009",
+            "S01-R0113-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        },
+        "requires_human_review": false
+      },
+      "action_id": "DOC-015-ACT-013",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-012",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0113-C027",
+          "cell_ref": "AA113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0113-C027",
+          "cell_ref": "AA113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C027"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        },
+        "requires_human_review": false,
+        "value": 2035
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0113-C003",
+          "cell_ref": "C113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0113-C008",
+            "S01-R0113-C009",
+            "S01-R0113-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        },
+        "requires_human_review": false,
+        "value": "630"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "37905.84",
+      "unit": {
+        "normalized_value": "m2",
+        "original_value": "m2",
+        "provenance": {
+          "block_id": "S01-R0113-C003",
+          "cell_ref": "C113",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0113-C008",
+            "S01-R0113-C009",
+            "S01-R0113-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk kozijn & raam hout dekkend | 630 | m2 | 2028 | 7 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 0 | 0 | 0 | 37905.84 | 0 | 0 | 0 | 75811.68"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "60.17"
+    },
+    {
+      "action": {
+        "normalization_source": "derived_from_linked_element_type",
+        "normalized_value": "exterior_painting",
+        "original_value": "Groot schilderwerk betonconstructie plafond",
+        "provenance": {
+          "block_id": "S01-R0130-C003",
+          "cell_ref": "C130",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0130-C008",
+            "S01-R0130-C009",
+            "S01-R0130-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonconstructie plafond | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 4939.71 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4939.71"
+        },
+        "requires_human_review": false
+      },
+      "action_id": "DOC-015-ACT-014",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-015",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0130-C020",
+          "cell_ref": "T130",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonconstructie plafond | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 4939.71 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4939.71"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0130-C020",
+          "cell_ref": "T130",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonconstructie plafond | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 4939.71 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4939.71"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0130-C003",
+          "cell_ref": "C130",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0130-C008",
+            "S01-R0130-C009",
+            "S01-R0130-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonconstructie plafond | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 4939.71 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4939.71"
+        },
+        "requires_human_review": false,
+        "value": "146"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "4939.71",
+      "unit": {
+        "normalized_value": "m2",
+        "original_value": "m2",
+        "provenance": {
+          "block_id": "S01-R0130-C003",
+          "cell_ref": "C130",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0130-C008",
+            "S01-R0130-C009",
+            "S01-R0130-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Groot schilderwerk betonconstructie plafond | 146 | m2 | 2028 | 14 | 0 | 0 | 0 | 0 | 4939.71 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4939.71"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "33.83"
+    },
+    {
+      "action": {
+        "normalized_value": "replace",
+        "original_value": "Vervangen",
+        "provenance": {
+          "block_id": "S01-R0149-C003",
+          "cell_ref": "C149",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0149-C008",
+            "S01-R0149-C009",
+            "S01-R0149-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval meer dan 75% van de levensduur | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 4878.72 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4878.72"
+        }
+      },
+      "action_id": "DOC-015-ACT-015",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-018",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0149-C020",
+          "cell_ref": "T149",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval meer dan 75% van de levensduur | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 4878.72 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4878.72"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0149-C020",
+          "cell_ref": "T149",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval meer dan 75% van de levensduur | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 4878.72 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4878.72"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0149-C003",
+          "cell_ref": "C149",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0149-C008",
+            "S01-R0149-C009",
+            "S01-R0149-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval meer dan 75% van de levensduur | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 4878.72 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4878.72"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "4878.72",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0149-C003",
+          "cell_ref": "C149",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0149-C008",
+            "S01-R0149-C009",
+            "S01-R0149-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen | Verval meer dan 75% van de levensduur | 1 | pst | 2028 | 0 | 0 | 0 | 0 | 0 | 4878.72 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4878.72"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Vervangen ventilatie-unit collectief 5-10 woningen",
+        "provenance": {
+          "block_id": "S01-R0162-C003",
+          "cell_ref": "C162",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0162-C008",
+            "S01-R0162-C009",
+            "S01-R0162-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen ventilatie-unit collectief 5-10 woningen | 4 | st | 2029 | 20 | 0 | 0 | 0 | 0 | 0 | 12083.5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12083.5"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-016",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-019",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0162-C021",
+          "cell_ref": "U162",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen ventilatie-unit collectief 5-10 woningen | 4 | st | 2029 | 20 | 0 | 0 | 0 | 0 | 0 | 12083.5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12083.5"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0162-C021",
+          "cell_ref": "U162",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C021"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen ventilatie-unit collectief 5-10 woningen | 4 | st | 2029 | 20 | 0 | 0 | 0 | 0 | 0 | 12083.5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12083.5"
+        },
+        "requires_human_review": false,
+        "value": 2029
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0162-C003",
+          "cell_ref": "C162",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0162-C008",
+            "S01-R0162-C009",
+            "S01-R0162-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen ventilatie-unit collectief 5-10 woningen | 4 | st | 2029 | 20 | 0 | 0 | 0 | 0 | 0 | 12083.5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12083.5"
+        },
+        "requires_human_review": false,
+        "value": "4"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "12083.5",
+      "unit": {
+        "normalized_value": "piece",
+        "original_value": "st",
+        "provenance": {
+          "block_id": "S01-R0162-C003",
+          "cell_ref": "C162",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0162-C008",
+            "S01-R0162-C009",
+            "S01-R0162-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen ventilatie-unit collectief 5-10 woningen | 4 | st | 2029 | 20 | 0 | 0 | 0 | 0 | 0 | 12083.5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12083.5"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": "3020.88"
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Vervangen deurbelinstallatie inclusief videofoon",
+        "provenance": {
+          "block_id": "S01-R0171-C003",
+          "cell_ref": "C171",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0171-C008",
+            "S01-R0171-C009",
+            "S01-R0171-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen deurbelinstallatie inclusief videofoon | 33 | pst | 2028 | 15 | 0 | 0 | 0 | 0 | 21217.2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 21217.2"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-017",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-020",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0171-C020",
+          "cell_ref": "T171",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen deurbelinstallatie inclusief videofoon | 33 | pst | 2028 | 15 | 0 | 0 | 0 | 0 | 21217.2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 21217.2"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0171-C020",
+          "cell_ref": "T171",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen deurbelinstallatie inclusief videofoon | 33 | pst | 2028 | 15 | 0 | 0 | 0 | 0 | 21217.2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 21217.2"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0171-C003",
+          "cell_ref": "C171",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0171-C008",
+            "S01-R0171-C009",
+            "S01-R0171-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen deurbelinstallatie inclusief videofoon | 33 | pst | 2028 | 15 | 0 | 0 | 0 | 0 | 21217.2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 21217.2"
+        },
+        "requires_human_review": false,
+        "value": "33"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "21217.2",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0171-C003",
+          "cell_ref": "C171",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0171-C008",
+            "S01-R0171-C009",
+            "S01-R0171-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vervangen deurbelinstallatie inclusief videofoon | 33 | pst | 2028 | 15 | 0 | 0 | 0 | 0 | 21217.2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 21217.2"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Flora en Fauna onderzoek",
+        "provenance": {
+          "block_id": "S01-R0181-C003",
+          "cell_ref": "C181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0181-C008",
+            "S01-R0181-C009",
+            "S01-R0181-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-018",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-021",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0181-C019",
+          "cell_ref": "S181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0181-C019",
+          "cell_ref": "S181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C019"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        },
+        "requires_human_review": false,
+        "value": 2027
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0181-C003",
+          "cell_ref": "C181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0181-C008",
+            "S01-R0181-C009",
+            "S01-R0181-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1996.5",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0181-C003",
+          "cell_ref": "C181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0181-C008",
+            "S01-R0181-C009",
+            "S01-R0181-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Flora en Fauna onderzoek",
+        "provenance": {
+          "block_id": "S01-R0181-C003",
+          "cell_ref": "C181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0181-C008",
+            "S01-R0181-C009",
+            "S01-R0181-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-019",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-021",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0181-C026",
+          "cell_ref": "Z181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0181-C026",
+          "cell_ref": "Z181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C026"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        },
+        "requires_human_review": false,
+        "value": 2034
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0181-C003",
+          "cell_ref": "C181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0181-C008",
+            "S01-R0181-C009",
+            "S01-R0181-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1996.5",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0181-C003",
+          "cell_ref": "C181",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0181-C008",
+            "S01-R0181-C009",
+            "S01-R0181-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Flora en Fauna onderzoek | 1 | pst | 2027 | 7 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 0 | 0 | 1996.5 | 0 | 0 | 0 | 0 | 3993"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Actualisatie meerjaren onderhoudsplanning",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-020",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-022",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0190-C017",
+          "cell_ref": "Q190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C017",
+          "cell_ref": "Q190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C017"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": 2026
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1836.78",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Actualisatie meerjaren onderhoudsplanning",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-021",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-022",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0190-C021",
+          "cell_ref": "U190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C021",
+          "cell_ref": "U190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C021"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": 2029
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1836.78",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Actualisatie meerjaren onderhoudsplanning",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-022",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-022",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0190-C024",
+          "cell_ref": "X190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C024",
+          "cell_ref": "X190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C024"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": 2032
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1836.78",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Actualisatie meerjaren onderhoudsplanning",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-023",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-022",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0190-C027",
+          "cell_ref": "AA190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C027",
+          "cell_ref": "AA190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C027"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": 2035
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1836.78",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": null,
+        "original_value": "Actualisatie meerjaren onderhoudsplanning",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": true
+      },
+      "action_id": "DOC-015-ACT-024",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-022",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0190-C032",
+          "cell_ref": "AF190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C032",
+          "cell_ref": "AF190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C032"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": 2038
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": true,
+      "source_page": null,
+      "total_cost_as_stated": "1836.78",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0190-C003",
+          "cell_ref": "C190",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0190-C008",
+            "S01-R0190-C009",
+            "S01-R0190-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Actualisatie meerjaren onderhoudsplanning | 1 | pst | 2026 | 3 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 0 | 0 | 1836.78 | 9183.9"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": "scaffolding",
+        "original_value": "Vaste steiger",
+        "provenance": {
+          "block_id": "S01-R0195-C003",
+          "cell_ref": "C195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0195-C008",
+            "S01-R0195-C009",
+            "S01-R0195-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        }
+      },
+      "action_id": "DOC-015-ACT-025",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-023",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0195-C020",
+          "cell_ref": "T195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0195-C020",
+          "cell_ref": "T195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C020"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        },
+        "requires_human_review": false,
+        "value": 2028
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0195-C003",
+          "cell_ref": "C195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0195-C008",
+            "S01-R0195-C009",
+            "S01-R0195-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "55599.5",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0195-C003",
+          "cell_ref": "C195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0195-C008",
+            "S01-R0195-C009",
+            "S01-R0195-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    },
+    {
+      "action": {
+        "normalized_value": "scaffolding",
+        "original_value": "Vaste steiger",
+        "provenance": {
+          "block_id": "S01-R0195-C003",
+          "cell_ref": "C195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0195-C008",
+            "S01-R0195-C009",
+            "S01-R0195-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        }
+      },
+      "action_id": "DOC-015-ACT-026",
+      "cost_year": null,
+      "element_id": "DOC-015-EL-023",
+      "field_provenance": {
+        "total_cost_as_stated": {
+          "block_id": "S01-R0195-C027",
+          "cell_ref": "AA195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.spreadsheet_numeric_cell_exact",
+          "page": null,
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        }
+      },
+      "planned_year": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0195-C027",
+          "cell_ref": "AA195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.year_column",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0018-C027"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        },
+        "requires_human_review": false,
+        "value": 2035
+      },
+      "quantity": {
+        "conflict": false,
+        "provenance": {
+          "block_id": "S01-R0195-C003",
+          "cell_ref": "C195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0195-C008",
+            "S01-R0195-C009",
+            "S01-R0195-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        },
+        "requires_human_review": false,
+        "value": "1"
+      },
+      "requires_human_review": false,
+      "source_page": null,
+      "total_cost_as_stated": "55599.5",
+      "unit": {
+        "normalized_value": "lump_sum",
+        "original_value": "pst",
+        "provenance": {
+          "block_id": "S01-R0195-C003",
+          "cell_ref": "C195",
+          "document_id": "DOC-015",
+          "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.jarenplan.row",
+          "page": null,
+          "related_block_ids": [
+            "S01-R0195-C008",
+            "S01-R0195-C009",
+            "S01-R0195-C034"
+          ],
+          "sheet": "Sheet",
+          "source_confidence": "high",
+          "table_index": null,
+          "text_fragment": "Vaste steiger | 1 | pst | 2028 | 7 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 0 | 0 | 0 | 55599.5 | 0 | 0 | 0 | 111199"
+        }
+      },
+      "unit_cost": {
+        "is_estimated": false,
+        "value": null
+      },
+      "unit_cost_calculated": null
+    }
+  ],
+  "observations": [],
+  "status": "extracted"
+}

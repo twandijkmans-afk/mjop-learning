@@ -246,7 +246,11 @@ def test_clusters_from_document_relations():
     assert cluster_of["DOC-005"] == cluster_of["DOC-006"]          # versie
     assert cluster_of["DOC-008"] == cluster_of["DOC-009"]          # deelplannen
     assert cluster_of["DOC-002"] != cluster_of["DOC-004"]          # zelfde gebouw, andere inspectie
-    assert dup == {"DOC-003": "DOC-002"} and cluster_of["DOC-003"] == cluster_of["DOC-002"]  # duplicaat
+    assert dup["DOC-003"] == "DOC-002" and cluster_of["DOC-003"] == cluster_of["DOC-002"]  # duplicaat
+    assert dup == {r["secondary_document_id"]: r["primary_document_id"] for r in RELATIONS
+                   if r["type"] == "duplicate_source"}
+    if "DOC-014" in dup:                                   # DREL-005: menselijk besluit, zelfde cluster als DOC-006
+        assert cluster_of["DOC-014"] == cluster_of["DOC-006"]
 
 
 def test_same_cluster_is_not_compared_and_counts_as_no_independent_counterpart():
@@ -466,8 +470,15 @@ def test_build_batch1_does_not_touch_sources_and_validates():
     # zolang document_relations.json geen beoordeelde relatie bevat)
     assert result["summary"]["observations"] == 404 + pl.added_price_observations(PROJECT_ROOT)
     assert result["summary"]["source_clusters"] == 7 + len(pl.promoted_document_ids(PROJECT_ROOT))
-    assert result["duplicate_documents"] == [{"document_id": "DOC-003", "duplicate_of": "DOC-002",
-                                              "source_cluster": "SC-DOC-002"}]
+    # duplicaten = de duplicate_source-relaties uit document_relations.json (menselijk vastgesteld); het
+    # secundaire document valt in het cluster van zijn primaire document en telt nooit als eigen cluster
+    dups = sorted((r["secondary_document_id"], r["primary_document_id"]) for r in RELATIONS
+                  if r["type"] == "duplicate_source")
+    assert [(d["document_id"], d["duplicate_of"]) for d in result["duplicate_documents"]] == dups
+    assert ("DOC-003", "DOC-002") in dups
+    cl = {c["source_cluster"]: c["document_ids"] for c in result["source_clusters"]}
+    for d in result["duplicate_documents"]:
+        assert d["source_cluster"] in cl and d["document_id"] not in cl[d["source_cluster"]]
     assert all(p["source_clusters"][0] != p["source_clusters"][1] for p in result["pairs"])
     assert bc.validate_output(result, os.path.join(PROJECT_ROOT, "schemas", "comparability.schema.json")) == []
     keys = set()

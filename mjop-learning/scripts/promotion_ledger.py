@@ -51,13 +51,18 @@ def restrict(manifest, dirs):
     return {k: v for k, v in manifest.items() if any(k.startswith(d + "/") for d in dirs)}
 
 
+# PROMOTED = incoming-promotie; APPLIED = andere vastgelegde canonieke wijziging (menselijke relatie- of
+# comparability-beslissing via scripts/canonical_change.py). Beide horen in dezelfde keten.
+ACTIVE_STATUSES = ("PROMOTED", "APPLIED")
+
+
 def states(root):
-    """Actieve (PROMOTED) incoming-promoties, in volgorde."""
+    """Actieve ketenschakels (PROMOTED/APPLIED), in volgorde."""
     out = []
     for p in sorted(glob.glob(os.path.join(root, STATE_DIR, "*.json"))):
         with open(p, encoding="utf-8") as f:
             s = json.load(f)
-        if s.get("status") == "PROMOTED":
+        if s.get("status") in ACTIVE_STATUSES:
             out.append(s)
     return sorted(out, key=lambda s: s["sequence"])
 
@@ -94,8 +99,8 @@ def latest(root):
 
 def promoted_document_ids(root):
     """DOC-ID's die via actieve incoming-promoties canoniek zijn geworden (in volgorde)."""
-    return [d["document_id"] for s in states(root) for d in s["summary"]["promoted_documents"]]
+    return [d["document_id"] for s in states(root) for d in s["summary"].get("promoted_documents", [])]
 
 
 def added_price_observations(root):
-    return sum(s["summary"]["price_observations"]["added"] for s in states(root))
+    return sum(s["summary"].get("price_observations", {}).get("added", 0) for s in states(root))

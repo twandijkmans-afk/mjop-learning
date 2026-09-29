@@ -381,6 +381,12 @@ bewijs is:
 `document_relations.json` wijzigt nooit automatisch. Een document met een open relatiekandidaat blijft
 `REVIEW_REQUIRED` totdat een mens het beoordeelt.
 
+Een menselijk relatiebesluit wordt vastgelegd met `scripts/record_relation_decision.py` (zie
+`docs/comparability_review_v2.md`). Is een incoming document daarmee bevestigd als `duplicate_source`,
+gebonden aan zijn sha256, dan geeft de promotie `SKIPPED_DUPLICATE`
+(`CONFIRMED_DUPLICATE_SOURCE:<relation_id>`). Het document wordt dan nooit als zelfstandige bron
+gepromoveerd.
+
 **Reviewpakket** (`scripts/prepare_relation_review.py`, alleen lezen):
 
 ```

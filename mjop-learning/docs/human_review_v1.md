@@ -68,3 +68,18 @@ Selectie, vastgelegd in `scripts/export_human_review_queue.py`:
 De Excel bevat lege kolommen voor de menselijke beslissing. Ingevulde
 beslissingen worden pas na een aparte, nog te bouwen stap als records in
 `data/review_decisions/human_decision_records.json` opgenomen.
+
+## Reviewfamilies (v2)
+
+Zie `docs/comparability_review_v2.md`. Paren met exact dezelfde reviewvraag zijn gegroepeerd in
+reviewfamilies. Een expliciet menselijk familiebesluit wordt met `scripts/apply_family_decision.py` per
+paar als gewoon record in deze opslag vastgelegd:
+
+- alleen voor de exact opgesomde `pair_ids`;
+- gebonden aan `family_input_sha256`;
+- met het optionele veld `family_decision` als audit trail.
+
+Alle regels hierboven blijven gelden: alleen een mens, append-only, `supersedes`, hoogstens één ACTIVE
+record per paar.
+
+Het schema staat bij spreadsheetbronnen ook `page`/`line` = null toe, met `sheet` en `row`.
