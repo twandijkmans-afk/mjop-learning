@@ -141,23 +141,26 @@ def test_amounts_clusters_relations_and_decisions_unchanged(state):
     for rel in ("data/price_observations/price_observations_batch1.json",
                 "data/price_observations/document_relations.json",
                 "data/review_decisions/human_decision_records.json"):
-        assert state["pre_manifest"][rel] == state["post_manifest"][rel] == \
-            pl.sha256_file(os.path.join(PROJECT_ROOT, rel)), rel
+        assert state["pre_manifest"][rel] == state["post_manifest"][rel], rel         # het besluit zelf
+    for rel in ("data/price_observations/price_observations_batch1.json",
+                "data/price_observations/document_relations.json"):
+        assert pl.sha256_file(os.path.join(PROJECT_ROOT, rel)) == state["post_manifest"][rel], rel
     comp = load("data", "comparability", "comparability_batch1.json")
     assert len(comp["source_clusters"]) == 11
     assert comp["source_clusters"] == pre(state, pr.COMP_PATH)["source_clusters"]
     assert len(load("data", "price_observations", "price_observations_batch1.json")["observations"]) == 545
 
 
-def test_current_kg5211_still_valid_and_no_family_decision(state):
-    kg = {k["kengetal_id"]: k for k in load("data", "kengetallen", "kengetallen_batch1.json")["kengetallen"]}
-    assert (kg[KG5211]["status"], kg[KG5211]["value_display"], kg[KG5211]["source_cluster_count"]) == \
-        ("AVAILABLE", "51.79", 3)
-    old = pre(state, pr.KG_PATH)
-    new = load("data", "kengetallen", "kengetallen_batch1.json")
-    assert new["kengetallen"] == old["kengetallen"] and new["summary"] == old["summary"]
-    assert not os.path.isdir(os.path.join(PROJECT_ROOT, "data", "review_decisions", "family_decisions"))
-    assert not [s for s in pl.states(PROJECT_ROOT) if s.get("change_kind") == "family_decision"]
+def test_material_decision_kept_kg5211_and_made_no_family_decision(state):
+    # het materiaalbesluit zelf: KG-5211 inhoudelijk ongewijzigd (51.79, 3 clusters), geen pair decisions
+    kg = state["summary"]["kengetallen"]
+    assert kg["content_changed"] is False and kg["before"] == kg["after"] == [
+        {"kengetal_id": KG5211, "status": "AVAILABLE", "value": "51.79", "clusters": 3}]
+    rel = "data/review_decisions/human_decision_records.json"
+    assert state["pre_manifest"][rel] == state["post_manifest"][rel]
+    # familiebesluiten komen pas later, als aparte menselijke ketenschakel
+    assert not [s for s in pl.states(PROJECT_ROOT) if s.get("change_kind") == "family_decision"
+                and s["sequence"] < state["sequence"]]
 
 
 # ------------------------------------------------------------------ binding, weigeringen, rollback
@@ -201,7 +204,8 @@ def test_tool_refuses_scope_expansion_and_mismatches():
 
 def test_rollback_and_reapply_on_copy(tmp_path, state):
     root = make_copy(str(tmp_path / "p"))
-    assert pl.latest(root)["promotion_id"] == CHANGE
+    while pl.latest(root)["promotion_id"] != CHANGE:                         # latere schakels eerst terug
+        cc.rollback(root, pl.latest(root)["promotion_id"])
     assert cc.rollback(root, CHANGE).startswith("ROLLBACK OK")
     assert pl.tracked_hashes(root) == state["pre_manifest"] and pl.chain_errors(root) == []
     assert os.path.isfile(os.path.join(root, state["history"], "rolled_back_state.json"))
@@ -228,13 +232,18 @@ def test_package_committed_and_deterministic(package):
     assert dp.render_md(package) == open(os.path.join(PROJECT_ROOT, dp.OUT_MD), encoding="utf-8").read()
 
 
-def test_seven_open_pvc_pairs_match_the_description(package):
-    open_pairs = [p for p in package["cross_cluster_pairs"] if p["open"]]
-    assert sorted(p["pair_id"] for p in open_pairs) == ["PAIR-00583", "PAIR-00585", "PAIR-00632", "PAIR-00634",
-                                                          "PAIR-00635", "PAIR-00637", "PAIR-00641"]
+SEVEN = ["PAIR-00583", "PAIR-00585", "PAIR-00632", "PAIR-00634", "PAIR-00635", "PAIR-00637", "PAIR-00641"]
+
+
+def test_seven_pvc_pairs_match_the_description(package):
+    pairs = {p["pair_id"]: p for p in package["cross_cluster_pairs"]}
+    assert set(SEVEN) <= set(pairs) and len(pairs) == 10                  # 5 clusters -> 10 cross-cluster paren
     assert package["pairs_not_matching_description"] == []
     assert package["potential_source_clusters"]["count"] == 5
-    for p in open_pairs:
+    for p in (pairs[i] for i in SEVEN):
+        assert p["content_check"]["matches_description"], p["pair_id"]
+        # open, of beslist door het menselijke familiebesluit (RFD-*)
+        assert p["open"] or p["active_decision"]["decision"] == "COMPARABLE_WITH_CAVEATS"
         assert p["hard_violations"] == [] and p["system_class"] == "COMPARABLE_WITH_CAVEATS"
         assert set(p["pair_caveats"]) <= set(dp.ALLOWED_DIFFERENCES)
 

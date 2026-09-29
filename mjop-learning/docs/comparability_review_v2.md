@@ -193,3 +193,26 @@ Er wordt niets toegepast.
 Een positief besluit over één familie maakt de groep volgens regel 2 tijdelijk onvolledig
 (INSUFFICIENT_DATA). Pas als alle cross-cluster paren positief beoordeeld zijn, is de groep weer volledig.
 Het apply-script vraagt daarom per familie om een expliciete bevestiging van het kengetal-effect.
+
+## Atomaire transactie over meerdere families
+
+Een besluitbestand kan in plaats van één familie een lijst `families` bevatten:
+
+```json
+{"review_package_sha256": "...", "decision": "COMPARABLE_WITH_CAVEATS", "decision_reason": "...",
+ "reviewer": "...", "reviewed_at": "...", "notes": null, "acknowledged_kengetal_effects": ["KG-..."],
+ "families": [{"review_family_id": "RF-...", "family_input_sha256": "...", "pair_ids": ["PAIR-..."],
+               "decision_caveats": ["PRICE_LEVEL_DIFFERENCE"]}]}
+```
+
+Alle families worden samen gevalideerd en toegepast als één ketenschakel (`RFD-NNNNN`), met één rollback.
+Faalt één familie, dan wordt niets toegepast.
+
+- Het kengetal-effect wordt over alle paren samen bepaald en moet exact bevestigd zijn. Zo komt een kengetal
+  niet tussentijds in een onvolledige toestand.
+- `decision_caveats` mogen alleen voorbehouden bevatten die het systeem voor elk genoemd paar al gaf. Er
+  komen geen nieuwe caveat-types bij.
+
+Eerste transactie: RFD-00001 (5211 pvc, 7 paren, HDR-00036 t/m HDR-00042) →
+KG-5211-replace-m1-pvc-5cb98033 AVAILABLE 54.39 (5 clusters). De vorige versie (67920b77, 51.79) staat in
+`data/kengetallen/history/`.

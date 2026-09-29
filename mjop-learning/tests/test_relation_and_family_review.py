@@ -33,6 +33,7 @@ import record_relation_decision as rrd  # noqa: E402
 RELDEC = "RELDEC-DREL-005"
 RELDEC_STATE = os.path.join(PROJECT_ROOT, pl.STATE_DIR, f"{RELDEC}.json")
 KG5211 = "KG-5211-replace-m1-pvc-67920b77"
+KG5211_NEW = "KG-5211-replace-m1-pvc-5cb98033"
 # de familie DOC-009/DOC-010 x DOC-012/DOC-013 (5211 pvc); de id hangt af van het materiaal (familiesleutel)
 PVC_FAMILY_PAIRS = ["PAIR-00632", "PAIR-00634", "PAIR-00635", "PAIR-00637"]
 
@@ -246,13 +247,20 @@ def test_package_creates_no_decisions_and_no_kengetal(package):
     assert "value_exact" not in text and "median" not in text.lower()
 
 
-def test_kg5211_unchanged_and_positive_pvc_family_would_need_acknowledgement(package):
-    kg = {k["kengetal_id"]: k for k in load("data", "kengetallen", "kengetallen_batch1.json")["kengetallen"]}
-    assert kg[KG5211]["status"] == "AVAILABLE" and kg[KG5211]["value_display"] == "51.79"
-    assert kg[KG5211]["source_cluster_count"] == 3
+def test_kg5211_follows_human_decisions_only(package):
+    kgs = [k for k in load("data", "kengetallen", "kengetallen_batch1.json")["kengetallen"]
+           if k["kengetal_id"].startswith("KG-5211-replace-m1-pvc-")]
+    assert len(kgs) == 1 and kgs[0]["status"] == "AVAILABLE" and kgs[0]["human_review_complete"]
     fam = next(f for f in package["families"] if f["review_family_id"] == pvc_family_id(package))
-    eff = next(c for c in fam["allowed_human_choices"] if c["choice"] == "COMPARABLE_WITH_CAVEATS")["kengetal_effect"]
-    assert eff["available_kengetallen_lost"] == [KG5211] and eff["acknowledgement_required"] == [KG5211]
+    choices = {c["choice"]: c["kengetal_effect"] for c in fam["allowed_human_choices"]}
+    if fam["current_status"] == "DECIDED_ACTIVE":                   # na het familiebesluit RFD-00001
+        assert (kgs[0]["kengetal_id"], kgs[0]["value_display"], kgs[0]["source_cluster_count"]) == \
+            (KG5211_NEW, "54.39", 5)
+        # een latere NOT_COMPARABLE zou het kengetal laten vervallen: expliciete bevestiging vereist
+        assert choices["NOT_COMPARABLE"]["acknowledgement_required"] == [KG5211_NEW]
+    else:
+        assert (kgs[0]["kengetal_id"], kgs[0]["value_display"]) == (KG5211, "51.79")
+        assert choices["COMPARABLE_WITH_CAVEATS"]["acknowledgement_required"] == [KG5211]
     g = next(g for g in package["candidate_groups"] if g["candidate_group"] == "5211|replace|m1")
     sem = g["pvc_review"]["new_observations_by_semantics"]
     # na het menselijke materiaalbesluit MATDEC-00001 hebben DOC-012/DOC-013 exact de pvc-semantiek
@@ -271,10 +279,14 @@ def decision_for(root, family_id, pair_ids=None, **over):
     pkg_path = os.path.join(root, crv.OUT_JSON)
     pkg = json.load(open(pkg_path, encoding="utf-8"))
     fam = next(f for f in pkg["families"] if f["review_family_id"] == family_id)
+    chosen = [p for p in fam["pairs"] if p["pair_id"] in (pair_ids or fam["pair_ids"])]
+    # alleen voorbehouden die het systeem voor elk gekozen paar al gaf (geen nieuwe caveats)
+    caveats = sorted(set.intersection(*[set(p["pair_caveats"]) | set(p["observation_caveats"]["a"]) |
+                                        set(p["observation_caveats"]["b"]) for p in chosen]))
     d = {"review_package_sha256": pl.sha256_file(pkg_path), "review_family_id": family_id,
          "family_input_sha256": fam["family_input_sha256"], "pair_ids": pair_ids or fam["pair_ids"],
          "decision": "COMPARABLE_WITH_CAVEATS", "decision_reason": "testbesluit",
-         "decision_caveats": ["PRICE_LEVEL_DIFFERENCE"], "reviewer": "tester", "reviewed_at": "2026-09-29T12:00:00Z",
+         "decision_caveats": caveats, "reviewer": "tester", "reviewed_at": "2026-09-29T12:00:00Z",
          "notes": None, "acknowledged_kengetal_effects": []}
     d.update(over)
     return d, fam
@@ -349,7 +361,15 @@ def test_input_change_invalidates_family_decision(proj):
         afd.validate(proj, d)
 
 
+def rollback_family_decisions(root):
+    """Latere familiebesluiten terugdraaien (laatste eerst) en het reviewpakket op die toestand herbouwen."""
+    while pl.latest(root).get("change_kind") == "family_decision":
+        cc.rollback(root, pl.latest(root)["promotion_id"])
+    crv.write(root)
+
+
 def test_kg5211_only_changes_after_explicit_acknowledged_decision(proj):
+    rollback_family_decisions(proj)
     d, fam = decision_for(proj, pvc_family_id(json.load(open(os.path.join(proj, crv.OUT_JSON), encoding="utf-8"))))
     with pytest.raises(afd.FamilyDecisionError, match="kengetal-effect"):
         afd.apply(proj, d)

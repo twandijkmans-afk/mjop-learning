@@ -69,18 +69,41 @@ def next_family_decision_id(root):
     return f"RFD-{max(n, len(hist)) + 1:05d}"
 
 
+def entries(decision):
+    """Families van een besluit. Enkelvoudig formaat (review_family_id/family_input_sha256/pair_ids/
+    decision_caveats op het hoogste niveau) of transactie: 'families': [{...}, ...] - één atomaire toepassing."""
+    if "families" in decision:
+        return decision["families"]
+    return [{k: decision.get(k) for k in ("review_family_id", "family_input_sha256", "pair_ids", "decision_caveats")}]
+
+
+def _system_caveats(p):
+    return set(p["pair_caveats"]) | set(p["observation_caveats"]["a"]) | set(p["observation_caveats"]["b"])
+
+
 def validate(root, decision):
-    """Alle controles; returns (familie uit het HUIDIGE pakket, paren uit comparability). Schrijft niets."""
-    missing = [k for k in REQUIRED if k not in decision]
+    """Alle controles; returns [(familie uit het HUIDIGE pakket, paren uit comparability, caveats)]. Schrijft niets."""
+    required = ("review_package_sha256", "families", "decision", "decision_reason", "reviewer", "reviewed_at") \
+        if "families" in decision else REQUIRED
+    missing = [k for k in required if k not in decision]
     if missing:
         raise FamilyDecisionError(f"besluit mist velden: {missing}")
     if decision["decision"] not in hrq.DECISION_OPTIONS:
         raise FamilyDecisionError(f"ongeldige beslissing {decision['decision']!r}; toegestaan: {hrq.DECISION_OPTIONS}")
     if not str(decision["decision_reason"]).strip() or not str(decision["reviewer"]).strip():
         raise FamilyDecisionError("decision_reason en reviewer zijn verplicht (menselijk besluit)")
-    pids = decision["pair_ids"]
-    if not isinstance(pids, list) or not pids or len(set(pids)) != len(pids):
-        raise FamilyDecisionError("pair_ids moet een niet-lege lijst zonder dubbelen zijn")
+    ents = entries(decision)
+    if not ents or len({e["review_family_id"] for e in ents}) != len(ents):
+        raise FamilyDecisionError("families moet een niet-lege lijst van verschillende families zijn")
+    all_pids = [pid for e in ents for pid in (e.get("pair_ids") or [])]
+    for e in ents:
+        pids = e.get("pair_ids")
+        if not isinstance(pids, list) or not pids or len(set(pids)) != len(pids):
+            raise FamilyDecisionError("pair_ids moet een niet-lege lijst zonder dubbelen zijn")
+        if not isinstance(e.get("decision_caveats"), list):
+            raise FamilyDecisionError("decision_caveats moet een lijst zijn (per familie)")
+    if len(set(all_pids)) != len(all_pids):
+        raise FamilyDecisionError("een paar staat in meer dan één familie van het besluit")
     pkg_path = os.path.join(root, crv.OUT_JSON)
     if not os.path.exists(pkg_path) or pl.sha256_file(pkg_path) != decision["review_package_sha256"]:
         raise FamilyDecisionError("reviewpakket gewijzigd of ontbreekt t.o.v. het bekeken pakket (sha256)")
@@ -91,25 +114,34 @@ def validate(root, decision):
               "comparability_rules_version"):
         if fresh["inputs"][k] != seen["inputs"][k]:
             raise FamilyDecisionError(f"invoer gewijzigd sinds het pakket ({k}); besluit vervallen")
-    fam_seen = next((f for f in seen["families"] if f["review_family_id"] == decision["review_family_id"]), None)
-    fam = next((f for f in fresh["families"] if f["review_family_id"] == decision["review_family_id"]), None)
-    if fam_seen is None or fam is None:
-        raise FamilyDecisionError(f"familie {decision['review_family_id']} bestaat niet (meer)")
-    if not (fam_seen["family_input_sha256"] == fam["family_input_sha256"] == decision["family_input_sha256"]):
-        raise FamilyDecisionError("family_input_sha256 wijkt af: paren, observations of bestaande beslissingen zijn "
-                                  "gewijzigd; besluit vervallen, opnieuw beoordelen")
-    outside = sorted(set(pids) - set(fam["pair_ids"]))
-    if outside:
-        raise FamilyDecisionError(f"pair_ids buiten de familie: {outside}")
     comp = pr.load(os.path.join(root, crv.COMP))
     pairs = {p["pair_id"]: p for p in comp["pairs"]}
-    fam_pairs = {p["pair_id"]: p for p in fam["pairs"]}
-    for pid in pids:
-        p = pairs.get(pid)
-        if p is None or p["observation_ids"] != fam_pairs[pid]["observation_ids"]:
-            raise FamilyDecisionError(f"{pid}: paar niet (meer) gelijk aan het pakket")
-    # effect op AVAILABLE kengetallen (bestaande regels): nooit stil - moet exact bevestigd zijn
-    effect = crv.kengetal_effect(crv.Context(root), [pairs[pid]["observation_ids"] for pid in pids],
+    out = []
+    for e in ents:
+        fid = e["review_family_id"]
+        fam_seen = next((f for f in seen["families"] if f["review_family_id"] == fid), None)
+        fam = next((f for f in fresh["families"] if f["review_family_id"] == fid), None)
+        if fam_seen is None or fam is None:
+            raise FamilyDecisionError(f"familie {fid} bestaat niet (meer)")
+        if not (fam_seen["family_input_sha256"] == fam["family_input_sha256"] == e["family_input_sha256"]):
+            raise FamilyDecisionError(f"{fid}: family_input_sha256 wijkt af: paren, observations of bestaande "
+                                      f"beslissingen zijn gewijzigd; besluit vervallen, opnieuw beoordelen")
+        outside = sorted(set(e["pair_ids"]) - set(fam["pair_ids"]))
+        if outside:
+            raise FamilyDecisionError(f"pair_ids buiten de familie {fid}: {outside}")
+        fam_pairs = {p["pair_id"]: p for p in fam["pairs"]}
+        for pid in e["pair_ids"]:
+            p = pairs.get(pid)
+            if p is None or p["observation_ids"] != fam_pairs[pid]["observation_ids"]:
+                raise FamilyDecisionError(f"{pid}: paar niet (meer) gelijk aan het pakket")
+            # alleen voorbehouden die het systeem voor DIT paar al gaf: geen nieuwe caveat-types
+            extra = sorted(set(e["decision_caveats"]) - _system_caveats(p))
+            if extra:
+                raise FamilyDecisionError(f"{pid}: decision_caveats {extra} komen niet voor in de systeemcaveats "
+                                          f"van dit paar (geen nieuwe caveats)")
+        out.append((fam, [pairs[pid] for pid in e["pair_ids"]], list(e["decision_caveats"])))
+    # effect op AVAILABLE kengetallen van ALLE paren samen (bestaande regels): nooit stil - exact bevestigd
+    effect = crv.kengetal_effect(crv.Context(root), [p["observation_ids"] for _, ps, _ in out for p in ps],
                                  decision["decision"])
     ack = sorted(decision.get("acknowledged_kengetal_effects") or [])
     if ack != effect["acknowledgement_required"]:
@@ -117,7 +149,7 @@ def validate(root, decision):
             f"kengetal-effect niet (exact) bevestigd: vereist acknowledged_kengetal_effects = "
             f"{effect['acknowledgement_required']} (verloren AVAILABLE: {effect['available_kengetallen_lost']}, "
             f"nieuw AVAILABLE: {effect['new_available_kengetallen']}); opgegeven: {ack}")
-    return fam, [pairs[pid] for pid in pids]
+    return out
 
 
 def _evidence(norm, oid):
@@ -127,44 +159,46 @@ def _evidence(norm, oid):
             "source_text": p.get("source_text"), "reviewer_note": None}
 
 
-def build_records(root, decision, fam, pairs, fdid, store):
+def build_records(root, decision, validated, fdid, store):
     comp_sha = pl.sha256_file(os.path.join(root, crv.COMP))
     norm_sha = pl.sha256_file(os.path.join(root, crv.NORM))
     norm = {o["observation_id"]: o for o in pr.load(os.path.join(root, crv.NORM))["observations"]}
     new = copy.deepcopy(store)
     n = max((int(r["decision_id"].split("-")[1]) for r in new["records"]), default=0)
     by_id = {r["decision_id"]: r for r in new["records"]}
+    fam_sha = {e["review_family_id"]: e["family_input_sha256"] for e in entries(decision)}
     created = []
-    for p in pairs:
-        pair_set = frozenset(p["observation_ids"])
-        prev = [r for r in new["records"] if frozenset(r["observation_ids"]) == pair_set
-                and r["status"] in ("ACTIVE", "REVIEW_REQUIRED")]
-        active = [r for r in prev if r["status"] == "ACTIVE"]
-        supersede = active[0] if active else (max(prev, key=lambda r: r["decision_id"]) if prev else None)
-        n += 1
-        rec = {
-            "decision_id": f"HDR-{n:05d}", "pair_id": p["pair_id"], "observation_ids": p["observation_ids"],
-            "candidate_key": p["candidate_key"], "system_class": p["class"],
-            "system_reasons": {"hard_violations": p["hard_violations"], "unknown_reasons": p["unknown_reasons"],
-                               "pair_caveats": p["pair_caveats"], "observation_caveats": p["observation_caveats"]},
-            "decision": decision["decision"], "decision_reason": decision["decision_reason"],
-            "decision_caveats": list(decision["decision_caveats"]),
-            "reviewer": {"reviewer_id": decision["reviewer"], "reviewer_type": "human"},
-            "reviewed_at": decision["reviewed_at"], "rule_version": bc.RULES_VERSION,
-            "input_hashes": {"comparability_output_sha256": comp_sha, "normalized_observations_sha256": norm_sha},
-            "evidence": [_evidence(norm, i) for i in p["observation_ids"]],
-            "notes": decision.get("notes"),
-            "supersedes": supersede["decision_id"] if supersede else None,
-            "status": "ACTIVE",
-            "family_decision": {"family_decision_id": fdid, "review_family_id": fam["review_family_id"],
-                                "review_package_sha256": decision["review_package_sha256"],
-                                "family_input_sha256": decision["family_input_sha256"]},
-        }
-        if supersede:
-            by_id[supersede["decision_id"]]["status"] = "SUPERSEDED"
-        new["records"].append(rec)
-        by_id[rec["decision_id"]] = rec
-        created.append(rec["decision_id"])
+    for fam, pairs, caveats in validated:
+        for p in pairs:
+            pair_set = frozenset(p["observation_ids"])
+            prev = [r for r in new["records"] if frozenset(r["observation_ids"]) == pair_set
+                    and r["status"] in ("ACTIVE", "REVIEW_REQUIRED")]
+            active = [r for r in prev if r["status"] == "ACTIVE"]
+            supersede = active[0] if active else (max(prev, key=lambda r: r["decision_id"]) if prev else None)
+            n += 1
+            rec = {
+                "decision_id": f"HDR-{n:05d}", "pair_id": p["pair_id"], "observation_ids": p["observation_ids"],
+                "candidate_key": p["candidate_key"], "system_class": p["class"],
+                "system_reasons": {"hard_violations": p["hard_violations"], "unknown_reasons": p["unknown_reasons"],
+                                   "pair_caveats": p["pair_caveats"], "observation_caveats": p["observation_caveats"]},
+                "decision": decision["decision"], "decision_reason": decision["decision_reason"],
+                "decision_caveats": list(caveats),
+                "reviewer": {"reviewer_id": decision["reviewer"], "reviewer_type": "human"},
+                "reviewed_at": decision["reviewed_at"], "rule_version": bc.RULES_VERSION,
+                "input_hashes": {"comparability_output_sha256": comp_sha, "normalized_observations_sha256": norm_sha},
+                "evidence": [_evidence(norm, i) for i in p["observation_ids"]],
+                "notes": decision.get("notes"),
+                "supersedes": supersede["decision_id"] if supersede else None,
+                "status": "ACTIVE",
+                "family_decision": {"family_decision_id": fdid, "review_family_id": fam["review_family_id"],
+                                    "review_package_sha256": decision["review_package_sha256"],
+                                    "family_input_sha256": fam_sha[fam["review_family_id"]]},
+            }
+            if supersede:
+                by_id[supersede["decision_id"]]["status"] = "SUPERSEDED"
+            new["records"].append(rec)
+            by_id[rec["decision_id"]] = rec
+            created.append(rec["decision_id"])
     schema = json.load(open(os.path.join(root, "schemas", "human_decision_record.schema.json"), encoding="utf-8"))
     errs = [e.message for e in jsonschema.Draft7Validator(schema).iter_errors(new)]
     errs += hrq.store_invariant_errors(new) + hrq.append_only_errors(store, new)
@@ -177,23 +211,35 @@ def make_apply(decision, fdid, now):
     def apply_fn(root):
         fixed = {rel: pl.sha256_file(os.path.join(root, rel))
                  for rel in (pr.PO_PATH, pr.NORM_PO_PATH, pr.COMP_PATH, rrd.RELATIONS_PATH)}
-        fam, pairs = validate(root, decision)
+        validated = validate(root, decision)
         store_path = os.path.join(root, pr.DECISIONS_PATH)
         store = pr.load(store_path)
-        new, created = build_records(root, decision, fam, pairs, fdid, store)
+        new, created = build_records(root, decision, validated, fdid, store)
         with open(store_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(json.dumps(new, ensure_ascii=False, indent=2, sort_keys=True) + "\n")
         record = dict(decision, family_decision_id=fdid, applied_decision_ids=created,
                       superseded_decision_ids=sorted(r["supersedes"] for r in new["records"]
                                                      if r["decision_id"] in created and r["supersedes"]))
         pr.write_json(os.path.join(root, FAMILY_DIR, f"{fdid}.json"), record)
+        kg_before = {k["kengetal_id"]: k for k in pr.load(os.path.join(root, pr.KG_PATH))["kengetallen"]}
         kg = rrd.supersede_kengetallen(root, now, expect_unchanged=False)
+        kg_after = {k["kengetal_id"]: k for k in pr.load(os.path.join(root, pr.KG_PATH))["kengetallen"]}
+        acked = set(decision.get("acknowledged_kengetal_effects") or [])
+        touched = {p["observation_ids"][i] for _, ps, _ in validated for p in ps for i in (0, 1)}
+        for kid in set(kg_before) | set(kg_after):
+            if kid in acked or set((kg_before.get(kid) or kg_after.get(kid))["observation_ids"]) & touched:
+                continue
+            if kg_before.get(kid) != kg_after.get(kid):
+                raise FamilyDecisionError(f"INVARIANT: kengetal {kid} buiten dit besluit gewijzigd")
         for rel, sha in fixed.items():
             if pl.sha256_file(os.path.join(root, rel)) != sha:
                 raise FamilyDecisionError(f"INVARIANT: {rel} gewijzigd")
-        return {"family_decision_id": fdid, "review_family_id": fam["review_family_id"],
-                "candidate_group": fam["candidate_group"], "decision": decision["decision"],
-                "pair_ids": decision["pair_ids"], "applied_decision_ids": created,
+        return {"family_decision_id": fdid,
+                "review_family_ids": [fam["review_family_id"] for fam, _, _ in validated],
+                "candidate_groups": sorted({fam["candidate_group"] for fam, _, _ in validated}),
+                "decision": decision["decision"],
+                "pair_ids": [p["pair_id"] for _, ps, _ in validated for p in ps],
+                "applied_decision_ids": created,
                 "superseded_decision_ids": record["superseded_decision_ids"], "kengetallen": kg}
     return apply_fn
 
