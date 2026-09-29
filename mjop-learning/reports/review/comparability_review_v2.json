@@ -659,7 +659,14 @@
       "active_decisions": [
         "HDR-00031",
         "HDR-00032",
-        "HDR-00033"
+        "HDR-00033",
+        "HDR-00036",
+        "HDR-00037",
+        "HDR-00038",
+        "HDR-00039",
+        "HDR-00040",
+        "HDR-00041",
+        "HDR-00042"
       ],
       "candidate_group": "5211|replace|m1",
       "existing_kengetallen": [
@@ -667,9 +674,16 @@
           "decision_ids": [
             "HDR-00031",
             "HDR-00032",
-            "HDR-00033"
+            "HDR-00033",
+            "HDR-00036",
+            "HDR-00037",
+            "HDR-00038",
+            "HDR-00039",
+            "HDR-00040",
+            "HDR-00041",
+            "HDR-00042"
           ],
-          "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+          "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
           "material": {
             "normalized": "pvc",
             "original": "pvc"
@@ -677,106 +691,23 @@
           "observation_ids": [
             "PO-DOC-001-P026-L029",
             "PO-DOC-009-P021-L095",
-            "PO-DOC-010-P012-L093"
+            "PO-DOC-010-P012-L093",
+            "PO-DOC-012-P015-L033",
+            "PO-DOC-013-P019-L025"
           ],
-          "source_cluster_count": 3,
+          "source_cluster_count": 5,
           "status": "AVAILABLE",
-          "value_display": "51.79"
+          "value_display": "54.39"
         }
       ],
       "independent_input_observations": 7,
       "knowledge_candidate_requirements": [
         {
           "existing_available_kengetal": [
-            "KG-5211-replace-m1-pvc-67920b77"
+            "KG-5211-replace-m1-pvc-5cb98033"
           ],
           "material": "pvc",
-          "missing_steps": [
-            {
-              "count": 7,
-              "pairs": [
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-001-P026-L029",
-                    "PO-DOC-012-P015-L033"
-                  ],
-                  "pair_id": "PAIR-00583",
-                  "review_family_id": "RF-5211-0ad5841f33",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-001-P026-L029",
-                    "PO-DOC-013-P019-L025"
-                  ],
-                  "pair_id": "PAIR-00585",
-                  "review_family_id": "RF-5211-0ad5841f33",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-009-P021-L095",
-                    "PO-DOC-012-P015-L033"
-                  ],
-                  "pair_id": "PAIR-00632",
-                  "review_family_id": "RF-5211-6d02e2e719",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-009-P021-L095",
-                    "PO-DOC-013-P019-L025"
-                  ],
-                  "pair_id": "PAIR-00634",
-                  "review_family_id": "RF-5211-6d02e2e719",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-010-P012-L093",
-                    "PO-DOC-012-P015-L033"
-                  ],
-                  "pair_id": "PAIR-00635",
-                  "review_family_id": "RF-5211-6d02e2e719",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-010-P012-L093",
-                    "PO-DOC-013-P019-L025"
-                  ],
-                  "pair_id": "PAIR-00637",
-                  "review_family_id": "RF-5211-6d02e2e719",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-012-P015-L033",
-                    "PO-DOC-013-P019-L025"
-                  ],
-                  "pair_id": "PAIR-00641",
-                  "review_family_id": "RF-5211-76b81abb4c",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                }
-              ],
-              "step": "CROSS_CLUSTER_HUMAN_DECISIONS",
-              "what": "Elke combinatie tussen verschillende source clusters heeft een ACTIVE COMPARABLE/COMPARABLE_WITH_CAVEATS nodig (regel 2, geen transitiviteit)."
-            }
-          ],
+          "missing_steps": [],
           "note": "Er is hier niets berekend. Pas na deze menselijke stappen bepaalt build_kengetallen volgens de bestaande regels of er een (nieuwe versie van een) kengetal ontstaat.",
           "observation_ids": [
             "PO-DOC-001-P026-L029",
@@ -793,7 +724,7 @@
             "SC-DOC-012",
             "SC-DOC-013"
           ],
-          "status": "REQUIRES_HUMAN_STEPS"
+          "status": "READY_FOR_KENGETAL_BUILD"
         },
         {
           "existing_available_kengetal": [],
@@ -1383,17 +1314,26 @@
             "decision_ids": [
               "HDR-00031",
               "HDR-00032",
-              "HDR-00033"
+              "HDR-00033",
+              "HDR-00036",
+              "HDR-00037",
+              "HDR-00038",
+              "HDR-00039",
+              "HDR-00040",
+              "HDR-00041",
+              "HDR-00042"
             ],
-            "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+            "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
             "observation_ids": [
               "PO-DOC-001-P026-L029",
               "PO-DOC-009-P021-L095",
-              "PO-DOC-010-P012-L093"
+              "PO-DOC-010-P012-L093",
+              "PO-DOC-012-P015-L033",
+              "PO-DOC-013-P019-L025"
             ],
-            "source_cluster_count": 3,
+            "source_cluster_count": 5,
             "status": "AVAILABLE",
-            "value_display": "51.79"
+            "value_display": "54.39"
           }
         ],
         "new_observations_by_semantics": {
@@ -1445,27 +1385,21 @@
       "review_families": [
         {
           "current_status": "OPEN_NO_DECISION",
-          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-          "pairs": 4,
-          "review_family_id": "RF-5211-6d02e2e719"
-        },
-        {
-          "current_status": "OPEN_NO_DECISION",
-          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-          "pairs": 2,
-          "review_family_id": "RF-5211-0ad5841f33"
-        },
-        {
-          "current_status": "OPEN_NO_DECISION",
           "evidence_category": "OBJECT_TEXT_VARIANT",
           "pairs": 1,
           "review_family_id": "RF-5211-44666031e0"
         },
         {
-          "current_status": "OPEN_NO_DECISION",
+          "current_status": "DECIDED_ACTIVE",
           "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-          "pairs": 1,
-          "review_family_id": "RF-5211-76b81abb4c"
+          "pairs": 4,
+          "review_family_id": "RF-5211-6d02e2e719"
+        },
+        {
+          "current_status": "DECIDED_ACTIVE",
+          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+          "pairs": 2,
+          "review_family_id": "RF-5211-0ad5841f33"
         },
         {
           "current_status": "DECIDED_ACTIVE",
@@ -1478,6 +1412,12 @@
           "evidence_category": "QUANTITY_SCALE_DIFFERENCE",
           "pairs": 1,
           "review_family_id": "RF-5211-4ad0a0fd5d"
+        },
+        {
+          "current_status": "DECIDED_ACTIVE",
+          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+          "pairs": 1,
+          "review_family_id": "RF-5211-76b81abb4c"
         },
         {
           "current_status": "DECIDED_ACTIVE",
@@ -5933,847 +5873,6 @@
       "allowed_human_choices": [
         {
           "choice": "COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
-          "kengetal_effect": {
-            "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [
-              {
-                "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
-                "status": "AVAILABLE"
-              }
-            ],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
-                ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
-                "observations": 5,
-                "source_cluster_count": 5,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar zonder voorbehoud."
-        },
-        {
-          "choice": "COMPARABLE_WITH_CAVEATS",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
-          "kengetal_effect": {
-            "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [
-              {
-                "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
-                "status": "AVAILABLE"
-              }
-            ],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
-                ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
-                "observations": 5,
-                "source_cluster_count": 5,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
-          "suggested_caveats_from_system": [
-            "PRICE_LEVEL_DIFFERENCE"
-          ]
-        },
-        {
-          "choice": "NOT_COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet vergelijkbaar."
-        },
-        {
-          "choice": "UNKNOWN",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet te beoordelen met het beschikbare bewijs."
-        }
-      ],
-      "candidate_group": "5211|replace|m1",
-      "current_status": "OPEN_NO_DECISION",
-      "differences": {
-        "observation_caveats": {},
-        "pair_caveats": {
-          "PRICE_LEVEL_DIFFERENCE": 4
-        },
-        "price_levels": [
-          "1-4-2023",
-          "1-4-2024",
-          "14-7-2026",
-          "21-4-2025"
-        ],
-        "within_family_only": [
-          "document",
-          "source_cluster",
-          "quantity",
-          "price",
-          "price_level"
-        ]
-      },
-      "document_ids": [
-        "DOC-009",
-        "DOC-010",
-        "DOC-012",
-        "DOC-013"
-      ],
-      "evidence": {
-        "action_texts": [
-          "Vervangen hemelwaterafvoer pvc"
-        ],
-        "derived_price_per_execution": {
-          "PO-DOC-009-P021-L095": "54.91",
-          "PO-DOC-010-P012-L093": "45.23",
-          "PO-DOC-012-P015-L033": "61.09",
-          "PO-DOC-013-P019-L025": "54.39"
-        },
-        "materials": [
-          "pvc"
-        ],
-        "object_descriptions": [
-          "Hemelwaterafvoer pvc"
-        ],
-        "quantities": [
-          "13.00",
-          "57.00",
-          "80.80",
-          "170.20"
-        ],
-        "sides": [
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "human_material_decision",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "verified_element",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "units": [
-          "m1"
-        ]
-      },
-      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-      "evidence_flags": [
-        "EXACT_SAME_SEMANTIC_INPUT"
-      ],
-      "existing_decisions": [],
-      "family_input_sha256": "878abf5892bffb487bd75c677fa965a8b8fc5c338f85413799f75ca1416b1560",
-      "family_key": {
-        "candidate_key": [
-          "5211",
-          "replace",
-          "m1"
-        ],
-        "facade_side_words_differ": false,
-        "quantity_scale_difference": false,
-        "sides": [
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "human_material_decision",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "verified_element",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "source_relation_risk": false
-      },
-      "kengetal_blockers_even_after_positive_decision": [],
-      "pair_ids": [
-        "PAIR-00632",
-        "PAIR-00634",
-        "PAIR-00635",
-        "PAIR-00637"
-      ],
-      "pair_status_counts": {
-        "NO_DECISION": 4
-      },
-      "pairs": [
-        {
-          "action_texts": [
-            "Vervangen hemelwaterafvoer pvc",
-            "Vervangen hemelwaterafvoer pvc"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": "equal",
-            "object_description": "equal",
-            "price_level_year": [
-              2025,
-              2024
-            ],
-            "quantity_ratio": "2.11",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "54.91",
-            "61.09"
-          ],
-          "document_ids": [
-            "DOC-009",
-            "DOC-012"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Hemelwaterafvoer pvc",
-            "Hemelwaterafvoer pvc"
-          ],
-          "observation_caveats": {
-            "a": [],
-            "b": []
-          },
-          "observation_ids": [
-            "PO-DOC-009-P021-L095",
-            "PO-DOC-012-P015-L033"
-          ],
-          "pair_caveats": [
-            "PRICE_LEVEL_DIFFERENCE"
-          ],
-          "pair_id": "PAIR-00632",
-          "price_level_dates": [
-            "21-4-2025",
-            "1-4-2024"
-          ],
-          "quantities": [
-            "170.20",
-            "80.80"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-008+DOC-009",
-            "SC-DOC-012"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        },
-        {
-          "action_texts": [
-            "Vervangen hemelwaterafvoer pvc",
-            "Vervangen hemelwaterafvoer pvc"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": "equal",
-            "object_description": "equal",
-            "price_level_year": [
-              2025,
-              2026
-            ],
-            "quantity_ratio": "2.99",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "54.91",
-            "54.39"
-          ],
-          "document_ids": [
-            "DOC-009",
-            "DOC-013"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Hemelwaterafvoer pvc",
-            "Hemelwaterafvoer pvc"
-          ],
-          "observation_caveats": {
-            "a": [],
-            "b": []
-          },
-          "observation_ids": [
-            "PO-DOC-009-P021-L095",
-            "PO-DOC-013-P019-L025"
-          ],
-          "pair_caveats": [
-            "PRICE_LEVEL_DIFFERENCE"
-          ],
-          "pair_id": "PAIR-00634",
-          "price_level_dates": [
-            "21-4-2025",
-            "14-7-2026"
-          ],
-          "quantities": [
-            "170.20",
-            "57.00"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-008+DOC-009",
-            "SC-DOC-013"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        },
-        {
-          "action_texts": [
-            "Vervangen hemelwaterafvoer pvc",
-            "Vervangen hemelwaterafvoer pvc"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": "equal",
-            "object_description": "equal",
-            "price_level_year": [
-              2023,
-              2024
-            ],
-            "quantity_ratio": "6.22",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "45.23",
-            "61.09"
-          ],
-          "document_ids": [
-            "DOC-010",
-            "DOC-012"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Hemelwaterafvoer pvc",
-            "Hemelwaterafvoer pvc"
-          ],
-          "observation_caveats": {
-            "a": [],
-            "b": []
-          },
-          "observation_ids": [
-            "PO-DOC-010-P012-L093",
-            "PO-DOC-012-P015-L033"
-          ],
-          "pair_caveats": [
-            "PRICE_LEVEL_DIFFERENCE"
-          ],
-          "pair_id": "PAIR-00635",
-          "price_level_dates": [
-            "1-4-2023",
-            "1-4-2024"
-          ],
-          "quantities": [
-            "13.00",
-            "80.80"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-010",
-            "SC-DOC-012"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        },
-        {
-          "action_texts": [
-            "Vervangen hemelwaterafvoer pvc",
-            "Vervangen hemelwaterafvoer pvc"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": "equal",
-            "object_description": "equal",
-            "price_level_year": [
-              2023,
-              2026
-            ],
-            "quantity_ratio": "4.38",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "45.23",
-            "54.39"
-          ],
-          "document_ids": [
-            "DOC-010",
-            "DOC-013"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Hemelwaterafvoer pvc",
-            "Hemelwaterafvoer pvc"
-          ],
-          "observation_caveats": {
-            "a": [],
-            "b": []
-          },
-          "observation_ids": [
-            "PO-DOC-010-P012-L093",
-            "PO-DOC-013-P019-L025"
-          ],
-          "pair_caveats": [
-            "PRICE_LEVEL_DIFFERENCE"
-          ],
-          "pair_id": "PAIR-00637",
-          "price_level_dates": [
-            "1-4-2023",
-            "14-7-2026"
-          ],
-          "quantities": [
-            "13.00",
-            "57.00"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-010",
-            "SC-DOC-013"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        }
-      ],
-      "review_family_id": "RF-5211-6d02e2e719",
-      "source_clusters": [
-        "SC-DOC-008+DOC-009",
-        "SC-DOC-010",
-        "SC-DOC-012",
-        "SC-DOC-013"
-      ]
-    },
-    {
-      "allowed_human_choices": [
-        {
-          "choice": "COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
-          "kengetal_effect": {
-            "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [
-              {
-                "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
-                "status": "AVAILABLE"
-              }
-            ],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
-                ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
-                "observations": 5,
-                "source_cluster_count": 5,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar zonder voorbehoud."
-        },
-        {
-          "choice": "COMPARABLE_WITH_CAVEATS",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
-          "kengetal_effect": {
-            "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
-            ],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [
-              {
-                "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
-                "status": "AVAILABLE"
-              }
-            ],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
-                ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
-                "observations": 5,
-                "source_cluster_count": 5,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
-          "suggested_caveats_from_system": []
-        },
-        {
-          "choice": "NOT_COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet vergelijkbaar."
-        },
-        {
-          "choice": "UNKNOWN",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet te beoordelen met het beschikbare bewijs."
-        }
-      ],
-      "candidate_group": "5211|replace|m1",
-      "current_status": "OPEN_NO_DECISION",
-      "differences": {
-        "observation_caveats": {
-          "PRICE_LEVEL_ABSENT": 2
-        },
-        "pair_caveats": {},
-        "price_levels": [
-          "1-4-2024",
-          "14-7-2026",
-          "None"
-        ],
-        "within_family_only": [
-          "document",
-          "source_cluster",
-          "quantity",
-          "price",
-          "price_level"
-        ]
-      },
-      "document_ids": [
-        "DOC-001",
-        "DOC-012",
-        "DOC-013"
-      ],
-      "evidence": {
-        "action_texts": [
-          "Vervangen hemelwaterafvoer pvc"
-        ],
-        "derived_price_per_execution": {
-          "PO-DOC-001-P026-L029": "51.79",
-          "PO-DOC-012-P015-L033": "61.09",
-          "PO-DOC-013-P019-L025": "54.39"
-        },
-        "materials": [
-          "pvc"
-        ],
-        "object_descriptions": [
-          "Hemelwaterafvoer pvc"
-        ],
-        "quantities": [
-          "57.00",
-          "80.80",
-          "371.00"
-        ],
-        "sides": [
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "element_text",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "human_material_decision",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "units": [
-          "m1"
-        ]
-      },
-      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-      "evidence_flags": [
-        "EXACT_SAME_SEMANTIC_INPUT"
-      ],
-      "existing_decisions": [],
-      "family_input_sha256": "760513e2b18dc45a97c0c0180d910cb091ba1a6783579579647a5b393d77f127",
-      "family_key": {
-        "candidate_key": [
-          "5211",
-          "replace",
-          "m1"
-        ],
-        "facade_side_words_differ": false,
-        "quantity_scale_difference": false,
-        "sides": [
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "element_text",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen hemelwaterafvoer pvc",
-            "element_description": "hemelwaterafvoer pvc",
-            "material": "pvc",
-            "material_source": "human_material_decision",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "source_relation_risk": false
-      },
-      "kengetal_blockers_even_after_positive_decision": [],
-      "pair_ids": [
-        "PAIR-00583",
-        "PAIR-00585"
-      ],
-      "pair_status_counts": {
-        "NO_DECISION": 2
-      },
-      "pairs": [
-        {
-          "action_texts": [
-            "Vervangen hemelwaterafvoer pvc",
-            "Vervangen hemelwaterafvoer pvc"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": "equal",
-            "object_description": "equal",
-            "price_level_year": [
-              null,
-              2024
-            ],
-            "quantity_ratio": "4.59",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "51.79",
-            "61.09"
-          ],
-          "document_ids": [
-            "DOC-001",
-            "DOC-012"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Hemelwaterafvoer pvc",
-            "Hemelwaterafvoer pvc"
-          ],
-          "observation_caveats": {
-            "a": [
-              "PRICE_LEVEL_ABSENT"
-            ],
-            "b": []
-          },
-          "observation_ids": [
-            "PO-DOC-001-P026-L029",
-            "PO-DOC-012-P015-L033"
-          ],
-          "pair_caveats": [],
-          "pair_id": "PAIR-00583",
-          "price_level_dates": [
-            null,
-            "1-4-2024"
-          ],
-          "quantities": [
-            "371.00",
-            "80.80"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-001",
-            "SC-DOC-012"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        },
-        {
-          "action_texts": [
-            "Vervangen hemelwaterafvoer pvc",
-            "Vervangen hemelwaterafvoer pvc"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": "equal",
-            "object_description": "equal",
-            "price_level_year": [
-              null,
-              2026
-            ],
-            "quantity_ratio": "6.51",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "51.79",
-            "54.39"
-          ],
-          "document_ids": [
-            "DOC-001",
-            "DOC-013"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Hemelwaterafvoer pvc",
-            "Hemelwaterafvoer pvc"
-          ],
-          "observation_caveats": {
-            "a": [
-              "PRICE_LEVEL_ABSENT"
-            ],
-            "b": []
-          },
-          "observation_ids": [
-            "PO-DOC-001-P026-L029",
-            "PO-DOC-013-P019-L025"
-          ],
-          "pair_caveats": [],
-          "pair_id": "PAIR-00585",
-          "price_level_dates": [
-            null,
-            "14-7-2026"
-          ],
-          "quantities": [
-            "371.00",
-            "57.00"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-001",
-            "SC-DOC-013"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        }
-      ],
-      "review_family_id": "RF-5211-0ad5841f33",
-      "source_clusters": [
-        "SC-DOC-001",
-        "SC-DOC-012",
-        "SC-DOC-013"
-      ]
-    },
-    {
-      "allowed_human_choices": [
-        {
-          "choice": "COMPARABLE",
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Een kengetal blijft daarna nog geblokkeerd door: MATERIAL_UNKNOWN (12 (materiaal)).",
           "kengetal_effect": {
             "acknowledgement_required": [],
@@ -7059,47 +6158,27 @@
       "allowed_human_choices": [
         {
           "choice": "COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00036', 'HDR-00037', 'HDR-00038', 'HDR-00039'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
           "kengetal_effect": {
             "acknowledgement_required": [],
             "available_kengetallen_lost": [],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "FEWER_THAN_3_SOURCE_CLUSTERS"
-                ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-73cbcafe",
-                "observations": 2,
-                "source_cluster_count": 2,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
+            "resulting_groups": []
           },
           "meaning": "Vergelijkbaar zonder voorbehoud."
         },
         {
           "choice": "COMPARABLE_WITH_CAVEATS",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00036', 'HDR-00037', 'HDR-00038', 'HDR-00039'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
           "kengetal_effect": {
             "acknowledgement_required": [],
             "available_kengetallen_lost": [],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "FEWER_THAN_3_SOURCE_CLUSTERS"
-                ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-73cbcafe",
-                "observations": 2,
-                "source_cluster_count": 2,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
+            "resulting_groups": []
           },
           "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
           "suggested_caveats_from_system": [
@@ -7108,41 +6187,88 @@
         },
         {
           "choice": "NOT_COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00036', 'HDR-00037', 'HDR-00038', 'HDR-00039'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
           "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
+            "acknowledgement_required": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "available_kengetallen_lost": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
+                  "NOT_COMPARABLE_WITHIN_GROUP"
+                ],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
           },
           "meaning": "Niet vergelijkbaar."
         },
         {
           "choice": "UNKNOWN",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (4), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00036', 'HDR-00037', 'HDR-00038', 'HDR-00039'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
           "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
+            "acknowledgement_required": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "available_kengetallen_lost": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+                ],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
           },
           "meaning": "Niet te beoordelen met het beschikbare bewijs."
         }
       ],
       "candidate_group": "5211|replace|m1",
-      "current_status": "OPEN_NO_DECISION",
+      "current_status": "DECIDED_ACTIVE",
       "differences": {
         "observation_caveats": {},
         "pair_caveats": {
-          "PRICE_LEVEL_DIFFERENCE": 1
+          "PRICE_LEVEL_DIFFERENCE": 4
         },
         "price_levels": [
+          "1-4-2023",
           "1-4-2024",
-          "14-7-2026"
+          "14-7-2026",
+          "21-4-2025"
         ],
         "within_family_only": [
           "document",
@@ -7153,6 +6279,8 @@
         ]
       },
       "document_ids": [
+        "DOC-009",
+        "DOC-010",
         "DOC-012",
         "DOC-013"
       ],
@@ -7161,6 +6289,8 @@
           "Vervangen hemelwaterafvoer pvc"
         ],
         "derived_price_per_execution": {
+          "PO-DOC-009-P021-L095": "54.91",
+          "PO-DOC-010-P012-L093": "45.23",
           "PO-DOC-012-P015-L033": "61.09",
           "PO-DOC-013-P019-L025": "54.39"
         },
@@ -7171,8 +6301,10 @@
           "Hemelwaterafvoer pvc"
         ],
         "quantities": [
+          "13.00",
           "57.00",
-          "80.80"
+          "80.80",
+          "170.20"
         ],
         "sides": [
           {
@@ -7187,7 +6319,7 @@
             "action_text": "vervangen hemelwaterafvoer pvc",
             "element_description": "hemelwaterafvoer pvc",
             "material": "pvc",
-            "material_source": "human_material_decision",
+            "material_source": "verified_element",
             "semantic_caveats": [],
             "unit_original": "m1"
           }
@@ -7200,8 +6332,13 @@
       "evidence_flags": [
         "EXACT_SAME_SEMANTIC_INPUT"
       ],
-      "existing_decisions": [],
-      "family_input_sha256": "172756d55b9720cb3271100af7644a8f4e8b6c8f966f3bbc76a09d203ad710ed",
+      "existing_decisions": [
+        "HDR-00036",
+        "HDR-00037",
+        "HDR-00038",
+        "HDR-00039"
+      ],
+      "family_input_sha256": "203a12101ecd406eab33894748632bb96174f8f04697fcf84128be5cace5c3ba",
       "family_key": {
         "candidate_key": [
           "5211",
@@ -7223,7 +6360,7 @@
             "action_text": "vervangen hemelwaterafvoer pvc",
             "element_description": "hemelwaterafvoer pvc",
             "material": "pvc",
-            "material_source": "human_material_decision",
+            "material_source": "verified_element",
             "semantic_caveats": [],
             "unit_original": "m1"
           }
@@ -7232,10 +6369,13 @@
       },
       "kengetal_blockers_even_after_positive_decision": [],
       "pair_ids": [
-        "PAIR-00641"
+        "PAIR-00632",
+        "PAIR-00634",
+        "PAIR-00635",
+        "PAIR-00637"
       ],
       "pair_status_counts": {
-        "NO_DECISION": 1
+        "ACTIVE_DECISION": 4
       },
       "pairs": [
         {
@@ -7248,24 +6388,32 @@
             "material": "equal",
             "object_description": "equal",
             "price_level_year": [
-              2024,
-              2026
+              2025,
+              2024
             ],
-            "quantity_ratio": "1.42",
+            "quantity_ratio": "2.11",
             "vat_basis": [
               "inclusive",
               "inclusive"
             ]
           },
           "derived_price_per_execution": [
-            "61.09",
-            "54.39"
+            "54.91",
+            "61.09"
           ],
           "document_ids": [
-            "DOC-012",
-            "DOC-013"
+            "DOC-009",
+            "DOC-012"
           ],
-          "existing_decisions": [],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00036",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
           "facade_side_words": [
             [],
             []
@@ -7280,33 +6428,627 @@
             "b": []
           },
           "observation_ids": [
-            "PO-DOC-012-P015-L033",
+            "PO-DOC-009-P021-L095",
+            "PO-DOC-012-P015-L033"
+          ],
+          "pair_caveats": [
+            "PRICE_LEVEL_DIFFERENCE"
+          ],
+          "pair_id": "PAIR-00632",
+          "price_level_dates": [
+            "21-4-2025",
+            "1-4-2024"
+          ],
+          "quantities": [
+            "170.20",
+            "80.80"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-012"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "action_texts": [
+            "Vervangen hemelwaterafvoer pvc",
+            "Vervangen hemelwaterafvoer pvc"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              2025,
+              2026
+            ],
+            "quantity_ratio": "2.99",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "54.91",
+            "54.39"
+          ],
+          "document_ids": [
+            "DOC-009",
+            "DOC-013"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00037",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Hemelwaterafvoer pvc",
+            "Hemelwaterafvoer pvc"
+          ],
+          "observation_caveats": {
+            "a": [],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-009-P021-L095",
             "PO-DOC-013-P019-L025"
           ],
           "pair_caveats": [
             "PRICE_LEVEL_DIFFERENCE"
           ],
-          "pair_id": "PAIR-00641",
+          "pair_id": "PAIR-00634",
           "price_level_dates": [
-            "1-4-2024",
+            "21-4-2025",
             "14-7-2026"
           ],
           "quantities": [
-            "80.80",
+            "170.20",
             "57.00"
           ],
           "relation_risk": [],
           "source_clusters": [
-            "SC-DOC-012",
+            "SC-DOC-008+DOC-009",
             "SC-DOC-013"
           ],
-          "status": "NO_DECISION",
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "action_texts": [
+            "Vervangen hemelwaterafvoer pvc",
+            "Vervangen hemelwaterafvoer pvc"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              2023,
+              2024
+            ],
+            "quantity_ratio": "6.22",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "45.23",
+            "61.09"
+          ],
+          "document_ids": [
+            "DOC-010",
+            "DOC-012"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00038",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Hemelwaterafvoer pvc",
+            "Hemelwaterafvoer pvc"
+          ],
+          "observation_caveats": {
+            "a": [],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-010-P012-L093",
+            "PO-DOC-012-P015-L033"
+          ],
+          "pair_caveats": [
+            "PRICE_LEVEL_DIFFERENCE"
+          ],
+          "pair_id": "PAIR-00635",
+          "price_level_dates": [
+            "1-4-2023",
+            "1-4-2024"
+          ],
+          "quantities": [
+            "13.00",
+            "80.80"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-010",
+            "SC-DOC-012"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "action_texts": [
+            "Vervangen hemelwaterafvoer pvc",
+            "Vervangen hemelwaterafvoer pvc"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              2023,
+              2026
+            ],
+            "quantity_ratio": "4.38",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "45.23",
+            "54.39"
+          ],
+          "document_ids": [
+            "DOC-010",
+            "DOC-013"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00039",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Hemelwaterafvoer pvc",
+            "Hemelwaterafvoer pvc"
+          ],
+          "observation_caveats": {
+            "a": [],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-010-P012-L093",
+            "PO-DOC-013-P019-L025"
+          ],
+          "pair_caveats": [
+            "PRICE_LEVEL_DIFFERENCE"
+          ],
+          "pair_id": "PAIR-00637",
+          "price_level_dates": [
+            "1-4-2023",
+            "14-7-2026"
+          ],
+          "quantities": [
+            "13.00",
+            "57.00"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-010",
+            "SC-DOC-013"
+          ],
+          "status": "ACTIVE_DECISION",
           "system_class": "COMPARABLE_WITH_CAVEATS",
           "unknown_reasons": []
         }
       ],
-      "review_family_id": "RF-5211-76b81abb4c",
+      "review_family_id": "RF-5211-6d02e2e719",
       "source_clusters": [
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010",
+        "SC-DOC-012",
+        "SC-DOC-013"
+      ]
+    },
+    {
+      "allowed_human_choices": [
+        {
+          "choice": "COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00040', 'HDR-00041'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar zonder voorbehoud."
+        },
+        {
+          "choice": "COMPARABLE_WITH_CAVEATS",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00040', 'HDR-00041'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
+          "suggested_caveats_from_system": []
+        },
+        {
+          "choice": "NOT_COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00040', 'HDR-00041'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "available_kengetallen_lost": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
+                  "NOT_COMPARABLE_WITHIN_GROUP"
+                ],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet vergelijkbaar."
+        },
+        {
+          "choice": "UNKNOWN",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00040', 'HDR-00041'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "available_kengetallen_lost": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+                ],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet te beoordelen met het beschikbare bewijs."
+        }
+      ],
+      "candidate_group": "5211|replace|m1",
+      "current_status": "DECIDED_ACTIVE",
+      "differences": {
+        "observation_caveats": {
+          "PRICE_LEVEL_ABSENT": 2
+        },
+        "pair_caveats": {},
+        "price_levels": [
+          "1-4-2024",
+          "14-7-2026",
+          "None"
+        ],
+        "within_family_only": [
+          "document",
+          "source_cluster",
+          "quantity",
+          "price",
+          "price_level"
+        ]
+      },
+      "document_ids": [
+        "DOC-001",
+        "DOC-012",
+        "DOC-013"
+      ],
+      "evidence": {
+        "action_texts": [
+          "Vervangen hemelwaterafvoer pvc"
+        ],
+        "derived_price_per_execution": {
+          "PO-DOC-001-P026-L029": "51.79",
+          "PO-DOC-012-P015-L033": "61.09",
+          "PO-DOC-013-P019-L025": "54.39"
+        },
+        "materials": [
+          "pvc"
+        ],
+        "object_descriptions": [
+          "Hemelwaterafvoer pvc"
+        ],
+        "quantities": [
+          "57.00",
+          "80.80",
+          "371.00"
+        ],
+        "sides": [
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "element_text",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "units": [
+          "m1"
+        ]
+      },
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "existing_decisions": [
+        "HDR-00040",
+        "HDR-00041"
+      ],
+      "family_input_sha256": "fb241c23c58195b466399327f00a531de30af57879ece193e1b44d37744bee62",
+      "family_key": {
+        "candidate_key": [
+          "5211",
+          "replace",
+          "m1"
+        ],
+        "facade_side_words_differ": false,
+        "quantity_scale_difference": false,
+        "sides": [
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "element_text",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "source_relation_risk": false
+      },
+      "kengetal_blockers_even_after_positive_decision": [],
+      "pair_ids": [
+        "PAIR-00583",
+        "PAIR-00585"
+      ],
+      "pair_status_counts": {
+        "ACTIVE_DECISION": 2
+      },
+      "pairs": [
+        {
+          "action_texts": [
+            "Vervangen hemelwaterafvoer pvc",
+            "Vervangen hemelwaterafvoer pvc"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              null,
+              2024
+            ],
+            "quantity_ratio": "4.59",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "51.79",
+            "61.09"
+          ],
+          "document_ids": [
+            "DOC-001",
+            "DOC-012"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00040",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Hemelwaterafvoer pvc",
+            "Hemelwaterafvoer pvc"
+          ],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-012-P015-L033"
+          ],
+          "pair_caveats": [],
+          "pair_id": "PAIR-00583",
+          "price_level_dates": [
+            null,
+            "1-4-2024"
+          ],
+          "quantities": [
+            "371.00",
+            "80.80"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-001",
+            "SC-DOC-012"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "action_texts": [
+            "Vervangen hemelwaterafvoer pvc",
+            "Vervangen hemelwaterafvoer pvc"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              null,
+              2026
+            ],
+            "quantity_ratio": "6.51",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "51.79",
+            "54.39"
+          ],
+          "document_ids": [
+            "DOC-001",
+            "DOC-013"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00041",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Hemelwaterafvoer pvc",
+            "Hemelwaterafvoer pvc"
+          ],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-013-P019-L025"
+          ],
+          "pair_caveats": [],
+          "pair_id": "PAIR-00585",
+          "price_level_dates": [
+            null,
+            "14-7-2026"
+          ],
+          "quantities": [
+            "371.00",
+            "57.00"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-001",
+            "SC-DOC-013"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        }
+      ],
+      "review_family_id": "RF-5211-0ad5841f33",
+      "source_clusters": [
+        "SC-DOC-001",
         "SC-DOC-012",
         "SC-DOC-013"
       ]
@@ -7345,19 +7087,19 @@
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00031'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
           "kengetal_effect": {
             "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [
               {
                 "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "AVAILABLE"
               }
             ],
@@ -7367,9 +7109,9 @@
                   "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
                   "NOT_COMPARABLE_WITHIN_GROUP"
                 ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "INSUFFICIENT_DATA"
               }
             ]
@@ -7381,19 +7123,19 @@
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00031'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
           "kengetal_effect": {
             "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [
               {
                 "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "AVAILABLE"
               }
             ],
@@ -7402,9 +7144,9 @@
                 "insufficient_data_reasons": [
                   "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
                 ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "INSUFFICIENT_DATA"
               }
             ]
@@ -7645,19 +7387,19 @@
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00033'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
           "kengetal_effect": {
             "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [
               {
                 "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "AVAILABLE"
               }
             ],
@@ -7667,9 +7409,9 @@
                   "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
                   "NOT_COMPARABLE_WITHIN_GROUP"
                 ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "INSUFFICIENT_DATA"
               }
             ]
@@ -7681,19 +7423,19 @@
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00033'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
           "kengetal_effect": {
             "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [
               {
                 "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "AVAILABLE"
               }
             ],
@@ -7702,9 +7444,9 @@
                 "insufficient_data_reasons": [
                   "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
                 ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "INSUFFICIENT_DATA"
               }
             ]
@@ -7914,6 +7656,297 @@
       "allowed_human_choices": [
         {
           "choice": "COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00042'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar zonder voorbehoud."
+        },
+        {
+          "choice": "COMPARABLE_WITH_CAVEATS",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00042'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
+          "suggested_caveats_from_system": [
+            "PRICE_LEVEL_DIFFERENCE"
+          ]
+        },
+        {
+          "choice": "NOT_COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00042'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "available_kengetallen_lost": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
+                  "NOT_COMPARABLE_WITHIN_GROUP"
+                ],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet vergelijkbaar."
+        },
+        {
+          "choice": "UNKNOWN",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00042'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "available_kengetallen_lost": [
+              "KG-5211-replace-m1-pvc-5cb98033"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+                ],
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet te beoordelen met het beschikbare bewijs."
+        }
+      ],
+      "candidate_group": "5211|replace|m1",
+      "current_status": "DECIDED_ACTIVE",
+      "differences": {
+        "observation_caveats": {},
+        "pair_caveats": {
+          "PRICE_LEVEL_DIFFERENCE": 1
+        },
+        "price_levels": [
+          "1-4-2024",
+          "14-7-2026"
+        ],
+        "within_family_only": [
+          "document",
+          "source_cluster",
+          "quantity",
+          "price",
+          "price_level"
+        ]
+      },
+      "document_ids": [
+        "DOC-012",
+        "DOC-013"
+      ],
+      "evidence": {
+        "action_texts": [
+          "Vervangen hemelwaterafvoer pvc"
+        ],
+        "derived_price_per_execution": {
+          "PO-DOC-012-P015-L033": "61.09",
+          "PO-DOC-013-P019-L025": "54.39"
+        },
+        "materials": [
+          "pvc"
+        ],
+        "object_descriptions": [
+          "Hemelwaterafvoer pvc"
+        ],
+        "quantities": [
+          "57.00",
+          "80.80"
+        ],
+        "sides": [
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "units": [
+          "m1"
+        ]
+      },
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "existing_decisions": [
+        "HDR-00042"
+      ],
+      "family_input_sha256": "f97a635c677524fdeec2dca0114d6611e1759210aea803c652325f6fcaea0c83",
+      "family_key": {
+        "candidate_key": [
+          "5211",
+          "replace",
+          "m1"
+        ],
+        "facade_side_words_differ": false,
+        "quantity_scale_difference": false,
+        "sides": [
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen hemelwaterafvoer pvc",
+            "element_description": "hemelwaterafvoer pvc",
+            "material": "pvc",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "source_relation_risk": false
+      },
+      "kengetal_blockers_even_after_positive_decision": [],
+      "pair_ids": [
+        "PAIR-00641"
+      ],
+      "pair_status_counts": {
+        "ACTIVE_DECISION": 1
+      },
+      "pairs": [
+        {
+          "action_texts": [
+            "Vervangen hemelwaterafvoer pvc",
+            "Vervangen hemelwaterafvoer pvc"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              2024,
+              2026
+            ],
+            "quantity_ratio": "1.42",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "61.09",
+            "54.39"
+          ],
+          "document_ids": [
+            "DOC-012",
+            "DOC-013"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00042",
+              "reviewed_at": "2026-09-29T11:33:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Hemelwaterafvoer pvc",
+            "Hemelwaterafvoer pvc"
+          ],
+          "observation_caveats": {
+            "a": [],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-012-P015-L033",
+            "PO-DOC-013-P019-L025"
+          ],
+          "pair_caveats": [
+            "PRICE_LEVEL_DIFFERENCE"
+          ],
+          "pair_id": "PAIR-00641",
+          "price_level_dates": [
+            "1-4-2024",
+            "14-7-2026"
+          ],
+          "quantities": [
+            "80.80",
+            "57.00"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-012",
+            "SC-DOC-013"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        }
+      ],
+      "review_family_id": "RF-5211-76b81abb4c",
+      "source_clusters": [
+        "SC-DOC-012",
+        "SC-DOC-013"
+      ]
+    },
+    {
+      "allowed_human_choices": [
+        {
+          "choice": "COMPARABLE",
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00032'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 5211|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
           "kengetal_effect": {
             "acknowledgement_required": [],
@@ -7946,19 +7979,19 @@
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00032'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
           "kengetal_effect": {
             "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [
               {
                 "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "AVAILABLE"
               }
             ],
@@ -7968,9 +8001,9 @@
                   "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
                   "NOT_COMPARABLE_WITHIN_GROUP"
                 ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "INSUFFICIENT_DATA"
               }
             ]
@@ -7982,19 +8015,19 @@
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00032'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
           "kengetal_effect": {
             "acknowledgement_required": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "available_kengetallen_lost": [
-              "KG-5211-replace-m1-pvc-67920b77"
+              "KG-5211-replace-m1-pvc-5cb98033"
             ],
             "new_available_kengetallen": [],
             "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
             "removed_or_changed": [
               {
                 "insufficient_data_reasons": [],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "AVAILABLE"
               }
             ],
@@ -8003,9 +8036,9 @@
                 "insufficient_data_reasons": [
                   "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
                 ],
-                "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
-                "observations": 3,
-                "source_cluster_count": 3,
+                "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+                "observations": 5,
+                "source_cluster_count": 5,
                 "status": "INSUFFICIENT_DATA"
               }
             ]
@@ -17886,19 +17919,19 @@
     "comparability_rules_version": "comparability_rules_v1",
     "comparability_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
     "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
-    "human_decisions_sha256": "bed01185bacbd20810c11cafba0c755df98b8b968dc9b77e5ef05fefdb284b2b",
+    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
     "kengetallen_rules_version": "kengetallen_rules_v1",
-    "kengetallen_sha256": "cda3c700e1c91f69a2652715864988fdc42f08660d68ddd455cc8a7d2faae474",
+    "kengetallen_sha256": "575d3c4f8454c59c8a49f1043a569244e0586bf5a8af00fe0a507bb31fe84294",
     "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692"
   },
   "note": "Reviewpakket, geen beslissing. Er worden geen ACTIVE decisions, geen COMPARABLE/NOT_COMPARABLE, geen scores en geen kengetallen aangemaakt. Een familiebesluit wordt alleen toegepast via scripts/apply_family_decision.py op de exact opgesomde pair_ids, gebonden aan family_input_sha256.",
   "queue": {
     "by_pair_status": {
-      "ACTIVE_DECISION": 5,
-      "NO_DECISION": 54,
+      "ACTIVE_DECISION": 12,
+      "NO_DECISION": 47,
       "PREVIOUS_DECISION_REVIEW_REQUIRED": 17
     },
-    "open_pairs": 71,
+    "open_pairs": 64,
     "pairs": 76,
     "selection": [
       "systeemklasse COMPARABLE_WITH_CAVEATS",
@@ -17918,13 +17951,13 @@
       "QUANTITY_SCALE_DIFFERENCE": 5
     },
     "families_by_status": {
-      "DECIDED_ACTIVE": 5,
+      "DECIDED_ACTIVE": 8,
       "OPEN_MIXED": 2,
-      "OPEN_NO_DECISION": 28,
+      "OPEN_NO_DECISION": 25,
       "OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED": 8
     },
     "multi_pair_families": 17,
-    "open_review_families": 38,
+    "open_review_families": 35,
     "pairs_by_category": {
       "ACTION_TEXT_VARIANT": 16,
       "EXACT_SAME_SEMANTIC_INPUT": 13,

@@ -24,7 +24,9 @@ CTX = m.load_context(PROJECT_ROOT)
 # getest tegen de pre-promotie-kengetallen uit data/history als vaste, alleen-lezen fixture.
 FIX_CTX = m.load_context(ph.pre_promotion_fixture_root(PROJECT_ROOT))
 C1 = "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
-C2 = "KG-5211-replace-m1-pvc-67920b77"
+# C2 = canonieke 5211 pvc-versie na het menselijke familiebesluit RFD-00001 (5 clusters; vorige versie
+# KG-5211-replace-m1-pvc-67920b77 / 51.79 staat in data/kengetallen/history)
+C2 = "KG-5211-replace-m1-pvc-5cb98033"
 
 
 def item(**over):
@@ -78,7 +80,7 @@ def test_c1_other_wording_is_candidate_but_needs_human_scope_review():
 def test_c2_exact_retrieval_and_scope():
     r = run(c2_item())
     assert r["final_status"] == "CANDIDATE_FOUND" and r["candidate_kengetal_id"] == C2
-    assert r["historical_range"]["value_display"] == "51.79"
+    assert r["historical_range"]["value_display"] == "54.39"
 
 
 def test_input_is_normalized_with_existing_vocabularies():

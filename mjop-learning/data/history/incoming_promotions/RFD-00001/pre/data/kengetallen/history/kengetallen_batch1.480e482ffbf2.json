@@ -2,16 +2,16 @@
   "rules_version": "kengetallen_rules_v1",
   "rules_document": "docs/kengetallen_rules_v1.md",
   "comparability_rules_version": "comparability_rules_v1",
-  "generated_at": "2026-09-29T11:33:34Z",
+  "generated_at": "2026-09-29T06:53:52Z",
   "inputs": {
-    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692",
-    "comparability_output_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
-    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
+    "normalized_observations_sha256": "cdc8313fde9fecdec5411314a58c20ea87d793beb3770dfdac8726164e473575",
+    "comparability_output_sha256": "f738440e57201b8d652be0eba61084adb413f3579cfae4455eac36e8fe8531d5",
+    "human_decisions_sha256": "bed01185bacbd20810c11cafba0c755df98b8b968dc9b77e5ef05fefdb284b2b",
     "rules_document_sha256": "bc87f7549dad98e2688e508f8a84ace43d49205ac11654c2f5a9e7e2d0d56a11"
   },
   "supersedes": {
-    "file": "data/kengetallen/history/kengetallen_batch1.cda3c700e1c9.json",
-    "sha256": "cda3c700e1c91f69a2652715864988fdc42f08660d68ddd455cc8a7d2faae474"
+    "file": "data/kengetallen/history/kengetallen_batch1.b610b65a978e.json",
+    "sha256": "b610b65a978e40cb6b2dba9948c19e3ea71ab98cc60033a5b38693387a2a902b"
   },
   "note": "Kengetallen v1: mediaan van source-cluster contributions van volledig menselijk beoordeelde vergelijkbare groepen met minimaal 3 source clusters. Historisch, niet geïndexeerd, geen marktprijs of normprijs. Geen weging, score of confidence.",
   "summary": {
@@ -20,13 +20,13 @@
       "AVAILABLE": 1
     },
     "insufficient_data_reasons": {},
-    "active_human_decisions": 12,
-    "human_positive_decisions": 10,
+    "active_human_decisions": 5,
+    "human_positive_decisions": 3,
     "human_not_comparable_decisions": 2
   },
   "kengetallen": [
     {
-      "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+      "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
       "candidate_key": [
         "5211",
         "replace",
@@ -41,7 +41,6 @@
       },
       "material_source": [
         "element_text",
-        "human_material_decision",
         "verified_element"
       ],
       "vat_basis": [
@@ -49,30 +48,28 @@
       ],
       "status": "AVAILABLE",
       "insufficient_data_reasons": [],
-      "value_exact": "54.38596491228070175438596491",
-      "value_display": "54.39",
+      "value_exact": "51.78706199460916442048517520",
+      "value_display": "51.79",
       "min_exact": "45.23076923076923076923076923",
-      "max_exact": "61.08910891089108910891089109",
-      "range_exact": "15.85833968012185833968012186",
+      "max_exact": "54.91186839012925969447708578",
+      "range_exact": "9.68109915936002892524631655",
       "min_display": "45.23",
-      "max_display": "61.09",
-      "range_display": "15.86",
+      "max_display": "54.91",
+      "range_display": "9.68",
       "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
       "source_cluster_ids": [
         "SC-DOC-001",
         "SC-DOC-008+DOC-009",
-        "SC-DOC-010",
-        "SC-DOC-012",
-        "SC-DOC-013"
+        "SC-DOC-010"
       ],
-      "source_cluster_count": 5,
+      "source_cluster_count": 3,
       "cluster_contributions": [
         {
           "source_cluster": "SC-DOC-001",
           "contribution_exact": "51.78706199460916442048517520",
           "contribution_display": "51.79",
           "post_ids": [
-            "KG-5211-replace-m1-pvc-5cb98033-POST-01"
+            "KG-5211-replace-m1-pvc-67920b77-POST-01"
           ],
           "observation_ids": [
             "PO-DOC-001-P026-L029"
@@ -86,7 +83,7 @@
           "contribution_exact": "54.91186839012925969447708578",
           "contribution_display": "54.91",
           "post_ids": [
-            "KG-5211-replace-m1-pvc-5cb98033-POST-02"
+            "KG-5211-replace-m1-pvc-67920b77-POST-02"
           ],
           "observation_ids": [
             "PO-DOC-009-P021-L095"
@@ -100,7 +97,7 @@
           "contribution_exact": "45.23076923076923076923076923",
           "contribution_display": "45.23",
           "post_ids": [
-            "KG-5211-replace-m1-pvc-5cb98033-POST-03"
+            "KG-5211-replace-m1-pvc-67920b77-POST-03"
           ],
           "observation_ids": [
             "PO-DOC-010-P012-L093"
@@ -108,39 +105,11 @@
           "price_levels": [
             "1-4-2023"
           ]
-        },
-        {
-          "source_cluster": "SC-DOC-012",
-          "contribution_exact": "61.08910891089108910891089109",
-          "contribution_display": "61.09",
-          "post_ids": [
-            "KG-5211-replace-m1-pvc-5cb98033-POST-04"
-          ],
-          "observation_ids": [
-            "PO-DOC-012-P015-L033"
-          ],
-          "price_levels": [
-            "1-4-2024"
-          ]
-        },
-        {
-          "source_cluster": "SC-DOC-013",
-          "contribution_exact": "54.38596491228070175438596491",
-          "contribution_display": "54.39",
-          "post_ids": [
-            "KG-5211-replace-m1-pvc-5cb98033-POST-05"
-          ],
-          "observation_ids": [
-            "PO-DOC-013-P019-L025"
-          ],
-          "price_levels": [
-            "14-7-2026"
-          ]
         }
       ],
       "posts": [
         {
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-01",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
           "source_cluster": "SC-DOC-001",
           "document_id": "DOC-001",
           "observation_ids": [
@@ -155,7 +124,7 @@
           "post_value_exact": "51.78706199460916442048517520"
         },
         {
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-02",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
           "source_cluster": "SC-DOC-008+DOC-009",
           "document_id": "DOC-009",
           "observation_ids": [
@@ -170,7 +139,7 @@
           "post_value_exact": "54.91186839012925969447708578"
         },
         {
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-03",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
           "source_cluster": "SC-DOC-010",
           "document_id": "DOC-010",
           "observation_ids": [
@@ -183,44 +152,12 @@
           "consolidated": false,
           "consolidation_reason": null,
           "post_value_exact": "45.23076923076923076923076923"
-        },
-        {
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-04",
-          "source_cluster": "SC-DOC-012",
-          "document_id": "DOC-012",
-          "observation_ids": [
-            "PO-DOC-012-P015-L033"
-          ],
-          "element_line": {
-            "line": 25,
-            "page": 15
-          },
-          "consolidated": false,
-          "consolidation_reason": null,
-          "post_value_exact": "61.08910891089108910891089109"
-        },
-        {
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-05",
-          "source_cluster": "SC-DOC-013",
-          "document_id": "DOC-013",
-          "observation_ids": [
-            "PO-DOC-013-P019-L025"
-          ],
-          "element_line": {
-            "line": 23,
-            "page": 19
-          },
-          "consolidated": false,
-          "consolidation_reason": null,
-          "post_value_exact": "54.38596491228070175438596491"
         }
       ],
       "observation_ids": [
         "PO-DOC-001-P026-L029",
         "PO-DOC-009-P021-L095",
-        "PO-DOC-010-P012-L093",
-        "PO-DOC-012-P015-L033",
-        "PO-DOC-013-P019-L025"
+        "PO-DOC-010-P012-L093"
       ],
       "observations_per_cluster": {
         "SC-DOC-001": [
@@ -231,12 +168,6 @@
         ],
         "SC-DOC-010": [
           "PO-DOC-010-P012-L093"
-        ],
-        "SC-DOC-012": [
-          "PO-DOC-012-P015-L033"
-        ],
-        "SC-DOC-013": [
-          "PO-DOC-013-P019-L025"
         ]
       },
       "excluded_observation_ids": [],
@@ -244,14 +175,7 @@
       "decision_ids": [
         "HDR-00031",
         "HDR-00032",
-        "HDR-00033",
-        "HDR-00036",
-        "HDR-00037",
-        "HDR-00038",
-        "HDR-00039",
-        "HDR-00040",
-        "HDR-00041",
-        "HDR-00042"
+        "HDR-00033"
       ],
       "human_review_complete": true,
       "missing_cross_cluster_reviews": [],
@@ -260,9 +184,7 @@
         "per_observation": {
           "PO-DOC-001-P026-L029": null,
           "PO-DOC-009-P021-L095": "21-4-2025",
-          "PO-DOC-010-P012-L093": "1-4-2023",
-          "PO-DOC-012-P015-L033": "1-4-2024",
-          "PO-DOC-013-P019-L025": "14-7-2026"
+          "PO-DOC-010-P012-L093": "1-4-2023"
         },
         "per_cluster": {
           "SC-DOC-001": [
@@ -273,24 +195,16 @@
           ],
           "SC-DOC-010": [
             "1-4-2023"
-          ],
-          "SC-DOC-012": [
-            "1-4-2024"
-          ],
-          "SC-DOC-013": [
-            "14-7-2026"
           ]
         },
         "years": [
           2023,
-          2024,
-          2025,
-          2026
+          2025
         ],
         "mixed_price_level": true,
         "missing_price_level": true,
         "indexation": "none",
-        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2026 en ontbrekend: niet presenteren als prijs van één specifiek jaar."
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2025 en ontbrekend: niet presenteren als prijs van één specifiek jaar."
       },
       "decision_caveats": {
         "by_decision": [
@@ -322,74 +236,11 @@
               "PRICE_LEVEL_DIFFERENCE",
               "QUANTITY_SCALE_DIFFERENCE"
             ]
-          },
-          {
-            "decision_id": "HDR-00036",
-            "pair_id": "PAIR-00632",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_DIFFERENCE"
-            ]
-          },
-          {
-            "decision_id": "HDR-00037",
-            "pair_id": "PAIR-00634",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_DIFFERENCE"
-            ]
-          },
-          {
-            "decision_id": "HDR-00038",
-            "pair_id": "PAIR-00635",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_DIFFERENCE"
-            ]
-          },
-          {
-            "decision_id": "HDR-00039",
-            "pair_id": "PAIR-00637",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_DIFFERENCE"
-            ]
-          },
-          {
-            "decision_id": "HDR-00040",
-            "pair_id": "PAIR-00583",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_ABSENT"
-            ]
-          },
-          {
-            "decision_id": "HDR-00041",
-            "pair_id": "PAIR-00585",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_ABSENT"
-            ]
-          },
-          {
-            "decision_id": "HDR-00042",
-            "pair_id": "PAIR-00641",
-            "decision": "COMPARABLE_WITH_CAVEATS",
-            "system_class": "COMPARABLE_WITH_CAVEATS",
-            "decision_caveats": [
-              "PRICE_LEVEL_DIFFERENCE"
-            ]
           }
         ],
         "counts": {
-          "PRICE_LEVEL_ABSENT": 4,
-          "PRICE_LEVEL_DIFFERENCE": 6,
+          "PRICE_LEVEL_ABSENT": 2,
+          "PRICE_LEVEL_DIFFERENCE": 1,
           "QUANTITY_SCALE_DIFFERENCE": 2
         }
       },
@@ -398,9 +249,7 @@
           "PRICE_LEVEL_ABSENT"
         ],
         "PO-DOC-009-P021-L095": [],
-        "PO-DOC-010-P012-L093": [],
-        "PO-DOC-012-P015-L033": [],
-        "PO-DOC-013-P019-L025": []
+        "PO-DOC-010-P012-L093": []
       },
       "quantity": {
         "min": "13.00",
@@ -413,7 +262,7 @@
           "observation_id": "PO-DOC-001-P026-L029",
           "document_id": "DOC-001",
           "source_cluster": "SC-DOC-001",
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-01",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
           "page": 26,
           "line": 29,
           "element_line": {
@@ -446,7 +295,7 @@
           "observation_id": "PO-DOC-009-P021-L095",
           "document_id": "DOC-009",
           "source_cluster": "SC-DOC-008+DOC-009",
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-02",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
           "page": 21,
           "line": 95,
           "element_line": {
@@ -477,7 +326,7 @@
           "observation_id": "PO-DOC-010-P012-L093",
           "document_id": "DOC-010",
           "source_cluster": "SC-DOC-010",
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-03",
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
           "page": 12,
           "line": 93,
           "element_line": {
@@ -500,68 +349,6 @@
             "normalized": "pvc",
             "original": "pvc",
             "source": "verified_element"
-          },
-          "independent_input": true,
-          "caveats": []
-        },
-        {
-          "observation_id": "PO-DOC-012-P015-L033",
-          "document_id": "DOC-012",
-          "source_cluster": "SC-DOC-012",
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-04",
-          "page": 15,
-          "line": 33,
-          "element_line": {
-            "line": 25,
-            "page": 15
-          },
-          "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
-          "object_description": "Hemelwaterafvoer pvc",
-          "action_text": "Vervangen hemelwaterafvoer pvc",
-          "quantity": "80.80",
-          "unit_original": "m1",
-          "price_per_execution_exact": "61.08910891089108910891089109",
-          "price_per_execution_display": "61.09",
-          "executions_in_window": 1,
-          "cycle_start_year": 2038,
-          "cycle_length_years": 25,
-          "price_level_date": "1-4-2024",
-          "vat_basis": "inclusive",
-          "material": {
-            "normalized": "pvc",
-            "original": "pvc",
-            "source": "human_material_decision"
-          },
-          "independent_input": true,
-          "caveats": []
-        },
-        {
-          "observation_id": "PO-DOC-013-P019-L025",
-          "document_id": "DOC-013",
-          "source_cluster": "SC-DOC-013",
-          "post_id": "KG-5211-replace-m1-pvc-5cb98033-POST-05",
-          "page": 19,
-          "line": 25,
-          "element_line": {
-            "line": 23,
-            "page": 19
-          },
-          "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
-          "object_description": "Hemelwaterafvoer pvc",
-          "action_text": "Vervangen hemelwaterafvoer pvc",
-          "quantity": "57.00",
-          "unit_original": "m1",
-          "price_per_execution_exact": "54.38596491228070175438596491",
-          "price_per_execution_display": "54.39",
-          "executions_in_window": 1,
-          "cycle_start_year": 2036,
-          "cycle_length_years": 25,
-          "price_level_date": "14-7-2026",
-          "vat_basis": "inclusive",
-          "material": {
-            "normalized": "pvc",
-            "original": "pvc",
-            "source": "human_material_decision"
           },
           "independent_input": true,
           "caveats": []

@@ -1,0 +1,71 @@
+{
+  "append_only": true,
+  "description": "Menselijke materiaalbesluiten voor exacte observations (schema: schemas/material_decision_record.schema.json). Append-only; alleen door een mens; geen documentbrede scope. Een besluit vervalt als de bronobservation wijzigt.",
+  "records": [
+    {
+      "decision_id": "MDR-00001",
+      "decision_reason": "Menselijk materiaalbesluit (twandijkmans): materiaal PVC uitsluitend voor deze exact opgesomde observations op basis van de element-evidence 'Hemelwaterafvoer pvc' / 'Vervangen hemelwaterafvoer pvc' / m1. Geen algemene goedkeuring van MATERIAL_FROM_TEXT voor DOC-012 of DOC-013.",
+      "document_id": "DOC-012",
+      "element_id": "DOC-012-EL-031",
+      "evidence": {
+        "action_text_original": "Vervangen hemelwaterafvoer pvc",
+        "element_description_original": "Hemelwaterafvoer pvc",
+        "line": 33,
+        "material_token_in_element_text": "pvc",
+        "page": 15,
+        "row": null,
+        "sheet": null,
+        "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
+        "unit_original": "m1"
+      },
+      "material": {
+        "normalized_value": "pvc",
+        "original_value": "pvc"
+      },
+      "observation_id": "PO-DOC-012-P015-L033",
+      "reviewed_at": "2026-09-29T11:15:00Z",
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "scope": "EXACT_OBSERVATION",
+      "source_document_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+      "source_observation_sha256": "3b774e4e87723b1c018b07936fc78222a9598335e396ae15e899f22ab2c96c42",
+      "status": "ACTIVE",
+      "supersedes": null
+    },
+    {
+      "decision_id": "MDR-00002",
+      "decision_reason": "Menselijk materiaalbesluit (twandijkmans): materiaal PVC uitsluitend voor deze exact opgesomde observations op basis van de element-evidence 'Hemelwaterafvoer pvc' / 'Vervangen hemelwaterafvoer pvc' / m1. Geen algemene goedkeuring van MATERIAL_FROM_TEXT voor DOC-012 of DOC-013.",
+      "document_id": "DOC-013",
+      "element_id": "DOC-013-EL-027",
+      "evidence": {
+        "action_text_original": "Vervangen hemelwaterafvoer pvc",
+        "element_description_original": "Hemelwaterafvoer pvc",
+        "line": 25,
+        "material_token_in_element_text": "pvc",
+        "page": 19,
+        "row": null,
+        "sheet": null,
+        "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
+        "unit_original": "m1"
+      },
+      "material": {
+        "normalized_value": "pvc",
+        "original_value": "pvc"
+      },
+      "observation_id": "PO-DOC-013-P019-L025",
+      "reviewed_at": "2026-09-29T11:15:00Z",
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "scope": "EXACT_OBSERVATION",
+      "source_document_sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513",
+      "source_observation_sha256": "8561e1c4931c9f7ecb0891b27c0aa860a411efb0d847ec6a33417ab09a2cbfd2",
+      "status": "ACTIVE",
+      "supersedes": null
+    }
+  ],
+  "store_version": "material_decisions_v1"
+}

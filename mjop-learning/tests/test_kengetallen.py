@@ -266,16 +266,17 @@ def by_key(result):
 
 
 def test_batch1_expected_outcomes():
-    # Canonieke toestand na de promotie van batch1_v1: alleen kengetallen die door geldige ACTIVE human
-    # decisions worden gedragen. De DF-1/DF-2-decisions staan op REVIEW_REQUIRED, dus C1 (4645) en de
-    # vier INSUFFICIENT_DATA-groepen van vóór de promotie ontstaan niet meer (besluit A).
+    # Canonieke toestand: alleen kengetallen die door geldige ACTIVE human decisions worden gedragen.
+    # De DF-1/DF-2-decisions staan op REVIEW_REQUIRED, dus C1 (4645) en de vier INSUFFICIENT_DATA-groepen van
+    # vóór de promotie van batch1_v1 ontstaan niet meer (besluit A). Na het menselijke familiebesluit RFD-00001
+    # (7 cross-cluster pvc-paren met DOC-012/DOC-013) draagt 5211 replace m1 pvc 5 source clusters.
     result = batch1()
     k = by_key(result)
-    assert result["summary"]["candidate_groups"] == 1 and result["summary"]["active_human_decisions"] == 5
+    assert result["summary"]["candidate_groups"] == 1 and result["summary"]["active_human_decisions"] == 12
     assert set(k) == {("5211", "replace", "m1")}
     c2 = k[("5211", "replace", "m1")]
-    assert (c2["status"], c2["value_display"], c2["source_cluster_count"]) == ("AVAILABLE", "51.79", 3)
-    assert (c2["min_display"], c2["max_display"]) == ("45.23", "54.91")
+    assert (c2["status"], c2["value_display"], c2["source_cluster_count"]) == ("AVAILABLE", "54.39", 5)
+    assert (c2["min_display"], c2["max_display"]) == ("45.23", "61.09")
 
 
 def test_batch1_values_come_from_observation_data():
@@ -287,8 +288,9 @@ def test_batch1_values_come_from_observation_data():
     def p(i):
         d = obs[i]["derived_unit_price_per_execution"]
         return Decimal(d["annual_amount_used"]) / Decimal(d["quantity_value"])
-    ids = ["PO-DOC-001-P026-L029", "PO-DOC-009-P021-L095", "PO-DOC-010-P012-L093"]
-    assert Decimal(c2["value_exact"]) == sorted(p(i) for i in ids)[1]
+    ids = ["PO-DOC-001-P026-L029", "PO-DOC-009-P021-L095", "PO-DOC-010-P012-L093", "PO-DOC-012-P015-L033",
+           "PO-DOC-013-P019-L025"]
+    assert Decimal(c2["value_exact"]) == sorted(p(i) for i in ids)[2]         # mediaan van 5 clusters
     assert not [p_ for p_ in c2["posts"] if p_["consolidated"]]
     assert c2["observation_ids"] == ids   # alle observations bewaard
 

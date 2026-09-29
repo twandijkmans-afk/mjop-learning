@@ -119,14 +119,19 @@ def test_no_relation_or_source_cluster_confirmed(state):
 
 
 def test_kengetallen_follow_official_rules_only(state):
+    # de promotie zelf veranderde de kengetallen niet en maakte geen beslissingen
+    kg_summary = state["summary"]["kengetallen"]
+    assert kg_summary["content_changed"] is False and kg_summary["before"] == kg_summary["after"]
+    assert kg_summary["before"][0]["kengetal_id"] == "KG-5211-replace-m1-pvc-67920b77"
+    rel = pr.DECISIONS_PATH.replace(os.sep, "/")
+    assert state["post_manifest"][rel] == state["pre_manifest"][rel]
+    # latere wijzigingen alleen via een vastgelegd menselijk familiebesluit in de keten
     with open(pre(state, pr.KG_PATH), encoding="utf-8") as f:
         old = json.load(f)
     kg = load(pr.KG_PATH)
-    assert kg["kengetallen"] == old["kengetallen"] and kg["summary"] == old["summary"]
-    rel = pr.DECISIONS_PATH.replace(os.sep, "/")
-    assert state["post_manifest"][rel] == state["pre_manifest"][rel]                 # promotie: geen beslissingen
-    k = {x["kengetal_id"]: x for x in kg["kengetallen"]}["KG-5211-replace-m1-pvc-67920b77"]
-    assert k["status"] == "AVAILABLE"
+    if kg["kengetallen"] != old["kengetallen"]:
+        later = [s for s in pl.states(PROJECT_ROOT) if s["sequence"] > state["sequence"]]
+        assert any(s.get("change_kind") == "family_decision" for s in later)
 
 
 def test_relation_review_package_decides_nothing():
