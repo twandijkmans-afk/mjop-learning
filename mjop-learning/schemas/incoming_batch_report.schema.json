@@ -165,6 +165,19 @@
       "items": {
         "type": "string"
       }
+    },
+    "spreadsheet_content_overlap": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "spreadsheet",
+          "pdf",
+          "rows",
+          "matched",
+          "coverage"
+        ]
+      }
     }
   }
 }

@@ -15,6 +15,7 @@ import shutil
 import subprocess
 import sys
 import tarfile
+from decimal import Decimal
 
 import pytest
 
@@ -161,14 +162,16 @@ def test_statuses_and_totals(mixed):
     assert d["kopie_van_doc010.pdf"]["status"] == "DUPLICATE_SKIP"
     assert d["kopie_van_doc010.pdf"]["duplicate_of"] == "DOC-010" and d["kopie_van_doc010.pdf"]["document_id"] is None
     assert d["doc003_kopie.xls"]["status"] == "DUPLICATE_SKIP" and d["doc003_kopie.xls"]["duplicate_of"] == "DOC-003"
+    # spreadsheet wordt nu deterministisch geëxtraheerd; REVIEW_REQUIRED door de relatiekandidaat met DOC-002
     assert d["gebouw-b/export.xls"]["status"] == "REVIEW_REQUIRED"
-    assert "UNSUPPORTED_EXTRACTION" in d["gebouw-b/export.xls"]["reasons"]
+    assert "EXTRACTED" in d["gebouw-b/export.xls"]["status_history"]
+    assert d["gebouw-b/export.xls"]["open_review_items"] == ["RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"]
     assert d["offerte.pdf"]["status"] == "UNKNOWN_TEMPLATE"
     assert d["notities.docx"]["status"] == "UNSUPPORTED_FORMAT" and d["notities.docx"]["document_id"] is None
     assert "README.md" not in d
     t = report["totals"]
     assert (t["total_files"], t["duplicates"], t["unknown_templates"], t["unsupported_formats"]) == (6, 2, 1, 1)
-    assert t["extracted_successfully"] == 1 and t["new_price_observation_candidates"] > 0
+    assert t["extracted_successfully"] == 2 and t["new_price_observation_candidates"] > 0
 
 
 def test_new_ids_are_stable_and_follow_canonical_registry(mixed):
@@ -190,6 +193,9 @@ def test_doc003_like_duplicate_is_candidate_only(mixed):
     rel = [r for r in plan["relations"] if export_id in r["document_ids"]]
     assert rel and rel[0]["kind"] == "POSSIBLE_DUPLICATE_OTHER_BYTES" and "DOC-002" in rel[0]["document_ids"]
     assert rel[0]["status"] == "CANDIDATE_REQUIRES_HUMAN_CONFIRMATION" and rel[0]["source_cluster"] == "NOT_ASSUMED"
+    # concreet inhoudelijk bewijs: de spreadsheetrijen komen (vrijwel) volledig voor in DOC-002
+    ov = next(o for o in report["spreadsheet_content_overlap"] if o["spreadsheet"] == export_id and o["pdf"] == "DOC-002")
+    assert Decimal(ov["coverage"]) >= Decimal("0.9") and any("inhoudelijke overlap" in e for e in rel[0]["evidence"])
 
 
 def test_staging_layout_and_check(mixed):

@@ -177,7 +177,11 @@
             "type": "string"
           },
           "format": {
-            "const": "pdf"
+            "enum": [
+              "pdf",
+              "xls",
+              "xlsx"
+            ]
           }
         }
       }

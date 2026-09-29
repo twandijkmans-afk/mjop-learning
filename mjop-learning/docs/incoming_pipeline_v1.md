@@ -61,7 +61,7 @@ Onderaan staat per document de status en wat er nog moet gebeuren (`next_steps`)
 | `READY_FOR_EXTRACTION` | ondersteund, maar nog niet uitgelezen (PDF-lezer ontbrak) | workflow opnieuw draaien |
 | `EXTRACTED` | uitgelezen en alle blokkerende controles in orde | klaar voor een promotievoorstel |
 | `REVIEW_REQUIRED` | uitgelezen of herkend, maar er is iets dat een mens moet beoordelen | zie `open_review_items` |
-| `UNKNOWN_TEMPLATE` | rapportformaat wordt (nog) niet herkend | nieuw profiel = aparte beslissing |
+| `UNKNOWN_TEMPLATE` | rapportformaat past bij geen enkele ondersteunde familie/variant (zie hieronder) | nieuw profiel = aparte beslissing |
 | `UNSUPPORTED_FORMAT` | geen PDF/XLS/XLSX, of inhoud past niet bij de extensie | ander bestand aanleveren |
 | `FAILED_VALIDATION` | uitlezen of controle mislukt | zie `validation/<DOC-ID>.json` |
 
@@ -72,8 +72,12 @@ Veelvoorkomende redenen voor `REVIEW_REQUIRED`:
 - `RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION`: het document lijkt bij een bekend gebouw te
   horen (zelfde postcode of adres). Een mens bevestigt of het een nieuwe versie, een deelplan, een
   dubbel met andere bytes of een andere inspectie is. Het systeem neemt dat nooit zelf aan.
-- `UNSUPPORTED_EXTRACTION`: een spreadsheet (bijv. een losse export van het jarenplan). Daarvoor is
-  nog geen vaste uitleesroute; er wordt bewust niet gegokt.
+- `spreadsheet_structure`: een spreadsheetrij past in geen enkele bekende rijvorm (actie, element,
+  groep, subtotaal, Totaal object, kop- of voettekst). Zo'n rij wordt nooit geraden.
+- `totaal_object_reconciliation`: de som van de rijen wijkt meer af van het eigen 'Totaal object'
+  van het document dan afronding kan verklaren (mogelijk een meegelezen subtotaal of een gemiste rij).
+- `UNSUPPORTED_EXTRACTION`: een spreadsheet die wel als familie herkend is, maar waarvoor geen
+  productie-parser bestaat. Voor de jarenplan-export (`pro_vve_overzicht15_spreadsheet`) is die er nu wel.
 - `unlinked_records`, `amounts`, `template_recheck_xpdf`: zie het validatiebestand.
 
 ## 5. Promoveren (aparte, expliciete stap)
@@ -86,7 +90,7 @@ opgenomen in de kennislaag.
 | `APPROVED_FOR_PROMOTION` | door jou goedgekeurd; wordt canoniek |
 | `REVIEW_REQUIRED` | wacht op je goedkeuring (`AWAITING_HUMAN_APPROVAL`) of heeft open reviewpunten |
 | `SKIPPED_DUPLICATE` | exact dubbel bestand; wordt nooit opgenomen |
-| `BLOCKED` | kan niet: onbekend sjabloon, spreadsheet, validatiefout, runner niet geverifieerd, ... |
+| `BLOCKED` | kan niet: onbekend sjabloon, niet-ondersteund spreadsheetformaat, validatiefout, runner niet geverifieerd, ... |
 
 **Stap A: proefdraaien (dry-run).**
 
@@ -161,13 +165,31 @@ python scripts/process_incoming_batch.py --check        # controleert register e
 
 ### Familieherkenning (`scripts/template_detection.py`)
 
-Op structurele kenmerken in de tekstlaag, nooit op de bestandsnaam. `pro_vve_overzicht15`
-(vvem-formaat, batch 1) vereist alle vijf: "Algemene Objectgegevens", "Elementenoverzicht",
-"Overzicht NN - Jarenplan (Gedetailleerd)", de kolomkop "Hvh Ehd Stj Cy" en "Totaal object".
-Tijdens de extractie wordt dat herhaald op de xpdf-tekst (secties OBJECT, ELEMENTEN, JARENPLAN).
-Een deel van de kenmerken = `UNKNOWN_TEMPLATE` (`PARTIAL_FAMILY_MARKERS`). Een spreadsheet-export
-van het jarenplan wordt herkend als `pro_vve_overzicht15_spreadsheet`, maar krijgt
-`REVIEW_REQUIRED` / `UNSUPPORTED_EXTRACTION`.
+Herkenning gaat op structurele kenmerken in de tekstlaag, nooit op de bestandsnaam. Elke variant
+noemt welke kenmerken **verplicht aanwezig** en welke **verplicht afwezig** zijn. De eerste exacte
+match wint; elke andere combinatie is `UNKNOWN_TEMPLATE`. Het documentrecord (`family.explanation`)
+zegt per variant waarom een document er wel of niet bij hoort.
+
+**Ondersteunde PDF-varianten** van familie `pro_vve_overzicht15` (vvem-rapportsoftware):
+
+| variant | verplicht aanwezig | verplicht afwezig | voorbeeld |
+|---|---|---|---|
+| `standard` | objectblad, elementenoverzicht, "Overzicht NN - Jarenplan (Gedetailleerd)", kolomkop "Hvh Ehd Stj Cy", "Totaal object" | - | batch 1, DOC-012, DOC-014 |
+| `multi_object_projects` | objectblad, elementenoverzicht, "Overzicht projecten", "Overzicht NN - jarenplan", kolomkop, "Totaal object" | titel "(Gedetailleerd)" | DOC-013 (meer objecten, per object een objectregel en subtotaal) |
+| `jarenplan_without_objectblad` | "Overzicht NN - Jarenplan (Gedetailleerd)", kolomkop, "Totaal object" | objectblad, elementenoverzicht | DOC-011 (jarenplan ingebed in een rapport van een ander bureau) |
+
+Alle varianten gebruiken dezelfde jarenplanparser (geen gedupliceerde parsercode). De verschillen zijn
+alleen profielopties:
+
+- `jarenplan_without_objectblad`: de elementen komen uit de elementregels van het jarenplan zelf (code,
+  omschrijving en locatie, letterlijk; hoeveelheid en conditie blijven leeg). Objectvelden blijven
+  leeg. De BTW komt uit de letterlijke toelichtingsregel "Alle prijzen zijn inclusief BTW ..." van het
+  jarenplan (regel `jarenplan_toelichting_vat_fallback`). Staat er geen prijspeil in de bron, dan blijft
+  het leeg.
+- Tijdens de extractie worden de vereiste secties per variant opnieuw gecontroleerd op de xpdf-tekst.
+
+**Ondersteunde spreadsheetfamilie:** `pro_vve_overzicht15_spreadsheet`, variant `jarenplan_sheet`
+(spreadsheet-export van het jarenplan, zoals DOC-003 en DOC-015). Zie hieronder.
 
 ### Extractie
 
@@ -176,11 +198,37 @@ profiel `pro_vve_overzicht15` zonder documentspecifieke regels). De valutaregel 
 bewijs uit het document zelf. Zonder xpdf pdftotext 4.06 blijft een PDF op
 `READY_FOR_EXTRACTION`: er is geen andere parser en geen AI als fallback.
 
+### Spreadsheets (`scripts/spreadsheet_extraction.py`)
+
+Spreadsheets worden **deterministisch** uitgelezen: `.xls` met xlrd en `.xlsx` met openpyxl, via de
+bestaande tekstlaag. Er is geen conversie (geen LibreOffice), geen AI en geen externe dienst.
+
+- De kolommen komen uit de kopregel (`Code/Element/Handeling` ... `Hvh`, `Ehd`, `Stj`, `Cy`, jaren,
+  `Totaal`), nooit uit vaste posities.
+- Elke rij wordt ingedeeld als groep, element, actie, subtotaal, "Totaal object", herhaalde kopregel of
+  voettekst (datum of paginanummer). Subtotalen, "Totaal object", kop- en voettekst worden nooit acties.
+  Een rij die nergens in past, wordt `spreadsheet_structure` (REVIEW).
+- Bedragen zijn de exacte celwaarden, tot op de cent. De som van de acties wordt gecontroleerd tegen
+  het eigen "Totaal object".
+- Cy = 0 is de spreadsheetweergave van een lege cyclus: de PDF van hetzelfde plan (DOC-002 ↔ DOC-003)
+  toont daar niets. Cy = 0 wordt daarom als leeg gelezen.
+- Provenance per waarde: werkblad + celadres (A1) + blok-ID (bijv. `S01-R0025-C003`). Een price
+  observation krijgt het ID `PO-DOC-015-S01-R0025` en verwijst naar werkblad, rij en celadressen.
+  Er is geen nieuw datamodel; de schemas zijn alleen additief uitgebreid.
+- **Export van een bekend MJOP?** Voor elke spreadsheet worden de rijen (elementcode, actietekst,
+  hoeveelheid, eenheid, startjaar, totaal afgerond op de euro) vergeleken met alle PDF's (canoniek en in
+  de batch). Het rapport toont dat als `spreadsheet_content_overlap`. Komt een PDF voor ≥ 90% overeen,
+  dan volgt een relatiekandidaat `POSSIBLE_DUPLICATE_OTHER_BYTES` met dat bewijs. Dat is nooit een
+  automatische duplicate: een mens bevestigt het.
+
 ### Validatie (per document, `validation/<DOC-ID>.json`)
 
 schema, source_hash, no_ai, template_recheck_xpdf, provenance, provenance_block_links, elements,
 maintenance_actions, unlinked_records, quantities, units, amounts (bedragen, rijcontrole,
-valutabewijs), vat, price_level, condition_legend, review_flags.
+valutabewijs; bij spreadsheets exacte celwaarden), vat, price_level, condition_legend, review_flags,
+price_observations, totaal_object_reconciliation (som van de rijtotalen tegen het eigen 'Totaal object';
+afrondingsgrens 0,5 per rijtotaal + 0,5), en bij spreadsheets spreadsheet_structure en
+provenance op werkblad + celadres.
 
 - `FAIL` = `FAILED_VALIDATION`.
 - `REVIEW` = `REVIEW_REQUIRED` (blokkeert promotie).
@@ -308,3 +356,24 @@ python scripts/promote_incoming_batch.py --rollback --batch-id ID
 
 **Tests na een echte promotie:** de batch-1-snapshottests tellen gepromoveerde documenten en
 observations mee via `promotion_ledger` (bijvoorbeeld 404 + toegevoegde observations).
+
+### Relatievoorstellen
+
+Relaties tussen documenten (zelfde gebouw, nieuwe versie, deelplan, dubbel met andere bytes) zijn altijd
+alleen **voorstellen** (`CANDIDATE_REQUIRES_HUMAN_CONFIRMATION`, `source_cluster: NOT_ASSUMED`). Het
+bewijs is:
+
+- postcode of adres gelijk;
+- prijspeil en inspectiedatum gelijk;
+- of inhoudelijke overlap van spreadsheetrijen.
+
+`document_relations.json` wijzigt nooit automatisch. Een document met een open relatiekandidaat blijft
+`REVIEW_REQUIRED` totdat een mens het beoordeelt.
+
+### xpdf-fixtures voor ontwikkeling en tests
+
+De workflow **Capture xpdf fixtures** (`.github/workflows/capture-xpdf-fixtures.yml`) legt de echte
+xpdf-4.06-uitvoer van de PDF's in `data/incoming` vast als `tests/fixtures/xpdf_pages/<sha256>.json`.
+Dat gebeurt op de geverifieerde runner, via exact de productieroute. Tests spelen die pagina's af via
+`tests/fixtures/fake_pdftotext.py` (`FAKE_PDFTOTEXT_PAGES_DIR`). Zo draaien parser-ontwikkeling en
+regressietests op precies dezelfde tekst als productie.

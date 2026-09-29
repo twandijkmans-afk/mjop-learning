@@ -516,6 +516,32 @@ def parse_element_overview(pages, sections):
 
 # ------------------------------------------------------------------ opbouw record
 
+def jarenplan_element_rows(pages, sections):
+    """Elementen uit de elementregels van het jarenplan (variant zonder Elementenoverzicht).
+    Eén element per unieke (code, omschrijving, locatie) in bronvolgorde; provenance = de eerste
+    elementregel. Hoeveelheid, eenheid en conditie staan niet op zo'n regel en blijven leeg."""
+    rows, seen, carry = [], set(), None
+    for pno, sec in sections:
+        if sec != "JARENPLAN":
+            continue
+        parsed, carry, _ = src.parse_jarenplan_page(pages[pno - 1], pno, carry)
+        for r in parsed:
+            el = r.get("element")
+            if not el:
+                continue
+            key = _element_key(el["code"], el["description"], el["location"])
+            if key in seen:
+                continue
+            seen.add(key)
+            page_lines = pages[el["page"] - 1].splitlines()
+            rows.append({"page": el["page"], "line": el["line"], "code": el["code"], "name": el["description"],
+                         "location": el["location"] or None, "quantity_as_stated": None, "unit_original": None,
+                         "condition": None, "group": None, "raw_line": _squash(src._clean(page_lines[el["line"] - 1])),
+                         "continuation_lines": list(el.get("continuation_lines", [])),
+                         "source_rule": "jarenplan_element_line"})
+    return rows
+
+
 def _element_key(code, name, location):
     return (code, _squash(name).lower(), _squash(location or "").lower())
 
@@ -529,12 +555,14 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
     # 1. objectblad (profielregels) + documentcontext (leidend: mjop_source_sections)
     building_fields, docvals, flags = parse_object_fields(pages, sections, doc_id, layer)
     trace["object_flags"] = flags
-    ctx = src.parse_document_context(pages)
+    ctx = src.parse_document_context(pages, jarenplan_vat_fallback=profile.get("jarenplan_vat_fallback", False))
     for key, text_key, src_key in (("price_level_date", "price_level_date", "price_level_source"),
                                    ("vat_statement", "vat_text", "vat_source")):
         s = ctx.get(src_key)
         docvals[key] = _ev(ctx.get(text_key), _prov(doc_id, s["page"], s["text"],
-                                                     f"mjop_source_sections.document_context.{key}", layer)) \
+                                                     f"mjop_source_sections.document_context.{key}" +
+                                                     (f":{ctx['vat_source_rule']}" if key == "vat_statement" and
+                                                      ctx.get("vat_source_rule") else ""), layer)) \
             if s else _ev_null()
     docvals["vat_rate_text"] = _ev_null()
     if ctx.get("vat_rate_text"):
@@ -559,16 +587,20 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
     for f in ("construction_year", "number_of_units", "building_type", "address", "inspection_date", "mjop_period"):
         building[f] = building_fields.get(f, _ev_null())
 
-    # 2. elementenoverzicht (profielregels)
-    ov_rows, uncl = parse_element_overview(pages, sections)
+    # 2. elementenoverzicht (profielregels); variant zonder elementenoverzicht: de elementregels van het
+    #    jarenplan zelf (code + omschrijving + locatie, letterlijk; geen hoeveelheid/conditie)
+    if profile.get("elements_source") == "jarenplan_element_lines":
+        ov_rows, uncl = jarenplan_element_rows(pages, sections), []
+    else:
+        ov_rows, uncl = parse_element_overview(pages, sections)
     trace["unclassified_element_overview_lines"] = uncl
     legend_scores = _legend_scores(docvals["condition_legend"].get("value"))
     elements, observations, el_index = [], [], {}
     for n, r in enumerate(ov_rows, start=1):
         eid = f"{doc_id}-EL-{n:03d}"
         cont_texts = [src._clean(pages[r["page"] - 1].splitlines()[ln - 1]) for ln in r.get("continuation_lines", [])]
-        prov = _prov(doc_id, r["page"], r["raw_line"], f"{rule_prefix}.elements.overview_row", layer,
-                     related_texts=cont_texts)
+        prov = _prov(doc_id, r["page"], r["raw_line"], f"{rule_prefix}.elements.{r.get('source_rule', 'overview_row')}",
+                     layer, related_texts=cont_texts)
         qty, qreason = nv.parse_quantity_nl(r["quantity_as_stated"])
         el = {
             "element_id": eid, "building_id": building["building_id"],
@@ -577,8 +609,10 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
             "element_name": _ev(r["name"], prov),
             "location": _ev(r["location"], prov) if r["location"] else _ev_null(),
             "material": {"original_value": None, "normalized_value": None},
-            "quantity": _ev(qty, prov, review=bool(qreason), raw=r["quantity_as_stated"] if qreason else None),
-            "unit": _pair(r["unit_original"], prov, review=_unit_needs_review(r["unit_original"])),
+            "quantity": _ev(qty, prov, review=bool(qreason), raw=r["quantity_as_stated"] if qreason else None)
+            if r["quantity_as_stated"] is not None else _ev_null(),     # niet vermeld op een jarenplan-elementregel
+            "unit": _pair(r["unit_original"], prov, review=_unit_needs_review(r["unit_original"]))
+            if r["quantity_as_stated"] is not None else {"original_value": None, "normalized_value": None},
             "construction_year": _ev_null(),
             "gemeenschappelijk_of_prive": None,
         }
@@ -680,6 +714,9 @@ def build_record(doc_id, pages, layer, profile, pdftotext_version, doc_meta):
             "document_profile": profile["profile_id"],
             "profile_version": profile["profile_version"],
             "rules_version": RULES_VERSION,
+            **({"profile_variant": profile["profile_variant"],
+                "elements_source": profile.get("elements_source", "element_overview")}
+               if profile.get("profile_variant") else {}),
             "currency_rule": currency_rule,
             "currency_evidence": evidence,
             "source_relative_path": doc_meta["relative_path"],

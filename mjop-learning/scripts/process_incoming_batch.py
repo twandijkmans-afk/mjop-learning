@@ -43,6 +43,7 @@ import incoming_registry as ir  # noqa: E402
 import mjop_source_sections as src  # noqa: E402
 import normalize_batch as nb  # noqa: E402
 import record_validation as rv  # noqa: E402
+import spreadsheet_extraction as sx  # noqa: E402
 import template_detection as td  # noqa: E402
 import text_layer as tl  # noqa: E402
 
@@ -155,7 +156,7 @@ def _check(name, result, count=0, details=()):
     return {"check": name, "result": result, "count": count, "details": list(details)[:MAX_DETAILS]}
 
 
-def validate_extracted(record, doc_id, sha, page_count, recheck_missing):
+def validate_extracted(record, doc_id, sha, page_count, recheck_missing, layer=None):
     """Controles per geëxtraheerd document. result: PASS | WARN | REVIEW | FAIL.
     FAIL -> FAILED_VALIDATION, REVIEW -> REVIEW_REQUIRED (blokkeert promotie), WARN = zichtbaar,
     wordt in de normale human review afgehandeld."""
@@ -171,8 +172,15 @@ def validate_extracted(record, doc_id, sha, page_count, recheck_missing):
                          len(recheck_missing), recheck_missing))
 
     bad_prov = []
+    cell_ids = {c["id"]: (s["sheet"], c["cell_ref"]) for s in (layer or {}).get("sheets", []) for r in s["rows"]
+                for c in r["cells"]}
     for path, p in rv.iter_provenance(record):
-        if p.get("document_id") != doc_id or not isinstance(p.get("page"), int) or not 1 <= p["page"] <= page_count:
+        if p.get("document_id") != doc_id:
+            bad_prov.append(str(path))
+        elif cell_ids:   # spreadsheet: werkblad + celadres + blok-ID moeten in de tekstlaag bestaan
+            if cell_ids.get(p.get("block_id")) != (p.get("sheet"), p.get("cell_ref")):
+                bad_prov.append(str(path))
+        elif not isinstance(p.get("page"), int) or not 1 <= p["page"] <= page_count:
             bad_prov.append(str(path))
     checks.append(_check("provenance", "PASS" if not bad_prov else "FAIL", len(bad_prov), bad_prov))
     trace = record.get("deterministic_trace", {})
@@ -198,7 +206,9 @@ def validate_extracted(record, doc_id, sha, page_count, recheck_missing):
 
     no_amount = [a["action_id"] for a in actions if _dec(a.get("total_cost_as_stated")) is None]
     recon = [r for r in trace.get("row_reconciliation", []) if r.get("status") not in ("consistent", "zero")]
-    evidence_ok = (meta.get("currency_evidence") or {}).get("consistent") is True
+    # PDF: bedragen via de valutaprofielregel met documentbewijs; spreadsheet: exacte numerieke cellen
+    evidence_ok = meta.get("parser") == "spreadsheet_extraction" or \
+        (meta.get("currency_evidence") or {}).get("consistent") is True
     amount_issues = [f"geen bedrag: {i}" for i in no_amount] + \
                     [f"rij p{r['page']} r{r['line']}: {r['status']}" for r in recon] + \
                     ([] if evidence_ok else ["valutabewijs niet consistent"])
@@ -270,6 +280,50 @@ def known_documents(root, state_root, exclude_ids):
             with open(os.path.join(edir, fn), encoding="utf-8") as f:
                 out[did] = {"origin": f"incoming_batch:{batch}", "kind": "pdf", **_signals_from_record(json.load(f))}
     return out
+
+
+CONTENT_OVERLAP_MIN_COVERAGE = Decimal("0.9")
+
+
+def _row_fingerprint(o):
+    total = _dec(o.get("total_value"))
+    qty = _dec(o.get("quantity_value"))
+    return (o["element"]["element_code_original"], _norm_text(o["action"]["action_text_original"]),
+            qty.normalize() if qty is not None else None, (o.get("unit_original") or "").lower(),
+            o.get("cycle_start_year_as_stated"),
+            total.quantize(Decimal("1"), rounding="ROUND_HALF_UP") if total is not None else None)
+
+
+def content_overlap(root, staged_po, docs):
+    """Voor elk spreadsheetdocument in deze batch: hoeveel van zijn price-observation-rijen komen exact
+    (vingerafdruk _row_fingerprint) voor in een PDF-document (canoniek of in deze batch)? Alleen bewijs voor
+    een relatiekandidaat; nooit automatisch duplicate of zelfde source cluster."""
+    fmt = {d["document_id"]: d["format"] for d in docs if d["document_id"]}
+    sheets = {did: po for did, po in staged_po.items() if fmt.get(did) in ("xls", "xlsx")}
+    if not sheets:
+        return []
+    pdf_rows = {}
+    canon = os.path.join(root, "data", "price_observations", "price_observations_batch1.json")
+    if os.path.exists(canon):
+        for o in json.load(open(canon, encoding="utf-8"))["observations"]:
+            pdf_rows.setdefault(o["document_id"], []).append(_row_fingerprint(o))
+    for did, po in staged_po.items():
+        if fmt.get(did) == "pdf":
+            pdf_rows[did] = [_row_fingerprint(o) for o in po["observations"]]
+    out = []
+    for sid, po in sorted(sheets.items()):
+        rows = [_row_fingerprint(o) for o in po["observations"]]
+        for pid, prow in sorted(pdf_rows.items()):
+            pool = list(prow)
+            matched = 0
+            for r in rows:
+                if r in pool:
+                    pool.remove(r)
+                    matched += 1
+            if matched:
+                out.append({"spreadsheet": sid, "pdf": pid, "rows": len(rows), "matched": matched,
+                            "coverage": (Decimal(matched) / Decimal(len(rows))).quantize(Decimal("0.001"))})
+    return sorted(out, key=lambda x: (x["spreadsheet"], -x["matched"], x["pdf"]))
 
 
 def relation_candidates(batch_docs, known):
@@ -389,6 +443,23 @@ def plan_batch(root, incoming_dir=None, state_root=None, batch_id=None, runner=N
     batch_docs = {d["document_id"]: signals[d["document_id"]] for d in docs if d["document_id"] in signals}
     known = known_documents(root, state_root, set(batch_docs))
     relations = relation_candidates(batch_docs, known)
+    overlap = content_overlap(root, staged_extra["price_observations"], docs)
+    for o in overlap:
+        if o["coverage"] >= CONTENT_OVERLAP_MIN_COVERAGE:
+            ids = sorted([o["spreadsheet"], o["pdf"]], key=document_registry._id_num)
+            key = f"{ids[0]}|{ids[1]}|POSSIBLE_DUPLICATE_OTHER_BYTES"
+            ev = f"inhoudelijke overlap: {o['matched']}/{o['rows']} spreadsheetrijen exact gelijk aan rijen van {o['pdf']} " \
+                 "(elementcode, actietekst, hoeveelheid, eenheid, startjaar, totaal afgerond op euro)"
+            existing = next((r for r in relations if r["document_ids"] == ids), None)
+            if existing:
+                existing["evidence"].append(ev)
+                existing["kind"] = "POSSIBLE_DUPLICATE_OTHER_BYTES"
+            else:
+                relations.append({"relation_candidate_id": "RC-" + sha256_bytes(key.encode())[:10], "document_ids": ids,
+                                  "origins": {}, "kind": "POSSIBLE_DUPLICATE_OTHER_BYTES",
+                                  "possible_meanings": ["duplicate_other_bytes", "new_version", "same_building_other_inspection"],
+                                  "evidence": [ev], "status": "CANDIDATE_REQUIRES_HUMAN_CONFIRMATION",
+                                  "source_cluster": "NOT_ASSUMED"})
     for d in docs:
         rel = [r["relation_candidate_id"] for r in relations if d["document_id"] in r["document_ids"]]
         if rel and d["status_history"][-1] in ("EXTRACTED", "READY_FOR_EXTRACTION", "REVIEW_REQUIRED"):
@@ -399,9 +470,103 @@ def plan_batch(root, incoming_dir=None, state_root=None, batch_id=None, runner=N
         d["status"] = d["status_history"][-1]
         assert d["status"] in STATUSES
     return {"batch_id": batch_id, "docs": docs, "extracted": extracted, "validations": validations,
+            "content_overlap": overlap,
             "normalized": staged_extra["normalized"], "price_observations": staged_extra["price_observations"],
             "relations": relations, "registry_old": old_registry, "registry": registry, "runner": runner,
             "root": root, "state_root": state_root}
+
+
+def _process_spreadsheet(d, e, doc_meta, layer, extracted, validations, signals, staged_extra, root):
+    """Deterministische spreadsheet-extractie (spreadsheet_extraction.py). Geen xpdf nodig."""
+    did = d["document_id"]
+    d["status_history"].append("READY_FOR_EXTRACTION")
+    try:
+        record, parse = sx.extract_spreadsheet(did, layer, doc_meta, src.UNIT_TOKENS)
+    except sx.SpreadsheetError as ex:
+        d["reasons"].append("EXTRACTION_VALIDATION_FAILED")
+        validations[did] = {"outcome": "FAILED_VALIDATION",
+                            "checks": [_check("schema", "FAIL", len(ex.errors) or 1, [str(ex)] + [str(x) for x in ex.errors])]}
+        d["validation_outcome"] = "FAILED_VALIDATION"
+        d["status_history"].append("FAILED_VALIDATION")
+        return
+    if ir.document_registry.sha256_of(e["abs"]) != e["sha256"]:
+        d["reasons"].append("SOURCE_CHANGED_DURING_PROCESSING")
+        d["status_history"].append("FAILED_VALIDATION")
+        return
+    sig = _signals_from_record(record)
+    signals[did] = {"kind": "spreadsheet", **{k: v if v is not None else signals.get(did, {}).get(k)
+                                              for k, v in sig.items()}}
+    val = validate_extracted(record, did, e["sha256"], 0, [], layer=layer)
+    trace = record["deterministic_trace"]
+    val["checks"].append(_check("spreadsheet_structure", "REVIEW" if trace["unclassified_rows"] else "PASS",
+                                len(trace["unclassified_rows"]),
+                                [f"rij {r['row']}: {r['text'][:80]}" for r in trace["unclassified_rows"]]))
+    val["outcome"] = _outcome(val["checks"])
+    d["extraction"] = {"profile_id": sx.PROFILE["profile_id"], "profile_version": sx.PROFILE["profile_version"],
+                       "extractor_version": sx.EXTRACTOR_VERSION, "rules_version": sx.RULES_VERSION,
+                       "pdftotext_version": None,
+                       "canonical_content_sha256": sha256_bytes(json.dumps(
+                           record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8"))}
+    extracted[did] = record
+    if val["outcome"] != "FAILED_VALIDATION" and staged_extra is not None:
+        try:
+            normalized, po = stage_spreadsheet_downstream(record, parse, doc_meta, root)
+        except Exception as ex:
+            val["checks"].append(_check("staging_downstream", "FAIL", 1, [f"{type(ex).__name__}: {ex}"]))
+        else:
+            po_errors = po_schema_errors(root, po)
+            val["checks"].append(_check("price_observations", "FAIL" if po_errors else "PASS",
+                                        len(po["observations"]), po_errors))
+            val["checks"].append(totaal_object_check(po))
+            if not po_errors:
+                staged_extra["normalized"][did] = normalized
+                staged_extra["price_observations"][did] = po
+        val["outcome"] = _outcome(val["checks"])
+    validations[did] = val
+    d["validation_outcome"] = val["outcome"]
+    d["price_observation_candidates"] = len(staged_extra["price_observations"].get(did, {}).get("observations", [])) \
+        if staged_extra is not None else 0
+    d["open_review_items"] += [f"{c['check']}: {c['count']}" for c in val["checks"] if c["result"] == "REVIEW"]
+    if val["outcome"] == "FAILED_VALIDATION":
+        d["status_history"].append("FAILED_VALIDATION")
+    else:
+        d["status_history"].append("EXTRACTED")
+        if val["outcome"] == "REVIEW_REQUIRED":
+            d["status_history"].append("REVIEW_REQUIRED")
+
+
+def _outcome(checks):
+    results = {c["result"] for c in checks}
+    return "FAILED_VALIDATION" if "FAIL" in results else ("REVIEW_REQUIRED" if "REVIEW" in results else "EXTRACTED")
+
+
+def stage_spreadsheet_downstream(record, parse, doc_meta, root):
+    """Genormaliseerd record + price-observation-kandidaten van een spreadsheet (bestaande regels)."""
+    normalized = nb.normalize_record(copy.deepcopy(record), normalization_lookups(root))
+    doc = {"document_id": record["document_id"], "relative_path": doc_meta["relative_path"],
+           "sha256": doc_meta["sha256"], "file_type": record["extraction_metadata"]["file_type"]}
+    dv = record["document_level_values"]
+    vat = _value(dv.get("vat_statement"))
+    ctx = {"price_level_date": None, "price_level_basis": "absent",
+           "vat_basis": ("inclusive" if " inclusief " in f" {vat} " else "exclusive") if vat else None,
+           "vat_text": vat, "vat_rate_text": None, "indexation_statement": _value(dv.get("indexation_statement"))}
+    unit_lookup = nb.load_vocab(os.path.join(root, "vocabularies"), "unit")
+    obs, relations = sx.build_observations(record, parse, doc, ctx, unit_lookup, copy.deepcopy(normalized))
+    total = record["deterministic_trace"]["totaal_object"]
+    obs_sum = sum((Decimal(o["total_value"]) for o in obs if o["total_value"]), Decimal("0"))
+    tot = Decimal(total["total"]) if total and total["total"] is not None else None
+    checks = {"status": "parsed", "observations": len(obs), "sheet": parse["sheet"]["sheet"],
+              "sum_observation_totals": str(obs_sum), "jarenplan_totaal_object": str(tot) if tot is not None else None,
+              "totaal_object_difference": str(obs_sum - tot) if tot is not None else None,
+              "price_level_basis": "absent", "price_level_date": None, "vat_basis": ctx["vat_basis"],
+              "observations_without_extraction_link": sum(1 for o in obs if not o["extraction_link"]["action_ids"])}
+    po = {"builder_version": bpo.BUILDER_VERSION,
+          "note": "Kandidaat-price-observations uit een spreadsheet (incoming staging). Bronverwijzing = "
+                  "werkblad + rij + celadressen. Relatie-ID's worden bij promotie hernummerd. Niet canoniek.",
+          "document": {**doc, "document_relation_ids": [], "status": "parsed", "sheet": parse["sheet"]["sheet"],
+                       "document_context": ctx, "jarenplan_totaal_object": checks["jarenplan_totaal_object"]},
+          "checks": checks, "observations": obs, "observation_relations": relations, "unlinked_section_rows": []}
+    return normalized, po
 
 
 def raw_relative_path(document_id, first_observed_path):
@@ -416,14 +581,16 @@ def normalization_lookups(root):
              ("unit", "unit"), ("defect_type", "defect_type"), ("action", "maintenance_action")]}
 
 
-def stage_downstream(record, pages, doc_meta, root):
+def stage_downstream(record, pages, doc_meta, root, profile=None):
     """Genormaliseerd record + price-observation-kandidaten van één document, met exact de bestaande
     regels (normalize_batch.normalize_record, build_price_observations.build_document). Alleen staging."""
     normalized = nb.normalize_record(copy.deepcopy(record), normalization_lookups(root))
     doc = {"document_id": record["document_id"], "relative_path": doc_meta["relative_path"],
            "sha256": doc_meta["sha256"], "file_type": "pdf"}
     unit_lookup = nb.load_vocab(os.path.join(root, "vocabularies"), "unit")
-    extra, obs, unlinked, checks = bpo.build_document(doc, pages, copy.deepcopy(normalized), unit_lookup, [])
+    extra, obs, unlinked, checks = bpo.build_document(
+        doc, pages, copy.deepcopy(normalized), unit_lookup, [],
+        jarenplan_vat_fallback=(profile or {}).get("jarenplan_vat_fallback", False))
     relations = bpo.build_relations({doc["document_id"]: obs}, [])
     po = {"builder_version": bpo.BUILDER_VERSION,
           "note": "Kandidaat-price-observations (incoming staging). Relatie-ID's zijn lokaal en worden bij "
@@ -444,16 +611,20 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
         d["status_history"].append("FAILED_VALIDATION")
         return
     fam = td.detect_family(d["format"], layer)
-    d["family"] = {k: fam[k] for k in ("family_id", "markers", "reason", "detection_version")}
+    d["family"] = {k: fam.get(k) for k in ("family_id", "variant", "markers", "reason", "detection_version",
+                                             "explanation")}
     if not fam["family_id"]:
         d["reasons"].append(fam["reason"])
         d["status_history"].append("UNKNOWN_TEMPLATE")
         return
     if d["format"] != "pdf":
         signals[did] = {"kind": "spreadsheet", **_signals_from_sheet(layer, fam["markers"]["jarenplan_header"])}
-        d["reasons"].append("UNSUPPORTED_EXTRACTION")
-        d["open_review_items"].append("UNSUPPORTED_EXTRACTION: geen productie-parser voor dit spreadsheetformaat")
-        d["status_history"].append("REVIEW_REQUIRED")
+        if fam.get("extraction") != "deterministic_xlrd":
+            d["reasons"].append("UNSUPPORTED_EXTRACTION")
+            d["open_review_items"].append("UNSUPPORTED_EXTRACTION: geen productie-parser voor dit spreadsheetformaat")
+            d["status_history"].append("REVIEW_REQUIRED")
+            return
+        _process_spreadsheet(d, e, doc_meta, layer, extracted, validations, signals, staged_extra, root)
         return
     d["status_history"].append("READY_FOR_EXTRACTION")
     signals[did] = {"kind": "pdf", "postcode": None, "address": None, "price_level_date": None,
@@ -461,7 +632,7 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
     if not runner["xpdf_available"]:
         d["reasons"].append("XPDF_4_06_NOT_AVAILABLE")
         return
-    profile = td.FAMILY_PROFILES[fam["family_id"]]
+    profile = td.profile_for(fam["family_id"], fam["variant"])
     try:
         record, pages = extractor(did, e["abs"], doc_meta, profile, runner["binary"], runner["pdftotext_version"],
                                   layer=layer)
@@ -480,7 +651,7 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
         d["reasons"].append("SOURCE_CHANGED_DURING_PROCESSING")
         d["status_history"].append("FAILED_VALIDATION")
         return
-    missing = td.recheck_on_xpdf_pages(src.classify_sections(pages))
+    missing = td.recheck_on_xpdf_pages(src.classify_sections(pages), fam["required_sections"])
     val = validate_extracted(record, did, e["sha256"], len(pages), missing)
     validations[did] = val
     d["validation_outcome"] = val["outcome"]
@@ -493,7 +664,7 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
     signals[did] = {"kind": "pdf", **_signals_from_record(record)}
     if val["outcome"] != "FAILED_VALIDATION" and staged_extra is not None:
         try:
-            normalized, po = stage_downstream(record, pages, doc_meta, root)
+            normalized, po = stage_downstream(record, pages, doc_meta, root, profile)
         except Exception as ex:  # nooit half gestaged: dan faalt het document
             val["checks"].append(_check("staging_downstream", "FAIL", 1, [f"{type(ex).__name__}: {ex}"]))
             val["outcome"] = "FAILED_VALIDATION"
@@ -504,6 +675,9 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
                                         ("WARN" if diff not in (None, 0) else "PASS"),
                                         len(po["observations"]),
                                         po_errors or ([f"verschil met Totaal object: {diff}"] if diff else [])))
+            val["checks"].append(totaal_object_check(po))
+            if val["checks"][-1]["result"] == "REVIEW" and val["outcome"] == "EXTRACTED":
+                val["outcome"] = "REVIEW_REQUIRED"
             if po_errors:
                 val["outcome"] = "FAILED_VALIDATION"
             else:
@@ -519,6 +693,21 @@ def _process_document(d, e, doc_meta, runner, extractor, extracted, validations,
         d["status_history"].append("EXTRACTED")
         if val["outcome"] == "REVIEW_REQUIRED":
             d["status_history"].append("REVIEW_REQUIRED")
+
+
+def totaal_object_check(po):
+    """Harde controle: som van de rijtotalen (observations) tegen het eigen 'Totaal object' van het
+    document. Afronding van weergegeven bedragen geeft hooguit 0,5 per rijtotaal plus 0,5 voor het
+    Totaal object; een groter verschil wijst op meegelezen (sub)totaalregels of gemiste rijen."""
+    c = po["checks"]
+    total, diff = _dec(c.get("jarenplan_totaal_object")), _dec(c.get("totaal_object_difference"))
+    if total is None:
+        return _check("totaal_object_reconciliation", "WARN", 1, ["geen 'Totaal object' gevonden"])
+    bound = (Decimal(len(po["observations"])) + 1) / 2
+    detail = [f"som observations - Totaal object = {diff} (afrondingsgrens {bound})"]
+    if diff == 0:
+        return _check("totaal_object_reconciliation", "PASS", 0, detail)
+    return _check("totaal_object_reconciliation", "WARN" if abs(diff) <= bound else "REVIEW", 1, detail)
 
 
 def po_schema_errors(root, po):
@@ -666,6 +855,7 @@ def build_outputs(plan):
         "relation_candidates": [{k: r[k] for k in ("relation_candidate_id", "document_ids", "kind", "evidence")}
                                 for r in plan["relations"]],
         "kengetallen_impact_if_promoted": impact,
+        "spreadsheet_content_overlap": [dict(o, coverage=str(o["coverage"])) for o in plan.get("content_overlap", [])],
         "canonical_data_changed": False,
         "next_steps": _next_steps(by_status, runner),
     }
