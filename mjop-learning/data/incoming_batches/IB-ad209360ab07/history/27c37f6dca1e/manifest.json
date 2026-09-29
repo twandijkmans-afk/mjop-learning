@@ -2,44 +2,60 @@
   "batch_id": "IB-ad209360ab07",
   "canonical_write": false,
   "files": {
+    "documents/DOC-011.json": "8534feda41f3c8ccaf42ee5e9a6be35e22a954b9418edc6bc5860c41759d01b9",
+    "documents/DOC-012.json": "19f087e893b102902f869edbc1be575cd1c1482f8ba3dd10dc73f2fac8068c1f",
+    "documents/DOC-013.json": "86b34a68c8846ec691cad9e0b098892300d3316125caaacdc73caba086a4241e",
     "documents/DOC-014.json": "fa63eff4763b5897e5777f1b64f791614de39c6e4969d81e180118add388cdd3",
-    "documents/INPUT-6a6779c25534.json": "4cfd51546d0b990b5756d61973e15845ca11853fb6994356e2a7ff9703451c14",
-    "documents/INPUT-853b5ea3c337.json": "7bd121220d9f757b731e7829fcf8bdc99ec633943c9072b3c9566482adea4497",
-    "documents/INPUT-86bf554e24b0.json": "b21243cb6df19eec17edb91cffdd23895c0c7113434458ddf5aadf954fba995d",
-    "documents/INPUT-8a3171b691e3.json": "75a13758364f9e3a61340f9718d37d2736e6f68155a781e5942013642377b06c",
+    "documents/DOC-015.json": "64c10f4009be8fa9548a26312a5faf24e9bfc441585273b58a1e460513e30923",
+    "extracted/DOC-011.json": "e2a914beab809b8eb98ae38a6332c45f2bb0c8841d99491c5574284daf44a3f7",
+    "extracted/DOC-012.json": "4d0cd5fb88773aef956b7b17ad0d68083178fe3900e9867b707e1622ebfb5ef3",
+    "extracted/DOC-013.json": "1f8f510efac376cfccad5ffd5a60d884698131c332db35425a072e5dd079505e",
     "extracted/DOC-014.json": "950fd984b122eb7a38273d530b01b920d2452da5982e5bfd13bf47a4d4820b1c",
+    "extracted/DOC-015.json": "a7d9abbf75974659d2b3823118d6a30beccf7704af95d1f2edb0fa33991b6750",
+    "normalized/DOC-011.json": "b99c67ce8557f4bcdb896ec4c408484b0d6b66424f57e82a8be950b355bf2bc6",
+    "normalized/DOC-012.json": "f6844d6d87963ff4c790321f0650660fb27182c1e85556eae5cdb7670519a312",
+    "normalized/DOC-013.json": "454225afd02a1180ffccaf6aaa6bc5d0de9ec07d5b4c6f7ef73341befcf16c8d",
     "normalized/DOC-014.json": "882fdca281bf079509c4ca66943bb5199d1de1a84c0ae1a5783c0b908afb7847",
+    "normalized/DOC-015.json": "ac5ed464992d08362dd1238edd7b160757b526448ada9c47c6b22f5527f77d07",
+    "price_observations/DOC-011.json": "a966f639f913832735bcadb2c832cbfdef5cd495519d6a9a7175bbb015aab670",
+    "price_observations/DOC-012.json": "817412bf9a084b2e2819a610645d56d3f63d53346368583855d25b425f38503c",
+    "price_observations/DOC-013.json": "ec2919937236e28c75c30a95305bd053b7c16be31f73cc2a5b0edef6e513c968",
     "price_observations/DOC-014.json": "14a4972883f75d4886cf7ca5f8cd047aaa9080a755b60f386337ac271d83665f",
-    "promotion_proposal.json": "2de2f72dc3343e14f22a8215fb6db914363d82916d6caf8eb2c3f33b5422316f",
-    "validation/DOC-014.json": "9bb9e6588d348bb450dd7554d3dc243cdcbe8a012cf6cfd2c781bbcbd9b7dbab"
+    "price_observations/DOC-015.json": "ed59bf502ae6ca63ab1475780df479086559da4e407e668fc73c94632a6c2c0f",
+    "promotion_proposal.json": "4fbc569e73807b4166d46bc69c4e1158ea31c5d71d2173d816c9f90cb6fd1654",
+    "validation/DOC-011.json": "83c54cd632750406563835abde13f51f549fa53afe79524fe2bf69eb404a556c",
+    "validation/DOC-012.json": "309247a02c5c5ac371fd51a7223529f16f8d605647ef051150c89ac7ec05e3b2",
+    "validation/DOC-013.json": "f834eec9053c85b140e814a491331418e8ec6d5f7e36a636878df8e248f14757",
+    "validation/DOC-014.json": "9bb9e6588d348bb450dd7554d3dc243cdcbe8a012cf6cfd2c781bbcbd9b7dbab",
+    "validation/DOC-015.json": "dd6fe4bcd61046793e1601d009c2ad651258b9ae6560b1db811ba5a88d3e2360"
   },
   "inputs": [
     {
-      "document_id": null,
-      "duplicate_of": "DOC-011",
+      "document_id": "DOC-011",
+      "duplicate_of": null,
       "file_size_bytes": 753605,
-      "format": null,
+      "format": "pdf",
       "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
       "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5",
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     },
     {
-      "document_id": null,
-      "duplicate_of": "DOC-012",
+      "document_id": "DOC-012",
+      "duplicate_of": null,
       "file_size_bytes": 1017068,
-      "format": null,
+      "format": "pdf",
       "input_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
       "sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     },
     {
-      "document_id": null,
-      "duplicate_of": "DOC-013",
+      "document_id": "DOC-013",
+      "duplicate_of": null,
       "file_size_bytes": 759147,
-      "format": null,
+      "format": "pdf",
       "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
       "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513",
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     },
     {
       "document_id": "DOC-014",
@@ -51,13 +67,13 @@
       "status": "REVIEW_REQUIRED"
     },
     {
-      "document_id": null,
-      "duplicate_of": "DOC-015",
+      "document_id": "DOC-015",
+      "duplicate_of": null,
       "file_size_bytes": 112640,
-      "format": null,
+      "format": "xls",
       "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
       "sha256": "6a6779c2553489eb6c20f628371596db07bd0efdf633212b9ee3475e30f4734c",
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     }
   ],
   "manifest_version": "1.0.0",
@@ -65,7 +81,11 @@
   "pipeline_version": "incoming_pipeline_v1",
   "registry": {
     "new_document_ids": [
-      "DOC-014"
+      "DOC-011",
+      "DOC-012",
+      "DOC-013",
+      "DOC-014",
+      "DOC-015"
     ],
     "path": "data/incoming_registry.json",
     "registry_sha256_after": "c51bd66b796ab9b86e6cf0c6c83ce44f36153d2144046322cbc4ec3faa0d4d7b"

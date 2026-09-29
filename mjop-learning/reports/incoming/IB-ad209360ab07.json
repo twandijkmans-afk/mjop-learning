@@ -1,8 +1,8 @@
 {
   "batch_id": "IB-ad209360ab07",
   "by_status": {
-    "DUPLICATE_SKIP": 0,
-    "EXTRACTED": 4,
+    "DUPLICATE_SKIP": 4,
+    "EXTRACTED": 0,
     "FAILED_VALIDATION": 0,
     "READY_FOR_EXTRACTION": 0,
     "REVIEW_REQUIRED": 1,
@@ -12,37 +12,43 @@
   "canonical_data_changed": false,
   "documents": [
     {
-      "document_id": "DOC-011",
-      "duplicate_of": null,
-      "family": "pro_vve_overzicht15",
+      "document_id": null,
+      "duplicate_of": "DOC-011",
+      "family": null,
       "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
-      "key": "DOC-011",
+      "key": "INPUT-8a3171b691e3",
       "open_review_items": [],
-      "price_observation_candidates": 46,
-      "reasons": [],
-      "status": "EXTRACTED"
+      "price_observation_candidates": 0,
+      "reasons": [
+        "EXACT_SHA256_DUPLICATE_OF_CANONICAL:DOC-011"
+      ],
+      "status": "DUPLICATE_SKIP"
     },
     {
-      "document_id": "DOC-012",
-      "duplicate_of": null,
-      "family": "pro_vve_overzicht15",
+      "document_id": null,
+      "duplicate_of": "DOC-012",
+      "family": null,
       "input_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
-      "key": "DOC-012",
+      "key": "INPUT-86bf554e24b0",
       "open_review_items": [],
-      "price_observation_candidates": 48,
-      "reasons": [],
-      "status": "EXTRACTED"
+      "price_observation_candidates": 0,
+      "reasons": [
+        "EXACT_SHA256_DUPLICATE_OF_CANONICAL:DOC-012"
+      ],
+      "status": "DUPLICATE_SKIP"
     },
     {
-      "document_id": "DOC-013",
-      "duplicate_of": null,
-      "family": "pro_vve_overzicht15",
+      "document_id": null,
+      "duplicate_of": "DOC-013",
+      "family": null,
       "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
-      "key": "DOC-013",
+      "key": "INPUT-853b5ea3c337",
       "open_review_items": [],
-      "price_observation_candidates": 29,
-      "reasons": [],
-      "status": "EXTRACTED"
+      "price_observation_candidates": 0,
+      "reasons": [
+        "EXACT_SHA256_DUPLICATE_OF_CANONICAL:DOC-013"
+      ],
+      "status": "DUPLICATE_SKIP"
     },
     {
       "document_id": "DOC-014",
@@ -58,38 +64,35 @@
       "status": "REVIEW_REQUIRED"
     },
     {
-      "document_id": "DOC-015",
-      "duplicate_of": null,
-      "family": "pro_vve_overzicht15_spreadsheet",
+      "document_id": null,
+      "duplicate_of": "DOC-015",
+      "family": null,
       "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
-      "key": "DOC-015",
+      "key": "INPUT-6a6779c25534",
       "open_review_items": [],
-      "price_observation_candidates": 18,
-      "reasons": [],
-      "status": "EXTRACTED"
+      "price_observation_candidates": 0,
+      "reasons": [
+        "EXACT_SHA256_DUPLICATE_OF_CANONICAL:DOC-015"
+      ],
+      "status": "DUPLICATE_SKIP"
     }
   ],
   "families": {
-    "pro_vve_overzicht15": 4,
-    "pro_vve_overzicht15_spreadsheet": 1
+    "pro_vve_overzicht15": 1
   },
   "kengetallen_impact_if_promoted": {
     "existing_kengetallen_changed": 0,
     "existing_kengetallen_with_same_element_code": [
       {
         "documents": [
-          "DOC-011",
-          "DOC-012",
-          "DOC-013",
-          "DOC-014",
-          "DOC-015"
+          "DOC-014"
         ],
-        "kengetal_id": "KG-5211-replace-m1-pvc-67920b77"
+        "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033"
       }
     ],
     "statement": "Geen directe impact: kengetallen veranderen pas na een aparte promotie, comparability en ACTIVE human decisions. Hieronder alleen welke bestaande kengetallen dezelfde elementcode hebben (geen match, geen berekening)."
   },
-  "manifest_sha256": "27c37f6dca1e2d48269f9b6cb7ac0434f1df856618849d128972a365bb5a9289",
+  "manifest_sha256": "cf1a9110fb7204a7648b8af30a96d68956e273684348f4962914bab207d5720d",
   "next_steps": [
     "Bekijk de documenten met REVIEW_REQUIRED (open_review_items) en de relatiekandidaten.",
     "Promotie naar canonieke data is een aparte stap; deze batch wijzigt niets canoniek."
@@ -126,15 +129,15 @@
   "spreadsheet_content_overlap": [],
   "staging_path": "data/incoming_batches/IB-ad209360ab07",
   "totals": {
-    "duplicates": 0,
-    "extracted_successfully": 5,
-    "new_documents": 5,
-    "new_price_observation_candidates": 161,
+    "duplicates": 4,
+    "extracted_successfully": 1,
+    "new_documents": 1,
+    "new_price_observation_candidates": 20,
     "previously_registered_documents": 0,
     "ready_for_extraction": 0,
     "relation_candidates": 2,
     "review_required": 1,
-    "supported_templates": 5,
+    "supported_templates": 1,
     "total_files": 5,
     "unknown_templates": 0,
     "unsupported_formats": 0,

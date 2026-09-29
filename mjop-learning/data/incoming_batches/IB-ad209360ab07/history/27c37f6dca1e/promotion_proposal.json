@@ -11,37 +11,37 @@
   ],
   "documents": [
     {
-      "decision": "SKIPPED_DUPLICATE",
-      "document_id": null,
-      "eligible_for_direct_promotion": false,
+      "decision": "REVIEW_REQUIRED",
+      "document_id": "DOC-011",
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
-      "key": "INPUT-8a3171b691e3",
+      "key": "DOC-011",
       "reasons": [
-        "duplicate_of:DOC-011"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     },
     {
-      "decision": "SKIPPED_DUPLICATE",
-      "document_id": null,
-      "eligible_for_direct_promotion": false,
+      "decision": "REVIEW_REQUIRED",
+      "document_id": "DOC-012",
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
-      "key": "INPUT-86bf554e24b0",
+      "key": "DOC-012",
       "reasons": [
-        "duplicate_of:DOC-012"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     },
     {
-      "decision": "SKIPPED_DUPLICATE",
-      "document_id": null,
-      "eligible_for_direct_promotion": false,
+      "decision": "REVIEW_REQUIRED",
+      "document_id": "DOC-013",
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
-      "key": "INPUT-853b5ea3c337",
+      "key": "DOC-013",
       "reasons": [
-        "duplicate_of:DOC-013"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     },
     {
       "decision": "REVIEW_REQUIRED",
@@ -55,15 +55,15 @@
       "status": "REVIEW_REQUIRED"
     },
     {
-      "decision": "SKIPPED_DUPLICATE",
-      "document_id": null,
-      "eligible_for_direct_promotion": false,
+      "decision": "REVIEW_REQUIRED",
+      "document_id": "DOC-015",
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
-      "key": "INPUT-6a6779c25534",
+      "key": "DOC-015",
       "reasons": [
-        "duplicate_of:DOC-015"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "DUPLICATE_SKIP"
+      "status": "EXTRACTED"
     }
   ],
   "global_blockers": [],
@@ -72,9 +72,13 @@
     "existing_kengetallen_with_same_element_code": [
       {
         "documents": [
-          "DOC-014"
+          "DOC-011",
+          "DOC-012",
+          "DOC-013",
+          "DOC-014",
+          "DOC-015"
         ],
-        "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033"
+        "kengetal_id": "KG-5211-replace-m1-pvc-67920b77"
       }
     ],
     "statement": "Geen directe impact: kengetallen veranderen pas na een aparte promotie, comparability en ACTIVE human decisions. Hieronder alleen welke bestaande kengetallen dezelfde elementcode hebben (geen match, geen berekening)."

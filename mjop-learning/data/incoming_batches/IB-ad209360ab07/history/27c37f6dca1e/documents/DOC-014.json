@@ -1,0 +1,50 @@
+{
+  "batch_id": "IB-ad209360ab07",
+  "document_id": "DOC-014",
+  "duplicate_of": null,
+  "extraction": {
+    "canonical_content_sha256": "938dade4904f0e5101b1a915515181a6c6b1200970f12fe71596f98fb2e72c4d",
+    "extractor_version": "deterministic_extraction_v1.0.0",
+    "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+    "profile_id": "pro_vve_overzicht15",
+    "profile_version": "1.0.0",
+    "rules_version": "pro_vve_overzicht_rules_v1"
+  },
+  "family": {
+    "detection_version": "template_detection_v1",
+    "explanation": [
+      "pro_vve_overzicht15/standard: object_sheet@p2, element_overview@p5, jarenplan_title@p13, jarenplan_header@p14, totaal_object@p12 - objectblad, elementenoverzicht en 'Overzicht NN - Jarenplan (Gedetailleerd)' van de vvem-software"
+    ],
+    "family_id": "pro_vve_overzicht15",
+    "markers": {
+      "element_overview": "p5",
+      "jarenplan_header": "p14",
+      "jarenplan_title": "p13",
+      "jarenplan_title_projects": null,
+      "object_sheet": "p2",
+      "projects_overview": null,
+      "totaal_object": "p12"
+    },
+    "reason": null,
+    "variant": "standard"
+  },
+  "file_size_bytes": 1685513,
+  "format": "pdf",
+  "input_path": "Testbatch 01/Meerjarenonderhoudsplan 2023_VvE 9261.pdf",
+  "open_review_items": [
+    "RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+  ],
+  "pipeline_version": "incoming_pipeline_v1",
+  "price_observation_candidates": 20,
+  "reasons": [],
+  "registration": "new",
+  "sha256": "df698e6edd40c97ab9287ba912c10209a91a55222b7f6af2f1be0e2b6bf819da",
+  "status": "REVIEW_REQUIRED",
+  "status_history": [
+    "NEW",
+    "READY_FOR_EXTRACTION",
+    "EXTRACTED",
+    "REVIEW_REQUIRED"
+  ],
+  "validation_outcome": "EXTRACTED"
+}
