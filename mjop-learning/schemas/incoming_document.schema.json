@@ -1,0 +1,186 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Incoming document (intake-record, incoming pipeline v1)",
+  "description": "Eén bestand uit data/incoming in een staging-batch. Identiteit = sha256; input_path is metadata.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "batch_id",
+    "pipeline_version",
+    "input_path",
+    "sha256",
+    "file_size_bytes",
+    "format",
+    "document_id",
+    "registration",
+    "duplicate_of",
+    "status",
+    "status_history",
+    "reasons",
+    "family",
+    "extraction",
+    "validation_outcome",
+    "open_review_items",
+    "price_observation_candidates"
+  ],
+  "properties": {
+    "batch_id": {
+      "type": "string"
+    },
+    "pipeline_version": {
+      "const": "incoming_pipeline_v1"
+    },
+    "input_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "file_size_bytes": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "format": {
+      "enum": [
+        "pdf",
+        "xls",
+        "xlsx",
+        null
+      ]
+    },
+    "document_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^DOC-\\d{3,}$"
+    },
+    "registration": {
+      "enum": [
+        "new",
+        "existing_incoming",
+        "canonical_duplicate",
+        "in_batch_duplicate",
+        null
+      ]
+    },
+    "duplicate_of": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "NEW",
+        "DUPLICATE_SKIP",
+        "READY_FOR_EXTRACTION",
+        "EXTRACTED",
+        "REVIEW_REQUIRED",
+        "UNKNOWN_TEMPLATE",
+        "UNSUPPORTED_FORMAT",
+        "FAILED_VALIDATION"
+      ]
+    },
+    "status_history": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "enum": [
+          "NEW",
+          "DUPLICATE_SKIP",
+          "READY_FOR_EXTRACTION",
+          "EXTRACTED",
+          "REVIEW_REQUIRED",
+          "UNKNOWN_TEMPLATE",
+          "UNSUPPORTED_FORMAT",
+          "FAILED_VALIDATION"
+        ]
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "family": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "extraction": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "canonical_content_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "validation_outcome": {
+      "enum": [
+        "EXTRACTED",
+        "REVIEW_REQUIRED",
+        "FAILED_VALIDATION",
+        null
+      ]
+    },
+    "open_review_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "price_observation_candidates": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "DUPLICATE_SKIP"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "duplicate_of": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "EXTRACTED",
+              "READY_FOR_EXTRACTION"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "document_id": {
+            "type": "string"
+          },
+          "format": {
+            "const": "pdf"
+          }
+        }
+      }
+    }
+  ]
+}

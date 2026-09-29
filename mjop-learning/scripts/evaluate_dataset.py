@@ -25,6 +25,7 @@ import os
 
 FIELDS_TO_CHECK = [
     ("elements", "element_type", "normalized_value"),
+    ("elements", "element_code", "normalized_value"),
     ("elements", "material", "normalized_value"),
     ("maintenance_actions", "action", "normalized_value"),
     ("maintenance_actions", "planned_year", "value"),

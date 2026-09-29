@@ -1,0 +1,128 @@
+# Incoming / bulk MJOP pipeline v1 (mjop-learning/docs/incoming_pipeline_v1.md)
+#
+# Verwerkt alles in mjop-learning/data/incoming/ naar een staging-batch
+# (data/incoming_batches/<batch_id>/ + reports/incoming/<batch_id>.json).
+# Geen AI/LLM, geen Anthropic/OpenAI API, geen andere PDF-parser dan xpdf pdftotext 4.06.
+# Canonieke data wordt nooit geschreven; promotie is een aparte stap.
+name: Process incoming MJOPs
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_id:
+        description: "Optioneel: eigen batch-id (leeg = automatisch op basis van de inhoud)"
+        required: false
+        default: ""
+      commit_results:
+        description: "Batchresultaat terug committen naar deze branch"
+        type: boolean
+        default: true
+  push:
+    paths:
+      - "mjop-learning/data/incoming/**"
+      - ".github/workflows/process-incoming-mjops.yml"
+      - "mjop-learning/config/xpdf_pin.json"
+      - "mjop-learning/scripts/process_incoming_batch.py"
+      - "mjop-learning/scripts/xpdf_runner_setup.py"
+      - "mjop-learning/scripts/template_detection.py"
+      - "mjop-learning/scripts/incoming_registry.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: incoming-mjops-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  process:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+      BATCH_ID: ${{ github.event.inputs.batch_id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Python-afhankelijkheden (vastgepind, zonder AI-SDK's)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pipeline.txt
+          if python -c "import anthropic" 2>/dev/null || python -c "import openai" 2>/dev/null; then
+            echo "::error::AI-SDK aanwezig op de runner; de incoming pipeline mag geen AI-route hebben"; exit 1
+          fi
+
+      - name: xpdf pdftotext 4.06 installeren en verifiëren (vastgepinde download + checksum)
+        run: |
+          python scripts/xpdf_runner_setup.py --install "$RUNNER_TEMP/xpdf" \
+            --out "$RUNNER_TEMP/runner_setup.json" --verify-reproduction
+          STATUS=$(python -c "import json,sys; print(json.load(open(sys.argv[1]))['status'])" "$RUNNER_TEMP/runner_setup.json")
+          echo "RUNNER_SETUP_STATUS=$STATUS" >> "$GITHUB_ENV"
+          if [ "$STATUS" != "VERIFIED_RUNNER_SETUP" ]; then
+            echo "::warning::xpdf runner setup: $STATUS (zie runner_setup.json in de artifacts)"
+          fi
+
+      - name: Tests (incoming pipeline + deterministische extractie)
+        run: python -m pytest -q tests/test_incoming_pipeline.py tests/test_incoming_promotion.py tests/test_deterministic_extraction.py
+
+      - name: End-to-end zelftest met echte xpdf (tijdelijke map, niets gecommit)
+        run: |
+          T="$RUNNER_TEMP/selftest"
+          mkdir -p "$T/in"
+          cp "data/raw/zomerdijkstraat-14/Meerjarenonderhoudsplan 2023_VvE Zomerdijkstraat 14.pdf" "$T/in/selftest.pdf"
+          printf '%%incoming-selftest\n' >> "$T/in/selftest.pdf"
+          python scripts/process_incoming_batch.py --process --incoming-dir "$T/in" --state-root "$T/state" \
+            --batch-id SELFTEST --require-xpdf --pdftotext "$RUNNER_TEMP/xpdf/pdftotext" \
+            --runner-setup "$RUNNER_TEMP/runner_setup.json"
+          python - "$T/state" <<'PY'
+          import json, sys, glob
+          docs = [json.load(open(f)) for f in glob.glob(sys.argv[1] + "/data/incoming_batches/SELFTEST/documents/*.json")]
+          assert len(docs) == 1 and "EXTRACTED" in docs[0]["status_history"], docs
+          print("ZELFTEST OK:", docs[0]["document_id"], docs[0]["status_history"], docs[0]["price_observation_candidates"], "prijsposten")
+          PY
+
+      - name: Register en bestaande batches controleren
+        run: python scripts/process_incoming_batch.py --check
+
+      - name: Incoming batch verwerken
+        run: |
+          ARGS="--process --pdftotext $RUNNER_TEMP/xpdf/pdftotext --runner-setup $RUNNER_TEMP/runner_setup.json --summary-md $GITHUB_STEP_SUMMARY"
+          if [ -n "$BATCH_ID" ]; then ARGS="$ARGS --batch-id $BATCH_ID"; fi
+          python scripts/process_incoming_batch.py $ARGS
+
+      - name: Controle na verwerking
+        run: python scripts/process_incoming_batch.py --check
+
+      - name: Resultaten als artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: incoming-batch-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/runner_setup.json
+            mjop-learning/reports/incoming/
+            mjop-learning/data/incoming_batches/
+            mjop-learning/data/incoming_registry.json
+          if-no-files-found: ignore
+
+      - name: Batchresultaat committen (alleen staging, nooit canoniek)
+        if: github.event_name == 'push' || github.event.inputs.commit_results == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/incoming_registry.json data/incoming_batches reports/incoming
+          if git diff --cached --quiet; then echo "Geen nieuwe batchresultaten."; exit 0; fi
+          git commit -m "chore: process incoming MJOP batch (runner: $RUNNER_SETUP_STATUS)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

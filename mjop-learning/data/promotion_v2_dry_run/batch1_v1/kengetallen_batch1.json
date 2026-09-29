@@ -1,0 +1,2126 @@
+{
+  "comparability_rules_version": "comparability_rules_v1",
+  "inputs": {
+    "comparability_output_sha256": "af144da8b0f25435d44fa2ebdbdad58c404f61d8c5155a12138a3702bd3aac1a",
+    "human_decisions_sha256": "cc566395a458e0a2b4f3736d8ff8a595e41b59f4875b02d41f6c4dfba6a06267",
+    "normalized_observations_sha256": "3883c9897e796d025e8338f827e0d2636be4d84faeeeb3346d6a88a52a8e33e0",
+    "rules_document_sha256": "bc87f7549dad98e2688e508f8a84ace43d49205ac11654c2f5a9e7e2d0d56a11"
+  },
+  "kengetallen": [
+    {
+      "action": "impregnate",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "candidate_key": [
+        "2110",
+        "impregnate",
+        "m2"
+      ],
+      "cluster_contributions": [
+        {
+          "contribution_display": "17.71",
+          "contribution_exact": "17.71416231644571299808465092",
+          "observation_ids": [
+            "PO-DOC-007-P015-L017"
+          ],
+          "post_ids": [
+            "KG-2110-impregnate-m2-unknown-8961e2e5-POST-01"
+          ],
+          "price_levels": [
+            "28-4-2023"
+          ],
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "contribution_display": "18.38",
+          "contribution_exact": "18.38028796861766148085409887",
+          "observation_ids": [
+            "PO-DOC-009-P018-L015",
+            "PO-DOC-009-P018-L019"
+          ],
+          "post_ids": [
+            "KG-2110-impregnate-m2-unknown-8961e2e5-POST-02"
+          ],
+          "price_levels": [
+            "21-4-2025"
+          ],
+          "source_cluster": "SC-DOC-008+DOC-009"
+        }
+      ],
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00001",
+            "pair_id": "PAIR-00003",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00002",
+            "pair_id": "PAIR-00004",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          }
+        ],
+        "counts": {
+          "ACTION_TEXT_VARIANT": 2,
+          "PRICE_LEVEL_DIFFERENCE": 2
+        }
+      },
+      "decision_ids": [
+        "HDR-00001",
+        "HDR-00002"
+      ],
+      "element_code": "2110",
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "human_review_complete": true,
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "kengetal_id": "KG-2110-impregnate-m2-unknown-8961e2e5",
+      "material": {
+        "normalized": null,
+        "original": null
+      },
+      "material_source": [
+        null
+      ],
+      "max_display": "18.38",
+      "max_exact": "18.38028796861766148085409887",
+      "min_display": "17.71",
+      "min_exact": "17.71416231644571299808465092",
+      "missing_cross_cluster_reviews": [],
+      "observation_caveats": {
+        "PO-DOC-007-P015-L017": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P018-L015": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P018-L019": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-007-P015-L017",
+        "PO-DOC-009-P018-L015",
+        "PO-DOC-009-P018-L019"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-007": [
+          "PO-DOC-007-P015-L017"
+        ],
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-009-P018-L015",
+          "PO-DOC-009-P018-L019"
+        ]
+      },
+      "posts": [
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 15,
+            "page": 15
+          },
+          "observation_ids": [
+            "PO-DOC-007-P015-L017"
+          ],
+          "post_id": "KG-2110-impregnate-m2-unknown-8961e2e5-POST-01",
+          "post_value_exact": "17.71416231644571299808465092",
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "consolidated": true,
+          "consolidation_reason": "zelfde element_line (p18 r9), action, unit en quantity; actietekst verschilt alleen in gevelzijde ['achtergevel', 'voorgevel']",
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 9,
+            "page": 18
+          },
+          "observation_ids": [
+            "PO-DOC-009-P018-L015",
+            "PO-DOC-009-P018-L019"
+          ],
+          "post_id": "KG-2110-impregnate-m2-unknown-8961e2e5-POST-02",
+          "post_value_exact": "18.38028796861766148085409887",
+          "source_cluster": "SC-DOC-008+DOC-009"
+        }
+      ],
+      "price_levels": {
+        "indexation": "none",
+        "missing_price_level": false,
+        "mixed_price_level": true,
+        "per_cluster": {
+          "SC-DOC-007": [
+            "28-4-2023"
+          ],
+          "SC-DOC-008+DOC-009": [
+            "21-4-2025"
+          ]
+        },
+        "per_observation": {
+          "PO-DOC-007-P015-L017": "28-4-2023",
+          "PO-DOC-009-P018-L015": "21-4-2025",
+          "PO-DOC-009-P018-L019": "21-4-2025"
+        },
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2025: niet presenteren als prijs van één specifiek jaar.",
+        "years": [
+          2023,
+          2025
+        ]
+      },
+      "quantity": {
+        "max": "1065.08",
+        "max_min_ratio": "1.19",
+        "min": "897.32",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "range_display": "0.67",
+      "range_exact": "0.66612565217194848276944795",
+      "rule_version": "kengetallen_rules_v1",
+      "source_cluster_count": 2,
+      "source_cluster_ids": [
+        "SC-DOC-007",
+        "SC-DOC-008+DOC-009"
+      ],
+      "source_references": [
+        {
+          "action_text": "Hydrofoberen/Impregneren metselwerk",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2033,
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 15,
+            "page": 15
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 17,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Gevelconstructie metselwerk",
+          "observation_id": "PO-DOC-007-P015-L017",
+          "page": 15,
+          "post_id": "KG-2110-impregnate-m2-unknown-8961e2e5-POST-01",
+          "price_level_date": "28-4-2023",
+          "price_per_execution_display": "17.71",
+          "price_per_execution_exact": "17.71416231644571299808465092",
+          "quantity": "1065.08",
+          "source_cluster": "SC-DOC-007",
+          "source_text": "Hydrofoberen/Impregneren 1065,08 m2 2033 12 18.867 18.867",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Hydrofoberen / impregneren metselwerk achtergevel",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2025,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 9,
+            "page": 18
+          },
+          "executions_in_window": 2,
+          "independent_input": true,
+          "line": 15,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Gevelconstructie metselwerk",
+          "observation_id": "PO-DOC-009-P018-L015",
+          "page": 18,
+          "post_id": "KG-2110-impregnate-m2-unknown-8961e2e5-POST-02",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "18.38",
+          "price_per_execution_exact": "18.38028796861766148085409887",
+          "quantity": "897.32",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Hydrofoberen / impregneren 897,32 m2 2025 12 16.493 16.493 32.985",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Hydrofoberen / impregneren metselwerk voorgevel",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2032,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 9,
+            "page": 18
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 19,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Gevelconstructie metselwerk",
+          "observation_id": "PO-DOC-009-P018-L019",
+          "page": 18,
+          "post_id": "KG-2110-impregnate-m2-unknown-8961e2e5-POST-02",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "18.38",
+          "price_per_execution_exact": "18.38028796861766148085409887",
+          "quantity": "897.32",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Hydrofoberen / impregneren 897,32 m2 2032 12 16.493 16.493",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "unit": "m2",
+      "value_display": null,
+      "value_exact": null,
+      "vat_basis": [
+        "inclusive"
+      ]
+    },
+    {
+      "action": "replace",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "candidate_key": [
+        "4321",
+        "replace",
+        "m2"
+      ],
+      "cluster_contributions": [
+        {
+          "contribution_display": "80.63",
+          "contribution_exact": "80.63448275862068965517241379",
+          "observation_ids": [
+            "PO-DOC-007-P016-L063"
+          ],
+          "post_ids": [
+            "KG-4321-replace-m2-unknown-d299ed1b-POST-01"
+          ],
+          "price_levels": [
+            "28-4-2023"
+          ],
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "contribution_display": "64.60",
+          "contribution_exact": "64.60436339954412243568870075",
+          "observation_ids": [
+            "PO-DOC-010-P011-L057"
+          ],
+          "post_ids": [
+            "KG-4321-replace-m2-unknown-d299ed1b-POST-02"
+          ],
+          "price_levels": [
+            "1-4-2023"
+          ],
+          "source_cluster": "SC-DOC-010"
+        }
+      ],
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "QUANTITY_SCALE_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00003",
+            "pair_id": "PAIR-00021",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          }
+        ],
+        "counts": {
+          "GENERIC_VS_SPECIFIC_OBJECT": 1,
+          "QUANTITY_SCALE_DIFFERENCE": 1
+        }
+      },
+      "decision_ids": [
+        "HDR-00003"
+      ],
+      "element_code": "4321",
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "human_review_complete": true,
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "kengetal_id": "KG-4321-replace-m2-unknown-d299ed1b",
+      "material": {
+        "normalized": null,
+        "original": null
+      },
+      "material_source": [
+        null
+      ],
+      "max_display": "80.63",
+      "max_exact": "80.63448275862068965517241379",
+      "min_display": "64.60",
+      "min_exact": "64.60436339954412243568870075",
+      "missing_cross_cluster_reviews": [],
+      "observation_caveats": {
+        "PO-DOC-007-P016-L063": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-010-P011-L057": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-007-P016-L063",
+        "PO-DOC-010-P011-L057"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-007": [
+          "PO-DOC-007-P016-L063"
+        ],
+        "SC-DOC-010": [
+          "PO-DOC-010-P011-L057"
+        ]
+      },
+      "posts": [
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 61,
+            "page": 16
+          },
+          "observation_ids": [
+            "PO-DOC-007-P016-L063"
+          ],
+          "post_id": "KG-4321-replace-m2-unknown-d299ed1b-POST-01",
+          "post_value_exact": "80.63448275862068965517241379",
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-010",
+          "element_line": {
+            "line": 55,
+            "page": 11
+          },
+          "observation_ids": [
+            "PO-DOC-010-P011-L057"
+          ],
+          "post_id": "KG-4321-replace-m2-unknown-d299ed1b-POST-02",
+          "post_value_exact": "64.60436339954412243568870075",
+          "source_cluster": "SC-DOC-010"
+        }
+      ],
+      "price_levels": {
+        "indexation": "none",
+        "missing_price_level": false,
+        "mixed_price_level": false,
+        "per_cluster": {
+          "SC-DOC-007": [
+            "28-4-2023"
+          ],
+          "SC-DOC-010": [
+            "1-4-2023"
+          ]
+        },
+        "per_observation": {
+          "PO-DOC-007-P016-L063": "28-4-2023",
+          "PO-DOC-010-P011-L057": "1-4-2023"
+        },
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeil 2023.",
+        "years": [
+          2023
+        ]
+      },
+      "quantity": {
+        "max": "580.00",
+        "max_min_ratio": "18.89",
+        "min": "30.71",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "range_display": "16.03",
+      "range_exact": "16.03011935907656721948371304",
+      "rule_version": "kengetallen_rules_v1",
+      "source_cluster_count": 2,
+      "source_cluster_ids": [
+        "SC-DOC-007",
+        "SC-DOC-010"
+      ],
+      "source_references": [
+        {
+          "action_text": "Vervangen tapijt",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2029,
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 61,
+            "page": 16
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 63,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Vloerafwerking tapijt -binnenvloeren",
+          "observation_id": "PO-DOC-007-P016-L063",
+          "page": 16,
+          "post_id": "KG-4321-replace-m2-unknown-d299ed1b-POST-01",
+          "price_level_date": "28-4-2023",
+          "price_per_execution_display": "80.63",
+          "price_per_execution_exact": "80.63448275862068965517241379",
+          "quantity": "580.00",
+          "source_cluster": "SC-DOC-007",
+          "source_text": "Vervangen tapijt 580,00 m2 2029 12 46.768 46.768",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Vervangen tapijt",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 24,
+          "cycle_start_year": 2030,
+          "document_id": "DOC-010",
+          "element_line": {
+            "line": 55,
+            "page": 11
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 57,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Vloerafwerking tapijt",
+          "observation_id": "PO-DOC-010-P011-L057",
+          "page": 11,
+          "post_id": "KG-4321-replace-m2-unknown-d299ed1b-POST-02",
+          "price_level_date": "1-4-2023",
+          "price_per_execution_display": "64.60",
+          "price_per_execution_exact": "64.60436339954412243568870075",
+          "quantity": "30.71",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Vervangen tapijt 30,71 m2 2030 24 1.984 1.984",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "unit": "m2",
+      "value_display": null,
+      "value_exact": null,
+      "vat_basis": [
+        "inclusive"
+      ]
+    },
+    {
+      "action": "interior_painting",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "cluster_contributions": [
+        {
+          "contribution_display": "10.89",
+          "contribution_exact": "10.89187738549618320610687023",
+          "observation_ids": [
+            "PO-DOC-002-P018-L055",
+            "PO-DOC-002-P018-L083"
+          ],
+          "post_ids": [
+            "KG-4622-interior_painting-m2-unknown-1a17b521-POST-01",
+            "KG-4622-interior_painting-m2-unknown-1a17b521-POST-02"
+          ],
+          "price_levels": [
+            "20-8-2026"
+          ],
+          "source_cluster": "SC-DOC-002"
+        },
+        {
+          "contribution_display": "39.60",
+          "contribution_exact": "39.60022522522522522522522523",
+          "observation_ids": [
+            "PO-DOC-009-P020-L023"
+          ],
+          "post_ids": [
+            "KG-4622-interior_painting-m2-unknown-1a17b521-POST-03"
+          ],
+          "price_levels": [
+            "21-4-2025"
+          ],
+          "source_cluster": "SC-DOC-008+DOC-009"
+        }
+      ],
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00004",
+            "pair_id": "PAIR-00155",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00006",
+            "pair_id": "PAIR-00171",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          }
+        ],
+        "counts": {
+          "GENERIC_VS_SPECIFIC_OBJECT": 2,
+          "PRICE_LEVEL_DIFFERENCE": 2
+        }
+      },
+      "decision_ids": [
+        "HDR-00004",
+        "HDR-00006",
+        "HDR-00005",
+        "HDR-00007"
+      ],
+      "element_code": "4622",
+      "excluded_observation_ids": [
+        "PO-DOC-010-P012-L017"
+      ],
+      "exclusion_reasons": {
+        "PO-DOC-010-P012-L017": [
+          "HUMAN_NOT_COMPARABLE:HDR-00005",
+          "HUMAN_NOT_COMPARABLE:HDR-00007"
+        ]
+      },
+      "human_review_complete": true,
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "kengetal_id": "KG-4622-interior_painting-m2-unknown-1a17b521",
+      "material": {
+        "normalized": null,
+        "original": null
+      },
+      "material_source": [
+        null
+      ],
+      "max_display": "39.60",
+      "max_exact": "39.60022522522522522522522523",
+      "min_display": "10.89",
+      "min_exact": "10.89187738549618320610687023",
+      "missing_cross_cluster_reviews": [],
+      "observation_caveats": {
+        "PO-DOC-002-P018-L055": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-002-P018-L083": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P020-L023": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-002-P018-L055",
+        "PO-DOC-002-P018-L083",
+        "PO-DOC-009-P020-L023"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-002": [
+          "PO-DOC-002-P018-L055",
+          "PO-DOC-002-P018-L083"
+        ],
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-009-P020-L023"
+        ]
+      },
+      "posts": [
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-002",
+          "element_line": {
+            "line": 53,
+            "page": 18
+          },
+          "observation_ids": [
+            "PO-DOC-002-P018-L055"
+          ],
+          "post_id": "KG-4622-interior_painting-m2-unknown-1a17b521-POST-01",
+          "post_value_exact": "10.890625",
+          "source_cluster": "SC-DOC-002"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-002",
+          "element_line": {
+            "line": 81,
+            "page": 18
+          },
+          "observation_ids": [
+            "PO-DOC-002-P018-L083"
+          ],
+          "post_id": "KG-4622-interior_painting-m2-unknown-1a17b521-POST-02",
+          "post_value_exact": "10.89312977099236641221374046",
+          "source_cluster": "SC-DOC-002"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 19,
+            "page": 20
+          },
+          "observation_ids": [
+            "PO-DOC-009-P020-L023"
+          ],
+          "post_id": "KG-4622-interior_painting-m2-unknown-1a17b521-POST-03",
+          "post_value_exact": "39.60022522522522522522522523",
+          "source_cluster": "SC-DOC-008+DOC-009"
+        }
+      ],
+      "price_levels": {
+        "indexation": "none",
+        "missing_price_level": false,
+        "mixed_price_level": true,
+        "per_cluster": {
+          "SC-DOC-002": [
+            "20-8-2026"
+          ],
+          "SC-DOC-008+DOC-009": [
+            "21-4-2025"
+          ]
+        },
+        "per_observation": {
+          "PO-DOC-002-P018-L055": "20-8-2026",
+          "PO-DOC-002-P018-L083": "20-8-2026",
+          "PO-DOC-009-P020-L023": "21-4-2025"
+        },
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2025–2026: niet presenteren als prijs van één specifiek jaar.",
+        "years": [
+          2025,
+          2026
+        ]
+      },
+      "quantity": {
+        "max": "355.20",
+        "max_min_ratio": "2.78",
+        "min": "128.00",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "range_display": "28.71",
+      "range_exact": "28.70834783972904201911835500",
+      "rule_version": "kengetallen_rules_v1",
+      "source_cluster_count": 2,
+      "source_cluster_ids": [
+        "SC-DOC-002",
+        "SC-DOC-008+DOC-009"
+      ],
+      "source_references": [
+        {
+          "action_text": "Groot schilderwerk stucwerk",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2030,
+          "document_id": "DOC-002",
+          "element_line": {
+            "line": 53,
+            "page": 18
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 55,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Binnenschilderwerk stucwerk",
+          "observation_id": "PO-DOC-002-P018-L055",
+          "page": 18,
+          "post_id": "KG-4622-interior_painting-m2-unknown-1a17b521-POST-01",
+          "price_level_date": "20-8-2026",
+          "price_per_execution_display": "10.89",
+          "price_per_execution_exact": "10.890625",
+          "quantity": "128.00",
+          "source_cluster": "SC-DOC-002",
+          "source_text": "Groot schilderwerk stucwerk 128,00 m2 2030 12 1.394 1.394",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk stucwerk",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2030,
+          "document_id": "DOC-002",
+          "element_line": {
+            "line": 81,
+            "page": 18
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 83,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Binnenschilderwerk stucwerk",
+          "observation_id": "PO-DOC-002-P018-L083",
+          "page": 18,
+          "post_id": "KG-4622-interior_painting-m2-unknown-1a17b521-POST-02",
+          "price_level_date": "20-8-2026",
+          "price_per_execution_display": "10.89",
+          "price_per_execution_exact": "10.89312977099236641221374046",
+          "quantity": "131.00",
+          "source_cluster": "SC-DOC-002",
+          "source_text": "Groot schilderwerk stucwerk 131,00 m2 2030 12 1.427 1.427",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk stucwerk",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 18,
+          "cycle_start_year": 2029,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 19,
+            "page": 20
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 23,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Binnenschilderwerk stucwerk trappenhuis",
+          "observation_id": "PO-DOC-009-P020-L023",
+          "page": 20,
+          "post_id": "KG-4622-interior_painting-m2-unknown-1a17b521-POST-03",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "39.60",
+          "price_per_execution_exact": "39.60022522522522522522522523",
+          "quantity": "355.20",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Groot schilderwerk stucwerk 355,20 m2 2029 18 14.066 14.066",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "unit": "m2",
+      "value_display": null,
+      "value_exact": null,
+      "vat_basis": [
+        "inclusive"
+      ]
+    },
+    {
+      "action": "exterior_painting",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "candidate_key": [
+        "4634",
+        "exterior_painting",
+        "m2"
+      ],
+      "cluster_contributions": [
+        {
+          "contribution_display": "42.33",
+          "contribution_exact": "42.33333333333333333333333333",
+          "observation_ids": [
+            "PO-DOC-002-P019-L049"
+          ],
+          "post_ids": [
+            "KG-4634-exterior_painting-m2-unknown-a115c29b-POST-01"
+          ],
+          "price_levels": [
+            "20-8-2026"
+          ],
+          "source_cluster": "SC-DOC-002"
+        },
+        {
+          "contribution_display": "43.99",
+          "contribution_exact": "43.99058665321902840813582115",
+          "observation_ids": [
+            "PO-DOC-009-P021-L015"
+          ],
+          "post_ids": [
+            "KG-4634-exterior_painting-m2-unknown-a115c29b-POST-02"
+          ],
+          "price_levels": [
+            "21-4-2025"
+          ],
+          "source_cluster": "SC-DOC-008+DOC-009"
+        }
+      ],
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE",
+              "QUANTITY_SCALE_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00009",
+            "pair_id": "PAIR-00241",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          }
+        ],
+        "counts": {
+          "GENERIC_VS_SPECIFIC_OBJECT": 1,
+          "PRICE_LEVEL_DIFFERENCE": 1,
+          "QUANTITY_SCALE_DIFFERENCE": 1
+        }
+      },
+      "decision_ids": [
+        "HDR-00009"
+      ],
+      "element_code": "4634",
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "human_review_complete": true,
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN",
+        "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+      ],
+      "kengetal_id": "KG-4634-exterior_painting-m2-unknown-a115c29b",
+      "material": {
+        "normalized": null,
+        "original": null
+      },
+      "material_source": [
+        null
+      ],
+      "max_display": "43.99",
+      "max_exact": "43.99058665321902840813582115",
+      "min_display": "42.33",
+      "min_exact": "42.33333333333333333333333333",
+      "missing_cross_cluster_reviews": [],
+      "observation_caveats": {
+        "PO-DOC-002-P019-L049": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P021-L015": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-002-P019-L049",
+        "PO-DOC-009-P021-L015"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-002": [
+          "PO-DOC-002-P019-L049"
+        ],
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-009-P021-L015"
+        ]
+      },
+      "posts": [
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-002",
+          "element_line": {
+            "line": 47,
+            "page": 19
+          },
+          "observation_ids": [
+            "PO-DOC-002-P019-L049"
+          ],
+          "post_id": "KG-4634-exterior_painting-m2-unknown-a115c29b-POST-01",
+          "post_value_exact": "42.33333333333333333333333333",
+          "source_cluster": "SC-DOC-002"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 11,
+            "page": 21
+          },
+          "observation_ids": [
+            "PO-DOC-009-P021-L015"
+          ],
+          "post_id": "KG-4634-exterior_painting-m2-unknown-a115c29b-POST-02",
+          "post_value_exact": "43.99058665321902840813582115",
+          "source_cluster": "SC-DOC-008+DOC-009"
+        }
+      ],
+      "price_levels": {
+        "indexation": "none",
+        "missing_price_level": false,
+        "mixed_price_level": true,
+        "per_cluster": {
+          "SC-DOC-002": [
+            "20-8-2026"
+          ],
+          "SC-DOC-008+DOC-009": [
+            "21-4-2025"
+          ]
+        },
+        "per_observation": {
+          "PO-DOC-002-P019-L049": "20-8-2026",
+          "PO-DOC-009-P021-L015": "21-4-2025"
+        },
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2025–2026: niet presenteren als prijs van één specifiek jaar.",
+        "years": [
+          2025,
+          2026
+        ]
+      },
+      "quantity": {
+        "max": "59.49",
+        "max_min_ratio": "19.83",
+        "min": "3.00",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "range_display": "1.66",
+      "range_exact": "1.65725331988569507480248782",
+      "rule_version": "kengetallen_rules_v1",
+      "source_cluster_count": 2,
+      "source_cluster_ids": [
+        "SC-DOC-002",
+        "SC-DOC-008+DOC-009"
+      ],
+      "source_references": [
+        {
+          "action_text": "Groot schilderwerk hek staal",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 6,
+          "cycle_start_year": 2030,
+          "document_id": "DOC-002",
+          "element_line": {
+            "line": 47,
+            "page": 19
+          },
+          "executions_in_window": 2,
+          "independent_input": true,
+          "line": 49,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk hek metaal",
+          "observation_id": "PO-DOC-002-P019-L049",
+          "page": 19,
+          "post_id": "KG-4634-exterior_painting-m2-unknown-a115c29b-POST-01",
+          "price_level_date": "20-8-2026",
+          "price_per_execution_display": "42.33",
+          "price_per_execution_exact": "42.33333333333333333333333333",
+          "quantity": "3.00",
+          "source_cluster": "SC-DOC-002",
+          "source_text": "Groot schilderwerk hek staal 3,00 m2 2030 6 127 127 254",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk hek staal",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 7,
+          "cycle_start_year": 2025,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 11,
+            "page": 21
+          },
+          "executions_in_window": 3,
+          "independent_input": true,
+          "line": 15,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk hek metaal achterzijde",
+          "observation_id": "PO-DOC-009-P021-L015",
+          "page": 21,
+          "post_id": "KG-4634-exterior_painting-m2-unknown-a115c29b-POST-02",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "43.99",
+          "price_per_execution_exact": "43.99058665321902840813582115",
+          "quantity": "59.49",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Groot schilderwerk hek staal 59,49 m2 2025 7 2.617 2.617 2.617 7.851",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "unit": "m2",
+      "value_display": null,
+      "value_exact": null,
+      "vat_basis": [
+        "inclusive"
+      ]
+    },
+    {
+      "action": "exterior_painting",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "cluster_contributions": [
+        {
+          "contribution_display": "37.85",
+          "contribution_exact": "37.85384615384615384615384615",
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-007-P017-L077"
+          ],
+          "post_ids": [
+            "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-01"
+          ],
+          "price_levels": [
+            "28-4-2023"
+          ],
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "contribution_display": "32.99",
+          "contribution_exact": "32.99216498485603524769626046",
+          "observation_ids": [
+            "PO-DOC-009-P021-L027",
+            "PO-DOC-009-P021-L031",
+            "PO-DOC-009-P021-L039",
+            "PO-DOC-009-P021-L043"
+          ],
+          "post_ids": [
+            "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-02",
+            "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-03"
+          ],
+          "price_levels": [
+            "21-4-2025"
+          ],
+          "source_cluster": "SC-DOC-008+DOC-009"
+        },
+        {
+          "contribution_display": "33.48",
+          "contribution_exact": "33.47860538827258320126782884",
+          "observation_ids": [
+            "PO-DOC-010-P012-L037"
+          ],
+          "post_ids": [
+            "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-04"
+          ],
+          "price_levels": [
+            "1-4-2023"
+          ],
+          "source_cluster": "SC-DOC-010"
+        }
+      ],
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT"
+            ],
+            "decision_id": "HDR-00010",
+            "pair_id": "PAIR-00267",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT"
+            ],
+            "decision_id": "HDR-00011",
+            "pair_id": "PAIR-00272",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00012",
+            "pair_id": "PAIR-00278",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00013",
+            "pair_id": "PAIR-00279",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT",
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00014",
+            "pair_id": "PAIR-00280",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "ACTION_TEXT_VARIANT",
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00015",
+            "pair_id": "PAIR-00281",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00023",
+            "pair_id": "PAIR-00263",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00024",
+            "pair_id": "PAIR-00264",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00025",
+            "pair_id": "PAIR-00265",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00026",
+            "pair_id": "PAIR-00266",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00027",
+            "pair_id": "PAIR-00268",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00028",
+            "pair_id": "PAIR-00269",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00029",
+            "pair_id": "PAIR-00270",
+            "system_class": "UNKNOWN"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "GENERIC_VS_SPECIFIC_OBJECT",
+              "PRICE_LEVEL_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00030",
+            "pair_id": "PAIR-00271",
+            "system_class": "UNKNOWN"
+          }
+        ],
+        "counts": {
+          "ACTION_TEXT_VARIANT": 6,
+          "GENERIC_VS_SPECIFIC_OBJECT": 6,
+          "PRICE_LEVEL_DIFFERENCE": 12
+        }
+      },
+      "decision_ids": [
+        "HDR-00010",
+        "HDR-00011",
+        "HDR-00012",
+        "HDR-00013",
+        "HDR-00014",
+        "HDR-00015",
+        "HDR-00023",
+        "HDR-00024",
+        "HDR-00025",
+        "HDR-00026",
+        "HDR-00027",
+        "HDR-00028",
+        "HDR-00029",
+        "HDR-00030"
+      ],
+      "element_code": "4645",
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "human_review_complete": true,
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "kengetal_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14",
+      "material": {
+        "normalized": null,
+        "original": null
+      },
+      "material_source": [
+        null
+      ],
+      "max_display": "37.85",
+      "max_exact": "37.85384615384615384615384615",
+      "min_display": "32.99",
+      "min_exact": "32.99216498485603524769626046",
+      "missing_cross_cluster_reviews": [],
+      "observation_caveats": {
+        "PO-DOC-007-P017-L073": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-007-P017-L077": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P021-L027": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P021-L031": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P021-L039": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-009-P021-L043": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-010-P012-L037": [
+          "CODE_LABEL_MISMATCH",
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L027",
+        "PO-DOC-009-P021-L031",
+        "PO-DOC-009-P021-L039",
+        "PO-DOC-009-P021-L043",
+        "PO-DOC-010-P012-L037"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-007": [
+          "PO-DOC-007-P017-L073",
+          "PO-DOC-007-P017-L077"
+        ],
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-009-P021-L027",
+          "PO-DOC-009-P021-L031",
+          "PO-DOC-009-P021-L039",
+          "PO-DOC-009-P021-L043"
+        ],
+        "SC-DOC-010": [
+          "PO-DOC-010-P012-L037"
+        ]
+      },
+      "posts": [
+        {
+          "consolidated": true,
+          "consolidation_reason": "zelfde element_line (p17 r69), action, unit en quantity; actietekst verschilt alleen in gevelzijde ['achterzijde', 'voorzijde']",
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 69,
+            "page": 17
+          },
+          "observation_ids": [
+            "PO-DOC-007-P017-L073",
+            "PO-DOC-007-P017-L077"
+          ],
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-01",
+          "post_value_exact": "37.85384615384615384615384615",
+          "source_cluster": "SC-DOC-007"
+        },
+        {
+          "consolidated": true,
+          "consolidation_reason": "zelfde element_line (p21 r23), action, unit en quantity; actietekst verschilt alleen in gevelzijde ['achter', 'voor']",
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 23,
+            "page": 21
+          },
+          "observation_ids": [
+            "PO-DOC-009-P021-L027",
+            "PO-DOC-009-P021-L031"
+          ],
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-02",
+          "post_value_exact": "32.99197815326847584912101041",
+          "source_cluster": "SC-DOC-008+DOC-009"
+        },
+        {
+          "consolidated": true,
+          "consolidation_reason": "zelfde element_line (p21 r35), action, unit en quantity; actietekst verschilt alleen in gevelzijde ['achter', 'voor']",
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 35,
+            "page": 21
+          },
+          "observation_ids": [
+            "PO-DOC-009-P021-L039",
+            "PO-DOC-009-P021-L043"
+          ],
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-03",
+          "post_value_exact": "32.99235181644359464627151052",
+          "source_cluster": "SC-DOC-008+DOC-009"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-010",
+          "element_line": {
+            "line": 33,
+            "page": 12
+          },
+          "observation_ids": [
+            "PO-DOC-010-P012-L037"
+          ],
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-04",
+          "post_value_exact": "33.47860538827258320126782884",
+          "source_cluster": "SC-DOC-010"
+        }
+      ],
+      "price_levels": {
+        "indexation": "none",
+        "missing_price_level": false,
+        "mixed_price_level": true,
+        "per_cluster": {
+          "SC-DOC-007": [
+            "28-4-2023"
+          ],
+          "SC-DOC-008+DOC-009": [
+            "21-4-2025"
+          ],
+          "SC-DOC-010": [
+            "1-4-2023"
+          ]
+        },
+        "per_observation": {
+          "PO-DOC-007-P017-L073": "28-4-2023",
+          "PO-DOC-007-P017-L077": "28-4-2023",
+          "PO-DOC-009-P021-L027": "21-4-2025",
+          "PO-DOC-009-P021-L031": "21-4-2025",
+          "PO-DOC-009-P021-L039": "21-4-2025",
+          "PO-DOC-009-P021-L043": "21-4-2025",
+          "PO-DOC-010-P012-L037": "1-4-2023"
+        },
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2025: niet presenteren als prijs van één specifiek jaar.",
+        "years": [
+          2023,
+          2025
+        ]
+      },
+      "quantity": {
+        "max": "130.00",
+        "max_min_ratio": "5.15",
+        "min": "25.24",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "range_display": "4.86",
+      "range_exact": "4.86168116899011859845758569",
+      "rule_version": "kengetallen_rules_v1",
+      "source_cluster_count": 3,
+      "source_cluster_ids": [
+        "SC-DOC-007",
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010"
+      ],
+      "source_references": [
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond achterzijde",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 14,
+          "cycle_start_year": 2028,
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 69,
+            "page": 17
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 73,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond",
+          "observation_id": "PO-DOC-007-P017-L073",
+          "page": 17,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-01",
+          "price_level_date": "28-4-2023",
+          "price_per_execution_display": "37.85",
+          "price_per_execution_exact": "37.85384615384615384615384615",
+          "quantity": "130.00",
+          "source_cluster": "SC-DOC-007",
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond voorzijde",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 14,
+          "cycle_start_year": 2028,
+          "document_id": "DOC-007",
+          "element_line": {
+            "line": 69,
+            "page": 17
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 77,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond",
+          "observation_id": "PO-DOC-007-P017-L077",
+          "page": 17,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-01",
+          "price_level_date": "28-4-2023",
+          "price_per_execution_display": "37.85",
+          "price_per_execution_exact": "37.85384615384615384615384615",
+          "quantity": "130.00",
+          "source_cluster": "SC-DOC-007",
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond achter",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 14,
+          "cycle_start_year": 2025,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 23,
+            "page": 21
+          },
+          "executions_in_window": 2,
+          "independent_input": true,
+          "line": 27,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond",
+          "observation_id": "PO-DOC-009-P021-L027",
+          "page": 21,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-02",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "32.99",
+          "price_per_execution_exact": "32.99197815326847584912101041",
+          "quantity": "117.18",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2025 14 3.866 3.866 7.733",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond voor",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2032,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 23,
+            "page": 21
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 31,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond",
+          "observation_id": "PO-DOC-009-P021-L031",
+          "page": 21,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-02",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "32.99",
+          "price_per_execution_exact": "32.99197815326847584912101041",
+          "quantity": "117.18",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2032 12 3.866 3.866",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond achter",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 14,
+          "cycle_start_year": 2025,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 35,
+            "page": 21
+          },
+          "executions_in_window": 2,
+          "independent_input": true,
+          "line": 39,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond dakoverstek",
+          "observation_id": "PO-DOC-009-P021-L039",
+          "page": 21,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-03",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "32.99",
+          "price_per_execution_exact": "32.99235181644359464627151052",
+          "quantity": "104.60",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2025 14 3.451 3.451 6.902",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond voor",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2032,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 35,
+            "page": 21
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 43,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond dakoverstek",
+          "observation_id": "PO-DOC-009-P021-L043",
+          "page": 21,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-03",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "32.99",
+          "price_per_execution_exact": "32.99235181644359464627151052",
+          "quantity": "104.60",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2032 12 3.451 3.451",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Groot schilderwerk betonconstructie plafond",
+          "caveats": [
+            "CODE_LABEL_MISMATCH",
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 12,
+          "cycle_start_year": 2028,
+          "document_id": "DOC-010",
+          "element_line": {
+            "line": 33,
+            "page": 12
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 37,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Buitenschilderwerk betonconstructie plafond",
+          "observation_id": "PO-DOC-010-P012-L037",
+          "page": 12,
+          "post_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14-POST-04",
+          "price_level_date": "1-4-2023",
+          "price_per_execution_display": "33.48",
+          "price_per_execution_exact": "33.47860538827258320126782884",
+          "quantity": "25.24",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "unit_original": "m2",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "unit": "m2",
+      "value_display": null,
+      "value_exact": null,
+      "vat_basis": [
+        "inclusive"
+      ]
+    },
+    {
+      "action": "replace",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "candidate_key": [
+        "5211",
+        "replace",
+        "m1"
+      ],
+      "cluster_contributions": [
+        {
+          "contribution_display": "51.79",
+          "contribution_exact": "51.78706199460916442048517520",
+          "observation_ids": [
+            "PO-DOC-001-P026-L029"
+          ],
+          "post_ids": [
+            "KG-5211-replace-m1-pvc-67920b77-POST-01"
+          ],
+          "price_levels": [
+            null
+          ],
+          "source_cluster": "SC-DOC-001"
+        },
+        {
+          "contribution_display": "54.91",
+          "contribution_exact": "54.91186839012925969447708578",
+          "observation_ids": [
+            "PO-DOC-009-P021-L095"
+          ],
+          "post_ids": [
+            "KG-5211-replace-m1-pvc-67920b77-POST-02"
+          ],
+          "price_levels": [
+            "21-4-2025"
+          ],
+          "source_cluster": "SC-DOC-008+DOC-009"
+        },
+        {
+          "contribution_display": "45.23",
+          "contribution_exact": "45.23076923076923076923076923",
+          "observation_ids": [
+            "PO-DOC-010-P012-L093"
+          ],
+          "post_ids": [
+            "KG-5211-replace-m1-pvc-67920b77-POST-03"
+          ],
+          "price_levels": [
+            "1-4-2023"
+          ],
+          "source_cluster": "SC-DOC-010"
+        }
+      ],
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "decision_id": "HDR-00018",
+            "pair_id": "PAIR-00306",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT",
+              "QUANTITY_SCALE_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00019",
+            "pair_id": "PAIR-00307",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          },
+          {
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_DIFFERENCE",
+              "QUANTITY_SCALE_DIFFERENCE"
+            ],
+            "decision_id": "HDR-00020",
+            "pair_id": "PAIR-00335",
+            "system_class": "COMPARABLE_WITH_CAVEATS"
+          }
+        ],
+        "counts": {
+          "PRICE_LEVEL_ABSENT": 2,
+          "PRICE_LEVEL_DIFFERENCE": 1,
+          "QUANTITY_SCALE_DIFFERENCE": 2
+        }
+      },
+      "decision_ids": [
+        "HDR-00018",
+        "HDR-00019",
+        "HDR-00020"
+      ],
+      "element_code": "5211",
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "human_review_complete": true,
+      "insufficient_data_reasons": [
+        "MATERIAL_UNKNOWN"
+      ],
+      "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+      "material": {
+        "normalized": "pvc",
+        "original": "pvc"
+      },
+      "material_source": [
+        null,
+        "element_text"
+      ],
+      "max_display": "54.91",
+      "max_exact": "54.91186839012925969447708578",
+      "min_display": "45.23",
+      "min_exact": "45.23076923076923076923076923",
+      "missing_cross_cluster_reviews": [],
+      "observation_caveats": {
+        "PO-DOC-001-P026-L029": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "PO-DOC-009-P021-L095": [
+          "MATERIAL_UNKNOWN"
+        ],
+        "PO-DOC-010-P012-L093": [
+          "MATERIAL_UNKNOWN"
+        ]
+      },
+      "observation_ids": [
+        "PO-DOC-001-P026-L029",
+        "PO-DOC-009-P021-L095",
+        "PO-DOC-010-P012-L093"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-001": [
+          "PO-DOC-001-P026-L029"
+        ],
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-009-P021-L095"
+        ],
+        "SC-DOC-010": [
+          "PO-DOC-010-P012-L093"
+        ]
+      },
+      "posts": [
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-001",
+          "element_line": {
+            "line": 27,
+            "page": 26
+          },
+          "observation_ids": [
+            "PO-DOC-001-P026-L029"
+          ],
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
+          "post_value_exact": "51.78706199460916442048517520",
+          "source_cluster": "SC-DOC-001"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 93,
+            "page": 21
+          },
+          "observation_ids": [
+            "PO-DOC-009-P021-L095"
+          ],
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
+          "post_value_exact": "54.91186839012925969447708578",
+          "source_cluster": "SC-DOC-008+DOC-009"
+        },
+        {
+          "consolidated": false,
+          "consolidation_reason": null,
+          "document_id": "DOC-010",
+          "element_line": {
+            "line": 91,
+            "page": 12
+          },
+          "observation_ids": [
+            "PO-DOC-010-P012-L093"
+          ],
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
+          "post_value_exact": "45.23076923076923076923076923",
+          "source_cluster": "SC-DOC-010"
+        }
+      ],
+      "price_levels": {
+        "indexation": "none",
+        "missing_price_level": true,
+        "mixed_price_level": true,
+        "per_cluster": {
+          "SC-DOC-001": [
+            null
+          ],
+          "SC-DOC-008+DOC-009": [
+            "21-4-2025"
+          ],
+          "SC-DOC-010": [
+            "1-4-2023"
+          ]
+        },
+        "per_observation": {
+          "PO-DOC-001-P026-L029": null,
+          "PO-DOC-009-P021-L095": "21-4-2025",
+          "PO-DOC-010-P012-L093": "1-4-2023"
+        },
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2025 en ontbrekend: niet presenteren als prijs van één specifiek jaar.",
+        "years": [
+          2023,
+          2025
+        ]
+      },
+      "quantity": {
+        "max": "371.00",
+        "max_min_ratio": "28.54",
+        "min": "13.00",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "range_display": "9.68",
+      "range_exact": "9.68109915936002892524631655",
+      "rule_version": "kengetallen_rules_v1",
+      "source_cluster_count": 3,
+      "source_cluster_ids": [
+        "SC-DOC-001",
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010"
+      ],
+      "source_references": [
+        {
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "cycle_length_years": 25,
+          "cycle_start_year": 2029,
+          "document_id": "DOC-001",
+          "element_line": {
+            "line": 27,
+            "page": 26
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 29,
+          "material": {
+            "normalized": "pvc",
+            "original": "pvc",
+            "source": "element_text"
+          },
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-001-P026-L029",
+          "page": 26,
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-01",
+          "price_level_date": null,
+          "price_per_execution_display": "51.79",
+          "price_per_execution_exact": "51.78706199460916442048517520",
+          "quantity": "371.00",
+          "source_cluster": "SC-DOC-001",
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 30,
+          "cycle_start_year": 2032,
+          "document_id": "DOC-009",
+          "element_line": {
+            "line": 93,
+            "page": 21
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 95,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-009-P021-L095",
+          "page": 21,
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-02",
+          "price_level_date": "21-4-2025",
+          "price_per_execution_display": "54.91",
+          "price_per_execution_exact": "54.91186839012925969447708578",
+          "quantity": "170.20",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "cycle_length_years": 24,
+          "cycle_start_year": 2034,
+          "document_id": "DOC-010",
+          "element_line": {
+            "line": 91,
+            "page": 12
+          },
+          "executions_in_window": 1,
+          "independent_input": true,
+          "line": 93,
+          "material": {
+            "normalized": null,
+            "original": null,
+            "source": null
+          },
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-010-P012-L093",
+          "page": 12,
+          "post_id": "KG-5211-replace-m1-pvc-67920b77-POST-03",
+          "price_level_date": "1-4-2023",
+          "price_per_execution_display": "45.23",
+          "price_per_execution_exact": "45.23076923076923076923076923",
+          "quantity": "13.00",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "status": "INSUFFICIENT_DATA",
+      "unit": "m1",
+      "value_display": null,
+      "value_exact": null,
+      "vat_basis": [
+        "inclusive"
+      ]
+    }
+  ],
+  "note": "Kengetallen v1: mediaan van source-cluster contributions van volledig menselijk beoordeelde vergelijkbare groepen met minimaal 3 source clusters. Historisch, niet geïndexeerd, geen marktprijs of normprijs. Geen weging, score of confidence.",
+  "rules_document": "docs/kengetallen_rules_v1.md",
+  "rules_version": "kengetallen_rules_v1",
+  "summary": {
+    "active_human_decisions": 30,
+    "candidate_groups": 6,
+    "human_not_comparable_decisions": 7,
+    "human_positive_decisions": 23,
+    "insufficient_data_reasons": {
+      "FEWER_THAN_3_SOURCE_CLUSTERS": 4,
+      "MATERIAL_UNKNOWN": 6
+    },
+    "status": {
+      "INSUFFICIENT_DATA": 6
+    }
+  }
+}

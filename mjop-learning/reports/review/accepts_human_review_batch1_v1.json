@@ -1,0 +1,2332 @@
+{
+  "batch_confirmation": {
+    "records": [
+      {
+        "evidence": {
+          "action_text": "Vervangen boeiboord asbestcement->kunststof",
+          "amount": "27824",
+          "document_id": "DOC-001",
+          "new_row": {
+            "action_text": "vervangen boeiboord asbestcement- >kunststof",
+            "block_id": "P24-L015",
+            "quantity": "68.6",
+            "unit": "m2",
+            "years": [
+              [
+                2029,
+                "27824"
+              ]
+            ]
+          },
+          "page": 24,
+          "planned_year": 2029,
+          "quantity": "68.6",
+          "unit": "m2"
+        },
+        "new_action_ids": [
+          "DOC-001-ACT-005"
+        ],
+        "old_action_id": "DOC-001-ACT-005",
+        "reason": "zelfde pagina/hoeveelheid/eenheid/jaar/bedrag; actietekst verschilt alleen in spaties/leestekens"
+      },
+      {
+        "evidence": {
+          "action_text": "Vervangen binneriolering ijzer->pvc (3 st/app, 1 gedaan 277-295)",
+          "amount": "26136",
+          "document_id": "DOC-009",
+          "new_row": {
+            "action_text": "vervangen binneriolering ijzer->pvc (3 st/ app (1 gedaan 277-295)",
+            "block_id": "P21-L057",
+            "quantity": "7.2",
+            "unit": "pst",
+            "years": [
+              [
+                2029,
+                "26136"
+              ]
+            ]
+          },
+          "page": 21,
+          "planned_year": 2029,
+          "quantity": "7.2",
+          "unit": "pst"
+        },
+        "new_action_ids": [
+          "DOC-009-ACT-073"
+        ],
+        "old_action_id": "DOC-009-ACT-073",
+        "reason": "zelfde pagina/hoeveelheid/eenheid/jaar/bedrag; actietekst verschilt alleen in spaties/leestekens"
+      }
+    ],
+    "set_sha256": "9cb41f4407d51e6d0bfa7da3b96dc49969521a02123ac99f02e96a9b12f014e0",
+    "statement": "confirm SAFE_EXACT_RELINK accepts in this set"
+  },
+  "counts": {
+    "batch_confirmation_candidates": 2,
+    "history_only": 59,
+    "human_review_cases": 28,
+    "total": 89
+  },
+  "history_only": [
+    {
+      "classification": "DUPLICATE_SKIP",
+      "old_action_id": "DOC-003-ACT-110",
+      "reason": "DOC-003 is duplicaat van DOC-002 (DREL-001)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-003",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-004",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-006",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-007",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-008",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-009",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-010",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-011",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-020",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-005-ACT-023",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-003",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-004",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-005",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-006",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-007",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-008",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-010",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-011",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-019",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-022",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-026",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-027",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-029",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-032",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-006-ACT-034",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-004",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-007",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-011",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-012",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-013",
+      "reason": "geen jarenplan-rij met dezelfde pagina, hoeveelheid en jaar in batch1_v1 (bijv. Bevindingen-bedrag buiten het venster)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-014",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-016",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-019",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-020",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-022",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-023",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-024",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-027",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-031",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-033",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-046",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-050",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-054",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-055",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-058",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-059",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-061",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-070",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-071",
+      "reason": "geen jarenplan-rij met dezelfde pagina, hoeveelheid en jaar in batch1_v1 (bijv. Bevindingen-bedrag buiten het venster)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-076",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-077",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-007-ACT-078",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-004",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-005",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-007",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-011",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-013",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "old_action_id": "DOC-008-ACT-023",
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)",
+      "treatment": "niet migreren; oude accept blijft alleen als historie"
+    }
+  ],
+  "human_review": [
+    {
+      "case_id": "ACC-DOC-001-ACT-036",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-001-ACT-036"
+          ],
+          "action_text": "vervangen binneriolering ijzer > pvc",
+          "block_id": "P26-L017",
+          "element_ids": [
+            "DOC-001-EL-046"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2022,
+              "152000"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Vervangen binnenriolering ijzer > pvc",
+        "amount": "152000",
+        "document_id": "DOC-001",
+        "new_row": {
+          "action_text": "vervangen binneriolering ijzer > pvc",
+          "block_id": "P26-L017",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2022,
+              "152000"
+            ]
+          ]
+        },
+        "page": 26,
+        "planned_year": 2022,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-001-ACT-036",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-001",
+        "new_block_ids": [
+          "P26-L017"
+        ],
+        "page": 26
+      }
+    },
+    {
+      "case_id": "ACC-DOC-005-ACT-013",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-005-ACT-006",
+            "DOC-005-ACT-007"
+          ],
+          "action_text": "groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)",
+          "block_id": "P11-L046",
+          "element_ids": [
+            "DOC-005-EL-015"
+          ],
+          "quantity": "332",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "11833"
+            ],
+            [
+              2040,
+              "11833"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)",
+        "amount": "23667",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)",
+          "block_id": "P11-L046",
+          "quantity": "332",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "11833"
+            ],
+            [
+              2040,
+              "11833"
+            ]
+          ]
+        },
+        "page": 11,
+        "planned_year": 2033,
+        "quantity": "332",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-005-ACT-013",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-005",
+        "new_block_ids": [
+          "P11-L046"
+        ],
+        "page": 11
+      }
+    },
+    {
+      "case_id": "ACC-DOC-005-ACT-014",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-005-ACT-008",
+            "DOC-005-ACT-009"
+          ],
+          "action_text": "groot schilderwerk metaal (uitgevoerd 2026)",
+          "block_id": "P12-L005",
+          "element_ids": [
+            "DOC-005-EL-016"
+          ],
+          "quantity": "75",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "3564"
+            ],
+            [
+              2040,
+              "3564"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk metaal (uitgevoerd 2026)",
+        "amount": "7129",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk metaal (uitgevoerd 2026)",
+          "block_id": "P12-L005",
+          "quantity": "75",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "3564"
+            ],
+            [
+              2040,
+              "3564"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "75",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-005-ACT-014",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-005",
+        "new_block_ids": [
+          "P12-L005"
+        ],
+        "page": 12
+      }
+    },
+    {
+      "case_id": "ACC-DOC-005-ACT-015",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-005-ACT-010",
+            "DOC-005-ACT-011"
+          ],
+          "action_text": "groot schilderwerk metaal (uitgevoerd 2026)",
+          "block_id": "P12-L008",
+          "element_ids": [
+            "DOC-005-EL-017"
+          ],
+          "quantity": "61",
+          "unit": "m1",
+          "years": [
+            [
+              2033,
+              "1703"
+            ],
+            [
+              2040,
+              "1703"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk metaal (uitgevoerd 2026)",
+        "amount": "3407",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk metaal (uitgevoerd 2026)",
+          "block_id": "P12-L008",
+          "quantity": "61",
+          "unit": "m1",
+          "years": [
+            [
+              2033,
+              "1703"
+            ],
+            [
+              2040,
+              "1703"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "61",
+        "unit": "m1"
+      },
+      "old_action_id": "DOC-005-ACT-015",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-005",
+        "new_block_ids": [
+          "P12-L008"
+        ],
+        "page": 12
+      }
+    },
+    {
+      "case_id": "ACC-DOC-005-ACT-019",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-005-ACT-015",
+            "DOC-005-ACT-016"
+          ],
+          "action_text": "groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)",
+          "block_id": "P12-L022",
+          "element_ids": [
+            "DOC-005-EL-022"
+          ],
+          "quantity": "756.8",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "32823"
+            ],
+            [
+              2040,
+              "32823"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)",
+        "amount": "65647",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)",
+          "block_id": "P12-L022",
+          "quantity": "756.8",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "32823"
+            ],
+            [
+              2040,
+              "32823"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "756.8",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-005-ACT-019",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-005",
+        "new_block_ids": [
+          "P12-L022"
+        ],
+        "page": 12
+      }
+    },
+    {
+      "case_id": "ACC-DOC-005-ACT-028",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-005-ACT-023",
+            "DOC-005-ACT-024"
+          ],
+          "action_text": "bereikbaarheidskosten en bijkomende kosten",
+          "block_id": "P12-L052",
+          "element_ids": [
+            "DOC-005-EL-036"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2033,
+              "35610"
+            ],
+            [
+              2040,
+              "35610"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Bereikbaarheidskosten en bijkomende kosten",
+        "amount": "71221",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "bereikbaarheidskosten en bijkomende kosten",
+          "block_id": "P12-L052",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2033,
+              "35610"
+            ],
+            [
+              2040,
+              "35610"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-005-ACT-028",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-005",
+        "new_block_ids": [
+          "P12-L052"
+        ],
+        "page": 12
+      }
+    },
+    {
+      "case_id": "ACC-DOC-006-ACT-001",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-006-ACT-001",
+            "DOC-006-ACT-002"
+          ],
+          "action_text": "reinigen metselwerk",
+          "block_id": "P14-L006",
+          "element_ids": [
+            "DOC-006-EL-001"
+          ],
+          "quantity": "815.95",
+          "unit": "m2",
+          "years": [
+            [
+              2025,
+              "7400"
+            ],
+            [
+              2032,
+              "7400"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Reinigen metselwerk",
+        "amount": "14799",
+        "document_id": "DOC-006",
+        "new_row": {
+          "action_text": "reinigen metselwerk",
+          "block_id": "P14-L006",
+          "quantity": "815.95",
+          "unit": "m2",
+          "years": [
+            [
+              2025,
+              "7400"
+            ],
+            [
+              2032,
+              "7400"
+            ]
+          ]
+        },
+        "page": 14,
+        "planned_year": 2025,
+        "quantity": "815.95",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-006-ACT-001",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-006",
+        "new_block_ids": [
+          "P14-L006"
+        ],
+        "page": 14
+      }
+    },
+    {
+      "case_id": "ACC-DOC-006-ACT-009",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-006-ACT-004"
+          ],
+          "action_text": "herstellen",
+          "block_id": "P14-L037",
+          "element_ids": [
+            "DOC-006-EL-011"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "4360"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Herstellen Erosie, verwering, verzanding",
+        "amount": "4360",
+        "document_id": "DOC-006",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P14-L037",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "4360"
+            ]
+          ]
+        },
+        "page": 14,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-006-ACT-009",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-006",
+        "new_block_ids": [
+          "P14-L037"
+        ],
+        "page": 14
+      }
+    },
+    {
+      "case_id": "ACC-DOC-006-ACT-021",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-006-ACT-013"
+          ],
+          "action_text": "herstellen",
+          "block_id": "P15-L019",
+          "element_ids": [
+            "DOC-006-EL-020"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "1886"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Herstellen Onthechting van ondergrond",
+        "amount": "1886",
+        "document_id": "DOC-006",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P15-L019",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "1886"
+            ]
+          ]
+        },
+        "page": 15,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-006-ACT-021",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-006",
+        "new_block_ids": [
+          "P15-L019"
+        ],
+        "page": 15
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-001",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-001"
+          ],
+          "action_text": "vervangen",
+          "block_id": "P15-L006",
+          "element_ids": [
+            "DOC-007-EL-003"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "1771"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Vervangen (Gebreken aan kitwerken)",
+        "amount": "1771",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "vervangen",
+          "block_id": "P15-L006",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "1771"
+            ]
+          ]
+        },
+        "page": 15,
+        "planned_year": 2024,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-007-ACT-001",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P15-L006"
+        ],
+        "page": 15
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-015",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-009",
+            "DOC-007-ACT-010"
+          ],
+          "action_text": "reinigen",
+          "block_id": "P15-L042",
+          "element_ids": [
+            "DOC-007-EL-008"
+          ],
+          "quantity": "2",
+          "unit": "st",
+          "years": [
+            [
+              2028,
+              "616"
+            ],
+            [
+              2035,
+              "616"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Reinigen",
+        "amount": "1233",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "reinigen",
+          "block_id": "P15-L042",
+          "quantity": "2",
+          "unit": "st",
+          "years": [
+            [
+              2028,
+              "616"
+            ],
+            [
+              2035,
+              "616"
+            ]
+          ]
+        },
+        "page": 15,
+        "planned_year": 2028,
+        "quantity": "2",
+        "unit": "st"
+      },
+      "old_action_id": "DOC-007-ACT-015",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P15-L042"
+        ],
+        "page": 15
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-021",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-015"
+          ],
+          "action_text": "aanpassen",
+          "block_id": "P16-L008",
+          "element_ids": [
+            "DOC-007-EL-012"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "10285"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Aanpassen (Afdichting, manco)",
+        "amount": "10285",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "aanpassen",
+          "block_id": "P16-L008",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "10285"
+            ]
+          ]
+        },
+        "page": 16,
+        "planned_year": 2024,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-007-ACT-021",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P16-L008"
+        ],
+        "page": 16
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-026",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-017"
+          ],
+          "action_text": "herstellen",
+          "block_id": "P16-L024",
+          "element_ids": [
+            "DOC-007-EL-016"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2028,
+              "1815"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Herstellen (Uitgespoeld/afwezig voegwerk)",
+        "amount": "1815",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P16-L024",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2028,
+              "1815"
+            ]
+          ]
+        },
+        "page": 16,
+        "planned_year": 2028,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-007-ACT-026",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P16-L024"
+        ],
+        "page": 16
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-034",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-023",
+            "DOC-007-ACT-024"
+          ],
+          "action_text": "groot schilderwerk metaal",
+          "block_id": "P17-L007",
+          "element_ids": [
+            "DOC-007-EL-024"
+          ],
+          "quantity": "8.24",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "374"
+            ],
+            [
+              2033,
+              "374"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk metaal",
+        "amount": "749",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk metaal",
+          "block_id": "P17-L007",
+          "quantity": "8.24",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "374"
+            ],
+            [
+              2033,
+              "374"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "8.24",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-007-ACT-034",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P17-L007"
+        ],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-035",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-025",
+            "DOC-007-ACT-026"
+          ],
+          "action_text": "groot schilderwerk leuningen",
+          "block_id": "P17-L010",
+          "element_ids": [
+            "DOC-007-EL-023"
+          ],
+          "quantity": "13.2",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "614"
+            ],
+            [
+              2036,
+              "614"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk leuningen",
+        "amount": "1229",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk leuningen",
+          "block_id": "P17-L010",
+          "quantity": "13.2",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "614"
+            ],
+            [
+              2036,
+              "614"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "13.2",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-007-ACT-035",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P17-L010"
+        ],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-036",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-027",
+            "DOC-007-ACT-028"
+          ],
+          "action_text": "groot schilderwerk trap hout transparant",
+          "block_id": "P17-L013",
+          "element_ids": [
+            "DOC-007-EL-025"
+          ],
+          "quantity": "27.2",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "1374"
+            ],
+            [
+              2033,
+              "1374"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk trap hout transparant",
+        "amount": "2749",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk trap hout transparant",
+          "block_id": "P17-L013",
+          "quantity": "27.2",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "1374"
+            ],
+            [
+              2033,
+              "1374"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "27.2",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-007-ACT-036",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P17-L013"
+        ],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-039",
+      "changed_fields": [
+        "meerdere kandidaatrijen"
+      ],
+      "classification": "AMBIGUOUS",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-031",
+            "DOC-007-ACT-032"
+          ],
+          "action_text": "groot schilderwerk kozijn & raam hout dekkend achterzijde",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-027"
+          ],
+          "quantity": "391.3",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "22217"
+            ],
+            [
+              2035,
+              "22217"
+            ]
+          ]
+        },
+        {
+          "action_ids": [
+            "DOC-007-ACT-033",
+            "DOC-007-ACT-034"
+          ],
+          "action_text": "groot schilderwerk kozijn & raam hout dekkend voorzijde",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-027"
+          ],
+          "quantity": "391.3",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "22217"
+            ],
+            [
+              2035,
+              "22217"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk kozijn & raam hout dekkend achterzijde",
+        "amount": "44435",
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "391.3",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-007-ACT-039",
+      "options": [
+        "CHOOSE_CANDIDATE: kies expliciet één kandidaatrij (action_ids)",
+        "APPLY_TO_ALL_IDENTICAL: alleen als de kandidaten identiek zijn",
+        "REJECT: niet overnemen",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-040",
+      "changed_fields": [
+        "meerdere kandidaatrijen"
+      ],
+      "classification": "AMBIGUOUS",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-031",
+            "DOC-007-ACT-032"
+          ],
+          "action_text": "groot schilderwerk kozijn & raam hout dekkend achterzijde",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-027"
+          ],
+          "quantity": "391.3",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "22217"
+            ],
+            [
+              2035,
+              "22217"
+            ]
+          ]
+        },
+        {
+          "action_ids": [
+            "DOC-007-ACT-033",
+            "DOC-007-ACT-034"
+          ],
+          "action_text": "groot schilderwerk kozijn & raam hout dekkend voorzijde",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-027"
+          ],
+          "quantity": "391.3",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "22217"
+            ],
+            [
+              2035,
+              "22217"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk kozijn & raam hout dekkend voorzijde",
+        "amount": "44435",
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "391.3",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-007-ACT-040",
+      "options": [
+        "CHOOSE_CANDIDATE: kies expliciet één kandidaatrij (action_ids)",
+        "APPLY_TO_ALL_IDENTICAL: alleen als de kandidaten identiek zijn",
+        "REJECT: niet overnemen",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-047",
+      "changed_fields": [
+        "jaar/bedrag (geen exacte jaar- of bedragmatch)"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-040",
+            "DOC-007-ACT-041"
+          ],
+          "action_text": "groot schilderwerk plafond hout dekkend",
+          "block_id": "P17-L045",
+          "element_ids": [
+            "DOC-007-EL-030"
+          ],
+          "quantity": "29",
+          "unit": "m2",
+          "years": [
+            [
+              2029,
+              "1647"
+            ],
+            [
+              2036,
+              "1647"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Groot schilderwerk plafond hout dekkend",
+        "amount": "3293",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk plafond hout dekkend",
+          "block_id": "P17-L045",
+          "quantity": "29",
+          "unit": "m2",
+          "years": [
+            [
+              2029,
+              "1647"
+            ],
+            [
+              2036,
+              "1647"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2022,
+        "quantity": "29",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-007-ACT-047",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P17-L045"
+        ],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-049",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-043"
+          ],
+          "action_text": "herstellen",
+          "block_id": "P17-L054",
+          "element_ids": [
+            "DOC-007-EL-034"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "443"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Herstellen (Subelementen manco, gebreken aan ventilatiepijpjes, ontbreken van draadbolroosters)",
+        "amount": "443",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P17-L054",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "443"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2024,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-007-ACT-049",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P17-L054"
+        ],
+        "page": 17
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-066",
+      "changed_fields": [
+        "meerdere kandidaatrijen"
+      ],
+      "classification": "AMBIGUOUS",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-054"
+          ],
+          "action_text": "vervangen hemelwaterafvoer pvc",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-038"
+          ],
+          "quantity": "25.5",
+          "unit": "m1",
+          "years": [
+            [
+              2028,
+              "1340"
+            ]
+          ]
+        },
+        {
+          "action_ids": [
+            "DOC-007-ACT-055"
+          ],
+          "action_text": "vervangen hemelwaterafvoer pvc",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-038"
+          ],
+          "quantity": "25.5",
+          "unit": "m1",
+          "years": [
+            [
+              2028,
+              "1340"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Vervangen hemelwaterafvoer pvc",
+        "amount": "1340",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2028,
+        "quantity": "25.5",
+        "unit": "m1"
+      },
+      "old_action_id": "DOC-007-ACT-066",
+      "options": [
+        "CHOOSE_CANDIDATE: kies expliciet één kandidaatrij (action_ids)",
+        "APPLY_TO_ALL_IDENTICAL: alleen als de kandidaten identiek zijn",
+        "REJECT: niet overnemen",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [],
+        "page": 18
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-067",
+      "changed_fields": [
+        "meerdere kandidaatrijen"
+      ],
+      "classification": "AMBIGUOUS",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-054"
+          ],
+          "action_text": "vervangen hemelwaterafvoer pvc",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-038"
+          ],
+          "quantity": "25.5",
+          "unit": "m1",
+          "years": [
+            [
+              2028,
+              "1340"
+            ]
+          ]
+        },
+        {
+          "action_ids": [
+            "DOC-007-ACT-055"
+          ],
+          "action_text": "vervangen hemelwaterafvoer pvc",
+          "block_id": null,
+          "element_ids": [
+            "DOC-007-EL-038"
+          ],
+          "quantity": "25.5",
+          "unit": "m1",
+          "years": [
+            [
+              2028,
+              "1340"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Vervangen hemelwaterafvoer pvc",
+        "amount": "1340",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2028,
+        "quantity": "25.5",
+        "unit": "m1"
+      },
+      "old_action_id": "DOC-007-ACT-067",
+      "options": [
+        "CHOOSE_CANDIDATE: kies expliciet één kandidaatrij (action_ids)",
+        "APPLY_TO_ALL_IDENTICAL: alleen als de kandidaten identiek zijn",
+        "REJECT: niet overnemen",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [],
+        "page": 18
+      }
+    },
+    {
+      "case_id": "ACC-DOC-007-ACT-083",
+      "changed_fields": [
+        "bedrag"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-007-ACT-066",
+            "DOC-007-ACT-067",
+            "DOC-007-ACT-068",
+            "DOC-007-ACT-069"
+          ],
+          "action_text": "inspecteren en rapporteren",
+          "block_id": "P19-L029",
+          "element_ids": [
+            "DOC-007-EL-050"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2026,
+              "2192"
+            ],
+            [
+              2029,
+              "2192"
+            ],
+            [
+              2032,
+              "2192"
+            ],
+            [
+              2035,
+              "2192"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Inspecteren en rapporteren",
+        "amount": "8767",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "inspecteren en rapporteren",
+          "block_id": "P19-L029",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2026,
+              "2192"
+            ],
+            [
+              2029,
+              "2192"
+            ],
+            [
+              2032,
+              "2192"
+            ],
+            [
+              2035,
+              "2192"
+            ]
+          ]
+        },
+        "page": 19,
+        "planned_year": 2026,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-007-ACT-083",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-007",
+        "new_block_ids": [
+          "P19-L029"
+        ],
+        "page": 19
+      }
+    },
+    {
+      "case_id": "ACC-DOC-008-ACT-001",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-008-ACT-001"
+          ],
+          "action_text": "herstellen",
+          "block_id": "P09-L005",
+          "element_ids": [
+            "DOC-008-EL-001"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "10285"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Herstellen Lekkage",
+        "amount": "10285",
+        "document_id": "DOC-008",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P09-L005",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "10285"
+            ]
+          ]
+        },
+        "page": 9,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-008-ACT-001",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-008",
+        "new_block_ids": [
+          "P09-L005"
+        ],
+        "page": 9
+      }
+    },
+    {
+      "case_id": "ACC-DOC-008-ACT-015",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-008-ACT-010"
+          ],
+          "action_text": "herstellen",
+          "block_id": "P09-L043",
+          "element_ids": [
+            "DOC-008-EL-008"
+          ],
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "4840"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Herstellen Uitgespoeld/afwezig voegwerk",
+        "amount": "4840",
+        "document_id": "DOC-008",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P09-L043",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "4840"
+            ]
+          ]
+        },
+        "page": 9,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "old_action_id": "DOC-008-ACT-015",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-008",
+        "new_block_ids": [
+          "P09-L043"
+        ],
+        "page": 9
+      }
+    },
+    {
+      "case_id": "ACC-DOC-009-ACT-067",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-009-ACT-067"
+          ],
+          "action_text": "vervangen loodslabben plat dak ( een wordt gedaan in 2018 ivm lekkage)",
+          "block_id": "P21-L042",
+          "element_ids": [
+            "DOC-009-EL-046"
+          ],
+          "quantity": "72.38",
+          "unit": "m1",
+          "years": [
+            [
+              2025,
+              "10386"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Vervangen loodslabben plat dak",
+        "amount": "10386",
+        "document_id": "DOC-009",
+        "new_row": {
+          "action_text": "vervangen loodslabben plat dak ( een wordt gedaan in 2018 ivm lekkage)",
+          "block_id": "P21-L042",
+          "quantity": "72.38",
+          "unit": "m1",
+          "years": [
+            [
+              2025,
+              "10386"
+            ]
+          ]
+        },
+        "page": 21,
+        "planned_year": 2025,
+        "quantity": "72.38",
+        "unit": "m1"
+      },
+      "old_action_id": "DOC-009-ACT-067",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-009",
+        "new_block_ids": [
+          "P21-L042"
+        ],
+        "page": 21
+      }
+    },
+    {
+      "case_id": "ACC-DOC-009-ACT-080",
+      "changed_fields": [
+        "eenheid"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-009-ACT-080"
+          ],
+          "action_text": "vervangen deurbelinstallatie inclusief videofoon en toestellen",
+          "block_id": "P22-L026",
+          "element_ids": [
+            "DOC-009-EL-053"
+          ],
+          "quantity": "30",
+          "unit": "20",
+          "years": [
+            [
+              2028,
+              "17243"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Vervangen deurbelinstallatie inclusief videofoon en toestellen",
+        "amount": "17243",
+        "document_id": "DOC-009",
+        "new_row": {
+          "action_text": "vervangen deurbelinstallatie inclusief videofoon en toestellen",
+          "block_id": "P22-L026",
+          "quantity": "30",
+          "unit": "20",
+          "years": [
+            [
+              2028,
+              "17243"
+            ]
+          ]
+        },
+        "page": 22,
+        "planned_year": 2028,
+        "quantity": "30",
+        "unit": "st"
+      },
+      "old_action_id": "DOC-009-ACT-080",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-009",
+        "new_block_ids": [
+          "P22-L026"
+        ],
+        "page": 22
+      }
+    },
+    {
+      "case_id": "ACC-DOC-010-ACT-004",
+      "changed_fields": [
+        "actietekst"
+      ],
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "decision": null,
+      "new_candidates": [
+        {
+          "action_ids": [
+            "DOC-010-ACT-004"
+          ],
+          "action_text": "onderhoud kozijnen (confrom offerte kemo)",
+          "block_id": "P10-L033",
+          "element_ids": [
+            "DOC-010-EL-009"
+          ],
+          "quantity": "84.28",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "11024"
+            ]
+          ]
+        }
+      ],
+      "old": {
+        "action_text": "Onderhoud kozijnen",
+        "amount": "11024",
+        "document_id": "DOC-010",
+        "new_row": {
+          "action_text": "onderhoud kozijnen (confrom offerte kemo)",
+          "block_id": "P10-L033",
+          "quantity": "84.28",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "11024"
+            ]
+          ]
+        },
+        "page": 10,
+        "planned_year": 2028,
+        "quantity": "84.28",
+        "unit": "m2"
+      },
+      "old_action_id": "DOC-010-ACT-004",
+      "options": [
+        "CONFIRM_ON_NEW_ACTIONS: oude accept geldt voor de nieuwe actie(s)",
+        "REJECT: niet overnemen; nieuwe actie volgt de normale review",
+        "DEFER: later beoordelen"
+      ],
+      "source_evidence": {
+        "document_id": "DOC-010",
+        "new_block_ids": [
+          "P10-L033"
+        ],
+        "page": 10
+      }
+    }
+  ],
+  "source_review_file": "reports/review/accepts_review_batch1_v1.json",
+  "tool_version": "prepare_promotion_review_v1.0.0"
+}

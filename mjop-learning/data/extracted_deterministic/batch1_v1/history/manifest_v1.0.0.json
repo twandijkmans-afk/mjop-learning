@@ -1,0 +1,206 @@
+{
+  "batch_id": "batch1_v1",
+  "branch": "claude/extractie-v1-integratie",
+  "documents": [
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-001",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-001.json",
+      "output_sha256": "f2f194bd9dfbc836e941883e0e387fba2c64eb16821d179900cbf693b5d5ec8c",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/alkmaarstraat-1-83/9543_vvem_mop_14-01-2022_Pro VVEBeheer B.V._626720.pdf",
+      "source_sha256": "a1a84e3333b20d2c0d75bd87c9af6a5c03b0a6d4c01a8e498a9f9486b13d1925",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-002",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-002.json",
+      "output_sha256": "d2a5a5962fd5bd80c24479281de34df5c5c22111ddcd8a052eb2cdab04332d2e",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/jp-heijestraat/2026_Meerjarenonderhoudsplan_VvE 9690.pdf",
+      "source_sha256": "cd3b67f3981f0cf336ce4bfc6699af57f5f67f3c04675c66c9ee1b08db1e9221",
+      "status": "PASS"
+    },
+    {
+      "document_id": "DOC-003",
+      "duplicate_of": "DOC-002",
+      "relation": "DREL-001",
+      "source_path": "data/raw/jp-heijestraat/2026_Overzicht 15 - Jarenplan (Gedetailleerd)_VvE 9690.xls",
+      "source_sha256": "a0e828fc0db7fd487dc49d684f31e8fe3d091e77adff6e89ce386e61cbff4327",
+      "status": "DUPLICATE_SKIP"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-004",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-004.json",
+      "output_sha256": "1e3cf640b1fa0b7c5d07ce72f1bbd00c17ffaf0f79d7c466bdeb495f01d23695",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/jp-heijestraat/9690_vvem_mop_v_15-03-2018_Innax_hele_schil_376215.pdf",
+      "source_sha256": "24c5f3192529861a0561fef382a5f225bbff0ba887a416f97397533c173ec269",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-005",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-005.json",
+      "output_sha256": "419b8adb3fabeeeed41a480635dd6ea81638bb1966639adbaf821bbd7f588b7d",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/maldenhof/2026_Meerjarenonderhoudsplan_VvE 9261 Maldenhof 240-296.pdf",
+      "source_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-006",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-006.json",
+      "output_sha256": "19184e75da1521d816c4b289cad25dc4d34cf0ab5e876be1f697bb993ea20af6",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/maldenhof/9261_vvem_mop_01-03-2023_Pro VVE Beheer B.V._851361.pdf",
+      "source_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-007",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-007.json",
+      "output_sha256": "f0dbbc85fcc9425544433770fd43d6626f4f0aaecb436e2319ce3a2be7d8279c",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/mauritstaete/Actualisatie MOP 2023 met bijlage.pdf",
+      "source_sha256": "6ee443cf5bc80bb6270698e281d1f2ae1be404346dbdcee3dc56af79a1c7fded",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-008",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-008.json",
+      "output_sha256": "ce56dccde3319f9a3fcaaf39a681ee581553919b1a552b709427ae5cd28f80ac",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/st-jacobstraat/Hoofd.pdf",
+      "source_sha256": "741ba07755797c2fb2d720193deca6c65ff08ed167f4528ea0224d65d2b2004e",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-009",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-009.json",
+      "output_sha256": "72cc9db5d28a7fbc7a213ebf8c02127b2d46558c59cd3fd51d563eb3d16860d1",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/st-jacobstraat/Woningen.pdf",
+      "source_sha256": "e8f13e275704857d9ab9ff2d873068099fb225eb324dd876a38d1a2e4ffd8782",
+      "status": "PASS"
+    },
+    {
+      "code_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+      "code_commit_verification": "byte-identical bij verse re-run op deze commit (2 runs vergeleken)",
+      "currency_rule": "pdf_whole_euro_dot_thousands",
+      "document_id": "DOC-010",
+      "document_profile": {
+        "profile_id": "pro_vve_overzicht15",
+        "profile_version": "1.0.0"
+      },
+      "extraction_mode": "deterministic",
+      "extractor": "deterministic_extraction.py",
+      "extractor_version": "deterministic_extraction_v1.0.0",
+      "output_path": "data/extracted_deterministic/batch1_v1/DOC-010.json",
+      "output_sha256": "305e10765a3e80e984553225d3f933421d22db9fab568a16a5672107fd71f0bf",
+      "parser_family": "pro_vve_overzicht15",
+      "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+      "rules_version": "pro_vve_overzicht_rules_v1",
+      "source_path": "data/raw/zomerdijkstraat-14/Meerjarenonderhoudsplan 2023_VvE Zomerdijkstraat 14.pdf",
+      "source_sha256": "d102f1f7f0faf8641e9874efab2a3d0516a7add2eb333e6c2f4e60965dc3099a",
+      "status": "PASS"
+    }
+  ],
+  "manifest_version": "1.0.0",
+  "source_commit": "be34bac2558cf1cb984dac0d9a94c3e059b92b7d",
+  "xpdf_version": "pdftotext version 4.06 [www.xpdfreader.com]"
+}

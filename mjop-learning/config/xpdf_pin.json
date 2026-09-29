@@ -1,0 +1,33 @@
+{
+  "accepted_text_layer_platform_variance": {
+    "decided_by": "twandijkmans",
+    "decision": "Besluit twandijkmans 2026-09-29: de bekende platformafhankelijkheid van text_layer_sha256 (hash van de aanvullende pdfplumber-tekstlaag, Windows vs Linux) voor DOC-007 en DOC-009 is geaccepteerd als platform/toolchain-provenance. Functionele deterministische output blijft strikt: elk ander verschil is een harde failure. Geldt uitsluitend voor deze documenten en exact deze hashes; geen algemene hash-ignore-regel.",
+    "decision_date": "2026-09-29",
+    "documents": {
+      "DOC-007": {
+        "accepted_platform": "Linux (GitHub Actions ubuntu-24.04 / cloud)",
+        "accepted_text_layer_sha256": "d7ae5e49ddaad2cf4b9cbb9379039bbef25a4b3523568adbb23ea41a628af5dc",
+        "reference_platform": "Windows (batch1_v1-handoff)",
+        "reference_text_layer_sha256": "8e4c630e0e125269f0df9bda0d440597e2af5e620c94ada223fbd7af9fe1e121"
+      },
+      "DOC-009": {
+        "accepted_platform": "Linux (GitHub Actions ubuntu-24.04 / cloud)",
+        "accepted_text_layer_sha256": "17698c8c4feaa4c0220cb9d41ec4d1a0e8eccaf3e564f2a2ef7e7e8927b73daa",
+        "reference_platform": "Windows (batch1_v1-handoff)",
+        "reference_text_layer_sha256": "260fc1d20b5f6053b50222d5c64936afec634842a82561f8132ce46d25d51556"
+      }
+    },
+    "field": "/extraction_metadata/text_layer_sha256"
+  },
+  "archive_name": "xpdf-tools-linux-4.06.tar.gz",
+  "binary_suffix_in_archive": "bin64/pdftotext",
+  "expected_version_line": "pdftotext version 4.06 [www.xpdfreader.com]",
+  "note": "Vastgepinde xpdf-installatie voor de cloud-runner (GitHub Actions). sha256 is de sha256 van het archief; een afwijkende sha256 = FAILED_RUNNER_SETUP. Een andere versie of parser is nooit toegestaan. accepted_text_layer_platform_variance: expliciet besluit, zie decision.",
+  "sha256": "940c137cbd1856e45813da1a25c12e8dd3dc8997b8ea735feb858684603031e3",
+  "sha256_provenance": "Waargenomen in GitHub Actions-runs 36536826282 en 36537057037 (2026-09-29) bij download van https://dl.xpdfreader.com/xpdf-tools-linux-4.06.tar.gz; trust-on-first-use, ondersteund door de exacte versieregel en 7 van 9 byte-identieke reproducties van batch1_v1 (DOC-007/DOC-009: alleen text_layer_sha256 wijkt af).",
+  "urls": [
+    "https://dl.xpdfreader.com/xpdf-tools-linux-4.06.tar.gz",
+    "https://dl.xpdfreader.com/old/xpdf-tools-linux-4.06.tar.gz"
+  ],
+  "version": "4.06"
+}

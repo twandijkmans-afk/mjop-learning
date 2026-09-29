@@ -1,0 +1,1877 @@
+{
+  "counts": {
+    "AMBIGUOUS": 4,
+    "DUPLICATE_SKIP": 1,
+    "NO_NEW_ACTION": 58,
+    "SAFE_EXACT_RELINK": 2,
+    "SOURCE_CHANGED_REVIEW": 24
+  },
+  "note": "Analysevoorstel; geen accept wordt overgenomen of gemigreerd.",
+  "records": [
+    {
+      "classification": "SAFE_EXACT_RELINK",
+      "evidence": {
+        "action_text": "Vervangen boeiboord asbestcement->kunststof",
+        "amount": "27824",
+        "document_id": "DOC-001",
+        "new_row": {
+          "action_text": "vervangen boeiboord asbestcement- >kunststof",
+          "block_id": "P24-L015",
+          "quantity": "68.6",
+          "unit": "m2",
+          "years": [
+            [
+              2029,
+              "27824"
+            ]
+          ]
+        },
+        "page": 24,
+        "planned_year": 2029,
+        "quantity": "68.6",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-001-ACT-005"
+      ],
+      "old_action_id": "DOC-001-ACT-005",
+      "proposal_only": true,
+      "reason": "zelfde pagina/hoeveelheid/eenheid/jaar/bedrag; actietekst verschilt alleen in spaties/leestekens"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Vervangen binnenriolering ijzer > pvc",
+        "amount": "152000",
+        "document_id": "DOC-001",
+        "new_row": {
+          "action_text": "vervangen binneriolering ijzer > pvc",
+          "block_id": "P26-L017",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2022,
+              "152000"
+            ]
+          ]
+        },
+        "page": 26,
+        "planned_year": 2022,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-001-ACT-036"
+      ],
+      "old_action_id": "DOC-001-ACT-036",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "DUPLICATE_SKIP",
+      "evidence": {
+        "action_text": "Doorvoer leidingen brandveilig maken",
+        "amount": "303",
+        "document_id": "DOC-003",
+        "page": 20,
+        "planned_year": 2026,
+        "quantity": "1",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-003-ACT-110",
+      "proposal_only": true,
+      "reason": "DOC-003 is duplicaat van DOC-002 (DREL-001)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen loodslabben opgaand werk",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2070,
+        "quantity": "1",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-003",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen goot zink",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2046,
+        "quantity": "165.8",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-004",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen kozijn hout",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2070,
+        "quantity": "756.8",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-006",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen balustrade (verz.) staal",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2062,
+        "quantity": "20",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-007",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen balustrade afdekking beton tot 400mm breedt",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2097,
+        "quantity": "59.1",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-008",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen leuning staal",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2062,
+        "quantity": "42",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-009",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen gevelbekleding zachthout",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2070,
+        "quantity": "332",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-010",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen plafondafwerking multiplex",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 11,
+        "planned_year": 2070,
+        "quantity": "85.7",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-011",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)",
+        "amount": "23667",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk gevelbekleding hout dekkend (uitgevoerd 2026)",
+          "block_id": "P11-L046",
+          "quantity": "332",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "11833"
+            ],
+            [
+              2040,
+              "11833"
+            ]
+          ]
+        },
+        "page": 11,
+        "planned_year": 2033,
+        "quantity": "332",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-005-ACT-006",
+        "DOC-005-ACT-007"
+      ],
+      "old_action_id": "DOC-005-ACT-013",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk metaal (uitgevoerd 2026)",
+        "amount": "7129",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk metaal (uitgevoerd 2026)",
+          "block_id": "P12-L005",
+          "quantity": "75",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "3564"
+            ],
+            [
+              2040,
+              "3564"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "75",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-005-ACT-008",
+        "DOC-005-ACT-009"
+      ],
+      "old_action_id": "DOC-005-ACT-014",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk metaal (uitgevoerd 2026)",
+        "amount": "3407",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk metaal (uitgevoerd 2026)",
+          "block_id": "P12-L008",
+          "quantity": "61",
+          "unit": "m1",
+          "years": [
+            [
+              2033,
+              "1703"
+            ],
+            [
+              2040,
+              "1703"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "61",
+        "unit": "m1"
+      },
+      "new_action_ids": [
+        "DOC-005-ACT-010",
+        "DOC-005-ACT-011"
+      ],
+      "old_action_id": "DOC-005-ACT-015",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)",
+        "amount": "65647",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "groot schilderwerk kozijn (en draaiende delen) hout dekkend (uitgevoerd 2026)",
+          "block_id": "P12-L022",
+          "quantity": "756.8",
+          "unit": "m2",
+          "years": [
+            [
+              2033,
+              "32823"
+            ],
+            [
+              2040,
+              "32823"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "756.8",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-005-ACT-015",
+        "DOC-005-ACT-016"
+      ],
+      "old_action_id": "DOC-005-ACT-019",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Groot schilderwerk plafond hout dekkend (uitgevoerd 2026)",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 12,
+        "planned_year": 2047,
+        "quantity": "105.08",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-020",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen dakbedekking APP",
+        "amount": "0",
+        "document_id": "DOC-005",
+        "page": 12,
+        "planned_year": 2058,
+        "quantity": "425.8",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-005-ACT-023",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Bereikbaarheidskosten en bijkomende kosten",
+        "amount": "71221",
+        "document_id": "DOC-005",
+        "new_row": {
+          "action_text": "bereikbaarheidskosten en bijkomende kosten",
+          "block_id": "P12-L052",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2033,
+              "35610"
+            ],
+            [
+              2040,
+              "35610"
+            ]
+          ]
+        },
+        "page": 12,
+        "planned_year": 2033,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-005-ACT-023",
+        "DOC-005-ACT-024"
+      ],
+      "old_action_id": "DOC-005-ACT-028",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Reinigen metselwerk",
+        "amount": "14799",
+        "document_id": "DOC-006",
+        "new_row": {
+          "action_text": "reinigen metselwerk",
+          "block_id": "P14-L006",
+          "quantity": "815.95",
+          "unit": "m2",
+          "years": [
+            [
+              2025,
+              "7400"
+            ],
+            [
+              2032,
+              "7400"
+            ]
+          ]
+        },
+        "page": 14,
+        "planned_year": 2025,
+        "quantity": "815.95",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-006-ACT-001",
+        "DOC-006-ACT-002"
+      ],
+      "old_action_id": "DOC-006-ACT-001",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen loodslabben opgaand werk",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2070,
+        "quantity": "1",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-003",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen goot zink",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2046,
+        "quantity": "165.8",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-004",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen kozijn hout",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2070,
+        "quantity": "756.8",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-005",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen balustrade (verz.) staal",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2062,
+        "quantity": "20",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-006",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen balustrade afdekking beton tot 400mm breedt",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2097,
+        "quantity": "59.1",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-007",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen leuning staal",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2062,
+        "quantity": "42",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-008",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Herstellen Erosie, verwering, verzanding",
+        "amount": "4360",
+        "document_id": "DOC-006",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P14-L037",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "4360"
+            ]
+          ]
+        },
+        "page": 14,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-006-ACT-004"
+      ],
+      "old_action_id": "DOC-006-ACT-009",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen gevelbekleding zachthout",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2070,
+        "quantity": "332",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-010",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen plafondafwerking multiplex",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 14,
+        "planned_year": 2070,
+        "quantity": "85.7",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-011",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Aanbrengen coating beton",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 15,
+        "planned_year": 2039,
+        "quantity": "62",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-019",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Herstellen Onthechting van ondergrond",
+        "amount": "1886",
+        "document_id": "DOC-006",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P15-L019",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "1886"
+            ]
+          ]
+        },
+        "page": 15,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-006-ACT-013"
+      ],
+      "old_action_id": "DOC-006-ACT-021",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Groot schilderwerk beton afdekkers balkon",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 15,
+        "planned_year": 2039,
+        "quantity": "59.1",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-022",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Groot schilderwerk betonconstructie plafond",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 15,
+        "planned_year": 2039,
+        "quantity": "50",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-026",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen dakbedekking APP",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 15,
+        "planned_year": 2057,
+        "quantity": "425.8",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-027",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen dakrandafwerking zink",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 15,
+        "planned_year": 2040,
+        "quantity": "70",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-029",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Herstellen (indien armaturen vallen binnen VvE)",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 16,
+        "planned_year": 2023,
+        "quantity": "0",
+        "unit": null
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-032",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Bereikbaarheidskosten en bijkomende kosten",
+        "amount": "0",
+        "document_id": "DOC-006",
+        "page": 16,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-006-ACT-034",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Vervangen (Gebreken aan kitwerken)",
+        "amount": "1771",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "vervangen",
+          "block_id": "P15-L006",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "1771"
+            ]
+          ]
+        },
+        "page": 15,
+        "planned_year": 2024,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-001"
+      ],
+      "old_action_id": "DOC-007-ACT-001",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen metselwerk",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2056,
+        "quantity": "1065.08",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-004",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen loodslabben opgaand werk",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2040,
+        "quantity": "28",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-007",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Aanbrengen schoonwerk metselwerk",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2060,
+        "quantity": "1",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-011",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Coaten (Scheuren niet constructief)",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2020,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-012",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Coaten",
+        "amount": "11810",
+        "document_id": "DOC-007",
+        "page": 13,
+        "planned_year": 2020,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-013",
+      "proposal_only": true,
+      "reason": "geen jarenplan-rij met dezelfde pagina, hoeveelheid en jaar in batch1_v1 (bijv. Bevindingen-bedrag buiten het venster)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen buitentrap trap staal verdieping hoogte",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2060,
+        "quantity": "2",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-014",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Reinigen",
+        "amount": "1233",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "reinigen",
+          "block_id": "P15-L042",
+          "quantity": "2",
+          "unit": "st",
+          "years": [
+            [
+              2028,
+              "616"
+            ],
+            [
+              2035,
+              "616"
+            ]
+          ]
+        },
+        "page": 15,
+        "planned_year": 2028,
+        "quantity": "2",
+        "unit": "st"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-009",
+        "DOC-007-ACT-010"
+      ],
+      "old_action_id": "DOC-007-ACT-015",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen kozijn hardhout",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2046,
+        "quantity": "782.58",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-016",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen entreedeur hout incl. hang&sluitwerk+afhangen",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 15,
+        "planned_year": 2060,
+        "quantity": "1",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-019",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen kozijn zachthout",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2060,
+        "quantity": "276.39",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-020",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Aanpassen (Afdichting, manco)",
+        "amount": "10285",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "aanpassen",
+          "block_id": "P16-L008",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "10285"
+            ]
+          ]
+        },
+        "page": 16,
+        "planned_year": 2024,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-015"
+      ],
+      "old_action_id": "DOC-007-ACT-021",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen woning toegangsdeur",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2050,
+        "quantity": "37",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-022",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen meterkas/kast",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2060,
+        "quantity": "76",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-023",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen balustrade (verz.) staal",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2052,
+        "quantity": "55.2",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-024",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Herstellen (Uitgespoeld/afwezig voegwerk)",
+        "amount": "1815",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P16-L024",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2028,
+              "1815"
+            ]
+          ]
+        },
+        "page": 16,
+        "planned_year": 2028,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-017"
+      ],
+      "old_action_id": "DOC-007-ACT-026",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen voegwerk platvol",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2060,
+        "quantity": "1065.08",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-027",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen vloerafwerking dubbel hard gebakken tegels (gelijmd)",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2060,
+        "quantity": "78.4",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-031",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen plafondafwerking hwc-plaat",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 16,
+        "planned_year": 2060,
+        "quantity": "353.32",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-033",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk metaal",
+        "amount": "749",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk metaal",
+          "block_id": "P17-L007",
+          "quantity": "8.24",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "374"
+            ],
+            [
+              2033,
+              "374"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "8.24",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-023",
+        "DOC-007-ACT-024"
+      ],
+      "old_action_id": "DOC-007-ACT-034",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk leuningen",
+        "amount": "1229",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk leuningen",
+          "block_id": "P17-L010",
+          "quantity": "13.2",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "614"
+            ],
+            [
+              2036,
+              "614"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "13.2",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-025",
+        "DOC-007-ACT-026"
+      ],
+      "old_action_id": "DOC-007-ACT-035",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk trap hout transparant",
+        "amount": "2749",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk trap hout transparant",
+          "block_id": "P17-L013",
+          "quantity": "27.2",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "1374"
+            ],
+            [
+              2033,
+              "1374"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "27.2",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-027",
+        "DOC-007-ACT-028"
+      ],
+      "old_action_id": "DOC-007-ACT-036",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "evidence": {
+        "action_text": "Groot schilderwerk kozijn & raam hout dekkend achterzijde",
+        "amount": "44435",
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "391.3",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-039",
+      "proposal_only": true,
+      "reason": "meerdere kandidaatrijen met dezelfde pagina/hoeveelheid/jaar"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "evidence": {
+        "action_text": "Groot schilderwerk kozijn & raam hout dekkend voorzijde",
+        "amount": "44435",
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2028,
+        "quantity": "391.3",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-040",
+      "proposal_only": true,
+      "reason": "meerdere kandidaatrijen met dezelfde pagina/hoeveelheid/jaar"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangend schilderwerk plafond hout dekkend",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2043,
+        "quantity": "29",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-046",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Groot schilderwerk plafond hout dekkend",
+        "amount": "3293",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "groot schilderwerk plafond hout dekkend",
+          "block_id": "P17-L045",
+          "quantity": "29",
+          "unit": "m2",
+          "years": [
+            [
+              2029,
+              "1647"
+            ],
+            [
+              2036,
+              "1647"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2022,
+        "quantity": "29",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-040",
+        "DOC-007-ACT-041"
+      ],
+      "old_action_id": "DOC-007-ACT-047",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: jaar/bedrag (geen exacte jaar- of bedragmatch)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Herstellen (Subelementen manco, gebreken aan ventilatiepijpjes, ontbreken van draadbolroosters)",
+        "amount": "443",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P17-L054",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2024,
+              "443"
+            ]
+          ]
+        },
+        "page": 17,
+        "planned_year": 2024,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-043"
+      ],
+      "old_action_id": "DOC-007-ACT-049",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen dakbedekking APP dakvlak 1-4-5",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2052,
+        "quantity": "735.08",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-050",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Aanbrengen nieuwe laag dakbedekking APP dakvlak 2-3",
+        "amount": null,
+        "document_id": "DOC-007",
+        "page": 17,
+        "planned_year": 2047,
+        "quantity": "898.43",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-054",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen dakbedekking APP dakvlak 1",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2052,
+        "quantity": "12.6",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-055",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Aanbrengen nieuwe laag dakbedekking APP dakvlak 2-3",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2047,
+        "quantity": "15.4",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-058",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen dakrandafwerking metaal 1",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2052,
+        "quantity": "169.88",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-059",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen schoorsteen compleet",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2040,
+        "quantity": "8",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-061",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "evidence": {
+        "action_text": "Vervangen hemelwaterafvoer pvc",
+        "amount": "1340",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2028,
+        "quantity": "25.5",
+        "unit": "m1"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-054",
+        "DOC-007-ACT-055"
+      ],
+      "old_action_id": "DOC-007-ACT-066",
+      "proposal_only": true,
+      "reason": "meerdere identieke bronrijen"
+    },
+    {
+      "classification": "AMBIGUOUS",
+      "evidence": {
+        "action_text": "Vervangen hemelwaterafvoer pvc",
+        "amount": "1340",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2028,
+        "quantity": "25.5",
+        "unit": "m1"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-054",
+        "DOC-007-ACT-055"
+      ],
+      "old_action_id": "DOC-007-ACT-067",
+      "proposal_only": true,
+      "reason": "meerdere identieke bronrijen"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen (Accu)",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 18,
+        "planned_year": 2018,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-070",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen",
+        "amount": "1860",
+        "document_id": "DOC-007",
+        "page": 11,
+        "planned_year": 2018,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-071",
+      "proposal_only": true,
+      "reason": "geen jarenplan-rij met dezelfde pagina, hoeveelheid en jaar in batch1_v1 (bijv. Bevindingen-bedrag buiten het venster)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Besturing inclusief frequentieregeling vervangen",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 19,
+        "planned_year": 2043,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-076",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Liftdeuren vervangen",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 19,
+        "planned_year": 2048,
+        "quantity": "1",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-077",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Personenlift vervangen liftmachine",
+        "amount": "0",
+        "document_id": "DOC-007",
+        "page": 19,
+        "planned_year": 2048,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-007-ACT-078",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Inspecteren en rapporteren",
+        "amount": "8767",
+        "document_id": "DOC-007",
+        "new_row": {
+          "action_text": "inspecteren en rapporteren",
+          "block_id": "P19-L029",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2026,
+              "2192"
+            ],
+            [
+              2029,
+              "2192"
+            ],
+            [
+              2032,
+              "2192"
+            ],
+            [
+              2035,
+              "2192"
+            ]
+          ]
+        },
+        "page": 19,
+        "planned_year": 2026,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-007-ACT-066",
+        "DOC-007-ACT-067",
+        "DOC-007-ACT-068",
+        "DOC-007-ACT-069"
+      ],
+      "old_action_id": "DOC-007-ACT-083",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: bedrag"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Herstellen Lekkage",
+        "amount": "10285",
+        "document_id": "DOC-008",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P09-L005",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "10285"
+            ]
+          ]
+        },
+        "page": 9,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-008-ACT-001"
+      ],
+      "old_action_id": "DOC-008-ACT-001",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Herstellen Plantengroei op dakbedekking",
+        "amount": "0",
+        "document_id": "DOC-008",
+        "page": 9,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-008-ACT-004",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Herstellen Defecten aan isolatieplaten (nat, kieren, ingebrand)",
+        "amount": "0",
+        "document_id": "DOC-008",
+        "page": 9,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-008-ACT-005",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Aanbrengen nieuwe laag dakbedekking APP",
+        "amount": "0",
+        "document_id": "DOC-008",
+        "page": 9,
+        "planned_year": 2050,
+        "quantity": "546",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-008-ACT-007",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Aanbrengen nieuwe laag dakbedekking bitumen geballast",
+        "amount": "0",
+        "document_id": "DOC-008",
+        "page": 9,
+        "planned_year": 2050,
+        "quantity": "89.78",
+        "unit": "m2"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-008-ACT-011",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen randafwerking bitumineus + kraal",
+        "amount": "0",
+        "document_id": "DOC-008",
+        "page": 9,
+        "planned_year": 2023,
+        "quantity": "80.4",
+        "unit": "m1"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-008-ACT-013",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Herstellen Uitgespoeld/afwezig voegwerk",
+        "amount": "4840",
+        "document_id": "DOC-008",
+        "new_row": {
+          "action_text": "herstellen",
+          "block_id": "P09-L043",
+          "quantity": "1",
+          "unit": "pst",
+          "years": [
+            [
+              2025,
+              "4840"
+            ]
+          ]
+        },
+        "page": 9,
+        "planned_year": 2025,
+        "quantity": "1",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-008-ACT-010"
+      ],
+      "old_action_id": "DOC-008-ACT-015",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "NO_NEW_ACTION",
+      "evidence": {
+        "action_text": "Vervangen",
+        "amount": "0",
+        "document_id": "DOC-008",
+        "page": 10,
+        "planned_year": 2042,
+        "quantity": "7",
+        "unit": "st"
+      },
+      "new_action_ids": [],
+      "old_action_id": "DOC-008-ACT-023",
+      "proposal_only": true,
+      "reason": "oude actie zonder positief bedrag; de deterministische route maakt geen actie van een nulbedrag (rows_without_positive_amount)"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Vervangen loodslabben plat dak",
+        "amount": "10386",
+        "document_id": "DOC-009",
+        "new_row": {
+          "action_text": "vervangen loodslabben plat dak ( een wordt gedaan in 2018 ivm lekkage)",
+          "block_id": "P21-L042",
+          "quantity": "72.38",
+          "unit": "m1",
+          "years": [
+            [
+              2025,
+              "10386"
+            ]
+          ]
+        },
+        "page": 21,
+        "planned_year": 2025,
+        "quantity": "72.38",
+        "unit": "m1"
+      },
+      "new_action_ids": [
+        "DOC-009-ACT-067"
+      ],
+      "old_action_id": "DOC-009-ACT-067",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    },
+    {
+      "classification": "SAFE_EXACT_RELINK",
+      "evidence": {
+        "action_text": "Vervangen binneriolering ijzer->pvc (3 st/app, 1 gedaan 277-295)",
+        "amount": "26136",
+        "document_id": "DOC-009",
+        "new_row": {
+          "action_text": "vervangen binneriolering ijzer->pvc (3 st/ app (1 gedaan 277-295)",
+          "block_id": "P21-L057",
+          "quantity": "7.2",
+          "unit": "pst",
+          "years": [
+            [
+              2029,
+              "26136"
+            ]
+          ]
+        },
+        "page": 21,
+        "planned_year": 2029,
+        "quantity": "7.2",
+        "unit": "pst"
+      },
+      "new_action_ids": [
+        "DOC-009-ACT-073"
+      ],
+      "old_action_id": "DOC-009-ACT-073",
+      "proposal_only": true,
+      "reason": "zelfde pagina/hoeveelheid/eenheid/jaar/bedrag; actietekst verschilt alleen in spaties/leestekens"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Vervangen deurbelinstallatie inclusief videofoon en toestellen",
+        "amount": "17243",
+        "document_id": "DOC-009",
+        "new_row": {
+          "action_text": "vervangen deurbelinstallatie inclusief videofoon en toestellen",
+          "block_id": "P22-L026",
+          "quantity": "30",
+          "unit": "20",
+          "years": [
+            [
+              2028,
+              "17243"
+            ]
+          ]
+        },
+        "page": 22,
+        "planned_year": 2028,
+        "quantity": "30",
+        "unit": "st"
+      },
+      "new_action_ids": [
+        "DOC-009-ACT-080"
+      ],
+      "old_action_id": "DOC-009-ACT-080",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: eenheid"
+    },
+    {
+      "classification": "SOURCE_CHANGED_REVIEW",
+      "evidence": {
+        "action_text": "Onderhoud kozijnen",
+        "amount": "11024",
+        "document_id": "DOC-010",
+        "new_row": {
+          "action_text": "onderhoud kozijnen (confrom offerte kemo)",
+          "block_id": "P10-L033",
+          "quantity": "84.28",
+          "unit": "m2",
+          "years": [
+            [
+              2028,
+              "11024"
+            ]
+          ]
+        },
+        "page": 10,
+        "planned_year": 2028,
+        "quantity": "84.28",
+        "unit": "m2"
+      },
+      "new_action_ids": [
+        "DOC-010-ACT-004"
+      ],
+      "old_action_id": "DOC-010-ACT-004",
+      "proposal_only": true,
+      "reason": "één kandidaatrij; verschil in: actietekst"
+    }
+  ],
+  "total": 89
+}

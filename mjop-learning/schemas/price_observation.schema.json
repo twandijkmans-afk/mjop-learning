@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "price_observation.schema.json",
+  "title": "PriceObservation",
+  "description": "Eén price observation uit de source layer (scripts/build_price_observations.py): precies één rij uit 'Overzicht NN - Jarenplan (Gedetailleerd)' met een bedrag > 0 binnen het getoonde venster. Jaarplan- en Bevindingen-regels zijn extra source_representations, geen eigen observations. Bedragen zijn Decimal-strings, nooit floats. Ontbrekende brongegevens blijven null (CLAUDE.md: niet gokken).",
+  "type": "object",
+  "definitions": {
+    "decimal_string": { "type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$" }
+  },
+  "properties": {
+    "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-P[0-9]{3}-L[0-9]{3}$" },
+    "document_id": { "type": "string", "pattern": "^DOC-[0-9]{3,}$" },
+    "source_file": {
+      "type": "object",
+      "properties": {
+        "relative_path": { "type": "string" },
+        "sha256": { "type": "string" },
+        "file_type": { "type": "string" }
+      },
+      "required": ["relative_path", "sha256", "file_type"],
+      "additionalProperties": false
+    },
+    "element": {
+      "type": "object",
+      "properties": {
+        "element_code_original": { "type": ["string", "null"], "description": "Code zoals in de elementregel boven de rij. Intern coderingssysteem, niet bevestigd als officiële NL/SfB." },
+        "element_description_original": { "type": ["string", "null"] },
+        "element_location_original": { "type": ["string", "null"] },
+        "element_candidate_previous_page": { "type": ["object", "null"], "description": "Laatste elementregel van de vorige pagina als op deze pagina geen elementregel boven de rij staat en het element niet eenduidig doorloopt. Kandidaat, NIET toegekend." },
+        "element_context_source": { "type": ["string", "null"], "enum": ["same_page", "previous_page", null], "description": "Waar de elementregel vandaan komt. 'previous_page': het element loopt zonder groep-/subtotaal-/totaalgrens door vanaf de vorige pagina (element_line wijst naar die pagina/regel)." },
+        "element_description_first_line": { "type": ["string", "null"], "description": "De eerste regel van de elementomschrijving zoals in de bron, vóór het samenvoegen van vervolgregels." },
+        "element_description_continuation_lines": { "type": "array", "items": { "type": "integer" }, "description": "Regelnummers (pdftotext -table) van samengevoegde vervolgregels van de elementomschrijving." },
+        "element_description_excluded_tokens": { "type": "array", "description": "Tokens van vervolgregels die niet zijn samengevoegd (bijv. een losse eenheid 'm2'), met regel en reden." },
+        "element_id": { "type": ["string", "null"], "description": "Bestaande element_id uit data/verified via extraction_link." },
+        "element_code_internal": { "type": ["string", "null"], "description": "element_code.normalized_value uit data/verified." }
+      },
+      "required": ["element_code_original", "element_description_original", "element_id", "element_code_internal"],
+      "additionalProperties": false
+    },
+    "action": {
+      "type": "object",
+      "properties": {
+        "action_text_original": { "type": "string" },
+        "gebrek_or_location_text_original": { "type": ["string", "null"] },
+        "action_normalized": { "type": ["string", "null"] },
+        "action_normalization_basis": { "type": ["string", "null"] }
+      },
+      "required": ["action_text_original", "action_normalized", "action_normalization_basis"],
+      "additionalProperties": false
+    },
+    "unit_original": { "type": ["string", "null"] },
+    "unit_normalized": { "type": ["string", "null"] },
+    "quantity_as_stated": { "type": "string" },
+    "quantity_value": { "$ref": "#/definitions/decimal_string" },
+    "total_as_stated": { "type": ["string", "null"], "description": "Rijtotaal zoals in de bron (kolom Totaal)." },
+    "total_value": { "$ref": "#/definitions/decimal_string" },
+    "amount_reconciliation": { "type": "string", "enum": ["consistent", "mismatch", "no_total", "unparseable", "zero"] },
+    "total_scope": { "type": "string", "enum": ["ONE_EXECUTION", "MULTIPLE_EXECUTIONS", "UNKNOWN"], "description": "Wat het rijtotaal omvat, uitsluitend binnen het getoonde venster." },
+    "occurrences_in_window": { "type": "integer", "minimum": 0 },
+    "annual_amounts": { "type": "object", "additionalProperties": { "$ref": "#/definitions/decimal_string" } },
+    "planned_years": { "type": "array", "items": { "type": "string" } },
+    "execution_window_start": { "type": ["integer", "null"] },
+    "execution_window_end": { "type": ["integer", "null"] },
+    "cycle_start_year": { "type": ["integer", "null"], "description": "Stj, letterlijk uit de bron. Niet gelijk te stellen aan planned_years." },
+    "cycle_start_year_as_stated": { "type": ["string", "null"] },
+    "cycle_length_years": { "type": ["integer", "null"], "description": "Cy, letterlijk uit de bron. Lege kolom in de bron = null." },
+    "cycle_length_as_stated": { "type": ["string", "null"] },
+    "price_type": { "type": ["string", "null"], "enum": ["literal", "calculated", null] },
+    "unit_price_literal": { "$ref": "#/definitions/decimal_string" },
+    "unit_price_calculated": { "$ref": "#/definitions/decimal_string" },
+    "calculated_unit_price_basis": {
+      "type": ["string", "null"],
+      "enum": ["row_total_single_execution_in_window", "row_total_over_multiple_executions_in_window", null],
+      "description": "Bij row_total_over_multiple_executions_in_window is unit_price_calculated een verhouding over het rijtotaal, GEEN prijs per uitvoering."
+    },
+    "calculation_method": { "type": ["string", "null"] },
+    "calculated_unit_price_not_computed_reason": { "type": ["string", "null"] },
+    "price_level_date": { "type": ["string", "null"], "description": "Letterlijk 'Prijspeil' uit het objectblad; null als de bron er geen geeft (nooit afgeleid)." },
+    "price_level_basis": { "type": "string", "enum": ["explicit", "absent"] },
+    "vat_basis": { "type": ["string", "null"], "enum": ["inclusive", "exclusive", null] },
+    "vat_text": { "type": ["string", "null"] },
+    "vat_rate_text": { "type": ["string", "null"] },
+    "indexation_statement": { "type": ["string", "null"], "description": "Letterlijke indexatiezin; niet geïnterpreteerd." },
+    "legacy_extracted_cost_years": { "type": "array", "items": { "type": "integer" }, "description": "cost_year uit de oude extractie, alleen voor traceerbaarheid. Geen prijsjaar." },
+    "source_representations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "role": { "type": "string", "enum": ["primary_financial_row", "first_year_plan_view", "context_inspection"] },
+          "section": { "type": "string", "enum": ["JARENPLAN_GEDETAILLEERD", "JAARPLAN", "BEVINDINGEN"] },
+          "page": { "type": "integer" },
+          "line": { "type": "integer" },
+          "source_text": { "type": "string" }
+        },
+        "required": ["role", "section", "page", "line", "source_text"]
+      }
+    },
+    "provenance_status": { "type": "string", "enum": ["complete", "incomplete"] },
+    "provenance_gaps": { "type": "array", "items": { "type": "string" } },
+    "extraction_link": {
+      "type": "object",
+      "properties": {
+        "action_ids": { "type": "array", "items": { "type": "string" } },
+        "method": { "type": ["string", "null"] },
+        "score": { "type": ["number", "null"] }
+      },
+      "required": ["action_ids", "method", "score"],
+      "additionalProperties": false
+    },
+    "dependency_status": { "type": "string", "enum": ["NO_DEPENDENCY_FOUND", "POSSIBLY_DEPENDENT", "UNKNOWN"], "description": "Samenvatting van observation_relations. NO_DEPENDENCY_FOUND betekent NIET onafhankelijk." },
+    "relation_ids": { "type": "array", "items": { "type": "string" } },
+    "document_relation_ids": { "type": "array", "items": { "type": "string" } },
+    "review_status": { "type": "string", "enum": ["not_reviewed", "accepted", "edited", "rejected"] },
+    "requires_human_review": { "type": "boolean" },
+    "review_reasons": { "type": "array", "items": { "type": "string" } },
+    "extraction_review": { "type": ["object", "null"] }
+  },
+  "required": [
+    "observation_id", "document_id", "source_file", "element", "action", "unit_original", "unit_normalized",
+    "quantity_as_stated", "quantity_value", "total_as_stated", "total_value", "total_scope", "occurrences_in_window",
+    "annual_amounts", "execution_window_start", "execution_window_end", "cycle_start_year", "cycle_length_years",
+    "price_type", "unit_price_literal", "unit_price_calculated", "price_level_date", "price_level_basis", "vat_basis",
+    "legacy_extracted_cost_years", "source_representations", "provenance_status", "extraction_link",
+    "dependency_status", "relation_ids", "review_status", "requires_human_review"
+  ],
+  "additionalProperties": false
+}

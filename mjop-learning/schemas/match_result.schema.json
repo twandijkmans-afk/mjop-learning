@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "match_result.schema.json",
+  "title": "MatchResult",
+  "description": "Resultaat van scripts/match_kengetal.py (matching v1): exacte candidate retrieval op element_code + action + unit + bekend materiaal tegen AVAILABLE kengetallen, gevolgd door een deterministische scope-check. Geen fuzzy matching, geen score, ranking of confidence, geen indexatie, geen schaalcorrectie. Het resultaat is een voorstel; het schrijft geen historische kennis en geen human decisions.",
+  "type": "object",
+  "definitions": {
+    "decimal_or_null": { "type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "reason": {
+      "type": "string",
+      "enum": ["INPUT_KEY_INCOMPLETE", "MATERIAL_UNKNOWN", "NO_KENGETAL_FOR_KEY", "KENGETAL_INSUFFICIENT_DATA",
+               "SCOPE_MISMATCH_HUMAN_NOT_COMPARABLE", "SCOPE_NOT_DETERMINISTIC", "OBJECT_DESCRIPTION_MISSING",
+               "CONFLICTING_SCOPE_EVIDENCE", "MULTIPLE_CANDIDATES", "VAT_BASIS_DIFFERS"]
+    },
+    "candidate_evaluation": {
+      "type": "object",
+      "properties": {
+        "kengetal_id": { "type": "string" },
+        "scope_status": { "type": "string", "enum": ["EXACT_MATCH", "MISMATCH", "HUMAN_REVIEW_REQUIRED"] },
+        "scope_reasons": { "type": "array", "items": { "$ref": "#/definitions/reason" } },
+        "scope_evidence": { "type": "object" }
+      },
+      "required": ["kengetal_id", "scope_status", "scope_reasons", "scope_evidence"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "match_result_id": { "type": "string", "pattern": "^MR-[0-9a-f]{16}$" },
+    "input_object_id": { "type": "string", "minLength": 1 },
+    "input_normalized": { "type": "object", "description": "Het genormaliseerde input-object, met per veld de normalisatiebasis." },
+    "retrieval_key": {
+      "type": "object",
+      "properties": {
+        "element_code": { "type": ["string", "null"] },
+        "action": { "type": ["string", "null"] },
+        "unit": { "type": ["string", "null"] },
+        "material": { "type": ["string", "null"] }
+      },
+      "required": ["element_code", "action", "unit", "material"],
+      "additionalProperties": false
+    },
+    "retrieval_status": { "type": "string", "enum": ["CANDIDATES_RETRIEVED", "NO_CANDIDATE"] },
+    "candidate_kengetal_ids": { "type": "array", "items": { "type": "string" } },
+    "candidate_evaluations": { "type": "array", "items": { "$ref": "#/definitions/candidate_evaluation" } },
+    "candidate_kengetal_id": { "type": ["string", "null"] },
+    "scope_status": { "type": "string", "enum": ["EXACT_MATCH", "MISMATCH", "HUMAN_REVIEW_REQUIRED", "NOT_EVALUATED"] },
+    "final_status": { "type": "string", "enum": ["CANDIDATE_FOUND", "HUMAN_REVIEW_REQUIRED", "NO_SUITABLE_KENGETAL"] },
+    "reasons": { "type": "array", "items": { "$ref": "#/definitions/reason" } },
+    "hard_match_fields": {
+      "type": "object",
+      "description": "Per retrieval-veld de waarde van het input-object en of die exact gelijk was aan de kandidaat.",
+      "additionalProperties": { "type": "object" }
+    },
+    "scope_evidence": { "type": "object" },
+    "historical_range": {
+      "type": ["object", "null"],
+      "properties": {
+        "value_exact": { "$ref": "#/definitions/decimal_or_null" },
+        "value_display": { "$ref": "#/definitions/decimal_or_null" },
+        "min_exact": { "$ref": "#/definitions/decimal_or_null" },
+        "max_exact": { "$ref": "#/definitions/decimal_or_null" },
+        "range_exact": { "$ref": "#/definitions/decimal_or_null" },
+        "quantity_min": { "$ref": "#/definitions/decimal_or_null" },
+        "quantity_max": { "$ref": "#/definitions/decimal_or_null" },
+        "unit": { "type": ["string", "null"] },
+        "note": { "type": "string" }
+      },
+      "required": ["value_exact", "value_display", "min_exact", "max_exact", "range_exact", "quantity_min",
+                   "quantity_max", "unit", "note"],
+      "additionalProperties": false
+    },
+    "historical_source_clusters": { "type": "array", "items": { "type": "object" } },
+    "price_levels": { "type": ["object", "null"] },
+    "caveats": {
+      "type": "object",
+      "properties": {
+        "match_caveats": { "type": "array", "items": { "type": "string" } },
+        "decision_caveats": { "type": "object" },
+        "observation_caveats": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["match_caveats", "decision_caveats", "observation_caveats"],
+      "additionalProperties": false
+    },
+    "required_human_review": { "type": "boolean" },
+    "provenance": {
+      "type": "object",
+      "properties": {
+        "kengetallen_file": { "type": "string" },
+        "kengetal_decision_ids": { "type": "array", "items": { "type": "string" } },
+        "kengetal_observation_ids": { "type": "array", "items": { "type": "string" } },
+        "insufficient_data_kengetal_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["kengetallen_file", "kengetal_decision_ids", "kengetal_observation_ids", "insufficient_data_kengetal_ids"],
+      "additionalProperties": false
+    },
+    "rule_version": { "type": "string", "const": "matching_rules_v1" },
+    "kengetallen_rule_version": { "type": "string" },
+    "input_hashes": {
+      "type": "object",
+      "properties": {
+        "kengetallen_output_sha256": { "$ref": "#/definitions/sha256" },
+        "normalized_observations_sha256": { "$ref": "#/definitions/sha256" },
+        "vocabularies_sha256": { "type": "object", "additionalProperties": { "$ref": "#/definitions/sha256" } }
+      },
+      "required": ["kengetallen_output_sha256", "normalized_observations_sha256", "vocabularies_sha256"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["match_result_id", "input_object_id", "input_normalized", "retrieval_key", "retrieval_status",
+               "candidate_kengetal_ids", "candidate_evaluations", "candidate_kengetal_id", "scope_status",
+               "final_status", "reasons", "hard_match_fields", "scope_evidence", "historical_range",
+               "historical_source_clusters", "price_levels", "caveats", "required_human_review", "provenance",
+               "rule_version", "kengetallen_rule_version", "input_hashes"],
+  "additionalProperties": false
+}

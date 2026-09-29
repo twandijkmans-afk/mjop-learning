@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "_human_verification.schema.json",
+  "title": "HumanVerification",
+  "description": "Herbruikbaar patroon: ingevuld zodra een mens een veld heeft beoordeeld (ACCEPT/EDIT/REJECT, zie CLAUDE.md). Gebruikt door zowel _extracted_value.schema.json (value-velden) als de eenvoudige {original_value, normalized_value}-paren (element_type, material, unit, action, defect) - zie scripts/apply_review.py.",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string", "enum": ["accept", "edit", "reject"] },
+    "original_ai_value": {},
+    "edited_value": {},
+    "reviewer": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "notes": { "type": ["string", "null"] }
+  },
+  "required": ["status", "reviewer", "timestamp"],
+  "additionalProperties": false
+}

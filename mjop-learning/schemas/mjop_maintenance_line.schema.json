@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_maintenance_line.schema.json",
+  "title": "MjopMaintenanceLine",
+  "description": "Eén onderhoudsregel van een NIEUW MJOP (scripts/mjop_maintenance_line.py, docs/mjop_maintenance_line_v1.md). Niet te verwarren met maintenance_action.schema.json (historische, geëxtraheerde posten). Een regel mag bestaan zonder bedrag. Een kengetalbedrag is alleen effectief na een menselijke beslissing (via scripts/mjop_kengetal_workflow.py); een handmatig bedrag heeft bron MANUAL_AMOUNT. Geen indexatie, score of confidence. Bedragen en hoeveelheden zijn Decimal-strings.",
+  "type": "object",
+  "definitions": {
+    "nonneg_decimal": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+    "positive_decimal": { "type": "string", "pattern": "^(0*[1-9][0-9]*(\\.[0-9]+)?|0*\\.?0*[1-9][0-9]*|0+\\.[0-9]*[1-9][0-9]*)$" },
+    "year": { "type": ["integer", "null"], "minimum": 1000, "maximum": 9999 },
+    "vat_basis": { "type": ["string", "null"], "enum": ["inclusive", "exclusive", null] }
+  },
+  "properties": {
+    "maintenance_line_id": { "type": "string", "minLength": 1 },
+    "mjop_id": { "type": "string", "minLength": 1 },
+    "object_id": { "type": "string", "minLength": 1 },
+    "line_version": { "type": "string", "const": "mjop_maintenance_line_v1" },
+
+    "element_code_internal": { "type": ["string", "null"] },
+    "object_description": { "type": ["string", "null"] },
+    "action_normalized": { "type": ["string", "null"] },
+    "action_text": { "type": ["string", "null"] },
+    "unit_normalized": { "type": ["string", "null"] },
+    "unit_text": { "type": ["string", "null"] },
+    "material_normalized": { "type": ["string", "null"] },
+    "material_text": { "type": ["string", "null"] },
+    "material_source": { "type": ["string", "null"] },
+    "vat_basis": { "$ref": "#/definitions/vat_basis" },
+    "price_level_requested": { "type": ["integer", "null"] },
+    "context": {
+      "type": "object",
+      "description": "Contextvelden, alleen doorgegeven aan de workflow. construction_year wordt nooit als onderhouds- of vervangingsjaar gebruikt.",
+      "properties": {
+        "building_type": { "type": ["string", "null"] },
+        "construction_year": { "$ref": "#/definitions/year" },
+        "location": { "type": ["string", "null"] },
+        "condition_defect": { "type": ["string", "null"] },
+        "maintenance_type": { "type": ["string", "null"] }
+      },
+      "required": ["building_type", "construction_year", "location", "condition_defect", "maintenance_type"],
+      "additionalProperties": false
+    },
+
+    "quantity": { "oneOf": [{ "$ref": "#/definitions/positive_decimal" }, { "type": "null" }] },
+
+    "planned_year": { "$ref": "#/definitions/year" },
+    "proposed_planned_year": { "$ref": "#/definitions/year", "description": "Gereserveerd voor een voorstel van een toekomstige planner; v1 vult dit nooit." },
+    "cycle_years": { "type": ["integer", "null"], "minimum": 1 },
+    "last_maintenance_year": { "$ref": "#/definitions/year" },
+    "last_replacement_year": { "$ref": "#/definitions/year" },
+
+    "line_status": { "type": "string", "enum": ["DRAFT", "READY", "REVIEW_REQUIRED"] },
+    "price_status": { "type": "string", "enum": ["NO_AMOUNT", "SYSTEM_PROPOSED", "HUMAN_ACCEPTED", "HUMAN_ADJUSTED", "MANUALLY_SET", "REJECTED"] },
+
+    "kengetal_match": {
+      "type": ["object", "null"],
+      "description": "Samenvatting van het laatst toegepaste workflowresultaat (system-derived).",
+      "properties": {
+        "workflow_status": { "type": "string", "enum": ["NO_KENGETAL", "REVIEW_REQUIRED", "MATCH_PENDING_DECISION", "ACCEPTED", "ADJUSTED", "REJECTED"] },
+        "match_result_id": { "type": "string" },
+        "match_status": { "type": "string", "enum": ["CANDIDATE_FOUND", "HUMAN_REVIEW_REQUIRED", "NO_SUITABLE_KENGETAL"] },
+        "match_reasons": { "type": "array", "items": { "type": "string" } },
+        "kengetal_id": { "type": ["string", "null"], "description": "Het door de matching voorgestelde kengetal." },
+        "system_candidate_amount": { "oneOf": [{ "$ref": "#/definitions/nonneg_decimal" }, { "type": "null" }] },
+        "human_match_decision_id": { "type": ["string", "null"] },
+        "decision_status": { "type": "string", "enum": ["NO_DECISION", "ACCEPTED", "ADJUSTED", "REJECTED"] },
+        "human_selected_kengetal_id": { "type": ["string", "null"] }
+      },
+      "required": ["workflow_status", "match_result_id", "match_status", "match_reasons", "kengetal_id",
+                   "system_candidate_amount", "human_match_decision_id", "decision_status", "human_selected_kengetal_id"],
+      "additionalProperties": false
+    },
+
+    "manual_amount": {
+      "type": ["object", "null"],
+      "properties": {
+        "amount": { "$ref": "#/definitions/nonneg_decimal" },
+        "unit": { "type": "string", "minLength": 1 },
+        "price_level": { "type": ["string", "null"] },
+        "vat_basis": { "$ref": "#/definitions/vat_basis" },
+        "reason": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "const": "MANUAL_AMOUNT" }
+      },
+      "required": ["amount", "unit", "price_level", "vat_basis", "reason", "source"],
+      "additionalProperties": false
+    },
+
+    "financial": {
+      "type": "object",
+      "properties": {
+        "amount_source": { "type": ["string", "null"], "enum": ["SYSTEM_KENGETAL", "HUMAN_SELECTED_KENGETAL", "HUMAN_ADJUSTMENT", "MANUAL_AMOUNT", null] },
+        "unit_amount": { "oneOf": [{ "$ref": "#/definitions/nonneg_decimal" }, { "type": "null" }] },
+        "unit_amount_display": { "oneOf": [{ "$ref": "#/definitions/nonneg_decimal" }, { "type": "null" }] },
+        "unit": { "type": ["string", "null"] },
+        "effective_total": { "oneOf": [{ "$ref": "#/definitions/nonneg_decimal" }, { "type": "null" }] },
+        "effective_total_display": { "oneOf": [{ "$ref": "#/definitions/nonneg_decimal" }, { "type": "null" }] },
+        "total_not_computed_reason": { "type": ["string", "null"], "enum": ["NO_EFFECTIVE_AMOUNT", "QUANTITY_MISSING", "QUANTITY_NOT_POSITIVE", "UNIT_MISMATCH", null] },
+        "price_level": { "type": ["object", "null"] },
+        "vat_basis": { "$ref": "#/definitions/vat_basis" },
+        "indexation": { "type": "string", "const": "none" }
+      },
+      "required": ["amount_source", "unit_amount", "unit_amount_display", "unit", "effective_total", "effective_total_display",
+                   "total_not_computed_reason", "price_level", "vat_basis", "indexation"],
+      "additionalProperties": false,
+      "allOf": [
+        { "if": { "properties": { "unit_amount": { "type": "null" } } },
+          "then": { "properties": { "amount_source": { "type": "null" }, "effective_total": { "type": "null" } } },
+          "else": { "properties": { "amount_source": { "type": "string" }, "unit": { "type": "string" } } } },
+        { "if": { "properties": { "amount_source": { "type": "null" } } },
+          "then": { "properties": { "unit_amount": { "type": "null" } } } }
+      ]
+    },
+
+    "provenance": {
+      "type": ["object", "null"],
+      "description": "Bestaande IDs/hashes uit workflow, matching en human match review; geen eigen provenance-systeem.",
+      "properties": {
+        "workflow_result_id": { "type": "string" },
+        "match_result_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "decision_store_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "rule_versions": { "type": "object" },
+        "input_hashes": { "type": "object" }
+      },
+      "required": ["workflow_result_id", "match_result_sha256", "decision_store_sha256", "rule_versions", "input_hashes"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["maintenance_line_id", "mjop_id", "object_id", "line_version", "element_code_internal", "object_description",
+               "action_normalized", "action_text", "unit_normalized", "unit_text", "material_normalized", "material_text",
+               "material_source", "vat_basis", "price_level_requested", "context", "quantity", "planned_year",
+               "proposed_planned_year", "cycle_years", "last_maintenance_year", "last_replacement_year", "line_status",
+               "price_status", "kengetal_match", "manual_amount", "financial", "provenance"],
+  "additionalProperties": false,
+  "allOf": [
+    { "if": { "properties": { "price_status": { "enum": ["NO_AMOUNT", "SYSTEM_PROPOSED", "REJECTED"] } } },
+      "then": { "properties": { "financial": { "properties": { "unit_amount": { "type": "null" }, "amount_source": { "type": "null" } } } } } },
+    { "if": { "properties": { "price_status": { "const": "HUMAN_ACCEPTED" } } },
+      "then": { "properties": {
+        "financial": { "properties": { "amount_source": { "const": "SYSTEM_KENGETAL" } } },
+        "kengetal_match": { "type": "object", "properties": { "decision_status": { "const": "ACCEPTED" }, "human_match_decision_id": { "type": "string" } } } } } },
+    { "if": { "properties": { "price_status": { "const": "HUMAN_ADJUSTED" } } },
+      "then": { "properties": {
+        "financial": { "properties": { "amount_source": { "enum": ["HUMAN_SELECTED_KENGETAL", "HUMAN_ADJUSTMENT"] } } },
+        "kengetal_match": { "type": "object", "properties": { "decision_status": { "const": "ADJUSTED" }, "human_match_decision_id": { "type": "string" } } } } } },
+    { "if": { "properties": { "price_status": { "const": "MANUALLY_SET" } } },
+      "then": { "properties": {
+        "financial": { "properties": { "amount_source": { "const": "MANUAL_AMOUNT" } } },
+        "manual_amount": { "type": "object" } } } },
+    { "if": { "properties": { "financial": { "properties": { "amount_source": { "enum": ["SYSTEM_KENGETAL", "HUMAN_SELECTED_KENGETAL", "HUMAN_ADJUSTMENT"] } } } } },
+      "then": { "properties": { "kengetal_match": { "type": "object", "properties": { "human_match_decision_id": { "type": "string" } } },
+                                "provenance": { "type": "object" } } } },
+    { "if": { "properties": { "financial": { "properties": { "amount_source": { "const": "MANUAL_AMOUNT" } } } } },
+      "then": { "properties": { "price_status": { "const": "MANUALLY_SET" }, "manual_amount": { "type": "object" } } } },
+    { "if": { "properties": { "financial": { "properties": { "effective_total": { "type": "string" } } } } },
+      "then": { "properties": { "quantity": { "$ref": "#/definitions/positive_decimal" } } } }
+  ]
+}

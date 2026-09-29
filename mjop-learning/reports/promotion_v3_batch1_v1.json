@@ -1,0 +1,1657 @@
+{
+  "accepts": {
+    "counts": {
+      "AMBIGUOUS": 4,
+      "DUPLICATE_SKIP": 1,
+      "NO_NEW_ACTION": 58,
+      "SAFE_EXACT_RELINK": 2,
+      "SOURCE_CHANGED_REVIEW": 24
+    },
+    "exact_match_candidates_v2": {
+      "AMBIGUOUS": 2,
+      "EXACT_MATCH_CANDIDATE": 131,
+      "NO_MATCH": 87
+    },
+    "review_file": "reports/review/accepts_review_batch1_v1.json",
+    "total": 89
+  },
+  "batch_id": "batch1_v1",
+  "blockers": [],
+  "cloud_only_statement": "Batch 1 cloud promotion gebruikt de reeds gevalideerde Xpdf-derived PO values; het voert geen nieuwe PDF parsing uit.",
+  "dry_run_layer": {
+    "manifest_sha256": "74add6aa47b2010891ef5f439823da96e7fdfd0cd01305b8d1e3b6edd4965900",
+    "path": "data/promotion_v3_dry_run/batch1_v1"
+  },
+  "human_decisions": {
+    "SOURCE_EVIDENCE": {
+      "INPUT_CHANGED_MATERIAL_ONLY": 27,
+      "INPUT_CHANGED_OTHER": 0,
+      "PAIR_NO_LONGER_EXISTS": 0,
+      "SAME_EVIDENCE_SAME_DECISION_CANDIDATE": 3
+    },
+    "STRICT": {
+      "INPUT_CHANGED_MATERIAL_ONLY": 28,
+      "INPUT_CHANGED_OTHER": 0,
+      "PAIR_NO_LONGER_EXISTS": 0,
+      "SAME_EVIDENCE_SAME_DECISION_CANDIDATE": 2
+    },
+    "review_file": "reports/review/decisions_review_batch1_v1.json"
+  },
+  "material_evidence": {
+    "counts": {
+      "AMBIGUOUS_SOURCE_EVIDENCE": 87,
+      "EXPLICIT_SOURCE_EVIDENCE": 102,
+      "OLD_DERIVATION_ONLY": 26
+    },
+    "review_file": "reports/review/material_evidence_batch1_v1.json"
+  },
+  "price_observations": {
+    "amount_changes": 0,
+    "invariants": "alle geslaagd",
+    "link_counts": {
+      "ambiguous": 2,
+      "unique": 361,
+      "unique_by_action_text": 12,
+      "unique_by_element_context": 29
+    },
+    "observations": 404
+  },
+  "principles": [
+    "geen xpdf, geen PDF-parsing",
+    "geen canonieke wijziging",
+    "geen fuzzy matching",
+    "geen nieuwe materiaalwoorden of businessregels",
+    "accepts en decisions alleen als voorstel"
+  ],
+  "promotion_prerequisites": [
+    {
+      "item": "human_decisions_review",
+      "note": "bestaande decisions zijn op andere invoer genomen; per record opnieuw bevestigen of superseden",
+      "source_evidence": 27,
+      "strict": 28
+    },
+    {
+      "count": 30,
+      "item": "accepts_review",
+      "note": "SAFE_EXACT_RELINK/SOURCE_CHANGED_REVIEW/AMBIGUOUS bevestigen"
+    },
+    {
+      "explicit_candidates": 102,
+      "item": "material_evidence_decision",
+      "note": "kiezen tussen STRICT en SOURCE_EVIDENCE (EXPLICIT als PROMOTION_CANDIDATE)"
+    }
+  ],
+  "report": "promotion_v3_dry_run",
+  "scenarios": {
+    "SOURCE_EVIDENCE": {
+      "amount_changes": 0,
+      "comparability": {
+        "changed_class": 114,
+        "disappeared": 4,
+        "new": 0,
+        "same_class": 234
+      },
+      "comparability_unexplained": 0,
+      "decisions_review_required": 27,
+      "evidence_overlay": {
+        "applied": [
+          {
+            "element_id": "DOC-002-EL-003",
+            "material": "natural_stone",
+            "observations": [
+              "PO-DOC-002-P013-L011"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-010",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P013-L075"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-011",
+            "material": "zinc",
+            "observations": [
+              "PO-DOC-002-P013-L081"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-012",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P013-L087"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-013",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-002-P013-L095"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-015",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P014-L065"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-018",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P014-L071"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-021",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P014-L077"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-023",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P014-L025"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-025",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P014-L083"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-026",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P015-L007"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-036",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P015-L051"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-037",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P015-L057"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-038",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P015-L073"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-039",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P015-L067"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-050",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P016-L045"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-057",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L109"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-058",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L083"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-060",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L011"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-061",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L115"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-063",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L089"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-065",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L055"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-066",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L063"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-067",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L095"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-069",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L071"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-071",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L099"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-072",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-002-P017-L103"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-073",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L025"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-074",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L031"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-075",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L077"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-076",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P017-L045"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-077",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L077"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-078",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L061"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-081",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L037"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-082",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L069"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-083",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L045"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-084",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L029"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-087",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L101"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-088",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L093"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-089",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L109"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-090",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L117"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-091",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P018-L125"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-092",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P019-L011"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-093",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P019-L035"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-094",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P019-L019"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-095",
+            "material": "aluminium",
+            "observations": [
+              "PO-DOC-002-P019-L027"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-096",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P019-L055"
+            ]
+          },
+          {
+            "element_id": "DOC-002-EL-097",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-002-P019-L043"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-007",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-005-P011-L037"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-015",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-005-P011-L091"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-016",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-005-P012-L009"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-017",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-005-P012-L015"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-020",
+            "material": "concrete",
+            "observations": [
+              "PO-DOC-005-P012-L035"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-022",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-005-P012-L043"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-026",
+            "material": "zinc",
+            "observations": [
+              "PO-DOC-005-P012-L083"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-029",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-005-P012-L095"
+            ]
+          },
+          {
+            "element_id": "DOC-005-EL-030",
+            "material": "pvc",
+            "observations": [
+              "PO-DOC-005-P012-L091"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-015",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-006-P015-L007",
+              "PO-DOC-006-P015-L009"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-016",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-006-P015-L015"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-017",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-006-P015-L019",
+              "PO-DOC-006-P015-L021"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-020",
+            "material": "concrete",
+            "observations": [
+              "PO-DOC-006-P015-L037"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-022",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-006-P015-L047",
+              "PO-DOC-006-P015-L049"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-029",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-006-P015-L097"
+            ]
+          },
+          {
+            "element_id": "DOC-006-EL-030",
+            "material": "pvc",
+            "observations": [
+              "PO-DOC-006-P015-L093"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-008",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-007-P015-L083"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-023",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-007-P017-L019"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-025",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-007-P017-L025"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-027",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-007-P017-L043",
+              "PO-DOC-007-P017-L047"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-028",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-007-P017-L055"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-030",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-007-P017-L089"
+            ]
+          },
+          {
+            "element_id": "DOC-007-EL-039",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-007-P018-L059",
+              "PO-DOC-007-P018-L061"
+            ]
+          },
+          {
+            "element_id": "DOC-008-EL-004",
+            "material": "bitumen",
+            "observations": [
+              "PO-DOC-008-P009-L051",
+              "PO-DOC-008-P009-L059"
+            ]
+          },
+          {
+            "element_id": "DOC-008-EL-005",
+            "material": "aluminium",
+            "observations": [
+              "PO-DOC-008-P009-L045"
+            ]
+          },
+          {
+            "element_id": "DOC-008-EL-010",
+            "material": "zinc",
+            "observations": [
+              "PO-DOC-008-P010-L017"
+            ]
+          },
+          {
+            "element_id": "DOC-008-EL-011",
+            "material": "zinc",
+            "observations": [
+              "PO-DOC-008-P010-L011"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-009",
+            "material": "concrete",
+            "observations": [
+              "PO-DOC-009-P018-L075"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-013",
+            "material": "pvc",
+            "observations": [
+              "PO-DOC-009-P018-L105",
+              "PO-DOC-009-P019-L007"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-016",
+            "material": "aluminium",
+            "observations": [
+              "PO-DOC-009-P018-L095"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-019",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-009-P019-L073"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-020",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-009-P019-L067"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-026",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-009-P020-L041"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-032",
+            "material": "concrete",
+            "observations": [
+              "PO-DOC-009-P020-L063",
+              "PO-DOC-009-P020-L065",
+              "PO-DOC-009-P020-L069"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-035",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-009-P020-L091",
+              "PO-DOC-009-P020-L093"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-039",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-009-P021-L007"
+            ]
+          },
+          {
+            "element_id": "DOC-009-EL-047",
+            "material": "pvc",
+            "observations": [
+              "PO-DOC-009-P021-L095"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-003",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-010-P010-L023"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-009",
+            "material": "aluminium",
+            "observations": [
+              "PO-DOC-010-P010-L065"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-024",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-010-P011-L085"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-026",
+            "material": "wood",
+            "observations": [
+              "PO-DOC-010-P012-L023"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-038",
+            "material": "steel",
+            "observations": [
+              "PO-DOC-010-P012-L097"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-039",
+            "material": "pvc",
+            "observations": [
+              "PO-DOC-010-P012-L093"
+            ]
+          },
+          {
+            "element_id": "DOC-010-EL-040",
+            "material": "pvc",
+            "observations": [
+              "PO-DOC-010-P012-L101"
+            ]
+          }
+        ],
+        "elements_applied": 92,
+        "elements_skipped": 0,
+        "note": "simulatie: materiaal op het verified-element met source deterministic_source_text_evidence_simulation; in de genormaliseerde PO verschijnt het als material_source verified_element",
+        "observations_covered": 102,
+        "skipped": []
+      },
+      "human_decisions": {
+        "INPUT_CHANGED_MATERIAL_ONLY": 27,
+        "INPUT_CHANGED_OTHER": 0,
+        "PAIR_NO_LONGER_EXISTS": 0,
+        "SAME_EVIDENCE_SAME_DECISION_CANDIDATE": 3
+      },
+      "kengetallen": [
+        {
+          "candidate_key": [
+            "2110",
+            "impregnate",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-007",
+            "SC-DOC-008+DOC-009"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-2110-impregnate-m2-unknown-8961e2e5",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4321",
+            "replace",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-007",
+            "SC-DOC-010"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4321-replace-m2-unknown-d299ed1b",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4622",
+            "interior_painting",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-002",
+            "SC-DOC-008+DOC-009"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4622-interior_painting-m2-unknown-1a17b521",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4634",
+            "exterior_painting",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-002",
+            "SC-DOC-008+DOC-009"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4634-exterior_painting-m2-unknown-a115c29b",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4645",
+            "exterior_painting",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-007",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "kengetal_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "5211",
+            "replace",
+            "m1"
+          ],
+          "clusters": [
+            "SC-DOC-001",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010"
+          ],
+          "insufficient_data_reasons": [],
+          "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+          "status": "AVAILABLE",
+          "value": "51.79"
+        }
+      ],
+      "kengetallen_semantic": [
+        {
+          "candidate_key": [
+            "2110",
+            "impregnate",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 3})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-2110-impregnate-m2-unknown-8961e2e5"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-2110-impregnate-m2-metselwerk-8961e2e5"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4321",
+            "replace",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4321-replace-m2-unknown-d299ed1b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4321-replace-m2-tapijt-d299ed1b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4622",
+            "interior_painting",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 3})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4622-interior_painting-m2-unknown-1a17b521"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4622-interior_painting-m2-stucwerk-1a17b521"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4634",
+            "exterior_painting",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4634-exterior_painting-m2-unknown-a115c29b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4634-exterior_painting-m2-metaal-a115c29b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4645",
+            "exterior_painting",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 7})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "status",
+            "value_exact",
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN"
+            ],
+            "kengetal_ids": [
+              "KG-4645-exterior_painting-m2-unknown-2f1a7a14"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [],
+            "kengetal_ids": [
+              "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
+            ],
+            "status": "AVAILABLE",
+            "value": "33.48"
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "5211",
+            "replace",
+            "m1"
+          ],
+          "cause": [],
+          "content_changed": false,
+          "fields_changed": [],
+          "new": {
+            "clusters": [
+              "SC-DOC-001",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [],
+            "kengetal_ids": [
+              "KG-5211-replace-m1-pvc-67920b77"
+            ],
+            "status": "AVAILABLE",
+            "value": "51.79"
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-001",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [],
+            "kengetal_ids": [
+              "KG-5211-replace-m1-pvc-67920b77"
+            ],
+            "status": "AVAILABLE",
+            "value": "51.79"
+          },
+          "reasons_added": [],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        }
+      ],
+      "kengetallen_status": {
+        "AVAILABLE": 1,
+        "INSUFFICIENT_DATA": 5
+      },
+      "material_changes_vs_canonical": {
+        "A_old_verified_derivation": 113,
+        "B_unlinked_or_ambiguous": 4,
+        "C_regression": 0
+      },
+      "material_status": {
+        "MATERIAL_FROM_TEXT": 10,
+        "MATERIAL_FROM_VERIFIED": 102,
+        "MATERIAL_UNKNOWN": 292
+      },
+      "material_unknown": 292,
+      "po_categories": {
+        "A_exact_equal": 192,
+        "B_link_changed": 135,
+        "C_action_normalization_changed": 30,
+        "D_internal_code_changed": 6,
+        "E_material_changed": 117,
+        "F_missing_or_new": 0,
+        "G_amount_changed": 0
+      },
+      "scenario": "SOURCE_EVIDENCE",
+      "schema_errors": {
+        "comparability": [],
+        "normalized_price_observations": []
+      },
+      "source_clusters_identical": true
+    },
+    "STRICT": {
+      "amount_changes": 0,
+      "comparability": {
+        "changed_class": 154,
+        "disappeared": 4,
+        "new": 0,
+        "same_class": 194
+      },
+      "comparability_unexplained": 0,
+      "decisions_review_required": 28,
+      "human_decisions": {
+        "INPUT_CHANGED_MATERIAL_ONLY": 28,
+        "INPUT_CHANGED_OTHER": 0,
+        "PAIR_NO_LONGER_EXISTS": 0,
+        "SAME_EVIDENCE_SAME_DECISION_CANDIDATE": 2
+      },
+      "kengetallen": [
+        {
+          "candidate_key": [
+            "2110",
+            "impregnate",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-007",
+            "SC-DOC-008+DOC-009"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-2110-impregnate-m2-unknown-8961e2e5",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4321",
+            "replace",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-007",
+            "SC-DOC-010"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4321-replace-m2-unknown-d299ed1b",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4622",
+            "interior_painting",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-002",
+            "SC-DOC-008+DOC-009"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4622-interior_painting-m2-unknown-1a17b521",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4634",
+            "exterior_painting",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-002",
+            "SC-DOC-008+DOC-009"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN",
+            "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+          ],
+          "kengetal_id": "KG-4634-exterior_painting-m2-unknown-a115c29b",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "4645",
+            "exterior_painting",
+            "m2"
+          ],
+          "clusters": [
+            "SC-DOC-007",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "kengetal_id": "KG-4645-exterior_painting-m2-unknown-2f1a7a14",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        },
+        {
+          "candidate_key": [
+            "5211",
+            "replace",
+            "m1"
+          ],
+          "clusters": [
+            "SC-DOC-001",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010"
+          ],
+          "insufficient_data_reasons": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+          "status": "INSUFFICIENT_DATA",
+          "value": null
+        }
+      ],
+      "kengetallen_semantic": [
+        {
+          "candidate_key": [
+            "2110",
+            "impregnate",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 3})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-2110-impregnate-m2-unknown-8961e2e5"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-2110-impregnate-m2-metselwerk-8961e2e5"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4321",
+            "replace",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4321-replace-m2-unknown-d299ed1b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4321-replace-m2-tapijt-d299ed1b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4622",
+            "interior_painting",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 3})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4622-interior_painting-m2-unknown-1a17b521"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4622-interior_painting-m2-stucwerk-1a17b521"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4634",
+            "exterior_painting",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN",
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4634-exterior_painting-m2-unknown-a115c29b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-002",
+              "SC-DOC-008+DOC-009"
+            ],
+            "insufficient_data_reasons": [
+              "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+            ],
+            "kengetal_ids": [
+              "KG-4634-exterior_painting-m2-metaal-a115c29b"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "4645",
+            "exterior_painting",
+            "m2"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 7})",
+            "kengetal_id bevat het materiaal; zelfde candidate_key -> zelfde semantische kandidaat"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "status",
+            "value_exact",
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN"
+            ],
+            "kengetal_ids": [
+              "KG-4645-exterior_painting-m2-unknown-2f1a7a14"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-007",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [],
+            "kengetal_ids": [
+              "KG-4645-exterior_painting-m2-concrete-2f1a7a14"
+            ],
+            "status": "AVAILABLE",
+            "value": "33.48"
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        },
+        {
+          "candidate_key": [
+            "5211",
+            "replace",
+            "m1"
+          ],
+          "cause": [
+            "MATERIAL_UNKNOWN: materiaal van de groepsobservations niet meer bekend (materiaalklassen {'A_old_verified_derivation': 2})"
+          ],
+          "content_changed": true,
+          "fields_changed": [
+            "status",
+            "value_exact",
+            "insufficient_data_reasons"
+          ],
+          "new": {
+            "clusters": [
+              "SC-DOC-001",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [
+              "MATERIAL_UNKNOWN"
+            ],
+            "kengetal_ids": [
+              "KG-5211-replace-m1-pvc-67920b77"
+            ],
+            "status": "INSUFFICIENT_DATA",
+            "value": null
+          },
+          "old": {
+            "clusters": [
+              "SC-DOC-001",
+              "SC-DOC-008+DOC-009",
+              "SC-DOC-010"
+            ],
+            "insufficient_data_reasons": [],
+            "kengetal_ids": [
+              "KG-5211-replace-m1-pvc-67920b77"
+            ],
+            "status": "AVAILABLE",
+            "value": "51.79"
+          },
+          "reasons_added": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "reasons_removed": [],
+          "semantic_match": true,
+          "traceable": true
+        }
+      ],
+      "kengetallen_status": {
+        "INSUFFICIENT_DATA": 6
+      },
+      "material_changes_vs_canonical": {
+        "A_old_verified_derivation": 215,
+        "B_unlinked_or_ambiguous": 4,
+        "C_regression": 0
+      },
+      "material_status": {
+        "MATERIAL_FROM_TEXT": 10,
+        "MATERIAL_UNKNOWN": 394
+      },
+      "material_unknown": 394,
+      "po_categories": {
+        "A_exact_equal": 123,
+        "B_link_changed": 135,
+        "C_action_normalization_changed": 30,
+        "D_internal_code_changed": 6,
+        "E_material_changed": 219,
+        "F_missing_or_new": 0,
+        "G_amount_changed": 0
+      },
+      "scenario": "STRICT",
+      "schema_errors": {
+        "comparability": [],
+        "normalized_price_observations": []
+      },
+      "source_clusters_identical": true
+    }
+  },
+  "tool_version": "promotion_v3_dry_run_v1.0.0"
+}

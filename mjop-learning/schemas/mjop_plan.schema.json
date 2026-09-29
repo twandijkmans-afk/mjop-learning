@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_plan.schema.json",
+  "title": "MjopPlanVersion",
+  "description": "Eén versie van een nieuw MJOP (scripts/mjop_plan.py, docs/mjop_plan_v1.md). mjop_id bindt versies aan elkaar; version_id identificeert de versie. Een versie verwijst naar een vaste set maintenance_line_ids (Maintenance Line v1, niet embedded) en legt vanaf IN_REVIEW per regel een sha256 vast (line_hashes) als integriteitscontrole. Geen opslag, geen totalen (die worden afgeleid), geen indexatie, score of confidence.",
+  "type": "object",
+  "definitions": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "year": { "type": ["integer", "null"], "minimum": 1000, "maximum": 9999 },
+    "timestamp": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$" },
+    "status": { "type": "string", "enum": ["DRAFT", "IN_REVIEW", "READY", "SUPERSEDED"] },
+    "event": {
+      "type": "object",
+      "properties": {
+        "event": { "type": "string", "enum": ["CREATED", "SUBMITTED_FOR_REVIEW", "RETURNED_TO_DRAFT", "APPROVED", "SUPERSEDED"] },
+        "at": { "$ref": "#/definitions/timestamp" },
+        "by": { "type": ["string", "null"] },
+        "reason": { "type": ["string", "null"] }
+      },
+      "required": ["event", "at", "by", "reason"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "plan_model_version": { "type": "string", "const": "mjop_plan_v1" },
+    "mjop_id": { "type": "string", "minLength": 1 },
+    "version_id": { "type": "string", "minLength": 1 },
+    "version_number": { "type": "integer", "minimum": 1 },
+    "supersedes_version_id": { "type": ["string", "null"] },
+    "building_id": { "type": "string", "minLength": 1, "description": "Fysiek gebouw/complex; los van maintenance_line.object_id; niet automatisch afgeleid uit historische document-IDs." },
+    "name": { "type": ["string", "null"] },
+    "address": { "type": ["string", "null"] },
+    "building_type": { "type": ["string", "null"] },
+    "construction_year": { "$ref": "#/definitions/year" },
+    "renovation_year": { "$ref": "#/definitions/year" },
+    "number_of_units": { "type": ["integer", "null"], "minimum": 1 },
+    "inspection_date": { "type": ["string", "null"] },
+    "metadata_source": { "type": "string", "const": "USER_ENTERED" },
+    "plan_start_year": { "$ref": "#/definitions/year" },
+    "plan_end_year": { "$ref": "#/definitions/year" },
+    "plan_status": { "$ref": "#/definitions/status" },
+    "maintenance_line_ids": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "line_hashes": { "type": ["object", "null"], "additionalProperties": { "$ref": "#/definitions/sha256" } },
+    "content_sha256": { "oneOf": [{ "$ref": "#/definitions/sha256" }, { "type": "null" }] },
+    "knowledge_basis": { "type": ["object", "null"], "description": "Afgeleid bij APPROVED uit de provenance van de Maintenance Lines." },
+    "readiness_warnings": { "type": ["object", "null"] },
+    "status_history": { "type": "array", "minItems": 1, "items": { "$ref": "#/definitions/event" } },
+    "created_at": { "$ref": "#/definitions/timestamp" },
+    "updated_at": { "$ref": "#/definitions/timestamp" }
+  },
+  "required": ["plan_model_version", "mjop_id", "version_id", "version_number", "supersedes_version_id", "building_id",
+               "name", "address", "building_type", "construction_year", "renovation_year", "number_of_units",
+               "inspection_date", "metadata_source", "plan_start_year", "plan_end_year", "plan_status",
+               "maintenance_line_ids", "line_hashes", "content_sha256", "knowledge_basis", "readiness_warnings",
+               "status_history", "created_at", "updated_at"],
+  "additionalProperties": false,
+  "allOf": [
+    { "if": { "properties": { "plan_status": { "enum": ["IN_REVIEW", "READY", "SUPERSEDED"] } } },
+      "then": { "properties": { "plan_start_year": { "type": "integer" }, "plan_end_year": { "type": "integer" },
+                                "line_hashes": { "type": "object" } } } },
+    { "if": { "properties": { "plan_status": { "enum": ["READY", "SUPERSEDED"] } } },
+      "then": { "properties": { "content_sha256": { "$ref": "#/definitions/sha256" }, "knowledge_basis": { "type": "object" },
+                                "readiness_warnings": { "type": "object" } } } },
+    { "if": { "properties": { "plan_status": { "const": "DRAFT" } } },
+      "then": { "properties": { "line_hashes": { "type": "null" }, "content_sha256": { "type": "null" },
+                                "knowledge_basis": { "type": "null" }, "readiness_warnings": { "type": "null" } } } }
+  ]
+}

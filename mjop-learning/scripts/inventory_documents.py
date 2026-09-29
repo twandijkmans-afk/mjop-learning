@@ -25,6 +25,9 @@ try:
 except ImportError:
     pdfplumber = None
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import document_registry  # noqa: E402
+
 YEAR_RE = re.compile(r"\b(19[89]\d|20[0-4]\d)\b")
 PERIOD_RE = re.compile(r"\b(20[0-4]\d)\s*[-/tot]{1,4}\s*(20[0-4]\d)\b")
 MONEY_RE = re.compile(r"€\s?\d[\d.]*(,\d{2})?")
@@ -82,37 +85,44 @@ def analyze_pdf(path, max_pages=40):
     return result
 
 
-def build_inventory(raw_dir):
+def build_inventory(raw_dir, registry_path="reports/document_registry.json"):
+    """document_id komt uit het permanente register (sha256), nooit meer uit
+    de volgorde van os.walk - zo verschuiven ID's niet als er bestanden bijkomen."""
+    registry = document_registry.load_registry(registry_path)
+    registry, report = document_registry.reconcile(registry, raw_dir, register_new=False)
+    if report["new"]:
+        raise document_registry.RegistryError(
+            "Ongeregistreerde bestanden in data/raw/ (eerst registreren met "
+            f"scripts/document_registry.py --register-new, alleen met toestemming): {report['new']}"
+        )
+    id_by_path = {d["relative_path"]: d["document_id"] for d in registry["documents"]}
     records = []
-    counter = 0
-    for root, dirs, files in os.walk(raw_dir):
-        for fn in sorted(files):
-            if fn.lower() == "thumbs.db":
-                continue
-            full = os.path.join(root, fn)
-            rel = os.path.relpath(full, raw_dir)
-            counter += 1
-            ext = os.path.splitext(fn)[1].lower().lstrip(".")
-            rec = {
-                "document_id": f"DOC-{counter:03d}",
-                "filename": fn,
-                "relative_path": rel,
-                "project_folder": rel.split(os.sep)[0],
-                "file_type": ext,
-                "file_size_bytes": os.path.getsize(full),
-                "sha256": sha256_of(full),
-                # onbekende velden expliciet null - niet weglaten, niet gokken:
-                "document_type": None,
-                "possible_building_year": None,
-                "possible_number_of_units": None,
-                "possible_inspection_date": None,
-                "possible_advisor": None,
-                "quality_estimate": None,
-            }
-            if ext == "pdf":
-                rec.update(analyze_pdf(full))
-            records.append(rec)
-    return records
+    for rel in document_registry.list_raw_files(raw_dir):
+        if rel not in id_by_path:
+            continue  # duplicate_content: zelfde inhoud als een geregistreerd document
+        full = os.path.join(raw_dir, *rel.split("/"))
+        fn = os.path.basename(rel)
+        ext = os.path.splitext(fn)[1].lower().lstrip(".")
+        rec = {
+            "document_id": id_by_path[rel],
+            "filename": fn,
+            "relative_path": rel,
+            "project_folder": rel.split("/")[0],
+            "file_type": ext,
+            "file_size_bytes": os.path.getsize(full),
+            "sha256": sha256_of(full),
+            # onbekende velden expliciet null - niet weglaten, niet gokken:
+            "document_type": None,
+            "possible_building_year": None,
+            "possible_number_of_units": None,
+            "possible_inspection_date": None,
+            "possible_advisor": None,
+            "quality_estimate": None,
+        }
+        if ext == "pdf":
+            rec.update(analyze_pdf(full))
+        records.append(rec)
+    return sorted(records, key=lambda r: r["document_id"])
 
 
 def main():

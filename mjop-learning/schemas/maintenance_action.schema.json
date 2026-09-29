@@ -11,7 +11,14 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "normalization_source": {
+          "type": "string",
+          "description": "Aanwezig als normalized_value niet uit een letterlijke vocabulaire-lookup komt, bijv. 'derived_from_linked_element_type' (zie scripts/normalize_batch.py::derive_action_from_linked_element)."
+        },
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "planned_year": { "$ref": "_extracted_value.schema.json" },
@@ -20,7 +27,10 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "unit_cost": {
@@ -41,6 +51,10 @@
       "type": ["string", "null"],
       "description": "= quantity x unit_cost, berekend door scripts/normalize_batch.py (deterministisch, decimal arithmetic)"
     },
+    "unit_cost_calculated": {
+      "type": ["string", "null"],
+      "description": "= total_cost_as_stated / quantity, berekend door scripts/normalize_batch.py, ALLEEN als unit_cost.value niet is ingevuld en de genormaliseerde eenheid deelbaar is (niet 'lump_sum'/stelpost, niet onbekend). Minder betrouwbaar dan een letterlijke documentprijs in unit_cost.value - kan bijv. een gebundelde stelpost bevatten. Nooit door het taalmodel laten uitrekenen (zie CLAUDE.md)."
+    },
     "indexation_rate": { "type": ["string", "null"] },
     "indexation_factor": { "type": ["string", "null"] },
     "indexed_cost": { "type": ["string", "null"], "description": "= direct_cost_calculated x indexation_factor" },
@@ -50,7 +64,20 @@
       "description": "true als total_cost_as_stated afwijkt van direct_cost_calculated - zie CLAUDE.md: nooit automatisch oplossen"
     },
     "requires_human_review": { "type": "boolean", "default": false },
-    "source_page": { "type": ["integer", "null"] }
+    "source_page": { "type": ["integer", "null"] },
+    "field_provenance": {
+      "type": "object",
+      "description": "Optioneel, aanvullend: provenance voor velden die als los primitief zijn gedefinieerd en daardoor zelf geen provenance kunnen dragen. Sleutel = veldnaam.",
+      "properties": {
+        "total_cost_as_stated": { "$ref": "_provenance.schema.json" },
+        "cost_year": { "$ref": "_provenance.schema.json" }
+      },
+      "additionalProperties": false
+    },
+    "review_note": {
+      "type": ["string", "null"],
+      "description": "Ingevuld door scripts/apply_review.py bij elke ACCEPT/EDIT/REJECT-beslissing (zie CLAUDE.md), ook als de beslissing geen vocabulaire-veld betreft (bijv. bij cost_conflict of een afgeleide unit_cost_calculated zonder letterlijke documentprijs) - vocabulaire-correcties zelf staan bovendien in action.human_verification/unit.human_verification."
+    }
   },
   "required": ["action_id", "element_id"],
   "additionalProperties": false

@@ -12,7 +12,10 @@
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "requires_human_review": { "type": "boolean", "default": false },
+        "human_verification": { "$ref": "_human_verification.schema.json" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "condition_score": {
@@ -21,18 +24,24 @@
       "properties": {
         "original_value": {},
         "normalized_value": { "type": ["integer", "null"], "minimum": 1, "maximum": 6 },
-        "scale": { "type": ["string", "null"], "description": "bijv. 'NEN2767-1to6' - null als schaal niet expliciet benoemd is" }
+        "scale": { "type": ["string", "null"], "description": "bijv. 'NEN2767-1to6' - null als schaal niet expliciet benoemd is" },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "severity": {
       "type": "object",
       "properties": {
         "original_value": { "type": ["string", "null"] },
-        "normalized_value": { "type": ["string", "null"] }
+        "normalized_value": { "type": ["string", "null"] },
+        "provenance": { "$ref": "_provenance.schema.json", "description": "Optioneel: bron van original_value (aanvullend; bestaande records zonder dit veld blijven geldig)." }
       }
     },
     "source": { "$ref": "_provenance.schema.json" },
-    "requires_human_review": { "type": "boolean", "default": false }
+    "requires_human_review": { "type": "boolean", "default": false },
+    "review_note": {
+      "type": ["string", "null"],
+      "description": "Ingevuld door scripts/apply_review.py bij elke ACCEPT/EDIT/REJECT-beslissing (zie CLAUDE.md), ook als de beslissing geen vocabulaire-veld betreft. Vocabulaire-correcties zelf staan bovendien in defect.human_verification."
+    }
   },
   "required": ["observation_id", "element_id", "source"],
   "additionalProperties": false

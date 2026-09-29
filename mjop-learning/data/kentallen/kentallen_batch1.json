@@ -1,0 +1,1467 @@
+{
+  "note": "Kentallen per (element_code, actie, eenheid), NIET geindexeerd naar een gemeenschappelijk prijspeil - zie cost_years per groep. 'literal' = letterlijke documentprijs (unit_cost.value), 'calculated' = afgeleid uit total/hoeveelheid (minder betrouwbaar, zie schemas/maintenance_action.schema.json). Gebaseerd op data/verified/ (na menselijke review); documenten zonder element_code (niet van onszelf, bijv. DOC-004/Innax) tellen niet mee.",
+  "groups": [
+    {
+      "element_code": "2110",
+      "element_code_label": "Gevelconstructie (metselwerk, kitvoegen, loodslabben opgaand werk)",
+      "hoofdgroep_code": "21",
+      "hoofdgroep_label": "Buitenwanden",
+      "action": "clean",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 6,
+        "min": "14.50",
+        "max": "21.95",
+        "mean": "16.35",
+        "median": "14.50"
+      },
+      "cost_years": [
+        2025,
+        2026,
+        2033
+      ],
+      "n_documents": 4,
+      "documents": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-005",
+        "DOC-006"
+      ]
+    },
+    {
+      "element_code": "2110",
+      "element_code_label": "Gevelconstructie (metselwerk, kitvoegen, loodslabben opgaand werk)",
+      "hoofdgroep_code": "21",
+      "hoofdgroep_label": "Buitenwanden",
+      "action": "impregnate",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "17.71",
+        "max": "18.38",
+        "mean": "18.21",
+        "median": "18.38"
+      },
+      "cost_years": [
+        2025,
+        2033
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-007",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "2110",
+      "element_code_label": "Gevelconstructie (metselwerk, kitvoegen, loodslabben opgaand werk)",
+      "hoofdgroep_code": "21",
+      "hoofdgroep_label": "Buitenwanden",
+      "action": "replace",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "49.10",
+        "max": "98.90",
+        "mean": "70.22",
+        "median": "66.43"
+      },
+      "cost_years": [
+        2032,
+        2033,
+        2035
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-005",
+        "DOC-006",
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "2120",
+      "element_code_label": "Hijsbalk",
+      "hoofdgroep_code": "21",
+      "hoofdgroep_label": "Buitenwanden",
+      "action": "inspect",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "491.00",
+        "max": "491.00",
+        "mean": "491.00",
+        "median": "491.00"
+      },
+      "cost_years": [
+        2023
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "2120",
+      "element_code_label": "Hijsbalk",
+      "hoofdgroep_code": "21",
+      "hoofdgroep_label": "Buitenwanden",
+      "action": "inspect",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "423.50",
+        "max": "423.50",
+        "mean": "423.50",
+        "median": "423.50"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "2121",
+      "element_code_label": "Gevelelementen prefab beton",
+      "hoofdgroep_code": "21",
+      "hoofdgroep_label": "Buitenwanden",
+      "action": "repair",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "3.42",
+        "max": "3.42",
+        "mean": "3.42",
+        "median": "3.42"
+      },
+      "cost_years": [
+        2028
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "2321",
+      "element_code_label": "Beton balkon-/vloerconstructie",
+      "hoofdgroep_code": "23",
+      "hoofdgroep_label": "Vloeren",
+      "action": "repair",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "16.35",
+        "max": "37.51",
+        "mean": "28.04",
+        "median": "30.25"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "2716",
+      "element_code_label": "Gootbekleding/dakrand (zink, volkern, beton)",
+      "hoofdgroep_code": "27",
+      "hoofdgroep_label": "Daken",
+      "action": "clean",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "4.40",
+        "max": "4.40",
+        "mean": "4.40",
+        "median": "4.40"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "2716",
+      "element_code_label": "Gootbekleding/dakrand (zink, volkern, beton)",
+      "hoofdgroep_code": "27",
+      "hoofdgroep_label": "Daken",
+      "action": "clean",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "4.47",
+        "max": "4.47",
+        "mean": "4.47",
+        "median": "4.47"
+      },
+      "cost_years": [
+        2022
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-001"
+      ]
+    },
+    {
+      "element_code": "2716",
+      "element_code_label": "Gootbekleding/dakrand (zink, volkern, beton)",
+      "hoofdgroep_code": "27",
+      "hoofdgroep_label": "Daken",
+      "action": "repair",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 8,
+        "min": "18.14",
+        "max": "66.80",
+        "mean": "42.47",
+        "median": "42.47"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "2810",
+      "element_code_label": "Gevelankers",
+      "hoofdgroep_code": "28",
+      "hoofdgroep_label": "Hoofddraagconstructies",
+      "action": "repair",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "91.00",
+        "max": "91.00",
+        "mean": "91.00",
+        "median": "91.00"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "3120",
+      "element_code_label": "Kozijn/raamdorpel/ventilatierooster buiten",
+      "hoofdgroep_code": "31",
+      "hoofdgroep_label": "Buitenwandopeningen",
+      "action": "clean",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "22.50",
+        "max": "22.50",
+        "mean": "22.50",
+        "median": "22.50"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "3120",
+      "element_code_label": "Kozijn/raamdorpel/ventilatierooster buiten",
+      "hoofdgroep_code": "31",
+      "hoofdgroep_label": "Buitenwandopeningen",
+      "action": "maintain",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "18.15",
+        "max": "18.15",
+        "mean": "18.15",
+        "median": "18.15"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "3120",
+      "element_code_label": "Kozijn/raamdorpel/ventilatierooster buiten",
+      "hoofdgroep_code": "31",
+      "hoofdgroep_label": "Buitenwandopeningen",
+      "action": "repair",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 16,
+        "min": "18.15",
+        "max": "303.00",
+        "mean": "231.66",
+        "median": "302.75"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "3120",
+      "element_code_label": "Kozijn/raamdorpel/ventilatierooster buiten",
+      "hoofdgroep_code": "31",
+      "hoofdgroep_label": "Buitenwandopeningen",
+      "action": "repair",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 16,
+        "min": "18.00",
+        "max": "18.16",
+        "mean": "18.08",
+        "median": "18.08"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "3122",
+      "element_code_label": "Draai-/val-/uitzetraam hout",
+      "hoofdgroep_code": "31",
+      "hoofdgroep_label": "Buitenwandopeningen",
+      "action": "repair",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 8,
+        "min": "54.45",
+        "max": "54.50",
+        "mean": "54.48",
+        "median": "54.48"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "3231",
+      "element_code_label": "Binnendeur",
+      "hoofdgroep_code": "32",
+      "hoofdgroep_label": "Binnenwandopeningen",
+      "action": "repair",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "42.25",
+        "max": "42.29",
+        "mean": "42.27",
+        "median": "42.27"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "3410",
+      "element_code_label": "Balustrade/balkonscherm",
+      "hoofdgroep_code": "34",
+      "hoofdgroep_label": "Balustrades en leuningen",
+      "action": "replace",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "245.48",
+        "max": "245.48",
+        "mean": "245.48",
+        "median": "245.48"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "3431",
+      "element_code_label": "Trapleuning",
+      "hoofdgroep_code": "34",
+      "hoofdgroep_label": "Balustrades en leuningen",
+      "action": "repair",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "12.11",
+        "max": "12.11",
+        "mean": "12.11",
+        "median": "12.11"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4111",
+      "element_code_label": "Gevelafwerking stucwerk/voegwerk",
+      "hoofdgroep_code": "41",
+      "hoofdgroep_label": "Buitenwandafwerkingen",
+      "action": "replace",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "90.71",
+        "max": "90.76",
+        "mean": "90.74",
+        "median": "90.74"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4112",
+      "element_code_label": "Gevelbekleding (hout/natuursteen/volkern)",
+      "hoofdgroep_code": "41",
+      "hoofdgroep_label": "Buitenwandafwerkingen",
+      "action": "repair",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "18.00",
+        "max": "18.00",
+        "mean": "18.00",
+        "median": "18.00"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4211",
+      "element_code_label": "Wandafwerking stucwerk",
+      "hoofdgroep_code": "42",
+      "hoofdgroep_label": "Binnenwandafwerkingen",
+      "action": "repair",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "10.89",
+        "max": "10.89",
+        "mean": "10.89",
+        "median": "10.89"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4320",
+      "element_code_label": "Vloerafwerking coating/loodaansluiting/parkeerdek",
+      "hoofdgroep_code": "43",
+      "hoofdgroep_label": "Vloerafwerkingen",
+      "action": "install",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "114.95",
+        "max": "114.95",
+        "mean": "114.95",
+        "median": "114.95"
+      },
+      "cost_years": [
+        2033
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-008"
+      ]
+    },
+    {
+      "element_code": "4321",
+      "element_code_label": "Vloerafwerking zacht (tapijt/coralmat/laminaat)",
+      "hoofdgroep_code": "43",
+      "hoofdgroep_label": "Vloerafwerkingen",
+      "action": "replace",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "64.60",
+        "max": "80.63",
+        "mean": "72.62",
+        "median": "72.62"
+      },
+      "cost_years": [
+        2023,
+        2029
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-007",
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "4511",
+      "element_code_label": "Plafondafwerking multiplex/hwc-plaat",
+      "hoofdgroep_code": "45",
+      "hoofdgroep_label": "Plafondafwerkingen",
+      "action": "replace",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "147.10",
+        "max": "147.10",
+        "mean": "147.10",
+        "median": "147.10"
+      },
+      "cost_years": [
+        2035
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "4521",
+      "element_code_label": "Plafondafwerking pleisterwerk/stucwerk",
+      "hoofdgroep_code": "45",
+      "hoofdgroep_label": "Plafondafwerkingen",
+      "action": "repair",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "14.52",
+        "max": "14.52",
+        "mean": "14.52",
+        "median": "14.52"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4621",
+      "element_code_label": "Buitenschilderwerk hout/asbestcement/staal dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 31,
+        "min": "42.00",
+        "max": "78.65",
+        "mean": "44.72",
+        "median": "42.35"
+      },
+      "cost_years": [
+        2026,
+        2032
+      ],
+      "n_documents": 4,
+      "documents": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-005",
+        "DOC-006"
+      ]
+    },
+    {
+      "element_code": "4621",
+      "element_code_label": "Buitenschilderwerk hout/asbestcement/staal dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 36,
+        "min": "30.24",
+        "max": "95.05",
+        "mean": "42.22",
+        "median": "42.00"
+      },
+      "cost_years": [
+        2022,
+        2023,
+        2026,
+        2032,
+        2033
+      ],
+      "n_documents": 6,
+      "documents": [
+        "DOC-001",
+        "DOC-002",
+        "DOC-003",
+        "DOC-005",
+        "DOC-006",
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "4621",
+      "element_code_label": "Buitenschilderwerk hout/asbestcement/staal dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 24,
+        "min": "42.50",
+        "max": "73.00",
+        "mean": "61.44",
+        "median": "63.25"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4621",
+      "element_code_label": "Buitenschilderwerk hout/asbestcement/staal dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "install",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "62.12",
+        "max": "62.12",
+        "mean": "62.12",
+        "median": "62.12"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-006"
+      ]
+    },
+    {
+      "element_code": "4622",
+      "element_code_label": "Binnenschilderwerk deuren hout dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "18.16",
+        "max": "18.16",
+        "mean": "18.16",
+        "median": "18.16"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4622",
+      "element_code_label": "Binnenschilderwerk deuren hout dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 15,
+        "min": "10.89",
+        "max": "54.40",
+        "mean": "35.09",
+        "median": "39.60"
+      },
+      "cost_years": [
+        2023,
+        2025,
+        2026
+      ],
+      "n_documents": 4,
+      "documents": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-009",
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "4622",
+      "element_code_label": "Binnenschilderwerk deuren hout dekkend",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 8,
+        "min": "54.33",
+        "max": "54.50",
+        "mean": "54.42",
+        "median": "54.42"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4623",
+      "element_code_label": "Buitenschilderwerk beton coating",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "install",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "146.40",
+        "max": "151.25",
+        "mean": "148.82",
+        "median": "148.82"
+      },
+      "cost_years": [
+        2025,
+        2040
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-005",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4624",
+      "element_code_label": "Binnenschilderwerk trap hout",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "24.18",
+        "max": "24.18",
+        "mean": "24.18",
+        "median": "24.18"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4628",
+      "element_code_label": "Schilderwerk betonconstructie/afdekking",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 10,
+        "min": "8.32",
+        "max": "35.43",
+        "mean": "25.46",
+        "median": "32.99"
+      },
+      "cost_years": [
+        2022,
+        2025,
+        2032,
+        2040
+      ],
+      "n_documents": 4,
+      "documents": [
+        "DOC-001",
+        "DOC-005",
+        "DOC-006",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4628",
+      "element_code_label": "Schilderwerk betonconstructie/afdekking",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "14.25",
+        "max": "37.86",
+        "mean": "26.06",
+        "median": "26.06"
+      },
+      "cost_years": [
+        2022,
+        2035
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-001",
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "4628",
+      "element_code_label": "Schilderwerk betonconstructie/afdekking",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "24.33",
+        "max": "24.33",
+        "mean": "24.33",
+        "median": "24.33"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4631",
+      "element_code_label": "Buitenschilderwerk kozijn en draaiende delen",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 19,
+        "min": "10.07",
+        "max": "14.67",
+        "mean": "13.84",
+        "median": "14.52"
+      },
+      "cost_years": [
+        2022,
+        2026
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-001",
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "4631",
+      "element_code_label": "Buitenschilderwerk kozijn en draaiende delen",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 6,
+        "min": "53.17",
+        "max": "87.85",
+        "mean": "72.88",
+        "median": "73.78"
+      },
+      "cost_years": [
+        2025,
+        2032
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-005",
+        "DOC-006",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4632",
+      "element_code_label": "Binnenschilderwerk kozijn en draaiende delen",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 7,
+        "min": "38.13",
+        "max": "49.06",
+        "mean": "42.12",
+        "median": "38.15"
+      },
+      "cost_years": [
+        2026,
+        2030
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "4634",
+      "element_code_label": "Binnenschilderwerk hek",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "95.74",
+        "max": "95.74",
+        "mean": "95.74",
+        "median": "95.74"
+      },
+      "cost_years": [
+        2035
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "4634",
+      "element_code_label": "Binnenschilderwerk hek",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 13,
+        "min": "24.33",
+        "max": "43.99",
+        "mean": "34.41",
+        "median": "42.33"
+      },
+      "cost_years": [
+        2025,
+        2026
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4634",
+      "element_code_label": "Binnenschilderwerk hek",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "24.33",
+        "max": "24.33",
+        "mean": "24.33",
+        "median": "24.33"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4634",
+      "element_code_label": "Binnenschilderwerk hek",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 5,
+        "min": "54.50",
+        "max": "70.85",
+        "mean": "57.77",
+        "median": "54.50"
+      },
+      "cost_years": [
+        2025,
+        2026
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-002",
+        "DOC-003",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4645",
+      "element_code_label": "Binnenschilderwerk plafond/betonconstructie",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "exterior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 11,
+        "min": "11.88",
+        "max": "37.85",
+        "mean": "31.76",
+        "median": "32.99"
+      },
+      "cost_years": [
+        2022,
+        2023,
+        2025,
+        2028,
+        2040
+      ],
+      "n_documents": 5,
+      "documents": [
+        "DOC-001",
+        "DOC-005",
+        "DOC-007",
+        "DOC-009",
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "4645",
+      "element_code_label": "Binnenschilderwerk plafond/betonconstructie",
+      "hoofdgroep_code": "46",
+      "hoofdgroep_label": "Schilderwerk",
+      "action": "interior_painting",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "38.51",
+        "max": "54.45",
+        "mean": "45.71",
+        "median": "44.18"
+      },
+      "cost_years": [
+        2025,
+        2030,
+        2032
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-006",
+        "DOC-007",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "4711",
+      "element_code_label": "Dakbedekking (APP/bitumen)",
+      "hoofdgroep_code": "47",
+      "hoofdgroep_label": "Dakafwerkingen",
+      "action": "install",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "83.17",
+        "max": "83.17",
+        "mean": "83.17",
+        "median": "83.17"
+      },
+      "cost_years": [
+        2032
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "4711",
+      "element_code_label": "Dakbedekking (APP/bitumen)",
+      "hoofdgroep_code": "47",
+      "hoofdgroep_label": "Dakafwerkingen",
+      "action": "install",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "63.20",
+        "max": "83.19",
+        "mean": "74.29",
+        "median": "76.47"
+      },
+      "cost_years": [
+        2032,
+        2033
+      ],
+      "n_documents": 3,
+      "documents": [
+        "DOC-005",
+        "DOC-006",
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "4711",
+      "element_code_label": "Dakbedekking (APP/bitumen)",
+      "hoofdgroep_code": "47",
+      "hoofdgroep_label": "Dakafwerkingen",
+      "action": "replace",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "62.10",
+        "max": "62.10",
+        "mean": "62.10",
+        "median": "62.10"
+      },
+      "cost_years": [
+        2040
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-005"
+      ]
+    },
+    {
+      "element_code": "4711",
+      "element_code_label": "Dakbedekking (APP/bitumen)",
+      "hoofdgroep_code": "47",
+      "hoofdgroep_label": "Dakafwerkingen",
+      "action": "replace",
+      "unit": "m2",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "22.51",
+        "max": "175.45",
+        "mean": "73.49",
+        "median": "22.51"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-008"
+      ]
+    },
+    {
+      "element_code": "5124",
+      "element_code_label": "Schoorsteen / rookgasafvoer",
+      "hoofdgroep_code": "51",
+      "hoofdgroep_label": "Warmteopwekking",
+      "action": "install",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "1492.88",
+        "max": "1492.88",
+        "mean": "1492.88",
+        "median": "1492.88"
+      },
+      "cost_years": [
+        2038
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-008"
+      ]
+    },
+    {
+      "element_code": "5211",
+      "element_code_label": "Hemelwaterafvoer / doorvoer",
+      "hoofdgroep_code": "52",
+      "hoofdgroep_label": "Afvoeren",
+      "action": "replace",
+      "unit": "m1",
+      "literal": null,
+      "calculated": {
+        "n": 10,
+        "min": "45.23",
+        "max": "133.48",
+        "mean": "71.07",
+        "median": "53.73"
+      },
+      "cost_years": [
+        2022,
+        2023,
+        2025,
+        2028,
+        2032,
+        2033
+      ],
+      "n_documents": 6,
+      "documents": [
+        "DOC-001",
+        "DOC-005",
+        "DOC-006",
+        "DOC-007",
+        "DOC-009",
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "5211",
+      "element_code_label": "Hemelwaterafvoer / doorvoer",
+      "hoofdgroep_code": "52",
+      "hoofdgroep_label": "Afvoeren",
+      "action": "replace",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "147.32",
+        "max": "147.33",
+        "mean": "147.32",
+        "median": "147.32"
+      },
+      "cost_years": [
+        2027,
+        2032
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-007"
+      ]
+    },
+    {
+      "element_code": "5314",
+      "element_code_label": "Hydrofoor",
+      "hoofdgroep_code": "53",
+      "hoofdgroep_label": "Water",
+      "action": "replace",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 4,
+        "min": "1331.00",
+        "max": "1331.00",
+        "mean": "1331.00",
+        "median": "1331.00"
+      },
+      "cost_years": [
+        2026
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-002",
+        "DOC-003"
+      ]
+    },
+    {
+      "element_code": "5710",
+      "element_code_label": "Ventilatie dakdoorvoer",
+      "hoofdgroep_code": "57",
+      "hoofdgroep_label": "Luchtbehandeling",
+      "action": "replace",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "190.00",
+        "max": "190.00",
+        "mean": "190.00",
+        "median": "190.00"
+      },
+      "cost_years": [
+        2025
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-008"
+      ]
+    },
+    {
+      "element_code": "6311",
+      "element_code_label": "Armaturen (binnen/buiten)",
+      "hoofdgroep_code": "63",
+      "hoofdgroep_label": "Verlichting",
+      "action": "replace",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 3,
+        "min": "175.08",
+        "max": "2251.00",
+        "mean": "920.00",
+        "median": "333.92"
+      },
+      "cost_years": [
+        2025,
+        2030,
+        2035
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-007",
+        "DOC-009"
+      ]
+    },
+    {
+      "element_code": "6411",
+      "element_code_label": "Deurbelinstallatie/deuropener",
+      "hoofdgroep_code": "64",
+      "hoofdgroep_label": "Communicatie",
+      "action": "replace",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 2,
+        "min": "84.75",
+        "max": "605.00",
+        "mean": "344.88",
+        "median": "344.88"
+      },
+      "cost_years": [
+        2022,
+        2023
+      ],
+      "n_documents": 2,
+      "documents": [
+        "DOC-001",
+        "DOC-010"
+      ]
+    },
+    {
+      "element_code": "6710",
+      "element_code_label": "Valbeveiliging/dakbeveiliging",
+      "hoofdgroep_code": "67",
+      "hoofdgroep_label": "Gebouwbeheersvoorzieningen",
+      "action": "install",
+      "unit": "piece",
+      "literal": null,
+      "calculated": {
+        "n": 1,
+        "min": "479.76",
+        "max": "479.76",
+        "mean": "479.76",
+        "median": "479.76"
+      },
+      "cost_years": [
+        2027
+      ],
+      "n_documents": 1,
+      "documents": [
+        "DOC-007"
+      ]
+    }
+  ]
+}

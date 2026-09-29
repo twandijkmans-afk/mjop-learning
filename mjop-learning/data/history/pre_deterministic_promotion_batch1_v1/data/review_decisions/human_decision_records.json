@@ -1,0 +1,1962 @@
+{
+  "store_version": "human_review_v1",
+  "description": "Menselijke beslissingen over observation-paren (schema: schemas/human_decision_record.schema.json, werkwijze: docs/human_review_v1.md). Append-only: records worden nooit gewijzigd of verwijderd; een herziening is een nieuw record met 'supersedes'. Alleen door een mens in te vullen.",
+  "append_only": true,
+  "records": [
+    {
+      "decision_id": "HDR-00001",
+      "pair_id": "PAIR-00003",
+      "observation_ids": [
+        "PO-DOC-007-P015-L017",
+        "PO-DOC-009-P018-L015"
+      ],
+      "candidate_key": [
+        "2110",
+        "impregnate",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde metselwerk en dezelfde impregneerbehandeling; verschil is locatie (achtergevel) en prijspeil.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P015-L017",
+          "document_id": "DOC-007",
+          "page": 15,
+          "line": 17,
+          "source_text": "Hydrofoberen/Impregneren 1065,08 m2 2033 12 18.867 18.867",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P018-L015",
+          "document_id": "DOC-009",
+          "page": 18,
+          "line": 15,
+          "source_text": "Hydrofoberen / impregneren 897,32 m2 2025 12 16.493 16.493 32.985",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00002",
+      "pair_id": "PAIR-00004",
+      "observation_ids": [
+        "PO-DOC-007-P015-L017",
+        "PO-DOC-009-P018-L019"
+      ],
+      "candidate_key": [
+        "2110",
+        "impregnate",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde metselwerk en dezelfde impregneerbehandeling; verschil is locatie (voorgevel) en prijspeil.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P015-L017",
+          "document_id": "DOC-007",
+          "page": 15,
+          "line": 17,
+          "source_text": "Hydrofoberen/Impregneren 1065,08 m2 2033 12 18.867 18.867",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P018-L019",
+          "document_id": "DOC-009",
+          "page": 18,
+          "line": 19,
+          "source_text": "Hydrofoberen / impregneren 897,32 m2 2032 12 16.493 16.493",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00003",
+      "pair_id": "PAIR-00021",
+      "observation_ids": [
+        "PO-DOC-007-P016-L063",
+        "PO-DOC-010-P011-L057"
+      ],
+      "candidate_key": [
+        "4321",
+        "replace",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "QUANTITY_SCALE_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde tapijt en dezelfde vervangingswerkzaamheid bij hetzelfde prijspeil; de grote hoeveelheidsverschillen kunnen de prijs per m2 beïnvloeden.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P016-L063",
+          "document_id": "DOC-007",
+          "page": 16,
+          "line": 63,
+          "source_text": "Vervangen tapijt 580,00 m2 2029 12 46.768 46.768",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P011-L057",
+          "document_id": "DOC-010",
+          "page": 11,
+          "line": 57,
+          "source_text": "Vervangen tapijt 30,71 m2 2030 24 1.984 1.984",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00004",
+      "pair_id": "PAIR-00155",
+      "observation_ids": [
+        "PO-DOC-002-P018-L055",
+        "PO-DOC-009-P020-L023"
+      ],
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde schilderwerk aan stucwerk; trappenhuis is een relevante locatie-/toegangscaveat en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-002-P018-L055",
+          "document_id": "DOC-002",
+          "page": 18,
+          "line": 55,
+          "source_text": "Groot schilderwerk stucwerk 128,00 m2 2030 12 1.394 1.394",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P020-L023",
+          "document_id": "DOC-009",
+          "page": 20,
+          "line": 23,
+          "source_text": "Groot schilderwerk stucwerk 355,20 m2 2029 18 14.066 14.066",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00005",
+      "pair_id": "PAIR-00159",
+      "observation_ids": [
+        "PO-DOC-002-P018-L055",
+        "PO-DOC-010-P012-L017"
+      ],
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "De tweede post vermeldt expliciet inclusief lambrisering en heeft daarmee aantoonbaar bredere scope.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-002-P018-L055",
+          "document_id": "DOC-002",
+          "page": 18,
+          "line": 55,
+          "source_text": "Groot schilderwerk stucwerk 128,00 m2 2030 12 1.394 1.394",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L017",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 17,
+          "source_text": "Groot schilderwerk stucwerk 257,36 m2 2030 12 6.228 6.228",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00006",
+      "pair_id": "PAIR-00171",
+      "observation_ids": [
+        "PO-DOC-002-P018-L083",
+        "PO-DOC-009-P020-L023"
+      ],
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde schilderwerk aan stucwerk; het trappenhuis is een relevante locatie-/toegangscaveat en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-002-P018-L083",
+          "document_id": "DOC-002",
+          "page": 18,
+          "line": 83,
+          "source_text": "Groot schilderwerk stucwerk 131,00 m2 2030 12 1.427 1.427",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P020-L023",
+          "document_id": "DOC-009",
+          "page": 20,
+          "line": 23,
+          "source_text": "Groot schilderwerk stucwerk 355,20 m2 2029 18 14.066 14.066",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00007",
+      "pair_id": "PAIR-00175",
+      "observation_ids": [
+        "PO-DOC-002-P018-L083",
+        "PO-DOC-010-P012-L017"
+      ],
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "De tweede post vermeldt expliciet inclusief lambrisering en heeft daarmee aantoonbaar bredere scope.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-002-P018-L083",
+          "document_id": "DOC-002",
+          "page": 18,
+          "line": 83,
+          "source_text": "Groot schilderwerk stucwerk 131,00 m2 2030 12 1.427 1.427",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L017",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 17,
+          "source_text": "Groot schilderwerk stucwerk 257,36 m2 2030 12 6.228 6.228",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00008",
+      "pair_id": "PAIR-00178",
+      "observation_ids": [
+        "PO-DOC-007-P017-L013",
+        "PO-DOC-009-P020-L035"
+      ],
+      "candidate_key": [
+        "4622",
+        "interior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "De tweede post omvat naast de liftdeuren ook de omlijsting en heeft daarmee aantoonbaar bredere scope.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L013",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 13,
+          "source_text": "Groot schilderwerk metaal 8,24 m2 2028 5 374 374 749",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P020-L035",
+          "document_id": "DOC-009",
+          "page": 20,
+          "line": 35,
+          "source_text": "Groot schilderwerk metaal 74,02 m2 2029 9 2.931 2.931 5.862",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00009",
+      "pair_id": "PAIR-00241",
+      "observation_ids": [
+        "PO-DOC-002-P019-L049",
+        "PO-DOC-009-P021-L015"
+      ],
+      "candidate_key": [
+        "4634",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE",
+          "QUANTITY_SCALE_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde metalen hek en dezelfde schilderwerkzaamheid; achterzijde, grote hoeveelheidsverschillen en verschillend prijspeil blijven relevante caveats.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-002-P019-L049",
+          "document_id": "DOC-002",
+          "page": 19,
+          "line": 49,
+          "source_text": "Groot schilderwerk hek staal 3,00 m2 2030 6 127 127 254",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L015",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 15,
+          "source_text": "Groot schilderwerk hek staal 59,49 m2 2025 7 2.617 2.617 2.617 7.851",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00010",
+      "pair_id": "PAIR-00267",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-010-P012-L037"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde betonplafond en dezelfde schilderwerkzaamheid; achterzijde is vooral een locatieverschil.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L037",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 37,
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00011",
+      "pair_id": "PAIR-00272",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-010-P012-L037"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde betonplafond en dezelfde schilderwerkzaamheid; voorzijde is vooral een locatieverschil.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L037",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 37,
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00012",
+      "pair_id": "PAIR-00278",
+      "observation_ids": [
+        "PO-DOC-009-P021-L027",
+        "PO-DOC-010-P012-L037"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde betonplafond en dezelfde schilderwerkzaamheid; achterzijde en verschillend prijspeil zijn caveats.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-009-P021-L027",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 27,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2025 14 3.866 3.866 7.733",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L037",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 37,
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00013",
+      "pair_id": "PAIR-00279",
+      "observation_ids": [
+        "PO-DOC-009-P021-L031",
+        "PO-DOC-010-P012-L037"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde betonplafond en dezelfde schilderwerkzaamheid; voorzijde en verschillend prijspeil zijn caveats.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-009-P021-L031",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 31,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2032 12 3.866 3.866",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L037",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 37,
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00014",
+      "pair_id": "PAIR-00280",
+      "observation_ids": [
+        "PO-DOC-009-P021-L039",
+        "PO-DOC-010-P012-L037"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde betonplafond en dezelfde schilderwerkzaamheid; dakoverstek en achterzijde maken de scope specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT",
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-009-P021-L039",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 39,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2025 14 3.451 3.451 6.902",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L037",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 37,
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00015",
+      "pair_id": "PAIR-00281",
+      "observation_ids": [
+        "PO-DOC-009-P021-L043",
+        "PO-DOC-010-P012-L037"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde betonplafond en dezelfde schilderwerkzaamheid; dakoverstek en voorzijde maken de scope specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "ACTION_TEXT_VARIANT",
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-009-P021-L043",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 43,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2032 12 3.451 3.451",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L037",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 37,
+          "source_text": "Groot schilderwerk betonconstructie 25,24 m2 2028 12 845 845",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00016",
+      "pair_id": "PAIR-00292",
+      "observation_ids": [
+        "PO-DOC-007-P017-L119",
+        "PO-DOC-008-P009-L035"
+      ],
+      "candidate_key": [
+        "4711",
+        "replace",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "MATERIAL_VARIANT"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": [
+            "PRICE_LEVEL_ABSENT"
+          ]
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "APP versus APP+ballast is een inhoudelijk technisch verschil dat de scope en prijs kan beïnvloeden.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L119",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 119,
+          "source_text": "Vervangen dakbedekking APP 539,06 m2 2027 40 74.729 74.729",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-008-P009-L035",
+          "document_id": "DOC-008",
+          "page": 9,
+          "line": 35,
+          "source_text": "Vervangen dakbedekking APP 546,00 m2 2025 50 95.796 95.796",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00017",
+      "pair_id": "PAIR-00296",
+      "observation_ids": [
+        "PO-DOC-007-P017-L123",
+        "PO-DOC-008-P009-L035"
+      ],
+      "candidate_key": [
+        "4711",
+        "replace",
+        "m2"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "MATERIAL_VARIANT"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": [
+            "PRICE_LEVEL_ABSENT"
+          ]
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "APP versus APP+ballast is een inhoudelijk technisch verschil dat de scope en prijs kan beïnvloeden.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L123",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 123,
+          "source_text": "Vervangen dakbedekking APP 359,37 m2 2025 40 49.819 49.819",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-008-P009-L035",
+          "document_id": "DOC-008",
+          "page": 9,
+          "line": 35,
+          "source_text": "Vervangen dakbedekking APP 546,00 m2 2025 50 95.796 95.796",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00018",
+      "pair_id": "PAIR-00306",
+      "observation_ids": [
+        "PO-DOC-001-P026-L029",
+        "PO-DOC-009-P021-L095"
+      ],
+      "candidate_key": [
+        "5211",
+        "replace",
+        "m1"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [],
+        "observation_caveats": {
+          "a": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Exact hetzelfde hemelwaterafvoerwerk in PVC; het prijspeil van DOC-001 ontbreekt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-001-P026-L029",
+          "document_id": "DOC-001",
+          "page": 26,
+          "line": 29,
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L095",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 95,
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00019",
+      "pair_id": "PAIR-00307",
+      "observation_ids": [
+        "PO-DOC-001-P026-L029",
+        "PO-DOC-010-P012-L093"
+      ],
+      "candidate_key": [
+        "5211",
+        "replace",
+        "m1"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "QUANTITY_SCALE_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Exact hetzelfde hemelwaterafvoerwerk in PVC; het prijspeil van DOC-001 ontbreekt en de hoeveelheden verschillen sterk.",
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-001-P026-L029",
+          "document_id": "DOC-001",
+          "page": 26,
+          "line": 29,
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L093",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 93,
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00020",
+      "pair_id": "PAIR-00335",
+      "observation_ids": [
+        "PO-DOC-009-P021-L095",
+        "PO-DOC-010-P012-L093"
+      ],
+      "candidate_key": [
+        "5211",
+        "replace",
+        "m1"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE",
+          "QUANTITY_SCALE_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [],
+          "b": []
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Exact hetzelfde hemelwaterafvoerwerk in PVC; het prijspeil verschilt en de hoeveelheden verschillen sterk.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-009-P021-L095",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 95,
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-010-P012-L093",
+          "document_id": "DOC-010",
+          "page": 12,
+          "line": 93,
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00021",
+      "pair_id": "PAIR-00341",
+      "observation_ids": [
+        "PO-DOC-007-P018-L079",
+        "PO-DOC-009-P022-L033"
+      ],
+      "candidate_key": [
+        "6311",
+        "replace",
+        "piece"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "ACTION_TEXT_VARIANT",
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "b": [
+            "MATERIAL_UNKNOWN",
+            "UPGRADE"
+          ]
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "De tweede post betreft expliciet een LED-uitvoering/upgrade van de armaturen; dit is een relevante technische specificatiewijziging.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P018-L079",
+          "document_id": "DOC-007",
+          "page": 18,
+          "line": 79,
+          "source_text": "Vervangen armaturen binnenlamp 40,00 st 2030 36 7.003 7.003",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P022-L033",
+          "document_id": "DOC-009",
+          "page": 22,
+          "line": 33,
+          "source_text": "Vervangen armaturen binnenlamp 21,00 st 2025 18 3.684 3.684",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00022",
+      "pair_id": "PAIR-00342",
+      "observation_ids": [
+        "PO-DOC-007-P018-L079",
+        "PO-DOC-009-P022-L043"
+      ],
+      "candidate_key": [
+        "6311",
+        "replace",
+        "piece"
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE",
+          "QUANTITY_SCALE_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "MATERIAL_UNKNOWN"
+          ],
+          "b": [
+            "MATERIAL_UNKNOWN"
+          ]
+        }
+      },
+      "decision": "NOT_COMPARABLE",
+      "decision_reason": "De objectcontext verschilt duidelijk en de prijs per stuk wijkt extreem af (€2251 versus €175); er is onvoldoende bewijs dat het om hetzelfde werk gaat.",
+      "decision_caveats": [],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:37:31Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P018-L079",
+          "document_id": "DOC-007",
+          "page": 18,
+          "line": 79,
+          "source_text": "Vervangen armaturen binnenlamp 40,00 st 2030 36 7.003 7.003",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P022-L043",
+          "document_id": "DOC-009",
+          "page": 22,
+          "line": 43,
+          "source_text": "Vervangen armaturen binnenlamp 1,00 st 2030 18 2.251 2.251",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00023",
+      "pair_id": "PAIR-00263",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L027"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; achterzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L027",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 27,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2025 14 3.866 3.866 7.733",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00024",
+      "pair_id": "PAIR-00264",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L031"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; achterzijde versus voorzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L031",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 31,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2032 12 3.866 3.866",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00025",
+      "pair_id": "PAIR-00265",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L039"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; de aanduiding dakoverstek maakt de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L039",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 39,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2025 14 3.451 3.451 6.902",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00026",
+      "pair_id": "PAIR-00266",
+      "observation_ids": [
+        "PO-DOC-007-P017-L073",
+        "PO-DOC-009-P021-L043"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; dakoverstek en voor/achterzijde maken de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L073",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 73,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L043",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 43,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2032 12 3.451 3.451",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00027",
+      "pair_id": "PAIR-00268",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L027"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; voorzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L027",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 27,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2025 14 3.866 3.866 7.733",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00028",
+      "pair_id": "PAIR-00269",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L031"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; voorzijde versus achterzijde is een locatieverschil en het prijspeil verschilt.",
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L031",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 31,
+          "source_text": "Groot schilderwerk betonconstructie 117,18 m2 2032 12 3.866 3.866",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00029",
+      "pair_id": "PAIR-00270",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L039"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; dakoverstek maakt de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L039",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 39,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2025 14 3.451 3.451 6.902",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    },
+    {
+      "decision_id": "HDR-00030",
+      "pair_id": "PAIR-00271",
+      "observation_ids": [
+        "PO-DOC-007-P017-L077",
+        "PO-DOC-009-P021-L043"
+      ],
+      "candidate_key": [
+        "4645",
+        "exterior_painting",
+        "m2"
+      ],
+      "system_class": "UNKNOWN",
+      "system_reasons": {
+        "hard_violations": [],
+        "unknown_reasons": [
+          "ACTION_EQUIVALENCE_REQUIRES_REVIEW"
+        ],
+        "pair_caveats": [
+          "GENERIC_VS_SPECIFIC_OBJECT",
+          "PRICE_LEVEL_DIFFERENCE"
+        ],
+        "observation_caveats": {
+          "a": [
+            "CODE_LABEL_MISMATCH"
+          ],
+          "b": [
+            "CODE_LABEL_MISMATCH"
+          ]
+        }
+      },
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_reason": "Zelfde buitenschilderwerk aan betonplafond; dakoverstek en voor/achterzijde maken de objectcontext specifieker en het prijspeil verschilt.",
+      "decision_caveats": [
+        "GENERIC_VS_SPECIFIC_OBJECT",
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "reviewed_at": "2026-09-24T10:44:43Z",
+      "rule_version": "comparability_rules_v1",
+      "input_hashes": {
+        "comparability_output_sha256": "5fd7ffd5d4c04f0fa4a27bb10ddd8b26ff526e7b9410c806ef68005d309c611b",
+        "normalized_observations_sha256": "8d582aba304df881e7a99bb2f3642408f89d4093962179076fbf3c3dcdb570b0"
+      },
+      "evidence": [
+        {
+          "observation_id": "PO-DOC-007-P017-L077",
+          "document_id": "DOC-007",
+          "page": 17,
+          "line": 77,
+          "source_text": "Groot schilderwerk betonconstructie 130,00 m2 2028 14 4.921 4.921",
+          "reviewer_note": null
+        },
+        {
+          "observation_id": "PO-DOC-009-P021-L043",
+          "document_id": "DOC-009",
+          "page": 21,
+          "line": 43,
+          "source_text": "Groot schilderwerk betonconstructie 104,60 m2 2032 12 3.451 3.451",
+          "reviewer_note": null
+        }
+      ],
+      "notes": null,
+      "supersedes": null,
+      "status": "ACTIVE"
+    }
+  ]
+}
