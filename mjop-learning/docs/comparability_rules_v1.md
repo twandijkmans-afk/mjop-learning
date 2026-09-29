@@ -161,3 +161,11 @@ mag een bekende documentrelatie niet overrulen.
    hebben geen waarde); 3) anders onbekend. Spreken 1 en 2 elkaar tegen, dan
    blijft het materiaal onbekend (`source = conflict_verified_vs_element_text`).
    De gebruikte bron staat per observation in `material.source`.
+9. **Menselijk materiaalbesluit per observation (2026-09-29)**: P4/P9 en O9
+   blijven ongewijzigd. Tussen 1) verified-element en 2) `material_from_text` komt
+   één extra bron: een expliciet menselijk materiaalbesluit voor exact één
+   observation (`data/review_decisions/material_decision_records.json`, vastgelegd
+   met `scripts/record_material_decision.py`). Zo'n besluit is gebonden aan de
+   sha256 van de bronobservation. Wijzigt die, dan vervalt het besluit en is het
+   materiaal weer onbekend. Er is geen documentbrede scope en geen afleiding:
+   `material.source = human_material_decision`. Het verified-element blijft leidend.

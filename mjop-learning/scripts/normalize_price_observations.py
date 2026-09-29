@@ -123,15 +123,49 @@ MATERIAL_FROM_TEXT_HOLD = {
                             "zonder genormaliseerde waarde vastgelegd",
 }
 MATERIAL_CHANGE_MARKER = re.compile(r">")  # materiaalwissel-notatie in de bron: "->", "- >", ">"
+# Menselijke materiaalbesluiten per EXACTE observation (scripts/record_material_decision.py). Geen
+# documentbrede scope: een besluit geldt alleen voor zijn observation_id en alleen zolang de bronobservation
+# byte-gelijk is aan wat de mens beoordeelde (source_observation_sha256).
+MATERIAL_DECISIONS_PATH = os.path.join("data", "review_decisions", "material_decision_records.json")
+
+
+def observation_fingerprint(obs):
+    """sha256 van de bronobservation (canonieke JSON) - binding van een materiaalbesluit aan zijn invoer."""
+    return hashlib.sha256(json.dumps(obs, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
+                          .encode("utf-8")).hexdigest()
+
+
+def load_material_decisions(project_root):
+    """ACTIVE materiaalbesluiten per observation_id (leeg als de opslag niet bestaat)."""
+    path = os.path.join(project_root, MATERIAL_DECISIONS_PATH)
+    if not os.path.exists(path):
+        return {}
+    with open(path, encoding="utf-8") as f:
+        store = json.load(f)
+    return {r["observation_id"]: r for r in store["records"] if r["status"] == "ACTIVE"}
 
 
 def material_tokens(text, material_vocab):
     return [t for t in re.findall(r"[a-z0-9]+", (text or "").lower()) if t in material_vocab]
 
 
-def normalize_material(obs, verified_elements, material_vocab):
-    """Materiaal van het verified-element (ongewijzigd) en, alleen waar het
-    materiaalveld in de extractie ontbrak, een aparte afleiding uit de tekst."""
+def _apply_material_decision(out, obs, decision):
+    """Menselijk materiaalbesluit voor precies deze observation, alleen bij ongewijzigde invoer."""
+    if decision["source_observation_sha256"] != observation_fingerprint(obs):
+        out["material_not_derived_reason"] = "material_decision_input_changed"
+        return out
+    out.update(material_original=decision["material"]["original_value"],
+               material_normalized=decision["material"]["normalized_value"],
+               material_source="human_material_decision", material_status="MATERIAL_FROM_HUMAN_DECISION",
+               material_not_derived_reason=None, material_decision_id=decision["decision_id"])
+    return out
+
+
+def normalize_material(obs, verified_elements, material_vocab, material_decisions=None):
+    """Materiaal van het verified-element (ongewijzigd); anders een menselijk materiaalbesluit voor exact
+    deze observation; en, alleen waar het materiaalveld in de extractie ontbrak, een aparte afleiding uit
+    de tekst."""
+    decision = (material_decisions or {}).get(obs["observation_id"])
     out = {"material_original": None, "material_normalized": None, "verified_material_field": None,
            "material_from_text": None, "material_source": None, "material_status": "MATERIAL_UNKNOWN",
            "material_not_derived_reason": None}
@@ -147,6 +181,8 @@ def normalize_material(obs, verified_elements, material_vocab):
         if m.get("original_value"):
             out.update(material_source="verified_element", material_status="MATERIAL_FROM_VERIFIED")
             return out
+        if decision:
+            return _apply_material_decision(out, obs, decision)
         if obs["document_id"] not in MATERIAL_FROM_TEXT_DOCUMENTS:
             out["material_not_derived_reason"] = "verified_material_empty"
             return out
@@ -155,6 +191,8 @@ def normalize_material(obs, verified_elements, material_vocab):
         # (besluit 2026-09-28) - zelfde regel, zelfde tekstpatronen, niets nieuws.
     else:
         out["verified_material_field"] = "absent"
+        if decision:
+            return _apply_material_decision(out, obs, decision)
         if obs["document_id"] not in MATERIAL_FROM_TEXT_DOCUMENTS:
             out["material_not_derived_reason"] = "material_field_absent_document_not_in_scope"
             return out
@@ -370,9 +408,9 @@ def validate_price(obs, unit_norm):
 # --------------------------------------------------------------------------
 
 def normalize_observation(obs, action_vocab, unit_vocab, element_codes, source_ref,
-                          verified_elements=None, material_vocab=None):
+                          verified_elements=None, material_vocab=None, material_decisions=None):
     action, r_action = normalize_action(obs, action_vocab)
-    material = normalize_material(obs, verified_elements or {}, material_vocab or {})
+    material = normalize_material(obs, verified_elements or {}, material_vocab or {}, material_decisions)
     unit, r_unit = normalize_unit(obs, unit_vocab)
     element, r_element = normalize_element(obs, element_codes)
     checks, flags, r_price = validate_price(obs, unit["unit_normalized"])
@@ -429,8 +467,9 @@ def normalize(project_root, source_path):
                          for e in json.load(open(os.path.join(verified_dir, name), encoding="utf-8"))["elements"]}
     source_ref = {"source_file": os.path.relpath(source_path, project_root).replace("\\", "/"),
                   "source_file_sha256": sha256_file(source_path)}
+    material_decisions = load_material_decisions(project_root)
     out = [normalize_observation(o, action_vocab, unit_vocab, element_codes, source_ref,
-                                 verified_elements, material_vocab) for o in src["observations"]]
+                                 verified_elements, material_vocab, material_decisions) for o in src["observations"]]
 
     summary = {
         "observations": len(out),

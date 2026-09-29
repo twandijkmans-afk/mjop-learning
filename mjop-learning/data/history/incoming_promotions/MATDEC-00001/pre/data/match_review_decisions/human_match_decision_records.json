@@ -1,0 +1,6 @@
+{
+  "store_version": "human_match_review_v1",
+  "description": "Menselijke beslissingen over matchresultaten (schema: schemas/human_match_decision_record.schema.json, werkwijze: docs/human_match_review_v1.md). Append-only: records worden nooit gewijzigd of verwijderd; een herziening is een nieuw record met 'supersedes'. Alleen door een mens in te vullen. Beslissingen worden nooit als historische observations, kengetallen of comparability-beslissingen gebruikt.",
+  "append_only": true,
+  "records": []
+}
