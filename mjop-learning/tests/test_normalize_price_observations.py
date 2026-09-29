@@ -392,9 +392,19 @@ def test_batch1_has_exactly_ten_material_from_text():
     vdir = os.path.join(PROJECT_ROOT, "data", "verified")
     verified = {e["element_id"]: e for n in os.listdir(vdir)
                 for e in json.load(open(os.path.join(vdir, n), encoding="utf-8"))["elements"]}
+    decisions = npo.load_material_decisions(PROJECT_ROOT)
     for o in result["observations"]:  # originele materiaalvelden 1-op-1 uit verified
         el = verified.get(o["element"]["element_id"]) or {}
+        if o["material"]["material_status"] == "MATERIAL_FROM_HUMAN_DECISION":
+            # alleen de exact opgesomde observations van een menselijk materiaalbesluit (MATDEC-*)
+            d = decisions[o["observation_id"]]
+            assert not (el.get("material") or {}).get("original_value")
+            assert o["material"]["material_original"] == d["material"]["original_value"]
+            assert o["material"]["material_decision_id"] == d["decision_id"]
+            continue
         assert o["material"]["material_original"] == (el.get("material") or {}).get("original_value")
+    assert sorted(o["observation_id"] for o in result["observations"]
+                  if o["material"]["material_status"] == "MATERIAL_FROM_HUMAN_DECISION") == sorted(decisions)
 
 
 # --------------------------------------------------------------------------

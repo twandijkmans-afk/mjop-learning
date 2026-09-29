@@ -91,9 +91,10 @@
           "required": ["original_value", "normalized_value", "source_field"],
           "additionalProperties": false
         },
-        "material_source": { "type": ["string", "null"], "enum": ["verified_element", "element_text", null] },
-        "material_status": { "type": "string", "enum": ["MATERIAL_FROM_VERIFIED", "MATERIAL_FROM_TEXT", "MATERIAL_UNKNOWN"] },
-        "material_not_derived_reason": { "type": ["string", "null"] }
+        "material_source": { "type": ["string", "null"], "enum": ["verified_element", "element_text", "human_material_decision", null] },
+        "material_status": { "type": "string", "enum": ["MATERIAL_FROM_VERIFIED", "MATERIAL_FROM_TEXT", "MATERIAL_FROM_HUMAN_DECISION", "MATERIAL_UNKNOWN"] },
+        "material_not_derived_reason": { "type": ["string", "null"] },
+        "material_decision_id": { "type": "string", "pattern": "^MDR-[0-9]{5}$", "description": "Alleen bij MATERIAL_FROM_HUMAN_DECISION: het menselijke materiaalbesluit voor exact deze observation (data/review_decisions/material_decision_records.json)." }
       },
       "required": ["material_original", "material_normalized", "verified_material_field", "material_from_text",
                    "material_source", "material_status", "material_not_derived_reason"],

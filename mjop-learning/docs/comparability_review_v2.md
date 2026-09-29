@@ -145,3 +145,51 @@ Voorbeeld: DREL-005, DOC-014 `duplicate_source` van DOC-006.
 
 - DOC-014 levert geen observations en krijgt geen eigen cluster. Het valt in `SC-DOC-005+DOC-006`.
 - In de incoming-promotie krijgt DOC-014 de beslissing `SKIPPED_DUPLICATE` (`CONFIRMED_DUPLICATE_SOURCE`).
+
+## Materiaalbesluiten per observation
+
+`scripts/record_material_decision.py` legt een menselijk materiaalbesluit vast voor **exact opgesomde
+observations**. De besluiten staan in `data/review_decisions/material_decision_records.json` (schema
+`material_decision_record.schema.json`, scope `EXACT_OBSERVATION`, append-only). Er is geen documentbrede
+`MATERIAL_FROM_TEXT`-scope en geen afleiding voor andere observations.
+
+Het besluit wordt alleen vastgelegd als:
+
+- de opgegeven objectomschrijving, actietekst en eenheid letterlijk gelijk zijn aan de bron;
+- het materiaal als los vocabulairewoord in de objectomschrijving staat, zonder ander materiaal in object of
+  actie;
+- er nog geen materiaal is (het verified-element blijft leidend).
+
+Elk besluit is gebonden aan de sha256 van de bronobservation (`source_observation_sha256`) en van het
+brondocument. Wijzigt de bronobservation, dan vervalt het besluit bij de normalisatie en is het materiaal
+weer onbekend (`material_decision_input_changed`).
+
+De normalisatie zet `material_source = human_material_decision`
+(`MATERIAL_FROM_HUMAN_DECISION`, `material_decision_id`). Comparability F8 neemt dit over als bron tussen
+het verified-element en de tekstregel (`docs/comparability_rules_v1.md`, punt 9).
+
+Het besluit is een ketenschakel (`MATDEC-NNNNN`) met rollback, en de invarianten worden gecontroleerd:
+
+- alleen het materiaal van precies deze observations wijzigt;
+- bedragen, paren, source clusters, relaties en de human decision store blijven gelijk;
+- de kengetallen blijven inhoudelijk gelijk.
+
+Eerste besluit: MATDEC-00001 (MDR-00001 PO-DOC-012-P015-L033 en MDR-00002 PO-DOC-013-P019-L025, pvc).
+
+## Beslispakket 5211 pvc
+
+`scripts/decision_package_5211_pvc.py` schrijft `reports/review/decision_package_5211_pvc.json` en `.md`.
+Het pakket bevat:
+
+- alle pvc-observations van 5211 replace m1;
+- elk open cross-cluster paar met alle beoordelingsvelden;
+- per paar de inhoudelijke controle: zelfde actie, pvc, m1, geen relatie, verschil alleen in prijspeil,
+  hoeveelheid en prijs;
+- simulaties met `build_kengetallen.evaluate` per open familie en per keuze (`COMPARABLE`,
+  `COMPARABLE_WITH_CAVEATS`, `NOT_COMPARABLE`), plus de combinaties.
+
+Er wordt niets toegepast.
+
+Een positief besluit over één familie maakt de groep volgens regel 2 tijdelijk onvolledig
+(INSUFFICIENT_DATA). Pas als alle cross-cluster paren positief beoordeeld zijn, is de groep weer volledig.
+Het apply-script vraagt daarom per familie om een expliciete bevestiging van het kengetal-effect.

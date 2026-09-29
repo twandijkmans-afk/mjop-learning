@@ -122,13 +122,19 @@ def find_signals(text, signals):
 
 def material_of(obs, elements):
     """F8: bronvolgorde voor het materiaal. 1) verified-element (leidend, nooit
-    overschreven); 2) anders material_from_text uit de normalisatielaag, alleen
-    met status MATERIAL_FROM_TEXT en bron element_text; 3) anders onbekend.
-    Spreken 1 en 2 elkaar tegen, dan blijft het materiaal onbekend."""
+    overschreven); 2) anders een menselijk materiaalbesluit voor exact deze observation
+    (normalisatielaag: MATERIAL_FROM_HUMAN_DECISION, bron human_material_decision);
+    3) anders material_from_text uit de normalisatielaag, alleen met status
+    MATERIAL_FROM_TEXT en bron element_text; 4) anders onbekend.
+    Spreken 1 en 3 elkaar tegen, dan blijft het materiaal onbekend."""
     el = elements.get(obs["element"]["element_id"]) if obs["element"]["element_id"] else None
     m = (el or {}).get("material") or {}
     verified = {"original": m.get("original_value"), "normalized": m.get("normalized_value")}
     nm = obs.get("material") or {}
+    if not verified["original"] and nm.get("material_status") == "MATERIAL_FROM_HUMAN_DECISION" \
+            and nm.get("material_source") == "human_material_decision" and nm.get("material_original"):
+        return {"original": nm["material_original"], "normalized": nm["material_normalized"],
+                "source": "human_material_decision"}
     text = (nm.get("material_from_text") if nm.get("material_status") == "MATERIAL_FROM_TEXT"
             and nm.get("material_source") == "element_text" else None)
     if verified["original"]:

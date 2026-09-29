@@ -1,0 +1,1723 @@
+{
+  "candidate_group": "5211|replace|m1",
+  "combined_scenarios": {
+    "ALL_OPEN_FAMILIES_COMPARABLE": {
+      "effect_on_existing_kengetal": "REPLACED_BY:KG-5211-replace-m1-pvc-5cb98033(AVAILABLE)",
+      "result": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [],
+          "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+          "max_display": "61.09",
+          "min_display": "45.23",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": true,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-009-P021-L095",
+            "PO-DOC-010-P012-L093",
+            "PO-DOC-012-P015-L033",
+            "PO-DOC-013-P019-L025"
+          ],
+          "simulated_value_display": "54.39",
+          "source_cluster_count": 5,
+          "source_cluster_ids": [
+            "SC-DOC-001",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010",
+            "SC-DOC-012",
+            "SC-DOC-013"
+          ],
+          "status": "AVAILABLE"
+        }
+      ]
+    },
+    "ALL_OPEN_FAMILIES_COMPARABLE_WITH_CAVEATS": {
+      "effect_on_existing_kengetal": "REPLACED_BY:KG-5211-replace-m1-pvc-5cb98033(AVAILABLE)",
+      "result": [
+        {
+          "excluded_observation_ids": [],
+          "insufficient_data_reasons": [],
+          "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+          "max_display": "61.09",
+          "min_display": "45.23",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": true,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-009-P021-L095",
+            "PO-DOC-010-P012-L093",
+            "PO-DOC-012-P015-L033",
+            "PO-DOC-013-P019-L025"
+          ],
+          "simulated_value_display": "54.39",
+          "source_cluster_count": 5,
+          "source_cluster_ids": [
+            "SC-DOC-001",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010",
+            "SC-DOC-012",
+            "SC-DOC-013"
+          ],
+          "status": "AVAILABLE"
+        }
+      ]
+    },
+    "ALL_OPEN_FAMILIES_NOT_COMPARABLE": {
+      "effect_on_existing_kengetal": "UNCHANGED",
+      "result": [
+        {
+          "excluded_observation_ids": [
+            "PO-DOC-012-P015-L033",
+            "PO-DOC-013-P019-L025"
+          ],
+          "insufficient_data_reasons": [],
+          "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+          "max_display": "54.91",
+          "min_display": "45.23",
+          "missing_cross_cluster_reviews": [],
+          "missing_price_level": true,
+          "mixed_price_level": true,
+          "observation_ids": [
+            "PO-DOC-001-P026-L029",
+            "PO-DOC-009-P021-L095",
+            "PO-DOC-010-P012-L093"
+          ],
+          "simulated_value_display": "51.79",
+          "source_cluster_count": 3,
+          "source_cluster_ids": [
+            "SC-DOC-001",
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-010"
+          ],
+          "status": "AVAILABLE"
+        }
+      ]
+    }
+  },
+  "cross_cluster_pairs": [
+    {
+      "active_decision": {
+        "decision": "COMPARABLE_WITH_CAVEATS",
+        "decision_id": "HDR-00031"
+      },
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          null,
+          2025
+        ],
+        "quantity_ratio": "2.18",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "element_text",
+          "verified_element"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "b": []
+      },
+      "open": false,
+      "pair_caveats": [],
+      "pair_id": "PAIR-00580",
+      "previous_review_family_id": null,
+      "review_family_id": "RF-5211-0fe1340601",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "derived_price_per_execution": "51.79",
+          "document_id": "DOC-001",
+          "executions_in_window": 1,
+          "line": 29,
+          "material": {
+            "source": "element_text",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-001-P026-L029",
+          "page": 26,
+          "price_level_date": null,
+          "quantity": "371.00",
+          "source_cluster": "SC-DOC-001",
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.91",
+          "document_id": "DOC-009",
+          "executions_in_window": 1,
+          "line": 95,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-009-P021-L095",
+          "page": 21,
+          "price_level_date": "21-4-2025",
+          "quantity": "170.20",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": {
+        "decision": "COMPARABLE_WITH_CAVEATS",
+        "decision_id": "HDR-00032"
+      },
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          null,
+          2023
+        ],
+        "quantity_ratio": "28.54",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "element_text",
+          "verified_element"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "b": []
+      },
+      "open": false,
+      "pair_caveats": [
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00581",
+      "previous_review_family_id": null,
+      "review_family_id": "RF-5211-8d4093291e",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "derived_price_per_execution": "51.79",
+          "document_id": "DOC-001",
+          "executions_in_window": 1,
+          "line": 29,
+          "material": {
+            "source": "element_text",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-001-P026-L029",
+          "page": 26,
+          "price_level_date": null,
+          "quantity": "371.00",
+          "source_cluster": "SC-DOC-001",
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "45.23",
+          "document_id": "DOC-010",
+          "executions_in_window": 1,
+          "line": 93,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-010-P012-L093",
+          "page": 12,
+          "price_level_date": "1-4-2023",
+          "quantity": "13.00",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          null,
+          2024
+        ],
+        "quantity_ratio": "4.59",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "element_text",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [],
+      "pair_id": "PAIR-00583",
+      "previous_review_family_id": "RF-5211-4c4e7cd188",
+      "review_family_id": "RF-5211-0ad5841f33",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "derived_price_per_execution": "51.79",
+          "document_id": "DOC-001",
+          "executions_in_window": 1,
+          "line": 29,
+          "material": {
+            "source": "element_text",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-001-P026-L029",
+          "page": 26,
+          "price_level_date": null,
+          "quantity": "371.00",
+          "source_cluster": "SC-DOC-001",
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "61.09",
+          "document_id": "DOC-012",
+          "executions_in_window": 1,
+          "line": 33,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00001",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-012-P015-L033",
+          "page": 15,
+          "price_level_date": "1-4-2024",
+          "quantity": "80.80",
+          "source_cluster": "SC-DOC-012",
+          "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          null,
+          2026
+        ],
+        "quantity_ratio": "6.51",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "element_text",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [],
+      "pair_id": "PAIR-00585",
+      "previous_review_family_id": "RF-5211-4c4e7cd188",
+      "review_family_id": "RF-5211-0ad5841f33",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "derived_price_per_execution": "51.79",
+          "document_id": "DOC-001",
+          "executions_in_window": 1,
+          "line": 29,
+          "material": {
+            "source": "element_text",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-001-P026-L029",
+          "page": 26,
+          "price_level_date": null,
+          "quantity": "371.00",
+          "source_cluster": "SC-DOC-001",
+          "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.39",
+          "document_id": "DOC-013",
+          "executions_in_window": 1,
+          "line": 25,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00002",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-013-P019-L025",
+          "page": 19,
+          "price_level_date": "14-7-2026",
+          "quantity": "57.00",
+          "source_cluster": "SC-DOC-013",
+          "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": {
+        "decision": "COMPARABLE_WITH_CAVEATS",
+        "decision_id": "HDR-00033"
+      },
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          2025,
+          2023
+        ],
+        "quantity_ratio": "13.09",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "verified_element",
+          "verified_element"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "open": false,
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE",
+        "QUANTITY_SCALE_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00630",
+      "previous_review_family_id": null,
+      "review_family_id": "RF-5211-4ad0a0fd5d",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.91",
+          "document_id": "DOC-009",
+          "executions_in_window": 1,
+          "line": 95,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-009-P021-L095",
+          "page": 21,
+          "price_level_date": "21-4-2025",
+          "quantity": "170.20",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "45.23",
+          "document_id": "DOC-010",
+          "executions_in_window": 1,
+          "line": 93,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-010-P012-L093",
+          "page": 12,
+          "price_level_date": "1-4-2023",
+          "quantity": "13.00",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          2025,
+          2024
+        ],
+        "quantity_ratio": "2.11",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "verified_element",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00632",
+      "previous_review_family_id": "RF-5211-1e814339c4",
+      "review_family_id": "RF-5211-6d02e2e719",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.91",
+          "document_id": "DOC-009",
+          "executions_in_window": 1,
+          "line": 95,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-009-P021-L095",
+          "page": 21,
+          "price_level_date": "21-4-2025",
+          "quantity": "170.20",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "61.09",
+          "document_id": "DOC-012",
+          "executions_in_window": 1,
+          "line": 33,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00001",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-012-P015-L033",
+          "page": 15,
+          "price_level_date": "1-4-2024",
+          "quantity": "80.80",
+          "source_cluster": "SC-DOC-012",
+          "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          2025,
+          2026
+        ],
+        "quantity_ratio": "2.99",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "verified_element",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00634",
+      "previous_review_family_id": "RF-5211-1e814339c4",
+      "review_family_id": "RF-5211-6d02e2e719",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.91",
+          "document_id": "DOC-009",
+          "executions_in_window": 1,
+          "line": 95,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-009-P021-L095",
+          "page": 21,
+          "price_level_date": "21-4-2025",
+          "quantity": "170.20",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.39",
+          "document_id": "DOC-013",
+          "executions_in_window": 1,
+          "line": 25,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00002",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-013-P019-L025",
+          "page": 19,
+          "price_level_date": "14-7-2026",
+          "quantity": "57.00",
+          "source_cluster": "SC-DOC-013",
+          "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          2023,
+          2024
+        ],
+        "quantity_ratio": "6.22",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "verified_element",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00635",
+      "previous_review_family_id": "RF-5211-1e814339c4",
+      "review_family_id": "RF-5211-6d02e2e719",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "45.23",
+          "document_id": "DOC-010",
+          "executions_in_window": 1,
+          "line": 93,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-010-P012-L093",
+          "page": 12,
+          "price_level_date": "1-4-2023",
+          "quantity": "13.00",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "61.09",
+          "document_id": "DOC-012",
+          "executions_in_window": 1,
+          "line": 33,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00001",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-012-P015-L033",
+          "page": 15,
+          "price_level_date": "1-4-2024",
+          "quantity": "80.80",
+          "source_cluster": "SC-DOC-012",
+          "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          2023,
+          2026
+        ],
+        "quantity_ratio": "4.38",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "verified_element",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00637",
+      "previous_review_family_id": "RF-5211-1e814339c4",
+      "review_family_id": "RF-5211-6d02e2e719",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "45.23",
+          "document_id": "DOC-010",
+          "executions_in_window": 1,
+          "line": 93,
+          "material": {
+            "source": "verified_element",
+            "value": "pvc"
+          },
+          "material_decision_id": null,
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-010-P012-L093",
+          "page": 12,
+          "price_level_date": "1-4-2023",
+          "quantity": "13.00",
+          "source_cluster": "SC-DOC-010",
+          "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.39",
+          "document_id": "DOC-013",
+          "executions_in_window": 1,
+          "line": 25,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00002",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-013-P019-L025",
+          "page": 19,
+          "price_level_date": "14-7-2026",
+          "quantity": "57.00",
+          "source_cluster": "SC-DOC-013",
+          "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    },
+    {
+      "active_decision": null,
+      "checks": {
+        "action_text": "equal",
+        "material": "equal",
+        "object_description": "equal",
+        "price_level_year": [
+          2024,
+          2026
+        ],
+        "quantity_ratio": "1.42",
+        "vat_basis": [
+          "inclusive",
+          "inclusive"
+        ]
+      },
+      "content_check": {
+        "deviations": [],
+        "differences": [
+          "price_level",
+          "quantity",
+          "price"
+        ],
+        "matches_description": true,
+        "material_sources": [
+          "human_material_decision",
+          "human_material_decision"
+        ]
+      },
+      "hard_violations": [],
+      "observation_caveats": {
+        "a": [],
+        "b": []
+      },
+      "open": true,
+      "pair_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "pair_id": "PAIR-00641",
+      "previous_review_family_id": "RF-5211-4e9a81167e",
+      "review_family_id": "RF-5211-76b81abb4c",
+      "sides": [
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "61.09",
+          "document_id": "DOC-012",
+          "executions_in_window": 1,
+          "line": 33,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00001",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-012-P015-L033",
+          "page": 15,
+          "price_level_date": "1-4-2024",
+          "quantity": "80.80",
+          "source_cluster": "SC-DOC-012",
+          "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        },
+        {
+          "action_normalized": "replace",
+          "action_text": "Vervangen hemelwaterafvoer pvc",
+          "caveats": [],
+          "derived_price_per_execution": "54.39",
+          "document_id": "DOC-013",
+          "executions_in_window": 1,
+          "line": 25,
+          "material": {
+            "source": "human_material_decision",
+            "value": "pvc"
+          },
+          "material_decision_id": "MDR-00002",
+          "object_description": "Hemelwaterafvoer pvc",
+          "observation_id": "PO-DOC-013-P019-L025",
+          "page": 19,
+          "price_level_date": "14-7-2026",
+          "quantity": "57.00",
+          "source_cluster": "SC-DOC-013",
+          "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
+          "unit_normalized": "m1",
+          "unit_original": "m1",
+          "vat_basis": "inclusive"
+        }
+      ],
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "unknown_reasons": []
+    }
+  ],
+  "existing_kengetal": {
+    "decision_ids": [
+      "HDR-00031",
+      "HDR-00032",
+      "HDR-00033"
+    ],
+    "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+    "observation_ids": [
+      "PO-DOC-001-P026-L029",
+      "PO-DOC-009-P021-L095",
+      "PO-DOC-010-P012-L093"
+    ],
+    "source_cluster_count": 3,
+    "source_cluster_ids": [
+      "SC-DOC-001",
+      "SC-DOC-008+DOC-009",
+      "SC-DOC-010"
+    ],
+    "status": "AVAILABLE",
+    "value_display": "51.79"
+  },
+  "inputs": {
+    "comparability_rules_version": "comparability_rules_v1",
+    "comparability_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
+    "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
+    "human_decisions_sha256": "bed01185bacbd20810c11cafba0c755df98b8b968dc9b77e5ef05fefdb284b2b",
+    "kengetallen_rules_version": "kengetallen_rules_v1",
+    "kengetallen_sha256": "cda3c700e1c91f69a2652715864988fdc42f08660d68ddd455cc8a7d2faae474",
+    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692"
+  },
+  "material": "pvc",
+  "note": "Beslispakket, geen besluit. Simulaties gebruiken uitsluitend build_kengetallen.evaluate (kengetallen_rules_v1) met hypothetische ACTIVE records; ze worden nergens vastgelegd. COMPARABLE en COMPARABLE_WITH_CAVEATS tellen in de regels hetzelfde (regel 2); het verschil is de vastgelegde voorbehoud-informatie. Toepassen alleen via scripts/apply_family_decision.py.",
+  "open_cross_cluster_pairs": 7,
+  "open_families": [
+    {
+      "document_ids": [
+        "DOC-001",
+        "DOC-012",
+        "DOC-013"
+      ],
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "family_input_sha256": "760513e2b18dc45a97c0c0180d910cb091ba1a6783579579647a5b393d77f127",
+      "observation_caveats": {
+        "PRICE_LEVEL_ABSENT": 2
+      },
+      "pair_caveats": {},
+      "pair_ids": [
+        "PAIR-00583",
+        "PAIR-00585"
+      ],
+      "previous_review_family_id": [
+        "RF-5211-4c4e7cd188"
+      ],
+      "review_family_id": "RF-5211-0ad5841f33",
+      "simulations": {
+        "COMPARABLE": {
+          "effect_on_existing_kengetal": "REPLACED_BY:KG-5211-replace-m1-pvc-5cb98033(INSUFFICIENT_DATA)",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [
+                "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+              ],
+              "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+              "max_display": "61.09",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [
+                [
+                  "PO-DOC-009-P021-L095",
+                  "PO-DOC-012-P015-L033"
+                ],
+                [
+                  "PO-DOC-009-P021-L095",
+                  "PO-DOC-013-P019-L025"
+                ],
+                [
+                  "PO-DOC-010-P012-L093",
+                  "PO-DOC-012-P015-L033"
+                ],
+                [
+                  "PO-DOC-010-P012-L093",
+                  "PO-DOC-013-P019-L025"
+                ],
+                [
+                  "PO-DOC-012-P015-L033",
+                  "PO-DOC-013-P019-L025"
+                ]
+              ],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093",
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "simulated_value_display": null,
+              "source_cluster_count": 5,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010",
+                "SC-DOC-012",
+                "SC-DOC-013"
+              ],
+              "status": "INSUFFICIENT_DATA"
+            }
+          ]
+        },
+        "COMPARABLE_WITH_CAVEATS": {
+          "effect_on_existing_kengetal": "REPLACED_BY:KG-5211-replace-m1-pvc-5cb98033(INSUFFICIENT_DATA)",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [
+                "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+              ],
+              "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+              "max_display": "61.09",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [
+                [
+                  "PO-DOC-009-P021-L095",
+                  "PO-DOC-012-P015-L033"
+                ],
+                [
+                  "PO-DOC-009-P021-L095",
+                  "PO-DOC-013-P019-L025"
+                ],
+                [
+                  "PO-DOC-010-P012-L093",
+                  "PO-DOC-012-P015-L033"
+                ],
+                [
+                  "PO-DOC-010-P012-L093",
+                  "PO-DOC-013-P019-L025"
+                ],
+                [
+                  "PO-DOC-012-P015-L033",
+                  "PO-DOC-013-P019-L025"
+                ]
+              ],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093",
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "simulated_value_display": null,
+              "source_cluster_count": 5,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010",
+                "SC-DOC-012",
+                "SC-DOC-013"
+              ],
+              "status": "INSUFFICIENT_DATA"
+            }
+          ]
+        },
+        "NOT_COMPARABLE": {
+          "effect_on_existing_kengetal": "UNCHANGED",
+          "result": [
+            {
+              "excluded_observation_ids": [
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "insufficient_data_reasons": [],
+              "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+              "max_display": "54.91",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093"
+              ],
+              "simulated_value_display": "51.79",
+              "source_cluster_count": 3,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010"
+              ],
+              "status": "AVAILABLE"
+            }
+          ]
+        }
+      },
+      "source_clusters": [
+        "SC-DOC-001",
+        "SC-DOC-012",
+        "SC-DOC-013"
+      ]
+    },
+    {
+      "document_ids": [
+        "DOC-009",
+        "DOC-010",
+        "DOC-012",
+        "DOC-013"
+      ],
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "family_input_sha256": "878abf5892bffb487bd75c677fa965a8b8fc5c338f85413799f75ca1416b1560",
+      "observation_caveats": {},
+      "pair_caveats": {
+        "PRICE_LEVEL_DIFFERENCE": 4
+      },
+      "pair_ids": [
+        "PAIR-00632",
+        "PAIR-00634",
+        "PAIR-00635",
+        "PAIR-00637"
+      ],
+      "previous_review_family_id": [
+        "RF-5211-1e814339c4"
+      ],
+      "review_family_id": "RF-5211-6d02e2e719",
+      "simulations": {
+        "COMPARABLE": {
+          "effect_on_existing_kengetal": "REPLACED_BY:KG-5211-replace-m1-pvc-5cb98033(INSUFFICIENT_DATA)",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [
+                "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+              ],
+              "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+              "max_display": "61.09",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [
+                [
+                  "PO-DOC-001-P026-L029",
+                  "PO-DOC-012-P015-L033"
+                ],
+                [
+                  "PO-DOC-001-P026-L029",
+                  "PO-DOC-013-P019-L025"
+                ],
+                [
+                  "PO-DOC-012-P015-L033",
+                  "PO-DOC-013-P019-L025"
+                ]
+              ],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093",
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "simulated_value_display": null,
+              "source_cluster_count": 5,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010",
+                "SC-DOC-012",
+                "SC-DOC-013"
+              ],
+              "status": "INSUFFICIENT_DATA"
+            }
+          ]
+        },
+        "COMPARABLE_WITH_CAVEATS": {
+          "effect_on_existing_kengetal": "REPLACED_BY:KG-5211-replace-m1-pvc-5cb98033(INSUFFICIENT_DATA)",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [
+                "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+              ],
+              "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+              "max_display": "61.09",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [
+                [
+                  "PO-DOC-001-P026-L029",
+                  "PO-DOC-012-P015-L033"
+                ],
+                [
+                  "PO-DOC-001-P026-L029",
+                  "PO-DOC-013-P019-L025"
+                ],
+                [
+                  "PO-DOC-012-P015-L033",
+                  "PO-DOC-013-P019-L025"
+                ]
+              ],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093",
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "simulated_value_display": null,
+              "source_cluster_count": 5,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010",
+                "SC-DOC-012",
+                "SC-DOC-013"
+              ],
+              "status": "INSUFFICIENT_DATA"
+            }
+          ]
+        },
+        "NOT_COMPARABLE": {
+          "effect_on_existing_kengetal": "UNCHANGED",
+          "result": [
+            {
+              "excluded_observation_ids": [
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "insufficient_data_reasons": [],
+              "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+              "max_display": "54.91",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093"
+              ],
+              "simulated_value_display": "51.79",
+              "source_cluster_count": 3,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010"
+              ],
+              "status": "AVAILABLE"
+            }
+          ]
+        }
+      },
+      "source_clusters": [
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-010",
+        "SC-DOC-012",
+        "SC-DOC-013"
+      ]
+    },
+    {
+      "document_ids": [
+        "DOC-012",
+        "DOC-013"
+      ],
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "family_input_sha256": "172756d55b9720cb3271100af7644a8f4e8b6c8f966f3bbc76a09d203ad710ed",
+      "observation_caveats": {},
+      "pair_caveats": {
+        "PRICE_LEVEL_DIFFERENCE": 1
+      },
+      "pair_ids": [
+        "PAIR-00641"
+      ],
+      "previous_review_family_id": [
+        "RF-5211-4e9a81167e"
+      ],
+      "review_family_id": "RF-5211-76b81abb4c",
+      "simulations": {
+        "COMPARABLE": {
+          "effect_on_existing_kengetal": "UNCHANGED",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [],
+              "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+              "max_display": "54.91",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093"
+              ],
+              "simulated_value_display": "51.79",
+              "source_cluster_count": 3,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010"
+              ],
+              "status": "AVAILABLE"
+            },
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [
+                "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+              ],
+              "kengetal_id": "KG-5211-replace-m1-pvc-73cbcafe",
+              "max_display": "61.09",
+              "min_display": "54.39",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": false,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "simulated_value_display": null,
+              "source_cluster_count": 2,
+              "source_cluster_ids": [
+                "SC-DOC-012",
+                "SC-DOC-013"
+              ],
+              "status": "INSUFFICIENT_DATA"
+            }
+          ]
+        },
+        "COMPARABLE_WITH_CAVEATS": {
+          "effect_on_existing_kengetal": "UNCHANGED",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [],
+              "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+              "max_display": "54.91",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093"
+              ],
+              "simulated_value_display": "51.79",
+              "source_cluster_count": 3,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010"
+              ],
+              "status": "AVAILABLE"
+            },
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [
+                "FEWER_THAN_3_SOURCE_CLUSTERS:2"
+              ],
+              "kengetal_id": "KG-5211-replace-m1-pvc-73cbcafe",
+              "max_display": "61.09",
+              "min_display": "54.39",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": false,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-012-P015-L033",
+                "PO-DOC-013-P019-L025"
+              ],
+              "simulated_value_display": null,
+              "source_cluster_count": 2,
+              "source_cluster_ids": [
+                "SC-DOC-012",
+                "SC-DOC-013"
+              ],
+              "status": "INSUFFICIENT_DATA"
+            }
+          ]
+        },
+        "NOT_COMPARABLE": {
+          "effect_on_existing_kengetal": "UNCHANGED",
+          "result": [
+            {
+              "excluded_observation_ids": [],
+              "insufficient_data_reasons": [],
+              "kengetal_id": "KG-5211-replace-m1-pvc-67920b77",
+              "max_display": "54.91",
+              "min_display": "45.23",
+              "missing_cross_cluster_reviews": [],
+              "missing_price_level": true,
+              "mixed_price_level": true,
+              "observation_ids": [
+                "PO-DOC-001-P026-L029",
+                "PO-DOC-009-P021-L095",
+                "PO-DOC-010-P012-L093"
+              ],
+              "simulated_value_display": "51.79",
+              "source_cluster_count": 3,
+              "source_cluster_ids": [
+                "SC-DOC-001",
+                "SC-DOC-008+DOC-009",
+                "SC-DOC-010"
+              ],
+              "status": "AVAILABLE"
+            }
+          ]
+        }
+      },
+      "source_clusters": [
+        "SC-DOC-012",
+        "SC-DOC-013"
+      ]
+    }
+  ],
+  "package_version": "decision_package_5211_pvc_v1",
+  "pairs_not_matching_description": [],
+  "potential_source_clusters": {
+    "count": 5,
+    "ids": [
+      "SC-DOC-001",
+      "SC-DOC-008+DOC-009",
+      "SC-DOC-010",
+      "SC-DOC-012",
+      "SC-DOC-013"
+    ]
+  },
+  "pvc_observations": [
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen hemelwaterafvoer pvc",
+      "caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "derived_price_per_execution": "51.79",
+      "document_id": "DOC-001",
+      "executions_in_window": 1,
+      "line": 29,
+      "material": {
+        "source": "element_text",
+        "value": "pvc"
+      },
+      "material_decision_id": null,
+      "object_description": "Hemelwaterafvoer pvc",
+      "observation_id": "PO-DOC-001-P026-L029",
+      "page": 26,
+      "price_level_date": null,
+      "quantity": "371.00",
+      "source_cluster": "SC-DOC-001",
+      "source_text": "Vervangen hemelwaterafvoer pvc 371,00 m1 2029 25 19.213 19.213",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen hemelwaterafvoer pvc",
+      "caveats": [],
+      "derived_price_per_execution": "54.91",
+      "document_id": "DOC-009",
+      "executions_in_window": 1,
+      "line": 95,
+      "material": {
+        "source": "verified_element",
+        "value": "pvc"
+      },
+      "material_decision_id": null,
+      "object_description": "Hemelwaterafvoer pvc",
+      "observation_id": "PO-DOC-009-P021-L095",
+      "page": 21,
+      "price_level_date": "21-4-2025",
+      "quantity": "170.20",
+      "source_cluster": "SC-DOC-008+DOC-009",
+      "source_text": "Vervangen hemelwaterafvoer pvc 170,20 m1 2032 30 9.346 9.346",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen hemelwaterafvoer pvc",
+      "caveats": [],
+      "derived_price_per_execution": "45.23",
+      "document_id": "DOC-010",
+      "executions_in_window": 1,
+      "line": 93,
+      "material": {
+        "source": "verified_element",
+        "value": "pvc"
+      },
+      "material_decision_id": null,
+      "object_description": "Hemelwaterafvoer pvc",
+      "observation_id": "PO-DOC-010-P012-L093",
+      "page": 12,
+      "price_level_date": "1-4-2023",
+      "quantity": "13.00",
+      "source_cluster": "SC-DOC-010",
+      "source_text": "Vervangen hemelwaterafvoer pvc 13,00 m1 2034 24 588 588",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen hemelwaterafvoer pvc",
+      "caveats": [],
+      "derived_price_per_execution": "61.09",
+      "document_id": "DOC-012",
+      "executions_in_window": 1,
+      "line": 33,
+      "material": {
+        "source": "human_material_decision",
+        "value": "pvc"
+      },
+      "material_decision_id": "MDR-00001",
+      "object_description": "Hemelwaterafvoer pvc",
+      "observation_id": "PO-DOC-012-P015-L033",
+      "page": 15,
+      "price_level_date": "1-4-2024",
+      "quantity": "80.80",
+      "source_cluster": "SC-DOC-012",
+      "source_text": "Vervangen hemelwaterafvoer pvc 80,80 m1 2038 25 4.936 4.936",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    },
+    {
+      "action_normalized": "replace",
+      "action_text": "Vervangen hemelwaterafvoer pvc",
+      "caveats": [],
+      "derived_price_per_execution": "54.39",
+      "document_id": "DOC-013",
+      "executions_in_window": 1,
+      "line": 25,
+      "material": {
+        "source": "human_material_decision",
+        "value": "pvc"
+      },
+      "material_decision_id": "MDR-00002",
+      "object_description": "Hemelwaterafvoer pvc",
+      "observation_id": "PO-DOC-013-P019-L025",
+      "page": 19,
+      "price_level_date": "14-7-2026",
+      "quantity": "57.00",
+      "source_cluster": "SC-DOC-013",
+      "source_text": "Vervangen hemelwaterafvoer pvc 57,00 m1 2036 25 3.100 3.100",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "vat_basis": "inclusive"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 
 Reviewpakket: **er is niets besloten**. Geen ACTIVE decisions, geen automatische COMPARABLE of NOT_COMPARABLE, geen scores, geen nieuw kengetal. Een familiebesluit wordt alleen toegepast via `scripts/apply_family_decision.py` op exact opgesomde `pair_ids`, gebonden aan `family_input_sha256`.
 
-Invoer: comparability `545070e3d1e9`, genormaliseerd `31fdf85badcc`, beslissingen `bed01185bacb`, relaties `2a1cab33999c`.
+Invoer: comparability `7e3de4f66a20`, genormaliseerd `272c0d141b40`, beslissingen `bed01185bacb`, relaties `2a1cab33999c`.
 
 ## Reviewqueue vóór en na groepering
 
@@ -21,9 +21,9 @@ Families per bewijscategorie (families / paren):
 - `OTHER_REVIEW_REQUIRED`: 1 / 1
 - `OBJECT_TEXT_VARIANT`: 21 / 34
 - `ACTION_TEXT_VARIANT`: 4 / 16
-- `MATERIAL_EVIDENCE_ONE_SIDE`: 7 / 13
+- `MATERIAL_EVIDENCE_ONE_SIDE`: 5 / 7
 - `QUANTITY_SCALE_DIFFERENCE`: 5 / 5
-- `EXACT_SAME_SEMANTIC_INPUT`: 5 / 7
+- `EXACT_SAME_SEMANTIC_INPUT`: 7 / 13
 
 Groepering: candidate key + per kant (objectomschrijving en actietekst als woordtokens zonder de vaste gevelzijde-woorden, eenheid in de bron, materiaal + bron, inhoudelijke observation-caveats) + gevelzijde-woorden verschillen + QUANTITY_SCALE_DIFFERENCE + relatierisico. Gevelzijde-woorden: achter, achtergevel, achterzijde, voor, voorgevel, voorzijde.
 
@@ -114,10 +114,10 @@ Zonder materiaalbewijs: PO-DOC-001-P026-L019, PO-DOC-007-P017-L073, PO-DOC-007-P
 
 - observations: 14 (independent_input: 7)
 - source clusters (alle): 8; potentieel beschikbaar (independent_input): 5 - SC-DOC-001, SC-DOC-008+DOC-009, SC-DOC-010, SC-DOC-012, SC-DOC-013
-- paren: 69 (COMPARABLE_WITH_CAVEATS 11, NOT_COMPARABLE 10, UNKNOWN 48); in de reviewqueue: 11
+- paren: 69 (COMPARABLE_WITH_CAVEATS 11, NOT_COMPARABLE 16, UNKNOWN 42); in de reviewqueue: 11
 - ACTIVE decisions: HDR-00031, HDR-00032, HDR-00033
 - bestaande kengetallen: KG-5211-replace-m1-pvc-67920b77 AVAILABLE 51.79 (3 clusters)
-- materiaalbewijs (independent_input): KNOWN:pvc: 3, KNOWN:steel: 1, TEXT_EVIDENCE_PENDING_APPROVAL:pvc: 2, TEXT_EVIDENCE_PENDING_APPROVAL:steel: 1
+- materiaalbewijs (independent_input): KNOWN:pvc: 5, KNOWN:steel: 1, TEXT_EVIDENCE_PENDING_APPROVAL:steel: 1
 
 ### PVC-semantiek en het bestaande kengetal
 
@@ -128,14 +128,13 @@ Nieuwe observations (Testbatch 01):
 
 - `NOT_INDEPENDENT_INPUT`: PO-DOC-011-P021-L115 - Hemelwaterafvoer pvc / Vervangen hemelwaterafvoer pvc achtergevel incl. bocht naar horizontaal (140.00, prijs per uitvoering 140.67, prijspeil None)
 - `OTHER_MATERIAL:steel`: PO-DOC-012-P015-L039 - Hemelwaterafvoer staal gegalvaniseerd / Vervangen hemelwaterafvoer staal gegalvaniseerd (32.00, prijs per uitvoering 159.75, prijspeil 1-4-2024)
-- `PVC_BY_ELEMENT_TEXT_PENDING_MATERIAL_APPROVAL`: PO-DOC-012-P015-L033 - Hemelwaterafvoer pvc / Vervangen hemelwaterafvoer pvc (80.80, prijs per uitvoering 61.09, prijspeil 1-4-2024)
-- `PVC_BY_ELEMENT_TEXT_PENDING_MATERIAL_APPROVAL`: PO-DOC-013-P019-L025 - Hemelwaterafvoer pvc / Vervangen hemelwaterafvoer pvc (57.00, prijs per uitvoering 54.39, prijspeil 14-7-2026)
+- `PVC_EXACT_SEMANTICS`: PO-DOC-012-P015-L033 - Hemelwaterafvoer pvc / Vervangen hemelwaterafvoer pvc (80.80, prijs per uitvoering 61.09, prijspeil 1-4-2024)
+- `PVC_EXACT_SEMANTICS`: PO-DOC-013-P019-L025 - Hemelwaterafvoer pvc / Vervangen hemelwaterafvoer pvc (57.00, prijs per uitvoering 54.39, prijspeil 14-7-2026)
 
 ### Wat ontbreekt voor een geldige knowledge candidate
 
 - materiaal **pvc**: 5 observations, 5 potentiële clusters, status `REQUIRES_HUMAN_STEPS`, bestaand kengetal KG-5211-replace-m1-pvc-67920b77
-  - materiaalgoedkeuring nodig voor DOC-012, DOC-013: PO-DOC-012-P015-L033, PO-DOC-013-P019-L025
-  - 7 cross-cluster paren zonder ACTIVE positieve beslissing (7 in de queue; families RF-5211-1e814339c4, RF-5211-4c4e7cd188, RF-5211-4e9a81167e; niet in de queue: )
+  - 7 cross-cluster paren zonder ACTIVE positieve beslissing (7 in de queue; families RF-5211-0ad5841f33, RF-5211-6d02e2e719, RF-5211-76b81abb4c; niet in de queue: )
 - materiaal **steel**: 2 observations, 2 potentiële clusters, status `REQUIRES_HUMAN_STEPS`
   - materiaalgoedkeuring nodig voor DOC-012: PO-DOC-012-P015-L039
   - 1 cross-cluster paren zonder ACTIVE positieve beslissing (1 in de queue; families RF-5211-44666031e0; niet in de queue: )
@@ -145,37 +144,35 @@ Nieuwe observations (Testbatch 01):
 
 | familie | categorie | paren | status | documenten | bestaande beslissingen |
 |---|---|---|---|---|---|
-| `RF-5211-1e814339c4` | MATERIAL_EVIDENCE_ONE_SIDE | 4 | OPEN_NO_DECISION | DOC-009, DOC-010, DOC-012, DOC-013 | - |
-| `RF-5211-4c4e7cd188` | MATERIAL_EVIDENCE_ONE_SIDE | 2 | OPEN_NO_DECISION | DOC-001, DOC-012, DOC-013 | - |
+| `RF-5211-6d02e2e719` | EXACT_SAME_SEMANTIC_INPUT | 4 | OPEN_NO_DECISION | DOC-009, DOC-010, DOC-012, DOC-013 | - |
+| `RF-5211-0ad5841f33` | EXACT_SAME_SEMANTIC_INPUT | 2 | OPEN_NO_DECISION | DOC-001, DOC-012, DOC-013 | - |
 | `RF-5211-44666031e0` | OBJECT_TEXT_VARIANT | 1 | OPEN_NO_DECISION | DOC-010, DOC-012 | - |
-| `RF-5211-4e9a81167e` | EXACT_SAME_SEMANTIC_INPUT | 1 | OPEN_NO_DECISION | DOC-012, DOC-013 | - |
+| `RF-5211-76b81abb4c` | EXACT_SAME_SEMANTIC_INPUT | 1 | OPEN_NO_DECISION | DOC-012, DOC-013 | - |
 | `RF-5211-0fe1340601` | EXACT_SAME_SEMANTIC_INPUT | 1 | DECIDED_ACTIVE | DOC-001, DOC-009 | HDR-00018, HDR-00031 |
 | `RF-5211-4ad0a0fd5d` | QUANTITY_SCALE_DIFFERENCE | 1 | DECIDED_ACTIVE | DOC-009, DOC-010 | HDR-00020, HDR-00033 |
 | `RF-5211-8d4093291e` | QUANTITY_SCALE_DIFFERENCE | 1 | DECIDED_ACTIVE | DOC-001, DOC-010 | HDR-00019, HDR-00032 |
 
-#### RF-5211-1e814339c4 - MATERIAL_EVIDENCE_ONE_SIDE (4 paren)
+#### RF-5211-6d02e2e719 - EXACT_SAME_SEMANTIC_INPUT (4 paren)
 
 - kant 1: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal pvc
-- kant 2: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal onbekend
-- bewijs: MATERIAL_EVIDENCE_ONE_SIDE; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 4}
+- kant 2: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal pvc
+- bewijs: EXACT_SAME_SEMANTIC_INPUT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 4}
 - actieteksten: Vervangen hemelwaterafvoer pvc
 - hoeveelheden: 13.00, 57.00, 80.80, 170.20; prijspeilen: 1-4-2023, 1-4-2024, 14-7-2026, 21-4-2025
 - pair_ids: PAIR-00632, PAIR-00634, PAIR-00635, PAIR-00637
-- family_input_sha256: `b348844768448cd834b8e40e791b57340b0e2414727b76293c3b53fd0acfed76`
-- **LET OP**: een positief besluit over alle paren maakt volgens de bestaande regels het AVAILABLE kengetal KG-5211-replace-m1-pvc-67920b77 ongeldig (de groep wordt INSUFFICIENT_DATA ['INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW', 'MATERIAL_UNKNOWN']); vereist expliciete bevestiging bij het toepassen
-- blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+- family_input_sha256: `878abf5892bffb487bd75c677fa965a8b8fc5c338f85413799f75ca1416b1560`
+- **LET OP**: een positief besluit over alle paren maakt volgens de bestaande regels het AVAILABLE kengetal KG-5211-replace-m1-pvc-67920b77 ongeldig (de groep wordt INSUFFICIENT_DATA ['INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW']); vereist expliciete bevestiging bij het toepassen
 
-#### RF-5211-4c4e7cd188 - MATERIAL_EVIDENCE_ONE_SIDE (2 paren)
+#### RF-5211-0ad5841f33 - EXACT_SAME_SEMANTIC_INPUT (2 paren)
 
 - kant 1: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal pvc
-- kant 2: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal onbekend
-- bewijs: MATERIAL_EVIDENCE_ONE_SIDE; paarcaveats -
+- kant 2: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal pvc
+- bewijs: EXACT_SAME_SEMANTIC_INPUT; paarcaveats -
 - actieteksten: Vervangen hemelwaterafvoer pvc
 - hoeveelheden: 57.00, 80.80, 371.00; prijspeilen: 1-4-2024, 14-7-2026, None
 - pair_ids: PAIR-00583, PAIR-00585
-- family_input_sha256: `52b454a69d1f5edddf9d6256fd7b85d6d5d787986fc1d78931c55d0ea58477ea`
-- **LET OP**: een positief besluit over alle paren maakt volgens de bestaande regels het AVAILABLE kengetal KG-5211-replace-m1-pvc-67920b77 ongeldig (de groep wordt INSUFFICIENT_DATA ['INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW', 'MATERIAL_UNKNOWN']); vereist expliciete bevestiging bij het toepassen
-- blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+- family_input_sha256: `760513e2b18dc45a97c0c0180d910cb091ba1a6783579579647a5b393d77f127`
+- **LET OP**: een positief besluit over alle paren maakt volgens de bestaande regels het AVAILABLE kengetal KG-5211-replace-m1-pvc-67920b77 ongeldig (de groep wordt INSUFFICIENT_DATA ['INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW']); vereist expliciete bevestiging bij het toepassen
 
 #### RF-5211-44666031e0 - OBJECT_TEXT_VARIANT (1 paren)
 
@@ -188,16 +185,15 @@ Nieuwe observations (Testbatch 01):
 - family_input_sha256: `c4aad9ae11a91b4d93cbb853e1f91fbc75580cdc02717e7e6c978722ce2cc0dc`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
 
-#### RF-5211-4e9a81167e - EXACT_SAME_SEMANTIC_INPUT (1 paren)
+#### RF-5211-76b81abb4c - EXACT_SAME_SEMANTIC_INPUT (1 paren)
 
-- kant 1: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal onbekend
-- kant 2: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal onbekend
+- kant 1: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal pvc
+- kant 2: hemelwaterafvoer pvc / vervangen hemelwaterafvoer pvc / m1 / materiaal pvc
 - bewijs: EXACT_SAME_SEMANTIC_INPUT; paarcaveats {'PRICE_LEVEL_DIFFERENCE': 1}
 - actieteksten: Vervangen hemelwaterafvoer pvc
 - hoeveelheden: 57.00, 80.80; prijspeilen: 1-4-2024, 14-7-2026
 - pair_ids: PAIR-00641
-- family_input_sha256: `b2385d43bfe9bcda9e5612244e071c125695b0ef12634865dc315a9a236cd36e`
-- blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+- family_input_sha256: `172756d55b9720cb3271100af7644a8f4e8b6c8f966f3bbc76a09d203ad710ed`
 
 #### RF-5211-0fe1340601 - EXACT_SAME_SEMANTIC_INPUT (1 paren)
 

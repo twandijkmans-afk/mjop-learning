@@ -33,7 +33,12 @@ import record_relation_decision as rrd  # noqa: E402
 RELDEC = "RELDEC-DREL-005"
 RELDEC_STATE = os.path.join(PROJECT_ROOT, pl.STATE_DIR, f"{RELDEC}.json")
 KG5211 = "KG-5211-replace-m1-pvc-67920b77"
-PVC_FAMILY_WITH_KG_EFFECT = "RF-5211-1e814339c4"
+# de familie DOC-009/DOC-010 x DOC-012/DOC-013 (5211 pvc); de id hangt af van het materiaal (familiesleutel)
+PVC_FAMILY_PAIRS = ["PAIR-00632", "PAIR-00634", "PAIR-00635", "PAIR-00637"]
+
+
+def pvc_family_id(pkg):
+    return next(f["review_family_id"] for f in pkg["families"] if f["pair_ids"] == PVC_FAMILY_PAIRS)
 
 pytestmark = pytest.mark.skipif(not os.path.isfile(RELDEC_STATE), reason="relatiebesluit DOC-014 niet vastgelegd")
 
@@ -245,13 +250,14 @@ def test_kg5211_unchanged_and_positive_pvc_family_would_need_acknowledgement(pac
     kg = {k["kengetal_id"]: k for k in load("data", "kengetallen", "kengetallen_batch1.json")["kengetallen"]}
     assert kg[KG5211]["status"] == "AVAILABLE" and kg[KG5211]["value_display"] == "51.79"
     assert kg[KG5211]["source_cluster_count"] == 3
-    fam = next(f for f in package["families"] if f["review_family_id"] == PVC_FAMILY_WITH_KG_EFFECT)
+    fam = next(f for f in package["families"] if f["review_family_id"] == pvc_family_id(package))
     eff = next(c for c in fam["allowed_human_choices"] if c["choice"] == "COMPARABLE_WITH_CAVEATS")["kengetal_effect"]
     assert eff["available_kengetallen_lost"] == [KG5211] and eff["acknowledgement_required"] == [KG5211]
     g = next(g for g in package["candidate_groups"] if g["candidate_group"] == "5211|replace|m1")
     sem = g["pvc_review"]["new_observations_by_semantics"]
-    assert {o["document_id"] for o in sem["PVC_BY_ELEMENT_TEXT_PENDING_MATERIAL_APPROVAL"]} == {"DOC-012", "DOC-013"}
-    assert "PVC_EXACT_SEMANTICS" not in sem
+    # na het menselijke materiaalbesluit MATDEC-00001 hebben DOC-012/DOC-013 exact de pvc-semantiek
+    assert {o["document_id"] for o in sem["PVC_EXACT_SEMANTICS"]} == {"DOC-012", "DOC-013"}
+    assert "PVC_BY_ELEMENT_TEXT_PENDING_MATERIAL_APPROVAL" not in sem
 
 
 # ------------------------------------------------------------------ familiebesluit toepassen
@@ -344,7 +350,7 @@ def test_input_change_invalidates_family_decision(proj):
 
 
 def test_kg5211_only_changes_after_explicit_acknowledged_decision(proj):
-    d, fam = decision_for(proj, PVC_FAMILY_WITH_KG_EFFECT)
+    d, fam = decision_for(proj, pvc_family_id(json.load(open(os.path.join(proj, crv.OUT_JSON), encoding="utf-8"))))
     with pytest.raises(afd.FamilyDecisionError, match="kengetal-effect"):
         afd.apply(proj, d)
     kg = json.load(open(os.path.join(proj, pr.KG_PATH), encoding="utf-8"))
