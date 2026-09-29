@@ -2634,68 +2634,42 @@
       ]
     },
     {
-      "active_decisions": [],
+      "active_decisions": [
+        "HDR-00043",
+        "HDR-00044",
+        "HDR-00045"
+      ],
       "candidate_group": "4711|replace|m1",
-      "existing_kengetallen": [],
+      "existing_kengetallen": [
+        {
+          "decision_ids": [
+            "HDR-00043",
+            "HDR-00044",
+            "HDR-00045"
+          ],
+          "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+          "material": {
+            "normalized": "aluminium",
+            "original": "aluminium"
+          },
+          "observation_ids": [
+            "PO-DOC-008-P009-L045",
+            "PO-DOC-011-P021-L083",
+            "PO-DOC-012-P014-L107"
+          ],
+          "source_cluster_count": 3,
+          "status": "AVAILABLE",
+          "value_display": "37.47"
+        }
+      ],
       "independent_input_observations": 8,
       "knowledge_candidate_requirements": [
         {
-          "existing_available_kengetal": [],
-          "material": "aluminium",
-          "missing_steps": [
-            {
-              "documents": [
-                "DOC-011",
-                "DOC-012"
-              ],
-              "observation_ids": [
-                "PO-DOC-011-P021-L083",
-                "PO-DOC-012-P014-L107"
-              ],
-              "step": "MATERIAL_APPROVAL",
-              "what": "Materiaal 'aluminium' is alleen afleidbaar uit de elementtekst (bestaande tekstregel); dat is voor deze documenten niet goedgekeurd (MATERIAL_FROM_TEXT-scope). Een mens moet dit goedkeuren of het materiaal via het verified-element vastleggen."
-            },
-            {
-              "count": 3,
-              "pairs": [
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-008-P009-L045",
-                    "PO-DOC-011-P021-L083"
-                  ],
-                  "pair_id": "PAIR-00557",
-                  "review_family_id": "RF-4711-72afa054e3",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-008-P009-L045",
-                    "PO-DOC-012-P014-L107"
-                  ],
-                  "pair_id": "PAIR-00558",
-                  "review_family_id": "RF-4711-72afa054e3",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                },
-                {
-                  "current_record": "NO_DECISION",
-                  "in_review_queue": true,
-                  "observation_ids": [
-                    "PO-DOC-011-P021-L083",
-                    "PO-DOC-012-P014-L107"
-                  ],
-                  "pair_id": "PAIR-00561",
-                  "review_family_id": "RF-4711-899cd9d239",
-                  "system_class": "COMPARABLE_WITH_CAVEATS"
-                }
-              ],
-              "step": "CROSS_CLUSTER_HUMAN_DECISIONS",
-              "what": "Elke combinatie tussen verschillende source clusters heeft een ACTIVE COMPARABLE/COMPARABLE_WITH_CAVEATS nodig (regel 2, geen transitiviteit)."
-            }
+          "existing_available_kengetal": [
+            "KG-4711-replace-m1-aluminium-d463b0a2"
           ],
+          "material": "aluminium",
+          "missing_steps": [],
           "note": "Er is hier niets berekend. Pas na deze menselijke stappen bepaalt build_kengetallen volgens de bestaande regels of er een (nieuwe versie van een) kengetal ontstaat.",
           "observation_ids": [
             "PO-DOC-008-P009-L045",
@@ -2708,7 +2682,7 @@
             "SC-DOC-011",
             "SC-DOC-012"
           ],
-          "status": "REQUIRES_HUMAN_STEPS"
+          "status": "READY_FOR_KENGETAL_BUILD"
         },
         {
           "existing_available_kengetal": [],
@@ -2763,7 +2737,9 @@
       ],
       "material_evidence": {
         "KNOWN:aluminium": [
-          "PO-DOC-008-P009-L045"
+          "PO-DOC-008-P009-L045",
+          "PO-DOC-011-P021-L083",
+          "PO-DOC-012-P014-L107"
         ],
         "KNOWN:zinc": [
           "PO-DOC-005-P012-L083"
@@ -2772,10 +2748,6 @@
           "PO-DOC-007-P018-L015",
           "PO-DOC-007-P018-L033",
           "PO-DOC-012-P014-L111"
-        ],
-        "TEXT_EVIDENCE_PENDING_APPROVAL:aluminium": [
-          "PO-DOC-011-P021-L083",
-          "PO-DOC-012-P014-L107"
         ],
         "TEXT_EVIDENCE_PENDING_APPROVAL:zinc": [
           "PO-DOC-013-P018-L087"
@@ -2795,8 +2767,8 @@
       "pairs": {
         "by_class": {
           "COMPARABLE_WITH_CAVEATS": 4,
-          "NOT_COMPARABLE": 1,
-          "UNKNOWN": 21
+          "NOT_COMPARABLE": 3,
+          "UNKNOWN": 19
         },
         "in_review_queue": 4,
         "total": 26
@@ -2806,20 +2778,20 @@
         {
           "current_status": "OPEN_NO_DECISION",
           "evidence_category": "MATERIAL_EVIDENCE_ONE_SIDE",
-          "pairs": 2,
-          "review_family_id": "RF-4711-72afa054e3"
-        },
-        {
-          "current_status": "OPEN_NO_DECISION",
-          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-          "pairs": 1,
-          "review_family_id": "RF-4711-899cd9d239"
-        },
-        {
-          "current_status": "OPEN_NO_DECISION",
-          "evidence_category": "MATERIAL_EVIDENCE_ONE_SIDE",
           "pairs": 1,
           "review_family_id": "RF-4711-b9d21ea6f1"
+        },
+        {
+          "current_status": "DECIDED_ACTIVE",
+          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+          "pairs": 2,
+          "review_family_id": "RF-4711-17297bd2b3"
+        },
+        {
+          "current_status": "DECIDED_ACTIVE",
+          "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+          "pairs": 1,
+          "review_family_id": "RF-4711-0f1822792b"
         }
       ],
       "source_clusters_all": [
@@ -11806,618 +11778,6 @@
       "allowed_human_choices": [
         {
           "choice": "COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Een kengetal blijft daarna nog geblokkeerd door: MATERIAL_UNKNOWN (12 (materiaal)).",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
-                  "MATERIAL_UNKNOWN"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
-                "observations": 3,
-                "source_cluster_count": 3,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar zonder voorbehoud."
-        },
-        {
-          "choice": "COMPARABLE_WITH_CAVEATS",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Een kengetal blijft daarna nog geblokkeerd door: MATERIAL_UNKNOWN (12 (materiaal)).",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
-                  "MATERIAL_UNKNOWN"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
-                "observations": 3,
-                "source_cluster_count": 3,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
-          "suggested_caveats_from_system": []
-        },
-        {
-          "choice": "NOT_COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet vergelijkbaar."
-        },
-        {
-          "choice": "UNKNOWN",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet te beoordelen met het beschikbare bewijs."
-        }
-      ],
-      "candidate_group": "4711|replace|m1",
-      "current_status": "OPEN_NO_DECISION",
-      "differences": {
-        "observation_caveats": {
-          "MATERIAL_UNKNOWN": 2,
-          "PRICE_LEVEL_ABSENT": 3
-        },
-        "pair_caveats": {},
-        "price_levels": [
-          "1-4-2024",
-          "None"
-        ],
-        "within_family_only": [
-          "document",
-          "source_cluster",
-          "quantity",
-          "price",
-          "price_level"
-        ]
-      },
-      "document_ids": [
-        "DOC-008",
-        "DOC-011",
-        "DOC-012"
-      ],
-      "evidence": {
-        "action_texts": [
-          "Vervangen daktrim aluminium"
-        ],
-        "derived_price_per_execution": {
-          "PO-DOC-008-P009-L045": "39.06",
-          "PO-DOC-011-P021-L083": "33.88",
-          "PO-DOC-012-P014-L107": "37.47"
-        },
-        "materials": [
-          "None",
-          "aluminium"
-        ],
-        "object_descriptions": [
-          "Dakrandafwerking aluminium trim"
-        ],
-        "quantities": [
-          "119.60",
-          "152.54",
-          "250.20"
-        ],
-        "sides": [
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": "aluminium",
-            "material_source": "verified_element",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": null,
-            "material_source": null,
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "units": [
-          "m1"
-        ]
-      },
-      "evidence_category": "MATERIAL_EVIDENCE_ONE_SIDE",
-      "evidence_flags": [
-        "MATERIAL_EVIDENCE_ONE_SIDE"
-      ],
-      "existing_decisions": [],
-      "family_input_sha256": "35bdc7228c0e3ab30102c80871d56581445fdf2884574bb53e29f459adb71c16",
-      "family_key": {
-        "candidate_key": [
-          "4711",
-          "replace",
-          "m1"
-        ],
-        "facade_side_words_differ": false,
-        "quantity_scale_difference": false,
-        "sides": [
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": "aluminium",
-            "material_source": "verified_element",
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": null,
-            "material_source": null,
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "source_relation_risk": false
-      },
-      "kengetal_blockers_even_after_positive_decision": [
-        {
-          "blocker": "MATERIAL_UNKNOWN",
-          "observation_ids": [
-            "PO-DOC-011-P021-L083",
-            "PO-DOC-012-P014-L107"
-          ],
-          "rule": "12 (materiaal)"
-        }
-      ],
-      "pair_ids": [
-        "PAIR-00557",
-        "PAIR-00558"
-      ],
-      "pair_status_counts": {
-        "NO_DECISION": 2
-      },
-      "pairs": [
-        {
-          "action_texts": [
-            "Vervangen daktrim aluminium",
-            "Vervangen daktrim aluminium"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": null,
-            "object_description": "equal",
-            "price_level_year": [
-              null,
-              null
-            ],
-            "quantity_ratio": "2.09",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "39.06",
-            "33.88"
-          ],
-          "document_ids": [
-            "DOC-008",
-            "DOC-011"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Dakrandafwerking aluminium trim",
-            "Dakrandafwerking aluminium trim"
-          ],
-          "observation_caveats": {
-            "a": [
-              "PRICE_LEVEL_ABSENT"
-            ],
-            "b": [
-              "MATERIAL_UNKNOWN",
-              "PRICE_LEVEL_ABSENT"
-            ]
-          },
-          "observation_ids": [
-            "PO-DOC-008-P009-L045",
-            "PO-DOC-011-P021-L083"
-          ],
-          "pair_caveats": [],
-          "pair_id": "PAIR-00557",
-          "price_level_dates": [
-            null,
-            null
-          ],
-          "quantities": [
-            "119.60",
-            "250.20"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-008+DOC-009",
-            "SC-DOC-011"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        },
-        {
-          "action_texts": [
-            "Vervangen daktrim aluminium",
-            "Vervangen daktrim aluminium"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": null,
-            "object_description": "equal",
-            "price_level_year": [
-              null,
-              2024
-            ],
-            "quantity_ratio": "1.28",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "39.06",
-            "37.47"
-          ],
-          "document_ids": [
-            "DOC-008",
-            "DOC-012"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Dakrandafwerking aluminium trim",
-            "Dakrandafwerking aluminium trim"
-          ],
-          "observation_caveats": {
-            "a": [
-              "PRICE_LEVEL_ABSENT"
-            ],
-            "b": [
-              "MATERIAL_UNKNOWN"
-            ]
-          },
-          "observation_ids": [
-            "PO-DOC-008-P009-L045",
-            "PO-DOC-012-P014-L107"
-          ],
-          "pair_caveats": [],
-          "pair_id": "PAIR-00558",
-          "price_level_dates": [
-            null,
-            "1-4-2024"
-          ],
-          "quantities": [
-            "119.60",
-            "152.54"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-008+DOC-009",
-            "SC-DOC-012"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        }
-      ],
-      "review_family_id": "RF-4711-72afa054e3",
-      "source_clusters": [
-        "SC-DOC-008+DOC-009",
-        "SC-DOC-011",
-        "SC-DOC-012"
-      ]
-    },
-    {
-      "allowed_human_choices": [
-        {
-          "choice": "COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Een kengetal blijft daarna nog geblokkeerd door: MATERIAL_UNKNOWN (12 (materiaal)).",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "FEWER_THAN_3_SOURCE_CLUSTERS",
-                  "MATERIAL_UNKNOWN"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-unknown-b488c178",
-                "observations": 2,
-                "source_cluster_count": 2,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar zonder voorbehoud."
-        },
-        {
-          "choice": "COMPARABLE_WITH_CAVEATS",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Een kengetal blijft daarna nog geblokkeerd door: MATERIAL_UNKNOWN (12 (materiaal)).",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": [
-              {
-                "insufficient_data_reasons": [
-                  "FEWER_THAN_3_SOURCE_CLUSTERS",
-                  "MATERIAL_UNKNOWN"
-                ],
-                "kengetal_id": "KG-4711-replace-m1-unknown-b488c178",
-                "observations": 2,
-                "source_cluster_count": 2,
-                "status": "INSUFFICIENT_DATA"
-              }
-            ]
-          },
-          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
-          "suggested_caveats_from_system": []
-        },
-        {
-          "choice": "NOT_COMPARABLE",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet vergelijkbaar."
-        },
-        {
-          "choice": "UNKNOWN",
-          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
-          "kengetal_effect": {
-            "acknowledgement_required": [],
-            "available_kengetallen_lost": [],
-            "new_available_kengetallen": [],
-            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
-            "removed_or_changed": [],
-            "resulting_groups": []
-          },
-          "meaning": "Niet te beoordelen met het beschikbare bewijs."
-        }
-      ],
-      "candidate_group": "4711|replace|m1",
-      "current_status": "OPEN_NO_DECISION",
-      "differences": {
-        "observation_caveats": {
-          "MATERIAL_UNKNOWN": 2,
-          "PRICE_LEVEL_ABSENT": 1
-        },
-        "pair_caveats": {},
-        "price_levels": [
-          "1-4-2024",
-          "None"
-        ],
-        "within_family_only": [
-          "document",
-          "source_cluster",
-          "quantity",
-          "price",
-          "price_level"
-        ]
-      },
-      "document_ids": [
-        "DOC-011",
-        "DOC-012"
-      ],
-      "evidence": {
-        "action_texts": [
-          "Vervangen daktrim aluminium"
-        ],
-        "derived_price_per_execution": {
-          "PO-DOC-011-P021-L083": "33.88",
-          "PO-DOC-012-P014-L107": "37.47"
-        },
-        "materials": [
-          "None"
-        ],
-        "object_descriptions": [
-          "Dakrandafwerking aluminium trim"
-        ],
-        "quantities": [
-          "152.54",
-          "250.20"
-        ],
-        "sides": [
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": null,
-            "material_source": null,
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": null,
-            "material_source": null,
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "units": [
-          "m1"
-        ]
-      },
-      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
-      "evidence_flags": [
-        "EXACT_SAME_SEMANTIC_INPUT"
-      ],
-      "existing_decisions": [],
-      "family_input_sha256": "ab9072e8776de299ae1d3fdb5fbb776566743c2bf4f1dd41aa77333e3f745b2c",
-      "family_key": {
-        "candidate_key": [
-          "4711",
-          "replace",
-          "m1"
-        ],
-        "facade_side_words_differ": false,
-        "quantity_scale_difference": false,
-        "sides": [
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": null,
-            "material_source": null,
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          },
-          {
-            "action_text": "vervangen daktrim aluminium",
-            "element_description": "dakrandafwerking aluminium trim",
-            "material": null,
-            "material_source": null,
-            "semantic_caveats": [],
-            "unit_original": "m1"
-          }
-        ],
-        "source_relation_risk": false
-      },
-      "kengetal_blockers_even_after_positive_decision": [
-        {
-          "blocker": "MATERIAL_UNKNOWN",
-          "observation_ids": [
-            "PO-DOC-011-P021-L083",
-            "PO-DOC-012-P014-L107"
-          ],
-          "rule": "12 (materiaal)"
-        }
-      ],
-      "pair_ids": [
-        "PAIR-00561"
-      ],
-      "pair_status_counts": {
-        "NO_DECISION": 1
-      },
-      "pairs": [
-        {
-          "action_texts": [
-            "Vervangen daktrim aluminium",
-            "Vervangen daktrim aluminium"
-          ],
-          "checks": {
-            "action_text": "equal",
-            "material": null,
-            "object_description": "equal",
-            "price_level_year": [
-              null,
-              2024
-            ],
-            "quantity_ratio": "1.64",
-            "vat_basis": [
-              "inclusive",
-              "inclusive"
-            ]
-          },
-          "derived_price_per_execution": [
-            "33.88",
-            "37.47"
-          ],
-          "document_ids": [
-            "DOC-011",
-            "DOC-012"
-          ],
-          "existing_decisions": [],
-          "facade_side_words": [
-            [],
-            []
-          ],
-          "hard_violations": [],
-          "object_descriptions": [
-            "Dakrandafwerking aluminium trim",
-            "Dakrandafwerking aluminium trim"
-          ],
-          "observation_caveats": {
-            "a": [
-              "MATERIAL_UNKNOWN",
-              "PRICE_LEVEL_ABSENT"
-            ],
-            "b": [
-              "MATERIAL_UNKNOWN"
-            ]
-          },
-          "observation_ids": [
-            "PO-DOC-011-P021-L083",
-            "PO-DOC-012-P014-L107"
-          ],
-          "pair_caveats": [],
-          "pair_id": "PAIR-00561",
-          "price_level_dates": [
-            null,
-            "1-4-2024"
-          ],
-          "quantities": [
-            "250.20",
-            "152.54"
-          ],
-          "relation_risk": [],
-          "source_clusters": [
-            "SC-DOC-011",
-            "SC-DOC-012"
-          ],
-          "status": "NO_DECISION",
-          "system_class": "COMPARABLE_WITH_CAVEATS",
-          "unknown_reasons": []
-        }
-      ],
-      "review_family_id": "RF-4711-899cd9d239",
-      "source_clusters": [
-        "SC-DOC-011",
-        "SC-DOC-012"
-      ]
-    },
-    {
-      "allowed_human_choices": [
-        {
-          "choice": "COMPARABLE",
           "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Een kengetal blijft daarna nog geblokkeerd door: MATERIAL_UNKNOWN (12 (materiaal)).",
           "kengetal_effect": {
             "acknowledgement_required": [],
@@ -12677,6 +12037,665 @@
       "source_clusters": [
         "SC-DOC-005+DOC-006",
         "SC-DOC-013"
+      ]
+    },
+    {
+      "allowed_human_choices": [
+        {
+          "choice": "COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00043', 'HDR-00044'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar zonder voorbehoud."
+        },
+        {
+          "choice": "COMPARABLE_WITH_CAVEATS",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00043', 'HDR-00044'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
+          "suggested_caveats_from_system": []
+        },
+        {
+          "choice": "NOT_COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00043', 'HDR-00044'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "available_kengetallen_lost": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "observations": 3,
+                "source_cluster_count": 3,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "FEWER_THAN_3_SOURCE_CLUSTERS"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-b488c178",
+                "observations": 2,
+                "source_cluster_count": 2,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet vergelijkbaar."
+        },
+        {
+          "choice": "UNKNOWN",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (2), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00043', 'HDR-00044'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "available_kengetallen_lost": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "observations": 3,
+                "source_cluster_count": 3,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "FEWER_THAN_3_SOURCE_CLUSTERS"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-b488c178",
+                "observations": 2,
+                "source_cluster_count": 2,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet te beoordelen met het beschikbare bewijs."
+        }
+      ],
+      "candidate_group": "4711|replace|m1",
+      "current_status": "DECIDED_ACTIVE",
+      "differences": {
+        "observation_caveats": {
+          "PRICE_LEVEL_ABSENT": 3
+        },
+        "pair_caveats": {},
+        "price_levels": [
+          "1-4-2024",
+          "None"
+        ],
+        "within_family_only": [
+          "document",
+          "source_cluster",
+          "quantity",
+          "price",
+          "price_level"
+        ]
+      },
+      "document_ids": [
+        "DOC-008",
+        "DOC-011",
+        "DOC-012"
+      ],
+      "evidence": {
+        "action_texts": [
+          "Vervangen daktrim aluminium"
+        ],
+        "derived_price_per_execution": {
+          "PO-DOC-008-P009-L045": "39.06",
+          "PO-DOC-011-P021-L083": "33.88",
+          "PO-DOC-012-P014-L107": "37.47"
+        },
+        "materials": [
+          "aluminium"
+        ],
+        "object_descriptions": [
+          "Dakrandafwerking aluminium trim"
+        ],
+        "quantities": [
+          "119.60",
+          "152.54",
+          "250.20"
+        ],
+        "sides": [
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "verified_element",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "units": [
+          "m1"
+        ]
+      },
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "existing_decisions": [
+        "HDR-00043",
+        "HDR-00044"
+      ],
+      "family_input_sha256": "3129fba5ea9b8b4229e8bae850c3aa8a39550974ffc8706f9a7681671b568f72",
+      "family_key": {
+        "candidate_key": [
+          "4711",
+          "replace",
+          "m1"
+        ],
+        "facade_side_words_differ": false,
+        "quantity_scale_difference": false,
+        "sides": [
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "verified_element",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "source_relation_risk": false
+      },
+      "kengetal_blockers_even_after_positive_decision": [],
+      "pair_ids": [
+        "PAIR-00557",
+        "PAIR-00558"
+      ],
+      "pair_status_counts": {
+        "ACTIVE_DECISION": 2
+      },
+      "pairs": [
+        {
+          "action_texts": [
+            "Vervangen daktrim aluminium",
+            "Vervangen daktrim aluminium"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              null,
+              null
+            ],
+            "quantity_ratio": "2.09",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "39.06",
+            "33.88"
+          ],
+          "document_ids": [
+            "DOC-008",
+            "DOC-011"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00043",
+              "reviewed_at": "2026-09-29T12:17:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Dakrandafwerking aluminium trim",
+            "Dakrandafwerking aluminium trim"
+          ],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": [
+              "PRICE_LEVEL_ABSENT"
+            ]
+          },
+          "observation_ids": [
+            "PO-DOC-008-P009-L045",
+            "PO-DOC-011-P021-L083"
+          ],
+          "pair_caveats": [],
+          "pair_id": "PAIR-00557",
+          "price_level_dates": [
+            null,
+            null
+          ],
+          "quantities": [
+            "119.60",
+            "250.20"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-011"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        },
+        {
+          "action_texts": [
+            "Vervangen daktrim aluminium",
+            "Vervangen daktrim aluminium"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              null,
+              2024
+            ],
+            "quantity_ratio": "1.28",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "39.06",
+            "37.47"
+          ],
+          "document_ids": [
+            "DOC-008",
+            "DOC-012"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00044",
+              "reviewed_at": "2026-09-29T12:17:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Dakrandafwerking aluminium trim",
+            "Dakrandafwerking aluminium trim"
+          ],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-008-P009-L045",
+            "PO-DOC-012-P014-L107"
+          ],
+          "pair_caveats": [],
+          "pair_id": "PAIR-00558",
+          "price_level_dates": [
+            null,
+            "1-4-2024"
+          ],
+          "quantities": [
+            "119.60",
+            "152.54"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-008+DOC-009",
+            "SC-DOC-012"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        }
+      ],
+      "review_family_id": "RF-4711-17297bd2b3",
+      "source_clusters": [
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-011",
+        "SC-DOC-012"
+      ]
+    },
+    {
+      "allowed_human_choices": [
+        {
+          "choice": "COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00045'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar zonder voorbehoud."
+        },
+        {
+          "choice": "COMPARABLE_WITH_CAVEATS",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00045'] worden SUPERSEDED. Telt voor de cross-cluster-reviewregel (kengetallen regel 2) van groep 4711|replace|m1. Of er een kengetal ontstaat bepaalt build_kengetallen volgens de bestaande regels (o.a. volledige cross-cluster review en >= 3 source clusters).",
+          "kengetal_effect": {
+            "acknowledgement_required": [],
+            "available_kengetallen_lost": [],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [],
+            "resulting_groups": []
+          },
+          "meaning": "Vergelijkbaar, met de gekozen voorbehouden (decision_caveats).",
+          "suggested_caveats_from_system": []
+        },
+        {
+          "choice": "NOT_COMPARABLE",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00045'] worden SUPERSEDED. Binnen een kandidaatgroep met beide observations -> INSUFFICIENT_DATA (NOT_COMPARABLE_WITHIN_GROUP); anders wordt de buitenstaander uitgesloten.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "available_kengetallen_lost": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "observations": 3,
+                "source_cluster_count": 3,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW",
+                  "NOT_COMPARABLE_WITHIN_GROUP"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "observations": 3,
+                "source_cluster_count": 3,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet vergelijkbaar."
+        },
+        {
+          "choice": "UNKNOWN",
+          "effect": "Eén nieuw ACTIVE HDR-record per opgesomd paar (1), met verwijzing naar dit familiebesluit; bestaande records ['HDR-00045'] worden SUPERSEDED. Telt niet als positieve beslissing; de paren blijven een ontbrekende review.",
+          "kengetal_effect": {
+            "acknowledgement_required": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "available_kengetallen_lost": [
+              "KG-4711-replace-m1-aluminium-d463b0a2"
+            ],
+            "new_available_kengetallen": [],
+            "note": "Simulatie met de bestaande kengetalregels; geen waarden. Een AVAILABLE kengetal dat verdwijnt of nieuw ontstaat moet bij het toepassen expliciet worden bevestigd (acknowledged_kengetal_effects).",
+            "removed_or_changed": [
+              {
+                "insufficient_data_reasons": [],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "observations": 3,
+                "source_cluster_count": 3,
+                "status": "AVAILABLE"
+              }
+            ],
+            "resulting_groups": [
+              {
+                "insufficient_data_reasons": [
+                  "INCOMPLETE_CROSS_CLUSTER_HUMAN_REVIEW"
+                ],
+                "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+                "observations": 3,
+                "source_cluster_count": 3,
+                "status": "INSUFFICIENT_DATA"
+              }
+            ]
+          },
+          "meaning": "Niet te beoordelen met het beschikbare bewijs."
+        }
+      ],
+      "candidate_group": "4711|replace|m1",
+      "current_status": "DECIDED_ACTIVE",
+      "differences": {
+        "observation_caveats": {
+          "PRICE_LEVEL_ABSENT": 1
+        },
+        "pair_caveats": {},
+        "price_levels": [
+          "1-4-2024",
+          "None"
+        ],
+        "within_family_only": [
+          "document",
+          "source_cluster",
+          "quantity",
+          "price",
+          "price_level"
+        ]
+      },
+      "document_ids": [
+        "DOC-011",
+        "DOC-012"
+      ],
+      "evidence": {
+        "action_texts": [
+          "Vervangen daktrim aluminium"
+        ],
+        "derived_price_per_execution": {
+          "PO-DOC-011-P021-L083": "33.88",
+          "PO-DOC-012-P014-L107": "37.47"
+        },
+        "materials": [
+          "aluminium"
+        ],
+        "object_descriptions": [
+          "Dakrandafwerking aluminium trim"
+        ],
+        "quantities": [
+          "152.54",
+          "250.20"
+        ],
+        "sides": [
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "units": [
+          "m1"
+        ]
+      },
+      "evidence_category": "EXACT_SAME_SEMANTIC_INPUT",
+      "evidence_flags": [
+        "EXACT_SAME_SEMANTIC_INPUT"
+      ],
+      "existing_decisions": [
+        "HDR-00045"
+      ],
+      "family_input_sha256": "f76241a8216b77ad995819c550fb2e498a19160634b31582f04b9c995e2c377e",
+      "family_key": {
+        "candidate_key": [
+          "4711",
+          "replace",
+          "m1"
+        ],
+        "facade_side_words_differ": false,
+        "quantity_scale_difference": false,
+        "sides": [
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          },
+          {
+            "action_text": "vervangen daktrim aluminium",
+            "element_description": "dakrandafwerking aluminium trim",
+            "material": "aluminium",
+            "material_source": "human_material_decision",
+            "semantic_caveats": [],
+            "unit_original": "m1"
+          }
+        ],
+        "source_relation_risk": false
+      },
+      "kengetal_blockers_even_after_positive_decision": [],
+      "pair_ids": [
+        "PAIR-00561"
+      ],
+      "pair_status_counts": {
+        "ACTIVE_DECISION": 1
+      },
+      "pairs": [
+        {
+          "action_texts": [
+            "Vervangen daktrim aluminium",
+            "Vervangen daktrim aluminium"
+          ],
+          "checks": {
+            "action_text": "equal",
+            "material": "equal",
+            "object_description": "equal",
+            "price_level_year": [
+              null,
+              2024
+            ],
+            "quantity_ratio": "1.64",
+            "vat_basis": [
+              "inclusive",
+              "inclusive"
+            ]
+          },
+          "derived_price_per_execution": [
+            "33.88",
+            "37.47"
+          ],
+          "document_ids": [
+            "DOC-011",
+            "DOC-012"
+          ],
+          "existing_decisions": [
+            {
+              "decision": "COMPARABLE_WITH_CAVEATS",
+              "decision_id": "HDR-00045",
+              "reviewed_at": "2026-09-29T12:17:17Z",
+              "status": "ACTIVE",
+              "supersedes": null
+            }
+          ],
+          "facade_side_words": [
+            [],
+            []
+          ],
+          "hard_violations": [],
+          "object_descriptions": [
+            "Dakrandafwerking aluminium trim",
+            "Dakrandafwerking aluminium trim"
+          ],
+          "observation_caveats": {
+            "a": [
+              "PRICE_LEVEL_ABSENT"
+            ],
+            "b": []
+          },
+          "observation_ids": [
+            "PO-DOC-011-P021-L083",
+            "PO-DOC-012-P014-L107"
+          ],
+          "pair_caveats": [],
+          "pair_id": "PAIR-00561",
+          "price_level_dates": [
+            null,
+            "1-4-2024"
+          ],
+          "quantities": [
+            "250.20",
+            "152.54"
+          ],
+          "relation_risk": [],
+          "source_clusters": [
+            "SC-DOC-011",
+            "SC-DOC-012"
+          ],
+          "status": "ACTIVE_DECISION",
+          "system_class": "COMPARABLE_WITH_CAVEATS",
+          "unknown_reasons": []
+        }
+      ],
+      "review_family_id": "RF-4711-0f1822792b",
+      "source_clusters": [
+        "SC-DOC-011",
+        "SC-DOC-012"
       ]
     },
     {
@@ -17917,21 +17936,21 @@
   },
   "inputs": {
     "comparability_rules_version": "comparability_rules_v1",
-    "comparability_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
+    "comparability_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
     "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
-    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
+    "human_decisions_sha256": "6e1a34e4040c637b45d213bc8c66b5d19fa7ea93de24b9d5398071cbced55f63",
     "kengetallen_rules_version": "kengetallen_rules_v1",
-    "kengetallen_sha256": "575d3c4f8454c59c8a49f1043a569244e0586bf5a8af00fe0a507bb31fe84294",
-    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692"
+    "kengetallen_sha256": "e8b9b2260fb681da242817e51dfdb5ca3b1ab3ec1e3e5dcd6b56d3cc71761897",
+    "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
   },
   "note": "Reviewpakket, geen beslissing. Er worden geen ACTIVE decisions, geen COMPARABLE/NOT_COMPARABLE, geen scores en geen kengetallen aangemaakt. Een familiebesluit wordt alleen toegepast via scripts/apply_family_decision.py op de exact opgesomde pair_ids, gebonden aan family_input_sha256.",
   "queue": {
     "by_pair_status": {
-      "ACTIVE_DECISION": 12,
-      "NO_DECISION": 47,
+      "ACTIVE_DECISION": 15,
+      "NO_DECISION": 44,
       "PREVIOUS_DECISION_REVIEW_REQUIRED": 17
     },
-    "open_pairs": 64,
+    "open_pairs": 61,
     "pairs": 76,
     "selection": [
       "systeemklasse COMPARABLE_WITH_CAVEATS",
@@ -17944,24 +17963,24 @@
   "summary": {
     "families_by_category": {
       "ACTION_TEXT_VARIANT": 4,
-      "EXACT_SAME_SEMANTIC_INPUT": 7,
-      "MATERIAL_EVIDENCE_ONE_SIDE": 5,
+      "EXACT_SAME_SEMANTIC_INPUT": 8,
+      "MATERIAL_EVIDENCE_ONE_SIDE": 4,
       "OBJECT_TEXT_VARIANT": 21,
       "OTHER_REVIEW_REQUIRED": 1,
       "QUANTITY_SCALE_DIFFERENCE": 5
     },
     "families_by_status": {
-      "DECIDED_ACTIVE": 8,
+      "DECIDED_ACTIVE": 10,
       "OPEN_MIXED": 2,
-      "OPEN_NO_DECISION": 25,
+      "OPEN_NO_DECISION": 23,
       "OPEN_PREVIOUS_DECISION_REVIEW_REQUIRED": 8
     },
     "multi_pair_families": 17,
-    "open_review_families": 35,
+    "open_review_families": 33,
     "pairs_by_category": {
       "ACTION_TEXT_VARIANT": 16,
-      "EXACT_SAME_SEMANTIC_INPUT": 13,
-      "MATERIAL_EVIDENCE_ONE_SIDE": 7,
+      "EXACT_SAME_SEMANTIC_INPUT": 15,
+      "MATERIAL_EVIDENCE_ONE_SIDE": 5,
       "OBJECT_TEXT_VARIANT": 34,
       "OTHER_REVIEW_REQUIRED": 1,
       "QUANTITY_SCALE_DIFFERENCE": 5

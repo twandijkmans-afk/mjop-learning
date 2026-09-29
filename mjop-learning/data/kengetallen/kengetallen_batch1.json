@@ -2,29 +2,358 @@
   "rules_version": "kengetallen_rules_v1",
   "rules_document": "docs/kengetallen_rules_v1.md",
   "comparability_rules_version": "comparability_rules_v1",
-  "generated_at": "2026-09-29T11:33:34Z",
+  "generated_at": "2026-09-29T12:17:28Z",
   "inputs": {
-    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692",
-    "comparability_output_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
-    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
+    "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53",
+    "comparability_output_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
+    "human_decisions_sha256": "6e1a34e4040c637b45d213bc8c66b5d19fa7ea93de24b9d5398071cbced55f63",
     "rules_document_sha256": "bc87f7549dad98e2688e508f8a84ace43d49205ac11654c2f5a9e7e2d0d56a11"
   },
   "supersedes": {
-    "file": "data/kengetallen/history/kengetallen_batch1.cda3c700e1c9.json",
-    "sha256": "cda3c700e1c91f69a2652715864988fdc42f08660d68ddd455cc8a7d2faae474"
+    "file": "data/kengetallen/history/kengetallen_batch1.54918fbe005c.json",
+    "sha256": "54918fbe005c7fc6630c461a686c24b2c09f0ed8d89374411d178682e531cb4b"
   },
   "note": "Kengetallen v1: mediaan van source-cluster contributions van volledig menselijk beoordeelde vergelijkbare groepen met minimaal 3 source clusters. Historisch, niet geïndexeerd, geen marktprijs of normprijs. Geen weging, score of confidence.",
   "summary": {
-    "candidate_groups": 1,
+    "candidate_groups": 2,
     "status": {
-      "AVAILABLE": 1
+      "AVAILABLE": 2
     },
     "insufficient_data_reasons": {},
-    "active_human_decisions": 12,
-    "human_positive_decisions": 10,
+    "active_human_decisions": 15,
+    "human_positive_decisions": 13,
     "human_not_comparable_decisions": 2
   },
   "kengetallen": [
+    {
+      "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+      "candidate_key": [
+        "4711",
+        "replace",
+        "m1"
+      ],
+      "element_code": "4711",
+      "action": "replace",
+      "unit": "m1",
+      "material": {
+        "original": "aluminium",
+        "normalized": "aluminium"
+      },
+      "material_source": [
+        "human_material_decision",
+        "verified_element"
+      ],
+      "vat_basis": [
+        "inclusive"
+      ],
+      "status": "AVAILABLE",
+      "insufficient_data_reasons": [],
+      "value_exact": "37.47213845548708535466107251",
+      "value_display": "37.47",
+      "min_exact": "33.88089528377298161470823341",
+      "max_exact": "39.05518394648829431438127090",
+      "range_exact": "5.17428866271531269967303749",
+      "min_display": "33.88",
+      "max_display": "39.06",
+      "range_display": "5.17",
+      "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+      "source_cluster_ids": [
+        "SC-DOC-008+DOC-009",
+        "SC-DOC-011",
+        "SC-DOC-012"
+      ],
+      "source_cluster_count": 3,
+      "cluster_contributions": [
+        {
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "contribution_exact": "39.05518394648829431438127090",
+          "contribution_display": "39.06",
+          "post_ids": [
+            "KG-4711-replace-m1-aluminium-d463b0a2-POST-01"
+          ],
+          "observation_ids": [
+            "PO-DOC-008-P009-L045"
+          ],
+          "price_levels": [
+            null
+          ]
+        },
+        {
+          "source_cluster": "SC-DOC-011",
+          "contribution_exact": "33.88089528377298161470823341",
+          "contribution_display": "33.88",
+          "post_ids": [
+            "KG-4711-replace-m1-aluminium-d463b0a2-POST-02"
+          ],
+          "observation_ids": [
+            "PO-DOC-011-P021-L083"
+          ],
+          "price_levels": [
+            null
+          ]
+        },
+        {
+          "source_cluster": "SC-DOC-012",
+          "contribution_exact": "37.47213845548708535466107251",
+          "contribution_display": "37.47",
+          "post_ids": [
+            "KG-4711-replace-m1-aluminium-d463b0a2-POST-03"
+          ],
+          "observation_ids": [
+            "PO-DOC-012-P014-L107"
+          ],
+          "price_levels": [
+            "1-4-2024"
+          ]
+        }
+      ],
+      "posts": [
+        {
+          "post_id": "KG-4711-replace-m1-aluminium-d463b0a2-POST-01",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "document_id": "DOC-008",
+          "observation_ids": [
+            "PO-DOC-008-P009-L045"
+          ],
+          "element_line": {
+            "line": 43,
+            "page": 9
+          },
+          "consolidated": false,
+          "consolidation_reason": null,
+          "post_value_exact": "39.05518394648829431438127090"
+        },
+        {
+          "post_id": "KG-4711-replace-m1-aluminium-d463b0a2-POST-02",
+          "source_cluster": "SC-DOC-011",
+          "document_id": "DOC-011",
+          "observation_ids": [
+            "PO-DOC-011-P021-L083"
+          ],
+          "element_line": {
+            "line": 81,
+            "page": 21
+          },
+          "consolidated": false,
+          "consolidation_reason": null,
+          "post_value_exact": "33.88089528377298161470823341"
+        },
+        {
+          "post_id": "KG-4711-replace-m1-aluminium-d463b0a2-POST-03",
+          "source_cluster": "SC-DOC-012",
+          "document_id": "DOC-012",
+          "observation_ids": [
+            "PO-DOC-012-P014-L107"
+          ],
+          "element_line": {
+            "line": 105,
+            "page": 14
+          },
+          "consolidated": false,
+          "consolidation_reason": null,
+          "post_value_exact": "37.47213845548708535466107251"
+        }
+      ],
+      "observation_ids": [
+        "PO-DOC-008-P009-L045",
+        "PO-DOC-011-P021-L083",
+        "PO-DOC-012-P014-L107"
+      ],
+      "observations_per_cluster": {
+        "SC-DOC-008+DOC-009": [
+          "PO-DOC-008-P009-L045"
+        ],
+        "SC-DOC-011": [
+          "PO-DOC-011-P021-L083"
+        ],
+        "SC-DOC-012": [
+          "PO-DOC-012-P014-L107"
+        ]
+      },
+      "excluded_observation_ids": [],
+      "exclusion_reasons": {},
+      "decision_ids": [
+        "HDR-00043",
+        "HDR-00044",
+        "HDR-00045"
+      ],
+      "human_review_complete": true,
+      "missing_cross_cluster_reviews": [],
+      "rule_version": "kengetallen_rules_v1",
+      "price_levels": {
+        "per_observation": {
+          "PO-DOC-008-P009-L045": null,
+          "PO-DOC-011-P021-L083": null,
+          "PO-DOC-012-P014-L107": "1-4-2024"
+        },
+        "per_cluster": {
+          "SC-DOC-008+DOC-009": [
+            null
+          ],
+          "SC-DOC-011": [
+            null
+          ],
+          "SC-DOC-012": [
+            "1-4-2024"
+          ]
+        },
+        "years": [
+          2024
+        ],
+        "mixed_price_level": false,
+        "missing_price_level": true,
+        "indexation": "none",
+        "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2024 en ontbrekend: niet presenteren als prijs van één specifiek jaar."
+      },
+      "decision_caveats": {
+        "by_decision": [
+          {
+            "decision_id": "HDR-00043",
+            "pair_id": "PAIR-00557",
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "system_class": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT"
+            ]
+          },
+          {
+            "decision_id": "HDR-00044",
+            "pair_id": "PAIR-00558",
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "system_class": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT"
+            ]
+          },
+          {
+            "decision_id": "HDR-00045",
+            "pair_id": "PAIR-00561",
+            "decision": "COMPARABLE_WITH_CAVEATS",
+            "system_class": "COMPARABLE_WITH_CAVEATS",
+            "decision_caveats": [
+              "PRICE_LEVEL_ABSENT"
+            ]
+          }
+        ],
+        "counts": {
+          "PRICE_LEVEL_ABSENT": 3
+        }
+      },
+      "observation_caveats": {
+        "PO-DOC-008-P009-L045": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "PO-DOC-011-P021-L083": [
+          "PRICE_LEVEL_ABSENT"
+        ],
+        "PO-DOC-012-P014-L107": []
+      },
+      "quantity": {
+        "min": "119.60",
+        "max": "250.20",
+        "max_min_ratio": "2.09",
+        "note": "Hoeveelheid is bronkenmerk; geen schaalcorrectie in v1."
+      },
+      "source_references": [
+        {
+          "observation_id": "PO-DOC-008-P009-L045",
+          "document_id": "DOC-008",
+          "source_cluster": "SC-DOC-008+DOC-009",
+          "post_id": "KG-4711-replace-m1-aluminium-d463b0a2-POST-01",
+          "page": 9,
+          "line": 45,
+          "element_line": {
+            "line": 43,
+            "page": 9
+          },
+          "source_text": "Vervangen daktrim aluminium 119,60 m1 2025 25 4.671 4.671",
+          "object_description": "Dakrandafwerking aluminium trim",
+          "action_text": "Vervangen daktrim aluminium",
+          "quantity": "119.60",
+          "unit_original": "m1",
+          "price_per_execution_exact": "39.05518394648829431438127090",
+          "price_per_execution_display": "39.06",
+          "executions_in_window": 1,
+          "cycle_start_year": 2025,
+          "cycle_length_years": 25,
+          "price_level_date": null,
+          "vat_basis": "inclusive",
+          "material": {
+            "normalized": "aluminium",
+            "original": "aluminium",
+            "source": "verified_element"
+          },
+          "independent_input": true,
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ]
+        },
+        {
+          "observation_id": "PO-DOC-011-P021-L083",
+          "document_id": "DOC-011",
+          "source_cluster": "SC-DOC-011",
+          "post_id": "KG-4711-replace-m1-aluminium-d463b0a2-POST-02",
+          "page": 21,
+          "line": 83,
+          "element_line": {
+            "line": 81,
+            "page": 21
+          },
+          "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477",
+          "object_description": "Dakrandafwerking aluminium trim",
+          "action_text": "Vervangen daktrim aluminium",
+          "quantity": "250.20",
+          "unit_original": "m1",
+          "price_per_execution_exact": "33.88089528377298161470823341",
+          "price_per_execution_display": "33.88",
+          "executions_in_window": 1,
+          "cycle_start_year": 2023,
+          "cycle_length_years": 25,
+          "price_level_date": null,
+          "vat_basis": "inclusive",
+          "material": {
+            "normalized": "aluminium",
+            "original": "aluminium",
+            "source": "human_material_decision"
+          },
+          "independent_input": true,
+          "caveats": [
+            "PRICE_LEVEL_ABSENT"
+          ]
+        },
+        {
+          "observation_id": "PO-DOC-012-P014-L107",
+          "document_id": "DOC-012",
+          "source_cluster": "SC-DOC-012",
+          "post_id": "KG-4711-replace-m1-aluminium-d463b0a2-POST-03",
+          "page": 14,
+          "line": 107,
+          "element_line": {
+            "line": 105,
+            "page": 14
+          },
+          "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716",
+          "object_description": "Dakrandafwerking aluminium trim",
+          "action_text": "Vervangen daktrim aluminium",
+          "quantity": "152.54",
+          "unit_original": "m1",
+          "price_per_execution_exact": "37.47213845548708535466107251",
+          "price_per_execution_display": "37.47",
+          "executions_in_window": 1,
+          "cycle_start_year": 2038,
+          "cycle_length_years": 25,
+          "price_level_date": "1-4-2024",
+          "vat_basis": "inclusive",
+          "material": {
+            "normalized": "aluminium",
+            "original": "aluminium",
+            "source": "human_material_decision"
+          },
+          "independent_input": true,
+          "caveats": []
+        }
+      ]
+    },
     {
       "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
       "candidate_key": [

@@ -269,11 +269,17 @@ def test_batch1_expected_outcomes():
     # Canonieke toestand: alleen kengetallen die door geldige ACTIVE human decisions worden gedragen.
     # De DF-1/DF-2-decisions staan op REVIEW_REQUIRED, dus C1 (4645) en de vier INSUFFICIENT_DATA-groepen van
     # vóór de promotie van batch1_v1 ontstaan niet meer (besluit A). Na het menselijke familiebesluit RFD-00001
-    # (7 cross-cluster pvc-paren met DOC-012/DOC-013) draagt 5211 replace m1 pvc 5 source clusters.
+    # (7 cross-cluster pvc-paren met DOC-012/DOC-013) draagt 5211 replace m1 pvc 5 source clusters. Na het
+    # materiaalbesluit MATDEC-00002 en het familiebesluit RFD-00002 (3 aluminium-paren) draagt 4711 replace m1
+    # aluminium 3 source clusters.
     result = batch1()
     k = by_key(result)
-    assert result["summary"]["candidate_groups"] == 1 and result["summary"]["active_human_decisions"] == 12
-    assert set(k) == {("5211", "replace", "m1")}
+    assert result["summary"]["candidate_groups"] == 2 and result["summary"]["active_human_decisions"] == 15
+    assert set(k) == {("5211", "replace", "m1"), ("4711", "replace", "m1")}
+    c3 = k[("4711", "replace", "m1")]
+    assert (c3["status"], c3["value_display"], c3["source_cluster_count"]) == ("AVAILABLE", "37.47", 3)
+    assert (c3["min_display"], c3["max_display"]) == ("33.88", "39.06")
+    assert c3["source_cluster_ids"] == ["SC-DOC-008+DOC-009", "SC-DOC-011", "SC-DOC-012"]
     c2 = k[("5211", "replace", "m1")]
     assert (c2["status"], c2["value_display"], c2["source_cluster_count"]) == ("AVAILABLE", "54.39", 5)
     assert (c2["min_display"], c2["max_display"]) == ("45.23", "61.09")

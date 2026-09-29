@@ -2772,6 +2772,221 @@
         ],
         "unknown_reasons": []
       }
+    },
+    {
+      "candidate_key": [
+        "4711",
+        "replace",
+        "m1"
+      ],
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "decision_id": "HDR-00043",
+      "decision_reason": "Menselijk besluit (twandijkmans): alle 3 pairs hebben exact dezelfde onderhoudssemantiek - Dakrandafwerking aluminium trim / Vervangen daktrim aluminium, materiaal aluminium (MDR-00003, MDR-00004, verified DOC-008), unit m1, geen hard violations, geen relation/dependency risk. Alleen de bestaande caveats uit het reviewpakket zijn behouden.",
+      "evidence": [
+        {
+          "document_id": "DOC-008",
+          "line": 45,
+          "observation_id": "PO-DOC-008-P009-L045",
+          "page": 9,
+          "reviewer_note": null,
+          "row": null,
+          "sheet": null,
+          "source_text": "Vervangen daktrim aluminium 119,60 m1 2025 25 4.671 4.671"
+        },
+        {
+          "document_id": "DOC-011",
+          "line": 83,
+          "observation_id": "PO-DOC-011-P021-L083",
+          "page": 21,
+          "reviewer_note": null,
+          "row": null,
+          "sheet": null,
+          "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477"
+        }
+      ],
+      "family_decision": {
+        "family_decision_id": "RFD-00002",
+        "family_input_sha256": "d423a2e2789eb1c117ccf625226101a0ca0be81988b88ff90950dcac4f324277",
+        "review_family_id": "RF-4711-17297bd2b3",
+        "review_package_sha256": "52e8f9a68da8c2e60df98f0084444f287d7a1deb356ae62ade93a77f4601cd2c"
+      },
+      "input_hashes": {
+        "comparability_output_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
+        "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
+      },
+      "notes": "Atomaire transactie over twee 4711-aluminium-reviewfamilies (decision_package_4711_aluminium).",
+      "observation_ids": [
+        "PO-DOC-008-P009-L045",
+        "PO-DOC-011-P021-L083"
+      ],
+      "pair_id": "PAIR-00557",
+      "reviewed_at": "2026-09-29T12:17:17Z",
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "rule_version": "comparability_rules_v1",
+      "status": "ACTIVE",
+      "supersedes": null,
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "observation_caveats": {
+          "a": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "b": [
+            "PRICE_LEVEL_ABSENT"
+          ]
+        },
+        "pair_caveats": [],
+        "unknown_reasons": []
+      }
+    },
+    {
+      "candidate_key": [
+        "4711",
+        "replace",
+        "m1"
+      ],
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "decision_id": "HDR-00044",
+      "decision_reason": "Menselijk besluit (twandijkmans): alle 3 pairs hebben exact dezelfde onderhoudssemantiek - Dakrandafwerking aluminium trim / Vervangen daktrim aluminium, materiaal aluminium (MDR-00003, MDR-00004, verified DOC-008), unit m1, geen hard violations, geen relation/dependency risk. Alleen de bestaande caveats uit het reviewpakket zijn behouden.",
+      "evidence": [
+        {
+          "document_id": "DOC-008",
+          "line": 45,
+          "observation_id": "PO-DOC-008-P009-L045",
+          "page": 9,
+          "reviewer_note": null,
+          "row": null,
+          "sheet": null,
+          "source_text": "Vervangen daktrim aluminium 119,60 m1 2025 25 4.671 4.671"
+        },
+        {
+          "document_id": "DOC-012",
+          "line": 107,
+          "observation_id": "PO-DOC-012-P014-L107",
+          "page": 14,
+          "reviewer_note": null,
+          "row": null,
+          "sheet": null,
+          "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716"
+        }
+      ],
+      "family_decision": {
+        "family_decision_id": "RFD-00002",
+        "family_input_sha256": "d423a2e2789eb1c117ccf625226101a0ca0be81988b88ff90950dcac4f324277",
+        "review_family_id": "RF-4711-17297bd2b3",
+        "review_package_sha256": "52e8f9a68da8c2e60df98f0084444f287d7a1deb356ae62ade93a77f4601cd2c"
+      },
+      "input_hashes": {
+        "comparability_output_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
+        "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
+      },
+      "notes": "Atomaire transactie over twee 4711-aluminium-reviewfamilies (decision_package_4711_aluminium).",
+      "observation_ids": [
+        "PO-DOC-008-P009-L045",
+        "PO-DOC-012-P014-L107"
+      ],
+      "pair_id": "PAIR-00558",
+      "reviewed_at": "2026-09-29T12:17:17Z",
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "rule_version": "comparability_rules_v1",
+      "status": "ACTIVE",
+      "supersedes": null,
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "observation_caveats": {
+          "a": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "b": []
+        },
+        "pair_caveats": [],
+        "unknown_reasons": []
+      }
+    },
+    {
+      "candidate_key": [
+        "4711",
+        "replace",
+        "m1"
+      ],
+      "decision": "COMPARABLE_WITH_CAVEATS",
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "decision_id": "HDR-00045",
+      "decision_reason": "Menselijk besluit (twandijkmans): alle 3 pairs hebben exact dezelfde onderhoudssemantiek - Dakrandafwerking aluminium trim / Vervangen daktrim aluminium, materiaal aluminium (MDR-00003, MDR-00004, verified DOC-008), unit m1, geen hard violations, geen relation/dependency risk. Alleen de bestaande caveats uit het reviewpakket zijn behouden.",
+      "evidence": [
+        {
+          "document_id": "DOC-011",
+          "line": 83,
+          "observation_id": "PO-DOC-011-P021-L083",
+          "page": 21,
+          "reviewer_note": null,
+          "row": null,
+          "sheet": null,
+          "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477"
+        },
+        {
+          "document_id": "DOC-012",
+          "line": 107,
+          "observation_id": "PO-DOC-012-P014-L107",
+          "page": 14,
+          "reviewer_note": null,
+          "row": null,
+          "sheet": null,
+          "source_text": "Vervangen daktrim aluminium 152,54 m1 2038 25 5.716 5.716"
+        }
+      ],
+      "family_decision": {
+        "family_decision_id": "RFD-00002",
+        "family_input_sha256": "6dc43665816c1bd6a3528f930c75af2bcfda384ef475129ac7269788e01e6777",
+        "review_family_id": "RF-4711-0f1822792b",
+        "review_package_sha256": "52e8f9a68da8c2e60df98f0084444f287d7a1deb356ae62ade93a77f4601cd2c"
+      },
+      "input_hashes": {
+        "comparability_output_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
+        "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
+      },
+      "notes": "Atomaire transactie over twee 4711-aluminium-reviewfamilies (decision_package_4711_aluminium).",
+      "observation_ids": [
+        "PO-DOC-011-P021-L083",
+        "PO-DOC-012-P014-L107"
+      ],
+      "pair_id": "PAIR-00561",
+      "reviewed_at": "2026-09-29T12:17:17Z",
+      "reviewer": {
+        "reviewer_id": "twandijkmans",
+        "reviewer_type": "human"
+      },
+      "rule_version": "comparability_rules_v1",
+      "status": "ACTIVE",
+      "supersedes": null,
+      "system_class": "COMPARABLE_WITH_CAVEATS",
+      "system_reasons": {
+        "hard_violations": [],
+        "observation_caveats": {
+          "a": [
+            "PRICE_LEVEL_ABSENT"
+          ],
+          "b": []
+        },
+        "pair_caveats": [],
+        "unknown_reasons": []
+      }
     }
   ],
   "store_version": "human_review_v1"

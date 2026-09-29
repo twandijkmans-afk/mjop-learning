@@ -1,0 +1,59 @@
+{
+  "acknowledged_kengetal_effects": [
+    "KG-5211-replace-m1-pvc-5cb98033",
+    "KG-5211-replace-m1-pvc-67920b77"
+  ],
+  "applied_decision_ids": [
+    "HDR-00036",
+    "HDR-00037",
+    "HDR-00038",
+    "HDR-00039",
+    "HDR-00040",
+    "HDR-00041",
+    "HDR-00042"
+  ],
+  "decision": "COMPARABLE_WITH_CAVEATS",
+  "decision_reason": "Menselijk besluit (twandijkmans): alle 7 pairs hebben exact dezelfde onderhoudssemantiek - Vervangen hemelwaterafvoer pvc, materiaal pvc, unit m1, geen hard violations, geen relation/dependency risk. Alleen de bestaande caveats uit het reviewpakket zijn behouden.",
+  "families": [
+    {
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "family_input_sha256": "878abf5892bffb487bd75c677fa965a8b8fc5c338f85413799f75ca1416b1560",
+      "pair_ids": [
+        "PAIR-00632",
+        "PAIR-00634",
+        "PAIR-00635",
+        "PAIR-00637"
+      ],
+      "review_family_id": "RF-5211-6d02e2e719"
+    },
+    {
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "family_input_sha256": "760513e2b18dc45a97c0c0180d910cb091ba1a6783579579647a5b393d77f127",
+      "pair_ids": [
+        "PAIR-00583",
+        "PAIR-00585"
+      ],
+      "review_family_id": "RF-5211-0ad5841f33"
+    },
+    {
+      "decision_caveats": [
+        "PRICE_LEVEL_DIFFERENCE"
+      ],
+      "family_input_sha256": "172756d55b9720cb3271100af7644a8f4e8b6c8f966f3bbc76a09d203ad710ed",
+      "pair_ids": [
+        "PAIR-00641"
+      ],
+      "review_family_id": "RF-5211-76b81abb4c"
+    }
+  ],
+  "family_decision_id": "RFD-00001",
+  "notes": "Atomaire transactie over drie 5211-pvc-reviewfamilies (decision_package_5211_pvc).",
+  "review_package_sha256": "076d273fef9f6b9bf68b4355dbd7f3a1b9b78fe30b5784887e9f06afbc797dda",
+  "reviewed_at": "2026-09-29T11:33:17Z",
+  "reviewer": "twandijkmans",
+  "superseded_decision_ids": []
+}

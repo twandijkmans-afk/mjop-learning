@@ -245,7 +245,8 @@ def material_group(root, material, pre_ctx, pre_review, pre_sides, steps):
 
     approvals = [approval_for(next(s for s in pre_sides if s["observation_id"] == st["observation_id"]), material)
                  for st in steps if st["record_material_decision_precheck"] == "WOULD_BE_ACCEPTED"]
-    pairs, families, combos = with_material_decision(root, approvals, after) if approvals else ([], [], {})
+    # zonder open materiaalstap (besluit al vastgelegd): de huidige toestand, geen tijdelijke kopie
+    pairs, families, combos = with_material_decision(root, approvals, after) if approvals else after(root)
     clusters = sorted({pre_ctx.assess[i]["source_cluster"] for i in group_obs})
     return {"material": material,
             "observation_ids": group_obs,
@@ -304,8 +305,9 @@ def _kg_lines(result, material):
 
 def render_md(pkg):
     L = ["# Beslispakket 4711 replace m1 - aluminium", "",
-         "Geen besluit: niets toegepast. Er is nog geen materiaalbesluit; de toestand daarna is gesimuleerd op een "
-         "tijdelijke kopie. Simulaties gebruiken alleen de bestaande regels en worden nergens vastgelegd.", "",
+         "Dit pakket neemt zelf geen besluit. Waar een materiaalbesluit nog ontbreekt, is de toestand daarna "
+         "gesimuleerd op een tijdelijke kopie; waar het al vastligt, toont het pakket de huidige toestand en de "
+         "ACTIVE besluiten. Simulaties gebruiken alleen de bestaande regels en worden nergens vastgelegd.", "",
          "## Bestaande kengetallen", "",
          ("; ".join(f"`{e['kengetal_id']}` {e['status']} {e['value_display'] or ''}" for e in pkg["existing_kengetallen"])
           or "Geen kengetal voor 4711|replace|m1.") + "", "",
@@ -332,14 +334,14 @@ def render_md(pkg):
                          + (f" ({st['refusal_reason']})" if st["refusal_reason"] else "") + " |")
         else:
             L.append("Geen observations die een materiaalbesluit nodig hebben.")
-        L += ["", "Zonder materiaalbesluit, ook als alle cross-cluster paren positief beoordeeld worden: "
+        L += ["", "Met de huidige materiaalstatus (zonder nieuw materiaalbesluit), als alle cross-cluster paren "
+              "positief beoordeeld worden: "
               + _kg_lines(g["simulation_without_material_decision_all_pairs_positive"], m) + ".", "",
-              f"### Stap 2 - cross-cluster paren na het materiaalbesluit ({g['open_cross_cluster_pairs']} open)", "",
-              "| paar | familie vóór -> na materiaalbesluit | documenten | klasse | paarcaveats | hard | observation-caveats | verschillen | controle |",
-              "|---|---|---|---|---|---|---|---|---|"]
+              f"### Stap 2 - cross-cluster paren na het materiaalbesluit ({g['open_cross_cluster_pairs']} open, "
+              f"{len(g['cross_cluster_pairs'])} totaal)", "",
+              "| paar | familie vóór -> na materiaalbesluit | documenten | klasse | paarcaveats | hard | observation-caveats | verschillen | controle | ACTIVE besluit |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
         for p in g["cross_cluster_pairs"]:
-            if not p["open"]:
-                continue
             a, b = p["sides"]
             cc = p["content_check"]
             L.append(f"| {p['pair_id']} | {p['review_family_id_before_material_decision'] or '-'} -> "
@@ -348,7 +350,9 @@ def render_md(pkg):
                      f"{p['system_class']} | {', '.join(p['pair_caveats']) or '-'} | {', '.join(p['hard_violations']) or '-'} | "
                      f"a: {', '.join(p['observation_caveats']['a']) or '-'}; b: {', '.join(p['observation_caveats']['b']) or '-'} | "
                      f"{', '.join(cc['differences']) or '-'} | "
-                     f"{'OK' if cc['matches_description'] else 'AFWIJKING: ' + ', '.join(cc['deviations'])} |")
+                     f"{'OK' if cc['matches_description'] else 'AFWIJKING: ' + ', '.join(cc['deviations'])} | "
+                     + (f"{p['active_decision']['decision_id']} {p['active_decision']['decision']}"
+                        if p["active_decision"] else "-") + " |")
         L += ["", f"Paren die NIET aan de beschrijving voldoen (zelfde actie- en objecttekst, {m}, m1, geen relatie; "
               "verschil alleen prijspeil/hoeveelheid/prijs): "
               + (", ".join(f"{p['pair_id']} ({', '.join(p['deviations'])})" for p in g["pairs_not_matching_description"])

@@ -54,6 +54,13 @@ def pre(state, rel):
         return json.load(f)
 
 
+def kg_history_file(state):
+    """De kengetallen-historyversie die DEZE schakel aanmaakte (latere schakels maken er eigen versies bij)."""
+    (rel,) = [k for k in state["post_manifest"] if k.startswith("data/kengetallen/history/")
+              and k not in state["pre_manifest"]]
+    return rel
+
+
 def test_one_atomic_audited_transaction(state):
     assert state["status"] == "APPLIED" and state["change_kind"] == "family_decision"
     d = state["decision"]["family_decision"]
@@ -70,7 +77,7 @@ def test_seven_new_active_decisions_only(state):
     store = load("data", "review_decisions", "human_decision_records.json")["records"]
     old = pre(state, pr.DECISIONS_PATH)["records"]
     assert store[:len(old)] == old                                             # niets anders gewijzigd
-    new = store[len(old):]
+    new = store[len(old):len(old) + len(NEW_IDS)]                              # latere besluiten volgen erna
     assert [r["decision_id"] for r in new] == NEW_IDS
     by_pair = {r["pair_id"]: r for r in new}
     for fid, (pairs, caveats) in FAMILIES.items():
@@ -89,16 +96,17 @@ def test_seven_new_active_decisions_only(state):
 
 def test_kg5211_new_version_and_old_in_history(state):
     kg = load("data", "kengetallen", "kengetallen_batch1.json")
-    assert [k["kengetal_id"] for k in kg["kengetallen"]] == [NEW_KG]
-    k = kg["kengetallen"][0]
+    assert [k["kengetal_id"] for k in kg["kengetallen"] if k["kengetal_id"].startswith("KG-5211-")] == [NEW_KG]
+    k = next(k for k in kg["kengetallen"] if k["kengetal_id"] == NEW_KG)
     assert (k["status"], k["value_display"], k["min_display"], k["max_display"], k["source_cluster_count"]) == \
         ("AVAILABLE", "54.39", "45.23", "61.09", 5)
     assert k["source_cluster_ids"] == ["SC-DOC-001", "SC-DOC-008+DOC-009", "SC-DOC-010", "SC-DOC-012", "SC-DOC-013"]
     assert k["human_review_complete"] and k["missing_cross_cluster_reviews"] == []
     assert set(NEW_IDS) | {"HDR-00031", "HDR-00032", "HDR-00033"} == set(k["decision_ids"])
-    with open(os.path.join(PROJECT_ROOT, kg["supersedes"]["file"]), encoding="utf-8") as f:
+    hist = kg_history_file(state)
+    with open(os.path.join(PROJECT_ROOT, hist), encoding="utf-8") as f:
         old = json.load(f)
-    assert pl.sha256_file(os.path.join(PROJECT_ROOT, kg["supersedes"]["file"])) == kg["supersedes"]["sha256"]
+    assert pl.sha256_file(os.path.join(PROJECT_ROOT, hist)) == state["post_manifest"][hist]
     assert [(x["kengetal_id"], x["value_display"], x["source_cluster_count"]) for x in old["kengetallen"]] == \
         [(OLD_KG, "51.79", 3)]
 
@@ -109,7 +117,7 @@ def test_nothing_else_changed(state):
     assert changed == sorted(["data/review_decisions/human_decision_records.json",
                               f"data/review_decisions/family_decisions/{CHANGE}.json",
                               "data/kengetallen/kengetallen_batch1.json",
-                              f"data/kengetallen/history/{os.path.basename(load('data', 'kengetallen', 'kengetallen_batch1.json')['supersedes']['file'])}"])
+                              kg_history_file(state)])
     assert len(load("data", "price_observations", "price_observations_batch1.json")["observations"]) == 545
     pkg = crv.build(PROJECT_ROOT)
     other = [f for f in pkg["families"] if f["review_family_id"] not in FAMILIES
@@ -131,7 +139,8 @@ def make_copy(dst):
 
 def test_rollback_restores_old_kg_and_transaction_is_atomic(tmp_path, state):
     root = make_copy(str(tmp_path / "p"))
-    assert pl.latest(root)["promotion_id"] == CHANGE
+    while pl.latest(root)["promotion_id"] != CHANGE:                         # latere schakels eerst terug
+        cc.rollback(root, pl.latest(root)["promotion_id"])
     assert cc.rollback(root, CHANGE).startswith("ROLLBACK OK")
     assert pl.tracked_hashes(root) == state["pre_manifest"]
     kg = pr.load(os.path.join(root, pr.KG_PATH))

@@ -1,0 +1,41 @@
+{
+  "acknowledged_kengetal_effects": [
+    "KG-4711-replace-m1-aluminium-d463b0a2"
+  ],
+  "applied_decision_ids": [
+    "HDR-00043",
+    "HDR-00044",
+    "HDR-00045"
+  ],
+  "decision": "COMPARABLE_WITH_CAVEATS",
+  "decision_reason": "Menselijk besluit (twandijkmans): alle 3 pairs hebben exact dezelfde onderhoudssemantiek - Dakrandafwerking aluminium trim / Vervangen daktrim aluminium, materiaal aluminium (MDR-00003, MDR-00004, verified DOC-008), unit m1, geen hard violations, geen relation/dependency risk. Alleen de bestaande caveats uit het reviewpakket zijn behouden.",
+  "families": [
+    {
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "family_input_sha256": "d423a2e2789eb1c117ccf625226101a0ca0be81988b88ff90950dcac4f324277",
+      "pair_ids": [
+        "PAIR-00557",
+        "PAIR-00558"
+      ],
+      "review_family_id": "RF-4711-17297bd2b3"
+    },
+    {
+      "decision_caveats": [
+        "PRICE_LEVEL_ABSENT"
+      ],
+      "family_input_sha256": "6dc43665816c1bd6a3528f930c75af2bcfda384ef475129ac7269788e01e6777",
+      "pair_ids": [
+        "PAIR-00561"
+      ],
+      "review_family_id": "RF-4711-0f1822792b"
+    }
+  ],
+  "family_decision_id": "RFD-00002",
+  "notes": "Atomaire transactie over twee 4711-aluminium-reviewfamilies (decision_package_4711_aluminium).",
+  "review_package_sha256": "52e8f9a68da8c2e60df98f0084444f287d7a1deb356ae62ade93a77f4601cd2c",
+  "reviewed_at": "2026-09-29T12:17:17Z",
+  "reviewer": "twandijkmans",
+  "superseded_decision_ids": []
+}

@@ -1115,12 +1115,12 @@
   },
   "inputs": {
     "comparability_rules_version": "comparability_rules_v1",
-    "comparability_sha256": "7e3de4f66a20a3b70bdf62fb73deae9a4611b7e5f1afb381ee2b5675eb12618f",
+    "comparability_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
     "document_relations_sha256": "2a1cab33999cf09ec3c25e6d59cacc44928f18cd3fc6559081112cf258f54580",
-    "human_decisions_sha256": "0aa62056fd264aafe4268db1e45da4f2ca26249857f1f8df662c5b79842b9ecd",
+    "human_decisions_sha256": "6e1a34e4040c637b45d213bc8c66b5d19fa7ea93de24b9d5398071cbced55f63",
     "kengetallen_rules_version": "kengetallen_rules_v1",
-    "kengetallen_sha256": "575d3c4f8454c59c8a49f1043a569244e0586bf5a8af00fe0a507bb31fe84294",
-    "normalized_observations_sha256": "272c0d141b40e9146acadf4fd82cbdc0015727eb54124ee775ddb8198e50a692"
+    "kengetallen_sha256": "e8b9b2260fb681da242817e51dfdb5ca3b1ab3ec1e3e5dcd6b56d3cc71761897",
+    "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53"
   },
   "material": "pvc",
   "note": "Beslispakket, geen besluit. Simulaties gebruiken uitsluitend build_kengetallen.evaluate (kengetallen_rules_v1) met hypothetische ACTIVE records; ze worden nergens vastgelegd. COMPARABLE en COMPARABLE_WITH_CAVEATS tellen in de regels hetzelfde (regel 2); het verschil is de vastgelegde voorbehoud-informatie. Toepassen alleen via scripts/apply_family_decision.py.",

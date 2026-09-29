@@ -2,18 +2,18 @@
 
 Reviewpakket: **er is niets besloten**. Geen ACTIVE decisions, geen automatische COMPARABLE of NOT_COMPARABLE, geen scores, geen nieuw kengetal. Een familiebesluit wordt alleen toegepast via `scripts/apply_family_decision.py` op exact opgesomde `pair_ids`, gebonden aan `family_input_sha256`.
 
-Invoer: comparability `7e3de4f66a20`, genormaliseerd `272c0d141b40`, beslissingen `0aa62056fd26`, relaties `2a1cab33999c`.
+Invoer: comparability `b9ab04c6759d`, genormaliseerd `0d50de0f6607`, beslissingen `6e1a34e4040c`, relaties `2a1cab33999c`.
 
 ## Reviewqueue vóór en na groepering
 
 | | aantal |
 |---|---|
 | paren in de queue (selectie v1) | 76 |
-| paren met status ACTIVE_DECISION | 12 |
-| paren met status NO_DECISION | 47 |
+| paren met status ACTIVE_DECISION | 15 |
+| paren met status NO_DECISION | 44 |
 | paren met status PREVIOUS_DECISION_REVIEW_REQUIRED | 17 |
 | reviewfamilies | 43 |
-| open reviewfamilies | 35 |
+| open reviewfamilies | 33 |
 | families met meer dan één paar | 17 |
 
 Families per bewijscategorie (families / paren):
@@ -21,9 +21,9 @@ Families per bewijscategorie (families / paren):
 - `OTHER_REVIEW_REQUIRED`: 1 / 1
 - `OBJECT_TEXT_VARIANT`: 21 / 34
 - `ACTION_TEXT_VARIANT`: 4 / 16
-- `MATERIAL_EVIDENCE_ONE_SIDE`: 5 / 7
+- `MATERIAL_EVIDENCE_ONE_SIDE`: 4 / 5
 - `QUANTITY_SCALE_DIFFERENCE`: 5 / 5
-- `EXACT_SAME_SEMANTIC_INPUT`: 7 / 13
+- `EXACT_SAME_SEMANTIC_INPUT`: 8 / 15
 
 Groepering: candidate key + per kant (objectomschrijving en actietekst als woordtokens zonder de vaste gevelzijde-woorden, eenheid in de bron, materiaal + bron, inhoudelijke observation-caveats) + gevelzijde-woorden verschillen + QUANTITY_SCALE_DIFFERENCE + relatierisico. Gevelzijde-woorden: achter, achtergevel, achterzijde, voor, voorgevel, voorzijde.
 
@@ -424,18 +424,16 @@ Zonder materiaalbewijs: PO-DOC-009-P020-L103. Geen vastgesteld materiaal en de b
 
 - observations: 8 (independent_input: 8)
 - source clusters (alle): 6; potentieel beschikbaar (independent_input): 6 - SC-DOC-005+DOC-006, SC-DOC-007, SC-DOC-008+DOC-009, SC-DOC-011, SC-DOC-012, SC-DOC-013
-- paren: 26 (COMPARABLE_WITH_CAVEATS 4, NOT_COMPARABLE 1, UNKNOWN 21); in de reviewqueue: 4
-- ACTIVE decisions: -
-- bestaande kengetallen: -
-- materiaalbewijs (independent_input): KNOWN:aluminium: 1, KNOWN:zinc: 1, NO_MATERIAL_EVIDENCE: 3, TEXT_EVIDENCE_PENDING_APPROVAL:aluminium: 2, TEXT_EVIDENCE_PENDING_APPROVAL:zinc: 1
+- paren: 26 (COMPARABLE_WITH_CAVEATS 4, NOT_COMPARABLE 3, UNKNOWN 19); in de reviewqueue: 4
+- ACTIVE decisions: HDR-00043, HDR-00044, HDR-00045
+- bestaande kengetallen: KG-4711-replace-m1-aluminium-d463b0a2 AVAILABLE 37.47 (3 clusters)
+- materiaalbewijs (independent_input): KNOWN:aluminium: 3, KNOWN:zinc: 1, NO_MATERIAL_EVIDENCE: 3, TEXT_EVIDENCE_PENDING_APPROVAL:zinc: 1
 
 Zonder materiaalbewijs: PO-DOC-007-P018-L015, PO-DOC-007-P018-L033, PO-DOC-012-P014-L111. Geen vastgesteld materiaal en de bestaande tekstregel vindt er ook geen: zonder menselijke verificatie van het elementmateriaal kan deze observation volgens regel 12 in geen enkel kengetal meetellen.
 
 ### Wat ontbreekt voor een geldige knowledge candidate
 
-- materiaal **aluminium**: 3 observations, 3 potentiële clusters, status `REQUIRES_HUMAN_STEPS`
-  - materiaalgoedkeuring nodig voor DOC-011, DOC-012: PO-DOC-011-P021-L083, PO-DOC-012-P014-L107
-  - 3 cross-cluster paren zonder ACTIVE positieve beslissing (3 in de queue; families RF-4711-72afa054e3, RF-4711-899cd9d239; niet in de queue: )
+- materiaal **aluminium**: 3 observations, 3 potentiële clusters, status `READY_FOR_KENGETAL_BUILD`, bestaand kengetal KG-4711-replace-m1-aluminium-d463b0a2
 - materiaal **zinc**: 2 observations, 2 potentiële clusters, status `REQUIRES_HUMAN_STEPS`
   - materiaalgoedkeuring nodig voor DOC-013: PO-DOC-013-P018-L087
   - 1 cross-cluster paren zonder ACTIVE positieve beslissing (1 in de queue; families RF-4711-b9d21ea6f1; niet in de queue: )
@@ -445,31 +443,9 @@ Zonder materiaalbewijs: PO-DOC-007-P018-L015, PO-DOC-007-P018-L033, PO-DOC-012-P
 
 | familie | categorie | paren | status | documenten | bestaande beslissingen |
 |---|---|---|---|---|---|
-| `RF-4711-72afa054e3` | MATERIAL_EVIDENCE_ONE_SIDE | 2 | OPEN_NO_DECISION | DOC-008, DOC-011, DOC-012 | - |
-| `RF-4711-899cd9d239` | EXACT_SAME_SEMANTIC_INPUT | 1 | OPEN_NO_DECISION | DOC-011, DOC-012 | - |
 | `RF-4711-b9d21ea6f1` | MATERIAL_EVIDENCE_ONE_SIDE | 1 | OPEN_NO_DECISION | DOC-005, DOC-013 | - |
-
-#### RF-4711-72afa054e3 - MATERIAL_EVIDENCE_ONE_SIDE (2 paren)
-
-- kant 1: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal aluminium
-- kant 2: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal onbekend
-- bewijs: MATERIAL_EVIDENCE_ONE_SIDE; paarcaveats -
-- actieteksten: Vervangen daktrim aluminium
-- hoeveelheden: 119.60, 152.54, 250.20; prijspeilen: 1-4-2024, None
-- pair_ids: PAIR-00557, PAIR-00558
-- family_input_sha256: `35bdc7228c0e3ab30102c80871d56581445fdf2884574bb53e29f459adb71c16`
-- blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
-
-#### RF-4711-899cd9d239 - EXACT_SAME_SEMANTIC_INPUT (1 paren)
-
-- kant 1: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal onbekend
-- kant 2: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal onbekend
-- bewijs: EXACT_SAME_SEMANTIC_INPUT; paarcaveats -
-- actieteksten: Vervangen daktrim aluminium
-- hoeveelheden: 152.54, 250.20; prijspeilen: 1-4-2024, None
-- pair_ids: PAIR-00561
-- family_input_sha256: `ab9072e8776de299ae1d3fdb5fbb776566743c2bf4f1dd41aa77333e3f745b2c`
-- blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+| `RF-4711-17297bd2b3` | EXACT_SAME_SEMANTIC_INPUT | 2 | DECIDED_ACTIVE | DOC-008, DOC-011, DOC-012 | HDR-00043, HDR-00044 |
+| `RF-4711-0f1822792b` | EXACT_SAME_SEMANTIC_INPUT | 1 | DECIDED_ACTIVE | DOC-011, DOC-012 | HDR-00045 |
 
 #### RF-4711-b9d21ea6f1 - MATERIAL_EVIDENCE_ONE_SIDE (1 paren)
 
@@ -481,6 +457,26 @@ Zonder materiaalbewijs: PO-DOC-007-P018-L015, PO-DOC-007-P018-L033, PO-DOC-012-P
 - pair_ids: PAIR-00546
 - family_input_sha256: `20eab5c1e2d3544404ae04fe2e9ee19e192796d0b8fa0c77c174f0064bea0a3c`
 - blijft ook na een positieve beslissing blokkeren: MATERIAL_UNKNOWN
+
+#### RF-4711-17297bd2b3 - EXACT_SAME_SEMANTIC_INPUT (2 paren)
+
+- kant 1: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal aluminium
+- kant 2: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal aluminium
+- bewijs: EXACT_SAME_SEMANTIC_INPUT; paarcaveats -
+- actieteksten: Vervangen daktrim aluminium
+- hoeveelheden: 119.60, 152.54, 250.20; prijspeilen: 1-4-2024, None
+- pair_ids: PAIR-00557, PAIR-00558
+- family_input_sha256: `3129fba5ea9b8b4229e8bae850c3aa8a39550974ffc8706f9a7681671b568f72`
+
+#### RF-4711-0f1822792b - EXACT_SAME_SEMANTIC_INPUT (1 paren)
+
+- kant 1: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal aluminium
+- kant 2: dakrandafwerking aluminium trim / vervangen daktrim aluminium / m1 / materiaal aluminium
+- bewijs: EXACT_SAME_SEMANTIC_INPUT; paarcaveats -
+- actieteksten: Vervangen daktrim aluminium
+- hoeveelheden: 152.54, 250.20; prijspeilen: 1-4-2024, None
+- pair_ids: PAIR-00561
+- family_input_sha256: `f76241a8216b77ad995819c550fb2e498a19160634b31582f04b9c995e2c377e`
 
 ## 4628|exterior_painting|m2
 
