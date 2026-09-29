@@ -1,0 +1,122 @@
+{
+  "batch_id": "IB-ad209360ab07",
+  "checks": [
+    {
+      "check": "schema",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "source_hash",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "no_ai",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "template_recheck_xpdf",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "provenance",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "provenance_block_links",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "elements",
+      "count": 48,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "maintenance_actions",
+      "count": 51,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "unlinked_records",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "quantities",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "units",
+      "count": 2,
+      "details": [
+        "DOC-011-ACT-029",
+        "DOC-011-ACT-031"
+      ],
+      "result": "WARN"
+    },
+    {
+      "check": "amounts",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "vat",
+      "count": 0,
+      "details": [],
+      "result": "PASS"
+    },
+    {
+      "check": "price_level",
+      "count": 1,
+      "details": [],
+      "result": "WARN"
+    },
+    {
+      "check": "condition_legend",
+      "count": 0,
+      "details": [],
+      "result": "WARN"
+    },
+    {
+      "check": "review_flags",
+      "count": 5,
+      "details": [],
+      "result": "WARN"
+    },
+    {
+      "check": "price_observations",
+      "count": 46,
+      "details": [
+        "verschil met Totaal object: 3"
+      ],
+      "result": "WARN"
+    },
+    {
+      "check": "totaal_object_reconciliation",
+      "count": 1,
+      "details": [
+        "som observations - Totaal object = 3 (afrondingsgrens 23.5)"
+      ],
+      "result": "WARN"
+    }
+  ],
+  "document_id": "DOC-011",
+  "outcome": "EXTRACTED"
+}

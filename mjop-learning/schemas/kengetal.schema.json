@@ -8,7 +8,7 @@
     "decimal": { "type": "string", "pattern": "^-?[0-9]+(\\.[0-9]+)?$" },
     "decimal_or_null": { "type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$" },
     "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
-    "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-P[0-9]{3}-L[0-9]{3}$" },
+    "observation_id": { "type": "string", "pattern": "^PO-DOC-[0-9]{3,}-(P[0-9]{3}-L[0-9]{3}|S[0-9]{2}-R[0-9]{4})$" },
     "element_line": {
       "type": ["object", "null"],
       "properties": { "page": { "type": "integer" }, "line": { "type": "integer" } },

@@ -381,13 +381,13 @@ def build_relations(observations_by_doc, doc_relations):
 # Build
 # --------------------------------------------------------------------------
 
-def build_document(doc, pages, verified, unit_lookup, document_relation_ids):
+def build_document(doc, pages, verified, unit_lookup, document_relation_ids, jarenplan_vat_fallback=False):
     """Price observations van één document uit zijn pdftotext-pagina's (xpdf 4.06, -table).
     Returns (entry-velden, observations, ongekoppelde sectieregels, checks). Gebruikt door build()
     en door de incoming pipeline (zelfde regels, geen afwijkingen)."""
     doc_id = doc["document_id"]
     sections = src.classify_sections(pages)
-    ctx = src.parse_document_context(pages)
+    ctx = src.parse_document_context(pages, jarenplan_vat_fallback=jarenplan_vat_fallback)
     rows, jaarplan_rows, bev_rows = [], [], []
     carry = None
     totaal_object = None

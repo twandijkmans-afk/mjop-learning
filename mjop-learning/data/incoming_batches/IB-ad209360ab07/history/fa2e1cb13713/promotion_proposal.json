@@ -1,0 +1,139 @@
+{
+  "batch_id": "IB-ad209360ab07",
+  "canonical_targets_not_written": [
+    "data/raw",
+    "data/extracted",
+    "data/normalized",
+    "data/verified",
+    "data/price_observations",
+    "data/comparability",
+    "data/kengetallen"
+  ],
+  "documents": [
+    {
+      "decision": "BLOCKED",
+      "document_id": "DOC-011",
+      "eligible_for_direct_promotion": false,
+      "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+      "key": "DOC-011",
+      "reasons": [
+        "UNKNOWN_TEMPLATE",
+        "PARTIAL_FAMILY_MARKERS"
+      ],
+      "status": "UNKNOWN_TEMPLATE"
+    },
+    {
+      "decision": "REVIEW_REQUIRED",
+      "document_id": "DOC-012",
+      "eligible_for_direct_promotion": true,
+      "input_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
+      "key": "DOC-012",
+      "reasons": [
+        "AWAITING_HUMAN_APPROVAL"
+      ],
+      "status": "EXTRACTED"
+    },
+    {
+      "decision": "BLOCKED",
+      "document_id": "DOC-013",
+      "eligible_for_direct_promotion": false,
+      "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
+      "key": "DOC-013",
+      "reasons": [
+        "UNKNOWN_TEMPLATE",
+        "PARTIAL_FAMILY_MARKERS"
+      ],
+      "status": "UNKNOWN_TEMPLATE"
+    },
+    {
+      "decision": "REVIEW_REQUIRED",
+      "document_id": "DOC-014",
+      "eligible_for_direct_promotion": false,
+      "input_path": "Testbatch 01/Meerjarenonderhoudsplan 2023_VvE 9261.pdf",
+      "key": "DOC-014",
+      "reasons": [
+        "RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+      ],
+      "status": "REVIEW_REQUIRED"
+    },
+    {
+      "decision": "BLOCKED",
+      "document_id": "DOC-015",
+      "eligible_for_direct_promotion": false,
+      "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
+      "key": "DOC-015",
+      "reasons": [
+        "UNSUPPORTED_EXTRACTION"
+      ],
+      "status": "REVIEW_REQUIRED"
+    }
+  ],
+  "global_blockers": [],
+  "kengetallen_impact_if_promoted": {
+    "existing_kengetallen_changed": 0,
+    "existing_kengetallen_with_same_element_code": [
+      {
+        "documents": [
+          "DOC-012",
+          "DOC-014"
+        ],
+        "kengetal_id": "KG-5211-replace-m1-pvc-67920b77"
+      }
+    ],
+    "statement": "Geen directe impact: kengetallen veranderen pas na een aparte promotie, comparability en ACTIVE human decisions. Hieronder alleen welke bestaande kengetallen dezelfde elementcode hebben (geen match, geen berekening)."
+  },
+  "relation_candidates": [
+    {
+      "document_ids": [
+        "DOC-005",
+        "DOC-014"
+      ],
+      "evidence": [
+        "objectpostcode gelijk: 1106EZ",
+        "adres gelijk: maldenhof 240 - 296"
+      ],
+      "kind": "SAME_BUILDING_CANDIDATE",
+      "origins": {
+        "DOC-005": "canonical",
+        "DOC-014": "this_batch"
+      },
+      "possible_meanings": [
+        "same_building_other_inspection",
+        "new_version",
+        "subplan",
+        "duplicate_other_bytes"
+      ],
+      "relation_candidate_id": "RC-d3e7e5179a",
+      "source_cluster": "NOT_ASSUMED",
+      "status": "CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+    },
+    {
+      "document_ids": [
+        "DOC-006",
+        "DOC-014"
+      ],
+      "evidence": [
+        "objectpostcode gelijk: 1106EZ",
+        "adres gelijk: maldenhof 240 - 296",
+        "prijspeil en inspectiedatum gelijk: 1-3-2023 / 23-3-2023"
+      ],
+      "kind": "POSSIBLE_DUPLICATE_OTHER_BYTES",
+      "origins": {
+        "DOC-006": "canonical",
+        "DOC-014": "this_batch"
+      },
+      "possible_meanings": [
+        "same_building_other_inspection",
+        "new_version",
+        "subplan",
+        "duplicate_other_bytes"
+      ],
+      "relation_candidate_id": "RC-c928b68de3",
+      "source_cluster": "NOT_ASSUMED",
+      "status": "CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"
+    }
+  ],
+  "requires_separate_promotion_step": true,
+  "rule": "Nieuwe documenten wijzigen nooit automatisch canonieke kennis. Promotie is een aparte, expliciete stap met menselijke review van de open punten en relatiekandidaten.",
+  "status": "PROPOSAL_ONLY_NOT_EXECUTED"
+}

@@ -2,34 +2,48 @@
   "batch_id": "IB-ad209360ab07",
   "document_id": "DOC-011",
   "duplicate_of": null,
-  "extraction": null,
+  "extraction": {
+    "canonical_content_sha256": "9d03a96e79b9f34b0a8e7eff8de16b397eba7a6c1068920bff82f00429145e63",
+    "extractor_version": "deterministic_extraction_v1.0.0",
+    "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+    "profile_id": "pro_vve_overzicht15",
+    "profile_version": "1.0.0",
+    "rules_version": "pro_vve_overzicht_rules_v1"
+  },
   "family": {
     "detection_version": "template_detection_v1",
-    "family_id": null,
+    "explanation": [
+      "pro_vve_overzicht15/jarenplan_without_objectblad: jarenplan_title@p18, jarenplan_header@p19, totaal_object@p14; afwezig: object_sheet, element_overview - vvem-jarenplan (Gedetailleerd) ingebed in een rapport zonder objectblad en elementenoverzicht; elementen alleen uit de elementregels van het jarenplan, objectvelden blijven leeg",
+      "niet standard: ontbreekt ['object_sheet', 'element_overview']; onverwacht aanwezig -",
+      "niet multi_object_projects: ontbreekt ['object_sheet', 'element_overview', 'projects_overview', 'jarenplan_title_projects']; onverwacht aanwezig ['jarenplan_title']"
+    ],
+    "family_id": "pro_vve_overzicht15",
     "markers": {
       "element_overview": null,
       "jarenplan_header": "p19",
       "jarenplan_title": "p18",
+      "jarenplan_title_projects": null,
       "object_sheet": null,
+      "projects_overview": null,
       "totaal_object": "p14"
     },
-    "reason": "PARTIAL_FAMILY_MARKERS"
+    "reason": null,
+    "variant": "jarenplan_without_objectblad"
   },
   "file_size_bytes": 753605,
   "format": "pdf",
   "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
   "open_review_items": [],
   "pipeline_version": "incoming_pipeline_v1",
-  "price_observation_candidates": 0,
-  "reasons": [
-    "PARTIAL_FAMILY_MARKERS"
-  ],
+  "price_observation_candidates": 46,
+  "reasons": [],
   "registration": "new",
   "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5",
-  "status": "UNKNOWN_TEMPLATE",
+  "status": "EXTRACTED",
   "status_history": [
     "NEW",
-    "UNKNOWN_TEMPLATE"
+    "READY_FOR_EXTRACTION",
+    "EXTRACTED"
   ],
-  "validation_outcome": null
+  "validation_outcome": "EXTRACTED"
 }

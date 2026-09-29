@@ -1,0 +1,4913 @@
+{
+  "builder_version": "price_observation_source_layer_v1",
+  "checks": {
+    "amount_reconciliation_not_consistent": 0,
+    "bevindingen_rows_linked": 6,
+    "bevindingen_rows_with_amount": 6,
+    "calculated_over_multiple_executions": 2,
+    "cycle_length_blank_in_source": 14,
+    "cycle_start_before_window": 0,
+    "cycle_start_missing": 0,
+    "jaarplan_rows_linked": 18,
+    "jaarplan_rows_with_amount": 18,
+    "jarenplan_rows_parsed": 61,
+    "jarenplan_totaal_object": "964631",
+    "observations": 46,
+    "observations_without_extraction_link": 0,
+    "price_level_basis": "absent",
+    "price_level_date": null,
+    "provenance_incomplete": 0,
+    "section_rows_unlinked": 0,
+    "status": "parsed",
+    "sum_observation_totals": "964634",
+    "totaal_object_difference": "3",
+    "total_scope": {
+      "MULTIPLE_EXECUTIONS": 3,
+      "ONE_EXECUTION": 43
+    },
+    "unit_price_calculated": 32,
+    "vat_basis": "inclusive",
+    "verified_actions_linked": 51,
+    "verified_actions_total": 51,
+    "zero_total_rows_not_observations": 15
+  },
+  "document": {
+    "document_context": {
+      "indexation_source": null,
+      "indexation_statement": null,
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_level_source": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_source": {
+        "line": 39,
+        "page": 11,
+        "text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+      },
+      "vat_source_rule": "jarenplan_toelichting_vat_fallback",
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    "document_id": "DOC-011",
+    "document_relation_ids": [],
+    "file_type": "pdf",
+    "jarenplan_totaal_object": "964631",
+    "pages": 37,
+    "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+    "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5",
+    "status": "parsed"
+  },
+  "note": "Kandidaat-price-observations (incoming staging). Relatie-ID's zijn lokaal en worden bij promotie hernummerd. Niet canoniek.",
+  "observation_relations": [],
+  "observations": [
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen kitvoeg rondom bouwstenen",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "26"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "2110",
+        "element_code_original": "2110",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Glazen bouwstenen buiten",
+        "element_description_original": "Glazen bouwstenen buiten",
+        "element_id": "DOC-011-EL-001",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-001"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L013",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "2,30",
+      "quantity_value": "2.30",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            15
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 9,
+            "page": 19
+          },
+          "line": 13,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen kitvoeg rondom 2,30 m1 2031 12 26 26"
+        }
+      ],
+      "total_as_stated": "26",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "26",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "11.30",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen scheuren volgens opgave Strackee",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "35665"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "2121",
+        "element_code_original": "2121",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          19
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Gevelconstructie beton kolommen",
+        "element_description_original": "Gevelconstructie beton kolommen balkons berging/balkon",
+        "element_id": "DOC-011-EL-002",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-002"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L021",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "78,60",
+      "quantity_value": "78.60",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            23
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 17,
+            "page": 19
+          },
+          "line": 21,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen scheuren volgens opgave 78,60 pst 2021 35.665 35.665"
+        },
+        {
+          "line": 9,
+          "match_text_similarity": 0.883,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2121 Gevelconstructie beton kolommen balkons Herstellen scheuren volgens opgave 78,60 pst 35.665",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "35.665",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "35665",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "replace",
+        "action_text_original": "Vervangen dilatatie kitvoeg",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "9262"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "14",
+      "cycle_length_years": 14,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": null,
+        "element_code_original": "2210",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dilatatie kitvoeg balkonvloeren",
+        "element_description_original": "Dilatatie kitvoeg balkonvloeren",
+        "element_id": "DOC-011-EL-003",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-003"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L031",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "170,10",
+      "quantity_value": "170.10",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 29,
+            "page": 19
+          },
+          "line": 31,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen dilatatie kitvoeg 170,10 m1 2021 14 9.262 9.262"
+        },
+        {
+          "line": 15,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2210 Dilatatie kitvoeg balkonvloeren Vervangen dilatatie kitvoeg 170,10 m1 9.262",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "9.262",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "9262",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "54.45",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Scheuren constructief"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "54450"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "2322",
+        "element_code_original": "2322",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Balkonconstructie betonen vloeren",
+        "element_description_original": "Balkonconstructie betonen vloeren",
+        "element_id": "DOC-011-EL-004",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-004"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L039",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 37,
+            "page": 19
+          },
+          "line": 39,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Scheuren constructief 1,00 pst 2021 54.450 54.450"
+        },
+        {
+          "line": 19,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2322 Balkonconstructie betonen vloeren Herstellen 1,00 pst 54.450",
+          "year": "2021"
+        },
+        {
+          "defect": {
+            "code": "B4EC01",
+            "name": "Scheuren constructief"
+          },
+          "inspection_scores_raw": "Ernstig 3 4 5",
+          "line": 19,
+          "match_text_similarity": 1.0,
+          "page": 12,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 pst 54.450",
+          "tag_location": null,
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "54.450",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "54450",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstel waterkerende laag betonnen luifels",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "1906"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": null,
+        "element_code_original": "2713",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Luifel beton (hoofdentrees)",
+        "element_description_original": "Luifel beton (hoofdentrees)",
+        "element_id": "DOC-011-EL-005",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-005"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L047",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "9,00",
+      "quantity_value": "9.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            49
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 45,
+            "page": 19
+          },
+          "line": 47,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstel waterkerende laag betonnen 9,00 st 2031 1.906 1.906"
+        }
+      ],
+      "total_as_stated": "1.906",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "1906",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "211.78",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Waterdichte afwerking staal en vloer",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "42471"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": null,
+        "element_code_original": "2811",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          57
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Staalconstructie verzinkt randbalken",
+        "element_description_original": "Staalconstructie verzinkt randbalken balkons",
+        "element_id": "DOC-011-EL-006",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-006"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L059",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "540,00",
+      "quantity_value": "540.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 55,
+            "page": 19
+          },
+          "line": 59,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Waterdichte afwerking staal en vloer 540,00 m1 2021 42.471 42.471"
+        },
+        {
+          "line": 25,
+          "match_text_similarity": 0.9,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2811 Staalconstructie verzinkt randbalken balkons Waterdichte afwerking staal en vloer 540,00 m1 42.471",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "42.471",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "42471",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "78.65",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Ontroesten en herstellen",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "21780"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": null,
+        "element_code_original": "2811",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Stalen consoles balkons",
+        "element_description_original": "Stalen consoles balkons",
+        "element_id": "DOC-011-EL-007",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-007"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L063",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "36,00",
+      "quantity_value": "36.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 61,
+            "page": 19
+          },
+          "line": 63,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Ontroesten en herstellen 36,00 st 2021 21.780 21.780"
+        },
+        {
+          "line": 27,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "2811 Stalen consoles balkons Ontroesten en herstellen 36,00 st 21.780",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "21.780",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "21780",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "605.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Plaatselijk herstel voegwerk en herstellen kapotte delen",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "4297"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3120",
+        "element_code_original": "3120",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Raamdorpel tegels",
+        "element_description_original": "Raamdorpel tegels",
+        "element_id": "DOC-011-EL-008",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-008"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L071",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "116,90",
+      "quantity_value": "116.90",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            73
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 69,
+            "page": 19
+          },
+          "line": 71,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Plaatselijk herstel voegwerk en 116,90 m1 2028 12 4.297 4.297"
+        }
+      ],
+      "total_as_stated": "4.297",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "4297",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "36.76",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Reinigen en nalopen hang- en sluitwerk",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "10885"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "10",
+      "cycle_length_years": 10,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3120",
+        "element_code_original": "3120",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Kozijn buiten kunststof",
+        "element_description_original": "Kozijn buiten kunststof",
+        "element_id": "DOC-011-EL-009",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-009"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P019-L083",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "694,64",
+      "quantity_value": "694.64",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            85
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 77,
+            "page": 19
+          },
+          "line": 83,
+          "page": 19,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Reinigen en nalopen hang- en 694,64 m2 2028 10 10.885 10.885"
+        }
+      ],
+      "total_as_stated": "10.885",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "10885",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "15.67",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen balkonscherm volkern",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "19210"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "35",
+      "cycle_length_years": 35,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3410",
+        "element_code_original": "3410",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Balkonscherm",
+        "element_description_original": "Balkonscherm",
+        "element_id": "DOC-011-EL-011",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-010"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L011",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "76,91",
+      "quantity_value": "76.91",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 9,
+            "page": 20
+          },
+          "line": 11,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen balkonscherm volkern 76,91 m2 2028 35 19.210 19.210"
+        }
+      ],
+      "total_as_stated": "19.210",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "19210",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "249.77",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen dakluik",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2030": "273"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "35",
+      "cycle_length_years": 35,
+      "cycle_start_year": 2030,
+      "cycle_start_year_as_stated": "2030",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "3720",
+        "element_code_original": "3720",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakluik staal",
+        "element_description_original": "Dakluik staal",
+        "element_id": "DOC-011-EL-012",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-011"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L019",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2030"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 17,
+            "page": 20
+          },
+          "line": 19,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen dakluik 1,00 m2 2030 35 273 273"
+        }
+      ],
+      "total_as_stated": "273",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "273",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "273.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Aanbrengen nieuwe afwerking plint",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2025": "6579",
+        "2032": "6579"
+      },
+      "calculated_unit_price_basis": "row_total_over_multiple_executions_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "7",
+      "cycle_length_years": 7,
+      "cycle_start_year": 2025,
+      "cycle_start_year_as_stated": "2025",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4111",
+        "element_code_original": "4111",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          31
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Gevelafwerking plint gecoate",
+        "element_description_original": "Gevelafwerking plint gecoate wandtegels",
+        "element_id": "DOC-011-EL-014",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-012",
+          "DOC-011-ACT-013"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L033",
+      "occurrences_in_window": 2,
+      "planned_years": [
+        "2025",
+        "2032"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "127,10",
+      "quantity_value": "127.10",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 29,
+            "page": 20
+          },
+          "line": 33,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Aanbrengen nieuwe afwerking plint 127,10 m2 2025 7 6.579 6.579 13.157"
+        }
+      ],
+      "total_as_stated": "13.157",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "13157",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "103.52",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen van entrees",
+        "gebrek_or_location_text_original": "Beschadiging aan tegels en uitgespoeld voegwerk"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "8534"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4322",
+        "element_code_original": "4322",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          41
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Vloerafwerking dubbel hard",
+        "element_description_original": "Vloerafwerking dubbel hard gebakken tegels (hoofdentrees)",
+        "element_id": "DOC-011-EL-015",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-014"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L043",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            45
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 39,
+            "page": 20
+          },
+          "line": 43,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen van entrees Beschadiging aan tegels en 1,00 pst 2021 8.534 8.534"
+        },
+        {
+          "line": 31,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4322 Vloerafwerking dubbel hard gebakken tegels Herstellen van entrees 1,00 pst 8.534",
+          "year": "2021"
+        },
+        {
+          "defect": {
+            "code": "B9SM03",
+            "name": "Beschadiging aan tegels en uitgespoeld voegwerk"
+          },
+          "inspection_scores_raw": "Serieus 2 3 2",
+          "line": 39,
+          "match_text_similarity": 1.0,
+          "page": 12,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen van entrees 1,00 pst 8.534",
+          "tag_location": null,
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "8.534",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "8534",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen van beschadigde traptegels",
+        "gebrek_or_location_text_original": "Afbrokkelen afboeren"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "656"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": null,
+        "element_code_original": "4410",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          53
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Traptegels dubbel hard gebakken",
+        "element_description_original": "Traptegels dubbel hard gebakken (BG onderdoorgang)",
+        "element_id": "DOC-011-EL-016",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-015"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L055",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            57
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 51,
+            "page": 20
+          },
+          "line": 55,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen van beschadigde Afbrokkelen afboeren 1,00 pst 2021 656 656"
+        },
+        {
+          "line": 41,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4410 Traptegels dubbel hard gebakken (BG Herstellen van beschadigde traptegels 1,00 pst 656",
+          "year": "2021"
+        },
+        {
+          "defect": {
+            "code": "B4SM01",
+            "name": "Afbrokkelen afboeren"
+          },
+          "inspection_scores_raw": "Serieus 2 2 1",
+          "line": 53,
+          "match_text_similarity": 1.0,
+          "page": 13,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen van beschadigde traptegels 1,00 pst 656",
+          "tag_location": null,
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "656",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "656",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk puivulling hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "2838"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "8",
+      "cycle_length_years": 8,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4621",
+        "element_code_original": "4621",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          65
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk hout dekkend",
+        "element_description_original": "Buitenschilderwerk hout dekkend (entreepuien, balkonkastdeuren)",
+        "element_id": "DOC-011-EL-017",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-016"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L067",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "43,10",
+      "quantity_value": "43.10",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            69
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 63,
+            "page": 20
+          },
+          "line": 67,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk puivulling hout 43,10 m2 2028 8 2.838 2.838"
+        }
+      ],
+      "total_as_stated": "2.838",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2838",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "65.85",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk metaal",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "2071"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4621",
+        "element_code_original": "4621",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          73
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk metaal",
+        "element_description_original": "Buitenschilderwerk metaal waslijnbeugel",
+        "element_id": "DOC-011-EL-018",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-017"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L075",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "72,00",
+      "quantity_value": "72.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 71,
+            "page": 20
+          },
+          "line": 75,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk metaal 72,00 m2 2028 12 2.071 2.071"
+        }
+      ],
+      "total_as_stated": "2.071",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2071",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "28.76",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk metaal",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "9540"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "8",
+      "cycle_length_years": 8,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4621",
+        "element_code_original": "4621",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          79
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk metaal consoles",
+        "element_description_original": "Buitenschilderwerk metaal consoles balkons",
+        "element_id": "DOC-011-EL-019",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-018"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L081",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "36,00",
+      "quantity_value": "36.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 77,
+            "page": 20
+          },
+          "line": 81,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk metaal 36,00 m2 2028 8 9.540 9.540"
+        }
+      ],
+      "total_as_stated": "9.540",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "9540",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "265.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk stucwerk",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2029": "19090"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2029,
+      "cycle_start_year_as_stated": "2029",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4622",
+        "element_code_original": "4622",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk stucwerk",
+        "element_description_original": "Binnenschilderwerk stucwerk",
+        "element_id": "DOC-011-EL-020",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-019"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L085",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2029"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1500,75",
+      "quantity_value": "1500.75",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 83,
+            "page": 20
+          },
+          "line": 85,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk stucwerk 1500,75 st 2029 12 19.090 19.090"
+        }
+      ],
+      "total_as_stated": "19.090",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "19090",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "12.72",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk deur hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2029": "10434"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2029,
+      "cycle_start_year_as_stated": "2029",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4622",
+        "element_code_original": "4622",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          89
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk deur hout",
+        "element_description_original": "Binnenschilderwerk deur hout dekkend",
+        "element_id": "DOC-011-EL-021",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-020"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L091",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2029"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "120,96",
+      "quantity_value": "120.96",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            93
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 87,
+            "page": 20
+          },
+          "line": 91,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk deur hout 120,96 m2 2029 12 10.434 10.434"
+        }
+      ],
+      "total_as_stated": "10.434",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "10434",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "86.26",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen coating beton volgens opgave Strackee",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "23780"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4623",
+        "element_code_original": "4623",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          97
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk betonvloer",
+        "element_description_original": "Buitenschilderwerk betonvloer coating (balkons)",
+        "element_id": "DOC-011-EL-022",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-021"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P020-L101",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "561,50",
+      "quantity_value": "561.50",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            103
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 95,
+            "page": 20
+          },
+          "line": 101,
+          "page": 20,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen coating beton volgens 561,50 m2 2021 23.780 23.780"
+        },
+        {
+          "line": 49,
+          "match_text_similarity": 0.897,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4623 Buitenschilderwerk betonvloer coating Herstellen coating beton volgens opgave 561,50 m2 23.780",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "23.780",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "23780",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "42.35",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen coating beton inclusief herstel scheuren",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2030": "10918"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "14",
+      "cycle_length_years": 14,
+      "cycle_start_year": 2030,
+      "cycle_start_year_as_stated": "2030",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4623",
+        "element_code_original": "4623",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          9
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk betonvloer",
+        "element_description_original": "Buitenschilderwerk betonvloer coating (onderdoorgang bergingen)",
+        "element_id": "DOC-011-EL-023",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-022"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L011",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2030"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "207,90",
+      "quantity_value": "207.90",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            13
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 7,
+            "page": 21
+          },
+          "line": 11,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen coating beton inclusief 207,90 m2 2030 14 10.918 10.918"
+        }
+      ],
+      "total_as_stated": "10.918",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "10918",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "52.52",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk steenachtig",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "2045"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "14",
+      "cycle_length_years": 14,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4628",
+        "element_code_original": "4628",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          17
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk betonconstructie",
+        "element_description_original": "Buitenschilderwerk betonconstructie kolommen berging/balkon",
+        "element_id": "DOC-011-EL-024",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-023"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L019",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "78,60",
+      "quantity_value": "78.60",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 15,
+            "page": 21
+          },
+          "line": 19,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk steenachtig 78,60 m2 2021 14 2.045 2.045"
+        },
+        {
+          "line": 53,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4628 Buitenschilderwerk betonconstructie Groot schilderwerk steenachtig 78,60 m2 2.045",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "2.045",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2045",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "26.02",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk kozijn & raam hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2025": "968",
+        "2033": "968"
+      },
+      "calculated_unit_price_basis": "row_total_over_multiple_executions_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "8",
+      "cycle_length_years": 8,
+      "cycle_start_year": 2025,
+      "cycle_start_year_as_stated": "2025",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4631",
+        "element_code_original": "4631",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          23
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk kozijn&raam hout",
+        "element_description_original": "Buitenschilderwerk kozijn&raam hout dekkend m2 bergingen",
+        "element_id": "DOC-011-EL-025",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-024",
+          "DOC-011-ACT-025"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L025",
+      "occurrences_in_window": 2,
+      "planned_years": [
+        "2025",
+        "2033"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "18,70",
+      "quantity_value": "18.70",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            27
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 21,
+            "page": 21
+          },
+          "line": 25,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk kozijn & raam 18,70 m2 2025 8 968 968 1.936"
+        }
+      ],
+      "total_as_stated": "1.936",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "1936",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "103.53",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk hek staal",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "28335"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4634",
+        "element_code_original": "4634",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          31
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk hek metaal",
+        "element_description_original": "Buitenschilderwerk hek metaal balkons",
+        "element_id": "DOC-011-EL-026",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-026"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L033",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "753,00",
+      "quantity_value": "753.00",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 29,
+            "page": 21
+          },
+          "line": 33,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk hek staal 753,00 m2 2028 12 28.335 28.335"
+        }
+      ],
+      "total_as_stated": "28.335",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "28335",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "37.63",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "interior_painting",
+        "action_text_original": "Groot schilderwerk hek hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "14998"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4634",
+        "element_code_original": "4634",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          37
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Binnenschilderwerk hek hout",
+        "element_description_original": "Binnenschilderwerk hek hout dekkend",
+        "element_id": "DOC-011-EL-027",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-027"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L039",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "455,40",
+      "quantity_value": "455.40",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            41
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 35,
+            "page": 21
+          },
+          "line": 39,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk hek hout 455,40 m2 2028 12 14.998 14.998"
+        }
+      ],
+      "total_as_stated": "14.998",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "14998",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "32.93",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk plafond hout dekkend",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2031": "13712"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2031,
+      "cycle_start_year_as_stated": "2031",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4645",
+        "element_code_original": "4645",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          45
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk plafond hout",
+        "element_description_original": "Buitenschilderwerk plafond hout dekkend (dakoverstek)",
+        "element_id": "DOC-011-EL-028",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-028"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L047",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2031"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "208,20",
+      "quantity_value": "208.20",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            49
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 43,
+            "page": 21
+          },
+          "line": 47,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk plafond hout 208,20 m2 2031 12 13.712 13.712"
+        }
+      ],
+      "total_as_stated": "13.712",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "13712",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "65.86",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "vocabulary",
+        "action_normalized": "repair",
+        "action_text_original": "Herstellen",
+        "gebrek_or_location_text_original": "Afbladderen"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "3630"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "eenheid 'post' niet in vocabularies/unit.json",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4645",
+        "element_code_original": "4645",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          53
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk betonconstructie",
+        "element_description_original": "Buitenschilderwerk betonconstructie plafond",
+        "element_id": "DOC-011-EL-029",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-029"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L055",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "unit_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 51,
+            "page": 21
+          },
+          "line": 55,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen Afbladderen 1,00 post 2021 3.630 3.630"
+        },
+        {
+          "line": 57,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4645 Buitenschilderwerk betonconstructie plafond Herstellen 1,00 post 3.630",
+          "year": "2021"
+        },
+        {
+          "defect": {
+            "code": "B11EM05",
+            "name": "Afbladderen"
+          },
+          "inspection_scores_raw": "Ernstig 2 1 1",
+          "line": 19,
+          "match_text_similarity": 1.0,
+          "page": 14,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen 1,00 post 3.630",
+          "tag_location": null,
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "3.630",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "3630",
+      "unit_normalized": null,
+      "unit_original": "post",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": "derived_from_linked_element_type",
+        "action_normalized": "exterior_painting",
+        "action_text_original": "Groot schilderwerk betonconstructie plafond",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "15850"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4645",
+        "element_code_original": "4645",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          53
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Buitenschilderwerk betonconstructie",
+        "element_description_original": "Buitenschilderwerk betonconstructie plafond",
+        "element_id": "DOC-011-EL-029",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-030"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": false,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L057",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "561,50",
+      "quantity_value": "561.50",
+      "relation_ids": [],
+      "requires_human_review": false,
+      "review_reasons": [],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            59
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 51,
+            "page": 21
+          },
+          "line": 57,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Groot schilderwerk betonconstructie 561,50 m2 2028 12 15.850 15.850"
+        }
+      ],
+      "total_as_stated": "15.850",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "15850",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "28.23",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen van de ontbrekende dakkapjes",
+        "gebrek_or_location_text_original": "Ontbreken van kapjes dakventilatie"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2020": "460"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "eenheid 'post' niet in vocabularies/unit.json",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2020,
+      "cycle_start_year_as_stated": "2020",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4711",
+        "element_code_original": "4711",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakbedekking bitumen",
+        "element_description_original": "Dakbedekking bitumen",
+        "element_id": "DOC-011-EL-030",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-031"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L067",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2020"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "unit_not_normalized",
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            69
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 65,
+            "page": 21
+          },
+          "line": 67,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen van de ontbrekende Ontbreken van kapjes 1,00 post 2020 460 460"
+        },
+        {
+          "line": 9,
+          "match_text_similarity": 0.853,
+          "page": 30,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4711 Dakbedekking bitumen Herstellen van de ontbrekende 1,00 post 460",
+          "year": "2020"
+        },
+        {
+          "defect": {
+            "code": "B6SM02",
+            "name": "Ontbreken van kapjes dakventilatie"
+          },
+          "inspection_scores_raw": "Serieus 2 2 1",
+          "line": 19,
+          "match_text_similarity": 1.0,
+          "page": 13,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen van de ontbrekende dakkapjes 1,00 post 460",
+          "tag_location": null,
+          "year": "2020"
+        }
+      ],
+      "total_as_stated": "460",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "460",
+      "unit_normalized": null,
+      "unit_original": "post",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstellen van gat",
+        "gebrek_or_location_text_original": "Beschadiging"
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2020": "328"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2020,
+      "cycle_start_year_as_stated": "2020",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4711",
+        "element_code_original": "4711",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakbedekking bitumen",
+        "element_description_original": "Dakbedekking bitumen",
+        "element_id": "DOC-011-EL-030",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-032"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L071",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2020"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 65,
+            "page": 21
+          },
+          "line": 71,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstellen van gat Beschadiging 1,00 st 2020 328 328"
+        },
+        {
+          "line": 15,
+          "match_text_similarity": 1.0,
+          "page": 30,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "4711 Dakbedekking bitumen Herstellen van gat 1,00 st 328",
+          "year": "2020"
+        },
+        {
+          "defect": {
+            "code": "B6SM02",
+            "name": "Beschadiging"
+          },
+          "inspection_scores_raw": "Serieus 2 1 1",
+          "line": 35,
+          "match_text_similarity": 1.0,
+          "page": 13,
+          "role": "context_inspection",
+          "section": "BEVINDINGEN",
+          "source_text": "Herstellen van gat 1,00 st 328",
+          "tag_location": null,
+          "year": "2020"
+        }
+      ],
+      "total_as_stated": "328",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "328",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "328.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Aanbrengen nieuwe laag dakbedekking bitumen ongeballast",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2023": "93836"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2023,
+      "cycle_start_year_as_stated": "2023",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4711",
+        "element_code_original": "4711",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakbedekking bitumen",
+        "element_description_original": "Dakbedekking bitumen",
+        "element_id": "DOC-011-EL-030",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-033"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L077",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2023"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1292,50",
+      "quantity_value": "1292.50",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            79
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 65,
+            "page": 21
+          },
+          "line": 77,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Aanbrengen nieuwe laag 1292,50 m2 2023 25 93.836 93.836"
+        }
+      ],
+      "total_as_stated": "93.836",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "93836",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "72.60",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen daktrim aluminium",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2023": "8477"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "25",
+      "cycle_length_years": 25,
+      "cycle_start_year": 2023,
+      "cycle_start_year_as_stated": "2023",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "4711",
+        "element_code_original": "4711",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Dakrandafwerking aluminium trim",
+        "element_description_original": "Dakrandafwerking aluminium trim",
+        "element_id": "DOC-011-EL-031",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-034"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L083",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2023"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "250,20",
+      "quantity_value": "250.20",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 81,
+            "page": 21
+          },
+          "line": 83,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen daktrim aluminium 250,20 m1 2023 25 8.477 8.477"
+        }
+      ],
+      "total_as_stated": "8.477",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "8477",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "33.88",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen rookgasafvoerkanaal voor RVS",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2029": "141570"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "30",
+      "cycle_length_years": 30,
+      "cycle_start_year": 2029,
+      "cycle_start_year_as_stated": "2029",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5124",
+        "element_code_original": "5124",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Rookgasafvoerkanalen binnen",
+        "element_description_original": "Rookgasafvoerkanalen binnen",
+        "element_id": "DOC-011-EL-034",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-035"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L105",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2029"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "9,00",
+      "quantity_value": "9.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            107
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 103,
+            "page": 21
+          },
+          "line": 105,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen rookgasafvoerkanaal 9,00 st 2029 30 141.570 141.570"
+        }
+      ],
+      "total_as_stated": "141.570",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "141570",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "15730.00",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen hemelwaterafvoer pvc achtergevel incl. bocht naar horizontaal",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "19694"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "30",
+      "cycle_length_years": 30,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5211",
+        "element_code_original": "5211",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Hemelwaterafvoer pvc",
+        "element_description_original": "Hemelwaterafvoer pvc",
+        "element_id": "DOC-011-EL-035",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-036"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P021-L115",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "140,00",
+      "quantity_value": "140.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            117,
+            119
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 113,
+            "page": 21
+          },
+          "line": 115,
+          "page": 21,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen hemelwaterafvoer pvc 140,00 m1 2021 30 19.694 19.694"
+        },
+        {
+          "line": 63,
+          "match_text_similarity": 0.6,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "5211 Hemelwaterafvoer pvc Vervangen hemelwaterafvoer pvc 140,00 m1 19.694",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "19.694",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "19694",
+      "unit_normalized": "m1",
+      "unit_original": "m1",
+      "unit_price_calculated": "140.67",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen balkon doorvoer",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "23958"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "30",
+      "cycle_length_years": 30,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5211",
+        "element_code_original": "5211",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Balkon doorvoer vervangen",
+        "element_description_original": "Balkon doorvoer vervangen",
+        "element_id": "DOC-011-EL-036",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-037"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L013",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "72,00",
+      "quantity_value": "72.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 11,
+            "page": 22
+          },
+          "line": 13,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen balkon doorvoer 72,00 st 2021 30 23.958 23.958"
+        },
+        {
+          "line": 67,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "5211 Balkon doorvoer vervangen Vervangen balkon doorvoer 72,00 st 23.958",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "23.958",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "23958",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "332.75",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Coaten binneriolering standleiding Relinen diam 125 en diam.70 mm",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2025": "60322"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "48",
+      "cycle_length_years": 48,
+      "cycle_start_year": 2025,
+      "cycle_start_year_as_stated": "2025",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5240",
+        "element_code_original": "5240",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          17
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Standleidingen (twee strangen per",
+        "element_description_original": "Standleidingen (twee strangen per app)",
+        "element_id": "DOC-011-EL-037",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-038"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L019",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2025"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "0,33",
+      "quantity_value": "0.33",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            21
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 15,
+            "page": 22
+          },
+          "line": 19,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Coaten binneriolering standleiding 0,33 pst 2025 48 60.322 60.322"
+        }
+      ],
+      "total_as_stated": "60.322",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "60322",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Coaten binneriolering standleiding Relinen diam 125 en diam.70 mm",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2023": "60322"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "48",
+      "cycle_length_years": 48,
+      "cycle_start_year": 2023,
+      "cycle_start_year_as_stated": "2023",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5240",
+        "element_code_original": "5240",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          17
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Standleidingen (twee strangen per",
+        "element_description_original": "Standleidingen (twee strangen per app)",
+        "element_id": "DOC-011-EL-037",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-039"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L023",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2023"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "0,33",
+      "quantity_value": "0.33",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            25
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 15,
+            "page": 22
+          },
+          "line": 23,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Coaten binneriolering standleiding 0,33 pst 2023 48 60.322 60.322"
+        }
+      ],
+      "total_as_stated": "60.322",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "60322",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Coaten binneriolering standleiding Relinen diam 125 en diam.70 mm",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "60322"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "48",
+      "cycle_length_years": 48,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "5240",
+        "element_code_original": "5240",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          17
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Standleidingen (twee strangen per",
+        "element_description_original": "Standleidingen (twee strangen per app)",
+        "element_id": "DOC-011-EL-037",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-040"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L027",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "0,33",
+      "quantity_value": "0.33",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            29
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 15,
+            "page": 22
+          },
+          "line": 27,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Coaten binneriolering standleiding 0,33 pst 2021 48 60.322 60.322"
+        },
+        {
+          "line": 69,
+          "match_text_similarity": 0.687,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "5240 Standleidingen (twee strangen per app) Coaten binneriolering standleiding 0,33 pst 60.322",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "60.322",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "60322",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen armaturen buiten TL",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2027": "3013"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2027,
+      "cycle_start_year_as_stated": "2027",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "6311",
+        "element_code_original": "6311",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Elektra armaturen buiten ( Led )",
+        "element_description_original": "Elektra armaturen buiten ( Led )",
+        "element_id": "DOC-011-EL-039",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-041"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L045",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2027"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "17,00",
+      "quantity_value": "17.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 43,
+            "page": 22
+          },
+          "line": 45,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen armaturen buiten TL 17,00 st 2027 12 3.013 3.013"
+        }
+      ],
+      "total_as_stated": "3.013",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "3013",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "177.24",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Vervangen armaturen binnen TL voor Led",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2027": "5672"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2027,
+      "cycle_start_year_as_stated": "2027",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "6311",
+        "element_code_original": "6311",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Elektra armaturen binnen ( led )",
+        "element_description_original": "Elektra armaturen binnen ( led )",
+        "element_id": "DOC-011-EL-040",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-042"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L049",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2027"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "36,00",
+      "quantity_value": "36.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            51
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 47,
+            "page": 22
+          },
+          "line": 49,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Vervangen armaturen binnen TL 36,00 st 2027 12 5.672 5.672"
+        }
+      ],
+      "total_as_stated": "5.672",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "5672",
+      "unit_normalized": "piece",
+      "unit_original": "st",
+      "unit_price_calculated": "157.56",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Afdichten voetplaten",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "13667"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9032",
+        "element_code_original": "9032",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Hekwerk metaal",
+        "element_description_original": "Hekwerk metaal",
+        "element_id": "DOC-011-EL-044",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-043"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L083",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "753,00",
+      "quantity_value": "753.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 81,
+            "page": 22
+          },
+          "line": 83,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Afdichten voetplaten 753,00 pst 2021 13.667 13.667"
+        },
+        {
+          "line": 75,
+          "match_text_similarity": 1.0,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "9032 Hekwerk metaal Afdichten voetplaten 753,00 pst 13.667",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "13.667",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "13667",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Herstraten betontegels",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2030": "355"
+      },
+      "calculated_unit_price_basis": "row_total_single_execution_in_window",
+      "calculated_unit_price_not_computed_reason": null,
+      "calculation_method": "total_value / quantity_value (Decimal, 2 decimalen)",
+      "cycle_length_as_stated": "40",
+      "cycle_length_years": 40,
+      "cycle_start_year": 2030,
+      "cycle_start_year_as_stated": "2030",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9041",
+        "element_code_original": "9041",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Terreinverharding betontegels",
+        "element_description_original": "Terreinverharding betontegels",
+        "element_id": "DOC-011-EL-045",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-044"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P022-L089",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2030"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": "calculated",
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "26,40",
+      "quantity_value": "26.40",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 85,
+            "page": 22
+          },
+          "line": 89,
+          "page": 22,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Herstraten betontegels 26,40 m2 2030 40 355 355"
+        }
+      ],
+      "total_as_stated": "355",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "355",
+      "unit_normalized": "m2",
+      "unit_original": "m2",
+      "unit_price_calculated": "13.45",
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Inspecteren en begroting actualiseren",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2023": "1562",
+        "2026": "1562",
+        "2029": "1562",
+        "2032": "1562"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "3",
+      "cycle_length_years": 3,
+      "cycle_start_year": 2023,
+      "cycle_start_year_as_stated": "2023",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9999",
+        "element_code_original": "9999",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [
+          11
+        ],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Actualisatie meerjaren",
+        "element_description_original": "Actualisatie meerjaren onderhoudsplan",
+        "element_id": "DOC-011-EL-046",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-045",
+          "DOC-011-ACT-046",
+          "DOC-011-ACT-047",
+          "DOC-011-ACT-048"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P023-L013",
+      "occurrences_in_window": 4,
+      "planned_years": [
+        "2023",
+        "2026",
+        "2029",
+        "2032"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            15
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 9,
+            "page": 23
+          },
+          "line": 13,
+          "page": 23,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Inspecteren en begroting 1,00 pst 2023 3 1.562 1.562 1.562 1.562 6.249"
+        }
+      ],
+      "total_as_stated": "6.249",
+      "total_scope": "MULTIPLE_EXECUTIONS",
+      "total_value": "6249",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Bereikbaarheidsvoorzieningen",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2028": "24200"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": "12",
+      "cycle_length_years": 12,
+      "cycle_start_year": 2028,
+      "cycle_start_year_as_stated": "2028",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9999",
+        "element_code_original": "9999",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Bereikbaarheidsvoorzieningen",
+        "element_description_original": "Bereikbaarheidsvoorzieningen",
+        "element_id": "DOC-011-EL-047",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-049"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P023-L019",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2028"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 17,
+            "page": 23
+          },
+          "line": 19,
+          "page": 23,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Bereikbaarheidsvoorzieningen 1,00 pst 2028 12 24.200 24.200"
+        }
+      ],
+      "total_as_stated": "24.200",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "24200",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Werkzaamheden 2021 balkons mede afhankelijk of garantie van toepassing",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "58080"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9999",
+        "element_code_original": "9999",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Bereikbaarheidsvoorzieningen",
+        "element_description_original": "Bereikbaarheidsvoorzieningen",
+        "element_id": "DOC-011-EL-047",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-050"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P023-L021",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            23,
+            25
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 17,
+            "page": 23
+          },
+          "line": 21,
+          "page": 23,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Werkzaamheden 2021 balkons 1,00 pst 2021 58.080 58.080"
+        },
+        {
+          "line": 79,
+          "match_text_similarity": 0.614,
+          "page": 32,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "9999 Bereikbaarheidsvoorzieningen Werkzaamheden 2021 balkons mede 1,00 pst 58.080",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "58.080",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "58080",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    },
+    {
+      "action": {
+        "action_normalization_basis": null,
+        "action_normalized": null,
+        "action_text_original": "Onderzoek mogelijkheden rookgasafvoeren",
+        "gebrek_or_location_text_original": null
+      },
+      "amount_reconciliation": "consistent",
+      "annual_amounts": {
+        "2021": "2360"
+      },
+      "calculated_unit_price_basis": null,
+      "calculated_unit_price_not_computed_reason": "niet-deelbare eenheid (stelpost/lump_sum)",
+      "calculation_method": null,
+      "cycle_length_as_stated": null,
+      "cycle_length_years": null,
+      "cycle_start_year": 2021,
+      "cycle_start_year_as_stated": "2021",
+      "dependency_status": "NO_DEPENDENCY_FOUND",
+      "document_id": "DOC-011",
+      "document_relation_ids": [],
+      "element": {
+        "element_candidate_previous_page": null,
+        "element_code_internal": "9999",
+        "element_code_original": "9999",
+        "element_context_source": "same_page",
+        "element_description_continuation_lines": [],
+        "element_description_excluded_tokens": [],
+        "element_description_first_line": "Technisch advies installaties",
+        "element_description_original": "Technisch advies installaties",
+        "element_id": "DOC-011-EL-048",
+        "element_location_original": null
+      },
+      "execution_window_end": 2034,
+      "execution_window_start": 2020,
+      "extraction_link": {
+        "action_ids": [
+          "DOC-011-ACT-051"
+        ],
+        "method": "heuristic_quantity_text_amount_v1",
+        "score": 1.6
+      },
+      "extraction_review": {
+        "any_requires_human_review": true,
+        "human_verification_statuses": [],
+        "review_notes": []
+      },
+      "indexation_statement": null,
+      "legacy_extracted_cost_years": [],
+      "observation_id": "PO-DOC-011-P023-L029",
+      "occurrences_in_window": 1,
+      "planned_years": [
+        "2021"
+      ],
+      "price_level_basis": "absent",
+      "price_level_date": null,
+      "price_type": null,
+      "provenance_gaps": [],
+      "provenance_status": "complete",
+      "quantity_as_stated": "1,00",
+      "quantity_value": "1.00",
+      "relation_ids": [],
+      "requires_human_review": true,
+      "review_reasons": [
+        "action_not_normalized"
+      ],
+      "review_status": "not_reviewed",
+      "source_file": {
+        "file_type": "pdf",
+        "relative_path": "incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+        "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5"
+      },
+      "source_representations": [
+        {
+          "continuation_lines": [
+            31
+          ],
+          "document_id": "DOC-011",
+          "element_line": {
+            "line": 27,
+            "page": 23
+          },
+          "line": 29,
+          "page": 23,
+          "role": "primary_financial_row",
+          "section": "JARENPLAN_GEDETAILLEERD",
+          "source_text": "Onderzoek mogelijkheden 1,00 pst 2021 2.360 2.360"
+        },
+        {
+          "line": 7,
+          "match_text_similarity": 0.742,
+          "page": 33,
+          "role": "first_year_plan_view",
+          "section": "JAARPLAN",
+          "source_text": "9999 Technisch advies installaties Onderzoek mogelijkheden 1,00 pst 2.360",
+          "year": "2021"
+        }
+      ],
+      "total_as_stated": "2.360",
+      "total_scope": "ONE_EXECUTION",
+      "total_value": "2360",
+      "unit_normalized": "lump_sum",
+      "unit_original": "pst",
+      "unit_price_calculated": null,
+      "unit_price_literal": null,
+      "vat_basis": "inclusive",
+      "vat_rate_text": null,
+      "vat_text": "Alle prijzen zijn inclusief BTW - (hoog/laag BTW tarief is toegepast)"
+    }
+  ],
+  "unlinked_section_rows": []
+}

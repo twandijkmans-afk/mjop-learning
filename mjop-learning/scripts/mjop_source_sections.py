@@ -146,10 +146,15 @@ def _squash(s):
 # Objectblad: prijspeil / BTW / indexatie (letterlijk, niet afgeleid)
 # --------------------------------------------------------------------------
 
-def parse_document_context(pages):
+def parse_document_context(pages, jarenplan_vat_fallback=False):
     """Leest prijspeil, BTW-basis, BTW-tarieftekst en de indexatiezin letterlijk
     uit de bron. Staat er geen 'Prijspeil'-veld, dan blijft het prijspeil None
-    met basis 'absent' - het wordt NOOIT afgeleid uit inspectie- of printdatum."""
+    met basis 'absent' - het wordt NOOIT afgeleid uit inspectie- of printdatum.
+
+    jarenplan_vat_fallback (alleen voor profielvarianten zonder objectblad): staat er geen
+    BTW-regel op het objectblad, dan wordt de letterlijke toelichtingsregel van het jarenplan
+    ('Alle prijzen zijn inclusief/exclusief BTW ...') gebruikt, met die bronregel als provenance.
+    Standaard uit: bestaande documenten worden exact als voorheen gelezen."""
     ctx = {
         "price_level_date": None,
         "price_level_basis": "absent",
@@ -161,6 +166,7 @@ def parse_document_context(pages):
         "indexation_statement": None,
         "indexation_source": None,
     }
+    fallback = None
     for pno, text in enumerate(pages, start=1):
         for lno, raw in enumerate(text.splitlines(), start=1):
             line = _squash(_clean(raw))
@@ -184,6 +190,13 @@ def parse_document_context(pages):
                 if m:
                     ctx.update(indexation_statement=m.group(0),
                                indexation_source={"page": pno, "line": lno})
+            if jarenplan_vat_fallback and fallback is None:
+                m = re.match(r"^(Alle prijzen zijn (inclusief|exclusief) BTW\b.*)$", line)
+                if m:
+                    fallback = (m.group(1), m.group(2), {"page": pno, "line": lno, "text": line})
+    if jarenplan_vat_fallback and ctx["vat_text"] is None and fallback is not None:
+        ctx.update(vat_text=fallback[0], vat_basis="inclusive" if fallback[1] == "inclusief" else "exclusive",
+                   vat_source=fallback[2], vat_source_rule="jarenplan_toelichting_vat_fallback")
     return ctx
 
 

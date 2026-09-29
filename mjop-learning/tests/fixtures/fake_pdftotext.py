@@ -21,6 +21,18 @@ if "-v" in args:
 if "-table" not in args:
     sys.stderr.write("fake_pdftotext: alleen -table wordt ondersteund\n")
     sys.exit(2)
-with open(os.environ["FAKE_PDFTOTEXT_PAGES"], encoding="utf-8") as f:
-    pages = json.load(f)["pages"]
+if os.environ.get("FAKE_PDFTOTEXT_PAGES_DIR"):
+    # per document: echte runner-uitvoer, gekozen op sha256 van de PDF (tests/fixtures/xpdf_pages)
+    import hashlib
+    pdf = next(a for a in args if a.lower().endswith(".pdf"))
+    sha = hashlib.sha256(open(pdf, "rb").read()).hexdigest()
+    path = os.path.join(os.environ["FAKE_PDFTOTEXT_PAGES_DIR"], f"{sha}.json")
+    if not os.path.exists(path):
+        sys.stderr.write(f"fake_pdftotext: geen fixture voor {sha}\n")
+        sys.exit(3)
+    with open(path, encoding="utf-8") as f:
+        pages = json.load(f)["pages"]
+else:
+    with open(os.environ["FAKE_PDFTOTEXT_PAGES"], encoding="utf-8") as f:
+        pages = json.load(f)["pages"]
 sys.stdout.buffer.write("".join(p + "\f" for p in pages).encode("utf-8"))

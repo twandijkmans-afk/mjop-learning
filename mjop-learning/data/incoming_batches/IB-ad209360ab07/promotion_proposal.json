@@ -11,16 +11,15 @@
   ],
   "documents": [
     {
-      "decision": "BLOCKED",
+      "decision": "REVIEW_REQUIRED",
       "document_id": "DOC-011",
-      "eligible_for_direct_promotion": false,
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
       "key": "DOC-011",
       "reasons": [
-        "UNKNOWN_TEMPLATE",
-        "PARTIAL_FAMILY_MARKERS"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "UNKNOWN_TEMPLATE"
+      "status": "EXTRACTED"
     },
     {
       "decision": "REVIEW_REQUIRED",
@@ -34,16 +33,15 @@
       "status": "EXTRACTED"
     },
     {
-      "decision": "BLOCKED",
+      "decision": "REVIEW_REQUIRED",
       "document_id": "DOC-013",
-      "eligible_for_direct_promotion": false,
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/MOP 2026 totaal.pdf",
       "key": "DOC-013",
       "reasons": [
-        "UNKNOWN_TEMPLATE",
-        "PARTIAL_FAMILY_MARKERS"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "UNKNOWN_TEMPLATE"
+      "status": "EXTRACTED"
     },
     {
       "decision": "REVIEW_REQUIRED",
@@ -57,15 +55,15 @@
       "status": "REVIEW_REQUIRED"
     },
     {
-      "decision": "BLOCKED",
+      "decision": "REVIEW_REQUIRED",
       "document_id": "DOC-015",
-      "eligible_for_direct_promotion": false,
+      "eligible_for_direct_promotion": true,
       "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
       "key": "DOC-015",
       "reasons": [
-        "UNSUPPORTED_EXTRACTION"
+        "AWAITING_HUMAN_APPROVAL"
       ],
-      "status": "REVIEW_REQUIRED"
+      "status": "EXTRACTED"
     }
   ],
   "global_blockers": [],
@@ -74,8 +72,11 @@
     "existing_kengetallen_with_same_element_code": [
       {
         "documents": [
+          "DOC-011",
           "DOC-012",
-          "DOC-014"
+          "DOC-013",
+          "DOC-014",
+          "DOC-015"
         ],
         "kengetal_id": "KG-5211-replace-m1-pvc-67920b77"
       }

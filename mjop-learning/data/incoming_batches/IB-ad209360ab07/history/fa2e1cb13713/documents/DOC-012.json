@@ -1,0 +1,41 @@
+{
+  "batch_id": "IB-ad209360ab07",
+  "document_id": "DOC-012",
+  "duplicate_of": null,
+  "extraction": {
+    "canonical_content_sha256": "31080dcb382b96579113a0cc83a9b3a4b876fa1ce913144929d3674b762046d4",
+    "extractor_version": "deterministic_extraction_v1.0.0",
+    "pdftotext_version": "pdftotext version 4.06 [www.xpdfreader.com]",
+    "profile_id": "pro_vve_overzicht15",
+    "profile_version": "1.0.0",
+    "rules_version": "pro_vve_overzicht_rules_v1"
+  },
+  "family": {
+    "detection_version": "template_detection_v1",
+    "family_id": "pro_vve_overzicht15",
+    "markers": {
+      "element_overview": "p5",
+      "jarenplan_header": "p13",
+      "jarenplan_title": "p12",
+      "object_sheet": "p2",
+      "totaal_object": "p11"
+    },
+    "reason": null
+  },
+  "file_size_bytes": 1017068,
+  "format": "pdf",
+  "input_path": "Testbatch 01/Actualisatie MOP 2024.pdf",
+  "open_review_items": [],
+  "pipeline_version": "incoming_pipeline_v1",
+  "price_observation_candidates": 48,
+  "reasons": [],
+  "registration": "new",
+  "sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+  "status": "EXTRACTED",
+  "status_history": [
+    "NEW",
+    "READY_FOR_EXTRACTION",
+    "EXTRACTED"
+  ],
+  "validation_outcome": "EXTRACTED"
+}

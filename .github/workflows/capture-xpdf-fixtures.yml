@@ -1,0 +1,55 @@
+# Legt echte xpdf-4.06-pagina-uitvoer van PDF's in data/incoming (en de batch-1-referentie DOC-010)
+# vast als testfixtures (tests/fixtures/xpdf_pages/<sha256>.json), via exact de productieroute en
+# alleen met een geverifieerde runner. Voor parserontwikkeling en regressietests zonder lokale xpdf.
+name: Capture xpdf fixtures
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/capture-xpdf-fixtures.yml"
+      - "mjop-learning/tests/fixtures/capture_xpdf_pages.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: capture-xpdf-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python-afhankelijkheden
+        run: python -m pip install -r requirements-pipeline.txt
+      - name: xpdf installeren en verifiëren
+        run: |
+          python scripts/xpdf_runner_setup.py --install "$RUNNER_TEMP/xpdf" --out "$RUNNER_TEMP/runner_setup.json" --verify-reproduction
+          python -c "import json,sys; s=json.load(open(sys.argv[1])); print(s['status']); sys.exit(s['status']!='VERIFIED_RUNNER_SETUP')" "$RUNNER_TEMP/runner_setup.json"
+      - name: Fixtures vastleggen
+        run: |
+          find data/incoming -iname '*.pdf' -print0 | xargs -0 python tests/fixtures/capture_xpdf_pages.py \
+            --pdftotext "$RUNNER_TEMP/xpdf/pdftotext" --runner-setup "$RUNNER_TEMP/runner_setup.json"
+      - name: Committen
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/fixtures/xpdf_pages
+          if git diff --cached --quiet; then echo "Geen nieuwe fixtures."; exit 0; fi
+          git commit -m "test: capture xpdf 4.06 page fixtures (verified runner)"
+          for i in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
+            sleep $((i * 5))
+          done
+          exit 1

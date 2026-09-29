@@ -131,7 +131,9 @@ def test_decisions_per_document(project):
     assert d["kopie.pdf"]["decision"] == "SKIPPED_DUPLICATE"
     assert d["notities.docx"]["decision"] == "BLOCKED" and "UNSUPPORTED_FORMAT" in d["notities.docx"]["reasons"]
     assert d["offerte.pdf"]["decision"] == "BLOCKED" and "UNKNOWN_TEMPLATE" in d["offerte.pdf"]["reasons"]
-    assert d["export.xls"]["decision"] == "BLOCKED" and d["export.xls"]["reasons"] == ["UNSUPPORTED_EXTRACTION"]
+    # spreadsheet nu deterministisch geëxtraheerd; relatiekandidaat met DOC-002 vereist menselijke review
+    assert d["export.xls"]["decision"] == "REVIEW_REQUIRED"
+    assert d["export.xls"]["reasons"] == ["RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"]
     new = d["gebouw-x/nieuw plan.pdf"]
     assert new["decision"] == "REVIEW_REQUIRED"                       # relatiekandidaat met DOC-010
     assert new["reasons"] == ["RELATION_CANDIDATE_REQUIRES_HUMAN_CONFIRMATION"]

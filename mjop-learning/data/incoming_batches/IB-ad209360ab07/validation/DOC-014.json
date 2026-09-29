@@ -104,6 +104,14 @@
         "verschil met Totaal object: 1"
       ],
       "result": "WARN"
+    },
+    {
+      "check": "totaal_object_reconciliation",
+      "count": 1,
+      "details": [
+        "som observations - Totaal object = 1 (afrondingsgrens 10.5)"
+      ],
+      "result": "WARN"
     }
   ],
   "document_id": "DOC-014",

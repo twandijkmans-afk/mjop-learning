@@ -2,34 +2,42 @@
   "batch_id": "IB-ad209360ab07",
   "document_id": "DOC-015",
   "duplicate_of": null,
-  "extraction": null,
+  "extraction": {
+    "canonical_content_sha256": "434fedf9d6ec0a38d4e42f1af8054a55e77adfe0e9dd6dd5305b310ffb0dd5c6",
+    "extractor_version": "spreadsheet_extraction_v1.0.0",
+    "pdftotext_version": null,
+    "profile_id": "pro_vve_overzicht15_spreadsheet",
+    "profile_version": "1.0.0",
+    "rules_version": "pro_vve_overzicht15_spreadsheet_rules_v1"
+  },
   "family": {
     "detection_version": "template_detection_v1",
+    "explanation": [
+      "pro_vve_overzicht15_spreadsheet/jarenplan_sheet: jarenplan_title@s1r3, jarenplan_header@s1r18, totaal_object@s1r202 - spreadsheet-export van 'Overzicht NN - Jarenplan (Gedetailleerd)' (kolomkop Hvh | Ehd | Stj | Cy, jaarkolommen, 'Totaal object')"
+    ],
     "family_id": "pro_vve_overzicht15_spreadsheet",
     "markers": {
       "jarenplan_header": "s1r18",
       "jarenplan_title": "s1r3",
       "totaal_object": "s1r202"
     },
-    "reason": null
+    "reason": null,
+    "variant": "jarenplan_sheet"
   },
   "file_size_bytes": 112640,
   "format": "xls",
   "input_path": "Testbatch 01/Overzicht 15 - Jarenplan (Gedetailleerd) v3.xls",
-  "open_review_items": [
-    "UNSUPPORTED_EXTRACTION: geen productie-parser voor dit spreadsheetformaat"
-  ],
+  "open_review_items": [],
   "pipeline_version": "incoming_pipeline_v1",
-  "price_observation_candidates": 0,
-  "reasons": [
-    "UNSUPPORTED_EXTRACTION"
-  ],
+  "price_observation_candidates": 18,
+  "reasons": [],
   "registration": "new",
   "sha256": "6a6779c2553489eb6c20f628371596db07bd0efdf633212b9ee3475e30f4734c",
-  "status": "REVIEW_REQUIRED",
+  "status": "EXTRACTED",
   "status_history": [
     "NEW",
-    "REVIEW_REQUIRED"
+    "READY_FOR_EXTRACTION",
+    "EXTRACTED"
   ],
-  "validation_outcome": null
+  "validation_outcome": "EXTRACTED"
 }
