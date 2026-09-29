@@ -342,6 +342,8 @@ python3 scripts/normalize_price_observations.py         # -> ..._normalized.json
 python3 scripts/build_comparability.py                  # -> data/comparability/comparability_batch1.json
 python3 scripts/export_human_review_queue.py            # -> reports/human_review_queue_v1.xlsx
 python3 scripts/build_kengetallen.py                    # -> data/kengetallen/kengetallen_batch1.json (kengetallen v1)
+python3 scripts/build_quantity_observations.py          # -> data/quantity_observations/quantity_observations_v1.json
+                                                        #    + reports/quantity_observations_v1.md (docs/quantity_foundation_v1.md)
 
 python3 -m pytest tests/ -v
 ```
@@ -357,6 +359,8 @@ data/
   kentallen/             LEGACY / EARLIER EXPERIMENTAL CALCULATION (niet de v1-pipeline)
   kengetallen/           kengetallen v1 (actuele output)
   price_observations/    source layer: 1 observation per jarenplan-rij + vastgestelde documentrelaties
+  quantity_observations/ afgeleid: historische ELEMENTHOEVEELHEDEN (SOURCE_REPORTED), zie docs/quantity_foundation_v1.md
+  quantity_resolutions/  append-only menselijke hoeveelheidsbeslissingen (nu leeg)
   evaluation/            evaluatieset (nog leeg, nooit gebruiken om op te optimaliseren)
   rejected_or_uncertain/ onbetrouwbaar/conflicterend (nog leeg)
 schemas/                datamodel (JSON Schema)

@@ -1,0 +1,438 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "quantity_observation.schema.json",
+  "title": "QuantityObservationStore",
+  "description": "Historische ELEMENTHOEVEELHEDEN (hoeveel er van een element is) uit de elementenoverzichten van verified MJOP's (docs/quantity_foundation_v1.md). Afgeleide bronlaag: SOURCE_REPORTED, nooit gemiddeld of gekozen. Actiehoeveelheden (per uitvoering) blijven in de price observations en staan hier alleen als verwijzing. Geen score- of confidencevelden.",
+  "type": "object",
+  "definitions": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "action_link": {
+      "type": "object",
+      "properties": {
+        "price_observation_id": {
+          "type": "string",
+          "pattern": "^PO-DOC-[0-9]{3,}-"
+        },
+        "quantity_kind": {
+          "const": "ACTION_QUANTITY"
+        },
+        "quantity_value": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit_normalized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "action_normalized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "relation_to_element_quantity": {
+          "enum": [
+            "SAME_AS_ELEMENT",
+            "FRACTION_OF_ELEMENT",
+            "EXCEEDS_ELEMENT",
+            "DIFFERENT_UNIT",
+            "ACTION_LUMP_SUM_OR_UNKNOWN_UNIT",
+            "ELEMENT_NOT_MEASURABLE"
+          ]
+        }
+      },
+      "required": [
+        "price_observation_id",
+        "quantity_kind",
+        "quantity_value",
+        "unit_normalized",
+        "relation_to_element_quantity"
+      ],
+      "additionalProperties": false
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "relation_id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "other_document_id": {
+          "type": "string"
+        },
+        "quantity_semantics": {
+          "enum": [
+            "SAME_OBJECT",
+            "SAME_COMPLEX_OTHER_SCOPE",
+            "OTHER"
+          ]
+        }
+      },
+      "required": [
+        "relation_id",
+        "type",
+        "other_document_id",
+        "quantity_semantics"
+      ],
+      "additionalProperties": false
+    },
+    "observation": {
+      "type": "object",
+      "properties": {
+        "quantity_observation_id": {
+          "type": "string",
+          "pattern": "^QO-DOC-[0-9]{3,}-EL-[0-9]{3,}$"
+        },
+        "document_id": {
+          "type": "string",
+          "pattern": "^DOC-[0-9]{3,}$"
+        },
+        "source_file": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "relative_path": {
+              "type": "string"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "relative_path",
+            "sha256"
+          ],
+          "additionalProperties": false
+        },
+        "source_cluster": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "document_relations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/relation"
+          }
+        },
+        "building_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "element": {
+          "type": "object",
+          "properties": {
+            "element_id": {
+              "type": "string"
+            },
+            "element_code_original": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "element_code_internal": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "element_description_original": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "location_original": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "material_original": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "material_normalized": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "element_id",
+            "element_code_original",
+            "element_code_internal",
+            "element_description_original",
+            "location_original"
+          ],
+          "additionalProperties": false
+        },
+        "quantity_kind": {
+          "const": "ELEMENT_QUANTITY"
+        },
+        "method_class": {
+          "const": "SOURCE_REPORTED"
+        },
+        "source_type": {
+          "const": "MJOP_ELEMENT_OVERVIEW"
+        },
+        "direct_or_derived": {
+          "enum": [
+            "DIRECT",
+            "DERIVED"
+          ]
+        },
+        "quantity_as_stated": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quantity_value": {
+          "type": "string",
+          "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "unit_original": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "unit_normalized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "measurable": {
+          "type": "boolean"
+        },
+        "extraction_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "provenance": {
+          "type": "object",
+          "properties": {
+            "document_id": {
+              "type": "string"
+            },
+            "page": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "text_fragment": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "extraction_rule": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "document_id",
+            "page",
+            "text_fragment"
+          ]
+        },
+        "provenance_check": {
+          "type": "object",
+          "properties": {
+            "complete": {
+              "type": "boolean"
+            },
+            "missing_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "quantity_text_located": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "complete",
+            "missing_fields",
+            "quantity_text_located"
+          ],
+          "additionalProperties": false
+        },
+        "linked_action_quantities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/action_link"
+          }
+        },
+        "dependency": {
+          "type": "object",
+          "properties": {
+            "same_object_document_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "identical_in_same_object_documents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "differs_in_same_object_documents": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "same_object_document_ids",
+            "identical_in_same_object_documents",
+            "differs_in_same_object_documents"
+          ],
+          "additionalProperties": false
+        },
+        "caveats": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+              "ELEMENT_CODE_EXTERNAL",
+              "BLOCK_ID_MISSING",
+              "DUPLICATE_KEY_SAME_QUANTITY",
+              "SAME_IN_RELATED_DOCUMENT",
+              "DIFFERS_FROM_RELATED_DOCUMENT"
+            ]
+          }
+        },
+        "review_reasons": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "UNIT_UNKNOWN",
+              "FRACTIONAL_PIECE_COUNT",
+              "ZERO_QUANTITY",
+              "QUANTITY_ONE_IN_MEASURED_UNIT",
+              "UNIT_IN_TEXT_DIFFERS",
+              "QUANTITY_TEXT_NOT_LOCATED",
+              "PROVENANCE_INCOMPLETE",
+              "SOURCE_FLAGGED",
+              "DUPLICATE_KEY_DIFFERENT_QUANTITY",
+              "AMBIGUOUS_QUANTITY_KIND_UNIT_MISMATCH",
+              "ACTION_QUANTITY_EXCEEDS_ELEMENT_QUANTITY"
+            ]
+          }
+        },
+        "requires_human_review": {
+          "type": "boolean"
+        },
+        "status": {
+          "enum": [
+            "SOURCE_REPORTED",
+            "REVIEW_REQUIRED"
+          ]
+        }
+      },
+      "required": [
+        "quantity_observation_id",
+        "document_id",
+        "source_file",
+        "source_cluster",
+        "document_relations",
+        "building_ref",
+        "element",
+        "quantity_kind",
+        "method_class",
+        "source_type",
+        "direct_or_derived",
+        "quantity_as_stated",
+        "quantity_value",
+        "unit_original",
+        "unit_normalized",
+        "measurable",
+        "extraction_method",
+        "provenance",
+        "provenance_check",
+        "linked_action_quantities",
+        "dependency",
+        "caveats",
+        "review_reasons",
+        "requires_human_review",
+        "status"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "builder_version": {
+      "type": "string"
+    },
+    "rules_version": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "input_hashes": {
+      "type": "object"
+    },
+    "vocabulary": {
+      "type": "object"
+    },
+    "summary": {
+      "type": "object"
+    },
+    "documents_without_element_quantities": {
+      "type": "array"
+    },
+    "price_observations_without_element_link": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/observation"
+      }
+    }
+  },
+  "required": [
+    "builder_version",
+    "rules_version",
+    "input_hashes",
+    "summary",
+    "observations"
+  ],
+  "additionalProperties": false
+}
