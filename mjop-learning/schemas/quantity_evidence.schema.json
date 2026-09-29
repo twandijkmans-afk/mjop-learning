@@ -1,0 +1,175 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "quantity_evidence.schema.json",
+  "title": "QuantityEvidence",
+  "description": "Contract voor één stuk bewijs voor een hoeveelheid van een concreet gebouw (docs/quantity_foundation_v1.md). Onveranderlijk: evidence_id is de hash van de inhoud; een nieuwe berekening is een nieuw record. Geen score of confidence; method_class beschrijft HOE de waarde tot stand kwam.",
+  "type": "object",
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^QE-[0-9a-f]{16}$"
+    },
+    "contract_version": {
+      "const": "quantity_evidence_v1"
+    },
+    "building_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "quantity_subject": {
+      "type": "object",
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "pattern": "^QS-[0-9a-f]{16}$"
+        },
+        "element_code_internal": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "subject_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location_scope": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "material_normalized": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "quantity_kind": {
+          "enum": [
+            "ELEMENT_QUANTITY",
+            "ACTION_QUANTITY",
+            "SHARE_QUANTITY"
+          ]
+        }
+      },
+      "required": [
+        "subject_id",
+        "quantity_kind"
+      ],
+      "additionalProperties": false
+    },
+    "value": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9]+(\\.[0-9]+)?$"
+    },
+    "unit_normalized": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "method_class": {
+      "enum": [
+        "DIRECT_MEASURED",
+        "SOURCE_REPORTED",
+        "GEOMETRY_DERIVED",
+        "ESTIMATED",
+        "MANUAL"
+      ]
+    },
+    "source_type": {
+      "enum": [
+        "MJOP_ELEMENT_OVERVIEW",
+        "MJOP_JARENPLAN_ROW",
+        "BAG",
+        "3D_BAG",
+        "QUOTE",
+        "DRAWING",
+        "MANUAL"
+      ]
+    },
+    "source_ref": {
+      "type": "object"
+    },
+    "calculation": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "rule_id": {
+          "type": "string"
+        },
+        "rule_version": {
+          "type": "string"
+        },
+        "formula": {
+          "type": "string"
+        },
+        "input_evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dependency": {
+      "type": "object"
+    },
+    "scope_caveats": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "review_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requires_human_review": {
+      "type": "boolean"
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "REVIEW_REQUIRED",
+        "SUPERSEDED"
+      ]
+    },
+    "created_by": {
+      "type": "string"
+    },
+    "input_hashes": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "contract_version",
+    "building_id",
+    "quantity_subject",
+    "value",
+    "unit_normalized",
+    "method_class",
+    "source_type",
+    "source_ref",
+    "calculation",
+    "dependency",
+    "scope_caveats",
+    "review_reasons",
+    "requires_human_review",
+    "status",
+    "created_by",
+    "input_hashes"
+  ],
+  "additionalProperties": false
+}
