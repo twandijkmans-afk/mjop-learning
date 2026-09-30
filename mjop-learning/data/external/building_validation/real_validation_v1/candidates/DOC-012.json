@@ -2873,6 +2873,7 @@
     "duplicate_bag_addresses": [],
     "flags": [
      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+     "PAND_0518100000354752_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885 (2544AX, Verblijfsobject in gebruik)",
      "ADDRESSES_MISSING_IN_BAG: 801"
     ],
     "hypothesis_id": "ODD_ONLY",
@@ -2932,6 +2933,20 @@
       "vbo_fully_covered_by_scope": false,
       "vbo_without_matched_address": [
        "0518010000636242"
+      ],
+      "vbo_without_matched_address_details": [
+       {
+        "gebruiksdoel": "woonfunctie",
+        "huisletter": null,
+        "huisnummer": 885,
+        "oppervlakte": 78,
+        "outside_requested_number_range": true,
+        "postcode": "2544AX",
+        "raw_response_sha256": "b5f94b33cc3b5927c720e4d93775bbaa99f5c6c281716693abc3dec045f766ee",
+        "status": "Verblijfsobject in gebruik",
+        "toevoeging": null,
+        "verblijfsobject_id": "0518010000636242"
+       }
       ],
       "verblijfsobject_href_count": 42
      }
@@ -3791,6 +3806,7 @@
      "820: HOUSENUMBER_VARIANTS_PRESENT",
      "882: HOUSENUMBER_VARIANTS_PRESENT",
      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+     "PAND_0518100000354752_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885 (2544AX, Verblijfsobject in gebruik)",
      "ADDRESSES_MISSING_IN_BAG: 801,822,824,826,828,830,832,834,836,838,840,842,844,846,848,850,852,854,856,858,860,862,864,866,868,870,872,874,876,878,880"
     ],
     "hypothesis_id": "ALL_NUMBERS",
@@ -3817,6 +3833,7 @@
       "numbers_queried_outside_scope": [],
       "vbo_fully_covered_by_scope": false,
       "vbo_without_matched_address": null,
+      "vbo_without_matched_address_details": null,
       "verblijfsobject_href_count": 8
      },
      {
@@ -3832,6 +3849,7 @@
       "numbers_queried_outside_scope": [],
       "vbo_fully_covered_by_scope": true,
       "vbo_without_matched_address": null,
+      "vbo_without_matched_address_details": null,
       "verblijfsobject_href_count": 1
      },
      {
@@ -3889,6 +3907,20 @@
       "vbo_without_matched_address": [
        "0518010000636242"
       ],
+      "vbo_without_matched_address_details": [
+       {
+        "gebruiksdoel": "woonfunctie",
+        "huisletter": null,
+        "huisnummer": 885,
+        "oppervlakte": 78,
+        "outside_requested_number_range": true,
+        "postcode": "2544AX",
+        "raw_response_sha256": "b5f94b33cc3b5927c720e4d93775bbaa99f5c6c281716693abc3dec045f766ee",
+        "status": "Verblijfsobject in gebruik",
+        "toevoeging": null,
+        "verblijfsobject_id": "0518010000636242"
+       }
+      ],
       "verblijfsobject_href_count": 42
      },
      {
@@ -3913,6 +3945,7 @@
       "numbers_queried_outside_scope": [],
       "vbo_fully_covered_by_scope": false,
       "vbo_without_matched_address": null,
+      "vbo_without_matched_address_details": null,
       "verblijfsobject_href_count": 177
      }
     ],
@@ -6733,6 +6766,7 @@
  "review_flags": [
   "NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED: geen scope-hypothese wordt door de BAG-data voldoende bevestigd",
   "[ODD_ONLY] CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+  "[ODD_ONLY] PAND_0518100000354752_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885 (2544AX, Verblijfsobject in gebruik)",
   "[ODD_ONLY] ADDRESSES_MISSING_IN_BAG: 801",
   "[ALL_NUMBERS] 802: HOUSENUMBER_VARIANTS_PRESENT",
   "[ALL_NUMBERS] 802: MULTIPLE_PANDEN_FOR_ADDRESS",
@@ -6755,9 +6789,10 @@
   "[ALL_NUMBERS] 820: HOUSENUMBER_VARIANTS_PRESENT",
   "[ALL_NUMBERS] 882: HOUSENUMBER_VARIANTS_PRESENT",
   "[ALL_NUMBERS] CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+  "[ALL_NUMBERS] PAND_0518100000354752_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885 (2544AX, Verblijfsobject in gebruik)",
   "[ALL_NUMBERS] ADDRESSES_MISSING_IN_BAG: 801,822,824,826,828,830,832,834,836,838,840,842,844,846,848,850,852,854,856,858,860,862,864,866,868,870,872,874,876,878,880",
   "0518100000208891: THREEDBAG_ATTRIBUTES_MISSING"
  ],
- "run_id": "RBV1-20260930T083500Z",
+ "run_id": "RBV1-20260930T083910Z",
  "status": "CANDIDATE_UNREVIEWED"
 }
