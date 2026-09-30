@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.join(ROOT, "scripts"))
 import fetch_real_building_validation as frbv  # noqa: E402
 
 NOW = lambda: "2026-10-01T10:00:00Z"  # noqa: E731
+NOSLEEP = lambda s: None  # noqa: E731
 D = 0.0001
 GROUP = {"group_id": "T-1", "document_ids": ["DOC-T"], "label": "test", "street": "Teststraat",
          "numbers": ["1"], "postcode": "1000 AA", "city": "Testdam"}
@@ -51,8 +52,21 @@ class World:
                 "woonplaatsnaam": self.place, "woonplaatscode": "9999", "centroide_ll": f"POINT({lon} {lat})",
                 "adresseerbaarobject_id": "0100" + number.zfill(10), "nummeraanduiding_id": "0200" + number.zfill(10)}
 
+    VBO_BASE = "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/"
+
+    def vbo_ids(self, pid):
+        ids = sorted({self.doc(n)["adresseerbaarobject_id"] for n, p in self.addresses.items() if p == pid})
+        return ids + [f"UNMATCHED{pid}{k}" for k in range(self.panden[pid][0] - len(ids))]
+
+    def vbo_hrefs(self, pid):
+        return [self.VBO_BASE + f"{pid}~{v}" for v in self.vbo_ids(pid)]
+
     def __call__(self, url):
         self.calls.append(url)
+        if "/verblijfsobject/items/" in url:
+            vid = url.rsplit("~", 1)[1]
+            return ok(jb({"type": "Feature", "properties": {"identificatie": vid, "status": "Verblijfsobject in gebruik",
+                                                            "gebruiksdoel": "woonfunctie", "oppervlakte": 50}}))
         if "locatieserver" in url:
             if self.pdok_raw is not None:
                 return ok(self.pdok_raw)
@@ -67,7 +81,7 @@ class World:
             feats = [{"geometry": {"type": "Polygon", "coordinates": [ring(lo, la)]},
                       "properties": {"identificatie": pid, "bouwjaar": self.panden[pid][1], "status": "Pand in gebruik",
                                      "aantal_verblijfsobjecten": self.panden[pid][0],
-                                     "verblijfsobject.href": ["x"] * self.panden[pid][0]}}
+                                     "verblijfsobject.href": self.vbo_hrefs(pid)}}
                      for pid, (lo, la) in self.pos.items() if x1 <= lo <= x2 and y1 <= la <= y2]
             return ok(jb({"features": feats}))
         if "3dbag" in url:
@@ -101,7 +115,7 @@ def mjop_fake(units=None, year=None, postcode=None, city=None):
 
 
 def run_group(tmp_path, world, group=GROUP, loader=None):
-    return frbv.run([group], tmp_path, http_get=world, now=NOW, mjop_loader=loader or mjop_fake())
+    return frbv.run([group], tmp_path, http_get=world, now=NOW, mjop_loader=loader or mjop_fake(), sleep=NOSLEEP)
 
 
 def pkg(tmp_path, gid="T-1"):
@@ -211,7 +225,7 @@ def test_threedbag_404(tmp_path):
 def test_network_error_recorded_and_not_ok(tmp_path):
     def down(url):
         return {"status": None, "body": b"", "content_type": None, "error": "URLError: 403 CONNECT"}
-    m = frbv.run([GROUP], tmp_path, http_get=down, now=NOW, mjop_loader=mjop_fake())
+    m = frbv.run([GROUP], tmp_path, http_get=down, now=NOW, mjop_loader=mjop_fake(), sleep=NOSLEEP)
     assert m["network_ok"] is False
     assert m["requests"][0]["parse_status"] == "NETWORK_ERROR" and m["requests"][0]["raw_response_path"] is None
 
@@ -437,3 +451,78 @@ def test_real_extracted_mjop_context_for_target_documents():
     assert by["DOC-005"]["postcode"] == "1106 EZ" and by["DOC-012"]["postcode"] == "2544 AW"
     assert by["DOC-012"]["number_of_units"] is None
     assert Counter(d["construction_year"] for d in docs) == Counter({1981: 2, 1956: 1})
+
+
+# --- robuustheid: retries, gestructureerde zoekopdracht, VBO-detail ---------------------------------------------------
+
+def test_transient_errors_are_retried_and_last_outcome_recorded(tmp_path):
+    w = simple_world()
+    seen = {"n": 0}
+
+    def flaky(url):
+        if "3dbag" in url:
+            seen["n"] += 1
+            if seen["n"] < 3:
+                return {"status": 502, "body": b"bad gateway", "content_type": None, "error": "HTTP 502"}
+        return w(url)
+    slept = []
+    m = frbv.run([GROUP], tmp_path, http_get=flaky, now=NOW, mjop_loader=mjop_fake(), sleep=slept.append)
+    tb = [r for r in m["requests"] if r["purpose"] == "3dbag-pand"][0]
+    assert tb["http_status"] == 200 and tb["attempts"] == 3 and slept == [2, 4]
+    assert pkg(tmp_path)["candidate_panden"][0]["quantity_evidence"] is not None
+
+
+def test_persistent_5xx_is_recorded_not_hidden(tmp_path):
+    w = simple_world(threed_status=502)
+    m = run_group(tmp_path, w)
+    tb = [r for r in m["requests"] if r["purpose"] == "3dbag-pand"][0]
+    assert tb["http_status"] == 502 and tb["attempts"] == frbv.MAX_ATTEMPTS and "HTTP_502" in tb["flags"]
+    assert any("THREEDBAG_ATTRIBUTES_MISSING" in f for f in pkg(tmp_path)["review_flags"])
+
+
+def test_locatieserver_query_is_structured_by_street_and_number(tmp_path):
+    w = simple_world()
+    run_group(tmp_path, w)
+    url = [u for u in w.calls if "locatieserver" in u][0]
+    assert "fq=huisnummer%3A1" in url and "fq=straatnaam%3A%22Teststraat%22" in url and "fq=type%3Aadres" in url
+
+
+def test_missing_address_explained_by_vbo_detail(tmp_path):
+    """Pand heeft 42 VBO's maar slechts 41 adressen (801 ontbreekt): het VBO zonder adres wordt zichtbaar gemaakt."""
+    addr = {str(n): "PM" for n in range(803, 884, 2)}
+    w = World("Meppelweg", addr, {"PM": (42, 1957)}, place="'s-Gravenhage", postcode="2544AW")
+    run_group(tmp_path, w, BY_ID["DOC-012"], mjop_fake(**MEPPELWEG_MJOP))
+    bpc = pkg(tmp_path, "DOC-012")["building_project_candidate"]
+    odd = next(h for h in bpc["scope_hypotheses"] if h["hypothesis_id"] == "ODD_ONLY")
+    assert odd["addresses_missing"] == ["801"] and odd["counts"]["exact_bag_matches"] == 41
+    row = odd["panden"][0]
+    assert row["aantal_verblijfsobjecten_bag"] == 42 and row["distinct_vbo_ids_in_scope"] == 41
+    assert row["vbo_fully_covered_by_scope"] is False
+    assert row["vbo_without_matched_address"] == ["UNMATCHEDPM0"]
+    assert odd["strength"] == "WEAK_BUILDING_PROJECT_CANDIDATE"
+    assert bpc["best_supported_hypothesis_id"] is None
+    assert any(f.startswith("NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED") for f in pkg(tmp_path, "DOC-012")["review_flags"])
+    assert not any(f.startswith("SCOPE_AMBIGUOUS") for f in pkg(tmp_path, "DOC-012")["review_flags"])
+    assert frbv.manifest_errors(tmp_path) == []
+
+
+def test_vbo_detail_not_fetched_when_all_vbo_explained(tmp_path):
+    w = maldenhof_world()
+    run_group(tmp_path, w, BY_ID["DOC-005-006"], mjop_fake(**MALDENHOF_MJOP))
+    assert not any("/verblijfsobject/items/" in u for u in w.calls)
+
+
+def test_two_addresses_on_one_vbo_do_not_break_coverage(tmp_path):
+    w = World("Teststraat", {"1": "P1", "2": "P1"}, {"P1": (1, 1981)})
+    w.doc_orig = w.doc
+
+    def doc(number, _w=w):
+        d = _w.doc_orig(number)
+        d["adresseerbaarobject_id"] = "0100SHARED"  # nevenadres: beide nummers op hetzelfde VBO
+        return d
+    w.doc = doc
+    g = dict(GROUP, numbers=["1", "2"], postcode=None)
+    run_group(tmp_path, w, g)
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["panden"][0]["distinct_vbo_ids_in_scope"] == 1 and h["panden"][0]["vbo_fully_covered_by_scope"] is True
+    assert h["counts"]["exact_bag_matches"] == 2

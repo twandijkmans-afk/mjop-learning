@@ -26,6 +26,7 @@ import hashlib
 import json
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -39,7 +40,9 @@ from bag_snapshots import (  # noqa: E402  (pure hulpfuncties, geen netwerk)
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = ROOT / "data" / "external" / "building_validation" / "real_validation_v1"
-TOOL_VERSION = "fetch_real_building_validation_v1.1.0"
+TOOL_VERSION = "fetch_real_building_validation_v1.2.0"
+MAX_ATTEMPTS = 3
+MAX_VBO_DETAIL = 60  # alleen voor panden met een onverklaard verschil tussen aantal VBO en gevonden adressen
 
 # Documentgroepen. Per groep wordt het HELE huisnummerbereik uit de MJOP-bron opgevraagd (range_from..range_to,
 # alle gehele nummers). Welke nummers daadwerkelijk bij de VvE horen (alleen even/oneven, of alle) staat NIET in
@@ -110,9 +113,10 @@ def slug(s):
 
 
 class Fetcher:
-    def __init__(self, out_dir, http_get=default_http_get, now=None):
+    def __init__(self, out_dir, http_get=default_http_get, now=None, sleep=time.sleep):
         self.out_dir = Path(out_dir)
         self.http_get = http_get
+        self.sleep = sleep
         self.now = now or (lambda: datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
         self.requests = []
         self._by_url = {}
@@ -122,7 +126,14 @@ class Fetcher:
         if url in self._by_url:
             rec = self._by_url[url]
             return rec, rec.get("_cached")
-        r = self.http_get(url)
+        attempts = 0
+        while True:  # tijdelijke fouten (netwerk, 429, 5xx) opnieuw proberen; de laatste uitkomst wordt vastgelegd
+            attempts += 1
+            r = self.http_get(url)
+            transient = r.get("status") is None or r["status"] == 429 or r["status"] >= 500
+            if not transient or attempts >= MAX_ATTEMPTS:
+                break
+            self.sleep(2 * attempts)
         body = r.get("body") or b""
         rec = {
             "request_id": f"REQ-{len(self.requests) + 1:03d}",
@@ -132,6 +143,7 @@ class Fetcher:
             "endpoint": url,
             "retrieved_at": self.now(),
             "http_status": r.get("status"),
+            "attempts": attempts,
             "content_type": r.get("content_type"),
             "raw_response_path": None,
             "raw_response_sha256": None,
@@ -239,7 +251,10 @@ def process_address(fetcher, street, number, postcode, city, panden):
     res = {"requested_address": requested, "street": street, "number": number, "postcode_hint": postcode,
            "city": city, "pdok_request_id": None, "address_matches": [], "candidate_pand_ids": [], "flags": []}
     q = requested
-    url = PDOK_FREE + "?" + urllib.parse.urlencode({"q": q, "fq": "type:adres", "rows": 10})
+    # Gestructureerd (fq op straat + huisnummer) zodat de ranking van vrije tekst een bestaand adres niet kan verbergen;
+    # rows=20 laat ook huisletter-varianten (802A, 802B, ...) zien.
+    url = PDOK_FREE + "?" + urllib.parse.urlencode(
+        {"q": q, "fq": ["type:adres", f"huisnummer:{number}", f'straatnaam:"{street}"'], "rows": 20}, doseq=True)
     rec, parsed = fetcher.request("pdok", "PDOK Locatieserver v3_1 free", "locatieserver", url, requested)
     res["pdok_request_id"] = rec["request_id"]
     docs = parse_pdok_docs(rec, parsed)
@@ -311,7 +326,8 @@ def process_address(fetcher, street, number, postcode, city, panden):
             cand = panden.setdefault(pid, {"bag_pand_id": pid, "addresses_containing_point": [], "bag_properties": {
                 **{k: props.get(k) for k in ("identificatie", "bouwjaar", "status", "gebruiksdoel", "aantal_verblijfsobjecten")},
                 "verblijfsobject_href_count": len(vbo_hrefs) if isinstance(vbo_hrefs, list) else None},
-                "bag_request_ids": [], "threedbag": None, "quantity_evidence": None})
+                "verblijfsobject_hrefs": [h for h in vbo_hrefs if isinstance(h, str)] if isinstance(vbo_hrefs, list) else [],
+                "bag_request_ids": [], "threedbag": None, "quantity_evidence": None, "verblijfsobjecten": None})
             if requested not in cand["addresses_containing_point"]:
                 cand["addresses_containing_point"].append(requested)
             if brec["request_id"] not in cand["bag_request_ids"]:
@@ -391,6 +407,35 @@ def fetch_3dbag(fetcher, pand):
         pand["quantity_evidence"] = build_quantity_evidence(attrs, geometry_identifiers(pid, co, feat, parsed), source)
 
 
+def fetch_vbo_detail(fetcher, pand, exact_vbo_ids):
+    """Voor een pand met meer VBO's dan gevonden adressen: haal de VBO's op om te zien WELK VBO geen adres heeft.
+    Alleen retrieval; er wordt niets aan een adres of gebouw gekoppeld."""
+    rows = []
+    for href in pand["verblijfsobject_hrefs"]:
+        rec, parsed = fetcher.request("pdok", "PDOK BAG OGC v2 verblijfsobject", "bag-vbo", href, f"BAG pand {pand['bag_pand_id']}")
+        props = parsed.get("properties") if isinstance(parsed, dict) and isinstance(parsed.get("properties"), dict) else None
+        if rec["parse_status"] == "OK" and props is None:
+            rec["parse_status"] = "UNEXPECTED_SHAPE"
+            _flag(rec, "UNEXPECTED_SHAPE")
+        vid = str(props.get("identificatie")) if props and props.get("identificatie") else None
+        rec["retrieved_identifiers"] = {"verblijfsobject_id": vid, "bag_pand_id": pand["bag_pand_id"]}
+        rec["normalized_candidate_data"] = {"properties": props}
+        rows.append({"request_id": rec["request_id"], "href": href, "http_status": rec["http_status"],
+                     "raw_response_path": rec["raw_response_path"], "raw_response_sha256": rec["raw_response_sha256"],
+                     "verblijfsobject_id": vid, "matched_to_exact_address": vid in exact_vbo_ids if vid else None,
+                     "properties": props})
+    pand["verblijfsobjecten"] = rows
+
+
+def pand_exact_vbo_ids(address_results, pid):
+    ids = set()
+    for a in address_results:
+        e = exact_entry(a)
+        if e and pid in a["candidate_pand_ids"] and e.get("adresseerbaarobject_id"):
+            ids.add(e["adresseerbaarobject_id"])
+    return ids
+
+
 # --- MJOP-context (uit data/extracted, alleen lezen) ---------------------------------------------------
 def load_mjop_context(doc_ids, root=ROOT):
     """Leest building/object-velden uit data/extracted/<DOC>.json (read-only) met provenance. Verzint niets."""
@@ -456,7 +501,7 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
     nums = hypothesis_numbers(h, numbers)
     in_scope = set(nums)
     found, missing, flags = [], [], []
-    per_pand = {}
+    per_pand, per_pand_vbo = {}, {}
     for n in nums:
         ar = by_number[n]
         e = exact_entry(ar)
@@ -470,6 +515,7 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
                       "flags": ar["flags"]})
         for pid in ar["candidate_pand_ids"]:
             per_pand.setdefault(pid, []).append(n)
+            per_pand_vbo.setdefault(pid, set()).add(e["adresseerbaarobject_id"] or ("NR" + n))
         flags += [f"{n}: {f}" for f in ar["flags"] if f in BLOCKING_ADDRESS_FLAGS]
     ids = [f["nummeraanduiding_id"] or f["number"] for f in found]
     dup = sorted({i for i in ids if ids.count(i) > 1})
@@ -478,13 +524,16 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         bp = panden[pid]["bag_properties"]
         outside = sorted((n for n in numbers if n not in in_scope and pid in by_number[n]["candidate_pand_ids"]), key=int)
         vbo = bp.get("aantal_verblijfsobjecten")
-        full = vbo is not None and vbo == len(per_pand[pid]) and not outside
+        full = vbo is not None and vbo == len(per_pand_vbo[pid]) and not outside
         covered = covered and full
         vbo_total += vbo or 0
         ev = panden[pid].get("quantity_evidence") or {}
         pand_rows.append({"bag_pand_id": pid, "bouwjaar": bp.get("bouwjaar"), "aantal_verblijfsobjecten_bag": vbo,
                           "verblijfsobject_href_count": bp.get("verblijfsobject_href_count"),
-                          "numbers_in_scope": sorted(per_pand[pid], key=int), "numbers_queried_outside_scope": outside,
+                          "numbers_in_scope": sorted(per_pand[pid], key=int), "distinct_vbo_ids_in_scope": len(per_pand_vbo[pid]),
+                          "numbers_queried_outside_scope": outside,
+                          "vbo_without_matched_address": [v["verblijfsobject_id"] or v["href"] for v in (panden[pid].get("verblijfsobjecten") or [])
+                                                          if v["matched_to_exact_address"] is not True] if panden[pid].get("verblijfsobjecten") else None,
                           "vbo_fully_covered_by_scope": full, "ground_area_m2": ev.get("ground_area_m2"),
                           "has_3dbag_evidence": bool(ev)})
     hist = {}
@@ -548,8 +597,11 @@ def build_candidate_package(group, address_results, panden, run_id, mjop_docs=No
         best_id, strength = best[0]["hypothesis_id"], best[0]["strength"]
     else:
         best_id, strength = None, best[0]["strength"] if best else "NO_BUILDING_PROJECT_CANDIDATE"
-        flags.append("SCOPE_AMBIGUOUS: meerdere hypotheses even sterk (" + ", ".join(a["hypothesis_id"] for a in best)
-                     + "); menselijke keuze vereist")
+        if top >= STRENGTH_ORDER["MODERATE_BUILDING_PROJECT_CANDIDATE"]:
+            flags.append("SCOPE_AMBIGUOUS: meerdere hypotheses even sterk (" + ", ".join(a["hypothesis_id"] for a in best)
+                         + "); menselijke keuze vereist")
+        else:
+            flags.append("NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED: geen scope-hypothese wordt door de BAG-data voldoende bevestigd")
     for a in assessed:
         flags += [f"[{a['hypothesis_id']}] {f}" for f in a["flags"]]
     pand_list = [panden[k] for k in sorted(panden)]
@@ -602,10 +654,10 @@ def write_json(path, obj):
     return path
 
 
-def run(groups, out_dir, http_get=default_http_get, now=None, mjop_loader=load_mjop_context):
+def run(groups, out_dir, http_get=default_http_get, now=None, mjop_loader=load_mjop_context, sleep=time.sleep):
     """Voert alle groepen uit; schrijft raw/, candidates/ en manifest.json. -> manifest."""
     out_dir = Path(out_dir)
-    fetcher = Fetcher(out_dir, http_get=http_get, now=now)
+    fetcher = Fetcher(out_dir, http_get=http_get, now=now, sleep=sleep)
     started = fetcher.now()
     run_id = "RBV1-" + started.replace(":", "").replace("-", "")
     packages = {}
@@ -614,6 +666,11 @@ def run(groups, out_dir, http_get=default_http_get, now=None, mjop_loader=load_m
         results = [process_address(fetcher, g["street"], n, g.get("postcode"), g.get("city"), panden) for n in group_numbers(g)]
         for pid in sorted(panden):
             fetch_3dbag(fetcher, panden[pid])
+            n_vbo = panden[pid]["bag_properties"].get("aantal_verblijfsobjecten")
+            exact_ids = pand_exact_vbo_ids(results, pid)
+            if (isinstance(n_vbo, int) and 0 < n_vbo <= MAX_VBO_DETAIL and n_vbo > len(exact_ids)
+                    and len(panden[pid]["verblijfsobject_hrefs"]) == n_vbo):
+                fetch_vbo_detail(fetcher, panden[pid], exact_ids)
         packages[g["group_id"]] = build_candidate_package(g, results, panden, run_id, mjop_loader(g["document_ids"]))
     for gid, pkg in packages.items():
         write_json(out_dir / "candidates" / f"{gid}.json", pkg)
