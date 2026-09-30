@@ -497,6 +497,26 @@ def exact_entry(ar):
     return ex[0] if ex else None
 
 
+def unmatched_vbo_details(pand, numbers):
+    """Adres-/VBO-gegevens (uit BAG) van VBO's in het pand zonder exact adres in de opgevraagde nummers."""
+    rows = pand.get("verblijfsobjecten")
+    if not rows:
+        return None
+    lo, hi = min(int(n) for n in numbers), max(int(n) for n in numbers)
+    out = []
+    for v in rows:
+        if v["matched_to_exact_address"] is True:
+            continue
+        pr = v.get("properties") or {}
+        hn = pr.get("huisnummer")
+        out.append({"verblijfsobject_id": v["verblijfsobject_id"], "huisnummer": hn, "huisletter": pr.get("huisletter"),
+                    "toevoeging": pr.get("toevoeging"), "postcode": pr.get("postcode"), "status": pr.get("status"),
+                    "gebruiksdoel": pr.get("gebruiksdoel"), "oppervlakte": pr.get("oppervlakte"),
+                    "outside_requested_number_range": (not (lo <= int(hn) <= hi)) if isinstance(hn, int) else None,
+                    "raw_response_sha256": v["raw_response_sha256"]})
+    return out
+
+
 def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
     nums = hypothesis_numbers(h, numbers)
     in_scope = set(nums)
@@ -534,6 +554,7 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
                           "numbers_queried_outside_scope": outside,
                           "vbo_without_matched_address": [v["verblijfsobject_id"] or v["href"] for v in (panden[pid].get("verblijfsobjecten") or [])
                                                           if v["matched_to_exact_address"] is not True] if panden[pid].get("verblijfsobjecten") else None,
+                          "vbo_without_matched_address_details": unmatched_vbo_details(panden[pid], numbers),
                           "vbo_fully_covered_by_scope": full, "ground_area_m2": ev.get("ground_area_m2"),
                           "has_3dbag_evidence": bool(ev)})
     hist = {}
@@ -567,6 +588,11 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         strength = "WEAK_BUILDING_PROJECT_CANDIDATE"
     if checks["construction_year_matches_all_panden"] is False:
         flags.append("CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG")
+    for r in pand_rows:
+        for d in r["vbo_without_matched_address_details"] or []:
+            if d["outside_requested_number_range"]:
+                flags.append(f"PAND_{r['bag_pand_id']}_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer {d['huisnummer']}"
+                             f"{d['huisletter'] or ''} ({d['postcode']}, {d['status']})")
     if missing:
         flags.append("ADDRESSES_MISSING_IN_BAG: " + ",".join(missing))
     if dup:
