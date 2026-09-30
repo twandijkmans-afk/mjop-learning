@@ -1,0 +1,3006 @@
+{
+ "approval_summary": {
+  "any_building_link_approved": false,
+  "building_project_linked": false,
+  "canonical_mjop_data_modified": false,
+  "crosswalk_written": false,
+  "legal_vve_linked": false
+ },
+ "candidate_packages": {
+  "DOC-005-006": {
+   "candidate_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "path": "candidates/DOC-005-006.json",
+   "review_flags": [
+    "GROUP: MULTIPLE_CANDIDATE_PANDEN (15); menselijke selectie vereist"
+   ],
+   "sha256": "9e754256d81fab729b2ebaa20e87656f448bca3f508022e0eb67c7cfdf33b581",
+   "status": "CANDIDATE_UNREVIEWED"
+  },
+  "DOC-012": {
+   "candidate_pand_ids": [
+    "0518100000354752"
+   ],
+   "path": "candidates/DOC-012.json",
+   "review_flags": [
+    "Meppelweg 819 2544 AW Den Haag: EXACT_MATCH_IN_OTHER_CITY"
+   ],
+   "sha256": "55b6d7d073bb68b9e7a9871fee5052d7e18af98aea64b01c90917e4606207813",
+   "status": "CANDIDATE_UNREVIEWED"
+  }
+ },
+ "generated_at": "2026-09-30T08:17:11Z",
+ "manifest_version": "real_validation_manifest_v1",
+ "network_ok": true,
+ "requests": [
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+240+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-240-amsterdam__locatieserver__88ccf314fbf3.json",
+   "raw_response_sha256": "88ccf314fbf325ef1c51924a0e89e96b6ce1ffaf7e412c0520ed854039c257a6",
+   "request_id": "REQ-001",
+   "requested_address": "Maldenhof 240 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:12Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900029"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357513"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96544575%2C52.302261539999996%2C4.96580575%2C52.30262154",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 11,
+    "panden_containing_address_point": [
+     "0363100012137996"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 10200,
+   "raw_response_path": "raw/pdok/maldenhof-240-amsterdam__bag-pand__1479e5abac2c.json",
+   "raw_response_sha256": "1479e5abac2cee20049c0879c2ceed7ee5835b96f2cb539dde54058b87f22e56",
+   "request_id": "REQ-002",
+   "requested_address": "Maldenhof 240 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:12Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012137996"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+242+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-242-amsterdam__locatieserver__441add056207.json",
+   "raw_response_sha256": "441add056207ed1973398d7a04a99dc54d68e7b9eb216b8c6ca34439d9e477c0",
+   "request_id": "REQ-003",
+   "requested_address": "Maldenhof 242 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:12Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900031"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357515"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.965459979999999%2C52.30230653%2C4.96581998%2C52.30266653",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 13,
+    "panden_containing_address_point": [
+     "0363100012102659"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 11875,
+   "raw_response_path": "raw/pdok/maldenhof-242-amsterdam__bag-pand__b31f52ad615b.json",
+   "raw_response_sha256": "b31f52ad615b6e327290f57c122df3deb9830544aa11ee9bf164edec795bf017",
+   "request_id": "REQ-004",
+   "requested_address": "Maldenhof 242 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:13Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012102659"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+244+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-244-amsterdam__locatieserver__6ad712c2aee3.json",
+   "raw_response_sha256": "6ad712c2aee3f9d8738f2aacf21b2fb13d2c18db2630f7c4caa8cfca27d3d8b9",
+   "request_id": "REQ-005",
+   "requested_address": "Maldenhof 244 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:13Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900033"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357517"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96550388%2C52.30231567%2C4.965863880000001%2C52.30267567",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 13,
+    "panden_containing_address_point": [
+     "0363100012102659"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 11914,
+   "raw_response_path": "raw/pdok/maldenhof-244-amsterdam__bag-pand__3444c0831cf4.json",
+   "raw_response_sha256": "3444c0831cf452832314ce7c7638bd5fae7020dc97898a2259868a00e1f27450",
+   "request_id": "REQ-006",
+   "requested_address": "Maldenhof 244 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:14Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012102659"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+246+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-246-amsterdam__locatieserver__266edbf6ea10.json",
+   "raw_response_sha256": "266edbf6ea10de4303f44ed505b8f54dda205f39e7445f46275cdb6fcd5bb412",
+   "request_id": "REQ-007",
+   "requested_address": "Maldenhof 246 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:14Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900035"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357519"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96553303%2C52.30233375%2C4.96589303%2C52.30269375",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 15,
+    "panden_containing_address_point": [
+     "0363100012078022"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 13685,
+   "raw_response_path": "raw/pdok/maldenhof-246-amsterdam__bag-pand__3b6ecf4df910.json",
+   "raw_response_sha256": "3b6ecf4df91072e4527e2d9099f9b69ea4802f902149119e439ae0165b0951be",
+   "request_id": "REQ-008",
+   "requested_address": "Maldenhof 246 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:15Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012078022"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+248+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-248-amsterdam__locatieserver__caf702a0dfef.json",
+   "raw_response_sha256": "caf702a0dfef8a93dcaa43f5f5f0be73b06ff1d6abbe73a47acaf8967f659d02",
+   "request_id": "REQ-009",
+   "requested_address": "Maldenhof 248 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:15Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900037"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357521"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96556226%2C52.30234284%2C4.96592226%2C52.30270284",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 16,
+    "panden_containing_address_point": [
+     "0363100012078022"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 14406,
+   "raw_response_path": "raw/pdok/maldenhof-248-amsterdam__bag-pand__ef05f53c0dfd.json",
+   "raw_response_sha256": "ef05f53c0dfdd854e581b7bc51081439ec89957355597d1f5045be3edd38c5f8",
+   "request_id": "REQ-010",
+   "requested_address": "Maldenhof 248 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:15Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012078022"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+250+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-250-amsterdam__locatieserver__a94e008266e1.json",
+   "raw_response_sha256": "a94e008266e133d4d579cc3217d58867bf4072077e87ec7ba8370190122b8b80",
+   "request_id": "REQ-011",
+   "requested_address": "Maldenhof 250 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:16Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900039"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357523"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96560608%2C52.30236098%2C4.96596608%2C52.302720980000004",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 19,
+    "panden_containing_address_point": [
+     "0363100012140664"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 16983,
+   "raw_response_path": "raw/pdok/maldenhof-250-amsterdam__bag-pand__b296a8aaa91c.json",
+   "raw_response_sha256": "b296a8aaa91c6ba3b328ecddac81278b3872ba78614de378263ecab8cc31af0d",
+   "request_id": "REQ-012",
+   "requested_address": "Maldenhof 250 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:16Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012140664"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+252+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-252-amsterdam__locatieserver__31e7d3b6dfc5.json",
+   "raw_response_sha256": "31e7d3b6dfc5319688d21da2a1274bfa62565482f57336da56bab570c1e82121",
+   "request_id": "REQ-013",
+   "requested_address": "Maldenhof 252 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:17Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900041"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357525"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.965649969999999%2C52.30237012%2C4.96600997%2C52.30273012",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 19,
+    "panden_containing_address_point": [
+     "0363100012140664"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 17012,
+   "raw_response_path": "raw/pdok/maldenhof-252-amsterdam__bag-pand__735fcab61522.json",
+   "raw_response_sha256": "735fcab615227885ca2b3c0642636daf834dc4fe3f76e73f5976a2f1495ac508",
+   "request_id": "REQ-014",
+   "requested_address": "Maldenhof 252 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:17Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012140664"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+254+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12786,
+   "raw_response_path": "raw/pdok/maldenhof-254-amsterdam__locatieserver__0e8ea74b489b.json",
+   "raw_response_sha256": "0e8ea74b489bbfadff5945d5cc1150d146f3659e97cfadab6e4d99ece15029f1",
+   "request_id": "REQ-015",
+   "requested_address": "Maldenhof 254 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:18Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900043"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357527"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96566455%2C52.30237916%2C4.96602455%2C52.30273916",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 19,
+    "panden_containing_address_point": [
+     "0363100012141419"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 16991,
+   "raw_response_path": "raw/pdok/maldenhof-254-amsterdam__bag-pand__a889f0b30d89.json",
+   "raw_response_sha256": "a889f0b30d89176acc33c0d43bd996b73a496e0b1eef94510dcf4fe1646a6a5c",
+   "request_id": "REQ-016",
+   "requested_address": "Maldenhof 254 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:18Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012141419"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+256+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12785,
+   "raw_response_path": "raw/pdok/maldenhof-256-amsterdam__locatieserver__98d4a1ece814.json",
+   "raw_response_sha256": "98d4a1ece8149931fef10498febdec359bb8f22a23f2ebaa3e82cc26380b96e4",
+   "request_id": "REQ-017",
+   "requested_address": "Maldenhof 256 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:19Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900045"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357529"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.965708439999999%2C52.3023883%2C4.96606844%2C52.3027483",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 18,
+    "panden_containing_address_point": [
+     "0363100012141419"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 16196,
+   "raw_response_path": "raw/pdok/maldenhof-256-amsterdam__bag-pand__1d5337af632a.json",
+   "raw_response_sha256": "1d5337af632a329770da366ee4a8468507f7c55df082bc82b972b2551d628217",
+   "request_id": "REQ-018",
+   "requested_address": "Maldenhof 256 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:19Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012141419"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+258+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-258-amsterdam__locatieserver__f4ee93e7130c.json",
+   "raw_response_sha256": "f4ee93e7130c395d2897670935d083eee2247964c7bdf1a6c2b51c76a30d5df6",
+   "request_id": "REQ-019",
+   "requested_address": "Maldenhof 258 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:19Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900047"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357531"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9657522599999995%2C52.30240644%2C4.96611226%2C52.30276644",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 19,
+    "panden_containing_address_point": [
+     "0363100012091974"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 17350,
+   "raw_response_path": "raw/pdok/maldenhof-258-amsterdam__bag-pand__4dc938e4e487.json",
+   "raw_response_sha256": "4dc938e4e487d4596ed81238c2bf4ef5dad2dcf32f9b03049881014d96eeeda1",
+   "request_id": "REQ-020",
+   "requested_address": "Maldenhof 258 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:20Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012091974"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+260+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-260-amsterdam__locatieserver__0ad6bbd2c955.json",
+   "raw_response_sha256": "0ad6bbd2c95598646fd22bd93e234f2f6f2fa0baa7454c49e12c58ff078f7266",
+   "request_id": "REQ-021",
+   "requested_address": "Maldenhof 260 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:20Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900049"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357533"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9657814899999995%2C52.30241553%2C4.96614149%2C52.30277553",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 16,
+    "panden_containing_address_point": [
+     "0363100012091974"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 14680,
+   "raw_response_path": "raw/pdok/maldenhof-260-amsterdam__bag-pand__c0c3931ffac3.json",
+   "raw_response_sha256": "c0c3931ffac3a0e164a8ce4fd28d13af55a1530b0624ab187e4702d150d0c1ca",
+   "request_id": "REQ-022",
+   "requested_address": "Maldenhof 260 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:21Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012091974"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+262+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-262-amsterdam__locatieserver__5cecacd7a9a7.json",
+   "raw_response_sha256": "5cecacd7a9a77c3aa406ea2b3fe2675225fb3fcc1679bc631aae8be54f3faa70",
+   "request_id": "REQ-023",
+   "requested_address": "Maldenhof 262 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:21Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900051"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357535"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.965810729999999%2C52.30242462%2C4.96617073%2C52.30278462",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 16,
+    "panden_containing_address_point": [
+     "0363100012070344"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 14481,
+   "raw_response_path": "raw/pdok/maldenhof-262-amsterdam__bag-pand__4dd49c6ac310.json",
+   "raw_response_sha256": "4dd49c6ac310099b421a31f843764bc4743543b147b2863f8f2bdf8367c943ab",
+   "request_id": "REQ-024",
+   "requested_address": "Maldenhof 262 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:21Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012070344"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+264+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12784,
+   "raw_response_path": "raw/pdok/maldenhof-264-amsterdam__locatieserver__87f168184c56.json",
+   "raw_response_sha256": "87f168184c568a14013a7f9bc2757a6d5eaa1d714c20c157984002d2c07429ee",
+   "request_id": "REQ-025",
+   "requested_address": "Maldenhof 264 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:22Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900053"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357537"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96583988%2C52.3024427%2C4.9661998800000005%2C52.3028027",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 14,
+    "panden_containing_address_point": [
+     "0363100012070344"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 13235,
+   "raw_response_path": "raw/pdok/maldenhof-264-amsterdam__bag-pand__6c08b294258a.json",
+   "raw_response_sha256": "6c08b294258a89de2b83a654843eae85a25f5fcaeebd8af7ec3b0665a469cf08",
+   "request_id": "REQ-026",
+   "requested_address": "Maldenhof 264 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:22Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012070344"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+266+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-266-amsterdam__locatieserver__3a84f1f1c7cd.json",
+   "raw_response_sha256": "3a84f1f1c7cd53094a0adc0b974b55f71e268aa90d54991aae48278339d2881c",
+   "request_id": "REQ-027",
+   "requested_address": "Maldenhof 266 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:23Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900055"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357539"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9658837799999995%2C52.302451839999996%2C4.96624378%2C52.30281184",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 17,
+    "panden_containing_address_point": [
+     "0363100012107492"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 15735,
+   "raw_response_path": "raw/pdok/maldenhof-266-amsterdam__bag-pand__45a32a56c3d0.json",
+   "raw_response_sha256": "45a32a56c3d00c2ab846f7f454cdb20dece6180b7734548f7b11fdc82daaa1d6",
+   "request_id": "REQ-028",
+   "requested_address": "Maldenhof 266 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:23Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012107492"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+268+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-268-amsterdam__locatieserver__d9882ca3de94.json",
+   "raw_response_sha256": "d9882ca3de947b0981a00a3e53dabad60c61de35b1be718e33358edfd2d996b9",
+   "request_id": "REQ-029",
+   "requested_address": "Maldenhof 268 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:24Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900056"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357540"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96592767%2C52.30246099%2C4.966287670000001%2C52.30282099",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 15,
+    "panden_containing_address_point": [
+     "0363100012107492"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 13963,
+   "raw_response_path": "raw/pdok/maldenhof-268-amsterdam__bag-pand__38c818ccad4f.json",
+   "raw_response_sha256": "38c818ccad4fff4882df8ea41be9eef8cec8b681b2c7e439ed83a41cfa1406b3",
+   "request_id": "REQ-030",
+   "requested_address": "Maldenhof 268 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:24Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012107492"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+270+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-270-amsterdam__locatieserver__f5834e6bf7cd.json",
+   "raw_response_sha256": "f5834e6bf7cd1148971db959168679a7eb1074ea5b6b2d1c50e14e0f431b1e7a",
+   "request_id": "REQ-031",
+   "requested_address": "Maldenhof 270 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:25Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900058"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357542"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96595691%2C52.30247008%2C4.966316910000001%2C52.30283008",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 16,
+    "panden_containing_address_point": [
+     "0363100012071880"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 14681,
+   "raw_response_path": "raw/pdok/maldenhof-270-amsterdam__bag-pand__d395fe6ba0dc.json",
+   "raw_response_sha256": "d395fe6ba0dc25a0374dfcc5b5297d99c8aef432dcb00e65246c118b5404db56",
+   "request_id": "REQ-032",
+   "requested_address": "Maldenhof 270 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:25Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012071880"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+272+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-272-amsterdam__locatieserver__057bbb4e9a67.json",
+   "raw_response_sha256": "057bbb4e9a6771938a7082b14d37f0a8e2cba20d573283c17926a7f91aa51e9f",
+   "request_id": "REQ-033",
+   "requested_address": "Maldenhof 272 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:25Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900060"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357544"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96598606%2C52.30248816%2C4.96634606%2C52.30284816",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 14,
+    "panden_containing_address_point": [
+     "0363100012071880"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 13253,
+   "raw_response_path": "raw/pdok/maldenhof-272-amsterdam__bag-pand__3fa220754387.json",
+   "raw_response_sha256": "3fa220754387c6e5135cf773635d81eaf6ee96c7c47c84feb6fb9c4f3e960eab",
+   "request_id": "REQ-034",
+   "requested_address": "Maldenhof 272 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:26Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012071880"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+274+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-274-amsterdam__locatieserver__de90e50f7394.json",
+   "raw_response_sha256": "de90e50f73949ad907ae17676634fc674294b7e56edf0fc2fbc82b572a480b40",
+   "request_id": "REQ-035",
+   "requested_address": "Maldenhof 274 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:26Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900062"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357546"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96603021%2C52.30247034%2C4.96639021%2C52.30283034",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 17,
+    "panden_containing_address_point": [
+     "0363100012144766"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 15727,
+   "raw_response_path": "raw/pdok/maldenhof-274-amsterdam__bag-pand__cf6a80283ea8.json",
+   "raw_response_sha256": "cf6a80283ea8cecbe3816db02297a5a26c49b0ce9a0de54b2f30162e1ef12c98",
+   "request_id": "REQ-036",
+   "requested_address": "Maldenhof 274 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:27Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012144766"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+276+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12785,
+   "raw_response_path": "raw/pdok/maldenhof-276-amsterdam__locatieserver__3fa9d61e56ae.json",
+   "raw_response_sha256": "3fa9d61e56aeb97037787dd33a9d992d363e9ed0a935e1a8eb5964b33225fda2",
+   "request_id": "REQ-037",
+   "requested_address": "Maldenhof 276 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:27Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900064"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357548"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96607403%2C52.30248847%2C4.96643403%2C52.30284847",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 15,
+    "panden_containing_address_point": [
+     "0363100012144766"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 13981,
+   "raw_response_path": "raw/pdok/maldenhof-276-amsterdam__bag-pand__4fffb6cfcf68.json",
+   "raw_response_sha256": "4fffb6cfcf681f65b184d6a52e9ae94c8dac1da81e9fb6cd9e827c8baa595f09",
+   "request_id": "REQ-038",
+   "requested_address": "Maldenhof 276 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:28Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012144766"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+278+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-278-amsterdam__locatieserver__8074f62137ff.json",
+   "raw_response_sha256": "8074f62137ffe03e6966174cc91189c8d74c173c4e90b2f187de6d5e701c185a",
+   "request_id": "REQ-039",
+   "requested_address": "Maldenhof 278 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:28Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900066"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357550"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96610326%2C52.30249756%2C4.96646326%2C52.30285756",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 16,
+    "panden_containing_address_point": [
+     "0363100012091756"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 15012,
+   "raw_response_path": "raw/pdok/maldenhof-278-amsterdam__bag-pand__c730a03af527.json",
+   "raw_response_sha256": "c730a03af527b6f3a30fc58fad2a42bd8a9a138b53c1f098c82859aa70f1cb30",
+   "request_id": "REQ-040",
+   "requested_address": "Maldenhof 278 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:28Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012091756"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+280+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12784,
+   "raw_response_path": "raw/pdok/maldenhof-280-amsterdam__locatieserver__ebc5769a8bbe.json",
+   "raw_response_sha256": "ebc5769a8bbea2fd01a002c606786d1a8af14ead238713238a66490a0a39b3af",
+   "request_id": "REQ-041",
+   "requested_address": "Maldenhof 280 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:29Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900068"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357552"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96614707%2C52.3025157%2C4.9665070700000005%2C52.3028757",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 16,
+    "panden_containing_address_point": [
+     "0363100012091756"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 14649,
+   "raw_response_path": "raw/pdok/maldenhof-280-amsterdam__bag-pand__022d1001b5c0.json",
+   "raw_response_sha256": "022d1001b5c0615b95e861a5e8b3a7a9e393f38adcdb64b3916ac9b1ed9d5810",
+   "request_id": "REQ-042",
+   "requested_address": "Maldenhof 280 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:29Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012091756"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+282+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-282-amsterdam__locatieserver__9992490d7aeb.json",
+   "raw_response_sha256": "9992490d7aeb136b80b28ece68b21f0961546e15c37560bfe29ba884f0a58bb7",
+   "request_id": "REQ-043",
+   "requested_address": "Maldenhof 282 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:30Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900070"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357554"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96617631%2C52.30252479%2C4.96653631%2C52.30288479",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 17,
+    "panden_containing_address_point": [
+     "0363100012143647"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 15737,
+   "raw_response_path": "raw/pdok/maldenhof-282-amsterdam__bag-pand__97f6d170d93e.json",
+   "raw_response_sha256": "97f6d170d93eeecb15414b9cbde69fd60026236196e7c954e5d26e6671d76657",
+   "request_id": "REQ-044",
+   "requested_address": "Maldenhof 282 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:30Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012143647"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+284+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-284-amsterdam__locatieserver__dceea092c112.json",
+   "raw_response_sha256": "dceea092c11254be552706b4750d8e705a424b8d099b1dd2e3f7f5ec9d908318",
+   "request_id": "REQ-045",
+   "requested_address": "Maldenhof 284 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:31Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900072"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357556"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9662202099999995%2C52.30253393%2C4.96658021%2C52.30289393",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 15,
+    "panden_containing_address_point": [
+     "0363100012143647"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 14019,
+   "raw_response_path": "raw/pdok/maldenhof-284-amsterdam__bag-pand__3de174c507a0.json",
+   "raw_response_sha256": "3de174c507a066e272a97e81e95aee8b2599012f587f6da1748fb585b50dcff2",
+   "request_id": "REQ-046",
+   "requested_address": "Maldenhof 284 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:31Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012143647"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+286+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12785,
+   "raw_response_path": "raw/pdok/maldenhof-286-amsterdam__locatieserver__c1a5f23ca9a2.json",
+   "raw_response_sha256": "c1a5f23ca9a20620df8ae94917a3eb77d4c25c0485f05db5a19a148d0876665a",
+   "request_id": "REQ-047",
+   "requested_address": "Maldenhof 286 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:31Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900074"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357558"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9662494399999995%2C52.30254302%2C4.96660944%2C52.30290302",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 14,
+    "panden_containing_address_point": [
+     "0363100012121455"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 12874,
+   "raw_response_path": "raw/pdok/maldenhof-286-amsterdam__bag-pand__361dec1d4383.json",
+   "raw_response_sha256": "361dec1d4383482d4efbcc4dde4df59b912820a075dd112ac7f7613cb3e3bf6d",
+   "request_id": "REQ-048",
+   "requested_address": "Maldenhof 286 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:32Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012121455"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+288+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12785,
+   "raw_response_path": "raw/pdok/maldenhof-288-amsterdam__locatieserver__930987202672.json",
+   "raw_response_sha256": "930987202672841cfc3610915273f096ff8043a7c5e9bb651c0d495c9f547046",
+   "request_id": "REQ-049",
+   "requested_address": "Maldenhof 288 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:32Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900076"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357560"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9662786%2C52.3025611%2C4.9666386000000005%2C52.3029211",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 12,
+    "panden_containing_address_point": [
+     "0363100012121455"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 11459,
+   "raw_response_path": "raw/pdok/maldenhof-288-amsterdam__bag-pand__4eee5808cb24.json",
+   "raw_response_sha256": "4eee5808cb245278f16d24dd706e2f92ea701df2be87345d71841507500ef31a",
+   "request_id": "REQ-050",
+   "requested_address": "Maldenhof 288 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:33Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012121455"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+290+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-290-amsterdam__locatieserver__806d7955f07f.json",
+   "raw_response_sha256": "806d7955f07f1dfb26599d26fba20e22a593d3eddb66e2db041383c9269ebf99",
+   "request_id": "REQ-051",
+   "requested_address": "Maldenhof 290 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:33Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900078"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357562"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96632241%2C52.30257923%2C4.966682410000001%2C52.30293923",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 12,
+    "panden_containing_address_point": [
+     "0363100012134188"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 11465,
+   "raw_response_path": "raw/pdok/maldenhof-290-amsterdam__bag-pand__75f446af1d8c.json",
+   "raw_response_sha256": "75f446af1d8c478aefdad3b04dd74a71a1255a4f74ea4408635500c884b659ec",
+   "request_id": "REQ-052",
+   "requested_address": "Maldenhof 290 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:33Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012134188"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+292+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-292-amsterdam__locatieserver__ceb9ef4d193b.json",
+   "raw_response_sha256": "ceb9ef4d193b8cf518732f8c7bffde9abe82a55bceaaf6e220998935156504b0",
+   "request_id": "REQ-053",
+   "requested_address": "Maldenhof 292 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:34Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900080"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357564"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.9663517299999995%2C52.30257934%2C4.96671173%2C52.30293934",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 10,
+    "panden_containing_address_point": [
+     "0363100012134188"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 9560,
+   "raw_response_path": "raw/pdok/maldenhof-292-amsterdam__bag-pand__dbfbadce5be2.json",
+   "raw_response_sha256": "dbfbadce5be27005efa73ab3988383d83b2396be00faa2a8d8debb256058e902",
+   "request_id": "REQ-054",
+   "requested_address": "Maldenhof 292 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:34Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012134188"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+294+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-294-amsterdam__locatieserver__99d1511cf744.json",
+   "raw_response_sha256": "99d1511cf744bcd69a271697a2bd3de404e5bc5458c8bac46930301471245054",
+   "request_id": "REQ-055",
+   "requested_address": "Maldenhof 294 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:35Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900082"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357566"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96638088%2C52.30259742%2C4.966740880000001%2C52.30295742",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 10,
+    "panden_containing_address_point": [
+     "0363100012127361"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 9557,
+   "raw_response_path": "raw/pdok/maldenhof-294-amsterdam__bag-pand__9451d3e2b8ed.json",
+   "raw_response_sha256": "9451d3e2b8edfedda6fa88fd55099fd1ccabf7aab64ed989a447b11efd89bde1",
+   "request_id": "REQ-056",
+   "requested_address": "Maldenhof 294 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:35Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012127361"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Maldenhof+296+Amsterdam&fq=type%3Aadres&rows=10",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 12787,
+   "raw_response_path": "raw/pdok/maldenhof-296-amsterdam__locatieserver__2c08030d41b3.json",
+   "raw_response_sha256": "2c08030d41b3d61189874a016a4171420ba5074a4d3cf8117bf73e9eb01b82ee",
+   "request_id": "REQ-057",
+   "requested_address": "Maldenhof 296 Amsterdam",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:36Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0363010000900084"
+    ],
+    "nummeraanduiding_ids": [
+     "0363200000357568"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.96642478%2C52.30260656%2C4.96678478%2C52.30296656",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 7,
+    "panden_containing_address_point": [
+     "0363100012127361"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 7063,
+   "raw_response_path": "raw/pdok/maldenhof-296-amsterdam__bag-pand__596a4cb3b43a.json",
+   "raw_response_sha256": "596a4cb3b43ab337327c4cc7e0a6f45d1b58cb0a1630befeb205cb119a07a242",
+   "request_id": "REQ-058",
+   "requested_address": "Maldenhof 296 Amsterdam",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:36Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0363100012127361"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012070344",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.698999881744385,
+     "b3_h_dak_70p": 8.302000045776367,
+     "b3_h_dak_max": 10.763999938964844,
+     "b3_h_dak_min": 1.590000033378601,
+     "b3_h_maaiveld": -1.4110000133514404,
+     "b3_h_nok": 10.828564643859863,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 5,
+     "b3_nodata_fractie_ahn3": 0.0035335689317435026,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 100.84,
+     "b3_opp_dak_plat": 7.61,
+     "b3_opp_dak_schuin": 99.91,
+     "b3_opp_grond": 70.96,
+     "b3_opp_scheidingsmuur": 188.01,
+     "b3_puntdichtheid_ahn3": 17.489360809326172,
+     "b3_puntdichtheid_ahn4": 59.12367630004883,
+     "b3_puntdichtheid_ahn5": 17.08833885192871,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.6400821208953857,
+     "b3_rmse_lod13": 1.6487843990325928,
+     "b3_rmse_lod22": 0.12777012586593628,
+     "b3_t_run": 42,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 692.7579345703125,
+     "b3_volume_lod13": 621.2272338867188,
+     "b3_volume_lod22": 543.8916015625,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8301475,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012070344",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:35:17Z",
+     "tijdstipregistratielv": "2023-05-12T20:50:37Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7751,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012070344__3dbag-pand__68384c3d1499.json",
+   "raw_response_sha256": "68384c3d1499a0b7999f20cf012a666c96c875ce823346210eda5470d6dd181a",
+   "request_id": "REQ-059",
+   "requested_address": "BAG pand 0363100012070344",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:37Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012070344"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012071880",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 7.210000038146973,
+     "b3_h_dak_70p": 8.687999725341797,
+     "b3_h_dak_max": 10.755000114440918,
+     "b3_h_dak_min": 2.055000066757202,
+     "b3_h_maaiveld": -1.4320000410079956,
+     "b3_h_nok": 10.815038681030273,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.0034722222480922937,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0069444444961845875,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 132.64,
+     "b3_opp_dak_plat": 8.8,
+     "b3_opp_dak_schuin": 101.57,
+     "b3_opp_grond": 71.92,
+     "b3_opp_scheidingsmuur": 173.96,
+     "b3_puntdichtheid_ahn3": 17.12891960144043,
+     "b3_puntdichtheid_ahn4": 35.0,
+     "b3_puntdichtheid_ahn5": 15.440559387207031,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.475101947784424,
+     "b3_rmse_lod13": 1.6810905933380127,
+     "b3_rmse_lod22": 0.2828703820705414,
+     "b3_t_run": 46,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 714.5470581054688,
+     "b3_volume_lod13": 649.5711669921875,
+     "b3_volume_lod22": 557.6537475585938,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 7918028,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012071880",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:35:30Z",
+     "tijdstipregistratielv": "2023-05-12T20:51:22Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 9306,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012071880__3dbag-pand__c52501c7f0b9.json",
+   "raw_response_sha256": "c52501c7f0b9aad63e7aa89095a421a4b0ee4faee44e84ca03a38126f94a7943",
+   "request_id": "REQ-060",
+   "requested_address": "BAG pand 0363100012071880",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:38Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012071880"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012078022",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.625999927520752,
+     "b3_h_dak_70p": 8.312000274658203,
+     "b3_h_dak_max": 10.744999885559082,
+     "b3_h_dak_min": 1.6150000095367432,
+     "b3_h_maaiveld": -1.3980000019073486,
+     "b3_h_nok": 10.834716796875,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.0035335689317435026,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 99.61,
+     "b3_opp_dak_plat": 16.05,
+     "b3_opp_dak_schuin": 91.19,
+     "b3_opp_grond": 70.81,
+     "b3_opp_scheidingsmuur": 186.77,
+     "b3_puntdichtheid_ahn3": 17.404254913330078,
+     "b3_puntdichtheid_ahn4": 29.55476951599121,
+     "b3_puntdichtheid_ahn5": 32.22614669799805,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.4353458881378174,
+     "b3_rmse_lod13": 1.5724047422409058,
+     "b3_rmse_lod22": 0.163161963224411,
+     "b3_t_run": 54,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 682.2337036132812,
+     "b3_volume_lod13": 618.7573852539062,
+     "b3_volume_lod22": 540.4423217773438,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 7936141,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012078022",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:36:16Z",
+     "tijdstipregistratielv": "2023-05-12T20:54:13Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 8218,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012078022__3dbag-pand__e8b3a98af628.json",
+   "raw_response_sha256": "e8b3a98af6280e9663a6a02aee7fa1ac683dae6908d3eecbf3bd9d53204aa906",
+   "request_id": "REQ-061",
+   "requested_address": "BAG pand 0363100012078022",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:38Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012078022"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091756",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 7.314000129699707,
+     "b3_h_dak_70p": 8.663000106811523,
+     "b3_h_dak_max": 10.751999855041504,
+     "b3_h_dak_min": 2.2090001106262207,
+     "b3_h_maaiveld": -1.406999945640564,
+     "b3_h_nok": 10.814352035522461,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 7,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0069444444961845875,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 99.06,
+     "b3_opp_dak_plat": 8.27,
+     "b3_opp_dak_schuin": 101.68,
+     "b3_opp_grond": 71.87,
+     "b3_opp_scheidingsmuur": 188.87,
+     "b3_puntdichtheid_ahn3": 18.0,
+     "b3_puntdichtheid_ahn4": 32.44444274902344,
+     "b3_puntdichtheid_ahn5": 16.139860153198242,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.565657377243042,
+     "b3_rmse_lod13": 1.579392433166504,
+     "b3_rmse_lod22": 0.19970101118087769,
+     "b3_t_run": 30,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 707.985595703125,
+     "b3_volume_lod13": 641.6875,
+     "b3_volume_lod22": 557.8101196289062,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8156303,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012091756",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:37:38Z",
+     "tijdstipregistratielv": "2023-05-12T20:59:38Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7715,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012091756__3dbag-pand__8c4b4b209f3f.json",
+   "raw_response_sha256": "8c4b4b209f3f9c671f6534801bfe9e527862c30908ce9dbe458ee49f750c9fc3",
+   "request_id": "REQ-062",
+   "requested_address": "BAG pand 0363100012091756",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:39Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012091756"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091974",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.144999980926514,
+     "b3_h_dak_70p": 8.145000457763672,
+     "b3_h_dak_max": 10.751999855041504,
+     "b3_h_dak_min": 1.597000002861023,
+     "b3_h_maaiveld": -1.3980000019073486,
+     "b3_h_nok": 10.816598892211914,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.010600706562399864,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 98.09,
+     "b3_opp_dak_plat": 14.56,
+     "b3_opp_dak_schuin": 88.42,
+     "b3_opp_grond": 70.85,
+     "b3_opp_scheidingsmuur": 185.98,
+     "b3_puntdichtheid_ahn3": 17.52650260925293,
+     "b3_puntdichtheid_ahn4": 52.69258117675781,
+     "b3_puntdichtheid_ahn5": 18.08571434020996,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.68416428565979,
+     "b3_rmse_lod13": 1.6745398044586182,
+     "b3_rmse_lod22": 0.19785282015800476,
+     "b3_t_run": 49,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 688.515380859375,
+     "b3_volume_lod13": 627.3117065429688,
+     "b3_volume_lod22": 543.510986328125,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8180925,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012091974",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:37:39Z",
+     "tijdstipregistratielv": "2023-05-12T20:59:41Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7751,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012091974__3dbag-pand__790c2c6ff28d.json",
+   "raw_response_sha256": "790c2c6ff28daa8bc33baac127de28e8a099e55984e4c8875062c3a600d246ce",
+   "request_id": "REQ-063",
+   "requested_address": "BAG pand 0363100012091974",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:39Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012091974"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012102659",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 7.046999931335449,
+     "b3_h_dak_70p": 8.463000297546387,
+     "b3_h_dak_max": 10.753000259399414,
+     "b3_h_dak_min": 1.930999994277954,
+     "b3_h_maaiveld": -1.4110000133514404,
+     "b3_h_nok": 10.831400871276855,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 2,
+     "b3_n_vlakken": 8,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 150.33,
+     "b3_opp_dak_plat": 10.55,
+     "b3_opp_dak_schuin": 99.32,
+     "b3_opp_grond": 72.09,
+     "b3_opp_scheidingsmuur": 149.56,
+     "b3_puntdichtheid_ahn3": 17.574913024902344,
+     "b3_puntdichtheid_ahn4": 31.48431968688965,
+     "b3_puntdichtheid_ahn5": 34.13240432739258,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.4756879806518555,
+     "b3_rmse_lod13": 1.5209544897079468,
+     "b3_rmse_lod22": 0.2611660063266754,
+     "b3_t_run": 47,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 703.0821533203125,
+     "b3_volume_lod13": 639.7010498046875,
+     "b3_volume_lod22": 555.927734375,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8449595,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012102659",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:38:44Z",
+     "tijdstipregistratielv": "2023-05-12T21:03:51Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 8658,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012102659__3dbag-pand__3d2fb2abcb74.json",
+   "raw_response_sha256": "3d2fb2abcb7452e2518c8e5ad7f871615461263a5450a7eb2f800a72d283fa92",
+   "request_id": "REQ-064",
+   "requested_address": "BAG pand 0363100012102659",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:40Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012102659"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012107492",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.815999984741211,
+     "b3_h_dak_70p": 8.36299991607666,
+     "b3_h_dak_max": 10.779999732971191,
+     "b3_h_dak_min": 1.6119999885559082,
+     "b3_h_maaiveld": -1.4670000076293945,
+     "b3_h_nok": 10.816126823425293,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 5,
+     "b3_nodata_fractie_ahn3": 0.0035211266949772835,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0035211266949772835,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 103.5,
+     "b3_opp_dak_plat": 15.99,
+     "b3_opp_dak_schuin": 90.34,
+     "b3_opp_grond": 70.86,
+     "b3_opp_scheidingsmuur": 188.15,
+     "b3_puntdichtheid_ahn3": 17.342756271362305,
+     "b3_puntdichtheid_ahn4": 48.28168869018555,
+     "b3_puntdichtheid_ahn5": 16.0,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.5237650871276855,
+     "b3_rmse_lod13": 1.688839316368103,
+     "b3_rmse_lod22": 0.12779611349105835,
+     "b3_t_run": 32,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 691.8831787109375,
+     "b3_volume_lod13": 625.7224731445312,
+     "b3_volume_lod22": 546.4066162109375,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 7861272,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012107492",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:39:19Z",
+     "tijdstipregistratielv": "2023-05-12T21:06:00Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7757,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012107492__3dbag-pand__4c043f130add.json",
+   "raw_response_sha256": "4c043f130adde815d38f07367468d400d9c717da7dcd03b98077c840fa847fa3",
+   "request_id": "REQ-065",
+   "requested_address": "BAG pand 0363100012107492",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:40Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012107492"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012121455",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 7.013999938964844,
+     "b3_h_dak_70p": 8.5,
+     "b3_h_dak_max": 10.736000061035156,
+     "b3_h_dak_min": 1.6160000562667847,
+     "b3_h_maaiveld": -1.3739999532699585,
+     "b3_h_nok": 10.80290699005127,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.003496503457427025,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 101.13,
+     "b3_opp_dak_plat": 18.04,
+     "b3_opp_dak_schuin": 89.12,
+     "b3_opp_grond": 71.44,
+     "b3_opp_scheidingsmuur": 187.61,
+     "b3_puntdichtheid_ahn3": 18.203508377075195,
+     "b3_puntdichtheid_ahn4": 36.97901916503906,
+     "b3_puntdichtheid_ahn5": 16.097902297973633,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.5563693046569824,
+     "b3_rmse_lod13": 1.6445224285125732,
+     "b3_rmse_lod22": 0.18309171497821808,
+     "b3_t_run": 33,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 696.7229614257812,
+     "b3_volume_lod13": 618.8648071289062,
+     "b3_volume_lod22": 540.9869995117188,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 7907678,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012121455",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:40:42Z",
+     "tijdstipregistratielv": "2023-05-12T21:11:07Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7745,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012121455__3dbag-pand__73fe6043cc9d.json",
+   "raw_response_sha256": "73fe6043cc9d71264ea40a0c5d4050f80b0588559da97707832acc204cbc27f5",
+   "request_id": "REQ-066",
+   "requested_address": "BAG pand 0363100012121455",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:41Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012121455"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012127361",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 7.031000137329102,
+     "b3_h_dak_70p": 8.548999786376953,
+     "b3_h_dak_max": 10.756999969482422,
+     "b3_h_dak_min": 1.6180000305175781,
+     "b3_h_maaiveld": -1.3700000047683716,
+     "b3_h_nok": 10.840690612792969,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 3,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.003401360474526882,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 197.42,
+     "b3_opp_dak_plat": 10.33,
+     "b3_opp_dak_schuin": 98.56,
+     "b3_opp_grond": 72.66,
+     "b3_opp_scheidingsmuur": 95.18,
+     "b3_puntdichtheid_ahn3": 18.93877601623535,
+     "b3_puntdichtheid_ahn4": 36.10884475708008,
+     "b3_puntdichtheid_ahn5": 16.32764434814453,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.5823137760162354,
+     "b3_rmse_lod13": 1.6261229515075684,
+     "b3_rmse_lod22": 0.23065751791000366,
+     "b3_t_run": 58,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 708.6246337890625,
+     "b3_volume_lod13": 634.9741821289062,
+     "b3_volume_lod22": 553.1387939453125,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8103574,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012127361",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:41:14Z",
+     "tijdstipregistratielv": "2023-05-12T21:13:09Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 8824,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012127361__3dbag-pand__056f45aedc27.json",
+   "raw_response_sha256": "056f45aedc27e03d508f20f80edf5788d15a83368909268748f934cb1bdb7031",
+   "request_id": "REQ-067",
+   "requested_address": "BAG pand 0363100012127361",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:42Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012127361"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012134188",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.775000095367432,
+     "b3_h_dak_70p": 8.418999671936035,
+     "b3_h_dak_max": 10.737000465393066,
+     "b3_h_dak_min": 1.6009999513626099,
+     "b3_h_maaiveld": -1.3580000400543213,
+     "b3_h_nok": 10.828415870666504,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 7,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 116.45,
+     "b3_opp_dak_plat": 23.56,
+     "b3_opp_dak_schuin": 87.94,
+     "b3_opp_grond": 71.02,
+     "b3_opp_scheidingsmuur": 187.71,
+     "b3_puntdichtheid_ahn3": 18.36619758605957,
+     "b3_puntdichtheid_ahn4": 42.16901397705078,
+     "b3_puntdichtheid_ahn5": 15.929577827453613,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.5674777030944824,
+     "b3_rmse_lod13": 1.7223092317581177,
+     "b3_rmse_lod22": 0.2256782501935959,
+     "b3_t_run": 51,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 702.2164306640625,
+     "b3_volume_lod13": 645.4444580078125,
+     "b3_volume_lod22": 546.3493041992188,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8322191,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012134188",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:41:55Z",
+     "tijdstipregistratielv": "2023-05-12T21:15:45Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 8954,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012134188__3dbag-pand__b9835235be63.json",
+   "raw_response_sha256": "b9835235be63086922f835fa14f16f0ccdd6da3a73fc1c47e76b30b3a8605396",
+   "request_id": "REQ-068",
+   "requested_address": "BAG pand 0363100012134188",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:42Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012134188"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012137996",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 2,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 4.830999851226807,
+     "b3_h_dak_70p": 6.1529998779296875,
+     "b3_h_dak_max": 8.079000473022461,
+     "b3_h_dak_min": 1.125,
+     "b3_h_maaiveld": -1.3650000095367432,
+     "b3_h_nok": 8.101356506347656,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 3,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 118.32,
+     "b3_opp_dak_plat": 12.74,
+     "b3_opp_dak_schuin": 74.07,
+     "b3_opp_grond": 54.74,
+     "b3_opp_scheidingsmuur": 54.42,
+     "b3_puntdichtheid_ahn3": 16.328767776489258,
+     "b3_puntdichtheid_ahn4": 30.757991790771484,
+     "b3_puntdichtheid_ahn5": 33.66210174560547,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 2.797785758972168,
+     "b3_rmse_lod13": 2.0481176376342773,
+     "b3_rmse_lod22": 0.371103972196579,
+     "b3_t_run": 35,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 411.3731994628906,
+     "b3_volume_lod13": 377.5814514160156,
+     "b3_volume_lod22": 324.2480773925781,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8369171,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012137996",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:42:21Z",
+     "tijdstipregistratielv": "2023-05-12T21:17:38Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 6929,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012137996__3dbag-pand__6de26675b58d.json",
+   "raw_response_sha256": "6de26675b58d90298ce1aac39e069cf614dd51753faa0f2340759512134125f2",
+   "request_id": "REQ-069",
+   "requested_address": "BAG pand 0363100012137996",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:43Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012137996"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012140664",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.60099983215332,
+     "b3_h_dak_70p": 8.303999900817871,
+     "b3_h_dak_max": 10.744999885559082,
+     "b3_h_dak_min": 1.6330000162124634,
+     "b3_h_maaiveld": -1.3930000066757202,
+     "b3_h_nok": 10.819026947021484,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 5,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.0,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 99.35,
+     "b3_opp_dak_plat": 16.31,
+     "b3_opp_dak_schuin": 87.81,
+     "b3_opp_grond": 70.82,
+     "b3_opp_scheidingsmuur": 187.47,
+     "b3_puntdichtheid_ahn3": 17.243816375732422,
+     "b3_puntdichtheid_ahn4": 30.515901565551758,
+     "b3_puntdichtheid_ahn5": 27.335689544677734,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.5158631801605225,
+     "b3_rmse_lod13": 1.6049987077713013,
+     "b3_rmse_lod22": 0.16422803699970245,
+     "b3_t_run": 54,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 690.9226684570312,
+     "b3_volume_lod13": 619.45849609375,
+     "b3_volume_lod22": 540.69384765625,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8041751,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012140664",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:42:38Z",
+     "tijdstipregistratielv": "2023-05-12T21:18:38Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7808,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012140664__3dbag-pand__7fe9832d6fd6.json",
+   "raw_response_sha256": "7fe9832d6fd6eea7b0b99180004905b960d6aa6d3cfd9b397e3cb088cdbecd8d",
+   "request_id": "REQ-070",
+   "requested_address": "BAG pand 0363100012140664",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:44Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012140664"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012141419",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.214000225067139,
+     "b3_h_dak_70p": 8.060999870300293,
+     "b3_h_dak_max": 10.758999824523926,
+     "b3_h_dak_min": 1.5989999771118164,
+     "b3_h_maaiveld": -1.378000020980835,
+     "b3_h_nok": 10.821006774902344,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 2,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.0035211266949772835,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.007042253389954567,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 106.74,
+     "b3_opp_dak_plat": 9.38,
+     "b3_opp_dak_schuin": 105.92,
+     "b3_opp_grond": 70.84,
+     "b3_opp_scheidingsmuur": 185.4,
+     "b3_puntdichtheid_ahn3": 17.54063606262207,
+     "b3_puntdichtheid_ahn4": 37.0,
+     "b3_puntdichtheid_ahn5": 21.914894104003906,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.61726975440979,
+     "b3_rmse_lod13": 1.548813819885254,
+     "b3_rmse_lod22": 0.15080270171165466,
+     "b3_t_run": 36,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 686.5520629882812,
+     "b3_volume_lod13": 616.8943481445312,
+     "b3_volume_lod22": 538.6270751953125,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8114304,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012141419",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:42:47Z",
+     "tijdstipregistratielv": "2023-05-12T21:19:05Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7963,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012141419__3dbag-pand__179569dc06b2.json",
+   "raw_response_sha256": "179569dc06b2cbe59216b3326da8ae22bbe3932f9580673650e1154aa8905c59",
+   "request_id": "REQ-071",
+   "requested_address": "BAG pand 0363100012141419",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:44Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012141419"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012143647",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.940999984741211,
+     "b3_h_dak_70p": 8.404999732971191,
+     "b3_h_dak_max": 10.75100040435791,
+     "b3_h_dak_min": 1.597000002861023,
+     "b3_h_maaiveld": -1.4160000085830688,
+     "b3_h_nok": 10.806382179260254,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 5,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.010600706562399864,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 102.5,
+     "b3_opp_dak_plat": 10.49,
+     "b3_opp_dak_schuin": 93.57,
+     "b3_opp_grond": 70.58,
+     "b3_opp_scheidingsmuur": 187.48,
+     "b3_puntdichtheid_ahn3": 17.950529098510742,
+     "b3_puntdichtheid_ahn4": 46.982330322265625,
+     "b3_puntdichtheid_ahn5": 15.914285659790039,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.573514938354492,
+     "b3_rmse_lod13": 1.6841362714767456,
+     "b3_rmse_lod22": 0.14409604668617249,
+     "b3_t_run": 33,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 690.0577392578125,
+     "b3_volume_lod13": 614.8826293945312,
+     "b3_volume_lod22": 537.7207641601562,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8379893,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012143647",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:43:00Z",
+     "tijdstipregistratielv": "2023-05-12T21:19:49Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 7928,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012143647__3dbag-pand__6e03518cbd8e.json",
+   "raw_response_sha256": "6e03518cbd8e81e0b833c74bdd97fccfcfb4db5254b972b0456397812ea95e67",
+   "request_id": "REQ-072",
+   "requested_address": "BAG pand 0363100012143647",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:45Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012143647"
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012144766",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 3,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 6.831999778747559,
+     "b3_h_dak_70p": 8.33899974822998,
+     "b3_h_dak_max": 10.722999572753906,
+     "b3_h_dak_min": 1.5820000171661377,
+     "b3_h_maaiveld": -1.3980000019073486,
+     "b3_h_nok": 10.814860343933105,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 6,
+     "b3_nodata_fractie_ahn3": 0.003436426166445017,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.010309278033673763,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 121.37,
+     "b3_opp_dak_plat": 7.97,
+     "b3_opp_dak_schuin": 106.15,
+     "b3_opp_grond": 72.59,
+     "b3_opp_scheidingsmuur": 173.99,
+     "b3_puntdichtheid_ahn3": 17.55862045288086,
+     "b3_puntdichtheid_ahn4": 32.041236877441406,
+     "b3_puntdichtheid_ahn5": 16.36111068725586,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 3.594407081604004,
+     "b3_rmse_lod13": 1.641242504119873,
+     "b3_rmse_lod22": 0.18677042424678802,
+     "b3_t_run": 34,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 708.631103515625,
+     "b3_volume_lod13": 645.3495483398438,
+     "b3_volume_lod22": 556.315673828125,
+     "begingeldigheid": "2023-05-12",
+     "documentdatum": "2023-05-12",
+     "documentnummer": "GV00007034_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 7970218,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012144766",
+     "oorspronkelijkbouwjaar": 1981,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-05-12T19:43:06Z",
+     "tijdstipregistratielv": "2023-05-12T21:20:14Z",
+     "voorkomenidentificatie": 2
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 8290,
+   "raw_response_path": "raw/3dbag/bag-pand-0363100012144766__3dbag-pand__36b7a2a8e393.json",
+   "raw_response_sha256": "36b7a2a8e393cf8650256fee7f8ec9bcf499c2b39d28a697a9d026dae8946617",
+   "request_id": "REQ-073",
+   "requested_address": "BAG pand 0363100012144766",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:46Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0363100012144766"
+   }
+  },
+  {
+   "content_type": "application/json;charset=utf-8",
+   "endpoint": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Meppelweg+819+2544+AW+Den+Haag&fq=type%3Aadres&rows=10",
+   "flags": [
+    "EXACT_MATCH_IN_OTHER_CITY"
+   ],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "exact_address_matches": 1,
+    "total_docs": 10
+   },
+   "parse_status": "OK",
+   "purpose": "locatieserver",
+   "raw_response_bytes": 13561,
+   "raw_response_path": "raw/pdok/meppelweg-819-2544-aw-den-haag__locatieserver__a957af5196a1.json",
+   "raw_response_sha256": "a957af5196a19879ce950596e58294b80b241199d371590f5749a15f919cd6ae",
+   "request_id": "REQ-074",
+   "requested_address": "Meppelweg 819 2544 AW Den Haag",
+   "retrieval_source": "PDOK Locatieserver v3_1 free",
+   "retrieved_at": "2026-09-30T08:17:47Z",
+   "retrieved_identifiers": {
+    "adresseerbaarobject_ids": [
+     "0518010000804091"
+    ],
+    "nummeraanduiding_ids": [
+     "0518200000804090"
+    ]
+   }
+  },
+  {
+   "content_type": "application/geo+json",
+   "endpoint": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=20&bbox=4.26291733%2C52.05089608%2C4.26327733%2C52.05125608",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "features_returned": 1,
+    "panden_containing_address_point": [
+     "0518100000354752"
+    ]
+   },
+   "parse_status": "OK",
+   "purpose": "bag-pand",
+   "raw_response_bytes": 6218,
+   "raw_response_path": "raw/pdok/meppelweg-819-2544-aw-den-haag__bag-pand__89541931f462.json",
+   "raw_response_sha256": "89541931f462cfaae79754563f31e88712fb2938686d25666067cff274a850ac",
+   "request_id": "REQ-075",
+   "requested_address": "Meppelweg 819 2544 AW Den Haag",
+   "retrieval_source": "PDOK BAG OGC v2 pand",
+   "retrieved_at": "2026-09-30T08:17:47Z",
+   "retrieved_identifiers": {
+    "bag_pand_ids": [
+     "0518100000354752"
+    ]
+   }
+  },
+  {
+   "content_type": "application/json",
+   "endpoint": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+   "flags": [],
+   "http_status": 200,
+   "normalized_candidate_data": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": null,
+     "b3_bouwlagen": null,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 19.242000579833984,
+     "b3_h_dak_70p": 19.253999710083008,
+     "b3_h_dak_max": 19.30500030517578,
+     "b3_h_dak_min": 2.7079999446868896,
+     "b3_h_maaiveld": -0.25,
+     "b3_h_nok": 13.651684761047363,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 3,
+     "b3_n_vlakken": 17,
+     "b3_nodata_fractie_ahn3": 0.01121656596660614,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.00661489786580205,
+     "b3_nodata_radius_ahn3": 0.0,
+     "b3_nodata_radius_ahn4": 0.08590211719274521,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 3048.46,
+     "b3_opp_dak_plat": 875.63,
+     "b3_opp_dak_schuin": 0.0,
+     "b3_opp_grond": 875.63,
+     "b3_opp_scheidingsmuur": 0.0,
+     "b3_puntdichtheid_ahn3": 14.801629066467285,
+     "b3_puntdichtheid_ahn4": 113.01121520996094,
+     "b3_puntdichtheid_ahn5": 17.942096710205078,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2022,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 5.162071704864502,
+     "b3_rmse_lod13": 3.4476425647735596,
+     "b3_rmse_lod22": 3.420424699783325,
+     "b3_t_run": 612,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 17079.271484375,
+     "b3_volume_lod13": 16772.123046875,
+     "b3_volume_lod22": 16755.509765625,
+     "begingeldigheid": "2010-12-20",
+     "documentdatum": "2010-12-20",
+     "documentnummer": "FV20101220-04",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 11615149,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0518100000354752",
+     "oorspronkelijkbouwjaar": 1957,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2011-01-28T14:58:55Z",
+     "tijdstipregistratielv": "2011-01-28T15:05:07Z",
+     "voorkomenidentificatie": 1
+    }
+   },
+   "parse_status": "OK",
+   "purpose": "3dbag-pand",
+   "raw_response_bytes": 8349,
+   "raw_response_path": "raw/3dbag/bag-pand-0518100000354752__3dbag-pand__034e376b6eda.json",
+   "raw_response_sha256": "034e376b6edae01ca5454d55a117ec1b120197aff4655d2962a7606d3570ccba",
+   "request_id": "REQ-076",
+   "requested_address": "BAG pand 0518100000354752",
+   "retrieval_source": "3D BAG API collections/pand",
+   "retrieved_at": "2026-09-30T08:17:48Z",
+   "retrieved_identifiers": {
+    "bag_pand_id": "0518100000354752"
+   }
+  }
+ ],
+ "run_id": "RBV1-20260930T081711Z",
+ "tool": "fetch_real_building_validation_v1.0.0"
+}
