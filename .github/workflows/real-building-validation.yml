@@ -6,6 +6,13 @@ name: Real building validation
 
 on:
   workflow_dispatch:
+  # workflow_dispatch werkt pas als dit bestand op de default branch staat; tot die tijd draait de workflow
+  # ook bij een push van alleen dit bestand op de ontwikkelbranch (de commit-back van GITHUB_TOKEN triggert niets).
+  push:
+    branches:
+      - claude/test-pdok-3dbag-network-yw0rcc
+    paths:
+      - ".github/workflows/real-building-validation.yml"
 
 permissions:
   contents: write
