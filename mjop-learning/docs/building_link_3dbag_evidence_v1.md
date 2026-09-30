@@ -21,7 +21,7 @@ historisch MJOP-document
 
 | Onderdeel | Stand |
 |---|---|
-| Snapshots | **25** voor 11 documenten (2026-09-30), live opgehaald met `bag_snapshots_v1.1.0`. De eerste live run liet zien dat de woonplaats niet werd gecontroleerd (Zomerdijkstraat 14 Amsterdam gaf een pand in Zwolle); sindsdien filtert de PDOK-vraag op woonplaats en moet die exact gelijk zijn (alias: Den Haag = 's-Gravenhage). |
+| Snapshots | **36** voor 11 documenten (2026-09-30): 25 losse adressen (`bag_snapshots_v1.1.0`) en 11 bereiken (`v1.2.0`, zie §1). De eerste live run liet zien dat de woonplaats niet werd gecontroleerd (Zomerdijkstraat 14 Amsterdam gaf een pand in Zwolle); sindsdien filtert de PDOK-vraag op woonplaats en moet die exact gelijk zijn (alias: Den Haag = 's-Gravenhage). |
 | Building links | **0** bevestigd. Het kandidatenrapport dekt 13 documenten: 7 `CANDIDATES_READY_FOR_REVIEW`, 4 `NO_CANDIDATE_PANDEN` (geen exact adres: het document noemt een huisnummer zonder toevoeging, of een andere straatspelling), 2 `NO_ADDRESS` (DOC-007 heeft alleen een objectnaam en plaats; DOC-011 heeft geen objectgegevens). |
 | Crosswalk / onderwerp-mappings | **0** geverifieerd. Alle mappings zijn voorstellen (`PROPOSED` / `REVIEW_REQUIRED`). |
 | 3D BAG- en historische evidence | **0**, omdat er geen links zijn. |
@@ -46,6 +46,27 @@ Wat een snapshot bewaart:
 `snapshot_id` = `BAGSNAP-` + sha256 van de inhoud. Een aangepaste snapshot valt dus op, en schrijven
 overschrijft nooit. Niet-exacte PDOK-treffers worden bewaard als context, maar er worden geen panden voor
 opgevraagd (geen fuzzy matching).
+
+### Huisnummerbereiken (`fetch-range`, v1.2.0)
+
+Een bereik als "Maldenhof 240 - 296" wordt niet meer als twee eindpunten opgevraagd, maar als één bereik:
+
+1. één PDOK-vraag met `straatnaam`, `woonplaatsnaam` en `huisnummer:[240 TO 296]` (gepagineerd);
+2. een adres telt als treffer bij exact dezelfde straat en woonplaats en een huisnummer in het bereik;
+   toevoegingen (13-H, 14-1) tellen mee, want een bereik gaat over gebouwen, niet over één voordeur;
+3. één BAG-vraag voor het omhullende gebied van alle treffers (gepagineerd), en lokaal punt-in-polygoon
+   per adres;
+4. 3D BAG per gevonden pand. Kent 3D BAG een pand niet (bijv. status "Pand gesloopt" geeft HTTP 502), dan
+   wordt dat vastgelegd als `http_status` met `attributes: null`; de snapshot breekt niet af en er wordt
+   niets ingevuld.
+
+Een lijst als "Vechtstraat 13-15-17-19" wordt per nummer een bereik van één huisnummer (13–13 enz.), zodat
+13-H, 13-1, … meetellen. Een los adres blijft een exacte opvraging (`fetch`).
+
+**Even/oneven wordt niet gekozen.** Het kandidatenrapport (`range_analysis`, sectie "Huisnummerbereiken")
+toont per bereik drie opties (alle / even / oneven) met het aantal adressen, de panden en hun 3D BAG-waarden,
+naast het aantal appartementen dat het document noemt. Bevat een bereik beide pariteiten, dan krijgt het
+document de review-reden `RANGE_BOTH_PARITIES`. De reviewer bevestigt daarna elk pand afzonderlijk.
 
 ## 2. Building links (`scripts/building_links.py`)
 
@@ -165,7 +186,9 @@ een latere stap.
 
 1. **Netwerk:** sta in de omgeving `api.pdok.nl` en `api.3dbag.nl` toe.
 2. **Snapshots:** haal ze op volgens de opvraagplanning in het kandidatenrapport, bijvoorbeeld:
-   `python scripts/bag_snapshots.py fetch --document DOC-005 --street Maldenhof --number 240 --postcode "1106 EZ" --city Amsterdam`
+   `python scripts/bag_snapshots.py fetch --document DOC-012 --street Meppelweg --number 819 --postcode "2544 AW" --city "Den Haag"`
+   of voor een bereik:
+   `python scripts/bag_snapshots.py fetch-range --document DOC-005 --street Maldenhof --from 240 --to 296 --city Amsterdam`
 3. **Kandidaten:** `python scripts/building_links.py candidates`.
 4. **Links:** een mens bevestigt per document en pand:
    `python scripts/building_links.py record --document DOC-005 --bag-pand-id <id> --snapshot <BAGSNAP-…> --reviewer <naam> --reason "…"`

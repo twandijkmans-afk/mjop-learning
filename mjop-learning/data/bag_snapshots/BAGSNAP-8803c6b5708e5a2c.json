@@ -1,0 +1,2211 @@
+{
+ "address_matches": [
+  {
+   "adresseerbaarobject_id": "0363010000851632",
+   "centroide_ll": "POINT(4.90585473 52.34822187)",
+   "exact_match": true,
+   "huisletter": null,
+   "huisnummer": 19,
+   "huisnummertoevoeging": "1",
+   "pdok_id": "adr-4af35ce3f1b6548bba24fd0eb1500ad2",
+   "postcode": "1078RG",
+   "weergavenaam": "Vechtstraat 19-1, 1078RG Amsterdam",
+   "woonplaatsnaam": "Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851633",
+   "centroide_ll": "POINT(4.90585473 52.34822187)",
+   "exact_match": true,
+   "huisletter": null,
+   "huisnummer": 19,
+   "huisnummertoevoeging": "2",
+   "pdok_id": "adr-61ee0d66dfb0bc47ab9082ee4611d42a",
+   "postcode": "1078RG",
+   "weergavenaam": "Vechtstraat 19-2, 1078RG Amsterdam",
+   "woonplaatsnaam": "Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851629",
+   "centroide_ll": "POINT(4.90585473 52.34822187)",
+   "exact_match": true,
+   "huisletter": null,
+   "huisnummer": 19,
+   "huisnummertoevoeging": "H",
+   "pdok_id": "adr-82abedd93ec6ce7a17958905981a3243",
+   "postcode": "1078RG",
+   "weergavenaam": "Vechtstraat 19-H, 1078RG Amsterdam",
+   "woonplaatsnaam": "Amsterdam"
+  }
+ ],
+ "document_id": "DOC-013",
+ "fetch_tool": "bag_snapshots_v1.2.0",
+ "fetched_at": "2026-09-30T10:26:58Z",
+ "live_api_status": "VERIFIED_AGAINST_LIVE_API",
+ "panden": [
+  {
+   "bag_pand_id": "0363100012124445",
+   "bag_properties": {
+    "aantal_verblijfsobjecten": 3,
+    "bouwjaar": 1923,
+    "gebruiksdoel": "woonfunctie",
+    "identificatie": "0363100012124445",
+    "status": "Pand in gebruik"
+   },
+   "contains_address_point_of": [
+    "adr-4af35ce3f1b6548bba24fd0eb1500ad2",
+    "adr-61ee0d66dfb0bc47ab9082ee4611d42a",
+    "adr-82abedd93ec6ce7a17958905981a3243"
+   ],
+   "threedbag": {
+    "api_version": "2.0",
+    "attributes": {
+     "b3_bag_bag_overlap": 0.0,
+     "b3_bouwlagen": 4,
+     "b3_dak_type": "slanted",
+     "b3_extrusie": "standard",
+     "b3_h_dak_50p": 12.743000030517578,
+     "b3_h_dak_70p": 12.763999938964844,
+     "b3_h_dak_max": 13.005000114440918,
+     "b3_h_dak_min": 10.378999710083008,
+     "b3_h_maaiveld": 0.2680000066757202,
+     "b3_h_nok": 12.028111457824707,
+     "b3_is_glas_dak": false,
+     "b3_kas_warenhuis": false,
+     "b3_kwaliteitsindicator": true,
+     "b3_mutatie_ahn3_ahn4": false,
+     "b3_mutatie_ahn4_ahn5": false,
+     "b3_n_nok": 1,
+     "b3_n_vlakken": 4,
+     "b3_nodata_fractie_ahn3": 0.0,
+     "b3_nodata_fractie_ahn4": 0.0,
+     "b3_nodata_fractie_ahn5": 0.006191950291395187,
+     "b3_nodata_radius_ahn3": 0.008384885266423225,
+     "b3_nodata_radius_ahn4": 0.0,
+     "b3_nodata_radius_ahn5": 0.0,
+     "b3_opp_buitenmuur": 216.06,
+     "b3_opp_dak_plat": 68.25,
+     "b3_opp_dak_schuin": 29.42,
+     "b3_opp_grond": 79.01,
+     "b3_opp_scheidingsmuur": 218.62,
+     "b3_puntdichtheid_ahn3": 18.365325927734375,
+     "b3_puntdichtheid_ahn4": 34.712074279785156,
+     "b3_puntdichtheid_ahn5": 33.93146514892578,
+     "b3_pw_bron": "ahn5",
+     "b3_pw_datum": 2023,
+     "b3_pw_onvoldoende": false,
+     "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+     "b3_rmse_lod12": 0.6698404550552368,
+     "b3_rmse_lod13": 0.6698404550552368,
+     "b3_rmse_lod22": 0.24801583588123322,
+     "b3_t_run": 33,
+     "b3_val3dity_lod12": "[]",
+     "b3_val3dity_lod13": "[]",
+     "b3_val3dity_lod22": "[]",
+     "b3_volume_lod12": 987.3829345703125,
+     "b3_volume_lod13": 987.3829345703125,
+     "b3_volume_lod22": 972.9673461914062,
+     "begingeldigheid": "2023-07-28",
+     "documentdatum": "2023-07-28",
+     "documentnummer": "GV00007101_AC00AC",
+     "eindgeldigheid": null,
+     "eindregistratie": null,
+     "fid": 8282956,
+     "geconstateerd": false,
+     "identificatie": "NL.IMBAG.Pand.0363100012124445",
+     "oorspronkelijkbouwjaar": 1923,
+     "status": "Pand in gebruik",
+     "tijdstipeindregistratielv": null,
+     "tijdstipinactief": null,
+     "tijdstipinactieflv": null,
+     "tijdstipnietbaglv": null,
+     "tijdstipregistratie": "2023-07-28T21:40:23Z",
+     "tijdstipregistratielv": "2023-07-28T23:22:43Z",
+     "voorkomenidentificatie": 2
+    },
+    "fetched_at": "2026-09-30T10:26:58Z",
+    "http_status": 200,
+    "response_sha256": "13ed3cab3a836dd01a35dd42246f8c22aa966e91483eb0da5c47e322703e3ea9",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012124445"
+   }
+  }
+ ],
+ "query": {
+  "city": "Amsterdam",
+  "number": "19-19",
+  "number_from": "19",
+  "number_to": "19",
+  "postcode": null,
+  "q": "Vechtstraat Amsterdam",
+  "street": "Vechtstraat"
+ },
+ "raw_responses": {
+  "13ed3cab3a836dd01a35dd42246f8c22aa966e91483eb0da5c47e322703e3ea9": {
+   "feature": {
+    "CityObjects": {
+     "NL.IMBAG.Pand.0363100012124445": {
+      "attributes": {
+       "b3_bag_bag_overlap": 0.0,
+       "b3_bouwlagen": 4,
+       "b3_dak_type": "slanted",
+       "b3_extrusie": "standard",
+       "b3_h_dak_50p": 12.743000030517578,
+       "b3_h_dak_70p": 12.763999938964844,
+       "b3_h_dak_max": 13.005000114440918,
+       "b3_h_dak_min": 10.378999710083008,
+       "b3_h_maaiveld": 0.2680000066757202,
+       "b3_h_nok": 12.028111457824707,
+       "b3_is_glas_dak": false,
+       "b3_kas_warenhuis": false,
+       "b3_kwaliteitsindicator": true,
+       "b3_mutatie_ahn3_ahn4": false,
+       "b3_mutatie_ahn4_ahn5": false,
+       "b3_n_nok": 1,
+       "b3_n_vlakken": 4,
+       "b3_nodata_fractie_ahn3": 0.0,
+       "b3_nodata_fractie_ahn4": 0.0,
+       "b3_nodata_fractie_ahn5": 0.006191950291395187,
+       "b3_nodata_radius_ahn3": 0.008384885266423225,
+       "b3_nodata_radius_ahn4": 0.0,
+       "b3_nodata_radius_ahn5": 0.0,
+       "b3_opp_buitenmuur": 216.06,
+       "b3_opp_dak_plat": 68.25,
+       "b3_opp_dak_schuin": 29.42,
+       "b3_opp_grond": 79.01,
+       "b3_opp_scheidingsmuur": 218.62,
+       "b3_puntdichtheid_ahn3": 18.365325927734375,
+       "b3_puntdichtheid_ahn4": 34.712074279785156,
+       "b3_puntdichtheid_ahn5": 33.93146514892578,
+       "b3_pw_bron": "ahn5",
+       "b3_pw_datum": 2023,
+       "b3_pw_onvoldoende": false,
+       "b3_pw_selectie_reden": "PREFERRED_AND_LATEST",
+       "b3_rmse_lod12": 0.6698404550552368,
+       "b3_rmse_lod13": 0.6698404550552368,
+       "b3_rmse_lod22": 0.24801583588123322,
+       "b3_t_run": 33,
+       "b3_val3dity_lod12": "[]",
+       "b3_val3dity_lod13": "[]",
+       "b3_val3dity_lod22": "[]",
+       "b3_volume_lod12": 987.3829345703125,
+       "b3_volume_lod13": 987.3829345703125,
+       "b3_volume_lod22": 972.9673461914062,
+       "begingeldigheid": "2023-07-28",
+       "documentdatum": "2023-07-28",
+       "documentnummer": "GV00007101_AC00AC",
+       "eindgeldigheid": null,
+       "eindregistratie": null,
+       "fid": 8282956,
+       "geconstateerd": false,
+       "identificatie": "NL.IMBAG.Pand.0363100012124445",
+       "oorspronkelijkbouwjaar": 1923,
+       "status": "Pand in gebruik",
+       "tijdstipeindregistratielv": null,
+       "tijdstipinactief": null,
+       "tijdstipinactieflv": null,
+       "tijdstipnietbaglv": null,
+       "tijdstipregistratie": "2023-07-28T21:40:23Z",
+       "tijdstipregistratielv": "2023-07-28T23:22:43Z",
+       "voorkomenidentificatie": 2
+      },
+      "children": [
+       "NL.IMBAG.Pand.0363100012124445-0"
+      ],
+      "geometry": [
+       {
+        "boundaries": [
+         [
+          [
+           0,
+           1,
+           2,
+           3,
+           4,
+           5,
+           6,
+           7
+          ]
+         ]
+        ],
+        "lod": "0",
+        "type": "MultiSurface"
+       }
+      ],
+      "type": "Building"
+     },
+     "NL.IMBAG.Pand.0363100012124445-0": {
+      "geometry": [
+       {
+        "boundaries": [
+         [
+          [
+           [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+           ]
+          ],
+          [
+           [
+            16,
+            12,
+            11,
+            17
+           ]
+          ],
+          [
+           [
+            18,
+            13,
+            12,
+            16
+           ]
+          ],
+          [
+           [
+            19,
+            9,
+            8,
+            20
+           ]
+          ],
+          [
+           [
+            21,
+            14,
+            13,
+            18
+           ]
+          ],
+          [
+           [
+            17,
+            11,
+            10,
+            22
+           ]
+          ],
+          [
+           [
+            22,
+            10,
+            9,
+            19
+           ]
+          ],
+          [
+           [
+            20,
+            8,
+            15,
+            23
+           ]
+          ],
+          [
+           [
+            23,
+            15,
+            14,
+            21
+           ]
+          ],
+          [
+           [
+            23,
+            21,
+            18,
+            16,
+            17,
+            22,
+            19,
+            20
+           ]
+          ]
+         ]
+        ],
+        "lod": "1.2",
+        "semantics": {
+         "surfaces": [
+          {
+           "type": "GroundSurface"
+          },
+          {
+           "on_footprint_edge": true,
+           "type": "WallSurface"
+          },
+          {
+           "on_footprint_edge": false,
+           "type": "WallSurface"
+          },
+          {
+           "b3_h_dak_50p": 12.741421699523926,
+           "b3_h_dak_70p": 12.774317741394043,
+           "b3_h_dak_max": 14.290816307067871,
+           "b3_h_dak_min": 8.363773345947266,
+           "type": "RoofSurface"
+          }
+         ],
+         "values": [
+          [
+           0,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           3
+          ]
+         ]
+        },
+        "type": "Solid"
+       },
+       {
+        "boundaries": [
+         [
+          [
+           [
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+           ]
+          ],
+          [
+           [
+            16,
+            12,
+            11,
+            17
+           ]
+          ],
+          [
+           [
+            18,
+            13,
+            12,
+            16
+           ]
+          ],
+          [
+           [
+            19,
+            9,
+            8,
+            20
+           ]
+          ],
+          [
+           [
+            21,
+            14,
+            13,
+            18
+           ]
+          ],
+          [
+           [
+            17,
+            11,
+            10,
+            22
+           ]
+          ],
+          [
+           [
+            22,
+            10,
+            9,
+            19
+           ]
+          ],
+          [
+           [
+            20,
+            8,
+            15,
+            23
+           ]
+          ],
+          [
+           [
+            23,
+            15,
+            14,
+            21
+           ]
+          ],
+          [
+           [
+            23,
+            21,
+            18,
+            16,
+            17,
+            22,
+            19,
+            20
+           ]
+          ]
+         ]
+        ],
+        "lod": "1.3",
+        "semantics": {
+         "surfaces": [
+          {
+           "type": "GroundSurface"
+          },
+          {
+           "on_footprint_edge": true,
+           "type": "WallSurface"
+          },
+          {
+           "on_footprint_edge": false,
+           "type": "WallSurface"
+          },
+          {
+           "b3_h_dak_50p": 12.741421699523926,
+           "b3_h_dak_70p": 12.774317741394043,
+           "b3_h_dak_max": 14.290816307067871,
+           "b3_h_dak_min": 8.363773345947266,
+           "type": "RoofSurface"
+          }
+         ],
+         "values": [
+          [
+           0,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           3
+          ]
+         ]
+        },
+        "type": "Solid"
+       },
+       {
+        "boundaries": [
+         [
+          [
+           [
+            15,
+            24,
+            8,
+            9,
+            25,
+            10,
+            11,
+            12,
+            13,
+            26
+           ]
+          ],
+          [
+           [
+            27,
+            28,
+            29,
+            30,
+            31
+           ]
+          ],
+          [
+           [
+            28,
+            26,
+            13,
+            32
+           ]
+          ],
+          [
+           [
+            33,
+            12,
+            11,
+            34
+           ]
+          ],
+          [
+           [
+            32,
+            13,
+            12,
+            33
+           ]
+          ],
+          [
+           [
+            35,
+            9,
+            8,
+            36
+           ]
+          ],
+          [
+           [
+            34,
+            11,
+            10,
+            37
+           ]
+          ],
+          [
+           [
+            37,
+            10,
+            25,
+            38,
+            39
+           ]
+          ],
+          [
+           [
+            38,
+            25,
+            9,
+            35
+           ]
+          ],
+          [
+           [
+            40,
+            24,
+            15,
+            41
+           ]
+          ],
+          [
+           [
+            31,
+            30,
+            42
+           ]
+          ],
+          [
+           [
+            43,
+            40,
+            42
+           ]
+          ],
+          [
+           [
+            36,
+            8,
+            24,
+            40,
+            43
+           ]
+          ],
+          [
+           [
+            41,
+            15,
+            26,
+            28,
+            27
+           ]
+          ],
+          [
+           [
+            39,
+            38,
+            44
+           ]
+          ],
+          [
+           [
+            30,
+            29,
+            44
+           ]
+          ],
+          [
+           [
+            39,
+            44,
+            29,
+            28,
+            32,
+            33,
+            34,
+            37
+           ]
+          ],
+          [
+           [
+            41,
+            27,
+            31,
+            42,
+            40
+           ]
+          ],
+          [
+           [
+            30,
+            44,
+            38,
+            35,
+            36,
+            43,
+            42
+           ]
+          ]
+         ]
+        ],
+        "lod": "2.2",
+        "semantics": {
+         "surfaces": [
+          {
+           "type": "GroundSurface"
+          },
+          {
+           "on_footprint_edge": true,
+           "type": "WallSurface"
+          },
+          {
+           "on_footprint_edge": false,
+           "type": "WallSurface"
+          },
+          {
+           "b3_azimut": 343.43304443359375,
+           "b3_h_dak_50p": 11.273212432861328,
+           "b3_h_dak_70p": 12.445375442504883,
+           "b3_h_dak_max": 14.290816307067871,
+           "b3_h_dak_min": 8.363773345947266,
+           "b3_hellingshoek": 69.95417022705078,
+           "type": "RoofSurface"
+          },
+          {
+           "b3_azimut": 344.31201171875,
+           "b3_h_dak_50p": 10.394644737243652,
+           "b3_h_dak_70p": 10.795631408691406,
+           "b3_h_dak_max": 12.670239448547363,
+           "b3_h_dak_min": 8.966957092285156,
+           "b3_hellingshoek": 71.36767578125,
+           "type": "RoofSurface"
+          },
+          {
+           "b3_azimut": 339.93402099609375,
+           "b3_h_dak_50p": 12.749565124511719,
+           "b3_h_dak_70p": 12.779170989990234,
+           "b3_h_dak_max": 14.290816307067871,
+           "b3_h_dak_min": 12.665386199951172,
+           "b3_hellingshoek": 1.0986047983169556,
+           "type": "RoofSurface"
+          }
+         ],
+         "values": [
+          [
+           0,
+           2,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           1,
+           2,
+           2,
+           1,
+           1,
+           2,
+           2,
+           3,
+           4,
+           5
+          ]
+         ]
+        },
+        "type": "Solid"
+       }
+      ],
+      "parents": [
+       "NL.IMBAG.Pand.0363100012124445"
+      ],
+      "type": "BuildingPart"
+     }
+    },
+    "id": "NL.IMBAG.Pand.0363100012124445",
+    "type": "CityJSONFeature",
+    "vertices": [
+     [
+      8380,
+      11486,
+      0
+     ],
+     [
+      4827,
+      10749,
+      0
+     ],
+     [
+      5036,
+      9961,
+      0
+     ],
+     [
+      2910,
+      9468,
+      0
+     ],
+     [
+      3061,
+      8793,
+      0
+     ],
+     [
+      0,
+      8083,
+      0
+     ],
+     [
+      1763,
+      0,
+      0
+     ],
+     [
+      10384,
+      1957,
+      0
+     ],
+     [
+      10384,
+      1957,
+      268
+     ],
+     [
+      1763,
+      0,
+      268
+     ],
+     [
+      0,
+      8083,
+      268
+     ],
+     [
+      3061,
+      8793,
+      268
+     ],
+     [
+      2910,
+      9468,
+      268
+     ],
+     [
+      5036,
+      9961,
+      268
+     ],
+     [
+      4951,
+      10282,
+      268
+     ],
+     [
+      8433,
+      11234,
+      268
+     ],
+     [
+      2910,
+      9468,
+      12764
+     ],
+     [
+      3061,
+      8793,
+      12764
+     ],
+     [
+      5036,
+      9961,
+      12764
+     ],
+     [
+      1763,
+      0,
+      12764
+     ],
+     [
+      10384,
+      1957,
+      12764
+     ],
+     [
+      4951,
+      10282,
+      12764
+     ],
+     [
+      0,
+      8083,
+      12764
+     ],
+     [
+      8433,
+      11234,
+      12764
+     ],
+     [
+      8565,
+      10608,
+      268
+     ],
+     [
+      368,
+      6400,
+      268
+     ],
+     [
+      4959,
+      10284,
+      268
+     ],
+     [
+      4959,
+      10284,
+      9664
+     ],
+     [
+      4959,
+      10284,
+      8298
+     ],
+     [
+      5844,
+      9211,
+      11805
+     ],
+     [
+      5844,
+      9211,
+      12676
+     ],
+     [
+      5844,
+      9211,
+      13435
+     ],
+     [
+      5036,
+      9961,
+      9205
+     ],
+     [
+      2910,
+      9468,
+      8838
+     ],
+     [
+      3061,
+      8793,
+      10732
+     ],
+     [
+      1763,
+      0,
+      12815
+     ],
+     [
+      10384,
+      1957,
+      12836
+     ],
+     [
+      0,
+      8083,
+      10203
+     ],
+     [
+      368,
+      6400,
+      12690
+     ],
+     [
+      368,
+      6400,
+      14912
+     ],
+     [
+      8565,
+      10608,
+      11629
+     ],
+     [
+      8433,
+      11234,
+      9739
+     ],
+     [
+      6993,
+      9801,
+      12673
+     ],
+     [
+      8565,
+      10608,
+      12669
+     ],
+     [
+      4302,
+      8420,
+      12680
+     ]
+    ]
+   },
+   "id": "NL.IMBAG.Pand.0363100012124445",
+   "links": [
+    {
+     "href": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012124445",
+     "rel": "self",
+     "title": "Feature details",
+     "type": "application/json"
+    },
+    {
+     "href": "https://api.3dbag.nl/collections/pand",
+     "rel": "collection",
+     "type": "application/json"
+    },
+    {
+     "href": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012124445",
+     "rel": "parent",
+     "type": "application/city+json"
+    },
+    {
+     "href": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012124445-0",
+     "rel": "child",
+     "type": "application/city+json"
+    }
+   ],
+   "metadata": {
+    "CityObjects": {},
+    "metadata": {
+     "referenceSystem": "https://www.opengis.net/def/crs/EPSG/0/7415"
+    },
+    "transform": {
+     "scale": [
+      0.001,
+      0.001,
+      0.001
+     ],
+     "translate": [
+      122197.06075,
+      484581.67775,
+      3.3569335933236744e-07
+     ]
+    },
+    "type": "CityJSON",
+    "version": "2.0",
+    "vertices": []
+   }
+  },
+  "7ee3b1cfc76552c34db7d4513048ded4b3c3d6247de09e5045c5c1fe45c3af18": {
+   "features": [
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905760883104343,
+         52.348395716848096
+        ],
+        [
+         4.905739825934753,
+         52.348392692202125
+        ],
+        [
+         4.905616985018788,
+         52.348375061810636
+        ],
+        [
+         4.905637352732153,
+         52.348321236184276
+        ],
+        [
+         4.9057797656750655,
+         52.348342136813876
+        ],
+        [
+         4.905805305993902,
+         52.34834588073085
+        ],
+        [
+         4.905795760648766,
+         52.34837076492515
+        ],
+        [
+         4.9057717005187795,
+         52.34836721576945
+        ],
+        [
+         4.905760883104343,
+         52.348395716848096
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "5a5f7c2d-c067-5edb-9049-5b5a27c5ed83",
+     "properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1922,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012072087",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012072087",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/027ff16d-b80d-53c5-95fe-dc3d5a3e795a",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/4f4b10af-ef19-5add-a19e-1e64a2495560",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/4fde5459-43e6-5547-91f0-8ff3e8541e99"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.906025687790312,
+         52.34829566355423
+        ],
+        [
+         4.905901739080649,
+         52.34827734588537
+        ],
+        [
+         4.905904711894967,
+         52.34826846909383
+        ],
+        [
+         4.905935035850071,
+         52.34818294817243
+        ],
+        [
+         4.906019381801749,
+         52.348195029097525
+        ],
+        [
+         4.9060457956769845,
+         52.3482224322599
+        ],
+        [
+         4.906052037973369,
+         52.34822333843477
+        ],
+        [
+         4.906025687790312,
+         52.34829566355423
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "4bcbd94b-b509-5b53-bb8c-eb7f443a973d",
+     "properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012088548",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012088548",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/507fa182-8038-5928-ad5b-caf1273026ac",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/175ab4a7-ebad-5203-821f-6cd622e69eb1",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/8db853d0-f42c-592c-a4f3-f2b4ade3bbf6",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/419c2d56-609d-5c3a-b679-fcee892a738f"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.906115429771699,
+         52.34804821823642
+        ],
+        [
+         4.9061130850799035,
+         52.348047894135085
+        ],
+        [
+         4.906068642771746,
+         52.34806437676638
+        ],
+        [
+         4.905986477585834,
+         52.34805287096974
+        ],
+        [
+         4.906017948819168,
+         52.34796844220601
+        ],
+        [
+         4.906021667024912,
+         52.347959847061574
+        ],
+        [
+         4.90614164452884,
+         52.347977528313514
+        ],
+        [
+         4.906115429771699,
+         52.34804821823642
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "6ddc614a-068c-5c24-b62b-1a8331d6e7b3",
+     "properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012096743",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012096743",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/7573429e-c4ea-57e0-8602-2e4c72b9cd3f",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/1b6b6908-c448-5fa1-a0ce-6ae847fbc349",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/c34ea692-3e1e-5dd5-8c4b-3b4d5885009b"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905986477585834,
+         52.34805287096974
+        ],
+        [
+         4.905858679683489,
+         52.34803498699053
+        ],
+        [
+         4.90588649231979,
+         52.34796179603993
+        ],
+        [
+         4.905926785718807,
+         52.34796790977516
+        ],
+        [
+         4.90592963521775,
+         52.347960928895496
+        ],
+        [
+         4.905964766511898,
+         52.34796668009338
+        ],
+        [
+         4.905967043521929,
+         52.34796106302248
+        ],
+        [
+         4.906017948819168,
+         52.34796844220601
+        ],
+        [
+         4.905986477585834,
+         52.34805287096974
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "994998d2-409f-50f0-95da-ff4a34c21b29",
+     "properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012100962",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012100962",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/3fefe60c-49a8-560c-aa19-8cd78c766035",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/43b9dd44-2b00-50a1-b980-2b452044fe9b",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/dc6ce960-1ae5-5c8c-a273-ea586bc4c603"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905792640881363,
+         52.34850956795862
+        ],
+        [
+         4.905688875895127,
+         52.34849492725831
+        ],
+        [
+         4.905710914745663,
+         52.34843586856373
+        ],
+        [
+         4.90572329162986,
+         52.348436790723326
+        ],
+        [
+         4.905739825934753,
+         52.348392692202125
+        ],
+        [
+         4.905760883104343,
+         52.348395716848096
+        ],
+        [
+         4.905763696948388,
+         52.34839608780338
+        ],
+        [
+         4.905774124174367,
+         52.348415741475954
+        ],
+        [
+         4.905823373647105,
+         52.34842292526349
+        ],
+        [
+         4.905792640881363,
+         52.34850956795862
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "940ce77f-d6ae-512b-9b3d-ef6386f85d29",
+     "properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1922,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012106321",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012106321",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/16d99de7-c62e-5509-83a0-bdfd6a8d27a5",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/16137d01-6b01-5f7f-8464-81895c611114",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/27857ba2-73c2-577d-8b42-e80505d098b3"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.9057797656750655,
+         52.348342136813876
+        ],
+        [
+         4.905637352732153,
+         52.348321236184276
+        ],
+        [
+         4.905670155624363,
+         52.34823453903351
+        ],
+        [
+         4.905777481511383,
+         52.348249625648336
+        ],
+        [
+         4.905770407125733,
+         52.34826860595502
+        ],
+        [
+         4.905788264935015,
+         52.34827161758293
+        ],
+        [
+         4.905779896577639,
+         52.34829623693112
+        ],
+        [
+         4.905795398529175,
+         52.34829860084572
+        ],
+        [
+         4.9057797656750655,
+         52.348342136813876
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "71524263-8afc-5aea-b6aa-14ec514c64a7",
+     "properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012109244",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012109244",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/4e5e7f4a-cc44-5463-ae2f-61d821a2d8fb",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/6fee932e-0f87-5d9d-b842-a01d223b3e05",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/6153f226-7568-5fb5-8d5e-df74c6f879cd",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/106d4dca-c2a6-549b-ba83-e3251c55f0bc"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905904711894967,
+         52.34826846909383
+        ],
+        [
+         4.905852626271658,
+         52.348261633315296
+        ],
+        [
+         4.905855784868071,
+         52.34825457280505
+        ],
+        [
+         4.90582463238213,
+         52.348250015152395
+        ],
+        [
+         4.905826914297716,
+         52.34824394871712
+        ],
+        [
+         4.905800553366443,
+         52.34824009361399
+        ],
+        [
+         4.905782061102665,
+         52.34823739397844
+        ],
+        [
+         4.905808707500308,
+         52.348164854410186
+        ],
+        [
+         4.905935035850071,
+         52.34818294817243
+        ],
+        [
+         4.905904711894967,
+         52.34826846909383
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "86834411-8184-5f1a-913f-df0f65c72bef",
+     "properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012124445",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012124445",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/2da2b4ce-54dc-5ca7-a4c9-d2e2c48f5783",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/8a7434fa-6531-5d99-86e0-1e841ef71bc4",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/b1b49503-97e6-5f38-8d96-e1b0b0fe5268"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905694225500064,
+         52.34817088687645
+        ],
+        [
+         4.9056928630999295,
+         52.34817065664036
+        ],
+        [
+         4.90569154560424,
+         52.348170345697234
+        ],
+        [
+         4.905690272720523,
+         52.34816998100907
+        ],
+        [
+         4.905689044741262,
+         52.34816953561392
+        ],
+        [
+         4.905687890725322,
+         52.34816903659316
+        ],
+        [
+         4.9056868255433645,
+         52.34816846603177
+        ],
+        [
+         4.905685834227241,
+         52.34816785083224
+        ],
+        [
+         4.905684931550115,
+         52.34816718206675
+        ],
+        [
+         4.905684132090163,
+         52.348166468782466
+        ],
+        [
+         4.905683435847381,
+         52.348165710979345
+        ],
+        [
+         4.905682842626786,
+         52.348164926632116
+        ],
+        [
+         4.905682381877194,
+         52.34816410687286
+        ],
+        [
+         4.905682024052287,
+         52.34816326955679
+        ],
+        [
+         4.90568179850339,
+         52.34816241480337
+        ],
+        [
+         4.90568167578167,
+         52.34816155148051
+        ],
+        [
+         4.905681699816627,
+         52.348160688754696
+        ],
+        [
+         4.905681826581256,
+         52.348159826446846
+        ],
+        [
+         4.9056820853293885,
+         52.34815897366366
+        ],
+        [
+         4.905682475963526,
+         52.34815813939252
+        ],
+        [
+         4.9056829691323305,
+         52.34815732351397
+        ],
+        [
+         4.9056835793164755,
+         52.348156544062476
+        ],
+        [
+         4.905684291840291,
+         52.3481558009783
+        ],
+        [
+         4.905685121379441,
+         52.34815509432115
+        ],
+        [
+         4.9056860384851,
+         52.348154432958964
+        ],
+        [
+         4.905687043059772,
+         52.34815382587908
+        ],
+        [
+         4.9056881351034605,
+         52.34815327308152
+        ],
+        [
+         4.905689299843007,
+         52.348152783493894
+        ],
+        [
+         4.905690537278417,
+         52.3481523571162
+        ],
+        [
+         4.905691832636538,
+         52.348152002876105
+        ],
+        [
+         4.905693156663535,
+         52.34815171166686
+        ],
+        [
+         4.905694523937587,
+         52.348151492535486
+        ],
+        [
+         4.905695919685548,
+         52.348151354409666
+        ],
+        [
+         4.905697329329251,
+         52.34815128824233
+        ],
+        [
+         4.905698752868698,
+         52.3481512940334
+        ],
+        [
+         4.9057001608550825,
+         52.34815138065095
+        ],
+        [
+         4.905701553385901,
+         52.34815153910756
+        ],
+        [
+         4.905702278777806,
+         52.3481496096932
+        ],
+        [
+         4.905808707500308,
+         52.348164854410186
+        ],
+        [
+         4.905782061102665,
+         52.34823739397844
+        ],
+        [
+         4.905777481511383,
+         52.348249625648336
+        ],
+        [
+         4.905670155624363,
+         52.34823453903351
+        ],
+        [
+         4.905694225500064,
+         52.34817088687645
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "f5885afd-fb67-590d-8639-2312c94fcbc2",
+     "properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012124984",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012124984",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/ec9de506-7947-536e-8813-d80468026e45",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/dd0fa66d-3e22-5a0a-b447-3da4e668edbd",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/fe19e142-f77a-5006-975f-e339579962a1",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/3a626fc2-5795-5274-b62c-96d94a0218a1"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905688875895127,
+         52.34849492725831
+        ],
+        [
+         4.905580260610327,
+         52.34847959264969
+        ],
+        [
+         4.905580040863792,
+         52.348479555804545
+        ],
+        [
+         4.905579821214772,
+         52.34847950997205
+        ],
+        [
+         4.905579616436553,
+         52.34847944622458
+        ],
+        [
+         4.905579426334107,
+         52.348479382536794
+        ],
+        [
+         4.905579236426689,
+         52.34847930087434
+        ],
+        [
+         4.905579061292562,
+         52.34847921028429
+        ],
+        [
+         4.905578900931718,
+         52.34847911076653
+        ],
+        [
+         4.9055787406683935,
+         52.348479002261485
+        ],
+        [
+         4.9055786097566125,
+         52.348478893875836
+        ],
+        [
+         4.905578493715633,
+         52.34847876757522
+        ],
+        [
+         4.905578377674656,
+         52.34847864127461
+        ],
+        [
+         4.905578291082739,
+         52.34847850610606
+        ],
+        [
+         4.905578233842365,
+         52.348478371056984
+        ],
+        [
+         4.905578176699508,
+         52.348478227020536
+        ],
+        [
+         4.905578148908194,
+         52.34847808310353
+        ],
+        [
+         4.905578150468426,
+         52.34847793930598
+        ],
+        [
+         4.905578166704428,
+         52.34847779556811
+        ],
+        [
+         4.905578197616207,
+         52.34847765188998
+        ],
+        [
+         4.905616985018788,
+         52.348375061810636
+        ],
+        [
+         4.905739825934753,
+         52.348392692202125
+        ],
+        [
+         4.90572329162986,
+         52.348436790723326
+        ],
+        [
+         4.905710914745663,
+         52.34843586856373
+        ],
+        [
+         4.905688875895127,
+         52.34849492725831
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "db8047fa-1a2b-5a1e-81c9-6da8eb8f5d50",
+     "properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1922,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "bijeenkomstfunctie,woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012134511",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012134511",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/f14954a6-3af8-5e2f-b04f-2cec5d5403e1",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/b85b8f0f-290f-5d63-8655-b2f02e7f7303",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/fc14ea84-527f-5232-b419-d6131a5c7adc"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.90612411091884,
+         52.34832378184202
+        ],
+        [
+         4.906020703344969,
+         52.34830869349672
+        ],
+        [
+         4.906025687790312,
+         52.34829566355423
+        ],
+        [
+         4.906052037973369,
+         52.34822333843477
+        ],
+        [
+         4.906154846090644,
+         52.34823819962351
+        ],
+        [
+         4.90612411091884,
+         52.34832378184202
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "f73dc781-5378-55bf-9ae0-2909948d570a",
+     "properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": "woonfunctie",
+      "geconstateerd": "N",
+      "identificatie": "0363100012149055",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012149055",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": [
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/f3b8d3de-8123-5ddf-9201-28af714c0ac6",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/189acfc4-0b14-54f0-871b-df33dbe97281",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/49038226-f678-53f9-a2ec-d45d11ab355d",
+       "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/d84d5262-029d-5907-b5db-531f21eda599"
+      ]
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.90601865233147,
+         52.34837604830811
+        ],
+        [
+         4.905997300859288,
+         52.348373094413496
+        ],
+        [
+         4.90600672492225,
+         52.34834720308274
+        ],
+        [
+         4.906028483211312,
+         52.34835053611483
+        ],
+        [
+         4.90601865233147,
+         52.34837604830811
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "8d8dbeb0-7d56-536d-87ec-8d77a2b8d5b5",
+     "properties": {
+      "aantal_verblijfsobjecten": 0,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": null,
+      "geconstateerd": "N",
+      "identificatie": "0363100012195381",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012195381",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": null
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905997300859288,
+         52.348373094413496
+        ],
+        [
+         4.905973208924457,
+         52.34836976986316
+        ],
+        [
+         4.905983311007234,
+         52.34834361165849
+        ],
+        [
+         4.90600672492225,
+         52.34834720308274
+        ],
+        [
+         4.905997300859288,
+         52.348373094413496
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "6090ffba-6be1-540a-95cc-22fdc5b00e2d",
+     "properties": {
+      "aantal_verblijfsobjecten": 0,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": null,
+      "geconstateerd": "N",
+      "identificatie": "0363100012195382",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012195382",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": null
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.9058828155630785,
+         52.34832795082906
+        ],
+        [
+         4.905855182369755,
+         52.34832366814064
+        ],
+        [
+         4.905857179014116,
+         52.34831819373589
+        ],
+        [
+         4.905864893334944,
+         52.348297040992335
+        ],
+        [
+         4.905892469758791,
+         52.34830114369285
+        ],
+        [
+         4.9058828155630785,
+         52.34832795082906
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "3e30bae7-7a0c-5056-8934-c95204a4cda2",
+     "properties": {
+      "aantal_verblijfsobjecten": 0,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": null,
+      "geconstateerd": "N",
+      "identificatie": "0363100012203646",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012203646",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": null
+     },
+     "type": "Feature"
+    },
+    {
+     "geometry": {
+      "coordinates": [
+       [
+        [
+         4.905872873940754,
+         52.3483555477171
+        ],
+        [
+         4.905849383534907,
+         52.34835224356317
+        ],
+        [
+         4.905844987345394,
+         52.348351623505685
+        ],
+        [
+         4.905855182369755,
+         52.34832366814064
+        ],
+        [
+         4.9058828155630785,
+         52.34832795082906
+        ],
+        [
+         4.905872873940754,
+         52.3483555477171
+        ]
+       ]
+      ],
+      "type": "Polygon"
+     },
+     "id": "c4342c59-d379-5596-a734-a97cc7a4ed17",
+     "properties": {
+      "aantal_verblijfsobjecten": 0,
+      "bouwjaar": 1923,
+      "documentdatum": "2023-07-28",
+      "documentnummer": "GV00007101_AC00AC",
+      "gebruiksdoel": null,
+      "geconstateerd": "N",
+      "identificatie": "0363100012207593",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/pand/0363100012207593",
+      "status": "Pand in gebruik",
+      "verblijfsobject.href": null
+     },
+     "type": "Feature"
+    }
+   ],
+   "links": [
+    {
+     "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?bbox=4.905674729999999%2C52.34804187%2C4.90603473%2C52.348401870000004&f=json&limit=1000",
+     "rel": "self",
+     "title": "This document as GeoJSON",
+     "type": "application/geo+json"
+    },
+    {
+     "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?bbox=4.905674729999999%2C52.34804187%2C4.90603473%2C52.348401870000004&f=jsonfg&limit=1000",
+     "rel": "alternate",
+     "title": "This document as JSON-FG",
+     "type": "application/vnd.ogc.fg+json"
+    },
+    {
+     "href": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?bbox=4.905674729999999%2C52.34804187%2C4.90603473%2C52.348401870000004&f=html&limit=1000",
+     "rel": "alternate",
+     "title": "This document as HTML",
+     "type": "text/html"
+    }
+   ],
+   "numberReturned": 14,
+   "timeStamp": "2026-09-30T10:26:59Z",
+   "type": "FeatureCollection"
+  },
+  "9908e6acb171874aa0ddd2aa01e07097fb0fbd0e48593308a466795743f642fd": {
+   "response": {
+    "docs": [
+     {
+      "adresseerbaarobject_id": "0363010000851629",
+      "bron": "BAG",
+      "buurtcode": "BU0363KL02",
+      "buurtnaam": "IJselbuurt-Oost",
+      "centroide_ll": "POINT(4.90585473 52.34822187)",
+      "centroide_rd": "POINT(122202 484588)",
+      "gekoppeld_appartement": [
+       "ASD18-V-11881-A-3",
+       "ASD18-V-11881-A-12",
+       "ASD18-V-11881-A-13"
+      ],
+      "gekoppeld_perceel": [
+       "ASD18-V-9547",
+       "ASD18-V-9548",
+       "ASD18-V-9546"
+      ],
+      "gemeentecode": "0363",
+      "gemeentenaam": "Amsterdam",
+      "huis_nlt": "19-H",
+      "huisnummer": 19,
+      "huisnummertoevoeging": "H",
+      "id": "adr-82abedd93ec6ce7a17958905981a3243",
+      "identificatie": "0363010000851629-0363200000309949",
+      "nummeraanduiding_id": "0363200000309949",
+      "openbareruimte_id": "0363300000005265",
+      "openbareruimtetype": "Weg",
+      "postcode": "1078RG",
+      "provincieafkorting": "NH",
+      "provinciecode": "PV27",
+      "provincienaam": "Noord-Holland",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/nummeraanduiding/0363200000309949",
+      "score": 9.026383,
+      "straatnaam": "Vechtstraat",
+      "straatnaam_verkort": "Vechtstr",
+      "type": "adres",
+      "waterschapscode": "11",
+      "waterschapsnaam": "Waterschap Amstel, Gooi en Vecht",
+      "weergavenaam": "Vechtstraat 19-H, 1078RG Amsterdam",
+      "wijkcode": "WK0363KL",
+      "wijknaam": "IJselbuurt",
+      "woonplaatscode": "3594",
+      "woonplaatsnaam": "Amsterdam"
+     },
+     {
+      "adresseerbaarobject_id": "0363010000851632",
+      "bron": "BAG",
+      "buurtcode": "BU0363KL02",
+      "buurtnaam": "IJselbuurt-Oost",
+      "centroide_ll": "POINT(4.90585473 52.34822187)",
+      "centroide_rd": "POINT(122202 484588)",
+      "gekoppeld_appartement": [
+       "ASD18-V-11881-A-6"
+      ],
+      "gekoppeld_perceel": [
+       "ASD18-V-9546",
+       "ASD18-V-9547",
+       "ASD18-V-9548"
+      ],
+      "gemeentecode": "0363",
+      "gemeentenaam": "Amsterdam",
+      "huis_nlt": "19-1",
+      "huisnummer": 19,
+      "huisnummertoevoeging": "1",
+      "id": "adr-4af35ce3f1b6548bba24fd0eb1500ad2",
+      "identificatie": "0363010000851632-0363200000309950",
+      "nummeraanduiding_id": "0363200000309950",
+      "openbareruimte_id": "0363300000005265",
+      "openbareruimtetype": "Weg",
+      "postcode": "1078RG",
+      "provincieafkorting": "NH",
+      "provinciecode": "PV27",
+      "provincienaam": "Noord-Holland",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/nummeraanduiding/0363200000309950",
+      "score": 8.747185,
+      "straatnaam": "Vechtstraat",
+      "straatnaam_verkort": "Vechtstr",
+      "type": "adres",
+      "waterschapscode": "11",
+      "waterschapsnaam": "Waterschap Amstel, Gooi en Vecht",
+      "weergavenaam": "Vechtstraat 19-1, 1078RG Amsterdam",
+      "wijkcode": "WK0363KL",
+      "wijknaam": "IJselbuurt",
+      "woonplaatscode": "3594",
+      "woonplaatsnaam": "Amsterdam"
+     },
+     {
+      "adresseerbaarobject_id": "0363010000851633",
+      "bron": "BAG",
+      "buurtcode": "BU0363KL02",
+      "buurtnaam": "IJselbuurt-Oost",
+      "centroide_ll": "POINT(4.90585473 52.34822187)",
+      "centroide_rd": "POINT(122202 484588)",
+      "gekoppeld_appartement": [
+       "ASD18-V-11881-A-9"
+      ],
+      "gekoppeld_perceel": [
+       "ASD18-V-9548",
+       "ASD18-V-9546",
+       "ASD18-V-9547"
+      ],
+      "gemeentecode": "0363",
+      "gemeentenaam": "Amsterdam",
+      "huis_nlt": "19-2",
+      "huisnummer": 19,
+      "huisnummertoevoeging": "2",
+      "id": "adr-61ee0d66dfb0bc47ab9082ee4611d42a",
+      "identificatie": "0363010000851633-0363200000309951",
+      "nummeraanduiding_id": "0363200000309951",
+      "openbareruimte_id": "0363300000005265",
+      "openbareruimtetype": "Weg",
+      "postcode": "1078RG",
+      "provincieafkorting": "NH",
+      "provinciecode": "PV27",
+      "provincienaam": "Noord-Holland",
+      "rdf_seealso": "http://bag.basisregistraties.overheid.nl/bag/id/nummeraanduiding/0363200000309951",
+      "score": 8.747185,
+      "straatnaam": "Vechtstraat",
+      "straatnaam_verkort": "Vechtstr",
+      "type": "adres",
+      "waterschapscode": "11",
+      "waterschapsnaam": "Waterschap Amstel, Gooi en Vecht",
+      "weergavenaam": "Vechtstraat 19-2, 1078RG Amsterdam",
+      "wijkcode": "WK0363KL",
+      "wijknaam": "IJselbuurt",
+      "woonplaatscode": "3594",
+      "woonplaatsnaam": "Amsterdam"
+     }
+    ],
+    "maxScore": 9.026383,
+    "numFound": 3,
+    "numFoundExact": true,
+    "start": 0
+   }
+  }
+ },
+ "requests": [
+  {
+   "http_status": 200,
+   "response_sha256": "9908e6acb171874aa0ddd2aa01e07097fb0fbd0e48593308a466795743f642fd",
+   "url": "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q=Vechtstraat+Amsterdam&fq=type%3Aadres&fq=straatnaam%3A%22Vechtstraat%22&fq=huisnummer%3A%5B19+TO+19%5D&fq=woonplaatsnaam%3A%22Amsterdam%22&rows=100&start=0"
+  },
+  {
+   "http_status": 200,
+   "response_sha256": "7ee3b1cfc76552c34db7d4513048ded4b3c3d6247de09e5045c5c1fe45c3af18",
+   "url": "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items?f=json&limit=1000&bbox=4.905674729999999%2C52.34804187%2C4.90603473%2C52.348401870000004"
+  },
+  {
+   "http_status": 200,
+   "response_sha256": "13ed3cab3a836dd01a35dd42246f8c22aa966e91483eb0da5c47e322703e3ea9",
+   "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012124445"
+  }
+ ],
+ "snapshot_id": "BAGSNAP-8803c6b5708e5a2c",
+ "snapshot_kind": "range",
+ "snapshot_version": "bag_snapshot_v1"
+}

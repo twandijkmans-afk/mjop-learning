@@ -55,6 +55,8 @@ REVIEW_REASONS = {
     "NO_BAG_SNAPSHOT": "nog geen BAG/3D BAG-snapshot voor dit document (ophalen vereist netwerktoegang)",
     "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH": "snapshot aanwezig maar geen exact overeenkomend adres",
     "MULTIPLE_CANDIDATE_PANDEN": "meerdere kandidaat-panden: elk pand apart bevestigen of afwijzen",
+    "RANGE_BOTH_PARITIES": "het huisnummerbereik bevat even én oneven nummers: kies zelf welke optie (alle/even/oneven) de VvE is",
+    "RANGE_SNAPSHOT_MISSING": "nog geen bereik-snapshot (fetch-range) voor een huisnummerbereik of -lijst van dit document",
 }
 
 
@@ -114,16 +116,67 @@ def normalized_address(parts, postcode, city):
 
 
 def lookup_plan(parts, postcode, city):
-    """Welke adressen opgevraagd moeten worden (alleen eindpunten van een bereik). De postcode wordt alleen
-    meegegeven bij één enkel adres: bij meerdere straten is niet bekend bij welk adres hij hoort."""
+    """Welke opvragingen nodig zijn. Een bereik ('240-296') is één bereik-opvraging over alle huisnummers
+    ertussen; een lijst ('13-15-17-19') is per nummer een bereik-opvraging van dat ene huisnummer (zodat
+    toevoegingen als 13-H en 13-1 meetellen). Een los adres blijft een exacte opvraging. De postcode wordt
+    alleen meegegeven bij één enkel adres: bij meerdere straten is niet bekend bij welk adres hij hoort."""
     single = len(parts) == 1 and parts[0]["kind"] == "single"
     plan = []
     for p in parts:
         if not p["street"]:
             continue
-        for n in p["numbers"]:
-            plan.append({"street": p["street"], "number": n, "postcode": postcode if single else None, "city": city})
+        if p["kind"] == "range":
+            a, b = p["numbers"]
+            plan.append({"kind": "range", "street": p["street"], "number": f"{a}-{b}", "number_from": a, "number_to": b,
+                         "postcode": None, "city": city})
+        elif p["kind"] == "list":
+            for n in p["numbers"]:
+                plan.append({"kind": "range", "street": p["street"], "number": f"{n}-{n}", "number_from": n, "number_to": n,
+                             "postcode": None, "city": city})
+        else:
+            for n in p["numbers"]:
+                plan.append({"kind": "single", "street": p["street"], "number": n, "postcode": postcode if single else None, "city": city})
     return plan
+
+
+def _range_snapshot(snaps, entry):
+    """Meest recente bereik-snapshot voor deze plan-regel (zelfde straat/van/tot/plaats), anders None."""
+    hits = [s for s in snaps if s.get("snapshot_kind") == "range"
+            and bs.norm(s["query"]["street"]) == bs.norm(entry["street"])
+            and s["query"]["number_from"] == str(int(entry["number_from"])) and s["query"]["number_to"] == str(int(entry["number_to"]))
+            and bs.norm(s["query"].get("city")) == bs.norm(entry.get("city"))]
+    return sorted(hits, key=lambda s: (s["fetched_at"], s["snapshot_id"]))[-1] if hits else None
+
+
+def _pand_summary(pand, address_ids):
+    a = (pand.get("threedbag") or {}).get("attributes") or {}
+    return {"bag_pand_id": pand["bag_pand_id"], "addresses_in_option": len(address_ids),
+            "bouwjaar": (pand.get("bag_properties") or {}).get("bouwjaar"),
+            "b3_opp_dak_plat": a.get("b3_opp_dak_plat"), "b3_opp_dak_schuin": a.get("b3_opp_dak_schuin"),
+            "b3_opp_buitenmuur": a.get("b3_opp_buitenmuur")}
+
+
+def range_analysis(entry, snap, number_of_units=None):
+    """Feitelijke opties voor één bereik: alle / even / oneven huisnummers, met de panden die de adrespunten
+    van die optie bevatten. Kiest niets; het aantal appartementen uit het document staat er alleen naast."""
+    exact = [m for m in snap["address_matches"] if m["exact_match"]]
+    a, b = int(entry["number_from"]), int(entry["number_to"])
+    endpoints = "even" if a % 2 == 0 and b % 2 == 0 else "odd" if a % 2 and b % 2 else "mixed"
+    options = {}
+    for opt, keep in (("all", lambda n: True), ("even", lambda n: n % 2 == 0), ("odd", lambda n: n % 2 == 1)):
+        ids = {m["pdok_id"] for m in exact if isinstance(m["huisnummer"], int) and keep(m["huisnummer"])}
+        panden = []
+        for p in snap["panden"]:
+            inside = sorted(set(p["contains_address_point_of"]) & ids)
+            if inside:
+                panden.append(_pand_summary(p, inside))
+        options[opt] = {"addresses": len(ids),
+                        "house_numbers": len({m["huisnummer"] for m in exact if m["pdok_id"] in ids}),
+                        "panden": panden}
+    parities = {m["huisnummer"] % 2 for m in exact if isinstance(m["huisnummer"], int)}
+    return {"street": entry["street"], "number_from": entry["number_from"], "number_to": entry["number_to"],
+            "snapshot_id": snap["snapshot_id"], "endpoint_parity": endpoints, "both_parities_present": parities == {0, 1},
+            "number_of_units_stated": number_of_units, "options": options}
 
 
 # --------------------------------------------------------------------------
@@ -255,6 +308,19 @@ def build_candidates(docs=None, snapshots=None, store=None, relations=None, comp
             reasons.append("SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH")
         if len(candidates) > 1:
             reasons.append("MULTIPLE_CANDIDATE_PANDEN")
+        plan = lookup_plan(parts, d["postcode"], d["city"])
+        ranges = []
+        for e in plan:
+            if e["kind"] != "range":
+                continue
+            rs = _range_snapshot(snaps, e)
+            if rs is None:
+                reasons.append("RANGE_SNAPSHOT_MISSING")
+                continue
+            ra = range_analysis(e, rs, _val(d["number_of_units"]))
+            if ra["both_parities_present"] and e["number_from"] != e["number_to"]:
+                reasons.append("RANGE_BOTH_PARITIES")
+            ranges.append(ra)
         cluster = cluster_of.get(doc_id)
         cluster_links = sorted({p for od, ps in links.items() if cluster_of.get(od) == cluster and od != doc_id for p in ps})
         if links.get(doc_id):
@@ -279,7 +345,8 @@ def build_candidates(docs=None, snapshots=None, store=None, relations=None, comp
             "number_of_units": d["number_of_units"],
             "parsed_address": parts,
             "normalized_address": norm_addr,
-            "lookup_plan": lookup_plan(parts, d["postcode"], d["city"]),
+            "lookup_plan": plan,
+            "range_analysis": ranges,
             "source_cluster": cluster,
             "document_relations": rels,
             "same_object_document_ids": same_object,
@@ -326,8 +393,24 @@ def render_candidates(rep):
     for o in rep["documents"]:
         if o["lookup_plan"]:
             L.append(f"- {o['document_id']}: " + "; ".join(
-                f"{p['street']} {p['number']}" + (f" {p['postcode']}" if p["postcode"] else "") + (f" {p['city']}" if p["city"] else "")
+                ("bereik " if p.get("kind") == "range" else "") + f"{p['street']} {p['number']}"
+                + (f" {p['postcode']}" if p["postcode"] else "") + (f" {p['city']}" if p["city"] else "")
                 for p in o["lookup_plan"]))
+    L += ["", "## Huisnummerbereiken", "",
+          "Feitelijke opties per bereik; er wordt niets gekozen. `adressen` telt BAG-adressen (inclusief toevoegingen) "
+          "in het bereik, naast het aantal appartementen dat het document noemt.", "",
+          "| Document | Bereik | Eindpunten | Optie | Adressen | Huisnummers | Appartementen (document) | Panden (adressen · dak plat/schuin m² · buitenmuur m²) |",
+          "|---|---|---|---|---|---|---|---|"]
+    for o in rep["documents"]:
+        for ra in o.get("range_analysis", []):
+            for opt in ("all", "even", "odd"):
+                op = ra["options"][opt]
+                if opt != "all" and not ra["both_parities_present"]:
+                    continue
+                pd = "<br>".join(f"{p['bag_pand_id']} ({p['addresses_in_option']} · {p['b3_opp_dak_plat']}/{p['b3_opp_dak_schuin']} · {p['b3_opp_buitenmuur']})"
+                                 for p in op["panden"]) or "—"
+                L.append(f"| {o['document_id']} | {ra['street']} {ra['number_from']}-{ra['number_to']} | {ra['endpoint_parity']} | {opt} | "
+                         f"{op['addresses']} | {op['house_numbers']} | {ra['number_of_units_stated'] if ra['number_of_units_stated'] is not None else '—'} | {pd} |")
     L += ["", "## Review-redenen", "", "| Reden | Documenten | Betekenis |", "|---|---|---|"]
     L += [f"| `{k}` | {v} | {REVIEW_REASONS[k]} |" for k, v in s["review_reasons"].items()]
     L.append("")

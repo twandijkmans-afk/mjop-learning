@@ -15,7 +15,9 @@
   "SUBPLAN_SCOPE": "deelplan van een complex: de panden kunnen gelijk zijn, de scope van de hoeveelheden niet",
   "NO_BAG_SNAPSHOT": "nog geen BAG/3D BAG-snapshot voor dit document (ophalen vereist netwerktoegang)",
   "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH": "snapshot aanwezig maar geen exact overeenkomend adres",
-  "MULTIPLE_CANDIDATE_PANDEN": "meerdere kandidaat-panden: elk pand apart bevestigen of afwijzen"
+  "MULTIPLE_CANDIDATE_PANDEN": "meerdere kandidaat-panden: elk pand apart bevestigen of afwijzen",
+  "RANGE_BOTH_PARITIES": "het huisnummerbereik bevat even én oneven nummers: kies zelf welke optie (alle/even/oneven) de VvE is",
+  "RANGE_SNAPSHOT_MISSING": "nog geen bereik-snapshot (fetch-range) voor een huisnummerbereik of -lijst van dit document"
  },
  "input_hashes": {
   "verified_sha256": {
@@ -36,8 +38,10 @@
   "snapshot_ids": [
    "BAGSNAP-06699ef5082261ff",
    "BAGSNAP-1072a229ca2cadef",
+   "BAGSNAP-1fe9fea76c92a44a",
    "BAGSNAP-207e6b1b5d32900b",
    "BAGSNAP-2cb7da8239a3ff87",
+   "BAGSNAP-37ecb5e88ad088c1",
    "BAGSNAP-382746621cc0b771",
    "BAGSNAP-3a2148d035525161",
    "BAGSNAP-3b017f02178cd009",
@@ -48,17 +52,26 @@
    "BAGSNAP-5faa647d94e5ef31",
    "BAGSNAP-6351af0349673159",
    "BAGSNAP-6a635d53051fe6f1",
+   "BAGSNAP-6c67db1c902a8c2c",
+   "BAGSNAP-7029187b7e6b36c7",
+   "BAGSNAP-8803c6b5708e5a2c",
    "BAGSNAP-9b63105dc1a61a64",
    "BAGSNAP-aebb3209b7d3fa6d",
    "BAGSNAP-af1047f33ce083f2",
    "BAGSNAP-b381148100ffcb0d",
+   "BAGSNAP-ccf2e3af94e547c0",
+   "BAGSNAP-d658ff8d1e924edd",
    "BAGSNAP-d926412007442afd",
    "BAGSNAP-dd285ca9156fc9fb",
    "BAGSNAP-e047e23c7747051e",
+   "BAGSNAP-e0ac8a475faae3d7",
+   "BAGSNAP-e32316ff75a8616b",
    "BAGSNAP-e34b7f745399d387",
    "BAGSNAP-e6f2b81aa37dcc40",
    "BAGSNAP-f19e538eec88b064",
-   "BAGSNAP-f80de8348cc2c39d"
+   "BAGSNAP-f80de8348cc2c39d",
+   "BAGSNAP-ff62e7f3932a280f",
+   "BAGSNAP-ff7e308fb5e021fc"
   ],
   "link_store_sha256": "271e5d44200d851a1580c7766753afe55f615d2e199054c35d85222c74ea516c"
  },
@@ -76,12 +89,13 @@
    "ADDRESS_FROM_OBJECT_NAME": 2,
    "ADDRESS_RANGE": 7,
    "CITY_MISSING": 2,
-   "MULTIPLE_CANDIDATE_PANDEN": 4,
+   "MULTIPLE_CANDIDATE_PANDEN": 5,
    "MULTIPLE_STREETS": 4,
    "NO_BAG_SNAPSHOT": 2,
    "NO_STATED_ADDRESS": 4,
    "OBJECT_NAME_ADDRESS_DIFFERS": 3,
    "POSTCODE_MISSING": 8,
+   "RANGE_BOTH_PARITIES": 4,
    "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH": 4,
    "SUBPLAN_SCOPE": 2
   }
@@ -128,28 +142,370 @@
    "normalized_address": "alkmaarstraat 1-83; groetstraat 189-217 | amsterdam",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "Alkmaarstraat",
-     "number": "1",
+     "number": "1-83",
+     "number_from": "1",
+     "number_to": "83",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
-     "street": "Alkmaarstraat",
-     "number": "83",
+     "kind": "range",
+     "street": "Groetstraat",
+     "number": "189-217",
+     "number_from": "189",
+     "number_to": "217",
      "postcode": null,
      "city": "Amsterdam"
+    }
+   ],
+   "range_analysis": [
+    {
+     "street": "Alkmaarstraat",
+     "number_from": "1",
+     "number_to": "83",
+     "snapshot_id": "BAGSNAP-ff7e308fb5e021fc",
+     "endpoint_parity": "odd",
+     "both_parities_present": true,
+     "number_of_units_stated": null,
+     "options": {
+      "all": {
+       "addresses": 45,
+       "house_numbers": 44,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061385",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 178.71,
+         "b3_opp_buitenmuur": 311.91
+        },
+        {
+         "bag_pand_id": "0363100012065581",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.12,
+         "b3_opp_buitenmuur": 371.59
+        },
+        {
+         "bag_pand_id": "0363100012067504",
+         "addresses_in_option": 1,
+         "bouwjaar": 1967,
+         "b3_opp_dak_plat": null,
+         "b3_opp_dak_schuin": null,
+         "b3_opp_buitenmuur": null
+        },
+        {
+         "bag_pand_id": "0363100012077338",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.84,
+         "b3_opp_buitenmuur": 374.58
+        },
+        {
+         "bag_pand_id": "0363100012096429",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.99,
+         "b3_opp_buitenmuur": 372.68
+        },
+        {
+         "bag_pand_id": "0363100012097095",
+         "addresses_in_option": 1,
+         "bouwjaar": 1982,
+         "b3_opp_dak_plat": 741.1,
+         "b3_opp_dak_schuin": 375.66,
+         "b3_opp_buitenmuur": 1406.78
+        },
+        {
+         "bag_pand_id": "0363100012107038",
+         "addresses_in_option": 1,
+         "bouwjaar": 1972,
+         "b3_opp_dak_plat": null,
+         "b3_opp_dak_schuin": null,
+         "b3_opp_buitenmuur": null
+        },
+        {
+         "bag_pand_id": "0363100012122300",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.94,
+         "b3_opp_buitenmuur": 373.24
+        },
+        {
+         "bag_pand_id": "0363100012145430",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 225.17,
+         "b3_opp_buitenmuur": 518.34
+        },
+        {
+         "bag_pand_id": "0363100012247851",
+         "addresses_in_option": 1,
+         "bouwjaar": 2017,
+         "b3_opp_dak_plat": 1717.19,
+         "b3_opp_dak_schuin": 0.0,
+         "b3_opp_buitenmuur": 1877.4
+        },
+        {
+         "bag_pand_id": "0363100012571474",
+         "addresses_in_option": 1,
+         "bouwjaar": 2025,
+         "b3_opp_dak_plat": null,
+         "b3_opp_dak_schuin": null,
+         "b3_opp_buitenmuur": null
+        }
+       ]
+      },
+      "even": {
+       "addresses": 3,
+       "house_numbers": 2,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012067504",
+         "addresses_in_option": 1,
+         "bouwjaar": 1967,
+         "b3_opp_dak_plat": null,
+         "b3_opp_dak_schuin": null,
+         "b3_opp_buitenmuur": null
+        },
+        {
+         "bag_pand_id": "0363100012097095",
+         "addresses_in_option": 1,
+         "bouwjaar": 1982,
+         "b3_opp_dak_plat": 741.1,
+         "b3_opp_dak_schuin": 375.66,
+         "b3_opp_buitenmuur": 1406.78
+        },
+        {
+         "bag_pand_id": "0363100012107038",
+         "addresses_in_option": 1,
+         "bouwjaar": 1972,
+         "b3_opp_dak_plat": null,
+         "b3_opp_dak_schuin": null,
+         "b3_opp_buitenmuur": null
+        },
+        {
+         "bag_pand_id": "0363100012247851",
+         "addresses_in_option": 1,
+         "bouwjaar": 2017,
+         "b3_opp_dak_plat": 1717.19,
+         "b3_opp_dak_schuin": 0.0,
+         "b3_opp_buitenmuur": 1877.4
+        },
+        {
+         "bag_pand_id": "0363100012571474",
+         "addresses_in_option": 1,
+         "bouwjaar": 2025,
+         "b3_opp_dak_plat": null,
+         "b3_opp_dak_schuin": null,
+         "b3_opp_buitenmuur": null
+        }
+       ]
+      },
+      "odd": {
+       "addresses": 42,
+       "house_numbers": 42,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061385",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 178.71,
+         "b3_opp_buitenmuur": 311.91
+        },
+        {
+         "bag_pand_id": "0363100012065581",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.12,
+         "b3_opp_buitenmuur": 371.59
+        },
+        {
+         "bag_pand_id": "0363100012077338",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.84,
+         "b3_opp_buitenmuur": 374.58
+        },
+        {
+         "bag_pand_id": "0363100012096429",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.99,
+         "b3_opp_buitenmuur": 372.68
+        },
+        {
+         "bag_pand_id": "0363100012122300",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.94,
+         "b3_opp_buitenmuur": 373.24
+        },
+        {
+         "bag_pand_id": "0363100012145430",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 225.17,
+         "b3_opp_buitenmuur": 518.34
+        }
+       ]
+      }
+     }
     },
     {
      "street": "Groetstraat",
-     "number": "189",
-     "postcode": null,
-     "city": "Amsterdam"
-    },
-    {
-     "street": "Groetstraat",
-     "number": "217",
-     "postcode": null,
-     "city": "Amsterdam"
+     "number_from": "189",
+     "number_to": "217",
+     "snapshot_id": "BAGSNAP-6c67db1c902a8c2c",
+     "endpoint_parity": "odd",
+     "both_parities_present": true,
+     "number_of_units_stated": null,
+     "options": {
+      "all": {
+       "addresses": 29,
+       "house_numbers": 29,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061385",
+         "addresses_in_option": 1,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 178.71,
+         "b3_opp_buitenmuur": 311.91
+        },
+        {
+         "bag_pand_id": "0363100012064361",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 216.21,
+         "b3_opp_buitenmuur": 380.27
+        },
+        {
+         "bag_pand_id": "0363100012093423",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.99,
+         "b3_opp_buitenmuur": 373.5
+        },
+        {
+         "bag_pand_id": "0363100012094543",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 228.13,
+         "b3_opp_buitenmuur": 515.04
+        },
+        {
+         "bag_pand_id": "0363100012152230",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.53,
+         "b3_opp_buitenmuur": 373.65
+        }
+       ]
+      },
+      "even": {
+       "addresses": 14,
+       "house_numbers": 14,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012064361",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 216.21,
+         "b3_opp_buitenmuur": 380.27
+        },
+        {
+         "bag_pand_id": "0363100012093423",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.99,
+         "b3_opp_buitenmuur": 373.5
+        },
+        {
+         "bag_pand_id": "0363100012094543",
+         "addresses_in_option": 3,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 228.13,
+         "b3_opp_buitenmuur": 515.04
+        },
+        {
+         "bag_pand_id": "0363100012152230",
+         "addresses_in_option": 3,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.53,
+         "b3_opp_buitenmuur": 373.65
+        }
+       ]
+      },
+      "odd": {
+       "addresses": 15,
+       "house_numbers": 15,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061385",
+         "addresses_in_option": 1,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 178.71,
+         "b3_opp_buitenmuur": 311.91
+        },
+        {
+         "bag_pand_id": "0363100012064361",
+         "addresses_in_option": 3,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 216.21,
+         "b3_opp_buitenmuur": 380.27
+        },
+        {
+         "bag_pand_id": "0363100012093423",
+         "addresses_in_option": 3,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 213.99,
+         "b3_opp_buitenmuur": 373.5
+        },
+        {
+         "bag_pand_id": "0363100012094543",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 228.13,
+         "b3_opp_buitenmuur": 515.04
+        },
+        {
+         "bag_pand_id": "0363100012152230",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.53,
+         "b3_opp_buitenmuur": 373.65
+        }
+       ]
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-001",
@@ -159,18 +515,30 @@
    "snapshot_ids": [
     "BAGSNAP-48cb09dc12446911",
     "BAGSNAP-4f66eeac4723bbfa",
+    "BAGSNAP-6c67db1c902a8c2c",
     "BAGSNAP-dd285ca9156fc9fb",
-    "BAGSNAP-f19e538eec88b064"
+    "BAGSNAP-f19e538eec88b064",
+    "BAGSNAP-ff7e308fb5e021fc"
    ],
    "candidate_bag_panden": [
     {
      "bag_pand_id": "0363100012061385",
      "snapshot_ids": [
       "BAGSNAP-48cb09dc12446911",
-      "BAGSNAP-dd285ca9156fc9fb"
+      "BAGSNAP-6c67db1c902a8c2c",
+      "BAGSNAP-dd285ca9156fc9fb",
+      "BAGSNAP-ff7e308fb5e021fc"
      ],
      "contains_address_point_of": [
       "adr-0af404d30c9f56d19608b2dc11960bfc",
+      "adr-0af404d30c9f56d19608b2dc11960bfc",
+      "adr-d3e38c4b4244bbcacbc8657497447631",
+      "adr-3ae6d81d31bd36ea4e9a8f1d1b8be4dd",
+      "adr-5c739421e6b59fa9b7adadddd53198d7",
+      "adr-7f3fdc68e187bd64f1d7ce0450eed9c5",
+      "adr-8aaab0b3ad52e26d66547d0f09b20f37",
+      "adr-8f4e20c16c7ec0b1c8cb6c2c81daf6c4",
+      "adr-a3ca85f658b039e974b01afc0886043f",
       "adr-d3e38c4b4244bbcacbc8657497447631"
      ],
      "bag_properties": {
@@ -183,11 +551,128 @@
      "has_3dbag_attributes": true
     },
     {
+     "bag_pand_id": "0363100012064361",
+     "snapshot_ids": [
+      "BAGSNAP-6c67db1c902a8c2c"
+     ],
+     "contains_address_point_of": [
+      "adr-16a07d7507515b812ba5a687f036e400",
+      "adr-31e9b2754372192206288cfdb4a644c1",
+      "adr-3d082cfe26b78b16b70e8fcdd533b11e",
+      "adr-42aa5fda83ed9a1849bb3e0376afff5c",
+      "adr-74baff20e4d085d30fa7d86e0d1832b5",
+      "adr-94f07c9b447547cad63cb10207ffde3b",
+      "adr-eb6ac2cf7e6eab036f6538d37fd2eb1f"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012064361",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012065581",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-12e725ef56909f1d51a59337e1418292",
+      "adr-1bea4d5d6a56851590ebc7b326b2f20d",
+      "adr-25896aa3b76f2a0680a7b74f07cf72f8",
+      "adr-33074edd41dbb0c9d6db9f0197c9cd66",
+      "adr-847e33acd27625e4820816b6793f1bb2",
+      "adr-f06c579c74bc8aab10f872750d9a556e",
+      "adr-f9c01705e4792c04b92387aa528b7c08"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012065581",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012067504",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-0db91fe7d130b8d57f7e0756c8967296"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1967,
+      "gebruiksdoel": "onderwijsfunctie",
+      "identificatie": "0363100012067504",
+      "status": "Pand gesloopt"
+     },
+     "has_3dbag_attributes": false
+    },
+    {
+     "bag_pand_id": "0363100012077338",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-4b8da1309b7b3b740bb418b95d1d11ff",
+      "adr-4c4bd652ca50ede67f6095b37c3796f9",
+      "adr-50fe1c3e68aa2b863e1ff661acbf5089",
+      "adr-806a067efec644460c774d13a373e10e",
+      "adr-81b7a4d5226c6a72d2cda62b91a91357",
+      "adr-a7b032b50e657f7a3384497e98a42f7f",
+      "adr-d96d046ad64316977d98f67989e91092"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077338",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012093423",
+     "snapshot_ids": [
+      "BAGSNAP-6c67db1c902a8c2c"
+     ],
+     "contains_address_point_of": [
+      "adr-00ed5f1ef68e5001b7a4e9a2b1e41eea",
+      "adr-1cc054049489e9ab668597ca777bcbb8",
+      "adr-321f9c4827c0a600bc1b7c6e6929f860",
+      "adr-7e30c1da7ac43db7483321f9dc26dc39",
+      "adr-aaedf893cd8dccf6d8829ed2deedd01f",
+      "adr-c200e567a177ed203529722c9d356565",
+      "adr-e2b246a15c0184f853dd58424b9dae11"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012093423",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
      "bag_pand_id": "0363100012094543",
      "snapshot_ids": [
+      "BAGSNAP-6c67db1c902a8c2c",
       "BAGSNAP-f19e538eec88b064"
      ],
      "contains_address_point_of": [
+      "adr-411c3cba5c00fb932ef21fd357a6132f",
+      "adr-455e0f96c7c59f6992ebe3e0e90f2b2c",
+      "adr-6557456ba43fbbdfdeaf8d355830571f",
+      "adr-6d84ad464fe191887bb717d75aaafd6f",
+      "adr-77acc8132fec04748485efb0dd2bb5f2",
+      "adr-8baee5a4829495684ae7b06be73544b2",
+      "adr-cc82686b5e299f8ae21bd7a94c5fd0ed",
       "adr-77acc8132fec04748485efb0dd2bb5f2"
      ],
      "bag_properties": {
@@ -200,12 +685,100 @@
      "has_3dbag_attributes": true
     },
     {
-     "bag_pand_id": "0363100012145430",
+     "bag_pand_id": "0363100012096429",
      "snapshot_ids": [
-      "BAGSNAP-4f66eeac4723bbfa"
+      "BAGSNAP-ff7e308fb5e021fc"
      ],
      "contains_address_point_of": [
-      "adr-b470ef05c88bbf10b51fd145953e7ff4"
+      "adr-2293791f02faea8a8f577cfb908e84a4",
+      "adr-2be83676c5c4a80ac19e54b056bbdac5",
+      "adr-3be923a52d8abfa80f3ea3c3ba8f1b21",
+      "adr-607a0bd2b18f84916088bbe217bdc074",
+      "adr-84d477b08b8b21d6a1867e9e8ad6a411",
+      "adr-bb671f3a2ad39acf87592d427f9f541b",
+      "adr-f2c3d72910c0da8358e6aa6bfed0ab84"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012096429",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012097095",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-3cdf5d55c5fac3f7f11f8fae12ebb16c"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1982,
+      "gebruiksdoel": "onderwijsfunctie",
+      "identificatie": "0363100012097095",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012107038",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-79875b2abc17535424e8e6deb03ec729"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1972,
+      "gebruiksdoel": "sportfunctie",
+      "identificatie": "0363100012107038",
+      "status": "Pand gesloopt"
+     },
+     "has_3dbag_attributes": false
+    },
+    {
+     "bag_pand_id": "0363100012122300",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-19c702b889e51e69762d25adfc73c220",
+      "adr-24190239d4c0a932163da56a9887d25a",
+      "adr-37f3f371364765d13392cf6b2c7f1221",
+      "adr-8996d6ffa86c839b0d9ccaac10803522",
+      "adr-8afa41ed7033bf026803432f7574f159",
+      "adr-9be92b9465c50bcf01d7f44c9dffba6b",
+      "adr-a1fea3ac958b526e2e9678f62e7f8ada"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012122300",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012145430",
+     "snapshot_ids": [
+      "BAGSNAP-4f66eeac4723bbfa",
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-b470ef05c88bbf10b51fd145953e7ff4",
+      "adr-2d0fee8acdc3b39120a9ba26431e58ce",
+      "adr-349597196d548371e3afb8ca103ab7b0",
+      "adr-84a533c584408ad6e9c341d9a30cde20",
+      "adr-9522391bbfd28ac944c5cd298776256e",
+      "adr-b470ef05c88bbf10b51fd145953e7ff4",
+      "adr-e6b385ea438a9e30d07e929496366570",
+      "adr-f34de472318b1c9f1ea0f71cfee21aa1"
      ],
      "bag_properties": {
       "aantal_verblijfsobjecten": 7,
@@ -215,6 +788,63 @@
       "status": "Pand in gebruik"
      },
      "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012152230",
+     "snapshot_ids": [
+      "BAGSNAP-6c67db1c902a8c2c"
+     ],
+     "contains_address_point_of": [
+      "adr-2c3629bbee9b3a2ef1c806833096ab5e",
+      "adr-3ebc2c83d3655f03a0f7259e60162d7d",
+      "adr-85c859553adcc3f08b88706aa1861265",
+      "adr-8b0de19ee02c9e591ea53efac20c0f98",
+      "adr-8e9d929300b434da3198942f79c5def9",
+      "adr-9fe803c19463bed6be4a5faf613a053c",
+      "adr-cddefcc83c0b0e96d2676a36032e048c"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012152230",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012247851",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-0db91fe7d130b8d57f7e0756c8967296"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 2017,
+      "gebruiksdoel": "onderwijsfunctie",
+      "identificatie": "0363100012247851",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012571474",
+     "snapshot_ids": [
+      "BAGSNAP-ff7e308fb5e021fc"
+     ],
+     "contains_address_point_of": [
+      "adr-79875b2abc17535424e8e6deb03ec729"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 2025,
+      "gebruiksdoel": "bijeenkomstfunctie",
+      "identificatie": "0363100012571474",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": false
     }
    ],
    "confirmed_bag_pand_ids": [],
@@ -222,7 +852,8 @@
     "ADDRESS_RANGE",
     "MULTIPLE_CANDIDATE_PANDEN",
     "MULTIPLE_STREETS",
-    "POSTCODE_MISSING"
+    "POSTCODE_MISSING",
+    "RANGE_BOTH_PARITIES"
    ],
    "status": "CANDIDATES_READY_FOR_REVIEW"
   },
@@ -265,18 +896,21 @@
    "normalized_address": "jan pieter heijestraat 144; wilhelminastraat 74 | 1054VZ amsterdam",
    "lookup_plan": [
     {
+     "kind": "single",
      "street": "Jan Pieter Heijestraat",
      "number": "144",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
+     "kind": "single",
      "street": "Wilhelminastraat",
      "number": "74",
      "postcode": null,
      "city": "Amsterdam"
     }
    ],
+   "range_analysis": [],
    "source_cluster": "SC-DOC-002",
    "document_relations": [
     {
@@ -346,18 +980,21 @@
    "normalized_address": "j.p heijestraat 144; wilhelminastraat 74 | amsterdam",
    "lookup_plan": [
     {
+     "kind": "single",
      "street": "J.P Heijestraat",
      "number": "144",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
+     "kind": "single",
      "street": "Wilhelminastraat",
      "number": "74",
      "postcode": null,
      "city": "Amsterdam"
     }
    ],
+   "range_analysis": [],
    "source_cluster": "SC-DOC-004",
    "document_relations": [
     {
@@ -416,16 +1053,684 @@
    "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "Maldenhof",
-     "number": "240",
+     "number": "240-296",
+     "number_from": "240",
+     "number_to": "296",
      "postcode": null,
      "city": "Amsterdam"
-    },
+    }
+   ],
+   "range_analysis": [
     {
      "street": "Maldenhof",
-     "number": "296",
-     "postcode": null,
-     "city": "Amsterdam"
+     "number_from": "240",
+     "number_to": "296",
+     "snapshot_id": "BAGSNAP-37ecb5e88ad088c1",
+     "endpoint_parity": "even",
+     "both_parities_present": true,
+     "number_of_units_stated": 29,
+     "options": {
+      "all": {
+       "addresses": 56,
+       "house_numbers": 56,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061310",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.59,
+         "b3_opp_dak_schuin": 58.83,
+         "b3_opp_buitenmuur": 85.18
+        },
+        {
+         "bag_pand_id": "0363100012063561",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.42,
+         "b3_opp_buitenmuur": 75.08
+        },
+        {
+         "bag_pand_id": "0363100012064674",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.46,
+         "b3_opp_buitenmuur": 77.03
+        },
+        {
+         "bag_pand_id": "0363100012065912",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.6,
+         "b3_opp_dak_schuin": 58.31,
+         "b3_opp_buitenmuur": 91.9
+        },
+        {
+         "bag_pand_id": "0363100012070344",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.61,
+         "b3_opp_dak_schuin": 99.91,
+         "b3_opp_buitenmuur": 100.84
+        },
+        {
+         "bag_pand_id": "0363100012071880",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.8,
+         "b3_opp_dak_schuin": 101.57,
+         "b3_opp_buitenmuur": 132.64
+        },
+        {
+         "bag_pand_id": "0363100012077783",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.39,
+         "b3_opp_dak_schuin": 59.08,
+         "b3_opp_buitenmuur": 82.03
+        },
+        {
+         "bag_pand_id": "0363100012077984",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.08,
+         "b3_opp_dak_schuin": 59.43,
+         "b3_opp_buitenmuur": 79.96
+        },
+        {
+         "bag_pand_id": "0363100012078022",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.05,
+         "b3_opp_dak_schuin": 91.19,
+         "b3_opp_buitenmuur": 99.61
+        },
+        {
+         "bag_pand_id": "0363100012078472",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.59,
+         "b3_opp_dak_schuin": 59.14,
+         "b3_opp_buitenmuur": 104.31
+        },
+        {
+         "bag_pand_id": "0363100012081986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.21,
+         "b3_opp_dak_schuin": 60.69,
+         "b3_opp_buitenmuur": 94.81
+        },
+        {
+         "bag_pand_id": "0363100012083986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.19,
+         "b3_opp_dak_schuin": 60.74,
+         "b3_opp_buitenmuur": 78.43
+        },
+        {
+         "bag_pand_id": "0363100012084256",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 1.13,
+         "b3_opp_dak_schuin": 67.17,
+         "b3_opp_buitenmuur": 81.22
+        },
+        {
+         "bag_pand_id": "0363100012087184",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.59,
+         "b3_opp_buitenmuur": 92.19
+        },
+        {
+         "bag_pand_id": "0363100012091756",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.27,
+         "b3_opp_dak_schuin": 101.68,
+         "b3_opp_buitenmuur": 99.06
+        },
+        {
+         "bag_pand_id": "0363100012091974",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 14.56,
+         "b3_opp_dak_schuin": 88.42,
+         "b3_opp_buitenmuur": 98.09
+        },
+        {
+         "bag_pand_id": "0363100012100140",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.3,
+         "b3_opp_dak_schuin": 66.23,
+         "b3_opp_buitenmuur": 100.06
+        },
+        {
+         "bag_pand_id": "0363100012102257",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.44,
+         "b3_opp_dak_schuin": 58.82,
+         "b3_opp_buitenmuur": 84.07
+        },
+        {
+         "bag_pand_id": "0363100012102659",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.55,
+         "b3_opp_dak_schuin": 99.32,
+         "b3_opp_buitenmuur": 150.33
+        },
+        {
+         "bag_pand_id": "0363100012105151",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.37,
+         "b3_opp_dak_schuin": 65.98,
+         "b3_opp_buitenmuur": 200.32
+        },
+        {
+         "bag_pand_id": "0363100012107492",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.99,
+         "b3_opp_dak_schuin": 90.34,
+         "b3_opp_buitenmuur": 103.5
+        },
+        {
+         "bag_pand_id": "0363100012108812",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 74.3
+        },
+        {
+         "bag_pand_id": "0363100012121455",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 18.04,
+         "b3_opp_dak_schuin": 89.12,
+         "b3_opp_buitenmuur": 101.13
+        },
+        {
+         "bag_pand_id": "0363100012123643",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.72,
+         "b3_opp_buitenmuur": 92.31
+        },
+        {
+         "bag_pand_id": "0363100012125929",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.58,
+         "b3_opp_buitenmuur": 89.13
+        },
+        {
+         "bag_pand_id": "0363100012127361",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.33,
+         "b3_opp_dak_schuin": 98.56,
+         "b3_opp_buitenmuur": 197.42
+        },
+        {
+         "bag_pand_id": "0363100012129433",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.33,
+         "b3_opp_dak_schuin": 59.04,
+         "b3_opp_buitenmuur": 77.53
+        },
+        {
+         "bag_pand_id": "0363100012134188",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 23.56,
+         "b3_opp_dak_schuin": 87.94,
+         "b3_opp_buitenmuur": 116.45
+        },
+        {
+         "bag_pand_id": "0363100012135143",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.37,
+         "b3_opp_buitenmuur": 84.87
+        },
+        {
+         "bag_pand_id": "0363100012137009",
+         "addresses_in_option": 3,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 25.78,
+         "b3_opp_dak_schuin": 152.08,
+         "b3_opp_buitenmuur": 260.31
+        },
+        {
+         "bag_pand_id": "0363100012137996",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 12.74,
+         "b3_opp_dak_schuin": 74.07,
+         "b3_opp_buitenmuur": 118.32
+        },
+        {
+         "bag_pand_id": "0363100012138208",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.16,
+         "b3_opp_dak_schuin": 59.66,
+         "b3_opp_buitenmuur": 93.07
+        },
+        {
+         "bag_pand_id": "0363100012140664",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.31,
+         "b3_opp_dak_schuin": 87.81,
+         "b3_opp_buitenmuur": 99.35
+        },
+        {
+         "bag_pand_id": "0363100012141419",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.38,
+         "b3_opp_dak_schuin": 105.92,
+         "b3_opp_buitenmuur": 106.74
+        },
+        {
+         "bag_pand_id": "0363100012143647",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.49,
+         "b3_opp_dak_schuin": 93.57,
+         "b3_opp_buitenmuur": 102.5
+        },
+        {
+         "bag_pand_id": "0363100012144766",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.97,
+         "b3_opp_dak_schuin": 106.15,
+         "b3_opp_buitenmuur": 121.37
+        },
+        {
+         "bag_pand_id": "0363100012148993",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.0,
+         "b3_opp_dak_schuin": 58.27,
+         "b3_opp_buitenmuur": 99.56
+        },
+        {
+         "bag_pand_id": "0363100012151715",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.85,
+         "b3_opp_buitenmuur": 73.69
+        },
+        {
+         "bag_pand_id": "0363100012152265",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.41,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 79.78
+        },
+        {
+         "bag_pand_id": "0363100012154610",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.32,
+         "b3_opp_dak_schuin": 67.51,
+         "b3_opp_buitenmuur": 122.99
+        }
+       ]
+      },
+      "even": {
+       "addresses": 29,
+       "house_numbers": 29,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012070344",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.61,
+         "b3_opp_dak_schuin": 99.91,
+         "b3_opp_buitenmuur": 100.84
+        },
+        {
+         "bag_pand_id": "0363100012071880",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.8,
+         "b3_opp_dak_schuin": 101.57,
+         "b3_opp_buitenmuur": 132.64
+        },
+        {
+         "bag_pand_id": "0363100012078022",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.05,
+         "b3_opp_dak_schuin": 91.19,
+         "b3_opp_buitenmuur": 99.61
+        },
+        {
+         "bag_pand_id": "0363100012091756",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.27,
+         "b3_opp_dak_schuin": 101.68,
+         "b3_opp_buitenmuur": 99.06
+        },
+        {
+         "bag_pand_id": "0363100012091974",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 14.56,
+         "b3_opp_dak_schuin": 88.42,
+         "b3_opp_buitenmuur": 98.09
+        },
+        {
+         "bag_pand_id": "0363100012102659",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.55,
+         "b3_opp_dak_schuin": 99.32,
+         "b3_opp_buitenmuur": 150.33
+        },
+        {
+         "bag_pand_id": "0363100012107492",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.99,
+         "b3_opp_dak_schuin": 90.34,
+         "b3_opp_buitenmuur": 103.5
+        },
+        {
+         "bag_pand_id": "0363100012121455",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 18.04,
+         "b3_opp_dak_schuin": 89.12,
+         "b3_opp_buitenmuur": 101.13
+        },
+        {
+         "bag_pand_id": "0363100012127361",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.33,
+         "b3_opp_dak_schuin": 98.56,
+         "b3_opp_buitenmuur": 197.42
+        },
+        {
+         "bag_pand_id": "0363100012134188",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 23.56,
+         "b3_opp_dak_schuin": 87.94,
+         "b3_opp_buitenmuur": 116.45
+        },
+        {
+         "bag_pand_id": "0363100012137996",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 12.74,
+         "b3_opp_dak_schuin": 74.07,
+         "b3_opp_buitenmuur": 118.32
+        },
+        {
+         "bag_pand_id": "0363100012140664",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.31,
+         "b3_opp_dak_schuin": 87.81,
+         "b3_opp_buitenmuur": 99.35
+        },
+        {
+         "bag_pand_id": "0363100012141419",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.38,
+         "b3_opp_dak_schuin": 105.92,
+         "b3_opp_buitenmuur": 106.74
+        },
+        {
+         "bag_pand_id": "0363100012143647",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.49,
+         "b3_opp_dak_schuin": 93.57,
+         "b3_opp_buitenmuur": 102.5
+        },
+        {
+         "bag_pand_id": "0363100012144766",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.97,
+         "b3_opp_dak_schuin": 106.15,
+         "b3_opp_buitenmuur": 121.37
+        }
+       ]
+      },
+      "odd": {
+       "addresses": 27,
+       "house_numbers": 27,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061310",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.59,
+         "b3_opp_dak_schuin": 58.83,
+         "b3_opp_buitenmuur": 85.18
+        },
+        {
+         "bag_pand_id": "0363100012063561",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.42,
+         "b3_opp_buitenmuur": 75.08
+        },
+        {
+         "bag_pand_id": "0363100012064674",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.46,
+         "b3_opp_buitenmuur": 77.03
+        },
+        {
+         "bag_pand_id": "0363100012065912",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.6,
+         "b3_opp_dak_schuin": 58.31,
+         "b3_opp_buitenmuur": 91.9
+        },
+        {
+         "bag_pand_id": "0363100012077783",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.39,
+         "b3_opp_dak_schuin": 59.08,
+         "b3_opp_buitenmuur": 82.03
+        },
+        {
+         "bag_pand_id": "0363100012077984",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.08,
+         "b3_opp_dak_schuin": 59.43,
+         "b3_opp_buitenmuur": 79.96
+        },
+        {
+         "bag_pand_id": "0363100012078472",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.59,
+         "b3_opp_dak_schuin": 59.14,
+         "b3_opp_buitenmuur": 104.31
+        },
+        {
+         "bag_pand_id": "0363100012081986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.21,
+         "b3_opp_dak_schuin": 60.69,
+         "b3_opp_buitenmuur": 94.81
+        },
+        {
+         "bag_pand_id": "0363100012083986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.19,
+         "b3_opp_dak_schuin": 60.74,
+         "b3_opp_buitenmuur": 78.43
+        },
+        {
+         "bag_pand_id": "0363100012084256",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 1.13,
+         "b3_opp_dak_schuin": 67.17,
+         "b3_opp_buitenmuur": 81.22
+        },
+        {
+         "bag_pand_id": "0363100012087184",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.59,
+         "b3_opp_buitenmuur": 92.19
+        },
+        {
+         "bag_pand_id": "0363100012100140",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.3,
+         "b3_opp_dak_schuin": 66.23,
+         "b3_opp_buitenmuur": 100.06
+        },
+        {
+         "bag_pand_id": "0363100012102257",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.44,
+         "b3_opp_dak_schuin": 58.82,
+         "b3_opp_buitenmuur": 84.07
+        },
+        {
+         "bag_pand_id": "0363100012105151",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.37,
+         "b3_opp_dak_schuin": 65.98,
+         "b3_opp_buitenmuur": 200.32
+        },
+        {
+         "bag_pand_id": "0363100012108812",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 74.3
+        },
+        {
+         "bag_pand_id": "0363100012123643",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.72,
+         "b3_opp_buitenmuur": 92.31
+        },
+        {
+         "bag_pand_id": "0363100012125929",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.58,
+         "b3_opp_buitenmuur": 89.13
+        },
+        {
+         "bag_pand_id": "0363100012129433",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.33,
+         "b3_opp_dak_schuin": 59.04,
+         "b3_opp_buitenmuur": 77.53
+        },
+        {
+         "bag_pand_id": "0363100012135143",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.37,
+         "b3_opp_buitenmuur": 84.87
+        },
+        {
+         "bag_pand_id": "0363100012137009",
+         "addresses_in_option": 3,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 25.78,
+         "b3_opp_dak_schuin": 152.08,
+         "b3_opp_buitenmuur": 260.31
+        },
+        {
+         "bag_pand_id": "0363100012138208",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.16,
+         "b3_opp_dak_schuin": 59.66,
+         "b3_opp_buitenmuur": 93.07
+        },
+        {
+         "bag_pand_id": "0363100012148993",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.0,
+         "b3_opp_dak_schuin": 58.27,
+         "b3_opp_buitenmuur": 99.56
+        },
+        {
+         "bag_pand_id": "0363100012151715",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.85,
+         "b3_opp_buitenmuur": 73.69
+        },
+        {
+         "bag_pand_id": "0363100012152265",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.41,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 79.78
+        },
+        {
+         "bag_pand_id": "0363100012154610",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.32,
+         "b3_opp_dak_schuin": 67.51,
+         "b3_opp_buitenmuur": 122.99
+        }
+       ]
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-005+DOC-006",
@@ -442,15 +1747,452 @@
    "confirmed_links_in_same_source_cluster": [],
    "snapshot_ids": [
     "BAGSNAP-1072a229ca2cadef",
+    "BAGSNAP-37ecb5e88ad088c1",
     "BAGSNAP-af1047f33ce083f2"
    ],
    "candidate_bag_panden": [
     {
-     "bag_pand_id": "0363100012127361",
+     "bag_pand_id": "0363100012061310",
      "snapshot_ids": [
-      "BAGSNAP-1072a229ca2cadef"
+      "BAGSNAP-37ecb5e88ad088c1"
      ],
      "contains_address_point_of": [
+      "adr-a4437f757439f179f6604a6df4580df6"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012061310",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012063561",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-8568a05651215785067a3e9e2373a002"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012063561",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012064674",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-176da826d302b72ecd126f1b9846cb42"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012064674",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012065912",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-393f6731450c4b0fe693a96c2cae74ef"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012065912",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012070344",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-4e734ff18a78141f3f84f3074871067c",
+      "adr-d17a279cc093939334dd74a51f11def3"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012070344",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-67fa8581b25d7262588101f3695b7913",
+      "adr-ee199fdca7e6c9aa603ad95d8e13fb99"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012071880",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077783",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-c99b810c47841be112ed93216eb27ad0"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077783",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077984",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-45894ac503681f1e1277455890cc01ec"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077984",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-1f9b6387168932dd66f58f83cc83fc96",
+      "adr-36108eb85c996de0b73b491c9ef3c890"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078022",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078472",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-d3139d0709c8c32f5303b4352598c04b"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078472",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012081986",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-aa7635c6f6224e15aef7bc18c8f5e94d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012081986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012083986",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-6829daa43fe80c29caff7089b686356d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012083986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012084256",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-240157ee2b4317afeebdba01973833b1"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012084256",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012087184",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-f3ec048903cc4ebed88d4dd028bce568"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012087184",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-c5ee0e2aa22feb7ce0100d32c59a9b43",
+      "adr-e682859c4cc3a0159f585c6d2634cd5d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091756",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-6f18679ca005c4345d8443ef3d33091b",
+      "adr-7d075af42c207c488c6326eb528a1831"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091974",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012100140",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-a0b52ca279612371e9b928e2d34a3441"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012100140",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102257",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-59886f04431e25a6b72972e38f2a0de2"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102257",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-5de17882076766f2b4087b5821ce31ba",
+      "adr-f24bbd0e1543cb4a4427eae13e341257"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102659",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012105151",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-22a2eb14df8d8c4e46a172b646176371"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012105151",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-626381627089a0a5ef6b08aa23b4fb8e",
+      "adr-f7feec0bde9a86385f4e5bcbf4157767"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012107492",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012108812",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-40a95403da234580c20f030bd9f66f26"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012108812",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-07423ce51abbcf71a6c797ace3f742fc",
+      "adr-2561a648197f1cb45646e70d3f419ea3"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012121455",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012123643",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-be4ecf04ecf3a801d68efa5e38bd20ad"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012123643",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012125929",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-7f4a47bc9a8c2488031031aa3fb54498"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012125929",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012127361",
+     "snapshot_ids": [
+      "BAGSNAP-1072a229ca2cadef",
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-fcdccebfafa94afc54d9dd831fb68c9b",
+      "adr-38f0a653263a466e5335253677d3303d",
       "adr-fcdccebfafa94afc54d9dd831fb68c9b"
      ],
      "bag_properties": {
@@ -463,11 +2205,84 @@
      "has_3dbag_attributes": true
     },
     {
+     "bag_pand_id": "0363100012129433",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-941dc985180b74a90693d50dba182fe4"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012129433",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-11d5b58979796a03f5aaf082cfa7a612",
+      "adr-3f44ba53b32114f677f0382f96fdcb77"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012134188",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012135143",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-548448d1771413ea9167c1f41bc88769"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012135143",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137009",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-2554bd8f12119491b0502d3be0360832",
+      "adr-51c32e7cb17ff1a41644b9b7647a819d",
+      "adr-b2d66069c673e93c0401cd48e828076d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137009",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
      "bag_pand_id": "0363100012137996",
      "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1",
       "BAGSNAP-af1047f33ce083f2"
      ],
      "contains_address_point_of": [
+      "adr-e2c59424029b7f16e3f06efb87300a15",
       "adr-e2c59424029b7f16e3f06efb87300a15"
      ],
      "bag_properties": {
@@ -478,12 +2293,170 @@
       "status": "Pand in gebruik"
      },
      "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012138208",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-65449a063c796d79adc798070c835268"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012138208",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-8233130f312a0e947727dc0bad83e7be",
+      "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012140664",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-ba5f71c5ce4b0411bca64d07b0359acf",
+      "adr-e420b771bc04f19ba5e4d01a64ec86b4"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012141419",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-67a9a6c61b8b872a57d56229fdfe8ebd",
+      "adr-effa9e8d3eacd89296c0de21067c24fe"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012143647",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-395e3846c8845864c0e76608ee92c551",
+      "adr-d19a8687818b9a9fde7fd239cc741806"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012144766",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012148993",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-f42021737373f0a028f5d417b013f05b"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012148993",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012151715",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-40230632d2ea3eea4569d4fe2d6e8942"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012151715",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012152265",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-32c913ad4234f537ccfcf177e226cc1a"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012152265",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012154610",
+     "snapshot_ids": [
+      "BAGSNAP-37ecb5e88ad088c1"
+     ],
+     "contains_address_point_of": [
+      "adr-4479e03b3ef878ab51f0a3eaf6a557c9"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012154610",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
     }
    ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "MULTIPLE_CANDIDATE_PANDEN"
+    "MULTIPLE_CANDIDATE_PANDEN",
+    "RANGE_BOTH_PARITIES"
    ],
    "status": "CANDIDATES_READY_FOR_REVIEW"
   },
@@ -519,16 +2492,684 @@
    "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "Maldenhof",
-     "number": "240",
+     "number": "240-296",
+     "number_from": "240",
+     "number_to": "296",
      "postcode": null,
      "city": "Amsterdam"
-    },
+    }
+   ],
+   "range_analysis": [
     {
      "street": "Maldenhof",
-     "number": "296",
-     "postcode": null,
-     "city": "Amsterdam"
+     "number_from": "240",
+     "number_to": "296",
+     "snapshot_id": "BAGSNAP-ccf2e3af94e547c0",
+     "endpoint_parity": "even",
+     "both_parities_present": true,
+     "number_of_units_stated": 29,
+     "options": {
+      "all": {
+       "addresses": 56,
+       "house_numbers": 56,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061310",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.59,
+         "b3_opp_dak_schuin": 58.83,
+         "b3_opp_buitenmuur": 85.18
+        },
+        {
+         "bag_pand_id": "0363100012063561",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.42,
+         "b3_opp_buitenmuur": 75.08
+        },
+        {
+         "bag_pand_id": "0363100012064674",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.46,
+         "b3_opp_buitenmuur": 77.03
+        },
+        {
+         "bag_pand_id": "0363100012065912",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.6,
+         "b3_opp_dak_schuin": 58.31,
+         "b3_opp_buitenmuur": 91.9
+        },
+        {
+         "bag_pand_id": "0363100012070344",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.61,
+         "b3_opp_dak_schuin": 99.91,
+         "b3_opp_buitenmuur": 100.84
+        },
+        {
+         "bag_pand_id": "0363100012071880",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.8,
+         "b3_opp_dak_schuin": 101.57,
+         "b3_opp_buitenmuur": 132.64
+        },
+        {
+         "bag_pand_id": "0363100012077783",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.39,
+         "b3_opp_dak_schuin": 59.08,
+         "b3_opp_buitenmuur": 82.03
+        },
+        {
+         "bag_pand_id": "0363100012077984",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.08,
+         "b3_opp_dak_schuin": 59.43,
+         "b3_opp_buitenmuur": 79.96
+        },
+        {
+         "bag_pand_id": "0363100012078022",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.05,
+         "b3_opp_dak_schuin": 91.19,
+         "b3_opp_buitenmuur": 99.61
+        },
+        {
+         "bag_pand_id": "0363100012078472",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.59,
+         "b3_opp_dak_schuin": 59.14,
+         "b3_opp_buitenmuur": 104.31
+        },
+        {
+         "bag_pand_id": "0363100012081986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.21,
+         "b3_opp_dak_schuin": 60.69,
+         "b3_opp_buitenmuur": 94.81
+        },
+        {
+         "bag_pand_id": "0363100012083986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.19,
+         "b3_opp_dak_schuin": 60.74,
+         "b3_opp_buitenmuur": 78.43
+        },
+        {
+         "bag_pand_id": "0363100012084256",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 1.13,
+         "b3_opp_dak_schuin": 67.17,
+         "b3_opp_buitenmuur": 81.22
+        },
+        {
+         "bag_pand_id": "0363100012087184",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.59,
+         "b3_opp_buitenmuur": 92.19
+        },
+        {
+         "bag_pand_id": "0363100012091756",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.27,
+         "b3_opp_dak_schuin": 101.68,
+         "b3_opp_buitenmuur": 99.06
+        },
+        {
+         "bag_pand_id": "0363100012091974",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 14.56,
+         "b3_opp_dak_schuin": 88.42,
+         "b3_opp_buitenmuur": 98.09
+        },
+        {
+         "bag_pand_id": "0363100012100140",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.3,
+         "b3_opp_dak_schuin": 66.23,
+         "b3_opp_buitenmuur": 100.06
+        },
+        {
+         "bag_pand_id": "0363100012102257",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.44,
+         "b3_opp_dak_schuin": 58.82,
+         "b3_opp_buitenmuur": 84.07
+        },
+        {
+         "bag_pand_id": "0363100012102659",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.55,
+         "b3_opp_dak_schuin": 99.32,
+         "b3_opp_buitenmuur": 150.33
+        },
+        {
+         "bag_pand_id": "0363100012105151",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.37,
+         "b3_opp_dak_schuin": 65.98,
+         "b3_opp_buitenmuur": 200.32
+        },
+        {
+         "bag_pand_id": "0363100012107492",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.99,
+         "b3_opp_dak_schuin": 90.34,
+         "b3_opp_buitenmuur": 103.5
+        },
+        {
+         "bag_pand_id": "0363100012108812",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 74.3
+        },
+        {
+         "bag_pand_id": "0363100012121455",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 18.04,
+         "b3_opp_dak_schuin": 89.12,
+         "b3_opp_buitenmuur": 101.13
+        },
+        {
+         "bag_pand_id": "0363100012123643",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.72,
+         "b3_opp_buitenmuur": 92.31
+        },
+        {
+         "bag_pand_id": "0363100012125929",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.58,
+         "b3_opp_buitenmuur": 89.13
+        },
+        {
+         "bag_pand_id": "0363100012127361",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.33,
+         "b3_opp_dak_schuin": 98.56,
+         "b3_opp_buitenmuur": 197.42
+        },
+        {
+         "bag_pand_id": "0363100012129433",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.33,
+         "b3_opp_dak_schuin": 59.04,
+         "b3_opp_buitenmuur": 77.53
+        },
+        {
+         "bag_pand_id": "0363100012134188",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 23.56,
+         "b3_opp_dak_schuin": 87.94,
+         "b3_opp_buitenmuur": 116.45
+        },
+        {
+         "bag_pand_id": "0363100012135143",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.37,
+         "b3_opp_buitenmuur": 84.87
+        },
+        {
+         "bag_pand_id": "0363100012137009",
+         "addresses_in_option": 3,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 25.78,
+         "b3_opp_dak_schuin": 152.08,
+         "b3_opp_buitenmuur": 260.31
+        },
+        {
+         "bag_pand_id": "0363100012137996",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 12.74,
+         "b3_opp_dak_schuin": 74.07,
+         "b3_opp_buitenmuur": 118.32
+        },
+        {
+         "bag_pand_id": "0363100012138208",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.16,
+         "b3_opp_dak_schuin": 59.66,
+         "b3_opp_buitenmuur": 93.07
+        },
+        {
+         "bag_pand_id": "0363100012140664",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.31,
+         "b3_opp_dak_schuin": 87.81,
+         "b3_opp_buitenmuur": 99.35
+        },
+        {
+         "bag_pand_id": "0363100012141419",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.38,
+         "b3_opp_dak_schuin": 105.92,
+         "b3_opp_buitenmuur": 106.74
+        },
+        {
+         "bag_pand_id": "0363100012143647",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.49,
+         "b3_opp_dak_schuin": 93.57,
+         "b3_opp_buitenmuur": 102.5
+        },
+        {
+         "bag_pand_id": "0363100012144766",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.97,
+         "b3_opp_dak_schuin": 106.15,
+         "b3_opp_buitenmuur": 121.37
+        },
+        {
+         "bag_pand_id": "0363100012148993",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.0,
+         "b3_opp_dak_schuin": 58.27,
+         "b3_opp_buitenmuur": 99.56
+        },
+        {
+         "bag_pand_id": "0363100012151715",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.85,
+         "b3_opp_buitenmuur": 73.69
+        },
+        {
+         "bag_pand_id": "0363100012152265",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.41,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 79.78
+        },
+        {
+         "bag_pand_id": "0363100012154610",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.32,
+         "b3_opp_dak_schuin": 67.51,
+         "b3_opp_buitenmuur": 122.99
+        }
+       ]
+      },
+      "even": {
+       "addresses": 29,
+       "house_numbers": 29,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012070344",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.61,
+         "b3_opp_dak_schuin": 99.91,
+         "b3_opp_buitenmuur": 100.84
+        },
+        {
+         "bag_pand_id": "0363100012071880",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.8,
+         "b3_opp_dak_schuin": 101.57,
+         "b3_opp_buitenmuur": 132.64
+        },
+        {
+         "bag_pand_id": "0363100012078022",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.05,
+         "b3_opp_dak_schuin": 91.19,
+         "b3_opp_buitenmuur": 99.61
+        },
+        {
+         "bag_pand_id": "0363100012091756",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.27,
+         "b3_opp_dak_schuin": 101.68,
+         "b3_opp_buitenmuur": 99.06
+        },
+        {
+         "bag_pand_id": "0363100012091974",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 14.56,
+         "b3_opp_dak_schuin": 88.42,
+         "b3_opp_buitenmuur": 98.09
+        },
+        {
+         "bag_pand_id": "0363100012102659",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.55,
+         "b3_opp_dak_schuin": 99.32,
+         "b3_opp_buitenmuur": 150.33
+        },
+        {
+         "bag_pand_id": "0363100012107492",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.99,
+         "b3_opp_dak_schuin": 90.34,
+         "b3_opp_buitenmuur": 103.5
+        },
+        {
+         "bag_pand_id": "0363100012121455",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 18.04,
+         "b3_opp_dak_schuin": 89.12,
+         "b3_opp_buitenmuur": 101.13
+        },
+        {
+         "bag_pand_id": "0363100012127361",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.33,
+         "b3_opp_dak_schuin": 98.56,
+         "b3_opp_buitenmuur": 197.42
+        },
+        {
+         "bag_pand_id": "0363100012134188",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 23.56,
+         "b3_opp_dak_schuin": 87.94,
+         "b3_opp_buitenmuur": 116.45
+        },
+        {
+         "bag_pand_id": "0363100012137996",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 12.74,
+         "b3_opp_dak_schuin": 74.07,
+         "b3_opp_buitenmuur": 118.32
+        },
+        {
+         "bag_pand_id": "0363100012140664",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 16.31,
+         "b3_opp_dak_schuin": 87.81,
+         "b3_opp_buitenmuur": 99.35
+        },
+        {
+         "bag_pand_id": "0363100012141419",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.38,
+         "b3_opp_dak_schuin": 105.92,
+         "b3_opp_buitenmuur": 106.74
+        },
+        {
+         "bag_pand_id": "0363100012143647",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 10.49,
+         "b3_opp_dak_schuin": 93.57,
+         "b3_opp_buitenmuur": 102.5
+        },
+        {
+         "bag_pand_id": "0363100012144766",
+         "addresses_in_option": 2,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.97,
+         "b3_opp_dak_schuin": 106.15,
+         "b3_opp_buitenmuur": 121.37
+        }
+       ]
+      },
+      "odd": {
+       "addresses": 27,
+       "house_numbers": 27,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012061310",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.59,
+         "b3_opp_dak_schuin": 58.83,
+         "b3_opp_buitenmuur": 85.18
+        },
+        {
+         "bag_pand_id": "0363100012063561",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.42,
+         "b3_opp_buitenmuur": 75.08
+        },
+        {
+         "bag_pand_id": "0363100012064674",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.46,
+         "b3_opp_buitenmuur": 77.03
+        },
+        {
+         "bag_pand_id": "0363100012065912",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.6,
+         "b3_opp_dak_schuin": 58.31,
+         "b3_opp_buitenmuur": 91.9
+        },
+        {
+         "bag_pand_id": "0363100012077783",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.39,
+         "b3_opp_dak_schuin": 59.08,
+         "b3_opp_buitenmuur": 82.03
+        },
+        {
+         "bag_pand_id": "0363100012077984",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.08,
+         "b3_opp_dak_schuin": 59.43,
+         "b3_opp_buitenmuur": 79.96
+        },
+        {
+         "bag_pand_id": "0363100012078472",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.59,
+         "b3_opp_dak_schuin": 59.14,
+         "b3_opp_buitenmuur": 104.31
+        },
+        {
+         "bag_pand_id": "0363100012081986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.21,
+         "b3_opp_dak_schuin": 60.69,
+         "b3_opp_buitenmuur": 94.81
+        },
+        {
+         "bag_pand_id": "0363100012083986",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.19,
+         "b3_opp_dak_schuin": 60.74,
+         "b3_opp_buitenmuur": 78.43
+        },
+        {
+         "bag_pand_id": "0363100012084256",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 1.13,
+         "b3_opp_dak_schuin": 67.17,
+         "b3_opp_buitenmuur": 81.22
+        },
+        {
+         "bag_pand_id": "0363100012087184",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.59,
+         "b3_opp_buitenmuur": 92.19
+        },
+        {
+         "bag_pand_id": "0363100012100140",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.3,
+         "b3_opp_dak_schuin": 66.23,
+         "b3_opp_buitenmuur": 100.06
+        },
+        {
+         "bag_pand_id": "0363100012102257",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.44,
+         "b3_opp_dak_schuin": 58.82,
+         "b3_opp_buitenmuur": 84.07
+        },
+        {
+         "bag_pand_id": "0363100012105151",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 7.37,
+         "b3_opp_dak_schuin": 65.98,
+         "b3_opp_buitenmuur": 200.32
+        },
+        {
+         "bag_pand_id": "0363100012108812",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 74.3
+        },
+        {
+         "bag_pand_id": "0363100012123643",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 68.72,
+         "b3_opp_buitenmuur": 92.31
+        },
+        {
+         "bag_pand_id": "0363100012125929",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.58,
+         "b3_opp_buitenmuur": 89.13
+        },
+        {
+         "bag_pand_id": "0363100012129433",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.33,
+         "b3_opp_dak_schuin": 59.04,
+         "b3_opp_buitenmuur": 77.53
+        },
+        {
+         "bag_pand_id": "0363100012135143",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 65.37,
+         "b3_opp_buitenmuur": 84.87
+        },
+        {
+         "bag_pand_id": "0363100012137009",
+         "addresses_in_option": 3,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 25.78,
+         "b3_opp_dak_schuin": 152.08,
+         "b3_opp_buitenmuur": 260.31
+        },
+        {
+         "bag_pand_id": "0363100012138208",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 8.16,
+         "b3_opp_dak_schuin": 59.66,
+         "b3_opp_buitenmuur": 93.07
+        },
+        {
+         "bag_pand_id": "0363100012148993",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 15.0,
+         "b3_opp_dak_schuin": 58.27,
+         "b3_opp_buitenmuur": 99.56
+        },
+        {
+         "bag_pand_id": "0363100012151715",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 67.85,
+         "b3_opp_buitenmuur": 73.69
+        },
+        {
+         "bag_pand_id": "0363100012152265",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 0.41,
+         "b3_opp_dak_schuin": 67.96,
+         "b3_opp_buitenmuur": 79.78
+        },
+        {
+         "bag_pand_id": "0363100012154610",
+         "addresses_in_option": 1,
+         "bouwjaar": 1981,
+         "b3_opp_dak_plat": 9.32,
+         "b3_opp_dak_schuin": 67.51,
+         "b3_opp_buitenmuur": 122.99
+        }
+       ]
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-005+DOC-006",
@@ -550,15 +3191,452 @@
    "confirmed_links_in_same_source_cluster": [],
    "snapshot_ids": [
     "BAGSNAP-3a2148d035525161",
+    "BAGSNAP-ccf2e3af94e547c0",
     "BAGSNAP-e047e23c7747051e"
    ],
    "candidate_bag_panden": [
     {
+     "bag_pand_id": "0363100012061310",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-a4437f757439f179f6604a6df4580df6"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012061310",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012063561",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-8568a05651215785067a3e9e2373a002"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012063561",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012064674",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-176da826d302b72ecd126f1b9846cb42"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012064674",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012065912",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-393f6731450c4b0fe693a96c2cae74ef"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012065912",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012070344",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-4e734ff18a78141f3f84f3074871067c",
+      "adr-d17a279cc093939334dd74a51f11def3"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012070344",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-67fa8581b25d7262588101f3695b7913",
+      "adr-ee199fdca7e6c9aa603ad95d8e13fb99"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012071880",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077783",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-c99b810c47841be112ed93216eb27ad0"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077783",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077984",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-45894ac503681f1e1277455890cc01ec"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077984",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-1f9b6387168932dd66f58f83cc83fc96",
+      "adr-36108eb85c996de0b73b491c9ef3c890"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078022",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078472",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-d3139d0709c8c32f5303b4352598c04b"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078472",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012081986",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-aa7635c6f6224e15aef7bc18c8f5e94d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012081986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012083986",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-6829daa43fe80c29caff7089b686356d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012083986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012084256",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-240157ee2b4317afeebdba01973833b1"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012084256",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012087184",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-f3ec048903cc4ebed88d4dd028bce568"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012087184",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-c5ee0e2aa22feb7ce0100d32c59a9b43",
+      "adr-e682859c4cc3a0159f585c6d2634cd5d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091756",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-6f18679ca005c4345d8443ef3d33091b",
+      "adr-7d075af42c207c488c6326eb528a1831"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091974",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012100140",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-a0b52ca279612371e9b928e2d34a3441"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012100140",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102257",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-59886f04431e25a6b72972e38f2a0de2"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102257",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-5de17882076766f2b4087b5821ce31ba",
+      "adr-f24bbd0e1543cb4a4427eae13e341257"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102659",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012105151",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-22a2eb14df8d8c4e46a172b646176371"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012105151",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-626381627089a0a5ef6b08aa23b4fb8e",
+      "adr-f7feec0bde9a86385f4e5bcbf4157767"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012107492",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012108812",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-40a95403da234580c20f030bd9f66f26"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012108812",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-07423ce51abbcf71a6c797ace3f742fc",
+      "adr-2561a648197f1cb45646e70d3f419ea3"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012121455",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012123643",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-be4ecf04ecf3a801d68efa5e38bd20ad"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012123643",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012125929",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-7f4a47bc9a8c2488031031aa3fb54498"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012125929",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
      "bag_pand_id": "0363100012127361",
      "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0",
       "BAGSNAP-e047e23c7747051e"
      ],
      "contains_address_point_of": [
+      "adr-38f0a653263a466e5335253677d3303d",
+      "adr-fcdccebfafa94afc54d9dd831fb68c9b",
       "adr-fcdccebfafa94afc54d9dd831fb68c9b"
      ],
      "bag_properties": {
@@ -571,11 +3649,84 @@
      "has_3dbag_attributes": true
     },
     {
-     "bag_pand_id": "0363100012137996",
+     "bag_pand_id": "0363100012129433",
      "snapshot_ids": [
-      "BAGSNAP-3a2148d035525161"
+      "BAGSNAP-ccf2e3af94e547c0"
      ],
      "contains_address_point_of": [
+      "adr-941dc985180b74a90693d50dba182fe4"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012129433",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-11d5b58979796a03f5aaf082cfa7a612",
+      "adr-3f44ba53b32114f677f0382f96fdcb77"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012134188",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012135143",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-548448d1771413ea9167c1f41bc88769"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012135143",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137009",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-2554bd8f12119491b0502d3be0360832",
+      "adr-51c32e7cb17ff1a41644b9b7647a819d",
+      "adr-b2d66069c673e93c0401cd48e828076d"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137009",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "snapshot_ids": [
+      "BAGSNAP-3a2148d035525161",
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-e2c59424029b7f16e3f06efb87300a15",
       "adr-e2c59424029b7f16e3f06efb87300a15"
      ],
      "bag_properties": {
@@ -586,12 +3737,170 @@
       "status": "Pand in gebruik"
      },
      "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012138208",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-65449a063c796d79adc798070c835268"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012138208",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-8233130f312a0e947727dc0bad83e7be",
+      "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012140664",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-ba5f71c5ce4b0411bca64d07b0359acf",
+      "adr-e420b771bc04f19ba5e4d01a64ec86b4"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012141419",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-67a9a6c61b8b872a57d56229fdfe8ebd",
+      "adr-effa9e8d3eacd89296c0de21067c24fe"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012143647",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-395e3846c8845864c0e76608ee92c551",
+      "adr-d19a8687818b9a9fde7fd239cc741806"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012144766",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012148993",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-f42021737373f0a028f5d417b013f05b"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012148993",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012151715",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-40230632d2ea3eea4569d4fe2d6e8942"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012151715",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012152265",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-32c913ad4234f537ccfcf177e226cc1a"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012152265",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012154610",
+     "snapshot_ids": [
+      "BAGSNAP-ccf2e3af94e547c0"
+     ],
+     "contains_address_point_of": [
+      "adr-4479e03b3ef878ab51f0a3eaf6a557c9"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012154610",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
     }
    ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "MULTIPLE_CANDIDATE_PANDEN"
+    "MULTIPLE_CANDIDATE_PANDEN",
+    "RANGE_BOTH_PARITIES"
    ],
    "status": "CANDIDATES_READY_FOR_REVIEW"
   },
@@ -608,6 +3917,7 @@
    "parsed_address": [],
    "normalized_address": " | leiderdorp",
    "lookup_plan": [],
+   "range_analysis": [],
    "source_cluster": "SC-DOC-007",
    "document_relations": [],
    "same_object_document_ids": [],
@@ -646,16 +3956,41 @@
    "normalized_address": "st. jacobsstraat 251-321",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "St. Jacobsstraat",
-     "number": "251",
+     "number": "251-321",
+     "number_from": "251",
+     "number_to": "321",
      "postcode": null,
      "city": null
-    },
+    }
+   ],
+   "range_analysis": [
     {
      "street": "St. Jacobsstraat",
-     "number": "321",
-     "postcode": null,
-     "city": null
+     "number_from": "251",
+     "number_to": "321",
+     "snapshot_id": "BAGSNAP-1fe9fea76c92a44a",
+     "endpoint_parity": "odd",
+     "both_parities_present": false,
+     "number_of_units_stated": null,
+     "options": {
+      "all": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "even": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "odd": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-008+DOC-009",
@@ -670,6 +4005,7 @@
    "confirmed_links_in_same_source_cluster": [],
    "snapshot_ids": [
     "BAGSNAP-06699ef5082261ff",
+    "BAGSNAP-1fe9fea76c92a44a",
     "BAGSNAP-6a635d53051fe6f1"
    ],
    "candidate_bag_panden": [],
@@ -709,16 +4045,41 @@
    "normalized_address": "st. jacobsstraat 251-321 | utrecht",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "St. Jacobsstraat",
-     "number": "251",
+     "number": "251-321",
+     "number_from": "251",
+     "number_to": "321",
      "postcode": null,
      "city": "Utrecht"
-    },
+    }
+   ],
+   "range_analysis": [
     {
      "street": "St. Jacobsstraat",
-     "number": "321",
-     "postcode": null,
-     "city": "Utrecht"
+     "number_from": "251",
+     "number_to": "321",
+     "snapshot_id": "BAGSNAP-7029187b7e6b36c7",
+     "endpoint_parity": "odd",
+     "both_parities_present": false,
+     "number_of_units_stated": 30,
+     "options": {
+      "all": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "even": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "odd": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-008+DOC-009",
@@ -732,6 +4093,7 @@
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
    "snapshot_ids": [
+    "BAGSNAP-7029187b7e6b36c7",
     "BAGSNAP-aebb3209b7d3fa6d",
     "BAGSNAP-e34b7f745399d387"
    ],
@@ -786,18 +4148,21 @@
    "normalized_address": "zomerdijkstraat 14; uiterwaardenstraat 141 | 1079XB amsterdam",
    "lookup_plan": [
     {
+     "kind": "single",
      "street": "Zomerdijkstraat",
      "number": "14",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
+     "kind": "single",
      "street": "Uiterwaardenstraat",
      "number": "141",
      "postcode": null,
      "city": "Amsterdam"
     }
    ],
+   "range_analysis": [],
    "source_cluster": "SC-DOC-010",
    "document_relations": [],
    "same_object_document_ids": [],
@@ -845,6 +4210,7 @@
    "parsed_address": [],
    "normalized_address": "",
    "lookup_plan": [],
+   "range_analysis": [],
    "source_cluster": "SC-DOC-011",
    "document_relations": [],
    "same_object_document_ids": [],
@@ -891,12 +4257,14 @@
    "normalized_address": "meppelweg 819 | 2544AW den haag",
    "lookup_plan": [
     {
+     "kind": "single",
      "street": "Meppelweg",
      "number": "819",
      "postcode": "2544 AW",
      "city": "Den Haag"
     }
    ],
+   "range_analysis": [],
    "source_cluster": "SC-DOC-012",
    "document_relations": [],
    "same_object_document_ids": [],
@@ -963,28 +4331,218 @@
    "normalized_address": "vechtstraat 13/15/17/19 | amsterdam",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "Vechtstraat",
-     "number": "13",
+     "number": "13-13",
+     "number_from": "13",
+     "number_to": "13",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
+     "kind": "range",
      "street": "Vechtstraat",
-     "number": "15",
+     "number": "15-15",
+     "number_from": "15",
+     "number_to": "15",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
+     "kind": "range",
      "street": "Vechtstraat",
-     "number": "17",
+     "number": "17-17",
+     "number_from": "17",
+     "number_to": "17",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
+     "kind": "range",
      "street": "Vechtstraat",
-     "number": "19",
+     "number": "19-19",
+     "number_from": "19",
+     "number_to": "19",
      "postcode": null,
      "city": "Amsterdam"
+    }
+   ],
+   "range_analysis": [
+    {
+     "street": "Vechtstraat",
+     "number_from": "13",
+     "number_to": "13",
+     "snapshot_id": "BAGSNAP-ff62e7f3932a280f",
+     "endpoint_parity": "odd",
+     "both_parities_present": false,
+     "number_of_units_stated": 11,
+     "options": {
+      "all": {
+       "addresses": 4,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012109244",
+         "addresses_in_option": 4,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 89.5,
+         "b3_opp_dak_schuin": 6.85,
+         "b3_opp_buitenmuur": 270.5
+        }
+       ]
+      },
+      "even": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "odd": {
+       "addresses": 4,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012109244",
+         "addresses_in_option": 4,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 89.5,
+         "b3_opp_dak_schuin": 6.85,
+         "b3_opp_buitenmuur": 270.5
+        }
+       ]
+      }
+     }
+    },
+    {
+     "street": "Vechtstraat",
+     "number_from": "15",
+     "number_to": "15",
+     "snapshot_id": "BAGSNAP-e0ac8a475faae3d7",
+     "endpoint_parity": "odd",
+     "both_parities_present": false,
+     "number_of_units_stated": 11,
+     "options": {
+      "all": {
+       "addresses": 3,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012124984",
+         "addresses_in_option": 3,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 74.37,
+         "b3_opp_dak_schuin": 0.0,
+         "b3_opp_buitenmuur": 248.49
+        }
+       ]
+      },
+      "even": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "odd": {
+       "addresses": 3,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012124984",
+         "addresses_in_option": 3,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 74.37,
+         "b3_opp_dak_schuin": 0.0,
+         "b3_opp_buitenmuur": 248.49
+        }
+       ]
+      }
+     }
+    },
+    {
+     "street": "Vechtstraat",
+     "number_from": "17",
+     "number_to": "17",
+     "snapshot_id": "BAGSNAP-d658ff8d1e924edd",
+     "endpoint_parity": "odd",
+     "both_parities_present": false,
+     "number_of_units_stated": 11,
+     "options": {
+      "all": {
+       "addresses": 1,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012124984",
+         "addresses_in_option": 1,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 74.37,
+         "b3_opp_dak_schuin": 0.0,
+         "b3_opp_buitenmuur": 248.49
+        }
+       ]
+      },
+      "even": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "odd": {
+       "addresses": 1,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012124984",
+         "addresses_in_option": 1,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 74.37,
+         "b3_opp_dak_schuin": 0.0,
+         "b3_opp_buitenmuur": 248.49
+        }
+       ]
+      }
+     }
+    },
+    {
+     "street": "Vechtstraat",
+     "number_from": "19",
+     "number_to": "19",
+     "snapshot_id": "BAGSNAP-8803c6b5708e5a2c",
+     "endpoint_parity": "odd",
+     "both_parities_present": false,
+     "number_of_units_stated": 11,
+     "options": {
+      "all": {
+       "addresses": 3,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012124445",
+         "addresses_in_option": 3,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 68.25,
+         "b3_opp_dak_schuin": 29.42,
+         "b3_opp_buitenmuur": 216.06
+        }
+       ]
+      },
+      "even": {
+       "addresses": 0,
+       "house_numbers": 0,
+       "panden": []
+      },
+      "odd": {
+       "addresses": 3,
+       "house_numbers": 1,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012124445",
+         "addresses_in_option": 3,
+         "bouwjaar": 1923,
+         "b3_opp_dak_plat": 68.25,
+         "b3_opp_dak_schuin": 29.42,
+         "b3_opp_buitenmuur": 216.06
+        }
+       ]
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-013",
@@ -995,16 +4553,65 @@
     "BAGSNAP-207e6b1b5d32900b",
     "BAGSNAP-511748e792e1a3ae",
     "BAGSNAP-578ead0bda0e6e90",
-    "BAGSNAP-b381148100ffcb0d"
+    "BAGSNAP-8803c6b5708e5a2c",
+    "BAGSNAP-b381148100ffcb0d",
+    "BAGSNAP-d658ff8d1e924edd",
+    "BAGSNAP-e0ac8a475faae3d7",
+    "BAGSNAP-ff62e7f3932a280f"
    ],
    "candidate_bag_panden": [
     {
-     "bag_pand_id": "0363100012124984",
+     "bag_pand_id": "0363100012109244",
      "snapshot_ids": [
-      "BAGSNAP-b381148100ffcb0d"
+      "BAGSNAP-ff62e7f3932a280f"
      ],
      "contains_address_point_of": [
-      "adr-609e0e835ba3c567b01fb81a36a85829"
+      "adr-0369da8ce88207eabeee68bb0cbb4bca",
+      "adr-1fe356be5c22ee616e50905aa1e4158f",
+      "adr-9b4adab84eeda84ee686be97ff491843",
+      "adr-abca72834ba445453e63ea099b957ba2"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1923,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012109244",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012124445",
+     "snapshot_ids": [
+      "BAGSNAP-8803c6b5708e5a2c"
+     ],
+     "contains_address_point_of": [
+      "adr-4af35ce3f1b6548bba24fd0eb1500ad2",
+      "adr-61ee0d66dfb0bc47ab9082ee4611d42a",
+      "adr-82abedd93ec6ce7a17958905981a3243"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1923,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012124445",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012124984",
+     "snapshot_ids": [
+      "BAGSNAP-b381148100ffcb0d",
+      "BAGSNAP-d658ff8d1e924edd",
+      "BAGSNAP-e0ac8a475faae3d7"
+     ],
+     "contains_address_point_of": [
+      "adr-609e0e835ba3c567b01fb81a36a85829",
+      "adr-609e0e835ba3c567b01fb81a36a85829",
+      "adr-5d33eeba1a57c5f675cb4f6adc4025d0",
+      "adr-62754576ce0ae16d0854ce3efca4f060",
+      "adr-9bdfb18fc97df939327d78882ded78e1"
      ],
      "bag_properties": {
       "aantal_verblijfsobjecten": 4,
@@ -1019,6 +4626,7 @@
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
+    "MULTIPLE_CANDIDATE_PANDEN",
     "OBJECT_NAME_ADDRESS_DIFFERS",
     "POSTCODE_MISSING"
    ],
@@ -1058,16 +4666,140 @@
    "normalized_address": "groetstraat 110-140 | amsterdam",
    "lookup_plan": [
     {
+     "kind": "range",
      "street": "Groetstraat",
-     "number": "110",
+     "number": "110-140",
+     "number_from": "110",
+     "number_to": "140",
      "postcode": null,
      "city": "Amsterdam"
-    },
+    }
+   ],
+   "range_analysis": [
     {
      "street": "Groetstraat",
-     "number": "140",
-     "postcode": null,
-     "city": "Amsterdam"
+     "number_from": "110",
+     "number_to": "140",
+     "snapshot_id": "BAGSNAP-e32316ff75a8616b",
+     "endpoint_parity": "even",
+     "both_parities_present": true,
+     "number_of_units_stated": null,
+     "options": {
+      "all": {
+       "addresses": 31,
+       "house_numbers": 31,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012094004",
+         "addresses_in_option": 8,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 227.23,
+         "b3_opp_buitenmuur": 516.16
+        },
+        {
+         "bag_pand_id": "0363100012100560",
+         "addresses_in_option": 8,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.41,
+         "b3_opp_buitenmuur": 372.78
+        },
+        {
+         "bag_pand_id": "0363100012139052",
+         "addresses_in_option": 7,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 186.12,
+         "b3_opp_buitenmuur": 445.93
+        },
+        {
+         "bag_pand_id": "0363100012140366",
+         "addresses_in_option": 8,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 6.83,
+         "b3_opp_dak_schuin": 212.32,
+         "b3_opp_buitenmuur": 385.92
+        }
+       ]
+      },
+      "even": {
+       "addresses": 16,
+       "house_numbers": 16,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012094004",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 227.23,
+         "b3_opp_buitenmuur": 516.16
+        },
+        {
+         "bag_pand_id": "0363100012100560",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.41,
+         "b3_opp_buitenmuur": 372.78
+        },
+        {
+         "bag_pand_id": "0363100012139052",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 186.12,
+         "b3_opp_buitenmuur": 445.93
+        },
+        {
+         "bag_pand_id": "0363100012140366",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 6.83,
+         "b3_opp_dak_schuin": 212.32,
+         "b3_opp_buitenmuur": 385.92
+        }
+       ]
+      },
+      "odd": {
+       "addresses": 15,
+       "house_numbers": 15,
+       "panden": [
+        {
+         "bag_pand_id": "0363100012094004",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 227.23,
+         "b3_opp_buitenmuur": 516.16
+        },
+        {
+         "bag_pand_id": "0363100012100560",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 214.41,
+         "b3_opp_buitenmuur": 372.78
+        },
+        {
+         "bag_pand_id": "0363100012139052",
+         "addresses_in_option": 3,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 0.0,
+         "b3_opp_dak_schuin": 186.12,
+         "b3_opp_buitenmuur": 445.93
+        },
+        {
+         "bag_pand_id": "0363100012140366",
+         "addresses_in_option": 4,
+         "bouwjaar": 1966,
+         "b3_opp_dak_plat": 6.83,
+         "b3_opp_dak_schuin": 212.32,
+         "b3_opp_buitenmuur": 385.92
+        }
+       ]
+      }
+     }
     }
    ],
    "source_cluster": "SC-DOC-015",
@@ -1076,16 +4808,26 @@
    "confirmed_links_in_same_source_cluster": [],
    "snapshot_ids": [
     "BAGSNAP-382746621cc0b771",
-    "BAGSNAP-d926412007442afd"
+    "BAGSNAP-d926412007442afd",
+    "BAGSNAP-e32316ff75a8616b"
    ],
    "candidate_bag_panden": [
     {
      "bag_pand_id": "0363100012094004",
      "snapshot_ids": [
-      "BAGSNAP-d926412007442afd"
+      "BAGSNAP-d926412007442afd",
+      "BAGSNAP-e32316ff75a8616b"
      ],
      "contains_address_point_of": [
-      "adr-0478e04774bc8e4f23d5b80104ecac0f"
+      "adr-0478e04774bc8e4f23d5b80104ecac0f",
+      "adr-0478e04774bc8e4f23d5b80104ecac0f",
+      "adr-2a429f022c637dccce633a5e2fd7e7c4",
+      "adr-5cecaba50b2e19bc1ee6edd61ab70228",
+      "adr-acd3acb1461dced028e3c98f528020de",
+      "adr-b16209b3c38719efa85059f1460e70db",
+      "adr-bbd909b4ba2c91b1189567fb8dcb407d",
+      "adr-e4977e31d6a24262b6cade7e7b1e8feb",
+      "adr-fa609b55d94207ccf22081e4511f228f"
      ],
      "bag_properties": {
       "aantal_verblijfsobjecten": 11,
@@ -1097,12 +4839,44 @@
      "has_3dbag_attributes": true
     },
     {
-     "bag_pand_id": "0363100012139052",
+     "bag_pand_id": "0363100012100560",
      "snapshot_ids": [
-      "BAGSNAP-382746621cc0b771"
+      "BAGSNAP-e32316ff75a8616b"
      ],
      "contains_address_point_of": [
-      "adr-ab76cdc15c950829c72ae81cc1feeb41"
+      "adr-0ed69089c386724bbd22818b5a24aee2",
+      "adr-5a87f06aea92171e343f90a55ad2c146",
+      "adr-88de1a018f45cd017bb16e6468b018a4",
+      "adr-a36e4c7154c332733b5afbaa4be6a04b",
+      "adr-b040cab4de9a965aa42a78014c7901b0",
+      "adr-dc7f36b9b36b712b5026be02bd8c8ae6",
+      "adr-f38065808f04bc9f542c6d15fc3b87d4",
+      "adr-fc76d6c7f5aebe1e9f5ad4743f3838cb"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 8,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "industriefunctie,woonfunctie",
+      "identificatie": "0363100012100560",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012139052",
+     "snapshot_ids": [
+      "BAGSNAP-382746621cc0b771",
+      "BAGSNAP-e32316ff75a8616b"
+     ],
+     "contains_address_point_of": [
+      "adr-ab76cdc15c950829c72ae81cc1feeb41",
+      "adr-034f49d617cfedd77378e7a77117839a",
+      "adr-67434572acb5e97c114c50b33bbd4bf9",
+      "adr-83aede130103d687bc0982d99811f8be",
+      "adr-906146dc62bf4f74e658b98b016160dc",
+      "adr-ab76cdc15c950829c72ae81cc1feeb41",
+      "adr-acccbd8ac00b86c8cf22fcdaa4ba4c10",
+      "adr-fd8f8cef7978f384894e3510dbbf1224"
      ],
      "bag_properties": {
       "aantal_verblijfsobjecten": 7,
@@ -1112,13 +4886,38 @@
       "status": "Pand in gebruik"
      },
      "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012140366",
+     "snapshot_ids": [
+      "BAGSNAP-e32316ff75a8616b"
+     ],
+     "contains_address_point_of": [
+      "adr-3c5812317b6404ccaf5aafa3b9e494eb",
+      "adr-4eae20760f09ab73cdaed58fb5b24e7a",
+      "adr-5853d846388c487c7de1704e468c90e2",
+      "adr-76c7458dbdedd4fbc12202f9aabe3a76",
+      "adr-772daeac332a28d3f93cd04ab95df834",
+      "adr-81c9751ec541a86b04cf4a6c80255b23",
+      "adr-85c95fb7a25ad139482f53b393ad3929",
+      "adr-eafebce73df590a47da74b006c23e395"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 8,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "industriefunctie,woonfunctie",
+      "identificatie": "0363100012140366",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
     }
    ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
     "MULTIPLE_CANDIDATE_PANDEN",
-    "POSTCODE_MISSING"
+    "POSTCODE_MISSING",
+    "RANGE_BOTH_PARITIES"
    ],
    "status": "CANDIDATES_READY_FOR_REVIEW"
   }

@@ -139,6 +139,82 @@ def test_snapshot_city_alias_den_haag():
     assert bs.exact_address_match(doc, "Meppelweg", "819", "2544 AW", "Rotterdam") is False
 
 
+def raddr(nr, lon, lat, street="Teststraat", city="Amsterdam", toev=None):
+    return {"id": f"adr-{nr}{toev or ''}", "weergavenaam": f"{street} {nr}{('-' + toev) if toev else ''}, {city}", "straatnaam": street,
+            "huisnummer": nr, "huisnummertoevoeging": toev, "postcode": "1106EZ", "woonplaatsnaam": city,
+            "centroide_ll": f"POINT({lon} {lat})"}
+
+
+def range_http(missing_3dbag=()):
+    """Pand A (lon 4.950) bevat nr 2 en 4; pand B (lon 4.953) bevat nr 3, 5 en 5-1. Plus ruis: nr 9 (buiten het
+    bereik), nr 3 in een andere woonplaats en een andere straat."""
+    specs = {"0363100000000010": (4.950, LAT, ATTRS), "0363100000000011": (4.953, LAT, dict(ATTRS, b3_opp_dak_plat=50.5))}
+    docs = [raddr(2, 4.950, LAT), raddr(4, 4.95002, LAT), raddr(3, 4.953, LAT), raddr(5, 4.95302, LAT), raddr(5, 4.95301, LAT, toev="1"),
+            raddr(9, 4.953, LAT), raddr(3, 4.953, LAT, city="Zwolle"), raddr(3, 4.953, LAT, street="Teststraatje")]
+    base = fake_http(specs, docs)
+
+    def get(url):
+        if "3dbag" in url and url.rsplit(".", 1)[1] in missing_3dbag:
+            base.calls.append(url)
+            return 502, {"non_json_body": "Bad Gateway"}
+        return base(url)
+    get.calls = base.calls
+    return get
+
+
+def test_lookup_plan_range_and_list():
+    plan = bl.lookup_plan(bl.parse_address("Maldenhof 240 - 296"), "1106 EZ", "Amsterdam")
+    assert plan == [{"kind": "range", "street": "Maldenhof", "number": "240-296", "number_from": "240", "number_to": "296",
+                     "postcode": None, "city": "Amsterdam"}]
+    plan = bl.lookup_plan(bl.parse_address("Vechtstraat 13-15-17"), None, "Amsterdam")
+    assert [(p["kind"], p["number_from"], p["number_to"]) for p in plan] == [("range", "13", "13"), ("range", "15", "15"), ("range", "17", "17")]
+    assert bl.lookup_plan(bl.parse_address("Astraat 1"), None, "X")[0]["kind"] == "single"
+
+
+def test_range_snapshot_all_addresses_and_parity_options():
+    http = range_http()
+    snap = bs.fetch_range_snapshot("DOC-005", "Teststraat", "2", "5", None, "Amsterdam", http_get=http, fetched_at=T)
+    assert bs.snapshot_errors(snap) == []
+    assert snap["snapshot_kind"] == "range"
+    exact = sorted(m["pdok_id"] for m in snap["address_matches"] if m["exact_match"])
+    assert exact == ["adr-2", "adr-3", "adr-4", "adr-5", "adr-51"]            # toevoeging telt mee; 9, Zwolle en Teststraatje niet
+    assert [p["bag_pand_id"] for p in snap["panden"]] == ["0363100000000010", "0363100000000011"]
+    assert sum(1 for u in http.calls if "bag/ogc" in u) == 1                  # één BAG-vraag voor het hele bereik
+    q = urllib.parse.parse_qs(urllib.parse.urlparse(http.calls[0]).query)
+    assert "huisnummer:[2 TO 5]" in q["fq"] and 'woonplaatsnaam:"Amsterdam"' in q["fq"]
+    entry = bl.lookup_plan(bl.parse_address("Teststraat 2-5"), None, "Amsterdam")[0]
+    ra = bl.range_analysis(entry, snap, number_of_units=3)
+    assert ra["both_parities_present"] is True and ra["endpoint_parity"] == "mixed"
+    assert [p["bag_pand_id"] for p in ra["options"]["even"]["panden"]] == ["0363100000000010"]
+    assert [p["bag_pand_id"] for p in ra["options"]["odd"]["panden"]] == ["0363100000000011"]
+    assert ra["options"]["odd"]["addresses"] == 3 and ra["options"]["odd"]["house_numbers"] == 2
+    assert ra["options"]["all"]["addresses"] == 5
+    assert ra["number_of_units_stated"] == 3                                  # alleen ernaast, er wordt niets gekozen
+
+
+def test_range_snapshot_records_missing_3dbag_without_inventing():
+    snap = bs.fetch_range_snapshot("DOC-005", "Teststraat", "2", "5", None, "Amsterdam",
+                                   http_get=range_http(missing_3dbag=("0363100000000011",)), fetched_at=T)
+    assert bs.snapshot_errors(snap) == []
+    tb = {p["bag_pand_id"]: p["threedbag"] for p in snap["panden"]}
+    assert tb["0363100000000011"]["http_status"] == 502 and tb["0363100000000011"]["attributes"] is None
+    assert tb["0363100000000010"]["http_status"] == 200
+
+
+def test_single_snapshot_still_fails_on_missing_3dbag():
+    http = fake_http({"0363100000000001": (LON, LAT, ATTRS)}, [addr("Teststraat", "240", "1106 EZ")])
+
+    def get(url):
+        return (502, {}) if "3dbag" in url else http(url)
+    with pytest.raises(bs.SnapshotError):
+        bs.fetch_snapshot("DOC-005", "Teststraat", "240", "1106 EZ", None, http_get=get, fetched_at=T)
+
+
+def test_range_snapshot_rejects_empty_range():
+    with pytest.raises(bs.SnapshotError):
+        bs.fetch_range_snapshot("DOC-005", "Teststraat", "9", "2", None, None, http_get=range_http())
+
+
 def test_snapshot_network_failure_raises():
     def broken(url):
         raise bs.SnapshotError("egress geweigerd")
