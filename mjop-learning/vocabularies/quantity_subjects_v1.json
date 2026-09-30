@@ -1,0 +1,47 @@
+{
+  "$id": "quantity_subjects_v1",
+  "description": "Hoeveelheidsonderwerpen (quantity subjects) voor building-level evidence, de 3D BAG-regels die ze meten en de VOORGESTELDE koppeling naar historische elementhoeveelheden (docs/building_link_3dbag_evidence_v1.md). Een koppeling historisch -> onderwerp telt pas mee als een mens haar heeft geverifieerd (data/crosswalk_decisions/crosswalk_decision_records.json). Geen fuzzy matching: alleen exacte interne element_code + eenheid.",
+  "version": "1.0.0",
+  "subjects": [
+    {"subject_key": "ROOF_FLAT_AREA", "unit": "m2", "label_nl": "Plat dakoppervlak", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "ROOF_SLOPED_AREA", "unit": "m2", "label_nl": "Hellend dakoppervlak (hellend vlak, niet de projectie)", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "ROOF_TOTAL_AREA", "unit": "m2", "label_nl": "Totaal dakoppervlak (plat + hellend)", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "OUTER_WALL_GROSS_AREA", "unit": "m2", "label_nl": "Buitenmuuroppervlak bruto (openingen niet afgetrokken)", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "BUILDING_HEIGHT", "unit": "m", "label_nl": "Gebouwhoogte (hoogste dakpunt - maaiveld)", "quantity_kind": "ELEMENT_QUANTITY"}
+  ],
+  "bag3d_rules": [
+    {"rule_id": "bag3d.roof_flat_area", "rule_version": "1.0.0", "subject_key": "ROOF_FLAT_AREA", "method_class": "DIRECT_MEASURED",
+     "fields": ["b3_opp_dak_plat"], "formula": "b3_opp_dak_plat", "status": "ACTIVE"},
+    {"rule_id": "bag3d.roof_sloped_area", "rule_version": "1.0.0", "subject_key": "ROOF_SLOPED_AREA", "method_class": "DIRECT_MEASURED",
+     "fields": ["b3_opp_dak_schuin"], "formula": "b3_opp_dak_schuin", "status": "ACTIVE"},
+    {"rule_id": "bag3d.roof_total_area", "rule_version": "1.0.0", "subject_key": "ROOF_TOTAL_AREA", "method_class": "GEOMETRY_DERIVED",
+     "fields": ["b3_opp_dak_plat", "b3_opp_dak_schuin"], "formula": "b3_opp_dak_plat + b3_opp_dak_schuin", "status": "ACTIVE"},
+    {"rule_id": "bag3d.outer_wall_gross_area", "rule_version": "1.0.0", "subject_key": "OUTER_WALL_GROSS_AREA", "method_class": "DIRECT_MEASURED",
+     "fields": ["b3_opp_buitenmuur"], "formula": "b3_opp_buitenmuur", "status": "ACTIVE"},
+    {"rule_id": "bag3d.building_height", "rule_version": "1.0.0", "subject_key": "BUILDING_HEIGHT", "method_class": "GEOMETRY_DERIVED",
+     "fields": ["b3_h_dak_max", "b3_h_maaiveld"], "formula": "b3_h_dak_max - b3_h_maaiveld", "status": "ACTIVE"}
+  ],
+  "bag3d_field_verification": {
+    "status": "USED_IN_MJOP_APP_NOT_VERIFIED_AGAINST_LIVE_API",
+    "note": "Alle velden hierboven worden al gelezen door MJOP-App (src/app.js, lookupBuilding: b3_opp_dak_plat, b3_opp_dak_schuin, b3_opp_buitenmuur, b3_opp_grond, b3_bouwlagen, b3_dak_type, b3_h_dak_max, b3_h_maaiveld). De 3D BAG-documentatie en -API waren vanuit de ontwikkelomgeving niet bereikbaar (egress geweigerd); de veldnamen zijn dus niet opnieuw tegen de live bron gecontroleerd. b3_opp_grond, b3_bouwlagen en b3_dak_type worden als context bewaard, niet als hoeveelheid.",
+    "context_fields": ["b3_opp_grond", "b3_bouwlagen", "b3_dak_type", "b3_opp_scheidingsmuur"]
+  },
+  "historical_subject_mappings": [
+    {"mapping_id": "HSM-ROOF_FLAT_AREA-4711-m2", "subject_key": "ROOF_FLAT_AREA", "element_code_internal": "4711", "unit_normalized": "m2",
+     "status": "PROPOSED", "human_verified": false,
+     "evidence": "vocabularies/element_code.json: 4711 = 'Dakbedekking (APP/bitumen)'. Elementenoverzichten: o.a. 'Dakbedekking bitumen' 117,00 m2 (DOC-002), 'Dakbedekking APP' 425,80 m2 (DOC-005).",
+     "caveats": ["4711 bevat ook dakrandafwerking/randstroken in m1; alleen m2-rijen komen in aanmerking",
+                 "dakbedekking in een MJOP kan opstanden/overlappen bevatten; 3D BAG b3_opp_dak_plat is het modeloppervlak",
+                 "een document met meerdere 4711-m2-rijen wordt niet opgeteld (geen aggregatie)"]},
+    {"mapping_id": "HSM-ROOF_SLOPED_AREA-4712-m2", "subject_key": "ROOF_SLOPED_AREA", "element_code_internal": "4712", "unit_normalized": "m2",
+     "status": "PROPOSED", "human_verified": false,
+     "evidence": "vocabularies/element_code.json: 4712 = 'Dakrandafwerking / dakpan / loodslab hellend dak'. Elementenoverzicht DOC-001: 'Dakpan beton' 1944,00 m2.",
+     "caveats": ["4712 is een gemengde code (dakpan, dakrand, loodslab); alleen m2-rijen komen in aanmerking en ook die kunnen niet-dakpan zijn",
+                 "een document met meerdere 4712-m2-rijen wordt niet opgeteld"]}
+  ],
+  "not_mapped": [
+    {"subject_key": "OUTER_WALL_GROSS_AREA", "element_code_internal": "2110", "reason": "2110 'Gevelconstructie metselwerk' is netto metselwerk (en per gevel/locatie); 3D BAG b3_opp_buitenmuur is bruto buitenmuur incl. openingen en ander gevelmateriaal. Semantisch niet hetzelfde onderwerp."},
+    {"subject_key": "ROOF_TOTAL_AREA", "element_code_internal": null, "reason": "Geen historische code voor totaal dakoppervlak; optellen van 4711 + 4712 zou aggregatie zijn."},
+    {"subject_key": "BUILDING_HEIGHT", "element_code_internal": null, "reason": "Geen historische elementhoeveelheid."}
+  ]
+}

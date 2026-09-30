@@ -70,6 +70,16 @@ def make_subject_id(building_id, element_code_internal, location_scope, unit_nor
     return "QS-" + canonical_sha256(key)[:16]
 
 
+def make_building_subject_id(building_id, subject_key, unit_normalized, quantity_kind="ELEMENT_QUANTITY"):
+    """Onderwerp-ID voor een gebouwbreed hoeveelheidsonderwerp uit vocabularies/quantity_subjects_v1.json
+    (bijv. ROOF_FLAT_AREA). Deterministisch, zonder vrije tekst."""
+    if not building_id or not subject_key:
+        raise QuantityEvidenceError("building_id en subject_key zijn verplicht")
+    if quantity_kind not in QUANTITY_KINDS:
+        raise QuantityEvidenceError(f"onbekende quantity_kind {quantity_kind!r}")
+    return "QS-" + canonical_sha256(["building_subject", building_id, subject_key, unit_normalized, quantity_kind])[:16]
+
+
 # --------------------------------------------------------------------------
 # Evidence
 # --------------------------------------------------------------------------
@@ -111,7 +121,8 @@ def make_evidence(*, building_id, subject, value, unit_normalized, method_class,
     return body
 
 
-def evidence_from_quantity_observation(qo, *, building_id, subject_id, building_link_ref, input_hashes=None):
+def evidence_from_quantity_observation(qo, *, building_id, subject_id, building_link_ref, input_hashes=None,
+                                       subject_key=None, mapping_ref=None):
     """Mapt een historische elementhoeveelheid (quantity observation) naar evidence voor een concreet gebouw.
 
     building_link_ref: verwijzing naar de menselijke beslissing dat dit document over dit gebouw gaat
@@ -129,6 +140,8 @@ def evidence_from_quantity_observation(qo, *, building_id, subject_id, building_
         "material_normalized": el.get("material_normalized"),
         "quantity_kind": "ELEMENT_QUANTITY",
     }
+    if subject_key:
+        subject["subject_key"] = subject_key
     reasons = list(qo.get("review_reasons", []))
     if not qo.get("measurable"):
         reasons.append("NOT_A_MEASURED_QUANTITY")
@@ -137,7 +150,8 @@ def evidence_from_quantity_observation(qo, *, building_id, subject_id, building_
         method_class="SOURCE_REPORTED", source_type="MJOP_ELEMENT_OVERVIEW",
         source_ref={"document_id": qo["document_id"], "quantity_observation_id": qo["quantity_observation_id"],
                     "source_sha256": (qo.get("source_file") or {}).get("sha256"), "provenance": qo.get("provenance"),
-                    "quantity_as_stated": qo.get("quantity_as_stated"), "building_link_ref": building_link_ref},
+                    "quantity_as_stated": qo.get("quantity_as_stated"), "building_link_ref": building_link_ref,
+                    "subject_mapping_ref": mapping_ref},
         dependency={"source_cluster": qo.get("source_cluster"),
                     "same_object_document_ids": (qo.get("dependency") or {}).get("same_object_document_ids", []),
                     "identical_in_same_object_documents": (qo.get("dependency") or {}).get("identical_in_same_object_documents", [])},

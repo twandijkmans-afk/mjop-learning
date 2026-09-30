@@ -1,0 +1,851 @@
+{
+ "report_version": "building_link_candidates_v1",
+ "rule_version": "building_link_rules_v1",
+ "note": "Read-only kandidatenrapport. Beslist niets; een link ontstaat alleen via 'building_links.py record' door een mens.",
+ "vocabulary": {
+  "NO_STATED_ADDRESS": "het document noemt geen adres in het objectblad",
+  "ADDRESS_FROM_OBJECT_NAME": "adres alleen afgeleid uit de objectnaam (VvE-naam), niet uit een adresveld",
+  "ADDRESS_NOT_PARSED": "adres(deel) niet deterministisch te ontleden",
+  "MULTIPLE_STREETS": "meerdere straten: waarschijnlijk meerdere panden",
+  "ADDRESS_RANGE": "huisnummerbereik: aantal panden en even/oneven onbekend",
+  "POSTCODE_MISSING": "geen postcode in het document",
+  "CITY_MISSING": "geen plaats in het document",
+  "OBJECT_NAME_ADDRESS_DIFFERS": "adres in de objectnaam verschilt van het adresveld",
+  "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT": "een document over hetzelfde object noemt het adres anders (geen fuzzy gelijkstelling)",
+  "SUBPLAN_SCOPE": "deelplan van een complex: de panden kunnen gelijk zijn, de scope van de hoeveelheden niet",
+  "NO_BAG_SNAPSHOT": "nog geen BAG/3D BAG-snapshot voor dit document (ophalen vereist netwerktoegang)",
+  "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH": "snapshot aanwezig maar geen exact overeenkomend adres",
+  "MULTIPLE_CANDIDATE_PANDEN": "meerdere kandidaat-panden: elk pand apart bevestigen of afwijzen"
+ },
+ "input_hashes": {
+  "verified_sha256": {
+   "DOC-001": "89533abb1d58f96d992fe534edfdc06acb7574c790de74278a7e2694eff962ec",
+   "DOC-002": "4b29ad90684368254bb1f03eef2ec2eeddeebb7d6c00e51bfb283a57bb26aa2d",
+   "DOC-004": "4dbff59c947ebfc0dd90d09009b8bed3feffe9435ef8eb6d6ffc28f491550460",
+   "DOC-005": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+   "DOC-006": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+   "DOC-007": "5155b6aff7377b06b8861b97c550bf93e7280d497438a4862f365da27dc7a24e",
+   "DOC-008": "f65a10cc90cbcabf9feda645687d0fd1e07aceed27a874db7a50b14abdc6a4ce",
+   "DOC-009": "b67bee8e53353311aa22f8336efed91980748be8ea7a3ae039f9bfe32b142046",
+   "DOC-010": "348e0d31c53f83d63680c8b8d4e9657f31cda6122bb1f318f660ced8108f0a9c",
+   "DOC-011": "b99c67ce8557f4bcdb896ec4c408484b0d6b66424f57e82a8be950b355bf2bc6",
+   "DOC-012": "f6844d6d87963ff4c790321f0650660fb27182c1e85556eae5cdb7670519a312",
+   "DOC-013": "454225afd02a1180ffccaf6aaa6bc5d0de9ec07d5b4c6f7ef73341befcf16c8d",
+   "DOC-015": "ac5ed464992d08362dd1238edd7b160757b526448ada9c47c6b22f5527f77d07"
+  },
+  "snapshot_ids": [],
+  "link_store_sha256": "271e5d44200d851a1580c7766753afe55f615d2e199054c35d85222c74ea516c"
+ },
+ "summary": {
+  "documents": 13,
+  "by_status": {
+   "AWAITING_BAG_SNAPSHOT": 11,
+   "NO_ADDRESS": 2
+  },
+  "confirmed_links": 0,
+  "documents_with_multiple_confirmed_panden": [],
+  "review_reasons": {
+   "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT": 2,
+   "ADDRESS_FROM_OBJECT_NAME": 2,
+   "ADDRESS_RANGE": 7,
+   "CITY_MISSING": 2,
+   "MULTIPLE_STREETS": 4,
+   "NO_BAG_SNAPSHOT": 13,
+   "NO_STATED_ADDRESS": 4,
+   "OBJECT_NAME_ADDRESS_DIFFERS": 3,
+   "POSTCODE_MISSING": 8,
+   "SUBPLAN_SCOPE": 2
+  }
+ },
+ "documents": [
+  {
+   "document_id": "DOC-001",
+   "address_as_stated": "Alkmaarstraat 1-83 en Groetstraat 189-217",
+   "address_provenance": {
+    "block_id": "P02-L008",
+    "document_id": "DOC-001",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Alkmaarstraat 1-83 en Groetstraat 189-217"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE Alkmaarstraat 1-83 en Groetstraat 189-217",
+   "postcode": null,
+   "city": "Amsterdam",
+   "construction_year": 1966,
+   "number_of_units": null,
+   "parsed_address": [
+    {
+     "street": "Alkmaarstraat",
+     "kind": "range",
+     "numbers": [
+      "1",
+      "83"
+     ],
+     "text": "Alkmaarstraat 1-83"
+    },
+    {
+     "street": "Groetstraat",
+     "kind": "range",
+     "numbers": [
+      "189",
+      "217"
+     ],
+     "text": "Groetstraat 189-217"
+    }
+   ],
+   "normalized_address": "alkmaarstraat 1-83; groetstraat 189-217 | amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Alkmaarstraat",
+     "number": "1",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Alkmaarstraat",
+     "number": "83",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Groetstraat",
+     "number": "189",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Groetstraat",
+     "number": "217",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-001",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_RANGE",
+    "MULTIPLE_STREETS",
+    "NO_BAG_SNAPSHOT",
+    "POSTCODE_MISSING"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-002",
+   "address_as_stated": "Jan Pieter Heijestraat 144, Wilhelminastraat 74",
+   "address_provenance": {
+    "block_id": "P02-L009",
+    "document_id": "DOC-002",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Jan Pieter Heijestraat 144, Wilhelminastraat 74"
+   },
+   "address_from_object_name": false,
+   "object_name": "VVE Jan Pieter Heijestraat 144, Wilhelminastraat 74",
+   "postcode": "1054 VZ",
+   "city": "Amsterdam",
+   "construction_year": 1900,
+   "number_of_units": 7,
+   "parsed_address": [
+    {
+     "street": "Jan Pieter Heijestraat",
+     "kind": "single",
+     "numbers": [
+      "144"
+     ],
+     "text": "Jan Pieter Heijestraat 144"
+    },
+    {
+     "street": "Wilhelminastraat",
+     "kind": "single",
+     "numbers": [
+      "74"
+     ],
+     "text": "Wilhelminastraat 74"
+    }
+   ],
+   "normalized_address": "jan pieter heijestraat 144; wilhelminastraat 74 | 1054VZ amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Jan Pieter Heijestraat",
+     "number": "144",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Wilhelminastraat",
+     "number": "74",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-002",
+   "document_relations": [
+    {
+     "relation_id": "DREL-001",
+     "type": "duplicate_source",
+     "other_document_id": "DOC-003"
+    },
+    {
+     "relation_id": "DREL-004",
+     "type": "same_building_other_inspection",
+     "other_document_id": "DOC-004"
+    }
+   ],
+   "same_object_document_ids": [
+    "DOC-004"
+   ],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT",
+    "MULTIPLE_STREETS",
+    "NO_BAG_SNAPSHOT"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-004",
+   "address_as_stated": "J.P Heijestraat 144, Wilhelminastraat 74",
+   "address_provenance": {
+    "block_id": "P02-L009",
+    "document_id": "DOC-004",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres J.P Heijestraat 144, Wilhelminastraat 74"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE D9697",
+   "postcode": null,
+   "city": "Amsterdam",
+   "construction_year": 1900,
+   "number_of_units": 7,
+   "parsed_address": [
+    {
+     "street": "J.P Heijestraat",
+     "kind": "single",
+     "numbers": [
+      "144"
+     ],
+     "text": "J.P Heijestraat 144"
+    },
+    {
+     "street": "Wilhelminastraat",
+     "kind": "single",
+     "numbers": [
+      "74"
+     ],
+     "text": "Wilhelminastraat 74"
+    }
+   ],
+   "normalized_address": "j.p heijestraat 144; wilhelminastraat 74 | amsterdam",
+   "lookup_plan": [
+    {
+     "street": "J.P Heijestraat",
+     "number": "144",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Wilhelminastraat",
+     "number": "74",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-004",
+   "document_relations": [
+    {
+     "relation_id": "DREL-004",
+     "type": "same_building_other_inspection",
+     "other_document_id": "DOC-002"
+    }
+   ],
+   "same_object_document_ids": [
+    "DOC-002"
+   ],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT",
+    "MULTIPLE_STREETS",
+    "NO_BAG_SNAPSHOT",
+    "POSTCODE_MISSING"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-005",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "address_provenance": {
+    "block_id": "P02-L009",
+    "document_id": "DOC-005",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Maldenhof 240 - 296"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE Maldenhof 240-296",
+   "postcode": "1106 EZ",
+   "city": "Amsterdam",
+   "construction_year": 1981,
+   "number_of_units": 29,
+   "parsed_address": [
+    {
+     "street": "Maldenhof",
+     "kind": "range",
+     "numbers": [
+      "240",
+      "296"
+     ],
+     "text": "Maldenhof 240 - 296"
+    }
+   ],
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Maldenhof",
+     "number": "240",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Maldenhof",
+     "number": "296",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-005+DOC-006",
+   "document_relations": [
+    {
+     "relation_id": "DREL-002",
+     "type": "version_of_same_mjop",
+     "other_document_id": "DOC-006"
+    }
+   ],
+   "same_object_document_ids": [
+    "DOC-006"
+   ],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_RANGE",
+    "NO_BAG_SNAPSHOT"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-006",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "address_provenance": {
+    "block_id": "P02-L009",
+    "document_id": "DOC-006",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Maldenhof 240 - 296"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE Maldenhof 240-296",
+   "postcode": "1106 EZ",
+   "city": "Amsterdam",
+   "construction_year": 1981,
+   "number_of_units": 29,
+   "parsed_address": [
+    {
+     "street": "Maldenhof",
+     "kind": "range",
+     "numbers": [
+      "240",
+      "296"
+     ],
+     "text": "Maldenhof 240 - 296"
+    }
+   ],
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Maldenhof",
+     "number": "240",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Maldenhof",
+     "number": "296",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-005+DOC-006",
+   "document_relations": [
+    {
+     "relation_id": "DREL-002",
+     "type": "version_of_same_mjop",
+     "other_document_id": "DOC-005"
+    },
+    {
+     "relation_id": "DREL-005",
+     "type": "duplicate_source",
+     "other_document_id": "DOC-014"
+    }
+   ],
+   "same_object_document_ids": [
+    "DOC-005"
+   ],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_RANGE",
+    "NO_BAG_SNAPSHOT"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-007",
+   "address_as_stated": null,
+   "address_provenance": null,
+   "address_from_object_name": false,
+   "object_name": "VvE Mauritsstaete",
+   "postcode": null,
+   "city": "Leiderdorp",
+   "construction_year": 1986,
+   "number_of_units": 37,
+   "parsed_address": [],
+   "normalized_address": " | leiderdorp",
+   "lookup_plan": [],
+   "source_cluster": "SC-DOC-007",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "NO_BAG_SNAPSHOT",
+    "NO_STATED_ADDRESS",
+    "POSTCODE_MISSING"
+   ],
+   "status": "NO_ADDRESS"
+  },
+  {
+   "document_id": "DOC-008",
+   "address_as_stated": null,
+   "address_provenance": null,
+   "address_from_object_name": true,
+   "object_name": "VvE St. Jacobsstraat 251-321 Hoofddak",
+   "postcode": null,
+   "city": null,
+   "construction_year": 1955,
+   "number_of_units": null,
+   "parsed_address": [
+    {
+     "street": "St. Jacobsstraat",
+     "kind": "range",
+     "numbers": [
+      "251",
+      "321"
+     ],
+     "text": "St. Jacobsstraat 251-321"
+    }
+   ],
+   "normalized_address": "st. jacobsstraat 251-321",
+   "lookup_plan": [
+    {
+     "street": "St. Jacobsstraat",
+     "number": "251",
+     "postcode": null,
+     "city": null
+    },
+    {
+     "street": "St. Jacobsstraat",
+     "number": "321",
+     "postcode": null,
+     "city": null
+    }
+   ],
+   "source_cluster": "SC-DOC-008+DOC-009",
+   "document_relations": [
+    {
+     "relation_id": "DREL-003",
+     "type": "subplans_same_complex",
+     "other_document_id": "DOC-009"
+    }
+   ],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_FROM_OBJECT_NAME",
+    "ADDRESS_RANGE",
+    "CITY_MISSING",
+    "NO_BAG_SNAPSHOT",
+    "NO_STATED_ADDRESS",
+    "POSTCODE_MISSING",
+    "SUBPLAN_SCOPE"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-009",
+   "address_as_stated": null,
+   "address_provenance": null,
+   "address_from_object_name": true,
+   "object_name": "VvE St. Jacobsstraat 251-321 Woningen",
+   "postcode": null,
+   "city": "Utrecht",
+   "construction_year": 1955,
+   "number_of_units": 30,
+   "parsed_address": [
+    {
+     "street": "St. Jacobsstraat",
+     "kind": "range",
+     "numbers": [
+      "251",
+      "321"
+     ],
+     "text": "St. Jacobsstraat 251-321"
+    }
+   ],
+   "normalized_address": "st. jacobsstraat 251-321 | utrecht",
+   "lookup_plan": [
+    {
+     "street": "St. Jacobsstraat",
+     "number": "251",
+     "postcode": null,
+     "city": "Utrecht"
+    },
+    {
+     "street": "St. Jacobsstraat",
+     "number": "321",
+     "postcode": null,
+     "city": "Utrecht"
+    }
+   ],
+   "source_cluster": "SC-DOC-008+DOC-009",
+   "document_relations": [
+    {
+     "relation_id": "DREL-003",
+     "type": "subplans_same_complex",
+     "other_document_id": "DOC-008"
+    }
+   ],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_FROM_OBJECT_NAME",
+    "ADDRESS_RANGE",
+    "NO_BAG_SNAPSHOT",
+    "NO_STATED_ADDRESS",
+    "POSTCODE_MISSING",
+    "SUBPLAN_SCOPE"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-010",
+   "address_as_stated": "Zomerdijkstraat 14, Uiterwaardenstraat 141",
+   "address_provenance": {
+    "block_id": "P02-L009",
+    "document_id": "DOC-010",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Zomerdijkstraat 14, Uiterwaardenstraat 141"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE Zomerdijkstraat 14",
+   "postcode": "1079 XB",
+   "city": "Amsterdam",
+   "construction_year": 1935,
+   "number_of_units": 4,
+   "parsed_address": [
+    {
+     "street": "Zomerdijkstraat",
+     "kind": "single",
+     "numbers": [
+      "14"
+     ],
+     "text": "Zomerdijkstraat 14"
+    },
+    {
+     "street": "Uiterwaardenstraat",
+     "kind": "single",
+     "numbers": [
+      "141"
+     ],
+     "text": "Uiterwaardenstraat 141"
+    }
+   ],
+   "normalized_address": "zomerdijkstraat 14; uiterwaardenstraat 141 | 1079XB amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Zomerdijkstraat",
+     "number": "14",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Uiterwaardenstraat",
+     "number": "141",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-010",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "MULTIPLE_STREETS",
+    "NO_BAG_SNAPSHOT",
+    "OBJECT_NAME_ADDRESS_DIFFERS"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-011",
+   "address_as_stated": null,
+   "address_provenance": null,
+   "address_from_object_name": false,
+   "object_name": null,
+   "postcode": null,
+   "city": null,
+   "construction_year": null,
+   "number_of_units": null,
+   "parsed_address": [],
+   "normalized_address": "",
+   "lookup_plan": [],
+   "source_cluster": "SC-DOC-011",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "CITY_MISSING",
+    "NO_BAG_SNAPSHOT",
+    "NO_STATED_ADDRESS",
+    "POSTCODE_MISSING"
+   ],
+   "status": "NO_ADDRESS"
+  },
+  {
+   "document_id": "DOC-012",
+   "address_as_stated": "Meppelweg 819",
+   "address_provenance": {
+    "block_id": "P02-L008",
+    "document_id": "DOC-012",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Meppelweg 819"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE Meppelweg 801-883",
+   "postcode": "2544 AW",
+   "city": "Den Haag",
+   "construction_year": 1956,
+   "number_of_units": null,
+   "parsed_address": [
+    {
+     "street": "Meppelweg",
+     "kind": "single",
+     "numbers": [
+      "819"
+     ],
+     "text": "Meppelweg 819"
+    }
+   ],
+   "normalized_address": "meppelweg 819 | 2544AW den haag",
+   "lookup_plan": [
+    {
+     "street": "Meppelweg",
+     "number": "819",
+     "postcode": "2544 AW",
+     "city": "Den Haag"
+    }
+   ],
+   "source_cluster": "SC-DOC-012",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "NO_BAG_SNAPSHOT",
+    "OBJECT_NAME_ADDRESS_DIFFERS"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-013",
+   "address_as_stated": "Vechtstraat 13-15-17-19",
+   "address_provenance": {
+    "block_id": "P02-L009",
+    "document_id": "DOC-013",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Vechtstraat 13-15-17-19"
+   },
+   "address_from_object_name": false,
+   "object_name": "VVE Gebouwen Vechtstraat 13-15-17-19",
+   "postcode": null,
+   "city": "Amsterdam",
+   "construction_year": 1921,
+   "number_of_units": 11,
+   "parsed_address": [
+    {
+     "street": "Vechtstraat",
+     "kind": "list",
+     "numbers": [
+      "13",
+      "15",
+      "17",
+      "19"
+     ],
+     "text": "Vechtstraat 13-15-17-19"
+    }
+   ],
+   "normalized_address": "vechtstraat 13/15/17/19 | amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Vechtstraat",
+     "number": "13",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Vechtstraat",
+     "number": "15",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Vechtstraat",
+     "number": "17",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Vechtstraat",
+     "number": "19",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-013",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_RANGE",
+    "NO_BAG_SNAPSHOT",
+    "OBJECT_NAME_ADDRESS_DIFFERS",
+    "POSTCODE_MISSING"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  },
+  {
+   "document_id": "DOC-015",
+   "address_as_stated": "Groetstraat 110-140",
+   "address_provenance": {
+    "block_id": "S01-R0004-C001",
+    "cell_ref": "A4",
+    "document_id": "DOC-015",
+    "extraction_rule": "profile:pro_vve_overzicht15_spreadsheet.object_cell",
+    "page": null,
+    "sheet": "Sheet",
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "92000-9546 2024 • VvE Groetstraat 110-140 Groetstraat 110-140 Amsterdam"
+   },
+   "address_from_object_name": false,
+   "object_name": "VvE Groetstraat 110-140",
+   "postcode": null,
+   "city": "Amsterdam",
+   "construction_year": null,
+   "number_of_units": null,
+   "parsed_address": [
+    {
+     "street": "Groetstraat",
+     "kind": "range",
+     "numbers": [
+      "110",
+      "140"
+     ],
+     "text": "Groetstraat 110-140"
+    }
+   ],
+   "normalized_address": "groetstraat 110-140 | amsterdam",
+   "lookup_plan": [
+    {
+     "street": "Groetstraat",
+     "number": "110",
+     "postcode": null,
+     "city": "Amsterdam"
+    },
+    {
+     "street": "Groetstraat",
+     "number": "140",
+     "postcode": null,
+     "city": "Amsterdam"
+    }
+   ],
+   "source_cluster": "SC-DOC-015",
+   "document_relations": [],
+   "same_object_document_ids": [],
+   "confirmed_links_in_same_source_cluster": [],
+   "snapshot_ids": [],
+   "candidate_bag_panden": [],
+   "confirmed_bag_pand_ids": [],
+   "review_reasons": [
+    "ADDRESS_RANGE",
+    "NO_BAG_SNAPSHOT",
+    "POSTCODE_MISSING"
+   ],
+   "status": "AWAITING_BAG_SNAPSHOT"
+  }
+ ]
+}

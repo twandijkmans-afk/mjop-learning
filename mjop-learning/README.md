@@ -344,6 +344,9 @@ python3 scripts/export_human_review_queue.py            # -> reports/human_revie
 python3 scripts/build_kengetallen.py                    # -> data/kengetallen/kengetallen_batch1.json (kengetallen v1)
 python3 scripts/build_quantity_observations.py          # -> data/quantity_observations/quantity_observations_v1.json
                                                         #    + reports/quantity_observations_v1.md (docs/quantity_foundation_v1.md)
+python3 scripts/building_links.py candidates            # -> reports/quantity/building_link_candidates_v1.* (beslist niets)
+python3 scripts/build_building_quantity_evidence.py     # -> data/quantity_evidence/ + reports/quantity/3dbag_vs_historical_v1.*
+                                                        #    (docs/building_link_3dbag_evidence_v1.md; links/mappings alleen door een mens)
 
 python3 -m pytest tests/ -v
 ```
@@ -361,6 +364,10 @@ data/
   price_observations/    source layer: 1 observation per jarenplan-rij + vastgestelde documentrelaties
   quantity_observations/ afgeleid: historische ELEMENTHOEVEELHEDEN (SOURCE_REPORTED), zie docs/quantity_foundation_v1.md
   quantity_resolutions/  append-only menselijke hoeveelheidsbeslissingen (nu leeg)
+  bag_snapshots/          ruwe PDOK/BAG/3D BAG-antwoorden, content-addressed (nu leeg: egress geweigerd)
+  building_links/         append-only menselijk bevestigde document <-> BAG-pand-links (nu leeg)
+  crosswalk_decisions/    append-only menselijke verificatie van crosswalk-/onderwerpmappings (nu leeg)
+  quantity_evidence/      afgeleid: 3D BAG- en historische evidence per gebouw
   evaluation/            evaluatieset (nog leeg, nooit gebruiken om op te optimaliseren)
   rejected_or_uncertain/ onbetrouwbaar/conflicterend (nog leeg)
 schemas/                datamodel (JSON Schema)

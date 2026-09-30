@@ -1,0 +1,38 @@
+{
+  "$id": "app_element_crosswalk_v1",
+  "description": "Crosswalk MJOP-App-elementenbibliotheek (src/app.js ELEMENT_LIBRARY: key + NL-SfB-achtige code) <-> interne element_code van mjop-learning (vocabularies/element_code.json). NIET automatisch geraden op naam: elke regel is een VOORSTEL met onderbouwing; human_verified wordt uitsluitend bepaald door een ACTIVE menselijk besluit in data/crosswalk_decisions/crosswalk_decision_records.json (scripts/crosswalk.py). Een regel zonder eenduidige tegenhanger staat als UNRESOLVED.",
+  "version": "1.0.0",
+  "app_source": "MJOP-App src/app.js ELEMENT_LIBRARY @ d22da51cde5cf825914b3cebf44e380994961d03",
+  "mappings": [
+    {"mapping_id": "XW-dak-plat-4711-m2", "app_element_key": "dak-plat", "app_code": "27.1", "app_label": "Dakbedekking plat dak",
+     "internal_element_code": "4711", "action_mapping": {"app": "vervangen dakbedekking (kengetal per m2)", "internal": "replace"},
+     "material_mapping": {"app": "bitumen/plat dak (niet expliciet)", "internal": null},
+     "unit": "m2", "quantity_subject": "ROOF_FLAT_AREA", "status": "PROPOSED",
+     "evidence": "App: 'Dakbedekking plat dak', type dak, hoeveelheid = 3D BAG b3_opp_dak_plat (m2). Intern: 4711 'Dakbedekking (APP/bitumen)'; m2-rijen zijn dakbedekking.",
+     "open_questions": ["4711 heeft ook m1-rijen (dakrand/randstrook): alleen de m2-rijen horen bij deze mapping", "materiaal in de app is niet vastgelegd"]},
+    {"mapping_id": "XW-dak-hellend-4712-m2", "app_element_key": "dak-hellend", "app_code": "27.2", "app_label": "Dakbedekking hellend dak (pannen)",
+     "internal_element_code": "4712", "action_mapping": null, "material_mapping": {"app": "pannen", "internal": null},
+     "unit": "m2", "quantity_subject": "ROOF_SLOPED_AREA", "status": "REVIEW_REQUIRED",
+     "evidence": "App: 'Dakbedekking hellend dak (pannen)', hoeveelheid = 3D BAG b3_opp_dak_schuin. Intern: 4712 'Dakrandafwerking / dakpan / loodslab hellend dak' — een gemengde code.",
+     "open_questions": ["4712 is niet eenduidig dakpannen; per rij beoordelen of een mapping per omschrijving nodig is (niet in v1)"]},
+    {"mapping_id": "XW-gevel-metselwerk-2110-m2", "app_element_key": "gevel-metselwerk", "app_code": "21.1", "app_label": "Gevelreiniging en metselwerkherstel",
+     "internal_element_code": "2110", "action_mapping": null, "material_mapping": {"app": "metselwerk", "internal": "metselwerk"},
+     "unit": "m2", "quantity_subject": null, "status": "REVIEW_REQUIRED",
+     "evidence": "App rekent met 3D BAG b3_opp_buitenmuur (bruto). Intern: 2110 'Gevelconstructie (metselwerk, kitvoegen, loodslabben opgaand werk)', netto metselwerk per gevel.",
+     "open_questions": ["bruto buitenmuur is geen metselwerkoppervlak: geen gedeeld hoeveelheidsonderwerp; alleen code-koppeling denkbaar"]}
+  ],
+  "unresolved": [
+    {"internal_element_code": "5211", "internal_label": "Hemelwaterafvoer / doorvoer", "unit": "m1", "material": "pvc",
+     "related_kengetal": "KG-5211-replace-m1-pvc-5cb98033",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."},
+    {"internal_element_code": "4711", "internal_label": "Dakbedekking (APP/bitumen) — m1-rijen (dakrand/daktrim)", "unit": "m1", "material": "aluminium",
+     "related_kengetal": "KG-4711-replace-m1-aluminium-d463b0a2",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."},
+    {"app_element_key": "dakgoten", "app_code": "27.3",
+     "reason": "UNIT_MISMATCH: app-hoeveelheid is aantal appartementen; intern zijn goten (2716) en HWA (5211) m1. Geen veilige mapping."},
+    {"app_element_key": "schilderwerk-buiten", "app_code": "31.2",
+     "reason": "NOT_SAFE: app gebruikt de hele buitenmuur als benadering; intern is schilderwerk per m1/m2 kozijn/houtwerk (46xx)."},
+    {"app_element_key": "voegwerk", "app_code": "21.1",
+     "reason": "NOT_SAFE: zelfde app-code als gevel-metselwerk; interne voegwerkposten staan onder 2110/4111 zonder eenduidige scheiding."}
+  ]
+}
