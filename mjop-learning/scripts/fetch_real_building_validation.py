@@ -795,6 +795,11 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Real Building Validation v1: PDOK/BAG + 3D BAG ophalen (alleen kandidaten)")
     ap.add_argument("--out", default=str(DEFAULT_OUT))
     args = ap.parse_args(argv)
+    import building_projects  # lokaal geïmporteerd: building_projects importeert dit module (geen cirkelimport bij laden)
+    if building_projects.is_locked(args.out):
+        print(f"FOUT: {args.out} bevat goedgekeurd bewijs (building_project-record) en is onveranderlijk; "
+              "kies een nieuwe versiemap.", file=sys.stderr)
+        return 5
     manifest = run(GROUPS, args.out)
     errs = manifest_errors(args.out)
     bad = [r for r in manifest["requests"] if r["http_status"] != 200]

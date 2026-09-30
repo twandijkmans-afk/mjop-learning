@@ -1,0 +1,327 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "building_project_record.schema.json",
+  "title": "BuildingProjectStore",
+  "description": "Append-only, door een mens goedgekeurde logische building_projects met alle BAG-panden (docs/building_projects_v1.md). Geen veld voor één pand als 'het gebouw'; 3D BAG alleen als evidence-verwijzing.",
+  "type": "object",
+  "definitions": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "building_project_id",
+        "candidate_id",
+        "project_status",
+        "selected_scope",
+        "label",
+        "document_ids",
+        "scope",
+        "bag_pand_ids",
+        "bag_pand_count",
+        "panden",
+        "addresses",
+        "totals",
+        "mjop_context",
+        "approval",
+        "legal_vve",
+        "evidence_policy",
+        "provenance",
+        "related_documents_not_linked",
+        "rule_version",
+        "supersedes",
+        "status"
+      ],
+      "properties": {
+        "building_project_id": {
+          "type": "string",
+          "pattern": "^BPRJ-[0-9]{5}$"
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^BPC-"
+        },
+        "project_status": {
+          "const": "APPROVED"
+        },
+        "label": {
+          "type": "string"
+        },
+        "document_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^DOC-[0-9]{3,}$"
+          }
+        },
+        "scope": {
+          "type": "object"
+        },
+        "bag_pand_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9]{16}$"
+          }
+        },
+        "bag_pand_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "panden": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "bag_pand_id",
+              "house_numbers",
+              "aantal_verblijfsobjecten_bag",
+              "bouwjaar_bag",
+              "threedbag_evidence_ref"
+            ],
+            "properties": {
+              "bag_pand_id": {
+                "type": "string",
+                "pattern": "^[0-9]{16}$"
+              },
+              "threedbag_evidence_ref": {
+                "type": "object",
+                "properties": {
+                  "evidence_only": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "evidence_only"
+                ]
+              }
+            }
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "house_number",
+              "nummeraanduiding_id",
+              "adresseerbaarobject_id",
+              "bag_pand_id"
+            ],
+            "properties": {
+              "bag_pand_id": {
+                "type": "string",
+                "pattern": "^[0-9]{16}$"
+              }
+            }
+          }
+        },
+        "totals": {
+          "type": "object"
+        },
+        "mjop_context": {
+          "type": "object"
+        },
+        "approval": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "decision",
+            "scope_hypothesis_id",
+            "reviewer",
+            "decided_at",
+            "decision_reason",
+            "decision_source",
+            "confirmed_facts"
+          ],
+          "properties": {
+            "decision": {
+              "const": "APPROVED"
+            },
+            "scope_hypothesis_id": {
+              "type": "string"
+            },
+            "reviewer": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "reviewer_id",
+                "reviewer_type"
+              ],
+              "properties": {
+                "reviewer_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "reviewer_type": {
+                  "const": "human"
+                }
+              }
+            },
+            "decided_at": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+            },
+            "decision_reason": {
+              "type": "string",
+              "minLength": 1
+            },
+            "decision_source": {
+              "type": "string",
+              "minLength": 1
+            },
+            "confirmed_facts": {
+              "type": "object"
+            }
+          }
+        },
+        "legal_vve": {
+          "type": "object",
+          "required": [
+            "status",
+            "linked_legal_vve_id"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "OPEN",
+                "LINKED"
+              ]
+            },
+            "linked_legal_vve_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "evidence_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "threedbag",
+            "translated_to_quantities",
+            "crosswalk_written",
+            "legacy_building_link_store_written"
+          ],
+          "properties": {
+            "threedbag": {
+              "const": "EVIDENCE_ONLY"
+            },
+            "translated_to_quantities": {
+              "const": false
+            },
+            "crosswalk_written": {
+              "const": false
+            },
+            "legacy_building_link_store_written": {
+              "const": false
+            }
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "validation_dir",
+            "candidate_package",
+            "manifest",
+            "raw_response_count"
+          ],
+          "properties": {
+            "validation_dir": {
+              "type": "string"
+            },
+            "raw_response_count": {
+              "type": "integer"
+            },
+            "candidate_package": {
+              "type": "object",
+              "required": [
+                "path",
+                "sha256",
+                "candidate_id",
+                "run_id"
+              ],
+              "properties": {
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            },
+            "manifest": {
+              "type": "object",
+              "required": [
+                "path",
+                "sha256",
+                "run_id"
+              ],
+              "properties": {
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[0-9a-f]{64}$"
+                }
+              }
+            }
+          }
+        },
+        "related_documents_not_linked": {
+          "type": "array"
+        },
+        "rule_version": {
+          "type": "string"
+        },
+        "supersedes": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^BPRJ-[0-9]{5}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "SUPERSEDED",
+            "REVIEW_REQUIRED"
+          ]
+        },
+        "selected_scope": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "properties": {
+    "store_version": {
+      "const": "building_project_v1"
+    },
+    "description": {
+      "type": "string"
+    },
+    "append_only": {
+      "const": true
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/record"
+      }
+    }
+  },
+  "required": [
+    "store_version",
+    "append_only",
+    "records"
+  ],
+  "additionalProperties": false
+}

@@ -1,19 +1,35 @@
-# Real Building Validation v1 — GitHub Actions network bridge.
+# Real Building Validation — GitHub Actions network bridge.
 # Egress vanuit Claude Cloud naar api.pdok.nl / api.3dbag.nl wordt geweigerd; deze workflow haalt de echte
 # PDOK/BAG- en 3D BAG-antwoorden op en commit ALLEEN ruwe responses + kandidatenpakket + manifest.
 # Geen building-link, legal_vve-koppeling, crosswalk of wijziging van canonical MJOP-data.
+#
+# Onveranderlijk bewijs: een map die door een goedgekeurd building_project-record wordt gerefereerd
+# (data/building_projects/) wordt NOOIT overschreven of verwijderd; de guard-stap faalt hard vóór elke rm -rf.
+# Nieuwe data ophalen kan wel: kies een NIEUWE versiemap, bv. real_validation_v2:
+#   - workflow_dispatch met input out_dir, of
+#   - zet die map (onder data/external/building_validation/) in fetch_target.txt en push (branch-trigger hieronder).
+# Zonder doelmap draait de workflow alleen de tests en de integriteitscontrole van het goedgekeurde bewijs.
 name: Real building validation
 
 on:
   workflow_dispatch:
+    inputs:
+      out_dir:
+        description: "Doelmap voor de fetch, onder data/external/building_validation/ (leeg = fetch_target.txt)"
+        required: false
+        default: ""
   # workflow_dispatch werkt pas als dit bestand op de default branch staat; tot die tijd draait de workflow
-  # ook bij een push van dit bestand of het fetch-script op de ontwikkelbranch (de commit-back van GITHUB_TOKEN triggert niets).
+  # ook bij een push van dit bestand, het fetch-script, het doelmap-bestand of de building_project-code op de ontwikkelbranch
+  # (de commit-back van GITHUB_TOKEN triggert niets).
   push:
     branches:
       - claude/test-pdok-3dbag-network-yw0rcc
     paths:
       - ".github/workflows/real-building-validation.yml"
       - "mjop-learning/scripts/fetch_real_building_validation.py"
+      - "mjop-learning/scripts/building_projects.py"
+      - "mjop-learning/data/building_projects/**"
+      - "mjop-learning/data/external/building_validation/fetch_target.txt"
 
 permissions:
   contents: write
@@ -31,17 +47,39 @@ jobs:
         working-directory: mjop-learning
     env:
       PYTHONDONTWRITEBYTECODE: "1"
-      OUT_DIR: data/external/building_validation/real_validation_v1
+      BASE_DIR: data/external/building_validation
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Python-afhankelijkheden
-        run: python -m pip install pytest jsonschema
+        run: python -m pip install pytest jsonschema pyyaml
       - name: Tests
-        run: python -m pytest tests/test_fetch_real_building_validation.py -q
+        run: python -m pytest tests/test_fetch_real_building_validation.py tests/test_building_projects.py tests/test_append_only_store.py -q
+      - name: Integriteit van goedgekeurd bewijs
+        run: python scripts/building_projects.py check
+      - name: Doelmap bepalen
+        id: target
+        env:
+          INPUT_OUT_DIR: ${{ github.event.inputs.out_dir }}
+        run: |
+          t="$INPUT_OUT_DIR"
+          if [ -z "$t" ] && [ -f "$BASE_DIR/fetch_target.txt" ]; then t=$(tr -d ' \r\n' < "$BASE_DIR/fetch_target.txt"); fi
+          case "$t" in
+            "") echo "Geen doelmap: alleen tests en integriteitscontrole (geen fetch)." ;;
+            "$BASE_DIR"/real_validation_v[0-9]*) ;;
+            *) echo "Ongeldige doelmap '$t' (verwacht $BASE_DIR/real_validation_v<N>)" >&2; exit 1 ;;
+          esac
+          case "$t" in *..*) echo "Ongeldig pad" >&2; exit 1 ;; esac
+          echo "out_dir=$t" >> "$GITHUB_OUTPUT"
+      - name: Guard - goedgekeurd bewijs is onveranderlijk (faalt hard vóór elke rm -rf)
+        if: steps.target.outputs.out_dir != ''
+        env:
+          OUT_DIR: ${{ steps.target.outputs.out_dir }}
+        run: python scripts/building_projects.py guard --out "$OUT_DIR"
       - name: Netwerktest api.pdok.nl / api.3dbag.nl
+        if: steps.target.outputs.out_dir != ''
         run: |
           fail=0
           for host in api.pdok.nl api.3dbag.nl; do
@@ -51,11 +89,17 @@ jobs:
             if [ "$code" = "000" ] || [ -z "$code" ]; then fail=1; fi
           done
           exit $fail
-      - name: Kandidatenpakket ophalen (verse uitvoermap, exact de nu opgehaalde bestanden)
+      - name: Kandidatenpakket ophalen (verse, niet-goedgekeurde uitvoermap)
+        if: steps.target.outputs.out_dir != ''
+        env:
+          OUT_DIR: ${{ steps.target.outputs.out_dir }}
         run: |
           rm -rf "$OUT_DIR"
           python scripts/fetch_real_building_validation.py --out "$OUT_DIR"
       - name: Manifest en hashes controleren
+        if: steps.target.outputs.out_dir != ''
+        env:
+          OUT_DIR: ${{ steps.target.outputs.out_dir }}
         run: |
           python - <<'EOF'
           import os, sys
@@ -66,16 +110,20 @@ jobs:
           sys.exit(1 if errs else 0)
           EOF
       - uses: actions/upload-artifact@v4
+        if: steps.target.outputs.out_dir != ''
         with:
-          name: real_validation_v1
-          path: mjop-learning/${{ env.OUT_DIR }}
-      - name: Committen (alleen versioned resultaten)
+          name: real_validation
+          path: mjop-learning/${{ steps.target.outputs.out_dir }}
+      - name: Committen (alleen de nieuwe versiemap)
+        if: steps.target.outputs.out_dir != ''
+        env:
+          OUT_DIR: ${{ steps.target.outputs.out_dir }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add "$OUT_DIR"
           if git diff --cached --quiet; then echo "Geen wijzigingen."; exit 0; fi
-          git commit -m "data: real building validation v1 candidate package (unreviewed, PDOK/BAG + 3D BAG)"
+          git commit -m "data: real building validation candidate package (unreviewed, PDOK/BAG + 3D BAG)"
           for i in 1 2 3; do
             git pull --rebase origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}" && exit 0
             sleep $((i * 5))

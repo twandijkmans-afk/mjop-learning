@@ -1,0 +1,187 @@
+{
+ "store_version": "building_project_unresolved_v1",
+ "append_only": true,
+ "description": "Compacte records van niet-opgeloste building_project-kandidaten (nog geen link, geen gekozen scope). Append-only; één ACTIVE record per case_key.",
+ "records": [
+  {
+   "case_id": "UCASE-00001",
+   "case_key": "DOC-012:BUILDING_PROJECT_SCOPE",
+   "document_ids": [
+    "DOC-012"
+   ],
+   "candidate_id": "BPC-DOC-012",
+   "case_status": "REVIEW_REQUIRED",
+   "candidate_status": "CANDIDATE_UNREVIEWED",
+   "candidate_strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+   "selected_scope": null,
+   "building_project_linked": false,
+   "legal_vve_linked": false,
+   "hypotheses": {
+    "ODD_ONLY": {
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "addresses_found": 41,
+     "addresses_missing": [
+      "801"
+     ],
+     "bag_pand_ids": [
+      "0518100000354752"
+     ],
+     "vbo_total_bag": 42
+    },
+    "ALL_NUMBERS": {
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "addresses_found": 52,
+     "addresses_missing": [
+      "801",
+      "822",
+      "824",
+      "826",
+      "828",
+      "830",
+      "832",
+      "834",
+      "836",
+      "838",
+      "840",
+      "842",
+      "844",
+      "846",
+      "848",
+      "850",
+      "852",
+      "854",
+      "856",
+      "858",
+      "860",
+      "862",
+      "864",
+      "866",
+      "868",
+      "870",
+      "872",
+      "874",
+      "876",
+      "878",
+      "880"
+     ],
+     "bag_pand_ids": [
+      "0518100000208891",
+      "0518100000277993",
+      "0518100000354752",
+      "0518100001631386"
+     ],
+     "vbo_total_bag": 228
+    }
+   },
+   "open_points": [
+    {
+     "point_id": "ADDRESS_MISSING_IN_BAG",
+     "statement": "Huisnummer 801 ligt in het MJOP-bereik maar heeft geen exact adres in de BAG.",
+     "evidence": {
+      "number": "801",
+      "locatieserver": {
+       "request_id": "REQ-154",
+       "raw_response_path": "raw/pdok/meppelweg-801-den-haag__locatieserver__316b596864c9.json",
+       "raw_response_sha256": "316b596864c92e18c8f6688107ad49ecfc3fe632ebdc85efe82c65ed28ba8064"
+      }
+     }
+    },
+    {
+     "point_id": "PAND_SPANS_BEYOND_RANGE",
+     "statement": "Pand 0518100000354752 bevat 41 adressen in scope (803-883, ODD_ONLY) plus VBO(s) buiten het bereik: 885 (2544AX)",
+     "evidence": {
+      "bag_pand_id": "0518100000354752",
+      "aantal_verblijfsobjecten_bag": 42,
+      "vbo_outside_range": [
+       {
+        "huisnummer": 885,
+        "postcode": "2544AX",
+        "verblijfsobject_id": "0518010000636242",
+        "raw_response_sha256": "b5f94b33cc3b5927c720e4d93775bbaa99f5c6c281716693abc3dec045f766ee"
+       }
+      ]
+     }
+    },
+    {
+     "point_id": "MJOP_UNIT_COUNT_MISSING",
+     "statement": "MJOP noemt geen aantal eenheden (en geen pariteit van het huisnummerbereik).",
+     "evidence": {
+      "document_id": "DOC-012",
+      "field": "unit_count",
+      "note": "Bron noemt geen aantal eenheden en geen pariteit van het bereik.",
+      "page": 2,
+      "text_fragment": null,
+      "value": null
+     }
+    },
+    {
+     "point_id": "CONSTRUCTION_YEAR_MISMATCH",
+     "statement": "Bouwjaar MJOP 1956 versus BAG 1957.",
+     "evidence": {
+      "mjop_construction_year": 1956,
+      "bag_bouwjaar": [
+       1957
+      ]
+     }
+    },
+    {
+     "point_id": "OBJECT_NAME_CONFLICT",
+     "statement": "Objectnaam 'VvE Meppelweg 801-883' versus opdrachtgevernaam 'VvE Meppelweg 801-803'.",
+     "evidence": {
+      "object_name": "VvE Meppelweg 801-883",
+      "opdrachtgever_naam": {
+       "document_id": "DOC-012",
+       "field": "opdrachtgever_naam",
+       "note": "Wijkt af van objectnaam 'VvE Meppelweg 801-883' (waarschijnlijk typfout; niet opgelost).",
+       "page": 2,
+       "text_fragment": "Naam VvE Meppelweg 801-803",
+       "value": "VvE Meppelweg 801-803"
+      },
+      "object_code": {
+       "document_id": "DOC-012",
+       "field": "object_code",
+       "page": 2,
+       "text_fragment": "Code 91154-2024",
+       "value": "91154-2024"
+      }
+     }
+    }
+   ],
+   "decisions_needed": [
+    "Welke huisnummers vormen de VvE (alleen oneven of alle) en hoort pand-verblijfsobject 885 er wel of niet bij?",
+    "Is het ontbreken van 801 in de BAG verwacht (bestaat niet) of een registratieverschil?",
+    "Wat is het aantal eenheden van de VvE (MJOP noemt er geen)?",
+    "Is bouwjaar 1956 (MJOP) of 1957 (BAG) leidend, of is het verschil irrelevant?",
+    "Is 'VvE Meppelweg 801-803' een typfout voor '801-883'?"
+   ],
+   "note": "Onderzoek is afgerond en hoeft niet opnieuw: raadpleeg evidence-verwijzingen (raw responses + sha256) in dit record en het candidate package. Er is geen scope gekozen en geen building_project of legal_vve geschreven.",
+   "provenance": {
+    "validation_dir": "data/external/building_validation/real_validation_v1",
+    "candidate_package": {
+     "path": "data/external/building_validation/real_validation_v1/candidates/DOC-012.json",
+     "sha256": "431d2fd8882af58cbd66e2804484272bf0d3876a1e99a8fd99ff896bfc3c40e7",
+     "candidate_id": "BPC-DOC-012",
+     "package_version": "real_validation_candidates_v2",
+     "run_id": "RBV1-20260930T084336Z"
+    },
+    "manifest": {
+     "path": "data/external/building_validation/real_validation_v1/manifest.json",
+     "sha256": "19a599b92464cc894c5984a3be12758bd664b4b9d5e45029af10e545c506ed47",
+     "run_id": "RBV1-20260930T084336Z",
+     "tool": "fetch_real_building_validation_v1.2.0"
+    },
+    "raw_response_count": 306
+   },
+   "recorded_by": {
+    "recorder_id": "claude_code_session_01YbN7QpknJoSYfeDu6LAyme",
+    "recorder_type": "claude_code"
+   },
+   "recorded_at": "2026-09-30T09:04:31Z",
+   "decision_source": "Schriftelijke instructie van de reviewer twandijkmans in Claude Code-sessie session_01YbN7QpknJoSYfeDu6LAyme (2026-09-30)",
+   "decision_reason": "Besluit MEPPELWEG: NIET approven; DOC-012 blijft CANDIDATE_UNREVIEWED / REVIEW_REQUIRED; geen selected_scope; geen building_project-link.",
+   "rule_version": "building_project_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  }
+ ]
+}

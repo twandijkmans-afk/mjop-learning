@@ -1,0 +1,597 @@
+{
+ "store_version": "building_project_v1",
+ "append_only": true,
+ "description": "Door een mens goedgekeurde logische building_projects (VvE/complex) met alle bijbehorende BAG-panden (docs/building_projects_v1.md). Append-only; één ACTIVE record per candidate_id. Geen pand is 'het gebouw'.",
+ "records": [
+  {
+   "building_project_id": "BPRJ-00001",
+   "candidate_id": "BPC-DOC-005-006",
+   "project_status": "APPROVED",
+   "selected_scope": "EVEN_ONLY",
+   "label": "VvE Maldenhof 240-296",
+   "document_ids": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "scope": {
+    "hypothesis_id": "EVEN_ONLY",
+    "description": "Alleen even huisnummers 240,242,...,296",
+    "basis": "Documentadres is 240 (even); het aantal even nummers in 240-296 is 29 = MJOP number_of_units.",
+    "street": "Maldenhof",
+    "city": "Amsterdam",
+    "postcode_of_document_address": "1106 EZ",
+    "house_numbers": [
+     "240",
+     "242",
+     "244",
+     "246",
+     "248",
+     "250",
+     "252",
+     "254",
+     "256",
+     "258",
+     "260",
+     "262",
+     "264",
+     "266",
+     "268",
+     "270",
+     "272",
+     "274",
+     "276",
+     "278",
+     "280",
+     "282",
+     "284",
+     "286",
+     "288",
+     "290",
+     "292",
+     "294",
+     "296"
+    ]
+   },
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "bag_pand_count": 15,
+   "panden": [
+    {
+     "bag_pand_id": "0363100012070344",
+     "house_numbers": [
+      "262",
+      "264"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012070344__3dbag-pand__68384c3d1499.json",
+      "raw_response_sha256": "68384c3d1499a0b7999f20cf012a666c96c875ce823346210eda5470d6dd181a"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "house_numbers": [
+      "270",
+      "272"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012071880__3dbag-pand__c52501c7f0b9.json",
+      "raw_response_sha256": "c52501c7f0b9aad63e7aa89095a421a4b0ee4faee44e84ca03a38126f94a7943"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "house_numbers": [
+      "246",
+      "248"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012078022__3dbag-pand__e8b3a98af628.json",
+      "raw_response_sha256": "e8b3a98af6280e9663a6a02aee7fa1ac683dae6908d3eecbf3bd9d53204aa906"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "house_numbers": [
+      "278",
+      "280"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012091756__3dbag-pand__8c4b4b209f3f.json",
+      "raw_response_sha256": "8c4b4b209f3f9c671f6534801bfe9e527862c30908ce9dbe458ee49f750c9fc3"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "house_numbers": [
+      "258",
+      "260"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012091974__3dbag-pand__790c2c6ff28d.json",
+      "raw_response_sha256": "790c2c6ff28daa8bc33baac127de28e8a099e55984e4c8875062c3a600d246ce"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "house_numbers": [
+      "242",
+      "244"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012102659__3dbag-pand__3d2fb2abcb74.json",
+      "raw_response_sha256": "3d2fb2abcb7452e2518c8e5ad7f871615461263a5450a7eb2f800a72d283fa92"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "house_numbers": [
+      "266",
+      "268"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012107492__3dbag-pand__4c043f130add.json",
+      "raw_response_sha256": "4c043f130adde815d38f07367468d400d9c717da7dcd03b98077c840fa847fa3"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "house_numbers": [
+      "286",
+      "288"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012121455__3dbag-pand__73fe6043cc9d.json",
+      "raw_response_sha256": "73fe6043cc9d71264ea40a0c5d4050f80b0588559da97707832acc204cbc27f5"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012127361",
+     "house_numbers": [
+      "294",
+      "296"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012127361__3dbag-pand__056f45aedc27.json",
+      "raw_response_sha256": "056f45aedc27e03d508f20f80edf5788d15a83368909268748f934cb1bdb7031"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "house_numbers": [
+      "290",
+      "292"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012134188__3dbag-pand__b9835235be63.json",
+      "raw_response_sha256": "b9835235be63086922f835fa14f16f0ccdd6da3a73fc1c47e76b30b3a8605396"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "house_numbers": [
+      "240"
+     ],
+     "aantal_verblijfsobjecten_bag": 1,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012137996__3dbag-pand__6de26675b58d.json",
+      "raw_response_sha256": "6de26675b58d90298ce1aac39e069cf614dd51753faa0f2340759512134125f2"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "house_numbers": [
+      "250",
+      "252"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012140664__3dbag-pand__7fe9832d6fd6.json",
+      "raw_response_sha256": "7fe9832d6fd6eea7b0b99180004905b960d6aa6d3cfd9b397e3cb088cdbecd8d"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "house_numbers": [
+      "254",
+      "256"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012141419__3dbag-pand__179569dc06b2.json",
+      "raw_response_sha256": "179569dc06b2cbe59216b3326da8ae22bbe3932f9580673650e1154aa8905c59"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "house_numbers": [
+      "282",
+      "284"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012143647__3dbag-pand__6e03518cbd8e.json",
+      "raw_response_sha256": "6e03518cbd8e81e0b833c74bdd97fccfcfb4db5254b972b0456397812ea95e67"
+     }
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "house_numbers": [
+      "274",
+      "276"
+     ],
+     "aantal_verblijfsobjecten_bag": 2,
+     "bouwjaar_bag": 1981,
+     "threedbag_evidence_ref": {
+      "evidence_only": true,
+      "http_status": 200,
+      "raw_response_path": "raw/3dbag/bag-pand-0363100012144766__3dbag-pand__36b7a2a8e393.json",
+      "raw_response_sha256": "36b7a2a8e393cf8650256fee7f8ec9bcf499c2b39d28a697a9d026dae8946617"
+     }
+    }
+   ],
+   "addresses": [
+    {
+     "house_number": "240",
+     "weergavenaam": "Maldenhof 240, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357513",
+     "adresseerbaarobject_id": "0363010000900029",
+     "bag_pand_id": "0363100012137996"
+    },
+    {
+     "house_number": "242",
+     "weergavenaam": "Maldenhof 242, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357515",
+     "adresseerbaarobject_id": "0363010000900031",
+     "bag_pand_id": "0363100012102659"
+    },
+    {
+     "house_number": "244",
+     "weergavenaam": "Maldenhof 244, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357517",
+     "adresseerbaarobject_id": "0363010000900033",
+     "bag_pand_id": "0363100012102659"
+    },
+    {
+     "house_number": "246",
+     "weergavenaam": "Maldenhof 246, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357519",
+     "adresseerbaarobject_id": "0363010000900035",
+     "bag_pand_id": "0363100012078022"
+    },
+    {
+     "house_number": "248",
+     "weergavenaam": "Maldenhof 248, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357521",
+     "adresseerbaarobject_id": "0363010000900037",
+     "bag_pand_id": "0363100012078022"
+    },
+    {
+     "house_number": "250",
+     "weergavenaam": "Maldenhof 250, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357523",
+     "adresseerbaarobject_id": "0363010000900039",
+     "bag_pand_id": "0363100012140664"
+    },
+    {
+     "house_number": "252",
+     "weergavenaam": "Maldenhof 252, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357525",
+     "adresseerbaarobject_id": "0363010000900041",
+     "bag_pand_id": "0363100012140664"
+    },
+    {
+     "house_number": "254",
+     "weergavenaam": "Maldenhof 254, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357527",
+     "adresseerbaarobject_id": "0363010000900043",
+     "bag_pand_id": "0363100012141419"
+    },
+    {
+     "house_number": "256",
+     "weergavenaam": "Maldenhof 256, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357529",
+     "adresseerbaarobject_id": "0363010000900045",
+     "bag_pand_id": "0363100012141419"
+    },
+    {
+     "house_number": "258",
+     "weergavenaam": "Maldenhof 258, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357531",
+     "adresseerbaarobject_id": "0363010000900047",
+     "bag_pand_id": "0363100012091974"
+    },
+    {
+     "house_number": "260",
+     "weergavenaam": "Maldenhof 260, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357533",
+     "adresseerbaarobject_id": "0363010000900049",
+     "bag_pand_id": "0363100012091974"
+    },
+    {
+     "house_number": "262",
+     "weergavenaam": "Maldenhof 262, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357535",
+     "adresseerbaarobject_id": "0363010000900051",
+     "bag_pand_id": "0363100012070344"
+    },
+    {
+     "house_number": "264",
+     "weergavenaam": "Maldenhof 264, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357537",
+     "adresseerbaarobject_id": "0363010000900053",
+     "bag_pand_id": "0363100012070344"
+    },
+    {
+     "house_number": "266",
+     "weergavenaam": "Maldenhof 266, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357539",
+     "adresseerbaarobject_id": "0363010000900055",
+     "bag_pand_id": "0363100012107492"
+    },
+    {
+     "house_number": "268",
+     "weergavenaam": "Maldenhof 268, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357540",
+     "adresseerbaarobject_id": "0363010000900056",
+     "bag_pand_id": "0363100012107492"
+    },
+    {
+     "house_number": "270",
+     "weergavenaam": "Maldenhof 270, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357542",
+     "adresseerbaarobject_id": "0363010000900058",
+     "bag_pand_id": "0363100012071880"
+    },
+    {
+     "house_number": "272",
+     "weergavenaam": "Maldenhof 272, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357544",
+     "adresseerbaarobject_id": "0363010000900060",
+     "bag_pand_id": "0363100012071880"
+    },
+    {
+     "house_number": "274",
+     "weergavenaam": "Maldenhof 274, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357546",
+     "adresseerbaarobject_id": "0363010000900062",
+     "bag_pand_id": "0363100012144766"
+    },
+    {
+     "house_number": "276",
+     "weergavenaam": "Maldenhof 276, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357548",
+     "adresseerbaarobject_id": "0363010000900064",
+     "bag_pand_id": "0363100012144766"
+    },
+    {
+     "house_number": "278",
+     "weergavenaam": "Maldenhof 278, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357550",
+     "adresseerbaarobject_id": "0363010000900066",
+     "bag_pand_id": "0363100012091756"
+    },
+    {
+     "house_number": "280",
+     "weergavenaam": "Maldenhof 280, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357552",
+     "adresseerbaarobject_id": "0363010000900068",
+     "bag_pand_id": "0363100012091756"
+    },
+    {
+     "house_number": "282",
+     "weergavenaam": "Maldenhof 282, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357554",
+     "adresseerbaarobject_id": "0363010000900070",
+     "bag_pand_id": "0363100012143647"
+    },
+    {
+     "house_number": "284",
+     "weergavenaam": "Maldenhof 284, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357556",
+     "adresseerbaarobject_id": "0363010000900072",
+     "bag_pand_id": "0363100012143647"
+    },
+    {
+     "house_number": "286",
+     "weergavenaam": "Maldenhof 286, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357558",
+     "adresseerbaarobject_id": "0363010000900074",
+     "bag_pand_id": "0363100012121455"
+    },
+    {
+     "house_number": "288",
+     "weergavenaam": "Maldenhof 288, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357560",
+     "adresseerbaarobject_id": "0363010000900076",
+     "bag_pand_id": "0363100012121455"
+    },
+    {
+     "house_number": "290",
+     "weergavenaam": "Maldenhof 290, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357562",
+     "adresseerbaarobject_id": "0363010000900078",
+     "bag_pand_id": "0363100012134188"
+    },
+    {
+     "house_number": "292",
+     "weergavenaam": "Maldenhof 292, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357564",
+     "adresseerbaarobject_id": "0363010000900080",
+     "bag_pand_id": "0363100012134188"
+    },
+    {
+     "house_number": "294",
+     "weergavenaam": "Maldenhof 294, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357566",
+     "adresseerbaarobject_id": "0363010000900082",
+     "bag_pand_id": "0363100012127361"
+    },
+    {
+     "house_number": "296",
+     "weergavenaam": "Maldenhof 296, 1106EZ Amsterdam",
+     "nummeraanduiding_id": "0363200000357568",
+     "adresseerbaarobject_id": "0363010000900084",
+     "bag_pand_id": "0363100012127361"
+    }
+   ],
+   "totals": {
+    "addresses": 29,
+    "vbo_total_bag": 29,
+    "bag_panden": 15,
+    "mjop_number_of_units": 29
+   },
+   "mjop_context": {
+    "address": "Maldenhof 240 - 296",
+    "object_name": "VvE Maldenhof 240-296",
+    "number_of_units": 29,
+    "construction_year": 1981,
+    "postcode": "1106 EZ",
+    "city": "Amsterdam",
+    "documents": [
+     {
+      "document_id": "DOC-005",
+      "source_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+      "source_relative_path": "maldenhof/2026_Meerjarenonderhoudsplan_VvE 9261 Maldenhof 240-296.pdf"
+     },
+     {
+      "document_id": "DOC-006",
+      "source_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+      "source_relative_path": "maldenhof/9261_vvem_mop_01-03-2023_Pro VVE Beheer B.V._851361.pdf"
+     }
+    ]
+   },
+   "approval": {
+    "decision": "APPROVED",
+    "scope_hypothesis_id": "EVEN_ONLY",
+    "reviewer": {
+     "reviewer_id": "twandijkmans",
+     "reviewer_type": "human"
+    },
+    "decided_at": "2026-09-30T09:04:31Z",
+    "decision_reason": "Besluit MALDENHOF: APPROVE building_project candidate BPC-DOC-005-006 met scope EVEN_ONLY. Bevestigd: MJOP DOC-005/DOC-006 Maldenhof 240-296, 29 units, bouwjaar 1981; exact 29 even BAG-adressen 240..296 en 29 BAG VBO's in 15 BAG-panden (alle bouwjaar 1981); geen ontbrekende even adressen; oneven adressen liggen in andere panden. Aparte building_project-store; legacy building_link-store niet gebruikt.",
+    "decision_source": "Schriftelijke instructie van de reviewer in Claude Code-sessie session_01YbN7QpknJoSYfeDu6LAyme (2026-09-30)",
+    "confirmed_facts": {
+     "pand_count": 15,
+     "address_count": 29,
+     "vbo_total": 29,
+     "number_of_units": 29,
+     "construction_year": 1981,
+     "missing_addresses": 0,
+     "panden_sharing_numbers_outside_scope": 0
+    }
+   },
+   "legal_vve": {
+    "status": "OPEN",
+    "linked_legal_vve_id": null,
+    "reason": "Geen juridische VvE-identifier (KvK/RSIN) in bestaande data; alleen de objectnaam en administratieve codes uit het MJOP (klantcode, objectcode) zijn bekend. Dat zijn codes van de opsteller van het MJOP, geen juridische identifiers.",
+    "identifiers_seen_are_not_legal": [
+     {
+      "relation_id": "DREL-002",
+      "evidence": "Zelfde klantcode 9261, adres, 29 eenheden, bouwjaar 1981; objectcode 92570 (2023) -> 92570-1 (2026); zelfde inspecteur, andere inspectiedatum en prijspeil; 31/40 elementen identiek in type+hoeveelheid+eenheid."
+     }
+    ]
+   },
+   "evidence_policy": {
+    "threedbag": "EVIDENCE_ONLY",
+    "translated_to_quantities": false,
+    "crosswalk_written": false,
+    "legacy_building_link_store_written": false
+   },
+   "provenance": {
+    "validation_dir": "data/external/building_validation/real_validation_v1",
+    "candidate_package": {
+     "path": "data/external/building_validation/real_validation_v1/candidates/DOC-005-006.json",
+     "sha256": "28b8977ab467fffc1835609c97df930f8c168537b79c3fedead209c7b18271bc",
+     "candidate_id": "BPC-DOC-005-006",
+     "package_version": "real_validation_candidates_v2",
+     "run_id": "RBV1-20260930T084336Z"
+    },
+    "manifest": {
+     "path": "data/external/building_validation/real_validation_v1/manifest.json",
+     "sha256": "19a599b92464cc894c5984a3be12758bd664b4b9d5e45029af10e545c506ed47",
+     "run_id": "RBV1-20260930T084336Z",
+     "tool": "fetch_real_building_validation_v1.2.0"
+    },
+    "raw_response_count": 306
+   },
+   "related_documents_not_linked": [
+    {
+     "document_id": "DOC-014",
+     "relation_id": "DREL-005",
+     "type": "duplicate_source",
+     "note": "zelfde object volgens documentrelatie; valt buiten dit besluit en is niet gekoppeld"
+    }
+   ],
+   "rule_version": "building_project_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  }
+ ]
+}
