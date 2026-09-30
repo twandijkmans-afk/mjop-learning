@@ -8,7 +8,7 @@ Dit script schrijft NOOIT: een building-link, legal_vve, crosswalk of canonical 
 automatisch een kandidaat goed. Elk kandidaatpakket heeft status CANDIDATE_UNREVIEWED en
 approval.building_link_approved = false; een mens moet het pakket beoordelen.
 
-Opvraagketen (gelijk aan scripts/bag_snapshots.py en MJOP-App src/app.js lookupBuilding):
+Opvraagketen (gelijk aan MJOP-App src/app.js lookupBuilding):
   PDOK Locatieserver 'free' (type:adres) -> centroide van een EXACT overeenkomend adres
   -> BAG OGC 'pand' items in een bbox rond dat punt -> panden waarvan de polygoon het punt BEVAT
   -> 3D BAG /collections/pand/items/NL.IMBAG.Pand.<id>.
@@ -33,10 +33,54 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from bag_snapshots import (  # noqa: E402  (pure hulpfuncties, geen netwerk)
-    BAG3D_ITEM, BAG_PAND_ITEMS, BBOX_DEG, PDOK_FREE, exact_address_match, norm, outer_rings, point_in_ring,
-)
+# Endpoints en pure hulpfuncties (gelijk aan scripts/bag_snapshots.py; hier bewust zelfstandig zodat dit script
+# ook zonder dat bestand werkt).
+PDOK_FREE = "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free"
+BAG_PAND_ITEMS = "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items"
+BAG3D_ITEM = "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.{pand_id}"
+BBOX_DEG = 0.00018
+
+
+def norm(s):
+    return re.sub(r"\s+", " ", (s or "")).strip().lower()
+
+
+def norm_postcode(s):
+    return re.sub(r"\s+", "", (s or "")).upper()
+
+
+def exact_address_match(doc, street, number, postcode):
+    """PDOK-adresdocument exact gelijk aan de gevraagde straat + huisnummer (+ postcode)? Geen fuzzy matching."""
+    if norm(doc.get("straatnaam")) != norm(street):
+        return False
+    nr = str(doc.get("huisnummer", "")) + (doc.get("huisletter") or "") + \
+        (("-" + doc["huisnummertoevoeging"]) if doc.get("huisnummertoevoeging") else "")
+    if norm(nr) != norm(str(number)):
+        return False
+    if postcode and norm_postcode(doc.get("postcode")) != norm_postcode(postcode):
+        return False
+    return True
+
+
+def point_in_ring(ring, x, y):
+    c = False
+    j = len(ring) - 2
+    for i in range(len(ring) - 1):
+        xi, yi = ring[i]
+        xj, yj = ring[j]
+        if ((yi > y) != (yj > y)) and (x < (xj - xi) * (y - yi) / (yj - yi) + xi):
+            c = not c
+        j = i
+    return c
+
+
+def outer_rings(geometry):
+    if geometry["type"] == "Polygon":
+        return [geometry["coordinates"][0]]
+    if geometry["type"] == "MultiPolygon":
+        return [p[0] for p in geometry["coordinates"]]
+    return []
+
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = ROOT / "data" / "external" / "building_validation" / "real_validation_v1"
