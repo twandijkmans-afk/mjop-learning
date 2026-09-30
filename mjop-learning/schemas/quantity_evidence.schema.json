@@ -53,6 +53,13 @@
             "ACTION_QUANTITY",
             "SHARE_QUANTITY"
           ]
+        },
+        "subject_key": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Optioneel: gebouwbreed onderwerp uit vocabularies/quantity_subjects_v1.json (bijv. ROOF_FLAT_AREA)."
         }
       },
       "required": [
