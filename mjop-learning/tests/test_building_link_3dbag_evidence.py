@@ -122,6 +122,23 @@ def test_snapshot_no_fuzzy_address_match():
     assert snap["panden"] == []                      # geen pand opgevraagd voor een niet-exact adres
 
 
+def test_snapshot_requires_same_city():
+    """Een gelijknamig adres in een andere woonplaats is geen treffer (Zomerdijkstraat 14 Amsterdam != Zwolle)."""
+    zwolle = dict(addr("Teststraat", "14", "8043 HR", pid="zwolle"), woonplaatsnaam="Zwolle")
+    http = fake_http({"0193100000000001": (LON, LAT, ATTRS)}, [zwolle])
+    snap = bs.fetch_snapshot("DOC-010", "Teststraat", "14", None, "Amsterdam", http_get=http, fetched_at=T)
+    assert snap["address_matches"][0]["exact_match"] is False
+    assert snap["panden"] == []
+    q = urllib.parse.parse_qs(urllib.parse.urlparse(http.calls[0]).query)
+    assert q["fq"] == ["type:adres", 'woonplaatsnaam:"Amsterdam"']
+
+
+def test_snapshot_city_alias_den_haag():
+    doc = dict(addr("Meppelweg", "819", "2544 AW"), woonplaatsnaam="'s-Gravenhage")
+    assert bs.exact_address_match(doc, "Meppelweg", "819", "2544 AW", "Den Haag") is True
+    assert bs.exact_address_match(doc, "Meppelweg", "819", "2544 AW", "Rotterdam") is False
+
+
 def test_snapshot_network_failure_raises():
     def broken(url):
         raise bs.SnapshotError("egress geweigerd")
@@ -198,9 +215,11 @@ def test_multi_pand_links():
 
 
 def test_committed_stores_are_empty():
+    # Geen menselijke besluiten vastgelegd; snapshots (bewijs, geen besluit) zijn er wel en moeten intact zijn.
     assert json.load(open(bl.LINK_STORE))["records"] == []
     assert json.load(open(xw.DECISIONS))["records"] == []
-    assert sorted(os.listdir(bs.SNAPSHOT_DIR)) == ["README.md"]
+    for snap in bs.load_snapshots():
+        assert bs.snapshot_errors(snap) == [], snap["snapshot_id"]
 
 
 # --- 3D BAG-regels --------------------------------------------------------------------

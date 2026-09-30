@@ -21,8 +21,8 @@ historisch MJOP-document
 
 | Onderdeel | Stand |
 |---|---|
-| Snapshots | **0**. `api.pdok.nl` en `api.3dbag.nl` zijn vanuit de ontwikkelomgeving geweigerd (egress-beleid). De opvraagroute volgt MJOP-App (`lookupBuilding`), maar is `NOT_VERIFIED_AGAINST_LIVE_API`. |
-| Building links | **0** bevestigd. Het kandidatenrapport dekt 13 documenten: 11 `AWAITING_BAG_SNAPSHOT`, 2 `NO_ADDRESS` (DOC-007 heeft alleen een objectnaam en plaats; DOC-011 heeft geen objectgegevens). |
+| Snapshots | **25** voor 11 documenten (2026-09-30), live opgehaald met `bag_snapshots_v1.1.0`. De eerste live run liet zien dat de woonplaats niet werd gecontroleerd (Zomerdijkstraat 14 Amsterdam gaf een pand in Zwolle); sindsdien filtert de PDOK-vraag op woonplaats en moet die exact gelijk zijn (alias: Den Haag = 's-Gravenhage). |
+| Building links | **0** bevestigd. Het kandidatenrapport dekt 13 documenten: 7 `CANDIDATES_READY_FOR_REVIEW`, 4 `NO_CANDIDATE_PANDEN` (geen exact adres: het document noemt een huisnummer zonder toevoeging, of een andere straatspelling), 2 `NO_ADDRESS` (DOC-007 heeft alleen een objectnaam en plaats; DOC-011 heeft geen objectgegevens). |
 | Crosswalk / onderwerp-mappings | **0** geverifieerd. Alle mappings zijn voorstellen (`PROPOSED` / `REVIEW_REQUIRED`). |
 | 3D BAG- en historische evidence | **0**, omdat er geen links zijn. |
 | Vergelijkingen | **0**. |

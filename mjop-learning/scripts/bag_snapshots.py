@@ -9,11 +9,13 @@ Opvraagketen (dezelfde als MJOP-App src/app.js lookupBuilding):
   -> 3D BAG /collections/pand/items/NL.IMBAG.Pand.<id> (attributen ongewijzigd bewaard).
 
 Geen fuzzy matching: een adres telt alleen als straat, huisnummer (+ toevoeging) en, indien opgegeven,
-postcode exact overeenkomen (hoofdletters/witruimte genormaliseerd). Niet-exacte PDOK-treffers worden
-bewaard als context maar niet gebruikt.
+postcode en woonplaats exact overeenkomen (hoofdletters/witruimte genormaliseerd; voor de woonplaats
+alleen de expliciete aliassen in CITY_ALIASES). Niet-exacte PDOK-treffers worden bewaard als context
+maar niet gebruikt. Met een woonplaats filtert de PDOK-vraag ook op die woonplaats; zonder dat filter
+vult PDOK de 10 treffers met gelijknamige straten in andere plaatsen.
 
-Status: de opvraagroutes zijn NOT_VERIFIED_AGAINST_LIVE_API vanuit de ontwikkelomgeving (egress naar
-api.pdok.nl en api.3dbag.nl geweigerd). Tests gebruiken vaste antwoorden.
+Status: de opvraagroutes zijn op 2026-09-30 tegen de live API's gedraaid (VERIFIED_AGAINST_LIVE_API).
+Tests gebruiken vaste antwoorden.
 
     python scripts/bag_snapshots.py fetch --document DOC-005 --street Maldenhof --number 240 \
         --postcode "1106 EZ" --city Amsterdam
@@ -31,13 +33,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOT_DIR = ROOT / "data" / "bag_snapshots"
-TOOL_VERSION = "bag_snapshots_v1.0.0"
-LIVE_API_STATUS = "NOT_VERIFIED_AGAINST_LIVE_API"
+TOOL_VERSION = "bag_snapshots_v1.1.0"
+LIVE_API_STATUS = "VERIFIED_AGAINST_LIVE_API"
 
 PDOK_FREE = "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free"
 BAG_PAND_ITEMS = "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items"
 BAG3D_ITEM = "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.{pand_id}"
 BBOX_DEG = 0.00018
+
+# Woonplaatsnaam zoals in documenten vermeld -> officiële BAG-woonplaatsnaam. Alleen expliciete aliassen.
+CITY_ALIASES = {"den haag": "'s-gravenhage"}
 
 
 class SnapshotError(RuntimeError):
@@ -65,8 +70,13 @@ def norm_postcode(s):
     return re.sub(r"\s+", "", (s or "")).upper()
 
 
-def exact_address_match(doc, street, number, postcode):
-    """PDOK-adresdocument exact gelijk aan de gevraagde straat + huisnummer (+ postcode)?"""
+def norm_city(s):
+    c = norm(s)
+    return CITY_ALIASES.get(c, c)
+
+
+def exact_address_match(doc, street, number, postcode, city=None):
+    """PDOK-adresdocument exact gelijk aan de gevraagde straat + huisnummer (+ postcode, + woonplaats)?"""
     if norm(doc.get("straatnaam")) != norm(street):
         return False
     nr = str(doc.get("huisnummer", "")) + (doc.get("huisletter") or "") + \
@@ -74,6 +84,8 @@ def exact_address_match(doc, street, number, postcode):
     if norm(nr) != norm(str(number)):
         return False
     if postcode and norm_postcode(doc.get("postcode")) != norm_postcode(postcode):
+        return False
+    if city and norm_city(doc.get("woonplaatsnaam")) != norm_city(city):
         return False
     return True
 
@@ -112,7 +124,11 @@ def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_g
         return body
 
     q = " ".join(x for x in (street, str(number), postcode or "", city or "") if x).strip()
-    free = get(PDOK_FREE + "?" + urllib.parse.urlencode({"q": q, "fq": "type:adres", "rows": 10}))
+    params = [("q", q), ("fq", "type:adres")]
+    if city:
+        params.append(("fq", 'woonplaatsnaam:"%s"' % city))
+    params.append(("rows", 10))
+    free = get(PDOK_FREE + "?" + urllib.parse.urlencode(params))
     docs = (free.get("response") or {}).get("docs") or []
     matches = []
     for d in docs:
@@ -121,7 +137,7 @@ def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_g
             "pdok_id": d.get("id"), "weergavenaam": d.get("weergavenaam"), "postcode": d.get("postcode"),
             "woonplaatsnaam": d.get("woonplaatsnaam"), "centroide_ll": d.get("centroide_ll"),
             "adresseerbaarobject_id": d.get("adresseerbaarobject_id"),
-            "exact_match": exact_address_match(d, street, number, postcode),
+            "exact_match": exact_address_match(d, street, number, postcode, city),
             "_point": [float(m.group(1)), float(m.group(2))] if m else None,
         })
     panden = {}

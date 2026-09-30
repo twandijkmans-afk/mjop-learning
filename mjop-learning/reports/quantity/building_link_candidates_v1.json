@@ -33,14 +33,41 @@
    "DOC-013": "454225afd02a1180ffccaf6aaa6bc5d0de9ec07d5b4c6f7ef73341befcf16c8d",
    "DOC-015": "ac5ed464992d08362dd1238edd7b160757b526448ada9c47c6b22f5527f77d07"
   },
-  "snapshot_ids": [],
+  "snapshot_ids": [
+   "BAGSNAP-06699ef5082261ff",
+   "BAGSNAP-1072a229ca2cadef",
+   "BAGSNAP-207e6b1b5d32900b",
+   "BAGSNAP-2cb7da8239a3ff87",
+   "BAGSNAP-382746621cc0b771",
+   "BAGSNAP-3a2148d035525161",
+   "BAGSNAP-3b017f02178cd009",
+   "BAGSNAP-48cb09dc12446911",
+   "BAGSNAP-4f66eeac4723bbfa",
+   "BAGSNAP-511748e792e1a3ae",
+   "BAGSNAP-578ead0bda0e6e90",
+   "BAGSNAP-5faa647d94e5ef31",
+   "BAGSNAP-6351af0349673159",
+   "BAGSNAP-6a635d53051fe6f1",
+   "BAGSNAP-9b63105dc1a61a64",
+   "BAGSNAP-aebb3209b7d3fa6d",
+   "BAGSNAP-af1047f33ce083f2",
+   "BAGSNAP-b381148100ffcb0d",
+   "BAGSNAP-d926412007442afd",
+   "BAGSNAP-dd285ca9156fc9fb",
+   "BAGSNAP-e047e23c7747051e",
+   "BAGSNAP-e34b7f745399d387",
+   "BAGSNAP-e6f2b81aa37dcc40",
+   "BAGSNAP-f19e538eec88b064",
+   "BAGSNAP-f80de8348cc2c39d"
+  ],
   "link_store_sha256": "271e5d44200d851a1580c7766753afe55f615d2e199054c35d85222c74ea516c"
  },
  "summary": {
   "documents": 13,
   "by_status": {
-   "AWAITING_BAG_SNAPSHOT": 11,
-   "NO_ADDRESS": 2
+   "CANDIDATES_READY_FOR_REVIEW": 7,
+   "NO_ADDRESS": 2,
+   "NO_CANDIDATE_PANDEN": 4
   },
   "confirmed_links": 0,
   "documents_with_multiple_confirmed_panden": [],
@@ -49,11 +76,13 @@
    "ADDRESS_FROM_OBJECT_NAME": 2,
    "ADDRESS_RANGE": 7,
    "CITY_MISSING": 2,
+   "MULTIPLE_CANDIDATE_PANDEN": 4,
    "MULTIPLE_STREETS": 4,
-   "NO_BAG_SNAPSHOT": 13,
+   "NO_BAG_SNAPSHOT": 2,
    "NO_STATED_ADDRESS": 4,
    "OBJECT_NAME_ADDRESS_DIFFERS": 3,
    "POSTCODE_MISSING": 8,
+   "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH": 4,
    "SUBPLAN_SCOPE": 2
   }
  },
@@ -127,16 +156,75 @@
    "document_relations": [],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-48cb09dc12446911",
+    "BAGSNAP-4f66eeac4723bbfa",
+    "BAGSNAP-dd285ca9156fc9fb",
+    "BAGSNAP-f19e538eec88b064"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012061385",
+     "snapshot_ids": [
+      "BAGSNAP-48cb09dc12446911",
+      "BAGSNAP-dd285ca9156fc9fb"
+     ],
+     "contains_address_point_of": [
+      "adr-0af404d30c9f56d19608b2dc11960bfc",
+      "adr-d3e38c4b4244bbcacbc8657497447631"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 8,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "industriefunctie,woonfunctie",
+      "identificatie": "0363100012061385",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012094543",
+     "snapshot_ids": [
+      "BAGSNAP-f19e538eec88b064"
+     ],
+     "contains_address_point_of": [
+      "adr-77acc8132fec04748485efb0dd2bb5f2"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012094543",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012145430",
+     "snapshot_ids": [
+      "BAGSNAP-4f66eeac4723bbfa"
+     ],
+     "contains_address_point_of": [
+      "adr-b470ef05c88bbf10b51fd145953e7ff4"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012145430",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
+    "MULTIPLE_CANDIDATE_PANDEN",
     "MULTIPLE_STREETS",
-    "NO_BAG_SNAPSHOT",
     "POSTCODE_MISSING"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-002",
@@ -206,15 +294,18 @@
     "DOC-004"
    ],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
+   "snapshot_ids": [
+    "BAGSNAP-3b017f02178cd009",
+    "BAGSNAP-e6f2b81aa37dcc40"
+   ],
    "candidate_bag_panden": [],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT",
     "MULTIPLE_STREETS",
-    "NO_BAG_SNAPSHOT"
+    "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "NO_CANDIDATE_PANDEN"
   },
   {
    "document_id": "DOC-004",
@@ -279,16 +370,19 @@
     "DOC-002"
    ],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
+   "snapshot_ids": [
+    "BAGSNAP-5faa647d94e5ef31",
+    "BAGSNAP-f80de8348cc2c39d"
+   ],
    "candidate_bag_panden": [],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT",
     "MULTIPLE_STREETS",
-    "NO_BAG_SNAPSHOT",
-    "POSTCODE_MISSING"
+    "POSTCODE_MISSING",
+    "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "NO_CANDIDATE_PANDEN"
   },
   {
    "document_id": "DOC-005",
@@ -346,14 +440,52 @@
     "DOC-006"
    ],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-1072a229ca2cadef",
+    "BAGSNAP-af1047f33ce083f2"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012127361",
+     "snapshot_ids": [
+      "BAGSNAP-1072a229ca2cadef"
+     ],
+     "contains_address_point_of": [
+      "adr-fcdccebfafa94afc54d9dd831fb68c9b"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012127361",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "snapshot_ids": [
+      "BAGSNAP-af1047f33ce083f2"
+     ],
+     "contains_address_point_of": [
+      "adr-e2c59424029b7f16e3f06efb87300a15"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137996",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT"
+    "MULTIPLE_CANDIDATE_PANDEN"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-006",
@@ -416,14 +548,52 @@
     "DOC-005"
    ],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-3a2148d035525161",
+    "BAGSNAP-e047e23c7747051e"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012127361",
+     "snapshot_ids": [
+      "BAGSNAP-e047e23c7747051e"
+     ],
+     "contains_address_point_of": [
+      "adr-fcdccebfafa94afc54d9dd831fb68c9b"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012127361",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "snapshot_ids": [
+      "BAGSNAP-3a2148d035525161"
+     ],
+     "contains_address_point_of": [
+      "adr-e2c59424029b7f16e3f06efb87300a15"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137996",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT"
+    "MULTIPLE_CANDIDATE_PANDEN"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-007",
@@ -498,19 +668,22 @@
    ],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
+   "snapshot_ids": [
+    "BAGSNAP-06699ef5082261ff",
+    "BAGSNAP-6a635d53051fe6f1"
+   ],
    "candidate_bag_panden": [],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_FROM_OBJECT_NAME",
     "ADDRESS_RANGE",
     "CITY_MISSING",
-    "NO_BAG_SNAPSHOT",
     "NO_STATED_ADDRESS",
     "POSTCODE_MISSING",
+    "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH",
     "SUBPLAN_SCOPE"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "NO_CANDIDATE_PANDEN"
   },
   {
    "document_id": "DOC-009",
@@ -558,18 +731,21 @@
    ],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
+   "snapshot_ids": [
+    "BAGSNAP-aebb3209b7d3fa6d",
+    "BAGSNAP-e34b7f745399d387"
+   ],
    "candidate_bag_panden": [],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_FROM_OBJECT_NAME",
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT",
     "NO_STATED_ADDRESS",
     "POSTCODE_MISSING",
+    "SNAPSHOT_WITHOUT_EXACT_ADDRESS_MATCH",
     "SUBPLAN_SCOPE"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "NO_CANDIDATE_PANDEN"
   },
   {
    "document_id": "DOC-010",
@@ -626,15 +802,35 @@
    "document_relations": [],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-2cb7da8239a3ff87",
+    "BAGSNAP-6351af0349673159"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012100719",
+     "snapshot_ids": [
+      "BAGSNAP-2cb7da8239a3ff87"
+     ],
+     "contains_address_point_of": [
+      "adr-fa3f3b710d7fd99ab49479d25d25ab4a"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1934,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012100719",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "MULTIPLE_STREETS",
-    "NO_BAG_SNAPSHOT",
     "OBJECT_NAME_ADDRESS_DIFFERS"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-011",
@@ -705,14 +901,33 @@
    "document_relations": [],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-9b63105dc1a61a64"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0518100000354752",
+     "snapshot_ids": [
+      "BAGSNAP-9b63105dc1a61a64"
+     ],
+     "contains_address_point_of": [
+      "adr-da98dc00dbc376def18e379c4d953266"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 42,
+      "bouwjaar": 1957,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0518100000354752",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
-    "NO_BAG_SNAPSHOT",
     "OBJECT_NAME_ADDRESS_DIFFERS"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-013",
@@ -776,16 +991,38 @@
    "document_relations": [],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-207e6b1b5d32900b",
+    "BAGSNAP-511748e792e1a3ae",
+    "BAGSNAP-578ead0bda0e6e90",
+    "BAGSNAP-b381148100ffcb0d"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012124984",
+     "snapshot_ids": [
+      "BAGSNAP-b381148100ffcb0d"
+     ],
+     "contains_address_point_of": [
+      "adr-609e0e835ba3c567b01fb81a36a85829"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 4,
+      "bouwjaar": 1923,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012124984",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT",
     "OBJECT_NAME_ADDRESS_DIFFERS",
     "POSTCODE_MISSING"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-015",
@@ -837,15 +1074,53 @@
    "document_relations": [],
    "same_object_document_ids": [],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-382746621cc0b771",
+    "BAGSNAP-d926412007442afd"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012094004",
+     "snapshot_ids": [
+      "BAGSNAP-d926412007442afd"
+     ],
+     "contains_address_point_of": [
+      "adr-0478e04774bc8e4f23d5b80104ecac0f"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 11,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "overige gebruiksfunctie,woonfunctie",
+      "identificatie": "0363100012094004",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012139052",
+     "snapshot_ids": [
+      "BAGSNAP-382746621cc0b771"
+     ],
+     "contains_address_point_of": [
+      "adr-ab76cdc15c950829c72ae81cc1feeb41"
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 7,
+      "bouwjaar": 1966,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012139052",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT",
+    "MULTIPLE_CANDIDATE_PANDEN",
     "POSTCODE_MISSING"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   }
  ]
 }
