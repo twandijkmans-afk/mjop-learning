@@ -93,3 +93,14 @@ factor ~2 verschil met het MJOP. Oorzaken die nog niet te scheiden zijn:
 
 Volgende stap om dit te beslechten: één woning (bv. Maldenhof 264) handmatig of uit een maatvaste tekening opmeten
 als ijkpunt, en de dekking per woning verbeteren (aanbouwen apart projecteren, meerdere panorama's per gevel combineren).
+
+## Vervolg: PoC v2 (dekking per gevelpunt, multi-panorama, MJOP-ontleding)
+
+Zie `reports/quantity/facade_element_detection_poc_v2_maldenhof.md`. Correcties op v1:
+- `frame_area_m2` heette ten onrechte zo: het is de som van bounding boxes van openingen (`total_opening_bbox_area_m2`);
+  de noemer 836,26 m² bevatte 77,81 m² die het model onbruikbaar vond.
+- "Per pand is maar één woningbreedte verwerkt" klopt niet: beide adressen per pand delen één voorgevel
+  (vermoedelijk beneden-/bovenwoning, niet bevestigd).
+- Opnames 2024/2025 hebben in de API hoogte 0,0 en zijn niet te projecteren; vrijstaande bergings-/trappenhuisblokken
+  (BAG-panden zonder VBO) ontbraken als occluder.
+- De 756,8 m² uit het MJOP is geen geldige benchmark (niet gemeten, ongedefinieerd, overgenomen 2023→2026).
