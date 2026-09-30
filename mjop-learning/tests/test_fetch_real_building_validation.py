@@ -52,6 +52,7 @@ class World:
                 "woonplaatsnaam": self.place, "woonplaatscode": "9999", "centroide_ll": f"POINT({lon} {lat})",
                 "adresseerbaarobject_id": "0100" + number.zfill(10), "nummeraanduiding_id": "0200" + number.zfill(10)}
 
+    unmatched_number = 885
     VBO_BASE = "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/verblijfsobject/items/"
 
     def vbo_ids(self, pid):
@@ -66,7 +67,9 @@ class World:
         if "/verblijfsobject/items/" in url:
             vid = url.rsplit("~", 1)[1]
             return ok(jb({"type": "Feature", "properties": {"identificatie": vid, "status": "Verblijfsobject in gebruik",
-                                                            "gebruiksdoel": "woonfunctie", "oppervlakte": 50}}))
+                                                            "gebruiksdoel": "woonfunctie", "oppervlakte": 50,
+                                                            "huisnummer": self.unmatched_number, "huisletter": None,
+                                                            "toevoeging": None, "postcode": "2544AX"}}))
         if "locatieserver" in url:
             if self.pdok_raw is not None:
                 return ok(self.pdok_raw)
@@ -499,6 +502,9 @@ def test_missing_address_explained_by_vbo_detail(tmp_path):
     assert row["aantal_verblijfsobjecten_bag"] == 42 and row["distinct_vbo_ids_in_scope"] == 41
     assert row["vbo_fully_covered_by_scope"] is False
     assert row["vbo_without_matched_address"] == ["UNMATCHEDPM0"]
+    d = row["vbo_without_matched_address_details"][0]
+    assert d["huisnummer"] == 885 and d["outside_requested_number_range"] is True and d["postcode"] == "2544AX"
+    assert any("HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885" in f for f in odd["flags"])
     assert odd["strength"] == "WEAK_BUILDING_PROJECT_CANDIDATE"
     assert bpc["best_supported_hypothesis_id"] is None
     assert any(f.startswith("NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED") for f in pkg(tmp_path, "DOC-012")["review_flags"])
