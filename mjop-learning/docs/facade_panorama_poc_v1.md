@@ -61,3 +61,35 @@ bruikbaar — de drempel is conservatief.
 
 Netwerk: `api.data.amsterdam.nl` en `t1.data.amsterdam.nl` (optioneel `cdn.proj.org` voor het NAP-raster).
 Bronvermelding: Gemeente Amsterdam, Kernregistratie Panoramabeelden (CC BY 4.0); 3D BAG (TU Delft, CC BY 4.0).
+
+## Vervolg: elementherkenning (`scripts/facade_element_detection_poc.py`)
+
+Claude Opus 5.5 (structured output, server-side fallback aan) wijst op de 91 bruikbare gevelbeelden (1 cm/px) per
+element het type en de omhullende rechthoek aan; code verfijnt de randen op de beeldgradiënt en rekent in meters.
+Resultaat: `reports/quantity/facade_element_detection_poc_v1_maldenhof.json`. Kosten van de run: 133.687 input- en
+42.846 outputtokens (≈ $1,40).
+
+| Gevelzijde | Wanden | Wand m² | Ramen | Deuren | Kozijn m² | Gevelbekleding m² |
+|---|---|---|---|---|---|---|
+| Voorgevels | 46 | 403,5 | 42 | 7 (+1 garagedeur, 3 dakkapellen) | 90,0 | 11,6 |
+| Kop-/zijgevels | 30 | 320,8 | 19 | 0 | 22,1 | 12,7 |
+| Achtergevels | 15 | 112,0 | 11 | 4 (+3 balkons) | 28,7 | 1,3 |
+| **Totaal** | **91** | **836,3** | **72** | **11** | **140,9** | **25,6** |
+
+Visueel gecontroleerd op een steekproef voorgevels: kozijnen worden nauwkeurig omlijnd (buitenkozijn incl. paneel),
+donkere gevelbekleding en garagedeur herkend; ramen achter struiken worden soms gemist. Het model herkent zelf blinde
+kopgevels (0 elementen) en meldt occlusie in `remarks`.
+
+**Vergelijking met het MJOP (DOC-005) — geen nauwkeurigheidsclaim.** MJOP: kozijn buiten hout 756,8 m², raamdorpels
+281,2 m¹, gevelbekleding hout (voorgevel) 332 m². Automatisch op de zichtbare 54% van de buitenwand: 140,9 m² kozijn
+(kozijnaandeel 17% van de verwerkte wand; voorgevels 22%). Zelfs volledig opgeschaald (≈ 260–400 m²) blijft er een
+factor ~2 verschil met het MJOP. Oorzaken die nog niet te scheiden zijn:
+1. **Dekking per woning**: per pand (2 woningen) is maar ~26–40 m² voorgevel verwerkt, ongeveer één woningbreedte; de rest
+   ligt achter de eigen aanbouwen of is als LoD2.2-fragment afgekeurd.
+2. **MJOP-conventie**: kozijn-m² = schilderwerk-kozijn-m² (756,8) en ~49% van de buitenwand zou kozijn zijn; mogelijk
+   telt het MJOP panelen/borstweringen of andere zones mee. Historische MJOP-hoeveelheden zijn geen ground truth
+   (`docs/remote_mjop_quantity_strategy_v1.md` §2).
+3. Gemiste elementen achter begroeiing (het model markeert veel elementen als deels verborgen).
+
+Volgende stap om dit te beslechten: één woning (bv. Maldenhof 264) handmatig of uit een maatvaste tekening opmeten
+als ijkpunt, en de dekking per woning verbeteren (aanbouwen apart projecteren, meerdere panorama's per gevel combineren).
