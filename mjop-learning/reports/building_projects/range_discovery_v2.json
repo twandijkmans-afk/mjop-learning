@@ -1,0 +1,2522 @@
+{
+ "classes": {
+  "APPROVED_PROJECT": "document zit in een ACTIVE building_project; dit package is alleen ondersteunend bewijs",
+  "MODERATE_CANDIDATE": "beste hypothese is MODERATE (bijv. MJOP noemt geen aantal eenheden); menselijke beoordeling nodig",
+  "REVIEW_CASE": "geen hypothese voldoende bevestigd, of tegenstrijdig bewijs; zie blokkerende checks",
+  "STRONG_CANDIDATE": "minstens één STRONG hypothese; sterk bewijs, maar geen goedkeuring (alleen een mens via 'approve')"
+ },
+ "groups": [
+  {
+   "classification": {
+    "approved_building_project_ids": [],
+    "candidate_class": "MODERATE_CANDIDATE",
+    "most_supported_hypotheses": [
+     "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL"
+    ],
+    "selected_scope": null,
+    "supporting_evidence_ids": [],
+    "unresolved_case_ids": []
+   },
+   "document_address_key": "Alkmaarstraat 1",
+   "document_ids": [
+    "DOC-001"
+   ],
+   "group_flags": [
+    "PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL[Groetstraat]: even en oneven nummers delen 4 BAG-panden",
+    "PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL: EVEN_ONLY en ODD_ONLY delen 4 BAG-panden; pariteit is geen projectidentiteit, geen pariteit gekozen",
+    "GROUP: BUILDING_PROJECT_BESTAAT_UIT_10_BAG_PANDEN (geen enkel pand is 'het gebouw')",
+    "0363100012571474: THREEDBAG_ATTRIBUTES_MISSING"
+   ],
+   "group_id": "DOC-001",
+   "hypotheses": [
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012065581",
+      "0363100012077338",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012096429",
+      "0363100012097095",
+      "0363100012122300",
+      "0363100012145430",
+      "0363100012152230",
+      "0363100012247851",
+      "0363100012571474"
+     ],
+     "bag_panden": 13,
+     "bouwjaren_bag": [
+      1966,
+      1982,
+      2017,
+      2025
+     ],
+     "description": "Alle huisnummers in het bereik",
+     "exact_number_matches": 73,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "threedbag_coverage_complete",
+      "units_known"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "ADDRESSES_MISSING_IN_BAG: Alkmaarstraat 2,Alkmaarstraat 4,Alkmaarstraat 6,Alkmaarstraat 8,Alkmaarstraat 12,Alkmaarstraat 16,Alkmaarstraat 18,Alkmaarstraat 20,Alkmaarstraat 22,Alkmaarstraat 24,Alkmaarstraat 26,Alkmaarstraat 28,Alkmaarstraat 30,Alkmaarstraat 32,Alkmaarstraat 34,Alkmaarstraat 36,Alkmaarstraat 38,Alkmaarstraat 40,Alkmaarstraat 42,Alkmaarstraat 44,Alkmaarstraat 46,Alkmaarstraat 48,Alkmaarstraat 50,Alkmaarstraat 52,Alkmaarstraat 54,Alkmaarstraat 56,Alkmaarstraat 58,Alkmaarstraat 60,Alkmaarstraat 62,Alkmaarstraat 64,Alkmaarstraat 66,Alkmaarstraat 68,Alkmaarstraat 70,Alkmaarstraat 72,Alkmaarstraat 74,Alkmaarstraat 76,Alkmaarstraat 78,Alkmaarstraat 80,Alkmaarstraat 82"
+     ],
+     "geographic_extent_m": 177.3,
+     "hypothesis_id": "ALL_NUMBERS",
+     "missing_numbers": [
+      "Alkmaarstraat 2",
+      "Alkmaarstraat 4",
+      "Alkmaarstraat 6",
+      "Alkmaarstraat 8",
+      "Alkmaarstraat 12",
+      "Alkmaarstraat 16",
+      "Alkmaarstraat 18",
+      "Alkmaarstraat 20",
+      "Alkmaarstraat 22",
+      "Alkmaarstraat 24",
+      "Alkmaarstraat 26",
+      "Alkmaarstraat 28",
+      "Alkmaarstraat 30",
+      "Alkmaarstraat 32",
+      "Alkmaarstraat 34",
+      "Alkmaarstraat 36",
+      "Alkmaarstraat 38",
+      "Alkmaarstraat 40",
+      "Alkmaarstraat 42",
+      "Alkmaarstraat 44",
+      "Alkmaarstraat 46",
+      "Alkmaarstraat 48",
+      "Alkmaarstraat 50",
+      "Alkmaarstraat 52",
+      "Alkmaarstraat 54",
+      "Alkmaarstraat 56",
+      "Alkmaarstraat 58",
+      "Alkmaarstraat 60",
+      "Alkmaarstraat 62",
+      "Alkmaarstraat 64",
+      "Alkmaarstraat 66",
+      "Alkmaarstraat 68",
+      "Alkmaarstraat 70",
+      "Alkmaarstraat 72",
+      "Alkmaarstraat 74",
+      "Alkmaarstraat 76",
+      "Alkmaarstraat 78",
+      "Alkmaarstraat 80",
+      "Alkmaarstraat 82"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 13,
+      "panden_with_attributes": 12
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": null,
+      "b3_opp_dak_plat": null,
+      "b3_opp_dak_schuin": null
+     },
+     "toevoeging_matches": 1,
+     "toevoegingen": [
+      "Alkmaarstraat 10B, 1024TT Amsterdam"
+     ],
+     "unique_addresses": 74,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 74
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012064361",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012097095",
+      "0363100012152230",
+      "0363100012247851",
+      "0363100012571474"
+     ],
+     "bag_panden": 7,
+     "bouwjaren_bag": [
+      1966,
+      1982,
+      2017,
+      2025
+     ],
+     "description": "Alleen even huisnummers in het bereik",
+     "exact_number_matches": 16,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "document_address_number_in_scope",
+      "threedbag_coverage_complete",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: Alkmaarstraat 1",
+      "ADDRESSES_MISSING_IN_BAG: Alkmaarstraat 2,Alkmaarstraat 4,Alkmaarstraat 6,Alkmaarstraat 8,Alkmaarstraat 12,Alkmaarstraat 16,Alkmaarstraat 18,Alkmaarstraat 20,Alkmaarstraat 22,Alkmaarstraat 24,Alkmaarstraat 26,Alkmaarstraat 28,Alkmaarstraat 30,Alkmaarstraat 32,Alkmaarstraat 34,Alkmaarstraat 36,Alkmaarstraat 38,Alkmaarstraat 40,Alkmaarstraat 42,Alkmaarstraat 44,Alkmaarstraat 46,Alkmaarstraat 48,Alkmaarstraat 50,Alkmaarstraat 52,Alkmaarstraat 54,Alkmaarstraat 56,Alkmaarstraat 58,Alkmaarstraat 60,Alkmaarstraat 62,Alkmaarstraat 64,Alkmaarstraat 66,Alkmaarstraat 68,Alkmaarstraat 70,Alkmaarstraat 72,Alkmaarstraat 74,Alkmaarstraat 76,Alkmaarstraat 78,Alkmaarstraat 80,Alkmaarstraat 82"
+     ],
+     "geographic_extent_m": 146.5,
+     "hypothesis_id": "EVEN_ONLY",
+     "missing_numbers": [
+      "Alkmaarstraat 2",
+      "Alkmaarstraat 4",
+      "Alkmaarstraat 6",
+      "Alkmaarstraat 8",
+      "Alkmaarstraat 12",
+      "Alkmaarstraat 16",
+      "Alkmaarstraat 18",
+      "Alkmaarstraat 20",
+      "Alkmaarstraat 22",
+      "Alkmaarstraat 24",
+      "Alkmaarstraat 26",
+      "Alkmaarstraat 28",
+      "Alkmaarstraat 30",
+      "Alkmaarstraat 32",
+      "Alkmaarstraat 34",
+      "Alkmaarstraat 36",
+      "Alkmaarstraat 38",
+      "Alkmaarstraat 40",
+      "Alkmaarstraat 42",
+      "Alkmaarstraat 44",
+      "Alkmaarstraat 46",
+      "Alkmaarstraat 48",
+      "Alkmaarstraat 50",
+      "Alkmaarstraat 52",
+      "Alkmaarstraat 54",
+      "Alkmaarstraat 56",
+      "Alkmaarstraat 58",
+      "Alkmaarstraat 60",
+      "Alkmaarstraat 62",
+      "Alkmaarstraat 64",
+      "Alkmaarstraat 66",
+      "Alkmaarstraat 68",
+      "Alkmaarstraat 70",
+      "Alkmaarstraat 72",
+      "Alkmaarstraat 74",
+      "Alkmaarstraat 76",
+      "Alkmaarstraat 78",
+      "Alkmaarstraat 80",
+      "Alkmaarstraat 82"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012064361": [
+       "Groetstraat 211",
+       "Groetstraat 213",
+       "Groetstraat 215"
+      ],
+      "0363100012093423": [
+       "Groetstraat 197",
+       "Groetstraat 199",
+       "Groetstraat 201"
+      ],
+      "0363100012094543": [
+       "Groetstraat 189",
+       "Groetstraat 191",
+       "Groetstraat 193",
+       "Groetstraat 195"
+      ],
+      "0363100012152230": [
+       "Groetstraat 203",
+       "Groetstraat 205",
+       "Groetstraat 207",
+       "Groetstraat 209"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 7,
+      "panden_with_attributes": 6
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": null,
+      "b3_opp_dak_plat": null,
+      "b3_opp_dak_schuin": null
+     },
+     "toevoeging_matches": 1,
+     "toevoegingen": [
+      "Alkmaarstraat 10B, 1024TT Amsterdam"
+     ],
+     "unique_addresses": 17,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 31
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012065581",
+      "0363100012077338",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012096429",
+      "0363100012122300",
+      "0363100012145430",
+      "0363100012152230"
+     ],
+     "bag_panden": 10,
+     "bouwjaren_bag": [
+      1966
+     ],
+     "description": "Alleen oneven huisnummers in het bereik",
+     "exact_number_matches": 57,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [],
+     "geographic_extent_m": 111.4,
+     "hypothesis_id": "ODD_ONLY",
+     "missing_numbers": [],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012064361": [
+       "Groetstraat 210",
+       "Groetstraat 212",
+       "Groetstraat 214",
+       "Groetstraat 216"
+      ],
+      "0363100012093423": [
+       "Groetstraat 196",
+       "Groetstraat 198",
+       "Groetstraat 200",
+       "Groetstraat 202"
+      ],
+      "0363100012094543": [
+       "Groetstraat 190",
+       "Groetstraat 192",
+       "Groetstraat 194"
+      ],
+      "0363100012152230": [
+       "Groetstraat 204",
+       "Groetstraat 206",
+       "Groetstraat 208"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 10,
+      "panden_with_attributes": 10
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "3964.80",
+      "b3_opp_dak_plat": "0.0",
+      "b3_opp_dak_schuin": "2132.63"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 57,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 71
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012065581",
+      "0363100012077338",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012096429",
+      "0363100012097095",
+      "0363100012122300",
+      "0363100012145430",
+      "0363100012152230",
+      "0363100012247851",
+      "0363100012571474"
+     ],
+     "bag_panden": 13,
+     "bouwjaren_bag": [
+      1966,
+      1982,
+      2017,
+      2025
+     ],
+     "description": "Alkmaarstraat: all; Groetstraat: even",
+     "exact_number_matches": 58,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "threedbag_coverage_complete",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "ADDRESSES_MISSING_IN_BAG: Alkmaarstraat 2,Alkmaarstraat 4,Alkmaarstraat 6,Alkmaarstraat 8,Alkmaarstraat 12,Alkmaarstraat 16,Alkmaarstraat 18,Alkmaarstraat 20,Alkmaarstraat 22,Alkmaarstraat 24,Alkmaarstraat 26,Alkmaarstraat 28,Alkmaarstraat 30,Alkmaarstraat 32,Alkmaarstraat 34,Alkmaarstraat 36,Alkmaarstraat 38,Alkmaarstraat 40,Alkmaarstraat 42,Alkmaarstraat 44,Alkmaarstraat 46,Alkmaarstraat 48,Alkmaarstraat 50,Alkmaarstraat 52,Alkmaarstraat 54,Alkmaarstraat 56,Alkmaarstraat 58,Alkmaarstraat 60,Alkmaarstraat 62,Alkmaarstraat 64,Alkmaarstraat 66,Alkmaarstraat 68,Alkmaarstraat 70,Alkmaarstraat 72,Alkmaarstraat 74,Alkmaarstraat 76,Alkmaarstraat 78,Alkmaarstraat 80,Alkmaarstraat 82"
+     ],
+     "geographic_extent_m": 177.3,
+     "hypothesis_id": "MIXED:ALKMAARSTRAAT=ALL|GROETSTRAAT=EVEN",
+     "missing_numbers": [
+      "Alkmaarstraat 2",
+      "Alkmaarstraat 4",
+      "Alkmaarstraat 6",
+      "Alkmaarstraat 8",
+      "Alkmaarstraat 12",
+      "Alkmaarstraat 16",
+      "Alkmaarstraat 18",
+      "Alkmaarstraat 20",
+      "Alkmaarstraat 22",
+      "Alkmaarstraat 24",
+      "Alkmaarstraat 26",
+      "Alkmaarstraat 28",
+      "Alkmaarstraat 30",
+      "Alkmaarstraat 32",
+      "Alkmaarstraat 34",
+      "Alkmaarstraat 36",
+      "Alkmaarstraat 38",
+      "Alkmaarstraat 40",
+      "Alkmaarstraat 42",
+      "Alkmaarstraat 44",
+      "Alkmaarstraat 46",
+      "Alkmaarstraat 48",
+      "Alkmaarstraat 50",
+      "Alkmaarstraat 52",
+      "Alkmaarstraat 54",
+      "Alkmaarstraat 56",
+      "Alkmaarstraat 58",
+      "Alkmaarstraat 60",
+      "Alkmaarstraat 62",
+      "Alkmaarstraat 64",
+      "Alkmaarstraat 66",
+      "Alkmaarstraat 68",
+      "Alkmaarstraat 70",
+      "Alkmaarstraat 72",
+      "Alkmaarstraat 74",
+      "Alkmaarstraat 76",
+      "Alkmaarstraat 78",
+      "Alkmaarstraat 80",
+      "Alkmaarstraat 82"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012061385": [
+       "Groetstraat 217"
+      ],
+      "0363100012064361": [
+       "Groetstraat 211",
+       "Groetstraat 213",
+       "Groetstraat 215"
+      ],
+      "0363100012093423": [
+       "Groetstraat 197",
+       "Groetstraat 199",
+       "Groetstraat 201"
+      ],
+      "0363100012094543": [
+       "Groetstraat 189",
+       "Groetstraat 191",
+       "Groetstraat 193",
+       "Groetstraat 195"
+      ],
+      "0363100012152230": [
+       "Groetstraat 203",
+       "Groetstraat 205",
+       "Groetstraat 207",
+       "Groetstraat 209"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 13,
+      "panden_with_attributes": 12
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": null,
+      "b3_opp_dak_plat": null,
+      "b3_opp_dak_schuin": null
+     },
+     "toevoeging_matches": 1,
+     "toevoegingen": [
+      "Alkmaarstraat 10B, 1024TT Amsterdam"
+     ],
+     "unique_addresses": 59,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 74
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012065581",
+      "0363100012077338",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012096429",
+      "0363100012097095",
+      "0363100012122300",
+      "0363100012145430",
+      "0363100012152230",
+      "0363100012247851",
+      "0363100012571474"
+     ],
+     "bag_panden": 13,
+     "bouwjaren_bag": [
+      1966,
+      1982,
+      2017,
+      2025
+     ],
+     "description": "Alkmaarstraat: all; Groetstraat: odd",
+     "exact_number_matches": 59,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "threedbag_coverage_complete",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "ADDRESSES_MISSING_IN_BAG: Alkmaarstraat 2,Alkmaarstraat 4,Alkmaarstraat 6,Alkmaarstraat 8,Alkmaarstraat 12,Alkmaarstraat 16,Alkmaarstraat 18,Alkmaarstraat 20,Alkmaarstraat 22,Alkmaarstraat 24,Alkmaarstraat 26,Alkmaarstraat 28,Alkmaarstraat 30,Alkmaarstraat 32,Alkmaarstraat 34,Alkmaarstraat 36,Alkmaarstraat 38,Alkmaarstraat 40,Alkmaarstraat 42,Alkmaarstraat 44,Alkmaarstraat 46,Alkmaarstraat 48,Alkmaarstraat 50,Alkmaarstraat 52,Alkmaarstraat 54,Alkmaarstraat 56,Alkmaarstraat 58,Alkmaarstraat 60,Alkmaarstraat 62,Alkmaarstraat 64,Alkmaarstraat 66,Alkmaarstraat 68,Alkmaarstraat 70,Alkmaarstraat 72,Alkmaarstraat 74,Alkmaarstraat 76,Alkmaarstraat 78,Alkmaarstraat 80,Alkmaarstraat 82"
+     ],
+     "geographic_extent_m": 177.3,
+     "hypothesis_id": "MIXED:ALKMAARSTRAAT=ALL|GROETSTRAAT=ODD",
+     "missing_numbers": [
+      "Alkmaarstraat 2",
+      "Alkmaarstraat 4",
+      "Alkmaarstraat 6",
+      "Alkmaarstraat 8",
+      "Alkmaarstraat 12",
+      "Alkmaarstraat 16",
+      "Alkmaarstraat 18",
+      "Alkmaarstraat 20",
+      "Alkmaarstraat 22",
+      "Alkmaarstraat 24",
+      "Alkmaarstraat 26",
+      "Alkmaarstraat 28",
+      "Alkmaarstraat 30",
+      "Alkmaarstraat 32",
+      "Alkmaarstraat 34",
+      "Alkmaarstraat 36",
+      "Alkmaarstraat 38",
+      "Alkmaarstraat 40",
+      "Alkmaarstraat 42",
+      "Alkmaarstraat 44",
+      "Alkmaarstraat 46",
+      "Alkmaarstraat 48",
+      "Alkmaarstraat 50",
+      "Alkmaarstraat 52",
+      "Alkmaarstraat 54",
+      "Alkmaarstraat 56",
+      "Alkmaarstraat 58",
+      "Alkmaarstraat 60",
+      "Alkmaarstraat 62",
+      "Alkmaarstraat 64",
+      "Alkmaarstraat 66",
+      "Alkmaarstraat 68",
+      "Alkmaarstraat 70",
+      "Alkmaarstraat 72",
+      "Alkmaarstraat 74",
+      "Alkmaarstraat 76",
+      "Alkmaarstraat 78",
+      "Alkmaarstraat 80",
+      "Alkmaarstraat 82"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012064361": [
+       "Groetstraat 210",
+       "Groetstraat 212",
+       "Groetstraat 214",
+       "Groetstraat 216"
+      ],
+      "0363100012093423": [
+       "Groetstraat 196",
+       "Groetstraat 198",
+       "Groetstraat 200",
+       "Groetstraat 202"
+      ],
+      "0363100012094543": [
+       "Groetstraat 190",
+       "Groetstraat 192",
+       "Groetstraat 194"
+      ],
+      "0363100012152230": [
+       "Groetstraat 204",
+       "Groetstraat 206",
+       "Groetstraat 208"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 13,
+      "panden_with_attributes": 12
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": null,
+      "b3_opp_dak_plat": null,
+      "b3_opp_dak_schuin": null
+     },
+     "toevoeging_matches": 1,
+     "toevoegingen": [
+      "Alkmaarstraat 10B, 1024TT Amsterdam"
+     ],
+     "unique_addresses": 60,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 74
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012097095",
+      "0363100012152230",
+      "0363100012247851",
+      "0363100012571474"
+     ],
+     "bag_panden": 8,
+     "bouwjaren_bag": [
+      1966,
+      1982,
+      2017,
+      2025
+     ],
+     "description": "Alkmaarstraat: even; Groetstraat: all",
+     "exact_number_matches": 31,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "document_address_number_in_scope",
+      "threedbag_coverage_complete",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: Alkmaarstraat 1",
+      "ADDRESSES_MISSING_IN_BAG: Alkmaarstraat 2,Alkmaarstraat 4,Alkmaarstraat 6,Alkmaarstraat 8,Alkmaarstraat 12,Alkmaarstraat 16,Alkmaarstraat 18,Alkmaarstraat 20,Alkmaarstraat 22,Alkmaarstraat 24,Alkmaarstraat 26,Alkmaarstraat 28,Alkmaarstraat 30,Alkmaarstraat 32,Alkmaarstraat 34,Alkmaarstraat 36,Alkmaarstraat 38,Alkmaarstraat 40,Alkmaarstraat 42,Alkmaarstraat 44,Alkmaarstraat 46,Alkmaarstraat 48,Alkmaarstraat 50,Alkmaarstraat 52,Alkmaarstraat 54,Alkmaarstraat 56,Alkmaarstraat 58,Alkmaarstraat 60,Alkmaarstraat 62,Alkmaarstraat 64,Alkmaarstraat 66,Alkmaarstraat 68,Alkmaarstraat 70,Alkmaarstraat 72,Alkmaarstraat 74,Alkmaarstraat 76,Alkmaarstraat 78,Alkmaarstraat 80,Alkmaarstraat 82"
+     ],
+     "geographic_extent_m": 148.8,
+     "hypothesis_id": "MIXED:ALKMAARSTRAAT=EVEN|GROETSTRAAT=ALL",
+     "missing_numbers": [
+      "Alkmaarstraat 2",
+      "Alkmaarstraat 4",
+      "Alkmaarstraat 6",
+      "Alkmaarstraat 8",
+      "Alkmaarstraat 12",
+      "Alkmaarstraat 16",
+      "Alkmaarstraat 18",
+      "Alkmaarstraat 20",
+      "Alkmaarstraat 22",
+      "Alkmaarstraat 24",
+      "Alkmaarstraat 26",
+      "Alkmaarstraat 28",
+      "Alkmaarstraat 30",
+      "Alkmaarstraat 32",
+      "Alkmaarstraat 34",
+      "Alkmaarstraat 36",
+      "Alkmaarstraat 38",
+      "Alkmaarstraat 40",
+      "Alkmaarstraat 42",
+      "Alkmaarstraat 44",
+      "Alkmaarstraat 46",
+      "Alkmaarstraat 48",
+      "Alkmaarstraat 50",
+      "Alkmaarstraat 52",
+      "Alkmaarstraat 54",
+      "Alkmaarstraat 56",
+      "Alkmaarstraat 58",
+      "Alkmaarstraat 60",
+      "Alkmaarstraat 62",
+      "Alkmaarstraat 64",
+      "Alkmaarstraat 66",
+      "Alkmaarstraat 68",
+      "Alkmaarstraat 70",
+      "Alkmaarstraat 72",
+      "Alkmaarstraat 74",
+      "Alkmaarstraat 76",
+      "Alkmaarstraat 78",
+      "Alkmaarstraat 80",
+      "Alkmaarstraat 82"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012061385": [
+       "Alkmaarstraat 71",
+       "Alkmaarstraat 73",
+       "Alkmaarstraat 75",
+       "Alkmaarstraat 77",
+       "Alkmaarstraat 79",
+       "Alkmaarstraat 81",
+       "Alkmaarstraat 83"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 8,
+      "panden_with_attributes": 7
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": null,
+      "b3_opp_dak_plat": null,
+      "b3_opp_dak_schuin": null
+     },
+     "toevoeging_matches": 1,
+     "toevoegingen": [
+      "Alkmaarstraat 10B, 1024TT Amsterdam"
+     ],
+     "unique_addresses": 32,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 39
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012097095",
+      "0363100012152230",
+      "0363100012247851",
+      "0363100012571474"
+     ],
+     "bag_panden": 8,
+     "bouwjaren_bag": [
+      1966,
+      1982,
+      2017,
+      2025
+     ],
+     "description": "Alkmaarstraat: even; Groetstraat: odd",
+     "exact_number_matches": 17,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "document_address_number_in_scope",
+      "threedbag_coverage_complete",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: Alkmaarstraat 1",
+      "ADDRESSES_MISSING_IN_BAG: Alkmaarstraat 2,Alkmaarstraat 4,Alkmaarstraat 6,Alkmaarstraat 8,Alkmaarstraat 12,Alkmaarstraat 16,Alkmaarstraat 18,Alkmaarstraat 20,Alkmaarstraat 22,Alkmaarstraat 24,Alkmaarstraat 26,Alkmaarstraat 28,Alkmaarstraat 30,Alkmaarstraat 32,Alkmaarstraat 34,Alkmaarstraat 36,Alkmaarstraat 38,Alkmaarstraat 40,Alkmaarstraat 42,Alkmaarstraat 44,Alkmaarstraat 46,Alkmaarstraat 48,Alkmaarstraat 50,Alkmaarstraat 52,Alkmaarstraat 54,Alkmaarstraat 56,Alkmaarstraat 58,Alkmaarstraat 60,Alkmaarstraat 62,Alkmaarstraat 64,Alkmaarstraat 66,Alkmaarstraat 68,Alkmaarstraat 70,Alkmaarstraat 72,Alkmaarstraat 74,Alkmaarstraat 76,Alkmaarstraat 78,Alkmaarstraat 80,Alkmaarstraat 82"
+     ],
+     "geographic_extent_m": 148.8,
+     "hypothesis_id": "MIXED:ALKMAARSTRAAT=EVEN|GROETSTRAAT=ODD",
+     "missing_numbers": [
+      "Alkmaarstraat 2",
+      "Alkmaarstraat 4",
+      "Alkmaarstraat 6",
+      "Alkmaarstraat 8",
+      "Alkmaarstraat 12",
+      "Alkmaarstraat 16",
+      "Alkmaarstraat 18",
+      "Alkmaarstraat 20",
+      "Alkmaarstraat 22",
+      "Alkmaarstraat 24",
+      "Alkmaarstraat 26",
+      "Alkmaarstraat 28",
+      "Alkmaarstraat 30",
+      "Alkmaarstraat 32",
+      "Alkmaarstraat 34",
+      "Alkmaarstraat 36",
+      "Alkmaarstraat 38",
+      "Alkmaarstraat 40",
+      "Alkmaarstraat 42",
+      "Alkmaarstraat 44",
+      "Alkmaarstraat 46",
+      "Alkmaarstraat 48",
+      "Alkmaarstraat 50",
+      "Alkmaarstraat 52",
+      "Alkmaarstraat 54",
+      "Alkmaarstraat 56",
+      "Alkmaarstraat 58",
+      "Alkmaarstraat 60",
+      "Alkmaarstraat 62",
+      "Alkmaarstraat 64",
+      "Alkmaarstraat 66",
+      "Alkmaarstraat 68",
+      "Alkmaarstraat 70",
+      "Alkmaarstraat 72",
+      "Alkmaarstraat 74",
+      "Alkmaarstraat 76",
+      "Alkmaarstraat 78",
+      "Alkmaarstraat 80",
+      "Alkmaarstraat 82"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012061385": [
+       "Alkmaarstraat 71",
+       "Alkmaarstraat 73",
+       "Alkmaarstraat 75",
+       "Alkmaarstraat 77",
+       "Alkmaarstraat 79",
+       "Alkmaarstraat 81",
+       "Alkmaarstraat 83"
+      ],
+      "0363100012064361": [
+       "Groetstraat 210",
+       "Groetstraat 212",
+       "Groetstraat 214",
+       "Groetstraat 216"
+      ],
+      "0363100012093423": [
+       "Groetstraat 196",
+       "Groetstraat 198",
+       "Groetstraat 200",
+       "Groetstraat 202"
+      ],
+      "0363100012094543": [
+       "Groetstraat 190",
+       "Groetstraat 192",
+       "Groetstraat 194"
+      ],
+      "0363100012152230": [
+       "Groetstraat 204",
+       "Groetstraat 206",
+       "Groetstraat 208"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 8,
+      "panden_with_attributes": 7
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": null,
+      "b3_opp_dak_plat": null,
+      "b3_opp_dak_schuin": null
+     },
+     "toevoeging_matches": 1,
+     "toevoegingen": [
+      "Alkmaarstraat 10B, 1024TT Amsterdam"
+     ],
+     "unique_addresses": 18,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 39
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012065581",
+      "0363100012077338",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012096429",
+      "0363100012122300",
+      "0363100012145430",
+      "0363100012152230"
+     ],
+     "bag_panden": 10,
+     "bouwjaren_bag": [
+      1966
+     ],
+     "description": "Alkmaarstraat: odd; Groetstraat: all",
+     "exact_number_matches": 71,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "units_known"
+     ],
+     "flags": [],
+     "geographic_extent_m": 111.4,
+     "hypothesis_id": "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL",
+     "missing_numbers": [],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "MODERATE_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 10,
+      "panden_with_attributes": 10
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "3964.80",
+      "b3_opp_dak_plat": "0.0",
+      "b3_opp_dak_schuin": "2132.63"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 71,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 71
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061385",
+      "0363100012064361",
+      "0363100012065581",
+      "0363100012077338",
+      "0363100012093423",
+      "0363100012094543",
+      "0363100012096429",
+      "0363100012122300",
+      "0363100012145430",
+      "0363100012152230"
+     ],
+     "bag_panden": 10,
+     "bouwjaren_bag": [
+      1966
+     ],
+     "description": "Alkmaarstraat: odd; Groetstraat: even",
+     "exact_number_matches": 56,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [],
+     "geographic_extent_m": 110.0,
+     "hypothesis_id": "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=EVEN",
+     "missing_numbers": [],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012061385": [
+       "Groetstraat 217"
+      ],
+      "0363100012064361": [
+       "Groetstraat 211",
+       "Groetstraat 213",
+       "Groetstraat 215"
+      ],
+      "0363100012093423": [
+       "Groetstraat 197",
+       "Groetstraat 199",
+       "Groetstraat 201"
+      ],
+      "0363100012094543": [
+       "Groetstraat 189",
+       "Groetstraat 191",
+       "Groetstraat 193",
+       "Groetstraat 195"
+      ],
+      "0363100012152230": [
+       "Groetstraat 203",
+       "Groetstraat 205",
+       "Groetstraat 207",
+       "Groetstraat 209"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 10,
+      "panden_with_attributes": 10
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "3964.80",
+      "b3_opp_dak_plat": "0.0",
+      "b3_opp_dak_schuin": "2132.63"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 56,
+     "unknown_checks": [
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 71
+    }
+   ],
+   "label": "VvE Alkmaarstraat 1-83 en Groetstraat 189-217",
+   "mjop": {
+    "address": "Alkmaarstraat 1-83 en Groetstraat 189-217",
+    "city": "Amsterdam",
+    "construction_year": 1966,
+    "number_of_units": null,
+    "object_name": "VvE Alkmaarstraat 1-83 en Groetstraat 189-217",
+    "postcode": null
+   },
+   "parity_distinction": {
+    "even_pand_ids": [
+     "0363100012064361",
+     "0363100012093423",
+     "0363100012094543",
+     "0363100012097095",
+     "0363100012152230",
+     "0363100012247851",
+     "0363100012571474"
+    ],
+    "identical_pand_sets": false,
+    "odd_pand_ids": [
+     "0363100012061385",
+     "0363100012064361",
+     "0363100012065581",
+     "0363100012077338",
+     "0363100012093423",
+     "0363100012094543",
+     "0363100012096429",
+     "0363100012122300",
+     "0363100012145430",
+     "0363100012152230"
+    ],
+    "parity_distinguishes_at_pand_level": false,
+    "per_street": {
+     "Alkmaarstraat": {
+      "even_pand_ids": [
+       "0363100012097095",
+       "0363100012247851",
+       "0363100012571474"
+      ],
+      "odd_pand_ids": [
+       "0363100012061385",
+       "0363100012065581",
+       "0363100012077338",
+       "0363100012096429",
+       "0363100012122300",
+       "0363100012145430"
+      ],
+      "parity_distinguishes_at_pand_level": true,
+      "shared_pand_ids": []
+     },
+     "Groetstraat": {
+      "even_pand_ids": [
+       "0363100012064361",
+       "0363100012093423",
+       "0363100012094543",
+       "0363100012152230"
+      ],
+      "odd_pand_ids": [
+       "0363100012061385",
+       "0363100012064361",
+       "0363100012093423",
+       "0363100012094543",
+       "0363100012152230"
+      ],
+      "parity_distinguishes_at_pand_level": false,
+      "shared_pand_ids": [
+       "0363100012064361",
+       "0363100012093423",
+       "0363100012094543",
+       "0363100012152230"
+      ]
+     }
+    },
+    "shared_pand_ids": [
+     "0363100012064361",
+     "0363100012093423",
+     "0363100012094543",
+     "0363100012152230"
+    ]
+   },
+   "segments": [
+    {
+     "range_from": 1,
+     "range_to": 83,
+     "street": "Alkmaarstraat"
+    },
+    {
+     "range_from": 189,
+     "range_to": 217,
+     "street": "Groetstraat"
+    }
+   ]
+  },
+  {
+   "classification": {
+    "approved_building_project_ids": [
+     "BPRJ-00001"
+    ],
+    "candidate_class": "APPROVED_PROJECT",
+    "most_supported_hypotheses": [
+     "EVEN_ONLY"
+    ],
+    "selected_scope": null,
+    "supporting_evidence_ids": [
+     "BPEV-00001"
+    ],
+    "unresolved_case_ids": []
+   },
+   "document_address_key": 240,
+   "document_ids": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "group_flags": [
+    "GROUP: BUILDING_PROJECT_BESTAAT_UIT_15_BAG_PANDEN (geen enkel pand is 'het gebouw')"
+   ],
+   "group_id": "DOC-005-006",
+   "hypotheses": [
+    {
+     "bag_pand_ids": [
+      "0363100012070344",
+      "0363100012071880",
+      "0363100012078022",
+      "0363100012091756",
+      "0363100012091974",
+      "0363100012102659",
+      "0363100012107492",
+      "0363100012121455",
+      "0363100012127361",
+      "0363100012134188",
+      "0363100012137996",
+      "0363100012140664",
+      "0363100012141419",
+      "0363100012143647",
+      "0363100012144766"
+     ],
+     "bag_panden": 15,
+     "bouwjaren_bag": [
+      1981
+     ],
+     "description": "Alleen even huisnummers 240,242,...,296",
+     "exact_number_matches": 29,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [],
+     "flags": [],
+     "geographic_extent_m": 76.8,
+     "hypothesis_id": "EVEN_ONLY",
+     "missing_numbers": [],
+     "mjop_number_of_units": 29,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "STRONG_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 15,
+      "panden_with_attributes": 15
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "1747.35",
+      "b3_opp_dak_plat": "190.65",
+      "b3_opp_dak_schuin": "1415.57"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 29,
+     "unknown_checks": [],
+     "vbo_total_bag": 29
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061310",
+      "0363100012063561",
+      "0363100012064674",
+      "0363100012065912",
+      "0363100012070344",
+      "0363100012071880",
+      "0363100012077783",
+      "0363100012077984",
+      "0363100012078022",
+      "0363100012078472",
+      "0363100012081986",
+      "0363100012083986",
+      "0363100012084256",
+      "0363100012087184",
+      "0363100012091756",
+      "0363100012091974",
+      "0363100012100140",
+      "0363100012102257",
+      "0363100012102659",
+      "0363100012105151",
+      "0363100012107492",
+      "0363100012108812",
+      "0363100012121455",
+      "0363100012123643",
+      "0363100012125929",
+      "0363100012127361",
+      "0363100012129433",
+      "0363100012134188",
+      "0363100012135143",
+      "0363100012137009",
+      "0363100012137996",
+      "0363100012138208",
+      "0363100012140664",
+      "0363100012141419",
+      "0363100012143647",
+      "0363100012144766",
+      "0363100012148993",
+      "0363100012151715",
+      "0363100012152265",
+      "0363100012154610"
+     ],
+     "bag_panden": 40,
+     "bouwjaren_bag": [
+      1981
+     ],
+     "description": "Alle huisnummers 240..296",
+     "exact_number_matches": 56,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "units_equal_addresses_and_vbo"
+     ],
+     "flags": [
+      "ADDRESSES_MISSING_IN_BAG: 267"
+     ],
+     "geographic_extent_m": 245.0,
+     "hypothesis_id": "ALL_NUMBERS",
+     "missing_numbers": [
+      "267"
+     ],
+     "mjop_number_of_units": 29,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 40,
+      "panden_with_attributes": 40
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "4221.48",
+      "b3_opp_dak_plat": "347.54",
+      "b3_opp_dak_schuin": "3095.46"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 56,
+     "unknown_checks": [],
+     "vbo_total_bag": 56
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012061310",
+      "0363100012063561",
+      "0363100012064674",
+      "0363100012065912",
+      "0363100012077783",
+      "0363100012077984",
+      "0363100012078472",
+      "0363100012081986",
+      "0363100012083986",
+      "0363100012084256",
+      "0363100012087184",
+      "0363100012100140",
+      "0363100012102257",
+      "0363100012105151",
+      "0363100012108812",
+      "0363100012123643",
+      "0363100012125929",
+      "0363100012129433",
+      "0363100012135143",
+      "0363100012137009",
+      "0363100012138208",
+      "0363100012148993",
+      "0363100012151715",
+      "0363100012152265",
+      "0363100012154610"
+     ],
+     "bag_panden": 25,
+     "bouwjaren_bag": [
+      1981
+     ],
+     "description": "Alleen oneven huisnummers in het bereik",
+     "exact_number_matches": 27,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "document_address_number_in_scope",
+      "units_equal_addresses_and_vbo"
+     ],
+     "flags": [
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: 240",
+      "ADDRESSES_MISSING_IN_BAG: 267"
+     ],
+     "geographic_extent_m": 85.8,
+     "hypothesis_id": "ODD_ONLY",
+     "missing_numbers": [
+      "267"
+     ],
+     "mjop_number_of_units": 29,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 25,
+      "panden_with_attributes": 25
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "2474.13",
+      "b3_opp_dak_plat": "156.89",
+      "b3_opp_dak_schuin": "1679.89"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 27,
+     "unknown_checks": [],
+     "vbo_total_bag": 27
+    }
+   ],
+   "label": "VvE Maldenhof 240-296",
+   "mjop": {
+    "address": "Maldenhof 240 - 296",
+    "city": "Amsterdam",
+    "construction_year": 1981,
+    "number_of_units": 29,
+    "object_name": "VvE Maldenhof 240-296",
+    "postcode": "1106 EZ"
+   },
+   "parity_distinction": {
+    "even_pand_ids": [
+     "0363100012070344",
+     "0363100012071880",
+     "0363100012078022",
+     "0363100012091756",
+     "0363100012091974",
+     "0363100012102659",
+     "0363100012107492",
+     "0363100012121455",
+     "0363100012127361",
+     "0363100012134188",
+     "0363100012137996",
+     "0363100012140664",
+     "0363100012141419",
+     "0363100012143647",
+     "0363100012144766"
+    ],
+    "identical_pand_sets": false,
+    "odd_pand_ids": [
+     "0363100012061310",
+     "0363100012063561",
+     "0363100012064674",
+     "0363100012065912",
+     "0363100012077783",
+     "0363100012077984",
+     "0363100012078472",
+     "0363100012081986",
+     "0363100012083986",
+     "0363100012084256",
+     "0363100012087184",
+     "0363100012100140",
+     "0363100012102257",
+     "0363100012105151",
+     "0363100012108812",
+     "0363100012123643",
+     "0363100012125929",
+     "0363100012129433",
+     "0363100012135143",
+     "0363100012137009",
+     "0363100012138208",
+     "0363100012148993",
+     "0363100012151715",
+     "0363100012152265",
+     "0363100012154610"
+    ],
+    "parity_distinguishes_at_pand_level": true,
+    "per_street": {},
+    "shared_pand_ids": []
+   },
+   "segments": [
+    {
+     "range_from": 240,
+     "range_to": 296,
+     "street": "Maldenhof"
+    }
+   ]
+  },
+  {
+   "classification": {
+    "approved_building_project_ids": [],
+    "candidate_class": "REVIEW_CASE",
+    "most_supported_hypotheses": [],
+    "selected_scope": null,
+    "supporting_evidence_ids": [],
+    "unresolved_case_ids": []
+   },
+   "document_address_key": 251,
+   "document_ids": [
+    "DOC-009"
+   ],
+   "group_flags": [
+    "STREET_ALIAS_APPLIED: 'St. Jacobsstraat' -> 'St.-Jacobsstraat' (STREET_ALIAS_UTRECHT_ST_JACOBSSTRAAT_V1)",
+    "NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED: geen scope-hypothese wordt door de BAG-data voldoende bevestigd"
+   ],
+   "group_id": "DOC-009",
+   "hypotheses": [
+    {
+     "bag_pand_ids": [
+      "0344100000023837",
+      "0344100000035738",
+      "0344100000054652",
+      "0344100000055567",
+      "0344100000057517",
+      "0344100000063937",
+      "0344100000067105",
+      "0344100000068736",
+      "0344100000077670",
+      "0344100000080507"
+     ],
+     "bag_panden": 10,
+     "bouwjaren_bag": [
+      1950,
+      1955,
+      1987
+     ],
+     "description": "Alle huisnummers in het bereik",
+     "exact_number_matches": 37,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 410,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 200,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject in gebruik",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 300,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 402,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 400,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject in gebruik",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 420,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 430,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 440,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "units_equal_addresses_and_vbo",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 410 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 200 (3511BT, Verblijfsobject in gebruik)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 402 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 400 (3511BT, Verblijfsobject in gebruik)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 420 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 430 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 440 (3511BT, Verblijfsobject ingetrokken)",
+      "ADDRESSES_MISSING_IN_BAG: 252,254,256,258,260,262,264,266,268,270,272,274,276,278,280,282,284,286,288,290,292,294,296,298,302,304,306,308,310,312,314,316,318,320"
+     ],
+     "geographic_extent_m": 53.4,
+     "hypothesis_id": "ALL_NUMBERS",
+     "missing_numbers": [
+      "252",
+      "254",
+      "256",
+      "258",
+      "260",
+      "262",
+      "264",
+      "266",
+      "268",
+      "270",
+      "272",
+      "274",
+      "276",
+      "278",
+      "280",
+      "282",
+      "284",
+      "286",
+      "288",
+      "290",
+      "292",
+      "294",
+      "296",
+      "298",
+      "302",
+      "304",
+      "306",
+      "308",
+      "310",
+      "312",
+      "314",
+      "316",
+      "318",
+      "320"
+     ],
+     "mjop_number_of_units": 30,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 10,
+      "panden_with_attributes": 10
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "12397.01",
+      "b3_opp_dak_plat": "4012.72",
+      "b3_opp_dak_schuin": "640.84"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 37,
+     "unknown_checks": [
+      "postcode_matches_document_address"
+     ],
+     "vbo_total_bag": 45
+    },
+    {
+     "bag_pand_ids": [
+      "0344100000035738"
+     ],
+     "bag_panden": 1,
+     "bouwjaren_bag": [
+      1987
+     ],
+     "description": "Alleen even huisnummers in het bereik",
+     "exact_number_matches": 1,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 410,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 200,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject in gebruik",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 300,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 402,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 400,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject in gebruik",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 420,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 430,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0344100000035738",
+       "huisletter": null,
+       "huisnummer": 440,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "document_address_number_in_scope",
+      "units_equal_addresses_and_vbo",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: 251",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 410 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 200 (3511BT, Verblijfsobject in gebruik)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 402 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 400 (3511BT, Verblijfsobject in gebruik)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 420 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 430 (3511BT, Verblijfsobject ingetrokken)",
+      "PAND_0344100000035738_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 440 (3511BT, Verblijfsobject ingetrokken)",
+      "ADDRESSES_MISSING_IN_BAG: 252,254,256,258,260,262,264,266,268,270,272,274,276,278,280,282,284,286,288,290,292,294,296,298,302,304,306,308,310,312,314,316,318,320"
+     ],
+     "geographic_extent_m": 0.0,
+     "hypothesis_id": "EVEN_ONLY",
+     "missing_numbers": [
+      "252",
+      "254",
+      "256",
+      "258",
+      "260",
+      "262",
+      "264",
+      "266",
+      "268",
+      "270",
+      "272",
+      "274",
+      "276",
+      "278",
+      "280",
+      "282",
+      "284",
+      "286",
+      "288",
+      "290",
+      "292",
+      "294",
+      "296",
+      "298",
+      "302",
+      "304",
+      "306",
+      "308",
+      "310",
+      "312",
+      "314",
+      "316",
+      "318",
+      "320"
+     ],
+     "mjop_number_of_units": 30,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 1,
+      "panden_with_attributes": 1
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "9701.95",
+      "b3_opp_dak_plat": "2861.92",
+      "b3_opp_dak_schuin": "629.59"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 1,
+     "unknown_checks": [
+      "postcode_matches_document_address"
+     ],
+     "vbo_total_bag": 9
+    },
+    {
+     "bag_pand_ids": [
+      "0344100000023837",
+      "0344100000054652",
+      "0344100000055567",
+      "0344100000057517",
+      "0344100000063937",
+      "0344100000067105",
+      "0344100000068736",
+      "0344100000077670",
+      "0344100000080507"
+     ],
+     "bag_panden": 9,
+     "bouwjaren_bag": [
+      1950,
+      1955
+     ],
+     "description": "Alleen oneven huisnummers in het bereik",
+     "exact_number_matches": 36,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "construction_year_matches_all_panden",
+      "units_equal_addresses_and_vbo"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG"
+     ],
+     "geographic_extent_m": 53.4,
+     "hypothesis_id": "ODD_ONLY",
+     "missing_numbers": [],
+     "mjop_number_of_units": 30,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 9,
+      "panden_with_attributes": 9
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "2695.06",
+      "b3_opp_dak_plat": "1150.80",
+      "b3_opp_dak_schuin": "11.25"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 36,
+     "unknown_checks": [
+      "postcode_matches_document_address"
+     ],
+     "vbo_total_bag": 36
+    }
+   ],
+   "label": "VvE St. Jacobsstraat 251-321 Woningen",
+   "mjop": {
+    "address": null,
+    "city": "Utrecht",
+    "construction_year": 1955,
+    "number_of_units": 30,
+    "object_name": "VvE St. Jacobsstraat 251-321 Woningen",
+    "postcode": null
+   },
+   "parity_distinction": {
+    "even_pand_ids": [
+     "0344100000035738"
+    ],
+    "identical_pand_sets": false,
+    "odd_pand_ids": [
+     "0344100000023837",
+     "0344100000054652",
+     "0344100000055567",
+     "0344100000057517",
+     "0344100000063937",
+     "0344100000067105",
+     "0344100000068736",
+     "0344100000077670",
+     "0344100000080507"
+    ],
+    "parity_distinguishes_at_pand_level": true,
+    "per_street": {},
+    "shared_pand_ids": []
+   },
+   "segments": [
+    {
+     "range_from": 251,
+     "range_to": 321,
+     "street": "St. Jacobsstraat"
+    }
+   ]
+  },
+  {
+   "classification": {
+    "approved_building_project_ids": [],
+    "candidate_class": "REVIEW_CASE",
+    "most_supported_hypotheses": [],
+    "selected_scope": null,
+    "supporting_evidence_ids": [],
+    "unresolved_case_ids": [
+     "UCASE-00001"
+    ]
+   },
+   "document_address_key": 819,
+   "document_ids": [
+    "DOC-012"
+   ],
+   "group_flags": [
+    "NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED: geen scope-hypothese wordt door de BAG-data voldoende bevestigd"
+   ],
+   "group_id": "DOC-012",
+   "hypotheses": [
+    {
+     "bag_pand_ids": [
+      "0518100000354752"
+     ],
+     "bag_panden": 1,
+     "bouwjaren_bag": [
+      1957
+     ],
+     "description": "Alleen oneven huisnummers 801,803,...,883",
+     "exact_number_matches": 41,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0518100000354752",
+       "huisletter": null,
+       "huisnummer": 885,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject in gebruik",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "PAND_0518100000354752_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885 (2544AX, Verblijfsobject in gebruik)",
+      "ADDRESSES_MISSING_IN_BAG: 801"
+     ],
+     "geographic_extent_m": 59.7,
+     "hypothesis_id": "ODD_ONLY",
+     "missing_numbers": [
+      "801"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 1,
+      "panden_with_attributes": 1
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "3048.46",
+      "b3_opp_dak_plat": "875.63",
+      "b3_opp_dak_schuin": "0.0"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 41,
+     "unknown_checks": [
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 42
+    },
+    {
+     "bag_pand_ids": [
+      "0518100000243139",
+      "0518100000277993",
+      "0518100000354752",
+      "0518100001631386"
+     ],
+     "bag_panden": 4,
+     "bouwjaren_bag": [
+      1957,
+      1965,
+      2009,
+      2013
+     ],
+     "description": "Alle huisnummers 801..883",
+     "exact_number_matches": 52,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0518100000354752",
+       "huisletter": null,
+       "huisnummer": 885,
+       "outside_requested_number_range": true,
+       "status": "Verblijfsobject in gebruik",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "PAND_0518100000354752_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer 885 (2544AX, Verblijfsobject in gebruik)",
+      "ADDRESSES_MISSING_IN_BAG: 801,822,824,826,828,830,832,834,836,838,840,842,844,846,848,850,852,854,856,858,860,862,864,866,868,870,872,874,876,878,880"
+     ],
+     "geographic_extent_m": 263.0,
+     "hypothesis_id": "ALL_NUMBERS",
+     "missing_numbers": [
+      "801",
+      "822",
+      "824",
+      "826",
+      "828",
+      "830",
+      "832",
+      "834",
+      "836",
+      "838",
+      "840",
+      "842",
+      "844",
+      "846",
+      "848",
+      "850",
+      "852",
+      "854",
+      "856",
+      "858",
+      "860",
+      "862",
+      "864",
+      "866",
+      "868",
+      "870",
+      "872",
+      "874",
+      "876",
+      "878",
+      "880"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 4,
+      "panden_with_attributes": 4
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "16100.97",
+      "b3_opp_dak_plat": "5214.15",
+      "b3_opp_dak_schuin": "309.89"
+     },
+     "toevoeging_matches": 30,
+     "toevoegingen": [
+      "Meppelweg 802A, 2544BV 's-Gravenhage",
+      "Meppelweg 802B, 2544BV 's-Gravenhage",
+      "Meppelweg 802C, 2544BV 's-Gravenhage",
+      "Meppelweg 804A, 2544BV 's-Gravenhage",
+      "Meppelweg 804B, 2544BV 's-Gravenhage",
+      "Meppelweg 804C, 2544BV 's-Gravenhage",
+      "Meppelweg 806A, 2544BV 's-Gravenhage",
+      "Meppelweg 806B, 2544BV 's-Gravenhage",
+      "Meppelweg 806C, 2544BV 's-Gravenhage",
+      "Meppelweg 808A, 2544BV 's-Gravenhage",
+      "Meppelweg 808B, 2544BV 's-Gravenhage",
+      "Meppelweg 808C, 2544BV 's-Gravenhage",
+      "Meppelweg 810A, 2544BV 's-Gravenhage",
+      "Meppelweg 810B, 2544BV 's-Gravenhage",
+      "Meppelweg 810C, 2544BV 's-Gravenhage",
+      "Meppelweg 812A, 2544BV 's-Gravenhage",
+      "Meppelweg 812B, 2544BV 's-Gravenhage",
+      "Meppelweg 812C, 2544BV 's-Gravenhage",
+      "Meppelweg 814A, 2544BV 's-Gravenhage",
+      "Meppelweg 814B, 2544BV 's-Gravenhage",
+      "Meppelweg 814C, 2544BV 's-Gravenhage",
+      "Meppelweg 816A, 2544BV 's-Gravenhage",
+      "Meppelweg 816B, 2544BV 's-Gravenhage",
+      "Meppelweg 816C, 2544BV 's-Gravenhage",
+      "Meppelweg 818A, 2544BV 's-Gravenhage",
+      "Meppelweg 818B, 2544BV 's-Gravenhage",
+      "Meppelweg 818C, 2544BV 's-Gravenhage",
+      "Meppelweg 820A, 2544BV 's-Gravenhage",
+      "Meppelweg 820T, 's-Gravenhage",
+      "Meppelweg 882T, 's-Gravenhage"
+     ],
+     "unique_addresses": 82,
+     "unknown_checks": [
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 221
+    },
+    {
+     "bag_pand_ids": [
+      "0518100000243139",
+      "0518100000277993",
+      "0518100001631386"
+     ],
+     "bag_panden": 3,
+     "bouwjaren_bag": [
+      1965,
+      2009,
+      2013
+     ],
+     "description": "Alleen even huisnummers in het bereik",
+     "exact_number_matches": 11,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "all_requested_found",
+      "construction_year_matches_all_panden",
+      "document_address_number_in_scope",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: 819",
+      "ADDRESSES_MISSING_IN_BAG: 822,824,826,828,830,832,834,836,838,840,842,844,846,848,850,852,854,856,858,860,862,864,866,868,870,872,874,876,878,880"
+     ],
+     "geographic_extent_m": 242.1,
+     "hypothesis_id": "EVEN_ONLY",
+     "missing_numbers": [
+      "822",
+      "824",
+      "826",
+      "828",
+      "830",
+      "832",
+      "834",
+      "836",
+      "838",
+      "840",
+      "842",
+      "844",
+      "846",
+      "848",
+      "850",
+      "852",
+      "854",
+      "856",
+      "858",
+      "860",
+      "862",
+      "864",
+      "866",
+      "868",
+      "870",
+      "872",
+      "874",
+      "876",
+      "878",
+      "880"
+     ],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 3,
+      "panden_with_attributes": 3
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "13052.51",
+      "b3_opp_dak_plat": "4338.52",
+      "b3_opp_dak_schuin": "309.89"
+     },
+     "toevoeging_matches": 30,
+     "toevoegingen": [
+      "Meppelweg 802A, 2544BV 's-Gravenhage",
+      "Meppelweg 802B, 2544BV 's-Gravenhage",
+      "Meppelweg 802C, 2544BV 's-Gravenhage",
+      "Meppelweg 804A, 2544BV 's-Gravenhage",
+      "Meppelweg 804B, 2544BV 's-Gravenhage",
+      "Meppelweg 804C, 2544BV 's-Gravenhage",
+      "Meppelweg 806A, 2544BV 's-Gravenhage",
+      "Meppelweg 806B, 2544BV 's-Gravenhage",
+      "Meppelweg 806C, 2544BV 's-Gravenhage",
+      "Meppelweg 808A, 2544BV 's-Gravenhage",
+      "Meppelweg 808B, 2544BV 's-Gravenhage",
+      "Meppelweg 808C, 2544BV 's-Gravenhage",
+      "Meppelweg 810A, 2544BV 's-Gravenhage",
+      "Meppelweg 810B, 2544BV 's-Gravenhage",
+      "Meppelweg 810C, 2544BV 's-Gravenhage",
+      "Meppelweg 812A, 2544BV 's-Gravenhage",
+      "Meppelweg 812B, 2544BV 's-Gravenhage",
+      "Meppelweg 812C, 2544BV 's-Gravenhage",
+      "Meppelweg 814A, 2544BV 's-Gravenhage",
+      "Meppelweg 814B, 2544BV 's-Gravenhage",
+      "Meppelweg 814C, 2544BV 's-Gravenhage",
+      "Meppelweg 816A, 2544BV 's-Gravenhage",
+      "Meppelweg 816B, 2544BV 's-Gravenhage",
+      "Meppelweg 816C, 2544BV 's-Gravenhage",
+      "Meppelweg 818A, 2544BV 's-Gravenhage",
+      "Meppelweg 818B, 2544BV 's-Gravenhage",
+      "Meppelweg 818C, 2544BV 's-Gravenhage",
+      "Meppelweg 820A, 2544BV 's-Gravenhage",
+      "Meppelweg 820T, 's-Gravenhage",
+      "Meppelweg 882T, 's-Gravenhage"
+     ],
+     "unique_addresses": 41,
+     "unknown_checks": [
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 179
+    }
+   ],
+   "label": "VvE Meppelweg 801-883 (documentadres Meppelweg 819)",
+   "mjop": {
+    "address": "Meppelweg 819",
+    "city": "Den Haag",
+    "construction_year": 1956,
+    "number_of_units": null,
+    "object_name": "VvE Meppelweg 801-883",
+    "postcode": "2544 AW"
+   },
+   "parity_distinction": {
+    "even_pand_ids": [
+     "0518100000243139",
+     "0518100000277993",
+     "0518100001631386"
+    ],
+    "identical_pand_sets": false,
+    "odd_pand_ids": [
+     "0518100000354752"
+    ],
+    "parity_distinguishes_at_pand_level": true,
+    "per_street": {},
+    "shared_pand_ids": []
+   },
+   "segments": [
+    {
+     "range_from": 801,
+     "range_to": 883,
+     "street": "Meppelweg"
+    }
+   ]
+  },
+  {
+   "classification": {
+    "approved_building_project_ids": [],
+    "candidate_class": "REVIEW_CASE",
+    "most_supported_hypotheses": [],
+    "selected_scope": null,
+    "supporting_evidence_ids": [],
+    "unresolved_case_ids": []
+   },
+   "document_address_key": 13,
+   "document_ids": [
+    "DOC-013"
+   ],
+   "group_flags": [
+    "GROUP: BUILDING_PROJECT_BESTAAT_UIT_3_BAG_PANDEN (geen enkel pand is 'het gebouw')"
+   ],
+   "group_id": "DOC-013",
+   "hypotheses": [
+    {
+     "bag_pand_ids": [
+      "0363100012109244",
+      "0363100012124445",
+      "0363100012124984"
+     ],
+     "bag_panden": 3,
+     "bouwjaren_bag": [
+      1923
+     ],
+     "description": "Alle opgevraagde huisnummers",
+     "exact_number_matches": 1,
+     "extra_vbo_without_matched_address": [],
+     "failing_checks": [
+      "construction_year_matches_all_panden"
+     ],
+     "flags": [
+      "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG"
+     ],
+     "geographic_extent_m": 14.1,
+     "hypothesis_id": "REQUESTED_NUMBERS",
+     "missing_numbers": [],
+     "mjop_number_of_units": 11,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 3,
+      "panden_with_attributes": 3
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "735.05",
+      "b3_opp_dak_plat": "232.12",
+      "b3_opp_dak_schuin": "36.27"
+     },
+     "toevoeging_matches": 10,
+     "toevoegingen": [
+      "Vechtstraat 13-1, 1078RE Amsterdam",
+      "Vechtstraat 13-2, 1078RE Amsterdam",
+      "Vechtstraat 13-3, 1078RE Amsterdam",
+      "Vechtstraat 13-H, 1078RE Amsterdam",
+      "Vechtstraat 15-1, 1078RE Amsterdam",
+      "Vechtstraat 15-2, 1078RE Amsterdam",
+      "Vechtstraat 15-3, 1078RE Amsterdam",
+      "Vechtstraat 19-1, 1078RG Amsterdam",
+      "Vechtstraat 19-2, 1078RG Amsterdam",
+      "Vechtstraat 19-H, 1078RG Amsterdam"
+     ],
+     "unique_addresses": 11,
+     "unknown_checks": [
+      "place_matches_document_city",
+      "postcode_matches_document_address"
+     ],
+     "vbo_total_bag": 11
+    }
+   ],
+   "label": "VVE Gebouwen Vechtstraat 13-15-17-19",
+   "mjop": {
+    "address": "Vechtstraat 13-15-17-19",
+    "city": "Amsterdam",
+    "construction_year": 1921,
+    "number_of_units": 11,
+    "object_name": "VVE Gebouwen Vechtstraat 13-15-17-19",
+    "postcode": null
+   },
+   "parity_distinction": null,
+   "segments": [
+    {
+     "numbers": [
+      13,
+      15,
+      17,
+      19
+     ],
+     "street": "Vechtstraat"
+    }
+   ]
+  },
+  {
+   "classification": {
+    "approved_building_project_ids": [],
+    "candidate_class": "REVIEW_CASE",
+    "most_supported_hypotheses": [],
+    "selected_scope": null,
+    "supporting_evidence_ids": [],
+    "unresolved_case_ids": []
+   },
+   "document_address_key": 110,
+   "document_ids": [
+    "DOC-015"
+   ],
+   "group_flags": [
+    "PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL: EVEN_ONLY en ODD_ONLY leveren dezelfde BAG-panden; pariteit is geen projectidentiteit, geen pariteit gekozen",
+    "NO_HYPOTHESIS_SUFFICIENTLY_SUPPORTED: geen scope-hypothese wordt door de BAG-data voldoende bevestigd"
+   ],
+   "group_id": "DOC-015",
+   "hypotheses": [
+    {
+     "bag_pand_ids": [
+      "0363100012094004",
+      "0363100012100560",
+      "0363100012139052",
+      "0363100012140366"
+     ],
+     "bag_panden": 4,
+     "bouwjaren_bag": [
+      1966
+     ],
+     "description": "Alle huisnummers in het bereik",
+     "exact_number_matches": 31,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": null,
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": "A",
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": "B",
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [],
+     "geographic_extent_m": 56.2,
+     "hypothesis_id": "ALL_NUMBERS",
+     "missing_numbers": [],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {},
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 4,
+      "panden_with_attributes": 4
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "1720.79",
+      "b3_opp_dak_plat": "6.83",
+      "b3_opp_dak_schuin": "840.08"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 31,
+     "unknown_checks": [
+      "construction_year_matches_all_panden",
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 34
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012094004",
+      "0363100012100560",
+      "0363100012139052",
+      "0363100012140366"
+     ],
+     "bag_panden": 4,
+     "bouwjaren_bag": [
+      1966
+     ],
+     "description": "Alleen even huisnummers in het bereik",
+     "exact_number_matches": 16,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": null,
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": "A",
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": "B",
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [],
+     "geographic_extent_m": 56.2,
+     "hypothesis_id": "EVEN_ONLY",
+     "missing_numbers": [],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012094004": [
+       "111",
+       "113",
+       "115",
+       "117"
+      ],
+      "0363100012100560": [
+       "119",
+       "121",
+       "123",
+       "125"
+      ],
+      "0363100012139052": [
+       "135",
+       "137",
+       "139"
+      ],
+      "0363100012140366": [
+       "127",
+       "129",
+       "131",
+       "133"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 4,
+      "panden_with_attributes": 4
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "1720.79",
+      "b3_opp_dak_plat": "6.83",
+      "b3_opp_dak_schuin": "840.08"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 16,
+     "unknown_checks": [
+      "construction_year_matches_all_panden",
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 34
+    },
+    {
+     "bag_pand_ids": [
+      "0363100012094004",
+      "0363100012100560",
+      "0363100012139052",
+      "0363100012140366"
+     ],
+     "bag_panden": 4,
+     "bouwjaren_bag": [
+      1966
+     ],
+     "description": "Alleen oneven huisnummers in het bereik",
+     "exact_number_matches": 15,
+     "extra_vbo_without_matched_address": [
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": null,
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": "A",
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      },
+      {
+       "bag_pand_id": "0363100012094004",
+       "huisletter": "B",
+       "huisnummer": 116,
+       "outside_requested_number_range": false,
+       "status": "Verblijfsobject ingetrokken",
+       "toevoeging": null
+      }
+     ],
+     "failing_checks": [
+      "document_address_number_in_scope",
+      "units_known",
+      "vbo_fully_covered"
+     ],
+     "flags": [
+      "DOCUMENT_ADDRESS_OUTSIDE_SCOPE: 110"
+     ],
+     "geographic_extent_m": 53.1,
+     "hypothesis_id": "ODD_ONLY",
+     "missing_numbers": [],
+     "mjop_number_of_units": null,
+     "panden_sharing_numbers_outside_scope": {
+      "0363100012094004": [
+       "110",
+       "112",
+       "114",
+       "116"
+      ],
+      "0363100012100560": [
+       "118",
+       "120",
+       "122",
+       "124"
+      ],
+      "0363100012139052": [
+       "134",
+       "136",
+       "138",
+       "140"
+      ],
+      "0363100012140366": [
+       "126",
+       "128",
+       "130",
+       "132"
+      ]
+     },
+     "strength": "WEAK_BUILDING_PROJECT_CANDIDATE",
+     "threedbag_coverage": {
+      "panden": 4,
+      "panden_with_attributes": 4
+     },
+     "threedbag_sums_evidence_only": {
+      "b3_opp_buitenmuur": "1720.79",
+      "b3_opp_dak_plat": "6.83",
+      "b3_opp_dak_schuin": "840.08"
+     },
+     "toevoeging_matches": 0,
+     "toevoegingen": [],
+     "unique_addresses": 15,
+     "unknown_checks": [
+      "construction_year_matches_all_panden",
+      "postcode_matches_document_address",
+      "units_equal_addresses_and_vbo"
+     ],
+     "vbo_total_bag": 34
+    }
+   ],
+   "label": "VvE Groetstraat 110-140",
+   "mjop": {
+    "address": "Groetstraat 110-140",
+    "city": "Amsterdam",
+    "construction_year": null,
+    "number_of_units": null,
+    "object_name": "VvE Groetstraat 110-140",
+    "postcode": null
+   },
+   "parity_distinction": {
+    "even_pand_ids": [
+     "0363100012094004",
+     "0363100012100560",
+     "0363100012139052",
+     "0363100012140366"
+    ],
+    "identical_pand_sets": true,
+    "odd_pand_ids": [
+     "0363100012094004",
+     "0363100012100560",
+     "0363100012139052",
+     "0363100012140366"
+    ],
+    "parity_distinguishes_at_pand_level": false,
+    "per_street": {},
+    "shared_pand_ids": [
+     "0363100012094004",
+     "0363100012100560",
+     "0363100012139052",
+     "0363100012140366"
+    ]
+   },
+   "segments": [
+    {
+     "range_from": 110,
+     "range_to": 140,
+     "street": "Groetstraat"
+    }
+   ]
+  }
+ ],
+ "input": {
+  "manifest_sha256": "f6e85c1c348bd696f7719c719c847e241ec86d830223060c3e506adfa0747039",
+  "project_store_sha256": "7b1edc627196b0c5e64027b421ad26b58d8e5c92e0c021e4b2794fed1a749b92",
+  "run_id": "RBV1-20260930T110207Z",
+  "support_store_sha256": "4f7807516c90a9f89e2da411f866fb2ba3556029232c8341134cbac14274d8fc",
+  "tool": "fetch_real_building_validation_v1.3.0",
+  "unresolved_store_sha256": "74308990a4fd31e3f7a239b3da1d5bfbea201371cfa520c518ed801b6bad5900",
+  "validation_dir": "data/external/building_validation/real_validation_v2"
+ },
+ "note": "Read-only. Kiest geen pariteit en keurt niets goed; goedkeuren kan alleen via 'building_projects.py approve' door een mens.",
+ "report_version": "range_discovery_v2"
+}

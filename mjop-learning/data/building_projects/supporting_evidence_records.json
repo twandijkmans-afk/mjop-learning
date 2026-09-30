@@ -1,0 +1,61 @@
+{
+ "store_version": "building_project_supporting_evidence_v1",
+ "append_only": true,
+ "description": "Machinale controles dat een nieuwer evidence package een bestaand goedgekeurd building_project exact reproduceert (rol SUPPORTING_EVIDENCE). Geen goedkeuring; wijzigt nooit een building_project-record. Append-only; één ACTIVE record per evidence_key.",
+ "records": [
+  {
+   "evidence_id": "BPEV-00001",
+   "evidence_key": "BPRJ-00001:data/external/building_validation/real_validation_v2:EVEN_ONLY",
+   "building_project_id": "BPRJ-00001",
+   "candidate_id": "BPC-DOC-005-006",
+   "document_ids": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "evidence_role": "SUPPORTING_EVIDENCE",
+   "result": "REPRODUCES_APPROVED_SCOPE",
+   "scope_hypothesis_id": "EVEN_ONLY",
+   "candidate_strength_in_new_package": "STRONG_BUILDING_PROJECT_CANDIDATE",
+   "compared": {
+    "bag_pand_ids": true,
+    "addresses": true,
+    "house_numbers_per_pand": true,
+    "vbo_total_bag": true,
+    "scope_house_numbers": true
+   },
+   "project_record_sha256": "33ed4428ca8232e024ed683d6d59c19f5859e325adef32ca5eed456a177bca59",
+   "approval_changed": false,
+   "new_approval_created": false,
+   "resolver": {
+    "tool": "fetch_real_building_validation_v1.3.0",
+    "run_id": "RBV1-20260930T110207Z"
+   },
+   "provenance": {
+    "validation_dir": "data/external/building_validation/real_validation_v2",
+    "candidate_package": {
+     "path": "data/external/building_validation/real_validation_v2/candidates/DOC-005-006.json",
+     "sha256": "f161745f86d84d98f5f7fe527865cb759d88c85c7d29d5f431bdbc604e17a978",
+     "candidate_id": "BPC-DOC-005-006",
+     "package_version": "real_validation_candidates_v2",
+     "run_id": "RBV1-20260930T110207Z"
+    },
+    "manifest": {
+     "path": "data/external/building_validation/real_validation_v2/manifest.json",
+     "sha256": "f6e85c1c348bd696f7719c719c847e241ec86d830223060c3e506adfa0747039",
+     "run_id": "RBV1-20260930T110207Z",
+     "tool": "fetch_real_building_validation_v1.3.0"
+    },
+    "raw_response_count": 721
+   },
+   "recorded_by": {
+    "recorder_id": "claude-code",
+    "recorder_type": "claude_code"
+   },
+   "recorded_at": "2026-09-30T11:08:23Z",
+   "decision_source": "Instructie van twandijkmans in Claude Code-sessie session_012iC8FukJPbbcUqy73e2MMP (2026-09-30): controleer of de nieuwe range-engine BPRJ-00001 exact reproduceert; bij exacte gelijkheid alleen SUPPORTING_EVIDENCE vastleggen, geen nieuwe approval.",
+   "rule_version": "building_project_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  }
+ ]
+}

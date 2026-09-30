@@ -271,15 +271,18 @@ def test_unresolved_records_no_project_and_no_scope(val, tmp_path):
 
 def test_validation_dir_is_locked_against_regeneration(tmp_path):
     assert bp.is_locked(bp.VALIDATION_DIR) is True
-    assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v2") is False
+    assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v2") is True  # BPEV-00001
+    assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v3") is False
     assert bp.is_locked(tmp_path) is False
 
 
 def test_provenance_errors_detect_changed_package_and_raw_evidence(tmp_path):
-    for sub in ("data/external/building_validation/real_validation_v1", "data/building_projects"):
+    for sub in ("data/external/building_validation/real_validation_v1", "data/external/building_validation/real_validation_v2",
+                "data/building_projects"):
         shutil.copytree(os.path.join(ROOT, sub), tmp_path / sub)
     kw = dict(root=tmp_path, project_path=tmp_path / "data/building_projects/building_project_records.json",
-              unresolved_path=tmp_path / "data/building_projects/unresolved_case_records.json")
+              unresolved_path=tmp_path / "data/building_projects/unresolved_case_records.json",
+              support_path=tmp_path / "data/building_projects/supporting_evidence_records.json")
     assert bp.provenance_errors(**kw) == []
     raw = sorted((tmp_path / "data/external/building_validation/real_validation_v1/raw/3dbag").iterdir())[0]
     raw.write_bytes(raw.read_bytes() + b" ")
@@ -354,7 +357,7 @@ def test_guard_fails_hard_on_approved_dir_and_passes_on_new_version_dir(capsys):
     base = str(bp.ROOT / "data" / "external" / "building_validation") + "/"  # absoluut: onafhankelijk van de werkmap
     assert bp.main(["guard", "--out", base + "real_validation_v1"]) == 1
     assert "onveranderlijk" in capsys.readouterr().err
-    assert bp.main(["guard", "--out", base + "real_validation_v2"]) == 0
+    assert bp.main(["guard", "--out", base + "real_validation_v2"]) == 1  # gerefereerd door BPEV-00001
     assert bp.main(["guard", "--out", base + "real_validation_v3"]) == 0
 
 
@@ -364,8 +367,9 @@ def test_fetch_script_itself_refuses_to_write_into_approved_dir(capsys):
 
 
 def test_lock_follows_the_store_not_the_directory_name(tmp_path):
-    assert bp.locked_validation_dirs(project_store=bp.new_project_store()) == []
-    assert bp.is_locked(bp.VALIDATION_DIR, project_store=bp.new_project_store()) is False
+    empty = dict(project_store=bp.new_project_store(), support_store=bp.new_support_store())
+    assert bp.locked_validation_dirs(**empty) == []
+    assert bp.is_locked(bp.VALIDATION_DIR, **empty) is False
     assert bp.is_locked(bp.VALIDATION_DIR) is True
 
 
@@ -396,3 +400,79 @@ def test_workflow_guards_before_any_rm_rf_and_never_touches_approved_dir():
     doel = next(s for s in steps if s.get("id") == "target")["run"]
     assert "real_validation_v[0-9]" in doel and "*..*" in doel  # alleen versiemappen, geen path traversal
     assert any("building_projects.py check" in s.get("run", "") for s in steps)  # bewijs-integriteit bij elke run
+
+
+# --- range discovery v2: BPRJ-00001 gereproduceerd als SUPPORTING_EVIDENCE (geen nieuwe approval) ----------------
+
+V2 = os.path.join(ROOT, "data", "external", "building_validation", "real_validation_v2")
+REPRO_KW = dict(building_project_id="BPRJ-00001", group_id="DOC-005-006", hypothesis_id="EVEN_ONLY", recorded_by="tester",
+                recorded_at="2026-10-01T10:00:00Z", decision_source="test")
+
+
+def project_store():
+    return bp.load_store(bp.PROJECT_STORE, bp.new_project_store)
+
+
+def test_committed_supporting_evidence_reproduces_bprj_00001_exactly():
+    ss = bp.load_store(bp.SUPPORT_STORE, bp.new_support_store)
+    jsonschema.validate(ss, json.load(open(os.path.join(ROOT, "schemas", "building_project_supporting_evidence_record.schema.json"))))
+    assert bp.support_store_errors(ss) == []
+    [r] = [x for x in ss["records"] if x["status"] == "ACTIVE"]
+    assert (r["evidence_id"], r["building_project_id"], r["evidence_role"], r["result"]) == \
+        ("BPEV-00001", "BPRJ-00001", "SUPPORTING_EVIDENCE", "REPRODUCES_APPROVED_SCOPE")
+    assert r["approval_changed"] is False and r["new_approval_created"] is False and set(r["compared"].values()) == {True}
+    assert r["provenance"]["validation_dir"] == "data/external/building_validation/real_validation_v2"
+    [proj] = [p for p in project_store()["records"] if p["building_project_id"] == "BPRJ-00001"]
+    assert r["project_record_sha256"] == bp._canonical_sha(proj)  # BPRJ-00001 is sindsdien niet gewijzigd
+    assert proj["status"] == "ACTIVE" and proj["provenance"]["validation_dir"].endswith("real_validation_v1")
+    assert len(project_store()["records"]) == 1  # geen nieuwe approval
+
+
+def test_new_engine_even_only_equals_approved_panden_and_addresses():
+    pkg = json.load(open(os.path.join(V2, "candidates", "DOC-005-006.json")))
+    h = next(x for x in pkg["building_project_candidate"]["scope_hypotheses"] if x["hypothesis_id"] == "EVEN_ONLY")
+    assert sorted(h["bag_pand_ids"]) == MALDENHOF_PANDEN and [a["number"] for a in h["addresses_found"]] == EVEN_NUMBERS
+    [proj] = project_store()["records"]
+    assert bp.reproduction_diff(proj, h)["differences"] == {}
+
+
+def test_reproduction_refuses_on_any_difference():
+    [proj] = project_store()["records"]
+    tampered = copy.deepcopy(project_store())
+    tampered["records"][0]["bag_pand_ids"] = MALDENHOF_PANDEN[:-1]
+    tampered["records"][0]["addresses"] = proj["addresses"][:-1]
+    with pytest.raises(bp.ProjectError, match="NIET exact"):
+        bp.record_reproduction(bp.new_support_store(), project_store=tampered, out_dir=V2, **REPRO_KW)
+
+
+def test_reproduction_is_pure_and_never_touches_the_project_store():
+    before = copy.deepcopy(project_store())
+    out = bp.record_reproduction(bp.new_support_store(), project_store=before, out_dir=V2, **REPRO_KW)
+    assert before == project_store() and len(out["records"]) == 1 and out["records"][0]["result"] == "REPRODUCES_APPROVED_SCOPE"
+    with pytest.raises(bp.ProjectError, match="al vastgelegd"):
+        bp.record_reproduction(out, project_store=before, out_dir=V2, **REPRO_KW)
+
+
+def test_reproduction_refuses_the_approval_package_itself_and_wrong_scope():
+    with pytest.raises(bp.ProjectError, match="goedkeuring zelf"):
+        bp.record_reproduction(bp.new_support_store(), project_store=project_store(), out_dir=bp.VALIDATION_DIR, **REPRO_KW)
+    with pytest.raises(bp.ProjectError, match="scope"):
+        bp.record_reproduction(bp.new_support_store(), project_store=project_store(), out_dir=V2, **dict(REPRO_KW, hypothesis_id="ALL_NUMBERS"))
+
+
+def test_supporting_evidence_package_is_locked_too():
+    assert bp.is_locked(V2) and bp.provenance_errors() == []
+
+
+def test_discovery_reports_up_to_date_and_choose_nothing():
+    import building_project_discovery_report as rep
+    assert rep.main(["--check"]) == 0
+    d = rep.build_discovery()
+    cls = {g["group_id"]: g["classification"] for g in d["groups"]}
+    assert all(c["selected_scope"] is None for c in cls.values())
+    assert cls["DOC-005-006"]["candidate_class"] == "APPROVED_PROJECT" and cls["DOC-005-006"]["supporting_evidence_ids"] == ["BPEV-00001"]
+    assert cls["DOC-012"]["unresolved_case_ids"] == ["UCASE-00001"]
+    roof = rep.build_roof_review()
+    assert roof["classification"] == "SCOPE_OR_DEFINITION_MISMATCH_REVIEW" and roof["corrections_applied"] is False
+    assert [c["historical_m2"] for c in roof["comparisons"]] == ["425.80", "1485.60"]
+    assert [c["threedbag_m2"] for c in roof["comparisons"]] == ["190.65", "1415.57"]

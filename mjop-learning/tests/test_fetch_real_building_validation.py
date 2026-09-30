@@ -36,12 +36,14 @@ def ok(body):
 
 
 class World:
-    """addresses: {nummer: pand_id}; panden: {pand_id: (vbo_count, bouwjaar)}. Panden liggen ver uit elkaar."""
+    """addresses: {nummer: pand_id}; panden: {pand_id: (vbo_count, bouwjaar)}. Panden liggen op een raster van 0,0006°
+    (~40-65 m): ver genoeg uit elkaar dat de bbox rond een adrespunt geen buurpand raakt, en compact genoeg
+    (< COMPACT_EXTENT_M) voor één logisch project."""
 
     def __init__(self, street, addresses, panden, place="Testdam", postcode="1000AA", threed_status=200,
                  pdok_raw=None, threed_raw=None, extra_docs=None):
         self.street, self.addresses, self.panden, self.place, self.postcode = street, addresses, panden, place, postcode
-        self.pos = {pid: (4.0 + i * 0.01, 52.0 + i * 0.01) for i, pid in enumerate(sorted(panden))}
+        self.pos = {pid: (4.0 + (i % 6) * 0.0006, 52.0 + (i // 6) * 0.0006) for i, pid in enumerate(sorted(panden))}
         self.threed_status, self.pdok_raw, self.threed_raw, self.extra_docs = threed_status, pdok_raw, threed_raw, extra_docs or {}
         self.calls = []
 
@@ -532,3 +534,186 @@ def test_two_addresses_on_one_vbo_do_not_break_coverage(tmp_path):
     h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
     assert h["panden"][0]["distinct_vbo_ids_in_scope"] == 1 and h["panden"][0]["vbo_fully_covered_by_scope"] is True
     assert h["counts"]["exact_bag_matches"] == 2
+
+
+# --- v1.3.0: toevoegingen, andere woonplaats, ALL/EVEN/ODD, meerdere straten, alias, niet-actieve panden, compactheid ----
+
+TOEV_GROUP = dict(GROUP, include_toevoegingen=True)
+
+
+def toev_doc(number, toev, **kw):
+    base = simple_world().doc(number)
+    return dict(base, id=f"adr-{number}-{toev}", huisnummertoevoeging=toev, weergavenaam=f"Teststraat {number}-{toev}",
+                adresseerbaarobject_id=base["adresseerbaarobject_id"] + toev, nummeraanduiding_id=base["nummeraanduiding_id"] + toev, **kw)
+
+
+def test_toevoegingen_count_in_scope_only_with_opt_in(tmp_path):
+    w = World("Teststraat", {"1": "P1"}, {"P1": (3, 1981)}, extra_docs={"1": [toev_doc("1", "H"), toev_doc("1", "2")]})
+    run_group(tmp_path, w, TOEV_GROUP, mjop_fake(units=3, year=1981))
+    p = pkg(tmp_path)
+    h = p["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["counts"]["exact_bag_matches"] == 3 and h["counts"]["toevoeging_matches"] == 2 and h["counts"]["exact_number_matches"] == 1
+    assert h["toevoegingen"] == ["Teststraat 1-2", "Teststraat 1-H"]
+    assert h["checks"]["vbo_fully_covered"] is True and h["strength"] == "STRONG_BUILDING_PROJECT_CANDIDATE"
+    assert "TOEVOEGINGEN_IN_SCOPE" in p["address_results"][0]["flags"]
+    # zonder opt-in blijven het context (bestaand gedrag)
+    run_group(tmp_path / "b", World("Teststraat", {"1": "P1"}, {"P1": (3, 1981)}, extra_docs={"1": [toev_doc("1", "H")]}))
+    assert pkg(tmp_path / "b")["building_project_candidate"]["scope_hypotheses"][0]["counts"]["exact_bag_matches"] == 1
+
+
+def test_only_toevoegingen_no_bare_number_is_not_missing(tmp_path):
+    w = World("Teststraat", {}, {"P1": (2, 1981)}, extra_docs={"1": [toev_doc("1", "1"), toev_doc("1", "2")]})
+    w.pos = {"P1": (4.0, 52.0)}
+    run_group(tmp_path, w, TOEV_GROUP, mjop_fake(units=2, year=1981))
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["addresses_missing"] == [] and h["counts"]["exact_bag_matches"] == 2 and h["bag_pand_ids"] == ["P1"]
+
+
+def test_other_city_never_in_scope_with_toevoegingen(tmp_path):
+    w = simple_world(extra_docs={"1": [dict(simple_world().doc("1"), id="adr-x", woonplaatsnaam="Elders"),
+                                       dict(toev_doc("1", "A"), woonplaatsnaam="Elders")]})
+    m = run_group(tmp_path, w, TOEV_GROUP)
+    p = pkg(tmp_path)
+    ar = p["address_results"][0]
+    assert "EXACT_MATCH_IN_OTHER_CITY" in ar["flags"]
+    assert [x["match_kind"] for x in ar["address_matches"]] == ["EXACT", "OTHER_CITY", "OTHER_CITY"]
+    assert p["building_project_candidate"]["scope_hypotheses"][0]["counts"]["exact_bag_matches"] == 1
+    loc = [r["endpoint"] for r in m["requests"] if r["purpose"] == "locatieserver"][0]
+    assert "woonplaatsnaam%3A%22Testdam%22" in loc
+
+
+def test_default_hypotheses_all_even_odd_and_lists():
+    ids = [h["hypothesis_id"] for h in frbv.default_hypotheses(BY_ID["DOC-005-006"])]
+    assert ids == ["EVEN_ONLY", "ALL_NUMBERS", "ODD_ONLY"]  # curated volgorde blijft, ODD_ONLY erbij
+    assert [h["hypothesis_id"] for h in frbv.default_hypotheses(BY_ID["DOC-013"])] == ["REQUESTED_NUMBERS"]
+    d1 = frbv.default_hypotheses(BY_ID["DOC-001"])
+    mixed = [h for h in d1 if h["hypothesis_id"].startswith("MIXED:")]
+    assert len(d1) == 9 and len(mixed) == 6
+    h = next(x for x in mixed if x["hypothesis_id"] == "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL")
+    keys = frbv.group_numbers(BY_ID["DOC-001"])
+    sel = frbv.hypothesis_numbers(h, keys)
+    assert "Alkmaarstraat 1" in sel and "Alkmaarstraat 2" not in sel and "Groetstraat 190" in sel and "Groetstraat 189" in sel
+    assert len(sel) == 42 + 29
+
+
+def test_multi_street_keys_and_parity_per_street(tmp_path):
+    g = {"group_id": "T-2", "document_ids": ["DOC-T"], "label": "t", "city": "Testdam", "document_address_number": 1,
+         "document_address_street": "Astraat", "include_toevoegingen": True,
+         "segments": [{"street": "Astraat", "range_from": 1, "range_to": 2}, {"street": "Bstraat", "range_from": 1, "range_to": 2}]}
+    assert frbv.group_numbers(g) == ["Astraat 1", "Astraat 2", "Bstraat 1", "Bstraat 2"]
+    w = World("Astraat", {"1": "PA", "2": "PX"}, {"PA": (2, 1981), "PX": (1, 1990), "PB": (2, 1981)})
+
+    def http(url):
+        if "locatieserver" in url and "Bstraat" in url:
+            n = re.search(r"huisnummer%3A(\d+)", url).group(1)
+            lon, lat = w.pos["PB"]
+            d = dict(w.doc("1"), id=f"b-{n}", straatnaam="Bstraat", huisnummer=int(n), weergavenaam=f"Bstraat {n}",
+                     centroide_ll=f"POINT({lon} {lat})", adresseerbaarobject_id=f"VB{n}", nummeraanduiding_id=f"NB{n}")
+            return ok(jb({"response": {"docs": [d]}}))
+        return w(url)
+    # Astraat 1 -> PA, Astraat 2 -> PX (ander pand), Bstraat 1 + 2 -> PB
+    frbv.run([g], tmp_path, http_get=http, now=NOW, mjop_loader=mjop_fake(units=None, year=None), sleep=NOSLEEP)
+    p = pkg(tmp_path, "T-2")
+    ids = [h["hypothesis_id"] for h in p["building_project_candidate"]["scope_hypotheses"]]
+    assert "MIXED:ASTRAAT=ODD|BSTRAAT=ALL" in ids
+    mixed = next(h for h in p["building_project_candidate"]["scope_hypotheses"] if h["hypothesis_id"] == "MIXED:ASTRAAT=ODD|BSTRAAT=ALL")
+    assert mixed["requested_numbers"] == ["Astraat 1", "Bstraat 1", "Bstraat 2"]
+    assert set(mixed["bag_pand_ids"]) == {"PA", "PB"} and "PX" not in mixed["bag_pand_ids"]
+    per = p["building_project_candidate"]["parity_distinction"]["per_street"]
+    assert per["Bstraat"]["parity_distinguishes_at_pand_level"] is False and per["Astraat"]["parity_distinguishes_at_pand_level"] is True
+    assert any(f.startswith("PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL[Bstraat]") for f in p["review_flags"])
+
+
+def test_street_alias_is_explicit_and_pinned_to_place():
+    assert frbv.resolve_street("St. Jacobsstraat", "Utrecht")[0] == "St.-Jacobsstraat"
+    assert frbv.resolve_street("st.  jacobsstraat", "UTRECHT")[1]["openbareruimte_id"] == "0344300000000857"
+    assert frbv.resolve_street("St. Jacobsstraat", "Amsterdam") == ("St. Jacobsstraat", None)   # geen alias buiten Utrecht
+    assert frbv.resolve_street("Sint Jacobsstraat", "Utrecht") == ("Sint Jacobsstraat", None)   # geen algemene fuzzy regel
+    assert frbv.resolve_street("St.Jacobsstraat", "Utrecht") == ("St.Jacobsstraat", None)
+
+
+def test_street_alias_applied_and_reported(tmp_path):
+    w = World("St.-Jacobsstraat", {"251": "PJ"}, {"PJ": (1, 1955)}, place="Utrecht")
+    g = {"group_id": "T-3", "document_ids": ["DOC-T"], "label": "t", "street": "St. Jacobsstraat", "numbers": [251], "city": "Utrecht",
+         "include_toevoegingen": True}
+    m = frbv.run([g], tmp_path, http_get=w, now=NOW, mjop_loader=mjop_fake(), sleep=NOSLEEP)
+    p = pkg(tmp_path, "T-3")
+    ar = p["address_results"][0]
+    assert ar["street"] == "St.-Jacobsstraat" and ar["street_as_stated"] == "St. Jacobsstraat" and "STREET_ALIAS_APPLIED" in ar["flags"]
+    assert p["building_project_candidate"]["scope_hypotheses"][0]["bag_pand_ids"] == ["PJ"]
+    assert any(f.startswith("STREET_ALIAS_APPLIED") for f in p["review_flags"])
+    assert "straatnaam%3A%22St.-Jacobsstraat%22" in [r["endpoint"] for r in m["requests"] if r["purpose"] == "locatieserver"][0]
+
+
+class DemolishedWorld(World):
+    """Zoals World, plus niet-actieve panden (bv. 'Pand gesloopt') op dezelfde plek als een actief pand of los."""
+
+    def __init__(self, *a, inactive=None, **kw):
+        super().__init__(*a, **kw)
+        self.inactive = inactive or {}  # pid -> (lon, lat, status)
+
+    def __call__(self, url):
+        if "3dbag" in url and url.rsplit(".", 1)[1] in self.inactive:
+            self.calls.append(url)
+            return {"status": 502, "body": b"Bad Gateway", "content_type": "text/plain", "error": "HTTP 502"}  # 3D BAG kent het niet
+        r = super().__call__(url)
+        if "bag/ogc" in url and "/verblijfsobject/" not in url:
+            bbox = re.search(r"bbox=([^&]*)", url).group(1).replace("%2C", ",")
+            x1, y1, x2, y2 = [float(v) for v in bbox.split(",")]
+            body = json.loads(r["body"])
+            body["features"] += [{"geometry": {"type": "Polygon", "coordinates": [ring(lo, la)]},
+                                  "properties": {"identificatie": pid, "bouwjaar": 1967, "status": st, "aantal_verblijfsobjecten": 1}}
+                                 for pid, (lo, la, st) in self.inactive.items() if x1 <= lo <= x2 and y1 <= la <= y2]
+            return ok(jb(body))
+        return r
+
+
+def test_demolished_pand_under_address_point_is_recorded_not_candidate(tmp_path):
+    w = DemolishedWorld("Teststraat", {"1": "P1"}, {"P1": (1, 1981)}, inactive={"PG": (4.0, 52.0, "Pand gesloopt")})
+    run_group(tmp_path, w, TOEV_GROUP, mjop_fake(units=1, year=1981))
+    p = pkg(tmp_path)
+    ar = p["address_results"][0]
+    assert ar["candidate_pand_ids"] == ["P1"] and "ADDRESS_POINT_ALSO_IN_NON_ACTIVE_PAND" in ar["flags"]
+    assert ar["non_active_bag_panden"][0]["bag_pand_id"] == "PG" and ar["non_active_bag_panden"][0]["status"] == "Pand gesloopt"
+    assert [x["bag_pand_id"] for x in p["candidate_panden"]] == ["P1"]
+    assert p["building_project_candidate"]["scope_hypotheses"][0]["strength"] == "STRONG_BUILDING_PROJECT_CANDIDATE"
+
+
+def test_address_only_in_demolished_pand_blocks_strong(tmp_path):
+    w = DemolishedWorld("Teststraat", {"1": "P1"}, {"P1": (1, 1981)}, inactive={"PG": (4.0, 52.0, "Pand gesloopt")})
+    w.pos = {"P1": (5.0, 53.0)}  # het actieve pand ligt elders; alleen het gesloopte pand bevat het adrespunt
+    w.doc = lambda n: dict(World.doc(w, n), centroide_ll="POINT(4.0 52.0)")
+    run_group(tmp_path, w, TOEV_GROUP, mjop_fake(units=1, year=1967))
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["bag_pand_ids"] == ["PG"] and h["checks"]["all_panden_in_use"] is False
+    assert h["strength"] != "STRONG_BUILDING_PROJECT_CANDIDATE" and any(f.startswith("PAND_NOT_IN_USE") for f in h["flags"])
+
+
+def test_geographically_spread_panden_are_not_strong(tmp_path):
+    w = World("Teststraat", {"1": "P1", "2": "P2"}, {"P1": (1, 1981), "P2": (1, 1981)})
+    w.pos = {"P1": (4.0, 52.0), "P2": (4.01, 52.01)}  # ~1,3 km uit elkaar
+    g = dict(TOEV_GROUP, numbers=["1", "2"])
+    run_group(tmp_path, w, g, mjop_fake(units=2, year=1981))
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["geographic_extent_m"] > frbv.COMPACT_EXTENT_M and h["checks"]["geographically_compact"] is False
+    assert h["strength"] == "WEAK_BUILDING_PROJECT_CANDIDATE"
+
+
+def test_identical_parity_pand_sets_flagged_not_chosen(tmp_path):
+    w = World("Teststraat", {"1": "P1", "2": "P1"}, {"P1": (2, 1981)})
+    g = dict(TOEV_GROUP, numbers=None, range_from=1, range_to=2, document_address_number=1)
+    g.pop("numbers")
+    run_group(tmp_path, w, g, mjop_fake(units=None, year=1981))
+    p = pkg(tmp_path)
+    pd = p["building_project_candidate"]["parity_distinction"]
+    assert pd["identical_pand_sets"] is True and pd["parity_distinguishes_at_pand_level"] is False
+    assert any(f.startswith("PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL") for f in p["review_flags"])
+    assert p["building_project_candidate"]["selected_scope"] is None
+
+
+def test_new_groups_configured_from_mjop_sources():
+    assert BY_ID["DOC-013"]["numbers"] == [13, 15, 17, 19] and BY_ID["DOC-013"]["include_toevoegingen"] is True
+    assert [s["street"] for s in frbv.group_segments(BY_ID["DOC-001"])] == ["Alkmaarstraat", "Groetstraat"]
+    assert len(frbv.group_numbers(BY_ID["DOC-001"])) == 83 + 29
+    assert BY_ID["DOC-009"]["document_ids"] == ["DOC-009"]  # DOC-008 noemt geen plaats; niet afgeleid
+    assert "DOC-008" not in {d for g in frbv.GROUPS for d in g["document_ids"]}

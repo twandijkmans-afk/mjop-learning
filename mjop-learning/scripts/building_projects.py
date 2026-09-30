@@ -23,7 +23,7 @@ Regels:
   er is bewust geen compatibiliteitslaag.
 - Onveranderlijk bewijs: een evidence package (validation_dir) dat door een building_project-record wordt gerefereerd,
   mag nooit meer worden overschreven of verwijderd ('guard' faalt hard). Nieuwe fetches gaan naar een nieuwe
-  versiemap (bv. real_validation_v2).
+  versiemap (bv. real_validation_v3).
 """
 
 import argparse
@@ -42,6 +42,7 @@ ROOT = Path(__file__).resolve().parent.parent
 VALIDATION_DIR = ROOT / "data" / "external" / "building_validation" / "real_validation_v1"
 PROJECT_STORE = ROOT / "data" / "building_projects" / "building_project_records.json"
 UNRESOLVED_STORE = ROOT / "data" / "building_projects" / "unresolved_case_records.json"
+SUPPORT_STORE = ROOT / "data" / "building_projects" / "supporting_evidence_records.json"
 DOC_RELATIONS = ROOT / "data" / "price_observations" / "document_relations.json"
 
 RULE_VERSION = "building_project_rules_v1"
@@ -89,6 +90,14 @@ def new_unresolved_store():
             "records": []}
 
 
+def new_support_store():
+    return {"store_version": "building_project_supporting_evidence_v1", "append_only": True,
+            "description": "Machinale controles dat een nieuwer evidence package een bestaand goedgekeurd building_project exact "
+                           "reproduceert (rol SUPPORTING_EVIDENCE). Geen goedkeuring; wijzigt nooit een building_project-record. "
+                           "Append-only; één ACTIVE record per evidence_key.",
+            "records": []}
+
+
 def load_store(path, factory):
     path = Path(path)
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else factory()
@@ -109,6 +118,10 @@ def project_store_errors(store):
 
 def unresolved_store_errors(store):
     return aos.invariant_errors(store["records"], "case_id", lambda r: r["case_key"])
+
+
+def support_store_errors(store):
+    return aos.invariant_errors(store["records"], "evidence_id", lambda r: r["evidence_key"])
 
 
 def write_store(store, path, factory, errors_fn, id_field):
@@ -296,6 +309,90 @@ def approve_building_project(store, *, out_dir, group_id, hypothesis_id, reviewe
 
 
 # --------------------------------------------------------------------------
+# Supporting evidence: nieuwer package reproduceert een goedgekeurd project
+# --------------------------------------------------------------------------
+
+def _canonical_sha(obj):
+    return hashlib.sha256(json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")).hexdigest()
+
+
+def reproduction_diff(project, hyp):
+    """Vergelijkt een goedgekeurd building_project met een scope-hypothese uit een (nieuwer) package.
+    -> dict met per onderdeel (gelijk, oud, nieuw); leeg 'differences' = exacte reproductie."""
+    old_addr = sorted((a["house_number"], a["nummeraanduiding_id"], a["adresseerbaarobject_id"], a["bag_pand_id"]) for a in project["addresses"])
+    new_addr = sorted((a["number"], a["nummeraanduiding_id"], a["adresseerbaarobject_id"], (a["bag_pand_ids"] or [None])[0])
+                      for a in hyp["addresses_found"])
+    old_pp = {r["bag_pand_id"]: sorted(r["house_numbers"]) for r in project["panden"]}
+    new_pp = {r["bag_pand_id"]: sorted(str(n) for n in r["numbers_in_scope"]) for r in hyp["panden"]}
+    parts = {
+        "bag_pand_ids": (sorted(project["bag_pand_ids"]), sorted(hyp["bag_pand_ids"])),
+        "addresses": (old_addr, new_addr),
+        "house_numbers_per_pand": (old_pp, new_pp),
+        "vbo_total_bag": (project["totals"]["vbo_total_bag"], hyp["counts"]["vbo_total_bag"]),
+        "scope_house_numbers": (sorted(project["scope"]["house_numbers"]), sorted(str(n) for n in hyp["requested_numbers"])),
+    }
+    return {"compared": {k: v[0] == v[1] for k, v in parts.items()},
+            "differences": {k: {"approved": v[0], "new": v[1]} for k, v in parts.items() if v[0] != v[1]}}
+
+
+def record_reproduction(store, *, project_store, building_project_id, out_dir, group_id, hypothesis_id, recorded_by, recorded_at,
+                        decision_source, root=ROOT):
+    """Pure functie: legt vast dat een nieuwer candidate package het goedgekeurde building_project EXACT reproduceert
+    (rol SUPPORTING_EVIDENCE). Weigert (ProjectError met het verschil) bij elk verschil: geen stille supersede, geen
+    nieuwe approval, en het building_project-record wordt nooit gewijzigd."""
+    if not recorded_by or not str(recorded_by).strip():
+        raise ProjectError("recorded_by is verplicht")
+    project = next((r for r in project_store["records"] if r["building_project_id"] == building_project_id), None)
+    if project is None:
+        raise ProjectError(f"onbekend building_project {building_project_id}")
+    if project["status"] != "ACTIVE":
+        raise ProjectError(f"{building_project_id} is niet ACTIVE ({project['status']})")
+    if project["selected_scope"] != hypothesis_id:
+        raise ProjectError(f"{building_project_id} heeft scope {project['selected_scope']}, niet {hypothesis_id}")
+    pkg, manifest, prov = load_package(out_dir, group_id, root)
+    if prov["validation_dir"] == project["provenance"]["validation_dir"]:
+        raise ProjectError("dit is het evidence package van de goedkeuring zelf, geen nieuw bewijs")
+    if pkg["building_project_candidate"]["candidate_id"] != project["candidate_id"] or sorted(pkg["document_ids"]) != sorted(project["document_ids"]):
+        raise ProjectError("package hoort bij een andere kandidaat of andere documenten")
+    hyp = get_hypothesis(pkg, hypothesis_id)
+    diff = reproduction_diff(project, hyp)
+    if diff["differences"]:
+        raise ProjectError(f"nieuwe resolver reproduceert {building_project_id} NIET exact; niets vastgelegd: " + json.dumps(diff["differences"]))
+    key = f"{building_project_id}:{prov['validation_dir']}:{hypothesis_id}"
+    if any(r["evidence_key"] == key and r["status"] == "ACTIVE" for r in store["records"]):
+        raise ProjectError(f"reproductie {key} is al vastgelegd")
+    record = {
+        "evidence_id": aos.next_id(store["records"], "evidence_id", "BPEV"),
+        "evidence_key": key,
+        "building_project_id": building_project_id,
+        "candidate_id": project["candidate_id"],
+        "document_ids": project["document_ids"],
+        "evidence_role": "SUPPORTING_EVIDENCE",
+        "result": "REPRODUCES_APPROVED_SCOPE",
+        "scope_hypothesis_id": hypothesis_id,
+        "candidate_strength_in_new_package": hyp["strength"],
+        "compared": diff["compared"],
+        "project_record_sha256": _canonical_sha(project),
+        "approval_changed": False,
+        "new_approval_created": False,
+        "resolver": {"tool": manifest["tool"], "run_id": manifest["run_id"]},
+        "provenance": prov,
+        "recorded_by": {"recorder_id": recorded_by, "recorder_type": "claude_code"},
+        "recorded_at": recorded_at,
+        "decision_source": decision_source,
+        "rule_version": RULE_VERSION,
+        "supersedes": None,
+        "status": "ACTIVE",
+    }
+    out = copy.deepcopy(store)
+    out["records"].append(record)
+    errs = support_store_errors(out) + aos.append_only_errors(store["records"], out["records"], "evidence_id")
+    if errs:
+        raise ProjectError("; ".join(errs))
+    return out
+
+
+# --------------------------------------------------------------------------
 # Unresolved case
 # --------------------------------------------------------------------------
 
@@ -403,11 +500,12 @@ def norm_name(s):
 # Bescherming van goedgekeurde provenance
 # --------------------------------------------------------------------------
 
-def locked_validation_dirs(root=ROOT, project_store=None):
-    """Evidence packages die door een building_project-record (elke status, ook SUPERSEDED: de geschiedenis moet
-    verifieerbaar blijven) worden gerefereerd, zijn onveranderlijk."""
+def locked_validation_dirs(root=ROOT, project_store=None, support_store=None):
+    """Evidence packages die door een building_project-record of een supporting-evidence-record (elke status, ook
+    SUPERSEDED: de geschiedenis moet verifieerbaar blijven) worden gerefereerd, zijn onveranderlijk."""
     ps = project_store if project_store is not None else load_store(Path(root) / "data/building_projects/building_project_records.json", new_project_store)
-    return sorted({r["provenance"]["validation_dir"] for r in ps["records"]})
+    ss = support_store if support_store is not None else load_store(Path(root) / "data/building_projects/supporting_evidence_records.json", new_support_store)
+    return sorted({r["provenance"]["validation_dir"] for r in ps["records"]} | {r["provenance"]["validation_dir"] for r in ss["records"]})
 
 
 def is_locked(out_dir, root=ROOT, **kw):
@@ -419,10 +517,11 @@ def project_for_document(store, document_id):
     return [r["building_project_id"] for r in active_projects(store) if document_id in r["document_ids"]]
 
 
-def provenance_errors(root=ROOT, project_path=PROJECT_STORE, unresolved_path=UNRESOLVED_STORE):
+def provenance_errors(root=ROOT, project_path=PROJECT_STORE, unresolved_path=UNRESOLVED_STORE, support_path=SUPPORT_STORE):
     """Klopt de vastgelegde provenance (sha256 van package + manifest + alle raw responses) nog met de bestanden op schijf?"""
     errs, dirs = [], set()
-    for path, factory, idf in ((project_path, new_project_store, "building_project_id"), (unresolved_path, new_unresolved_store, "case_id")):
+    for path, factory, idf in ((project_path, new_project_store, "building_project_id"), (unresolved_path, new_unresolved_store, "case_id"),
+                               (support_path, new_support_store, "evidence_id")):
         for r in load_store(path, factory)["records"]:
             if idf == "case_id" and r["status"] != "ACTIVE":
                 continue  # oude unresolved cases mogen door een nieuwer record zijn vervangen
@@ -470,6 +569,13 @@ def main(argv=None):
     u.add_argument("--reason", required=True)
     u.add_argument("--decision-source", required=True)
     u.add_argument("--dir", default=str(VALIDATION_DIR))
+    rp = sub.add_parser("reproduce", help="leg vast dat een nieuwer package een goedgekeurd project exact reproduceert")
+    rp.add_argument("--project", required=True)
+    rp.add_argument("--group", required=True)
+    rp.add_argument("--scope", required=True)
+    rp.add_argument("--recorded-by", required=True)
+    rp.add_argument("--decision-source", required=True)
+    rp.add_argument("--dir", required=True)
     sub.add_parser("check")
     g = sub.add_parser("guard")
     g.add_argument("--out", required=True)
@@ -489,15 +595,23 @@ def main(argv=None):
             write_store(store, UNRESOLVED_STORE, new_unresolved_store, unresolved_store_errors, "case_id")
             r = store["records"][-1]
             print(f"{r['case_id']}: {r['case_key']} {r['case_status']}, {len(r['open_points'])} open punten, selected_scope={r['selected_scope']}")
+        elif args.cmd == "reproduce":
+            store = record_reproduction(load_store(SUPPORT_STORE, new_support_store), project_store=load_store(PROJECT_STORE, new_project_store),
+                                        building_project_id=args.project, out_dir=args.dir, group_id=args.group, hypothesis_id=args.scope,
+                                        recorded_by=args.recorded_by, recorded_at=now_utc(), decision_source=args.decision_source)
+            write_store(store, SUPPORT_STORE, new_support_store, support_store_errors, "evidence_id")
+            r = store["records"][-1]
+            print(f"{r['evidence_id']}: {r['building_project_id']} {r['result']} ({r['evidence_role']}); approval ongewijzigd")
         elif args.cmd == "check":
             errs = (project_store_errors(load_store(PROJECT_STORE, new_project_store)) +
-                    unresolved_store_errors(load_store(UNRESOLVED_STORE, new_unresolved_store)) + provenance_errors())
+                    unresolved_store_errors(load_store(UNRESOLVED_STORE, new_unresolved_store)) +
+                    support_store_errors(load_store(SUPPORT_STORE, new_support_store)) + provenance_errors())
             print("OK" if not errs else "\n".join(errs))
             return 1 if errs else 0
         elif args.cmd == "guard":
             if is_locked(args.out):
                 print(f"FOUT: {args.out} bevat goedgekeurd bewijs (gerefereerd door een building_project-record) en is onveranderlijk; "
-                      "niet overschrijven of verwijderen. Haal nieuwe data op in een NIEUWE versiemap (bv. real_validation_v2).", file=sys.stderr)
+                      "niet overschrijven of verwijderen. Haal nieuwe data op in een NIEUWE versiemap (bv. real_validation_v3).", file=sys.stderr)
                 return 1
             print(f"{args.out}: vrij (niet gerefereerd door een goedgekeurd building_project)")
     except ProjectError as e:

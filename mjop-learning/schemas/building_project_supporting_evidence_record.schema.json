@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "building_project_supporting_evidence_record.schema.json",
+  "title": "BuildingProjectSupportingEvidenceStore",
+  "description": "Machinale reproductiecontroles: een nieuwer evidence package reproduceert een goedgekeurd building_project exact (docs/building_projects_v1.md). Geen goedkeuring; wijzigt geen building_project-record.",
+  "type": "object",
+  "definitions": {
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_key",
+        "building_project_id",
+        "candidate_id",
+        "document_ids",
+        "evidence_role",
+        "result",
+        "scope_hypothesis_id",
+        "candidate_strength_in_new_package",
+        "compared",
+        "project_record_sha256",
+        "approval_changed",
+        "new_approval_created",
+        "resolver",
+        "provenance",
+        "recorded_by",
+        "recorded_at",
+        "decision_source",
+        "rule_version",
+        "supersedes",
+        "status"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "pattern": "^BPEV-[0-9]{5}$"
+        },
+        "evidence_key": {
+          "type": "string"
+        },
+        "building_project_id": {
+          "type": "string",
+          "pattern": "^BPRJ-[0-9]{5}$"
+        },
+        "candidate_id": {
+          "type": "string",
+          "pattern": "^BPC-"
+        },
+        "document_ids": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "pattern": "^DOC-[0-9]{3,}$"
+          }
+        },
+        "evidence_role": {
+          "const": "SUPPORTING_EVIDENCE"
+        },
+        "result": {
+          "const": "REPRODUCES_APPROVED_SCOPE"
+        },
+        "scope_hypothesis_id": {
+          "type": "string"
+        },
+        "candidate_strength_in_new_package": {
+          "type": "string"
+        },
+        "compared": {
+          "type": "object",
+          "additionalProperties": {
+            "const": true
+          },
+          "minProperties": 1
+        },
+        "project_record_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "approval_changed": {
+          "const": false
+        },
+        "new_approval_created": {
+          "const": false
+        },
+        "resolver": {
+          "type": "object",
+          "required": [
+            "tool",
+            "run_id"
+          ]
+        },
+        "provenance": {
+          "type": "object",
+          "required": [
+            "validation_dir",
+            "candidate_package",
+            "manifest"
+          ]
+        },
+        "recorded_by": {
+          "type": "object",
+          "required": [
+            "recorder_id",
+            "recorder_type"
+          ],
+          "properties": {
+            "recorder_type": {
+              "const": "claude_code"
+            }
+          }
+        },
+        "recorded_at": {
+          "type": "string"
+        },
+        "decision_source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule_version": {
+          "type": "string"
+        },
+        "supersedes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "SUPERSEDED",
+            "REVIEW_REQUIRED"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "store_version",
+    "append_only",
+    "description",
+    "records"
+  ],
+  "properties": {
+    "store_version": {
+      "const": "building_project_supporting_evidence_v1"
+    },
+    "append_only": {
+      "const": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/record"
+      }
+    }
+  }
+}

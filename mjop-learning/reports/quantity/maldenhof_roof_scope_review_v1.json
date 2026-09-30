@@ -1,0 +1,219 @@
+{
+ "building_project_id": "BPRJ-00001",
+ "classification": "SCOPE_OR_DEFINITION_MISMATCH_REVIEW",
+ "comparisons": [
+  {
+   "difference_m2": "235.15",
+   "difference_pct_of_3dbag": "123.3",
+   "historical_m2": "425.80",
+   "subject": "plat dak (4711 Dakbedekking APP vs b3_opp_dak_plat)",
+   "threedbag_m2": "190.65"
+  },
+  {
+   "difference_m2": "70.03",
+   "difference_pct_of_3dbag": "4.9",
+   "historical_m2": "1485.60",
+   "subject": "hellend dak (4712 Dakpan beton vs b3_opp_dak_schuin)",
+   "threedbag_m2": "1415.57"
+  }
+ ],
+ "corrections_applied": false,
+ "historical_documents_note": "DOC-005 (2026) en DOC-006 (2023) noemen identieke dakhoeveelheden; afhankelijke bronnen (DREL-002), dus geen onafhankelijke bevestiging.",
+ "historical_elements": [
+  {
+   "document_id": "DOC-005",
+   "element_code": "4711",
+   "element_id": "DOC-005-EL-025",
+   "element_name": "Dakbedekking APP",
+   "location": "Platte dak",
+   "provenance": {
+    "block_id": "P07-L013",
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3"
+   },
+   "quantity": "425.80",
+   "unit": "m2"
+  },
+  {
+   "document_id": "DOC-005",
+   "element_code": "4712",
+   "element_id": "DOC-005-EL-027",
+   "element_name": "Dakpan beton",
+   "location": "Hellend dak",
+   "provenance": {
+    "block_id": "P07-L015",
+    "page": 7,
+    "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+   },
+   "quantity": "1485.60",
+   "unit": "m2"
+  },
+  {
+   "document_id": "DOC-006",
+   "element_code": "4711",
+   "element_id": "DOC-006-EL-025",
+   "element_name": "Dakbedekking APP",
+   "location": "Platte dak",
+   "provenance": {
+    "block_id": "P07-L007",
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 1"
+   },
+   "quantity": "425.80",
+   "unit": "m2"
+  },
+  {
+   "document_id": "DOC-006",
+   "element_code": "4712",
+   "element_id": "DOC-006-EL-027",
+   "element_name": "Dakpan beton",
+   "location": "Hellend dak",
+   "provenance": {
+    "block_id": "P07-L009",
+    "page": 7,
+    "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1"
+   },
+   "quantity": "1485.60",
+   "unit": "m2"
+  }
+ ],
+ "investigated": {
+  "element_description": "4711 'Dakbedekking APP', locatie 'Platte dak', eenheid m2 (DOC-005 p7 P07-L013). Eén post voor alle platte daken; het MJOP specificeert niet welke dakdelen (hoofddak, dakkapellen, bergingen, luifels).",
+  "exploratory_outbuildings": {
+   "b3_opp_dak_plat_sum_m2": "94.80",
+   "b3_opp_dak_schuin_sum_m2": "0.0",
+   "bouwjaar": 1981,
+   "method": "BAG OGC pand-items in de omhullende (±0,0004° lon, ±0,0003° lat) van de EVEN_ONLY-adrespunten; panden 'in gebruik' zonder verblijfsobject en buiten BPRJ-00001; 3D BAG per pand. Niet als evidence package vastgelegd.",
+   "note": "18 kleine panden van ~5 m² (vermoedelijk bergingen) met plat dak. Welke bij de VvE horen (even kant) is onbekend; ook opgeteld (190.65 + 94.80 = 285.45 m²) verklaren ze 425.80 m² niet volledig.",
+   "panden": 18,
+   "retrieved_at": "2026-09-30",
+   "status": "EXPLORATORY_NOT_EVIDENCE"
+  },
+  "location": "'Platte dak' is een verzamellocatie, geen pand- of dakvlakverwijzing.",
+  "multiple_roof_types_in_one_post": "Mogelijk; het hellende dak (4712) ligt dicht bij 3D BAG (~5%), het platte dak niet.",
+  "quantity_unit": "Beide m2; geen eenheidsverschil.",
+  "threedbag_scope": "3D BAG telt per BAG-pand; panden zonder adres (bergingen) vallen buiten de adresgedreven scope van BPRJ-00001. De grens plat/schuin in 3D BAG volgt de hellingshoek van gereconstrueerde dakvlakken (definitie te verifiëren), niet de dakbedekking.",
+  "which_roof_parts": "Onbekend uit de bron. Een hellend dak met platte delen (dakkapellen, kopse overgangen) en losse bergingen kunnen in één 4711-post zitten."
+ },
+ "not_a_verdict": "Het verschil is GEEN bewijs dat het MJOP of 3D BAG fout is. Er wordt niets gecorrigeerd: historische hoeveelheden en 3D BAG-waarden blijven ongewijzigd en naast elkaar staan.",
+ "open_questions": [
+  "Welke dakdelen omvat post 4711 (425,80 m2): alleen de platte delen van de woningen, ook bergingen/aanbouwen, luifels?",
+  "Horen de bergingen zonder adres (aparte BAG-panden) tot de VvE, en zo ja welke (even kant)?",
+  "Hoe definieert 3D BAG de grens tussen b3_opp_dak_plat en b3_opp_dak_schuin voor dakkapellen en flauwe dakvlakken?"
+ ],
+ "report_version": "maldenhof_roof_scope_review_v1",
+ "scope": "EVEN_ONLY",
+ "threedbag_scope": {
+  "b3_opp_dak_plat_sum_m2": "190.65",
+  "b3_opp_dak_schuin_sum_m2": "1415.57",
+  "bag_pand_count": 15,
+  "per_pand": [
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 7.61,
+    "b3_opp_dak_schuin": 99.91,
+    "bag_pand_id": "0363100012070344",
+    "raw_response_sha256": "68384c3d1499a0b7999f20cf012a666c96c875ce823346210eda5470d6dd181a"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 8.8,
+    "b3_opp_dak_schuin": 101.57,
+    "bag_pand_id": "0363100012071880",
+    "raw_response_sha256": "c52501c7f0b9aad63e7aa89095a421a4b0ee4faee44e84ca03a38126f94a7943"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 16.05,
+    "b3_opp_dak_schuin": 91.19,
+    "bag_pand_id": "0363100012078022",
+    "raw_response_sha256": "e8b3a98af6280e9663a6a02aee7fa1ac683dae6908d3eecbf3bd9d53204aa906"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 8.27,
+    "b3_opp_dak_schuin": 101.68,
+    "bag_pand_id": "0363100012091756",
+    "raw_response_sha256": "8c4b4b209f3f9c671f6534801bfe9e527862c30908ce9dbe458ee49f750c9fc3"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 14.56,
+    "b3_opp_dak_schuin": 88.42,
+    "bag_pand_id": "0363100012091974",
+    "raw_response_sha256": "790c2c6ff28daa8bc33baac127de28e8a099e55984e4c8875062c3a600d246ce"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 10.55,
+    "b3_opp_dak_schuin": 99.32,
+    "bag_pand_id": "0363100012102659",
+    "raw_response_sha256": "3d2fb2abcb7452e2518c8e5ad7f871615461263a5450a7eb2f800a72d283fa92"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 15.99,
+    "b3_opp_dak_schuin": 90.34,
+    "bag_pand_id": "0363100012107492",
+    "raw_response_sha256": "4c043f130adde815d38f07367468d400d9c717da7dcd03b98077c840fa847fa3"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 18.04,
+    "b3_opp_dak_schuin": 89.12,
+    "bag_pand_id": "0363100012121455",
+    "raw_response_sha256": "73fe6043cc9d71264ea40a0c5d4050f80b0588559da97707832acc204cbc27f5"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 10.33,
+    "b3_opp_dak_schuin": 98.56,
+    "bag_pand_id": "0363100012127361",
+    "raw_response_sha256": "056f45aedc27e03d508f20f80edf5788d15a83368909268748f934cb1bdb7031"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 23.56,
+    "b3_opp_dak_schuin": 87.94,
+    "bag_pand_id": "0363100012134188",
+    "raw_response_sha256": "b9835235be63086922f835fa14f16f0ccdd6da3a73fc1c47e76b30b3a8605396"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 12.74,
+    "b3_opp_dak_schuin": 74.07,
+    "bag_pand_id": "0363100012137996",
+    "raw_response_sha256": "6de26675b58d90298ce1aac39e069cf614dd51753faa0f2340759512134125f2"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 16.31,
+    "b3_opp_dak_schuin": 87.81,
+    "bag_pand_id": "0363100012140664",
+    "raw_response_sha256": "7fe9832d6fd6eea7b0b99180004905b960d6aa6d3cfd9b397e3cb088cdbecd8d"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 9.38,
+    "b3_opp_dak_schuin": 105.92,
+    "bag_pand_id": "0363100012141419",
+    "raw_response_sha256": "179569dc06b2cbe59216b3326da8ae22bbe3932f9580673650e1154aa8905c59"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 10.49,
+    "b3_opp_dak_schuin": 93.57,
+    "bag_pand_id": "0363100012143647",
+    "raw_response_sha256": "6e03518cbd8e81e0b833c74bdd97fccfcfb4db5254b972b0456397812ea95e67"
+   },
+   {
+    "b3_dak_type": "slanted",
+    "b3_opp_dak_plat": 7.97,
+    "b3_opp_dak_schuin": 106.15,
+    "bag_pand_id": "0363100012144766",
+    "raw_response_sha256": "36b7a2a8e393cf8650256fee7f8ec9bcf499c2b39d28a697a9d026dae8946617"
+   }
+  ],
+  "validation_dir": "data/external/building_validation/real_validation_v2"
+ }
+}

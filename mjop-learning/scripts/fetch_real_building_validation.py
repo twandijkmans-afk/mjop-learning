@@ -84,9 +84,11 @@ def outer_rings(geometry):
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = ROOT / "data" / "external" / "building_validation" / "real_validation_v1"
-TOOL_VERSION = "fetch_real_building_validation_v1.2.0"
+TOOL_VERSION = "fetch_real_building_validation_v1.3.0"
 MAX_ATTEMPTS = 3
-MAX_VBO_DETAIL = 60  # alleen voor panden met een onverklaard verschil tussen aantal VBO en gevonden adressen
+MAX_VBO_DETAIL = 60
+PDOK_ROWS = 50  # ruim genoeg voor alle toevoegingen van één huisnummer; meer treffers -> PDOK_RESULTS_TRUNCATED
+COMPACT_EXTENT_M = 300  # maximale onderlinge afstand (m) tussen adrespunten van één project-hypothese  # alleen voor panden met een onverklaard verschil tussen aantal VBO en gevonden adressen
 
 # Documentgroepen. Per groep wordt het HELE huisnummerbereik uit de MJOP-bron opgevraagd (range_from..range_to,
 # alle gehele nummers). Welke nummers daadwerkelijk bij de VvE horen (alleen even/oneven, of alle) staat NIET in
@@ -94,6 +96,7 @@ MAX_VBO_DETAIL = 60  # alleen voor panden met een onverklaard verschil tussen aa
 GROUPS = [
     {"group_id": "DOC-005-006", "document_ids": ["DOC-005", "DOC-006"], "label": "VvE Maldenhof 240-296",
      "street": "Maldenhof", "range_from": 240, "range_to": 296, "city": "Amsterdam", "document_address_number": 240,
+     "include_toevoegingen": True,
      "scope_hypotheses": [
          {"hypothesis_id": "EVEN_ONLY", "parity": "even",
           "description": "Alleen even huisnummers 240,242,...,296",
@@ -102,6 +105,7 @@ GROUPS = [
           "basis": "Bereik '240 - 296' zonder pariteit gelezen."}]},
     {"group_id": "DOC-012", "document_ids": ["DOC-012"], "label": "VvE Meppelweg 801-883 (documentadres Meppelweg 819)",
      "street": "Meppelweg", "range_from": 801, "range_to": 883, "city": "Den Haag", "document_address_number": 819,
+     "include_toevoegingen": True,
      "scope_hypotheses": [
          {"hypothesis_id": "ODD_ONLY", "parity": "odd", "description": "Alleen oneven huisnummers 801,803,...,883",
           "basis": "Documentadres is 819 (oneven); bron noemt pariteit en aantal eenheden niet."},
@@ -115,6 +119,23 @@ GROUPS = [
           "note": "Wijkt af van objectnaam 'VvE Meppelweg 801-883' (waarschijnlijk typfout; niet opgelost)."},
          {"document_id": "DOC-012", "page": 2, "field": "unit_count", "value": None,
           "text_fragment": None, "note": "Bron noemt geen aantal eenheden en geen pariteit van het bereik."}]},
+    # v1.3.0: bereiken uit de adresvelden/objectnamen van de MJOP-bron (data/extracted, read-only). Het documentadres is
+    # het eerste nummer van het eerste bereik (zoals bij Maldenhof). Hypotheses ALL/EVEN/ODD worden automatisch
+    # aangemaakt (default_hypotheses); er wordt geen pariteit gekozen.
+    {"group_id": "DOC-001", "document_ids": ["DOC-001"], "label": "VvE Alkmaarstraat 1-83 en Groetstraat 189-217",
+     "segments": [{"street": "Alkmaarstraat", "range_from": 1, "range_to": 83},
+                  {"street": "Groetstraat", "range_from": 189, "range_to": 217}],
+     "city": "Amsterdam", "document_address_number": 1, "document_address_street": "Alkmaarstraat", "include_toevoegingen": True},
+    {"group_id": "DOC-013", "document_ids": ["DOC-013"], "label": "VVE Gebouwen Vechtstraat 13-15-17-19",
+     "street": "Vechtstraat", "numbers": [13, 15, 17, 19], "city": "Amsterdam", "document_address_number": 13,
+     "include_toevoegingen": True},
+    {"group_id": "DOC-015", "document_ids": ["DOC-015"], "label": "VvE Groetstraat 110-140",
+     "street": "Groetstraat", "range_from": 110, "range_to": 140, "city": "Amsterdam", "document_address_number": 110,
+     "include_toevoegingen": True},
+    # DOC-009 alleen: DOC-008 (deelplan 'Hoofddak' van hetzelfde complex) noemt geen plaats; die wordt niet uit DOC-009 afgeleid.
+    {"group_id": "DOC-009", "document_ids": ["DOC-009"], "label": "VvE St. Jacobsstraat 251-321 Woningen",
+     "street": "St. Jacobsstraat", "range_from": 251, "range_to": 321, "city": "Utrecht", "document_address_number": 251,
+     "include_toevoegingen": True},
 ]
 
 HUMAN_CONFIRMATION_REQUIRED = [
@@ -282,23 +303,113 @@ def place_equivalent(a, b):
     return canonical_place(a) == canonical_place(b)
 
 
+# --- straatnamen: alleen expliciete, per woonplaats vastgepinde aliassen ------------------------------------
+# (canonieke woonplaats, straatnaam zoals in het MJOP, genormaliseerd) -> BAG-straatnaam + openbare-ruimte-ID.
+# Geen algemene fuzzy matching: een alias geldt alleen voor die woonplaats en is vooraf tegen de BAG gecontroleerd
+# (PDOK type:weg in Utrecht, 2026-09-30: 'Jacobsstraat', 'St. Jacobsstraat' en 'Sint Jacobsstraat' geven alle drie
+# alleen St.-Jacobsstraat, openbareruimte 0344300000000857).
+STREET_ALIASES = {
+    ("utrecht", "st. jacobsstraat"): {"bag_straatnaam": "St.-Jacobsstraat", "openbareruimte_id": "0344300000000857",
+                                      "rule": "STREET_ALIAS_UTRECHT_ST_JACOBSSTRAAT_V1"},
+}
+
+
+def resolve_street(street, city):
+    """-> (BAG-straatnaam, alias-record|None). Zonder expliciete alias blijft de straatnaam ongewijzigd."""
+    a = STREET_ALIASES.get((canonical_place(city), norm(street)))
+    if a is None:
+        return street, None
+    return a["bag_straatnaam"], {"street_as_stated": street, **a}
+
+
+def group_segments(group):
+    """Een groep heeft één of meer segmenten (straat + bereik of nummerlijst)."""
+    if group.get("segments"):
+        return group["segments"]
+    return [{k: group[k] for k in ("street", "range_from", "range_to", "numbers") if k in group}]
+
+
+def segment_numbers(seg):
+    if seg.get("numbers"):
+        return [str(n) for n in seg["numbers"]]
+    return [str(n) for n in range(int(seg["range_from"]), int(seg["range_to"]) + 1)]
+
+
+def group_addresses(group):
+    """-> [(straat, nummer, sleutel)]. De sleutel is het nummer bij één straat (zoals in v1), anders 'Straat nummer'."""
+    segs = group_segments(group)
+    multi = len({norm(s["street"]) for s in segs}) > 1
+    return [(s["street"], n, f"{s['street']} {n}" if multi else n) for s in segs for n in segment_numbers(s)]
+
+
+PARITY_HYPOTHESES = (
+    ("ALL_NUMBERS", "all", "Alle huisnummers in het bereik", "Bereik zonder pariteit gelezen."),
+    ("EVEN_ONLY", "even", "Alleen even huisnummers in het bereik", "Alleen de even nummers van het bereik."),
+    ("ODD_ONLY", "odd", "Alleen oneven huisnummers in het bereik", "Alleen de oneven nummers van het bereik."),
+)
+
+
+def default_hypotheses(group):
+    """ALL/EVEN/ODD voor elke groep met een bereik dat beide pariteiten bevat; handmatig beschreven hypotheses
+    (zelfde hypothesis_id) behouden hun tekst en volgorde. Een nummerlijst krijgt alleen REQUESTED_NUMBERS.
+    Bij meerdere straten komen daar de gemengde combinaties per straat bij (bv. Alkmaarstraat oneven + Groetstraat
+    alle), want pariteit is per straat een eigen vraag. Er wordt niets gekozen."""
+    import itertools
+    curated = list(group.get("scope_hypotheses") or [])
+    nums = [int(n) for _, n, _ in group_addresses(group)]
+    if not any(seg.get("range_from") is not None for seg in group_segments(group)) or len({n % 2 for n in nums}) < 2:
+        return curated or [{"hypothesis_id": "REQUESTED_NUMBERS", "parity": "all", "description": "Alle opgevraagde huisnummers",
+                            "basis": "Geen bereik met beide pariteiten; geen pariteit opgegeven."}]
+    have = {h["hypothesis_id"] for h in curated}
+    out = curated + [{"hypothesis_id": hid, "parity": par, "description": desc, "basis": basis}
+                     for hid, par, desc, basis in PARITY_HYPOTHESES if hid not in have]
+    segs = group_segments(group)
+    streets = []
+    for sg in segs:
+        if sg["street"] not in streets:
+            streets.append(sg["street"])
+    if len(streets) > 1:
+        label = {"all": "ALL", "even": "EVEN", "odd": "ODD"}
+        for combo in itertools.product(("all", "even", "odd"), repeat=len(streets)):
+            if len(set(combo)) == 1:
+                continue  # uniforme combinatie = ALL_NUMBERS / EVEN_ONLY / ODD_ONLY hierboven
+            pbs = dict(zip(streets, combo))
+            hid = "MIXED:" + "|".join(f"{st.upper()}={label[p]}" for st, p in pbs.items())
+            if hid not in have:
+                out.append({"hypothesis_id": hid, "parity": "mixed", "parity_by_street": pbs,
+                            "description": "; ".join(f"{st}: {label[p].lower()}" for st, p in pbs.items()),
+                            "basis": "Pariteit per straat; het MJOP-bereik noemt geen pariteit."})
+    return out
+
+
 # --- opvraag per adres -------------------------------------------------------------------------------
 def group_numbers(group):
-    if group.get("numbers"):
-        return [str(n) for n in group["numbers"]]
-    return [str(n) for n in range(int(group["range_from"]), int(group["range_to"]) + 1)]
+    return [k for _, _, k in group_addresses(group)]
 
 
-def process_address(fetcher, street, number, postcode, city, panden):
-    """Eén adres -> address_result. `panden` is een gedeelde dict bag_pand_id -> candidate-pand (cache over adressen)."""
+def process_address(fetcher, street, number, postcode, city, panden, include_toevoegingen=False, key=None):
+    """Eén adres -> address_result. `panden` is een gedeelde dict bag_pand_id -> candidate-pand (cache over adressen).
+    include_toevoegingen: adressen met hetzelfde huisnummer maar een huisletter/toevoeging (13-H, 14-1, 802A) tellen
+    als adres in scope (match_kind TOEVOEGING) in plaats van alleen als context. Bedoeld voor bereiken: die gaan
+    over gebouwen, niet over één voordeur."""
+    stated_street = street
+    street, alias = resolve_street(street, city)
     requested = " ".join(x for x in (street, number, postcode or "", city or "") if x)
     res = {"requested_address": requested, "street": street, "number": number, "postcode_hint": postcode,
-           "city": city, "pdok_request_id": None, "address_matches": [], "candidate_pand_ids": [], "flags": []}
+           "city": city, "pdok_request_id": None, "address_matches": [], "candidate_pand_ids": [], "flags": [],
+           "key": key if key is not None else number, "include_toevoegingen": bool(include_toevoegingen)}
+    if alias:
+        res["street_as_stated"] = stated_street
+        res["street_alias"] = alias
+        res["flags"].append("STREET_ALIAS_APPLIED")
     q = requested
     # Gestructureerd (fq op straat + huisnummer) zodat de ranking van vrije tekst een bestaand adres niet kan verbergen;
-    # rows=20 laat ook huisletter-varianten (802A, 802B, ...) zien.
-    url = PDOK_FREE + "?" + urllib.parse.urlencode(
-        {"q": q, "fq": ["type:adres", f"huisnummer:{number}", f'straatnaam:"{street}"'], "rows": 20}, doseq=True)
+    # rows laat ook huisletter-/toevoegingsvarianten (802A, 13-H, 14-1, ...) zien.
+    rows = PDOK_ROWS if include_toevoegingen else 20
+    fq = ["type:adres", f"huisnummer:{number}", f'straatnaam:"{street}"']
+    if include_toevoegingen and city:
+        fq.append(f'woonplaatsnaam:"{city}"')  # anders vult PDOK de treffers met gelijknamige straten elders
+    url = PDOK_FREE + "?" + urllib.parse.urlencode({"q": q, "fq": fq, "rows": rows}, doseq=True)
     rec, parsed = fetcher.request("pdok", "PDOK Locatieserver v3_1 free", "locatieserver", url, requested)
     res["pdok_request_id"] = rec["request_id"]
     docs = parse_pdok_docs(rec, parsed)
@@ -307,6 +418,10 @@ def process_address(fetcher, street, number, postcode, city, panden):
         return res
     exact = []
     variants = []
+    num_found = ((parsed or {}).get("response") or {}).get("numFound") if isinstance(parsed, dict) else None
+    if isinstance(num_found, int) and num_found > len(docs):
+        res["flags"].append("PDOK_RESULTS_TRUNCATED")
+        _flag(rec, "PDOK_RESULTS_TRUNCATED")
     for d in docs:
         if not isinstance(d, dict):
             continue
@@ -315,15 +430,34 @@ def process_address(fetcher, street, number, postcode, city, panden):
         entry = {"pdok_id": d.get("id"), "weergavenaam": d.get("weergavenaam"), "postcode": d.get("postcode"),
                  "woonplaatsnaam": d.get("woonplaatsnaam"), "woonplaatscode": d.get("woonplaatscode"),
                  "centroide_ll": d.get("centroide_ll"), "nummeraanduiding_id": d.get("nummeraanduiding_id"),
-                 "adresseerbaarobject_id": d.get("adresseerbaarobject_id"), "exact_match": is_exact}
+                 "adresseerbaarobject_id": d.get("adresseerbaarobject_id"), "exact_match": is_exact,
+                 "huisletter": d.get("huisletter"), "huisnummertoevoeging": d.get("huisnummertoevoeging")}
         res["address_matches"].append(entry)
+        same_number = (not is_exact and norm(d.get("straatnaam")) == norm(street) and str(d.get("huisnummer", "")) == str(number)
+                       and (not postcode or norm_postcode(d.get("postcode")) == norm_postcode(postcode)))
+        other_city = bool(city) and not place_equivalent(d.get("woonplaatsnaam"), city)
+        if include_toevoegingen and other_city and (is_exact or same_number):
+            # zelfde straat + nummer in een andere woonplaats: nooit in scope (wel gemeld)
+            entry["match_kind"] = "OTHER_CITY"
+            if is_exact:
+                res["flags"].append("EXACT_MATCH_IN_OTHER_CITY") if "EXACT_MATCH_IN_OTHER_CITY" not in res["flags"] else None
+                _flag(rec, "EXACT_MATCH_IN_OTHER_CITY")
+            continue
         if is_exact and m:
+            entry["match_kind"] = "EXACT"
             exact.append((entry, float(m.group(1)), float(m.group(2))))
-        elif (not is_exact and norm(d.get("straatnaam")) == norm(street) and str(d.get("huisnummer", "")) == str(number)):
+        elif same_number and include_toevoegingen and m:
+            entry["match_kind"] = "TOEVOEGING"  # zelfde straat + huisnummer met huisletter/toevoeging: adres in scope
+            exact.append((entry, float(m.group(1)), float(m.group(2))))
+        elif same_number:
             variants.append(entry["weergavenaam"])  # zelfde nummer met huisletter/toevoeging: context, geen match
     if variants:
         res["flags"].append("HOUSENUMBER_VARIANTS_PRESENT")
         res["housenumber_variants"] = sorted(v for v in variants if v)
+    toev = sorted(e["weergavenaam"] for e, _, _ in exact if e.get("match_kind") == "TOEVOEGING" and e["weergavenaam"])
+    if toev:
+        res["flags"].append("TOEVOEGINGEN_IN_SCOPE")
+        res["toevoegingen"] = toev
     rec["retrieved_identifiers"] = {"adresseerbaarobject_ids": sorted({e["adresseerbaarobject_id"] for e, _, _ in exact if e["adresseerbaarobject_id"]}),
                                     "nummeraanduiding_ids": sorted({e["nummeraanduiding_id"] for e, _, _ in exact if e["nummeraanduiding_id"]}),
                                     "woonplaatscodes": sorted({e["woonplaatscode"] for e, _, _ in exact if e["woonplaatscode"]})}
@@ -332,10 +466,12 @@ def process_address(fetcher, street, number, postcode, city, panden):
         res["flags"].append("NO_EXACT_ADDRESS_MATCH")
         _flag(rec, "NO_EXACT_ADDRESS_MATCH")
         return res
-    if len(exact) > 1:
+    if sum(1 for e, _, _ in exact if e.get("match_kind") == "EXACT") > 1:
         res["flags"].append("MULTIPLE_EXACT_ADDRESS_MATCHES")
         _flag(rec, "MULTIPLE_EXACT_ADDRESS_MATCHES")
     # Alleen een echt andere plaats (niet Den Haag == 's-Gravenhage) geeft een waarschuwing.
+    if alias and any(e.get("woonplaatsnaam") and not place_equivalent(e["woonplaatsnaam"], city) for e, _, _ in exact):
+        res["flags"].append("STREET_ALIAS_OUTSIDE_PINNED_PLACE")
     if city and any(not place_equivalent(e["woonplaatsnaam"], city) for e, _, _ in exact):
         res["flags"].append("EXACT_MATCH_IN_OTHER_CITY")
         _flag(rec, "EXACT_MATCH_IN_OTHER_CITY")
@@ -349,7 +485,7 @@ def process_address(fetcher, street, number, postcode, city, panden):
         if feats is None:
             res["flags"].append("PAND_LOOKUP_FAILED")
             continue
-        hits = []
+        hits, inactive = [], []
         for f in feats:
             if not isinstance(f, dict) or not f.get("geometry"):
                 continue
@@ -364,6 +500,11 @@ def process_address(fetcher, street, number, postcode, city, panden):
             pid = str(props.get("identificatie") or "")
             if not pid:
                 continue
+            if props.get("status") not in ACTIVE_PAND_STATUSES:
+                # bv. 'Pand gesloopt': de oude polygoon ligt nog onder het adrespunt. Vastleggen, niet als kandidaat.
+                inactive.append({"bag_pand_id": pid, "status": props.get("status"), "bouwjaar": props.get("bouwjaar"),
+                                 "bag_request_id": brec["request_id"]})
+                continue
             hits.append(pid)
             found.add(pid)
             vbo_hrefs = props.get("verblijfsobject.href")
@@ -376,8 +517,34 @@ def process_address(fetcher, street, number, postcode, city, panden):
                 cand["addresses_containing_point"].append(requested)
             if brec["request_id"] not in cand["bag_request_ids"]:
                 cand["bag_request_ids"].append(brec["request_id"])
+        if inactive and not hits:
+            # alleen een niet-actief pand bevat het punt: dat pand wordt wel kandidaat, maar geblokkeerd (PAND_NOT_IN_USE)
+            for x in inactive:
+                pid = x["bag_pand_id"]
+                hits.append(pid)
+                found.add(pid)
+                f = next(f for f in feats if str((f.get("properties") or {}).get("identificatie") or "") == pid)
+                props = f.get("properties") or {}
+                cand = panden.setdefault(pid, {"bag_pand_id": pid, "addresses_containing_point": [], "bag_properties": {
+                    **{k: props.get(k) for k in ("identificatie", "bouwjaar", "status", "gebruiksdoel", "aantal_verblijfsobjecten")},
+                    "verblijfsobject_href_count": None}, "verblijfsobject_hrefs": [],
+                    "bag_request_ids": [], "threedbag": None, "quantity_evidence": None, "verblijfsobjecten": None})
+                if requested not in cand["addresses_containing_point"]:
+                    cand["addresses_containing_point"].append(requested)
+                if brec["request_id"] not in cand["bag_request_ids"]:
+                    cand["bag_request_ids"].append(brec["request_id"])
+            res["flags"].append("ADDRESS_ONLY_IN_NON_ACTIVE_PAND")
+        elif inactive:
+            res["flags"].append("ADDRESS_POINT_ALSO_IN_NON_ACTIVE_PAND")
+        if inactive:
+            entry["non_active_bag_panden"] = inactive
+            res.setdefault("non_active_bag_panden", [])
+            for x in inactive:
+                if x["bag_pand_id"] not in [y["bag_pand_id"] for y in res["non_active_bag_panden"]]:
+                    res["non_active_bag_panden"].append(x)
         brec["retrieved_identifiers"] = {"bag_pand_ids": sorted(set(hits))}
-        brec["normalized_candidate_data"] = {"features_returned": len(feats), "panden_containing_address_point": sorted(set(hits))}
+        brec["normalized_candidate_data"] = {"features_returned": len(feats), "panden_containing_address_point": sorted(set(hits)),
+                                             "non_active_panden_containing_address_point": [x["bag_pand_id"] for x in inactive]}
         if not hits:
             _flag(brec, "NO_PAND_CONTAINS_POINT")
         if len(set(hits)) > 1:
@@ -474,9 +641,10 @@ def fetch_vbo_detail(fetcher, pand, exact_vbo_ids):
 def pand_exact_vbo_ids(address_results, pid):
     ids = set()
     for a in address_results:
-        e = exact_entry(a)
-        if e and pid in a["candidate_pand_ids"] and e.get("adresseerbaarobject_id"):
-            ids.add(e["adresseerbaarobject_id"])
+        for e in scope_entries(a):
+            pids = e.get("bag_pand_ids") if e.get("bag_pand_ids") is not None else a["candidate_pand_ids"]
+            if pid in pids and e.get("adresseerbaarobject_id"):
+                ids.add(e["adresseerbaarobject_id"])
     return ids
 
 
@@ -524,10 +692,21 @@ def combine_mjop(docs):
 
 
 # --- scope-hypotheses en beoordeling ---------------------------------------------------------------------
-def hypothesis_numbers(h, numbers):
+def hypothesis_numbers(h, numbers, by_key=None):
+    """Sleutels binnen de hypothese. De pariteit volgt het huisnummer (bij meerdere straten: 'Straat nummer')."""
     par = h.get("parity", "all")
-    return [n for n in numbers if par == "all" or (par == "even") == (int(n) % 2 == 0)]
+    pbs = h.get("parity_by_street")
 
+    def nr(k):
+        return int(by_key[k]["number"]) if by_key else int(str(k).rsplit(" ", 1)[-1])
+
+    def keep(k):
+        p = pbs[str(k).rsplit(" ", 1)[0]] if pbs else par
+        return p == "all" or (p == "even") == (nr(k) % 2 == 0)
+    return [n for n in numbers if keep(n)]
+
+
+ACTIVE_PAND_STATUSES = {"Pand in gebruik", "Pand in gebruik (niet ingemeten)", "Verbouwing pand", "Sloopvergunning verleend"}
 
 BLOCKING_ADDRESS_FLAGS = {"MULTIPLE_EXACT_ADDRESS_MATCHES", "EXACT_MATCH_IN_OTHER_CITY", "NO_PAND_FOR_ADDRESS",
                           "MULTIPLE_PANDEN_FOR_ADDRESS", "ADDRESS_LOOKUP_FAILED", "PAND_LOOKUP_FAILED",
@@ -541,8 +720,32 @@ def exact_entry(ar):
     return ex[0] if ex else None
 
 
+def scope_entries(ar):
+    """Alle adressen van dit huisnummer die in scope tellen: het exacte adres en (met include_toevoegingen) de toevoegingen."""
+    return [m for m in ar["address_matches"] if m.get("match_kind") in ("EXACT", "TOEVOEGING")
+            or (m["exact_match"] and "match_kind" not in m)]
+
+
+def _point(e):
+    m = re.match(r"POINT\(([-0-9.]+) ([-0-9.]+)\)", e.get("centroide_ll") or "")
+    return (float(m.group(1)), float(m.group(2))) if m else None
+
+
+def extent_m(points):
+    """Grootste onderlinge afstand (m) tussen punten (equirectangulaire benadering; ruim voldoende voor < 1 km)."""
+    import math
+    best = 0.0
+    for i, (x1, y1) in enumerate(points):
+        for x2, y2 in points[i + 1:]:
+            dx = (x2 - x1) * 111320 * math.cos(math.radians((y1 + y2) / 2))
+            dy = (y2 - y1) * 110540
+            best = max(best, math.hypot(dx, dy))
+    return round(best, 1)
+
+
 def unmatched_vbo_details(pand, numbers):
-    """Adres-/VBO-gegevens (uit BAG) van VBO's in het pand zonder exact adres in de opgevraagde nummers."""
+    """Adres-/VBO-gegevens (uit BAG) van VBO's in het pand zonder exact adres in de opgevraagde nummers.
+    `numbers` zijn huisnummers (int of str); bij meerdere straten geldt het omhullende bereik van alle nummers."""
     rows = pand.get("verblijfsobjecten")
     if not rows:
         return None
@@ -562,51 +765,70 @@ def unmatched_vbo_details(pand, numbers):
 
 
 def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
-    nums = hypothesis_numbers(h, numbers)
+    """Beoordeelt één scope-hypothese. `numbers` zijn adressleutels (zie group_addresses), `doc_address_number` de
+    sleutel van het documentadres. Elk adres in scope (exact of toevoeging) telt apart; niets wordt gekozen."""
+    nums = hypothesis_numbers(h, numbers, by_number)
     in_scope = set(nums)
-    found, missing, flags = [], [], []
+    found, missing, flags, points = [], [], [], []
     per_pand, per_pand_vbo = {}, {}
     for n in nums:
         ar = by_number[n]
-        e = exact_entry(ar)
-        if not e:
+        entries = scope_entries(ar)
+        if not entries:
             missing.append(n)
             continue
-        found.append({"number": n, "weergavenaam": e["weergavenaam"], "postcode": e["postcode"],
-                      "woonplaatsnaam": e["woonplaatsnaam"], "woonplaatscode": e["woonplaatscode"],
-                      "nummeraanduiding_id": e["nummeraanduiding_id"],
-                      "adresseerbaarobject_id": e["adresseerbaarobject_id"], "bag_pand_ids": ar["candidate_pand_ids"],
-                      "flags": ar["flags"]})
-        for pid in ar["candidate_pand_ids"]:
-            per_pand.setdefault(pid, []).append(n)
-            per_pand_vbo.setdefault(pid, set()).add(e["adresseerbaarobject_id"] or ("NR" + n))
-        flags += [f"{n}: {f}" for f in ar["flags"] if f in BLOCKING_ADDRESS_FLAGS]
-    ids = [f["nummeraanduiding_id"] or f["number"] for f in found]
+        for e in entries:
+            pids = e.get("bag_pand_ids") if e.get("bag_pand_ids") is not None else ar["candidate_pand_ids"]
+            found.append({"number": ar["number"], "key": n, "street": ar["street"], "weergavenaam": e["weergavenaam"],
+                          "match_kind": e.get("match_kind", "EXACT"), "huisletter": e.get("huisletter"),
+                          "huisnummertoevoeging": e.get("huisnummertoevoeging"), "postcode": e["postcode"],
+                          "woonplaatsnaam": e["woonplaatsnaam"], "woonplaatscode": e["woonplaatscode"],
+                          "nummeraanduiding_id": e["nummeraanduiding_id"],
+                          "adresseerbaarobject_id": e["adresseerbaarobject_id"], "bag_pand_ids": pids,
+                          "flags": ar["flags"]})
+            pt = _point(e)
+            if pt:
+                points.append(pt)
+            for pid in pids:
+                per_pand.setdefault(pid, []).append(n)
+                per_pand_vbo.setdefault(pid, set()).add(e["adresseerbaarobject_id"] or ("NR" + str(n) + (e.get("weergavenaam") or "")))
+        flags += [f"{n}: {f}" for f in ar["flags"] if f in BLOCKING_ADDRESS_FLAGS
+                  and not (f == "HOUSENUMBER_VARIANTS_PRESENT" and ar.get("include_toevoegingen"))]
+    ids = [f["nummeraanduiding_id"] or f"{f['key']}|{f['weergavenaam']}" for f in found]
     dup = sorted({i for i in ids if ids.count(i) > 1})
     pand_rows, vbo_total, covered = [], 0, True
+    all_house_numbers = [by_number[k]["number"] for k in numbers]
     for pid in sorted(per_pand):
         bp = panden[pid]["bag_properties"]
-        outside = sorted((n for n in numbers if n not in in_scope and pid in by_number[n]["candidate_pand_ids"]), key=int)
+        outside = sorted({k for k in numbers if k not in in_scope and pid in by_number[k]["candidate_pand_ids"]},
+                         key=lambda k: (by_number[k]["street"], int(by_number[k]["number"])))
         vbo = bp.get("aantal_verblijfsobjecten")
         full = vbo is not None and vbo == len(per_pand_vbo[pid]) and not outside
         covered = covered and full
         vbo_total += vbo or 0
         ev = panden[pid].get("quantity_evidence") or {}
-        pand_rows.append({"bag_pand_id": pid, "bouwjaar": bp.get("bouwjaar"), "aantal_verblijfsobjecten_bag": vbo,
+        tb = panden[pid].get("threedbag") or {}
+        pand_rows.append({"bag_pand_id": pid, "bouwjaar": bp.get("bouwjaar"), "bag_status": bp.get("status"),
+                          "aantal_verblijfsobjecten_bag": vbo,
                           "verblijfsobject_href_count": bp.get("verblijfsobject_href_count"),
-                          "numbers_in_scope": sorted(per_pand[pid], key=int), "distinct_vbo_ids_in_scope": len(per_pand_vbo[pid]),
+                          "numbers_in_scope": sorted(set(per_pand[pid]), key=lambda k: (by_number[k]["street"], int(by_number[k]["number"]))),
+                          "addresses_in_scope": len(per_pand[pid]), "distinct_vbo_ids_in_scope": len(per_pand_vbo[pid]),
                           "numbers_queried_outside_scope": outside,
                           "vbo_without_matched_address": [v["verblijfsobject_id"] or v["href"] for v in (panden[pid].get("verblijfsobjecten") or [])
                                                           if v["matched_to_exact_address"] is not True] if panden[pid].get("verblijfsobjecten") else None,
-                          "vbo_without_matched_address_details": unmatched_vbo_details(panden[pid], numbers),
+                          "vbo_without_matched_address_details": unmatched_vbo_details(panden[pid], all_house_numbers),
                           "vbo_fully_covered_by_scope": full, "ground_area_m2": ev.get("ground_area_m2"),
-                          "has_3dbag_evidence": bool(ev)})
+                          "has_3dbag_evidence": bool(ev), "threedbag_http_status": tb.get("http_status")})
     hist = {}
     for r in pand_rows:
         k = str(len(r["numbers_in_scope"]))
         hist[k] = hist.get(k, 0) + 1
     units = mjop.get("number_of_units")
-    doc_e = exact_entry(by_number[str(doc_address_number)]) if doc_address_number is not None and str(doc_address_number) in by_number else None
+    doc_ar = by_number.get(str(doc_address_number)) if doc_address_number is not None else None
+    doc_e = exact_entry(doc_ar) if doc_ar else None
+    not_in_use = [r["bag_pand_id"] for r in pand_rows if r["bag_status"] not in ACTIVE_PAND_STATUSES]
+    ext = extent_m(points) if points else None
+    toevoegingen = sorted(f["weergavenaam"] for f in found if f["match_kind"] == "TOEVOEGING")
     checks = {
         "all_requested_found": not missing and bool(nums),
         "no_blocking_address_flags": not flags and not dup,
@@ -619,9 +841,14 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         "construction_year_matches_all_panden": (all(r["bouwjaar"] == mjop["construction_year"] for r in pand_rows)
                                                  if (mjop.get("construction_year") is not None and pand_rows) else None),
         "document_address_number_in_scope": (str(doc_address_number) in in_scope) if doc_address_number is not None else None,
+        "all_panden_in_use": not not_in_use if pand_rows else None,
+        "geographically_compact": (ext <= COMPACT_EXTENT_M) if ext is not None else None,
+        "threedbag_coverage_complete": all(r["has_3dbag_evidence"] for r in pand_rows) if pand_rows else None,
     }
     base = checks["all_requested_found"] and checks["no_blocking_address_flags"] and checks["vbo_fully_covered"] \
-        and checks["postcode_matches_document_address"] is not False and checks["place_matches_document_city"] is not False
+        and checks["postcode_matches_document_address"] is not False and checks["place_matches_document_city"] is not False \
+        and checks["document_address_number_in_scope"] is not False and checks["all_panden_in_use"] is not False \
+        and checks["geographically_compact"] is not False
     if not found:
         strength = "NO_BUILDING_PROJECT_CANDIDATE"
     elif base and checks["units_equal_addresses_and_vbo"] is True and checks["construction_year_matches_all_panden"] is not False:
@@ -632,37 +859,92 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         strength = "WEAK_BUILDING_PROJECT_CANDIDATE"
     if checks["construction_year_matches_all_panden"] is False:
         flags.append("CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG")
+    if not_in_use:
+        flags.append("PAND_NOT_IN_USE: " + ", ".join(f"{r['bag_pand_id']} ({r['bag_status']})" for r in pand_rows if r["bag_pand_id"] in not_in_use))
+    if checks["document_address_number_in_scope"] is False:
+        flags.append(f"DOCUMENT_ADDRESS_OUTSIDE_SCOPE: {doc_address_number}")
+    if checks["geographically_compact"] is False:
+        flags.append(f"NOT_GEOGRAPHICALLY_COMPACT: {ext} m > {COMPACT_EXTENT_M} m")
     for r in pand_rows:
         for d in r["vbo_without_matched_address_details"] or []:
             if d["outside_requested_number_range"]:
                 flags.append(f"PAND_{r['bag_pand_id']}_HAS_VBO_OUTSIDE_REQUESTED_RANGE: huisnummer {d['huisnummer']}"
                              f"{d['huisletter'] or ''} ({d['postcode']}, {d['status']})")
     if missing:
-        flags.append("ADDRESSES_MISSING_IN_BAG: " + ",".join(missing))
+        flags.append("ADDRESSES_MISSING_IN_BAG: " + ",".join(map(str, missing)))
     if dup:
         flags.append("DUPLICATE_BAG_ADDRESSES: " + ",".join(dup))
+    streets = sorted({by_number[k]["street"] for k in nums})
     return {"hypothesis_id": h["hypothesis_id"], "description": h.get("description"), "basis": h.get("basis"),
             "requested_numbers": nums,
             "counts": {"requested_addresses": len(nums), "unique_requested_addresses": len(set(nums)),
                        "exact_bag_matches": len(found), "unique_bag_addresses": len(set(ids)),
+                       "exact_number_matches": sum(1 for f in found if f["match_kind"] == "EXACT"),
+                       "toevoeging_matches": len(toevoegingen),
                        "missing": len(missing), "unique_bag_panden": len(pand_rows), "vbo_total_bag": vbo_total,
                        "addresses_per_pand_histogram": dict(sorted(hist.items()))},
+            "streets": streets, "toevoegingen": toevoegingen, "geographic_extent_m": ext,
+            "bouwjaren_bag": sorted({r["bouwjaar"] for r in pand_rows if r["bouwjaar"] is not None}),
+            "threedbag_coverage": {"panden_with_attributes": sum(1 for r in pand_rows if r["has_3dbag_evidence"]), "panden": len(pand_rows)},
             "addresses_found": found, "addresses_missing": missing, "duplicate_bag_addresses": dup,
             "bag_pand_ids": [r["bag_pand_id"] for r in pand_rows], "panden": pand_rows,
             "mjop_number_of_units": units, "checks": checks, "strength": strength, "flags": flags}
 
 
+def document_address_key(group):
+    n = group.get("document_address_number")
+    if n is None:
+        return None
+    segs = group_segments(group)
+    if len({norm(sg["street"]) for sg in segs}) > 1:
+        return f"{group.get('document_address_street') or segs[0]['street']} {n}"
+    return n
+
+
+def parity_distinction(assessed):
+    """Leveren EVEN_ONLY en ODD_ONLY (deels) dezelfde BAG-panden op? Dan onderscheidt de pariteit het project niet
+    op pandniveau; dat wordt vastgelegd, er wordt geen pariteit gekozen."""
+    by = {a["hypothesis_id"]: set(a["bag_pand_ids"]) for a in assessed}
+    if "EVEN_ONLY" not in by or "ODD_ONLY" not in by:
+        return None
+    shared = sorted(by["EVEN_ONLY"] & by["ODD_ONLY"])
+    per_street = {}
+    alln = next((a for a in assessed if a["hypothesis_id"] == "ALL_NUMBERS"), None)
+    if alln and len(alln.get("streets") or []) > 1:
+        for st in alln["streets"]:
+            ev = {p for f in alln["addresses_found"] if f["street"] == st and int(f["number"]) % 2 == 0 for p in f["bag_pand_ids"]}
+            od = {p for f in alln["addresses_found"] if f["street"] == st and int(f["number"]) % 2 == 1 for p in f["bag_pand_ids"]}
+            per_street[st] = {"even_pand_ids": sorted(ev), "odd_pand_ids": sorted(od), "shared_pand_ids": sorted(ev & od),
+                              "parity_distinguishes_at_pand_level": not (ev & od)}
+    return {"even_pand_ids": sorted(by["EVEN_ONLY"]), "odd_pand_ids": sorted(by["ODD_ONLY"]), "shared_pand_ids": shared,
+            "identical_pand_sets": bool(by["EVEN_ONLY"]) and by["EVEN_ONLY"] == by["ODD_ONLY"],
+            "parity_distinguishes_at_pand_level": not shared, "per_street": per_street}
+
+
 def build_candidate_package(group, address_results, panden, run_id, mjop_docs=None):
-    numbers = [a["number"] for a in address_results]
-    by_number = {a["number"]: a for a in address_results}
+    numbers = [a.get("key", a["number"]) for a in address_results]
+    by_number = {a.get("key", a["number"]): a for a in address_results}
     mjop_docs = mjop_docs or []
     mjop, conflicts = combine_mjop(mjop_docs)
-    hyps = group.get("scope_hypotheses") or [{"hypothesis_id": "REQUESTED_NUMBERS", "parity": "all",
-                                              "description": "Alle opgevraagde huisnummers", "basis": "Geen pariteit opgegeven."}]
-    assessed = [assess_hypothesis(h, numbers, by_number, panden, mjop, group.get("document_address_number")) for h in hyps]
+    hyps = default_hypotheses(group)
+    assessed = [assess_hypothesis(h, numbers, by_number, panden, mjop, document_address_key(group)) for h in hyps]
     top = max((STRENGTH_ORDER[a["strength"]] for a in assessed), default=0)
     best = [a for a in assessed if STRENGTH_ORDER[a["strength"]] == top]
     flags = list(conflicts)
+    pdist = parity_distinction(assessed)
+    for st, d in ((pdist or {}).get("per_street") or {}).items():
+        if d["shared_pand_ids"]:
+            flags.append(f"PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL[{st}]: even en oneven nummers delen {len(d['shared_pand_ids'])} BAG-panden")
+    if pdist and pdist["shared_pand_ids"]:
+        flags.append(("PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL: EVEN_ONLY en ODD_ONLY leveren dezelfde BAG-panden"
+                      if pdist["identical_pand_sets"] else
+                      f"PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL: EVEN_ONLY en ODD_ONLY delen {len(pdist['shared_pand_ids'])} BAG-panden")
+                     + "; pariteit is geen projectidentiteit, geen pariteit gekozen")
+    for a in address_results:
+        if a.get("street_alias"):
+            f = f"STREET_ALIAS_APPLIED: '{a['street_alias']['street_as_stated']}' -> '{a['street']}' ({a['street_alias']['rule']})"
+            if f not in flags:
+                flags.append(f)
     if len(best) == 1:
         best_id, strength = best[0]["hypothesis_id"], best[0]["strength"]
     else:
@@ -695,6 +977,7 @@ def build_candidate_package(group, address_results, panden, run_id, mjop_docs=No
         "status": "CANDIDATE_UNREVIEWED",
         "mjop_context": {"documents": mjop_docs, "combined": mjop, "conflicts": conflicts,
                          "document_address_number": group.get("document_address_number"),
+                         "document_address_key": document_address_key(group),
                          "source_observations": group.get("mjop_source_observations") or []},
         "building_project_candidate": {
             "candidate_id": "BPC-" + group["group_id"],
@@ -705,8 +988,11 @@ def build_candidate_package(group, address_results, panden, run_id, mjop_docs=No
             "best_supported_hypothesis_id": best_id,
             "selected_scope": None,
             "scope_hypotheses": assessed,
+            "parity_distinction": pdist,
             "canonical_building_project_written": False,
         },
+        "segments": group_segments(group),
+        "include_toevoegingen": bool(group.get("include_toevoegingen")),
         "requested_addresses": [a["requested_address"] for a in address_results],
         "address_results": address_results,
         "candidate_panden": pand_list,
@@ -733,7 +1019,9 @@ def run(groups, out_dir, http_get=default_http_get, now=None, mjop_loader=load_m
     packages = {}
     for g in groups:
         panden = {}
-        results = [process_address(fetcher, g["street"], n, g.get("postcode"), g.get("city"), panden) for n in group_numbers(g)]
+        results = [process_address(fetcher, street, n, g.get("postcode"), g.get("city"), panden,
+                                   include_toevoegingen=g.get("include_toevoegingen", False), key=key)
+                   for street, n, key in group_addresses(g)]
         for pid in sorted(panden):
             fetch_3dbag(fetcher, panden[pid])
             n_vbo = panden[pid]["bag_properties"].get("aantal_verblijfsobjecten")

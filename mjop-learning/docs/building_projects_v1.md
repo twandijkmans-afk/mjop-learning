@@ -55,7 +55,7 @@ is onveranderlijk:
 - de workflow `real-building-validation.yml` draait de guard **vóór** elke `rm -rf`, en `building_projects.py check`
   controleert bij elke run dat package, manifest en alle raw responses nog bij de vastgelegde hashes passen.
 
-De workflow blijft nieuwe data ophalen, maar alleen naar een **nieuwe versiemap** (`real_validation_v<N>`):
+De workflow blijft nieuwe data ophalen, maar alleen naar een **nieuwe versiemap** (`real_validation_v<N>`; v1 en v2 zijn in gebruik, de volgende vrije is v3):
 via `workflow_dispatch` (input `out_dir`) of door die map in
 `data/external/building_validation/fetch_target.txt` te zetten en te pushen. Zonder doelmap draaien alleen de tests
 en de integriteitscontrole.
@@ -68,3 +68,47 @@ en de integriteitscontrole.
   pand `0518100000354752` bevat 803-883 oneven plus 885; MJOP noemt geen aantal eenheden; bouwjaar MJOP 1956 vs BAG
   1957; objectnaam 801-883 vs opdrachtgevernaam 801-803).
 - Niet gedaan (bewust): legacy per-pand links, crosswalk, quantity-vertaling van 3D BAG, legal_vve.
+
+## Range discovery v2 (`fetch_real_building_validation_v1.3.0`, `real_validation_v2`)
+
+Verbeterde bereik-resolutie, overgezet vanuit de legacy `bag_snapshots fetch-range` naar deze engine (de legacy
+BAGSNAP-/building_link-keten zelf is bewust niet overgenomen):
+
+- **Hele bereik, per huisnummer gestructureerd** (bestond al) — nu ook met **meerdere straten per groep** (`segments`,
+  sleutels `Straat nummer`) en nummerlijsten (`numbers`, bv. Vechtstraat 13-15-17-19).
+- **Huisnummertoevoegingen** (`include_toevoegingen`, aan voor alle echte groepen): 13-H, 14-1, 802A tellen als adres in
+  scope (`match_kind: TOEVOEGING`) i.p.v. alleen als context. Een groep zonder opt-in houdt het oude gedrag.
+- **Woonplaats verplicht**: met toevoegingen filtert de PDOK-vraag op `woonplaatsnaam` en telt een adres in een andere
+  plaats nooit mee (`match_kind: OTHER_CITY`, vlag `EXACT_MATCH_IN_OTHER_CITY`). Zonder dit vond "Vechtstraat 17
+  Amsterdam" 82 panden in heel Nederland.
+- **Scope-hypotheses ALL/EVEN/ODD** automatisch voor elk bereik met beide pariteiten (`default_hypotheses`); bij meerdere
+  straten ook de gemengde combinaties per straat (`MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL`). Er wordt nooit een pariteit
+  gekozen; `parity_distinction` legt vast of even/oneven op pandniveau (per straat) iets onderscheidt
+  (`PARITY_NOT_DISTINGUISHING_AT_PAND_LEVEL`).
+- **Niet-actieve panden** (bv. `Pand gesloopt`, waarvan de oude polygoon nog onder een adrespunt ligt): vastgelegd in
+  `non_active_bag_panden`, geen kandidaat naast een actief pand; ligt een adres alléén in zo'n pand, dan blokkeert
+  `PAND_NOT_IN_USE` STRONG. 3D BAG-fouten (502 voor een onbekend pand) worden vastgelegd, niet ingevuld.
+- **Extra STRONG-voorwaarden**: documentadres in scope, alle panden in gebruik, geografisch compact
+  (`COMPACT_EXTENT_M` = 300 m). Aantal eenheden = adressen = VBO's blijft de sterke indicator, maar is niet genoeg.
+- **Straatalias** alleen expliciet en per woonplaats vastgepind (`STREET_ALIASES`): Utrecht "St. Jacobsstraat" ->
+  BAG "St.-Jacobsstraat" (openbare ruimte 0344300000000857; in Utrecht bestaat geen andere Jacobsstraat-variant).
+  Geen algemene fuzzy matching.
+
+### Supporting evidence (`data/building_projects/supporting_evidence_records.json`)
+
+`building_projects.py reproduce` legt vast dat een nieuwer package een goedgekeurd project **exact** reproduceert
+(panden, adressen incl. nummeraanduiding- en VBO-ID's, huisnummers per pand, VBO-totaal, scope). Bij elk verschil weigert
+het met het verschil (geen stille supersede). Het record (`BPEV-…`, rol `SUPPORTING_EVIDENCE`) pint de sha256 van het
+project-record en wijzigt het nooit; het gerefereerde package wordt daarmee ook onveranderlijk.
+
+- `BPEV-00001` — `real_validation_v2` reproduceert `BPRJ-00001` (EVEN_ONLY, 15 panden, 29 adressen) exact.
+  Geen nieuwe approval; BPRJ-00001 ongewijzigd.
+
+### Rapporten
+
+`python scripts/building_project_discovery_report.py [--check]` →
+`reports/building_projects/range_discovery_v2.{json,md}` (per groep en hypothese: adressen, VBO's, panden, bouwjaren,
+3D BAG-dekking, MJOP-eenheden, ontbrekend/extra, toevoegingen; klasse APPROVED_PROJECT / STRONG_CANDIDATE /
+MODERATE_CANDIDATE / REVIEW_CASE) en `reports/quantity/maldenhof_roof_scope_review_v1.{json,md}`
+(`SCOPE_OR_DEFINITION_MISMATCH_REVIEW`; niets gecorrigeerd).
+
