@@ -1,0 +1,63 @@
+# Facade panorama PoC v1 — gevelbeelden op schaal uit open panorama's
+
+Status: **proof-of-concept / analyse**. Geen wijziging aan stores, schema's of canonical data. Script:
+`scripts/facade_panorama_poc.py`. Resultaat Maldenhof: `reports/quantity/facade_panorama_poc_v1_maldenhof.json`
+(gevelbeelden zelf niet gecommit; per wand staat de bron-URL van het panorama erin).
+
+## Waarom
+
+Volledig automatisch gevelhoeveelheden (kozijnen, gevelbekleding, raamdorpels) bepalen zonder locatiebezoek en zonder
+licentierisico. Google (Street View, Earth, 3D Tiles) verbiedt afleiden/meten/objectdetectie
+(Maps Platform Terms §3.2.3; Map Tiles API-beleid); Cyclomedia vereist een licentie voor extern gebruik.
+Gemeente Amsterdam publiceert haar 360°-straatbeelden als open data (**Kernregistratie Panoramabeelden, CC BY 4.0**):
+commercieel gebruik, opslag en AI-analyse zijn toegestaan mits bronvermelding.
+
+## Hoe het werkt
+
+1. BAG-pand → 3D BAG LoD2.2 (ruwe respons uit een real_validation-package).
+2. Verticale WallSurfaces; tussenmuren eruit (vlak tegen een wand van een ander kandidaat-pand). Maldenhof: 1537,6 m²
+   buitenwand (3D BAG `b3_opp_buitenmuur` 1747,3 m²).
+3. Per wand de panorama's die er recht tegenover staan (API `near=lon,lat`, 5–25 m, hoek ≤ ~45°).
+4. Projectie van het 3D-wandvlak in het equirectangulaire panorama. **De Amsterdamse panorama's zijn genormaliseerd:
+   noorden in het beeldmidden, horizon waterpas**; pitch/roll hoeven niet toegepast te worden (gecontroleerd op
+   Maldenhof 262–264: de 3D BAG-omtrek valt op de gevel).
+5. Gerectificeerd gevelbeeld op schaal: 2 cm/px (bron op 10 m afstand ≈ 8 mm/px).
+6. Occlusiecontrole en keuze van het beste panorama per wand:
+   - geometrisch: aandeel van een 12×12-raster wandpunten waarvan de zichtlijn een ander LoD2.2-vlak raakt
+     (bv. het dak van de eigen aanbouw);
+   - vegetatie: aandeel excess-green-pixels in het gevelbeeld;
+   - bruikbaar als geometrie + vegetatie ≤ 0,25.
+
+## Resultaat Maldenhof (BPRJ-00001, 15 panden)
+
+| Gevelzijde | Bruikbaar | Obstructie (geometrie) | Vegetatie | Geen panorama |
+|---|---|---|---|---|
+| Voorgevels (NW) | **403,5 m² (75%)** | 121,2 | 15,4 | 0 |
+| Kop-/zijgevels | 317,9 m² (49%) | 234,2 | 74,7 | 21,4 |
+| Achtergevels (ZO) | 112,0 m² (34%) | 29,9 | **191,6** | 0 |
+| **Totaal** | **836,3 van 1537,6 m² (54%)** | 387,8 | 286,0 | 27,6 |
+
+Visueel gecontroleerd: goedgekeurde wanden tonen de gevel met kozijnen volledig; afgekeurde wanden zijn terecht afgekeurd
+(dak van de eigen aanbouw voor de gevel, bomen/schuttingen in achtertuinen). Eén geval rond de grens (0,29) was grotendeels
+bruikbaar — de drempel is conservatief.
+
+## Beperkingen
+
+- **Camerahoogte**: zonder NLGEO-raster (`cdn.proj.org` niet bereikbaar) wordt NAP benaderd met een vaste
+  geoïdehoogte (43,3 m). Let op: pyproj geeft zonder raster de hoogte **ongewijzigd** terug; het script detecteert dat
+  en valt dan terug op de benadering (`height_method` in de uitvoer).
+- **Alleen Amsterdam** (open panorama's); elders: 3D BAG + luchtfoto + foto's van de VvE.
+- **Opnames in de zomer**: achtergevels zitten vaak achter bladeren; oudere opnamejaren (2016–2025 beschikbaar) worden
+  per wand al meegewogen, maar winterbeelden zijn er nauwelijks.
+- LoD2.2-wanden zijn gefragmenteerd; per fragment wordt apart beoordeeld (geen samenvoeging per gevel).
+- **Nog geen kozijnherkenning.** Volgende stap: vision-model (via `ANTHROPIC_API_KEY` in de omgevingsinstellingen)
+  wijst kozijnen/deuren/balkons aan in de gevelbeelden; randverfijning en alle m²/m¹ blijven deterministische code;
+  elke waarde als `ESTIMATED`/"uit panorama" met beeld ter controle.
+
+## Uitvoeren
+
+    python scripts/facade_panorama_poc.py --group DOC-005-006 --scope EVEN_ONLY \
+        --package data/external/building_validation/real_validation_v3 --out /tmp/facade_poc
+
+Netwerk: `api.data.amsterdam.nl` en `t1.data.amsterdam.nl` (optioneel `cdn.proj.org` voor het NAP-raster).
+Bronvermelding: Gemeente Amsterdam, Kernregistratie Panoramabeelden (CC BY 4.0); 3D BAG (TU Delft, CC BY 4.0).
