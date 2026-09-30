@@ -50,7 +50,7 @@ jobs:
             if [ "$code" = "000" ] || [ -z "$code" ]; then fail=1; fi
           done
           exit $fail
-      - name: Kandidatenpakket ophalen (verse uitvoermap: exact de nu opgehaalde bestanden)
+      - name: Kandidatenpakket ophalen (verse uitvoermap, exact de nu opgehaalde bestanden)
         run: |
           rm -rf "$OUT_DIR"
           python scripts/fetch_real_building_validation.py --out "$OUT_DIR"
