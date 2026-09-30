@@ -516,7 +516,8 @@ def test_missing_address_explained_by_vbo_detail(tmp_path):
 
 def test_vbo_detail_not_fetched_when_all_vbo_explained(tmp_path):
     w = maldenhof_world()
-    run_group(tmp_path, w, BY_ID["DOC-005-006"], mjop_fake(**MALDENHOF_MJOP))
+    g = dict(BY_ID["DOC-005-006"], fetch_all_vbo_detail=False, context_panden_without_vbo=False)  # standaardgedrag zonder opt-in
+    run_group(tmp_path, w, g, mjop_fake(**MALDENHOF_MJOP))
     assert not any("/verblijfsobject/items/" in u for u in w.calls)
 
 
@@ -717,3 +718,86 @@ def test_new_groups_configured_from_mjop_sources():
     assert len(frbv.group_numbers(BY_ID["DOC-001"])) == 83 + 29
     assert BY_ID["DOC-009"]["document_ids"] == ["DOC-009"]  # DOC-008 noemt geen plaats; niet afgeleid
     assert "DOC-008" not in {d for g in frbv.GROUPS for d in g["document_ids"]}
+
+
+# --- v1.4.0: bouwjaar is ondersteunend bewijs ------------------------------------------------------------------------
+
+def test_construction_year_classes():
+    c = frbv.construction_year_class
+    assert c(1981, [1981, 1981])[0] == "CONSTRUCTION_YEAR_EXACT"
+    assert c(1921, [1923, 1923]) == ("CONSTRUCTION_YEAR_NEAR_DIFFERENCE", "1921 vs 1923")
+    assert c(1955, [1950, 1955])[0] == "CONSTRUCTION_YEAR_CONFLICT"      # niet uniform
+    assert c(1921, [1930])[0] == "CONSTRUCTION_YEAR_CONFLICT"
+    assert c(None, [1930])[0] == "CONSTRUCTION_YEAR_UNKNOWN" and c(1930, [None])[0] == "CONSTRUCTION_YEAR_UNKNOWN"
+
+
+def year_world(year=1923):
+    return World("Teststraat", {"1": "P1", "2": "P1"}, {"P1": (2, year)})
+
+
+YEAR_GROUP = dict(TOEV_GROUP, numbers=["1", "2"])
+
+
+def test_near_year_is_non_blocking_only_with_unambiguous_identity(tmp_path):
+    run_group(tmp_path, year_world(), YEAR_GROUP, mjop_fake(units=2, year=1921))
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["strength"] == "STRONG_BUILDING_PROJECT_CANDIDATE" and h["caveats"] == ["CONSTRUCTION_YEAR_NEAR_DIFFERENCE: 1921 vs 1923"]
+    assert h["checks"]["construction_year_matches_all_panden"] is False  # nooit als 'gelijk' behandeld
+    # zelfde verschil, maar identiteit niet eenduidig (eenheden wijken af) -> geen STRONG
+    run_group(tmp_path / "b", year_world(), YEAR_GROUP, mjop_fake(units=3, year=1921))
+    assert pkg(tmp_path / "b")["building_project_candidate"]["scope_hypotheses"][0]["strength"] == "WEAK_BUILDING_PROJECT_CANDIDATE"
+
+
+def test_conflicting_year_blocks_strong_even_with_unambiguous_identity(tmp_path):
+    run_group(tmp_path, year_world(1935), YEAR_GROUP, mjop_fake(units=2, year=1921))
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["construction_year_class"] == "CONSTRUCTION_YEAR_CONFLICT" and h["strength"] == "WEAK_BUILDING_PROJECT_CANDIDATE"
+
+
+class WithdrawnVboWorld(World):
+    """Het pand telt 3 VBO's, waarvan 1 ingetrokken (zoals Groetstraat 116/116A/116B)."""
+
+    def __call__(self, url):
+        r = super().__call__(url)
+        if "/verblijfsobject/items/" in url and "UNMATCHED" in url:
+            body = json.loads(r["body"])
+            body["properties"]["status"] = "Verblijfsobject ingetrokken"
+            return ok(jb(body))
+        return r
+
+
+def test_withdrawn_vbos_do_not_count_as_units(tmp_path):
+    w = WithdrawnVboWorld("Teststraat", {"1": "P1", "2": "P1"}, {"P1": (3, 1981)})
+    run_group(tmp_path, w, dict(YEAR_GROUP, fetch_all_vbo_detail=True), mjop_fake(units=2, year=1981))
+    h = pkg(tmp_path)["building_project_candidate"]["scope_hypotheses"][0]
+    r = h["panden"][0]
+    assert (r["aantal_verblijfsobjecten_bag_incl_inactive"], r["aantal_verblijfsobjecten_bag"]) == (3, 2)
+    assert r["vbo_summary"]["inactive"] == 1 and r["vbo_fully_covered_by_scope"] is True
+    assert h["counts"]["vbo_total_bag"] == 2 and h["strength"] == "STRONG_BUILDING_PROJECT_CANDIDATE"
+    assert h["vbo_detail"]["inactive_vbos_excluded"] == 1
+
+
+def test_context_panden_without_vbo_are_evidence_only(tmp_path):
+    class Ctx(World):
+        def __call__(self, url):
+            if "3dbag" in url and url.endswith("PBERG"):
+                self.calls.append(url)
+                return ok(jb({"metadata": {"version": "vTEST"}, "feature": {"CityObjects": {"NL.IMBAG.Pand.PBERG": {
+                    "type": "Building", "attributes": {"b3_opp_dak_plat": 4.97, "b3_opp_dak_schuin": 0}}}}}))
+            r = super().__call__(url)
+            if "bag/ogc" in url and "limit=1000" in url:
+                body = json.loads(r["body"])
+                body["features"].append({"geometry": {"type": "Polygon", "coordinates": [ring(4.0003, 52.0)]},
+                                         "properties": {"identificatie": "PBERG", "bouwjaar": 1981, "status": "Pand in gebruik",
+                                                        "aantal_verblijfsobjecten": 0}})
+                return ok(jb(body))
+            return r
+    w = Ctx("Teststraat", {"1": "P1"}, {"P1": (1, 1981)})
+    run_group(tmp_path, w, dict(TOEV_GROUP, context_panden_without_vbo=True), mjop_fake(units=1, year=1981))
+    p = pkg(tmp_path)
+    ctx = p["context_panden_without_vbo"]
+    assert ctx["evidence_only"] is True and ctx["not_a_candidate"] is True
+    assert [c["bag_pand_id"] for c in ctx["panden"]] == ["PBERG"] and ctx["panden"][0]["threedbag"]["attributes"]["b3_opp_dak_plat"] == 4.97
+    assert "PBERG" not in [c["bag_pand_id"] for c in p["candidate_panden"]]
+    assert all("PBERG" not in h["bag_pand_ids"] for h in p["building_project_candidate"]["scope_hypotheses"])
+

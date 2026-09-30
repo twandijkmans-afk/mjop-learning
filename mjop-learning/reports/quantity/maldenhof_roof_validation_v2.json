@@ -1,0 +1,1247 @@
+{
+ "A_sloped_roof": {
+  "basis": [
+   "Zelfde onderwerp en eenheid (hellend dak, m2).",
+   "Alle 15 panden dragen bij (steile dakvlakken ~52°); panden zonder adres in de omgeving hebben 0 m2 hellend dak, dus er is geen hellend dak buiten de scope dat het MJOP kan bevatten.",
+   "MJOP ligt 4,9% hoger dan 3D BAG; mogelijke oorzaken (dakoverstek, meetmethode) zijn niet geverifieerd."
+  ],
+  "classification": "GEOMETRY_SUPPORTS_HISTORICAL_QUANTITY",
+  "difference_m2": "70.03",
+  "difference_pct_of_3dbag": "4.9",
+  "mjop": {
+   "actions": [],
+   "actions_note": "Geen onderhoudsacties met element 4712 in DOC-005/DOC-006 (binnen het planvenster).",
+   "element_description": "4712 Dakpan beton",
+   "elements": [
+    {
+     "document_id": "DOC-005",
+     "element_code": "4712",
+     "element_id": "DOC-005-EL-027",
+     "element_name": "Dakpan beton",
+     "location": "Hellend dak",
+     "provenance": {
+      "block_id": "P07-L015",
+      "page": 7,
+      "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+     },
+     "quantity": "1485.60",
+     "unit": "m2"
+    },
+    {
+     "document_id": "DOC-006",
+     "element_code": "4712",
+     "element_id": "DOC-006-EL-027",
+     "element_name": "Dakpan beton",
+     "location": "Hellend dak",
+     "provenance": {
+      "block_id": "P07-L009",
+      "page": 7,
+      "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1"
+     },
+     "quantity": "1485.60",
+     "unit": "m2"
+    }
+   ],
+   "location": "Hellend dak",
+   "material": "beton (dakpan), uit elementnaam",
+   "quantity_m2": "1485.60"
+  },
+  "threedbag": {
+   "b3_opp_dak_schuin_sum_m2": "1415.57",
+   "context_panden_without_address_sloped_m2": "0.0",
+   "contributing_panden": 15,
+   "lod22_surfaces_ge_5_deg_sum_m2": "1354.31"
+  }
+ },
+ "B_flat_roof": {
+  "basis": [
+   "Ook met alle nabije bergingen aan de even kant (320.27 m2) blijft 105.53 m2 onverklaard.",
+   "De MJOP-post specificeert niet welke platte daken erin zitten."
+  ],
+  "classification": "UNRESOLVED",
+  "components": {
+   "DEFINITION_MISMATCH": "klein: 3D BAG rekent flauwe vlakken (~3,7-3,9°) tot schuin; de platte delen van de woningen liggen laag (aanbouw/luifel ~1,2-1,7 m en ~4,4 m), op één pand na geen dakkapel-achtige platte delen hoog in het dak.",
+   "SCOPE_MISMATCH": "aannemelijk maar onbewezen: bergingen zonder adres (aparte BAG-panden, 1981, plat) vallen buiten de adresgedreven scope; toewijzing aan de VvE onbekend."
+  },
+  "mjop": {
+   "actions": [
+    {
+     "action": "Verwijderen begroeining dakbedekking",
+     "action_id": "DOC-005-ACT-018",
+     "document_id": "DOC-005",
+     "element_code": "4711",
+     "element_id": "DOC-005-EL-025",
+     "planned_year": 2027,
+     "provenance": {
+      "block_id": "P12-L036",
+      "page": 12,
+      "text_fragment": "Verwijderen begroeining Plantengroei op 1,00pst 2027 € 1.452 € 1.452\ndakbedekking dakbedekking"
+     },
+     "quantity": "1.00",
+     "unit": "pst"
+    },
+    {
+     "action": "Aanbrengen nieuwe laag dakbedekking APP",
+     "action_id": "DOC-005-ACT-019",
+     "document_id": "DOC-005",
+     "element_code": "4711",
+     "element_id": "DOC-005-EL-025",
+     "planned_year": 2033,
+     "provenance": {
+      "block_id": "P12-L039",
+      "page": 12,
+      "text_fragment": "Aanbrengen nieuwe laag 425,80m2 2033 50 € 32.562 € 32.562\ndakbedekking APP"
+     },
+     "quantity": "425.80",
+     "unit": "m2"
+    },
+    {
+     "action": "Aanbrengen nieuwe laag dakbedekking APP",
+     "action_id": "DOC-006-ACT-017",
+     "document_id": "DOC-006",
+     "element_code": "4711",
+     "element_id": "DOC-006-EL-025",
+     "planned_year": 2032,
+     "provenance": {
+      "block_id": "P15-L042",
+      "page": 15,
+      "text_fragment": "Aanbrengen nieuwe laag 425,80m2 2032 50 € 26.910 € 26.910\ndakbedekking APP"
+     },
+     "quantity": "425.80",
+     "unit": "m2"
+    }
+   ],
+   "element_description": "4711 Dakbedekking APP",
+   "elements": [
+    {
+     "document_id": "DOC-005",
+     "element_code": "4711",
+     "element_id": "DOC-005-EL-025",
+     "element_name": "Dakbedekking APP",
+     "location": "Platte dak",
+     "provenance": {
+      "block_id": "P07-L013",
+      "page": 7,
+      "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3"
+     },
+     "quantity": "425.80",
+     "unit": "m2"
+    },
+    {
+     "document_id": "DOC-006",
+     "element_code": "4711",
+     "element_id": "DOC-006-EL-025",
+     "element_name": "Dakbedekking APP",
+     "location": "Platte dak",
+     "provenance": {
+      "block_id": "P07-L007",
+      "page": 7,
+      "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 1"
+     },
+     "quantity": "425.80",
+     "unit": "m2"
+    }
+   ],
+   "location": "Platte dak (verzamellocatie)",
+   "material": "APP (bitumineus), uit elementnaam",
+   "quantity_m2": "425.80",
+   "related_actions_same_code": [
+    {
+     "action": "Vervangen dakrandafwerking zink",
+     "action_id": "DOC-005-ACT-020",
+     "document_id": "DOC-005",
+     "element_code": "4711",
+     "element_id": "DOC-005-EL-026",
+     "planned_year": 2040,
+     "provenance": {
+      "block_id": "P12-L042",
+      "page": 12,
+      "text_fragment": "Vervangen dakrandafwerking zink 70,00m1 2040 18 € 4.347 € 4.347"
+     },
+     "quantity": "70.00",
+     "unit": "m1"
+    }
+   ]
+  },
+  "scenarios_m2": {
+   "15_panden_only": "190.65",
+   "15_panden_plus_all_outbuildings": "391.44",
+   "15_panden_plus_nearest_even_outbuildings": "320.27"
+  },
+  "threedbag": {
+   "b3_opp_dak_plat_sum_15_panden_m2": "190.65",
+   "context_panden_without_address": {
+    "assignment": "INDICATIVE_NEAREST_PAND_NOT_OWNERSHIP",
+    "b3_opp_dak_plat_sum_m2": "200.79",
+    "count": 33,
+    "nearest_to_even_scope_count": 25,
+    "nearest_to_even_scope_plat_m2": "129.62"
+   },
+   "lod22_surfaces_lt_5_deg_sum_m2": "201.06"
+  }
+ },
+ "building_project_id": "BPRJ-00001",
+ "context_elements": [
+  {
+   "element_code": "2110",
+   "element_id": "DOC-005-EL-002",
+   "element_name": "Loodslabben opgaand werk",
+   "location": "Platte dak",
+   "page": 6,
+   "quantity": "1.00",
+   "text_fragment": "2110 Loodslabben opgaand werk Platte dak 1,00m1 2"
+  },
+  {
+   "element_code": "5124",
+   "element_id": "DOC-005-EL-028",
+   "element_name": "Schoorsteen aluminium",
+   "location": "Hellend dak",
+   "page": 7,
+   "quantity": "14.00",
+   "text_fragment": "5124 Schoorsteen aluminium Hellend dak 14,00st 2"
+  },
+  {
+   "element_code": "6710",
+   "element_id": "DOC-005-EL-032",
+   "element_name": "Valbeveiliging algemeen",
+   "location": "Platte dak",
+   "page": 7,
+   "quantity": "1.00",
+   "text_fragment": "6710 Valbeveiliging algemeen Platte dak 1,00pst 1"
+  }
+ ],
+ "context_panden": [
+  {
+   "b3_opp_dak_plat": 11.75,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012184954",
+   "bouwjaar": 1981,
+   "distance_m": 25.3,
+   "nearest_candidate_pand": "0363100012102659",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 9.65,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012185342",
+   "bouwjaar": 1981,
+   "distance_m": 10.9,
+   "nearest_candidate_pand": "0363100012137009",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 7.63,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012193081",
+   "bouwjaar": 1981,
+   "distance_m": 37.9,
+   "nearest_candidate_pand": "0363100012102257",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 13.53,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012198372",
+   "bouwjaar": 1981,
+   "distance_m": 15.7,
+   "nearest_candidate_pand": "0363100012105151",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": null,
+   "b3_opp_dak_schuin": null,
+   "bag_pand_id": "0363100012203176",
+   "bouwjaar": 1981,
+   "distance_m": 8.1,
+   "nearest_candidate_pand": "0363100012077984",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 502
+  },
+  {
+   "b3_opp_dak_plat": 9.85,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012218199",
+   "bouwjaar": 1981,
+   "distance_m": 85.1,
+   "nearest_candidate_pand": "0363100012137009",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 10.33,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012218200",
+   "bouwjaar": 1981,
+   "distance_m": 82.0,
+   "nearest_candidate_pand": "0363100012137009",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 9.92,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012218201",
+   "bouwjaar": 1981,
+   "distance_m": 84.7,
+   "nearest_candidate_pand": "0363100012137009",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 10.26,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012218202",
+   "bouwjaar": 1981,
+   "distance_m": 81.6,
+   "nearest_candidate_pand": "0363100012137009",
+   "nearest_is_in_even_scope": false,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.95,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227092",
+   "bouwjaar": 1981,
+   "distance_m": 41.4,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227093",
+   "bouwjaar": 1981,
+   "distance_m": 59.1,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227094",
+   "bouwjaar": 1981,
+   "distance_m": 63.1,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.98,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227098",
+   "bouwjaar": 1981,
+   "distance_m": 48.9,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.99,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227099",
+   "bouwjaar": 1981,
+   "distance_m": 52.6,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.95,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227100",
+   "bouwjaar": 1981,
+   "distance_m": 30.9,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227101",
+   "bouwjaar": 1981,
+   "distance_m": 27.4,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 5.01,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227103",
+   "bouwjaar": 1981,
+   "distance_m": 37.8,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.98,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227105",
+   "bouwjaar": 1981,
+   "distance_m": 18.0,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.54,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012227106",
+   "bouwjaar": 1981,
+   "distance_m": 21.4,
+   "nearest_candidate_pand": "0363100012127361",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234482",
+   "bouwjaar": 1981,
+   "distance_m": 7.7,
+   "nearest_candidate_pand": "0363100012102659",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.93,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234483",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012078022",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234486",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012140664",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234487",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012141419",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.93,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234489",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012091974",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.95,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234490",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012070344",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234492",
+   "bouwjaar": 1981,
+   "distance_m": 7.4,
+   "nearest_candidate_pand": "0363100012134188",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.79,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234493",
+   "bouwjaar": 1981,
+   "distance_m": 8.4,
+   "nearest_candidate_pand": "0363100012134188",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 5.01,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234494",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012143647",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.97,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234495",
+   "bouwjaar": 1981,
+   "distance_m": 8.3,
+   "nearest_candidate_pand": "0363100012143647",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.59,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234498",
+   "bouwjaar": 1981,
+   "distance_m": 8.3,
+   "nearest_candidate_pand": "0363100012071880",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.9,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234499",
+   "bouwjaar": 1981,
+   "distance_m": 8.3,
+   "nearest_candidate_pand": "0363100012071880",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.66,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234500",
+   "bouwjaar": 1981,
+   "distance_m": 8.4,
+   "nearest_candidate_pand": "0363100012091756",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  },
+  {
+   "b3_opp_dak_plat": 4.95,
+   "b3_opp_dak_schuin": 0.0,
+   "bag_pand_id": "0363100012234566",
+   "bouwjaar": 1981,
+   "distance_m": 7.3,
+   "nearest_candidate_pand": "0363100012107492",
+   "nearest_is_in_even_scope": true,
+   "threedbag_http_status": 200
+  }
+ ],
+ "corrections_applied": false,
+ "open_questions": [
+  "Welke platte daken omvat 4711 (woningen, bergingen, luifels, galerij)? Vraag de opsteller/inspectietekening.",
+  "Horen de bergingen zonder adres tot de VvE (splitsingsakte)?"
+ ],
+ "per_pand": [
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 7.61,
+   "b3_opp_dak_schuin": 99.91,
+   "bag_pand_id": "0363100012070344",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "262",
+    "264"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 50.84,
+     "slope_deg": 51.7,
+     "z_max": 10.83,
+     "z_min": 1.44
+    },
+    {
+     "area_m2": 8.55,
+     "slope_deg": 3.9,
+     "z_max": 1.69,
+     "z_min": 1.52
+    },
+    {
+     "area_m2": 7.1,
+     "slope_deg": 52.1,
+     "z_max": 4.45,
+     "z_min": 1.57
+    },
+    {
+     "area_m2": 7.61,
+     "slope_deg": 0.1,
+     "z_max": 4.45,
+     "z_min": 4.45
+    },
+    {
+     "area_m2": 30.62,
+     "slope_deg": 51.8,
+     "z_max": 10.83,
+     "z_min": 6.32
+    }
+   ],
+   "low_flat_parts_m2": "16.16",
+   "raw_response_sha256": "68384c3d1499a0b7999f20cf012a666c96c875ce823346210eda5470d6dd181a"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 8.8,
+   "b3_opp_dak_schuin": 101.57,
+   "bag_pand_id": "0363100012071880",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "270",
+    "272"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 55.94,
+     "slope_deg": 51.6,
+     "z_max": 10.82,
+     "z_min": 1.45
+    },
+    {
+     "area_m2": 7.01,
+     "slope_deg": 52.2,
+     "z_max": 4.42,
+     "z_min": 1.54
+    },
+    {
+     "area_m2": 5.35,
+     "slope_deg": 7.1,
+     "z_max": 1.98,
+     "z_min": 1.55
+    },
+    {
+     "area_m2": 9.25,
+     "slope_deg": 1.6,
+     "z_max": 4.49,
+     "z_min": 4.41
+    },
+    {
+     "area_m2": 0.41,
+     "slope_deg": 52.0,
+     "z_max": 7.15,
+     "z_min": 4.76
+    },
+    {
+     "area_m2": 29.26,
+     "slope_deg": 51.8,
+     "z_max": 10.82,
+     "z_min": 6.01
+    }
+   ],
+   "low_flat_parts_m2": "9.25",
+   "raw_response_sha256": "c52501c7f0b9aad63e7aa89095a421a4b0ee4faee44e84ca03a38126f94a7943"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 16.05,
+   "b3_opp_dak_schuin": 91.19,
+   "bag_pand_id": "0363100012078022",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "246",
+    "248"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 54.52,
+     "slope_deg": 51.9,
+     "z_max": 10.84,
+     "z_min": 1.4
+    },
+    {
+     "area_m2": 6.25,
+     "slope_deg": 2.6,
+     "z_max": 1.69,
+     "z_min": 1.57
+    },
+    {
+     "area_m2": 7.09,
+     "slope_deg": 51.7,
+     "z_max": 4.46,
+     "z_min": 1.59
+    },
+    {
+     "area_m2": 9.8,
+     "slope_deg": 0.3,
+     "z_max": 4.46,
+     "z_min": 4.43
+    },
+    {
+     "area_m2": 27.15,
+     "slope_deg": 51.9,
+     "z_max": 10.84,
+     "z_min": 6.61
+    }
+   ],
+   "low_flat_parts_m2": "16.05",
+   "raw_response_sha256": "e8b3a98af6280e9663a6a02aee7fa1ac683dae6908d3eecbf3bd9d53204aa906"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 8.27,
+   "b3_opp_dak_schuin": 101.68,
+   "bag_pand_id": "0363100012091756",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "278",
+    "280"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 53.38,
+     "slope_deg": 51.8,
+     "z_max": 10.82,
+     "z_min": 1.41
+    },
+    {
+     "area_m2": 7.24,
+     "slope_deg": 52.3,
+     "z_max": 4.46,
+     "z_min": 1.49
+    },
+    {
+     "area_m2": 7.55,
+     "slope_deg": 12.8,
+     "z_max": 2.71,
+     "z_min": 2.13
+    },
+    {
+     "area_m2": 8.27,
+     "slope_deg": 0.6,
+     "z_max": 4.48,
+     "z_min": 4.44
+    },
+    {
+     "area_m2": 30.28,
+     "slope_deg": 51.6,
+     "z_max": 10.82,
+     "z_min": 6.4
+    }
+   ],
+   "low_flat_parts_m2": "8.27",
+   "raw_response_sha256": "8c4b4b209f3f9c671f6534801bfe9e527862c30908ce9dbe458ee49f750c9fc3"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 14.56,
+   "b3_opp_dak_schuin": 88.42,
+   "bag_pand_id": "0363100012091974",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "258",
+    "260"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 53.73,
+     "slope_deg": 51.7,
+     "z_max": 10.82,
+     "z_min": 1.44
+    },
+    {
+     "area_m2": 7.13,
+     "slope_deg": 52.0,
+     "z_max": 4.45,
+     "z_min": 1.54
+    },
+    {
+     "area_m2": 6.67,
+     "slope_deg": 1.5,
+     "z_max": 1.67,
+     "z_min": 1.59
+    },
+    {
+     "area_m2": 7.9,
+     "slope_deg": 0.2,
+     "z_max": 4.46,
+     "z_min": 4.44
+    },
+    {
+     "area_m2": 30.03,
+     "slope_deg": 51.8,
+     "z_max": 10.82,
+     "z_min": 6.42
+    }
+   ],
+   "low_flat_parts_m2": "14.57",
+   "raw_response_sha256": "790c2c6ff28daa8bc33baac127de28e8a099e55984e4c8875062c3a600d246ce"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 10.55,
+   "b3_opp_dak_schuin": 99.32,
+   "bag_pand_id": "0363100012102659",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "242",
+    "244"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 54.33,
+     "slope_deg": 51.7,
+     "z_max": 10.83,
+     "z_min": 1.44
+    },
+    {
+     "area_m2": 7.07,
+     "slope_deg": 51.7,
+     "z_max": 4.44,
+     "z_min": 1.58
+    },
+    {
+     "area_m2": 6.69,
+     "slope_deg": 19.6,
+     "z_max": 2.69,
+     "z_min": 1.74
+    },
+    {
+     "area_m2": 10.55,
+     "slope_deg": 1.1,
+     "z_max": 4.49,
+     "z_min": 4.43
+    },
+    {
+     "area_m2": 27.88,
+     "slope_deg": 52.0,
+     "z_max": 10.83,
+     "z_min": 6.57
+    }
+   ],
+   "low_flat_parts_m2": "10.55",
+   "raw_response_sha256": "3d2fb2abcb7452e2518c8e5ad7f871615461263a5450a7eb2f800a72d283fa92"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 15.99,
+   "b3_opp_dak_schuin": 90.34,
+   "bag_pand_id": "0363100012107492",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "266",
+    "268"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 54.38,
+     "slope_deg": 51.7,
+     "z_max": 10.82,
+     "z_min": 1.45
+    },
+    {
+     "area_m2": 7.1,
+     "slope_deg": 52.3,
+     "z_max": 4.45,
+     "z_min": 1.55
+    },
+    {
+     "area_m2": 6.24,
+     "slope_deg": 2.6,
+     "z_max": 1.69,
+     "z_min": 1.56
+    },
+    {
+     "area_m2": 9.75,
+     "slope_deg": 0.3,
+     "z_max": 4.47,
+     "z_min": 4.44
+    },
+    {
+     "area_m2": 27.15,
+     "slope_deg": 51.7,
+     "z_max": 10.82,
+     "z_min": 6.63
+    }
+   ],
+   "low_flat_parts_m2": "15.99",
+   "raw_response_sha256": "4c043f130adde815d38f07367468d400d9c717da7dcd03b98077c840fa847fa3"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 18.04,
+   "b3_opp_dak_schuin": 89.12,
+   "bag_pand_id": "0363100012121455",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "286",
+    "288"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 52.37,
+     "slope_deg": 51.8,
+     "z_max": 10.81,
+     "z_min": 1.42
+    },
+    {
+     "area_m2": 7.21,
+     "slope_deg": 52.4,
+     "z_max": 4.45,
+     "z_min": 1.49
+    },
+    {
+     "area_m2": 7.67,
+     "slope_deg": 0.9,
+     "z_max": 1.73,
+     "z_min": 1.67
+    },
+    {
+     "area_m2": 10.37,
+     "slope_deg": 0.8,
+     "z_max": 4.48,
+     "z_min": 4.44
+    },
+    {
+     "area_m2": 26.65,
+     "slope_deg": 51.5,
+     "z_max": 10.81,
+     "z_min": 6.84
+    }
+   ],
+   "low_flat_parts_m2": "18.04",
+   "raw_response_sha256": "73fe6043cc9d71264ea40a0c5d4050f80b0588559da97707832acc204cbc27f5"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 10.33,
+   "b3_opp_dak_schuin": 98.56,
+   "bag_pand_id": "0363100012127361",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "294",
+    "296"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 53.69,
+     "slope_deg": 51.8,
+     "z_max": 10.84,
+     "z_min": 1.42
+    },
+    {
+     "area_m2": 8.25,
+     "slope_deg": 7.9,
+     "z_max": 1.93,
+     "z_min": 1.47
+    },
+    {
+     "area_m2": 7.16,
+     "slope_deg": 52.4,
+     "z_max": 4.47,
+     "z_min": 1.53
+    },
+    {
+     "area_m2": 8.74,
+     "slope_deg": 0.2,
+     "z_max": 4.47,
+     "z_min": 4.45
+    },
+    {
+     "area_m2": 29.46,
+     "slope_deg": 51.9,
+     "z_max": 10.84,
+     "z_min": 6.51
+    }
+   ],
+   "low_flat_parts_m2": "8.74",
+   "raw_response_sha256": "056f45aedc27e03d508f20f80edf5788d15a83368909268748f934cb1bdb7031"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 23.56,
+   "b3_opp_dak_schuin": 87.94,
+   "bag_pand_id": "0363100012134188",
+   "high_flat_parts_m2": "7.31",
+   "house_numbers": [
+    "290",
+    "292"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 50.58,
+     "slope_deg": 51.7,
+     "z_max": 10.83,
+     "z_min": 1.44
+    },
+    {
+     "area_m2": 7.17,
+     "slope_deg": 52.1,
+     "z_max": 4.47,
+     "z_min": 1.54
+    },
+    {
+     "area_m2": 4.77,
+     "slope_deg": 1.7,
+     "z_max": 1.69,
+     "z_min": 1.61
+    },
+    {
+     "area_m2": 10.5,
+     "slope_deg": 0.3,
+     "z_max": 4.47,
+     "z_min": 4.45
+    },
+    {
+     "area_m2": 20.44,
+     "slope_deg": 51.7,
+     "z_max": 10.83,
+     "z_min": 6.2
+    },
+    {
+     "area_m2": 3.81,
+     "slope_deg": 0.4,
+     "z_max": 6.7,
+     "z_min": 6.69
+    },
+    {
+     "area_m2": 3.5,
+     "slope_deg": 1.9,
+     "z_max": 9.49,
+     "z_min": 9.42
+    }
+   ],
+   "low_flat_parts_m2": "15.27",
+   "raw_response_sha256": "b9835235be63086922f835fa14f16f0ccdd6da3a73fc1c47e76b30b3a8605396"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 12.74,
+   "b3_opp_dak_schuin": 74.07,
+   "bag_pand_id": "0363100012137996",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "240"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 9.46,
+     "slope_deg": 0.4,
+     "z_max": 1.2,
+     "z_min": 1.17
+    },
+    {
+     "area_m2": 47.83,
+     "slope_deg": 52.1,
+     "z_max": 8.14,
+     "z_min": 1.39
+    },
+    {
+     "area_m2": 26.11,
+     "slope_deg": 52.5,
+     "z_max": 8.14,
+     "z_min": 3.92
+    }
+   ],
+   "low_flat_parts_m2": "9.46",
+   "raw_response_sha256": "6de26675b58d90298ce1aac39e069cf614dd51753faa0f2340759512134125f2"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 16.31,
+   "b3_opp_dak_schuin": 87.81,
+   "bag_pand_id": "0363100012140664",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "250",
+    "252"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 52.86,
+     "slope_deg": 51.7,
+     "z_max": 10.82,
+     "z_min": 1.45
+    },
+    {
+     "area_m2": 7.08,
+     "slope_deg": 52.0,
+     "z_max": 4.44,
+     "z_min": 1.57
+    },
+    {
+     "area_m2": 7.12,
+     "slope_deg": 3.0,
+     "z_max": 1.73,
+     "z_min": 1.6
+    },
+    {
+     "area_m2": 9.58,
+     "slope_deg": 0.5,
+     "z_max": 4.46,
+     "z_min": 4.44
+    },
+    {
+     "area_m2": 27.49,
+     "slope_deg": 51.7,
+     "z_max": 10.82,
+     "z_min": 6.55
+    }
+   ],
+   "low_flat_parts_m2": "16.70",
+   "raw_response_sha256": "7fe9832d6fd6eea7b0b99180004905b960d6aa6d3cfd9b397e3cb088cdbecd8d"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 9.38,
+   "b3_opp_dak_schuin": 105.92,
+   "bag_pand_id": "0363100012141419",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "254",
+    "256"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 7.76,
+     "slope_deg": 10.6,
+     "z_max": 2.03,
+     "z_min": 1.39
+    },
+    {
+     "area_m2": 52.22,
+     "slope_deg": 51.6,
+     "z_max": 10.84,
+     "z_min": 1.44
+    },
+    {
+     "area_m2": 7.11,
+     "slope_deg": 52.7,
+     "z_max": 4.43,
+     "z_min": 1.51
+    },
+    {
+     "area_m2": 9.38,
+     "slope_deg": 1.2,
+     "z_max": 4.48,
+     "z_min": 4.41
+    },
+    {
+     "area_m2": 27.83,
+     "slope_deg": 52.0,
+     "z_max": 10.84,
+     "z_min": 6.55
+    }
+   ],
+   "low_flat_parts_m2": "9.38",
+   "raw_response_sha256": "179569dc06b2cbe59216b3326da8ae22bbe3932f9580673650e1154aa8905c59"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 10.49,
+   "b3_opp_dak_schuin": 93.57,
+   "bag_pand_id": "0363100012143647",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "282",
+    "284"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 54.15,
+     "slope_deg": 51.8,
+     "z_max": 11.59,
+     "z_min": 1.42
+    },
+    {
+     "area_m2": 7.21,
+     "slope_deg": 52.5,
+     "z_max": 4.44,
+     "z_min": 1.5
+    },
+    {
+     "area_m2": 6.86,
+     "slope_deg": 3.7,
+     "z_max": 1.73,
+     "z_min": 1.55
+    },
+    {
+     "area_m2": 10.49,
+     "slope_deg": 1.0,
+     "z_max": 4.49,
+     "z_min": 4.43
+    },
+    {
+     "area_m2": 24.71,
+     "slope_deg": 51.5,
+     "z_max": 10.81,
+     "z_min": 6.98
+    }
+   ],
+   "low_flat_parts_m2": "17.35",
+   "raw_response_sha256": "6e03518cbd8e81e0b833c74bdd97fccfcfb4db5254b972b0456397812ea95e67"
+  },
+  {
+   "b3_dak_type": "slanted",
+   "b3_opp_dak_plat": 7.97,
+   "b3_opp_dak_schuin": 106.15,
+   "bag_pand_id": "0363100012144766",
+   "high_flat_parts_m2": "0",
+   "house_numbers": [
+    "274",
+    "276"
+   ],
+   "lod22_roof_surfaces": [
+    {
+     "area_m2": 7.06,
+     "slope_deg": 9.3,
+     "z_max": 1.96,
+     "z_min": 1.45
+    },
+    {
+     "area_m2": 54.83,
+     "slope_deg": 51.5,
+     "z_max": 10.82,
+     "z_min": 1.48
+    },
+    {
+     "area_m2": 7.31,
+     "slope_deg": 51.9,
+     "z_max": 4.48,
+     "z_min": 1.52
+    },
+    {
+     "area_m2": 7.97,
+     "slope_deg": 0.3,
+     "z_max": 4.48,
+     "z_min": 4.45
+    },
+    {
+     "area_m2": 30.54,
+     "slope_deg": 51.4,
+     "z_max": 10.82,
+     "z_min": 6.39
+    }
+   ],
+   "low_flat_parts_m2": "7.97",
+   "raw_response_sha256": "36b7a2a8e393cf8650256fee7f8ec9bcf499c2b39d28a697a9d026dae8946617"
+  }
+ ],
+ "pilot": "quantity_validation_pilot_1",
+ "provenance": {
+  "candidate_package": {
+   "path": "data/external/building_validation/real_validation_v3/candidates/DOC-005-006.json",
+   "sha256": "b9e500bce120a192b2d2fcde83326b115c62981a6f149e4899294435d252bcca"
+  },
+  "manifest": {
+   "path": "data/external/building_validation/real_validation_v3/manifest.json",
+   "sha256": "972e4e19888ece40f2b3dd68f9f20d5208603a89e435a97cbd6ef3110877bc50"
+  },
+  "validation_dir": "data/external/building_validation/real_validation_v3"
+ },
+ "report_version": "maldenhof_roof_validation_v2",
+ "rule": "Geen correctie van historische hoeveelheid of 3D BAG. Classificatie per onderwerp: GEOMETRY_SUPPORTS_HISTORICAL_QUANTITY | SCOPE_MISMATCH | DEFINITION_MISMATCH | UNRESOLVED.",
+ "scope": "EVEN_ONLY"
+}

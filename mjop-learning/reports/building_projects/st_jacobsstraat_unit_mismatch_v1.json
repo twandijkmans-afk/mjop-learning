@@ -1,0 +1,175 @@
+{
+ "approval_created": false,
+ "bouwjaren_per_pand": {
+  "0344100000023837": 1950,
+  "0344100000054652": 1955,
+  "0344100000055567": 1950,
+  "0344100000057517": 1950,
+  "0344100000063937": 1950,
+  "0344100000067105": 1950,
+  "0344100000068736": 1950,
+  "0344100000077670": 1955,
+  "0344100000080507": 1955
+ },
+ "candidate_id": "BPC-DOC-009",
+ "checked": {
+  "inactive_vbos_outside_odd_scope": [
+   {
+    "bag_pand_id": "0344100000035738",
+    "huisnummer": 410,
+    "in_odd_scope": false,
+    "status": "Verblijfsobject ingetrokken",
+    "verblijfsobject_id": "0344010000000657"
+   },
+   {
+    "bag_pand_id": "0344100000035738",
+    "huisnummer": 300,
+    "in_odd_scope": false,
+    "status": "Verblijfsobject ingetrokken",
+    "verblijfsobject_id": "0344010000012449"
+   },
+   {
+    "bag_pand_id": "0344100000035738",
+    "huisnummer": 402,
+    "in_odd_scope": false,
+    "status": "Verblijfsobject ingetrokken",
+    "verblijfsobject_id": "0344010000039036"
+   },
+   {
+    "bag_pand_id": "0344100000035738",
+    "huisnummer": 420,
+    "in_odd_scope": false,
+    "status": "Verblijfsobject ingetrokken",
+    "verblijfsobject_id": "0344010000087737"
+   },
+   {
+    "bag_pand_id": "0344100000035738",
+    "huisnummer": 430,
+    "in_odd_scope": false,
+    "status": "Verblijfsobject ingetrokken",
+    "verblijfsobject_id": "0344010000114768"
+   },
+   {
+    "bag_pand_id": "0344100000035738",
+    "huisnummer": 440,
+    "in_odd_scope": false,
+    "status": "Verblijfsobject ingetrokken",
+    "verblijfsobject_id": "0344010000114769"
+   }
+  ],
+  "multiple_addresses_per_vbo": [],
+  "non_residential_vbos": {
+   "count": 6,
+   "items": [
+    {
+     "bag_pand_id": "0344100000023837",
+     "gebruiksdoel": "bijeenkomstfunctie",
+     "huisletter": null,
+     "huisnummer": 321,
+     "matched_to_scope_address": true,
+     "oppervlakte": 238,
+     "raw_response_sha256": "974833df0bd03d83140809e1cd0a6fffe06d11ec4b4ae449c8905e8547c41a7b",
+     "toevoeging": null,
+     "verblijfsobject_id": "0344010000033422"
+    },
+    {
+     "bag_pand_id": "0344100000055567",
+     "gebruiksdoel": "industriefunctie,winkelfunctie",
+     "huisletter": null,
+     "huisnummer": 297,
+     "matched_to_scope_address": true,
+     "oppervlakte": 290,
+     "raw_response_sha256": "ec9eeba9acc9cc3b4a2b7788e64817609c5d2b631411c1c98c06cba73e934811",
+     "toevoeging": null,
+     "verblijfsobject_id": "0344010000033413"
+    },
+    {
+     "bag_pand_id": "0344100000057517",
+     "gebruiksdoel": "industriefunctie,winkelfunctie",
+     "huisletter": null,
+     "huisnummer": 273,
+     "matched_to_scope_address": true,
+     "oppervlakte": 290,
+     "raw_response_sha256": "6a11c400fb1d04c51a1593ce540bdc620bbf08554e04dca001425f53f253c067",
+     "toevoeging": null,
+     "verblijfsobject_id": "0344010000033405"
+    },
+    {
+     "bag_pand_id": "0344100000063937",
+     "gebruiksdoel": "industriefunctie,winkelfunctie",
+     "huisletter": null,
+     "huisnummer": 251,
+     "matched_to_scope_address": true,
+     "oppervlakte": 290,
+     "raw_response_sha256": "39148aea323742c5908dbe9fa2fd8302f4f16967accd803be322a25dcc504eeb",
+     "toevoeging": null,
+     "verblijfsobject_id": "0344010000142319"
+    },
+    {
+     "bag_pand_id": "0344100000067105",
+     "gebruiksdoel": "industriefunctie,winkelfunctie",
+     "huisletter": null,
+     "huisnummer": 299,
+     "matched_to_scope_address": true,
+     "oppervlakte": 290,
+     "raw_response_sha256": "d36edbf8dbc4feefe0a9077b3240c08ef49288cc2ae233e76cd8fa9606996f3e",
+     "toevoeging": null,
+     "verblijfsobject_id": "0344010000033418"
+    },
+    {
+     "bag_pand_id": "0344100000068736",
+     "gebruiksdoel": "industriefunctie,winkelfunctie",
+     "huisletter": null,
+     "huisnummer": 275,
+     "matched_to_scope_address": true,
+     "oppervlakte": 290,
+     "raw_response_sha256": "3f561d152b0e141d396efd593e24fa01bbabd4dc17b3652bd71619b39c0d4cbc",
+     "toevoeging": null,
+     "verblijfsobject_id": "0344010000045394"
+    }
+   ]
+  },
+  "split_or_merged_units_inactive_vbos": [],
+  "toevoegingen": 0,
+  "woonfunctie_vbos": 30
+ },
+ "classification": "MISMATCH_EXPLAINED_BY_NON_RESIDENTIAL_UNITS_PENDING_REVIEW",
+ "construction_year_class": "CONSTRUCTION_YEAR_CONFLICT",
+ "document_ids": [
+  "DOC-009"
+ ],
+ "finding": "30 woonfunctie-VBO's = 30 MJOP-eenheden; de 6 overige adressen zijn niet-woonfuncties (winkel/industrie/bijeenkomst).",
+ "mismatch": {
+  "bag_addresses": 36,
+  "difference": 6,
+  "mjop_units": 30
+ },
+ "not_decided": [
+  "Vallen de niet-woonfuncties (bedrijfsruimten op de begane grond) buiten de VvE 'Woningen' (DOC-009)?",
+  "DOC-008 ('Hoofddak', zelfde complex) noemt geen plaats of aantal; relatie tot deze scope is open."
+ ],
+ "other_conflicts": [
+  "CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG",
+  "CONSTRUCTION_YEAR_CONFLICT: 1955 vs 1950, 1955"
+ ],
+ "provenance": {
+  "candidate_package": {
+   "path": "data/external/building_validation/real_validation_v3/candidates/DOC-009.json",
+   "sha256": "79abf0cfdbda6bab167af41d01588b3ee6645f6c7ed8b57efdb63a057744a362"
+  },
+  "manifest": {
+   "path": "data/external/building_validation/real_validation_v3/manifest.json",
+   "sha256": "972e4e19888ece40f2b3dd68f9f20d5208603a89e435a97cbd6ef3110877bc50"
+  },
+  "validation_dir": "data/external/building_validation/real_validation_v3"
+ },
+ "report_version": "st_jacobsstraat_unit_mismatch_v1",
+ "scope_hypothesis_id": "ODD_ONLY",
+ "street_alias": {
+  "bag_straatnaam": "St.-Jacobsstraat",
+  "openbareruimte_id": "0344300000000857",
+  "rule": "STREET_ALIAS_UTRECHT_ST_JACOBSSTRAAT_V1",
+  "street_as_stated": "St. Jacobsstraat"
+ },
+ "strength_v3": "WEAK_BUILDING_PROJECT_CANDIDATE"
+}

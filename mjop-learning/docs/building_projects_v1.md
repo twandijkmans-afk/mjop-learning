@@ -55,7 +55,7 @@ is onveranderlijk:
 - de workflow `real-building-validation.yml` draait de guard **vóór** elke `rm -rf`, en `building_projects.py check`
   controleert bij elke run dat package, manifest en alle raw responses nog bij de vastgelegde hashes passen.
 
-De workflow blijft nieuwe data ophalen, maar alleen naar een **nieuwe versiemap** (`real_validation_v<N>`; v1 en v2 zijn in gebruik, de volgende vrije is v3):
+De workflow blijft nieuwe data ophalen, maar alleen naar een **nieuwe versiemap** (`real_validation_v<N>`; v1-v3 zijn in gebruik, de volgende vrije is v4):
 via `workflow_dispatch` (input `out_dir`) of door die map in
 `data/external/building_validation/fetch_target.txt` te zetten en te pushen. Zonder doelmap draaien alleen de tests
 en de integriteitscontrole.
@@ -111,4 +111,28 @@ project-record en wijzigt het nooit; het gerefereerde package wordt daarmee ook 
 3D BAG-dekking, MJOP-eenheden, ontbrekend/extra, toevoegingen; klasse APPROVED_PROJECT / STRONG_CANDIDATE /
 MODERATE_CANDIDATE / REVIEW_CASE) en `reports/quantity/maldenhof_roof_scope_review_v1.{json,md}`
 (`SCOPE_OR_DEFINITION_MISMATCH_REVIEW`; niets gecorrigeerd).
+
+## Evidence-gerichte classificatie (`fetch_real_building_validation_v1.4.0`, `real_validation_v3`)
+
+- **Bouwjaar is ondersteunend bewijs**, geen absolute blocker en geen match-regel. Klassen per hypothese
+  (`construction_year_class`): `CONSTRUCTION_YEAR_EXACT`, `CONSTRUCTION_YEAR_NEAR_DIFFERENCE` (alle panden hetzelfde
+  BAG-bouwjaar, verschil <= `NEAR_YEAR_SPAN` = 3), `CONSTRUCTION_YEAR_CONFLICT` (groter of niet uniform),
+  `CONSTRUCTION_YEAR_UNKNOWN`. Een NEAR-verschil telt nooit als gelijk (`construction_year_matches_all_panden` blijft
+  false) en blokkeert STRONG alleen niet als de identiteit verder eenduidig is (`identity_unambiguous`: eenheden = adressen
+  = VBO's, volledige dekking, documentadres in scope, compact, panden in gebruik, geen blokkerende vlaggen). Dan wordt het
+  een caveat. CONFLICT blokkeert STRONG altijd.
+- **Goedkeuren met caveat** vraagt een expliciete bevestiging: `--expect construction_year_class=...` (en
+  `--expect construction_year=none`); zonder die bevestiging weigert `approve`.
+- **Actieve VBO's**: met VBO-details (`fetch_all_vbo_detail`) tellen ingetrokken/niet-gerealiseerde VBO's niet mee als
+  eenheid; `pand.aantal_verblijfsobjecten` (incl. ingetrokken) blijft zichtbaar. Per hypothese: gebruiksdoelen van de
+  actieve VBO's (`vbo_detail`).
+- **Context-panden zonder adres** (`context_panden_without_vbo`, Maldenhof): BAG-panden in gebruik zonder VBO rond de
+  adrespunten, met 3D BAG. Alleen evidence; nooit kandidaat of scope.
+
+Stand v3 (`reports/building_projects/range_discovery_v3.md`): Maldenhof reproduceert BPRJ-00001 opnieuw (`BPEV-00002`);
+Vechtstraat (DOC-013) is STRONG met caveat `CONSTRUCTION_YEAR_NEAR_DIFFERENCE: 1921 vs 1923` en heeft een
+bevestigingsverzoek (`vechtstraat_confirmation_v1.json`, GEEN approval); DOC-001 en DOC-015 MODERATE; DOC-009 en DOC-012
+review. Gerichte rapporten: `alkmaarstraat_candidate_evidence_v1.json`, `groetstraat_vbo_review_v1.json`,
+`st_jacobsstraat_unit_mismatch_v1.json` en `reports/quantity/maldenhof_roof_validation_v2.json` (eerste
+quantity-validation pilot, LoD2.2-dakvlakken; niets gecorrigeerd).
 

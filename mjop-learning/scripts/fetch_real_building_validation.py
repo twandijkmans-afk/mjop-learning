@@ -84,11 +84,20 @@ def outer_rings(geometry):
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_OUT = ROOT / "data" / "external" / "building_validation" / "real_validation_v1"
-TOOL_VERSION = "fetch_real_building_validation_v1.3.0"
+TOOL_VERSION = "fetch_real_building_validation_v1.4.0"
 MAX_ATTEMPTS = 3
 MAX_VBO_DETAIL = 60
 PDOK_ROWS = 50  # ruim genoeg voor alle toevoegingen van één huisnummer; meer treffers -> PDOK_RESULTS_TRUNCATED
-COMPACT_EXTENT_M = 300  # maximale onderlinge afstand (m) tussen adrespunten van één project-hypothese  # alleen voor panden met een onverklaard verschil tussen aantal VBO en gevonden adressen
+COMPACT_EXTENT_M = 300
+# Bouwjaar is ONDERSTEUNEND bewijs, geen match-regel. NEAR_DIFFERENCE is alleen een label voor een klein, uniform
+# verschil (alle panden hetzelfde BAG-bouwjaar, |verschil| <= NEAR_YEAR_SPAN); het telt nooit als "gelijk" en blokkeert
+# STRONG alleen niet als de identiteit verder eenduidig is (eenheden = adressen = VBO's, volledige dekking, documentadres in
+# scope, compact, panden in gebruik, geen blokkerende vlaggen). CONFLICT blokkeert STRONG altijd.
+NEAR_YEAR_SPAN = 3
+YEAR_CLASSES = ("CONSTRUCTION_YEAR_EXACT", "CONSTRUCTION_YEAR_NEAR_DIFFERENCE", "CONSTRUCTION_YEAR_CONFLICT", "CONSTRUCTION_YEAR_UNKNOWN")
+# VBO-statussen die geen (bestaande) eenheid meer zijn; BAG telt ze wel mee in pand.aantal_verblijfsobjecten.
+INACTIVE_VBO_STATUSES = {"Verblijfsobject ingetrokken", "Niet gerealiseerd verblijfsobject", "Verblijfsobject ten onrechte opgevoerd"}
+CONTEXT_BBOX_PAD = (0.0004, 0.0003)  # lon, lat rond de adrespunten voor context-panden zonder adres  # maximale onderlinge afstand (m) tussen adrespunten van één project-hypothese  # alleen voor panden met een onverklaard verschil tussen aantal VBO en gevonden adressen
 
 # Documentgroepen. Per groep wordt het HELE huisnummerbereik uit de MJOP-bron opgevraagd (range_from..range_to,
 # alle gehele nummers). Welke nummers daadwerkelijk bij de VvE horen (alleen even/oneven, of alle) staat NIET in
@@ -96,7 +105,7 @@ COMPACT_EXTENT_M = 300  # maximale onderlinge afstand (m) tussen adrespunten van
 GROUPS = [
     {"group_id": "DOC-005-006", "document_ids": ["DOC-005", "DOC-006"], "label": "VvE Maldenhof 240-296",
      "street": "Maldenhof", "range_from": 240, "range_to": 296, "city": "Amsterdam", "document_address_number": 240,
-     "include_toevoegingen": True,
+     "include_toevoegingen": True, "fetch_all_vbo_detail": True, "context_panden_without_vbo": True,
      "scope_hypotheses": [
          {"hypothesis_id": "EVEN_ONLY", "parity": "even",
           "description": "Alleen even huisnummers 240,242,...,296",
@@ -105,7 +114,7 @@ GROUPS = [
           "basis": "Bereik '240 - 296' zonder pariteit gelezen."}]},
     {"group_id": "DOC-012", "document_ids": ["DOC-012"], "label": "VvE Meppelweg 801-883 (documentadres Meppelweg 819)",
      "street": "Meppelweg", "range_from": 801, "range_to": 883, "city": "Den Haag", "document_address_number": 819,
-     "include_toevoegingen": True,
+     "include_toevoegingen": True, "fetch_all_vbo_detail": True,
      "scope_hypotheses": [
          {"hypothesis_id": "ODD_ONLY", "parity": "odd", "description": "Alleen oneven huisnummers 801,803,...,883",
           "basis": "Documentadres is 819 (oneven); bron noemt pariteit en aantal eenheden niet."},
@@ -125,17 +134,18 @@ GROUPS = [
     {"group_id": "DOC-001", "document_ids": ["DOC-001"], "label": "VvE Alkmaarstraat 1-83 en Groetstraat 189-217",
      "segments": [{"street": "Alkmaarstraat", "range_from": 1, "range_to": 83},
                   {"street": "Groetstraat", "range_from": 189, "range_to": 217}],
-     "city": "Amsterdam", "document_address_number": 1, "document_address_street": "Alkmaarstraat", "include_toevoegingen": True},
+     "city": "Amsterdam", "document_address_number": 1, "document_address_street": "Alkmaarstraat", "include_toevoegingen": True,
+     "fetch_all_vbo_detail": True},
     {"group_id": "DOC-013", "document_ids": ["DOC-013"], "label": "VVE Gebouwen Vechtstraat 13-15-17-19",
      "street": "Vechtstraat", "numbers": [13, 15, 17, 19], "city": "Amsterdam", "document_address_number": 13,
-     "include_toevoegingen": True},
+     "include_toevoegingen": True, "fetch_all_vbo_detail": True},
     {"group_id": "DOC-015", "document_ids": ["DOC-015"], "label": "VvE Groetstraat 110-140",
      "street": "Groetstraat", "range_from": 110, "range_to": 140, "city": "Amsterdam", "document_address_number": 110,
-     "include_toevoegingen": True},
+     "include_toevoegingen": True, "fetch_all_vbo_detail": True},
     # DOC-009 alleen: DOC-008 (deelplan 'Hoofddak' van hetzelfde complex) noemt geen plaats; die wordt niet uit DOC-009 afgeleid.
     {"group_id": "DOC-009", "document_ids": ["DOC-009"], "label": "VvE St. Jacobsstraat 251-321 Woningen",
      "street": "St. Jacobsstraat", "range_from": 251, "range_to": 321, "city": "Utrecht", "document_address_number": 251,
-     "include_toevoegingen": True},
+     "include_toevoegingen": True, "fetch_all_vbo_detail": True},
 ]
 
 HUMAN_CONFIRMATION_REQUIRED = [
@@ -648,6 +658,35 @@ def pand_exact_vbo_ids(address_results, pid):
     return ids
 
 
+def fetch_context_panden(fetcher, group, address_results, panden):
+    """Context (GEEN kandidaat, geen scope): BAG-panden 'in gebruik' zonder verblijfsobject in de omhullende van de
+    adrespunten van de groep, met 3D BAG-attributen. Bedoeld voor bergingen/aanbouwen die een adresgedreven scope niet
+    ziet. Er wordt niets aan een project gekoppeld."""
+    pts = [p for a in address_results for e in scope_entries(a) for p in [_point(e)] if p]
+    if not pts:
+        return {"evidence_only": True, "panden": [], "note": "geen adrespunten"}
+    dx, dy = CONTEXT_BBOX_PAD
+    bbox = ",".join(str(round(v, 7)) for v in (min(x for x, _ in pts) - dx, min(y for _, y in pts) - dy,
+                                               max(x for x, _ in pts) + dx, max(y for _, y in pts) + dy))
+    url = BAG_PAND_ITEMS + "?" + urllib.parse.urlencode({"f": "json", "limit": 1000, "bbox": bbox})
+    rec, parsed = fetcher.request("pdok", "PDOK BAG OGC v2 pand", "bag-context", url, f"context {group['group_id']}")
+    feats = parse_bag_features(rec, parsed) or []
+    out = []
+    for f in feats:
+        props = (f or {}).get("properties") or {}
+        pid = str(props.get("identificatie") or "")
+        if not pid or pid in panden or props.get("status") not in ACTIVE_PAND_STATUSES or props.get("aantal_verblijfsobjecten") not in (0, None):
+            continue
+        cand = {"bag_pand_id": pid, "bag_properties": {k: props.get(k) for k in ("identificatie", "bouwjaar", "status", "gebruiksdoel",
+                                                                                 "aantal_verblijfsobjecten")}, "threedbag": None}
+        fetch_3dbag(fetcher, cand)
+        cand.pop("quantity_evidence", None)
+        out.append(cand)
+    return {"evidence_only": True, "not_a_candidate": True, "bbox": bbox, "bag_request_id": rec["request_id"],
+            "method": "BAG-panden 'in gebruik' zonder verblijfsobject in de omhullende van de adrespunten (+CONTEXT_BBOX_PAD), buiten de kandidaat-panden",
+            "panden": sorted(out, key=lambda c: c["bag_pand_id"])}
+
+
 # --- MJOP-context (uit data/extracted, alleen lezen) ---------------------------------------------------
 def load_mjop_context(doc_ids, root=ROOT):
     """Leest building/object-velden uit data/extracted/<DOC>.json (read-only) met provenance. Verzint niets."""
@@ -743,6 +782,44 @@ def extent_m(points):
     return round(best, 1)
 
 
+def construction_year_class(mjop_year, bag_years):
+    """-> (klasse, toelichting). Geen tolerantie-als-match: zie NEAR_YEAR_SPAN."""
+    ys = sorted(set(bag_years))
+    if mjop_year is None or not ys or any(y is None for y in ys):
+        return "CONSTRUCTION_YEAR_UNKNOWN", None
+    if ys == [mjop_year]:
+        return "CONSTRUCTION_YEAR_EXACT", None
+    note = f"{mjop_year} vs {', '.join(map(str, ys))}"
+    if len(ys) == 1 and abs(ys[0] - mjop_year) <= NEAR_YEAR_SPAN:
+        return "CONSTRUCTION_YEAR_NEAR_DIFFERENCE", note
+    return "CONSTRUCTION_YEAR_CONFLICT", note
+
+
+def vbo_summary(pand, matched_ids=None):
+    """Actieve/niet-actieve VBO's van een pand uit de VBO-details (alleen als die volledig zijn opgehaald)."""
+    rows = pand.get("verblijfsobjecten")
+    n = (pand.get("bag_properties") or {}).get("aantal_verblijfsobjecten")
+    if not rows or n is None or len(rows) != n or any(v.get("properties") is None for v in rows):
+        return None
+    act = [v for v in rows if v["properties"].get("status") not in INACTIVE_VBO_STATUSES]
+    ina = [v for v in rows if v["properties"].get("status") in INACTIVE_VBO_STATUSES]
+    doel = {}
+    for v in act:
+        g = v["properties"].get("gebruiksdoel") or "onbekend"
+        doel[g] = doel.get(g, 0) + 1
+    return {"active": len(act), "inactive": len(ina), "active_gebruiksdoel_counts": dict(sorted(doel.items())),
+            "inactive_vbos": [{"verblijfsobject_id": v["verblijfsobject_id"], "huisnummer": v["properties"].get("huisnummer"),
+                               "huisletter": v["properties"].get("huisletter"), "toevoeging": v["properties"].get("toevoeging"),
+                               "status": v["properties"].get("status"), "gebruiksdoel": v["properties"].get("gebruiksdoel"),
+                               "oppervlakte": v["properties"].get("oppervlakte"), "raw_response_sha256": v["raw_response_sha256"]} for v in ina],
+            "active_non_woonfunctie": [{"verblijfsobject_id": v["verblijfsobject_id"], "huisnummer": v["properties"].get("huisnummer"),
+                                        "huisletter": v["properties"].get("huisletter"), "toevoeging": v["properties"].get("toevoeging"),
+                                        "gebruiksdoel": v["properties"].get("gebruiksdoel"), "oppervlakte": v["properties"].get("oppervlakte"),
+                                        "matched_to_scope_address": (v["verblijfsobject_id"] in matched_ids) if matched_ids is not None else None,
+                                        "raw_response_sha256": v["raw_response_sha256"]}
+                                       for v in act if "woonfunctie" not in (v["properties"].get("gebruiksdoel") or "")]}
+
+
 def unmatched_vbo_details(pand, numbers):
     """Adres-/VBO-gegevens (uit BAG) van VBO's in het pand zonder exact adres in de opgevraagde nummers.
     `numbers` zijn huisnummers (int of str); bij meerdere straten geldt het omhullende bereik van alle nummers."""
@@ -802,7 +879,8 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         bp = panden[pid]["bag_properties"]
         outside = sorted({k for k in numbers if k not in in_scope and pid in by_number[k]["candidate_pand_ids"]},
                          key=lambda k: (by_number[k]["street"], int(by_number[k]["number"])))
-        vbo = bp.get("aantal_verblijfsobjecten")
+        vs = vbo_summary(panden[pid], per_pand_vbo[pid])
+        vbo = vs["active"] if vs else bp.get("aantal_verblijfsobjecten")  # actieve VBO's als de details bekend zijn
         full = vbo is not None and vbo == len(per_pand_vbo[pid]) and not outside
         covered = covered and full
         vbo_total += vbo or 0
@@ -810,12 +888,16 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         tb = panden[pid].get("threedbag") or {}
         pand_rows.append({"bag_pand_id": pid, "bouwjaar": bp.get("bouwjaar"), "bag_status": bp.get("status"),
                           "aantal_verblijfsobjecten_bag": vbo,
+                          "aantal_verblijfsobjecten_bag_incl_inactive": bp.get("aantal_verblijfsobjecten"),
+                          "vbo_summary": vs,
                           "verblijfsobject_href_count": bp.get("verblijfsobject_href_count"),
                           "numbers_in_scope": sorted(set(per_pand[pid]), key=lambda k: (by_number[k]["street"], int(by_number[k]["number"]))),
                           "addresses_in_scope": len(per_pand[pid]), "distinct_vbo_ids_in_scope": len(per_pand_vbo[pid]),
                           "numbers_queried_outside_scope": outside,
                           "vbo_without_matched_address": [v["verblijfsobject_id"] or v["href"] for v in (panden[pid].get("verblijfsobjecten") or [])
-                                                          if v["matched_to_exact_address"] is not True] if panden[pid].get("verblijfsobjecten") else None,
+                                                          if v["matched_to_exact_address"] is not True
+                                                          and (v.get("properties") or {}).get("status") not in INACTIVE_VBO_STATUSES]
+                          if panden[pid].get("verblijfsobjecten") else None,
                           "vbo_without_matched_address_details": unmatched_vbo_details(panden[pid], all_house_numbers),
                           "vbo_fully_covered_by_scope": full, "ground_area_m2": ev.get("ground_area_m2"),
                           "has_3dbag_evidence": bool(ev), "threedbag_http_status": tb.get("http_status")})
@@ -829,6 +911,7 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
     not_in_use = [r["bag_pand_id"] for r in pand_rows if r["bag_status"] not in ACTIVE_PAND_STATUSES]
     ext = extent_m(points) if points else None
     toevoegingen = sorted(f["weergavenaam"] for f in found if f["match_kind"] == "TOEVOEGING")
+    year_class, year_note = construction_year_class(mjop.get("construction_year"), [r["bouwjaar"] for r in pand_rows])
     checks = {
         "all_requested_found": not missing and bool(nums),
         "no_blocking_address_flags": not flags and not dup,
@@ -844,21 +927,27 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
         "all_panden_in_use": not not_in_use if pand_rows else None,
         "geographically_compact": (ext <= COMPACT_EXTENT_M) if ext is not None else None,
         "threedbag_coverage_complete": all(r["has_3dbag_evidence"] for r in pand_rows) if pand_rows else None,
+        "construction_year_class": year_class,
     }
     base = checks["all_requested_found"] and checks["no_blocking_address_flags"] and checks["vbo_fully_covered"] \
         and checks["postcode_matches_document_address"] is not False and checks["place_matches_document_city"] is not False \
         and checks["document_address_number_in_scope"] is not False and checks["all_panden_in_use"] is not False \
         and checks["geographically_compact"] is not False
+    identity_unambiguous = base and checks["units_equal_addresses_and_vbo"] is True
+    caveats = []
     if not found:
         strength = "NO_BUILDING_PROJECT_CANDIDATE"
-    elif base and checks["units_equal_addresses_and_vbo"] is True and checks["construction_year_matches_all_panden"] is not False:
+    elif identity_unambiguous and year_class != "CONSTRUCTION_YEAR_CONFLICT":
         strength = "STRONG_BUILDING_PROJECT_CANDIDATE"
+        if year_class == "CONSTRUCTION_YEAR_NEAR_DIFFERENCE":
+            caveats.append(f"CONSTRUCTION_YEAR_NEAR_DIFFERENCE: {year_note}")
     elif base and checks["units_equal_addresses_and_vbo"] is None:
         strength = "MODERATE_BUILDING_PROJECT_CANDIDATE"  # aantal eenheden ontbreekt in MJOP: geen sterke bevestiging mogelijk
     else:
         strength = "WEAK_BUILDING_PROJECT_CANDIDATE"
     if checks["construction_year_matches_all_panden"] is False:
         flags.append("CONSTRUCTION_YEAR_MISMATCH_MJOP_VS_BAG")
+        flags.append(f"{year_class}: {year_note}")
     if not_in_use:
         flags.append("PAND_NOT_IN_USE: " + ", ".join(f"{r['bag_pand_id']} ({r['bag_status']})" for r in pand_rows if r["bag_pand_id"] in not_in_use))
     if checks["document_address_number_in_scope"] is False:
@@ -875,6 +964,11 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
     if dup:
         flags.append("DUPLICATE_BAG_ADDRESSES: " + ",".join(dup))
     streets = sorted({by_number[k]["street"] for k in nums})
+    known = [r["vbo_summary"] for r in pand_rows if r["vbo_summary"]]
+    vbo_detail = {"panden_with_complete_detail": len(known), "panden": len(pand_rows),
+                  "inactive_vbos_excluded": sum(v["inactive"] for v in known),
+                  "active_gebruiksdoel_counts": {g: sum(v["active_gebruiksdoel_counts"].get(g, 0) for v in known)
+                                                 for g in sorted({g for v in known for g in v["active_gebruiksdoel_counts"]})}}
     return {"hypothesis_id": h["hypothesis_id"], "description": h.get("description"), "basis": h.get("basis"),
             "requested_numbers": nums,
             "counts": {"requested_addresses": len(nums), "unique_requested_addresses": len(set(nums)),
@@ -884,6 +978,8 @@ def assess_hypothesis(h, numbers, by_number, panden, mjop, doc_address_number):
                        "missing": len(missing), "unique_bag_panden": len(pand_rows), "vbo_total_bag": vbo_total,
                        "addresses_per_pand_histogram": dict(sorted(hist.items()))},
             "streets": streets, "toevoegingen": toevoegingen, "geographic_extent_m": ext,
+            "construction_year_class": year_class, "construction_year_note": year_note, "caveats": caveats,
+            "identity_unambiguous": bool(identity_unambiguous), "vbo_detail": vbo_detail,
             "bouwjaren_bag": sorted({r["bouwjaar"] for r in pand_rows if r["bouwjaar"] is not None}),
             "threedbag_coverage": {"panden_with_attributes": sum(1 for r in pand_rows if r["has_3dbag_evidence"]), "panden": len(pand_rows)},
             "addresses_found": found, "addresses_missing": missing, "duplicate_bag_addresses": dup,
@@ -1026,10 +1122,13 @@ def run(groups, out_dir, http_get=default_http_get, now=None, mjop_loader=load_m
             fetch_3dbag(fetcher, panden[pid])
             n_vbo = panden[pid]["bag_properties"].get("aantal_verblijfsobjecten")
             exact_ids = pand_exact_vbo_ids(results, pid)
-            if (isinstance(n_vbo, int) and 0 < n_vbo <= MAX_VBO_DETAIL and n_vbo > len(exact_ids)
+            if (isinstance(n_vbo, int) and 0 < n_vbo <= MAX_VBO_DETAIL and (n_vbo > len(exact_ids) or g.get("fetch_all_vbo_detail"))
                     and len(panden[pid]["verblijfsobject_hrefs"]) == n_vbo):
                 fetch_vbo_detail(fetcher, panden[pid], exact_ids)
-        packages[g["group_id"]] = build_candidate_package(g, results, panden, run_id, mjop_loader(g["document_ids"]))
+        pkg = build_candidate_package(g, results, panden, run_id, mjop_loader(g["document_ids"]))
+        if g.get("context_panden_without_vbo"):
+            pkg["context_panden_without_vbo"] = fetch_context_panden(fetcher, g, results, panden)
+        packages[g["group_id"]] = pkg
     for gid, pkg in packages.items():
         write_json(out_dir / "candidates" / f"{gid}.json", pkg)
     reqs = [{k: v for k, v in r.items() if not k.startswith("_")} for r in fetcher.requests]

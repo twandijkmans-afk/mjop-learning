@@ -1,0 +1,237 @@
+{
+ "addresses": [
+  {
+   "adresseerbaarobject_id": "0363010001167671",
+   "bag_pand_ids": [
+    "0363100012109244"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000539002",
+   "weergavenaam": "Vechtstraat 13-H, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851611",
+   "bag_pand_ids": [
+    "0363100012109244"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309931",
+   "weergavenaam": "Vechtstraat 13-1, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851612",
+   "bag_pand_ids": [
+    "0363100012109244"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309932",
+   "weergavenaam": "Vechtstraat 13-2, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000977050",
+   "bag_pand_ids": [
+    "0363100012109244"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309930",
+   "weergavenaam": "Vechtstraat 13-3, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851617",
+   "bag_pand_ids": [
+    "0363100012124984"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309937",
+   "weergavenaam": "Vechtstraat 15-1, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851618",
+   "bag_pand_ids": [
+    "0363100012124984"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309938",
+   "weergavenaam": "Vechtstraat 15-2, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851619",
+   "bag_pand_ids": [
+    "0363100012124984"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309939",
+   "weergavenaam": "Vechtstraat 15-3, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851624",
+   "bag_pand_ids": [
+    "0363100012124984"
+   ],
+   "match_kind": "EXACT",
+   "nummeraanduiding_id": "0363200000309944",
+   "weergavenaam": "Vechtstraat 17, 1078RE Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851629",
+   "bag_pand_ids": [
+    "0363100012124445"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309949",
+   "weergavenaam": "Vechtstraat 19-H, 1078RG Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851632",
+   "bag_pand_ids": [
+    "0363100012124445"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309950",
+   "weergavenaam": "Vechtstraat 19-1, 1078RG Amsterdam"
+  },
+  {
+   "adresseerbaarobject_id": "0363010000851633",
+   "bag_pand_ids": [
+    "0363100012124445"
+   ],
+   "match_kind": "TOEVOEGING",
+   "nummeraanduiding_id": "0363200000309951",
+   "weergavenaam": "Vechtstraat 19-2, 1078RG Amsterdam"
+  }
+ ],
+ "approval_created": false,
+ "approve_command": "python scripts/building_projects.py approve --group DOC-013 --scope REQUESTED_NUMBERS --dir data/external/building_validation/real_validation_v3 --reviewer <naam> --reason \"...\" --decision-source \"...\" --expect pand_count=3 --expect address_count=11 --expect vbo_total=11 --expect number_of_units=11 --expect construction_year=none --expect missing_addresses=0 --expect panden_sharing_numbers_outside_scope=0 --expect construction_year_class=CONSTRUCTION_YEAR_NEAR_DIFFERENCE",
+ "building_project_linked": false,
+ "candidate_id": "BPC-DOC-013",
+ "caveats": [
+  "CONSTRUCTION_YEAR_NEAR_DIFFERENCE: 1921 vs 1923"
+ ],
+ "confirmed_facts_if_approved": {
+  "address_count": 11,
+  "bag_construction_years": [
+   1923
+  ],
+  "construction_year": null,
+  "construction_year_class": "CONSTRUCTION_YEAR_NEAR_DIFFERENCE",
+  "missing_addresses": 0,
+  "mjop_construction_year": 1921,
+  "number_of_units": 11,
+  "pand_count": 3,
+  "panden_sharing_numbers_outside_scope": 0,
+  "vbo_total": 11
+ },
+ "construction_year_class": "CONSTRUCTION_YEAR_NEAR_DIFFERENCE",
+ "document_ids": [
+  "DOC-013"
+ ],
+ "identity_evidence": {
+  "bag_addresses": 11,
+  "bag_addresses_exact_number": 1,
+  "bag_addresses_toevoeging": 10,
+  "bag_panden": 3,
+  "checks": {
+   "all_panden_in_use": true,
+   "all_requested_found": true,
+   "construction_year_class": "CONSTRUCTION_YEAR_NEAR_DIFFERENCE",
+   "construction_year_matches_all_panden": false,
+   "document_address_number_in_scope": true,
+   "geographically_compact": true,
+   "no_blocking_address_flags": true,
+   "place_matches_document_city": null,
+   "postcode_matches_document_address": null,
+   "threedbag_coverage_complete": true,
+   "units_equal_addresses_and_vbo": true,
+   "units_known": true,
+   "vbo_fully_covered": true
+  },
+  "geographic_extent_m": 14.1,
+  "mjop_units": 11,
+  "threedbag_coverage": {
+   "panden": 3,
+   "panden_with_attributes": 3
+  },
+  "vbo_active": 11,
+  "vbo_gebruiksdoel": {
+   "woonfunctie": 11
+  }
+ },
+ "label": "VVE Gebouwen Vechtstraat 13-15-17-19",
+ "mjop_sources": [
+  {
+   "construction_year": 1921,
+   "document_id": "DOC-013",
+   "number_of_units": 11,
+   "provenance": {
+    "address": {
+     "page": 2,
+     "text_fragment": "Adres Vechtstraat 13-15-17-19"
+    },
+    "construction_year": {
+     "page": 2,
+     "text_fragment": "Bouwjaar 1921"
+    },
+    "number_of_units": {
+     "page": 2,
+     "text_fragment": "Aantal eenheden 11"
+    }
+   },
+   "source_sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513"
+  }
+ ],
+ "panden": [
+  {
+   "addresses_in_scope": 4,
+   "bag_pand_id": "0363100012109244",
+   "bouwjaar_bag": 1923,
+   "threedbag_ref": {
+    "http_status": 200,
+    "raw_response_sha256": "5ef5e7302fd7fd3c99b9318d67c3c6c669f0c7c0e93c72e5a1777977f32baa93"
+   },
+   "vbo_active": 4,
+   "vbo_fully_covered_by_scope": true
+  },
+  {
+   "addresses_in_scope": 3,
+   "bag_pand_id": "0363100012124445",
+   "bouwjaar_bag": 1923,
+   "threedbag_ref": {
+    "http_status": 200,
+    "raw_response_sha256": "4aa3d6962b37c63d73b4563428b9efa3f3b206b2c51e87520e8dc9236bf6e920"
+   },
+   "vbo_active": 3,
+   "vbo_fully_covered_by_scope": true
+  },
+  {
+   "addresses_in_scope": 4,
+   "bag_pand_id": "0363100012124984",
+   "bouwjaar_bag": 1923,
+   "threedbag_ref": {
+    "http_status": 200,
+    "raw_response_sha256": "0fa1f89bf76cf3e76e93ad80c63d28c6777c7a1b6bf762c2f1ae4024a0b2e46f"
+   },
+   "vbo_active": 4,
+   "vbo_fully_covered_by_scope": true
+  }
+ ],
+ "provenance": {
+  "candidate_package": {
+   "path": "data/external/building_validation/real_validation_v3/candidates/DOC-013.json",
+   "sha256": "e77130bdf28212a6d6dd45b4109920ad13de4d2091f93434a2f651687c2907e2"
+  },
+  "manifest": {
+   "path": "data/external/building_validation/real_validation_v3/manifest.json",
+   "sha256": "972e4e19888ece40f2b3dd68f9f20d5208603a89e435a97cbd6ef3110877bc50"
+  },
+  "validation_dir": "data/external/building_validation/real_validation_v3"
+ },
+ "questions_for_reviewer": [
+  "Accepteer je het bouwjaarverschil 1921 (MJOP) vs 1923 (BAG, alle 3 panden) als niet-conflicterend voor dit project?",
+  "Vormen de 3 BAG-panden (Vechtstraat 13, 15+17, 19) samen de VvE van DOC-013?"
+ ],
+ "record_type": "BUILDING_PROJECT_CONFIRMATION_REQUEST",
+ "report_version": "vechtstraat_confirmation_v1",
+ "scope_hypothesis_id": "REQUESTED_NUMBERS",
+ "status": "PENDING_HUMAN_CONFIRMATION",
+ "strength": "STRONG_BUILDING_PROJECT_CANDIDATE"
+}

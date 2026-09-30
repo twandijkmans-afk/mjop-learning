@@ -1,0 +1,136 @@
+{
+ "active_non_residential_vbos_in_scope": [
+  {
+   "bag_pand_id": "0363100012094004",
+   "gebruiksdoel": "overige gebruiksfunctie",
+   "huisletter": null,
+   "huisnummer": 117,
+   "matched_to_scope_address": true,
+   "oppervlakte": 1,
+   "raw_response_sha256": "f3f158d3acf5e6fc065bab6d8ce58bfe21312b92a82d028da3614942c71905fc",
+   "toevoeging": null,
+   "type_indication": "geen woning; BAG legt niet vast of het een berging, technische ruimte of bedrijfsruimte is",
+   "verblijfsobject_id": "0363010000652473"
+  },
+  {
+   "bag_pand_id": "0363100012100560",
+   "gebruiksdoel": "industriefunctie",
+   "huisletter": null,
+   "huisnummer": 125,
+   "matched_to_scope_address": true,
+   "oppervlakte": 34,
+   "raw_response_sha256": "e2c2a95080bb402fecd90a8915b5201c404d1767a63964c8484c6d2d9432e7e5",
+   "toevoeging": null,
+   "type_indication": "geen woning; BAG legt niet vast of het een berging, technische ruimte of bedrijfsruimte is",
+   "verblijfsobject_id": "0363010000652481"
+  },
+  {
+   "bag_pand_id": "0363100012140366",
+   "gebruiksdoel": "industriefunctie",
+   "huisletter": null,
+   "huisnummer": 133,
+   "matched_to_scope_address": true,
+   "oppervlakte": 34,
+   "raw_response_sha256": "e898ce1fc6c4ca11a417494dabada039502851827f8e41034dad075122def877",
+   "toevoeging": null,
+   "type_indication": "geen woning; BAG legt niet vast of het een berging, technische ruimte of bedrijfsruimte is",
+   "verblijfsobject_id": "0363010000652489"
+  }
+ ],
+ "approval_created": false,
+ "candidate_id": "BPC-DOC-015",
+ "counts": {
+  "bag_addresses": 31,
+  "vbo_active": 31,
+  "vbo_active_gebruiksdoel": {
+   "industriefunctie": 2,
+   "overige gebruiksfunctie": 1,
+   "woonfunctie": 28
+  },
+  "vbo_bag_incl_inactive": 34,
+  "vbo_inactive": 3
+ },
+ "document_ids": [
+  "DOC-015"
+ ],
+ "explanation": "31 adressen != 34 VBO's: pand.aantal_verblijfsobjecten telt ook 3 INGETROKKEN VBO's mee (Groetstraat 116, 116A en 116B: splitsing en weer samenvoeging; het huidige 116 is een nieuw VBO). Actieve VBO's = 31 = adressen.",
+ "parity_distinction": {
+  "even_pand_ids": [
+   "0363100012094004",
+   "0363100012100560",
+   "0363100012139052",
+   "0363100012140366"
+  ],
+  "identical_pand_sets": true,
+  "odd_pand_ids": [
+   "0363100012094004",
+   "0363100012100560",
+   "0363100012139052",
+   "0363100012140366"
+  ],
+  "parity_distinguishes_at_pand_level": false,
+  "per_street": {},
+  "shared_pand_ids": [
+   "0363100012094004",
+   "0363100012100560",
+   "0363100012139052",
+   "0363100012140366"
+  ]
+ },
+ "provenance": {
+  "candidate_package": {
+   "path": "data/external/building_validation/real_validation_v3/candidates/DOC-015.json",
+   "sha256": "7935fa64367b32f2041139623f5ccfcc155596fb8fe5fb4dae45e91a235aef27"
+  },
+  "manifest": {
+   "path": "data/external/building_validation/real_validation_v3/manifest.json",
+   "sha256": "972e4e19888ece40f2b3dd68f9f20d5208603a89e435a97cbd6ef3110877bc50"
+  },
+  "validation_dir": "data/external/building_validation/real_validation_v3"
+ },
+ "report_version": "groetstraat_vbo_review_v1",
+ "scope_hypothesis_id": "ALL_NUMBERS",
+ "still_open": [
+  "MJOP DOC-015 noemt geen aantal eenheden en geen bouwjaar: geen STRONG mogelijk.",
+  "3 actieve niet-woonfunctie(s) met adres in scope: horen die bij de VvE?"
+ ],
+ "strength_v3": "MODERATE_BUILDING_PROJECT_CANDIDATE",
+ "the_three_vbos_without_address": [
+  {
+   "bag_pand_id": "0363100012094004",
+   "gebruiksdoel": "woonfunctie",
+   "huisletter": null,
+   "huisnummer": 116,
+   "oppervlakte": 74,
+   "raw_response_sha256": "7de2d006152c47423130835f1b73968c3d35d7b0010524cc4f646ecc2fb933bd",
+   "status": "Verblijfsobject ingetrokken",
+   "toevoeging": null,
+   "type_indication": "voormalige woning (woonfunctie, ingetrokken)",
+   "verblijfsobject_id": "0363010000652472"
+  },
+  {
+   "bag_pand_id": "0363100012094004",
+   "gebruiksdoel": "woonfunctie",
+   "huisletter": "A",
+   "huisnummer": 116,
+   "oppervlakte": 43,
+   "raw_response_sha256": "27e64d9e2434a7c7321535beb111a7468a24a2c41f1caf07b60f2e6fa46d24c3",
+   "status": "Verblijfsobject ingetrokken",
+   "toevoeging": null,
+   "type_indication": "voormalige woning (woonfunctie, ingetrokken)",
+   "verblijfsobject_id": "0363010012103381"
+  },
+  {
+   "bag_pand_id": "0363100012094004",
+   "gebruiksdoel": "woonfunctie",
+   "huisletter": "B",
+   "huisnummer": 116,
+   "oppervlakte": 39,
+   "raw_response_sha256": "5999556a988404cc5349724a61216d6c250514e8c7d311dd3bfbb251ab00cf7b",
+   "status": "Verblijfsobject ingetrokken",
+   "toevoeging": null,
+   "type_indication": "voormalige woning (woonfunctie, ingetrokken)",
+   "verblijfsobject_id": "0363010012103382"
+  }
+ ]
+}

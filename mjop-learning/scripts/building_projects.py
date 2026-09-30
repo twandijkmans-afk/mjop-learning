@@ -23,7 +23,7 @@ Regels:
   er is bewust geen compatibiliteitslaag.
 - Onveranderlijk bewijs: een evidence package (validation_dir) dat door een building_project-record wordt gerefereerd,
   mag nooit meer worden overschreven of verwijderd ('guard' faalt hard). Nieuwe fetches gaan naar een nieuwe
-  versiemap (bv. real_validation_v3).
+  versiemap (bv. real_validation_v4).
 """
 
 import argparse
@@ -169,15 +169,22 @@ def get_hypothesis(pkg, hypothesis_id):
 def compute_facts(pkg, hyp):
     years = sorted({r["bouwjaar"] for r in hyp["panden"]})
     mjop = pkg["mjop_context"]["combined"]
-    return {
+    facts = {
         "pand_count": len(hyp["bag_pand_ids"]),
         "address_count": len(hyp["addresses_found"]),
         "vbo_total": hyp["counts"]["vbo_total_bag"],
         "number_of_units": hyp["mjop_number_of_units"],
+        # BAG-bouwjaar als het uniform is en gelijk aan het MJOP (zoals v1); bij een verschil blijft dit None en legt
+        # construction_year_class (v1.4.0-packages) het verschil vast.
         "construction_year": years[0] if len(years) == 1 and years[0] == mjop.get("construction_year") else None,
         "missing_addresses": len(hyp["addresses_missing"]),
         "panden_sharing_numbers_outside_scope": sum(1 for r in hyp["panden"] if r["numbers_queried_outside_scope"]),
     }
+    if hyp.get("construction_year_class"):
+        facts["construction_year_class"] = hyp["construction_year_class"]
+        facts["bag_construction_years"] = years
+        facts["mjop_construction_year"] = mjop.get("construction_year")
+    return facts
 
 
 def related_documents_not_linked(document_ids, relations_path=DOC_RELATIONS):
@@ -242,7 +249,10 @@ def approve_building_project(store, *, out_dir, group_id, hypothesis_id, reviewe
     if hyp["strength"] != STRONG:
         raise ProjectError(f"scope {hypothesis_id} is {hyp['strength']}; alleen {STRONG} kan worden goedgekeurd")
     facts = compute_facts(pkg, hyp)
-    diffs = {k: (expect[k], facts[k]) for k in REQUIRED_EXPECT if expect[k] != facts[k]}
+    if hyp.get("caveats") and "construction_year_class" not in expect:
+        raise ProjectError("kandidaat heeft caveats (" + "; ".join(hyp["caveats"]) + "); bevestig ze expliciet met "
+                           "--expect construction_year_class=... (en construction_year=None via --expect construction_year=none)")
+    diffs = {k: (expect[k], facts.get(k)) for k in sorted(set(REQUIRED_EXPECT) | set(expect)) if expect[k] != facts.get(k)}
     if diffs:
         raise ProjectError("bevestigde feiten wijken af van het candidate package: " + json.dumps(diffs))
     out = copy.deepcopy(store)
@@ -547,7 +557,8 @@ def parse_expect(items):
     out = {}
     for it in items or []:
         k, _, v = it.partition("=")
-        out[k] = int(v)
+        v = v.strip()
+        out[k] = None if v.lower() == "none" else int(v) if v.lstrip("-").isdigit() else v
     return out
 
 
@@ -611,7 +622,7 @@ def main(argv=None):
         elif args.cmd == "guard":
             if is_locked(args.out):
                 print(f"FOUT: {args.out} bevat goedgekeurd bewijs (gerefereerd door een building_project-record) en is onveranderlijk; "
-                      "niet overschrijven of verwijderen. Haal nieuwe data op in een NIEUWE versiemap (bv. real_validation_v3).", file=sys.stderr)
+                      "niet overschrijven of verwijderen. Haal nieuwe data op in een NIEUWE versiemap (bv. real_validation_v4).", file=sys.stderr)
                 return 1
             print(f"{args.out}: vrij (niet gerefereerd door een goedgekeurd building_project)")
     except ProjectError as e:

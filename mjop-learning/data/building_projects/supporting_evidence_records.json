@@ -56,6 +56,60 @@
    "rule_version": "building_project_rules_v1",
    "supersedes": null,
    "status": "ACTIVE"
+  },
+  {
+   "evidence_id": "BPEV-00002",
+   "evidence_key": "BPRJ-00001:data/external/building_validation/real_validation_v3:EVEN_ONLY",
+   "building_project_id": "BPRJ-00001",
+   "candidate_id": "BPC-DOC-005-006",
+   "document_ids": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "evidence_role": "SUPPORTING_EVIDENCE",
+   "result": "REPRODUCES_APPROVED_SCOPE",
+   "scope_hypothesis_id": "EVEN_ONLY",
+   "candidate_strength_in_new_package": "STRONG_BUILDING_PROJECT_CANDIDATE",
+   "compared": {
+    "bag_pand_ids": true,
+    "addresses": true,
+    "house_numbers_per_pand": true,
+    "vbo_total_bag": true,
+    "scope_house_numbers": true
+   },
+   "project_record_sha256": "33ed4428ca8232e024ed683d6d59c19f5859e325adef32ca5eed456a177bca59",
+   "approval_changed": false,
+   "new_approval_created": false,
+   "resolver": {
+    "tool": "fetch_real_building_validation_v1.4.0",
+    "run_id": "RBV1-20260930T112713Z"
+   },
+   "provenance": {
+    "validation_dir": "data/external/building_validation/real_validation_v3",
+    "candidate_package": {
+     "path": "data/external/building_validation/real_validation_v3/candidates/DOC-005-006.json",
+     "sha256": "b9e500bce120a192b2d2fcde83326b115c62981a6f149e4899294435d252bcca",
+     "candidate_id": "BPC-DOC-005-006",
+     "package_version": "real_validation_candidates_v2",
+     "run_id": "RBV1-20260930T112713Z"
+    },
+    "manifest": {
+     "path": "data/external/building_validation/real_validation_v3/manifest.json",
+     "sha256": "972e4e19888ece40f2b3dd68f9f20d5208603a89e435a97cbd6ef3110877bc50",
+     "run_id": "RBV1-20260930T112713Z",
+     "tool": "fetch_real_building_validation_v1.4.0"
+    },
+    "raw_response_count": 957
+   },
+   "recorded_by": {
+    "recorder_id": "claude-code",
+    "recorder_type": "claude_code"
+   },
+   "recorded_at": "2026-09-30T11:37:42Z",
+   "decision_source": "Instructie van twandijkmans in Claude Code-sessie session_012iC8FukJPbbcUqy73e2MMP (2026-09-30): herbeoordeling met engine v1.4.0; bestaande approval alleen reproduceren, geen nieuwe approvals.",
+   "rule_version": "building_project_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
   }
  ]
 }

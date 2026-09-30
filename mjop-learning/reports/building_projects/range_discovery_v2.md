@@ -5,7 +5,7 @@ Read-only rapport over `data/external/building_validation/real_validation_v2` (f
 | Groep | Documenten | Klasse | Meest ondersteund | Goedgekeurd / bewijs / unresolved |
 |---|---|---|---|---|
 | DOC-001 | DOC-001 | MODERATE_CANDIDATE | MIXED:ALKMAARSTRAAT=ODD\|GROETSTRAAT=ALL | — |
-| DOC-005-006 | DOC-005, DOC-006 | APPROVED_PROJECT | EVEN_ONLY | BPRJ-00001, BPEV-00001 |
+| DOC-005-006 | DOC-005, DOC-006 | APPROVED_PROJECT | EVEN_ONLY | BPRJ-00001, BPEV-00001, BPEV-00002 |
 | DOC-009 | DOC-009 | REVIEW_CASE | — | — |
 | DOC-012 | DOC-012 | REVIEW_CASE | — | UCASE-00001 |
 | DOC-013 | DOC-013 | REVIEW_CASE | — | — |

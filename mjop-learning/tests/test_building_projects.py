@@ -272,13 +272,14 @@ def test_unresolved_records_no_project_and_no_scope(val, tmp_path):
 def test_validation_dir_is_locked_against_regeneration(tmp_path):
     assert bp.is_locked(bp.VALIDATION_DIR) is True
     assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v2") is True  # BPEV-00001
-    assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v3") is False
+    assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v3") is True  # BPEV-00002
+    assert bp.is_locked(bp.ROOT / "data" / "external" / "building_validation" / "real_validation_v4") is False
     assert bp.is_locked(tmp_path) is False
 
 
 def test_provenance_errors_detect_changed_package_and_raw_evidence(tmp_path):
     for sub in ("data/external/building_validation/real_validation_v1", "data/external/building_validation/real_validation_v2",
-                "data/building_projects"):
+                "data/external/building_validation/real_validation_v3", "data/building_projects"):
         shutil.copytree(os.path.join(ROOT, sub), tmp_path / sub)
     kw = dict(root=tmp_path, project_path=tmp_path / "data/building_projects/building_project_records.json",
               unresolved_path=tmp_path / "data/building_projects/unresolved_case_records.json",
@@ -358,7 +359,8 @@ def test_guard_fails_hard_on_approved_dir_and_passes_on_new_version_dir(capsys):
     assert bp.main(["guard", "--out", base + "real_validation_v1"]) == 1
     assert "onveranderlijk" in capsys.readouterr().err
     assert bp.main(["guard", "--out", base + "real_validation_v2"]) == 1  # gerefereerd door BPEV-00001
-    assert bp.main(["guard", "--out", base + "real_validation_v3"]) == 0
+    assert bp.main(["guard", "--out", base + "real_validation_v3"]) == 1  # gerefereerd door BPEV-00002
+    assert bp.main(["guard", "--out", base + "real_validation_v4"]) == 0
 
 
 def test_fetch_script_itself_refuses_to_write_into_approved_dir(capsys):
@@ -417,13 +419,14 @@ def test_committed_supporting_evidence_reproduces_bprj_00001_exactly():
     ss = bp.load_store(bp.SUPPORT_STORE, bp.new_support_store)
     jsonschema.validate(ss, json.load(open(os.path.join(ROOT, "schemas", "building_project_supporting_evidence_record.schema.json"))))
     assert bp.support_store_errors(ss) == []
-    [r] = [x for x in ss["records"] if x["status"] == "ACTIVE"]
-    assert (r["evidence_id"], r["building_project_id"], r["evidence_role"], r["result"]) == \
-        ("BPEV-00001", "BPRJ-00001", "SUPPORTING_EVIDENCE", "REPRODUCES_APPROVED_SCOPE")
-    assert r["approval_changed"] is False and r["new_approval_created"] is False and set(r["compared"].values()) == {True}
-    assert r["provenance"]["validation_dir"] == "data/external/building_validation/real_validation_v2"
+    recs = [x for x in ss["records"] if x["status"] == "ACTIVE"]
+    assert [(r["evidence_id"], r["provenance"]["validation_dir"].rsplit("/", 1)[-1]) for r in recs] == \
+        [("BPEV-00001", "real_validation_v2"), ("BPEV-00002", "real_validation_v3")]
     [proj] = [p for p in project_store()["records"] if p["building_project_id"] == "BPRJ-00001"]
-    assert r["project_record_sha256"] == bp._canonical_sha(proj)  # BPRJ-00001 is sindsdien niet gewijzigd
+    for r in recs:
+        assert (r["building_project_id"], r["evidence_role"], r["result"]) == ("BPRJ-00001", "SUPPORTING_EVIDENCE", "REPRODUCES_APPROVED_SCOPE")
+        assert r["approval_changed"] is False and r["new_approval_created"] is False and set(r["compared"].values()) == {True}
+        assert r["project_record_sha256"] == bp._canonical_sha(proj)  # BPRJ-00001 is sindsdien niet gewijzigd
     assert proj["status"] == "ACTIVE" and proj["provenance"]["validation_dir"].endswith("real_validation_v1")
     assert len(project_store()["records"]) == 1  # geen nieuwe approval
 
@@ -470,9 +473,91 @@ def test_discovery_reports_up_to_date_and_choose_nothing():
     d = rep.build_discovery()
     cls = {g["group_id"]: g["classification"] for g in d["groups"]}
     assert all(c["selected_scope"] is None for c in cls.values())
-    assert cls["DOC-005-006"]["candidate_class"] == "APPROVED_PROJECT" and cls["DOC-005-006"]["supporting_evidence_ids"] == ["BPEV-00001"]
+    assert cls["DOC-005-006"]["candidate_class"] == "APPROVED_PROJECT" and cls["DOC-005-006"]["supporting_evidence_ids"] == ["BPEV-00001", "BPEV-00002"]
     assert cls["DOC-012"]["unresolved_case_ids"] == ["UCASE-00001"]
     roof = rep.build_roof_review()
     assert roof["classification"] == "SCOPE_OR_DEFINITION_MISMATCH_REVIEW" and roof["corrections_applied"] is False
     assert [c["historical_m2"] for c in roof["comparisons"]] == ["425.80", "1485.60"]
     assert [c["threedbag_m2"] for c in roof["comparisons"]] == ["190.65", "1415.57"]
+
+
+# --- v1.4.0: bouwjaar ondersteunend, Vechtstraat-bevestigingsverzoek, gerichte rapporten ---------------------------
+
+V3 = os.path.join(ROOT, "data", "external", "building_validation", "real_validation_v3")
+REPORTS = os.path.join(ROOT, "reports")
+
+
+def rep_json(rel_path):
+    return json.load(open(os.path.join(REPORTS, rel_path), encoding="utf-8"))
+
+
+def test_vechtstraat_is_strong_with_year_caveat_but_not_approved():
+    pkg = json.load(open(os.path.join(V3, "candidates", "DOC-013.json")))
+    h = pkg["building_project_candidate"]["scope_hypotheses"][0]
+    assert h["strength"] == "STRONG_BUILDING_PROJECT_CANDIDATE" and h["identity_unambiguous"] is True
+    assert h["caveats"] == ["CONSTRUCTION_YEAR_NEAR_DIFFERENCE: 1921 vs 1923"]
+    assert (h["counts"]["exact_bag_matches"], h["counts"]["vbo_total_bag"], h["mjop_number_of_units"], len(h["bag_pand_ids"])) == (11, 11, 11, 3)
+    c = rep_json("building_projects/vechtstraat_confirmation_v1.json")
+    assert c["status"] == "PENDING_HUMAN_CONFIRMATION" and c["approval_created"] is False and c["building_project_linked"] is False
+    assert c["provenance"]["candidate_package"]["sha256"] == bp.sha_file(os.path.join(V3, "candidates", "DOC-013.json"))
+    assert bp.project_for_document(project_store(), "DOC-013") == []
+    assert [r["building_project_id"] for r in project_store()["records"]] == ["BPRJ-00001"]  # geen nieuwe approvals
+
+
+def test_vechtstraat_approval_requires_explicit_caveat_acknowledgement():
+    c = rep_json("building_projects/vechtstraat_confirmation_v1.json")
+    import shlex
+    toks = shlex.split(c["approve_command"])
+    exp = bp.parse_expect([toks[i + 1] for i, t in enumerate(toks) if t == "--expect"])
+    assert exp["construction_year"] is None and exp["construction_year_class"] == "CONSTRUCTION_YEAR_NEAR_DIFFERENCE"
+    kw = dict(out_dir=V3, group_id="DOC-013", hypothesis_id="REQUESTED_NUMBERS", reviewer_id="tester", reason="t",
+              decided_at="2026-10-01T10:00:00Z", decision_source="test")
+    without = {k: v for k, v in exp.items() if k != "construction_year_class"}
+    with pytest.raises(bp.ProjectError, match="caveats"):
+        bp.approve_building_project(project_store(), expect=without, **kw)
+    with pytest.raises(bp.ProjectError, match="wijken af"):
+        bp.approve_building_project(project_store(), expect=dict(exp, construction_year_class="CONSTRUCTION_YEAR_EXACT"), **kw)
+    out = bp.approve_building_project(project_store(), expect=exp, **kw)  # puur: niets geschreven
+    assert out["records"][-1]["approval"]["confirmed_facts"]["construction_year_class"] == "CONSTRUCTION_YEAR_NEAR_DIFFERENCE"
+    assert len(project_store()["records"]) == 1
+
+
+def test_groetstraat_vbo_mismatch_explained_by_withdrawn_vbos():
+    g = rep_json("building_projects/groetstraat_vbo_review_v1.json")
+    assert g["counts"]["bag_addresses"] == g["counts"]["vbo_active"] == 31 and g["counts"]["vbo_bag_incl_inactive"] == 34
+    assert sorted((v["huisnummer"], v["huisletter"] or "") for v in g["the_three_vbos_without_address"]) == [(116, ""), (116, "A"), (116, "B")]
+    assert {v["status"] for v in g["the_three_vbos_without_address"]} == {"Verblijfsobject ingetrokken"}
+    assert g["approval_created"] is False
+
+
+def test_st_jacobsstraat_mismatch_is_reported_not_resolved():
+    m = rep_json("building_projects/st_jacobsstraat_unit_mismatch_v1.json")
+    assert m["mismatch"] == {"bag_addresses": 36, "mjop_units": 30, "difference": 6}
+    assert m["checked"]["woonfunctie_vbos"] == 30 and m["checked"]["non_residential_vbos"]["count"] == 6
+    assert m["checked"]["toevoegingen"] == 0 and m["checked"]["multiple_addresses_per_vbo"] == []
+    assert m["classification"] == "MISMATCH_EXPLAINED_BY_NON_RESIDENTIAL_UNITS_PENDING_REVIEW" and m["approval_created"] is False
+    assert m["construction_year_class"] == "CONSTRUCTION_YEAR_CONFLICT"
+
+
+def test_alkmaarstraat_stays_moderate_and_no_unit_count_derived():
+    a = rep_json("building_projects/alkmaarstraat_candidate_evidence_v1.json")
+    assert a["most_supported_hypothesis"]["hypothesis_id"] == "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL"
+    assert a["most_supported_hypothesis"]["strength"] == "MODERATE_BUILDING_PROJECT_CANDIDATE"
+    assert a["unit_count_search"]["explicit_unit_count_found"] is False and a["selected_scope"] is None and a["approval_created"] is False
+    assert a["unit_count_search"]["pages_scanned"] == 27
+
+
+def test_maldenhof_roof_validation_classifies_without_correcting():
+    r = rep_json("quantity/maldenhof_roof_validation_v2.json")
+    assert r["corrections_applied"] is False
+    assert r["A_sloped_roof"]["classification"] == "GEOMETRY_SUPPORTS_HISTORICAL_QUANTITY"
+    assert (r["A_sloped_roof"]["mjop"]["quantity_m2"], r["A_sloped_roof"]["threedbag"]["b3_opp_dak_schuin_sum_m2"]) == ("1485.60", "1415.57")
+    assert r["A_sloped_roof"]["threedbag"]["context_panden_without_address_sloped_m2"] == "0.0"
+    assert r["B_flat_roof"]["classification"] == "UNRESOLVED"
+    assert (r["B_flat_roof"]["mjop"]["quantity_m2"], r["B_flat_roof"]["threedbag"]["b3_opp_dak_plat_sum_15_panden_m2"]) == ("425.80", "190.65")
+    assert len(r["per_pand"]) == 15 and all(p["lod22_roof_surfaces"] for p in r["per_pand"])
+    # historische hoeveelheden ongewijzigd in verified
+    for d in ("DOC-005", "DOC-006"):
+        els = {e["element_id"]: e for e in json.load(open(os.path.join(ROOT, "data", "verified", f"{d}.json")))["elements"]}
+        assert els[f"{d}-EL-025"]["quantity"]["value"] == "425.80" and els[f"{d}-EL-027"]["quantity"]["value"] == "1485.60"
+

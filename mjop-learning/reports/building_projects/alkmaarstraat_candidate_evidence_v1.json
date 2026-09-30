@@ -1,0 +1,352 @@
+{
+ "approval_created": false,
+ "candidate_id": "BPC-DOC-001",
+ "document_ids": [
+  "DOC-001"
+ ],
+ "indirect_context_not_used": [
+  {
+   "line": "Er zijn tien ventilatieunits aanwezig. De mechanische ventilatie is in 2006 vernieuwd. Twee",
+   "note": "Aantal installaties (ventilatie-units), geen aantal woningen/eenheden. Valt samen met het aantal BAG-panden in de meest ondersteunde scope (10), maar wordt NIET als eenhedentelling of pand-telling gebruikt.",
+   "page": 16,
+   "states_a_count": false
+  }
+ ],
+ "label": "VvE Alkmaarstraat 1-83 en Groetstraat 189-217",
+ "most_supported_hypothesis": {
+  "addresses": 71,
+  "bag_panden": [
+   "0363100012061385",
+   "0363100012064361",
+   "0363100012065581",
+   "0363100012077338",
+   "0363100012093423",
+   "0363100012094543",
+   "0363100012096429",
+   "0363100012122300",
+   "0363100012145430",
+   "0363100012152230"
+  ],
+  "bouwjaren_bag": [
+   1966
+  ],
+  "checks": {
+   "all_panden_in_use": true,
+   "all_requested_found": true,
+   "construction_year_class": "CONSTRUCTION_YEAR_EXACT",
+   "construction_year_matches_all_panden": true,
+   "document_address_number_in_scope": true,
+   "geographically_compact": true,
+   "no_blocking_address_flags": true,
+   "place_matches_document_city": true,
+   "postcode_matches_document_address": null,
+   "threedbag_coverage_complete": true,
+   "units_equal_addresses_and_vbo": null,
+   "units_known": false,
+   "vbo_fully_covered": true
+  },
+  "construction_year_class": "CONSTRUCTION_YEAR_EXACT",
+  "description": "Alkmaarstraat: odd; Groetstraat: all",
+  "hypothesis_id": "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL",
+  "panden": [
+   {
+    "addresses_in_scope": 8,
+    "bag_pand_id": "0363100012061385",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "3059a66370cbd890a454ca23f821021aad1b98f8844d1c9c3f80e50ae18a9f65"
+    },
+    "vbo_active": 8,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012064361",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "fb40df49d8e9fade7e4bddabb3aa6ed2464bec2b2d17acc96b0f2aff30797de0"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012065581",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "4f0fce2ae1f40f0d82159fb52f2d48b6ab0d4ecde832a99a1c48f521a1893cf3"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012077338",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "d1213a486030de1013ea9475289fc1e540f07d90057d9c2fbb37e4accf8a100e"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012093423",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "946776e716db401f724c56e325681fe7439cdd360f4c43373a12c809bbd701ed"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012094543",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "0a0ad1f7236098905a41dbc1e0e1fcd130d381bf9bd989f322cef9b8ecc3efdc"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012096429",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "31e18db81519ef408d3f37707953382a1cbd25b4a73e5360726dba6fa1502053"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012122300",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "ebb6dc5dd95766517267c0e6148e0c081b00929d7746ff34ec998890e7d60b1d"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012145430",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "f8ef2718bd7b82d84302aaa04dfb1e53a736df421e995bafc26d1f18b6832a36"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   },
+   {
+    "addresses_in_scope": 7,
+    "bag_pand_id": "0363100012152230",
+    "bouwjaar_bag": 1966,
+    "threedbag_ref": {
+     "http_status": 200,
+     "raw_response_sha256": "bbace8737a80b9bded74a3ebc635711d30f954d4ac0e3960c7b55feafeeb11db"
+    },
+    "vbo_active": 7,
+    "vbo_fully_covered_by_scope": true
+   }
+  ],
+  "strength": "MODERATE_BUILDING_PROJECT_CANDIDATE",
+  "vbo_active": 71,
+  "vbo_gebruiksdoel": {
+   "industriefunctie": 2,
+   "woonfunctie": 69
+  }
+ },
+ "other_hypotheses": {
+  "ALL_NUMBERS": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "EVEN_ONLY": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "MIXED:ALKMAARSTRAAT=ALL|GROETSTRAAT=EVEN": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "MIXED:ALKMAARSTRAAT=ALL|GROETSTRAAT=ODD": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "MIXED:ALKMAARSTRAAT=EVEN|GROETSTRAAT=ALL": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "MIXED:ALKMAARSTRAAT=EVEN|GROETSTRAAT=ODD": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=ALL": "MODERATE_BUILDING_PROJECT_CANDIDATE",
+  "MIXED:ALKMAARSTRAAT=ODD|GROETSTRAAT=EVEN": "WEAK_BUILDING_PROJECT_CANDIDATE",
+  "ODD_ONLY": "WEAK_BUILDING_PROJECT_CANDIDATE"
+ },
+ "parity_distinction": {
+  "even_pand_ids": [
+   "0363100012064361",
+   "0363100012093423",
+   "0363100012094543",
+   "0363100012097095",
+   "0363100012152230",
+   "0363100012247851",
+   "0363100012571474"
+  ],
+  "identical_pand_sets": false,
+  "odd_pand_ids": [
+   "0363100012061385",
+   "0363100012064361",
+   "0363100012065581",
+   "0363100012077338",
+   "0363100012093423",
+   "0363100012094543",
+   "0363100012096429",
+   "0363100012122300",
+   "0363100012145430",
+   "0363100012152230"
+  ],
+  "parity_distinguishes_at_pand_level": false,
+  "per_street": {
+   "Alkmaarstraat": {
+    "even_pand_ids": [
+     "0363100012097095",
+     "0363100012247851",
+     "0363100012571474"
+    ],
+    "odd_pand_ids": [
+     "0363100012061385",
+     "0363100012065581",
+     "0363100012077338",
+     "0363100012096429",
+     "0363100012122300",
+     "0363100012145430"
+    ],
+    "parity_distinguishes_at_pand_level": true,
+    "shared_pand_ids": []
+   },
+   "Groetstraat": {
+    "even_pand_ids": [
+     "0363100012064361",
+     "0363100012093423",
+     "0363100012094543",
+     "0363100012152230"
+    ],
+    "odd_pand_ids": [
+     "0363100012061385",
+     "0363100012064361",
+     "0363100012093423",
+     "0363100012094543",
+     "0363100012152230"
+    ],
+    "parity_distinguishes_at_pand_level": false,
+    "shared_pand_ids": [
+     "0363100012064361",
+     "0363100012093423",
+     "0363100012094543",
+     "0363100012152230"
+    ]
+   }
+  },
+  "shared_pand_ids": [
+   "0363100012064361",
+   "0363100012093423",
+   "0363100012094543",
+   "0363100012152230"
+  ]
+ },
+ "provenance": {
+  "candidate_package": {
+   "path": "data/external/building_validation/real_validation_v3/candidates/DOC-001.json",
+   "sha256": "af3b7c6b0cd8241541577406e7a234ec6914776232d4ae358ec1c0ed91cb9b4b"
+  },
+  "manifest": {
+   "path": "data/external/building_validation/real_validation_v3/manifest.json",
+   "sha256": "972e4e19888ece40f2b3dd68f9f20d5208603a89e435a97cbd6ef3110877bc50"
+  },
+  "validation_dir": "data/external/building_validation/real_validation_v3"
+ },
+ "record_type": "BUILDING_PROJECT_CANDIDATE_EVIDENCE",
+ "report_version": "alkmaarstraat_candidate_evidence_v1",
+ "selected_scope": null,
+ "unit_count_search": {
+  "conclusion": "Geen expliciet aantal eenheden in de bron; niets afgeleid.",
+  "distinct_lines_with_terms": [
+   {
+    "line": "Hoeveelheid/eenheid: Het aantal met de betreffende meeteenheid dat onderhouden moet worden.",
+    "page": 5,
+    "states_a_count": false
+   },
+   {
+    "line": "Code Element Locatie HvhEhd Conditie",
+    "page": 6,
+    "states_a_count": false
+   },
+   {
+    "line": "Prijs per eenheid: De gehanteerde prijs per eenheid.",
+    "page": 9,
+    "states_a_count": false
+   },
+   {
+    "line": "Totaal: Deze prijs wordt uitgerekend door de hoeveelheid te vermenigvuldigen met de prijs per eenheid.",
+    "page": 9,
+    "states_a_count": false
+   },
+   {
+    "line": "Ernst Intensiteit Omvang Conditie Risico/prioriteit",
+    "page": 10,
+    "states_a_count": false
+   },
+   {
+    "line": "Er zijn tien ventilatieunits aanwezig. De mechanische ventilatie is in 2006 vernieuwd. Twee",
+    "page": 16,
+    "states_a_count": false
+   },
+   {
+    "line": "units zijn reeds vervangen in 2017 en in 2020.",
+    "page": 16,
+    "states_a_count": false
+   },
+   {
+    "line": "De intercominstallatie bestaat uit een bellentableau op de begane grond en in de woningen",
+    "page": 16,
+    "states_a_count": false
+   },
+   {
+    "line": "Woningen Tag",
+    "page": 17,
+    "states_a_count": false
+   },
+   {
+    "line": "In de woningen is een spreekluister installatie aanwezig. Er zijn geen klachten bekend over",
+    "page": 17,
+    "states_a_count": false
+   },
+   {
+    "line": "Code Element/Locatie Handeling - Gebrek HvhEhd 2022",
+    "page": 21,
+    "states_a_count": false
+   },
+   {
+    "line": "Code/Element/Handeling Locatie Element/Gebrek HvhEhd Stj Cy 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031 2032 2033 2034 2035 2036 Totaal",
+    "page": 24,
+    "states_a_count": false
+   }
+  ],
+  "explicit_unit_count_found": false,
+  "hits": [],
+  "pages_scanned": 27,
+  "source": {
+   "path": "data/raw/alkmaarstraat-1-83/9543_vvem_mop_14-01-2022_Pro VVEBeheer B.V._626720.pdf",
+   "sha256": "a1a84e3333b20d2c0d75bd87c9af6a5c03b0a6d4c01a8e498a9f9486b13d1925"
+  },
+  "terms": [
+   "appartement",
+   "woning",
+   "eenhe",
+   "units",
+   "vhe",
+   "adressen",
+   "breukde",
+   "leden",
+   "appartementsrecht",
+   "omvang"
+  ]
+ },
+ "why_moderate": "MJOP noemt geen aantal eenheden; zonder die identiteitscontrole is STRONG niet mogelijk."
+}

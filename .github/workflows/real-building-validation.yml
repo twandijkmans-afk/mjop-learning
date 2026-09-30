@@ -5,7 +5,7 @@
 #
 # Onveranderlijk bewijs: een map die door een goedgekeurd building_project-record wordt gerefereerd
 # (data/building_projects/) wordt NOOIT overschreven of verwijderd; de guard-stap faalt hard vóór elke rm -rf.
-# Nieuwe data ophalen kan wel: kies een NIEUWE versiemap, bv. real_validation_v3 (v1 en v2 zijn gerefereerd bewijs):
+# Nieuwe data ophalen kan wel: kies een NIEUWE versiemap, bv. real_validation_v4 (v1-v3 zijn gerefereerd bewijs):
 #   - workflow_dispatch met input out_dir, of
 #   - zet die map (onder data/external/building_validation/) in fetch_target.txt en push (branch-trigger hieronder).
 # Zonder doelmap draait de workflow alleen de tests en de integriteitscontrole van het goedgekeurde bewijs.
@@ -54,7 +54,7 @@ jobs:
         with:
           python-version: "3.11"
       - name: Python-afhankelijkheden
-        run: python -m pip install pytest jsonschema pyyaml
+        run: python -m pip install pytest jsonschema pyyaml pdfplumber
       - name: Tests
         run: python -m pytest tests/test_fetch_real_building_validation.py tests/test_building_projects.py tests/test_append_only_store.py -q
       - name: Range discovery-rapporten actueel
