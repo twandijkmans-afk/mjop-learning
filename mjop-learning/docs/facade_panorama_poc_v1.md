@@ -14,7 +14,8 @@ commercieel gebruik, opslag en AI-analyse zijn toegestaan mits bronvermelding.
 
 ## Hoe het werkt
 
-1. BAG-pand → 3D BAG LoD2.2 (ruwe respons uit een real_validation-package).
+1. BAG-pand → 3D BAG LoD2.2 (ruwe respons uit een evidence-package; Maldenhof-snapshot in
+   `reports/quantity/facade_poc_v2_run/inputs/`).
 2. Verticale WallSurfaces; tussenmuren eruit (vlak tegen een wand van een ander kandidaat-pand). Maldenhof: 1537,6 m²
    buitenwand (3D BAG `b3_opp_buitenmuur` 1747,3 m²).
 3. Per wand de panorama's die er recht tegenover staan (API `near=lon,lat`, 5–25 m, hoek ≤ ~45°).
@@ -28,7 +29,7 @@ commercieel gebruik, opslag en AI-analyse zijn toegestaan mits bronvermelding.
    - vegetatie: aandeel excess-green-pixels in het gevelbeeld;
    - bruikbaar als geometrie + vegetatie ≤ 0,25.
 
-## Resultaat Maldenhof (BPRJ-00001, 15 panden)
+## Resultaat Maldenhof (240-296, scope EVEN_ONLY, 15 panden)
 
 | Gevelzijde | Bruikbaar | Obstructie (geometrie) | Vegetatie | Geen panorama |
 |---|---|---|---|---|
@@ -57,7 +58,7 @@ bruikbaar — de drempel is conservatief.
 ## Uitvoeren
 
     python scripts/facade_panorama_poc.py --group DOC-005-006 --scope EVEN_ONLY \
-        --package data/external/building_validation/real_validation_v3 --out /tmp/facade_poc
+        --package reports/quantity/facade_poc_v2_run/inputs/maldenhof_DOC-005-006 --out /tmp/facade_poc
 
 Netwerk: `api.data.amsterdam.nl` en `t1.data.amsterdam.nl` (optioneel `cdn.proj.org` voor het NAP-raster).
 Bronvermelding: Gemeente Amsterdam, Kernregistratie Panoramabeelden (CC BY 4.0); 3D BAG (TU Delft, CC BY 4.0).
@@ -88,7 +89,7 @@ factor ~2 verschil met het MJOP. Oorzaken die nog niet te scheiden zijn:
    ligt achter de eigen aanbouwen of is als LoD2.2-fragment afgekeurd.
 2. **MJOP-conventie**: kozijn-m² = schilderwerk-kozijn-m² (756,8) en ~49% van de buitenwand zou kozijn zijn; mogelijk
    telt het MJOP panelen/borstweringen of andere zones mee. Historische MJOP-hoeveelheden zijn geen ground truth
-   (`docs/remote_mjop_quantity_strategy_v1.md` §2).
+   (zie de MJOP-ontleding in `reports/quantity/facade_element_detection_poc_v2_maldenhof.md` §5).
 3. Gemiste elementen achter begroeiing (het model markeert veel elementen als deels verborgen).
 
 Volgende stap om dit te beslechten: één woning (bv. Maldenhof 264) handmatig of uit een maatvaste tekening opmeten

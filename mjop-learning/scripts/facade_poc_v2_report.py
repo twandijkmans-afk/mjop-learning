@@ -145,8 +145,9 @@ def build(run_dir, out_path):
     cov = json.loads((run_dir / "coverage.json").read_text(encoding="utf-8"))
     agg = json.loads((run_dir / "aggregate_v2.json").read_text(encoding="utf-8"))
     det = json.loads((run_dir / "detections_v2.json").read_text(encoding="utf-8"))
-    package, pkg, hyp, cand, surfaces, maaiveld = fc.load_package(cov["package"])
-    layout = pand_layout_evidence(Path(cov["package"]), hyp)
+    pkg_dir = fc.resolve_package(cov["package"])
+    package, pkg, hyp, cand, surfaces, maaiveld = fc.load_package(pkg_dir)
+    layout = pand_layout_evidence(Path(pkg_dir), hyp)
     walls_by_pand = defaultdict(list)
     for w in agg["walls"]:
         walls_by_pand[w["bag_pand_id"]].append(w)
@@ -385,7 +386,7 @@ def build(run_dir, out_path):
                                    "reviewer": review["reviewer"]}
 
     result = {
-        "poc_version": "facade_element_detection_poc_v2", "building_project": "BPRJ-00001 (Maldenhof 240-296, EVEN_ONLY)",
+        "poc_version": "facade_element_detection_poc_v2", "building_project": "Maldenhof 240-296, scope EVEN_ONLY (15 panden, 29 adressen; BPRJ-00001 op de integratiebranch, niet op main)",
         "label": "ESTIMATED_FROM_PANORAMA — analyse, geen canonical data; openingen = bounding-box-aanzicht",
         "run": {"panoramas_considered": cov["panoramas_considered"], "sample_m": cov["sample_m"],
                 "height_method": cov["height_method"], "params": cov["params"],

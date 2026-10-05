@@ -1,4 +1,4 @@
-"""Facade coverage + element detection PoC v2 — Maldenhof (BPRJ-00001).
+"""Facade coverage + element detection PoC v2 — Maldenhof 240-296 (scope EVEN_ONLY, 15 panden, 29 adressen).
 
 ANALYSE-SCRIPT (proof-of-concept), vervolg op facade_panorama_poc.py (v1) en facade_element_detection_poc.py (v1).
 Schrijft alleen naar --out; geen stores, schema's of canonical data. Zie reports/quantity/
@@ -43,7 +43,16 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import facade_panorama_poc as fp  # noqa: E402
 
-PACKAGE = "data/external/building_validation/real_validation_v3"
+# Slanke Maldenhof-snapshot (uit real_validation_v3 van de integratiebranch; zie inputs/.../SOURCE.json)
+PACKAGE = "reports/quantity/facade_poc_v2_run/inputs/maldenhof_DOC-005-006"
+
+
+def resolve_package(path):
+    """Het pakketpad uit een run (coverage.json) als het bestaat, anders de gecommitte snapshot (zelfde bestanden,
+    sha256 in SOURCE.json). Zo blijft een run uit een andere checkout reproduceerbaar."""
+    if path and Path(path, "candidates", f"{GROUP}.json").exists():
+        return path
+    return PACKAGE if Path(PACKAGE).exists() else str(Path(__file__).resolve().parents[1] / PACKAGE)
 GROUP, SCOPE = "DOC-005-006", "EVEN_ONLY"
 SAMPLE = 0.20           # m, rasterafstand gevelpunten
 MIN_WALL_M2 = 0.5
@@ -418,7 +427,7 @@ def run_detect(out, cache, limit=None, workers=6):
     FacadeElements = _models()
     out = Path(out); cache = Path(cache)
     cov = json.loads((out / "coverage.json").read_text(encoding="utf-8"))
-    package, pkg, hyp, cand, *_ = load_package(cov["package"])
+    package, pkg, hyp, cand, *_ = load_package(resolve_package(cov["package"]))
     det_path = out / "detections_v2.json"
     done = json.loads(det_path.read_text(encoding="utf-8")) if det_path.exists() else {"pairs": {}, "usage": {"input_tokens": 0, "output_tokens": 0}}
     (out / "annotated").mkdir(exist_ok=True)
@@ -575,7 +584,7 @@ def run_aggregate(out):
     out = Path(out)
     cov = json.loads((out / "coverage.json").read_text(encoding="utf-8"))
     det = json.loads((out / "detections_v2.json").read_text(encoding="utf-8"))
-    package, pkg, hyp, cand, surfaces, maaiveld = load_package(cov["package"])
+    package, pkg, hyp, cand, surfaces, maaiveld = load_package(resolve_package(cov["package"]))
     pand_rows = {p["bag_pand_id"]: p for p in hyp["panden"]}
     wall_out, pand_q, pand_cov = [], defaultdict(lambda: defaultdict(empty_q)), defaultdict(lambda: defaultdict(lambda: defaultdict(float)))
     tot_attempted = tot_usable = tot_with_el = tot_unusable = Decimal(0)
@@ -635,10 +644,10 @@ def run_aggregate(out):
             add_el(pand_q[pid][zone], k)
             add_el(pand_q[pid][f"{zone}|{k['band']}"], k)
         # dekking
-        for rr in set(final_reason.tolist()):
+        for rr in sorted(set(final_reason.tolist())):
             m2 = float((final_reason == rr).sum()) * pm2
             pand_cov[pid][zone][rr] += m2
-        for bname in {band_of(h) for h in hag}:
+        for bname in sorted({band_of(h) for h in hag}):
             bm = np.array([band_of(h) == bname for h in hag])
             pand_cov[pid][f"{zone}|{bname}"]["TOTAL"] += float(bm.sum()) * pm2
             pand_cov[pid][f"{zone}|{bname}"]["CONFIRMED_VISIBLE"] += float((bm & (final_reason == "VISIBLE")).sum()) * pm2

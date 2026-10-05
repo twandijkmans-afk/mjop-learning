@@ -4,7 +4,8 @@ ANALYSE-SCRIPT (proof-of-concept). Schrijft niets in data/, stores of canonical 
 Zie docs/facade_panorama_poc_v1.md.
 
 Keten per BAG-pand:
-  3D BAG LoD2.2 (ruwe respons uit een real_validation-package)
+  3D BAG LoD2.2 (ruwe respons uit een evidence-package; voor Maldenhof de snapshot in
+  reports/quantity/facade_poc_v2_run/inputs/)
   -> verticale WallSurfaces, zonder tussenmuren (vlak tegen een wand van een ander kandidaat-pand)
   -> per wand: panorama's van Gemeente Amsterdam (Kernregistratie Panoramabeelden, CC BY 4.0) die er recht tegenover
      staan (API near=lon,lat)
@@ -22,7 +23,7 @@ Beperkingen (bewust, PoC):
   meten blijft deterministisch).
 
     python scripts/facade_panorama_poc.py --group DOC-005-006 --scope EVEN_ONLY \\
-        --package data/external/building_validation/real_validation_v3 --out /tmp/facade_poc
+        --package reports/quantity/facade_poc_v2_run/inputs/maldenhof_DOC-005-006 --out /tmp/facade_poc
 """
 
 import argparse
@@ -288,7 +289,7 @@ def run(package, group, scope, out, max_candidates=4):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--package", default="data/external/building_validation/real_validation_v3")
+    ap.add_argument("--package", default="reports/quantity/facade_poc_v2_run/inputs/maldenhof_DOC-005-006")
     ap.add_argument("--group", default="DOC-005-006")
     ap.add_argument("--scope", default="EVEN_ONLY")
     ap.add_argument("--out", required=True)

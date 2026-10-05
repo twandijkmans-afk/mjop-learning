@@ -1,4 +1,4 @@
-# Facade element detection PoC v2 — Maldenhof 240-296 (BPRJ-00001)
+# Facade element detection PoC v2 — Maldenhof 240-296 (scope EVEN_ONLY, 15 panden, 29 adressen)
 
 Status: **analyse / proof-of-concept**. Geen wijziging aan stores, schema's of canonical data; geen nieuwe approvals.
 Alle hoeveelheden zijn `ESTIMATED_FROM_PANORAMA` (bounding-box-aanzicht), geen inspectie en geen kozijn-/schilder-m².
@@ -6,6 +6,8 @@ Alle hoeveelheden zijn `ESTIMATED_FROM_PANORAMA` (bounding-box-aanzicht), geen i
 - Data: `facade_element_detection_poc_v2_maldenhof.json` (alle cijfers hieronder), ruwe run in `facade_poc_v2_run/`
   (`coverage.json`, `detections_v2.json`, `aggregate_v2.json`), visuele review in
   `facade_detection_review_v2_maldenhof.json` + `facade_poc_v2_review_images/`.
+- Inputs: slanke Maldenhof-snapshot (3D BAG van 40 panden, 29 BAG-VBO's, uitgedunde kandidaatlijst) in
+  `facade_poc_v2_run/inputs/maldenhof_DOC-005-006/` met sha256 per bestand in `SOURCE.json`; geen canonical data.
 - Scripts: `scripts/facade_coverage_poc_v2.py` (dekking, detectie, aggregatie) en `scripts/facade_poc_v2_report.py`
   (rapportdata).
 - Model: Claude Opus 5.5 (structured output). Tokens voor alle v2-runs samen, inclusief twee afgebroken runs
