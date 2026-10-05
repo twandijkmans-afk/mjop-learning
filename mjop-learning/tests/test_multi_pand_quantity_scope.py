@@ -328,17 +328,19 @@ def test_committed_maldenhof_snapshots_are_canonical_and_complete():
         assert len(s["panden"]) == 40 and all((p["threedbag"] or {}).get("attributes") for p in s["panden"])
 
 
-def test_no_canonical_approvals_created_and_demo_writes_no_data():
+def test_report_scripts_write_no_data():
     stores = [bl.LINK_STORE, xw.DECISIONS, os.path.join(ROOT, "data", "quantity_resolutions", "quantity_resolution_records.json")]
     before = [open(p, "rb").read() for p in stores]
     for script, args in (("multi_pand_scope_demo.py", ["--check"]), ("building_links.py", ["candidates", "--check"]),
-                         ("build_building_quantity_evidence.py", ["--check"]), ("quantity_engine_activation_review.py", ["--check"])):
+                         ("build_building_quantity_evidence.py", ["--check"]), ("quantity_engine_activation_review.py", ["--check"]),
+                         ("maldenhof_quantity_activation.py", ["--check"])):
         r = subprocess.run([sys.executable, os.path.join(ROOT, "scripts", script)] + args, cwd=ROOT, capture_output=True, text=True)
         assert r.returncode == 0, script + ": " + r.stdout + r.stderr
     assert [open(p, "rb").read() for p in stores] == before
-    assert json.load(open(bl.LINK_STORE))["records"] == [] and json.load(open(xw.DECISIONS))["records"] == []
-    ev = json.load(open(bqe.OUT_EVIDENCE))
-    assert ev["evidence"] == [] and ev["scope_aggregates_not_published"] == []
+    # menselijke besluiten bestaan sinds Maldenhof Quantity Activation v1 (zie test_maldenhof_quantity_activation.py);
+    # een quantity resolution is nog steeds niet vastgelegd
+    assert json.load(open(stores[2]))["records"] == []
+    assert json.load(open(bqe.OUT_EVIDENCE))["scope_aggregates_not_published"] == []
 
 
 def test_maldenhof_demo_values():
@@ -349,4 +351,4 @@ def test_maldenhof_demo_values():
     assert len(r["derived_complex_total"]["child_evidence_ids"]) == 15
     assert r["historical"]["values"] == ["425.80"]
     assert r["difference"]["historical_minus_3dbag_m2"] == "235.15"
-    assert all(v != "VERIFIED" for v in r["mapping_status"].values())
+    assert r["mapping_status"]["HSM-ROOF_FLAT_AREA-4711-m2"] != "VERIFIED"

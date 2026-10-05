@@ -2,15 +2,15 @@
  "report_version": "quantity_engine_activation_review_v1",
  "note": "Read-only SOURCE COMPARISON / ACTIVATION REVIEW. Geen accuracy-benchmark, geen besluiten, geen evidence, geen API-/netwerk-calls. Maldenhof is testcase, niet meetlat.",
  "state_of_human_decisions": {
-  "building_links_records": 0,
-  "crosswalk_decisions_records": 0,
+  "building_links_records": 80,
+  "crosswalk_decisions_records": 2,
   "quantity_resolutions_records": 0,
-  "building_quantity_evidence": 0
+  "building_quantity_evidence": 81
  },
  "input_hashes": {
   "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
-  "building_link_candidates_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4",
-  "subjects_vocab_sha256": "060ac5f61b96449dadfc746ce0a65450c147a688f2e33f337896ba04ef5983be",
+  "building_link_candidates_sha256": "2f0a03d046f971ab3137cba6eef7f52b4eced4d6f5227be4e49e0645269b6045",
+  "subjects_vocab_sha256": "c4a14cce529b8792a1d56b078e7c5db613b95f51891dcc21d79a099ff8f722f0",
   "app_crosswalk_sha256": "d2b1152a4da317e9f4887b9f9ec87ff306b2f1fa6269122a89220c560deb9bfd",
   "poc_source_manifest_sha256": "abc806809c87a76c4a3acc09863bc9fecebf43f88a2874c4eea47109708df686",
   "bag_bbox_sha256": "00777f8745c6cca90c587d114f5f80edd993b1c5daf4311e0933ab42bf930b8f"
@@ -1134,7 +1134,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1192,7 +1192,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1245,7 +1245,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1303,7 +1303,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1356,7 +1356,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1414,7 +1414,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1467,7 +1467,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1525,7 +1525,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1578,7 +1578,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1636,7 +1636,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1689,7 +1689,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1747,7 +1747,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1800,7 +1800,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1858,7 +1858,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -1911,7 +1911,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -1969,7 +1969,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2022,7 +2022,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2080,7 +2080,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2133,7 +2133,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2191,7 +2191,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2241,7 +2241,7 @@
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2296,7 +2296,7 @@
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2349,7 +2349,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2407,7 +2407,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2460,7 +2460,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2518,7 +2518,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2571,7 +2571,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2629,7 +2629,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-005",
@@ -2682,7 +2682,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    },
    {
     "document_id": "DOC-006",
@@ -2740,7 +2740,7 @@
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
-    "link_status": "UNREVIEWED"
+    "link_status": "CONFIRMED"
    }
   ],
   "odd_side_context": [
@@ -2749,178 +2749,178 @@
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012063561",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012064674",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012065912",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012077783",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012077984",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012078472",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012081986",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012083986",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012084256",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012087184",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012100140",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012102257",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012105151",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012108812",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012123643",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012125929",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012129433",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012135143",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012137009",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012138208",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012148993",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012151715",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012152265",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    },
    {
     "bag_pand_id": "0363100012154610",
     "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
     "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
     "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
-    "link_status": "UNREVIEWED"
+    "link_status": "REJECTED"
    }
   ],
-  "note": "Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."
+  "note": "Links CONFIRMED/REJECTED volgens de store: 30/50. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."
  },
  "C_historical_quantities": {
   "rows": [
@@ -5840,7 +5840,7 @@
     "src/app.js lookupBuilding: dak-plat gebruikt 3D BAG b3_opp_dak_plat van één pand (adres-lookup)"
    ],
    "risk": "laag op element-niveau (zelfde bouwdeel); m1-rijen (dakrand) vallen buiten door de eenheid",
-   "current_status": "PROPOSED",
+   "current_status": "VERIFIED",
    "advice": "SAFE_TO_VERIFY",
    "advice_reason": "Koppelt alleen het bouwdeel; de hoeveelheden blijven naast elkaar staan en een mens kiest via quantity_resolution."
   },
@@ -5968,7 +5968,7 @@
     "unblock": "geen correctie; beide naast elkaar tonen, een mens beslist in quantity_resolution"
    }
   ],
-  "smallest_safe_demo_status": "BLOCKED_BY_HUMAN_DECISIONS (building links, HSM-/XW-mapping)",
+  "smallest_safe_demo_status": "ACTIVATED (Maldenhof Quantity Activation v1: building links en XW-dak-plat-4711-m2 menselijk besloten; HSM-ROOF_FLAT_AREA-4711-m2 PROPOSED; historische dakbedekking als ROOF_COVERING_REPORTED_AREA, RELATED_NOT_EQUIVALENT; zie reports/quantity/maldenhof_quantity_activation_v1.md)",
   "human_decisions_in_order": [
    "1. Building links: per pand per document accepteren/afwijzen (checklist B) — pas vast te leggen na B1/B2.",
    "2. HSM-ROOF_FLAT_AREA-4711-m2: VERIFY of REJECT (advies NEEDS_REVIEW → als 'naast elkaar tonen' verantwoord).",

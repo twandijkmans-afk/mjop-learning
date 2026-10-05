@@ -212,6 +212,7 @@ def link_review(inputs, candidates):
     range_plan = any(p.get("kind") == "range" for d in docs.values() for p in d["lookup_plan"])
     reachable = sorted({p["bag_pand_id"] for p in inputs["panden"]
                         for v in p["vbo"] if str(v["huisnummer"]) in plan_numbers})
+    decided = {(r["document_id"], r["bag_pand_id"]): r["link_status"] for r in bl.load_store()["records"] if r["status"] == "ACTIVE"}
     rows = []
     for p in inputs["panden"]:
         for doc in DOCS:
@@ -233,15 +234,18 @@ def link_review(inputs, candidates):
                                         "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"},
                          "source_cluster": d["source_cluster"], "document_relations": d["document_relations"],
                          "within_scope_assessment": "LIKELY_IN_SCOPE", "why": reasons, "ambiguity": ambiguity,
-                         "link_status": "UNREVIEWED"})
+                         "link_status": decided.get((doc, p["bag_pand_id"]), "UNREVIEWED")})
     odd_rows = [{"bag_pand_id": pid, "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
                  "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
-                 "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT", "link_status": "UNREVIEWED"}
+                 "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+                 "link_status": "/".join(sorted({decided.get((d, pid), "UNREVIEWED") for d in DOCS}))}
                 for pid in inputs["other_candidate_panden_odd_side"]]
     return {"lookup_plan_numbers": plan_numbers, "lookup_plan_is_range": range_plan,
             "panden_reachable_via_canonical_lookup": reachable,
             "rows": rows, "odd_side_context": odd_rows,
-            "note": "Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, "
+            "note": (f"Links CONFIRMED/REJECTED volgens de store: {sum(1 for v in decided.values() if v == 'CONFIRMED')}/"
+                     f"{sum(1 for v in decided.values() if v == 'REJECTED')}. " if decided else "Geen link is CONFIRMED of REJECTED. ")
+                    + "Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, "
                     "en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."}
 
 
@@ -252,6 +256,8 @@ def link_review(inputs, candidates):
 def historical_review(qos, vocab, app_cw):
     by_code_unit = {}
     for m in vocab["historical_subject_mappings"]:
+        if m.get("match"):  # document-specifieke mapping (bijv. ROOF_COVERING_REPORTED_AREA): geen generieke 3D BAG-vergelijking
+            continue
         by_code_unit[(m["element_code_internal"], m["unit_normalized"])] = ("MAPPING_PROPOSED", m["mapping_id"], m["subject_key"])
     not_mapped = {n["element_code_internal"]: n for n in vocab["not_mapped"] if n["element_code_internal"]}
     unresolved = {(u.get("internal_element_code"), u.get("unit")): u for u in app_cw["unresolved"] if u.get("internal_element_code")}
@@ -476,6 +482,12 @@ def build():
     preview = bag3d_preview(inputs, vocab)
     xwr = crosswalk_review(vocab, app_cw, eff, hist, preview)
     demo = demo_readiness(inputs, links, hist, preview)
+    confirmed_docs = {r["document_id"] for r in link_store["records"] if r["status"] == "ACTIVE" and r["link_status"] == "CONFIRMED"}
+    if set(DOCS) <= confirmed_docs and eff.get("XW-dak-plat-4711-m2", {}).get("status") == "VERIFIED":
+        demo["smallest_safe_demo_status"] = (
+            "ACTIVATED (Maldenhof Quantity Activation v1: building links en XW-dak-plat-4711-m2 menselijk besloten; "
+            f"HSM-ROOF_FLAT_AREA-4711-m2 {eff['HSM-ROOF_FLAT_AREA-4711-m2']['status']}; historische dakbedekking als "
+            "ROOF_COVERING_REPORTED_AREA, RELATED_NOT_EQUIVALENT; zie reports/quantity/maldenhof_quantity_activation_v1.md)")
     for p in inputs["panden"]:
         p.pop("_attributes", None)
     return {
@@ -528,19 +540,23 @@ def render(r):
           "## B — Building link review", "",
           f"Canoniek opvraagplan: {('bereik ' + B['lookup_plan_numbers'][0] + '–' + B['lookup_plan_numbers'][-1]) if B['lookup_plan_is_range'] else 'huisnummers ' + ', '.join(B['lookup_plan_numbers'])} → bereikbaar: {', '.join(B['panden_reachable_via_canonical_lookup'])} "
           f"({len(B['panden_reachable_via_canonical_lookup'])} van {A['bag_panden_in_scope']}). {B['note']}", "",
-          "### BUILDING LINK REVIEW (beslislijst — nog niets vastgelegd)", "",
+          "### BUILDING LINK REVIEW (beslislijst; status = ACTIVE record in de building-link-store, anders open)", "",
           "| BAG-pand | Adressen | DOC-005 | DOC-006 | Waarom in scope | Ambiguïteit |", "|---|---|---|---|---|---|"]
     by_pand = defaultdict(list)
     for row in B["rows"]:
         by_pand[row["bag_pand_id"]].append(row)
+    def cell(status):
+        return "[ ] accepteren [ ] afwijzen" if status == "UNREVIEWED" else status
+
     for pid, rows in sorted(by_pand.items()):
         rw = rows[0]
         amb = "; ".join(a.split(":")[0] for a in rw["ambiguity"])
-        L.append(f"| {pid} | {', '.join(rw['vbo_addresses'])} | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | "
+        st = {r["document_id"]: r["link_status"] for r in rows}
+        L.append(f"| {pid} | {', '.join(rw['vbo_addresses'])} | {cell(st.get('DOC-005', 'UNREVIEWED'))} | {cell(st.get('DOC-006', 'UNREVIEWED'))} | "
                  f"{rw['why'][2]} | {amb} |")
     L += ["", "Oneven zijde (kandidaten uit de ALL_NUMBERS-hypothese; adressen niet in de main-snapshot; inschatting: buiten scope):", "",
           "| BAG-pand | DOC-005 | DOC-006 |", "|---|---|---|"]
-    L += [f"| {o['bag_pand_id']} | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |" for o in B["odd_side_context"]]
+    L += [f"| {o['bag_pand_id']} | {cell(o['link_status'])} | {cell(o['link_status'])} |" for o in B["odd_side_context"]]
     L += ["", "## C — Historische hoeveelheden DOC-005 / DOC-006", "",
           f"- Observations: DOC-005 {C['counts']['DOC-005']}, DOC-006 {C['counts']['DOC-006']}; status {C['by_status']}.",
           f"- Vergelijkbaarheid met 3D BAG: {C['by_comparability']}.",

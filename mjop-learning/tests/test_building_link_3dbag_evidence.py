@@ -197,9 +197,16 @@ def test_multi_pand_links():
     assert bqe.building_id_for(bl.active_links(s)["DOC-001"]) == "BAG:0363100000000011+0363100000000012"
 
 
-def test_committed_stores_are_empty():
-    assert json.load(open(bl.LINK_STORE))["records"] == []
-    assert json.load(open(xw.DECISIONS))["records"] == []
+def test_committed_stores_contain_only_human_decisions():
+    # sinds Maldenhof Quantity Activation v1 bevatten de stores de expliciete menselijke besluiten van de gebruiker
+    links = json.load(open(bl.LINK_STORE))
+    assert bl.store_errors(links) == []
+    assert links["records"] and all(r["reviewer"]["reviewer_type"] == "human" and r["reviewer"]["reviewer_id"] for r in links["records"])
+    assert {r["document_id"] for r in links["records"]} == {"DOC-005", "DOC-006"}
+    dec = json.load(open(xw.DECISIONS))
+    assert xw.store_errors(dec) == []
+    assert all(r["reviewer"]["reviewer_type"] == "human" for r in dec["records"])
+    assert {r["mapping_id"] for r in dec["records"]} == {"XW-dak-plat-4711-m2", "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006"}
     # snapshots zijn ruwe bronvastleggingen (geen besluiten); sinds multi-pand-quantity-scope-v1 bestaan de
     # canonieke Maldenhof-snapshots voor DOC-005/DOC-006
     assert all(n == "README.md" or n.startswith("BAGSNAP-") for n in os.listdir(bs.SNAPSHOT_DIR))
@@ -237,7 +244,10 @@ def test_crosswalk_nothing_verified_without_human_decision():
     eff = xw.effective(store=xw.new_store())
     assert all(not e["human_verified"] for e in eff.values())
     assert all(e["status"] != "VERIFIED" for e in eff.values())
-    assert xw.effective() == eff                                  # gecommitte opslag is leeg
+    # gecommitte opslag: alleen de expliciete menselijke besluiten van Maldenhof Quantity Activation v1
+    committed = xw.effective()
+    assert sorted(k for k, v in committed.items() if v != eff[k]) == ["HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
+                                                                       "XW-dak-plat-4711-m2"]
 
 
 def test_crosswalk_verify_reject_and_changed_proposal():

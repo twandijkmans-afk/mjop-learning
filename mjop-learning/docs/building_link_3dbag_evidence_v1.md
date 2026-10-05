@@ -257,3 +257,31 @@ ontwikkelomgeving niet opnieuw opgehaald. Vastgelegd in `vocabularies/quantity_s
 
 Dit is **geen** bewijs dat een historische regel zoals "Dakbedekking APP / Platte dak 425,80 m²" dezelfde scope heeft.
 
+
+## 9. Maldenhof Quantity Activation v1 — verwante, niet gelijke onderwerpen
+
+Menselijke besluiten (append-only, reviewer `user-approved`, `reviewer_type` human):
+
+- **Building links** DOC-005 en DOC-006: 15 panden CONFIRMED (alleen adressen 1106 EZ, de 29 even nummers 240–296),
+  25 panden REJECTED (1106 EH/EJ). Gebouwscope `BAG:<15 gesorteerde pand-ID's>`, gelijk voor beide documenten.
+- **XW-dak-plat-4711-m2**: VERIFY als element/code-crosswalk. Dit verklaart níet dat een historische 4711-m2-hoeveelheid
+  gelijk is aan 3D BAG `b3_opp_dak_plat`.
+- **HSM-ROOF_FLAT_AREA-4711-m2**: bewust NIET geverifieerd.
+- **HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006**: document-specifieke mapping (exacte match op document,
+  code 4711, m2, omschrijving 'Dakbedekking APP', locatie 'Platte dak'), geactiveerd op instructie van de gebruiker.
+
+Nieuw onderwerp `ROOF_COVERING_REPORTED_AREA` ("Door bron/MJOP gerapporteerde oppervlakte dakbedekking", m2,
+ELEMENT_QUANTITY, SOURCE_REPORTED): geen 3D BAG-regel, geen scope-aggregatie, nooit over panden verdeeld.
+
+Relatie `SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA` (`subject_relations`): **RELATED_NOT_EQUIVALENT**.
+Naast elkaar tonen: ja. Verschil tonen: ja, als bronverschil/andere definitie (`comparison_kind`
+RELATED_SUBJECT_NOT_EQUIVALENT, niet in de verschilstatistiek). Middelen, één resolutie over beide, automatische
+winnaar: nee. De subject_id's verschillen, dus `quantity_evidence.validate_resolution` weigert een resolutie die
+evidence van beide onderwerpen afweegt.
+
+App-bundel v3 (`export_app_quantity_bundle.py` met de onderwerpenvocabulaire): de evidence van het onderwerp van de
+app-mapping is PRIMARY (kiesbaar); historische evidence van een RELATED_NOT_EQUIVALENT-onderwerp met de interne code
+van de mapping komt mee als `role` RELATED_CONTEXT, `selectable` false. Zonder context-regels blijft de uitvoer v1/v2.
+
+Rapport: `scripts/maldenhof_quantity_activation.py` → `reports/quantity/maldenhof_quantity_activation_v1.{json,md}`.
+Quantity resolution: niet vastgelegd (UNRESOLVED; 3D BAG-evidence PROPOSED).

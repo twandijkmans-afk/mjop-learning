@@ -10,6 +10,10 @@ de canonieke snapshots (data/bag_snapshots, bag_snapshot_v1). De scope is een PR
 alle adressen de documentpostcode hebben) en is NIET door een mens bevestigd; de evidence-ID's in dit rapport zijn
 berekend maar niet opgeslagen.
 
+Sinds Maldenhof Quantity Activation v1 is de scope door een mens bevestigd en bestaat de echte evidence; zie
+scripts/maldenhof_quantity_activation.py (reports/quantity/maldenhof_quantity_activation_v1.*). Deze demo blijft de
+read-only preview; de sectie 'store_status' toont de actuele stand van de menselijke besluiten.
+
     python scripts/multi_pand_scope_demo.py [--check]
 """
 
@@ -130,11 +134,13 @@ def build():
         "difference": diff,
         "external_definition": next(d for d in vocab["bag3d_field_definitions_external"] if d["field"] == "b3_opp_dak_plat"),
         "mapping_status": {m: eff[m]["status"] for m in MAPPINGS},
-        "why_no_quantity_resolution": [
-            f"building links: {len(links['records'])} vastgelegd (geen enkel pand is door een mens bevestigd)",
-            f"HSM-ROOF_FLAT_AREA-4711-m2: {eff['HSM-ROOF_FLAT_AREA-4711-m2']['status']} (niet geverifieerd) — zonder geverifieerde "
-            "mapping ontstaat geen historische evidence",
-            f"XW-dak-plat-4711-m2: {eff['XW-dak-plat-4711-m2']['status']} — zonder geverifieerde app-crosswalk geen app-bundel",
+        "superseded_by": "reports/quantity/maldenhof_quantity_activation_v1.md",
+        "store_status": [
+            f"building links (ACTIVE): {sum(1 for x in links['records'] if x['status'] == 'ACTIVE' and x['link_status'] == 'CONFIRMED')} "
+            f"CONFIRMED, {sum(1 for x in links['records'] if x['status'] == 'ACTIVE' and x['link_status'] == 'REJECTED')} REJECTED "
+            "(menselijke besluiten; de preview-scope hierboven is zelf geen besluit)",
+            f"HSM-ROOF_FLAT_AREA-4711-m2: {eff['HSM-ROOF_FLAT_AREA-4711-m2']['status']}",
+            f"XW-dak-plat-4711-m2: {eff['XW-dak-plat-4711-m2']['status']}",
             f"quantity_resolution_records: {len(res_store['records'])} — een resolutie is altijd een menselijk besluit",
         ],
     }
@@ -177,7 +183,7 @@ def render(r):
     L += ["## Definitie 3D BAG-veld", "", f"`{ext['field']}`: \"{ext['definition_nl']}\" ({ext['unit']}) — {ext['source']}. {ext['caution']}", "",
           "## Status mappings en resolutie", ""]
     L += [f"- {k}: {v}" for k, v in r["mapping_status"].items()]
-    L += ["", "Waarom nog geen quantity resolution:", ""] + [f"- {x}" for x in r["why_no_quantity_resolution"]] + [""]
+    L += ["", "Actuele stand van de menselijke besluiten (zie " + r["superseded_by"] + "):", ""] + [f"- {x}" for x in r["store_status"]] + [""]
     return "\n".join(L)
 
 

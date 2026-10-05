@@ -37,17 +37,20 @@
    "BAGSNAP-431559474da45dcf",
    "BAGSNAP-e23aa139a8589881"
   ],
-  "link_store_sha256": "271e5d44200d851a1580c7766753afe55f615d2e199054c35d85222c74ea516c"
+  "link_store_sha256": "205583225f15b2ae5530774c0fbcbd460a219d3951117b6cf1d27fa1806d5cb7"
  },
  "summary": {
   "documents": 13,
   "by_status": {
    "AWAITING_BAG_SNAPSHOT": 9,
-   "CANDIDATES_READY_FOR_REVIEW": 2,
+   "LINKED": 2,
    "NO_ADDRESS": 2
   },
-  "confirmed_links": 0,
-  "documents_with_multiple_confirmed_panden": [],
+  "confirmed_links": 30,
+  "documents_with_multiple_confirmed_panden": [
+   "DOC-005",
+   "DOC-006"
+  ],
   "review_reasons": {
    "ADDRESS_DIFFERS_FROM_SAME_OBJECT_DOCUMENT": 2,
    "ADDRESS_FROM_OBJECT_NAME": 2,
@@ -338,7 +341,23 @@
    "same_object_document_ids": [
     "DOC-006"
    ],
-   "confirmed_links_in_same_source_cluster": [],
+   "confirmed_links_in_same_source_cluster": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
    "snapshot_ids": [
     "BAGSNAP-431559474da45dcf"
    ],
@@ -1400,12 +1419,28 @@
      "has_3dbag_attributes": true
     }
    ],
-   "confirmed_bag_pand_ids": [],
+   "confirmed_bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
    "review_reasons": [
     "ADDRESS_RANGE",
     "MULTIPLE_CANDIDATE_PANDEN"
    ],
-   "status": "CANDIDATES_READY_FOR_REVIEW"
+   "status": "LINKED"
   },
   {
    "document_id": "DOC-006",
@@ -1463,7 +1498,23 @@
    "same_object_document_ids": [
     "DOC-005"
    ],
-   "confirmed_links_in_same_source_cluster": [],
+   "confirmed_links_in_same_source_cluster": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
    "snapshot_ids": [
     "BAGSNAP-e23aa139a8589881"
    ],
@@ -2525,12 +2576,28 @@
      "has_3dbag_attributes": true
     }
    ],
-   "confirmed_bag_pand_ids": [],
+   "confirmed_bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
    "review_reasons": [
     "ADDRESS_RANGE",
     "MULTIPLE_CANDIDATE_PANDEN"
    ],
-   "status": "CANDIDATES_READY_FOR_REVIEW"
+   "status": "LINKED"
   },
   {
    "document_id": "DOC-007",

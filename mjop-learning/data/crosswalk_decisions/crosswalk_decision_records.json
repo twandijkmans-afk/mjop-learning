@@ -2,5 +2,36 @@
  "store_version": "crosswalk_decision_v1",
  "append_only": true,
  "description": "Menselijke verificatie van crosswalk-/onderwerpmappings (scripts/crosswalk.py). Append-only.",
- "records": []
+ "records": [
+  {
+   "decision_id": "XWD-00001",
+   "mapping_id": "XW-dak-plat-4711-m2",
+   "decision": "VERIFY",
+   "proposal_sha256": "fcac2253109dc7ce975fd6e89c09350909e818f941b505b5f898e6f19423f2e1",
+   "decision_reason": "De mapping koppelt het app-element 'Dakbedekking plat dak' aan interne elementcode 4711 voor m²-dakbedekking. Dit is een element/code-crosswalk. Deze beslissing verklaart NIET dat een historische 4711-m² hoeveelheid semantisch identiek is aan 3D BAG b3_opp_dak_plat.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:58Z",
+   "rule_version": "crosswalk_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "decision_id": "XWD-00002",
+   "mapping_id": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
+   "decision": "VERIFY",
+   "proposal_sha256": "529fc29dd5dc474c4a476d1ab81a51e68817dc4d34faffde6a458af48bf46f43",
+   "decision_reason": "Aangemaakt en geactiveerd op expliciete instructie van de gebruiker (milestone Maldenhof Quantity Activation v1, secties 4 en 6, 2026-10-05): de 4711-m2-rij 'Dakbedekking APP' / 'Platte dak' van DOC-005 en DOC-006 is een door de bron gerapporteerde dakbedekkingsoppervlakte (ROOF_COVERING_REPORTED_AREA, SOURCE_REPORTED, complexniveau). Document-specifiek en exact; GEEN gelijkstelling met ROOF_FLAT_AREA (zie SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA).",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:58Z",
+   "rule_version": "crosswalk_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  }
+ ]
 }

@@ -1,13 +1,24 @@
 {
   "$id": "quantity_subjects_v1",
   "description": "Hoeveelheidsonderwerpen (quantity subjects) voor building-level evidence, de 3D BAG-regels die ze meten en de VOORGESTELDE koppeling naar historische elementhoeveelheden (docs/building_link_3dbag_evidence_v1.md). Een koppeling historisch -> onderwerp telt pas mee als een mens haar heeft geverifieerd (data/crosswalk_decisions/crosswalk_decision_records.json). Geen fuzzy matching: alleen exacte interne element_code + eenheid.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "subjects": [
     {"subject_key": "ROOF_FLAT_AREA", "unit": "m2", "label_nl": "Plat dakoppervlak", "quantity_kind": "ELEMENT_QUANTITY"},
     {"subject_key": "ROOF_SLOPED_AREA", "unit": "m2", "label_nl": "Hellend dakoppervlak (hellend vlak, niet de projectie)", "quantity_kind": "ELEMENT_QUANTITY"},
     {"subject_key": "ROOF_TOTAL_AREA", "unit": "m2", "label_nl": "Totaal dakoppervlak (plat + hellend)", "quantity_kind": "ELEMENT_QUANTITY"},
     {"subject_key": "OUTER_WALL_GROSS_AREA", "unit": "m2", "label_nl": "Buitenmuuroppervlak bruto (openingen niet afgetrokken)", "quantity_kind": "ELEMENT_QUANTITY"},
-    {"subject_key": "BUILDING_HEIGHT", "unit": "m", "label_nl": "Gebouwhoogte (hoogste dakpunt - maaiveld)", "quantity_kind": "ELEMENT_QUANTITY"}
+    {"subject_key": "BUILDING_HEIGHT", "unit": "m", "label_nl": "Gebouwhoogte (hoogste dakpunt - maaiveld)", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "ROOF_COVERING_REPORTED_AREA", "unit": "m2", "label_nl": "Door bron/MJOP gerapporteerde oppervlakte dakbedekking", "quantity_kind": "ELEMENT_QUANTITY",
+     "method_class": "SOURCE_REPORTED", "source_reported_only": true,
+     "note": "Alleen zoals een bron (MJOP-elementenoverzicht) het rapporteert; kan opstanden, overlappen of andere dakdelen bevatten. Geen 3D BAG-regel en geen scope-aggregatie: een gerapporteerde complexwaarde wordt nooit over panden verdeeld of opgeteld."}
+  ],
+  "subject_relations": [
+    {"relation_id": "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA", "subjects": ["ROOF_COVERING_REPORTED_AREA", "ROOF_FLAT_AREA"],
+     "relation": "RELATED_NOT_EQUIVALENT", "same_building_part": "dak (plat dak)", "resolvable_as_same_quantity": false,
+     "show_side_by_side": true, "show_difference_as": "SOURCE_DIFFERENCE_DIFFERENT_DEFINITION",
+     "average": false, "single_resolution": false, "auto_select_winner": false,
+     "reason": "Historische gerapporteerde dakbedekking (bijv. 'Dakbedekking APP / Platte dak') en 3D BAG b3_opp_dak_plat ('totale oppervlakte van de platte delen van het dak') gaan over hetzelfde bouwdeel, maar er is onvoldoende bewijs dat het exact dezelfde hoeveelheid is. Naast elkaar tonen en het verschil tonen als bronverschil/andere definitie; nooit middelen, nooit één resolutie over beide, nooit automatisch een winnaar.",
+     "decided_by": "gebruiker, 2026-10-05 (milestone Maldenhof Quantity Activation v1)"}
   ],
   "bag3d_rules": [
     {"rule_id": "bag3d.roof_flat_area", "rule_version": "1.0.0", "subject_key": "ROOF_FLAT_AREA", "method_class": "DIRECT_MEASURED",
@@ -45,7 +56,16 @@
      "evidence": "vocabularies/element_code.json: 4711 = 'Dakbedekking (APP/bitumen)'. Elementenoverzichten: o.a. 'Dakbedekking bitumen' 117,00 m2 (DOC-002), 'Dakbedekking APP' 425,80 m2 (DOC-005).",
      "caveats": ["4711 bevat ook dakrandafwerking/randstroken in m1; alleen m2-rijen komen in aanmerking",
                  "dakbedekking in een MJOP kan opstanden/overlappen bevatten; 3D BAG b3_opp_dak_plat is het modeloppervlak",
-                 "een document met meerdere 4711-m2-rijen wordt niet opgeteld (geen aggregatie)"]},
+                 "een document met meerdere 4711-m2-rijen wordt niet opgeteld (geen aggregatie)",
+                 "2026-10-05: door de gebruiker uitdrukkelijk NIET geverifieerd (onvoldoende bewijs dat 4711-m2 dakbedekking exact ROOF_FLAT_AREA is); zie subject_relations SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA en HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006"]},
+    {"mapping_id": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006", "subject_key": "ROOF_COVERING_REPORTED_AREA", "element_code_internal": "4711", "unit_normalized": "m2",
+     "match": {"document_ids": ["DOC-005", "DOC-006"], "element_description_original_exact": ["Dakbedekking APP"], "location_original_exact": ["Platte dak"]},
+     "status": "PROPOSED", "human_verified": false,
+     "evidence": "DOC-005 en DOC-006 (Maldenhof 240-296, p.7): '4711 Dakbedekking APP Platte dak 425,80m2'.",
+     "scope_note": "Document-specifiek, geen generieke 4711-m2-mapping: 4711-m2-rijen in andere documenten bevatten o.a. ballast, liftdak of portiekdak. Exacte match op document, code, eenheid, omschrijving en locatie; geen fuzzy matching. m1-rijen (dakrand/randstrook) vallen er buiten. Een afwijkende omschrijving vereist een nieuwe, apart te beoordelen mapping.",
+     "caveats": ["gerapporteerde dakbedekking, niet het geometrische plat-dakoppervlak (ROOF_FLAT_AREA)",
+                 "complexniveau: niet over panden verdelen",
+                 "DOC-005 en DOC-006 zijn versies van hetzelfde MJOP (DREL-002): één onafhankelijke bron, niet twee"]},
     {"mapping_id": "HSM-ROOF_SLOPED_AREA-4712-m2", "subject_key": "ROOF_SLOPED_AREA", "element_code_internal": "4712", "unit_normalized": "m2",
      "status": "PROPOSED", "human_verified": false,
      "evidence": "vocabularies/element_code.json: 4712 = 'Dakrandafwerking / dakpan / loodslab hellend dak'. Elementenoverzicht DOC-001: 'Dakpan beton' 1944,00 m2.",

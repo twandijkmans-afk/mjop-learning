@@ -61,14 +61,14 @@ Verschil historisch − 3D BAG: 235.15 m² (123.34% van 3D BAG) — feitelijk ve
 ## Status mappings en resolutie
 
 - HSM-ROOF_FLAT_AREA-4711-m2: PROPOSED
-- XW-dak-plat-4711-m2: PROPOSED
+- XW-dak-plat-4711-m2: VERIFIED
 - HSM-ROOF_SLOPED_AREA-4712-m2: PROPOSED
 - XW-dak-hellend-4712-m2: REVIEW_REQUIRED
 - XW-gevel-metselwerk-2110-m2: REVIEW_REQUIRED
 
-Waarom nog geen quantity resolution:
+Actuele stand van de menselijke besluiten (zie reports/quantity/maldenhof_quantity_activation_v1.md):
 
-- building links: 0 vastgelegd (geen enkel pand is door een mens bevestigd)
-- HSM-ROOF_FLAT_AREA-4711-m2: PROPOSED (niet geverifieerd) — zonder geverifieerde mapping ontstaat geen historische evidence
-- XW-dak-plat-4711-m2: PROPOSED — zonder geverifieerde app-crosswalk geen app-bundel
+- building links (ACTIVE): 30 CONFIRMED, 50 REJECTED (menselijke besluiten; de preview-scope hierboven is zelf geen besluit)
+- HSM-ROOF_FLAT_AREA-4711-m2: PROPOSED
+- XW-dak-plat-4711-m2: VERIFIED
 - quantity_resolution_records: 0 — een resolutie is altijd een menselijk besluit
