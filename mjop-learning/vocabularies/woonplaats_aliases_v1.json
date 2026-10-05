@@ -1,0 +1,9 @@
+{
+  "$id": "woonplaats_aliases_v1",
+  "description": "Expliciete, exacte aliassen voor woonplaatsnamen zoals ze in MJOP-documenten staan -> officiële BAG-woonplaatsnaam (PDOK Locatieserver 'woonplaatsnaam'). Gebruikt door scripts/bag_snapshots.py voor de exacte adrescontrole en de woonplaatsfilter bij een nummerbereik. GEEN fuzzy matching: alleen een exacte (hoofdletter-/witruimte-genormaliseerde) gelijkheid met 'as_stated' telt. Straat, huisnummer en postcode blijven exact gecontroleerd. Elke toepassing wordt in de snapshot-query vastgelegd (city_alias_ref).",
+  "version": "1.0.0",
+  "aliases": [
+    {"alias_id": "WPA-den-haag", "as_stated": "Den Haag", "woonplaatsnaam": "'s-Gravenhage", "woonplaatscode": "1245",
+     "source": "BAG woonplaats 1245 heet officieel 's-Gravenhage (PDOK Locatieserver: woonplaatsnaam \"'s-Gravenhage\", woonplaatscode 1245, gemeentecode 0518); 'Den Haag' is de gangbare naam. Vastgesteld 2026-10-05 op basis van de PDOK-respons voor Meppelweg 819, 2544AW."}
+  ]
+}

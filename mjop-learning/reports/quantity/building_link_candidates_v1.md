@@ -3,7 +3,7 @@
 Read-only. Dit rapport bevestigt niets; een link ontstaat alleen door een menselijk besluit (`scripts/building_links.py record`). Zie `docs/building_link_3dbag_evidence_v1.md`.
 
 - Documenten: 13
-- Status: AWAITING_BAG_SNAPSHOT 9, LINKED 2, NO_ADDRESS 2
+- Status: AWAITING_BAG_SNAPSHOT 8, CANDIDATES_READY_FOR_REVIEW 1, LINKED 2, NO_ADDRESS 2
 - Bevestigde links (ACTIVE): 30
 - Documenten met meerdere bevestigde panden: DOC-005, DOC-006
 
@@ -19,7 +19,7 @@ Read-only. Dit rapport bevestigt niets; een link ontstaat alleen door een mensel
 | DOC-009 | (VvE St. Jacobsstraat 251-321 Woningen) | — | Utrecht | SC-DOC-008+DOC-009 | — | AWAITING_BAG_SNAPSHOT | ADDRESS_FROM_OBJECT_NAME, ADDRESS_RANGE, NO_BAG_SNAPSHOT, NO_STATED_ADDRESS, POSTCODE_MISSING, SUBPLAN_SCOPE |
 | DOC-010 | Zomerdijkstraat 14, Uiterwaardenstraat 141 | 1079 XB | Amsterdam | SC-DOC-010 | — | AWAITING_BAG_SNAPSHOT | MULTIPLE_STREETS, NO_BAG_SNAPSHOT, OBJECT_NAME_ADDRESS_DIFFERS |
 | DOC-011 | — | — | — | SC-DOC-011 | — | NO_ADDRESS | CITY_MISSING, NO_BAG_SNAPSHOT, NO_STATED_ADDRESS, POSTCODE_MISSING |
-| DOC-012 | Meppelweg 819 | 2544 AW | Den Haag | SC-DOC-012 | — | AWAITING_BAG_SNAPSHOT | NO_BAG_SNAPSHOT, OBJECT_NAME_ADDRESS_DIFFERS |
+| DOC-012 | Meppelweg 819 | 2544 AW | Den Haag | SC-DOC-012 | 0518100000354752 | CANDIDATES_READY_FOR_REVIEW | OBJECT_NAME_ADDRESS_DIFFERS |
 | DOC-013 | Vechtstraat 13-15-17-19 | — | Amsterdam | SC-DOC-013 | — | AWAITING_BAG_SNAPSHOT | ADDRESS_RANGE, NO_BAG_SNAPSHOT, OBJECT_NAME_ADDRESS_DIFFERS, POSTCODE_MISSING |
 | DOC-015 | Groetstraat 110-140 | — | Amsterdam | SC-DOC-015 | — | AWAITING_BAG_SNAPSHOT | ADDRESS_RANGE, NO_BAG_SNAPSHOT, POSTCODE_MISSING |
 
@@ -127,6 +127,12 @@ Read-only. Dit rapport bevestigt niets; een link ontstaat alleen door een mensel
 | 0363100012152265 | Maldenhof 251, 1106EH Amsterdam | False | ja |
 | 0363100012154610 | Maldenhof 259, 1106EH Amsterdam | False | ja |
 
+## Kandidaat-panden DOC-012 (beslist niets)
+
+| BAG-pand | Adressen in het pand | Postcode = document? | 3D BAG |
+|---|---|---|---|
+| 0518100000354752 | Meppelweg 819, 2544AW 's-Gravenhage | None | ja |
+
 ## Review-redenen
 
 | Reden | Documenten | Betekenis |
@@ -137,7 +143,7 @@ Read-only. Dit rapport bevestigt niets; een link ontstaat alleen door een mensel
 | `CITY_MISSING` | 2 | geen plaats in het document |
 | `MULTIPLE_CANDIDATE_PANDEN` | 2 | meerdere kandidaat-panden: elk pand apart bevestigen of afwijzen |
 | `MULTIPLE_STREETS` | 4 | meerdere straten: waarschijnlijk meerdere panden |
-| `NO_BAG_SNAPSHOT` | 11 | nog geen BAG/3D BAG-snapshot voor dit document (ophalen vereist netwerktoegang) |
+| `NO_BAG_SNAPSHOT` | 10 | nog geen BAG/3D BAG-snapshot voor dit document (ophalen vereist netwerktoegang) |
 | `NO_STATED_ADDRESS` | 4 | het document noemt geen adres in het objectblad |
 | `OBJECT_NAME_ADDRESS_DIFFERS` | 3 | adres in de objectnaam verschilt van het adresveld |
 | `POSTCODE_MISSING` | 8 | geen postcode in het document |

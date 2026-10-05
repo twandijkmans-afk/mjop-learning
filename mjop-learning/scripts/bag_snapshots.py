@@ -40,6 +40,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOT_DIR = ROOT / "data" / "bag_snapshots"
+CITY_ALIASES = ROOT / "vocabularies" / "woonplaats_aliases_v1.json"
 TOOL_VERSION = "bag_snapshots_v1.0.0"
 LIVE_API_STATUS = "NOT_VERIFIED_AGAINST_LIVE_API"
 
@@ -74,11 +75,30 @@ def norm_postcode(s):
     return re.sub(r"\s+", "", (s or "")).upper()
 
 
+def official_city(city, aliases_path=CITY_ALIASES):
+    """(officiële BAG-woonplaatsnaam, alias_id of None) voor een woonplaats zoals vermeld. Alleen een exacte
+    (genormaliseerde) treffer in vocabularies/woonplaats_aliases_v1.json vertaalt; anders blijft de naam gelijk."""
+    if not city:
+        return city, None
+    p = Path(aliases_path)
+    if p.exists():
+        for a in json.loads(p.read_text(encoding="utf-8"))["aliases"]:
+            if norm(a["as_stated"]) == norm(city):
+                return a["woonplaatsnaam"], a["alias_id"]
+    return city, None
+
+
+def _city_query(city):
+    """Extra query-velden als een woonplaats-alias is toegepast (anders leeg: bestaande snapshots ongewijzigd)."""
+    official, alias = official_city(city)
+    return {"city_bag_woonplaatsnaam": official, "city_alias_ref": alias} if alias else {}
+
+
 def exact_address_match(doc, street, number, postcode, city=None):
     """PDOK-adresdocument exact gelijk aan de gevraagde straat + huisnummer (+ postcode, + woonplaats)?"""
     if norm(doc.get("straatnaam")) != norm(street):
         return False
-    if city and norm(doc.get("woonplaatsnaam")) != norm(city):
+    if city and norm(doc.get("woonplaatsnaam")) != norm(official_city(city)[0]):
         return False
     nr = str(doc.get("huisnummer", "")) + (doc.get("huisletter") or "") + \
         (("-" + doc["huisnummertoevoeging"]) if doc.get("huisnummertoevoeging") else "")
@@ -145,7 +165,8 @@ def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_g
     panden = _collect_panden(matches, get, fetched_at)
     for m in matches:
         m.pop("_point", None)
-    return _finish(document_id, {"street": street, "number": str(number), "postcode": postcode, "city": city, "q": q},
+    return _finish(document_id, dict({"street": street, "number": str(number), "postcode": postcode, "city": city, "q": q},
+                                     **_city_query(city)),
                    fetched_at, requests, matches, panden, raw)
 
 
@@ -156,7 +177,7 @@ def range_address_match(doc, street, number_from, number_to, city):
     """PDOK-adres hoort bij het opgegeven bereik: straat en woonplaats exact (genormaliseerd), huisnummer (geheel
     getal) binnen [van, tot]. Geen pariteit-aanname, geen fuzzy match. Toevoegingen worden niet weggefilterd maar
     gemarkeerd (has_suffix) voor de menselijke review."""
-    if norm(doc.get("straatnaam")) != norm(street) or norm(doc.get("woonplaatsnaam")) != norm(city):
+    if norm(doc.get("straatnaam")) != norm(street) or norm(doc.get("woonplaatsnaam")) != norm(official_city(city)[0]):
         return False
     n = doc.get("huisnummer")
     return isinstance(n, int) and not isinstance(n, bool) and int(number_from) <= n <= int(number_to)
@@ -174,7 +195,7 @@ def fetch_range_snapshot(document_id, street, number_from, number_to, city, post
     fetched_at = fetched_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     requests, raw = [], {}
     get = _getter(http_get, requests, raw)
-    fq = ["type:adres", f'woonplaatsnaam:"{city}"', f'straatnaam:"{street}"', f"huisnummer:[{lo} TO {hi}]"]
+    fq = ["type:adres", f'woonplaatsnaam:"{official_city(city)[0]}"', f'straatnaam:"{street}"', f"huisnummer:[{lo} TO {hi}]"]
     docs, start = [], 0
     while True:
         params = [("q", "*:*")] + [("fq", x) for x in fq] + [("rows", RANGE_ROWS), ("start", start), ("sort", "huisnummer asc")]
@@ -203,8 +224,8 @@ def fetch_range_snapshot(document_id, street, number_from, number_to, city, post
     for m in matches:
         m.pop("_point", None)
     q = f"{street} {lo}-{hi} {city}"
-    return _finish(document_id, {"street": street, "number": f"{lo}-{hi}", "number_from": lo, "number_to": hi,
-                                 "kind": "range", "postcode": postcode, "city": city, "q": q, "fq": fq},
+    return _finish(document_id, dict({"street": street, "number": f"{lo}-{hi}", "number_from": lo, "number_to": hi,
+                                      "kind": "range", "postcode": postcode, "city": city, "q": q, "fq": fq}, **_city_query(city)),
                    fetched_at, requests, matches, panden, raw)
 
 
