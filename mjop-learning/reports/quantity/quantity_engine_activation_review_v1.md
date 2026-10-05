@@ -2,7 +2,7 @@
 
 Read-only bronnenvergelijking. **Geen accuracy-benchmark, geen besluiten, geen evidence, geen API- of netwerkcalls.** Gegenereerd door `scripts/quantity_engine_activation_review.py`.
 
-Stand menselijke besluiten: building links 0, crosswalk-besluiten 0, quantity resolutions 0, building evidence 0.
+Stand menselijke besluiten: building links 80, crosswalk-besluiten 2, quantity resolutions 0, building evidence 81.
 
 ## A — Maldenhof-inputs (PoC v2-snapshot)
 
@@ -25,57 +25,57 @@ Context: 21 BAG-panden zonder VBO binnen 2 m (14 in gebruik, samen 69.6 m² foot
 
 ## B — Building link review
 
-Canoniek opvraagplan: bereik 240–296 → bereikbaar: 0363100012070344, 0363100012071880, 0363100012078022, 0363100012091756, 0363100012091974, 0363100012102659, 0363100012107492, 0363100012121455, 0363100012127361, 0363100012134188, 0363100012137996, 0363100012140664, 0363100012141419, 0363100012143647, 0363100012144766 (15 van 15). Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat.
+Canoniek opvraagplan: bereik 240–296 → bereikbaar: 0363100012070344, 0363100012071880, 0363100012078022, 0363100012091756, 0363100012091974, 0363100012102659, 0363100012107492, 0363100012121455, 0363100012127361, 0363100012134188, 0363100012137996, 0363100012140664, 0363100012141419, 0363100012143647, 0363100012144766 (15 van 15). Links CONFIRMED/REJECTED volgens de store: 30/50. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat.
 
-### BUILDING LINK REVIEW (beslislijst — nog niets vastgelegd)
+### BUILDING LINK REVIEW (beslislijst; status = ACTIVE record in de building-link-store, anders open)
 
 | BAG-pand | Adressen | DOC-005 | DOC-006 | Waarom in scope | Ambiguïteit |
 |---|---|---|---|---|---|
-| 0363100012070344 | Maldenhof 262, Maldenhof 264 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012071880 | Maldenhof 270, Maldenhof 272 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012078022 | Maldenhof 246, Maldenhof 248 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012091756 | Maldenhof 278, Maldenhof 280 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012091974 | Maldenhof 258, Maldenhof 260 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012102659 | Maldenhof 242, Maldenhof 244 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012107492 | Maldenhof 266, Maldenhof 268 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012121455 | Maldenhof 286, Maldenhof 288 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012127361 | Maldenhof 294, Maldenhof 296 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012134188 | Maldenhof 290, Maldenhof 292 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012137996 | Maldenhof 240 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 1/1 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE |
-| 0363100012140664 | Maldenhof 250, Maldenhof 252 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012141419 | Maldenhof 254, Maldenhof 256 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012143647 | Maldenhof 282, Maldenhof 284 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012144766 | Maldenhof 274, Maldenhof 276 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012070344 | Maldenhof 262, Maldenhof 264 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012071880 | Maldenhof 270, Maldenhof 272 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012078022 | Maldenhof 246, Maldenhof 248 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012091756 | Maldenhof 278, Maldenhof 280 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012091974 | Maldenhof 258, Maldenhof 260 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012102659 | Maldenhof 242, Maldenhof 244 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012107492 | Maldenhof 266, Maldenhof 268 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012121455 | Maldenhof 286, Maldenhof 288 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012127361 | Maldenhof 294, Maldenhof 296 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012134188 | Maldenhof 290, Maldenhof 292 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012137996 | Maldenhof 240 | CONFIRMED | CONFIRMED | 1/1 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE |
+| 0363100012140664 | Maldenhof 250, Maldenhof 252 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012141419 | Maldenhof 254, Maldenhof 256 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012143647 | Maldenhof 282, Maldenhof 284 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012144766 | Maldenhof 274, Maldenhof 276 | CONFIRMED | CONFIRMED | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
 
 Oneven zijde (kandidaten uit de ALL_NUMBERS-hypothese; adressen niet in de main-snapshot; inschatting: buiten scope):
 
 | BAG-pand | DOC-005 | DOC-006 |
 |---|---|---|
-| 0363100012061310 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012063561 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012064674 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012065912 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012077783 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012077984 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012078472 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012081986 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012083986 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012084256 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012087184 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012100140 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012102257 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012105151 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012108812 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012123643 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012125929 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012129433 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012135143 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012137009 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012138208 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012148993 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012151715 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012152265 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
-| 0363100012154610 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen |
+| 0363100012061310 | REJECTED | REJECTED |
+| 0363100012063561 | REJECTED | REJECTED |
+| 0363100012064674 | REJECTED | REJECTED |
+| 0363100012065912 | REJECTED | REJECTED |
+| 0363100012077783 | REJECTED | REJECTED |
+| 0363100012077984 | REJECTED | REJECTED |
+| 0363100012078472 | REJECTED | REJECTED |
+| 0363100012081986 | REJECTED | REJECTED |
+| 0363100012083986 | REJECTED | REJECTED |
+| 0363100012084256 | REJECTED | REJECTED |
+| 0363100012087184 | REJECTED | REJECTED |
+| 0363100012100140 | REJECTED | REJECTED |
+| 0363100012102257 | REJECTED | REJECTED |
+| 0363100012105151 | REJECTED | REJECTED |
+| 0363100012108812 | REJECTED | REJECTED |
+| 0363100012123643 | REJECTED | REJECTED |
+| 0363100012125929 | REJECTED | REJECTED |
+| 0363100012129433 | REJECTED | REJECTED |
+| 0363100012135143 | REJECTED | REJECTED |
+| 0363100012137009 | REJECTED | REJECTED |
+| 0363100012138208 | REJECTED | REJECTED |
+| 0363100012148993 | REJECTED | REJECTED |
+| 0363100012151715 | REJECTED | REJECTED |
+| 0363100012152265 | REJECTED | REJECTED |
+| 0363100012154610 | REJECTED | REJECTED |
 
 ## C — Historische hoeveelheden DOC-005 / DOC-006
 
@@ -187,7 +187,7 @@ Informatief. De bestaande pipeline telt bewust NIET op over panden (MULTI_PAND_N
 | Voorstel | Historisch | App-element | Onderwerp | Eenh. | Huidige status | Advies | Risico |
 |---|---|---|---|---|---|---|---|
 | HSM-ROOF_FLAT_AREA-4711-m2 | 4711 m2 (alle documenten) | — | ROOF_FLAT_AREA | m2 | PROPOSED | **NEEDS_REVIEW** | Maldenhof: 425,80 vs Σ 190,65 (factor ~2,2). Onbekend welke dakdelen 'Platte dak' omvat; de 3D BAG-som betreft alleen de 15 woonpanden. Verschil is een feit, geen fout van één bron. |
-| XW-dak-plat-4711-m2 | 4711 m2 | dak-plat (27.1 'Dakbedekking plat dak') | ROOF_FLAT_AREA | m2 | PROPOSED | **SAFE_TO_VERIFY** | laag op element-niveau (zelfde bouwdeel); m1-rijen (dakrand) vallen buiten door de eenheid |
+| XW-dak-plat-4711-m2 | 4711 m2 | dak-plat (27.1 'Dakbedekking plat dak') | ROOF_FLAT_AREA | m2 | VERIFIED | **SAFE_TO_VERIFY** | laag op element-niveau (zelfde bouwdeel); m1-rijen (dakrand) vallen buiten door de eenheid |
 | HSM-ROOF_SLOPED_AREA-4712-m2 | 4712 m2 (alle documenten) | — | ROOF_SLOPED_AREA | m2 | PROPOSED | **NEEDS_REVIEW** | Generiek verifiëren brengt ook zink-/shinglerijen onder ROOF_SLOPED_AREA. Voor Maldenhof is de rij wel 'Dakpan beton / Hellend dak'. |
 | XW-dak-hellend-4712-m2 | 4712 m2 | dak-hellend (27.2 'Dakbedekking hellend dak (pannen)') | ROOF_SLOPED_AREA | m2 | REVIEW_REQUIRED | **NEEDS_REVIEW** | zink/shingles onder 'pannen' |
 | XW-gevel-metselwerk-2110-m2 | 2110 m2 | gevel-metselwerk (21.1) | — | m2 | REVIEW_REQUIRED | **NEEDS_REVIEW** | bruto ≠ netto; quantity_subject staat terecht op null (vocabulary not_mapped) |
@@ -207,7 +207,7 @@ Semantiek per voorstel:
 ## E — Eerste end-to-end demo
 
 - Aanbevolen eerste onderwerp: **ROOF_FLAT_AREA (plat dak / dakbedekking, app-element dak-plat)** — Schoonste element-koppeling (4711 m2 is overal dakbedekking; XW-dak-plat-4711-m2 is element-identiteit) en de app rekent al met b3_opp_dak_plat. Het grote verschil is juist wat het demo moet tonen: twee bronnen naast elkaar, geen winnaar. ROOF_SLOPED_AREA ligt numeriek dichter bij elkaar, maar 4712 is een gemengde code.
-- Status: **BLOCKED_BY_HUMAN_DECISIONS (building links, HSM-/XW-mapping)**
+- Status: **ACTIVATED (Maldenhof Quantity Activation v1: building links en XW-dak-plat-4711-m2 menselijk besloten; HSM-ROOF_FLAT_AREA-4711-m2 PROPOSED; historische dakbedekking als ROOF_COVERING_REPORTED_AREA, RELATED_NOT_EQUIVALENT; zie reports/quantity/maldenhof_quantity_activation_v1.md)**
 
 Blokkades:
 

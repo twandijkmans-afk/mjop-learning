@@ -45,15 +45,18 @@ def test_committed_report_is_up_to_date(report):
     assert open(qer.OUT_MD, encoding="utf-8").read() == qer.render(report)
 
 
-def test_no_human_decisions_exist_or_are_simulated(report):
+def test_human_decisions_are_read_from_the_stores_not_simulated(report):
     s = report["state_of_human_decisions"]
-    assert s == {"building_links_records": 0, "crosswalk_decisions_records": 0, "quantity_resolutions_records": 0,
-                 "building_quantity_evidence": 0}
-    assert all(r["link_status"] == "UNREVIEWED" for r in report["B_building_link_review"]["rows"])
+    # Maldenhof Quantity Activation v1: 15 CONFIRMED + 25 REJECTED per document, 2 crosswalk-besluiten, geen resolutie
+    assert (s["building_links_records"], s["crosswalk_decisions_records"], s["quantity_resolutions_records"]) == (80, 2, 0)
+    assert all(r["link_status"] == "CONFIRMED" for r in report["B_building_link_review"]["rows"])
+    assert all(r["link_status"] == "REJECTED" for r in report["B_building_link_review"]["odd_side_context"])
     md = open(qer.OUT_MD, encoding="utf-8").read()
     assert "[x]" not in md.lower()
     assert {m["advice"] for m in report["D_crosswalk_review"]} <= {"SAFE_TO_VERIFY", "NEEDS_REVIEW", "REJECT"}
-    assert all(m["current_status"] != "VERIFIED" for m in report["D_crosswalk_review"])
+    status = {m["mapping_id"]: m["current_status"] for m in report["D_crosswalk_review"] if m["mapping_id"]}
+    assert status["XW-dak-plat-4711-m2"] == "VERIFIED"
+    assert [k for k, v in status.items() if v == "VERIFIED"] == ["XW-dak-plat-4711-m2"]
 
 
 def test_maldenhof_inputs_facts(report):
@@ -93,5 +96,6 @@ def test_bag3d_preview_is_not_evidence_and_not_summed_as_evidence(report):
     assert d["sum_over_15_panden_informative"]["ROOF_FLAT_AREA"] == "190.65"
     assert d["sum_over_15_panden_informative"]["ROOF_SLOPED_AREA"] == "1415.57"
     e = report["E_demo_readiness"]
-    assert e["smallest_safe_demo_status"].startswith("BLOCKED")
+    assert e["smallest_safe_demo_status"].startswith("ACTIVATED")
+    assert "HSM-ROOF_FLAT_AREA-4711-m2 PROPOSED" in e["smallest_safe_demo_status"]
     assert "geen gemiddelde" in e["app_would_show_conceptually"]["rule"]

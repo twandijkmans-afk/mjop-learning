@@ -1,23 +1,44 @@
 {
  "report_version": "3dbag_vs_historical_v1",
- "note": "Feitelijke verschillen historisch - 3D BAG (percentage t.o.v. 3D BAG). Geen kwaliteitsscore, geen gemiddelde van bronnen, geen keuze. Afhankelijke documenten zijn geen onafhankelijke bevestiging.",
+ "note": "Feitelijke verschillen historisch - 3D BAG (percentage t.o.v. 3D BAG). Geen kwaliteitsscore, geen gemiddelde van bronnen, geen keuze. Afhankelijke documenten zijn geen onafhankelijke bevestiging. Een verschil tussen verwante maar niet gelijke onderwerpen (RELATED_SUBJECT_NOT_EQUIVALENT) is een bronverschil/andere definitie en telt niet mee in de verschilstatistiek.",
  "summary": {
-  "confirmed_building_links": 0,
-  "bag_panden": 0,
-  "documents_with_multiple_panden": [],
-  "bag3d_evidences": 0,
-  "bag3d_scope_aggregates": 0,
+  "confirmed_building_links": 30,
+  "bag_panden": 15,
+  "documents_with_multiple_panden": [
+   "DOC-005",
+   "DOC-006"
+  ],
+  "bag3d_evidences": 79,
+  "bag3d_scope_aggregates": 4,
   "scope_aggregates_not_published": 0,
-  "historical_evidences": 0,
-  "verified_subject_mappings": [],
+  "historical_evidences": 2,
+  "verified_subject_mappings": [
+   "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006"
+  ],
   "unverified_subject_mappings": [
    "HSM-ROOF_FLAT_AREA-4711-m2",
    "HSM-ROOF_SLOPED_AREA-4712-m2"
   ],
-  "comparisons": 0,
+  "comparisons": 2,
   "comparisons_with_difference": 0,
   "comparable_subjects": [],
-  "per_subject": {},
+  "related_subject_source_differences": 2,
+  "historical_independent_sources": [
+   {
+    "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+    "subject_key": "ROOF_COVERING_REPORTED_AREA",
+    "historical_evidences": 2,
+    "independent_source_clusters": 1
+   }
+  ],
+  "per_subject": {
+   "ROOF_COVERING_REPORTED_AREA": {
+    "comparisons": 2,
+    "with_difference": 0,
+    "median_absolute_difference": null,
+    "median_percentage_difference": null
+   }
+  },
   "median_absolute_difference": null,
   "median_percentage_difference": null,
   "within_5_pct": 0,
@@ -29,5 +50,128 @@
   "multiple_historical_rows_not_summed": 0,
   "bag3d_rules_not_available": 0
  },
- "comparisons": []
+ "comparisons": [
+  {
+   "document_id": "DOC-005",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "subject_key": "ROOF_COVERING_REPORTED_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "bag3d_subject_key": "ROOF_FLAT_AREA",
+   "subject_relation_id": "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA",
+   "historical_evidence_id": "QE-cda20b77ca36b732",
+   "historical_quantity_observation_id": "QO-DOC-005-EL-025",
+   "historical_value": "425.80",
+   "historical_unit": "m2",
+   "historical_description": "Dakbedekking APP",
+   "historical_location": "Platte dak",
+   "bag3d_evidence_id": "QE-de5bcca75b309377",
+   "bag3d_value": "190.65",
+   "bag3d_unit": "m2",
+   "bag3d_method_class": "GEOMETRY_DERIVED",
+   "bag3d_child_evidence_ids": [
+    "QE-c0a7a77dfed689d5",
+    "QE-d9c4c97864805d9e",
+    "QE-4f17530f790bb48a",
+    "QE-43d4e82529464339",
+    "QE-ea816e3de9336545",
+    "QE-2f34fe96853075ff",
+    "QE-c618ae1068b0eaac",
+    "QE-ecd6fb6a75c9673a",
+    "QE-70c72e3009374da4",
+    "QE-95b0720f8dfbcbf7",
+    "QE-9cb6be219c2d4e6a",
+    "QE-e58817976ce36ab2",
+    "QE-cf37ff666d79d716",
+    "QE-63f182348b77a77c",
+    "QE-3ca9f54cb900191e"
+   ],
+   "absolute_difference": "235.15",
+   "percentage_difference": "123.3412",
+   "difference_band": null,
+   "historical_source_cluster": "SC-DOC-005+DOC-006",
+   "dependency_note": "zelfde object als DOC-006: geen onafhankelijke bevestiging",
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
+   "mismatch_reasons": [
+    "DIFFERENT_SUBJECT_DEFINITION"
+   ]
+  },
+  {
+   "document_id": "DOC-006",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "subject_key": "ROOF_COVERING_REPORTED_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "bag3d_subject_key": "ROOF_FLAT_AREA",
+   "subject_relation_id": "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA",
+   "historical_evidence_id": "QE-5993359f27e8dea6",
+   "historical_quantity_observation_id": "QO-DOC-006-EL-025",
+   "historical_value": "425.80",
+   "historical_unit": "m2",
+   "historical_description": "Dakbedekking APP",
+   "historical_location": "Platte dak",
+   "bag3d_evidence_id": "QE-de5bcca75b309377",
+   "bag3d_value": "190.65",
+   "bag3d_unit": "m2",
+   "bag3d_method_class": "GEOMETRY_DERIVED",
+   "bag3d_child_evidence_ids": [
+    "QE-c0a7a77dfed689d5",
+    "QE-d9c4c97864805d9e",
+    "QE-4f17530f790bb48a",
+    "QE-43d4e82529464339",
+    "QE-ea816e3de9336545",
+    "QE-2f34fe96853075ff",
+    "QE-c618ae1068b0eaac",
+    "QE-ecd6fb6a75c9673a",
+    "QE-70c72e3009374da4",
+    "QE-95b0720f8dfbcbf7",
+    "QE-9cb6be219c2d4e6a",
+    "QE-e58817976ce36ab2",
+    "QE-cf37ff666d79d716",
+    "QE-63f182348b77a77c",
+    "QE-3ca9f54cb900191e"
+   ],
+   "absolute_difference": "235.15",
+   "percentage_difference": "123.3412",
+   "difference_band": null,
+   "historical_source_cluster": "SC-DOC-005+DOC-006",
+   "dependency_note": "zelfde object als DOC-005, DOC-014: geen onafhankelijke bevestiging",
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
+   "mismatch_reasons": [
+    "DIFFERENT_SUBJECT_DEFINITION"
+   ]
+  }
+ ]
 }

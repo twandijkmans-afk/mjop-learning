@@ -2,5 +2,3558 @@
  "store_version": "building_link_v1",
  "append_only": true,
  "description": "Menselijk bevestigde koppelingen historisch document <-> BAG-pand (docs/building_link_3dbag_evidence_v1.md). Append-only; één ACTIVE record per (document_id, bag_pand_id).",
- "records": []
+ "records": [
+  {
+   "link_id": "BLINK-00001",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012070344",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-4e734ff18a78141f3f84f3074871067c",
+     "adr-d17a279cc093939334dd74a51f11def3"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012070344",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00002",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012071880",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-67fa8581b25d7262588101f3695b7913",
+     "adr-ee199fdca7e6c9aa603ad95d8e13fb99"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012071880",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00003",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012078022",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-1f9b6387168932dd66f58f83cc83fc96",
+     "adr-36108eb85c996de0b73b491c9ef3c890"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012078022",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00004",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012091756",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-e682859c4cc3a0159f585c6d2634cd5d",
+     "adr-c5ee0e2aa22feb7ce0100d32c59a9b43"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012091756",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00005",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012091974",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-6f18679ca005c4345d8443ef3d33091b",
+     "adr-7d075af42c207c488c6326eb528a1831"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012091974",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00006",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012102659",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-5de17882076766f2b4087b5821ce31ba",
+     "adr-f24bbd0e1543cb4a4427eae13e341257"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012102659",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00007",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012107492",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-626381627089a0a5ef6b08aa23b4fb8e",
+     "adr-f7feec0bde9a86385f4e5bcbf4157767"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012107492",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00008",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012121455",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-07423ce51abbcf71a6c797ace3f742fc",
+     "adr-2561a648197f1cb45646e70d3f419ea3"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012121455",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00009",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012127361",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-38f0a653263a466e5335253677d3303d",
+     "adr-fcdccebfafa94afc54d9dd831fb68c9b"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012127361",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00010",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012134188",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-3f44ba53b32114f677f0382f96fdcb77",
+     "adr-11d5b58979796a03f5aaf082cfa7a612"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012134188",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00011",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012137996",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-e2c59424029b7f16e3f06efb87300a15"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012137996",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00012",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012140664",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-8233130f312a0e947727dc0bad83e7be",
+     "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012140664",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00013",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012141419",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-e420b771bc04f19ba5e4d01a64ec86b4",
+     "adr-ba5f71c5ce4b0411bca64d07b0359acf"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012141419",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00014",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012143647",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-effa9e8d3eacd89296c0de21067c24fe",
+     "adr-67a9a6c61b8b872a57d56229fdfe8ebd"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012143647",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00015",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012144766",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-d19a8687818b9a9fde7fd239cc741806",
+     "adr-395e3846c8845864c0e76608ee92c551"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012144766",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:44Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00016",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012061310",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-a4437f757439f179f6604a6df4580df6"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012061310",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00017",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012063561",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-8568a05651215785067a3e9e2373a002"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012063561",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00018",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012064674",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-176da826d302b72ecd126f1b9846cb42"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012064674",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00019",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012065912",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-393f6731450c4b0fe693a96c2cae74ef"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012065912",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00020",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012077783",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-c99b810c47841be112ed93216eb27ad0"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012077783",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00021",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012077984",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-45894ac503681f1e1277455890cc01ec"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012077984",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00022",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012078472",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-d3139d0709c8c32f5303b4352598c04b"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012078472",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00023",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012081986",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-aa7635c6f6224e15aef7bc18c8f5e94d"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012081986",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00024",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012083986",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-6829daa43fe80c29caff7089b686356d"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012083986",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00025",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012084256",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-240157ee2b4317afeebdba01973833b1"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012084256",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00026",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012087184",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-f3ec048903cc4ebed88d4dd028bce568"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012087184",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00027",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012100140",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-a0b52ca279612371e9b928e2d34a3441"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012100140",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00028",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012102257",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-59886f04431e25a6b72972e38f2a0de2"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012102257",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00029",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012105151",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-22a2eb14df8d8c4e46a172b646176371"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012105151",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00030",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012108812",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-40a95403da234580c20f030bd9f66f26"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012108812",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00031",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012123643",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-be4ecf04ecf3a801d68efa5e38bd20ad"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012123643",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00032",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012125929",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-7f4a47bc9a8c2488031031aa3fb54498"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012125929",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00033",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012129433",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-941dc985180b74a90693d50dba182fe4"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012129433",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00034",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012135143",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-548448d1771413ea9167c1f41bc88769"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012135143",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00035",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012137009",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-b2d66069c673e93c0401cd48e828076d",
+     "adr-2554bd8f12119491b0502d3be0360832",
+     "adr-51c32e7cb17ff1a41644b9b7647a819d"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 3,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012137009",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00036",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012138208",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-65449a063c796d79adc798070c835268"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012138208",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00037",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012148993",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-f42021737373f0a028f5d417b013f05b"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012148993",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00038",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012151715",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-40230632d2ea3eea4569d4fe2d6e8942"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012151715",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00039",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012152265",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-32c913ad4234f537ccfcf177e226cc1a"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012152265",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00040",
+   "document_id": "DOC-005",
+   "bag_pand_id": "0363100012154610",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "address_matches_containing_pand": [
+     "adr-4479e03b3ef878ab51f0a3eaf6a557c9"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012154610",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:46Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "0476574c56090dd72202658575b7ca646b846a0b11c84edd54b5b778d36734ee",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00041",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012070344",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-4e734ff18a78141f3f84f3074871067c",
+     "adr-d17a279cc093939334dd74a51f11def3"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012070344",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00042",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012071880",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-67fa8581b25d7262588101f3695b7913",
+     "adr-ee199fdca7e6c9aa603ad95d8e13fb99"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012071880",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00043",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012078022",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-1f9b6387168932dd66f58f83cc83fc96",
+     "adr-36108eb85c996de0b73b491c9ef3c890"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012078022",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00044",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012091756",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-e682859c4cc3a0159f585c6d2634cd5d",
+     "adr-c5ee0e2aa22feb7ce0100d32c59a9b43"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012091756",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00045",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012091974",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-6f18679ca005c4345d8443ef3d33091b",
+     "adr-7d075af42c207c488c6326eb528a1831"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012091974",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00046",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012102659",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-5de17882076766f2b4087b5821ce31ba",
+     "adr-f24bbd0e1543cb4a4427eae13e341257"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012102659",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00047",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012107492",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-626381627089a0a5ef6b08aa23b4fb8e",
+     "adr-f7feec0bde9a86385f4e5bcbf4157767"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012107492",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00048",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012121455",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-07423ce51abbcf71a6c797ace3f742fc",
+     "adr-2561a648197f1cb45646e70d3f419ea3"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012121455",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00049",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012127361",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-38f0a653263a466e5335253677d3303d",
+     "adr-fcdccebfafa94afc54d9dd831fb68c9b"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012127361",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00050",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012134188",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-3f44ba53b32114f677f0382f96fdcb77",
+     "adr-11d5b58979796a03f5aaf082cfa7a612"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012134188",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00051",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012137996",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-e2c59424029b7f16e3f06efb87300a15"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012137996",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00052",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012140664",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-8233130f312a0e947727dc0bad83e7be",
+     "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012140664",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00053",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012141419",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-e420b771bc04f19ba5e4d01a64ec86b4",
+     "adr-ba5f71c5ce4b0411bca64d07b0359acf"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012141419",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00054",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012143647",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-effa9e8d3eacd89296c0de21067c24fe",
+     "adr-67a9a6c61b8b872a57d56229fdfe8ebd"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012143647",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00055",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012144766",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-d19a8687818b9a9fde7fd239cc741806",
+     "adr-395e3846c8845864c0e76608ee92c551"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 2,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012144766",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "De 15 BAG-panden bevatten exact de 29 even Maldenhof-adressen 240–296 met postcode 1106 EZ die overeenkomen met de 29 eenheden en het adresbereik in DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:48Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00056",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012061310",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-a4437f757439f179f6604a6df4580df6"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012061310",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00057",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012063561",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-8568a05651215785067a3e9e2373a002"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012063561",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00058",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012064674",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-176da826d302b72ecd126f1b9846cb42"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012064674",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00059",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012065912",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-393f6731450c4b0fe693a96c2cae74ef"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012065912",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00060",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012077783",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-c99b810c47841be112ed93216eb27ad0"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012077783",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00061",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012077984",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-45894ac503681f1e1277455890cc01ec"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012077984",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00062",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012078472",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-d3139d0709c8c32f5303b4352598c04b"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012078472",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00063",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012081986",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-aa7635c6f6224e15aef7bc18c8f5e94d"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012081986",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00064",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012083986",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-6829daa43fe80c29caff7089b686356d"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012083986",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00065",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012084256",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-240157ee2b4317afeebdba01973833b1"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012084256",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00066",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012087184",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-f3ec048903cc4ebed88d4dd028bce568"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012087184",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00067",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012100140",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-a0b52ca279612371e9b928e2d34a3441"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012100140",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00068",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012102257",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-59886f04431e25a6b72972e38f2a0de2"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012102257",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00069",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012105151",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-22a2eb14df8d8c4e46a172b646176371"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012105151",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00070",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012108812",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-40a95403da234580c20f030bd9f66f26"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012108812",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00071",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012123643",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-be4ecf04ecf3a801d68efa5e38bd20ad"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012123643",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00072",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012125929",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-7f4a47bc9a8c2488031031aa3fb54498"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012125929",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00073",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012129433",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-941dc985180b74a90693d50dba182fe4"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012129433",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00074",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012135143",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-548448d1771413ea9167c1f41bc88769"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012135143",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00075",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012137009",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-b2d66069c673e93c0401cd48e828076d",
+     "adr-2554bd8f12119491b0502d3be0360832",
+     "adr-51c32e7cb17ff1a41644b9b7647a819d"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 3,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012137009",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00076",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012138208",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-65449a063c796d79adc798070c835268"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012138208",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00077",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012148993",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-f42021737373f0a028f5d417b013f05b"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012148993",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00078",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012151715",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-40230632d2ea3eea4569d4fe2d6e8942"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012151715",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00079",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012152265",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-32c913ad4234f537ccfcf177e226cc1a"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012152265",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00080",
+   "document_id": "DOC-006",
+   "bag_pand_id": "0363100012154610",
+   "link_status": "REJECTED",
+   "address_as_stated": "Maldenhof 240 - 296",
+   "normalized_address": "maldenhof 240-296 | 1106EZ amsterdam",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "address_matches_containing_pand": [
+     "adr-4479e03b3ef878ab51f0a3eaf6a557c9"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 1,
+     "bouwjaar": 1981,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0363100012154610",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Adres ligt binnen het numerieke straatbereik maar heeft een andere postcode en behoort tot de andere zijde/scope dan de 29 adressen uit DOC-005/DOC-006.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T09:43:50Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "7f45aef60364803f961babc3dcef2bfa3ee93a0769eac5a02fc05b50c209a699",
+    "snapshot_id": "BAGSNAP-e23aa139a8589881",
+    "candidates_report_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
+  }
+ ]
 }

@@ -23,10 +23,14 @@ Regels:
   alle child evidence, panden, snapshots en links. Mist één pandwaarde, dan wordt het aggregaat NIET
   gepubliceerd (nooit als 0 tellen) en staat het in scope_aggregates_not_published.
 - Historische evidence: alleen quantity observations van een document met ACTIVE links, alleen voor een
-  mapping (element_code + eenheid -> onderwerp) die door een mens is geverifieerd. Meerdere rijen per
+  mapping (element_code + eenheid -> onderwerp) die door een mens is geverifieerd. Een mapping kan via 'match'
+  beperkt zijn tot bepaalde documenten en exacte omschrijving/locatie (geen fuzzy matching). Meerdere rijen per
   onderwerp worden NIET opgeteld.
-- Vergelijking: alleen enkel-pand-documenten; verschil = historisch - 3D BAG, percentage t.o.v. 3D BAG.
-  Geen score, geen gemiddelde van bronnen, geen keuze.
+- Vergelijking: historisch vs. 3D BAG van dezelfde gebouwscope (enkel pand of scope-aggregaat); verschil =
+  historisch - 3D BAG, percentage t.o.v. 3D BAG. Geen score, geen gemiddelde van bronnen, geen keuze.
+- Een historisch onderwerp dat volgens subject_relations RELATED_NOT_EQUIVALENT is aan een 3D BAG-onderwerp
+  (bijv. ROOF_COVERING_REPORTED_AREA ~ ROOF_FLAT_AREA) wordt alleen als bronverschil/andere definitie getoond
+  (comparison_kind RELATED_SUBJECT_NOT_EQUIVALENT) en telt niet mee in de verschilstatistiek.
 """
 
 import argparse
@@ -136,6 +140,32 @@ def bag3d_evidence(pand_id, snapshot, rules, subjects_by_key, link_ids):
     return out, not_available
 
 
+def mapping_matches(m, qo):
+    """Exacte match van een historische onderwerp-mapping op een quantity observation (geen fuzzy matching)."""
+    el = qo["element"]
+    if el["element_code_internal"] != m["element_code_internal"] or qo["unit_normalized"] != m["unit_normalized"]:
+        return False
+    match = m.get("match") or {}
+    if "document_ids" in match and qo["document_id"] not in match["document_ids"]:
+        return False
+    if "element_description_original_exact" in match and el.get("element_description_original") not in match["element_description_original_exact"]:
+        return False
+    if "location_original_exact" in match and el.get("location_original") not in match["location_original_exact"]:
+        return False
+    return True
+
+
+def related_subjects(vocab, subject_key, relation="RELATED_NOT_EQUIVALENT"):
+    """{andere subject_key: relation_id} voor onderwerpen die met subject_key verwant maar niet gelijk zijn."""
+    out = {}
+    for r in vocab.get("subject_relations", []):
+        if r["relation"] == relation and subject_key in r["subjects"]:
+            for k in r["subjects"]:
+                if k != subject_key:
+                    out[k] = r["relation_id"]
+    return out
+
+
 def build(links_store=None, snapshots=None, quantity_observations=None, subjects_vocab=None, crosswalk_effective=None):
     links_store = links_store if links_store is not None else bl.load_store()
     snapshots = snapshots if snapshots is not None else bs.load_snapshots()
@@ -206,7 +236,7 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
             subj = subjects_by_key[m["subject_key"]]
             sid = qe.make_building_subject_id(building_id, subj["subject_key"], subj["unit"])
             for o in qo_by_doc.get(doc, []):
-                if o["element"]["element_code_internal"] == m["element_code_internal"] and o["unit_normalized"] == m["unit_normalized"]:
+                if mapping_matches(m, o):
                     e = qe.evidence_from_quantity_observation(o, building_id=building_id, subject_id=sid, building_link_ref=link_ref,
                                                               subject_key=subj["subject_key"], mapping_ref=m["mapping_id"])
                     hist.append((doc, recs, e, o))
@@ -220,7 +250,15 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
         bag_value = bag_unit = bag_ev_id = bag_method = None
         bag_children = []
         scope_id = building_id_for([r["bag_pand_id"] for r in recs])
+        comparison_kind, relation_id, bag_subject_key = "SAME_SUBJECT", None, subject_key
         bags = bag_by_building_subject.get((scope_id, subject_key), [])
+        if not bags:
+            for other, rel in sorted(related_subjects(vocab, subject_key).items()):
+                if bag_by_building_subject.get((scope_id, other)):
+                    comparison_kind, relation_id, bag_subject_key = "RELATED_SUBJECT_NOT_EQUIVALENT", rel, other
+                    bags = bag_by_building_subject[(scope_id, other)]
+                    reasons.append("DIFFERENT_SUBJECT_DEFINITION")
+                    break
         if not bags:
             reasons.append("MULTI_PAND_AGGREGATE_NOT_PUBLISHED" if len({r["bag_pand_id"] for r in recs}) > 1 else "NO_3DBAG_VALUE")
         else:
@@ -240,13 +278,15 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
             abs_diff = h - b
             pct = (abs_diff / b * 100) if b != 0 else None
         band = None
-        if pct is not None:
+        if pct is not None and comparison_kind == "SAME_SUBJECT":
             a = abs(pct)
             band = next((name for name, lim in BANDS if a <= lim), "ABOVE_15_PCT")
         comparisons.append({
             "document_id": doc, "building_id": building_id_for([r["bag_pand_id"] for r in recs]),
             "bag_pand_ids": sorted(r["bag_pand_id"] for r in recs),
             "subject_key": subject_key,
+            "comparison_kind": comparison_kind, "bag3d_subject_key": bag_subject_key if bag_ev_id else None,
+            "subject_relation_id": relation_id,
             "historical_evidence_id": e["evidence_id"], "historical_quantity_observation_id": o["quantity_observation_id"],
             "historical_value": e["value"], "historical_unit": e["unit_normalized"],
             "historical_description": o["element"]["element_description_original"], "historical_location": o["element"]["location_original"],
@@ -258,7 +298,8 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
             "historical_source_cluster": o["source_cluster"],
             "dependency_note": ("zelfde object als " + ", ".join(o["dependency"]["same_object_document_ids"])
                                 + ": geen onafhankelijke bevestiging") if o["dependency"]["same_object_document_ids"] else None,
-            "review_status": "REVIEW_REQUIRED" if reasons else "COMPARED",
+            "review_status": ("NOT_RESOLVABLE_AS_SAME_QUANTITY" if comparison_kind != "SAME_SUBJECT"
+                              else "REVIEW_REQUIRED" if reasons else "COMPARED"),
             "mismatch_reasons": sorted(set(reasons)),
         })
     comparisons.sort(key=lambda c: (c["document_id"], c["subject_key"], c["historical_quantity_observation_id"]))
@@ -276,7 +317,15 @@ def _median(xs):
 
 
 def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, not_available, not_published=()):
-    compared = [c for c in comparisons if c["percentage_difference"] is not None]
+    compared = [c for c in comparisons if c["percentage_difference"] is not None and c["comparison_kind"] == "SAME_SUBJECT"]
+    related = [c for c in comparisons if c["comparison_kind"] != "SAME_SUBJECT"]
+    hist_ev = [e for e in evidence if e["source_type"] == "MJOP_ELEMENT_OVERVIEW"]
+    independent = {}
+    for e in hist_ev:
+        key = (e["building_id"], e["quantity_subject"]["subject_key"])
+        independent.setdefault(key, {"evidences": 0, "source_clusters": set()})
+        independent[key]["evidences"] += 1
+        independent[key]["source_clusters"].add((e.get("dependency") or {}).get("source_cluster") or e["evidence_id"])
     per_subject = {}
     for key in sorted({c["subject_key"] for c in comparisons}):
         cs = [c for c in compared if c["subject_key"] == key]
@@ -302,6 +351,11 @@ def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, 
         "comparisons": len(comparisons),
         "comparisons_with_difference": len(compared),
         "comparable_subjects": sorted({(c["building_id"], c["subject_key"]) for c in compared}),
+        "related_subject_source_differences": len(related),
+        "historical_independent_sources": [
+            {"building_id": b, "subject_key": k, "historical_evidences": v["evidences"],
+             "independent_source_clusters": len(v["source_clusters"])}
+            for (b, k), v in sorted(independent.items())],
         "per_subject": per_subject,
         "median_absolute_difference": _median([abs(Decimal(c["absolute_difference"])) for c in compared]),
         "median_percentage_difference": _median([abs(Decimal(c["percentage_difference"])) for c in compared]),
@@ -317,7 +371,9 @@ def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, 
     summary["comparable_subjects"] = [list(x) for x in summary["comparable_subjects"]]
     return {"report_version": "3dbag_vs_historical_v1",
             "note": ("Feitelijke verschillen historisch - 3D BAG (percentage t.o.v. 3D BAG). Geen kwaliteitsscore, "
-                     "geen gemiddelde van bronnen, geen keuze. Afhankelijke documenten zijn geen onafhankelijke bevestiging."),
+                     "geen gemiddelde van bronnen, geen keuze. Afhankelijke documenten zijn geen onafhankelijke bevestiging. "
+                     "Een verschil tussen verwante maar niet gelijke onderwerpen (RELATED_SUBJECT_NOT_EQUIVALENT) is een "
+                     "bronverschil/andere definitie en telt niet mee in de verschilstatistiek."),
             "summary": summary, "comparisons": comparisons}
 
 
@@ -337,7 +393,12 @@ def render_report(rep, candidates=None):
          f"- Binnen 5%: {s['within_5_pct']}; 5–15%: {s['5_to_15_pct']}; >15%: {s['above_15_pct']}",
          f"- Geen 3D BAG-waarde: {s['missing_matches']}; eenheidsverschil: {s['unit_mismatches']}; "
          f"meerdere panden zonder gepubliceerd aggregaat: {s['multi_pand_aggregate_not_published']}; meerdere historische rijen (niet opgeteld): "
-         f"{s['multiple_historical_rows_not_summed']}"]
+         f"{s['multiple_historical_rows_not_summed']}",
+         f"- Bronverschillen tussen verwante, niet-gelijke onderwerpen (andere definitie; niet in de statistiek): "
+         f"{s['related_subject_source_differences']}"]
+    for h in s["historical_independent_sources"]:
+        L.append(f"- Historisch {h['subject_key']} ({h['building_id']}): {h['historical_evidences']} evidence(s) uit "
+                 f"{h['independent_source_clusters']} onafhankelijke bron(cluster)(s)")
     if candidates is not None:
         L.append(f"- Building-link-kandidaten: {candidates['summary']['by_status']} "
                  "(zie reports/quantity/building_link_candidates_v1.md)")
@@ -347,10 +408,11 @@ def render_report(rep, candidates=None):
               "(netwerktoegang tot api.pdok.nl en api.3dbag.nl), (2) een door een mens bevestigde building link, "
               "(3) een door een mens geverifieerde onderwerp-mapping (bijv. HSM-ROOF_FLAT_AREA-4711-m2).", ""]
     else:
-        L += ["| Document | Pand(en) | Onderwerp | Historisch | 3D BAG | Verschil | % | Cluster | Status / redenen |",
-              "|---|---|---|---|---|---|---|---|---|"]
+        L += ["| Document | Pand(en) | Onderwerp historisch | Onderwerp 3D BAG | Historisch | 3D BAG | Verschil | % | Cluster | Status / redenen |",
+              "|---|---|---|---|---|---|---|---|---|---|"]
         for c in rep["comparisons"]:
-            L.append(f"| {c['document_id']} | {', '.join(c['bag_pand_ids'])} | {c['subject_key']} | "
+            pand = ", ".join(c["bag_pand_ids"]) if len(c["bag_pand_ids"]) <= 3 else f"{len(c['bag_pand_ids'])} panden"
+            L.append(f"| {c['document_id']} | {pand} | {c['subject_key']} | {c['bag3d_subject_key'] or '—'} | "
                      f"{c['historical_value']} {c['historical_unit']} | {c['bag3d_value'] or '—'} {c['bag3d_unit'] or ''} | "
                      f"{c['absolute_difference'] or '—'} | {c['percentage_difference'] or '—'} | {c['historical_source_cluster']} | "
                      f"{c['review_status']} {', '.join(c['mismatch_reasons'])} |")

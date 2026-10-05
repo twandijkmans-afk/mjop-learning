@@ -14,6 +14,12 @@ Bundelversies (backwards-compatible):
       evidence is het scope-aggregaat (GEOMETRY_DERIVED) met per pand de onderliggende waarde in 'components';
       historische evidence staat op complexniveau (scope_level COMPLEX). Pandwaarden zijn géén losse kiesbare
       bronnen en worden niet over panden verdeeld.
+  v3  als v1/v2 (building_scope altijd aanwezig), plus CONTEXT-regels: evidence van een onderwerp dat volgens
+      vocabularies/quantity_subjects_v1.json subject_relations RELATED_NOT_EQUIVALENT is aan het onderwerp van
+      de app-mapping (bijv. historische ROOF_COVERING_REPORTED_AREA naast ROOF_FLAT_AREA). Zo'n regel heeft
+      role RELATED_CONTEXT en selectable false: tonen en verschil als bronverschil/andere definitie, nooit kiezen
+      als dezelfde hoeveelheid, nooit middelen. Alleen historische evidence van de interne element_code van de
+      geverifieerde app-mapping komt als context mee. Zonder CONTEXT-regels blijft de uitvoer v1/v2.
 
     python scripts/export_app_quantity_bundle.py --building "BAG:0363100012345678" --out exports/bundle.json
 """
@@ -30,6 +36,7 @@ import crosswalk as xw  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 BUNDLE_VERSION = "mjop_app_quantity_bundle_v1"
 BUNDLE_VERSION_MULTI = "mjop_app_quantity_bundle_v2"
+BUNDLE_VERSION_RELATED = "mjop_app_quantity_bundle_v3"
 
 
 class BundleError(RuntimeError):
@@ -68,7 +75,7 @@ def _components(ev, by_id):
     return out
 
 
-def build_bundle(building_id, evidence, app_crosswalk, effective):
+def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab=None):
     verified = [m for m in app_crosswalk["mappings"]
                 if effective.get(m["mapping_id"], {}).get("status") == "VERIFIED" and m.get("quantity_subject")]
     if not verified:
@@ -76,10 +83,18 @@ def build_bundle(building_id, evidence, app_crosswalk, effective):
     pand_ids = building_id.split(":", 1)[1].split("+")
     multi = len(pand_ids) > 1
     by_id = {e["evidence_id"]: e for e in evidence}
+    vocab = subjects_vocab or {}
+    labels = {s["subject_key"]: s["label_nl"] for s in vocab.get("subjects", [])}
     entries = []
     for m in sorted(verified, key=lambda x: x["mapping_id"]):
+        related = bqe.related_subjects(vocab, m["quantity_subject"])
         for ev in evidence:
-            if ev["quantity_subject"].get("subject_key") != m["quantity_subject"]:
+            key = ev["quantity_subject"].get("subject_key")
+            context = key in related
+            if key != m["quantity_subject"] and not context:
+                continue
+            if context and (ev["source_type"] != "MJOP_ELEMENT_OVERVIEW"
+                            or ev["quantity_subject"].get("element_code_internal") != m["internal_element_code"]):
                 continue
             if ev["unit_normalized"] != m["unit"]:
                 continue
@@ -88,7 +103,7 @@ def build_bundle(building_id, evidence, app_crosswalk, effective):
             e_out = {
                 "app_element_key": m["app_element_key"], "crosswalk_mapping_id": m["mapping_id"],
                 "crosswalk_decision_id": effective[m["mapping_id"]]["decision_id"],
-                "subject_key": m["quantity_subject"],
+                "subject_key": key,
                 "evidence": {
                     "evidence_id": ev["evidence_id"], "source_type": ev["source_type"], "method_class": ev["method_class"],
                     "value": ev["value"], "unit": ev["unit_normalized"], "status": ev["status"],
@@ -98,6 +113,13 @@ def build_bundle(building_id, evidence, app_crosswalk, effective):
                     "source_ref": _app_ref(ev),
                 },
             }
+            if context:
+                e_out.update({"role": "RELATED_CONTEXT", "selectable": False, "subject_label_nl": labels.get(key),
+                              "primary_subject_key": m["quantity_subject"],
+                              "primary_subject_label_nl": labels.get(m["quantity_subject"]),
+                              "subject_relation": {"relation_id": related[key], "relation": "RELATED_NOT_EQUIVALENT",
+                                                   "resolvable_as_same_quantity": False,
+                                                   "show_difference_as": "SOURCE_DIFFERENCE_DIFFERENT_DEFINITION"}})
             if multi:
                 is_agg = bool(ev["source_ref"].get("aggregation"))
                 e_out["evidence"]["scope_level"] = "COMPLEX"
@@ -107,6 +129,15 @@ def build_bundle(building_id, evidence, app_crosswalk, effective):
             entries.append(e_out)
     if not entries:
         raise BundleError(f"geen evidence voor {building_id} bij de geverifieerde mappings")
+    if any(e.get("role") == "RELATED_CONTEXT" for e in entries):
+        for e in entries:
+            if e.get("role") != "RELATED_CONTEXT":
+                e.update({"role": "PRIMARY", "selectable": True, "subject_label_nl": labels.get(e["subject_key"])})
+        return {"bundle_version": BUNDLE_VERSION_RELATED, "building_id": building_id, "bag_pand_ids": pand_ids,
+                "building_scope": {"building_id": building_id, "kind": "MULTI_PAND_SCOPE" if multi else "SINGLE_PAND",
+                                   "bag_pand_ids": pand_ids, "pand_count": len(pand_ids)},
+                "tenant_note": "Bevat historische hoeveelheden van één VvE; alleen importeren in een plan van die VvE.",
+                "entries": entries}
     if not multi:
         return {"bundle_version": BUNDLE_VERSION, "building_id": building_id, "bag_pand_ids": pand_ids,
                 "tenant_note": "Bevat historische hoeveelheden van één VvE; alleen importeren in het plan van die VvE.",
@@ -126,7 +157,8 @@ def main(argv=None):
     store = json.loads(bqe.OUT_EVIDENCE.read_text(encoding="utf-8"))
     app_cw = json.loads(xw.APP_CROSSWALK.read_text(encoding="utf-8"))
     try:
-        bundle = build_bundle(args.building, store["evidence"], app_cw, xw.effective())
+        bundle = build_bundle(args.building, store["evidence"], app_cw, xw.effective(),
+                              json.loads(xw.SUBJECTS.read_text(encoding="utf-8")))
     except BundleError as e:
         print(f"FOUT: {e}", file=sys.stderr)
         return 2
