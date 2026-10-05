@@ -1,0 +1,289 @@
+{
+ "source_package": "data/external/building_validation/real_validation_v3",
+ "source_branch": "claude/extractie-v1-integratie",
+ "source_candidates_file": "candidates/DOC-005-006.json",
+ "source_candidates_sha256": "b9e500bce120a192b2d2fcde83326b115c62981a6f149e4899294435d252bcca",
+ "copied_raw_files": [
+  {
+   "path": "raw/3dbag/bag-pand-0363100012061310__3dbag-pand__e0fb95df778a.json",
+   "sha256": "e0fb95df778a5d1dd4f89c77e3f30c9b648610e62db1991d4eb169df27929641"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012063561__3dbag-pand__95dc37f701cd.json",
+   "sha256": "95dc37f701cd157a5964b40fcbb0d2553fadba421150ad0ff2106177d044fa67"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012064674__3dbag-pand__267063a34c41.json",
+   "sha256": "267063a34c41d44312fba8cf0f834c7eb7111284f5c7a6079af470a5768ef7e0"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012065912__3dbag-pand__d0617d7baf8b.json",
+   "sha256": "d0617d7baf8bb83dd69a3a14b56695dea6a9241a9c9262f4d6993be3943ea44e"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012070344__3dbag-pand__68384c3d1499.json",
+   "sha256": "68384c3d1499a0b7999f20cf012a666c96c875ce823346210eda5470d6dd181a"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012071880__3dbag-pand__c52501c7f0b9.json",
+   "sha256": "c52501c7f0b9aad63e7aa89095a421a4b0ee4faee44e84ca03a38126f94a7943"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012077783__3dbag-pand__ab4cb2fb4457.json",
+   "sha256": "ab4cb2fb4457a69b8cfd79c4f6fb15e4a9bf04ece4290a24287633d677a00d82"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012077984__3dbag-pand__029c37b92e38.json",
+   "sha256": "029c37b92e38b8f7637902da7e62d94425787db9c6f1579edf5937303a0e1b56"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012078022__3dbag-pand__e8b3a98af628.json",
+   "sha256": "e8b3a98af6280e9663a6a02aee7fa1ac683dae6908d3eecbf3bd9d53204aa906"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012078472__3dbag-pand__91068484aeda.json",
+   "sha256": "91068484aeda24e6a354aa452031d43bcc6d94d0c2e8484c0fbf27b430b378f3"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012081986__3dbag-pand__61a4280b7254.json",
+   "sha256": "61a4280b7254528ec63f800f7fd7b486a0588e1497cf03bffe1494cdf0203da6"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012083986__3dbag-pand__8894ed5d3874.json",
+   "sha256": "8894ed5d3874b523467592bf7a89ef8036499a6fbdff9f5b2f0529e37d5d706a"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012084256__3dbag-pand__a2e6ea5daaa9.json",
+   "sha256": "a2e6ea5daaa93778af7c78154bd9b4beee24debf674240156e837987cb1e04fb"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012087184__3dbag-pand__20b27455e34e.json",
+   "sha256": "20b27455e34eac3057094615b3d2b671f31ae31314cb667c02409799ab0a8e62"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012091756__3dbag-pand__8c4b4b209f3f.json",
+   "sha256": "8c4b4b209f3f9c671f6534801bfe9e527862c30908ce9dbe458ee49f750c9fc3"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012091974__3dbag-pand__790c2c6ff28d.json",
+   "sha256": "790c2c6ff28daa8bc33baac127de28e8a099e55984e4c8875062c3a600d246ce"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012100140__3dbag-pand__33f2047220f8.json",
+   "sha256": "33f2047220f8ecd459c4d3230872e7c55351a0b28f6b44c8203f698cc3724cc9"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012102257__3dbag-pand__f27af81d9dd4.json",
+   "sha256": "f27af81d9dd4a760877ff1b065d29554f49e9b386581da74d56b12f415d0a143"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012102659__3dbag-pand__3d2fb2abcb74.json",
+   "sha256": "3d2fb2abcb7452e2518c8e5ad7f871615461263a5450a7eb2f800a72d283fa92"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012105151__3dbag-pand__474736ef1d07.json",
+   "sha256": "474736ef1d078df941c198f3d4b2515268c9630d912d273d82e62d9db71895fd"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012107492__3dbag-pand__4c043f130add.json",
+   "sha256": "4c043f130adde815d38f07367468d400d9c717da7dcd03b98077c840fa847fa3"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012108812__3dbag-pand__69a1d1bbd151.json",
+   "sha256": "69a1d1bbd151f08a5eef71756bfec235840cff50f125e1f0e6663d7e440ee8f4"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012121455__3dbag-pand__73fe6043cc9d.json",
+   "sha256": "73fe6043cc9d71264ea40a0c5d4050f80b0588559da97707832acc204cbc27f5"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012123643__3dbag-pand__764d1a098a95.json",
+   "sha256": "764d1a098a952bcb3040768efc4c1020cfbfcfa3af6d7a9ecbf4d134dc5ef9da"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012125929__3dbag-pand__adf0b93f0c19.json",
+   "sha256": "adf0b93f0c19e84643aabe5492e3d053d72afe77246310176eca95ff94afcfc2"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012127361__3dbag-pand__056f45aedc27.json",
+   "sha256": "056f45aedc27e03d508f20f80edf5788d15a83368909268748f934cb1bdb7031"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012129433__3dbag-pand__979580f94137.json",
+   "sha256": "979580f941374f8713323b804357c190aadceba63f04874fba502012abaa7a16"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012134188__3dbag-pand__b9835235be63.json",
+   "sha256": "b9835235be63086922f835fa14f16f0ccdd6da3a73fc1c47e76b30b3a8605396"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012135143__3dbag-pand__defd47945e37.json",
+   "sha256": "defd47945e37fbeeeddfd266abe3feec2afe90eeaa87ef4db7657c40ddc466f5"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012137009__3dbag-pand__c5ec3263f472.json",
+   "sha256": "c5ec3263f472b3592f2e57dc1b2feaef7905cf494e311fcda475b3ee54b48834"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012137996__3dbag-pand__6de26675b58d.json",
+   "sha256": "6de26675b58d90298ce1aac39e069cf614dd51753faa0f2340759512134125f2"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012138208__3dbag-pand__f020cf35a8d6.json",
+   "sha256": "f020cf35a8d6d3c6ab7693e1d4c46ef77833b1f4e47ff35f1c78d3ab107bdf80"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012140664__3dbag-pand__7fe9832d6fd6.json",
+   "sha256": "7fe9832d6fd6eea7b0b99180004905b960d6aa6d3cfd9b397e3cb088cdbecd8d"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012141419__3dbag-pand__179569dc06b2.json",
+   "sha256": "179569dc06b2cbe59216b3326da8ae22bbe3932f9580673650e1154aa8905c59"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012143647__3dbag-pand__6e03518cbd8e.json",
+   "sha256": "6e03518cbd8e81e0b833c74bdd97fccfcfb4db5254b972b0456397812ea95e67"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012144766__3dbag-pand__36b7a2a8e393.json",
+   "sha256": "36b7a2a8e393cf8650256fee7f8ec9bcf499c2b39d28a697a9d026dae8946617"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012148993__3dbag-pand__7595e3482de0.json",
+   "sha256": "7595e3482de0fa6a51b684f0c95e0850eea156f3110349b219a96ff217cc5761"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012151715__3dbag-pand__725cdf41b6ff.json",
+   "sha256": "725cdf41b6ff5a9fd0d6f69d128bdf56126028463f4cb2349e9aa2fff4e84391"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012152265__3dbag-pand__4c0f97b32693.json",
+   "sha256": "4c0f97b326934df46975b1189e55d0efd897d1e1b329f59bb2248206f429ca77"
+  },
+  {
+   "path": "raw/3dbag/bag-pand-0363100012154610__3dbag-pand__1a624c19bcbc.json",
+   "sha256": "1a624c19bcbc5397fbddb4d16b1e81c8552d244784495368f7573d4c64c94bea"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012070344__bag-vbo__77eef2d464cc.json",
+   "sha256": "77eef2d464cc6ee2f1527b48b521903569feb91303a171a3f8accd96baa265fd"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012070344__bag-vbo__8d6c94e88b3b.json",
+   "sha256": "8d6c94e88b3b3751d6205c70b728b33a229c16470f9f1ad0e73740361e954b56"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012071880__bag-vbo__9ae1ae74edb0.json",
+   "sha256": "9ae1ae74edb050ffda141652c4d2e1f6e42edc1a3c5cb90ec61ea345599fbe4e"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012071880__bag-vbo__e8b0ae4e294d.json",
+   "sha256": "e8b0ae4e294d8e7209067b4fe9e2fa6d2065c322200fac27589fe0c1607df051"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012078022__bag-vbo__34a7aa3e6e24.json",
+   "sha256": "34a7aa3e6e246129c0ef735e10e2dda75287303801fedbd6c2f9b98ff37516ac"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012078022__bag-vbo__a333a575013f.json",
+   "sha256": "a333a575013f475a9c9c08b709e2b8741d5b839d9438e317e6aa0e6524e09e4f"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012091756__bag-vbo__216a590c1ed8.json",
+   "sha256": "216a590c1ed84a8cd891b8e87dc0b28891612d0f46c22d9a26d93064729f24e7"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012091756__bag-vbo__f944bc039f93.json",
+   "sha256": "f944bc039f939b4e5b7c6a7a7990187ef556d5035a0e3d9cb5d017ccd8ff75d4"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012091974__bag-vbo__4ee9361b5c4b.json",
+   "sha256": "4ee9361b5c4b763da90a6872efe17faf6d820674c306f0170af808c33bb63506"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012091974__bag-vbo__d64ef2a8f081.json",
+   "sha256": "d64ef2a8f081254a0936b1b12f550fcf0b25e0cc9c304e370a60af436c0eaa6f"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012102659__bag-vbo__77ca60346f41.json",
+   "sha256": "77ca60346f41b3b6715dffdceac70fafc31425ecf854348f4ed2977c7ee5a93b"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012102659__bag-vbo__fa378be3b7f5.json",
+   "sha256": "fa378be3b7f5feaf047230ae2bd7d2640e4c10ba0001c433c60b689f33df3ea6"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012107492__bag-vbo__b3d747538cf3.json",
+   "sha256": "b3d747538cf3b46b352ece13ea6a90f60c99b1effe89cffd7a10438a7d10bd2e"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012107492__bag-vbo__ce04d4f8d1aa.json",
+   "sha256": "ce04d4f8d1aa32cf9a5dfc83a5e32b6e6846661e1e834d70d56299d9034f70d7"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012121455__bag-vbo__4e523307e36e.json",
+   "sha256": "4e523307e36e738b1988b226cfd1c53f5206b4d3a75fba62ea0ca12a8f91ed03"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012121455__bag-vbo__768a5e3cbaf7.json",
+   "sha256": "768a5e3cbaf745bd5c88855251ff8054e806bbb532e23876482c17ad6b3e916c"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012127361__bag-vbo__c51342797b8f.json",
+   "sha256": "c51342797b8f4547a462e71c21731c84cbcd2909e31f93be8e06c867083cd6d1"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012127361__bag-vbo__da3fce6776b6.json",
+   "sha256": "da3fce6776b6ca7d7635aea6e2f2a985bbaa7a2a458bdd32a9ef52dc8258acc3"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012134188__bag-vbo__c07fbaf9fcdb.json",
+   "sha256": "c07fbaf9fcdb26b59ee8796c568eb540cd34aa1efc32c59dfd0f8f16822842bf"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012134188__bag-vbo__c873298a700f.json",
+   "sha256": "c873298a700f73b21853f64b2853da4e5b32252da12ea244ebee27b6a25fc244"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012137996__bag-vbo__29e51b018b6d.json",
+   "sha256": "29e51b018b6d6614800be088f322e0836a5bbf6fba4f0b301e56aed8c9b33e45"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012140664__bag-vbo__49a9b53b7d7a.json",
+   "sha256": "49a9b53b7d7ade30f837eb83cf82233fd36243c862a21ca5f9b8d148d6dba6a8"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012140664__bag-vbo__ebd95675a5a6.json",
+   "sha256": "ebd95675a5a69f4fa074abf279ab1f226a427b6eb9093e000ba69aa81f59e23e"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012141419__bag-vbo__0c5f1b6485f0.json",
+   "sha256": "0c5f1b6485f0f0555b7782b0e4541246a244ee6f9a810910ef98c1e948817ae1"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012141419__bag-vbo__e7799220f199.json",
+   "sha256": "e7799220f19914b7dd70091c66af0362433554882834ea306197aa78ceac3eb4"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012143647__bag-vbo__0e1dd89cfd88.json",
+   "sha256": "0e1dd89cfd88806584d40b55e7eb7f13d25b0e0cc31da2c086ba5707d9e05070"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012143647__bag-vbo__e0a2198a45bd.json",
+   "sha256": "e0a2198a45bd27f85ff27f21a836f785ec6c99f361992bfe47a58fea631c5545"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012144766__bag-vbo__aef9e8adb620.json",
+   "sha256": "aef9e8adb620575354f00956b6238e7bb1280cd43f32b7cfeda19748ff436b8e"
+  },
+  {
+   "path": "raw/pdok/bag-pand-0363100012144766__bag-vbo__db5781e490c3.json",
+   "sha256": "db5781e490c3a9e01628ae63df8b7f65479024faabe38eecbc08fd5274d29633"
+  }
+ ],
+ "slimmed_files": [
+  "candidates/DOC-005-006.json"
+ ],
+ "scope": "EVEN_ONLY (Maldenhof 240-296, 15 panden, 29 adressen); 3D BAG van alle 40 kandidaat-panden (ook overkant) voor de zichtlijntest",
+ "status": "EVIDENCE_SNAPSHOT_FOR_POC — geen canonical data"
+}
