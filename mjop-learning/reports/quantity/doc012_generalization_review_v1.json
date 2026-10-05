@@ -1,0 +1,2899 @@
+{
+ "report_version": "doc012_generalization_review_v1",
+ "note": "Read-only discovery + review. Geen building links, geen mapping-besluiten, geen quantity resolution, geen app-bundel. 3D BAG-waarden zijn PREVIEW (niet opgeslagen). Geen accuracy-claim.",
+ "document": {
+  "document_id": "DOC-012",
+  "address_as_stated": "Meppelweg 819",
+  "address_provenance": {
+   "block_id": "P02-L008",
+   "document_id": "DOC-012",
+   "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+   "page": 2,
+   "source_confidence": "high",
+   "table_index": null,
+   "text_fragment": "Adres Meppelweg 819"
+  },
+  "object_name": "VvE Meppelweg 801-883",
+  "postcode": "2544 AW",
+  "city": "Den Haag",
+  "construction_year": 1956,
+  "number_of_units": null,
+  "source_cluster": "SC-DOC-012",
+  "document_relations": [],
+  "candidate_report_status": "CANDIDATES_READY_FOR_REVIEW",
+  "candidate_review_reasons": [
+   "OBJECT_NAME_ADDRESS_DIFFERS"
+  ]
+ },
+ "hypotheses": {
+  "H1": {
+   "definition": "scope = alleen het opgegeven adres Meppelweg 819",
+   "query_source": "building.address",
+   "query_provenance": {
+    "block_id": "P02-L008",
+    "document_id": "DOC-012",
+    "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+    "page": 2,
+    "source_confidence": "high",
+    "table_index": null,
+    "text_fragment": "Adres Meppelweg 819"
+   },
+   "canonical": true,
+   "snapshot_id": "BAGSNAP-599d2f2004100011",
+   "snapshot_path": "data/bag_snapshots/BAGSNAP-599d2f2004100011.json",
+   "query": {
+    "city": "Den Haag",
+    "city_alias_ref": "WPA-den-haag",
+    "city_bag_woonplaatsnaam": "'s-Gravenhage",
+    "number": "819",
+    "postcode": "2544 AW",
+    "q": "Meppelweg 819 2544 AW Den Haag",
+    "street": "Meppelweg"
+   },
+   "requests": 3,
+   "exact_address_matches": [
+    "Meppelweg 819, 2544AW 's-Gravenhage"
+   ],
+   "panden": [
+    {
+     "bag_pand_id": "0518100000354752",
+     "addresses": [
+      "Meppelweg 819, 2544AW 's-Gravenhage"
+     ],
+     "address_count_in_query": 1,
+     "huisnummers": [],
+     "parity": [],
+     "postcodes": [
+      "2544AW"
+     ],
+     "with_suffix": 0,
+     "verblijfsobjecten_bag": 42,
+     "bouwjaar": 1957,
+     "gebruiksdoel": "woonfunctie",
+     "status": "Pand in gebruik",
+     "threedbag_available": true,
+     "threedbag_error": null,
+     "contains_meppelweg_819": false
+    }
+   ]
+  },
+  "H2": {
+   "definition": "scope = huisnummerbereik Meppelweg 801-883 uit de objectnaam",
+   "query_source": "document_level_values.object_name",
+   "object_name": "VvE Meppelweg 801-883",
+   "canonical": false,
+   "why_not_canonical": "bag_snapshot_v1 legt geen query-bron vast; een range uit de objectnaam is geen document-adres. In data/bag_snapshots zou 'building_links.py record' deze panden als kandidaat accepteren. Daarom alleen als read-only hypothese-opname (zelfde structuur, hash gecontroleerd).",
+   "capture_id": "BAGSNAP-68f484badbce9837",
+   "capture_path": "reports/quantity/doc012_scope_hypotheses/H2_BAGSNAP-68f484badbce9837.json",
+   "query": {
+    "city": "Den Haag",
+    "city_alias_ref": "WPA-den-haag",
+    "city_bag_woonplaatsnaam": "'s-Gravenhage",
+    "fq": [
+     "type:adres",
+     "woonplaatsnaam:\"'s-Gravenhage\"",
+     "straatnaam:\"Meppelweg\"",
+     "huisnummer:[801 TO 883]"
+    ],
+    "kind": "range",
+    "number": "801-883",
+    "number_from": 801,
+    "number_to": 883,
+    "postcode": "2544 AW",
+    "q": "Meppelweg 801-883 Den Haag",
+    "street": "Meppelweg"
+   },
+   "requests": 87,
+   "addresses_found": 82,
+   "addresses_by_postcode": {
+    "2544AW": 20,
+    "2544AX": 21,
+    "2544BV": 38,
+    "2544BW": 1,
+    "GEEN": 2
+   },
+   "addresses_by_parity": {
+    "even": 41,
+    "oneven": 41
+   },
+   "numbers_in_range_without_address": [
+    801,
+    822,
+    824,
+    826,
+    828,
+    830,
+    832,
+    834,
+    836,
+    838,
+    840,
+    842,
+    844,
+    846,
+    848,
+    850,
+    852,
+    854,
+    856,
+    858,
+    860,
+    862,
+    864,
+    866,
+    868,
+    870,
+    872,
+    874,
+    876,
+    878,
+    880
+   ],
+   "panden": [
+    {
+     "bag_pand_id": "0518100000208891",
+     "addresses": [
+      "Meppelweg 802, 2544BV 's-Gravenhage",
+      "Meppelweg 804, 2544BV 's-Gravenhage",
+      "Meppelweg 806, 2544BV 's-Gravenhage",
+      "Meppelweg 806C, 2544BV 's-Gravenhage",
+      "Meppelweg 808, 2544BV 's-Gravenhage",
+      "Meppelweg 810, 2544BV 's-Gravenhage",
+      "Meppelweg 812, 2544BV 's-Gravenhage",
+      "Meppelweg 814, 2544BV 's-Gravenhage",
+      "Meppelweg 816, 2544BV 's-Gravenhage",
+      "Meppelweg 816C, 2544BV 's-Gravenhage",
+      "Meppelweg 818, 2544BV 's-Gravenhage"
+     ],
+     "address_count_in_query": 11,
+     "huisnummers": [
+      802,
+      804,
+      806,
+      808,
+      810,
+      812,
+      814,
+      816,
+      818
+     ],
+     "parity": [
+      "even"
+     ],
+     "postcodes": [
+      "2544BV"
+     ],
+     "with_suffix": 2,
+     "verblijfsobjecten_bag": 8,
+     "bouwjaar": 1954,
+     "gebruiksdoel": "woonfunctie",
+     "status": "Pand gesloopt",
+     "threedbag_available": false,
+     "threedbag_error": "ophalen mislukt voor https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000208891: HTTP Error 502: Bad Gateway",
+     "contains_meppelweg_819": false
+    },
+    {
+     "bag_pand_id": "0518100000219868",
+     "addresses": [
+      "Meppelweg 802C, 2544BV 's-Gravenhage",
+      "Meppelweg 804C, 2544BV 's-Gravenhage",
+      "Meppelweg 808C, 2544BV 's-Gravenhage",
+      "Meppelweg 810C, 2544BV 's-Gravenhage",
+      "Meppelweg 812C, 2544BV 's-Gravenhage",
+      "Meppelweg 814C, 2544BV 's-Gravenhage",
+      "Meppelweg 818C, 2544BV 's-Gravenhage",
+      "Meppelweg 820T, 's-Gravenhage"
+     ],
+     "address_count_in_query": 8,
+     "huisnummers": [
+      802,
+      804,
+      808,
+      810,
+      812,
+      814,
+      818,
+      820
+     ],
+     "parity": [
+      "even"
+     ],
+     "postcodes": [
+      "2544BV",
+      "GEEN"
+     ],
+     "with_suffix": 8,
+     "verblijfsobjecten_bag": 8,
+     "bouwjaar": 1954,
+     "gebruiksdoel": "woonfunctie",
+     "status": "Pand gesloopt",
+     "threedbag_available": false,
+     "threedbag_error": "ophalen mislukt voor https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000219868: HTTP Error 502: Bad Gateway",
+     "contains_meppelweg_819": false
+    },
+    {
+     "bag_pand_id": "0518100000243139",
+     "addresses": [
+      "Meppelweg 882T, 's-Gravenhage"
+     ],
+     "address_count_in_query": 1,
+     "huisnummers": [
+      882
+     ],
+     "parity": [
+      "even"
+     ],
+     "postcodes": [
+      "GEEN"
+     ],
+     "with_suffix": 1,
+     "verblijfsobjecten_bag": 1,
+     "bouwjaar": 2009,
+     "gebruiksdoel": "overige gebruiksfunctie",
+     "status": "Pand in gebruik",
+     "threedbag_available": true,
+     "threedbag_error": null,
+     "contains_meppelweg_819": false
+    },
+    {
+     "bag_pand_id": "0518100000277993",
+     "addresses": [
+      "Meppelweg 882, 2544BW 's-Gravenhage"
+     ],
+     "address_count_in_query": 1,
+     "huisnummers": [
+      882
+     ],
+     "parity": [
+      "even"
+     ],
+     "postcodes": [
+      "2544BW"
+     ],
+     "with_suffix": 0,
+     "verblijfsobjecten_bag": 1,
+     "bouwjaar": 1965,
+     "gebruiksdoel": "bijeenkomstfunctie",
+     "status": "Pand in gebruik",
+     "threedbag_available": true,
+     "threedbag_error": null,
+     "contains_meppelweg_819": false
+    },
+    {
+     "bag_pand_id": "0518100000354752",
+     "addresses": [
+      "Meppelweg 803, 2544AW 's-Gravenhage",
+      "Meppelweg 805, 2544AW 's-Gravenhage",
+      "Meppelweg 807, 2544AW 's-Gravenhage",
+      "Meppelweg 809, 2544AW 's-Gravenhage",
+      "Meppelweg 811, 2544AW 's-Gravenhage",
+      "Meppelweg 813, 2544AW 's-Gravenhage",
+      "Meppelweg 815, 2544AW 's-Gravenhage",
+      "Meppelweg 817, 2544AW 's-Gravenhage",
+      "Meppelweg 819, 2544AW 's-Gravenhage",
+      "Meppelweg 821, 2544AW 's-Gravenhage",
+      "Meppelweg 823, 2544AW 's-Gravenhage",
+      "Meppelweg 825, 2544AW 's-Gravenhage",
+      "Meppelweg 827, 2544AW 's-Gravenhage",
+      "Meppelweg 829, 2544AW 's-Gravenhage",
+      "Meppelweg 831, 2544AW 's-Gravenhage",
+      "Meppelweg 833, 2544AW 's-Gravenhage",
+      "Meppelweg 835, 2544AW 's-Gravenhage",
+      "Meppelweg 837, 2544AW 's-Gravenhage",
+      "Meppelweg 839, 2544AW 's-Gravenhage",
+      "Meppelweg 841, 2544AW 's-Gravenhage",
+      "Meppelweg 843, 2544AX 's-Gravenhage",
+      "Meppelweg 845, 2544AX 's-Gravenhage",
+      "Meppelweg 847, 2544AX 's-Gravenhage",
+      "Meppelweg 849, 2544AX 's-Gravenhage",
+      "Meppelweg 851, 2544AX 's-Gravenhage",
+      "Meppelweg 853, 2544AX 's-Gravenhage",
+      "Meppelweg 855, 2544AX 's-Gravenhage",
+      "Meppelweg 857, 2544AX 's-Gravenhage",
+      "Meppelweg 859, 2544AX 's-Gravenhage",
+      "Meppelweg 861, 2544AX 's-Gravenhage",
+      "Meppelweg 863, 2544AX 's-Gravenhage",
+      "Meppelweg 865, 2544AX 's-Gravenhage",
+      "Meppelweg 867, 2544AX 's-Gravenhage",
+      "Meppelweg 869, 2544AX 's-Gravenhage",
+      "Meppelweg 871, 2544AX 's-Gravenhage",
+      "Meppelweg 873, 2544AX 's-Gravenhage",
+      "Meppelweg 875, 2544AX 's-Gravenhage",
+      "Meppelweg 877, 2544AX 's-Gravenhage",
+      "Meppelweg 879, 2544AX 's-Gravenhage",
+      "Meppelweg 881, 2544AX 's-Gravenhage",
+      "Meppelweg 883, 2544AX 's-Gravenhage"
+     ],
+     "address_count_in_query": 41,
+     "huisnummers": [
+      803,
+      805,
+      807,
+      809,
+      811,
+      813,
+      815,
+      817,
+      819,
+      821,
+      823,
+      825,
+      827,
+      829,
+      831,
+      833,
+      835,
+      837,
+      839,
+      841,
+      843,
+      845,
+      847,
+      849,
+      851,
+      853,
+      855,
+      857,
+      859,
+      861,
+      863,
+      865,
+      867,
+      869,
+      871,
+      873,
+      875,
+      877,
+      879,
+      881,
+      883
+     ],
+     "parity": [
+      "oneven"
+     ],
+     "postcodes": [
+      "2544AW",
+      "2544AX"
+     ],
+     "with_suffix": 0,
+     "verblijfsobjecten_bag": 42,
+     "bouwjaar": 1957,
+     "gebruiksdoel": "woonfunctie",
+     "status": "Pand in gebruik",
+     "threedbag_available": true,
+     "threedbag_error": null,
+     "contains_meppelweg_819": true
+    },
+    {
+     "bag_pand_id": "0518100001631386",
+     "addresses": [
+      "Meppelweg 802, 2544BV 's-Gravenhage",
+      "Meppelweg 802A, 2544BV 's-Gravenhage",
+      "Meppelweg 802B, 2544BV 's-Gravenhage",
+      "Meppelweg 802C, 2544BV 's-Gravenhage",
+      "Meppelweg 804, 2544BV 's-Gravenhage",
+      "Meppelweg 804A, 2544BV 's-Gravenhage",
+      "Meppelweg 804B, 2544BV 's-Gravenhage",
+      "Meppelweg 804C, 2544BV 's-Gravenhage",
+      "Meppelweg 806, 2544BV 's-Gravenhage",
+      "Meppelweg 806A, 2544BV 's-Gravenhage",
+      "Meppelweg 806B, 2544BV 's-Gravenhage",
+      "Meppelweg 806C, 2544BV 's-Gravenhage",
+      "Meppelweg 808, 2544BV 's-Gravenhage",
+      "Meppelweg 808A, 2544BV 's-Gravenhage",
+      "Meppelweg 808B, 2544BV 's-Gravenhage",
+      "Meppelweg 808C, 2544BV 's-Gravenhage",
+      "Meppelweg 810, 2544BV 's-Gravenhage",
+      "Meppelweg 810A, 2544BV 's-Gravenhage",
+      "Meppelweg 810B, 2544BV 's-Gravenhage",
+      "Meppelweg 810C, 2544BV 's-Gravenhage",
+      "Meppelweg 812, 2544BV 's-Gravenhage",
+      "Meppelweg 812A, 2544BV 's-Gravenhage",
+      "Meppelweg 812B, 2544BV 's-Gravenhage",
+      "Meppelweg 812C, 2544BV 's-Gravenhage",
+      "Meppelweg 814, 2544BV 's-Gravenhage",
+      "Meppelweg 814A, 2544BV 's-Gravenhage",
+      "Meppelweg 814B, 2544BV 's-Gravenhage",
+      "Meppelweg 814C, 2544BV 's-Gravenhage",
+      "Meppelweg 816, 2544BV 's-Gravenhage",
+      "Meppelweg 816A, 2544BV 's-Gravenhage",
+      "Meppelweg 816B, 2544BV 's-Gravenhage",
+      "Meppelweg 816C, 2544BV 's-Gravenhage",
+      "Meppelweg 818, 2544BV 's-Gravenhage",
+      "Meppelweg 818A, 2544BV 's-Gravenhage",
+      "Meppelweg 818B, 2544BV 's-Gravenhage",
+      "Meppelweg 818C, 2544BV 's-Gravenhage",
+      "Meppelweg 820, 2544BV 's-Gravenhage",
+      "Meppelweg 820A, 2544BV 's-Gravenhage",
+      "Meppelweg 820T, 's-Gravenhage"
+     ],
+     "address_count_in_query": 39,
+     "huisnummers": [
+      802,
+      804,
+      806,
+      808,
+      810,
+      812,
+      814,
+      816,
+      818,
+      820
+     ],
+     "parity": [
+      "even"
+     ],
+     "postcodes": [
+      "2544BV",
+      "GEEN"
+     ],
+     "with_suffix": 29,
+     "verblijfsobjecten_bag": 177,
+     "bouwjaar": 2013,
+     "gebruiksdoel": "industriefunctie,kantoorfunctie,overige gebruiksfunctie,woonfunctie",
+     "status": "Pand in gebruik",
+     "threedbag_available": true,
+     "threedbag_error": null,
+     "contains_meppelweg_819": false
+    }
+   ]
+  }
+ },
+ "hypothesis_relation": {
+  "h1_panden": [
+   "0518100000354752"
+  ],
+  "h2_panden": [
+   "0518100000208891",
+   "0518100000219868",
+   "0518100000243139",
+   "0518100000277993",
+   "0518100000354752",
+   "0518100001631386"
+  ],
+  "h1_subset_of_h2": true,
+  "h2_odd_addresses_all_in_h1_pand": true,
+  "h2_even_side_panden": [
+   "0518100000208891",
+   "0518100000219868",
+   "0518100000243139",
+   "0518100000277993",
+   "0518100001631386"
+  ],
+  "h1_pand_verblijfsobjecten": 42,
+  "document_unit_signals": [
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-038",
+    "description": "Deurbelinstallatie",
+    "quantity": "42.00",
+    "unit": "piece",
+    "page": 7
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-043",
+    "description": "Postkasten",
+    "quantity": "42.00",
+    "unit": "piece",
+    "page": 8
+   }
+  ]
+ },
+ "ambiguities": [
+  "Het adresveld noemt één adres (819); de objectnaam een bereik (801-883). Geen van beide is automatisch de scope.",
+  "Het bereik 801-883 bevat in BAG beide straatzijden: oneven (2544AW/AX) en even (2544BV/BW, andere panden). De objectnaam zegt niets over even/oneven.",
+  "Nummer(s) zonder BAG-adres in het bereik: 801, 822, 824, 826, 828 (o.a. 801 bestaat niet).",
+  "Twee kandidaat-panden aan de even zijde hebben status 'Pand gesloopt' (bouwjaar 1954) en geen 3D BAG-object.",
+  "Adressen met huisletter T (bijv. 820T, 882T) hebben in PDOK geen postcode.",
+  "Bouwjaar document 1956 vs BAG 1957 voor het pand van Meppelweg 819.",
+  "Woonplaats in het document is 'Den Haag'; BAG-woonplaatsnaam is 's-Gravenhage (expliciete alias WPA-den-haag)."
+ ],
+ "historical_quantities": {
+  "count": 51,
+  "by_classification": {
+   "DIRECTLY_COMPARABLE": 0,
+   "RELATED_NOT_EQUIVALENT": 1,
+   "NO_3DBAG_COUNTERPART": 40,
+   "NEEDS_SEMANTIC_REVIEW": 1,
+   "NOT_MEASURED_QUANTITY": 9
+  },
+  "observations": [
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-001",
+    "element_code": "2110",
+    "description": "Gevelconstructie metselwerk",
+    "location": null,
+    "quantity": "1326.46",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L005",
+    "text_fragment": "2110 Gevelconstructie metselwerk 1326,46m2 1",
+    "possible_subject": "OUTER_WALL_GROSS_AREA",
+    "subject_relation": null,
+    "possible_app_crosswalk": [
+     "XW-gevel-metselwerk-2110-m2"
+    ],
+    "app_crosswalk_unresolved": [],
+    "classification": "NEEDS_SEMANTIC_REVIEW",
+    "caveats": [
+     "geen onderwerp-relatie vastgelegd; 2110 'Gevelconstructie metselwerk' is netto metselwerk (en per gevel/locatie); 3D BAG b3_opp_buitenmuur is bruto buitenmuur incl. openingen en ander gevelmateriaal. Semantisch niet hetzelfde onderwerp."
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-002",
+    "element_code": "2110",
+    "description": "Loodslabben opgaand werk balkon",
+    "location": null,
+    "quantity": "360.36",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L006",
+    "text_fragment": "2110 Loodslabben opgaand werk balkon 360,36m1 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-003",
+    "element_code": "2110",
+    "description": "Dilatatieprofiel EPDM met RVS plaat",
+    "location": null,
+    "quantity": "115.00",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L007",
+    "text_fragment": "2110 Dilatatieprofiel EPDM met RVS plaat 115,00m1 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-004",
+    "element_code": "2322",
+    "description": "Balkonvloerconstructie beton",
+    "location": null,
+    "quantity": "315.88",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L009",
+    "text_fragment": "2322 Balkonvloerconstructie beton 315,88m2 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-005",
+    "element_code": null,
+    "description": "Galerijvloerconstructie beton",
+    "location": null,
+    "quantity": "257.54",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L010",
+    "text_fragment": "2323 Galerijvloerconstructie beton 257,54m2 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-006",
+    "element_code": "3120",
+    "description": "Raamdorpel gres/ijzerklinker",
+    "location": null,
+    "quantity": "174.80",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L012",
+    "text_fragment": "3120 Raamdorpel gres/ijzerklinker 174,80m1 3",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-007",
+    "element_code": "3120",
+    "description": "Kozijn buiten hout",
+    "location": null,
+    "quantity": "1296.59",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L013",
+    "text_fragment": "3120 Kozijn buiten hout 1296,59m2 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-008",
+    "element_code": "3230",
+    "description": "Kozijnen hout",
+    "location": null,
+    "quantity": "129.36",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L015",
+    "text_fragment": "3230 Kozijnen hout 129,36m2 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-009",
+    "element_code": "3720",
+    "description": "Dakluik",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L017",
+    "text_fragment": "3720 Dakluik 1,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-010",
+    "element_code": "4111",
+    "description": "Gevelafwerking voegwerk platvol",
+    "location": null,
+    "quantity": "1328.46",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L019",
+    "text_fragment": "4111 Gevelafwerking voegwerk platvol 1328,46m2 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-011",
+    "element_code": "4511",
+    "description": "Plafondafwerking houten delen",
+    "location": null,
+    "quantity": "12.90",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L021",
+    "text_fragment": "4511 Plafondafwerking houten delen 12,90m2 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-012",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk diversen hout dekkend ( alle gevels )",
+    "location": null,
+    "quantity": "1425.95",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L023",
+    "text_fragment": "4621 Buitenschilderwerk diversen hout dekkend ( alle 1425,95m2 2\ngevels )",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-013",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk beton coating ( zijgevel )",
+    "location": null,
+    "quantity": "60.01",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L025",
+    "text_fragment": "4623 Buitenschilderwerk beton coating ( zijgevel ) 60,01m2 4",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-014",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk betonvloer coating balkons",
+    "location": null,
+    "quantity": "315.88",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L026",
+    "text_fragment": "4623 Buitenschilderwerk betonvloer coating balkons 315,88m2 4",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-015",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk beton coating ( achtergevel ) incl. plafonds",
+    "location": null,
+    "quantity": "480.44",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L027",
+    "text_fragment": "4623 Buitenschilderwerk beton coating ( achtergevel ) 480,44m2 4",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-016",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk beton coating ( voorgevel ) incl. plafonds",
+    "location": null,
+    "quantity": "336.76",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L029",
+    "text_fragment": "4623 Buitenschilderwerk beton coating ( voorgevel ) 336,76m2 4",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-017",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk betonvloer coating galerij",
+    "location": null,
+    "quantity": "257.54",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L031",
+    "text_fragment": "4623 Buitenschilderwerk betonvloer coating galerij 257,54m2 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-018",
+    "element_code": "4628",
+    "description": "Buitenschilderwerk betonconstructie ( betonband achtergevel )",
+    "location": null,
+    "quantity": "47.88",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L032",
+    "text_fragment": "4628 Buitenschilderwerk betonconstructie ( betonband 47,88m2 4\nachtergevel )",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-019",
+    "element_code": "4628",
+    "description": "Binnenschilderwerk vloeren trappenhuizen en trappen",
+    "location": null,
+    "quantity": "186.72",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L034",
+    "text_fragment": "4628 Binnenschilderwerk vloeren trappenhuizen en 186,72m2 4\ntrappen",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-020",
+    "element_code": "4632",
+    "description": "Binnenschilderwerk kozijn en deuren hout dekkend trappenhuis en entree",
+    "location": null,
+    "quantity": "129.36",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L036",
+    "text_fragment": "4632 Binnenschilderwerk kozijn en deuren hout 129,36m2 3\ndekkend trappenhuis en entree",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-021",
+    "element_code": "4634",
+    "description": "Buitenschilderwerk hek metaal ( achtergevel )",
+    "location": null,
+    "quantity": "284.40",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L038",
+    "text_fragment": "4634 Buitenschilderwerk hek metaal ( achtergevel ) 284,40m2 4",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-022",
+    "element_code": "4634",
+    "description": "Buitenschilderwerk kozijn&raam hout transparant ( achtergevel )",
+    "location": null,
+    "quantity": "824.00",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 6,
+    "block_id": "P06-L039",
+    "text_fragment": "4634 Buitenschilderwerk kozijn&raam hout transparant 824,00m2 1\n( achtergevel )",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-023",
+    "element_code": "4645",
+    "description": "Binnenschilderwerk plafond hout transparant",
+    "location": null,
+    "quantity": "12.90",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L004",
+    "text_fragment": "4645 Binnenschilderwerk plafond hout transparant 12,90m2 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-024",
+    "element_code": "4711",
+    "description": "Dakbedekking app",
+    "location": null,
+    "quantity": "801.04",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L006",
+    "text_fragment": "4711 Dakbedekking app 801,04m2 1",
+    "possible_subject": "ROOF_COVERING_REPORTED_AREA",
+    "subject_relation": {
+     "related_subject": "ROOF_FLAT_AREA",
+     "relation_id": "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA"
+    },
+    "possible_app_crosswalk": [
+     "XW-dak-plat-4711-m2"
+    ],
+    "app_crosswalk_unresolved": [],
+    "classification": "RELATED_NOT_EQUIVALENT",
+    "caveats": [
+     "exacte document-mapping HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 (PROPOSED)",
+     "generieke mapping HSM-ROOF_FLAT_AREA-4711-m2 (PROPOSED) zou ook matchen naar ROOF_FLAT_AREA, maar is NIET geverifieerd (onvoldoende bewijs dat het hetzelfde onderwerp is)"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-025",
+    "element_code": "4711",
+    "description": "Randstrook APP",
+    "location": null,
+    "quantity": "152.54",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L007",
+    "text_fragment": "4711 Randstrook APP 152,54m1 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [
+     "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."
+    ],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": [
+     "4711-m1 (dakrand/randstrook) — NOOIT samen met 4711-m2 dakbedekking behandelen"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-026",
+    "element_code": "4711",
+    "description": "Dakrandafwerking aluminium trim",
+    "location": null,
+    "quantity": "152.54",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L008",
+    "text_fragment": "4711 Dakrandafwerking aluminium trim 152,54m1 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [
+     "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."
+    ],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": [
+     "4711-m1 (dakrand/randstrook) — NOOIT samen met 4711-m2 dakbedekking behandelen"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-027",
+    "element_code": null,
+    "description": "C.V.-ketel collect. HR Remeha",
+    "location": null,
+    "quantity": "4.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L010",
+    "text_fragment": "5121 C.V.-ketel collect. HR Remeha 4,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-028",
+    "element_code": null,
+    "description": "CV-pomp collectief",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L011",
+    "text_fragment": "5121 CV-pomp collectief 1,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-029",
+    "element_code": "5124",
+    "description": "Schoorsteen",
+    "location": null,
+    "quantity": "29.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L012",
+    "text_fragment": "5124 Schoorsteen 29,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-030",
+    "element_code": "5211",
+    "description": "Hemelwaterafvoer staal gegalvaniseerd",
+    "location": null,
+    "quantity": "32.00",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L014",
+    "text_fragment": "5211 Hemelwaterafvoer staal gegalvaniseerd 32,00m1 3",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [
+     "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."
+    ],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-031",
+    "element_code": "5211",
+    "description": "Hemelwaterafvoer pvc",
+    "location": null,
+    "quantity": "80.80",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L015",
+    "text_fragment": "5211 Hemelwaterafvoer pvc 80,80m1 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [
+     "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."
+    ],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-032",
+    "element_code": "5240",
+    "description": "Standleidingen",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L016",
+    "text_fragment": "5240 Standleidingen 1,00pst 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-033",
+    "element_code": "5314",
+    "description": "Hydrofoor",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L018",
+    "text_fragment": "5314 Hydrofoor 1,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-034",
+    "element_code": "5610",
+    "description": "CV-expansievat collectief",
+    "location": null,
+    "quantity": "2.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L020",
+    "text_fragment": "5610 CV-expansievat collectief 2,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-035",
+    "element_code": "5610",
+    "description": "CV-leidingen",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L021",
+    "text_fragment": "5610 CV-leidingen 1,00pst 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-036",
+    "element_code": "5610",
+    "description": "Appendages leidingen CV",
+    "location": null,
+    "quantity": "1.00",
+    "unit": null,
+    "status": "REVIEW_REQUIRED",
+    "requires_human_review": true,
+    "page": 7,
+    "block_id": "P07-L022",
+    "text_fragment": "5610 Appendages leidingen CV 1,00 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-037",
+    "element_code": "6311",
+    "description": "Elektra armaturen",
+    "location": null,
+    "quantity": "68.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L024",
+    "text_fragment": "6311 Elektra armaturen 68,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-038",
+    "element_code": "6411",
+    "description": "Deurbelinstallatie",
+    "location": null,
+    "quantity": "42.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L026",
+    "text_fragment": "6411 Deurbelinstallatie 42,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-039",
+    "element_code": "6612",
+    "description": "Personenlift (Hydraulische lift)",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L028",
+    "text_fragment": "6612 Personenlift (Hydraulische lift) 1,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-040",
+    "element_code": "6710",
+    "description": "Valbeveiliging algemeen",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L030",
+    "text_fragment": "6710 Valbeveiliging algemeen 1,00st 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-041",
+    "element_code": null,
+    "description": "Asbest onderzoek",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L032",
+    "text_fragment": "7520 Asbest onderzoek 1,00pst 0",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-042",
+    "element_code": null,
+    "description": "Flora en Fauna onderzoek",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L033",
+    "text_fragment": "7520 Flora en Fauna onderzoek 1,00pst 0",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-043",
+    "element_code": "8111",
+    "description": "Postkasten",
+    "location": null,
+    "quantity": "42.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L005",
+    "text_fragment": "8111 Postkasten 42,00st 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-044",
+    "element_code": "9032",
+    "description": "Hekwerk metaal ( achtergevel )",
+    "location": null,
+    "quantity": "129.15",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L007",
+    "text_fragment": "9032 Hekwerk metaal ( achtergevel ) 129,15m1 4",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-045",
+    "element_code": "9032",
+    "description": "Hekwerk metaal ( voorgevel )",
+    "location": null,
+    "quantity": "284.50",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L008",
+    "text_fragment": "9032 Hekwerk metaal ( voorgevel ) 284,50m1 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-046",
+    "element_code": "9041",
+    "description": "Terreinverharding klinkers",
+    "location": null,
+    "quantity": "300.00",
+    "unit": "m2",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L009",
+    "text_fragment": "9041 Terreinverharding klinkers 300,00m2 3",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-047",
+    "element_code": null,
+    "description": "Camera",
+    "location": null,
+    "quantity": "8.00",
+    "unit": "piece",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L010",
+    "text_fragment": "9064 Camera 8,00st 1",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-048",
+    "element_code": "9999",
+    "description": "Herinspectie ( mjop )",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L012",
+    "text_fragment": "9999 Herinspectie ( mjop ) 1,00pst 0",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-049",
+    "element_code": "9999",
+    "description": "Bereikbaarheid",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L013",
+    "text_fragment": "9999 Bereikbaarheid 1,00pst 0",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-050",
+    "element_code": "9999",
+    "description": "Betonreparatie (stelpost)",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L014",
+    "text_fragment": "9999 Betonreparatie (stelpost) 1,00pst 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-051",
+    "element_code": "9999",
+    "description": "Houtrotherstel (stelpost)",
+    "location": null,
+    "quantity": "1.00",
+    "unit": "lump_sum",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 8,
+    "block_id": "P08-L015",
+    "text_fragment": "9999 Houtrotherstel (stelpost) 1,00pst 0",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [],
+    "classification": "NOT_MEASURED_QUANTITY",
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ]
+   }
+  ]
+ },
+ "roof_4711": {
+  "m2_cover": {
+   "quantity_observation_id": "QO-DOC-012-EL-024",
+   "element_code": "4711",
+   "description": "Dakbedekking app",
+   "location": null,
+   "quantity": "801.04",
+   "unit": "m2",
+   "status": "SOURCE_REPORTED",
+   "requires_human_review": false,
+   "page": 7,
+   "block_id": "P07-L006",
+   "text_fragment": "4711 Dakbedekking app 801,04m2 1",
+   "possible_subject": "ROOF_COVERING_REPORTED_AREA",
+   "subject_relation": {
+    "related_subject": "ROOF_FLAT_AREA",
+    "relation_id": "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA"
+   },
+   "possible_app_crosswalk": [
+    "XW-dak-plat-4711-m2"
+   ],
+   "app_crosswalk_unresolved": [],
+   "classification": "RELATED_NOT_EQUIVALENT",
+   "caveats": [
+    "exacte document-mapping HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 (PROPOSED)",
+    "generieke mapping HSM-ROOF_FLAT_AREA-4711-m2 (PROPOSED) zou ook matchen naar ROOF_FLAT_AREA, maar is NIET geverifieerd (onvoldoende bewijs dat het hetzelfde onderwerp is)"
+   ]
+  },
+  "m1_rows": [
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-025",
+    "element_code": "4711",
+    "description": "Randstrook APP",
+    "location": null,
+    "quantity": "152.54",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L007",
+    "text_fragment": "4711 Randstrook APP 152,54m1 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [
+     "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."
+    ],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": [
+     "4711-m1 (dakrand/randstrook) — NOOIT samen met 4711-m2 dakbedekking behandelen"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-012-EL-026",
+    "element_code": "4711",
+    "description": "Dakrandafwerking aluminium trim",
+    "location": null,
+    "quantity": "152.54",
+    "unit": "m1",
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "page": 7,
+    "block_id": "P07-L008",
+    "text_fragment": "4711 Dakrandafwerking aluminium trim 152,54m1 2",
+    "possible_subject": null,
+    "subject_relation": null,
+    "possible_app_crosswalk": [],
+    "app_crosswalk_unresolved": [
+     "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."
+    ],
+    "classification": "NO_3DBAG_COUNTERPART",
+    "caveats": [
+     "4711-m1 (dakrand/randstrook) — NOOIT samen met 4711-m2 dakbedekking behandelen"
+    ]
+   }
+  ]
+ },
+ "bag3d_preview": {
+  "H1": {
+   "building_id_preview": "BAG:0518100000354752",
+   "pand_count": 1,
+   "per_pand": [
+    {
+     "bag_pand_id": "0518100000354752",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "875.63",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-f2220bfc7a42320c"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "0.0",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-d925408b8d9cee4a"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "875.63",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-cf4253d189afa03d"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "3048.46",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-ecfbfdf74f9f9c25"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "19.55500030517578",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-47f37167241d47d2"
+      }
+     },
+     "not_available": []
+    }
+   ],
+   "scope_aggregate": null
+  },
+  "H2": {
+   "building_id_preview": "BAG:0518100000208891+0518100000219868+0518100000243139+0518100000277993+0518100000354752+0518100001631386",
+   "pand_count": 6,
+   "per_pand": [
+    {
+     "bag_pand_id": "0518100000208891",
+     "values": {
+      "ROOF_FLAT_AREA": null,
+      "ROOF_SLOPED_AREA": null,
+      "ROOF_TOTAL_AREA": null,
+      "OUTER_WALL_GROSS_AREA": null,
+      "BUILDING_HEIGHT": null
+     },
+     "not_available": [
+      "bag3d.building_height",
+      "bag3d.outer_wall_gross_area",
+      "bag3d.roof_flat_area",
+      "bag3d.roof_sloped_area",
+      "bag3d.roof_total_area"
+     ]
+    },
+    {
+     "bag_pand_id": "0518100000219868",
+     "values": {
+      "ROOF_FLAT_AREA": null,
+      "ROOF_SLOPED_AREA": null,
+      "ROOF_TOTAL_AREA": null,
+      "OUTER_WALL_GROSS_AREA": null,
+      "BUILDING_HEIGHT": null
+     },
+     "not_available": [
+      "bag3d.building_height",
+      "bag3d.outer_wall_gross_area",
+      "bag3d.roof_flat_area",
+      "bag3d.roof_sloped_area",
+      "bag3d.roof_total_area"
+     ]
+    },
+    {
+     "bag_pand_id": "0518100000243139",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "35.13",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-147ee16e81897904"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "0.0",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-d711074b9e7713ad"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "35.13",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-9c6b9afedfb8ee10"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "74.85",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-5b18dcacb6cb769d"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "3.1520000100135805",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-b6c4f76057361a22"
+      }
+     },
+     "not_available": []
+    },
+    {
+     "bag_pand_id": "0518100000277993",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "130.56",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-fe39bfd917b56070"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "123.15",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-85aaea86571a0bdc"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "253.71",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-d903c96c63891322"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "277.17",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-76ade772e6c97be1"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "5.37899991869926484",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-c3856186a7528c0c"
+      }
+     },
+     "not_available": []
+    },
+    {
+     "bag_pand_id": "0518100000354752",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "875.63",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-24a682ecf153ebaf"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "0.0",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-81cdda3136c4eaa2"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "875.63",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-2a9a4881a9f859bc"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "3048.46",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-fc2348c9ff527e58"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "19.55500030517578",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-bf79be0b17f9410d"
+      }
+     },
+     "not_available": []
+    },
+    {
+     "bag_pand_id": "0518100001631386",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "4172.83",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-eefc7d3bcbf935e7"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "186.74",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-ed6c165d868e2852"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "4359.57",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-64329c611ec80fa6"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "12700.49",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-8575f754bc91d444"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "51.64499853551387787",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-684abe5becd7f775"
+      }
+     },
+     "not_available": []
+    }
+   ],
+   "scope_aggregate": {
+    "ROOF_FLAT_AREA": {
+     "status": "NOT_PUBLISHED",
+     "reason": "CHILD_EVIDENCE_MISSING_NOT_PUBLISHED",
+     "missing_bag_pand_ids": [
+      "0518100000208891",
+      "0518100000219868"
+     ]
+    },
+    "ROOF_SLOPED_AREA": {
+     "status": "NOT_PUBLISHED",
+     "reason": "CHILD_EVIDENCE_MISSING_NOT_PUBLISHED",
+     "missing_bag_pand_ids": [
+      "0518100000208891",
+      "0518100000219868"
+     ]
+    },
+    "ROOF_TOTAL_AREA": {
+     "status": "NOT_PUBLISHED",
+     "reason": "CHILD_EVIDENCE_MISSING_NOT_PUBLISHED",
+     "missing_bag_pand_ids": [
+      "0518100000208891",
+      "0518100000219868"
+     ]
+    },
+    "OUTER_WALL_GROSS_AREA": {
+     "status": "NOT_PUBLISHED",
+     "reason": "CHILD_EVIDENCE_MISSING_NOT_PUBLISHED",
+     "missing_bag_pand_ids": [
+      "0518100000208891",
+      "0518100000219868"
+     ]
+    },
+    "BUILDING_HEIGHT": {
+     "status": "NOT_AGGREGATED",
+     "reason": "BUILDING_HEIGHT wordt niet opgeteld (scope_aggregation_rules)"
+    }
+   }
+  },
+  "H2_IN_USE_ONLY_INFORMATIVE": {
+   "building_id_preview": "BAG:0518100000243139+0518100000277993+0518100000354752+0518100001631386",
+   "pand_count": 4,
+   "per_pand": [
+    {
+     "bag_pand_id": "0518100000243139",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "35.13",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-147ee16e81897904"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "0.0",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-d711074b9e7713ad"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "35.13",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-9c6b9afedfb8ee10"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "74.85",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-5b18dcacb6cb769d"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "3.1520000100135805",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-b6c4f76057361a22"
+      }
+     },
+     "not_available": []
+    },
+    {
+     "bag_pand_id": "0518100000277993",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "130.56",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-fe39bfd917b56070"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "123.15",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-85aaea86571a0bdc"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "253.71",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-d903c96c63891322"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "277.17",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-76ade772e6c97be1"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "5.37899991869926484",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-c3856186a7528c0c"
+      }
+     },
+     "not_available": []
+    },
+    {
+     "bag_pand_id": "0518100000354752",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "875.63",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-24a682ecf153ebaf"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "0.0",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-81cdda3136c4eaa2"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "875.63",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-2a9a4881a9f859bc"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "3048.46",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-fc2348c9ff527e58"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "19.55500030517578",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-bf79be0b17f9410d"
+      }
+     },
+     "not_available": []
+    },
+    {
+     "bag_pand_id": "0518100001631386",
+     "values": {
+      "ROOF_FLAT_AREA": {
+       "value": "4172.83",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-eefc7d3bcbf935e7"
+      },
+      "ROOF_SLOPED_AREA": {
+       "value": "186.74",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-ed6c165d868e2852"
+      },
+      "ROOF_TOTAL_AREA": {
+       "value": "4359.57",
+       "unit": "m2",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-64329c611ec80fa6"
+      },
+      "OUTER_WALL_GROSS_AREA": {
+       "value": "12700.49",
+       "unit": "m2",
+       "method_class": "DIRECT_MEASURED",
+       "evidence_id_preview": "QE-8575f754bc91d444"
+      },
+      "BUILDING_HEIGHT": {
+       "value": "51.64499853551387787",
+       "unit": "m",
+       "method_class": "GEOMETRY_DERIVED",
+       "evidence_id_preview": "QE-684abe5becd7f775"
+      }
+     },
+     "not_available": []
+    }
+   ],
+   "scope_aggregate": {
+    "ROOF_FLAT_AREA": {
+     "status": "PREVIEW",
+     "value": "5214.15",
+     "unit": "m2",
+     "method_class": "GEOMETRY_DERIVED",
+     "evidence_id_preview": "QE-a177aaa2e57993b9",
+     "child_count": 4
+    },
+    "ROOF_SLOPED_AREA": {
+     "status": "PREVIEW",
+     "value": "309.89",
+     "unit": "m2",
+     "method_class": "GEOMETRY_DERIVED",
+     "evidence_id_preview": "QE-cceb26aa9c07b987",
+     "child_count": 4
+    },
+    "ROOF_TOTAL_AREA": {
+     "status": "PREVIEW",
+     "value": "5524.04",
+     "unit": "m2",
+     "method_class": "GEOMETRY_DERIVED",
+     "evidence_id_preview": "QE-1305c2de6827a675",
+     "child_count": 4
+    },
+    "OUTER_WALL_GROSS_AREA": {
+     "status": "PREVIEW",
+     "value": "16100.97",
+     "unit": "m2",
+     "method_class": "GEOMETRY_DERIVED",
+     "evidence_id_preview": "QE-cd01dc013aba9523",
+     "child_count": 4
+    },
+    "BUILDING_HEIGHT": {
+     "status": "NOT_AGGREGATED",
+     "reason": "BUILDING_HEIGHT wordt niet opgeteld (scope_aggregation_rules)"
+    }
+   }
+  }
+ },
+ "roof_comparison": {
+  "rule": "RELATED_NOT_EQUIVALENT: naast elkaar, verschil tonen; geen accuracy-claim, geen gemiddelde, geen resolutie, geen winnaar",
+  "rows": [
+   {
+    "hypothesis": "H1",
+    "bag3d_subject": "ROOF_FLAT_AREA",
+    "bag3d_value": "875.63",
+    "bag3d_status": "PREVIEW",
+    "bag3d_method": "DIRECT_MEASURED",
+    "historical_value": "801.04",
+    "historical_subject": "ROOF_COVERING_REPORTED_AREA",
+    "difference_historical_minus_3dbag": "-74.59",
+    "pct_of_3dbag": "-8.5",
+    "kind": "RELATED_SUBJECT_NOT_EQUIVALENT"
+   },
+   {
+    "hypothesis": "H2",
+    "bag3d_subject": "ROOF_FLAT_AREA",
+    "bag3d_value": null,
+    "bag3d_status": "NOT_PUBLISHED",
+    "bag3d_method": null,
+    "historical_value": "801.04",
+    "historical_subject": "ROOF_COVERING_REPORTED_AREA",
+    "difference_historical_minus_3dbag": null,
+    "pct_of_3dbag": null,
+    "kind": "RELATED_SUBJECT_NOT_EQUIVALENT"
+   },
+   {
+    "hypothesis": "H2_IN_USE_ONLY_INFORMATIVE",
+    "bag3d_subject": "ROOF_FLAT_AREA",
+    "bag3d_value": "5214.15",
+    "bag3d_status": "PREVIEW",
+    "bag3d_method": "GEOMETRY_DERIVED",
+    "historical_value": "801.04",
+    "historical_subject": "ROOF_COVERING_REPORTED_AREA",
+    "difference_historical_minus_3dbag": "-4413.11",
+    "pct_of_3dbag": "-84.6",
+    "kind": "RELATED_SUBJECT_NOT_EQUIVALENT"
+   }
+  ]
+ },
+ "facade_comparison": {
+  "rule": "netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen subject_relation vastgelegd -> NEEDS_SEMANTIC_REVIEW",
+  "rows": [
+   {
+    "hypothesis": "H1",
+    "bag3d_subject": "OUTER_WALL_GROSS_AREA",
+    "bag3d_value": "3048.46",
+    "bag3d_status": "PREVIEW",
+    "historical_value": "1326.46",
+    "historical_description": "Gevelconstructie metselwerk",
+    "difference_historical_minus_3dbag": "-1722.00",
+    "kind": "NEEDS_SEMANTIC_REVIEW (netto gerapporteerd metselwerk != bruto 3D BAG-buitenmuur)"
+   },
+   {
+    "hypothesis": "H2",
+    "bag3d_subject": "OUTER_WALL_GROSS_AREA",
+    "bag3d_value": null,
+    "bag3d_status": "NOT_PUBLISHED",
+    "historical_value": "1326.46",
+    "historical_description": "Gevelconstructie metselwerk",
+    "difference_historical_minus_3dbag": null,
+    "kind": "NEEDS_SEMANTIC_REVIEW (netto gerapporteerd metselwerk != bruto 3D BAG-buitenmuur)"
+   },
+   {
+    "hypothesis": "H2_IN_USE_ONLY_INFORMATIVE",
+    "bag3d_subject": "OUTER_WALL_GROSS_AREA",
+    "bag3d_value": "16100.97",
+    "bag3d_status": "PREVIEW",
+    "historical_value": "1326.46",
+    "historical_description": "Gevelconstructie metselwerk",
+    "difference_historical_minus_3dbag": "-14774.51",
+    "kind": "NEEDS_SEMANTIC_REVIEW (netto gerapporteerd metselwerk != bruto 3D BAG-buitenmuur)"
+   }
+  ]
+ },
+ "proposed_mappings": [
+  {
+   "mapping_id": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
+   "status": "PROPOSED",
+   "subject_key": "ROOF_COVERING_REPORTED_AREA",
+   "match": {
+    "document_ids": [
+     "DOC-012"
+    ],
+    "element_description_original_exact": [
+     "Dakbedekking app"
+    ],
+    "location_original_exact": [
+     null
+    ]
+   },
+   "matches": [
+    "QO-DOC-012-EL-024"
+   ]
+  }
+ ],
+ "app_readiness": {
+  "dak-plat": {
+   "crosswalk": "XW-dak-plat-4711-m2",
+   "crosswalk_status": "VERIFIED",
+   "primary": "3D BAG ROOF_FLAT_AREA (per pand DIRECT_MEASURED, of scope-aggregaat GEOMETRY_DERIVED)",
+   "related_context": "historische dakbedekking 801.04 m2 (ROOF_COVERING_REPORTED_AREA, na VERIFY van de DOC-012-mapping)",
+   "blocked_by": [
+    "building scope DOC-012 niet bevestigd",
+    "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 niet geverifieerd"
+   ]
+  },
+  "dak-hellend": {
+   "crosswalk": "XW-dak-hellend-4712-m2",
+   "crosswalk_status": "REVIEW_REQUIRED",
+   "note": "DOC-012 heeft geen 4712-rij; alleen 3D BAG ROOF_SLOPED_AREA zou beschikbaar zijn"
+  },
+  "gevel-metselwerk": {
+   "crosswalk": "XW-gevel-metselwerk-2110-m2",
+   "crosswalk_status": "REVIEW_REQUIRED",
+   "note": "geen gedeeld hoeveelheidsonderwerp (netto vs bruto)"
+  },
+  "bundle_generated": false
+ },
+ "generalization_audit": [
+  {
+   "file": "scripts/backfill_element_codes.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    50,
+    51
+   ],
+   "reason": "PER_DOCUMENT_CONFIG: bronbestand per document (alle documenten, niet alleen Maldenhof)"
+  },
+  {
+   "file": "scripts/bag_snapshots.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005",
+    "Maldenhof",
+    "1106 EZ"
+   ],
+   "lines": [
+    18,
+    19,
+    20,
+    21,
+    188
+   ],
+   "reason": "DOCSTRING_EXAMPLE: CLI-voorbeelden en een docstring-voorbeeld ('Maldenhof 240 - 296')"
+  },
+  {
+   "file": "scripts/build_comparability.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005"
+   ],
+   "lines": [
+    48
+   ],
+   "reason": "COMMENT: herkomst van regel F7"
+  },
+  {
+   "file": "scripts/building_links.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005"
+   ],
+   "lines": [
+    6
+   ],
+   "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld '--document DOC-005'"
+  },
+  {
+   "file": "scripts/decision_package_4645_interior_painting_wood.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-006"
+   ],
+   "lines": [
+    37
+   ],
+   "reason": "DOCUMENT_SPECIFIC_DECISION_PACKAGE: vaste observation-ID's van een beslispakket"
+  },
+  {
+   "file": "scripts/deterministic_extraction.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    65,
+    72,
+    79,
+    89,
+    114,
+    118,
+    120
+   ],
+   "reason": "PER_DOCUMENT_CONFIG: extractieprofiel per document (alle documenten)"
+  },
+  {
+   "file": "scripts/doc012_generalization_review.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "1106EZ",
+    "1106 EZ",
+    "190.65",
+    "425.80",
+    "15 panden"
+   ],
+   "lines": [
+    4,
+    45,
+    198,
+    209,
+    210,
+    211,
+    216,
+    396,
+    494
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/export_human_review_queue.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005"
+   ],
+   "lines": [
+    11
+   ],
+   "reason": "COMMENT: uitleg bij een regel"
+  },
+  {
+   "file": "scripts/facade_coverage_poc_v2.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "Maldenhof",
+    "15 panden"
+   ],
+   "lines": [
+    1,
+    46,
+    47,
+    56
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/facade_panorama_poc.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "Maldenhof"
+   ],
+   "lines": [
+    7,
+    21,
+    25,
+    26,
+    292,
+    293
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/facade_poc_v2_report.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "15 panden"
+   ],
+   "lines": [
+    1,
+    4,
+    42,
+    46,
+    52,
+    54,
+    61,
+    90,
+    91,
+    106,
+    107,
+    108,
+    112,
+    389
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/maldenhof_quantity_activation.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    1,
+    34,
+    38,
+    63,
+    142,
+    148,
+    177
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/multi_pand_scope_demo.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "1106 EZ"
+   ],
+   "lines": [
+    1,
+    13,
+    35,
+    49,
+    83,
+    84,
+    117,
+    133,
+    151,
+    157,
+    179
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/prepare_relation_review.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    18
+   ],
+   "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld"
+  },
+  {
+   "file": "scripts/quantity_engine_activation_review.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "15 panden"
+   ],
+   "lines": [
+    1,
+    14,
+    39,
+    42,
+    81,
+    112,
+    136,
+    139,
+    196,
+    198,
+    220,
+    294,
+    295,
+    296,
+    297,
+    301,
+    302,
+    307,
+    350,
+    352
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/record_relation_decision.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-006"
+   ],
+   "lines": [
+    22
+   ],
+   "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld"
+  },
+  {
+   "file": "scripts/validate_app_quantity_bundle.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    15
+   ],
+   "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld met het pad van de Maldenhof-bundel"
+  },
+  {
+   "file": "tests/fixtures/xpdf_pages/df698e6edd40c97ab9287ba912c10209a91a55222b7f6af2f1be0e2b6bf819da.json",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "Maldenhof",
+    "1106 EZ"
+   ],
+   "lines": [
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_building_link_3dbag_evidence.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "1106 EZ"
+   ],
+   "lines": [
+    75,
+    76,
+    81,
+    82,
+    84,
+    85,
+    93,
+    119,
+    120,
+    129,
+    142,
+    143,
+    147,
+    148,
+    149,
+    156,
+    159,
+    162,
+    167,
+    172
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_comparability.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    27,
+    245,
+    246,
+    252,
+    253,
+    257,
+    258,
+    284,
+    285,
+    392,
+    393,
+    408,
+    409,
+    500,
+    504,
+    506,
+    518,
+    538
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_deterministic_extraction.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    562,
+    571
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_doc012_generalization.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    117,
+    197
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_facade_poc_v2.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    1,
+    30,
+    84,
+    89,
+    133
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_ingestion_profiles.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    367,
+    368
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_kengetallen.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005"
+   ],
+   "lines": [
+    116
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_maldenhof_quantity_activation.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "1106EZ",
+    "1106 EZ",
+    "190.65",
+    "425.80"
+   ],
+   "lines": [
+    1,
+    30,
+    31,
+    71,
+    76,
+    80,
+    122,
+    126,
+    139,
+    143,
+    150,
+    154,
+    164,
+    165,
+    166,
+    229,
+    235
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_multi_pand_quantity_scope.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "1106 EZ",
+    "190.65",
+    "425.80"
+   ],
+   "lines": [
+    5,
+    84,
+    85,
+    86,
+    87,
+    88,
+    94,
+    136,
+    138,
+    142,
+    143,
+    149,
+    156,
+    157,
+    158,
+    167,
+    169,
+    172,
+    184,
+    186
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_normalize_price_observations.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005"
+   ],
+   "lines": [
+    37,
+    40,
+    59
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_price_observations.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    316,
+    318,
+    439
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_promote_deterministic_batch.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    105,
+    109,
+    192,
+    195,
+    309
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_quantity_engine_activation_review.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "190.65",
+    "425.80",
+    "15 panden"
+   ],
+   "lines": [
+    4,
+    50,
+    69,
+    70,
+    78,
+    84,
+    89,
+    96
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_quantity_observations.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    128,
+    129,
+    147,
+    148
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_real_maldenhof_bundle_v3.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof",
+    "190.65",
+    "425.80"
+   ],
+   "lines": [
+    1,
+    22,
+    79,
+    82,
+    91,
+    98,
+    99,
+    100,
+    101,
+    141
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_relation_and_family_review.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    4,
+    92,
+    99,
+    100,
+    101,
+    103,
+    115,
+    135,
+    136,
+    137,
+    161,
+    166,
+    167,
+    170,
+    173,
+    176,
+    191
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_testbatch01_promotion.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    5,
+    101,
+    145
+   ],
+   "reason": null
+  },
+  {
+   "file": "vocabularies/quantity_subjects_v1.json",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    21,
+    56,
+    60,
+    61,
+    62,
+    64,
+    68
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/bag_snapshots.py",
+   "classification": "GENERIC_CODE_PROBLEM_FIXED",
+   "patterns": [],
+   "lines": [],
+   "reason": "exact_address_match/range-filter vergeleken de woonplaats uit het document letterlijk met de BAG-woonplaatsnaam; 'Den Haag' (DOC-012) vond daardoor zelfs het exacte adres niet ('s-Gravenhage). Opgelost met de expliciete aliaslijst vocabularies/woonplaats_aliases_v1.json (exacte gelijkheid, vastgelegd in de snapshot-query; bestaande snapshots ongewijzigd)."
+  }
+ ],
+ "mjop_app_audit": {
+  "ref": "MJOP-App 9be178c23f9789dd49e7de7e9bb9bc0fb936c14e (src/, index.html, debug/)",
+  "hits": [
+   {
+    "file": "src/quantity.js",
+    "line": 104,
+    "classification": "NOT_A_PROBLEM",
+    "reason": "COMMENT: voorbeeld '425.80' -> '425,80' bij formatSourceValue"
+   }
+  ]
+ },
+ "state": {
+  "building_link_records_for_doc": 0,
+  "building_link_records_total": 80,
+  "crosswalk_decisions": [
+   "XWD-00001",
+   "XWD-00002"
+  ],
+  "quantity_resolutions": 0,
+  "maldenhof_bundle_sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",
+  "maldenhof_bundle_unchanged": true
+ }
+}

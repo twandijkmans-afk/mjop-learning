@@ -300,3 +300,21 @@ historische context op complexniveau en niet kiesbaar, contextonderwerp ≠ kies
 RELATED_NOT_EQUIVALENT, geen keuze/resolutie in de bundel en geen ACTIVE quantity resolution, alle verwijzingen
 bestaan, source cluster behouden, geen secrets. Een keuze in MJOP-App wordt nooit teruggeschreven als
 quantity resolution.
+
+## 11. Quantity Engine Generalization v1 — DOC-012
+
+Tweede testcase buiten Maldenhof, alleen discovery + review (`scripts/doc012_generalization_review.py` →
+`reports/quantity/doc012_generalization_review_v1.{json,md}`); geen building links, geen mapping-besluiten, geen
+resolutie, geen bundel.
+
+- **H1** (adresveld `building.address` "Meppelweg 819"): canonieke snapshot via de bestaande lookup_plan-route.
+- **H2** (objectnaam "VvE Meppelweg 801-883"): `bag_snapshot_v1` legt geen query-bron vast, dus een bereik uit de
+  objectnaam is geen document-adres-snapshot. De range-opvraging (zelfde code, `fetch_range_snapshot`) staat als
+  read-only hypothese-opname in `reports/quantity/doc012_scope_hypotheses/` en wordt niet door `building_links.py`
+  als kandidaat gezien.
+- **Woonplaats-alias**: documenten noemen soms een gangbare naam ("Den Haag") terwijl BAG de officiële naam gebruikt
+  ("'s-Gravenhage"). `vocabularies/woonplaats_aliases_v1.json` vertaalt alleen bij exacte gelijkheid; de toepassing
+  staat in de snapshot-query (`city_bag_woonplaatsnaam`, `city_alias_ref`). Geen fuzzy matching; straat, huisnummer en
+  postcode blijven exact. Snapshots zonder alias zijn ongewijzigd.
+- Voorgestelde mapping `HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012` (PROPOSED, exact op document, code, eenheid
+  en omschrijving 'Dakbedekking app'); de 4711-m1-randen vallen erbuiten.
