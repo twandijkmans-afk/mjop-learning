@@ -65,7 +65,7 @@ def build():
     eff = xw.effective()
     decisions = [{"decision_id": r["decision_id"], "mapping_id": r["mapping_id"], "decision": r["decision"],
                   "reviewer": r["reviewer"], "reviewed_at": r["reviewed_at"], "decision_reason": r["decision_reason"],
-                  "status": r["status"]} for r in xw.load_store()["records"]]
+                  "status": r["status"]} for r in xw.load_store()["records"] if r["mapping_id"] in MAPPINGS]
     vocab = json.loads(xw.SUBJECTS.read_text(encoding="utf-8"))
     subj = {s["subject_key"]: s for s in vocab["subjects"]}
 

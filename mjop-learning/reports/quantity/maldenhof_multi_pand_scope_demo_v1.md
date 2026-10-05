@@ -68,7 +68,7 @@ Verschil historisch − 3D BAG: 235.15 m² (123.34% van 3D BAG) — feitelijk ve
 
 Actuele stand van de menselijke besluiten (zie reports/quantity/maldenhof_quantity_activation_v1.md):
 
-- building links (ACTIVE): 30 CONFIRMED, 50 REJECTED (menselijke besluiten; de preview-scope hierboven is zelf geen besluit)
+- building links (ACTIVE): 31 CONFIRMED, 50 REJECTED (menselijke besluiten; de preview-scope hierboven is zelf geen besluit)
 - HSM-ROOF_FLAT_AREA-4711-m2: PROPOSED
 - XW-dak-plat-4711-m2: VERIFIED
 - quantity_resolution_records: 0 — een resolutie is altijd een menselijk besluit

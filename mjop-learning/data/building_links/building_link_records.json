@@ -3554,6 +3554,50 @@
    },
    "supersedes": null,
    "status": "ACTIVE"
+  },
+  {
+   "link_id": "BLINK-00081",
+   "document_id": "DOC-012",
+   "bag_pand_id": "0518100000354752",
+   "link_status": "CONFIRMED",
+   "address_as_stated": "Meppelweg 819",
+   "normalized_address": "meppelweg 819 | 2544AW den haag",
+   "evidence": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "address_matches_containing_pand": [
+     "adr-da98dc00dbc376def18e379c4d953266"
+    ],
+    "address_provenance": {
+     "block_id": "P02-L008",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Meppelweg 819"
+    },
+    "bag_properties": {
+     "aantal_verblijfsobjecten": 42,
+     "bouwjaar": 1957,
+     "gebruiksdoel": "woonfunctie",
+     "identificatie": "0518100000354752",
+     "status": "Pand in gebruik"
+    }
+   },
+   "decision_reason": "Meppelweg 819 is het canonieke documentadres en ligt in BAG-pand 0518100000354752. Dit woonpand omvat de oneven Meppelweg-adressen 803–883 en heeft 42 verblijfsobjecten, passend bij de 42 deurbelinstallaties en 42 postkasten in DOC-012. De bouwjaren 1956 (document) en 1957 (BAG) zijn vrijwel gelijk.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T13:03:16Z",
+   "rule_version": "building_link_rules_v1",
+   "input_hashes": {
+    "verified_sha256": "f6844d6d87963ff4c790321f0650660fb27182c1e85556eae5cdb7670519a312",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "candidates_report_sha256": "71378158a631bf12702d36397e067a59759006e4fe28602a9ee5a47b155d8ad9"
+   },
+   "supersedes": null,
+   "status": "ACTIVE"
   }
  ]
 }

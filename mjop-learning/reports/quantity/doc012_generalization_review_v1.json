@@ -20,7 +20,7 @@
   "number_of_units": null,
   "source_cluster": "SC-DOC-012",
   "document_relations": [],
-  "candidate_report_status": "CANDIDATES_READY_FOR_REVIEW",
+  "candidate_report_status": "LINKED",
   "candidate_review_reasons": [
    "OBJECT_NAME_ADDRESS_DIFFERS"
   ]
@@ -981,7 +981,7 @@
     "app_crosswalk_unresolved": [],
     "classification": "RELATED_NOT_EQUIVALENT",
     "caveats": [
-     "exacte document-mapping HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 (PROPOSED)",
+     "exacte document-mapping HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 (VERIFIED)",
      "generieke mapping HSM-ROOF_FLAT_AREA-4711-m2 (PROPOSED) zou ook matchen naar ROOF_FLAT_AREA, maar is NIET geverifieerd (onvoldoende bewijs dat het hetzelfde onderwerp is)"
     ]
    },
@@ -1552,7 +1552,7 @@
    "app_crosswalk_unresolved": [],
    "classification": "RELATED_NOT_EQUIVALENT",
    "caveats": [
-    "exacte document-mapping HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 (PROPOSED)",
+    "exacte document-mapping HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 (VERIFIED)",
     "generieke mapping HSM-ROOF_FLAT_AREA-4711-m2 (PROPOSED) zou ook matchen naar ROOF_FLAT_AREA, maar is NIET geverifieerd (onvoldoende bewijs dat het hetzelfde onderwerp is)"
    ]
   },
@@ -2139,7 +2139,7 @@
  "proposed_mappings": [
   {
    "mapping_id": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
-   "status": "PROPOSED",
+   "status": "VERIFIED",
    "subject_key": "ROOF_COVERING_REPORTED_AREA",
    "match": {
     "document_ids": [
@@ -2163,10 +2163,7 @@
    "crosswalk_status": "VERIFIED",
    "primary": "3D BAG ROOF_FLAT_AREA (per pand DIRECT_MEASURED, of scope-aggregaat GEOMETRY_DERIVED)",
    "related_context": "historische dakbedekking 801.04 m2 (ROOF_COVERING_REPORTED_AREA, na VERIFY van de DOC-012-mapping)",
-   "blocked_by": [
-    "building scope DOC-012 niet bevestigd",
-    "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 niet geverifieerd"
-   ]
+   "blocked_by": []
   },
   "dak-hellend": {
    "crosswalk": "XW-dak-hellend-4712-m2",
@@ -2178,7 +2175,8 @@
    "crosswalk_status": "REVIEW_REQUIRED",
    "note": "geen gedeeld hoeveelheidsonderwerp (netto vs bruto)"
   },
-  "bundle_generated": false
+  "bundle_generated": true,
+  "bundle_path": "reports/quantity/app_bundles/doc012_meppelweg_v3.json"
  },
  "generalization_audit": [
   {
@@ -2279,13 +2277,27 @@
    "lines": [
     4,
     45,
-    198,
-    209,
+    199,
     210,
     211,
-    216,
-    396,
-    494
+    212,
+    217,
+    402,
+    501
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/doc012_quantity_activation.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    28,
+    115
    ],
    "reason": null
   },
@@ -2467,7 +2479,7 @@
     "DOC-006"
    ],
    "lines": [
-    15
+    16
    ],
    "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld met het pad van de Maldenhof-bundel"
   },
@@ -2587,7 +2599,19 @@
    ],
    "lines": [
     117,
-    197
+    198
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_doc012_quantity_activation.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    29
    ],
    "reason": null
   },
@@ -2649,19 +2673,19 @@
     30,
     31,
     71,
-    76,
-    80,
-    122,
-    126,
-    139,
-    143,
-    150,
-    154,
-    164,
-    165,
-    166,
-    229,
-    235
+    77,
+    81,
+    124,
+    128,
+    141,
+    145,
+    152,
+    156,
+    168,
+    169,
+    170,
+    234,
+    240
    ],
    "reason": null
   },
@@ -2757,12 +2781,12 @@
    "lines": [
     4,
     50,
-    69,
     70,
-    78,
-    84,
-    89,
-    96
+    71,
+    79,
+    85,
+    90,
+    97
    ],
    "reason": null
   },
@@ -2886,11 +2910,12 @@
   ]
  },
  "state": {
-  "building_link_records_for_doc": 0,
-  "building_link_records_total": 80,
+  "building_link_records_for_doc": 1,
+  "building_link_records_total": 81,
   "crosswalk_decisions": [
    "XWD-00001",
-   "XWD-00002"
+   "XWD-00002",
+   "XWD-00003"
   ],
   "quantity_resolutions": 0,
   "maldenhof_bundle_sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",

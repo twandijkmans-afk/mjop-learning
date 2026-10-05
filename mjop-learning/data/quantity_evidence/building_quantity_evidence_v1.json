@@ -182,6 +182,119 @@
   },
   {
    "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "quantity_subject": {
+    "subject_id": "QS-253fbdadf6c2cef4",
+    "subject_key": "ROOF_FLAT_AREA",
+    "element_code_internal": null,
+    "subject_text": "Plat dakoppervlak",
+    "location_scope": null,
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY"
+   },
+   "value": "875.63",
+   "unit_normalized": "m2",
+   "method_class": "DIRECT_MEASURED",
+   "source_type": "3D_BAG",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 875.63
+    },
+    "rule_id": "bag3d.roof_flat_area",
+    "rule_version": "1.0.0",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "api_version": "2.0",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ]
+   },
+   "calculation": null,
+   "dependency": {
+    "source_cluster": null,
+    "same_object_document_ids": []
+   },
+   "scope_caveats": [],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "building_quantity_evidence_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "QE-0cd5f153f2a60245"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "quantity_subject": {
+    "subject_id": "QS-aa9976ded39f2872",
+    "subject_key": "BUILDING_HEIGHT",
+    "element_code_internal": null,
+    "subject_text": "Gebouwhoogte (hoogste dakpunt - maaiveld)",
+    "location_scope": null,
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY"
+   },
+   "value": "19.55500030517578",
+   "unit_normalized": "m",
+   "method_class": "GEOMETRY_DERIVED",
+   "source_type": "3D_BAG",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_h_dak_max",
+     "b3_h_maaiveld"
+    ],
+    "raw_inputs": {
+     "b3_h_dak_max": 19.30500030517578,
+     "b3_h_maaiveld": -0.25
+    },
+    "rule_id": "bag3d.building_height",
+    "rule_version": "1.0.0",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "api_version": "2.0",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ]
+   },
+   "calculation": {
+    "rule_id": "bag3d.building_height",
+    "rule_version": "1.0.0",
+    "formula": "b3_h_dak_max - b3_h_maaiveld",
+    "input_evidence_ids": [],
+    "raw_inputs": {
+     "b3_h_dak_max": 19.30500030517578,
+     "b3_h_maaiveld": -0.25
+    }
+   },
+   "dependency": {
+    "source_cluster": null,
+    "same_object_document_ids": []
+   },
+   "scope_caveats": [],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "building_quantity_evidence_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "QE-0ec156f03368047e"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
    "building_id": "BAG:0363100012137996",
    "quantity_subject": {
     "subject_id": "QS-c2c0b6d180cd8e61",
@@ -858,6 +971,68 @@
     "snapshot_id": "BAGSNAP-431559474da45dcf"
    },
    "evidence_id": "QE-339d2ef045a84add"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "quantity_subject": {
+    "subject_id": "QS-f82bf945a3cd81d6",
+    "subject_key": "ROOF_TOTAL_AREA",
+    "element_code_internal": null,
+    "subject_text": "Totaal dakoppervlak (plat + hellend)",
+    "location_scope": null,
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY"
+   },
+   "value": "875.63",
+   "unit_normalized": "m2",
+   "method_class": "GEOMETRY_DERIVED",
+   "source_type": "3D_BAG",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_opp_dak_plat",
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 875.63,
+     "b3_opp_dak_schuin": 0.0
+    },
+    "rule_id": "bag3d.roof_total_area",
+    "rule_version": "1.0.0",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "api_version": "2.0",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ]
+   },
+   "calculation": {
+    "rule_id": "bag3d.roof_total_area",
+    "rule_version": "1.0.0",
+    "formula": "b3_opp_dak_plat + b3_opp_dak_schuin",
+    "input_evidence_ids": [],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 875.63,
+     "b3_opp_dak_schuin": 0.0
+    }
+   },
+   "dependency": {
+    "source_cluster": null,
+    "same_object_document_ids": []
+   },
+   "scope_caveats": [],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "building_quantity_evidence_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "QE-34190d144c6ca537"
   },
   {
    "contract_version": "quantity_evidence_v1",
@@ -3465,6 +3640,53 @@
   },
   {
    "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "quantity_subject": {
+    "subject_id": "QS-2122731cfb94b156",
+    "element_code_internal": "4711",
+    "subject_text": "Dakbedekking app",
+    "location_scope": null,
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "subject_key": "ROOF_COVERING_REPORTED_AREA"
+   },
+   "value": "801.04",
+   "unit_normalized": "m2",
+   "method_class": "SOURCE_REPORTED",
+   "source_type": "MJOP_ELEMENT_OVERVIEW",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-024",
+    "source_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "provenance": {
+     "block_id": "P07-L006",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4711 Dakbedekking app 801,04m2 1"
+    },
+    "quantity_as_stated": "801,04",
+    "building_link_ref": "BLINK-00081",
+    "subject_mapping_ref": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012"
+   },
+   "calculation": null,
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": [],
+    "identical_in_same_object_documents": []
+   },
+   "scope_caveats": [],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "build_quantity_observations/profile:pro_vve_overzicht15.elements.overview_row",
+   "input_hashes": {},
+   "evidence_id": "QE-bd9ee7e3931f8b77"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
    "building_id": "BAG:0363100012070344",
    "quantity_subject": {
     "subject_id": "QS-20028b48f68479e3",
@@ -4005,6 +4227,57 @@
     "snapshot_id": "BAGSNAP-431559474da45dcf"
    },
    "evidence_id": "QE-cf37ff666d79d716"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "quantity_subject": {
+    "subject_id": "QS-0f79b8aa61b469b4",
+    "subject_key": "OUTER_WALL_GROSS_AREA",
+    "element_code_internal": null,
+    "subject_text": "Buitenmuuroppervlak bruto (openingen niet afgetrokken)",
+    "location_scope": null,
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY"
+   },
+   "value": "3048.46",
+   "unit_normalized": "m2",
+   "method_class": "DIRECT_MEASURED",
+   "source_type": "3D_BAG",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_opp_buitenmuur"
+    ],
+    "raw_inputs": {
+     "b3_opp_buitenmuur": 3048.46
+    },
+    "rule_id": "bag3d.outer_wall_gross_area",
+    "rule_version": "1.0.0",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "api_version": "2.0",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ]
+   },
+   "calculation": null,
+   "dependency": {
+    "source_cluster": null,
+    "same_object_document_ids": []
+   },
+   "scope_caveats": [],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "building_quantity_evidence_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "QE-d614bb24c23d1fab"
   },
   {
    "contract_version": "quantity_evidence_v1",
@@ -4793,6 +5066,57 @@
     "snapshot_id": "BAGSNAP-431559474da45dcf"
    },
    "evidence_id": "QE-f345095ac2c7641d"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "quantity_subject": {
+    "subject_id": "QS-211f108b971477a4",
+    "subject_key": "ROOF_SLOPED_AREA",
+    "element_code_internal": null,
+    "subject_text": "Hellend dakoppervlak (hellend vlak, niet de projectie)",
+    "location_scope": null,
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY"
+   },
+   "value": "0.0",
+   "unit_normalized": "m2",
+   "method_class": "DIRECT_MEASURED",
+   "source_type": "3D_BAG",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 0.0
+    },
+    "rule_id": "bag3d.roof_sloped_area",
+    "rule_version": "1.0.0",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "api_version": "2.0",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ]
+   },
+   "calculation": null,
+   "dependency": {
+    "source_cluster": null,
+    "same_object_document_ids": []
+   },
+   "scope_caveats": [],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "building_quantity_evidence_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "QE-f446e3716ff206e3"
   },
   {
    "contract_version": "quantity_evidence_v1",

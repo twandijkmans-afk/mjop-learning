@@ -38,17 +38,16 @@
    "BAGSNAP-599d2f2004100011",
    "BAGSNAP-e23aa139a8589881"
   ],
-  "link_store_sha256": "205583225f15b2ae5530774c0fbcbd460a219d3951117b6cf1d27fa1806d5cb7"
+  "link_store_sha256": "1ad1ac00aeb1531be8050e63f5886e607d574c0653e93fe6b3fbf42352a1c074"
  },
  "summary": {
   "documents": 13,
   "by_status": {
    "AWAITING_BAG_SNAPSHOT": 8,
-   "CANDIDATES_READY_FOR_REVIEW": 1,
-   "LINKED": 2,
+   "LINKED": 3,
    "NO_ADDRESS": 2
   },
-  "confirmed_links": 30,
+  "confirmed_links": 31,
   "documents_with_multiple_confirmed_panden": [
    "DOC-005",
    "DOC-006"
@@ -2902,11 +2901,13 @@
      "has_3dbag_attributes": true
     }
    ],
-   "confirmed_bag_pand_ids": [],
+   "confirmed_bag_pand_ids": [
+    "0518100000354752"
+   ],
    "review_reasons": [
     "OBJECT_NAME_ADDRESS_DIFFERS"
    ],
-   "status": "CANDIDATES_READY_FOR_REVIEW"
+   "status": "LINKED"
   },
   {
    "document_id": "DOC-013",

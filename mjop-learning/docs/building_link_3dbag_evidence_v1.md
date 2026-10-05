@@ -318,3 +318,14 @@ resolutie, geen bundel.
   postcode blijven exact. Snapshots zonder alias zijn ongewijzigd.
 - Voorgestelde mapping `HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012` (PROPOSED, exact op document, code, eenheid
   en omschrijving 'Dakbedekking app'); de 4711-m1-randen vallen erbuiten.
+
+## 12. DOC-012 Quantity Activation + tweede echte bundel v3
+
+Menselijke besluiten (reviewer `user-approved`): H1 gekozen = het volledige BAG-pand `0518100000354752` van het
+canonieke documentadres Meppelweg 819 (`BLINK-00081`, snapshot `BAGSNAP-599d2f2004100011`); H2 (objectnaamrange)
+NOT_SELECTED — zonder REJECT-records, omdat die panden geen canonieke kandidaat zijn. Mapping
+`HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012` VERIFY (`XWD-00003`). Gevel (2110) blijft NEEDS_SEMANTIC_REVIEW.
+
+Bundel `reports/quantity/app_bundles/doc012_meppelweg_v3.json` (single-pand v3) via dezelfde exporter en validator
+als Maldenhof (multi-pand). De validator controleert generiek ook dat een context-regel dezelfde eenheid heeft als het
+kiesbare onderwerp. Rapport: `scripts/doc012_quantity_activation.py`. Geen quantity resolution.

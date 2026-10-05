@@ -202,11 +202,12 @@ def test_committed_stores_contain_only_human_decisions():
     links = json.load(open(bl.LINK_STORE))
     assert bl.store_errors(links) == []
     assert links["records"] and all(r["reviewer"]["reviewer_type"] == "human" and r["reviewer"]["reviewer_id"] for r in links["records"])
-    assert {r["document_id"] for r in links["records"]} == {"DOC-005", "DOC-006"}
+    assert {r["document_id"] for r in links["records"]} == {"DOC-005", "DOC-006", "DOC-012"}
     dec = json.load(open(xw.DECISIONS))
     assert xw.store_errors(dec) == []
     assert all(r["reviewer"]["reviewer_type"] == "human" for r in dec["records"])
-    assert {r["mapping_id"] for r in dec["records"]} == {"XW-dak-plat-4711-m2", "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006"}
+    assert {r["mapping_id"] for r in dec["records"]} == {"XW-dak-plat-4711-m2", "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
+                                                         "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012"}
     # snapshots zijn ruwe bronvastleggingen (geen besluiten); sinds multi-pand-quantity-scope-v1 bestaan de
     # canonieke Maldenhof-snapshots voor DOC-005/DOC-006
     assert all(n == "README.md" or n.startswith("BAGSNAP-") for n in os.listdir(bs.SNAPSHOT_DIR))
@@ -247,6 +248,7 @@ def test_crosswalk_nothing_verified_without_human_decision():
     # gecommitte opslag: alleen de expliciete menselijke besluiten van Maldenhof Quantity Activation v1
     committed = xw.effective()
     assert sorted(k for k, v in committed.items() if v != eff[k]) == ["HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
+                                                                       "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
                                                                        "XW-dak-plat-4711-m2"]
 
 

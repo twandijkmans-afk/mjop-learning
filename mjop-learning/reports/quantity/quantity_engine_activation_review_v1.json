@@ -2,14 +2,14 @@
  "report_version": "quantity_engine_activation_review_v1",
  "note": "Read-only SOURCE COMPARISON / ACTIVATION REVIEW. Geen accuracy-benchmark, geen besluiten, geen evidence, geen API-/netwerk-calls. Maldenhof is testcase, niet meetlat.",
  "state_of_human_decisions": {
-  "building_links_records": 80,
-  "crosswalk_decisions_records": 2,
+  "building_links_records": 81,
+  "crosswalk_decisions_records": 3,
   "quantity_resolutions_records": 0,
-  "building_quantity_evidence": 81
+  "building_quantity_evidence": 87
  },
  "input_hashes": {
   "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
-  "building_link_candidates_sha256": "71378158a631bf12702d36397e067a59759006e4fe28602a9ee5a47b155d8ad9",
+  "building_link_candidates_sha256": "cf64db87168f733f9ae0b4c1138f017a37d783360fb65c9a65777dc68e448648",
   "subjects_vocab_sha256": "27590ced5e8b83306458a0ddf098ff00deade8def4370a39158c535f30c8008b",
   "app_crosswalk_sha256": "d2b1152a4da317e9f4887b9f9ec87ff306b2f1fa6269122a89220c560deb9bfd",
   "poc_source_manifest_sha256": "abc806809c87a76c4a3acc09863bc9fecebf43f88a2874c4eea47109708df686",
@@ -2920,7 +2920,7 @@
     "link_status": "REJECTED"
    }
   ],
-  "note": "Links CONFIRMED/REJECTED volgens de store: 30/50. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."
+  "note": "Links CONFIRMED/REJECTED volgens de store: 31/50. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."
  },
  "C_historical_quantities": {
   "rows": [

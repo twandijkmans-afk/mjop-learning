@@ -72,9 +72,10 @@ def test_all_other_candidates_are_rejected_and_have_other_postcode(links, doc):
 
 
 def test_link_records_are_human_append_only_and_cite_the_snapshot(links):
-    assert bl.store_errors(links) == [] and len(links["records"]) == 80
+    mald = [r for r in links["records"] if r["document_id"] in DOCS]  # andere documenten (bijv. DOC-012) tellen niet mee
+    assert bl.store_errors(links) == [] and len(mald) == 80
     snaps = {"DOC-005": "BAGSNAP-431559474da45dcf", "DOC-006": "BAGSNAP-e23aa139a8589881"}
-    for r in links["records"]:
+    for r in mald:
         assert r["reviewer"] == {"reviewer_id": "user-approved", "reviewer_type": "human"}
         assert r["evidence"]["snapshot_id"] == snaps[r["document_id"]] and r["supersedes"] is None
         assert ("1106 EZ" in r["decision_reason"]) == (r["link_status"] == "CONFIRMED")
@@ -96,8 +97,9 @@ def test_crosswalk_decisions():
     assert eff["HSM-ROOF_FLAT_AREA-4711-m2"]["status"] != "VERIFIED"
     assert eff["HSM-ROOF_FLAT_AREA-4711-m2"]["decision_id"] is None
     assert eff[NEW_HSM]["status"] == "VERIFIED"
-    recs = {r["mapping_id"]: r for r in xw.load_store()["records"]}
+    recs = {r["mapping_id"]: r for r in xw.load_store()["records"] if r["mapping_id"] in ("XW-dak-plat-4711-m2", NEW_HSM)}
     assert set(recs) == {"XW-dak-plat-4711-m2", NEW_HSM}
+    assert [r["decision_id"] for r in xw.load_store()["records"] if r["mapping_id"] in recs] == ["XWD-00001", "XWD-00002"]
     assert "NIET" in recs["XW-dak-plat-4711-m2"]["decision_reason"] and "b3_opp_dak_plat" in recs["XW-dak-plat-4711-m2"]["decision_reason"]
     assert all(r["decision"] == "VERIFY" and r["reviewer"]["reviewer_type"] == "human" for r in recs.values())
 
@@ -146,7 +148,7 @@ def test_3dbag_aggregate_is_exactly_190_65(evidence):
 
 
 def test_historical_is_roof_covering_unsplit_at_complex_level(evidence):
-    hist = [e for e in evidence["evidence"] if e["source_type"] == "MJOP_ELEMENT_OVERVIEW"]
+    hist = [e for e in evidence["evidence"] if e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["source_ref"]["document_id"] in DOCS]
     assert sorted(e["source_ref"]["document_id"] for e in hist) == ["DOC-005", "DOC-006"]
     for e in hist:
         assert e["quantity_subject"]["subject_key"] == "ROOF_COVERING_REPORTED_AREA"
@@ -154,13 +156,15 @@ def test_historical_is_roof_covering_unsplit_at_complex_level(evidence):
         assert (e["value"], e["unit_normalized"], e["method_class"]) == ("425.80", "m2", "SOURCE_REPORTED")
         assert e["building_id"] == SCOPE  # complexniveau, aan geen enkel pand gehangen
         assert e["source_ref"]["subject_mapping_ref"] == NEW_HSM
-    assert not any(e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and "+" not in e["building_id"] for e in evidence["evidence"])
+    assert not any(e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and "+" not in e["building_id"]
+                   for e in evidence["evidence"] if e["source_ref"].get("document_id") in DOCS)
     assert not any(e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["quantity_subject"]["subject_key"] == "ROOF_FLAT_AREA"
                    for e in evidence["evidence"])
 
 
 def test_doc005_doc006_dependency_kept_not_two_observations(evidence):
-    hist = {e["source_ref"]["document_id"]: e for e in evidence["evidence"] if e["source_type"] == "MJOP_ELEMENT_OVERVIEW"}
+    hist = {e["source_ref"]["document_id"]: e for e in evidence["evidence"]
+            if e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["source_ref"]["document_id"] in DOCS}
     assert "DOC-006" in hist["DOC-005"]["dependency"]["same_object_document_ids"]
     assert "DOC-005" in hist["DOC-006"]["dependency"]["same_object_document_ids"]
     assert hist["DOC-005"]["dependency"]["identical_in_same_object_documents"] == ["QO-DOC-006-EL-025"]
@@ -169,7 +173,8 @@ def test_doc005_doc006_dependency_kept_not_two_observations(evidence):
     ind = [h for h in rep["summary"]["historical_independent_sources"] if h["building_id"] == SCOPE]
     assert ind == [{"building_id": SCOPE, "subject_key": "ROOF_COVERING_REPORTED_AREA", "historical_evidences": 2,
                     "independent_source_clusters": 1}]
-    assert all(c["dependency_note"] and "geen onafhankelijke bevestiging" in c["dependency_note"] for c in rep["comparisons"])
+    assert all(c["dependency_note"] and "geen onafhankelijke bevestiging" in c["dependency_note"]
+               for c in rep["comparisons"] if c["building_id"] == SCOPE)
 
 
 def test_difference_is_source_difference_not_accuracy_statistic():
@@ -183,7 +188,7 @@ def test_difference_is_source_difference_not_accuracy_statistic():
         assert c["absolute_difference"] == "235.15" and c["difference_band"] is None
     s = rep["summary"]
     assert s["comparisons_with_difference"] == 0 and s["median_absolute_difference"] is None
-    assert s["related_subject_source_differences"] == 2
+    assert sum(1 for c in rep["comparisons"] if c["building_id"] == SCOPE and c["comparison_kind"] != "SAME_SUBJECT") == 2
 
 
 # --- geen resolutie, geen middeling -------------------------------------------------------

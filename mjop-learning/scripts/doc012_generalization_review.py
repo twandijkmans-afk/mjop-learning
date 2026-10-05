@@ -43,6 +43,7 @@ OUT_JSON = ROOT / "reports" / "quantity" / "doc012_generalization_review_v1.json
 OUT_MD = ROOT / "reports" / "quantity" / "doc012_generalization_review_v1.md"
 RESOLUTIONS = ROOT / "data" / "quantity_resolutions" / "quantity_resolution_records.json"
 MALDENHOF_BUNDLE = ROOT / "reports" / "quantity" / "app_bundles" / "maldenhof_DOC-005_DOC-006_v3.json"
+DOC012_BUNDLE = ROOT / "reports" / "quantity" / "app_bundles" / "doc012_meppelweg_v3.json"
 MALDENHOF_BUNDLE_SHA256 = "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933"
 SUBJECT_ORDER = ("ROOF_FLAT_AREA", "ROOF_SLOPED_AREA", "ROOF_TOTAL_AREA", "OUTER_WALL_GROSS_AREA", "BUILDING_HEIGHT")
 CLASSES = ("DIRECTLY_COMPARABLE", "RELATED_NOT_EQUIVALENT", "NO_3DBAG_COUNTERPART", "NEEDS_SEMANTIC_REVIEW", "NOT_MEASURED_QUANTITY")
@@ -200,7 +201,7 @@ AUDIT_PATTERNS = ("DOC-005", "DOC-006", "Maldenhof", "1106EZ", "1106 EZ", "190.6
 # of fixture is, geldt als generieke code.
 REPORT_ONLY_SCRIPTS = {
     "scripts/multi_pand_scope_demo.py", "scripts/maldenhof_quantity_activation.py", "scripts/quantity_engine_activation_review.py",
-    "scripts/doc012_generalization_review.py", "scripts/facade_coverage_poc_v2.py", "scripts/facade_element_detection_poc.py",
+    "scripts/doc012_generalization_review.py", "scripts/doc012_quantity_activation.py", "scripts/facade_coverage_poc_v2.py", "scripts/facade_element_detection_poc.py",
     "scripts/facade_ground_truth_poc.py", "scripts/facade_panorama_poc.py", "scripts/facade_poc_v2_report.py",
 }
 
@@ -383,12 +384,17 @@ def build():
             "dak-plat": {"crosswalk": "XW-dak-plat-4711-m2", "crosswalk_status": eff["XW-dak-plat-4711-m2"]["status"],
                          "primary": "3D BAG ROOF_FLAT_AREA (per pand DIRECT_MEASURED, of scope-aggregaat GEOMETRY_DERIVED)",
                          "related_context": f"historische dakbedekking {roof['quantity']} m2 (ROOF_COVERING_REPORTED_AREA, na VERIFY van de DOC-012-mapping)",
-                         "blocked_by": ["building scope DOC-012 niet bevestigd", "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 niet geverifieerd"]},
+                         "blocked_by": [b for b, open_ in (
+                             ("building scope DOC-012 niet bevestigd",
+                              not any(r["document_id"] == DOC and r["status"] == "ACTIVE" and r["link_status"] == "CONFIRMED" for r in links["records"])),
+                             ("HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 niet geverifieerd",
+                              eff.get("HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012", {}).get("status") != "VERIFIED")) if open_]},
             "dak-hellend": {"crosswalk": "XW-dak-hellend-4712-m2", "crosswalk_status": eff["XW-dak-hellend-4712-m2"]["status"],
                             "note": "DOC-012 heeft geen 4712-rij; alleen 3D BAG ROOF_SLOPED_AREA zou beschikbaar zijn"},
             "gevel-metselwerk": {"crosswalk": "XW-gevel-metselwerk-2110-m2", "crosswalk_status": eff["XW-gevel-metselwerk-2110-m2"]["status"],
                                  "note": "geen gedeeld hoeveelheidsonderwerp (netto vs bruto)"},
-            "bundle_generated": False,
+            "bundle_generated": DOC012_BUNDLE.exists(),
+            "bundle_path": str(DOC012_BUNDLE.relative_to(ROOT)) if DOC012_BUNDLE.exists() else None,
         },
         "generalization_audit": audit,
         "mjop_app_audit": {"ref": "MJOP-App 9be178c23f9789dd49e7de7e9bb9bc0fb936c14e (src/, index.html, debug/)",
@@ -474,9 +480,10 @@ def render(r):
     L += [f"- `{m['mapping_id']}` → {m['subject_key']} ({m['status']}); exacte match {json.dumps(m['match'], ensure_ascii=False)}; "
           f"matcht: {', '.join(m['matches'])}" for m in r["proposed_mappings"]]
     a = r["app_readiness"]["dak-plat"]
-    L += ["", "## I. App-readiness (conceptueel; geen bundel gegenereerd)", "",
+    L += ["", "## I. App-readiness", "",
           f"- dak-plat ({a['crosswalk']} {a['crosswalk_status']}): PRIMARY {a['primary']}; RELATED_CONTEXT {a['related_context']}.",
-          f"  Geblokkeerd door: {'; '.join(a['blocked_by'])}.",
+          (f"  Geblokkeerd door: {'; '.join(a['blocked_by'])}." if a["blocked_by"] else
+           f"  Niet meer geblokkeerd; bundel: `{r['app_readiness']['bundle_path']}`."),
           f"- dak-hellend: {r['app_readiness']['dak-hellend']['note']}.",
           f"- gevel-metselwerk: {r['app_readiness']['gevel-metselwerk']['note']}.", "",
           "## J. Generalisatie-audit", "",
