@@ -1,0 +1,98 @@
+{
+ "case_id": "GT-MAL-01",
+ "bag_pand_id": "0363100012143647",
+ "addresses": [
+  "Maldenhof 282, 1106EZ Amsterdam",
+  "Maldenhof 284, 1106EZ Amsterdam"
+ ],
+ "selection_reason": "Primaire middenwoning: terugliggende hoofdvoorgevel het best gedekt van alle middenpanden (89% bevestigd zichtbaar in v2), frontaal panorama op 12,6 m, review ronde B: 3/3 objecten juist en 0 onterecht. Representatief voor het gespiegelde rijtype (13 middenpanden).",
+ "geometric_definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+ "notes": "Woningindeling per pand (vermoedelijk beneden/boven) is niet bevestigd; de scope is de fysieke gevel van het pand, niet één woning.",
+ "scopes": [
+  {
+   "scope_id": "FRONT_MAIN",
+   "facade_side": "FRONT",
+   "description": "Terugliggende hoofdvoorgevel (3D BAG LoD2.2 wand 5, 16.92 m²): begane grond + 1e verdieping, zonder trappenhuis-/bergingsblok en zonder kapverdieping",
+   "wall_ref": {
+    "bag_pand_id": "0363100012143647",
+    "wall_index": 5
+   },
+   "ground_truth_status": "MISSING",
+   "images": [
+    {
+     "image_id": "TMX7316010203-000845_pano_0001_000759",
+     "source_type": "PANORAMA_AMSTERDAM",
+     "viewpoint": "FRONTAL",
+     "path": "https://t1.data.amsterdam.nl/panorama/2018/07/18/TMX7316010203-000845/pano_0001_000759/equirectangular/panorama_8000.jpg",
+     "captured_at": null,
+     "camera_distance_m": null,
+     "status": "PRESENT",
+     "notes": "gekozen in v2-run (CC BY 4.0, Gemeente Amsterdam)"
+    },
+    {
+     "image_id": "TMX7316010203-001786_pano_0000_007879",
+     "source_type": "PANORAMA_AMSTERDAM",
+     "viewpoint": "FRONTAL",
+     "path": "https://t1.data.amsterdam.nl/panorama/2020/07/03/TMX7316010203-001786/pano_0000_007879/equirectangular/panorama_8000.jpg",
+     "captured_at": null,
+     "camera_distance_m": null,
+     "status": "PRESENT",
+     "notes": "gekozen in v2-run (CC BY 4.0, Gemeente Amsterdam)"
+    },
+    {
+     "image_id": "GT-MAL-01-FRONT-PHOTO",
+     "source_type": "RESIDENT_PHOTO",
+     "viewpoint": "FRONTAL",
+     "path": null,
+     "captured_at": null,
+     "camera_distance_m": null,
+     "status": "MISSING",
+     "notes": "optioneel: frontale foto voorgevel volgens capture-protocol"
+    }
+   ],
+   "measured_objects": [],
+   "objects_to_measure": [
+    "1e verdieping: buitenkozijn incl. paneel binnen hetzelfde kozijn — breedte en hoogte buitenwerks",
+    "begane grond: buitenkozijn — breedte en hoogte buitenwerks",
+    "optioneel (apart, geen opening): donkere gevelbekleding boven het 1e-verdiepingkozijn — breedte en hoogte"
+   ],
+   "model_source": {
+    "source_type": "PANORAMA_V2_COMMITTED",
+    "status": "PRESENT",
+    "ref": "reports/quantity/facade_poc_v2_run/aggregate_v2.json",
+    "wall_index": 5
+   },
+   "manual_matches": []
+  },
+  {
+   "scope_id": "REAR",
+   "facade_side": "REAR",
+   "description": "Achtergevel van het pand (tuinzijde), begane grond + 1e verdieping; in v2 grotendeels niet zichtbaar (schuttingen/tuinen)",
+   "wall_ref": null,
+   "ground_truth_status": "MISSING",
+   "images": [
+    {
+     "image_id": "GT-MAL-01-REAR-PHOTO",
+     "source_type": "RESIDENT_PHOTO",
+     "viewpoint": "FRONTAL",
+     "path": null,
+     "captured_at": null,
+     "camera_distance_m": null,
+     "status": "MISSING",
+     "notes": "verplicht: frontale foto achtergevel vanuit de tuin volgens capture-protocol"
+    }
+   ],
+   "measured_objects": [],
+   "objects_to_measure": [
+    "alle kozijnen en (balkon)deuren in de achtergevel van dit pand, begane grond en 1e verdieping — per object breedte en hoogte buitenwerks, volgorde van links naar rechts (gezien vanuit de tuin)"
+   ],
+   "model_source": {
+    "source_type": "RESIDENT_PHOTO_DETECTION",
+    "status": "MISSING",
+    "ref": null,
+    "wall_index": null
+   },
+   "manual_matches": []
+  }
+ ]
+}

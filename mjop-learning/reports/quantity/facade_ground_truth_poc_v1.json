@@ -1,0 +1,216 @@
+{
+ "poc_version": "facade_ground_truth_poc_v1",
+ "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+ "definition_text": "breedte x hoogte van de omhullende rechthoek van het BUITENKOZIJN (buitenkant kozijnhout tot buitenkant kozijnhout; boven tot onderkant onderdorpel, excl. stenen raamdorpel), loodrecht geprojecteerd op het gevelvlak, in meters. Een paneel binnen hetzelfde kozijn hoort erbij. Dit is GEEN schilderoppervlak en GEEN \"kozijn-m²\" in MJOP-zin.",
+ "ground_truth_overall": "MISSING",
+ "accuracy_claim": false,
+ "cases": [
+  {
+   "case_id": "GT-MAL-01",
+   "bag_pand_id": "0363100012143647",
+   "addresses": [
+    "Maldenhof 282, 1106EZ Amsterdam",
+    "Maldenhof 284, 1106EZ Amsterdam"
+   ],
+   "selection_reason": "Primaire middenwoning: terugliggende hoofdvoorgevel het best gedekt van alle middenpanden (89% bevestigd zichtbaar in v2), frontaal panorama op 12,6 m, review ronde B: 3/3 objecten juist en 0 onterecht. Representatief voor het gespiegelde rijtype (13 middenpanden)."
+  },
+  {
+   "case_id": "GT-MAL-02",
+   "bag_pand_id": "0363100012070344",
+   "addresses": [
+    "Maldenhof 262, 1106EZ Amsterdam",
+    "Maldenhof 264, 1106EZ Amsterdam"
+   ],
+   "selection_reason": "Tweede middenwoning, zelfde type als GT-MAL-01 (81% bevestigd zichtbaar). Bewust gekozen omdat het model hier het witte paneel binnen het 1e-verdiepingkozijn als aparte facade_panel meldt: test de definitie-afhandeling (SEMANTIC_DEFINITION_DIFFERENCE). Ook het referentiepand uit v1."
+  },
+  {
+   "case_id": "GT-MAL-03",
+   "bag_pand_id": "0363100012127361",
+   "addresses": [
+    "Maldenhof 294, 1106EZ Amsterdam",
+    "Maldenhof 296, 1106EZ Amsterdam"
+   ],
+   "selection_reason": "Eindwoning (kopgevels 85% zichtbaar). Voorgevel slechts 48% bevestigd zichtbaar: het begane-grondkozijn zit achter struiken (model ziet alleen 0,44 m hoogte). Toont het effect van dekking op de berekende m²; niet extreem afgedekt zoals Maldenhof 240 (0%)."
+  }
+ ],
+ "scopes": [
+  {
+   "case_id": "GT-MAL-01",
+   "scope_id": "FRONT_MAIN",
+   "facade_side": "FRONT",
+   "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+   "ground_truth_status": "MISSING",
+   "model_source": "PANORAMA_V2_COMMITTED",
+   "model_source_status": "PRESENT",
+   "model": {
+    "opening_count": 2,
+    "total_m2_raw": "5.46",
+    "total_m2_definition_aligned": "5.46",
+    "panels_merged_into_frame": [],
+    "elements": [
+     {
+      "model_element_id": "0363100012143647_w05_e01",
+      "type": "window_frame",
+      "level": "1e",
+      "width_m": "1.96",
+      "height_m": "1.58",
+      "raw_area_m2": "3.10",
+      "aligned_area_m2": "3.10",
+      "partially_hidden": false,
+      "image_id": "TMX7316010203-000845_pano_0001_000759"
+     },
+     {
+      "model_element_id": "0363100012143647_w05_e02",
+      "type": "window_frame",
+      "level": "BG",
+      "width_m": "1.98",
+      "height_m": "1.19",
+      "raw_area_m2": "2.36",
+      "aligned_area_m2": "2.36",
+      "partially_hidden": true,
+      "image_id": "TMX7316010203-000845_pano_0001_000759"
+     }
+    ]
+   },
+   "ground_truth": "MISSING",
+   "comparison": "MISSING",
+   "accuracy_claim": false
+  },
+  {
+   "case_id": "GT-MAL-01",
+   "scope_id": "REAR",
+   "facade_side": "REAR",
+   "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+   "ground_truth_status": "MISSING",
+   "model_source": "RESIDENT_PHOTO_DETECTION",
+   "model_source_status": "MISSING",
+   "model": "MISSING",
+   "ground_truth": "MISSING",
+   "comparison": "MISSING",
+   "accuracy_claim": false
+  },
+  {
+   "case_id": "GT-MAL-02",
+   "scope_id": "FRONT_MAIN",
+   "facade_side": "FRONT",
+   "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+   "ground_truth_status": "MISSING",
+   "model_source": "PANORAMA_V2_COMMITTED",
+   "model_source_status": "PRESENT",
+   "model": {
+    "opening_count": 2,
+    "total_m2_raw": "4.63",
+    "total_m2_definition_aligned": "5.38",
+    "panels_merged_into_frame": [
+     "0363100012070344_w01_e02"
+    ],
+    "elements": [
+     {
+      "model_element_id": "0363100012070344_w01_e01",
+      "type": "window_frame",
+      "level": "1e",
+      "width_m": "1.97",
+      "height_m": "1.20",
+      "raw_area_m2": "2.36",
+      "aligned_area_m2": "3.11",
+      "partially_hidden": false,
+      "image_id": "TMX7315120208-000136_pano_0001_000844"
+     },
+     {
+      "model_element_id": "0363100012070344_w01_e03",
+      "type": "window_frame",
+      "level": "BG",
+      "width_m": "1.91",
+      "height_m": "1.19",
+      "raw_area_m2": "2.27",
+      "aligned_area_m2": "2.27",
+      "partially_hidden": true,
+      "image_id": "TMX7315120208-000136_pano_0001_000844"
+     }
+    ]
+   },
+   "ground_truth": "MISSING",
+   "comparison": "MISSING",
+   "accuracy_claim": false
+  },
+  {
+   "case_id": "GT-MAL-02",
+   "scope_id": "REAR",
+   "facade_side": "REAR",
+   "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+   "ground_truth_status": "MISSING",
+   "model_source": "RESIDENT_PHOTO_DETECTION",
+   "model_source_status": "MISSING",
+   "model": "MISSING",
+   "ground_truth": "MISSING",
+   "comparison": "MISSING",
+   "accuracy_claim": false
+  },
+  {
+   "case_id": "GT-MAL-03",
+   "scope_id": "FRONT_MAIN",
+   "facade_side": "FRONT",
+   "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+   "ground_truth_status": "MISSING",
+   "model_source": "PANORAMA_V2_COMMITTED",
+   "model_source_status": "PRESENT",
+   "model": {
+    "opening_count": 3,
+    "total_m2_raw": "4.01",
+    "total_m2_definition_aligned": "4.01",
+    "panels_merged_into_frame": [],
+    "elements": [
+     {
+      "model_element_id": "0363100012127361_w01_e00",
+      "type": "window_frame",
+      "level": "kap",
+      "width_m": "1.77",
+      "height_m": "0.08",
+      "raw_area_m2": "0.14",
+      "aligned_area_m2": "0.14",
+      "partially_hidden": true,
+      "image_id": "TMX7316010203-000335_pano_0000_010628"
+     },
+     {
+      "model_element_id": "0363100012127361_w01_e02",
+      "type": "window_frame",
+      "level": "1e",
+      "width_m": "1.98",
+      "height_m": "1.60",
+      "raw_area_m2": "3.17",
+      "aligned_area_m2": "3.17",
+      "partially_hidden": false,
+      "image_id": "TMX7316010203-000335_pano_0000_010628"
+     },
+     {
+      "model_element_id": "0363100012127361_w01_e03",
+      "type": "window_frame",
+      "level": "BG",
+      "width_m": "1.59",
+      "height_m": "0.44",
+      "raw_area_m2": "0.70",
+      "aligned_area_m2": "0.70",
+      "partially_hidden": true,
+      "image_id": "TMX7316010203-000335_pano_0000_010628"
+     }
+    ]
+   },
+   "ground_truth": "MISSING",
+   "comparison": "MISSING",
+   "accuracy_claim": false
+  },
+  {
+   "case_id": "GT-MAL-03",
+   "scope_id": "REAR",
+   "facade_side": "REAR",
+   "definition": "PROJECTED_OPENING_BBOX_AREA_IN_FACADE_PLANE",
+   "ground_truth_status": "MISSING",
+   "model_source": "RESIDENT_PHOTO_DETECTION",
+   "model_source_status": "MISSING",
+   "model": "MISSING",
+   "ground_truth": "MISSING",
+   "comparison": "MISSING",
+   "accuracy_claim": false
+  }
+ ]
+}
