@@ -611,7 +611,9 @@
     "text_fragment": "2323 Galerijvloerconstructie beton 257,54m2 1",
     "possible_subject": null,
     "subject_relation": null,
-    "possible_app_crosswalk": [],
+    "possible_app_crosswalk": [
+     "XQ-dak-hellend-ROOF_SLOPED_AREA-m2"
+    ],
     "app_crosswalk_unresolved": [],
     "classification": "NO_3DBAG_COUNTERPART",
     "caveats": []
@@ -2473,14 +2475,14 @@
     37,
     71,
     214,
-    264,
-    267,
-    299,
+    266,
+    269,
     301,
-    302,
-    313,
-    356,
-    384
+    303,
+    304,
+    315,
+    358,
+    386
    ],
    "reason": null
   },
@@ -2503,7 +2505,7 @@
     "DOC-006"
    ],
    "lines": [
-    16
+    22
    ],
    "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld met het pad van de Maldenhof-bundel"
   },
@@ -2703,13 +2705,13 @@
     128,
     141,
     145,
-    152,
-    156,
-    168,
-    169,
+    153,
+    157,
     170,
-    234,
-    240
+    171,
+    172,
+    236,
+    242
    ],
    "reason": null
   },
@@ -2805,12 +2807,12 @@
    "lines": [
     4,
     50,
-    70,
     71,
-    79,
-    85,
-    90,
-    97
+    72,
+    80,
+    86,
+    91,
+    98
    ],
    "reason": null
   },
@@ -2838,8 +2840,8 @@
    ],
    "lines": [
     18,
-    43,
-    60
+    44,
+    64
    ],
    "reason": null
   },
@@ -2856,14 +2858,14 @@
    "lines": [
     1,
     22,
-    79,
-    82,
-    91,
-    98,
+    80,
+    83,
+    92,
     99,
     100,
     101,
-    141
+    102,
+    142
    ],
    "reason": null
   },
@@ -2896,6 +2898,26 @@
    "reason": null
   },
   {
+   "file": "tests/test_sloped_roof_activation.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    5,
+    36,
+    114,
+    124,
+    148,
+    150,
+    166,
+    190,
+    199
+   ],
+   "reason": null
+  },
+  {
    "file": "tests/test_testbatch01_promotion.py",
    "classification": "TEST_ONLY",
    "patterns": [
@@ -2918,13 +2940,17 @@
     "Maldenhof"
    ],
    "lines": [
-    21,
-    56,
-    60,
-    61,
-    62,
-    64,
-    68
+    26,
+    67,
+    71,
+    72,
+    73,
+    75,
+    79,
+    93,
+    94,
+    96,
+    100
    ],
    "reason": null
   },
@@ -2953,7 +2979,9 @@
   "crosswalk_decisions": [
    "XWD-00001",
    "XWD-00002",
-   "XWD-00003"
+   "XWD-00003",
+   "XWD-00004",
+   "XWD-00005"
   ],
   "quantity_resolutions": 0,
   "maldenhof_bundle_sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",

@@ -37,7 +37,8 @@ def test_committed_report_up_to_date(report):
 
 def test_no_decisions_resolutions_or_bundle_changes(report):
     st = report["state"]
-    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003"]
+    # de review zelf beslist niets; XWD-00004/00005 zijn de latere besluiten van Sloped Roof Quantity Activation v1
+    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003", "XWD-00004", "XWD-00005"]
     assert st["quantity_resolutions"] == 0 and st["building_links"] == 81
     assert all(b["unchanged"] for b in st["bundles"].values())
     assert st["bundles"]["maldenhof_DOC-005_DOC-006_v3.json"]["sha256"] == "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933"
@@ -45,11 +46,14 @@ def test_no_decisions_resolutions_or_bundle_changes(report):
     assert xw.effective()["XW-dak-hellend-4712-m2"]["status"] == "REVIEW_REQUIRED"
 
 
-def test_proposal_is_not_activated(report):
+def test_proposal_activated_only_by_later_user_decision(report):
+    # het voorstel uit deze review is daarna door de gebruiker geactiveerd (Sloped Roof Quantity Activation v1)
     vocab = json.load(open(xw.SUBJECTS, encoding="utf-8"))
-    assert not any(s["subject_key"] == "ROOF_TILES_REPORTED_AREA" for s in vocab["subjects"])
-    assert "ROOF_SLOPED_AREA" not in {k for r in vocab["subject_relations"] for k in r["subjects"]}
-    assert report["proposed_historical_subject"]["status"].startswith("PROPOSAL_ONLY")
+    assert any(s["subject_key"] == "ROOF_TILES_REPORTED_AREA" for s in vocab["subjects"])
+    rels = [r for r in vocab["subject_relations"] if "ROOF_SLOPED_AREA" in r["subjects"]]
+    assert [sorted(r["subjects"]) for r in rels] == [["ROOF_SLOPED_AREA", "ROOF_TILES_REPORTED_AREA"]]
+    assert all(r["relation"] == "RELATED_NOT_EQUIVALENT" and r["resolvable_as_same_quantity"] is False for r in rels)
+    assert report["proposed_historical_subject"]["status"].startswith("ACTIVATED_BY_USER_DECISION")
 
 
 def test_4712_inventory_exact_and_m2_only(report):

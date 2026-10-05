@@ -1,16 +1,21 @@
 {
   "$id": "quantity_subjects_v1",
   "description": "Hoeveelheidsonderwerpen (quantity subjects) voor building-level evidence, de 3D BAG-regels die ze meten en de VOORGESTELDE koppeling naar historische elementhoeveelheden (docs/building_link_3dbag_evidence_v1.md). Een koppeling historisch -> onderwerp telt pas mee als een mens haar heeft geverifieerd (data/crosswalk_decisions/crosswalk_decision_records.json). Geen fuzzy matching: alleen exacte interne element_code + eenheid.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "subjects": [
     {"subject_key": "ROOF_FLAT_AREA", "unit": "m2", "label_nl": "Plat dakoppervlak", "quantity_kind": "ELEMENT_QUANTITY"},
     {"subject_key": "ROOF_SLOPED_AREA", "unit": "m2", "label_nl": "Hellend dakoppervlak (hellend vlak, niet de projectie)", "quantity_kind": "ELEMENT_QUANTITY"},
-    {"subject_key": "ROOF_TOTAL_AREA", "unit": "m2", "label_nl": "Totaal dakoppervlak (plat + hellend)", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "ROOF_TOTAL_AREA", "unit": "m2", "label_nl": "Totaal dakoppervlak (plat + hellend)", "quantity_kind": "ELEMENT_QUANTITY",
+     "product_role": "INFRASTRUCTURE_ONLY", "product_role_note": "Rekenbasis (bijv. dakinspectie); geen zelfstandig kiesbare bron in de app en geen PRIMARY in een bundel. Besloten door de gebruiker, 2026-10-05 (Sloped Roof Quantity Activation v1)."},
     {"subject_key": "OUTER_WALL_GROSS_AREA", "unit": "m2", "label_nl": "Buitenmuuroppervlak bruto (openingen niet afgetrokken)", "quantity_kind": "ELEMENT_QUANTITY"},
-    {"subject_key": "BUILDING_HEIGHT", "unit": "m", "label_nl": "Gebouwhoogte (hoogste dakpunt - maaiveld)", "quantity_kind": "ELEMENT_QUANTITY"},
+    {"subject_key": "BUILDING_HEIGHT", "unit": "m", "label_nl": "Gebouwhoogte (hoogste dakpunt - maaiveld)", "quantity_kind": "ELEMENT_QUANTITY",
+     "product_role": "CONTEXT_ONLY", "product_role_note": "Context/geometrie (bijv. werkhoogte steiger); geen onderhoudshoeveelheid en geen PRIMARY in een bundel. Besloten door de gebruiker, 2026-10-05 (Sloped Roof Quantity Activation v1)."},
     {"subject_key": "ROOF_COVERING_REPORTED_AREA", "unit": "m2", "label_nl": "Door bron/MJOP gerapporteerde oppervlakte dakbedekking", "quantity_kind": "ELEMENT_QUANTITY",
      "method_class": "SOURCE_REPORTED", "source_reported_only": true,
-     "note": "Alleen zoals een bron (MJOP-elementenoverzicht) het rapporteert; kan opstanden, overlappen of andere dakdelen bevatten. Geen 3D BAG-regel en geen scope-aggregatie: een gerapporteerde complexwaarde wordt nooit over panden verdeeld of opgeteld."}
+     "note": "Alleen zoals een bron (MJOP-elementenoverzicht) het rapporteert; kan opstanden, overlappen of andere dakdelen bevatten. Geen 3D BAG-regel en geen scope-aggregatie: een gerapporteerde complexwaarde wordt nooit over panden verdeeld of opgeteld."},
+    {"subject_key": "ROOF_TILES_REPORTED_AREA", "unit": "m2", "label_nl": "Door bron/MJOP gerapporteerde oppervlakte dakpannen", "quantity_kind": "ELEMENT_QUANTITY",
+     "method_class": "SOURCE_REPORTED", "source_reported_only": true,
+     "note": "Alleen dakpannen zoals een bron ze rapporteert (expliciete omschrijving, bijv. 'Dakpan beton'). NIET leisteen, shingles, zink, loodslabben of dakranden; interne code 4712 is gemengd en wordt nooit als geheel gemapt. Geen 3D BAG-regel, geen scope-aggregatie, nooit over panden verdeeld. Goedgekeurd door de gebruiker, 2026-10-05."}
   ],
   "subject_relations": [
     {"relation_id": "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA", "subjects": ["ROOF_COVERING_REPORTED_AREA", "ROOF_FLAT_AREA"],
@@ -18,7 +23,13 @@
      "show_side_by_side": true, "show_difference_as": "SOURCE_DIFFERENCE_DIFFERENT_DEFINITION",
      "average": false, "single_resolution": false, "auto_select_winner": false,
      "reason": "Historische gerapporteerde dakbedekking (bijv. 'Dakbedekking APP / Platte dak') en 3D BAG b3_opp_dak_plat ('totale oppervlakte van de platte delen van het dak') gaan over hetzelfde bouwdeel, maar er is onvoldoende bewijs dat het exact dezelfde hoeveelheid is. Naast elkaar tonen en het verschil tonen als bronverschil/andere definitie; nooit middelen, nooit één resolutie over beide, nooit automatisch een winnaar.",
-     "decided_by": "gebruiker, 2026-10-05 (milestone Maldenhof Quantity Activation v1)"}
+     "decided_by": "gebruiker, 2026-10-05 (milestone Maldenhof Quantity Activation v1)"},
+    {"relation_id": "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA", "subjects": ["ROOF_TILES_REPORTED_AREA", "ROOF_SLOPED_AREA"],
+     "relation": "RELATED_NOT_EQUIVALENT", "same_building_part": "dak (hellend dak)", "resolvable_as_same_quantity": false,
+     "show_side_by_side": true, "show_difference_as": "SOURCE_DIFFERENCE_DIFFERENT_DEFINITION",
+     "average": false, "single_resolution": false, "auto_select_winner": false,
+     "reason": "Historisch gerapporteerd dakpannenoppervlak en 3D BAG b3_opp_dak_schuin (hellend dakvlak) gaan over hetzelfde bouwdeel, maar zijn niet automatisch dezelfde hoeveelheid (overstekken, dakkapellen, goten, materiaalmix, meetwijze). Naast elkaar tonen, verschil als andere definitie; nooit middelen, nooit één resolutie over beide, nooit automatisch een winnaar.",
+     "decided_by": "gebruiker, 2026-10-05 (milestone Sloped Roof Quantity Activation v1)"}
   ],
   "bag3d_rules": [
     {"rule_id": "bag3d.roof_flat_area", "rule_version": "1.0.0", "subject_key": "ROOF_FLAT_AREA", "method_class": "DIRECT_MEASURED",
@@ -78,7 +89,15 @@
      "status": "PROPOSED", "human_verified": false,
      "evidence": "vocabularies/element_code.json: 4712 = 'Dakrandafwerking / dakpan / loodslab hellend dak'. Elementenoverzicht DOC-001: 'Dakpan beton' 1944,00 m2.",
      "caveats": ["4712 is een gemengde code (dakpan, dakrand, loodslab); alleen m2-rijen komen in aanmerking en ook die kunnen niet-dakpan zijn",
-                 "een document met meerdere 4712-m2-rijen wordt niet opgeteld"]}
+                 "een document met meerdere 4712-m2-rijen wordt niet opgeteld"]},
+    {"mapping_id": "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006", "subject_key": "ROOF_TILES_REPORTED_AREA", "element_code_internal": "4712", "unit_normalized": "m2",
+     "match": {"document_ids": ["DOC-005", "DOC-006"], "element_description_original_exact": ["Dakpan beton"], "location_original_exact": ["Hellend dak"]},
+     "status": "PROPOSED", "human_verified": false,
+     "evidence": "DOC-005 (p.7, P07-L015) en DOC-006 (p.7, P07-L009), Maldenhof 240-296: '4712 Dakpan beton Hellend dak 1485,60m2' (QO-DOC-005-EL-027, QO-DOC-006-EL-027).",
+     "scope_note": "Document-specifiek en exact (document, code 4712, m2, omschrijving 'Dakpan beton', locatie 'Hellend dak'). Geen generieke 4712-mapping: 4712 bevat ook leisteen, shingles, zink, loodslabben en dakranden (m1).",
+     "caveats": ["gerapporteerd dakpannenoppervlak, niet het geometrische hellende dakvlak (ROOF_SLOPED_AREA)",
+                 "complexniveau: niet over panden verdelen",
+                 "DOC-005 en DOC-006 zijn versies van hetzelfde MJOP (DREL-002): één onafhankelijke bron, niet twee"]}
   ],
   "not_mapped": [
     {"subject_key": "OUTER_WALL_GROSS_AREA", "element_code_internal": "2110", "reason": "2110 'Gevelconstructie metselwerk' is netto metselwerk (en per gevel/locatie); 3D BAG b3_opp_buitenmuur is bruto buitenmuur incl. openingen en ander gevelmateriaal. Semantisch niet hetzelfde onderwerp."},

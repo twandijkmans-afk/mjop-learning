@@ -13,10 +13,10 @@
     "note": "Letterlijk uit de broncode geëvalueerd (alleen de array-literal); niet met de hand bewerkt."
    }
   },
-  "subjects_vocab_sha256": "27590ced5e8b83306458a0ddf098ff00deade8def4370a39158c535f30c8008b",
-  "app_crosswalk_sha256": "d2b1152a4da317e9f4887b9f9ec87ff306b2f1fa6269122a89220c560deb9bfd",
+  "subjects_vocab_sha256": "f28d0a0ccbb1e01f9f2b666a54783cd9006a77b9054b021dba91dd7b2c94a8f6",
+  "app_crosswalk_sha256": "7dda3a8f5aebedcc33d795614496635edb3d8f5a28e501eb19b1ed869fb334db",
   "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
-  "evidence_sha256": "89f508c0f0398c90dfa0ee74b257bd12b2617155e423e521f6823f716ad1107d"
+  "evidence_sha256": "216b2625e2082f2503a764b5d951737e493e9afbd2b494e33fda7e1ee9f3ac1b"
  },
  "A_coverage_summary": {
   "READY_NOW": 1,
@@ -61,7 +61,7 @@
   ]
  },
  "proposed_historical_subject": {
-  "status": "PROPOSAL_ONLY (niet in de vocabulaire)",
+  "status": "ACTIVATED_BY_USER_DECISION (Sloped Roof Quantity Activation v1; deze review blijft een momentopname)",
   "subject": {
    "subject_key": "ROOF_TILES_REPORTED_AREA",
    "unit": "m2",
@@ -460,6 +460,7 @@
    "safe_quantity_subject": "ROOF_SLOPED_AREA",
    "missingness_rule": "veld ontbreekt -> NOT_AVAILABLE (nooit 0); aanwezige 0 = geldige 0",
    "crosswalk": [
+    "XQ-dak-hellend-ROOF_SLOPED_AREA-m2 (VERIFIED)",
     "XW-dak-hellend-4712-m2 (REVIEW_REQUIRED)"
    ],
    "crosswalk_unresolved": [],
@@ -885,7 +886,20 @@
      "app_element_candidates": [
       "dak-hellend"
      ],
-     "historical_context_existing": [],
+     "historical_context_existing": [
+      {
+       "evidence_id": "QE-b0a58dbfd69cc808",
+       "subject_key": "ROOF_TILES_REPORTED_AREA",
+       "value": "1485.60",
+       "document_id": "DOC-005"
+      },
+      {
+       "evidence_id": "QE-df6c981f2f0f8134",
+       "subject_key": "ROOF_TILES_REPORTED_AREA",
+       "value": "1485.60",
+       "document_id": "DOC-006"
+      }
+     ],
      "historical_context_candidates": [
       {
        "quantity_observation_id": "QO-DOC-005-EL-027",
@@ -1133,7 +1147,9 @@
   "crosswalk_decisions": [
    "XWD-00001",
    "XWD-00002",
-   "XWD-00003"
+   "XWD-00003",
+   "XWD-00004",
+   "XWD-00005"
   ],
   "building_links": 81,
   "quantity_resolutions": 0,
@@ -1148,7 +1164,8 @@
    }
   },
   "subject_relations_in_vocab": [
-   "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA"
+   "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA",
+   "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA"
   ]
  }
 }

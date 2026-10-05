@@ -47,6 +47,36 @@
    "rule_version": "crosswalk_rules_v1",
    "supersedes": null,
    "status": "ACTIVE"
+  },
+  {
+   "decision_id": "XWD-00004",
+   "mapping_id": "XQ-dak-hellend-ROOF_SLOPED_AREA-m2",
+   "decision": "VERIFY",
+   "proposal_sha256": "a4bc8fe371af2b8569bacadbddda7a7b627b9d3fa063b5dc5cce8323b7e60ade",
+   "decision_reason": "Het app-element 'Dakbedekking hellend dak (pannen)' gebruikt als automatische hoeveelheid rechtstreeks b3_opp_dak_schuin. De geometrische hoeveelheid van het app-element is daarom ROOF_SLOPED_AREA. Dit besluit zegt niets over historische code 4712 of historische dakpannenoppervlakken.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T14:08:15Z",
+   "rule_version": "crosswalk_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "decision_id": "XWD-00005",
+   "mapping_id": "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006",
+   "decision": "VERIFY",
+   "proposal_sha256": "4a24b5cc75a775c6974ee603469249e2176bbb4ec6daf486b2df460848821e68",
+   "decision_reason": "Exacte document-specifieke mapping voor Maldenhof DOC-005/DOC-006: code 4712, eenheid m2, omschrijving 'Dakpan beton', locatie 'Hellend dak' -> ROOF_TILES_REPORTED_AREA (goedgekeurd door de gebruiker, Sloped Roof Quantity Activation v1). Geen leisteen, shingles, zink of m1; DOC-005 en DOC-006 blijven één broncluster.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T14:08:15Z",
+   "rule_version": "crosswalk_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
   }
  ]
 }

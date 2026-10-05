@@ -207,7 +207,9 @@ def test_committed_stores_contain_only_human_decisions():
     assert xw.store_errors(dec) == []
     assert all(r["reviewer"]["reviewer_type"] == "human" for r in dec["records"])
     assert {r["mapping_id"] for r in dec["records"]} == {"XW-dak-plat-4711-m2", "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
-                                                         "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012"}
+                                                         "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
+                                                         "XQ-dak-hellend-ROOF_SLOPED_AREA-m2",
+                                                         "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006"}
     # snapshots zijn ruwe bronvastleggingen (geen besluiten); sinds multi-pand-quantity-scope-v1 bestaan de
     # canonieke Maldenhof-snapshots voor DOC-005/DOC-006
     assert all(n == "README.md" or n.startswith("BAGSNAP-") for n in os.listdir(bs.SNAPSHOT_DIR))
@@ -249,6 +251,8 @@ def test_crosswalk_nothing_verified_without_human_decision():
     committed = xw.effective()
     assert sorted(k for k, v in committed.items() if v != eff[k]) == ["HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
                                                                        "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
+                                                                       "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006",
+                                                                       "XQ-dak-hellend-ROOF_SLOPED_AREA-m2",
                                                                        "XW-dak-plat-4711-m2"]
 
 

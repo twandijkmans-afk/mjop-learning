@@ -253,7 +253,9 @@ def build():
             "maldenhof_comparison": tiles_cmp,
         },
         "proposed_historical_subject": {
-            "status": "PROPOSAL_ONLY (niet in de vocabulaire)",
+            "status": ("ACTIVATED_BY_USER_DECISION (Sloped Roof Quantity Activation v1; deze review blijft een momentopname)"
+                       if any(x["subject_key"] == "ROOF_TILES_REPORTED_AREA" for x in vocab["subjects"])
+                       else "PROPOSAL_ONLY (niet in de vocabulaire)"),
             "subject": {"subject_key": "ROOF_TILES_REPORTED_AREA", "unit": "m2", "quantity_kind": "ELEMENT_QUANTITY",
                         "method_class": "SOURCE_REPORTED", "label_nl": "Door bron/MJOP gerapporteerde oppervlakte dakpannen"},
             "why_not_sloped_roof_covering": ("Een breder 'hellend-dak-bedekking'-onderwerp zou shingles, leisteen en zink "

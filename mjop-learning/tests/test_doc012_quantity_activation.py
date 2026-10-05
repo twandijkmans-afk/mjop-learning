@@ -42,7 +42,7 @@ def bundle():
 def fresh():
     store = json.load(open(bqe.OUT_EVIDENCE, encoding="utf-8"))
     return eab.build_bundle(BID, store["evidence"], json.load(open(xw.APP_CROSSWALK, encoding="utf-8")), xw.effective(),
-                            json.load(open(xw.SUBJECTS, encoding="utf-8")))
+                            json.load(open(xw.SUBJECTS, encoding="utf-8")), app_elements={"dak-plat"})
 
 
 # --- besluiten -----------------------------------------------------------------------------

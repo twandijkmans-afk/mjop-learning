@@ -2,7 +2,7 @@
 
 Read-only bronnenvergelijking. **Geen accuracy-benchmark, geen besluiten, geen evidence, geen API- of netwerkcalls.** Gegenereerd door `scripts/quantity_engine_activation_review.py`.
 
-Stand menselijke besluiten: building links 81, crosswalk-besluiten 3, quantity resolutions 0, building evidence 87.
+Stand menselijke besluiten: building links 81, crosswalk-besluiten 5, quantity resolutions 0, building evidence 89.
 
 ## A — Maldenhof-inputs (PoC v2-snapshot)
 

@@ -1,6 +1,6 @@
 {
   "$id": "app_element_crosswalk_v1",
-  "description": "Crosswalk MJOP-App-elementenbibliotheek (src/app.js ELEMENT_LIBRARY: key + NL-SfB-achtige code) <-> interne element_code van mjop-learning (vocabularies/element_code.json). NIET automatisch geraden op naam: elke regel is een VOORSTEL met onderbouwing; human_verified wordt uitsluitend bepaald door een ACTIVE menselijk besluit in data/crosswalk_decisions/crosswalk_decision_records.json (scripts/crosswalk.py). Een regel zonder eenduidige tegenhanger staat als UNRESOLVED.",
+  "description": "Crosswalk MJOP-App-elementenbibliotheek (src/app.js ELEMENT_LIBRARY: key + NL-SfB-achtige code) <-> interne element_code van mjop-learning (vocabularies/element_code.json), of (mapping_kind APP_QUANTITY_SUBJECT) <-> rechtstreeks een hoeveelheidsonderwerp zonder historische code. Een APP_QUANTITY_SUBJECT-mapping zegt alleen welk onderwerp de automatische hoeveelheid van het app-element is; historische context loopt uitsluitend via een geverifieerde onderwerp-mapping (HSM) + subject_relations. NIET automatisch geraden op naam: elke regel is een VOORSTEL met onderbouwing; human_verified wordt uitsluitend bepaald door een ACTIVE menselijk besluit in data/crosswalk_decisions/crosswalk_decision_records.json (scripts/crosswalk.py). Een regel zonder eenduidige tegenhanger staat als UNRESOLVED.",
   "version": "1.0.0",
   "app_source": "MJOP-App src/app.js ELEMENT_LIBRARY @ d22da51cde5cf825914b3cebf44e380994961d03",
   "mappings": [
@@ -10,6 +10,11 @@
      "unit": "m2", "quantity_subject": "ROOF_FLAT_AREA", "status": "PROPOSED",
      "evidence": "App: 'Dakbedekking plat dak', type dak, hoeveelheid = 3D BAG b3_opp_dak_plat (m2). Intern: 4711 'Dakbedekking (APP/bitumen)'; m2-rijen zijn dakbedekking.",
      "open_questions": ["4711 heeft ook m1-rijen (dakrand/randstrook): alleen de m2-rijen horen bij deze mapping", "materiaal in de app is niet vastgelegd"]},
+    {"mapping_id": "XQ-dak-hellend-ROOF_SLOPED_AREA-m2", "mapping_kind": "APP_QUANTITY_SUBJECT", "app_element_key": "dak-hellend", "app_code": "27.2",
+     "app_label": "Dakbedekking hellend dak (pannen)", "app_quantity_source": "dakSchuinM2 (3D BAG b3_opp_dak_schuin)",
+     "internal_element_code": null, "unit": "m2", "quantity_subject": "ROOF_SLOPED_AREA", "status": "PROPOSED",
+     "evidence": "MJOP-App src/quantity.js autoFor('dakSchuinM2'): automatische hoeveelheid = 3D BAG b3_opp_dak_schuin (ontbrekend veld -> NOT_AVAILABLE, nooit 0).",
+     "scope_note": "Alleen app-element -> geometrisch onderwerp. Zegt NIETS over interne code 4712 of historische dakpannenoppervlakken (zie XW-dak-hellend-4712-m2, REVIEW_REQUIRED)."},
     {"mapping_id": "XW-dak-hellend-4712-m2", "app_element_key": "dak-hellend", "app_code": "27.2", "app_label": "Dakbedekking hellend dak (pannen)",
      "internal_element_code": "4712", "action_mapping": null, "material_mapping": {"app": "pannen", "internal": null},
      "unit": "m2", "quantity_subject": "ROOF_SLOPED_AREA", "status": "REVIEW_REQUIRED",
