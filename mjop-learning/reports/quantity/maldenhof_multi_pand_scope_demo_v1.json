@@ -1,0 +1,396 @@
+{
+ "report_version": "maldenhof_multi_pand_scope_demo_v1",
+ "note": "SOURCE COMPARISON, geen accuracy-benchmark. Niets opgeslagen; scope is een PREVIEW-hypothese, niet door een mens bevestigd.",
+ "snapshots": [
+  {
+   "document_id": "DOC-005",
+   "snapshot_id": "BAGSNAP-431559474da45dcf",
+   "fetched_at": "2026-10-05T09:15:50Z",
+   "query": "Maldenhof 240-296 Amsterdam",
+   "requests": 97,
+   "addresses_found": 56,
+   "addresses_matching_document_postcode": 29,
+   "candidate_panden": 40
+  },
+  {
+   "document_id": "DOC-006",
+   "snapshot_id": "BAGSNAP-e23aa139a8589881",
+   "fetched_at": "2026-10-05T09:16:52Z",
+   "query": "Maldenhof 240-296 Amsterdam",
+   "requests": 97,
+   "addresses_found": 56,
+   "addresses_matching_document_postcode": 29,
+   "candidate_panden": 40
+  }
+ ],
+ "doc006_snapshot_same_panden_and_flat_roof_values": true,
+ "preview_scope": {
+  "rule": "panden waarvan alle adrespunten de documentpostcode (1106 EZ) hebben",
+  "status": "PREVIEW_NOT_HUMAN_CONFIRMED",
+  "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+  "bag_pand_ids": [
+   "0363100012070344",
+   "0363100012071880",
+   "0363100012078022",
+   "0363100012091756",
+   "0363100012091974",
+   "0363100012102659",
+   "0363100012107492",
+   "0363100012121455",
+   "0363100012127361",
+   "0363100012134188",
+   "0363100012137996",
+   "0363100012140664",
+   "0363100012141419",
+   "0363100012143647",
+   "0363100012144766"
+  ],
+  "pand_count": 15,
+  "address_count": 29,
+  "other_candidate_panden_in_snapshot": [
+   "0363100012061310",
+   "0363100012063561",
+   "0363100012064674",
+   "0363100012065912",
+   "0363100012077783",
+   "0363100012077984",
+   "0363100012078472",
+   "0363100012081986",
+   "0363100012083986",
+   "0363100012084256",
+   "0363100012087184",
+   "0363100012100140",
+   "0363100012102257",
+   "0363100012105151",
+   "0363100012108812",
+   "0363100012123643",
+   "0363100012125929",
+   "0363100012129433",
+   "0363100012135143",
+   "0363100012137009",
+   "0363100012138208",
+   "0363100012148993",
+   "0363100012151715",
+   "0363100012152265",
+   "0363100012154610"
+  ]
+ },
+ "bag3d_per_pand": [
+  {
+   "bag_pand_id": "0363100012070344",
+   "addresses": [
+    "Maldenhof 262, 1106EZ Amsterdam",
+    "Maldenhof 264, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "7.61",
+   "evidence_id_preview": "QE-d4ced8c60e41bc4b",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012070344",
+   "threedbag_response_sha256": "15bf298803c14b7003d391c2e54c452f3c23382199a49eee7e2e89699180c04e",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012071880",
+   "addresses": [
+    "Maldenhof 270, 1106EZ Amsterdam",
+    "Maldenhof 272, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "8.8",
+   "evidence_id_preview": "QE-eab79c35b96e5ab5",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012071880",
+   "threedbag_response_sha256": "834c881bbffbfbf9f3bf049ec0a7849861ba4cede29041a466897a95c15cbc82",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012078022",
+   "addresses": [
+    "Maldenhof 246, 1106EZ Amsterdam",
+    "Maldenhof 248, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "16.05",
+   "evidence_id_preview": "QE-c7bfea612dc02224",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012078022",
+   "threedbag_response_sha256": "084f9b4d20f0d858da633ad2c11a7c044e64e89ca3a4286c9ec0b6d4f5502706",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012091756",
+   "addresses": [
+    "Maldenhof 278, 1106EZ Amsterdam",
+    "Maldenhof 280, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "8.27",
+   "evidence_id_preview": "QE-71f72b28cc933ec8",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091756",
+   "threedbag_response_sha256": "27e73963f9b6ea224dab62571c50cafdedc044e7347c2870fbe7a959ebeb70a2",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012091974",
+   "addresses": [
+    "Maldenhof 258, 1106EZ Amsterdam",
+    "Maldenhof 260, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "14.56",
+   "evidence_id_preview": "QE-59edcfebdefb3e2b",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091974",
+   "threedbag_response_sha256": "b9df5b9a9e8fb3940f8093c2168665a47fb628cf08e823aec8c1900245d0e7d4",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012102659",
+   "addresses": [
+    "Maldenhof 242, 1106EZ Amsterdam",
+    "Maldenhof 244, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "10.55",
+   "evidence_id_preview": "QE-aca817ad5a7c6abd",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012102659",
+   "threedbag_response_sha256": "fa7b8d2d63a9330a50623473f0ff25252ac889ea280ecc4ae2b69f65e43b65b0",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012107492",
+   "addresses": [
+    "Maldenhof 266, 1106EZ Amsterdam",
+    "Maldenhof 268, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "15.99",
+   "evidence_id_preview": "QE-e9e96dfac8f1bd20",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012107492",
+   "threedbag_response_sha256": "9725e741af3d6028f8bd5c425dfe31bb121c65dc1e33e7d6861d9f7b40002213",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012121455",
+   "addresses": [
+    "Maldenhof 286, 1106EZ Amsterdam",
+    "Maldenhof 288, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "18.04",
+   "evidence_id_preview": "QE-db5575dbe0c47934",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012121455",
+   "threedbag_response_sha256": "c6de0c1f92cbbeb17d356ded85c45c3bd164b6dd2223040577596aa7a5657435",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012127361",
+   "addresses": [
+    "Maldenhof 294, 1106EZ Amsterdam",
+    "Maldenhof 296, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "10.33",
+   "evidence_id_preview": "QE-1645c97f228aef65",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012127361",
+   "threedbag_response_sha256": "4e70427821a69cedb38e54200b08f21a7c6d60fb8cc112bd48aa3dba70355b43",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012134188",
+   "addresses": [
+    "Maldenhof 290, 1106EZ Amsterdam",
+    "Maldenhof 292, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "23.56",
+   "evidence_id_preview": "QE-26a5c90b4e84589b",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012134188",
+   "threedbag_response_sha256": "1ea9c00abf62000e43206f942652b31aaf7452174dfd7c5dc342da8f1419f983",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012137996",
+   "addresses": [
+    "Maldenhof 240, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "12.74",
+   "evidence_id_preview": "QE-1532a5ed2efb07f8",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012137996",
+   "threedbag_response_sha256": "b9b0309d9464214248a649b0ac94051b7228cd0e0db68741eb7092cc57c704ba",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012140664",
+   "addresses": [
+    "Maldenhof 250, 1106EZ Amsterdam",
+    "Maldenhof 252, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "16.31",
+   "evidence_id_preview": "QE-bd83c103e6f0d61d",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012140664",
+   "threedbag_response_sha256": "7a8cd9c99af7c9e7223ab0c2cc6ab8b0f28fbef402fde9ad6e50fecd254f4703",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012141419",
+   "addresses": [
+    "Maldenhof 254, 1106EZ Amsterdam",
+    "Maldenhof 256, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "9.38",
+   "evidence_id_preview": "QE-c9f5b847e340d195",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012141419",
+   "threedbag_response_sha256": "5b9129611f20d9b83dbefa270baa213680ddc3dd15c938149a5fd7f1f8bb8af6",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012143647",
+   "addresses": [
+    "Maldenhof 282, 1106EZ Amsterdam",
+    "Maldenhof 284, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "10.49",
+   "evidence_id_preview": "QE-558a8eab4d516f4b",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012143647",
+   "threedbag_response_sha256": "a1502488ff711efca10bedf87b6ff68a4fae039129d23ea924ca869c4234644d",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  },
+  {
+   "bag_pand_id": "0363100012144766",
+   "addresses": [
+    "Maldenhof 274, 1106EZ Amsterdam",
+    "Maldenhof 276, 1106EZ Amsterdam"
+   ],
+   "b3_opp_dak_plat": "7.97",
+   "evidence_id_preview": "QE-aa7e067d4f0fbdd7",
+   "method_class": "DIRECT_MEASURED",
+   "threedbag_url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012144766",
+   "threedbag_response_sha256": "bd76fe80e459b29ae0e26e5fa65c21c39b4172a42018ea42ec65c2abe33281c9",
+   "fetched_at": "2026-10-05T09:15:50Z"
+  }
+ ],
+ "bag3d_rules_not_available": [],
+ "derived_complex_total": {
+  "value": "190.65",
+  "unit": "m2",
+  "method_class": "GEOMETRY_DERIVED",
+  "quantity_kind": "ELEMENT_QUANTITY",
+  "subject_key": "ROOF_FLAT_AREA",
+  "evidence_id_preview": "QE-4d83681541ac35b3",
+  "formula": "SUM(child_evidence.value)",
+  "rule_id": "scope.sum_over_confirmed_panden",
+  "rule_version": "1.0.0",
+  "child_evidence_ids": [
+   "QE-d4ced8c60e41bc4b",
+   "QE-eab79c35b96e5ab5",
+   "QE-c7bfea612dc02224",
+   "QE-71f72b28cc933ec8",
+   "QE-59edcfebdefb3e2b",
+   "QE-aca817ad5a7c6abd",
+   "QE-e9e96dfac8f1bd20",
+   "QE-db5575dbe0c47934",
+   "QE-1645c97f228aef65",
+   "QE-26a5c90b4e84589b",
+   "QE-1532a5ed2efb07f8",
+   "QE-bd83c103e6f0d61d",
+   "QE-c9f5b847e340d195",
+   "QE-558a8eab4d516f4b",
+   "QE-aa7e067d4f0fbdd7"
+  ],
+  "snapshot_ids": [
+   "BAGSNAP-431559474da45dcf"
+  ],
+  "missing_bag_pand_ids": []
+ },
+ "derived_complex_total_not_published": null,
+ "historical": {
+  "rows": [
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-025",
+    "document_id": "DOC-005",
+    "description": "Dakbedekking APP",
+    "location": "Platte dak",
+    "value": "425.80",
+    "unit": "m2",
+    "method_class": "SOURCE_REPORTED",
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006",
+      "quantity_semantics": "SAME_OBJECT"
+     }
+    ],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "status": "SOURCE_REPORTED"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-025",
+    "document_id": "DOC-006",
+    "description": "Dakbedekking APP",
+    "location": "Platte dak",
+    "value": "425.80",
+    "unit": "m2",
+    "method_class": "SOURCE_REPORTED",
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 1",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005",
+      "quantity_semantics": "SAME_OBJECT"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014",
+      "quantity_semantics": "SAME_OBJECT"
+     }
+    ],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "status": "SOURCE_REPORTED"
+   }
+  ],
+  "values": [
+   "425.80"
+  ],
+  "level": "COMPLEX (hele VvE-scope; niet over panden verdeeld)",
+  "dependency": "DOC-005 en DOC-006 zijn version_of_same_mjop (DREL-002): één historische bron, geen twee metingen"
+ },
+ "difference": {
+  "historical_minus_3dbag_m2": "235.15",
+  "pct_of_3dbag": "123.34",
+  "note": "feitelijk verschil; geen fout van één bron, geen gemiddelde, geen winnaar"
+ },
+ "external_definition": {
+  "field": "b3_opp_dak_plat",
+  "definition_nl": "Totale oppervlakte van de platte delen van het dak",
+  "unit": "m2",
+  "source": "officiële 3DBAG-documentatie (attributenschema), aangeleverd door de gebruiker op 2026-10-05; niet opnieuw opgehaald vanuit de ontwikkelomgeving",
+  "caution": "Externe definitie van het 3D BAG-veld. GEEN bewijs dat een historische MJOP-regel (bijv. 'Dakbedekking APP / Platte dak') dezelfde scope heeft."
+ },
+ "mapping_status": {
+  "HSM-ROOF_FLAT_AREA-4711-m2": "PROPOSED",
+  "XW-dak-plat-4711-m2": "PROPOSED",
+  "HSM-ROOF_SLOPED_AREA-4712-m2": "PROPOSED",
+  "XW-dak-hellend-4712-m2": "REVIEW_REQUIRED",
+  "XW-gevel-metselwerk-2110-m2": "REVIEW_REQUIRED"
+ },
+ "why_no_quantity_resolution": [
+  "building links: 0 vastgelegd (geen enkel pand is door een mens bevestigd)",
+  "HSM-ROOF_FLAT_AREA-4711-m2: PROPOSED (niet geverifieerd) — zonder geverifieerde mapping ontstaat geen historische evidence",
+  "XW-dak-plat-4711-m2: PROPOSED — zonder geverifieerde app-crosswalk geen app-bundel",
+  "quantity_resolution_records: 0 — een resolutie is altijd een menselijk besluit"
+ ]
+}

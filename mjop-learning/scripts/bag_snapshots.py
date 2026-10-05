@@ -17,6 +17,15 @@ api.pdok.nl en api.3dbag.nl geweigerd). Tests gebruiken vaste antwoorden.
 
     python scripts/bag_snapshots.py fetch --document DOC-005 --street Maldenhof --number 240 \
         --postcode "1106 EZ" --city Amsterdam
+    python scripts/bag_snapshots.py fetch-range --document DOC-005 --street Maldenhof --from 240 --to 296 \
+        --city Amsterdam [--postcode "1106 EZ"]
+
+Nummerbereik (fetch-range): één gefilterde, gepagineerde Locatieserver-query (straat + woonplaats exact,
+huisnummer binnen [van, tot]); elk teruggegeven adres wordt in code nogmaals exact gecontroleerd. Alleen adressen
+die PDOK werkelijk kent tellen mee (niet-bestaande nummers vallen vanzelf weg); er wordt geen pariteit (even/oneven)
+aangenomen. De postcode wordt NIET als filter gebruikt (een bereik kan meerdere postcodes beslaan) maar per adres
+vastgelegd (postcode_matches_document). Panden worden per adrespunt bepaald zoals bij één adres en gededupliceerd op
+BAG-pand-ID. Een mens bevestigt daarna welke panden bij het document horen.
 """
 
 import argparse
@@ -65,9 +74,11 @@ def norm_postcode(s):
     return re.sub(r"\s+", "", (s or "")).upper()
 
 
-def exact_address_match(doc, street, number, postcode):
-    """PDOK-adresdocument exact gelijk aan de gevraagde straat + huisnummer (+ postcode)?"""
+def exact_address_match(doc, street, number, postcode, city=None):
+    """PDOK-adresdocument exact gelijk aan de gevraagde straat + huisnummer (+ postcode, + woonplaats)?"""
     if norm(doc.get("straatnaam")) != norm(street):
+        return False
+    if city and norm(doc.get("woonplaatsnaam")) != norm(city):
         return False
     nr = str(doc.get("huisnummer", "")) + (doc.get("huisletter") or "") + \
         (("-" + doc["huisnummertoevoeging"]) if doc.get("huisnummertoevoeging") else "")
@@ -98,10 +109,7 @@ def outer_rings(geometry):
     return []
 
 
-def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_get=default_http_get, fetched_at=None):
-    fetched_at = fetched_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    requests, raw = [], {}
-
+def _getter(http_get, requests, raw):
     def get(url):
         status, body = http_get(url)
         sha = canonical_sha256(body)
@@ -110,20 +118,97 @@ def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_g
         if status != 200:
             raise SnapshotError(f"HTTP {status} voor {url}")
         return body
+    return get
 
+
+def _match_row(d, exact, **extra):
+    m = re.match(r"POINT\(([-0-9.]+) ([-0-9.]+)\)", d.get("centroide_ll") or "")
+    row = {
+        "pdok_id": d.get("id"), "weergavenaam": d.get("weergavenaam"), "postcode": d.get("postcode"),
+        "woonplaatsnaam": d.get("woonplaatsnaam"), "centroide_ll": d.get("centroide_ll"),
+        "adresseerbaarobject_id": d.get("adresseerbaarobject_id"),
+        "exact_match": exact,
+        "_point": [float(m.group(1)), float(m.group(2))] if m else None,
+    }
+    row.update(extra)
+    return row
+
+
+def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_get=default_http_get, fetched_at=None):
+    fetched_at = fetched_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    requests, raw = [], {}
+    get = _getter(http_get, requests, raw)
     q = " ".join(x for x in (street, str(number), postcode or "", city or "") if x).strip()
     free = get(PDOK_FREE + "?" + urllib.parse.urlencode({"q": q, "fq": "type:adres", "rows": 10}))
     docs = (free.get("response") or {}).get("docs") or []
-    matches = []
+    matches = [_match_row(d, exact_address_match(d, street, number, postcode, city)) for d in docs]
+    panden = _collect_panden(matches, get, fetched_at)
+    for m in matches:
+        m.pop("_point", None)
+    return _finish(document_id, {"street": street, "number": str(number), "postcode": postcode, "city": city, "q": q},
+                   fetched_at, requests, matches, panden, raw)
+
+
+RANGE_ROWS = 100
+
+
+def range_address_match(doc, street, number_from, number_to, city):
+    """PDOK-adres hoort bij het opgegeven bereik: straat en woonplaats exact (genormaliseerd), huisnummer (geheel
+    getal) binnen [van, tot]. Geen pariteit-aanname, geen fuzzy match. Toevoegingen worden niet weggefilterd maar
+    gemarkeerd (has_suffix) voor de menselijke review."""
+    if norm(doc.get("straatnaam")) != norm(street) or norm(doc.get("woonplaatsnaam")) != norm(city):
+        return False
+    n = doc.get("huisnummer")
+    return isinstance(n, int) and not isinstance(n, bool) and int(number_from) <= n <= int(number_to)
+
+
+def fetch_range_snapshot(document_id, street, number_from, number_to, city, postcode=None, http_get=default_http_get,
+                         fetched_at=None):
+    """Snapshot voor een huisnummerbereik (bijv. 'Maldenhof 240 - 296'). Eén gefilterde, gepagineerde
+    Locatieserver-query; elk resultaat wordt opnieuw exact gecontroleerd (range_address_match)."""
+    if not city:
+        raise SnapshotError("een nummerbereik vereist een woonplaats (anders is de straat niet eenduidig)")
+    lo, hi = int(number_from), int(number_to)
+    if lo > hi:
+        raise SnapshotError(f"ongeldig bereik {number_from}-{number_to}")
+    fetched_at = fetched_at or datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    requests, raw = [], {}
+    get = _getter(http_get, requests, raw)
+    fq = ["type:adres", f'woonplaatsnaam:"{city}"', f'straatnaam:"{street}"', f"huisnummer:[{lo} TO {hi}]"]
+    docs, start = [], 0
+    while True:
+        params = [("q", "*:*")] + [("fq", x) for x in fq] + [("rows", RANGE_ROWS), ("start", start), ("sort", "huisnummer asc")]
+        page = get(PDOK_FREE + "?" + urllib.parse.urlencode(params))
+        resp = page.get("response") or {}
+        batch = resp.get("docs") or []
+        docs += batch
+        start += len(batch)
+        if not batch or start >= int(resp.get("numFound") or 0):
+            break
+    seen, matches = set(), []
     for d in docs:
-        m = re.match(r"POINT\(([-0-9.]+) ([-0-9.]+)\)", d.get("centroide_ll") or "")
-        matches.append({
-            "pdok_id": d.get("id"), "weergavenaam": d.get("weergavenaam"), "postcode": d.get("postcode"),
-            "woonplaatsnaam": d.get("woonplaatsnaam"), "centroide_ll": d.get("centroide_ll"),
-            "adresseerbaarobject_id": d.get("adresseerbaarobject_id"),
-            "exact_match": exact_address_match(d, street, number, postcode),
-            "_point": [float(m.group(1)), float(m.group(2))] if m else None,
-        })
+        if d.get("id") in seen:
+            continue
+        seen.add(d.get("id"))
+        ok = range_address_match(d, street, lo, hi, city)
+        matches.append(_match_row(d, ok, match_kind="RANGE_MEMBER" if ok else "OUTSIDE_RANGE_OR_NOT_EXACT",
+                                  huisnummer=d.get("huisnummer"), huisletter=d.get("huisletter"),
+                                  huisnummertoevoeging=d.get("huisnummertoevoeging"),
+                                  has_suffix=bool(d.get("huisletter") or d.get("huisnummertoevoeging")),
+                                  postcode_matches_document=(None if not postcode else
+                                                             norm_postcode(d.get("postcode")) == norm_postcode(postcode))))
+    matches.sort(key=lambda m: (m["huisnummer"] if isinstance(m["huisnummer"], int) else -1, m["huisletter"] or "",
+                                m["huisnummertoevoeging"] or "", m["pdok_id"] or ""))
+    panden = _collect_panden(matches, get, fetched_at)
+    for m in matches:
+        m.pop("_point", None)
+    q = f"{street} {lo}-{hi} {city}"
+    return _finish(document_id, {"street": street, "number": f"{lo}-{hi}", "number_from": lo, "number_to": hi,
+                                 "kind": "range", "postcode": postcode, "city": city, "q": q, "fq": fq},
+                   fetched_at, requests, matches, panden, raw)
+
+
+def _collect_panden(matches, get, fetched_at):
     panden = {}
     for m in matches:
         if not m["exact_match"] or not m["_point"]:
@@ -143,9 +228,21 @@ def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_g
             entry = panden.setdefault(pid, {"bag_pand_id": pid, "contains_address_point_of": [], "bag_properties": {
                 k: props.get(k) for k in ("identificatie", "bouwjaar", "status", "gebruiksdoel", "aantal_verblijfsobjecten")}})
             entry["contains_address_point_of"].append(m["pdok_id"])
+    _fetch_3dbag(panden, get, fetched_at)
+    return [panden[k] for k in sorted(panden)]
+
+
+def _fetch_3dbag(panden, get, fetched_at):
     for pid, entry in sorted(panden.items()):
         url = BAG3D_ITEM.format(pand_id=pid)
-        body = get(url)
+        try:
+            body = get(url)
+        except SnapshotError as e:
+            # Eén pand zonder 3D BAG-respons breekt de snapshot niet af, maar wordt expliciet vastgelegd:
+            # geen attributen -> regels geven NOT_AVAILABLE (nooit 0).
+            entry["threedbag"] = {"url": url, "fetched_at": fetched_at, "api_version": None, "response_sha256": None,
+                                  "attributes": None, "error": str(e)[:300]}
+            continue
         co = ((body.get("feature") or {}).get("CityObjects") or {}).get("NL.IMBAG.Pand." + pid) or {}
         entry["threedbag"] = {
             "url": url, "fetched_at": fetched_at,
@@ -153,18 +250,19 @@ def fetch_snapshot(document_id, street, number, postcode=None, city=None, http_g
             "response_sha256": canonical_sha256(body),
             "attributes": co.get("attributes"),
         }
-    for m in matches:
-        m.pop("_point", None)
+
+
+def _finish(document_id, query, fetched_at, requests, matches, panden, raw):
     body = {
         "snapshot_version": "bag_snapshot_v1",
         "document_id": document_id,
-        "query": {"street": street, "number": str(number), "postcode": postcode, "city": city, "q": q},
+        "query": query,
         "fetched_at": fetched_at,
         "fetch_tool": TOOL_VERSION,
         "live_api_status": LIVE_API_STATUS,
         "requests": requests,
         "address_matches": matches,
-        "panden": [panden[k] for k in sorted(panden)],
+        "panden": panden,
         "raw_responses": raw,
     }
     body["snapshot_id"] = "BAGSNAP-" + canonical_sha256(body)[:16]
@@ -181,7 +279,7 @@ def snapshot_errors(snap):
             errors.append(f"{snap.get('snapshot_id')}: ruwe respons {r['response_sha256'][:12]} ontbreekt")
     for p in snap.get("panden", []):
         tb = p.get("threedbag") or {}
-        if tb and tb.get("response_sha256") not in snap.get("raw_responses", {}):
+        if tb and tb.get("response_sha256") is not None and tb.get("response_sha256") not in snap.get("raw_responses", {}):
             errors.append(f"{snap.get('snapshot_id')}: 3D BAG-respons voor {p['bag_pand_id']} ontbreekt")
     return errors
 
@@ -219,9 +317,19 @@ def main(argv=None):
     f.add_argument("--number", required=True)
     f.add_argument("--postcode")
     f.add_argument("--city")
+    r = sub.add_parser("fetch-range")
+    r.add_argument("--document", required=True)
+    r.add_argument("--street", required=True)
+    r.add_argument("--from", dest="number_from", required=True, type=int)
+    r.add_argument("--to", dest="number_to", required=True, type=int)
+    r.add_argument("--city", required=True)
+    r.add_argument("--postcode")
     args = ap.parse_args(argv)
     try:
-        snap = fetch_snapshot(args.document, args.street, args.number, args.postcode, args.city)
+        if args.cmd == "fetch-range":
+            snap = fetch_range_snapshot(args.document, args.street, args.number_from, args.number_to, args.city, args.postcode)
+        else:
+            snap = fetch_snapshot(args.document, args.street, args.number, args.postcode, args.city)
     except SnapshotError as e:
         print(f"FOUT: {e}\nIs api.pdok.nl / api.3dbag.nl bereikbaar vanuit deze omgeving?", file=sys.stderr)
         return 3

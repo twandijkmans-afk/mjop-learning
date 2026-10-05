@@ -14,10 +14,14 @@ Schrijft (afgeleid):
   reports/quantity/3dbag_vs_historical_v1.json / .md
 
 Regels:
-- building_id = 'BAG:' + gesorteerde, door een mens bevestigde pand-ID's van het document ('+'-gescheiden).
-  Nooit afgeleid uit document-ID's.
+- building_id = 'BAG:' + gesorteerde, ontdubbelde, door een mens bevestigde pand-ID's van het document
+  ('+'-gescheiden): de gebouwscope. Volgorde maakt niet uit. Nooit afgeleid uit document-ID's.
 - 3D BAG-evidence: per bevestigd pand per ACTIEVE regel, waarde exact (geen afronding), status PROPOSED.
-  building_id = 'BAG:<pand>'. Bij meerdere panden wordt NIET opgeteld.
+  building_id = 'BAG:<pand>'. Deze per-pand-evidence blijft altijd bestaan.
+- Gebouwscope met meerdere panden: per onderwerp uit scope_aggregation_rules één AFGELEIDE evidence
+  (GEOMETRY_DERIVED, SUM van de child evidence, exact Decimal) met building_id = de scope en verwijzingen naar
+  alle child evidence, panden, snapshots en links. Mist één pandwaarde, dan wordt het aggregaat NIET
+  gepubliceerd (nooit als 0 tellen) en staat het in scope_aggregates_not_published.
 - Historische evidence: alleen quantity observations van een document met ACTIVE links, alleen voor een
   mapping (element_code + eenheid -> onderwerp) die door een mens is geverifieerd. Meerdere rijen per
   onderwerp worden NIET opgeteld.
@@ -55,7 +59,47 @@ def canonical_sha256(obj):
 
 
 def building_id_for(pand_ids):
-    return "BAG:" + "+".join(sorted(pand_ids))
+    """Gebouwscope: 'BAG:' + gesorteerde, ontdubbelde pand-ID's. Volgorde-onafhankelijk; één pand = 'BAG:<id>'."""
+    ids = sorted({str(p) for p in pand_ids})
+    if not ids:
+        raise ValueError("een gebouwscope heeft minstens één bevestigd pand nodig")
+    return "BAG:" + "+".join(ids)
+
+
+def scope_aggregate(scope_pand_ids, subject, rule, children_by_pand, link_ids):
+    """Afgeleide scope-evidence: SUM van de per-pand-evidence (exact Decimal). Geeft (evidence, None) of
+    (None, niet-gepubliceerd-record) als een pand geen (OK-)waarde heeft. Een ontbrekende waarde is nooit 0."""
+    building_id = building_id_for(scope_pand_ids)
+    pids = sorted({str(p) for p in scope_pand_ids})
+    missing = [p for p in pids if p not in children_by_pand or children_by_pand[p].get("value") is None]
+    if missing:
+        return None, {"building_id": building_id, "subject_key": subject["subject_key"], "rule_id": rule["rule_id"],
+                      "bag_pand_ids": pids, "missing_bag_pand_ids": missing,
+                      "reason": "CHILD_EVIDENCE_MISSING_NOT_PUBLISHED"}
+    children = [children_by_pand[p] for p in pids]
+    total = sum((Decimal(c["value"]) for c in children), Decimal(0))
+    units = {c["unit_normalized"] for c in children}
+    if units != {subject["unit"]}:
+        return None, {"building_id": building_id, "subject_key": subject["subject_key"], "rule_id": rule["rule_id"],
+                      "bag_pand_ids": pids, "missing_bag_pand_ids": [], "reason": "CHILD_UNIT_MISMATCH_NOT_PUBLISHED"}
+    child_ids = [c["evidence_id"] for c in children]
+    sid = qe.make_building_subject_id(building_id, subject["subject_key"], subject["unit"])
+    calc = {"rule_id": rule["rule_id"], "rule_version": rule["rule_version"], "formula": rule["formula"],
+            "input_evidence_ids": child_ids,
+            "raw_inputs": {c["source_ref"]["bag_pand_id"]: c["value"] for c in children}}
+    ev = qe.make_evidence(
+        building_id=building_id,
+        subject={"subject_id": sid, "subject_key": subject["subject_key"], "element_code_internal": None,
+                 "subject_text": f"{subject['label_nl']} — som over {len(pids)} bevestigde panden", "location_scope": None,
+                 "material_normalized": None, "quantity_kind": subject["quantity_kind"]},
+        value=str(total), unit_normalized=subject["unit"], method_class="GEOMETRY_DERIVED", source_type="3D_BAG",
+        source_ref={"aggregation": "SUM_OVER_CONFIRMED_PANDEN", "bag_pand_ids": pids, "child_evidence_ids": child_ids,
+                    "child_rule_ids": sorted({c["source_ref"]["rule_id"] for c in children}),
+                    "snapshot_ids": sorted({c["source_ref"]["snapshot_id"] for c in children}),
+                    "building_link_ids": sorted(link_ids), "missing_bag_pand_ids": []},
+        calculation=calc, created_by=BUILDER_VERSION,
+        input_hashes={"child_evidence_ids": child_ids})
+    return ev, None
 
 
 def bag3d_evidence(pand_id, snapshot, rules, subjects_by_key, link_ids):
@@ -128,6 +172,29 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
             for e in evs:
                 bag_by_building_subject[(e["building_id"], e["quantity_subject"]["subject_key"])].append(e)
 
+    # gebouwscopes met meerdere bevestigde panden -> afgeleide som-evidence (per onderwerp)
+    agg_rules = [r for r in vocab.get("scope_aggregation_rules", []) if r["status"] == "ACTIVE"]
+    not_published = []
+    scopes = {}
+    for doc, recs in sorted(links_by_doc.items()):
+        pids = sorted({r["bag_pand_id"] for r in recs})
+        if len(pids) > 1:
+            scopes.setdefault(building_id_for(pids), {"pand_ids": pids, "link_ids": set()})["link_ids"] |= {r["link_id"] for r in recs}
+    for scope_id, sc in sorted(scopes.items()):
+        for rule in agg_rules:
+            for key in rule["applies_to_subjects"]:
+                children = {}
+                for p in sc["pand_ids"]:
+                    evs = [e for e in bag_by_building_subject.get((building_id_for([p]), key), [])]
+                    if evs:
+                        children[p] = evs[0]
+                ev, np_ = scope_aggregate(sc["pand_ids"], subjects_by_key[key], rule, children, sc["link_ids"])
+                if ev is not None:
+                    evidence.append(ev)
+                    bag_by_building_subject[(scope_id, key)].append(ev)
+                else:
+                    not_published.append(np_)
+
     qo_by_doc = defaultdict(list)
     for o in qos:
         qo_by_doc[o["document_id"]].append(o)
@@ -150,15 +217,17 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
         subject_key = e["quantity_subject"]["subject_key"]
         same_subject_rows = [x for x in hist if x[0] == doc and x[2]["quantity_subject"]["subject_key"] == subject_key]
         reasons = []
-        bag_value = bag_unit = bag_ev_id = None
-        if len(recs) > 1:
-            reasons.append("MULTI_PAND_NOT_SUMMED")
+        bag_value = bag_unit = bag_ev_id = bag_method = None
+        bag_children = []
+        scope_id = building_id_for([r["bag_pand_id"] for r in recs])
+        bags = bag_by_building_subject.get((scope_id, subject_key), [])
+        if not bags:
+            reasons.append("MULTI_PAND_AGGREGATE_NOT_PUBLISHED" if len({r["bag_pand_id"] for r in recs}) > 1 else "NO_3DBAG_VALUE")
         else:
-            bags = bag_by_building_subject.get((building_id_for([recs[0]["bag_pand_id"]]), subject_key), [])
-            if not bags:
-                reasons.append("NO_3DBAG_VALUE")
-            else:
-                bag_value, bag_unit, bag_ev_id = bags[0]["value"], bags[0]["unit_normalized"], bags[0]["evidence_id"]
+            bag_value, bag_unit, bag_ev_id = bags[0]["value"], bags[0]["unit_normalized"], bags[0]["evidence_id"]
+            bag_method = bags[0]["method_class"]
+            if bags[0]["source_ref"].get("aggregation"):
+                bag_children = list((bags[0].get("calculation") or {}).get("input_evidence_ids") or [])
         if len(same_subject_rows) > 1:
             reasons.append("MULTIPLE_HISTORICAL_ROWS_NOT_SUMMED")
         if bag_unit and bag_unit != e["unit_normalized"]:
@@ -182,6 +251,7 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
             "historical_value": e["value"], "historical_unit": e["unit_normalized"],
             "historical_description": o["element"]["element_description_original"], "historical_location": o["element"]["location_original"],
             "bag3d_evidence_id": bag_ev_id, "bag3d_value": bag_value, "bag3d_unit": bag_unit,
+            "bag3d_method_class": bag_method, "bag3d_child_evidence_ids": bag_children,
             "absolute_difference": None if abs_diff is None else str(abs_diff),
             "percentage_difference": None if pct is None else str(pct.quantize(Decimal("0.0001"))),
             "difference_band": band,
@@ -195,8 +265,9 @@ def build(links_store=None, snapshots=None, quantity_observations=None, subjects
     evidence.sort(key=lambda e: e["evidence_id"])
     return {
         "evidence_store": {"builder_version": BUILDER_VERSION, "note": "Afgeleide evidence (PROPOSED). Resolutie via data/quantity_resolutions.",
-                           "evidence": evidence, "bag3d_rules_not_available": not_available, "notes": notes},
-        "report": build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, not_available),
+                           "evidence": evidence, "bag3d_rules_not_available": not_available,
+                           "scope_aggregates_not_published": not_published, "notes": notes},
+        "report": build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, not_available, not_published),
     }
 
 
@@ -204,7 +275,7 @@ def _median(xs):
     return None if not xs else str(median(xs))
 
 
-def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, not_available):
+def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, not_available, not_published=()):
     compared = [c for c in comparisons if c["percentage_difference"] is not None]
     per_subject = {}
     for key in sorted({c["subject_key"] for c in comparisons}):
@@ -222,6 +293,8 @@ def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, 
         "bag_panden": len({r["bag_pand_id"] for r in active}),
         "documents_with_multiple_panden": docs_multi,
         "bag3d_evidences": sum(1 for e in evidence if e["source_type"] == "3D_BAG"),
+        "bag3d_scope_aggregates": sum(1 for e in evidence if e["source_type"] == "3D_BAG" and e["source_ref"].get("aggregation")),
+        "scope_aggregates_not_published": len(not_published),
         "historical_evidences": sum(1 for e in evidence if e["source_type"] == "MJOP_ELEMENT_OVERVIEW"),
         "verified_subject_mappings": [m["mapping_id"] for m in verified_maps],
         "unverified_subject_mappings": sorted(m["mapping_id"] for m in vocab["historical_subject_mappings"]
@@ -237,7 +310,7 @@ def build_report(comparisons, links_store, verified_maps, vocab, eff, evidence, 
         "above_15_pct": sum(1 for c in compared if c["difference_band"] == "ABOVE_15_PCT"),
         "missing_matches": sum(1 for c in comparisons if "NO_3DBAG_VALUE" in c["mismatch_reasons"]),
         "unit_mismatches": sum(1 for c in comparisons if "UNIT_MISMATCH" in c["mismatch_reasons"]),
-        "multi_pand_not_summed": sum(1 for c in comparisons if "MULTI_PAND_NOT_SUMMED" in c["mismatch_reasons"]),
+        "multi_pand_aggregate_not_published": sum(1 for c in comparisons if "MULTI_PAND_AGGREGATE_NOT_PUBLISHED" in c["mismatch_reasons"]),
         "multiple_historical_rows_not_summed": sum(1 for c in comparisons if "MULTIPLE_HISTORICAL_ROWS_NOT_SUMMED" in c["mismatch_reasons"]),
         "bag3d_rules_not_available": len(not_available),
     }
@@ -254,14 +327,16 @@ def render_report(rep, candidates=None):
          "## Samenvatting", "",
          f"- Bevestigde building links: {s['confirmed_building_links']} (BAG-panden: {s['bag_panden']}; "
          f"documenten met meerdere panden: {', '.join(s['documents_with_multiple_panden']) or '—'})",
-         f"- 3D BAG-evidences: {s['bag3d_evidences']}; historische evidences: {s['historical_evidences']}",
+         f"- 3D BAG-evidences: {s['bag3d_evidences']} (waarvan scope-aggregaten: {s['bag3d_scope_aggregates']}; "
+         f"niet gepubliceerd wegens ontbrekende pandwaarde: {s['scope_aggregates_not_published']}); "
+         f"historische evidences: {s['historical_evidences']}",
          f"- Geverifieerde onderwerp-mappings: {', '.join(s['verified_subject_mappings']) or '—'}",
          f"- Niet (menselijk) geverifieerde mappings: {', '.join(s['unverified_subject_mappings']) or '—'}",
          f"- Vergelijkingen: {s['comparisons']} (met verschil: {s['comparisons_with_difference']})",
          f"- Mediaan absoluut verschil: {s['median_absolute_difference'] or '—'}; mediaan % verschil: {s['median_percentage_difference'] or '—'}",
          f"- Binnen 5%: {s['within_5_pct']}; 5–15%: {s['5_to_15_pct']}; >15%: {s['above_15_pct']}",
          f"- Geen 3D BAG-waarde: {s['missing_matches']}; eenheidsverschil: {s['unit_mismatches']}; "
-         f"meerdere panden (niet opgeteld): {s['multi_pand_not_summed']}; meerdere historische rijen (niet opgeteld): "
+         f"meerdere panden zonder gepubliceerd aggregaat: {s['multi_pand_aggregate_not_published']}; meerdere historische rijen (niet opgeteld): "
          f"{s['multiple_historical_rows_not_summed']}"]
     if candidates is not None:
         L.append(f"- Building-link-kandidaten: {candidates['summary']['by_status']} "

@@ -21,6 +21,19 @@
     {"rule_id": "bag3d.building_height", "rule_version": "1.0.0", "subject_key": "BUILDING_HEIGHT", "method_class": "GEOMETRY_DERIVED",
      "fields": ["b3_h_dak_max", "b3_h_maaiveld"], "formula": "b3_h_dak_max - b3_h_maaiveld", "status": "ACTIVE"}
   ],
+  "scope_aggregation_rules": [
+    {"rule_id": "scope.sum_over_confirmed_panden", "rule_version": "1.0.0", "status": "ACTIVE",
+     "method_class": "GEOMETRY_DERIVED", "formula": "SUM(child_evidence.value)",
+     "applies_to_subjects": ["ROOF_FLAT_AREA", "ROOF_SLOPED_AREA", "ROOF_TOTAL_AREA", "OUTER_WALL_GROSS_AREA"],
+     "requires": "alle panden van de gebouwscope (ACTIVE + CONFIRMED building links) hebben een 3D BAG-evidence met status OK voor het onderwerp",
+     "on_missing_child": "NOT_PUBLISHED (een ontbrekende pandwaarde telt nooit als 0)",
+     "note": "Alleen voor gebouwscopes met meer dan één bevestigd pand. Per-pand-evidence blijft bestaan; het aggregaat verwijst naar alle child evidence. BUILDING_HEIGHT wordt niet opgeteld."}
+  ],
+  "bag3d_field_definitions_external": [
+    {"field": "b3_opp_dak_plat", "definition_nl": "Totale oppervlakte van de platte delen van het dak", "unit": "m2",
+     "source": "officiële 3DBAG-documentatie (attributenschema), aangeleverd door de gebruiker op 2026-10-05; niet opnieuw opgehaald vanuit de ontwikkelomgeving",
+     "caution": "Externe definitie van het 3D BAG-veld. GEEN bewijs dat een historische MJOP-regel (bijv. 'Dakbedekking APP / Platte dak') dezelfde scope heeft."}
+  ],
   "bag3d_field_verification": {
     "status": "USED_IN_MJOP_APP_NOT_VERIFIED_AGAINST_LIVE_API",
     "note": "Alle velden hierboven worden al gelezen door MJOP-App (src/app.js, lookupBuilding: b3_opp_dak_plat, b3_opp_dak_schuin, b3_opp_buitenmuur, b3_opp_grond, b3_bouwlagen, b3_dak_type, b3_h_dak_max, b3_h_maaiveld). De 3D BAG-documentatie en -API waren vanuit de ontwikkelomgeving niet bereikbaar (egress geweigerd); de veldnamen zijn dus niet opnieuw tegen de live bron gecontroleerd. b3_opp_grond, b3_bouwlagen en b3_dak_type worden als context bewaard, niet als hoeveelheid.",

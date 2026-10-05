@@ -64,7 +64,9 @@ def test_maldenhof_inputs_facts(report):
     assert a["raw_files_sha256_ok"] == a["raw_files"] == 69
     assert a["verdict"] == "NOT_FEEDABLE_OFFLINE_INTO_CANONICAL_PIPELINE"
     assert len(report["B_building_link_review"]["rows"]) == 30          # 15 panden x DOC-005/DOC-006
-    assert len(report["B_building_link_review"]["panden_reachable_via_canonical_lookup"]) == 2
+    # sinds multi-pand-quantity-scope-v1: range-opvraging bereikt alle 15 panden
+    assert report["B_building_link_review"]["lookup_plan_is_range"] is True
+    assert len(report["B_building_link_review"]["panden_reachable_via_canonical_lookup"]) == 15
 
 
 def test_756_8_is_labelled_not_ground_truth_but_kept(report):

@@ -200,7 +200,9 @@ def test_multi_pand_links():
 def test_committed_stores_are_empty():
     assert json.load(open(bl.LINK_STORE))["records"] == []
     assert json.load(open(xw.DECISIONS))["records"] == []
-    assert sorted(os.listdir(bs.SNAPSHOT_DIR)) == ["README.md"]
+    # snapshots zijn ruwe bronvastleggingen (geen besluiten); sinds multi-pand-quantity-scope-v1 bestaan de
+    # canonieke Maldenhof-snapshots voor DOC-005/DOC-006
+    assert all(n == "README.md" or n.startswith("BAGSNAP-") for n in os.listdir(bs.SNAPSHOT_DIR))
 
 
 # --- 3D BAG-regels --------------------------------------------------------------------
