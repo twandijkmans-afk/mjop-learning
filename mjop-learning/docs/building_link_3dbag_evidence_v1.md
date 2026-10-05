@@ -180,3 +180,80 @@ Kandidaat voor de eerste echte demo:
 - DOC-005/DOC-006 (Maldenhof 240–296, 1106 EZ): postcode aanwezig, één straat, 4711-m2-rij "Dakbedekking APP"
   425,80 m2. Het nummerbereik kan meerdere panden opleveren.
 - DOC-012 (Meppelweg 819, 2544 AW): één adres. De objectnaam noemt 801–883.
+
+## 8. Gebouwscope met meerdere panden (Multi-pand Quantity Scope v1)
+
+Architectuurbesluit (gebruiker, 2026-10-05, optie a): één VvE-/gebouwscope mag uit meerdere BAG-panden bestaan.
+
+- **Gebouwscope = bestaande `building_id`-conventie.**
+  - `BAG:` + gesorteerde, ontdubbelde pand-ID's van de ACTIVE + CONFIRMED building links van een document.
+  - Volgorde en dubbelingen veranderen de ID niet; één pand blijft `BAG:<id>`.
+  - Er is geen tweede ID-mechanisme. (`building_project` bestaat alleen op de integratiebranch en is niet
+    overgenomen.)
+- **Per-pand-evidence blijft bestaan.** 3D BAG-evidence wordt per bevestigd pand aangemaakt (`building_id = BAG:<pand>`),
+  zoals in §5.
+- **Scope-aggregaat** (`vocabularies/quantity_subjects_v1.json` → `scope_aggregation_rules`, regel
+  `scope.sum_over_confirmed_panden` v1.0.0):
+  - Wanneer: alleen voor scopes met meer dan één bevestigd pand.
+  - Welke onderwerpen: ROOF_FLAT_AREA, ROOF_SLOPED_AREA, ROOF_TOTAL_AREA en OUTER_WALL_GROSS_AREA. BUILDING_HEIGHT
+    wordt niet opgeteld.
+  - Wat er ontstaat: één afgeleide evidence per scope en onderwerp, met:
+    - `method_class = GEOMETRY_DERIVED`, `source_type = 3D_BAG` en `quantity_kind = ELEMENT_QUANTITY`;
+    - `building_id` = de scope;
+    - `calculation.formula = SUM(child_evidence.value)` en `calculation.input_evidence_ids` = alle child evidence;
+    - `raw_inputs` per pand en een exacte Decimal-som;
+    - `source_ref` met `bag_pand_ids`, `child_evidence_ids`, `snapshot_ids`, `building_link_ids` en
+      `missing_bag_pand_ids`.
+  - Ontbreekt een pandwaarde (veld afwezig, 3D BAG-fout, geen snapshot)? Dan wordt het aggregaat **niet
+    gepubliceerd** (`scope_aggregates_not_published`, `CHILD_EVIDENCE_MISSING_NOT_PUBLISHED`). Een ontbrekende waarde
+    telt nooit als 0.
+- **Historische complexhoeveelheden** (bv. DOC-005/DOC-006 "Dakbedekking APP / Platte dak" 425,80 m²):
+  - blijven `SOURCE_REPORTED` met `building_id` = de scope;
+  - worden niet over panden verdeeld en niet gedeeld door het aantal panden of woningen;
+  - DOC-005 en DOC-006 blijven afhankelijk (`version_of_same_mjop`).
+- **Vergelijking:** historisch (scope) tegenover scope-aggregaat (zelfde `subject_id`). Zonder gepubliceerd
+  aggregaat geldt de reden `MULTI_PAND_AGGREGATE_NOT_PUBLISHED`. Er wordt niet gemiddeld, er is geen score en geen
+  winnaar. Een resolutie kiest precies één evidence, of USER_VALUE of UNKNOWN.
+- **App-bundel:**
+  - `mjop_app_quantity_bundle_v1` (één pand) is ongewijzigd;
+  - `mjop_app_quantity_bundle_v2` (meerdere panden) bevat `building_scope` met alle pand-ID's. Het 3D
+    BAG-scope-aggregaat bevat `components` (de pandwaarden), en de historische evidence heeft `scope_level = COMPLEX`;
+  - pandwaarden zijn geen losse, kiesbare bronnen.
+
+### Nummerbereik opvragen (`bag_snapshots.py fetch-range`)
+
+`building_links.lookup_plan` maakt van een bereik ("Maldenhof 240 - 296") één range-opvraging in plaats van alleen de
+eindpunten. `fetch_range_snapshot` werkt zo:
+
+1. Eén Locatieserver-query, `fq=type:adres`, woonplaats en straat exact, `huisnummer:[van TO tot]`, gepagineerd.
+2. In code wordt elk adres opnieuw exact gecontroleerd: straat, woonplaats en huisnummer (geheel getal) binnen het
+   bereik.
+3. Er is geen pariteit-aanname en geen fuzzy match. Toevoegingen worden gemarkeerd (`has_suffix`). Niet-bestaande
+   nummers vallen vanzelf weg.
+4. De postcode is geen filter, maar wordt per adres vastgelegd (`postcode_matches_document`).
+5. Panden worden per adrespunt bepaald (bbox plus punt-in-polygoon, zoals bij één adres) en ontdubbeld op pand-ID;
+   3D BAG wordt één keer per pand opgehaald.
+6. Een 3D BAG-fout voor één pand wordt vastgelegd (`threedbag.error`, geen attributen) zonder de snapshot af te breken.
+
+Ook bij één adres wordt de woonplaats nu exact gecontroleerd als die is opgegeven.
+
+Stand op 2026-10-05: canonieke snapshots `BAGSNAP-431559474da45dcf` (DOC-005) en `BAGSNAP-e23aa139a8589881`
+(DOC-006).
+
+- 56 bestaande adressen in 240–296 (267 bestaat niet), waarvan 29 met postcode 1106EZ (de documentpostcode, de even
+  nummers).
+- 40 kandidaat-panden, waarvan 15 met alleen documentpostcode-adressen.
+- Alle 97 requests per snapshot HTTP 200.
+
+Welke panden bij de VvE horen, is een **menselijk besluit** (`building_links.py record`). Er is niets bevestigd. Zie
+`reports/quantity/maldenhof_multi_pand_scope_demo_v1.md` (read-only demo, scope = PREVIEW).
+
+### Externe definitie 3D BAG-veld
+
+`b3_opp_dak_plat`: "Totale oppervlakte van de platte delen van het dak" (m²). Bron: de officiële
+3DBAG-documentatie (attributenschema), aangeleverd door de gebruiker op 2026-10-05. Die is vanuit de
+ontwikkelomgeving niet opnieuw opgehaald. Vastgelegd in `vocabularies/quantity_subjects_v1.json` →
+`bag3d_field_definitions_external`.
+
+Dit is **geen** bewijs dat een historische regel zoals "Dakbedekking APP / Platte dak 425,80 m²" dezelfde scope heeft.
+

@@ -25,27 +25,27 @@ Context: 21 BAG-panden zonder VBO binnen 2 m (14 in gebruik, samen 69.6 m² foot
 
 ## B — Building link review
 
-Canoniek opvraagplan: huisnummers 240, 296 → bereikbaar: 0363100012127361, 0363100012137996 (2 van 15). Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat.
+Canoniek opvraagplan: bereik 240–296 → bereikbaar: 0363100012070344, 0363100012071880, 0363100012078022, 0363100012091756, 0363100012091974, 0363100012102659, 0363100012107492, 0363100012121455, 0363100012127361, 0363100012134188, 0363100012137996, 0363100012140664, 0363100012141419, 0363100012143647, 0363100012144766 (15 van 15). Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat.
 
 ### BUILDING LINK REVIEW (beslislijst — nog niets vastgelegd)
 
 | BAG-pand | Adressen | DOC-005 | DOC-006 | Waarom in scope | Ambiguïteit |
 |---|---|---|---|---|---|
-| 0363100012070344 | Maldenhof 262, Maldenhof 264 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012071880 | Maldenhof 270, Maldenhof 272 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012078022 | Maldenhof 246, Maldenhof 248 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012091756 | Maldenhof 278, Maldenhof 280 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012091974 | Maldenhof 258, Maldenhof 260 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012102659 | Maldenhof 242, Maldenhof 244 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012107492 | Maldenhof 266, Maldenhof 268 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012121455 | Maldenhof 286, Maldenhof 288 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012070344 | Maldenhof 262, Maldenhof 264 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012071880 | Maldenhof 270, Maldenhof 272 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012078022 | Maldenhof 246, Maldenhof 248 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012091756 | Maldenhof 278, Maldenhof 280 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012091974 | Maldenhof 258, Maldenhof 260 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012102659 | Maldenhof 242, Maldenhof 244 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012107492 | Maldenhof 266, Maldenhof 268 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012121455 | Maldenhof 286, Maldenhof 288 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
 | 0363100012127361 | Maldenhof 294, Maldenhof 296 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012134188 | Maldenhof 290, Maldenhof 292 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012134188 | Maldenhof 290, Maldenhof 292 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
 | 0363100012137996 | Maldenhof 240 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 1/1 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE |
-| 0363100012140664 | Maldenhof 250, Maldenhof 252 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012141419 | Maldenhof 254, Maldenhof 256 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012143647 | Maldenhof 282, Maldenhof 284 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
-| 0363100012144766 | Maldenhof 274, Maldenhof 276 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012140664 | Maldenhof 250, Maldenhof 252 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012141419 | Maldenhof 254, Maldenhof 256 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012143647 | Maldenhof 282, Maldenhof 284 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
+| 0363100012144766 | Maldenhof 274, Maldenhof 276 | [ ] accepteren [ ] afwijzen | [ ] accepteren [ ] afwijzen | 2/2 VBO-punten liggen in de BAG-polygoon van dit pand | ADDRESS_RANGE; MULTIPLE_ADDRESSES_IN_PAND |
 
 Oneven zijde (kandidaten uit de ALL_NUMBERS-hypothese; adressen niet in de main-snapshot; inschatting: buiten scope):
 
@@ -207,13 +207,13 @@ Semantiek per voorstel:
 ## E — Eerste end-to-end demo
 
 - Aanbevolen eerste onderwerp: **ROOF_FLAT_AREA (plat dak / dakbedekking, app-element dak-plat)** — Schoonste element-koppeling (4711 m2 is overal dakbedekking; XW-dak-plat-4711-m2 is element-identiteit) en de app rekent al met b3_opp_dak_plat. Het grote verschil is juist wat het demo moet tonen: twee bronnen naast elkaar, geen winnaar. ROOF_SLOPED_AREA ligt numeriek dichter bij elkaar, maar 4712 is een gemengde code.
-- Status: **BLOCKED_BY_HUMAN_DECISIONS (B1–B3)**
+- Status: **BLOCKED_BY_HUMAN_DECISIONS (building links, HSM-/XW-mapping)**
 
 Blokkades:
 
-- **B1_NO_CANONICAL_SNAPSHOT** — Er is geen bag_snapshot_v1 voor DOC-005/DOC-006; de PoC-inputs voldoen niet aan het contract (zie A). → netwerktoegang tot api.pdok.nl en api.3dbag.nl + scripts/bag_snapshots.py fetch (expliciete toestemming nodig)
-- **B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY** — Het opvraagplan vraagt alleen 240, 296 op; daarmee zijn 2 van 15 panden kandidaat (0363100012127361, 0363100012137996). 'record' weigert panden buiten de snapshot. → menselijk besluit: opvraagplan voor een bereik uitbreiden (bv. elk huisnummer van de bevestigde pariteit) — toolingwijziging, nog niet gedaan
-- **B3_MULTI_PAND_BUILDING** — 15 panden. De evidence-builder telt niet op (MULTI_PAND_NOT_SUMMED): historische evidence krijgt building_id BAG:<15 ids>, 3D BAG-evidence BAG:<1 id> per pand; export_app_quantity_bundle neemt voor één building_id dus niet beide bronnen mee; MJOP-App bundleEntries weigert bundels met >1 pand. → ARCHITECTUURBESLUIT (CLAUDE.md: eerst melden): (a) VvE-gebouw = meerdere panden met een expliciete, menselijk goedgekeurde 3D BAG-somregel (GEOMETRY_DERIVED) en een app die meerdere panden per plan accepteert; of (b) per pand werken, waarbij de historische complexwaarde niet aan één pand gehangen kan worden
+- **B1_NO_CANONICAL_SNAPSHOT** [RESOLVED] — Canonieke bag_snapshot_v1-snapshots aanwezig: BAGSNAP-431559474da45dcf, BAGSNAP-e23aa139a8589881 (de PoC-inputs zelf blijven niet-canoniek). → —
+- **B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY** [RESOLVED] — Het opvraagplan is een range-opvraging (240–296, zonder pariteit-aanname); 15 van 15 panden in scope zijn bereikbaar. → —
+- **B3_MULTI_PAND_BUILDING** [DECIDED_OPTION_A (2026-10-05): gebouwscope BAG:<gesorteerde pand-ID's>, per-pand-evidence + GEOMETRY_DERIVED scope-aggregaat; app-bundel v2 (multi-pand). Zie docs/building_link_3dbag_evidence_v1.md §8.] — 15 panden. De evidence-builder telt niet op (MULTI_PAND_NOT_SUMMED): historische evidence krijgt building_id BAG:<15 ids>, 3D BAG-evidence BAG:<1 id> per pand; export_app_quantity_bundle neemt voor één building_id dus niet beide bronnen mee; MJOP-App bundleEntries weigert bundels met >1 pand. → ARCHITECTUURBESLUIT (CLAUDE.md: eerst melden): (a) VvE-gebouw = meerdere panden met een expliciete, menselijk goedgekeurde 3D BAG-somregel (GEOMETRY_DERIVED) en een app die meerdere panden per plan accepteert; of (b) per pand werken, waarbij de historische complexwaarde niet aan één pand gehangen kan worden
 - **B4_ROOF_FLAT_SCOPE** — Historisch 4711 'Dakbedekking APP / Platte dak' = 425,80 m2 vs 3D BAG Σ b3_opp_dak_plat = 190.65 m2 (informatief). → geen correctie; beide naast elkaar tonen, een mens beslist in quantity_resolution
 
 Menselijke besluiten (volgorde):

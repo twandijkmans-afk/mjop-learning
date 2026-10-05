@@ -33,13 +33,17 @@
    "DOC-013": "454225afd02a1180ffccaf6aaa6bc5d0de9ec07d5b4c6f7ef73341befcf16c8d",
    "DOC-015": "ac5ed464992d08362dd1238edd7b160757b526448ada9c47c6b22f5527f77d07"
   },
-  "snapshot_ids": [],
+  "snapshot_ids": [
+   "BAGSNAP-431559474da45dcf",
+   "BAGSNAP-e23aa139a8589881"
+  ],
   "link_store_sha256": "271e5d44200d851a1580c7766753afe55f615d2e199054c35d85222c74ea516c"
  },
  "summary": {
   "documents": 13,
   "by_status": {
-   "AWAITING_BAG_SNAPSHOT": 11,
+   "AWAITING_BAG_SNAPSHOT": 9,
+   "CANDIDATES_READY_FOR_REVIEW": 2,
    "NO_ADDRESS": 2
   },
   "confirmed_links": 0,
@@ -49,8 +53,9 @@
    "ADDRESS_FROM_OBJECT_NAME": 2,
    "ADDRESS_RANGE": 7,
    "CITY_MISSING": 2,
+   "MULTIPLE_CANDIDATE_PANDEN": 2,
    "MULTIPLE_STREETS": 4,
-   "NO_BAG_SNAPSHOT": 13,
+   "NO_BAG_SNAPSHOT": 11,
    "NO_STATED_ADDRESS": 4,
    "OBJECT_NAME_ADDRESS_DIFFERS": 3,
    "POSTCODE_MISSING": 8,
@@ -100,25 +105,17 @@
    "lookup_plan": [
     {
      "street": "Alkmaarstraat",
-     "number": "1",
-     "postcode": null,
-     "city": "Amsterdam"
-    },
-    {
-     "street": "Alkmaarstraat",
-     "number": "83",
-     "postcode": null,
-     "city": "Amsterdam"
-    },
-    {
-     "street": "Groetstraat",
-     "number": "189",
+     "kind": "range",
+     "number_from": "1",
+     "number_to": "83",
      "postcode": null,
      "city": "Amsterdam"
     },
     {
      "street": "Groetstraat",
-     "number": "217",
+     "kind": "range",
+     "number_from": "189",
+     "number_to": "217",
      "postcode": null,
      "city": "Amsterdam"
     }
@@ -323,14 +320,10 @@
    "lookup_plan": [
     {
      "street": "Maldenhof",
-     "number": "240",
-     "postcode": null,
-     "city": "Amsterdam"
-    },
-    {
-     "street": "Maldenhof",
-     "number": "296",
-     "postcode": null,
+     "kind": "range",
+     "number_from": "240",
+     "number_to": "296",
+     "postcode": "1106 EZ",
      "city": "Amsterdam"
     }
    ],
@@ -346,14 +339,1073 @@
     "DOC-006"
    ],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-431559474da45dcf"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012061310",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-a4437f757439f179f6604a6df4580df6"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 289, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012061310",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012063561",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-8568a05651215785067a3e9e2373a002"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 257, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012063561",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012064674",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-176da826d302b72ecd126f1b9846cb42"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 245, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012064674",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012065912",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-393f6731450c4b0fe693a96c2cae74ef"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 273, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012065912",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012070344",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-4e734ff18a78141f3f84f3074871067c",
+      "adr-d17a279cc093939334dd74a51f11def3"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 262, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 264, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012070344",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-67fa8581b25d7262588101f3695b7913",
+      "adr-ee199fdca7e6c9aa603ad95d8e13fb99"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 270, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 272, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012071880",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077783",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-c99b810c47841be112ed93216eb27ad0"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 281, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077783",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077984",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-45894ac503681f1e1277455890cc01ec"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 283, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077984",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-1f9b6387168932dd66f58f83cc83fc96",
+      "adr-36108eb85c996de0b73b491c9ef3c890"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 246, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 248, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078022",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078472",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-d3139d0709c8c32f5303b4352598c04b"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 287, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078472",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012081986",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-aa7635c6f6224e15aef7bc18c8f5e94d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 285, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012081986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012083986",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-6829daa43fe80c29caff7089b686356d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 277, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012083986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012084256",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-240157ee2b4317afeebdba01973833b1"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 255, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012084256",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012087184",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-f3ec048903cc4ebed88d4dd028bce568"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 241, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012087184",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-c5ee0e2aa22feb7ce0100d32c59a9b43",
+      "adr-e682859c4cc3a0159f585c6d2634cd5d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 278, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 280, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091756",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-6f18679ca005c4345d8443ef3d33091b",
+      "adr-7d075af42c207c488c6326eb528a1831"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 258, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 260, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091974",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012100140",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-a0b52ca279612371e9b928e2d34a3441"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 291, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012100140",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102257",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-59886f04431e25a6b72972e38f2a0de2"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 295, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102257",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-5de17882076766f2b4087b5821ce31ba",
+      "adr-f24bbd0e1543cb4a4427eae13e341257"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 242, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 244, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102659",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012105151",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-22a2eb14df8d8c4e46a172b646176371"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 269, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012105151",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-626381627089a0a5ef6b08aa23b4fb8e",
+      "adr-f7feec0bde9a86385f4e5bcbf4157767"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 266, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 268, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012107492",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012108812",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-40a95403da234580c20f030bd9f66f26"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 249, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012108812",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-07423ce51abbcf71a6c797ace3f742fc",
+      "adr-2561a648197f1cb45646e70d3f419ea3"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 286, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 288, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012121455",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012123643",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-be4ecf04ecf3a801d68efa5e38bd20ad"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 243, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012123643",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012125929",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-7f4a47bc9a8c2488031031aa3fb54498"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 293, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012125929",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012127361",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-38f0a653263a466e5335253677d3303d",
+      "adr-fcdccebfafa94afc54d9dd831fb68c9b"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 294, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 296, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012127361",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012129433",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-941dc985180b74a90693d50dba182fe4"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 279, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012129433",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-11d5b58979796a03f5aaf082cfa7a612",
+      "adr-3f44ba53b32114f677f0382f96fdcb77"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 290, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 292, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012134188",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012135143",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-548448d1771413ea9167c1f41bc88769"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 247, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012135143",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137009",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-2554bd8f12119491b0502d3be0360832",
+      "adr-51c32e7cb17ff1a41644b9b7647a819d",
+      "adr-b2d66069c673e93c0401cd48e828076d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 261, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      },
+      {
+       "weergavenaam": "Maldenhof 263, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      },
+      {
+       "weergavenaam": "Maldenhof 265, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137009",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-e2c59424029b7f16e3f06efb87300a15"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 240, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137996",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012138208",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-65449a063c796d79adc798070c835268"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 271, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012138208",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-8233130f312a0e947727dc0bad83e7be",
+      "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 250, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 252, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012140664",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-ba5f71c5ce4b0411bca64d07b0359acf",
+      "adr-e420b771bc04f19ba5e4d01a64ec86b4"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 254, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 256, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012141419",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-67a9a6c61b8b872a57d56229fdfe8ebd",
+      "adr-effa9e8d3eacd89296c0de21067c24fe"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 282, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 284, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012143647",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-395e3846c8845864c0e76608ee92c551",
+      "adr-d19a8687818b9a9fde7fd239cc741806"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 274, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 276, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012144766",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012148993",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-f42021737373f0a028f5d417b013f05b"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 275, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012148993",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012151715",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-40230632d2ea3eea4569d4fe2d6e8942"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 253, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012151715",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012152265",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-32c913ad4234f537ccfcf177e226cc1a"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 251, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012152265",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012154610",
+     "snapshot_ids": [
+      "BAGSNAP-431559474da45dcf"
+     ],
+     "contains_address_point_of": [
+      "adr-4479e03b3ef878ab51f0a3eaf6a557c9"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 259, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012154610",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT"
+    "MULTIPLE_CANDIDATE_PANDEN"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-006",
@@ -388,14 +1440,10 @@
    "lookup_plan": [
     {
      "street": "Maldenhof",
-     "number": "240",
-     "postcode": null,
-     "city": "Amsterdam"
-    },
-    {
-     "street": "Maldenhof",
-     "number": "296",
-     "postcode": null,
+     "kind": "range",
+     "number_from": "240",
+     "number_to": "296",
+     "postcode": "1106 EZ",
      "city": "Amsterdam"
     }
    ],
@@ -416,14 +1464,1073 @@
     "DOC-005"
    ],
    "confirmed_links_in_same_source_cluster": [],
-   "snapshot_ids": [],
-   "candidate_bag_panden": [],
+   "snapshot_ids": [
+    "BAGSNAP-e23aa139a8589881"
+   ],
+   "candidate_bag_panden": [
+    {
+     "bag_pand_id": "0363100012061310",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-a4437f757439f179f6604a6df4580df6"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 289, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012061310",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012063561",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-8568a05651215785067a3e9e2373a002"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 257, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012063561",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012064674",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-176da826d302b72ecd126f1b9846cb42"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 245, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012064674",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012065912",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-393f6731450c4b0fe693a96c2cae74ef"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 273, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012065912",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012070344",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-4e734ff18a78141f3f84f3074871067c",
+      "adr-d17a279cc093939334dd74a51f11def3"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 262, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 264, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012070344",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-67fa8581b25d7262588101f3695b7913",
+      "adr-ee199fdca7e6c9aa603ad95d8e13fb99"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 270, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 272, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012071880",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077783",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-c99b810c47841be112ed93216eb27ad0"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 281, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077783",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012077984",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-45894ac503681f1e1277455890cc01ec"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 283, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012077984",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-1f9b6387168932dd66f58f83cc83fc96",
+      "adr-36108eb85c996de0b73b491c9ef3c890"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 246, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 248, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078022",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012078472",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-d3139d0709c8c32f5303b4352598c04b"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 287, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012078472",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012081986",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-aa7635c6f6224e15aef7bc18c8f5e94d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 285, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012081986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012083986",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-6829daa43fe80c29caff7089b686356d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 277, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012083986",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012084256",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-240157ee2b4317afeebdba01973833b1"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 255, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012084256",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012087184",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-f3ec048903cc4ebed88d4dd028bce568"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 241, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012087184",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-c5ee0e2aa22feb7ce0100d32c59a9b43",
+      "adr-e682859c4cc3a0159f585c6d2634cd5d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 278, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 280, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091756",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-6f18679ca005c4345d8443ef3d33091b",
+      "adr-7d075af42c207c488c6326eb528a1831"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 258, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 260, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012091974",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012100140",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-a0b52ca279612371e9b928e2d34a3441"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 291, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012100140",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102257",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-59886f04431e25a6b72972e38f2a0de2"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 295, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102257",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-5de17882076766f2b4087b5821ce31ba",
+      "adr-f24bbd0e1543cb4a4427eae13e341257"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 242, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 244, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012102659",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012105151",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-22a2eb14df8d8c4e46a172b646176371"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 269, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012105151",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-626381627089a0a5ef6b08aa23b4fb8e",
+      "adr-f7feec0bde9a86385f4e5bcbf4157767"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 266, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 268, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012107492",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012108812",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-40a95403da234580c20f030bd9f66f26"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 249, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012108812",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-07423ce51abbcf71a6c797ace3f742fc",
+      "adr-2561a648197f1cb45646e70d3f419ea3"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 286, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 288, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012121455",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012123643",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-be4ecf04ecf3a801d68efa5e38bd20ad"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 243, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012123643",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012125929",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-7f4a47bc9a8c2488031031aa3fb54498"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 293, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012125929",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012127361",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-38f0a653263a466e5335253677d3303d",
+      "adr-fcdccebfafa94afc54d9dd831fb68c9b"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 294, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 296, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012127361",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012129433",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-941dc985180b74a90693d50dba182fe4"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 279, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012129433",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-11d5b58979796a03f5aaf082cfa7a612",
+      "adr-3f44ba53b32114f677f0382f96fdcb77"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 290, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 292, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012134188",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012135143",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-548448d1771413ea9167c1f41bc88769"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 247, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012135143",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137009",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-2554bd8f12119491b0502d3be0360832",
+      "adr-51c32e7cb17ff1a41644b9b7647a819d",
+      "adr-b2d66069c673e93c0401cd48e828076d"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 261, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      },
+      {
+       "weergavenaam": "Maldenhof 263, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      },
+      {
+       "weergavenaam": "Maldenhof 265, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 3,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137009",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-e2c59424029b7f16e3f06efb87300a15"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 240, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012137996",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012138208",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-65449a063c796d79adc798070c835268"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 271, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012138208",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-8233130f312a0e947727dc0bad83e7be",
+      "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 250, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 252, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012140664",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-ba5f71c5ce4b0411bca64d07b0359acf",
+      "adr-e420b771bc04f19ba5e4d01a64ec86b4"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 254, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 256, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012141419",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-67a9a6c61b8b872a57d56229fdfe8ebd",
+      "adr-effa9e8d3eacd89296c0de21067c24fe"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 282, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 284, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012143647",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-395e3846c8845864c0e76608ee92c551",
+      "adr-d19a8687818b9a9fde7fd239cc741806"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 274, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      },
+      {
+       "weergavenaam": "Maldenhof 276, 1106EZ Amsterdam",
+       "postcode": "1106EZ",
+       "postcode_matches_document": true
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 2,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012144766",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012148993",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-f42021737373f0a028f5d417b013f05b"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 275, 1106EJ Amsterdam",
+       "postcode": "1106EJ",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012148993",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012151715",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-40230632d2ea3eea4569d4fe2d6e8942"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 253, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012151715",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012152265",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-32c913ad4234f537ccfcf177e226cc1a"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 251, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012152265",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    },
+    {
+     "bag_pand_id": "0363100012154610",
+     "snapshot_ids": [
+      "BAGSNAP-e23aa139a8589881"
+     ],
+     "contains_address_point_of": [
+      "adr-4479e03b3ef878ab51f0a3eaf6a557c9"
+     ],
+     "addresses": [
+      {
+       "weergavenaam": "Maldenhof 259, 1106EH Amsterdam",
+       "postcode": "1106EH",
+       "postcode_matches_document": false
+      }
+     ],
+     "bag_properties": {
+      "aantal_verblijfsobjecten": 1,
+      "bouwjaar": 1981,
+      "gebruiksdoel": "woonfunctie",
+      "identificatie": "0363100012154610",
+      "status": "Pand in gebruik"
+     },
+     "has_3dbag_attributes": true
+    }
+   ],
    "confirmed_bag_pand_ids": [],
    "review_reasons": [
     "ADDRESS_RANGE",
-    "NO_BAG_SNAPSHOT"
+    "MULTIPLE_CANDIDATE_PANDEN"
    ],
-   "status": "AWAITING_BAG_SNAPSHOT"
+   "status": "CANDIDATES_READY_FOR_REVIEW"
   },
   {
    "document_id": "DOC-007",
@@ -477,13 +2584,9 @@
    "lookup_plan": [
     {
      "street": "St. Jacobsstraat",
-     "number": "251",
-     "postcode": null,
-     "city": null
-    },
-    {
-     "street": "St. Jacobsstraat",
-     "number": "321",
+     "kind": "range",
+     "number_from": "251",
+     "number_to": "321",
      "postcode": null,
      "city": null
     }
@@ -537,13 +2640,9 @@
    "lookup_plan": [
     {
      "street": "St. Jacobsstraat",
-     "number": "251",
-     "postcode": null,
-     "city": "Utrecht"
-    },
-    {
-     "street": "St. Jacobsstraat",
-     "number": "321",
+     "kind": "range",
+     "number_from": "251",
+     "number_to": "321",
      "postcode": null,
      "city": "Utrecht"
     }
@@ -822,13 +2921,9 @@
    "lookup_plan": [
     {
      "street": "Groetstraat",
-     "number": "110",
-     "postcode": null,
-     "city": "Amsterdam"
-    },
-    {
-     "street": "Groetstraat",
-     "number": "140",
+     "kind": "range",
+     "number_from": "110",
+     "number_to": "140",
      "postcode": null,
      "city": "Amsterdam"
     }

@@ -9,8 +9,8 @@
  },
  "input_hashes": {
   "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
-  "building_link_candidates_sha256": "561ce3265a253722727b333956c7dcd72a2c28b20e9de9c4952b345bce0946d3",
-  "subjects_vocab_sha256": "2591094eaf14881d8b7984c9b44fe7dbf0bc45bc6044dd8babe12ea41911a77a",
+  "building_link_candidates_sha256": "1f66eff621dd20a4bd28c51f7191c7c12e9e785be358070ab1aabac59dad3ea4",
+  "subjects_vocab_sha256": "060ac5f61b96449dadfc746ce0a65450c147a688f2e33f337896ba04ef5983be",
   "app_crosswalk_sha256": "d2b1152a4da317e9f4887b9f9ec87ff306b2f1fa6269122a89220c560deb9bfd",
   "poc_source_manifest_sha256": "abc806809c87a76c4a3acc09863bc9fecebf43f88a2874c4eea47109708df686",
   "bag_bbox_sha256": "00777f8745c6cca90c587d114f5f80edd993b1c5daf4311e0933ab42bf930b8f"
@@ -1007,11 +1007,80 @@
  "B_building_link_review": {
   "lookup_plan_numbers": [
    "240",
+   "241",
+   "242",
+   "243",
+   "244",
+   "245",
+   "246",
+   "247",
+   "248",
+   "249",
+   "250",
+   "251",
+   "252",
+   "253",
+   "254",
+   "255",
+   "256",
+   "257",
+   "258",
+   "259",
+   "260",
+   "261",
+   "262",
+   "263",
+   "264",
+   "265",
+   "266",
+   "267",
+   "268",
+   "269",
+   "270",
+   "271",
+   "272",
+   "273",
+   "274",
+   "275",
+   "276",
+   "277",
+   "278",
+   "279",
+   "280",
+   "281",
+   "282",
+   "283",
+   "284",
+   "285",
+   "286",
+   "287",
+   "288",
+   "289",
+   "290",
+   "291",
+   "292",
+   "293",
+   "294",
+   "295",
    "296"
   ],
+  "lookup_plan_is_range": true,
   "panden_reachable_via_canonical_lookup": [
+   "0363100012070344",
+   "0363100012071880",
+   "0363100012078022",
+   "0363100012091756",
+   "0363100012091974",
+   "0363100012102659",
+   "0363100012107492",
+   "0363100012121455",
    "0363100012127361",
-   "0363100012137996"
+   "0363100012134188",
+   "0363100012137996",
+   "0363100012140664",
+   "0363100012141419",
+   "0363100012143647",
+   "0363100012144766"
   ],
   "rows": [
    {
@@ -1063,7 +1132,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1122,7 +1190,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1176,7 +1243,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1235,7 +1301,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1289,7 +1354,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1348,7 +1412,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1402,7 +1465,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1461,7 +1523,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1515,7 +1576,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1574,7 +1634,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1628,7 +1687,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1687,7 +1745,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1741,7 +1798,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1800,7 +1856,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1854,7 +1909,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -1913,7 +1967,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2078,7 +2131,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2137,7 +2189,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2296,7 +2347,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2355,7 +2405,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2409,7 +2458,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2468,7 +2516,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2522,7 +2569,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2581,7 +2627,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2635,7 +2680,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -2694,7 +2738,6 @@
     ],
     "ambiguity": [
      "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
-     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
      "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
     ],
     "link_status": "UNREVIEWED"
@@ -5903,16 +5946,19 @@
   "blockers": [
    {
     "id": "B1_NO_CANONICAL_SNAPSHOT",
-    "what": "Er is geen bag_snapshot_v1 voor DOC-005/DOC-006; de PoC-inputs voldoen niet aan het contract (zie A).",
-    "unblock": "netwerktoegang tot api.pdok.nl en api.3dbag.nl + scripts/bag_snapshots.py fetch (expliciete toestemming nodig)"
+    "status": "RESOLVED",
+    "what": "Canonieke bag_snapshot_v1-snapshots aanwezig: BAGSNAP-431559474da45dcf, BAGSNAP-e23aa139a8589881 (de PoC-inputs zelf blijven niet-canoniek).",
+    "unblock": "—"
    },
    {
     "id": "B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY",
-    "what": "Het opvraagplan vraagt alleen 240, 296 op; daarmee zijn 2 van 15 panden kandidaat (0363100012127361, 0363100012137996). 'record' weigert panden buiten de snapshot.",
-    "unblock": "menselijk besluit: opvraagplan voor een bereik uitbreiden (bv. elk huisnummer van de bevestigde pariteit) — toolingwijziging, nog niet gedaan"
+    "status": "RESOLVED",
+    "what": "Het opvraagplan is een range-opvraging (240–296, zonder pariteit-aanname); 15 van 15 panden in scope zijn bereikbaar.",
+    "unblock": "—"
    },
    {
     "id": "B3_MULTI_PAND_BUILDING",
+    "status": "DECIDED_OPTION_A (2026-10-05): gebouwscope BAG:<gesorteerde pand-ID's>, per-pand-evidence + GEOMETRY_DERIVED scope-aggregaat; app-bundel v2 (multi-pand). Zie docs/building_link_3dbag_evidence_v1.md §8.",
     "what": "15 panden. De evidence-builder telt niet op (MULTI_PAND_NOT_SUMMED): historische evidence krijgt building_id BAG:<15 ids>, 3D BAG-evidence BAG:<1 id> per pand; export_app_quantity_bundle neemt voor één building_id dus niet beide bronnen mee; MJOP-App bundleEntries weigert bundels met >1 pand.",
     "unblock": "ARCHITECTUURBESLUIT (CLAUDE.md: eerst melden): (a) VvE-gebouw = meerdere panden met een expliciete, menselijk goedgekeurde 3D BAG-somregel (GEOMETRY_DERIVED) en een app die meerdere panden per plan accepteert; of (b) per pand werken, waarbij de historische complexwaarde niet aan één pand gehangen kan worden"
    },
@@ -5922,7 +5968,7 @@
     "unblock": "geen correctie; beide naast elkaar tonen, een mens beslist in quantity_resolution"
    }
   ],
-  "smallest_safe_demo_status": "BLOCKED_BY_HUMAN_DECISIONS (B1–B3)",
+  "smallest_safe_demo_status": "BLOCKED_BY_HUMAN_DECISIONS (building links, HSM-/XW-mapping)",
   "human_decisions_in_order": [
    "1. Building links: per pand per document accepteren/afwijzen (checklist B) — pas vast te leggen na B1/B2.",
    "2. HSM-ROOF_FLAT_AREA-4711-m2: VERIFY of REJECT (advies NEEDS_REVIEW → als 'naast elkaar tonen' verantwoord).",

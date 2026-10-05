@@ -206,7 +206,10 @@ def bbox_context(inputs):
 
 def link_review(inputs, candidates):
     docs = {d["document_id"]: d for d in candidates["documents"] if d["document_id"] in DOCS}
-    plan_numbers = sorted({p["number"] for d in docs.values() for p in d["lookup_plan"]})
+    plan_numbers = sorted({str(n) for d in docs.values() for p in d["lookup_plan"]
+                           for n in ([p["number"]] if "number" in p else range(int(p["number_from"]), int(p["number_to"]) + 1))},
+                          key=int)
+    range_plan = any(p.get("kind") == "range" for d in docs.values() for p in d["lookup_plan"])
     reachable = sorted({p["bag_pand_id"] for p in inputs["panden"]
                         for v in p["vbo"] if str(v["huisnummer"]) in plan_numbers})
     rows = []
@@ -235,7 +238,8 @@ def link_review(inputs, candidates):
                  "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
                  "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT", "link_status": "UNREVIEWED"}
                 for pid in inputs["other_candidate_panden_odd_side"]]
-    return {"lookup_plan_numbers": plan_numbers, "panden_reachable_via_canonical_lookup": reachable,
+    return {"lookup_plan_numbers": plan_numbers, "lookup_plan_is_range": range_plan,
+            "panden_reachable_via_canonical_lookup": reachable,
             "rows": rows, "odd_side_context": odd_rows,
             "note": "Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, "
                     "en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."}
@@ -391,17 +395,29 @@ def crosswalk_review(vocab, app_cw, eff, hist, preview):
 # --------------------------------------------------------------------------
 
 def demo_readiness(inputs, links, hist, preview):
+    snaps = sorted(s["snapshot_id"] for s in bs.load_snapshots() if s["document_id"] in DOCS)
     flat_rows = [r for r in hist["rows"] if r["element_code"] == "4711" and r["unit"] == "m2"]
     per_pand_flat = [{"bag_pand_id": p["bag_pand_id"], "addresses": p["addresses"],
                       "b3_opp_dak_plat": p["values"]["ROOF_FLAT_AREA"]["value"]} for p in preview["per_pand"]]
     blockers = [
-        {"id": "B1_NO_CANONICAL_SNAPSHOT", "what": "Er is geen bag_snapshot_v1 voor DOC-005/DOC-006; de PoC-inputs voldoen niet aan het contract (zie A).",
-         "unblock": "netwerktoegang tot api.pdok.nl en api.3dbag.nl + scripts/bag_snapshots.py fetch (expliciete toestemming nodig)"},
-        {"id": "B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY", "what": f"Het opvraagplan vraagt alleen {', '.join(links['lookup_plan_numbers'])} op; "
-         f"daarmee zijn {len(links['panden_reachable_via_canonical_lookup'])} van {inputs['bag_panden_in_scope']} panden kandidaat "
-         f"({', '.join(links['panden_reachable_via_canonical_lookup'])}). 'record' weigert panden buiten de snapshot.",
-         "unblock": "menselijk besluit: opvraagplan voor een bereik uitbreiden (bv. elk huisnummer van de bevestigde pariteit) — toolingwijziging, nog niet gedaan"},
-        {"id": "B3_MULTI_PAND_BUILDING", "what": "15 panden. De evidence-builder telt niet op (MULTI_PAND_NOT_SUMMED): historische evidence krijgt "
+        ({"id": "B1_NO_CANONICAL_SNAPSHOT", "status": "RESOLVED",
+          "what": "Canonieke bag_snapshot_v1-snapshots aanwezig: " + ", ".join(snaps) + " (de PoC-inputs zelf blijven niet-canoniek).",
+          "unblock": "—"} if snaps else
+         {"id": "B1_NO_CANONICAL_SNAPSHOT", "status": "OPEN",
+          "what": "Er is geen bag_snapshot_v1 voor DOC-005/DOC-006; de PoC-inputs voldoen niet aan het contract (zie A).",
+          "unblock": "netwerktoegang tot api.pdok.nl en api.3dbag.nl + scripts/bag_snapshots.py fetch (expliciete toestemming nodig)"}),
+        ({"id": "B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY", "status": "RESOLVED",
+          "what": f"Het opvraagplan is een range-opvraging ({links['lookup_plan_numbers'][0]}–{links['lookup_plan_numbers'][-1]}, "
+                  f"zonder pariteit-aanname); {len(links['panden_reachable_via_canonical_lookup'])} van {inputs['bag_panden_in_scope']} "
+                  "panden in scope zijn bereikbaar.", "unblock": "—"} if links["lookup_plan_is_range"] else
+         {"id": "B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY", "status": "OPEN",
+          "what": f"Het opvraagplan vraagt alleen {', '.join(links['lookup_plan_numbers'])} op; "
+                  f"daarmee zijn {len(links['panden_reachable_via_canonical_lookup'])} van {inputs['bag_panden_in_scope']} panden kandidaat "
+                  f"({', '.join(links['panden_reachable_via_canonical_lookup'])}). 'record' weigert panden buiten de snapshot.",
+          "unblock": "menselijk besluit: opvraagplan voor een bereik uitbreiden — toolingwijziging"}),
+        {"id": "B3_MULTI_PAND_BUILDING", "status": "DECIDED_OPTION_A (2026-10-05): gebouwscope BAG:<gesorteerde pand-ID's>, per-pand-evidence + "
+         "GEOMETRY_DERIVED scope-aggregaat; app-bundel v2 (multi-pand). Zie docs/building_link_3dbag_evidence_v1.md §8.",
+         "what": "15 panden. De evidence-builder telt niet op (MULTI_PAND_NOT_SUMMED): historische evidence krijgt "
          "building_id BAG:<15 ids>, 3D BAG-evidence BAG:<1 id> per pand; export_app_quantity_bundle neemt voor één building_id dus niet "
          "beide bronnen mee; MJOP-App bundleEntries weigert bundels met >1 pand.",
          "unblock": "ARCHITECTUURBESLUIT (CLAUDE.md: eerst melden): (a) VvE-gebouw = meerdere panden met een expliciete, menselijk "
@@ -417,7 +433,7 @@ def demo_readiness(inputs, links, hist, preview):
                "rekent al met b3_opp_dak_plat. Het grote verschil is juist wat het demo moet tonen: twee bronnen naast elkaar, "
                "geen winnaar. ROOF_SLOPED_AREA ligt numeriek dichter bij elkaar, maar 4712 is een gemengde code.",
         "blockers": blockers,
-        "smallest_safe_demo_status": "BLOCKED_BY_HUMAN_DECISIONS (B1–B3)",
+        "smallest_safe_demo_status": "BLOCKED_BY_HUMAN_DECISIONS (building links, HSM-/XW-mapping)",
         "human_decisions_in_order": [
             "1. Building links: per pand per document accepteren/afwijzen (checklist B) — pas vast te leggen na B1/B2.",
             "2. HSM-ROOF_FLAT_AREA-4711-m2: VERIFY of REJECT (advies NEEDS_REVIEW → als 'naast elkaar tonen' verantwoord).",
@@ -510,7 +526,7 @@ def render(r):
     L += ["", f"Context: {len(ctx['panden_without_vbo_within_2m'])} BAG-panden zonder VBO binnen 2 m ({ctx['in_use']} in gebruik, "
               f"samen {ctx['in_use_footprint_m2_sum_informative']} m² footprint, ~5 m² per stuk). {ctx['note']}", "",
           "## B — Building link review", "",
-          f"Canoniek opvraagplan: huisnummers {', '.join(B['lookup_plan_numbers'])} → bereikbaar: {', '.join(B['panden_reachable_via_canonical_lookup'])} "
+          f"Canoniek opvraagplan: {('bereik ' + B['lookup_plan_numbers'][0] + '–' + B['lookup_plan_numbers'][-1]) if B['lookup_plan_is_range'] else 'huisnummers ' + ', '.join(B['lookup_plan_numbers'])} → bereikbaar: {', '.join(B['panden_reachable_via_canonical_lookup'])} "
           f"({len(B['panden_reachable_via_canonical_lookup'])} van {A['bag_panden_in_scope']}). {B['note']}", "",
           "### BUILDING LINK REVIEW (beslislijst — nog niets vastgelegd)", "",
           "| BAG-pand | Adressen | DOC-005 | DOC-006 | Waarom in scope | Ambiguïteit |", "|---|---|---|---|---|---|"]
@@ -557,7 +573,7 @@ def render(r):
     L += ["", "## E — Eerste end-to-end demo", "",
           f"- Aanbevolen eerste onderwerp: **{E['recommended_first_subject']}** — {E['why']}",
           f"- Status: **{E['smallest_safe_demo_status']}**", "", "Blokkades:", ""]
-    L += [f"- **{b['id']}** — {b['what']} → {b['unblock']}" for b in E["blockers"]]
+    L += [f"- **{b['id']}**{(' [' + b['status'] + ']') if b.get('status') else ''} — {b['what']} → {b['unblock']}" for b in E["blockers"]]
     L += ["", "Menselijke besluiten (volgorde):", ""] + [f"- {d}" for d in E["human_decisions_in_order"]]
     L += ["", "Historische evidence die daarna ontstaat (SOURCE_REPORTED):", ""]
     L += [f"- {h['quantity_observation_id']}: {h['value']} {h['unit']} (p.{h['page']}: \"{h['text_fragment']}\") — {h['dependency']}"

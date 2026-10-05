@@ -114,12 +114,19 @@ def normalized_address(parts, postcode, city):
 
 
 def lookup_plan(parts, postcode, city):
-    """Welke adressen opgevraagd moeten worden (alleen eindpunten van een bereik). De postcode wordt alleen
-    meegegeven bij één enkel adres: bij meerdere straten is niet bekend bij welk adres hij hoort."""
+    """Welke adressen opgevraagd moeten worden. Een bereik ('240 - 296') wordt één range-opvraging
+    (bag_snapshots.py fetch-range): alle adressen die PDOK binnen het bereik kent, zonder pariteit-aanname.
+    De postcode wordt als filter alleen meegegeven bij één enkel adres; bij een bereik in één straat wordt hij
+    meegegeven om per adres vast te leggen of hij overeenkomt (geen filter); bij meerdere straten niet."""
     single = len(parts) == 1 and parts[0]["kind"] == "single"
+    one_street = len({p["street"] for p in parts if p["street"]}) == 1
     plan = []
     for p in parts:
         if not p["street"]:
+            continue
+        if p["kind"] == "range":
+            plan.append({"street": p["street"], "kind": "range", "number_from": p["numbers"][0], "number_to": p["numbers"][1],
+                         "postcode": postcode if one_street else None, "city": city})
             continue
         for n in p["numbers"]:
             plan.append({"street": p["street"], "number": n, "postcode": postcode if single else None, "city": city})
@@ -243,12 +250,24 @@ def build_candidates(docs=None, snapshots=None, store=None, relations=None, comp
         snaps = sorted(snaps_by_doc.get(doc_id, []), key=lambda s: s["snapshot_id"])
         candidates = {}
         for s in snaps:
+            name_of = {m["pdok_id"]: m for m in s["address_matches"]}
             for p in s["panden"]:
                 c = candidates.setdefault(p["bag_pand_id"], {"bag_pand_id": p["bag_pand_id"], "snapshot_ids": [],
-                                                             "contains_address_point_of": [], "bag_properties": p.get("bag_properties"),
+                                                             "contains_address_point_of": [], "addresses": [],
+                                                             "bag_properties": p.get("bag_properties"),
                                                              "has_3dbag_attributes": bool((p.get("threedbag") or {}).get("attributes"))})
                 c["snapshot_ids"].append(s["snapshot_id"])
                 c["contains_address_point_of"] += p["contains_address_point_of"]
+                for pid in p["contains_address_point_of"]:
+                    m = name_of.get(pid) or {}
+                    a = {"weergavenaam": m.get("weergavenaam"), "postcode": m.get("postcode"),
+                         "postcode_matches_document": m.get("postcode_matches_document")}
+                    if a not in c["addresses"]:
+                        c["addresses"].append(a)
+        for c in candidates.values():
+            c["snapshot_ids"] = sorted(set(c["snapshot_ids"]))
+            c["contains_address_point_of"] = sorted(set(c["contains_address_point_of"]))
+            c["addresses"] = sorted(c["addresses"], key=lambda a: a["weergavenaam"] or "")
         if not snaps:
             reasons.append("NO_BAG_SNAPSHOT")
         elif not any(m["exact_match"] for s in snaps for m in s["address_matches"]):
@@ -326,8 +345,19 @@ def render_candidates(rep):
     for o in rep["documents"]:
         if o["lookup_plan"]:
             L.append(f"- {o['document_id']}: " + "; ".join(
-                f"{p['street']} {p['number']}" + (f" {p['postcode']}" if p["postcode"] else "") + (f" {p['city']}" if p["city"] else "")
+                (f"{p['street']} {p['number_from']}-{p['number_to']} (bereik, fetch-range)" if p.get("kind") == "range"
+                 else f"{p['street']} {p['number']}")
+                + (f" {p['postcode']}" if p["postcode"] else "") + (f" {p['city']}" if p["city"] else "")
                 for p in o["lookup_plan"]))
+    for o in rep["documents"]:
+        if not o["candidate_bag_panden"]:
+            continue
+        L += ["", f"## Kandidaat-panden {o['document_id']} (beslist niets)", "",
+              "| BAG-pand | Adressen in het pand | Postcode = document? | 3D BAG |", "|---|---|---|---|"]
+        for c in o["candidate_bag_panden"]:
+            pc = sorted({str(a.get("postcode_matches_document")) for a in c.get("addresses", [])})
+            L.append(f"| {c['bag_pand_id']} | {', '.join(a['weergavenaam'] or '?' for a in c.get('addresses', []))} | "
+                     f"{'/'.join(pc) or '—'} | {'ja' if c['has_3dbag_attributes'] else 'nee'} |")
     L += ["", "## Review-redenen", "", "| Reden | Documenten | Betekenis |", "|---|---|---|"]
     L += [f"| `{k}` | {v} | {REVIEW_REASONS[k]} |" for k, v in s["review_reasons"].items()]
     L.append("")
