@@ -14,7 +14,7 @@
    }
   },
   "subjects_vocab_sha256": "f28d0a0ccbb1e01f9f2b666a54783cd9006a77b9054b021dba91dd7b2c94a8f6",
-  "app_crosswalk_sha256": "7dda3a8f5aebedcc33d795614496635edb3d8f5a28e501eb19b1ed869fb334db",
+  "app_crosswalk_sha256": "1967af3ba33fcdb3e33923c45755d3b42edbd3072e7e5d2b2d41ee7924264408",
   "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
   "evidence_sha256": "216b2625e2082f2503a764b5d951737e493e9afbd2b494e33fda7e1ee9f3ac1b"
  },
@@ -551,7 +551,9 @@
    "subject_of_source": "OUTER_WALL_GROSS_AREA",
    "safe_quantity_subject": "OUTER_WALL_GROSS_AREA",
    "missingness_rule": "veld ontbreekt -> expliciete schatting omtrek x 3 x 3 (ESTIMATED); aanwezige 0 = geldige 0",
-   "crosswalk": [],
+   "crosswalk": [
+    "XQ-steiger-OUTER_WALL_GROSS_AREA-m2 (VERIFIED)"
+   ],
    "crosswalk_unresolved": [],
    "category": "READY_WITHOUT_HISTORICAL_CONTEXT",
    "assessment": "Steiger/hoogwerker per m² gevel: bruto buitenmuur (incl. openingen) is de passende maat; werkhoogte komt uit 3D BAG-hoogte (of standaard 9 m). Menselijke bevestiging van deze koppeling nodig.",
@@ -1149,7 +1151,8 @@
    "XWD-00002",
    "XWD-00003",
    "XWD-00004",
-   "XWD-00005"
+   "XWD-00005",
+   "XWD-00006"
   ],
   "building_links": 81,
   "quantity_resolutions": 0,

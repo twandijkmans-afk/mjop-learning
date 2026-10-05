@@ -38,7 +38,7 @@ def test_committed_report_up_to_date(report):
 def test_no_decisions_resolutions_or_bundle_changes(report):
     st = report["state"]
     # de review zelf beslist niets; XWD-00004/00005 zijn de latere besluiten van Sloped Roof Quantity Activation v1
-    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003", "XWD-00004", "XWD-00005"]
+    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003", "XWD-00004", "XWD-00005", "XWD-00006"]
     assert st["quantity_resolutions"] == 0 and st["building_links"] == 81
     assert all(b["unchanged"] for b in st["bundles"].values())
     assert st["bundles"]["maldenhof_DOC-005_DOC-006_v3.json"]["sha256"] == "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933"

@@ -27,6 +27,10 @@ RELATED_CONTEXT volgt UITSLUITEND uit: subject_relations RELATED_NOT_EQUIVALENT 
 evidence waarvan de onderwerp-mapping (HSM) effectief VERIFIED is + zelfde gebouwscope + zelfde eenheid. Een gedeelde
 interne element_code is GEEN reden om historische evidence mee te nemen.
 
+Prijscontext: declareert de app-mapping 'pricing_context' (XQ-steiger: BUILDING_HEIGHT per pand als werkhoogte), dan
+krijgt de PRIMARY-regel per pand van de scope een verwijzing naar de canonieke BUILDING_HEIGHT-evidence (of MISSING).
+Dat is uitsluitend kostencontext; BUILDING_HEIGHT blijft CONTEXT_ONLY en wordt nooit een (kiesbare) bundelregel.
+
 --app-elements beperkt de bundel tot bepaalde app-elementen (bijv. de oorspronkelijke dak-plat-bundel blijft zo
 byte-identiek reproduceerbaar naast een uitgebreide bundel).
 
@@ -107,13 +111,50 @@ def _evidence_refs(ev):
 NON_PRIMARY_ROLES = ("INFRASTRUCTURE_ONLY", "CONTEXT_ONLY")
 
 
+def _pricing_context(m, ev, evidence, roles):
+    """Prijscontext per pand voor een PRIMARY-regel waarvan de app-mapping 'pricing_context' declareert (bijv. de
+    steiger: BUILDING_HEIGHT per pand als werkhoogte). Alleen verwijzingen naar canonieke evidence plus de waarde
+    zoals die daar staat; ontbreekt de evidence voor een pand, dan status MISSING en waarde null (nooit 0). Het
+    contextonderwerp moet product_role CONTEXT_ONLY hebben: het wordt nooit PRIMARY of kiesbaar."""
+    spec = m.get("pricing_context")
+    if not spec:
+        return None
+    subj = spec["context_subject"]
+    if roles.get(subj) != "CONTEXT_ONLY":
+        raise BundleError(f"{m['mapping_id']}: pricing_context-onderwerp {subj} moet product_role CONTEXT_ONLY hebben")
+    calc = ev.get("calculation") or {}
+    if (ev["source_ref"] or {}).get("aggregation"):
+        by_id = {e["evidence_id"]: e for e in evidence}
+        targets = [(by_id[c]["source_ref"]["bag_pand_id"], c) for c in calc.get("input_evidence_ids") or []]
+    else:
+        targets = [(ev["source_ref"].get("bag_pand_id"), ev["evidence_id"])]
+    rows = []
+    for pid, qid in targets:
+        found = [e for e in evidence if e["building_id"] == f"BAG:{pid}" and e["source_type"] == "3D_BAG"
+                 and e["quantity_subject"].get("subject_key") == subj]
+        if len(found) > 1:
+            raise BundleError(f"meer dan één {subj}-evidence voor pand {pid}")
+        h = found[0] if found else None
+        rows.append({"bag_pand_id": pid, "quantity_evidence_id": qid,
+                     "context_evidence_id": h["evidence_id"] if h else None,
+                     "value": h["value"] if h else None, "unit": h["unit_normalized"] if h else None,
+                     "method_class": h["method_class"] if h else None,
+                     "rule_id": h["source_ref"].get("rule_id") if h else None,
+                     "snapshot_id": h["source_ref"].get("snapshot_id") if h else None,
+                     "status": "AVAILABLE" if h and h["value"] is not None else "MISSING"})
+    return {"purpose": spec["purpose"], "context_subject_key": subj, "context_product_role": "CONTEXT_ONLY",
+            "selectable": False, "rows": rows}
+
+
 def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab=None, app_elements=None):
     vocab = subjects_vocab or {}
     roles = {s["subject_key"]: s.get("product_role") for s in vocab.get("subjects", [])}
     verified = [m for m in app_crosswalk["mappings"]
                 if effective.get(m["mapping_id"], {}).get("status") == "VERIFIED" and m.get("quantity_subject")
                 and roles.get(m["quantity_subject"]) not in NON_PRIMARY_ROLES
-                and (app_elements is None or m["app_element_key"] in app_elements)]
+                and (app_elements is None or m["app_element_key"] in app_elements)
+                # prijscontext vereist de vocabulaire (CONTEXT_ONLY-controle): zonder vocabulaire niet exporteren
+                and (not m.get("pricing_context") or vocab)]
     if not verified:
         raise BundleError("geen door een mens geverifieerde app-crosswalk-mapping met een hoeveelheidsonderwerp")
     pand_ids = building_id.split(":", 1)[1].split("+")
@@ -164,6 +205,10 @@ def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab
                 e_out["evidence"]["aggregation"] = ev["source_ref"].get("aggregation") if is_agg else None
                 e_out["evidence"]["formula"] = (ev.get("calculation") or {}).get("formula") if is_agg else None
                 e_out["evidence"]["components"] = _components(ev, by_id) if is_agg else []
+            if not context:
+                pc = _pricing_context(m, ev, evidence, roles)
+                if pc is not None:
+                    e_out["pricing_context"] = pc
             e_out["_refs"] = _evidence_refs(ev)
             entries.append(e_out)
     if not entries:

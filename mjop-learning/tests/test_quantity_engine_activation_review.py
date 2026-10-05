@@ -49,8 +49,8 @@ def test_human_decisions_are_read_from_the_stores_not_simulated(report):
     s = report["state_of_human_decisions"]
     # Maldenhof Quantity Activation v1: 15 CONFIRMED + 25 REJECTED per document, 2 crosswalk-besluiten, geen resolutie
     # + DOC-012 Quantity Activation: 1 CONFIRMED link en XWD-00003 (andere VvE; telt mee in de totalen)
-    # + Sloped Roof Quantity Activation v1: XWD-00004/XWD-00005
-    assert (s["building_links_records"], s["crosswalk_decisions_records"], s["quantity_resolutions_records"]) == (81, 5, 0)
+    # + Sloped Roof Quantity Activation v1: XWD-00004/XWD-00005; + Scaffolding Quantity Activation v1: XWD-00006
+    assert (s["building_links_records"], s["crosswalk_decisions_records"], s["quantity_resolutions_records"]) == (81, 6, 0)
     assert all(r["link_status"] == "CONFIRMED" for r in report["B_building_link_review"]["rows"])
     assert all(r["link_status"] == "REJECTED" for r in report["B_building_link_review"]["odd_side_context"])
     md = open(qer.OUT_MD, encoding="utf-8").read()

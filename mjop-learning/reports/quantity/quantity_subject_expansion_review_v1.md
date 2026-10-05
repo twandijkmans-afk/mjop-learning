@@ -136,4 +136,4 @@ Buiten beschouwing (8 rijen in m1): QO-DOC-001-EL-042 Vorsten beton, QO-DOC-001-
 - 6. OUTER_WALL_GROSS_AREA: koppeling met 'steiger' bevestigen; besluiten of 'gevel-metselwerk' en 'voegwerk' als benadering (ESTIMATED) getoond moeten worden (MJOP-App-wijziging).
 - 7. BUILDING_HEIGHT: bevestigen als CONTEXT_ONLY.
 
-Stand: crosswalk-besluiten XWD-00001, XWD-00002, XWD-00003, XWD-00004, XWD-00005; building links 81; quantity resolutions 0; bundels ongewijzigd: doc012_meppelweg_v3.json ja, maldenhof_DOC-005_DOC-006_v3.json ja.
+Stand: crosswalk-besluiten XWD-00001, XWD-00002, XWD-00003, XWD-00004, XWD-00005, XWD-00006; building links 81; quantity resolutions 0; bundels ongewijzigd: doc012_meppelweg_v3.json ja, maldenhof_DOC-005_DOC-006_v3.json ja.

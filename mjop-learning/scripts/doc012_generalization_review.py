@@ -202,6 +202,7 @@ AUDIT_PATTERNS = ("DOC-005", "DOC-006", "Maldenhof", "1106EZ", "1106 EZ", "190.6
 REPORT_ONLY_SCRIPTS = {
     "scripts/multi_pand_scope_demo.py", "scripts/maldenhof_quantity_activation.py", "scripts/quantity_engine_activation_review.py",
     "scripts/doc012_generalization_review.py", "scripts/doc012_quantity_activation.py", "scripts/quantity_subject_expansion_review.py",
+    "scripts/scaffolding_height_review.py",
     "scripts/facade_coverage_poc_v2.py", "scripts/facade_element_detection_poc.py",
     "scripts/facade_ground_truth_poc.py", "scripts/facade_panorama_poc.py", "scripts/facade_poc_v2_report.py",
 }

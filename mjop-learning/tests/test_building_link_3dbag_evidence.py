@@ -209,6 +209,7 @@ def test_committed_stores_contain_only_human_decisions():
     assert {r["mapping_id"] for r in dec["records"]} == {"XW-dak-plat-4711-m2", "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
                                                          "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
                                                          "XQ-dak-hellend-ROOF_SLOPED_AREA-m2",
+                                                         "XQ-steiger-OUTER_WALL_GROSS_AREA-m2",
                                                          "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006"}
     # snapshots zijn ruwe bronvastleggingen (geen besluiten); sinds multi-pand-quantity-scope-v1 bestaan de
     # canonieke Maldenhof-snapshots voor DOC-005/DOC-006
@@ -253,6 +254,7 @@ def test_crosswalk_nothing_verified_without_human_decision():
                                                                        "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
                                                                        "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006",
                                                                        "XQ-dak-hellend-ROOF_SLOPED_AREA-m2",
+                                                                       "XQ-steiger-OUTER_WALL_GROSS_AREA-m2",
                                                                        "XW-dak-plat-4711-m2"]
 
 

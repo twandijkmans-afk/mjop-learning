@@ -612,7 +612,8 @@
     "possible_subject": null,
     "subject_relation": null,
     "possible_app_crosswalk": [
-     "XQ-dak-hellend-ROOF_SLOPED_AREA-m2"
+     "XQ-dak-hellend-ROOF_SLOPED_AREA-m2",
+     "XQ-steiger-OUTER_WALL_GROSS_AREA-m2"
     ],
     "app_crosswalk_unresolved": [],
     "classification": "NO_3DBAG_COUNTERPART",
@@ -2280,12 +2281,12 @@
     4,
     45,
     199,
-    211,
     212,
     213,
-    218,
-    403,
-    502
+    214,
+    219,
+    404,
+    503
    ],
    "reason": null
   },
@@ -2496,6 +2497,18 @@
     22
    ],
    "reason": "DOCSTRING_EXAMPLE: CLI-voorbeeld"
+  },
+  {
+   "file": "scripts/scaffolding_height_review.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    34
+   ],
+   "reason": null
   },
   {
    "file": "scripts/validate_app_quantity_bundle.py",
@@ -2898,6 +2911,19 @@
    "reason": null
   },
   {
+   "file": "tests/test_scaffolding_activation.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    36,
+    191
+   ],
+   "reason": null
+  },
+  {
    "file": "tests/test_sloped_roof_activation.py",
    "classification": "TEST_ONLY",
    "patterns": [
@@ -2912,8 +2938,8 @@
     148,
     150,
     166,
-    190,
-    199
+    189,
+    198
    ],
    "reason": null
   },
@@ -2981,7 +3007,8 @@
    "XWD-00002",
    "XWD-00003",
    "XWD-00004",
-   "XWD-00005"
+   "XWD-00005",
+   "XWD-00006"
   ],
   "quantity_resolutions": 0,
   "maldenhof_bundle_sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",

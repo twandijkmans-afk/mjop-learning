@@ -77,6 +77,21 @@
    "rule_version": "crosswalk_rules_v1",
    "supersedes": null,
    "status": "ACTIVE"
+  },
+  {
+   "decision_id": "XWD-00006",
+   "mapping_id": "XQ-steiger-OUTER_WALL_GROSS_AREA-m2",
+   "decision": "VERIFY",
+   "proposal_sha256": "9aa9dcd39445c9e64cd8630fb191046c16d84bf19952ad01c2c6cde4f2150af9",
+   "decision_reason": "Het app-element 'Steiger of hoogwerker' gebruikt bruto buitenmuuroppervlak als rekenoppervlak voor steiger/hoogwerker. Voor deze kostenbasis is OUTER_WALL_GROSS_AREA de bedoelde geometrische hoeveelheid. Dit besluit zegt niets over metselwerk, voegwerk of schilderwerk.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-05T14:48:07Z",
+   "rule_version": "crosswalk_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
   }
  ]
 }
