@@ -1,0 +1,1154 @@
+{
+ "report_version": "quantity_subject_expansion_review_v1",
+ "note": "Read-only readiness review. Geen VERIFY, geen relatie in de vocabulaire, geen bundel, geen resolutie. Voorstellen staan alleen in dit rapport.",
+ "inputs": {
+  "app_element_library": {
+   "path": "reports/quantity/subject_expansion_inputs/mjop_app_element_library_1afdeca.json",
+   "sha256": "374abd3ede5b5b65a5f3852ce09bbce9541704c580ff2e0c043f8e79b396c98c",
+   "source": {
+    "repo": "twandijkmans-afk/MJOP-App",
+    "ref": "1afdeca57b5ff6e33d44495a8c71df85b7b466c6",
+    "file": "src/app.js",
+    "symbol": "ELEMENT_LIBRARY",
+    "note": "Letterlijk uit de broncode geëvalueerd (alleen de array-literal); niet met de hand bewerkt."
+   }
+  },
+  "subjects_vocab_sha256": "27590ced5e8b83306458a0ddf098ff00deade8def4370a39158c535f30c8008b",
+  "app_crosswalk_sha256": "d2b1152a4da317e9f4887b9f9ec87ff306b2f1fa6269122a89220c560deb9bfd",
+  "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
+  "evidence_sha256": "89f508c0f0398c90dfa0ee74b257bd12b2617155e423e521f6823f716ad1107d"
+ },
+ "A_coverage_summary": {
+  "READY_NOW": 1,
+  "READY_WITHOUT_HISTORICAL_CONTEXT": 3,
+  "NEEDS_SEMANTIC_MAPPING": 3,
+  "ESTIMATE_ONLY": 16,
+  "NO_AUTOMATIC_QUANTITY": 1
+ },
+ "B_roof_sloped_area": {
+  "bag3d_field": "b3_opp_dak_schuin",
+  "rule": "bag3d.roof_sloped_area (DIRECT_MEASURED)",
+  "app_element": "dak-hellend",
+  "app_uses_same_source": true,
+  "unit_equal": true,
+  "missingness": "veld ontbreekt -> NOT_AVAILABLE (nooit 0); aanwezige 0 = geldige 0",
+  "geometry_readiness": "READY_WITHOUT_HISTORICAL_CONTEXT",
+  "xw_dak_hellend": {
+   "mapping_id": "XW-dak-hellend-4712-m2",
+   "current_status": "REVIEW_REQUIRED",
+   "what_it_maps": "app-element 'dak-hellend' (27.2, pannen) <-> interne code 4712 in m2, met quantity_subject ROOF_SLOPED_AREA",
+   "A_element_code_link": "NIET VEILIG zoals hij nu is: 4712 is gemengd (dakpan, leisteen, shingles, zink; plus m1-randen). Alleen veilig als de koppeling wordt beperkt tot expliciete dakpan-omschrijvingen (4 van 8 m2-regels).",
+   "B_quantity_subject_link": "NIET EQUIVALENT: gerapporteerd pannenoppervlak (MJOP) is niet het geometrische hellende dakoppervlak (3D BAG): overstekken, dakkapellen, goten, gemengde materialen en meetwijze verschillen. Hoogstens RELATED_NOT_EQUIVALENT via een apart historisch onderwerp.",
+   "conclusion": "A en B krijgen een verschillend oordeel; de bestaande mapping combineert ze en blijft dus REVIEW_REQUIRED."
+  },
+  "maldenhof_comparison": [
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-027",
+    "historical_value": "1485.60",
+    "bag3d_value": "1415.57",
+    "difference": "70.03",
+    "pct_of_3dbag": "4.9",
+    "kind": "RELATED_SUBJECT_NOT_EQUIVALENT (informatief, geen accuracy-claim)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-027",
+    "historical_value": "1485.60",
+    "bag3d_value": "1415.57",
+    "difference": "70.03",
+    "pct_of_3dbag": "4.9",
+    "kind": "RELATED_SUBJECT_NOT_EQUIVALENT (informatief, geen accuracy-claim)"
+   }
+  ]
+ },
+ "proposed_historical_subject": {
+  "status": "PROPOSAL_ONLY (niet in de vocabulaire)",
+  "subject": {
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "unit": "m2",
+   "quantity_kind": "ELEMENT_QUANTITY",
+   "method_class": "SOURCE_REPORTED",
+   "label_nl": "Door bron/MJOP gerapporteerde oppervlakte dakpannen"
+  },
+  "why_not_sloped_roof_covering": "Een breder 'hellend-dak-bedekking'-onderwerp zou shingles, leisteen en zink samennemen met pannen; het app-element 'dak-hellend' is uitdrukkelijk 'pannen'.",
+  "relation": {
+   "relation_id": "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA (voorstel)",
+   "subjects": [
+    "ROOF_TILES_REPORTED_AREA",
+    "ROOF_SLOPED_AREA"
+   ],
+   "relation": "RELATED_NOT_EQUIVALENT",
+   "resolvable_as_same_quantity": false
+  },
+  "mapping_pattern": "per document exact (document_ids + 4712 + m2 + omschrijving exact uit SAFE_DAKPAN_REPORTED_AREA), zoals HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
+  "eligible_observations": [
+   {
+    "quantity_observation_id": "QO-DOC-001-EL-041",
+    "document_id": "DOC-001",
+    "description": "Dakpan beton",
+    "value": "1944.00"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-027",
+    "document_id": "DOC-005",
+    "description": "Dakpan beton",
+    "value": "1485.60"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-027",
+    "document_id": "DOC-006",
+    "description": "Dakpan beton",
+    "value": "1485.60"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-013-EL-021",
+    "document_id": "DOC-013",
+    "description": "Dakpan keramisch",
+    "value": "12.72"
+   }
+  ],
+  "eligible_with_confirmed_building": [
+   "QO-DOC-005-EL-027",
+   "QO-DOC-006-EL-027"
+  ]
+ },
+ "C_roof_total_area": {
+  "definition": "ROOF_FLAT_AREA + ROOF_SLOPED_AREA (bag3d.roof_total_area, GEOMETRY_DERIVED); app dakM2 alleen bij beide velden",
+  "app_elements_using_total": [
+   "dakinspectie",
+   "dakisolatie"
+  ],
+  "historical_evidence": "geen: vocabulaire not_mapped ('Geen historische code voor totaal dakoppervlak; optellen van 4711 + 4712 zou aggregatie zijn')",
+  "user_selectable_source_needed": false,
+  "status": "INFRASTRUCTURE_ONLY",
+  "reason": "Gebruikt als basis voor 'dakinspectie' (vast + per m²) en 'dakisolatie'; er is geen historische totaalwaarde om naast te zetten, dus geen bundel-/keuzefunctie nodig. Geen nieuw app-element."
+ },
+ "D_outer_wall_gross_area": {
+  "bag3d_field": "b3_opp_buitenmuur (bruto: openingen niet afgetrokken)",
+  "app_source": "gevelM2",
+  "per_app_element": [
+   {
+    "key": "steiger",
+    "use": "DIRECT_GEOMETRY_USE",
+    "reason": "steiger/hoogwerker wordt per m² gevel geprijsd; bruto buitenmuur incl. openingen past"
+   },
+   {
+    "key": "gevel-metselwerk",
+    "use": "ESTIMATED_PROXY",
+    "reason": "metselwerkherstel = netto metselwerk; bruto muur overschat (ramen, deuren, ander gevelmateriaal). App toont nu bron '3D BAG', geen 'benadering'"
+   },
+   {
+    "key": "voegwerk",
+    "use": "ESTIMATED_PROXY",
+    "reason": "voegwerk = netto metselwerk; bruto muur is benadering; crosswalk NOT_SAFE"
+   },
+   {
+    "key": "schilderwerk-buiten",
+    "use": "NOT_SAFE",
+    "reason": "schilderwerk is kozijnen/houtwerk; al als ESTIMATED benadering gemarkeerd; crosswalk NOT_SAFE"
+   }
+  ],
+  "historical": "2110 'Gevelconstructie metselwerk' is netto metselwerk — NIET OUTER_WALL_GROSS_AREA (vocabulaire not_mapped, ongewijzigd)",
+  "status": "PARTIAL: alleen 'steiger' is een directe geometrische toepassing; overige gevelposten zijn benaderingen",
+  "finding": "'gevel-metselwerk' en 'voegwerk' tonen bruto buitenmuur als bron '3D BAG' (niet als benadering), terwijl 'schilderwerk-buiten' al 'benadering' is. Productkeuze, geen missing-as-zero-bug: niet gewijzigd in deze milestone."
+ },
+ "E_building_height": {
+  "definition": "b3_h_dak_max - b3_h_maaiveld (bag3d.building_height, GEOMETRY_DERIVED, per pand, niet opgeteld)",
+  "app_use": "alleen als werkhoogte voor 'steiger' (tarief tot/boven 8 m); ontbreekt de hoogte, dan standaard 9 m (expliciete aanname)",
+  "maintenance_quantity_in_m": false,
+  "status": "CONTEXT_ONLY"
+ },
+ "F_4712_inventory": {
+  "m2_rows": [
+   {
+    "document_id": "DOC-001",
+    "quantity_observation_id": "QO-DOC-001-EL-041",
+    "description": "Dakpan beton",
+    "location": "Daken",
+    "value": "1944.00",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L034",
+     "text_fragment": "4712 Dakpan beton Daken 1944,00m2 1"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-001",
+    "same_object_document_ids": [],
+    "classification": "SAFE_DAKPAN_REPORTED_AREA",
+    "classification_reason": "expliciet 'dakpan', materiaal beton"
+   },
+   {
+    "document_id": "DOC-002",
+    "quantity_observation_id": "QO-DOC-002-EL-103",
+    "description": "dakpannen leisteen",
+    "location": "Dak",
+    "value": "37.00",
+    "unit": "m2",
+    "provenance": {
+     "page": 10,
+     "block_id": "P10-L028",
+     "text_fragment": "4712 dakpannen leisteen Dak 37,00m2 3"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-002",
+    "same_object_document_ids": [
+     "DOC-003",
+     "DOC-004"
+    ],
+    "classification": "OTHER_SLOPED_ROOF_MATERIAL",
+    "classification_reason": "bron zegt 'dakpannen', maar het materiaal is leisteen (natuursteen); ander onderhoud dan beton-/keramische pannen — menselijke beoordeling"
+   },
+   {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-027",
+    "description": "Dakpan beton",
+    "location": "Hellend dak",
+    "value": "1485.60",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L015",
+     "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ],
+    "classification": "SAFE_DAKPAN_REPORTED_AREA",
+    "classification_reason": "expliciet 'dakpan', materiaal beton"
+   },
+   {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-027",
+    "description": "Dakpan beton",
+    "location": "Hellend dak",
+    "value": "1485.60",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L009",
+     "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ],
+    "classification": "SAFE_DAKPAN_REPORTED_AREA",
+    "classification_reason": "expliciet 'dakpan', materiaal beton"
+   },
+   {
+    "document_id": "DOC-010",
+    "quantity_observation_id": "QO-DOC-010-EL-034",
+    "description": "Dakbedekking zink",
+    "location": "Dak lichtstraat",
+    "value": "0.78",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L019",
+     "text_fragment": "4712 Dakbedekking zink Dak lichtstraat 0,78m2 2"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-010",
+    "same_object_document_ids": [],
+    "classification": "AMBIGUOUS_4712",
+    "classification_reason": "zink kan plat of hellend liggen; de bron zegt niet welk dakvlak; locatie 'Dak lichtstraat'"
+   },
+   {
+    "document_id": "DOC-013",
+    "quantity_observation_id": "QO-DOC-013-EL-021",
+    "description": "Dakpan keramisch",
+    "location": "Dak",
+    "value": "12.72",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L006",
+     "text_fragment": "4712 Dakpan keramisch Dak 12,72m2 1"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-013",
+    "same_object_document_ids": [],
+    "classification": "SAFE_DAKPAN_REPORTED_AREA",
+    "classification_reason": "expliciet 'dakpan', materiaal keramisch"
+   },
+   {
+    "document_id": "DOC-013",
+    "quantity_observation_id": "QO-DOC-013-EL-022",
+    "description": "Dakbedekking shingles bitumen",
+    "location": "Dak",
+    "value": "36.35",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L007",
+     "text_fragment": "4712 Dakbedekking shingles bitumen Dak 36,35m2 1"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-013",
+    "same_object_document_ids": [],
+    "classification": "OTHER_SLOPED_ROOF_MATERIAL",
+    "classification_reason": "bitumen shingles: geen dakpan"
+   },
+   {
+    "document_id": "DOC-013",
+    "quantity_observation_id": "QO-DOC-013-EL-023",
+    "description": "Dakbedekking zink",
+    "location": "Dak",
+    "value": "4.25",
+    "unit": "m2",
+    "provenance": {
+     "page": 7,
+     "block_id": "P07-L008",
+     "text_fragment": "4712 Dakbedekking zink Dak 4,25m2 1"
+    },
+    "status": "SOURCE_REPORTED",
+    "requires_human_review": false,
+    "material_original": null,
+    "source_cluster": "SC-DOC-013",
+    "same_object_document_ids": [],
+    "classification": "AMBIGUOUS_4712",
+    "classification_reason": "zink kan plat of hellend liggen; de bron zegt niet welk dakvlak"
+   }
+  ],
+  "by_classification": {
+   "SAFE_DAKPAN_REPORTED_AREA": 4,
+   "OTHER_SLOPED_ROOF_MATERIAL": 2,
+   "AMBIGUOUS_4712": 2
+  },
+  "excluded_non_m2_rows": [
+   {
+    "quantity_observation_id": "QO-DOC-001-EL-042",
+    "description": "Vorsten beton",
+    "value": "182.00",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-001-EL-043",
+    "description": "Loodslab/loket hellend dak",
+    "value": "114.00",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-002-EL-102",
+    "description": "Loodslab/loket hellend dak",
+    "value": "25.00",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-008-EL-006",
+    "description": "Dakrandafwerking bitumen kraal/deklijst",
+    "value": "80.40",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-008-EL-007",
+    "description": "Loodslabben plat dak",
+    "value": "87.20",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-009-EL-045",
+    "description": "Dakrandafwerking bitumen kraal/deklijst",
+    "value": "80.40",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-009-EL-046",
+    "description": "Loodslabben plat dak",
+    "value": "87.20",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-013-EL-024",
+    "description": "Loodslab/loket hellend dak",
+    "value": "30.00",
+    "unit": "m1",
+    "reason": "eenheid m1: geen dakoppervlak (vorst, loodslab, dakrand)"
+   }
+  ]
+ },
+ "G_app_coverage": [
+  {
+   "key": "dak-plat",
+   "label": "Dakbedekking plat dak",
+   "type": "dak",
+   "bron": "dakPlatM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_dak_plat",
+   "auto_method": "DIRECT_MEASURED (3D_BAG)",
+   "subject_of_source": "ROOF_FLAT_AREA",
+   "safe_quantity_subject": "ROOF_FLAT_AREA",
+   "missingness_rule": "veld ontbreekt -> expliciete schatting BAG-grondvlak (ESTIMATED)",
+   "crosswalk": [
+    "XW-dak-plat-4711-m2 (VERIFIED)"
+   ],
+   "crosswalk_unresolved": [],
+   "category": "READY_NOW",
+   "assessment": "Plat dakoppervlak = 3D BAG b3_opp_dak_plat; XW-dak-plat-4711-m2 VERIFIED; echte bundels Maldenhof en DOC-012 met historische context (ROOF_COVERING_REPORTED_AREA, RELATED_NOT_EQUIVALENT).",
+   "optional": true
+  },
+  {
+   "key": "dakgoten",
+   "label": "Dakgoten en hemelwaterafvoeren",
+   "type": "vast-variabel",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [
+    "UNIT_MISMATCH: app-hoeveelheid is aantal appartementen; intern zijn goten (2716) en HWA (5211) m1. Geen veilige mapping."
+   ],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Rekent per appartement (BAG-aantal) als benadering van goten/HWA (m1); UNIT_MISMATCH in de crosswalk.",
+   "optional": false
+  },
+  {
+   "key": "dakinspectie",
+   "label": "Dakinspectie en klein onderhoud",
+   "type": "vast-variabel",
+   "bron": "dakM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_dak_plat + b3_opp_dak_schuin",
+   "auto_method": "GEOMETRY_DERIVED",
+   "subject_of_source": "ROOF_TOTAL_AREA",
+   "safe_quantity_subject": "ROOF_TOTAL_AREA",
+   "missingness_rule": "alleen als beide velden aanwezig zijn; één ontbreekt -> NOT_AVAILABLE; beide ontbreken -> grondvlak ESTIMATED",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "READY_WITHOUT_HISTORICAL_CONTEXT",
+   "assessment": "Vast bedrag + € per m² totaal dakoppervlak; 3D BAG-som plat + hellend (GEOMETRY_DERIVED) alleen bij beide velden; geen historische 'totaal dak'-hoeveelheid.",
+   "optional": false
+  },
+  {
+   "key": "dak-hellend",
+   "label": "Dakbedekking hellend dak (pannen)",
+   "type": "dak",
+   "bron": "dakSchuinM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_dak_schuin",
+   "auto_method": "DIRECT_MEASURED (3D_BAG)",
+   "subject_of_source": "ROOF_SLOPED_AREA",
+   "safe_quantity_subject": "ROOF_SLOPED_AREA",
+   "missingness_rule": "veld ontbreekt -> NOT_AVAILABLE (nooit 0); aanwezige 0 = geldige 0",
+   "crosswalk": [
+    "XW-dak-hellend-4712-m2 (REVIEW_REQUIRED)"
+   ],
+   "crosswalk_unresolved": [],
+   "category": "READY_WITHOUT_HISTORICAL_CONTEXT",
+   "assessment": "Geometrie is direct 3D BAG b3_opp_dak_schuin en missing-safe; historische context vraagt een apart onderwerp + smalle mapping (4712 is gemengd); XW-dak-hellend-4712-m2 staat op REVIEW_REQUIRED.",
+   "optional": true
+  },
+  {
+   "key": "dakisolatie",
+   "label": "Dakisolatie na-isoleren",
+   "type": "dak",
+   "bron": "dakM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_dak_plat + b3_opp_dak_schuin",
+   "auto_method": "GEOMETRY_DERIVED",
+   "subject_of_source": "ROOF_TOTAL_AREA",
+   "safe_quantity_subject": "ROOF_TOTAL_AREA?",
+   "missingness_rule": "alleen als beide velden aanwezig zijn; één ontbreekt -> NOT_AVAILABLE; beide ontbreken -> grondvlak ESTIMATED",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "NEEDS_SEMANTIC_MAPPING",
+   "assessment": "Na-isoleren gaat over het te isoleren dakvlak; dat is niet zonder meer het totale 3D BAG-dakoppervlak (bijv. alleen plat dak, of al geïsoleerde delen).",
+   "optional": true
+  },
+  {
+   "key": "gevel-metselwerk",
+   "label": "Gevelreiniging en metselwerkherstel",
+   "type": "gevel",
+   "bron": "gevelM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_buitenmuur",
+   "auto_method": "DIRECT_MEASURED (3D_BAG)",
+   "subject_of_source": "OUTER_WALL_GROSS_AREA",
+   "safe_quantity_subject": null,
+   "missingness_rule": "veld ontbreekt -> expliciete schatting omtrek x 3 x 3 (ESTIMATED); aanwezige 0 = geldige 0",
+   "crosswalk": [
+    "XW-gevel-metselwerk-2110-m2 (REVIEW_REQUIRED)"
+   ],
+   "crosswalk_unresolved": [],
+   "category": "NEEDS_SEMANTIC_MAPPING",
+   "assessment": "Gebruikt bruto buitenmuur (incl. ramen/deuren) als metselwerkoppervlak; de app toont dit nu als bron '3D BAG' i.p.v. als benadering. Historisch 2110 is netto metselwerk: niet OUTER_WALL_GROSS_AREA.",
+   "optional": false
+  },
+  {
+   "key": "schilderwerk-buiten",
+   "label": "Schilderwerk buitenkozijnen en gevelhoutwerk",
+   "type": "gevel",
+   "bron": "gevelM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_buitenmuur",
+   "auto_method": "ESTIMATED (benadering van b3_opp_buitenmuur)",
+   "subject_of_source": "OUTER_WALL_GROSS_AREA",
+   "safe_quantity_subject": null,
+   "missingness_rule": "veld ontbreekt -> expliciete schatting omtrek x 3 x 3 (ESTIMATED); aanwezige 0 = geldige 0",
+   "crosswalk": [],
+   "crosswalk_unresolved": [
+    "NOT_SAFE: app gebruikt de hele buitenmuur als benadering; intern is schilderwerk per m1/m2 kozijn/houtwerk (46xx)."
+   ],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Hele bruto buitenmuur als benadering (al als ESTIMATED gemarkeerd); schilderwerk gaat over kozijnen/houtwerk (46xx), niet over muuroppervlak.",
+   "optional": false
+  },
+  {
+   "key": "kozijnen-onderhoud",
+   "label": "Onderhoud buitenkozijnen",
+   "type": "kozijnen",
+   "bron": null,
+   "unit": "st",
+   "auto_source_field": "appartementen x vaste factor (KOZ_FACTOREN)",
+   "auto_method": "ESTIMATED",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "—",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Aantallen = appartementen x vaste factor (1 / 0,25 / 0,125 / 0,125); geen telling.",
+   "optional": false
+  },
+  {
+   "key": "steiger",
+   "label": "Steiger of hoogwerker",
+   "type": "steiger",
+   "bron": "gevelM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_buitenmuur",
+   "auto_method": "DIRECT_MEASURED (3D_BAG)",
+   "subject_of_source": "OUTER_WALL_GROSS_AREA",
+   "safe_quantity_subject": "OUTER_WALL_GROSS_AREA",
+   "missingness_rule": "veld ontbreekt -> expliciete schatting omtrek x 3 x 3 (ESTIMATED); aanwezige 0 = geldige 0",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "READY_WITHOUT_HISTORICAL_CONTEXT",
+   "assessment": "Steiger/hoogwerker per m² gevel: bruto buitenmuur (incl. openingen) is de passende maat; werkhoogte komt uit 3D BAG-hoogte (of standaard 9 m). Menselijke bevestiging van deze koppeling nodig.",
+   "optional": false
+  },
+  {
+   "key": "voegwerk",
+   "label": "Voegwerk buitengevel",
+   "type": "gevel",
+   "bron": "gevelM2",
+   "unit": "m2",
+   "auto_source_field": "b3_opp_buitenmuur",
+   "auto_method": "DIRECT_MEASURED (3D_BAG)",
+   "subject_of_source": "OUTER_WALL_GROSS_AREA",
+   "safe_quantity_subject": null,
+   "missingness_rule": "veld ontbreekt -> expliciete schatting omtrek x 3 x 3 (ESTIMATED); aanwezige 0 = geldige 0",
+   "crosswalk": [],
+   "crosswalk_unresolved": [
+    "NOT_SAFE: zelfde app-code als gevel-metselwerk; interne voegwerkposten staan onder 2110/4111 zonder eenduidige scheiding."
+   ],
+   "category": "NEEDS_SEMANTIC_MAPPING",
+   "assessment": "Voegwerk gaat over metselwerk (netto, zonder openingen); bruto buitenmuur is een benadering.",
+   "optional": true
+  },
+  {
+   "key": "balkonhekken",
+   "label": "Balkonhekken en borstweringen",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als benadering van hekwerk (m1).",
+   "optional": true
+  },
+  {
+   "key": "intercom",
+   "label": "Intercom en video-deuropener",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement (BAG-aantal) als prijsbasis; geen hoeveelheidsonderwerp.",
+   "optional": false
+  },
+  {
+   "key": "riolering",
+   "label": "Riolering en hemelwaterafvoer (inpandig)",
+   "type": "vast-variabel",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Vast + per appartement als prijsbasis.",
+   "optional": false
+  },
+  {
+   "key": "elektra",
+   "label": "Elektrische installatie gemeenschappelijk",
+   "type": "vast-variabel",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Vast + per appartement als prijsbasis.",
+   "optional": true
+  },
+  {
+   "key": "verlichting",
+   "label": "Verlichting gemeenschappelijke ruimten",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als benadering van het aantal armaturen.",
+   "optional": true
+  },
+  {
+   "key": "waterleiding",
+   "label": "Waterleiding gemeenschappelijk",
+   "type": "vast-variabel",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Vast + per appartement als prijsbasis.",
+   "optional": true
+  },
+  {
+   "key": "brandveiligheid",
+   "label": "Brandveiligheid (blusmiddelen, vluchtwegverlichting)",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als prijsbasis.",
+   "optional": true
+  },
+  {
+   "key": "cv-installatie",
+   "label": "Collectieve cv-installatie (ketel)",
+   "type": "vast-variabel",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Vast + per appartement als prijsbasis.",
+   "optional": true
+  },
+  {
+   "key": "ventilatie",
+   "label": "Mechanische ventilatie",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als prijsbasis.",
+   "optional": true
+  },
+  {
+   "key": "lift",
+   "label": "Liftinstallatie — onderhoud en modernisering",
+   "type": "vast-variabel",
+   "bron": "none",
+   "unit": null,
+   "auto_source_field": null,
+   "auto_method": "geen automatische hoeveelheid",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "—",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "NO_AUTOMATIC_QUANTITY",
+   "assessment": "bron 'none': vast bedrag.",
+   "optional": true
+  },
+  {
+   "key": "trappenhuis",
+   "label": "Trappenhuis en entree",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als benadering van trappenhuisoppervlak.",
+   "optional": false
+  },
+  {
+   "key": "vloerafwerking",
+   "label": "Vloerafwerking gemeenschappelijke ruimten",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als benadering van vloeroppervlak.",
+   "optional": true
+  },
+  {
+   "key": "bestrating",
+   "label": "Bestrating en terreininrichting",
+   "type": "vast-variabel",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Vast + per appartement als benadering van terreinoppervlak.",
+   "optional": true
+  },
+  {
+   "key": "fietsenstalling",
+   "label": "Fietsenstalling en bergingen",
+   "type": "per-unit",
+   "bron": "units",
+   "unit": "app",
+   "auto_source_field": "BAG aantal_verblijfsobjecten",
+   "auto_method": "BAG (of MANUAL)",
+   "subject_of_source": null,
+   "safe_quantity_subject": null,
+   "missingness_rule": "geen 3D BAG-veld",
+   "crosswalk": [],
+   "crosswalk_unresolved": [],
+   "category": "ESTIMATE_ONLY",
+   "assessment": "Per appartement als prijsbasis.",
+   "optional": true
+  }
+ ],
+ "H_buildings": {
+  "maldenhof": {
+   "name": "Maldenhof",
+   "document_ids": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "subjects": [
+    {
+     "subject": "ROOF_FLAT_AREA",
+     "available": true,
+     "value": "190.65",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": "QE-de5bcca75b309377",
+     "pand_count": 15,
+     "child_values_present": 15,
+     "app_element_candidates": [
+      "dak-plat"
+     ],
+     "historical_context_existing": [
+      {
+       "evidence_id": "QE-5993359f27e8dea6",
+       "subject_key": "ROOF_COVERING_REPORTED_AREA",
+       "value": "425.80",
+       "document_id": "DOC-006"
+      },
+      {
+       "evidence_id": "QE-cda20b77ca36b732",
+       "subject_key": "ROOF_COVERING_REPORTED_AREA",
+       "value": "425.80",
+       "document_id": "DOC-005"
+      }
+     ],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    },
+    {
+     "subject": "ROOF_SLOPED_AREA",
+     "available": true,
+     "value": "1415.57",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": "QE-49f335215eb3c9be",
+     "pand_count": 15,
+     "child_values_present": 15,
+     "app_element_candidates": [
+      "dak-hellend"
+     ],
+     "historical_context_existing": [],
+     "historical_context_candidates": [
+      {
+       "quantity_observation_id": "QO-DOC-005-EL-027",
+       "description": "Dakpan beton",
+       "location": "Hellend dak",
+       "value": "1485.60",
+       "unit": "m2"
+      },
+      {
+       "quantity_observation_id": "QO-DOC-006-EL-027",
+       "description": "Dakpan beton",
+       "location": "Hellend dak",
+       "value": "1485.60",
+       "unit": "m2"
+      }
+     ],
+     "historical_not_comparable": []
+    },
+    {
+     "subject": "ROOF_TOTAL_AREA",
+     "available": true,
+     "value": "1606.22",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": "QE-4e9059f88d0cda5f",
+     "pand_count": 15,
+     "child_values_present": 15,
+     "app_element_candidates": [
+      "dakinspectie",
+      "dakisolatie?"
+     ],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    },
+    {
+     "subject": "OUTER_WALL_GROSS_AREA",
+     "available": true,
+     "value": "1747.35",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": "QE-bbcbef41efede680",
+     "pand_count": 15,
+     "child_values_present": 15,
+     "app_element_candidates": [
+      "steiger"
+     ],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": [
+      {
+       "quantity_observation_id": "QO-DOC-005-EL-001",
+       "description": "Gevelconstructie metselwerk",
+       "value": "1631.90",
+       "unit": "m2",
+       "reason": "2110 netto metselwerk != bruto buitenmuur (not_mapped)"
+      },
+      {
+       "quantity_observation_id": "QO-DOC-006-EL-001",
+       "description": "Gevelconstructie metselwerk",
+       "value": "1631.90",
+       "unit": "m2",
+       "reason": "2110 netto metselwerk != bruto buitenmuur (not_mapped)"
+      }
+     ]
+    },
+    {
+     "subject": "BUILDING_HEIGHT",
+     "available": true,
+     "value": "per pand (15 waarden; niet opgeteld)",
+     "unit": "m",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": null,
+     "pand_count": 15,
+     "child_values_present": 15,
+     "app_element_candidates": [],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    }
+   ]
+  },
+  "doc012": {
+   "name": "DOC-012 Meppelweg",
+   "document_ids": [
+    "DOC-012"
+   ],
+   "building_id": "BAG:0518100000354752",
+   "bag_pand_ids": [
+    "0518100000354752"
+   ],
+   "subjects": [
+    {
+     "subject": "ROOF_FLAT_AREA",
+     "available": true,
+     "value": "875.63",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "DIRECT_MEASURED",
+     "complete": true,
+     "evidence_id": "QE-0cd5f153f2a60245",
+     "pand_count": 1,
+     "child_values_present": 1,
+     "app_element_candidates": [
+      "dak-plat"
+     ],
+     "historical_context_existing": [
+      {
+       "evidence_id": "QE-bd9ee7e3931f8b77",
+       "subject_key": "ROOF_COVERING_REPORTED_AREA",
+       "value": "801.04",
+       "document_id": "DOC-012"
+      }
+     ],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    },
+    {
+     "subject": "ROOF_SLOPED_AREA",
+     "available": true,
+     "value": "0.0",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "DIRECT_MEASURED",
+     "complete": true,
+     "evidence_id": "QE-f446e3716ff206e3",
+     "pand_count": 1,
+     "child_values_present": 1,
+     "app_element_candidates": [
+      "dak-hellend"
+     ],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    },
+    {
+     "subject": "ROOF_TOTAL_AREA",
+     "available": true,
+     "value": "875.63",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": "QE-34190d144c6ca537",
+     "pand_count": 1,
+     "child_values_present": 1,
+     "app_element_candidates": [
+      "dakinspectie",
+      "dakisolatie?"
+     ],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    },
+    {
+     "subject": "OUTER_WALL_GROSS_AREA",
+     "available": true,
+     "value": "3048.46",
+     "unit": "m2",
+     "source": "3D_BAG",
+     "method_class": "DIRECT_MEASURED",
+     "complete": true,
+     "evidence_id": "QE-d614bb24c23d1fab",
+     "pand_count": 1,
+     "child_values_present": 1,
+     "app_element_candidates": [
+      "steiger"
+     ],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": [
+      {
+       "quantity_observation_id": "QO-DOC-012-EL-001",
+       "description": "Gevelconstructie metselwerk",
+       "value": "1326.46",
+       "unit": "m2",
+       "reason": "2110 netto metselwerk != bruto buitenmuur (not_mapped)"
+      }
+     ]
+    },
+    {
+     "subject": "BUILDING_HEIGHT",
+     "available": true,
+     "value": "19.55500030517578",
+     "unit": "m",
+     "source": "3D_BAG",
+     "method_class": "GEOMETRY_DERIVED",
+     "complete": true,
+     "evidence_id": "QE-0ec156f03368047e",
+     "pand_count": 1,
+     "child_values_present": 1,
+     "app_element_candidates": [],
+     "historical_context_existing": [],
+     "historical_context_candidates": [],
+     "historical_not_comparable": []
+    }
+   ]
+  }
+ },
+ "I_recommendations": [
+  {
+   "rank": 1,
+   "activation": "ROOF_SLOPED_AREA-geometrie voor 'dak-hellend' (zonder historische context)",
+   "why": "direct 3D BAG-veld, zelfde eenheid, missing-safe, bestaande pipeline/bundel v3, handmatig overschrijfbaar; beide gebouwen hebben een complete waarde (Maldenhof 1415.57 m2 als scope-som, DOC-012 een gemeten 0.0)",
+   "needs": [
+    "menselijk besluit over XW-dak-hellend (zie J): de huidige 4712-brede koppeling is niet veilig"
+   ]
+  },
+  {
+   "rank": 2,
+   "activation": "historische dakpannen-context (ROOF_TILES_REPORTED_AREA, RELATED_NOT_EQUIVALENT) — eerst Maldenhof",
+   "why": "Maldenhof DOC-005/DOC-006 'Dakpan beton / Hellend dak' 1485.60 m2 is expliciet; zelfde patroon als plat dak",
+   "needs": [
+    "subject + relatie goedkeuren",
+    "document-specifieke mapping VERIFY",
+    "smalle XW-koppeling"
+   ]
+  },
+  {
+   "rank": 3,
+   "activation": "OUTER_WALL_GROSS_AREA alleen voor 'steiger' (bruto gevel = steigeroppervlak)",
+   "why": "enige gevelpost waar bruto buitenmuur de bedoelde maat is; geen historische context nodig",
+   "needs": [
+    "menselijke bevestiging dat steiger per m² bruto gevel geprijsd wordt",
+    "(apart) besluit of 'gevel-metselwerk'/'voegwerk' als benadering gemarkeerd moeten worden"
+   ]
+  }
+ ],
+ "J_human_decisions": [
+  "1. ROOF_TILES_REPORTED_AREA als nieuw historisch onderwerp + relatie RELATED_NOT_EQUIVALENT met ROOF_SLOPED_AREA: goedkeuren of afwijzen.",
+  "2. XW-dak-hellend-4712-m2: REJECT (te breed) en vervangen door een smalle koppeling 'dak-hellend' <-> 4712 m2 alleen voor expliciete dakpan-omschrijvingen — of de bestaande laten staan op REVIEW_REQUIRED.",
+  "3. Voor Maldenhof: document-specifieke mapping DOC-005/DOC-006 'Dakpan beton' / 'Hellend dak' (QO-DOC-005-EL-027, QO-DOC-006-EL-027) naar ROOF_TILES_REPORTED_AREA: VERIFY of REJECT.",
+  "4. 'dakpannen leisteen' (DOC-002): telt leisteen als 'pannen' voor dak-hellend? (nu OTHER_SLOPED_ROOF_MATERIAL).",
+  "5. ROOF_TOTAL_AREA: bevestigen als INFRASTRUCTURE_ONLY (geen keuzebron in de app).",
+  "6. OUTER_WALL_GROSS_AREA: koppeling met 'steiger' bevestigen; besluiten of 'gevel-metselwerk' en 'voegwerk' als benadering (ESTIMATED) getoond moeten worden (MJOP-App-wijziging).",
+  "7. BUILDING_HEIGHT: bevestigen als CONTEXT_ONLY."
+ ],
+ "state": {
+  "crosswalk_decisions": [
+   "XWD-00001",
+   "XWD-00002",
+   "XWD-00003"
+  ],
+  "building_links": 81,
+  "quantity_resolutions": 0,
+  "bundles": {
+   "doc012_meppelweg_v3.json": {
+    "sha256": "748ebcbe53e83afc06fd4dba67467f1014d3cc88c728b55c56c3adfd33e0a191",
+    "unchanged": true
+   },
+   "maldenhof_DOC-005_DOC-006_v3.json": {
+    "sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",
+    "unchanged": true
+   }
+  },
+  "subject_relations_in_vocab": [
+   "SREL-ROOF_COVERING_REPORTED_AREA-ROOF_FLAT_AREA"
+  ]
+ }
+}
