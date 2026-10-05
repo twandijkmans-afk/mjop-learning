@@ -1,0 +1,6102 @@
+{
+ "report_version": "quantity_engine_activation_review_v1",
+ "note": "Read-only SOURCE COMPARISON / ACTIVATION REVIEW. Geen accuracy-benchmark, geen besluiten, geen evidence, geen API-/netwerk-calls. Maldenhof is testcase, niet meetlat.",
+ "state_of_human_decisions": {
+  "building_links_records": 0,
+  "crosswalk_decisions_records": 0,
+  "quantity_resolutions_records": 0,
+  "building_quantity_evidence": 0
+ },
+ "input_hashes": {
+  "quantity_observations_sha256": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
+  "building_link_candidates_sha256": "561ce3265a253722727b333956c7dcd72a2c28b20e9de9c4952b345bce0946d3",
+  "subjects_vocab_sha256": "2591094eaf14881d8b7984c9b44fe7dbf0bc45bc6044dd8babe12ea41911a77a",
+  "app_crosswalk_sha256": "d2b1152a4da317e9f4887b9f9ec87ff306b2f1fa6269122a89220c560deb9bfd",
+  "poc_source_manifest_sha256": "abc806809c87a76c4a3acc09863bc9fecebf43f88a2874c4eea47109708df686",
+  "bag_bbox_sha256": "00777f8745c6cca90c587d114f5f80edd993b1c5daf4311e0933ab42bf930b8f"
+ },
+ "mjop_app": {
+  "repository": "twandijkmans-afk/MJOP-App",
+  "default_branch": "claude/mjop-live-implementation-smz60g",
+  "commit": "fbe09d887244ab3ae3ddc83c6c32d9545ad34e34",
+  "quantity_sources_v1": "aanwezig (PR #2, merge fbe09d8)",
+  "bundle_rule": "src/quantity.js bundleEntries: een bundel met bag_pand_ids.length !== 1 wordt geweigerd ('De bundel gaat over N panden; de app werkt per pand.'); het pand moet gelijk zijn aan het pand van het plan.",
+  "dak_plat_auto_source": "src/app.js lookupBuilding: dak-plat gebruikt 3D BAG b3_opp_dak_plat van één pand (adres-lookup)"
+ },
+ "A_inputs": {
+  "source_manifest": "reports/quantity/facade_poc_v2_run/inputs/maldenhof_DOC-005-006/SOURCE.json",
+  "source_status": "EVIDENCE_SNAPSHOT_FOR_POC — geen canonical data",
+  "raw_files": 69,
+  "raw_files_sha256_ok": 69,
+  "bag_panden_in_scope": 15,
+  "vbo_count": 29,
+  "addresses_numbers": [
+   240,
+   242,
+   244,
+   246,
+   248,
+   250,
+   252,
+   254,
+   256,
+   258,
+   260,
+   262,
+   264,
+   266,
+   268,
+   270,
+   272,
+   274,
+   276,
+   278,
+   280,
+   282,
+   284,
+   286,
+   288,
+   290,
+   292,
+   294,
+   296
+  ],
+  "addresses_equal_even_240_296": true,
+  "even_numbers_in_range": 29,
+  "all_numbers_in_range": 57,
+  "panden_by_vbo_count": {
+   "1": 1,
+   "2": 14
+  },
+  "vbo_points_inside_own_pand_polygon": 29,
+  "other_candidate_panden_odd_side": [
+   "0363100012061310",
+   "0363100012063561",
+   "0363100012064674",
+   "0363100012065912",
+   "0363100012077783",
+   "0363100012077984",
+   "0363100012078472",
+   "0363100012081986",
+   "0363100012083986",
+   "0363100012084256",
+   "0363100012087184",
+   "0363100012100140",
+   "0363100012102257",
+   "0363100012105151",
+   "0363100012108812",
+   "0363100012123643",
+   "0363100012125929",
+   "0363100012129433",
+   "0363100012135143",
+   "0363100012137009",
+   "0363100012138208",
+   "0363100012148993",
+   "0363100012151715",
+   "0363100012152265",
+   "0363100012154610"
+  ],
+  "panden": [
+   {
+    "bag_pand_id": "0363100012070344",
+    "addresses": [
+     "Maldenhof 262",
+     "Maldenhof 264"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 262,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900051",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 74,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012070344__bag-vbo__77eef2d464cc.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 264,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900053",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012070344__bag-vbo__8d6c94e88b3b.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012070344__3dbag-pand__68384c3d1499.json",
+     "file_sha256": "68384c3d1499a0b7999f20cf012a666c96c875ce823346210eda5470d6dd181a",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "15bf298803c14b7003d391c2e54c452f3c23382199a49eee7e2e89699180c04e",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012071880",
+    "addresses": [
+     "Maldenhof 270",
+     "Maldenhof 272"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 270,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900058",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 101,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012071880__bag-vbo__e8b0ae4e294d.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 272,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900060",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 64,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012071880__bag-vbo__9ae1ae74edb0.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012071880__3dbag-pand__c52501c7f0b9.json",
+     "file_sha256": "c52501c7f0b9aad63e7aa89095a421a4b0ee4faee44e84ca03a38126f94a7943",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "834c881bbffbfbf9f3bf049ec0a7849861ba4cede29041a466897a95c15cbc82",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012078022",
+    "addresses": [
+     "Maldenhof 246",
+     "Maldenhof 248"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 246,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900035",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 101,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012078022__bag-vbo__34a7aa3e6e24.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 248,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900037",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012078022__bag-vbo__a333a575013f.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012078022__3dbag-pand__e8b3a98af628.json",
+     "file_sha256": "e8b3a98af6280e9663a6a02aee7fa1ac683dae6908d3eecbf3bd9d53204aa906",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "084f9b4d20f0d858da633ad2c11a7c044e64e89ca3a4286c9ec0b6d4f5502706",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012091756",
+    "addresses": [
+     "Maldenhof 278",
+     "Maldenhof 280"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 278,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900066",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 97,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012091756__bag-vbo__f944bc039f93.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 280,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900068",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012091756__bag-vbo__216a590c1ed8.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012091756__3dbag-pand__8c4b4b209f3f.json",
+     "file_sha256": "8c4b4b209f3f9c671f6534801bfe9e527862c30908ce9dbe458ee49f750c9fc3",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "27e73963f9b6ea224dab62571c50cafdedc044e7347c2870fbe7a959ebeb70a2",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012091974",
+    "addresses": [
+     "Maldenhof 258",
+     "Maldenhof 260"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 258,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900047",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012091974__bag-vbo__4ee9361b5c4b.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 260,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900049",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 101,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012091974__bag-vbo__d64ef2a8f081.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012091974__3dbag-pand__790c2c6ff28d.json",
+     "file_sha256": "790c2c6ff28daa8bc33baac127de28e8a099e55984e4c8875062c3a600d246ce",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "b9df5b9a9e8fb3940f8093c2168665a47fb628cf08e823aec8c1900245d0e7d4",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012102659",
+    "addresses": [
+     "Maldenhof 242",
+     "Maldenhof 244"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 242,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900031",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012102659__bag-vbo__fa378be3b7f5.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 244,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900033",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 74,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012102659__bag-vbo__77ca60346f41.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012102659__3dbag-pand__3d2fb2abcb74.json",
+     "file_sha256": "3d2fb2abcb7452e2518c8e5ad7f871615461263a5450a7eb2f800a72d283fa92",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "fa7b8d2d63a9330a50623473f0ff25252ac889ea280ecc4ae2b69f65e43b65b0",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012107492",
+    "addresses": [
+     "Maldenhof 266",
+     "Maldenhof 268"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 266,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900055",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012107492__bag-vbo__ce04d4f8d1aa.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 268,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900056",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 74,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012107492__bag-vbo__b3d747538cf3.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012107492__3dbag-pand__4c043f130add.json",
+     "file_sha256": "4c043f130adde815d38f07367468d400d9c717da7dcd03b98077c840fa847fa3",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "9725e741af3d6028f8bd5c425dfe31bb121c65dc1e33e7d6861d9f7b40002213",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012121455",
+    "addresses": [
+     "Maldenhof 286",
+     "Maldenhof 288"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 286,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900074",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 101,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012121455__bag-vbo__4e523307e36e.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 288,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900076",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012121455__bag-vbo__768a5e3cbaf7.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012121455__3dbag-pand__73fe6043cc9d.json",
+     "file_sha256": "73fe6043cc9d71264ea40a0c5d4050f80b0588559da97707832acc204cbc27f5",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "c6de0c1f92cbbeb17d356ded85c45c3bd164b6dd2223040577596aa7a5657435",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012127361",
+    "addresses": [
+     "Maldenhof 294",
+     "Maldenhof 296"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 294,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900082",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 79,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012127361__bag-vbo__c51342797b8f.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 296,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900084",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 65,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012127361__bag-vbo__da3fce6776b6.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012127361__3dbag-pand__056f45aedc27.json",
+     "file_sha256": "056f45aedc27e03d508f20f80edf5788d15a83368909268748f934cb1bdb7031",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "4e70427821a69cedb38e54200b08f21a7c6d60fb8cc112bd48aa3dba70355b43",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012134188",
+    "addresses": [
+     "Maldenhof 290",
+     "Maldenhof 292"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 290,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900078",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 65,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012134188__bag-vbo__c873298a700f.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 292,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900080",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 74,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012134188__bag-vbo__c07fbaf9fcdb.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012134188__3dbag-pand__b9835235be63.json",
+     "file_sha256": "b9835235be63086922f835fa14f16f0ccdd6da3a73fc1c47e76b30b3a8605396",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "1ea9c00abf62000e43206f942652b31aaf7452174dfd7c5dc342da8f1419f983",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012137996",
+    "addresses": [
+     "Maldenhof 240"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 240,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900029",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 71,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012137996__bag-vbo__29e51b018b6d.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 1,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012137996__3dbag-pand__6de26675b58d.json",
+     "file_sha256": "6de26675b58d90298ce1aac39e069cf614dd51753faa0f2340759512134125f2",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "b9b0309d9464214248a649b0ac94051b7228cd0e0db68741eb7092cc57c704ba",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012140664",
+    "addresses": [
+     "Maldenhof 250",
+     "Maldenhof 252"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 250,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900039",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012140664__bag-vbo__ebd95675a5a6.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 252,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900041",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 101,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012140664__bag-vbo__49a9b53b7d7a.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012140664__3dbag-pand__7fe9832d6fd6.json",
+     "file_sha256": "7fe9832d6fd6eea7b0b99180004905b960d6aa6d3cfd9b397e3cb088cdbecd8d",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "7a8cd9c99af7c9e7223ab0c2cc6ab8b0f28fbef402fde9ad6e50fecd254f4703",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012141419",
+    "addresses": [
+     "Maldenhof 254",
+     "Maldenhof 256"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 254,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900043",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 74,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012141419__bag-vbo__e7799220f199.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 256,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900045",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012141419__bag-vbo__0c5f1b6485f0.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012141419__3dbag-pand__179569dc06b2.json",
+     "file_sha256": "179569dc06b2cbe59216b3326da8ae22bbe3932f9580673650e1154aa8905c59",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "5b9129611f20d9b83dbefa270baa213680ddc3dd15c938149a5fd7f1f8bb8af6",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012143647",
+    "addresses": [
+     "Maldenhof 282",
+     "Maldenhof 284"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 282,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900070",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012143647__bag-vbo__e0a2198a45bd.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 284,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900072",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 101,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012143647__bag-vbo__0e1dd89cfd88.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012143647__3dbag-pand__6e03518cbd8e.json",
+     "file_sha256": "6e03518cbd8e81e0b833c74bdd97fccfcfb4db5254b972b0456397812ea95e67",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "a1502488ff711efca10bedf87b6ff68a4fae039129d23ea924ca869c4234644d",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   },
+   {
+    "bag_pand_id": "0363100012144766",
+    "addresses": [
+     "Maldenhof 274",
+     "Maldenhof 276"
+    ],
+    "vbo": [
+     {
+      "huisnummer": 274,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900062",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 57,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012144766__bag-vbo__db5781e490c3.json",
+      "raw_sha256_ok": true
+     },
+     {
+      "huisnummer": 276,
+      "huisletter": null,
+      "toevoeging": null,
+      "postcode": "1106EZ",
+      "vbo_id": "0363010000900064",
+      "status": "Verblijfsobject in gebruik",
+      "gebruiksdoel": "woonfunctie",
+      "oppervlakte_m2": 74,
+      "point_in_bag_pand_polygon": true,
+      "raw_file": "raw/pdok/bag-pand-0363100012144766__bag-vbo__aef9e8adb620.json",
+      "raw_sha256_ok": true
+     }
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "threedbag": {
+     "raw_file": "raw/3dbag/bag-pand-0363100012144766__3dbag-pand__36b7a2a8e393.json",
+     "file_sha256": "36b7a2a8e393cf8650256fee7f8ec9bcf499c2b39d28a697a9d026dae8946617",
+     "file_sha256_ok": true,
+     "canonical_sha256_bag_snapshot_convention": "bd76fe80e459b29ae0e26e5fa65c21c39b4172a42018ea42ec65c2abe33281c9",
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT",
+     "has_attributes": true
+    }
+   }
+  ],
+  "canonical_snapshot_contract": "bag_snapshot_v1 (scripts/bag_snapshots.py)",
+  "contract_mismatches": [
+   {
+    "field": "requests[] + raw PDOK Locatieserver 'free' respons",
+    "canonical": "verplicht (bag_snapshot_v1: elke request + ruwe respons, exacte adresmatch)",
+    "poc_snapshot": "ontbreekt (adressen staan alleen als afgeleide lijst addresses_found)"
+   },
+   {
+    "field": "BAG OGC pand-items per adrespunt (bbox rond het adres) + punt-in-polygoon",
+    "canonical": "verplicht; bepaalt welke panden kandidaat zijn",
+    "poc_snapshot": "niet per adres; wel één bbox-respons rond het hele complex (bag_panden_bbox.json, zonder request-URL/sha in een snapshot)"
+   },
+   {
+    "field": "3D BAG-respons per pand",
+    "canonical": "ruwe respons + canonical_sha256 + url + fetched_at + api_version",
+    "poc_snapshot": "ruwe respons + bestands-sha256 (andere hash-conventie); fetched_at en url niet vastgelegd op main"
+   },
+   {
+    "field": "snapshot_id (BAGSNAP-…)",
+    "canonical": "content-addressed per (document, adres-query)",
+    "poc_snapshot": "geen; één snapshot voor het hele complex en beide documenten"
+   },
+   {
+    "field": "document_id",
+    "canonical": "één document per snapshot",
+    "poc_snapshot": "groep DOC-005-006"
+   }
+  ],
+  "verdict": "NOT_FEEDABLE_OFFLINE_INTO_CANONICAL_PIPELINE",
+  "verdict_reason": "De PoC-inputs bevatten 3D BAG en VBO's met sha256, maar niet de PDOK-adresrespons en de BAG-pandrespons per adres die bag_snapshot_v1 vereist. Een BAGSNAP samenstellen uit andere queries zou de opvraagketen veinzen; dat is niet gedaan. Er is geen adapter naar data/ geschreven en geen tweede snapshotsysteem gemaakt."
+ },
+ "A_context_panden_without_vbo": {
+  "note": "Context, geen kandidaat en geen evidence. BAG-panden zonder verblijfsobject binnen 2 m van de 15 panden (bron: bag_panden_bbox.json). Het MJOP sluit 'tuinopstallen' en 'aan-, uit- en/of dakopbouwen' als bewonerseigen uit (DOC-005 p.3).",
+  "panden_without_vbo_within_2m": [
+   {
+    "bag_pand_id": "0363100012234482",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "1.02"
+   },
+   {
+    "bag_pand_id": "0363100012234483",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "4.9",
+    "distance_to_scope_m": "1.02"
+   },
+   {
+    "bag_pand_id": "0363100012234484",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.5",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234485",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.5",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234486",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "1.02"
+   },
+   {
+    "bag_pand_id": "0363100012234487",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "1.01"
+   },
+   {
+    "bag_pand_id": "0363100012234488",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.5",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234489",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "4.9",
+    "distance_to_scope_m": "1.01"
+   },
+   {
+    "bag_pand_id": "0363100012234490",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "4.9",
+    "distance_to_scope_m": "1.01"
+   },
+   {
+    "bag_pand_id": "0363100012234491",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.4",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234492",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "0.99"
+   },
+   {
+    "bag_pand_id": "0363100012234493",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "0.99"
+   },
+   {
+    "bag_pand_id": "0363100012234494",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "0.97"
+   },
+   {
+    "bag_pand_id": "0363100012234495",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "0.97"
+   },
+   {
+    "bag_pand_id": "0363100012234496",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.5",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234497",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.5",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234498",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "1.0"
+   },
+   {
+    "bag_pand_id": "0363100012234499",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "4.9",
+    "distance_to_scope_m": "0.97"
+   },
+   {
+    "bag_pand_id": "0363100012234500",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "0.96"
+   },
+   {
+    "bag_pand_id": "0363100012234565",
+    "status": "Pand gesloopt",
+    "bouwjaar": 1981,
+    "footprint_m2": "3.4",
+    "distance_to_scope_m": "0.03"
+   },
+   {
+    "bag_pand_id": "0363100012234566",
+    "status": "Pand in gebruik",
+    "bouwjaar": 1981,
+    "footprint_m2": "5.0",
+    "distance_to_scope_m": "1.01"
+   }
+  ],
+  "in_use": 14,
+  "in_use_footprint_m2_sum_informative": "69.6"
+ },
+ "B_building_link_review": {
+  "lookup_plan_numbers": [
+   "240",
+   "296"
+  ],
+  "panden_reachable_via_canonical_lookup": [
+   "0363100012127361",
+   "0363100012137996"
+  ],
+  "rows": [
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012070344",
+    "vbo_addresses": [
+     "Maldenhof 262",
+     "Maldenhof 264"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012070344__bag-vbo__77eef2d464cc.json",
+      "raw/pdok/bag-pand-0363100012070344__bag-vbo__8d6c94e88b3b.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012070344__3dbag-pand__68384c3d1499.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 262, 264 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012070344",
+    "vbo_addresses": [
+     "Maldenhof 262",
+     "Maldenhof 264"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012070344__bag-vbo__77eef2d464cc.json",
+      "raw/pdok/bag-pand-0363100012070344__bag-vbo__8d6c94e88b3b.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012070344__3dbag-pand__68384c3d1499.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 262, 264 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012071880",
+    "vbo_addresses": [
+     "Maldenhof 270",
+     "Maldenhof 272"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012071880__bag-vbo__e8b0ae4e294d.json",
+      "raw/pdok/bag-pand-0363100012071880__bag-vbo__9ae1ae74edb0.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012071880__3dbag-pand__c52501c7f0b9.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 270, 272 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012071880",
+    "vbo_addresses": [
+     "Maldenhof 270",
+     "Maldenhof 272"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012071880__bag-vbo__e8b0ae4e294d.json",
+      "raw/pdok/bag-pand-0363100012071880__bag-vbo__9ae1ae74edb0.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012071880__3dbag-pand__c52501c7f0b9.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 270, 272 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012078022",
+    "vbo_addresses": [
+     "Maldenhof 246",
+     "Maldenhof 248"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012078022__bag-vbo__34a7aa3e6e24.json",
+      "raw/pdok/bag-pand-0363100012078022__bag-vbo__a333a575013f.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012078022__3dbag-pand__e8b3a98af628.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 246, 248 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012078022",
+    "vbo_addresses": [
+     "Maldenhof 246",
+     "Maldenhof 248"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012078022__bag-vbo__34a7aa3e6e24.json",
+      "raw/pdok/bag-pand-0363100012078022__bag-vbo__a333a575013f.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012078022__3dbag-pand__e8b3a98af628.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 246, 248 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012091756",
+    "vbo_addresses": [
+     "Maldenhof 278",
+     "Maldenhof 280"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012091756__bag-vbo__f944bc039f93.json",
+      "raw/pdok/bag-pand-0363100012091756__bag-vbo__216a590c1ed8.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012091756__3dbag-pand__8c4b4b209f3f.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 278, 280 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012091756",
+    "vbo_addresses": [
+     "Maldenhof 278",
+     "Maldenhof 280"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012091756__bag-vbo__f944bc039f93.json",
+      "raw/pdok/bag-pand-0363100012091756__bag-vbo__216a590c1ed8.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012091756__3dbag-pand__8c4b4b209f3f.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 278, 280 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012091974",
+    "vbo_addresses": [
+     "Maldenhof 258",
+     "Maldenhof 260"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012091974__bag-vbo__4ee9361b5c4b.json",
+      "raw/pdok/bag-pand-0363100012091974__bag-vbo__d64ef2a8f081.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012091974__3dbag-pand__790c2c6ff28d.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 258, 260 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012091974",
+    "vbo_addresses": [
+     "Maldenhof 258",
+     "Maldenhof 260"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012091974__bag-vbo__4ee9361b5c4b.json",
+      "raw/pdok/bag-pand-0363100012091974__bag-vbo__d64ef2a8f081.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012091974__3dbag-pand__790c2c6ff28d.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 258, 260 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012102659",
+    "vbo_addresses": [
+     "Maldenhof 242",
+     "Maldenhof 244"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012102659__bag-vbo__fa378be3b7f5.json",
+      "raw/pdok/bag-pand-0363100012102659__bag-vbo__77ca60346f41.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012102659__3dbag-pand__3d2fb2abcb74.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 242, 244 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012102659",
+    "vbo_addresses": [
+     "Maldenhof 242",
+     "Maldenhof 244"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012102659__bag-vbo__fa378be3b7f5.json",
+      "raw/pdok/bag-pand-0363100012102659__bag-vbo__77ca60346f41.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012102659__3dbag-pand__3d2fb2abcb74.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 242, 244 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012107492",
+    "vbo_addresses": [
+     "Maldenhof 266",
+     "Maldenhof 268"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012107492__bag-vbo__ce04d4f8d1aa.json",
+      "raw/pdok/bag-pand-0363100012107492__bag-vbo__b3d747538cf3.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012107492__3dbag-pand__4c043f130add.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 266, 268 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012107492",
+    "vbo_addresses": [
+     "Maldenhof 266",
+     "Maldenhof 268"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012107492__bag-vbo__ce04d4f8d1aa.json",
+      "raw/pdok/bag-pand-0363100012107492__bag-vbo__b3d747538cf3.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012107492__3dbag-pand__4c043f130add.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 266, 268 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012121455",
+    "vbo_addresses": [
+     "Maldenhof 286",
+     "Maldenhof 288"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012121455__bag-vbo__4e523307e36e.json",
+      "raw/pdok/bag-pand-0363100012121455__bag-vbo__768a5e3cbaf7.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012121455__3dbag-pand__73fe6043cc9d.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 286, 288 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012121455",
+    "vbo_addresses": [
+     "Maldenhof 286",
+     "Maldenhof 288"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012121455__bag-vbo__4e523307e36e.json",
+      "raw/pdok/bag-pand-0363100012121455__bag-vbo__768a5e3cbaf7.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012121455__3dbag-pand__73fe6043cc9d.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 286, 288 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012127361",
+    "vbo_addresses": [
+     "Maldenhof 294",
+     "Maldenhof 296"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012127361__bag-vbo__c51342797b8f.json",
+      "raw/pdok/bag-pand-0363100012127361__bag-vbo__da3fce6776b6.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012127361__3dbag-pand__056f45aedc27.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 294, 296 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012127361",
+    "vbo_addresses": [
+     "Maldenhof 294",
+     "Maldenhof 296"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012127361__bag-vbo__c51342797b8f.json",
+      "raw/pdok/bag-pand-0363100012127361__bag-vbo__da3fce6776b6.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012127361__3dbag-pand__056f45aedc27.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 294, 296 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012134188",
+    "vbo_addresses": [
+     "Maldenhof 290",
+     "Maldenhof 292"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012134188__bag-vbo__c873298a700f.json",
+      "raw/pdok/bag-pand-0363100012134188__bag-vbo__c07fbaf9fcdb.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012134188__3dbag-pand__b9835235be63.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 290, 292 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012134188",
+    "vbo_addresses": [
+     "Maldenhof 290",
+     "Maldenhof 292"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012134188__bag-vbo__c873298a700f.json",
+      "raw/pdok/bag-pand-0363100012134188__bag-vbo__c07fbaf9fcdb.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012134188__3dbag-pand__b9835235be63.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 290, 292 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012137996",
+    "vbo_addresses": [
+     "Maldenhof 240"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 1,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012137996__bag-vbo__29e51b018b6d.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012137996__3dbag-pand__6de26675b58d.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 240 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "1/1 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012137996",
+    "vbo_addresses": [
+     "Maldenhof 240"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 1,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012137996__bag-vbo__29e51b018b6d.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012137996__3dbag-pand__6de26675b58d.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 240 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "1/1 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012140664",
+    "vbo_addresses": [
+     "Maldenhof 250",
+     "Maldenhof 252"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012140664__bag-vbo__ebd95675a5a6.json",
+      "raw/pdok/bag-pand-0363100012140664__bag-vbo__49a9b53b7d7a.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012140664__3dbag-pand__7fe9832d6fd6.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 250, 252 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012140664",
+    "vbo_addresses": [
+     "Maldenhof 250",
+     "Maldenhof 252"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012140664__bag-vbo__ebd95675a5a6.json",
+      "raw/pdok/bag-pand-0363100012140664__bag-vbo__49a9b53b7d7a.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012140664__3dbag-pand__7fe9832d6fd6.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 250, 252 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012141419",
+    "vbo_addresses": [
+     "Maldenhof 254",
+     "Maldenhof 256"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012141419__bag-vbo__e7799220f199.json",
+      "raw/pdok/bag-pand-0363100012141419__bag-vbo__0c5f1b6485f0.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012141419__3dbag-pand__179569dc06b2.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 254, 256 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012141419",
+    "vbo_addresses": [
+     "Maldenhof 254",
+     "Maldenhof 256"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012141419__bag-vbo__e7799220f199.json",
+      "raw/pdok/bag-pand-0363100012141419__bag-vbo__0c5f1b6485f0.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012141419__3dbag-pand__179569dc06b2.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 254, 256 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012143647",
+    "vbo_addresses": [
+     "Maldenhof 282",
+     "Maldenhof 284"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012143647__bag-vbo__e0a2198a45bd.json",
+      "raw/pdok/bag-pand-0363100012143647__bag-vbo__0e1dd89cfd88.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012143647__3dbag-pand__6e03518cbd8e.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 282, 284 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012143647",
+    "vbo_addresses": [
+     "Maldenhof 282",
+     "Maldenhof 284"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012143647__bag-vbo__e0a2198a45bd.json",
+      "raw/pdok/bag-pand-0363100012143647__bag-vbo__0e1dd89cfd88.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012143647__3dbag-pand__6e03518cbd8e.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 282, 284 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-005",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012144766",
+    "vbo_addresses": [
+     "Maldenhof 274",
+     "Maldenhof 276"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012144766__bag-vbo__db5781e490c3.json",
+      "raw/pdok/bag-pand-0363100012144766__bag-vbo__aef9e8adb620.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012144766__3dbag-pand__36b7a2a8e393.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-006"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 274, 276 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "document_id": "DOC-006",
+    "address_as_stated": "Maldenhof 240 - 296",
+    "postcode": "1106 EZ",
+    "address_provenance": {
+     "block_id": "P02-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.object.Adres",
+     "page": 2,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "Adres Maldenhof 240 - 296"
+    },
+    "bag_pand_id": "0363100012144766",
+    "vbo_addresses": [
+     "Maldenhof 274",
+     "Maldenhof 276"
+    ],
+    "bag_properties": {
+     "status": "Pand in gebruik",
+     "bouwjaar": 1981,
+     "aantal_verblijfsobjecten": 2,
+     "gebruiksdoel": "woonfunctie"
+    },
+    "provenance": {
+     "vbo_raw_files": [
+      "raw/pdok/bag-pand-0363100012144766__bag-vbo__db5781e490c3.json",
+      "raw/pdok/bag-pand-0363100012144766__bag-vbo__aef9e8adb620.json"
+     ],
+     "threedbag_raw_file": "raw/3dbag/bag-pand-0363100012144766__3dbag-pand__36b7a2a8e393.json",
+     "sha256_ok": true,
+     "fetched_at": "NOT_RECORDED_IN_MAIN_SNAPSHOT"
+    },
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "document_relations": [
+     {
+      "relation_id": "DREL-002",
+      "type": "version_of_same_mjop",
+      "other_document_id": "DOC-005"
+     },
+     {
+      "relation_id": "DREL-005",
+      "type": "duplicate_source",
+      "other_document_id": "DOC-014"
+     }
+    ],
+    "within_scope_assessment": "LIKELY_IN_SCOPE",
+    "why": [
+     "huisnummers 274, 276 liggen in 'Maldenhof 240 - 296' (even)",
+     "postcode VBO 1106EZ = documentpostcode 1106 EZ",
+     "2/2 VBO-punten liggen in de BAG-polygoon van dit pand"
+    ],
+    "ambiguity": [
+     "ADDRESS_RANGE: het document noemt geen even/oneven; 29 eenheden (DOC p.2) = het aantal even nummers 240–296",
+     "NOT_REACHABLE_VIA_CANONICAL_LOOKUP_PLAN: building_links.lookup_plan vraagt alleen 240 en 296 op; dit pand wordt via bag_snapshots.py geen kandidaat en 'record' weigert het",
+     "MULTIPLE_ADDRESSES_IN_PAND: 2 VBO's (woningindeling niet bevestigd)"
+    ],
+    "link_status": "UNREVIEWED"
+   }
+  ],
+  "odd_side_context": [
+   {
+    "bag_pand_id": "0363100012061310",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012063561",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012064674",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012065912",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012077783",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012077984",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012078472",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012081986",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012083986",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012084256",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012087184",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012100140",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012102257",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012105151",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012108812",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012123643",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012125929",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012129433",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012135143",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012137009",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012138208",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012148993",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012151715",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012152265",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   },
+   {
+    "bag_pand_id": "0363100012154610",
+    "within_scope_assessment": "LIKELY_OUT_OF_SCOPE",
+    "why": "kandidaat in de ALL_NUMBERS-hypothese (oneven zijde); 29 eenheden passen bij alleen de even nummers",
+    "vbo_addresses": "NOT_IN_MAIN_SNAPSHOT",
+    "link_status": "UNREVIEWED"
+   }
+  ],
+  "note": "Geen link is CONFIRMED of REJECTED. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat."
+ },
+ "C_historical_quantities": {
+  "rows": [
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-001",
+    "document_id": "DOC-005",
+    "element_code": "2110",
+    "description": "Gevelconstructie metselwerk",
+    "location": "Alle gevels",
+    "value": "1631.90",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-001"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2110 Gevelconstructie metselwerk Alle gevels 1631,90m2 2",
+    "comparability_vs_3dbag": {
+     "class": "NOT_COMPARABLE",
+     "reason": "2110 'Gevelconstructie metselwerk' is netto metselwerk (en per gevel/locatie); 3D BAG b3_opp_buitenmuur is bruto buitenmuur incl. openingen en ander gevelmateriaal. Semantisch niet hetzelfde onderwerp.",
+     "subject_key": "OUTER_WALL_GROSS_AREA"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-002",
+    "document_id": "DOC-005",
+    "element_code": "2110",
+    "description": "Loodslabben opgaand werk",
+    "location": "Platte dak",
+    "value": "1.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "REVIEW_REQUIRED",
+    "review_reasons": [
+     "QUANTITY_ONE_IN_MEASURED_UNIT"
+    ],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-002"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2110 Loodslabben opgaand werk Platte dak 1,00m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-003",
+    "document_id": "DOC-005",
+    "element_code": "2110",
+    "description": "Dilatatie kitvoeg",
+    "location": "Alle gevels",
+    "value": "10.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-003"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2110 Dilatatie kitvoeg Alle gevels 10,00m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-004",
+    "document_id": "DOC-005",
+    "element_code": "2716",
+    "description": "Dakgoot zink",
+    "location": "Alle gevels",
+    "value": "165.80",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-004"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2716 Dakgoot zink Alle gevels 165,80m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-005",
+    "document_id": "DOC-005",
+    "element_code": "3120",
+    "description": "Betonband/latei",
+    "location": "Alle gevels",
+    "value": "196.30",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-005"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3120 Betonband/latei Alle gevels 196,30m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-006",
+    "document_id": "DOC-005",
+    "element_code": "3120",
+    "description": "Raamdorpel gres/ijzerklinker",
+    "location": "Alle gevels",
+    "value": "281.20",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-006"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3120 Raamdorpel gres/ijzerklinker Alle gevels 281,20m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-007",
+    "document_id": "DOC-005",
+    "element_code": "3120",
+    "description": "Kozijn buiten hout",
+    "location": "Alle gevels",
+    "value": "756.80",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "REVIEW_REQUIRED",
+    "review_reasons": [
+     "AMBIGUOUS_QUANTITY_KIND_UNIT_MISMATCH"
+    ],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-007"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": [
+     "NOT_GROUND_TRUTH / NOT_VALIDATED_FOR_ACCURACY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-008",
+    "document_id": "DOC-005",
+    "element_code": "3410",
+    "description": "Balustrade afdekking beton",
+    "location": "Achtergevel - balkons",
+    "value": "59.10",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-008"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3410 Balustrade afdekking beton Achtergevel - balkons 59,10m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-009",
+    "document_id": "DOC-005",
+    "element_code": "3410",
+    "description": "Balustrade staal",
+    "location": "Achtergevel - balkons",
+    "value": "20.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-009"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3410 Balustrade staal Achtergevel - balkons 20,00m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-010",
+    "document_id": "DOC-005",
+    "element_code": "3420",
+    "description": "Leuning staal",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "42.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-010"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3420 Leuning staal Voorgevel - trappenhuizen 42,00m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-011",
+    "document_id": "DOC-005",
+    "element_code": "4111",
+    "description": "Gevelafwerking voegwerk platvol",
+    "location": "Alle gevels",
+    "value": "1631.90",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-011"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4111 Gevelafwerking voegwerk platvol Alle gevels 1631,90m2 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-012",
+    "document_id": "DOC-005",
+    "element_code": "4112",
+    "description": "Gevelbekleding hout",
+    "location": "Voorgevel - gevelbekleding",
+    "value": "332.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-012"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4112 Gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-013",
+    "document_id": "DOC-005",
+    "element_code": "4322",
+    "description": "Balkon afwerking betontegels",
+    "location": "Achtergevel - balkons",
+    "value": "49.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-013"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4322 Balkon afwerking betontegels Achtergevel - balkons 49,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-014",
+    "document_id": "DOC-005",
+    "element_code": "4511",
+    "description": "Plafondafwerking multiplex",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "85.70",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-014"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4511 Plafondafwerking multiplex Voorgevel - trappenhuizen 85,70m2 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-015",
+    "document_id": "DOC-005",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk gevelbekleding hout",
+    "location": "Voorgevel - gevelbekleding",
+    "value": "332.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-015"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-016",
+    "document_id": "DOC-005",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk balustrades staal",
+    "location": "Achtergevel - balkons",
+    "value": "75.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [],
+    "identical_in": [],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk balustrades staal Achtergevel - balkons 75,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-017",
+    "document_id": "DOC-005",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk leuning staal",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "61.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "DIFFERS_FROM_RELATED_DOCUMENT"
+    ],
+    "identical_in": [],
+    "differs_in": [
+     "QO-DOC-006-EL-017"
+    ],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk leuning staal Voorgevel - trappenhuizen 61,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-018",
+    "document_id": "DOC-005",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk metselwerk",
+    "location": "Achtergevel - balkons",
+    "value": "34.90",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-018"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk metselwerk Achtergevel - balkons 34,90m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-019",
+    "document_id": "DOC-005",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk (beton) trappen coating (polyurethaan)",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "80.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "DIFFERS_FROM_RELATED_DOCUMENT"
+    ],
+    "identical_in": [],
+    "differs_in": [
+     "QO-DOC-006-EL-019"
+    ],
+    "page": 7,
+    "text_fragment": "4623 Buitenschilderwerk (beton) trappen coating Voorgevel - trappenhuizen 80,00m2 1\n(polyurethaan)",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-020",
+    "document_id": "DOC-005",
+    "element_code": "4628",
+    "description": "Buitenschilderwerk afdekking beton",
+    "location": "Achtergevel - balkons",
+    "value": "59.10",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-020"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4628 Buitenschilderwerk afdekking beton Achtergevel - balkons 59,10m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-021",
+    "document_id": "DOC-005",
+    "element_code": "4628",
+    "description": "Buitenschilderwerk betonlateien",
+    "location": "Alle gevels",
+    "value": "196.30",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-021"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4628 Buitenschilderwerk betonlateien Alle gevels 196,30m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-022",
+    "document_id": "DOC-005",
+    "element_code": "4631",
+    "description": "Buitenschilderwerk kozijn hout dekkend",
+    "location": "Alle gevels",
+    "value": "756.80",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-022"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4631 Buitenschilderwerk kozijn hout dekkend Alle gevels 756,80m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": [
+     "NOT_GROUND_TRUTH / NOT_VALIDATED_FOR_ACCURACY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-023",
+    "document_id": "DOC-005",
+    "element_code": "4645",
+    "description": "Buitenschilderwerk betonconstructie plafond",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "50.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-023"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4645 Buitenschilderwerk betonconstructie plafond Voorgevel - trappenhuizen 50,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-024",
+    "document_id": "DOC-005",
+    "element_code": "4645",
+    "description": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "105.08",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "DIFFERS_FROM_RELATED_DOCUMENT"
+    ],
+    "identical_in": [],
+    "differs_in": [
+     "QO-DOC-006-EL-024"
+    ],
+    "page": 7,
+    "text_fragment": "4645 Binnenschilderwerk plafond hout (multiplex) Voorgevel - trappenhuizen 105,08m2 1\ndekkend",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-025",
+    "document_id": "DOC-005",
+    "element_code": "4711",
+    "description": "Dakbedekking APP",
+    "location": "Platte dak",
+    "value": "425.80",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-025"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3",
+    "comparability_vs_3dbag": {
+     "class": "COMPARABLE_CANDIDATE",
+     "mapping_id": "HSM-ROOF_FLAT_AREA-4711-m2",
+     "subject_key": "ROOF_FLAT_AREA"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-026",
+    "document_id": "DOC-005",
+    "element_code": "4711",
+    "description": "Dakrandafwerking zink",
+    "location": "Alle gevels",
+    "value": "70.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-026"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4711 Dakrandafwerking zink Alle gevels 70,00m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-027",
+    "document_id": "DOC-005",
+    "element_code": "4712",
+    "description": "Dakpan beton",
+    "location": "Hellend dak",
+    "value": "1485.60",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-027"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3",
+    "comparability_vs_3dbag": {
+     "class": "COMPARABLE_CANDIDATE",
+     "mapping_id": "HSM-ROOF_SLOPED_AREA-4712-m2",
+     "subject_key": "ROOF_SLOPED_AREA"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-028",
+    "document_id": "DOC-005",
+    "element_code": "5124",
+    "description": "Schoorsteen aluminium",
+    "location": "Hellend dak",
+    "value": "14.00",
+    "unit": "piece",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-028"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "5124 Schoorsteen aluminium Hellend dak 14,00st 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-029",
+    "document_id": "DOC-005",
+    "element_code": "5211",
+    "description": "Hemelwaterafvoer staal",
+    "location": "Alle gevels",
+    "value": "41.40",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-029"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-030",
+    "document_id": "DOC-005",
+    "element_code": "5211",
+    "description": "Hemelwaterafvoer pvc",
+    "location": "Alle gevels",
+    "value": "91.60",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-030"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 3",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-031",
+    "document_id": "DOC-005",
+    "element_code": "6311",
+    "description": "Elektra armaturen buiten LED",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "1.00",
+    "unit": "piece",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-031"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "6311 Elektra armaturen buiten LED Voorgevel - trappenhuizen 1,00st 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-032",
+    "document_id": "DOC-005",
+    "element_code": "6710",
+    "description": "Valbeveiliging algemeen",
+    "location": "Platte dak",
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-032"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "6710 Valbeveiliging algemeen Platte dak 1,00pst 1",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-033",
+    "document_id": "DOC-005",
+    "element_code": "9041",
+    "description": "Betontegels",
+    "location": "Terrein",
+    "value": "200.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-033"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9041 Betontegels Terrein 200,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-034",
+    "document_id": "DOC-005",
+    "element_code": "9999",
+    "description": "Herinspectie / actualisatie MJOP",
+    "location": null,
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-034"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9999 Herinspectie / actualisatie MJOP 1,00pst 8",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-035",
+    "document_id": "DOC-005",
+    "element_code": "9999",
+    "description": "Inspectie conditie dak",
+    "location": null,
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY"
+    ],
+    "identical_in": [],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9999 Inspectie conditie dak 1,00pst 8",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-036",
+    "document_id": "DOC-005",
+    "element_code": "9999",
+    "description": "Bereikbaarheidskosten",
+    "location": null,
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-006-EL-035"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9999 Bereikbaarheidskosten 1,00pst 0",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-001",
+    "document_id": "DOC-006",
+    "element_code": "2110",
+    "description": "Gevelconstructie metselwerk",
+    "location": "Alle gevels",
+    "value": "1631.90",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-001"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2110 Gevelconstructie metselwerk Alle gevels 1631,90m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NOT_COMPARABLE",
+     "reason": "2110 'Gevelconstructie metselwerk' is netto metselwerk (en per gevel/locatie); 3D BAG b3_opp_buitenmuur is bruto buitenmuur incl. openingen en ander gevelmateriaal. Semantisch niet hetzelfde onderwerp.",
+     "subject_key": "OUTER_WALL_GROSS_AREA"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-002",
+    "document_id": "DOC-006",
+    "element_code": "2110",
+    "description": "Loodslabben opgaand werk",
+    "location": "Platte dak",
+    "value": "1.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "REVIEW_REQUIRED",
+    "review_reasons": [
+     "QUANTITY_ONE_IN_MEASURED_UNIT"
+    ],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-002"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2110 Loodslabben opgaand werk Platte dak 1,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-003",
+    "document_id": "DOC-006",
+    "element_code": "2110",
+    "description": "Dilatatie kitvoeg",
+    "location": "Alle gevels",
+    "value": "10.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-003"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2110 Dilatatie kitvoeg Alle gevels 10,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-004",
+    "document_id": "DOC-006",
+    "element_code": "2716",
+    "description": "Dakgoot zink",
+    "location": "Alle gevels",
+    "value": "165.80",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-004"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "2716 Dakgoot zink Alle gevels 165,80m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-005",
+    "document_id": "DOC-006",
+    "element_code": "3120",
+    "description": "Betonband/latei",
+    "location": "Alle gevels",
+    "value": "196.30",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-005"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3120 Betonband/latei Alle gevels 196,30m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-006",
+    "document_id": "DOC-006",
+    "element_code": "3120",
+    "description": "Raamdorpel gres/ijzerklinker",
+    "location": "Alle gevels",
+    "value": "281.20",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-006"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3120 Raamdorpel gres/ijzerklinker Alle gevels 281,20m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-007",
+    "document_id": "DOC-006",
+    "element_code": "3120",
+    "description": "Kozijn buiten hout",
+    "location": "Alle gevels",
+    "value": "756.80",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-007"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": [
+     "NOT_GROUND_TRUTH / NOT_VALIDATED_FOR_ACCURACY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-008",
+    "document_id": "DOC-006",
+    "element_code": "3410",
+    "description": "Balustrade afdekking beton",
+    "location": "Achtergevel - balkons",
+    "value": "59.10",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "BLOCK_ID_MISSING",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-008"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3410 Balustrade afdekking beton Achtergevel - balkons 59,10 m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-009",
+    "document_id": "DOC-006",
+    "element_code": "3410",
+    "description": "Balustrade staal",
+    "location": "Achtergevel - balkons",
+    "value": "20.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-009"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3410 Balustrade staal Achtergevel - balkons 20,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-010",
+    "document_id": "DOC-006",
+    "element_code": "3420",
+    "description": "Leuning staal",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "42.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-010"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "3420 Leuning staal Voorgevel - trappenhuizen 42,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-011",
+    "document_id": "DOC-006",
+    "element_code": "4111",
+    "description": "Gevelafwerking voegwerk platvol",
+    "location": "Alle gevels",
+    "value": "1631.90",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-011"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4111 Gevelafwerking voegwerk platvol Alle gevels 1631,90m2 2",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-012",
+    "document_id": "DOC-006",
+    "element_code": "4112",
+    "description": "Gevelbekleding hout",
+    "location": "Voorgevel - gevelbekleding",
+    "value": "332.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-012"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4112 Gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-013",
+    "document_id": "DOC-006",
+    "element_code": "4322",
+    "description": "Balkon afwerking betontegels",
+    "location": "Achtergevel - balkons",
+    "value": "49.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-013"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4322 Balkon afwerking betontegels Achtergevel - balkons 49,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-014",
+    "document_id": "DOC-006",
+    "element_code": "4511",
+    "description": "Plafondafwerking multiplex",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "85.70",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-014"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4511 Plafondafwerking multiplex Voorgevel - trappenhuizen 85,70m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-015",
+    "document_id": "DOC-006",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk gevelbekleding hout",
+    "location": "Voorgevel - gevelbekleding",
+    "value": "332.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-015"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 3",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-016",
+    "document_id": "DOC-006",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk balustrades staal",
+    "location": "Achtergevel - balkons",
+    "value": "20.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [],
+    "identical_in": [],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk balustrades staal Achtergevel - balkons 20,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-017",
+    "document_id": "DOC-006",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk leuning staal",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "42.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "DIFFERS_FROM_RELATED_DOCUMENT"
+    ],
+    "identical_in": [],
+    "differs_in": [
+     "QO-DOC-005-EL-017"
+    ],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk leuning staal Voorgevel - trappenhuizen 42,00m1 3",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-018",
+    "document_id": "DOC-006",
+    "element_code": "4621",
+    "description": "Buitenschilderwerk metselwerk",
+    "location": "Achtergevel - balkons",
+    "value": "34.90",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-018"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4621 Buitenschilderwerk metselwerk Achtergevel - balkons 34,90m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-019",
+    "document_id": "DOC-006",
+    "element_code": "4623",
+    "description": "Buitenschilderwerk (beton) trappen coating (polyurethaan)",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "62.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "DIFFERS_FROM_RELATED_DOCUMENT"
+    ],
+    "identical_in": [],
+    "differs_in": [
+     "QO-DOC-005-EL-019"
+    ],
+    "page": 6,
+    "text_fragment": "4623 Buitenschilderwerk (beton) trappen coating Voorgevel - trappenhuizen 62,00m2 3\n(polyurethaan)",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-020",
+    "document_id": "DOC-006",
+    "element_code": "4628",
+    "description": "Buitenschilderwerk afdekking beton",
+    "location": "Achtergevel - balkons",
+    "value": "59.10",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-020"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4628 Buitenschilderwerk afdekking beton Achtergevel - balkons 59,10m1 3",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-021",
+    "document_id": "DOC-006",
+    "element_code": "4628",
+    "description": "Buitenschilderwerk betonlateien",
+    "location": "Alle gevels",
+    "value": "196.30",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-021"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4628 Buitenschilderwerk betonlateien Alle gevels 196,30m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-022",
+    "document_id": "DOC-006",
+    "element_code": "4631",
+    "description": "Buitenschilderwerk kozijn hout dekkend",
+    "location": "Alle gevels",
+    "value": "756.80",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-022"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4631 Buitenschilderwerk kozijn hout dekkend Alle gevels 756,80m2 3",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": [
+     "NOT_GROUND_TRUTH / NOT_VALIDATED_FOR_ACCURACY"
+    ]
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-023",
+    "document_id": "DOC-006",
+    "element_code": "4645",
+    "description": "Buitenschilderwerk betonconstructie plafond",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "50.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-023"
+    ],
+    "differs_in": [],
+    "page": 6,
+    "text_fragment": "4645 Buitenschilderwerk betonconstructie plafond Voorgevel - trappenhuizen 50,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-024",
+    "document_id": "DOC-006",
+    "element_code": "4645",
+    "description": "Binnenschilderwerk plafond hout (multiplex) dekkend",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "85.70",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "DIFFERS_FROM_RELATED_DOCUMENT"
+    ],
+    "identical_in": [],
+    "differs_in": [
+     "QO-DOC-005-EL-024"
+    ],
+    "page": 7,
+    "text_fragment": "4645 Binnenschilderwerk plafond hout (multiplex) Voorgevel - trappenhuizen 85,70m2 1\ndekkend",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-025",
+    "document_id": "DOC-006",
+    "element_code": "4711",
+    "description": "Dakbedekking APP",
+    "location": "Platte dak",
+    "value": "425.80",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-025"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 1",
+    "comparability_vs_3dbag": {
+     "class": "COMPARABLE_CANDIDATE",
+     "mapping_id": "HSM-ROOF_FLAT_AREA-4711-m2",
+     "subject_key": "ROOF_FLAT_AREA"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-026",
+    "document_id": "DOC-006",
+    "element_code": "4711",
+    "description": "Dakrandafwerking zink",
+    "location": "Alle gevels",
+    "value": "70.00",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-026"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4711 Dakrandafwerking zink Alle gevels 70,00m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft geen dakrand/daktrim-element in m1."
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-027",
+    "document_id": "DOC-006",
+    "element_code": "4712",
+    "description": "Dakpan beton",
+    "location": "Hellend dak",
+    "value": "1485.60",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-027"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1",
+    "comparability_vs_3dbag": {
+     "class": "COMPARABLE_CANDIDATE",
+     "mapping_id": "HSM-ROOF_SLOPED_AREA-4712-m2",
+     "subject_key": "ROOF_SLOPED_AREA"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-028",
+    "document_id": "DOC-006",
+    "element_code": "5124",
+    "description": "Schoorsteen aluminium",
+    "location": "Hellend dak",
+    "value": "14.00",
+    "unit": "piece",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-028"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "5124 Schoorsteen aluminium Hellend dak 14,00st 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-029",
+    "document_id": "DOC-006",
+    "element_code": "5211",
+    "description": "Hemelwaterafvoer staal",
+    "location": "Alle gevels",
+    "value": "41.40",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-029"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-030",
+    "document_id": "DOC-006",
+    "element_code": "5211",
+    "description": "Hemelwaterafvoer pvc",
+    "location": "Alle gevels",
+    "value": "91.60",
+    "unit": "m1",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-030"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "APP_HAS_NO_EQUIVALENT_ELEMENT: de app heeft alleen 'dakgoten' (27.3, 'Dakgoten en hemelwaterafvoeren') met appartementen als rekeneenheid, geen HWA in m1."
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-031",
+    "document_id": "DOC-006",
+    "element_code": "6311",
+    "description": "Elektra armaturen buiten LED",
+    "location": "Voorgevel - trappenhuizen",
+    "value": "1.00",
+    "unit": "piece",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "BLOCK_ID_MISSING",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-031"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "6311 Elektra armaturen buiten LED Voorgevel - trappenhuizen 1,00 st 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-032",
+    "document_id": "DOC-006",
+    "element_code": "6710",
+    "description": "Valbeveiliging algemeen",
+    "location": "Platte dak",
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-032"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "6710 Valbeveiliging algemeen Platte dak 1,00pst 1",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-033",
+    "document_id": "DOC-006",
+    "element_code": "9041",
+    "description": "Betontegels",
+    "location": "Terrein",
+    "value": "200.00",
+    "unit": "m2",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-033"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9041 Betontegels Terrein 200,00m2 1",
+    "comparability_vs_3dbag": {
+     "class": "NO_3DBAG_SUBJECT",
+     "reason": "geen 3D BAG-onderwerp voor deze code/eenheid"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-034",
+    "document_id": "DOC-006",
+    "element_code": "9999",
+    "description": "Herinspectie / actualisatie MJOP",
+    "location": null,
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-034"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9999 Herinspectie / actualisatie MJOP 1,00pst 0",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-035",
+    "document_id": "DOC-006",
+    "element_code": "9999",
+    "description": "Bereikbaarheidskosten",
+    "location": null,
+    "value": "1.00",
+    "unit": "lump_sum",
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "method_class": "SOURCE_REPORTED",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "status": "SOURCE_REPORTED",
+    "review_reasons": [],
+    "caveats": [
+     "LUMP_SUM_NOT_A_MEASURED_QUANTITY",
+     "SAME_IN_RELATED_DOCUMENT"
+    ],
+    "identical_in": [
+     "QO-DOC-005-EL-036"
+    ],
+    "differs_in": [],
+    "page": 7,
+    "text_fragment": "9999 Bereikbaarheidskosten 1,00pst 0",
+    "comparability_vs_3dbag": {
+     "class": "NOT_A_MEASURED_QUANTITY"
+    },
+    "labels": []
+   }
+  ],
+  "counts": {
+   "DOC-005": 36,
+   "DOC-006": 35
+  },
+  "by_status": {
+   "REVIEW_REQUIRED": 3,
+   "SOURCE_REPORTED": 68
+  },
+  "by_comparability": {
+   "COMPARABLE_CANDIDATE": 4,
+   "NOT_A_MEASURED_QUANTITY": 7,
+   "NOT_COMPARABLE": 2,
+   "NO_3DBAG_SUBJECT": 58
+  },
+  "doc005_vs_doc006": {
+   "DIFFERS_IN_DOC-006": 3,
+   "IDENTICAL_IN_DOC-006": 31,
+   "NO_COUNTERPART_SAME_KEY": 2
+  },
+  "dependency_note": "DOC-005 (MJOP 2026) en DOC-006 (MJOP 2023) zijn versies van hetzelfde MJOP (DREL-002, SAME_OBJECT; zelfde source cluster). Identieke waarden zijn GEEN twee onafhankelijke metingen. DOC-006 is daarnaast duplicate_source van DOC-014 (DREL-005; DOC-014 heeft geen quantity observations op main).",
+  "label_756": {
+   "label": "NOT_GROUND_TRUTH / NOT_VALIDATED_FOR_ACCURACY",
+   "observation_ids": [
+    "QO-DOC-005-EL-007",
+    "QO-DOC-005-EL-022",
+    "QO-DOC-006-EL-007",
+    "QO-DOC-006-EL-022"
+   ],
+   "status_kept": "blijft bestaan als SOURCE_REPORTED-observation (niet verwijderd, niet gewijzigd)",
+   "why": "docs/facade PoC v2 §5: één ongedefinieerde regel, identiek 2023→2026, rapport zegt 'geen metingen', zelfde getal ook als '756,80 st ventilatierooster' (DOC-005 p.11)"
+  }
+ },
+ "D_bag3d_preview": {
+  "note": "PREVIEW van de bestaande 3D BAG-regels op de PoC-snapshot. GEEN evidence. Bron: 3D BAG-respons per pand (sha256 gecontroleerd), fetched_at niet vastgelegd op main.",
+  "per_pand": [
+   {
+    "bag_pand_id": "0363100012070344",
+    "addresses": [
+     "Maldenhof 262",
+     "Maldenhof 264"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "7.61",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 7.61
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "99.91",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 99.91
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "107.52",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 7.61,
+       "b3_opp_dak_schuin": 99.91
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "100.84",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 100.84
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1749999523162844",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.763999938964844,
+       "b3_h_maaiveld": -1.4110000133514404
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012071880",
+    "addresses": [
+     "Maldenhof 270",
+     "Maldenhof 272"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "8.8",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 8.8
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "101.57",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 101.57
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "110.37",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 8.8,
+       "b3_opp_dak_schuin": 101.57
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "132.64",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 132.64
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1870001554489136",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.755000114440918,
+       "b3_h_maaiveld": -1.4320000410079956
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012078022",
+    "addresses": [
+     "Maldenhof 246",
+     "Maldenhof 248"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "16.05",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 16.05
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "91.19",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 91.19
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "107.24",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 16.05,
+       "b3_opp_dak_schuin": 91.19
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "99.61",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 99.61
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1429998874664306",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.744999885559082,
+       "b3_h_maaiveld": -1.3980000019073486
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012091756",
+    "addresses": [
+     "Maldenhof 278",
+     "Maldenhof 280"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "8.27",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 8.27
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "101.68",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 101.68
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "109.95",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 8.27,
+       "b3_opp_dak_schuin": 101.68
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "99.06",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 99.06
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.158999800682068",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.751999855041504,
+       "b3_h_maaiveld": -1.406999945640564
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012091974",
+    "addresses": [
+     "Maldenhof 258",
+     "Maldenhof 260"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "14.56",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 14.56
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "88.42",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 88.42
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "102.98",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 14.56,
+       "b3_opp_dak_schuin": 88.42
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "98.09",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 98.09
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1499998569488526",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.751999855041504,
+       "b3_h_maaiveld": -1.3980000019073486
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012102659",
+    "addresses": [
+     "Maldenhof 242",
+     "Maldenhof 244"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "10.55",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 10.55
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "99.32",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 99.32
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "109.87",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 10.55,
+       "b3_opp_dak_schuin": 99.32
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "150.33",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 150.33
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1640002727508544",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.753000259399414,
+       "b3_h_maaiveld": -1.4110000133514404
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012107492",
+    "addresses": [
+     "Maldenhof 266",
+     "Maldenhof 268"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "15.99",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 15.99
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "90.34",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 90.34
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "106.33",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 15.99,
+       "b3_opp_dak_schuin": 90.34
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "103.5",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 103.5
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.2469997406005855",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.779999732971191,
+       "b3_h_maaiveld": -1.4670000076293945
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012121455",
+    "addresses": [
+     "Maldenhof 286",
+     "Maldenhof 288"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "18.04",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 18.04
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "89.12",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 89.12
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "107.16",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 18.04,
+       "b3_opp_dak_schuin": 89.12
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "101.13",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 101.13
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1100000143051145",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.736000061035156,
+       "b3_h_maaiveld": -1.3739999532699585
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012127361",
+    "addresses": [
+     "Maldenhof 294",
+     "Maldenhof 296"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "10.33",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 10.33
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "98.56",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 98.56
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "108.89",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 10.33,
+       "b3_opp_dak_schuin": 98.56
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "197.42",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 197.42
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1269999742507936",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.756999969482422,
+       "b3_h_maaiveld": -1.3700000047683716
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012134188",
+    "addresses": [
+     "Maldenhof 290",
+     "Maldenhof 292"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "23.56",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 23.56
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "87.94",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 87.94
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "111.50",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 23.56,
+       "b3_opp_dak_schuin": 87.94
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "116.45",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 116.45
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.0950005054473873",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.737000465393066,
+       "b3_h_maaiveld": -1.3580000400543213
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012137996",
+    "addresses": [
+     "Maldenhof 240"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "12.74",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 12.74
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "74.07",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 74.07
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "86.81",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 12.74,
+       "b3_opp_dak_schuin": 74.07
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "118.32",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 118.32
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "9.4440004825592042",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 8.079000473022461,
+       "b3_h_maaiveld": -1.3650000095367432
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012140664",
+    "addresses": [
+     "Maldenhof 250",
+     "Maldenhof 252"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "16.31",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 16.31
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "87.81",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 87.81
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "104.12",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 16.31,
+       "b3_opp_dak_schuin": 87.81
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "99.35",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 99.35
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1379998922348022",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.744999885559082,
+       "b3_h_maaiveld": -1.3930000066757202
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012141419",
+    "addresses": [
+     "Maldenhof 254",
+     "Maldenhof 256"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "9.38",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 9.38
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "105.92",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 105.92
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "115.30",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 9.38,
+       "b3_opp_dak_schuin": 105.92
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "106.74",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 106.74
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.136999845504761",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.758999824523926,
+       "b3_h_maaiveld": -1.378000020980835
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012143647",
+    "addresses": [
+     "Maldenhof 282",
+     "Maldenhof 284"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "10.49",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 10.49
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "93.57",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 93.57
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "104.06",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 10.49,
+       "b3_opp_dak_schuin": 93.57
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "102.5",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 102.5
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1670004129409788",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.75100040435791,
+       "b3_h_maaiveld": -1.4160000085830688
+      }
+     }
+    }
+   },
+   {
+    "bag_pand_id": "0363100012144766",
+    "addresses": [
+     "Maldenhof 274",
+     "Maldenhof 276"
+    ],
+    "values": {
+     "ROOF_FLAT_AREA": {
+      "value": "7.97",
+      "status": "OK",
+      "rule_id": "bag3d.roof_flat_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 7.97
+      }
+     },
+     "ROOF_SLOPED_AREA": {
+      "value": "106.15",
+      "status": "OK",
+      "rule_id": "bag3d.roof_sloped_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_dak_schuin": 106.15
+      }
+     },
+     "ROOF_TOTAL_AREA": {
+      "value": "114.12",
+      "status": "OK",
+      "rule_id": "bag3d.roof_total_area",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_opp_dak_plat": 7.97,
+       "b3_opp_dak_schuin": 106.15
+      }
+     },
+     "OUTER_WALL_GROSS_AREA": {
+      "value": "121.37",
+      "status": "OK",
+      "rule_id": "bag3d.outer_wall_gross_area",
+      "method_class": "DIRECT_MEASURED",
+      "raw_inputs": {
+       "b3_opp_buitenmuur": 121.37
+      }
+     },
+     "BUILDING_HEIGHT": {
+      "value": "12.1209995746612546",
+      "status": "OK",
+      "rule_id": "bag3d.building_height",
+      "method_class": "GEOMETRY_DERIVED",
+      "raw_inputs": {
+       "b3_h_dak_max": 10.722999572753906,
+       "b3_h_maaiveld": -1.3980000019073486
+      }
+     }
+    }
+   }
+  ],
+  "sum_over_15_panden_informative": {
+   "OUTER_WALL_GROSS_AREA": "1747.35",
+   "ROOF_FLAT_AREA": "190.65",
+   "ROOF_SLOPED_AREA": "1415.57",
+   "ROOF_TOTAL_AREA": "1606.22"
+  },
+  "sum_note": "Informatief. De bestaande pipeline telt bewust NIET op over panden (MULTI_PAND_NOT_SUMMED); een som als evidence vereist eerst een menselijk architectuurbesluit (zie E)."
+ },
+ "D_crosswalk_review": [
+  {
+   "mapping_id": "HSM-ROOF_FLAT_AREA-4711-m2",
+   "kind": "HISTORICAL_SUBJECT",
+   "historical_elements": "4711 m2 (alle documenten)",
+   "app_element": null,
+   "quantity_subject": "ROOF_FLAT_AREA",
+   "unit": "m2",
+   "semantics": "historisch: dakbedekking (APP/bitumen) in m2 zoals de adviseur noteerde, kan opstanden/overlappen bevatten; 3D BAG: b3_opp_dak_plat = plat dakoppervlak per pand volgens de attribuutnaam; de precieze definitie is in deze repo niet tegen de 3D BAG-documentatie gecontroleerd (USED_IN_MJOP_APP_NOT_VERIFIED_AGAINST_LIVE_API)",
+   "evidence_in_repo": [
+    "QO-DOC-005-EL-025 'Dakbedekking APP' / Platte dak = 425.80 m2",
+    "QO-DOC-006-EL-025 'Dakbedekking APP' / Platte dak = 425.80 m2",
+    "3D BAG Σ15 panden b3_opp_dak_plat = 190.65 m2 (informatief)",
+    "alle 4711-m2-rijen in de 662 observations zijn dakbedekking (o.a. ook 'liftdak', 'portiek dak': deeldaken)"
+   ],
+   "risk": "Maldenhof: 425,80 vs Σ 190,65 (factor ~2,2). Onbekend welke dakdelen 'Platte dak' omvat; de 3D BAG-som betreft alleen de 15 woonpanden. Verschil is een feit, geen fout van één bron.",
+   "current_status": "PROPOSED",
+   "advice": "NEEDS_REVIEW",
+   "advice_reason": "Code-semantiek is homogeen (dakbedekking m2), maar scope van 'plat dak' verschilt per document; verifiëren zet ALLE 4711-m2-rijen naast b3_opp_dak_plat. Acceptabel als 'naast elkaar tonen', niet als gelijkstelling."
+  },
+  {
+   "mapping_id": "XW-dak-plat-4711-m2",
+   "kind": "APP_ELEMENT",
+   "historical_elements": "4711 m2",
+   "app_element": "dak-plat (27.1 'Dakbedekking plat dak')",
+   "quantity_subject": "ROOF_FLAT_AREA",
+   "unit": "m2",
+   "semantics": "element-identiteit: app 'Dakbedekking plat dak' ↔ intern 4711 'Dakbedekking (APP/bitumen)'; app rekent met b3_opp_dak_plat",
+   "evidence_in_repo": [
+    "vocabularies/app_element_crosswalk_v1.json",
+    "src/app.js lookupBuilding: dak-plat gebruikt 3D BAG b3_opp_dak_plat van één pand (adres-lookup)"
+   ],
+   "risk": "laag op element-niveau (zelfde bouwdeel); m1-rijen (dakrand) vallen buiten door de eenheid",
+   "current_status": "PROPOSED",
+   "advice": "SAFE_TO_VERIFY",
+   "advice_reason": "Koppelt alleen het bouwdeel; de hoeveelheden blijven naast elkaar staan en een mens kiest via quantity_resolution."
+  },
+  {
+   "mapping_id": "HSM-ROOF_SLOPED_AREA-4712-m2",
+   "kind": "HISTORICAL_SUBJECT",
+   "historical_elements": "4712 m2 (alle documenten)",
+   "app_element": null,
+   "quantity_subject": "ROOF_SLOPED_AREA",
+   "unit": "m2",
+   "semantics": "historisch: 4712 is een gemengde code; 3D BAG: b3_opp_dak_schuin = hellend vlak (niet de projectie)",
+   "evidence_in_repo": [
+    "QO-DOC-005-EL-027 'Dakpan beton' / Hellend dak = 1485.60 m2",
+    "QO-DOC-006-EL-027 'Dakpan beton' / Hellend dak = 1485.60 m2",
+    "3D BAG Σ15 panden b3_opp_dak_schuin = 1415.57 m2 (informatief)",
+    "andere 4712-m2-rijen in de 662: 'Dakbedekking zink' (lichtstraat 0,78; 4,25), 'shingles', 'leisteen', 'keramisch'"
+   ],
+   "risk": "Generiek verifiëren brengt ook zink-/shinglerijen onder ROOF_SLOPED_AREA. Voor Maldenhof is de rij wel 'Dakpan beton / Hellend dak'.",
+   "current_status": "PROPOSED",
+   "advice": "NEEDS_REVIEW",
+   "advice_reason": "Gemengde code; een mapping per omschrijving bestaat niet in v1."
+  },
+  {
+   "mapping_id": "XW-dak-hellend-4712-m2",
+   "kind": "APP_ELEMENT",
+   "historical_elements": "4712 m2",
+   "app_element": "dak-hellend (27.2 'Dakbedekking hellend dak (pannen)')",
+   "quantity_subject": "ROOF_SLOPED_AREA",
+   "unit": "m2",
+   "semantics": "app 'pannen' ↔ gemengde code 4712",
+   "evidence_in_repo": [
+    "vocabularies/app_element_crosswalk_v1.json"
+   ],
+   "risk": "zink/shingles onder 'pannen'",
+   "current_status": "REVIEW_REQUIRED",
+   "advice": "NEEDS_REVIEW",
+   "advice_reason": "zelfde reden als HSM-ROOF_SLOPED_AREA-4712-m2"
+  },
+  {
+   "mapping_id": "XW-gevel-metselwerk-2110-m2",
+   "kind": "APP_ELEMENT",
+   "historical_elements": "2110 m2",
+   "app_element": "gevel-metselwerk (21.1)",
+   "quantity_subject": null,
+   "unit": "m2",
+   "semantics": "historisch: metselwerk 'Alle gevels' 1631,90 m2 (netto of bruto onbekend); 3D BAG b3_opp_buitenmuur = bruto buitenmuur incl. openingen",
+   "evidence_in_repo": [
+    "QO-DOC-005-EL-001 'Gevelconstructie metselwerk' / Alle gevels = 1631.90 m2",
+    "QO-DOC-006-EL-001 'Gevelconstructie metselwerk' / Alle gevels = 1631.90 m2",
+    "3D BAG Σ15 panden b3_opp_buitenmuur = 1747.35 m2 (informatief)"
+   ],
+   "risk": "bruto ≠ netto; quantity_subject staat terecht op null (vocabulary not_mapped)",
+   "current_status": "REVIEW_REQUIRED",
+   "advice": "NEEDS_REVIEW",
+   "advice_reason": "Alleen als code-koppeling zonder hoeveelheidsonderwerp; NIET als ROOF/OUTER_WALL-vergelijking gebruiken."
+  },
+  {
+   "mapping_id": null,
+   "kind": "NO_MAPPING (kozijn/schilderwerk)",
+   "historical_elements": "3120 m2 'Kozijn buiten hout', 4631 m2 'Buitenschilderwerk kozijn hout dekkend'",
+   "app_element": "schilderwerk-buiten (31.2) is UNRESOLVED (NOT_SAFE)",
+   "quantity_subject": null,
+   "unit": "m2",
+   "semantics": "kozijn-/schilderhoeveelheid, ongedefinieerd ('incl. draaiende delen'); geen 3D BAG-onderwerp",
+   "evidence_in_repo": [
+    "QO-DOC-005-EL-007 'Kozijn buiten hout' / Alle gevels = 756.80 m2",
+    "QO-DOC-006-EL-007 'Kozijn buiten hout' / Alle gevels = 756.80 m2",
+    "QO-DOC-005-EL-022 'Buitenschilderwerk kozijn hout dekkend' / Alle gevels = 756.80 m2",
+    "QO-DOC-006-EL-022 'Buitenschilderwerk kozijn hout dekkend' / Alle gevels = 756.80 m2"
+   ],
+   "risk": "hoog: NOT_GROUND_TRUTH / NOT_VALIDATED_FOR_ACCURACY",
+   "current_status": "UNRESOLVED",
+   "advice": "REJECT",
+   "advice_reason": "Geen mapping maken naar een 3D BAG-onderwerp; de rijen blijven SOURCE_REPORTED."
+  },
+  {
+   "mapping_id": null,
+   "kind": "NO_MAPPING (dakrand/goot/HWA)",
+   "historical_elements": "4711 m1 dakrand 70,00; 2716 m1 dakgoot 165,80; 5211 m1 HWA 41,40 + 91,60",
+   "app_element": "UNRESOLVED (APP_HAS_NO_EQUIVALENT_ELEMENT / UNIT_MISMATCH)",
+   "quantity_subject": null,
+   "unit": "m1",
+   "semantics": "strekkende meters; 3D BAG heeft geen m1-onderwerp",
+   "evidence_in_repo": [
+    "QO-DOC-005-EL-026 'Dakrandafwerking zink' / Alle gevels = 70.00 m1",
+    "QO-DOC-006-EL-026 'Dakrandafwerking zink' / Alle gevels = 70.00 m1",
+    "QO-DOC-005-EL-004 'Dakgoot zink' / Alle gevels = 165.80 m1",
+    "QO-DOC-006-EL-004 'Dakgoot zink' / Alle gevels = 165.80 m1",
+    "QO-DOC-005-EL-029 'Hemelwaterafvoer staal' / Alle gevels = 41.40 m1",
+    "QO-DOC-005-EL-030 'Hemelwaterafvoer pvc' / Alle gevels = 91.60 m1",
+    "QO-DOC-006-EL-029 'Hemelwaterafvoer staal' / Alle gevels = 41.40 m1",
+    "QO-DOC-006-EL-030 'Hemelwaterafvoer pvc' / Alle gevels = 91.60 m1"
+   ],
+   "risk": "geen vergelijkbaar onderwerp",
+   "current_status": "UNRESOLVED",
+   "advice": "REJECT",
+   "advice_reason": "Niet in deze milestone; geen 3D BAG-regel voor m1."
+  }
+ ],
+ "E_demo_readiness": {
+  "recommended_first_subject": "ROOF_FLAT_AREA (plat dak / dakbedekking, app-element dak-plat)",
+  "why": "Schoonste element-koppeling (4711 m2 is overal dakbedekking; XW-dak-plat-4711-m2 is element-identiteit) en de app rekent al met b3_opp_dak_plat. Het grote verschil is juist wat het demo moet tonen: twee bronnen naast elkaar, geen winnaar. ROOF_SLOPED_AREA ligt numeriek dichter bij elkaar, maar 4712 is een gemengde code.",
+  "blockers": [
+   {
+    "id": "B1_NO_CANONICAL_SNAPSHOT",
+    "what": "Er is geen bag_snapshot_v1 voor DOC-005/DOC-006; de PoC-inputs voldoen niet aan het contract (zie A).",
+    "unblock": "netwerktoegang tot api.pdok.nl en api.3dbag.nl + scripts/bag_snapshots.py fetch (expliciete toestemming nodig)"
+   },
+   {
+    "id": "B2_LOOKUP_PLAN_RANGE_ENDPOINTS_ONLY",
+    "what": "Het opvraagplan vraagt alleen 240, 296 op; daarmee zijn 2 van 15 panden kandidaat (0363100012127361, 0363100012137996). 'record' weigert panden buiten de snapshot.",
+    "unblock": "menselijk besluit: opvraagplan voor een bereik uitbreiden (bv. elk huisnummer van de bevestigde pariteit) — toolingwijziging, nog niet gedaan"
+   },
+   {
+    "id": "B3_MULTI_PAND_BUILDING",
+    "what": "15 panden. De evidence-builder telt niet op (MULTI_PAND_NOT_SUMMED): historische evidence krijgt building_id BAG:<15 ids>, 3D BAG-evidence BAG:<1 id> per pand; export_app_quantity_bundle neemt voor één building_id dus niet beide bronnen mee; MJOP-App bundleEntries weigert bundels met >1 pand.",
+    "unblock": "ARCHITECTUURBESLUIT (CLAUDE.md: eerst melden): (a) VvE-gebouw = meerdere panden met een expliciete, menselijk goedgekeurde 3D BAG-somregel (GEOMETRY_DERIVED) en een app die meerdere panden per plan accepteert; of (b) per pand werken, waarbij de historische complexwaarde niet aan één pand gehangen kan worden"
+   },
+   {
+    "id": "B4_ROOF_FLAT_SCOPE",
+    "what": "Historisch 4711 'Dakbedekking APP / Platte dak' = 425,80 m2 vs 3D BAG Σ b3_opp_dak_plat = 190.65 m2 (informatief).",
+    "unblock": "geen correctie; beide naast elkaar tonen, een mens beslist in quantity_resolution"
+   }
+  ],
+  "smallest_safe_demo_status": "BLOCKED_BY_HUMAN_DECISIONS (B1–B3)",
+  "human_decisions_in_order": [
+   "1. Building links: per pand per document accepteren/afwijzen (checklist B) — pas vast te leggen na B1/B2.",
+   "2. HSM-ROOF_FLAT_AREA-4711-m2: VERIFY of REJECT (advies NEEDS_REVIEW → als 'naast elkaar tonen' verantwoord).",
+   "3. XW-dak-plat-4711-m2: VERIFY of REJECT (advies SAFE_TO_VERIFY).",
+   "4. Architectuur B3: (a) meerdere panden per VvE-gebouw incl. 3D BAG-somregel + app-aanpassing, of (b) per pand.",
+   "5. Toestemming netwerk (B1) en opvraagplan voor bereiken (B2)."
+  ],
+  "after_decisions_historical_evidence": [
+   {
+    "quantity_observation_id": "QO-DOC-005-EL-025",
+    "value": "425.80",
+    "unit": "m2",
+    "method_class": "SOURCE_REPORTED",
+    "source_type": "MJOP_ELEMENT_OVERVIEW",
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "dependency": "DOC-005 en DOC-006 zelfde object: geen onafhankelijke bevestiging"
+   },
+   {
+    "quantity_observation_id": "QO-DOC-006-EL-025",
+    "value": "425.80",
+    "unit": "m2",
+    "method_class": "SOURCE_REPORTED",
+    "source_type": "MJOP_ELEMENT_OVERVIEW",
+    "page": 7,
+    "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 1",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "dependency": "DOC-005 en DOC-006 zelfde object: geen onafhankelijke bevestiging"
+   }
+  ],
+  "after_decisions_3dbag_evidence": {
+   "per_pand_b3_opp_dak_plat": [
+    {
+     "bag_pand_id": "0363100012070344",
+     "addresses": [
+      "Maldenhof 262",
+      "Maldenhof 264"
+     ],
+     "b3_opp_dak_plat": "7.61"
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "addresses": [
+      "Maldenhof 270",
+      "Maldenhof 272"
+     ],
+     "b3_opp_dak_plat": "8.8"
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "addresses": [
+      "Maldenhof 246",
+      "Maldenhof 248"
+     ],
+     "b3_opp_dak_plat": "16.05"
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "addresses": [
+      "Maldenhof 278",
+      "Maldenhof 280"
+     ],
+     "b3_opp_dak_plat": "8.27"
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "addresses": [
+      "Maldenhof 258",
+      "Maldenhof 260"
+     ],
+     "b3_opp_dak_plat": "14.56"
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "addresses": [
+      "Maldenhof 242",
+      "Maldenhof 244"
+     ],
+     "b3_opp_dak_plat": "10.55"
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "addresses": [
+      "Maldenhof 266",
+      "Maldenhof 268"
+     ],
+     "b3_opp_dak_plat": "15.99"
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "addresses": [
+      "Maldenhof 286",
+      "Maldenhof 288"
+     ],
+     "b3_opp_dak_plat": "18.04"
+    },
+    {
+     "bag_pand_id": "0363100012127361",
+     "addresses": [
+      "Maldenhof 294",
+      "Maldenhof 296"
+     ],
+     "b3_opp_dak_plat": "10.33"
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "addresses": [
+      "Maldenhof 290",
+      "Maldenhof 292"
+     ],
+     "b3_opp_dak_plat": "23.56"
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "addresses": [
+      "Maldenhof 240"
+     ],
+     "b3_opp_dak_plat": "12.74"
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "addresses": [
+      "Maldenhof 250",
+      "Maldenhof 252"
+     ],
+     "b3_opp_dak_plat": "16.31"
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "addresses": [
+      "Maldenhof 254",
+      "Maldenhof 256"
+     ],
+     "b3_opp_dak_plat": "9.38"
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "addresses": [
+      "Maldenhof 282",
+      "Maldenhof 284"
+     ],
+     "b3_opp_dak_plat": "10.49"
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "addresses": [
+      "Maldenhof 274",
+      "Maldenhof 276"
+     ],
+     "b3_opp_dak_plat": "7.97"
+    }
+   ],
+   "method_class": "DIRECT_MEASURED",
+   "rule_id": "bag3d.roof_flat_area",
+   "complex_sum_informative": "190.65",
+   "complex_sum_note": "alleen als evidence na besluit B3(a), dan als GEOMETRY_DERIVED met somregel"
+  },
+  "app_would_show_conceptually": {
+   "element": "Dakbedekking plat dak (dak-plat)",
+   "sources": [
+    {
+     "label": "Uit oud MJOP",
+     "value": "425,80 m²",
+     "basis": "DOC-005 (2026) en DOC-006 (2023), elementenoverzicht p.7 — SOURCE_REPORTED; zelfde waarde in beide versies, geen onafhankelijke bevestiging"
+    },
+    {
+     "label": "3D BAG",
+     "value": "190.65 m² over 15 panden (pas na besluit B3a) of per pand (B3b)",
+     "basis": "b3_opp_dak_plat — DIRECT_MEASURED per pand"
+    }
+   ],
+   "status": "Nog niet door gebruiker bevestigd (geen quantity_resolution)",
+   "rule": "geen gemiddelde, geen score, geen automatische keuze; effectieve waarde pas via een ACTIVE quantity_resolution"
+  }
+ }
+}
