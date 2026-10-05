@@ -2278,12 +2278,12 @@
     4,
     45,
     199,
-    210,
     211,
     212,
-    217,
-    402,
-    501
+    213,
+    218,
+    403,
+    502
    ],
    "reason": null
   },
@@ -2457,6 +2457,30 @@
     307,
     350,
     352
+   ],
+   "reason": null
+  },
+  {
+   "file": "scripts/quantity_subject_expansion_review.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    8,
+    37,
+    71,
+    214,
+    264,
+    267,
+    299,
+    301,
+    302,
+    313,
+    356,
+    384
    ],
    "reason": null
   },
@@ -2802,6 +2826,20 @@
     129,
     147,
     148
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_quantity_subject_expansion_review.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    18,
+    43,
+    60
    ],
    "reason": null
   },

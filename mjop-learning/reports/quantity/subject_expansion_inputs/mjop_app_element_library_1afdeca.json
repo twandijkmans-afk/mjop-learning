@@ -1,0 +1,301 @@
+{
+ "source": {
+  "repo": "twandijkmans-afk/MJOP-App",
+  "ref": "1afdeca57b5ff6e33d44495a8c71df85b7b466c6",
+  "file": "src/app.js",
+  "symbol": "ELEMENT_LIBRARY",
+  "note": "Letterlijk uit de broncode geëvalueerd (alleen de array-literal); niet met de hand bewerkt."
+ },
+ "koz_def": [
+  [
+   "Draaiend raam",
+   174
+  ],
+  [
+   "Vast glas",
+   96
+  ],
+  [
+   "Deur",
+   240
+  ],
+  [
+   "Dakkapel",
+   320
+  ]
+ ],
+ "koz_factoren": [
+  1,
+  0.25,
+  0.125,
+  0.125
+ ],
+ "elements": [
+  {
+   "key": "dak-plat",
+   "naam": "Dakbedekking plat dak",
+   "categorie": "Dak",
+   "sfb": "27.1",
+   "type": "dak",
+   "cyclus": 25,
+   "kengetal": 165,
+   "bron": "dakPlatM2",
+   "optioneel": true
+  },
+  {
+   "key": "dakgoten",
+   "naam": "Dakgoten en hemelwaterafvoeren",
+   "categorie": "Dak",
+   "sfb": "27.3",
+   "type": "vast-variabel",
+   "cyclus": 20,
+   "basis": 300,
+   "perEenheid": 90,
+   "bron": "units"
+  },
+  {
+   "key": "dakinspectie",
+   "naam": "Dakinspectie en klein onderhoud",
+   "categorie": "Dak",
+   "sfb": "27",
+   "type": "vast-variabel",
+   "cyclus": 2,
+   "basis": 420,
+   "perEenheid": 2,
+   "bron": "dakM2"
+  },
+  {
+   "key": "dak-hellend",
+   "naam": "Dakbedekking hellend dak (pannen)",
+   "categorie": "Dak",
+   "sfb": "27.2",
+   "type": "dak",
+   "cyclus": 40,
+   "kengetal": 95,
+   "bron": "dakSchuinM2",
+   "optioneel": true
+  },
+  {
+   "key": "dakisolatie",
+   "naam": "Dakisolatie na-isoleren",
+   "categorie": "Dak",
+   "sfb": "47.2",
+   "type": "dak",
+   "cyclus": 30,
+   "kengetal": 60,
+   "bron": "dakM2",
+   "optioneel": true
+  },
+  {
+   "key": "gevel-metselwerk",
+   "naam": "Gevelreiniging en metselwerkherstel",
+   "categorie": "Gevel",
+   "sfb": "21.1",
+   "type": "gevel",
+   "cyclus": 15,
+   "kengetal": 26,
+   "bron": "gevelM2"
+  },
+  {
+   "key": "schilderwerk-buiten",
+   "naam": "Schilderwerk buitenkozijnen en gevelhoutwerk",
+   "categorie": "Gevel",
+   "sfb": "31.2",
+   "type": "gevel",
+   "cyclus": 6,
+   "kengetal": 22,
+   "bron": "gevelM2",
+   "benadering": true
+  },
+  {
+   "key": "kozijnen-onderhoud",
+   "naam": "Onderhoud buitenkozijnen",
+   "categorie": "Gevel",
+   "sfb": "31.1",
+   "type": "kozijnen",
+   "cyclus": 6
+  },
+  {
+   "key": "steiger",
+   "naam": "Steiger of hoogwerker",
+   "categorie": "Gevel",
+   "sfb": "21",
+   "type": "steiger",
+   "cyclus": 6,
+   "bron": "gevelM2"
+  },
+  {
+   "key": "voegwerk",
+   "naam": "Voegwerk buitengevel",
+   "categorie": "Gevel",
+   "sfb": "21.1",
+   "type": "gevel",
+   "cyclus": 30,
+   "kengetal": 45,
+   "bron": "gevelM2",
+   "optioneel": true
+  },
+  {
+   "key": "balkonhekken",
+   "naam": "Balkonhekken en borstweringen",
+   "categorie": "Gevel",
+   "sfb": "34.1",
+   "type": "per-unit",
+   "cyclus": 20,
+   "kengetal": 210,
+   "bron": "units",
+   "optioneel": true
+  },
+  {
+   "key": "intercom",
+   "naam": "Intercom en video-deuropener",
+   "categorie": "Installaties",
+   "sfb": "66",
+   "type": "per-unit",
+   "cyclus": 20,
+   "kengetal": 575,
+   "bron": "units"
+  },
+  {
+   "key": "riolering",
+   "naam": "Riolering en hemelwaterafvoer (inpandig)",
+   "categorie": "Installaties",
+   "sfb": "52",
+   "type": "vast-variabel",
+   "cyclus": 10,
+   "basis": 1100,
+   "perEenheid": 120,
+   "bron": "units"
+  },
+  {
+   "key": "elektra",
+   "naam": "Elektrische installatie gemeenschappelijk",
+   "categorie": "Installaties",
+   "sfb": "62/63",
+   "type": "vast-variabel",
+   "cyclus": 25,
+   "basis": 800,
+   "perEenheid": 90,
+   "bron": "units",
+   "optioneel": true
+  },
+  {
+   "key": "verlichting",
+   "naam": "Verlichting gemeenschappelijke ruimten",
+   "categorie": "Installaties",
+   "sfb": "64",
+   "type": "per-unit",
+   "cyclus": 15,
+   "kengetal": 65,
+   "bron": "units",
+   "optioneel": true,
+   "aanbevolen": true
+  },
+  {
+   "key": "waterleiding",
+   "naam": "Waterleiding gemeenschappelijk",
+   "categorie": "Installaties",
+   "sfb": "52",
+   "type": "vast-variabel",
+   "cyclus": 30,
+   "basis": 600,
+   "perEenheid": 55,
+   "bron": "units",
+   "optioneel": true
+  },
+  {
+   "key": "brandveiligheid",
+   "naam": "Brandveiligheid (blusmiddelen, vluchtwegverlichting)",
+   "categorie": "Installaties",
+   "sfb": "67",
+   "type": "per-unit",
+   "cyclus": 10,
+   "kengetal": 45,
+   "bron": "units",
+   "optioneel": true,
+   "aanbevolen": true
+  },
+  {
+   "key": "cv-installatie",
+   "naam": "Collectieve cv-installatie (ketel)",
+   "categorie": "Installaties",
+   "sfb": "51",
+   "type": "vast-variabel",
+   "cyclus": 18,
+   "basis": 3500,
+   "perEenheid": 350,
+   "bron": "units",
+   "optioneel": true,
+   "aanbevolen": true
+  },
+  {
+   "key": "ventilatie",
+   "naam": "Mechanische ventilatie",
+   "categorie": "Installaties",
+   "sfb": "57",
+   "type": "per-unit",
+   "cyclus": 15,
+   "kengetal": 220,
+   "bron": "units",
+   "optioneel": true,
+   "aanbevolen": true
+  },
+  {
+   "key": "lift",
+   "naam": "Liftinstallatie — onderhoud en modernisering",
+   "categorie": "Installaties",
+   "sfb": "59",
+   "type": "vast-variabel",
+   "cyclus": 20,
+   "basis": 12000,
+   "perEenheid": 0,
+   "bron": "none",
+   "optioneel": true
+  },
+  {
+   "key": "trappenhuis",
+   "naam": "Trappenhuis en entree",
+   "categorie": "Binnen",
+   "sfb": "42/43",
+   "type": "per-unit",
+   "cyclus": 8,
+   "kengetal": 480,
+   "bron": "units"
+  },
+  {
+   "key": "vloerafwerking",
+   "naam": "Vloerafwerking gemeenschappelijke ruimten",
+   "categorie": "Binnen",
+   "sfb": "43",
+   "type": "per-unit",
+   "cyclus": 15,
+   "kengetal": 120,
+   "bron": "units",
+   "optioneel": true
+  },
+  {
+   "key": "bestrating",
+   "naam": "Bestrating en terreininrichting",
+   "categorie": "Terrein",
+   "sfb": "81/89",
+   "type": "vast-variabel",
+   "cyclus": 20,
+   "basis": 500,
+   "perEenheid": 60,
+   "bron": "units",
+   "optioneel": true,
+   "aanbevolen": true
+  },
+  {
+   "key": "fietsenstalling",
+   "naam": "Fietsenstalling en bergingen",
+   "categorie": "Terrein",
+   "sfb": "89",
+   "type": "per-unit",
+   "cyclus": 25,
+   "kengetal": 150,
+   "bron": "units",
+   "optioneel": true
+  }
+ ]
+}
