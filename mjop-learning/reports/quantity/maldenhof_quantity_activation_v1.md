@@ -56,8 +56,10 @@ Effectieve status:
 
 | Evidence | Document | Waarde | Methode | Pagina | Fragment | Broncluster | Zelfde object als |
 |---|---|---|---|---|---|---|---|
+| QE-b0a58dbfd69cc808 | DOC-005 | 1485.60 m2 | SOURCE_REPORTED | 7 | `4712 Dakpan beton Hellend dak 1485,60m2 3` | SC-DOC-005+DOC-006 | DOC-006 |
 | QE-cda20b77ca36b732 | DOC-005 | 425.80 m2 | SOURCE_REPORTED | 7 | `4711 Dakbedekking APP Platte dak 425,80m2 3` | SC-DOC-005+DOC-006 | DOC-006 |
 | QE-5993359f27e8dea6 | DOC-006 | 425.80 m2 | SOURCE_REPORTED | 7 | `4711 Dakbedekking APP Platte dak 425,80m2 1` | SC-DOC-005+DOC-006 | DOC-005, DOC-014 |
+| QE-df6c981f2f0f8134 | DOC-006 | 1485.60 m2 | SOURCE_REPORTED | 7 | `4712 Dakpan beton Hellend dak 1485,60m2 1` | SC-DOC-005+DOC-006 | DOC-005, DOC-014 |
 
 Onafhankelijke historische bronnen (bronclusters): **1** — DOC-005 en DOC-006 tellen niet als twee waarnemingen.
 
@@ -66,12 +68,17 @@ Onafhankelijke historische bronnen (bronclusters): **1** — DOC-005 en DOC-006 
 | Document | Historisch | 3D BAG | Verschil | % | Soort | Status |
 |---|---|---|---|---|---|---|
 | DOC-005 | 425.80 (ROOF_COVERING_REPORTED_AREA) | 190.65 (ROOF_FLAT_AREA) | 235.15 | 123.3412 | RELATED_SUBJECT_NOT_EQUIVALENT | NOT_RESOLVABLE_AS_SAME_QUANTITY |
+| DOC-005 | 1485.60 (ROOF_TILES_REPORTED_AREA) | 1415.57 (ROOF_SLOPED_AREA) | 70.03 | 4.9471 | RELATED_SUBJECT_NOT_EQUIVALENT | NOT_RESOLVABLE_AS_SAME_QUANTITY |
 | DOC-006 | 425.80 (ROOF_COVERING_REPORTED_AREA) | 190.65 (ROOF_FLAT_AREA) | 235.15 | 123.3412 | RELATED_SUBJECT_NOT_EQUIVALENT | NOT_RESOLVABLE_AS_SAME_QUANTITY |
+| DOC-006 | 1485.60 (ROOF_TILES_REPORTED_AREA) | 1415.57 (ROOF_SLOPED_AREA) | 70.03 | 4.9471 | RELATED_SUBJECT_NOT_EQUIVALENT | NOT_RESOLVABLE_AS_SAME_QUANTITY |
 
 ## App-bundel (preview, mjop_app_quantity_bundle_v3)
 
 | App-element | Onderwerp | Rol | Kiesbaar | Waarde | Methode | Componenten |
 |---|---|---|---|---|---|---|
+| dak-hellend | ROOF_SLOPED_AREA | PRIMARY | ja | 1415.57 m2 | GEOMETRY_DERIVED | 15 |
+| dak-hellend | ROOF_TILES_REPORTED_AREA | RELATED_CONTEXT | nee | 1485.60 m2 | SOURCE_REPORTED | 0 |
+| dak-hellend | ROOF_TILES_REPORTED_AREA | RELATED_CONTEXT | nee | 1485.60 m2 | SOURCE_REPORTED | 0 |
 | dak-plat | ROOF_COVERING_REPORTED_AREA | RELATED_CONTEXT | nee | 425.80 m2 | SOURCE_REPORTED | 0 |
 | dak-plat | ROOF_COVERING_REPORTED_AREA | RELATED_CONTEXT | nee | 425.80 m2 | SOURCE_REPORTED | 0 |
 | dak-plat | ROOF_FLAT_AREA | PRIMARY | ja | 190.65 m2 | GEOMETRY_DERIVED | 15 |

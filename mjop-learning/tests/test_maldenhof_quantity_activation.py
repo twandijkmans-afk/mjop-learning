@@ -148,7 +148,8 @@ def test_3dbag_aggregate_is_exactly_190_65(evidence):
 
 
 def test_historical_is_roof_covering_unsplit_at_complex_level(evidence):
-    hist = [e for e in evidence["evidence"] if e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["source_ref"]["document_id"] in DOCS]
+    hist = [e for e in evidence["evidence"] if e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["source_ref"]["document_id"] in DOCS
+            and e["source_ref"]["subject_mapping_ref"] == NEW_HSM]  # dakpannen (ROOF_TILES) apart, zie test_sloped_roof_activation
     assert sorted(e["source_ref"]["document_id"] for e in hist) == ["DOC-005", "DOC-006"]
     for e in hist:
         assert e["quantity_subject"]["subject_key"] == "ROOF_COVERING_REPORTED_AREA"
@@ -164,13 +165,14 @@ def test_historical_is_roof_covering_unsplit_at_complex_level(evidence):
 
 def test_doc005_doc006_dependency_kept_not_two_observations(evidence):
     hist = {e["source_ref"]["document_id"]: e for e in evidence["evidence"]
-            if e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["source_ref"]["document_id"] in DOCS}
+            if e["source_type"] == "MJOP_ELEMENT_OVERVIEW" and e["source_ref"]["document_id"] in DOCS
+            and e["quantity_subject"]["subject_key"] == "ROOF_COVERING_REPORTED_AREA"}
     assert "DOC-006" in hist["DOC-005"]["dependency"]["same_object_document_ids"]
     assert "DOC-005" in hist["DOC-006"]["dependency"]["same_object_document_ids"]
     assert hist["DOC-005"]["dependency"]["identical_in_same_object_documents"] == ["QO-DOC-006-EL-025"]
     assert len({e["dependency"]["source_cluster"] for e in hist.values()}) == 1
     rep = json.load(open(bqe.OUT_JSON, encoding="utf-8"))
-    ind = [h for h in rep["summary"]["historical_independent_sources"] if h["building_id"] == SCOPE]
+    ind = [h for h in rep["summary"]["historical_independent_sources"] if h["building_id"] == SCOPE and h["subject_key"] == "ROOF_COVERING_REPORTED_AREA"]
     assert ind == [{"building_id": SCOPE, "subject_key": "ROOF_COVERING_REPORTED_AREA", "historical_evidences": 2,
                     "independent_source_clusters": 1}]
     assert all(c["dependency_note"] and "geen onafhankelijke bevestiging" in c["dependency_note"]
@@ -179,7 +181,7 @@ def test_doc005_doc006_dependency_kept_not_two_observations(evidence):
 
 def test_difference_is_source_difference_not_accuracy_statistic():
     rep = json.load(open(bqe.OUT_JSON, encoding="utf-8"))
-    cs = [c for c in rep["comparisons"] if c["building_id"] == SCOPE]
+    cs = [c for c in rep["comparisons"] if c["building_id"] == SCOPE and c["subject_key"] == "ROOF_COVERING_REPORTED_AREA"]
     assert len(cs) == 2
     for c in cs:
         assert (c["subject_key"], c["bag3d_subject_key"]) == ("ROOF_COVERING_REPORTED_AREA", "ROOF_FLAT_AREA")
@@ -188,7 +190,7 @@ def test_difference_is_source_difference_not_accuracy_statistic():
         assert c["absolute_difference"] == "235.15" and c["difference_band"] is None
     s = rep["summary"]
     assert s["comparisons_with_difference"] == 0 and s["median_absolute_difference"] is None
-    assert sum(1 for c in rep["comparisons"] if c["building_id"] == SCOPE and c["comparison_kind"] != "SAME_SUBJECT") == 2
+    assert sum(1 for c in rep["comparisons"] if c["building_id"] == SCOPE and c["subject_key"] == "ROOF_COVERING_REPORTED_AREA" and c["comparison_kind"] != "SAME_SUBJECT") == 2
 
 
 # --- geen resolutie, geen middeling -------------------------------------------------------
@@ -225,7 +227,7 @@ def test_one_resolution_over_both_subjects_or_an_average_is_refused(evidence):
 
 def test_bundle_shows_both_semantics_separately(evidence, vocab):
     app = json.load(open(xw.APP_CROSSWALK, encoding="utf-8"))
-    b = eab.build_bundle(SCOPE, evidence["evidence"], app, xw.effective(), vocab)
+    b = eab.build_bundle(SCOPE, evidence["evidence"], app, xw.effective(), vocab, app_elements={"dak-plat"})
     assert b["bundle_version"] == "mjop_app_quantity_bundle_v3"
     assert b["building_scope"] == {"building_id": SCOPE, "kind": "MULTI_PAND_SCOPE", "bag_pand_ids": APPROVED, "pand_count": 15}
     prim = [e for e in b["entries"] if e["role"] == "PRIMARY"]
@@ -243,7 +245,7 @@ def test_bundle_shows_both_semantics_separately(evidence, vocab):
 
 def test_bundle_without_vocab_stays_v2(evidence):
     app = json.load(open(xw.APP_CROSSWALK, encoding="utf-8"))
-    b = eab.build_bundle(SCOPE, evidence["evidence"], app, xw.effective())
+    b = eab.build_bundle(SCOPE, evidence["evidence"], app, xw.effective(), app_elements={"dak-plat"})
     assert b["bundle_version"] == "mjop_app_quantity_bundle_v2"
     assert [e["subject_key"] for e in b["entries"]] == ["ROOF_FLAT_AREA"] and "role" not in b["entries"][0]
 

@@ -39,8 +39,9 @@ def bundle(raw):
 
 def fresh():
     store = json.load(open(bqe.OUT_EVIDENCE, encoding="utf-8"))
+    # de referentiebundel is de oorspronkelijke dak-plat-bundel (Sloped Roof Activation voegt dak-hellend apart toe)
     return eab.build_bundle(SCOPE, store["evidence"], json.load(open(xw.APP_CROSSWALK, encoding="utf-8")), xw.effective(),
-                            json.load(open(xw.SUBJECTS, encoding="utf-8")))
+                            json.load(open(xw.SUBJECTS, encoding="utf-8")), app_elements={"dak-plat"})
 
 
 def by_role(b, role):

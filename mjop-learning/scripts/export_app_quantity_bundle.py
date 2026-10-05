@@ -18,8 +18,17 @@ Bundelversies (backwards-compatible):
       vocabularies/quantity_subjects_v1.json subject_relations RELATED_NOT_EQUIVALENT is aan het onderwerp van
       de app-mapping (bijv. historische ROOF_COVERING_REPORTED_AREA naast ROOF_FLAT_AREA). Zo'n regel heeft
       role RELATED_CONTEXT en selectable false: tonen en verschil als bronverschil/andere definitie, nooit kiezen
-      als dezelfde hoeveelheid, nooit middelen. Alleen historische evidence van de interne element_code van de
-      geverifieerde app-mapping komt als context mee. Zonder CONTEXT-regels blijft de uitvoer v1/v2.
+      als dezelfde hoeveelheid, nooit middelen. Zonder CONTEXT-regels blijft de uitvoer v1/v2.
+
+PRIMARY volgt uit een door een mens geverifieerde app-mapping (XW-* element/code-koppeling met quantity_subject, of
+XQ-* mapping_kind APP_QUANTITY_SUBJECT zonder interne code): app-element -> geometrisch onderwerp. Hoogstens één
+PRIMARY per (app-element, onderwerp); onderwerpen met product_role INFRASTRUCTURE_ONLY of CONTEXT_ONLY nooit.
+RELATED_CONTEXT volgt UITSLUITEND uit: subject_relations RELATED_NOT_EQUIVALENT met het PRIMARY-onderwerp + historische
+evidence waarvan de onderwerp-mapping (HSM) effectief VERIFIED is + zelfde gebouwscope + zelfde eenheid. Een gedeelde
+interne element_code is GEEN reden om historische evidence mee te nemen.
+
+--app-elements beperkt de bundel tot bepaalde app-elementen (bijv. de oorspronkelijke dak-plat-bundel blijft zo
+byte-identiek reproduceerbaar naast een uitgebreide bundel).
 
     python scripts/export_app_quantity_bundle.py --building "BAG:0363100012345678" --out exports/bundle.json
 """
@@ -95,18 +104,27 @@ def _evidence_refs(ev):
     }
 
 
-def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab=None):
+NON_PRIMARY_ROLES = ("INFRASTRUCTURE_ONLY", "CONTEXT_ONLY")
+
+
+def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab=None, app_elements=None):
+    vocab = subjects_vocab or {}
+    roles = {s["subject_key"]: s.get("product_role") for s in vocab.get("subjects", [])}
     verified = [m for m in app_crosswalk["mappings"]
-                if effective.get(m["mapping_id"], {}).get("status") == "VERIFIED" and m.get("quantity_subject")]
+                if effective.get(m["mapping_id"], {}).get("status") == "VERIFIED" and m.get("quantity_subject")
+                and roles.get(m["quantity_subject"]) not in NON_PRIMARY_ROLES
+                and (app_elements is None or m["app_element_key"] in app_elements)]
     if not verified:
         raise BundleError("geen door een mens geverifieerde app-crosswalk-mapping met een hoeveelheidsonderwerp")
     pand_ids = building_id.split(":", 1)[1].split("+")
     multi = len(pand_ids) > 1
     by_id = {e["evidence_id"]: e for e in evidence}
-    vocab = subjects_vocab or {}
     labels = {s["subject_key"]: s["label_nl"] for s in vocab.get("subjects", [])}
-    entries = []
+    entries, seen_primary = [], set()
     for m in sorted(verified, key=lambda x: x["mapping_id"]):
+        if (m["app_element_key"], m["quantity_subject"]) in seen_primary:
+            continue  # hoogstens één PRIMARY-bron per (app-element, onderwerp)
+        seen_primary.add((m["app_element_key"], m["quantity_subject"]))
         related = bqe.related_subjects(vocab, m["quantity_subject"])
         for ev in evidence:
             key = ev["quantity_subject"].get("subject_key")
@@ -114,8 +132,8 @@ def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab
             if key != m["quantity_subject"] and not context:
                 continue
             if context and (ev["source_type"] != "MJOP_ELEMENT_OVERVIEW"
-                            or ev["quantity_subject"].get("element_code_internal") != m["internal_element_code"]):
-                continue
+                            or effective.get((ev["source_ref"] or {}).get("subject_mapping_ref"), {}).get("status") != "VERIFIED"):
+                continue  # context alleen via een geverifieerde onderwerp-mapping, nooit via een gedeelde element_code
             if ev["unit_normalized"] != m["unit"]:
                 continue
             if not (ev["building_id"] == building_id or ev["building_id"] == "BAG:" + building_id.split(":", 1)[1]):
@@ -176,12 +194,14 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--building", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--app-elements", help="komma-gescheiden app_element_keys (standaard: alle geverifieerde)")
     args = ap.parse_args(argv)
     store = json.loads(bqe.OUT_EVIDENCE.read_text(encoding="utf-8"))
     app_cw = json.loads(xw.APP_CROSSWALK.read_text(encoding="utf-8"))
     try:
         bundle = build_bundle(args.building, store["evidence"], app_cw, xw.effective(),
-                              json.loads(xw.SUBJECTS.read_text(encoding="utf-8")))
+                              json.loads(xw.SUBJECTS.read_text(encoding="utf-8")),
+                              app_elements=set(args.app_elements.split(",")) if args.app_elements else None)
     except BundleError as e:
         print(f"FOUT: {e}", file=sys.stderr)
         return 2

@@ -3427,6 +3427,59 @@
   },
   {
    "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "quantity_subject": {
+    "subject_id": "QS-20f9d9f49dbe50f8",
+    "element_code_internal": "4712",
+    "subject_text": "Dakpan beton",
+    "location_scope": "Hellend dak",
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "subject_key": "ROOF_TILES_REPORTED_AREA"
+   },
+   "value": "1485.60",
+   "unit_normalized": "m2",
+   "method_class": "SOURCE_REPORTED",
+   "source_type": "MJOP_ELEMENT_OVERVIEW",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-027",
+    "source_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "provenance": {
+     "block_id": "P07-L015",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+    },
+    "quantity_as_stated": "1485,60",
+    "building_link_ref": "BLINK-00001,BLINK-00002,BLINK-00003,BLINK-00004,BLINK-00005,BLINK-00006,BLINK-00007,BLINK-00008,BLINK-00009,BLINK-00010,BLINK-00011,BLINK-00012,BLINK-00013,BLINK-00014,BLINK-00015",
+    "subject_mapping_ref": "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006"
+   },
+   "calculation": null,
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ],
+    "identical_in_same_object_documents": [
+     "QO-DOC-006-EL-027"
+    ]
+   },
+   "scope_caveats": [
+    "SAME_IN_RELATED_DOCUMENT"
+   ],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "build_quantity_observations/profile:pro_vve_overzicht15.elements.overview_row",
+   "input_hashes": {},
+   "evidence_id": "QE-b0a58dbfd69cc808"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
    "building_id": "BAG:0363100012102659",
    "quantity_subject": {
     "subject_id": "QS-2708ac59b2fa4a89",
@@ -4543,6 +4596,60 @@
     ]
    },
    "evidence_id": "QE-de5bcca75b309377"
+  },
+  {
+   "contract_version": "quantity_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "quantity_subject": {
+    "subject_id": "QS-20f9d9f49dbe50f8",
+    "element_code_internal": "4712",
+    "subject_text": "Dakpan beton",
+    "location_scope": "Hellend dak",
+    "material_normalized": null,
+    "quantity_kind": "ELEMENT_QUANTITY",
+    "subject_key": "ROOF_TILES_REPORTED_AREA"
+   },
+   "value": "1485.60",
+   "unit_normalized": "m2",
+   "method_class": "SOURCE_REPORTED",
+   "source_type": "MJOP_ELEMENT_OVERVIEW",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-027",
+    "source_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "provenance": {
+     "block_id": "P07-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1"
+    },
+    "quantity_as_stated": "1485,60",
+    "building_link_ref": "BLINK-00041,BLINK-00042,BLINK-00043,BLINK-00044,BLINK-00045,BLINK-00046,BLINK-00047,BLINK-00048,BLINK-00049,BLINK-00050,BLINK-00051,BLINK-00052,BLINK-00053,BLINK-00054,BLINK-00055",
+    "subject_mapping_ref": "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006"
+   },
+   "calculation": null,
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ],
+    "identical_in_same_object_documents": [
+     "QO-DOC-005-EL-027"
+    ]
+   },
+   "scope_caveats": [
+    "SAME_IN_RELATED_DOCUMENT"
+   ],
+   "review_reasons": [],
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "build_quantity_observations/profile:pro_vve_overzicht15.elements.overview_row",
+   "input_hashes": {},
+   "evidence_id": "QE-df6c981f2f0f8134"
   },
   {
    "contract_version": "quantity_evidence_v1",

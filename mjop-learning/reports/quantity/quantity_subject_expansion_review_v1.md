@@ -25,7 +25,7 @@ App-elementenbibliotheek: `reports/quantity/subject_expansion_inputs/mjop_app_el
 
 Maldenhof (informatief, RELATED_NOT_EQUIVALENT): QO-DOC-005-EL-027 1485.60 m2 vs 3D BAG 1415.57 m2 → 70.03 (4.9%); QO-DOC-006-EL-027 1485.60 m2 vs 3D BAG 1415.57 m2 → 70.03 (4.9%).
 
-**Voorstel (PROPOSAL_ONLY (niet in de vocabulaire)):** `ROOF_TILES_REPORTED_AREA` — Door bron/MJOP gerapporteerde oppervlakte dakpannen (m2, SOURCE_REPORTED); relatie `RELATED_NOT_EQUIVALENT` met ROOF_SLOPED_AREA. Een breder 'hellend-dak-bedekking'-onderwerp zou shingles, leisteen en zink samennemen met pannen; het app-element 'dak-hellend' is uitdrukkelijk 'pannen'. Mapping: per document exact (document_ids + 4712 + m2 + omschrijving exact uit SAFE_DAKPAN_REPORTED_AREA), zoals HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006. In aanmerking: QO-DOC-001-EL-041 (1944.00 m2), QO-DOC-005-EL-027 (1485.60 m2), QO-DOC-006-EL-027 (1485.60 m2), QO-DOC-013-EL-021 (12.72 m2); met bevestigd gebouw: QO-DOC-005-EL-027, QO-DOC-006-EL-027.
+**Voorstel (ACTIVATED_BY_USER_DECISION (Sloped Roof Quantity Activation v1; deze review blijft een momentopname)):** `ROOF_TILES_REPORTED_AREA` — Door bron/MJOP gerapporteerde oppervlakte dakpannen (m2, SOURCE_REPORTED); relatie `RELATED_NOT_EQUIVALENT` met ROOF_SLOPED_AREA. Een breder 'hellend-dak-bedekking'-onderwerp zou shingles, leisteen en zink samennemen met pannen; het app-element 'dak-hellend' is uitdrukkelijk 'pannen'. Mapping: per document exact (document_ids + 4712 + m2 + omschrijving exact uit SAFE_DAKPAN_REPORTED_AREA), zoals HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006. In aanmerking: QO-DOC-001-EL-041 (1944.00 m2), QO-DOC-005-EL-027 (1485.60 m2), QO-DOC-006-EL-027 (1485.60 m2), QO-DOC-013-EL-021 (12.72 m2); met bevestigd gebouw: QO-DOC-005-EL-027, QO-DOC-006-EL-027.
 
 ## C. ROOF_TOTAL_AREA
 
@@ -105,7 +105,7 @@ Buiten beschouwing (8 rijen in m1): QO-DOC-001-EL-042 Vorsten beton, QO-DOC-001-
 | Onderwerp | Beschikbaar | Waarde | Methode | Compleet | App-kandidaat | Historische context |
 |---|---|---|---|---|---|---|
 | ROOF_FLAT_AREA | ja | 190.65 | GEOMETRY_DERIVED | ja | dak-plat | ROOF_COVERING_REPORTED_AREA 425.80 (DOC-006); ROOF_COVERING_REPORTED_AREA 425.80 (DOC-005) |
-| ROOF_SLOPED_AREA | ja | 1415.57 | GEOMETRY_DERIVED | ja | dak-hellend | kandidaat QO-DOC-005-EL-027 Dakpan beton 1485.60 m2; kandidaat QO-DOC-006-EL-027 Dakpan beton 1485.60 m2 |
+| ROOF_SLOPED_AREA | ja | 1415.57 | GEOMETRY_DERIVED | ja | dak-hellend | ROOF_TILES_REPORTED_AREA 1485.60 (DOC-005); ROOF_TILES_REPORTED_AREA 1485.60 (DOC-006); kandidaat QO-DOC-005-EL-027 Dakpan beton 1485.60 m2; kandidaat QO-DOC-006-EL-027 Dakpan beton 1485.60 m2 |
 | ROOF_TOTAL_AREA | ja | 1606.22 | GEOMETRY_DERIVED | ja | dakinspectie, dakisolatie? | — |
 | OUTER_WALL_GROSS_AREA | ja | 1747.35 | GEOMETRY_DERIVED | ja | steiger | NIET vergelijkbaar: QO-DOC-005-EL-001 Gevelconstructie metselwerk 1631.90 m2; NIET vergelijkbaar: QO-DOC-006-EL-001 Gevelconstructie metselwerk 1631.90 m2 |
 | BUILDING_HEIGHT | ja | per pand (15 waarden; niet opgeteld) | GEOMETRY_DERIVED | ja | — | — |
@@ -136,4 +136,4 @@ Buiten beschouwing (8 rijen in m1): QO-DOC-001-EL-042 Vorsten beton, QO-DOC-001-
 - 6. OUTER_WALL_GROSS_AREA: koppeling met 'steiger' bevestigen; besluiten of 'gevel-metselwerk' en 'voegwerk' als benadering (ESTIMATED) getoond moeten worden (MJOP-App-wijziging).
 - 7. BUILDING_HEIGHT: bevestigen als CONTEXT_ONLY.
 
-Stand: crosswalk-besluiten XWD-00001, XWD-00002, XWD-00003; building links 81; quantity resolutions 0; bundels ongewijzigd: doc012_meppelweg_v3.json ja, maldenhof_DOC-005_DOC-006_v3.json ja.
+Stand: crosswalk-besluiten XWD-00001, XWD-00002, XWD-00003, XWD-00004, XWD-00005; building links 81; quantity resolutions 0; bundels ongewijzigd: doc012_meppelweg_v3.json ja, maldenhof_DOC-005_DOC-006_v3.json ja.

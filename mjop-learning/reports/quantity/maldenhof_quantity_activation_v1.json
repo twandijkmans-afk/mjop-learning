@@ -966,6 +966,28 @@
  "scope_aggregates_not_published": [],
  "historical": [
   {
+   "evidence_id": "QE-b0a58dbfd69cc808",
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "subject_id": "QS-20f9d9f49dbe50f8",
+   "value": "1485.60",
+   "unit": "m2",
+   "method_class": "SOURCE_REPORTED",
+   "source_type": "MJOP_ELEMENT_OVERVIEW",
+   "status": "PROPOSED",
+   "document_id": "DOC-005",
+   "quantity_observation_id": "QO-DOC-005-EL-027",
+   "page": 7,
+   "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3",
+   "subject_mapping_ref": "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006",
+   "source_cluster": "SC-DOC-005+DOC-006",
+   "same_object_document_ids": [
+    "DOC-006"
+   ],
+   "identical_in_same_object_documents": [
+    "QO-DOC-006-EL-027"
+   ]
+  },
+  {
    "evidence_id": "QE-cda20b77ca36b732",
    "subject_key": "ROOF_COVERING_REPORTED_AREA",
    "subject_id": "QS-cb56b37167ff6427",
@@ -1009,6 +1031,29 @@
    "identical_in_same_object_documents": [
     "QO-DOC-005-EL-025"
    ]
+  },
+  {
+   "evidence_id": "QE-df6c981f2f0f8134",
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "subject_id": "QS-20f9d9f49dbe50f8",
+   "value": "1485.60",
+   "unit": "m2",
+   "method_class": "SOURCE_REPORTED",
+   "source_type": "MJOP_ELEMENT_OVERVIEW",
+   "status": "PROPOSED",
+   "document_id": "DOC-006",
+   "quantity_observation_id": "QO-DOC-006-EL-027",
+   "page": 7,
+   "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1",
+   "subject_mapping_ref": "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006",
+   "source_cluster": "SC-DOC-005+DOC-006",
+   "same_object_document_ids": [
+    "DOC-005",
+    "DOC-014"
+   ],
+   "identical_in_same_object_documents": [
+    "QO-DOC-005-EL-027"
+   ]
   }
  ],
  "historical_independent_source_clusters": 1,
@@ -1031,6 +1076,23 @@
    "dependency_note": "zelfde object als DOC-006: geen onafhankelijke bevestiging"
   },
   {
+   "document_id": "DOC-005",
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "bag3d_subject_key": "ROOF_SLOPED_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "subject_relation_id": "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA",
+   "historical_value": "1485.60",
+   "bag3d_value": "1415.57",
+   "absolute_difference": "70.03",
+   "percentage_difference": "4.9471",
+   "difference_band": null,
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
+   "mismatch_reasons": [
+    "DIFFERENT_SUBJECT_DEFINITION"
+   ],
+   "dependency_note": "zelfde object als DOC-006: geen onafhankelijke bevestiging"
+  },
+  {
    "document_id": "DOC-006",
    "subject_key": "ROOF_COVERING_REPORTED_AREA",
    "bag3d_subject_key": "ROOF_FLAT_AREA",
@@ -1040,6 +1102,23 @@
    "bag3d_value": "190.65",
    "absolute_difference": "235.15",
    "percentage_difference": "123.3412",
+   "difference_band": null,
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
+   "mismatch_reasons": [
+    "DIFFERENT_SUBJECT_DEFINITION"
+   ],
+   "dependency_note": "zelfde object als DOC-005, DOC-014: geen onafhankelijke bevestiging"
+  },
+  {
+   "document_id": "DOC-006",
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "bag3d_subject_key": "ROOF_SLOPED_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "subject_relation_id": "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA",
+   "historical_value": "1485.60",
+   "bag3d_value": "1415.57",
+   "absolute_difference": "70.03",
+   "percentage_difference": "4.9471",
    "difference_band": null,
    "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
    "mismatch_reasons": [
@@ -1073,6 +1152,39 @@
    "pand_count": 15
   },
   "entries": [
+   {
+    "app_element_key": "dak-hellend",
+    "subject_key": "ROOF_SLOPED_AREA",
+    "role": "PRIMARY",
+    "selectable": true,
+    "value": "1415.57",
+    "unit": "m2",
+    "method_class": "GEOMETRY_DERIVED",
+    "source_type": "3D_BAG",
+    "components": 15
+   },
+   {
+    "app_element_key": "dak-hellend",
+    "subject_key": "ROOF_TILES_REPORTED_AREA",
+    "role": "RELATED_CONTEXT",
+    "selectable": false,
+    "value": "1485.60",
+    "unit": "m2",
+    "method_class": "SOURCE_REPORTED",
+    "source_type": "MJOP_ELEMENT_OVERVIEW",
+    "components": 0
+   },
+   {
+    "app_element_key": "dak-hellend",
+    "subject_key": "ROOF_TILES_REPORTED_AREA",
+    "role": "RELATED_CONTEXT",
+    "selectable": false,
+    "value": "1485.60",
+    "unit": "m2",
+    "method_class": "SOURCE_REPORTED",
+    "source_type": "MJOP_ELEMENT_OVERVIEW",
+    "components": 0
+   },
    {
     "app_element_key": "dak-plat",
     "subject_key": "ROOF_COVERING_REPORTED_AREA",

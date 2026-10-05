@@ -11,23 +11,30 @@
   "bag3d_evidences": 84,
   "bag3d_scope_aggregates": 4,
   "scope_aggregates_not_published": 0,
-  "historical_evidences": 3,
+  "historical_evidences": 5,
   "verified_subject_mappings": [
    "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-005-006",
-   "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012"
+   "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
+   "HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006"
   ],
   "unverified_subject_mappings": [
    "HSM-ROOF_FLAT_AREA-4711-m2",
    "HSM-ROOF_SLOPED_AREA-4712-m2"
   ],
-  "comparisons": 3,
+  "comparisons": 5,
   "comparisons_with_difference": 0,
   "comparable_subjects": [],
-  "related_subject_source_differences": 3,
+  "related_subject_source_differences": 5,
   "historical_independent_sources": [
    {
     "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
     "subject_key": "ROOF_COVERING_REPORTED_AREA",
+    "historical_evidences": 2,
+    "independent_source_clusters": 1
+   },
+   {
+    "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+    "subject_key": "ROOF_TILES_REPORTED_AREA",
     "historical_evidences": 2,
     "independent_source_clusters": 1
    },
@@ -41,6 +48,12 @@
   "per_subject": {
    "ROOF_COVERING_REPORTED_AREA": {
     "comparisons": 3,
+    "with_difference": 0,
+    "median_absolute_difference": null,
+    "median_percentage_difference": null
+   },
+   "ROOF_TILES_REPORTED_AREA": {
+    "comparisons": 2,
     "with_difference": 0,
     "median_absolute_difference": null,
     "median_percentage_difference": null
@@ -120,6 +133,67 @@
    ]
   },
   {
+   "document_id": "DOC-005",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "bag3d_subject_key": "ROOF_SLOPED_AREA",
+   "subject_relation_id": "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA",
+   "historical_evidence_id": "QE-b0a58dbfd69cc808",
+   "historical_quantity_observation_id": "QO-DOC-005-EL-027",
+   "historical_value": "1485.60",
+   "historical_unit": "m2",
+   "historical_description": "Dakpan beton",
+   "historical_location": "Hellend dak",
+   "bag3d_evidence_id": "QE-49f335215eb3c9be",
+   "bag3d_value": "1415.57",
+   "bag3d_unit": "m2",
+   "bag3d_method_class": "GEOMETRY_DERIVED",
+   "bag3d_child_evidence_ids": [
+    "QE-9e9a7a5ea570de35",
+    "QE-9cbc210157bce630",
+    "QE-2454fd0d1bc52ae3",
+    "QE-4b0c7854df78a0a0",
+    "QE-55892703d748462d",
+    "QE-7a18d84092f74918",
+    "QE-05dbf3a10e79dee5",
+    "QE-76f2bd20861492a6",
+    "QE-cd1373eaf544d9f4",
+    "QE-77b3391146dbc646",
+    "QE-3a39191f7f1e132a",
+    "QE-470da4ac3947914b",
+    "QE-a1d254734f2d6b14",
+    "QE-623106e50028db08",
+    "QE-2b18b45f180f765e"
+   ],
+   "absolute_difference": "70.03",
+   "percentage_difference": "4.9471",
+   "difference_band": null,
+   "historical_source_cluster": "SC-DOC-005+DOC-006",
+   "dependency_note": "zelfde object als DOC-006: geen onafhankelijke bevestiging",
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
+   "mismatch_reasons": [
+    "DIFFERENT_SUBJECT_DEFINITION"
+   ]
+  },
+  {
    "document_id": "DOC-006",
    "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
    "bag_pand_ids": [
@@ -172,6 +246,67 @@
    ],
    "absolute_difference": "235.15",
    "percentage_difference": "123.3412",
+   "difference_band": null,
+   "historical_source_cluster": "SC-DOC-005+DOC-006",
+   "dependency_note": "zelfde object als DOC-005, DOC-014: geen onafhankelijke bevestiging",
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY",
+   "mismatch_reasons": [
+    "DIFFERENT_SUBJECT_DEFINITION"
+   ]
+  },
+  {
+   "document_id": "DOC-006",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "subject_key": "ROOF_TILES_REPORTED_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "bag3d_subject_key": "ROOF_SLOPED_AREA",
+   "subject_relation_id": "SREL-ROOF_TILES_REPORTED_AREA-ROOF_SLOPED_AREA",
+   "historical_evidence_id": "QE-df6c981f2f0f8134",
+   "historical_quantity_observation_id": "QO-DOC-006-EL-027",
+   "historical_value": "1485.60",
+   "historical_unit": "m2",
+   "historical_description": "Dakpan beton",
+   "historical_location": "Hellend dak",
+   "bag3d_evidence_id": "QE-49f335215eb3c9be",
+   "bag3d_value": "1415.57",
+   "bag3d_unit": "m2",
+   "bag3d_method_class": "GEOMETRY_DERIVED",
+   "bag3d_child_evidence_ids": [
+    "QE-9e9a7a5ea570de35",
+    "QE-9cbc210157bce630",
+    "QE-2454fd0d1bc52ae3",
+    "QE-4b0c7854df78a0a0",
+    "QE-55892703d748462d",
+    "QE-7a18d84092f74918",
+    "QE-05dbf3a10e79dee5",
+    "QE-76f2bd20861492a6",
+    "QE-cd1373eaf544d9f4",
+    "QE-77b3391146dbc646",
+    "QE-3a39191f7f1e132a",
+    "QE-470da4ac3947914b",
+    "QE-a1d254734f2d6b14",
+    "QE-623106e50028db08",
+    "QE-2b18b45f180f765e"
+   ],
+   "absolute_difference": "70.03",
+   "percentage_difference": "4.9471",
    "difference_band": null,
    "historical_source_cluster": "SC-DOC-005+DOC-006",
    "dependency_note": "zelfde object als DOC-005, DOC-014: geen onafhankelijke bevestiging",

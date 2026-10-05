@@ -329,3 +329,31 @@ NOT_SELECTED — zonder REJECT-records, omdat die panden geen canonieke kandidaa
 Bundel `reports/quantity/app_bundles/doc012_meppelweg_v3.json` (single-pand v3) via dezelfde exporter en validator
 als Maldenhof (multi-pand). De validator controleert generiek ook dat een context-regel dezelfde eenheid heeft als het
 kiesbare onderwerp. Rapport: `scripts/doc012_quantity_activation.py`. Geen quantity resolution.
+
+## 13. Sloped Roof Quantity Activation v1
+
+Besluiten van de gebruiker (2026-10-05), vastgelegd in de bestaande stores (geen nieuw systeem):
+
+- **App-onderwerpmapping** `XQ-dak-hellend-ROOF_SLOPED_AREA-m2` (`mapping_kind: APP_QUANTITY_SUBJECT`,
+  `internal_element_code: null`): app-element `dak-hellend` → `ROOF_SLOPED_AREA` (3D BAG `b3_opp_dak_schuin`).
+  VERIFIED via `XWD-00004`. Dit besluit zegt niets over code 4712 of historische dakpannenoppervlakken.
+- **Historisch onderwerp** `ROOF_TILES_REPORTED_AREA` (SOURCE_REPORTED, `source_reported_only`), met de relatie
+  `ROOF_TILES_REPORTED_AREA ~ ROOF_SLOPED_AREA` = `RELATED_NOT_EQUIVALENT` (naast elkaar tonen; verschil = andere
+  definitie; geen gemiddelde, geen enkele resolutie, geen automatische winnaar).
+- **Smalle HSM** `HSM-ROOF_TILES_REPORTED_AREA-4712-m2-DOC-005-006`: exact DOC-005/DOC-006, 4712, m2,
+  "Dakpan beton", "Hellend dak". Matcht alleen `QO-DOC-005-EL-027` en `QO-DOC-006-EL-027` (één source cluster).
+  VERIFIED via `XWD-00005`. "Dakpannen leisteen" blijft OTHER_SLOPED_ROOF_MATERIAL zonder mapping.
+- `XW-dak-hellend-4712-m2` blijft REVIEW_REQUIRED.
+- `product_role`: `ROOF_TOTAL_AREA` = INFRASTRUCTURE_ONLY, `BUILDING_HEIGHT` = CONTEXT_ONLY; de export en de validator
+  laten zulke onderwerpen nooit PRIMARY worden.
+
+Exporter: PRIMARY komt uit een geverifieerde app-element→onderwerp-mapping; RELATED_CONTEXT alleen via een
+vastgelegde relatie + een effectief VERIFIED HSM (exacte match) + dezelfde scope en eenheid, nooit via een gedeelde
+elementcode. De validator controleert dit per app-element (hoogstens één PRIMARY per element+onderwerp).
+
+Bundels: `maldenhof_expanded_v3.json` (dak-plat + dak-hellend; dak-hellend PRIMARY 1415.57 m² als som van 15 panden,
+context 1485.60 m² dakpannen uit DOC-005 en DOC-006). De referentiebundels (`b1ca1d19…`, `748ebcbe…`) blijven
+byte-identiek met `--app-elements dak-plat`. DOC-012 heeft een gemeten `ROOF_SLOPED_AREA` van 0.0 (geldig, geen
+missing) en geen historische dakpannencontext.
+
+Niet in deze stap: OUTER_WALL_GROSS_AREA, een derde gebouw, quantity resolutions.

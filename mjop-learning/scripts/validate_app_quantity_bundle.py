@@ -11,7 +11,13 @@ Controleert een bundel tegen de canonieke stores (read-only):
   - alle evidence-, child-, snapshot-, building-link- en quantity-observation-verwijzingen bestaan, en waarde,
     eenheid, methode en status in de bundel zijn gelijk aan de canonieke evidence;
   - de afhankelijkheid tussen documenten van hetzelfde object (source cluster) is behouden;
-  - geen secrets/API-sleutels in de export.
+  - geen secrets/API-sleutels in de export;
+  - meerdere app-elementen: elke PRIMARY volgt uit een geverifieerde app-mapping (XW-/XQ-) met precies dat
+    app-element en onderwerp, hoogstens één PRIMARY per (app-element, onderwerp), nooit een onderwerp met product_role
+    INFRASTRUCTURE_ONLY/CONTEXT_ONLY; elke RELATED_CONTEXT heeft een effectief geverifieerde onderwerp-mapping (HSM)
+    van exact dat onderwerp die de quantity observation nog steeds exact matcht, een vastgelegde relatie
+    RELATED_NOT_EQUIVALENT met het PRIMARY-onderwerp van hetzelfde app-element, en dezelfde eenheid. Een gedeelde
+    element_code is nooit genoeg.
 
     python scripts/validate_app_quantity_bundle.py reports/quantity/app_bundles/maldenhof_DOC-005_DOC-006_v3.json \
         [--expect-panden 15] [--check-export]
@@ -20,6 +26,7 @@ Controleert een bundel tegen de canonieke stores (read-only):
 """
 
 import argparse
+from collections import Counter
 import json
 import re
 import sys
@@ -55,14 +62,21 @@ def _walk_keys(obj):
             yield from _walk_keys(v)
 
 
-def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=None, resolutions=None, expect_panden=None):
+def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=None, resolutions=None, expect_panden=None,
+             subjects_vocab=None):
     """Geeft een lijst fouten (leeg = geldig)."""
     errs = []
     evidence_store = evidence_store if evidence_store is not None else json.loads(bqe.OUT_EVIDENCE.read_text(encoding="utf-8"))
     link_store = link_store if link_store is not None else bl.load_store()
     snap_ids = {s["snapshot_id"] for s in (snapshots if snapshots is not None else bs.load_snapshots())}
-    qo_ids = {o["quantity_observation_id"] for o in (qos if qos is not None else
-                                                     json.loads(bqe.QO_PATH.read_text(encoding="utf-8"))["observations"])}
+    qo_list = qos if qos is not None else json.loads(bqe.QO_PATH.read_text(encoding="utf-8"))["observations"]
+    qo_ids = {o["quantity_observation_id"] for o in qo_list}
+    qo_by_id = {o["quantity_observation_id"]: o for o in qo_list}
+    vocab = subjects_vocab if subjects_vocab is not None else json.loads(xw.SUBJECTS.read_text(encoding="utf-8"))
+    roles = {x["subject_key"]: x.get("product_role") for x in vocab.get("subjects", [])}
+    hsm_by_id = {m["mapping_id"]: m for m in vocab.get("historical_subject_mappings", [])}
+    proposals = xw.load_proposals()
+    eff = xw.effective()
     resolutions = resolutions if resolutions is not None else json.loads(RESOLUTIONS.read_text(encoding="utf-8"))
     ev_by_id = {e["evidence_id"]: e for e in evidence_store["evidence"]}
     link_ids = {r["link_id"] for r in link_store["records"]}
@@ -102,6 +116,12 @@ def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=N
     if version != eab.BUNDLE_VERSION_RELATED and (context or any("role" in e for e in entries)):
         errs.append("role/RELATED_CONTEXT alleen in v3")
     primary_subjects = {e["subject_key"] for e in primary}
+    primary_by_element = {}
+    for e in primary:
+        primary_by_element.setdefault(e.get("app_element_key"), []).append(e.get("subject_key"))
+    for (el, subj), n in Counter((e.get("app_element_key"), e.get("subject_key")) for e in primary).items():
+        if n > 1:
+            errs.append(f"{el}: {n} PRIMARY-regels voor {subj} (hoogstens één)")
 
     for e in entries:
         ev = e.get("evidence") or {}
@@ -119,8 +139,18 @@ def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=N
             errs.append(f"{where}: subject_key wijkt af van de evidence")
         if canon["building_id"] not in (bid, *(f"BAG:{p}" for p in pids)):
             errs.append(f"{where}: evidence hoort bij een ander gebouw")
-        if (e.get("crosswalk_decision_id") or None) != (xw.effective().get(e.get("crosswalk_mapping_id"), {}).get("decision_id")):
+        if (e.get("crosswalk_decision_id") or None) != (eff.get(e.get("crosswalk_mapping_id"), {}).get("decision_id")):
             errs.append(f"{where}: crosswalk_decision_id hoort niet bij een geldend besluit")
+        m = proposals.get(e.get("crosswalk_mapping_id"))
+        if m is None or m.get("kind") != "APP_ELEMENT" or m.get("app_element_key") != e.get("app_element_key"):
+            errs.append(f"{where}: crosswalk_mapping_id hoort niet bij dit app-element")
+        elif e.get("role", "PRIMARY") == "PRIMARY":
+            if eff.get(m["mapping_id"], {}).get("status") != "VERIFIED":
+                errs.append(f"{where}: PRIMARY zonder geverifieerde app-mapping")
+            if m.get("quantity_subject") != e.get("subject_key"):
+                errs.append(f"{where}: PRIMARY-onderwerp {e.get('subject_key')} past niet bij de app-mapping ({m.get('quantity_subject')})")
+            if roles.get(e.get("subject_key")) in eab.NON_PRIMARY_ROLES:
+                errs.append(f"{where}: {e.get('subject_key')} heeft product_role {roles.get(e.get('subject_key'))} en mag geen PRIMARY zijn")
         refs = ev.get("evidence_refs")
         if version == eab.BUNDLE_VERSION_RELATED:
             if not refs or refs.get("evidence_id") != eid:
@@ -171,8 +201,18 @@ def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=N
                 errs.append(f"{where}: RELATED_CONTEXT moet selectable false zijn")
             if e.get("subject_key") in primary_subjects or e.get("subject_key") == e.get("primary_subject_key"):
                 errs.append(f"{where}: context-onderwerp gelijk aan het kiesbare onderwerp")
-            if e.get("primary_subject_key") not in primary_subjects:
-                errs.append(f"{where}: primary_subject_key zonder kiesbare bron in de bundel")
+            if e.get("primary_subject_key") not in primary_by_element.get(e.get("app_element_key"), []):
+                errs.append(f"{where}: primary_subject_key zonder kiesbare bron voor dit app-element")
+            hsm_id = (canon.get("source_ref") or {}).get("subject_mapping_ref")
+            hsm = hsm_by_id.get(hsm_id)
+            if hsm is None or eff.get(hsm_id, {}).get("status") != "VERIFIED" or hsm.get("subject_key") != e.get("subject_key"):
+                errs.append(f"{where}: context zonder effectief geverifieerde onderwerp-mapping voor {e.get('subject_key')} ({hsm_id})")
+            else:
+                qo = qo_by_id.get((canon.get("source_ref") or {}).get("quantity_observation_id"))
+                if qo is None or not bqe.mapping_matches(hsm, qo):
+                    errs.append(f"{where}: quantity observation matcht de onderwerp-mapping {hsm_id} niet (exact)")
+            if bqe.related_subjects(vocab, e.get("primary_subject_key") or "").get(e.get("subject_key")) is None:
+                errs.append(f"{where}: geen vastgelegde RELATED_NOT_EQUIVALENT-relatie {e.get('subject_key')} ~ {e.get('primary_subject_key')}")
             prim_units = {p["evidence"].get("unit") for p in primary if p.get("app_element_key") == e.get("app_element_key")}
             if prim_units and ev.get("unit") not in prim_units:
                 errs.append(f"{where}: context-eenheid {ev.get('unit')!r} past niet bij het kiesbare onderwerp ({', '.join(sorted(map(str, prim_units)))})")
@@ -199,8 +239,10 @@ def main(argv=None):
     errs = validate(bundle, expect_panden=a.expect_panden)
     if a.check_export:
         store = json.loads(bqe.OUT_EVIDENCE.read_text(encoding="utf-8"))
+        # zelfde app-elementen als de bundel (een beperkte bundel blijft zo reproduceerbaar)
         fresh = eab.build_bundle(bundle["building_id"], store["evidence"], json.loads(xw.APP_CROSSWALK.read_text(encoding="utf-8")),
-                                 xw.effective(), json.loads(xw.SUBJECTS.read_text(encoding="utf-8")))
+                                 xw.effective(), json.loads(xw.SUBJECTS.read_text(encoding="utf-8")),
+                                 app_elements={e["app_element_key"] for e in bundle.get("entries") or []})
         if bundle_bytes(fresh) != raw:
             errs.append("bundel is niet byte-identiek aan een nieuwe export (niet up-to-date of niet deterministisch)")
     for e in errs:
