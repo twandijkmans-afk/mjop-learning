@@ -75,6 +75,26 @@ def _components(ev, by_id):
     return out
 
 
+def _evidence_refs(ev):
+    """Volledige herkomst van één evidence (alleen in v3): regel, snapshots, building links, child evidence,
+    mapping en bronbestand. Alleen verwijzingen, geen nieuwe waarden."""
+    sr, calc = ev["source_ref"], ev.get("calculation") or {}
+    return {
+        "evidence_id": ev["evidence_id"], "building_id": ev["building_id"],
+        "subject_id": ev["quantity_subject"].get("subject_id"),
+        "rule_id": sr.get("rule_id") or calc.get("rule_id"), "rule_version": sr.get("rule_version") or calc.get("rule_version"),
+        "bag_pand_ids": sr.get("bag_pand_ids") or ([sr["bag_pand_id"]] if sr.get("bag_pand_id") else []),
+        "snapshot_ids": sr.get("snapshot_ids") or ([sr["snapshot_id"]] if sr.get("snapshot_id") else []),
+        "building_link_ids": sr.get("building_link_ids") or sorted(filter(None, (sr.get("building_link_ref") or "").split(","))),
+        "child_evidence_ids": list(calc.get("input_evidence_ids") or []),
+        "document_id": sr.get("document_id"), "quantity_observation_id": sr.get("quantity_observation_id"),
+        "source_sha256": sr.get("source_sha256"), "subject_mapping_ref": sr.get("subject_mapping_ref"),
+        "dependency": {"source_cluster": (ev.get("dependency") or {}).get("source_cluster"),
+                       "same_object_document_ids": (ev.get("dependency") or {}).get("same_object_document_ids", []),
+                       "identical_in_same_object_documents": (ev.get("dependency") or {}).get("identical_in_same_object_documents", [])},
+    }
+
+
 def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab=None):
     verified = [m for m in app_crosswalk["mappings"]
                 if effective.get(m["mapping_id"], {}).get("status") == "VERIFIED" and m.get("quantity_subject")]
@@ -126,11 +146,14 @@ def build_bundle(building_id, evidence, app_crosswalk, effective, subjects_vocab
                 e_out["evidence"]["aggregation"] = ev["source_ref"].get("aggregation") if is_agg else None
                 e_out["evidence"]["formula"] = (ev.get("calculation") or {}).get("formula") if is_agg else None
                 e_out["evidence"]["components"] = _components(ev, by_id) if is_agg else []
+            e_out["_refs"] = _evidence_refs(ev)
             entries.append(e_out)
     if not entries:
         raise BundleError(f"geen evidence voor {building_id} bij de geverifieerde mappings")
+    refs = {id(e): e.pop("_refs") for e in entries}
     if any(e.get("role") == "RELATED_CONTEXT" for e in entries):
         for e in entries:
+            e["evidence"]["evidence_refs"] = refs[id(e)]
             if e.get("role") != "RELATED_CONTEXT":
                 e.update({"role": "PRIMARY", "selectable": True, "subject_label_nl": labels.get(e["subject_key"])})
         return {"bundle_version": BUNDLE_VERSION_RELATED, "building_id": building_id, "bag_pand_ids": pand_ids,
@@ -164,7 +187,7 @@ def main(argv=None):
         return 2
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(json.dumps(bundle, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    out.write_text(json.dumps(bundle, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     print(f"{len(bundle['entries'])} evidence-regels -> {out}")
     return 0
 

@@ -285,3 +285,18 @@ van de mapping komt mee als `role` RELATED_CONTEXT, `selectable` false. Zonder c
 
 Rapport: `scripts/maldenhof_quantity_activation.py` → `reports/quantity/maldenhof_quantity_activation_v1.{json,md}`.
 Quantity resolution: niet vastgelegd (UNRESOLVED; 3D BAG-evidence PROPOSED).
+
+## 10. Echte Maldenhof-bundel v3
+
+`reports/quantity/app_bundles/maldenhof_DOC-005_DOC-006_v3.json` is de eerste echte app-bundel: gegenereerd met
+`scripts/export_app_quantity_bundle.py` voor de 15 bevestigde panden, deterministisch (byte-identiek bij een nieuwe
+export) en gevalideerd met `scripts/validate_app_quantity_bundle.py --expect-panden 15 --check-export`.
+
+v3-bundels hebben per evidence een `evidence_refs`-blok (regel, snapshots, building links, child evidence,
+quantity observation, bronbestand-hash, mapping, dependency). v1/v2-bundels blijven ongewijzigd.
+
+De validator controleert o.a.: versie en scope, geen dubbele panden, aggregaat = exacte som van de components,
+historische context op complexniveau en niet kiesbaar, contextonderwerp ≠ kiesbaar onderwerp, relatie
+RELATED_NOT_EQUIVALENT, geen keuze/resolutie in de bundel en geen ACTIVE quantity resolution, alle verwijzingen
+bestaan, source cluster behouden, geen secrets. Een keuze in MJOP-App wordt nooit teruggeschreven als
+quantity resolution.
