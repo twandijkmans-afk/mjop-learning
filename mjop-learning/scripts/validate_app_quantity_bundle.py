@@ -4,7 +4,8 @@ Controleert een bundel tegen de canonieke stores (read-only):
   - schema/versie en gebouwscope (consistent, geen dubbele pand-ID's, optioneel exact aantal panden);
   - elk scope-aggregaat = exacte Decimal-som van zijn components; components = alle panden van de scope;
   - historische context: complexniveau, role RELATED_CONTEXT, selectable false, ander onderwerp dan het
-    kiesbare onderwerp, relatie RELATED_NOT_EQUIVALENT en niet resolveerbaar als dezelfde hoeveelheid;
+    kiesbare onderwerp, zelfde eenheid als het kiesbare onderwerp, relatie RELATED_NOT_EQUIVALENT en niet
+    resolveerbaar als dezelfde hoeveelheid;
   - geen automatisch gekozen evidence en geen resolved quantity in de bundel; geen ACTIVE quantity resolution
     voor de scope in data/quantity_resolutions;
   - alle evidence-, child-, snapshot-, building-link- en quantity-observation-verwijzingen bestaan, en waarde,
@@ -172,6 +173,9 @@ def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=N
                 errs.append(f"{where}: context-onderwerp gelijk aan het kiesbare onderwerp")
             if e.get("primary_subject_key") not in primary_subjects:
                 errs.append(f"{where}: primary_subject_key zonder kiesbare bron in de bundel")
+            prim_units = {p["evidence"].get("unit") for p in primary if p.get("app_element_key") == e.get("app_element_key")}
+            if prim_units and ev.get("unit") not in prim_units:
+                errs.append(f"{where}: context-eenheid {ev.get('unit')!r} past niet bij het kiesbare onderwerp ({', '.join(sorted(map(str, prim_units)))})")
             if rel.get("relation") != "RELATED_NOT_EQUIVALENT" or rel.get("resolvable_as_same_quantity") is not False:
                 errs.append(f"{where}: relatie moet RELATED_NOT_EQUIVALENT en niet resolveerbaar zijn")
         elif version == eab.BUNDLE_VERSION_RELATED and e.get("selectable") is not True:

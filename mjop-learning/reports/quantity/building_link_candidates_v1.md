@@ -3,8 +3,8 @@
 Read-only. Dit rapport bevestigt niets; een link ontstaat alleen door een menselijk besluit (`scripts/building_links.py record`). Zie `docs/building_link_3dbag_evidence_v1.md`.
 
 - Documenten: 13
-- Status: AWAITING_BAG_SNAPSHOT 8, CANDIDATES_READY_FOR_REVIEW 1, LINKED 2, NO_ADDRESS 2
-- Bevestigde links (ACTIVE): 30
+- Status: AWAITING_BAG_SNAPSHOT 8, LINKED 3, NO_ADDRESS 2
+- Bevestigde links (ACTIVE): 31
 - Documenten met meerdere bevestigde panden: DOC-005, DOC-006
 
 | Document | Adres (zoals vermeld) | Postcode | Plaats | Cluster | Kandidaat-panden | Status | Review-redenen |
@@ -19,7 +19,7 @@ Read-only. Dit rapport bevestigt niets; een link ontstaat alleen door een mensel
 | DOC-009 | (VvE St. Jacobsstraat 251-321 Woningen) | — | Utrecht | SC-DOC-008+DOC-009 | — | AWAITING_BAG_SNAPSHOT | ADDRESS_FROM_OBJECT_NAME, ADDRESS_RANGE, NO_BAG_SNAPSHOT, NO_STATED_ADDRESS, POSTCODE_MISSING, SUBPLAN_SCOPE |
 | DOC-010 | Zomerdijkstraat 14, Uiterwaardenstraat 141 | 1079 XB | Amsterdam | SC-DOC-010 | — | AWAITING_BAG_SNAPSHOT | MULTIPLE_STREETS, NO_BAG_SNAPSHOT, OBJECT_NAME_ADDRESS_DIFFERS |
 | DOC-011 | — | — | — | SC-DOC-011 | — | NO_ADDRESS | CITY_MISSING, NO_BAG_SNAPSHOT, NO_STATED_ADDRESS, POSTCODE_MISSING |
-| DOC-012 | Meppelweg 819 | 2544 AW | Den Haag | SC-DOC-012 | 0518100000354752 | CANDIDATES_READY_FOR_REVIEW | OBJECT_NAME_ADDRESS_DIFFERS |
+| DOC-012 | Meppelweg 819 | 2544 AW | Den Haag | SC-DOC-012 | 0518100000354752 | LINKED | OBJECT_NAME_ADDRESS_DIFFERS |
 | DOC-013 | Vechtstraat 13-15-17-19 | — | Amsterdam | SC-DOC-013 | — | AWAITING_BAG_SNAPSHOT | ADDRESS_RANGE, NO_BAG_SNAPSHOT, OBJECT_NAME_ADDRESS_DIFFERS, POSTCODE_MISSING |
 | DOC-015 | Groetstraat 110-140 | — | Amsterdam | SC-DOC-015 | — | AWAITING_BAG_SNAPSHOT | ADDRESS_RANGE, NO_BAG_SNAPSHOT, POSTCODE_MISSING |
 

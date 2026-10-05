@@ -8,6 +8,7 @@ invoer is byte-identiek. Gevalideerd met `scripts/validate_app_quantity_bundle.p
 | Bestand | Versie | Gebouwscope |
 |---|---|---|
 | `maldenhof_DOC-005_DOC-006_v3.json` | `mjop_app_quantity_bundle_v3` | Maldenhof 240–296 (even), 15 BAG-panden |
+| `doc012_meppelweg_v3.json` | `mjop_app_quantity_bundle_v3` | DOC-012 Meppelweg 803–883 (oneven), 1 BAG-pand `0518100000354752` |
 
 ```
 python scripts/export_app_quantity_bundle.py --building "BAG:<15 pand-ID's>" \

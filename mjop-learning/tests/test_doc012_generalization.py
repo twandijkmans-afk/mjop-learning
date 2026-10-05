@@ -118,9 +118,10 @@ def test_alias_only_added_to_query_when_used():
             assert "city_alias_ref" not in s["query"]
 
 
-def test_document_specific_mapping_exact_and_not_verified(report):
+def test_document_specific_mapping_exact_and_human_decided(report):
+    # voorgesteld in Generalization v1; daarna door de gebruiker geverifieerd (XWD-00003, DOC-012 Quantity Activation)
     eff = xw.effective()
-    assert eff[NEW_MAP]["status"] == "PROPOSED" and not eff[NEW_MAP]["human_verified"]
+    assert eff[NEW_MAP]["status"] == "VERIFIED" and eff[NEW_MAP]["decision_id"] == "XWD-00003"
     vocab = json.load(open(xw.SUBJECTS, encoding="utf-8"))
     m = next(x for x in vocab["historical_subject_mappings"] if x["mapping_id"] == NEW_MAP)
     qos = json.load(open(bqe.QO_PATH, encoding="utf-8"))["observations"]
@@ -196,13 +197,16 @@ def test_multi_pand_aggregation_stays_generic(report):
 
 # --- geen besluiten; Maldenhof-regressie ----------------------------------------------------
 
-def test_no_decisions_written(report):
+def test_only_the_explicit_human_decisions_exist(report):
+    # de review zelf beslist niets; de enige DOC-012-besluiten zijn die van de gebruiker (DOC-012 Quantity Activation)
     st = report["state"]
-    assert st["building_link_records_for_doc"] == 0 and st["building_link_records_total"] == 80
-    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002"]
+    assert st["building_link_records_for_doc"] == 1 and st["building_link_records_total"] == 81
+    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003"]
     assert st["quantity_resolutions"] == 0
-    assert report["app_readiness"]["bundle_generated"] is False
-    assert not any(e["building_id"].startswith("BAG:0518") for e in json.load(open(bqe.OUT_EVIDENCE))["evidence"])
+    recs = [r for r in json.load(open(bl.LINK_STORE))["records"] if r["document_id"] == "DOC-012"]
+    assert [(r["bag_pand_id"], r["link_status"]) for r in recs] == [(H1_PAND, "CONFIRMED")]  # geen kunstmatige H2-REJECTs
+    assert report["app_readiness"]["dak-plat"]["blocked_by"] == []
+    assert report["app_readiness"]["bundle_generated"] is True
 
 
 def test_maldenhof_bundle_sha256_unchanged(report):

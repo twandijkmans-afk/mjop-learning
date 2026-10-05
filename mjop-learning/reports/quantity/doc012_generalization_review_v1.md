@@ -103,18 +103,18 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## H. Voorgestelde mappings (NIET geverifieerd)
 
-- `HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012` → ROOF_COVERING_REPORTED_AREA (PROPOSED); exacte match {"document_ids": ["DOC-012"], "element_description_original_exact": ["Dakbedekking app"], "location_original_exact": [null]}; matcht: QO-DOC-012-EL-024
+- `HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012` → ROOF_COVERING_REPORTED_AREA (VERIFIED); exacte match {"document_ids": ["DOC-012"], "element_description_original_exact": ["Dakbedekking app"], "location_original_exact": [null]}; matcht: QO-DOC-012-EL-024
 
-## I. App-readiness (conceptueel; geen bundel gegenereerd)
+## I. App-readiness
 
 - dak-plat (XW-dak-plat-4711-m2 VERIFIED): PRIMARY 3D BAG ROOF_FLAT_AREA (per pand DIRECT_MEASURED, of scope-aggregaat GEOMETRY_DERIVED); RELATED_CONTEXT historische dakbedekking 801.04 m2 (ROOF_COVERING_REPORTED_AREA, na VERIFY van de DOC-012-mapping).
-  Geblokkeerd door: building scope DOC-012 niet bevestigd; HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012 niet geverifieerd.
+  Niet meer geblokkeerd; bundel: `reports/quantity/app_bundles/doc012_meppelweg_v3.json`.
 - dak-hellend: DOC-012 heeft geen 4712-rij; alleen 3D BAG ROOF_SLOPED_AREA zou beschikbaar zijn.
 - gevel-metselwerk: geen gedeeld hoeveelheidsonderwerp (netto vs bruto).
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 10, REPORT_ONLY 8, TEST_ONLY 18.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 10, REPORT_ONLY 9, TEST_ONLY 19.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -125,6 +125,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/decision_package_4645_interior_painting_wood.py` | NOT_A_PROBLEM | DOC-006 | DOCUMENT_SPECIFIC_DECISION_PACKAGE: vaste observation-ID's van een beslispakket |
 | `scripts/deterministic_extraction.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | PER_DOCUMENT_CONFIG: extractieprofiel per document (alle documenten) |
 | `scripts/doc012_generalization_review.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden | — |
+| `scripts/doc012_quantity_activation.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/export_human_review_queue.py` | NOT_A_PROBLEM | DOC-005 | COMMENT: uitleg bij een regel |
 | `scripts/facade_coverage_poc_v2.py` | REPORT_ONLY | DOC-005, Maldenhof, 15 panden | — |
 | `scripts/facade_panorama_poc.py` | REPORT_ONLY | DOC-005, Maldenhof | — |
@@ -138,10 +139,10 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `vocabularies/quantity_subjects_v1.json` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/bag_snapshots.py` | GENERIC_CODE_PROBLEM_FIXED | — | exact_address_match/range-filter vergeleken de woonplaats uit het document letterlijk met de BAG-woonplaatsnaam; 'Den Haag' (DOC-012) vond daardoor zelfs het exacte adres niet ('s-Gravenhage). Opgelost met de expliciete aliaslijst vocabularies/woonplaats_aliases_v1.json (exacte gelijkheid, vastgelegd in de snapshot-query; bestaande snapshots ongewijzigd). |
 
-Plus 18 testbestanden/fixtures (TEST_ONLY).
+Plus 19 testbestanden/fixtures (TEST_ONLY).
 MJOP-App (MJOP-App 9be178c23f9789dd49e7de7e9bb9bc0fb936c14e (src/, index.html, debug/)): `src/quantity.js:104` NOT_A_PROBLEM (COMMENT: voorbeeld '425.80' -> '425,80' bij formatSourceValue).
 
-Stand: building links voor DOC-012 0 (totaal 80); crosswalk-besluiten XWD-00001, XWD-00002; quantity resolutions 0; Maldenhof-bundel ongewijzigd: True.
+Stand: building links voor DOC-012 1 (totaal 81); crosswalk-besluiten XWD-00001, XWD-00002, XWD-00003; quantity resolutions 0; Maldenhof-bundel ongewijzigd: True.
 
 ## K. Menselijke beslissingen nodig
 

@@ -1,0 +1,172 @@
+{
+ "report_version": "doc012_quantity_activation_v1",
+ "note": "Read-only. Menselijke besluiten staan in de append-only stores; geen quantity resolution, geen gemiddelde, geen winnaar.",
+ "scope_decision": {
+  "document_id": "DOC-012",
+  "decided_by": "user-approved",
+  "decided_on": "2026-10-05",
+  "chosen": "H1",
+  "interpretation": "H1 = het volledige BAG-pand van het canonieke documentadres Meppelweg 819 (pand 0518100000354752: Meppelweg 803-883 oneven, 42 verblijfsobjecten), niet alleen de woning 819.",
+  "H2_FULL_RANGE": "NOT_SELECTED",
+  "H2_reason": "De objectnaamrange omvat ook de even straatzijde met andere postcodes, twee gesloopte panden, nieuwbouw uit 2013 en niet-woonfuncties. Dit past niet bij de documentkenmerken. Het pand van het canonieke adres verklaart daarentegen zelfstandig de 42 verblijfsobjecten.",
+  "H2_records": "geen building-link-records: de H2-panden zijn geen canonieke kandidaat (alleen read-only hypothese-opname)",
+  "facade": "2110 metselwerk 1326.46 m2 blijft NEEDS_SEMANTIC_REVIEW t.o.v. OUTER_WALL_GROSS_AREA; geen relatie, mapping of bundelregel"
+ },
+ "building_links": [
+  {
+   "link_id": "BLINK-00081",
+   "bag_pand_id": "0518100000354752",
+   "link_status": "CONFIRMED",
+   "status": "ACTIVE",
+   "decision_reason": "Meppelweg 819 is het canonieke documentadres en ligt in BAG-pand 0518100000354752. Dit woonpand omvat de oneven Meppelweg-adressen 803–883 en heeft 42 verblijfsobjecten, passend bij de 42 deurbelinstallaties en 42 postkasten in DOC-012. De bouwjaren 1956 (document) en 1957 (BAG) zijn vrijwel gelijk.",
+   "snapshot_id": "BAGSNAP-599d2f2004100011",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   }
+  }
+ ],
+ "building_id": "BAG:0518100000354752",
+ "bag_pand_ids": [
+  "0518100000354752"
+ ],
+ "mapping_decisions": [
+  {
+   "decision_id": "XWD-00003",
+   "mapping_id": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
+   "decision": "VERIFY",
+   "status": "ACTIVE",
+   "decision_reason": "Exacte document-specifieke mapping voor DOC-012: code 4711, eenheid m2 en omschrijving 'Dakbedekking app'. De mapping geldt alleen voor QO-DOC-012-EL-024 en omvat niet de 4711-regels in m1 voor randstroken of dakrandafwerking.",
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   }
+  }
+ ],
+ "mapping_status": "VERIFIED",
+ "evidence": [
+  {
+   "evidence_id": "QE-0ec156f03368047e",
+   "subject_key": "BUILDING_HEIGHT",
+   "value": "19.55500030517578",
+   "unit": "m",
+   "method_class": "GEOMETRY_DERIVED",
+   "source_type": "3D_BAG",
+   "status": "PROPOSED",
+   "quantity_observation_id": null,
+   "subject_mapping_ref": null,
+   "snapshot_id": "BAGSNAP-599d2f2004100011"
+  },
+  {
+   "evidence_id": "QE-d614bb24c23d1fab",
+   "subject_key": "OUTER_WALL_GROSS_AREA",
+   "value": "3048.46",
+   "unit": "m2",
+   "method_class": "DIRECT_MEASURED",
+   "source_type": "3D_BAG",
+   "status": "PROPOSED",
+   "quantity_observation_id": null,
+   "subject_mapping_ref": null,
+   "snapshot_id": "BAGSNAP-599d2f2004100011"
+  },
+  {
+   "evidence_id": "QE-0cd5f153f2a60245",
+   "subject_key": "ROOF_FLAT_AREA",
+   "value": "875.63",
+   "unit": "m2",
+   "method_class": "DIRECT_MEASURED",
+   "source_type": "3D_BAG",
+   "status": "PROPOSED",
+   "quantity_observation_id": null,
+   "subject_mapping_ref": null,
+   "snapshot_id": "BAGSNAP-599d2f2004100011"
+  },
+  {
+   "evidence_id": "QE-f446e3716ff206e3",
+   "subject_key": "ROOF_SLOPED_AREA",
+   "value": "0.0",
+   "unit": "m2",
+   "method_class": "DIRECT_MEASURED",
+   "source_type": "3D_BAG",
+   "status": "PROPOSED",
+   "quantity_observation_id": null,
+   "subject_mapping_ref": null,
+   "snapshot_id": "BAGSNAP-599d2f2004100011"
+  },
+  {
+   "evidence_id": "QE-34190d144c6ca537",
+   "subject_key": "ROOF_TOTAL_AREA",
+   "value": "875.63",
+   "unit": "m2",
+   "method_class": "GEOMETRY_DERIVED",
+   "source_type": "3D_BAG",
+   "status": "PROPOSED",
+   "quantity_observation_id": null,
+   "subject_mapping_ref": null,
+   "snapshot_id": "BAGSNAP-599d2f2004100011"
+  },
+  {
+   "evidence_id": "QE-bd9ee7e3931f8b77",
+   "subject_key": "ROOF_COVERING_REPORTED_AREA",
+   "value": "801.04",
+   "unit": "m2",
+   "method_class": "SOURCE_REPORTED",
+   "source_type": "MJOP_ELEMENT_OVERVIEW",
+   "status": "PROPOSED",
+   "quantity_observation_id": "QO-DOC-012-EL-024",
+   "subject_mapping_ref": "HSM-ROOF_COVERING_REPORTED_AREA-4711-m2-DOC-012",
+   "snapshot_id": null
+  }
+ ],
+ "comparisons": [
+  {
+   "subject_key": "ROOF_COVERING_REPORTED_AREA",
+   "bag3d_subject_key": "ROOF_FLAT_AREA",
+   "comparison_kind": "RELATED_SUBJECT_NOT_EQUIVALENT",
+   "historical_value": "801.04",
+   "bag3d_value": "875.63",
+   "absolute_difference": "-74.59",
+   "percentage_difference": "-8.5184",
+   "review_status": "NOT_RESOLVABLE_AS_SAME_QUANTITY"
+  }
+ ],
+ "bundle": {
+  "path": "reports/quantity/app_bundles/doc012_meppelweg_v3.json",
+  "sha256": "748ebcbe53e83afc06fd4dba67467f1014d3cc88c728b55c56c3adfd33e0a191",
+  "bundle_version": "mjop_app_quantity_bundle_v3",
+  "building_scope": {
+   "building_id": "BAG:0518100000354752",
+   "kind": "SINGLE_PAND",
+   "bag_pand_ids": [
+    "0518100000354752"
+   ],
+   "pand_count": 1
+  },
+  "entries": [
+   {
+    "app_element_key": "dak-plat",
+    "subject_key": "ROOF_FLAT_AREA",
+    "role": "PRIMARY",
+    "selectable": true,
+    "value": "875.63",
+    "unit": "m2",
+    "evidence_id": "QE-0cd5f153f2a60245"
+   },
+   {
+    "app_element_key": "dak-plat",
+    "subject_key": "ROOF_COVERING_REPORTED_AREA",
+    "role": "RELATED_CONTEXT",
+    "selectable": false,
+    "value": "801.04",
+    "unit": "m2",
+    "evidence_id": "QE-bd9ee7e3931f8b77"
+   }
+  ],
+  "validator_errors": []
+ },
+ "quantity_resolution": {
+  "records_for_scope": 0,
+  "records_total": 0
+ },
+ "maldenhof_bundle_sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933"
+}

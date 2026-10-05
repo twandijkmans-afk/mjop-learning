@@ -2,7 +2,7 @@
 
 Read-only bronnenvergelijking. **Geen accuracy-benchmark, geen besluiten, geen evidence, geen API- of netwerkcalls.** Gegenereerd door `scripts/quantity_engine_activation_review.py`.
 
-Stand menselijke besluiten: building links 80, crosswalk-besluiten 2, quantity resolutions 0, building evidence 81.
+Stand menselijke besluiten: building links 81, crosswalk-besluiten 3, quantity resolutions 0, building evidence 87.
 
 ## A — Maldenhof-inputs (PoC v2-snapshot)
 
@@ -25,7 +25,7 @@ Context: 21 BAG-panden zonder VBO binnen 2 m (14 in gebruik, samen 69.6 m² foot
 
 ## B — Building link review
 
-Canoniek opvraagplan: bereik 240–296 → bereikbaar: 0363100012070344, 0363100012071880, 0363100012078022, 0363100012091756, 0363100012091974, 0363100012102659, 0363100012107492, 0363100012121455, 0363100012127361, 0363100012134188, 0363100012137996, 0363100012140664, 0363100012141419, 0363100012143647, 0363100012144766 (15 van 15). Links CONFIRMED/REJECTED volgens de store: 30/50. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat.
+Canoniek opvraagplan: bereik 240–296 → bereikbaar: 0363100012070344, 0363100012071880, 0363100012078022, 0363100012091756, 0363100012091974, 0363100012102659, 0363100012107492, 0363100012121455, 0363100012127361, 0363100012134188, 0363100012137996, 0363100012140664, 0363100012141419, 0363100012143647, 0363100012144766 (15 van 15). Links CONFIRMED/REJECTED volgens de store: 31/50. Een link ontstaat alleen via 'scripts/building_links.py record' door een mens, en vereist een canonieke BAG-snapshot (netwerk) met het pand als kandidaat.
 
 ### BUILDING LINK REVIEW (beslislijst; status = ACTIVE record in de building-link-store, anders open)
 
