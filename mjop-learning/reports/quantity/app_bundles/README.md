@@ -10,10 +10,18 @@ invoer is byte-identiek. Gevalideerd met `scripts/validate_app_quantity_bundle.p
 | `maldenhof_DOC-005_DOC-006_v3.json` | `mjop_app_quantity_bundle_v3` | Maldenhof 240–296 (even), 15 BAG-panden |
 | `doc012_meppelweg_v3.json` | `mjop_app_quantity_bundle_v3` | DOC-012 Meppelweg 803–883 (oneven), 1 BAG-pand `0518100000354752` |
 | `maldenhof_expanded_v3.json` | `mjop_app_quantity_bundle_v3` | Maldenhof, 15 BAG-panden; `dak-plat` + `dak-hellend` (Sloped Roof Quantity Activation v1) |
+| `maldenhof_geometry_expanded_v3.json` | `mjop_app_quantity_bundle_v3` | Maldenhof, 15 BAG-panden; `dak-plat` + `dak-hellend` + `steiger` met per-pand werkhoogtecontext (Scaffolding Quantity Activation v1) |
+| `doc012_geometry_v3.json` | `mjop_app_quantity_bundle_v3` | DOC-012, 1 BAG-pand; `dak-plat` + `dak-hellend` (gemeten 0 m²) + `steiger` met werkhoogtecontext |
 
-De twee oudere bundels zijn referentiebundels voor alleen `dak-plat` en blijven byte-identiek: exporteer ze met
-`--app-elements dak-plat`. Zonder `--app-elements` neemt de export alle geverifieerde app-mappings mee
-(nu `dak-plat` en `dak-hellend`), zoals `maldenhof_expanded_v3.json`.
+De referentiebundels blijven byte-identiek: `maldenhof_DOC-005_DOC-006_v3.json` en `doc012_meppelweg_v3.json` met
+`--app-elements dak-plat`, `maldenhof_expanded_v3.json` met `--app-elements dak-plat,dak-hellend`. Zonder
+`--app-elements` neemt de export alle geverifieerde app-mappings mee (nu `dak-plat`, `dak-hellend` en `steiger`), zoals
+de twee `*_geometry_*`-bundels.
+
+De steigerregel draagt een optionele `pricing_context`: per pand van de scope een verwijzing naar de canonieke
+BUILDING_HEIGHT-evidence (met de waarde zoals die daar staat), of `MISSING` met waarde `null`. Dat is alleen kostencontext
+voor de werkhoogte; BUILDING_HEIGHT blijft CONTEXT_ONLY en is nooit een (kiesbare) bundelregel. De app rekent zelf het
+tarief uit (geen tarieven in de bundel).
 
 ```
 python scripts/export_app_quantity_bundle.py --building "BAG:<15 pand-ID's>" \

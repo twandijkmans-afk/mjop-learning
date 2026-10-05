@@ -151,6 +151,45 @@ def validate(bundle, evidence_store=None, link_store=None, snapshots=None, qos=N
                 errs.append(f"{where}: PRIMARY-onderwerp {e.get('subject_key')} past niet bij de app-mapping ({m.get('quantity_subject')})")
             if roles.get(e.get("subject_key")) in eab.NON_PRIMARY_ROLES:
                 errs.append(f"{where}: {e.get('subject_key')} heeft product_role {roles.get(e.get('subject_key'))} en mag geen PRIMARY zijn")
+        # prijscontext (bijv. BUILDING_HEIGHT per pand voor de steiger): alleen bij PRIMARY, alleen als de mapping hem
+        # declareert, CONTEXT_ONLY-onderwerp, precies de panden van de hoeveelheid, waarden = canonieke evidence,
+        # ontbrekend = MISSING/null (nooit 0 of een andere hoogte)
+        spec = (m or {}).get("pricing_context")
+        pc = e.get("pricing_context")
+        if pc is not None and (e.get("role", "PRIMARY") != "PRIMARY" or not spec):
+            errs.append(f"{where}: pricing_context zonder declaratie in de app-mapping (of op een niet-PRIMARY-regel)")
+        elif spec and e.get("role", "PRIMARY") == "PRIMARY" and pc is None:
+            errs.append(f"{where}: pricing_context ontbreekt (de app-mapping vraagt {spec.get('context_subject')} per pand)")
+        elif pc is not None:
+            subj = pc.get("context_subject_key")
+            if subj != spec.get("context_subject") or pc.get("purpose") != spec.get("purpose"):
+                errs.append(f"{where}: pricing_context past niet bij de app-mapping")
+            if roles.get(subj) != "CONTEXT_ONLY" or pc.get("context_product_role") != "CONTEXT_ONLY" or pc.get("selectable") is not False:
+                errs.append(f"{where}: pricing_context-onderwerp {subj} moet CONTEXT_ONLY en niet kiesbaar zijn")
+            if canon["source_ref"].get("aggregation"):
+                want = sorted((ev_by_id[c]["source_ref"].get("bag_pand_id"), c) for c in canon["calculation"]["input_evidence_ids"] if c in ev_by_id)
+            else:
+                want = [(canon["source_ref"].get("bag_pand_id"), eid)]
+            rows = pc.get("rows") or []
+            if sorted((r.get("bag_pand_id"), r.get("quantity_evidence_id")) for r in rows) != want:
+                errs.append(f"{where}: pricing_context dekt niet precies de panden/evidence van de hoeveelheid")
+            for r in rows:
+                pid = r.get("bag_pand_id")
+                found = [x for x in evidence_store["evidence"] if x["building_id"] == f"BAG:{pid}" and x["source_type"] == "3D_BAG"
+                         and x["quantity_subject"].get("subject_key") == subj]
+                if r.get("status") == "AVAILABLE":
+                    h = ev_by_id.get(r.get("context_evidence_id"))
+                    if h is None or h["quantity_subject"].get("subject_key") != subj or h["building_id"] != f"BAG:{pid}":
+                        errs.append(f"{where}: pricing_context {pid}: context_evidence_id hoort niet bij {subj} van dit pand")
+                    elif r.get("value") != h["value"] or r.get("unit") != h["unit_normalized"]:
+                        errs.append(f"{where}: pricing_context {pid}: waarde wijkt af van canoniek {h['value']!r}")
+                elif r.get("status") == "MISSING":
+                    if r.get("value") is not None or r.get("context_evidence_id") is not None:
+                        errs.append(f"{where}: pricing_context {pid}: MISSING moet waarde null hebben (nooit 0)")
+                    if found:
+                        errs.append(f"{where}: pricing_context {pid}: als MISSING gemarkeerd terwijl {subj}-evidence bestaat")
+                else:
+                    errs.append(f"{where}: pricing_context {pid}: onbekende status {r.get('status')!r}")
         refs = ev.get("evidence_refs")
         if version == eab.BUNDLE_VERSION_RELATED:
             if not refs or refs.get("evidence_id") != eid:

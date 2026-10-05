@@ -201,7 +201,7 @@ def test_only_the_explicit_human_decisions_exist(report):
     # de review zelf beslist niets; de enige DOC-012-besluiten zijn die van de gebruiker (DOC-012 Quantity Activation)
     st = report["state"]
     assert st["building_link_records_for_doc"] == 1 and st["building_link_records_total"] == 81
-    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003", "XWD-00004", "XWD-00005"]  # +Sloped Roof Activation v1
+    assert st["crosswalk_decisions"] == ["XWD-00001", "XWD-00002", "XWD-00003", "XWD-00004", "XWD-00005", "XWD-00006"]  # +Sloped Roof Activation v1, +Scaffolding Activation v1
     assert st["quantity_resolutions"] == 0
     recs = [r for r in json.load(open(bl.LINK_STORE))["records"] if r["document_id"] == "DOC-012"]
     assert [(r["bag_pand_id"], r["link_status"]) for r in recs] == [(H1_PAND, "CONFIRMED")]  # geen kunstmatige H2-REJECTs

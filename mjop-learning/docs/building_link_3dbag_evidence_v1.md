@@ -357,3 +357,31 @@ byte-identiek met `--app-elements dak-plat`. DOC-012 heeft een gemeten `ROOF_SLO
 missing) en geen historische dakpannencontext.
 
 Niet in deze stap: OUTER_WALL_GROSS_AREA, een derde gebouw, quantity resolutions.
+
+## 14. Outer Wall + Scaffolding Semantics v1
+
+- **App-semantiek (MJOP-App, Facade Quantity Semantics v1)**:
+  - `gevel-metselwerk` en `voegwerk` gebruiken het bruto 3D BAG-buitenmuuroppervlak alleen als benadering (ESTIMATED), net als `schilderwerk-buiten`. Dezelfde getallen en kosten blijven staan; er komt geen historische 2110-mapping bij.
+  - Een ontbrekende 3D BAG-hoogte geeft een onbekende werkhoogte. Dat betekent kosten onbekend, en niet meer stil 9 m.
+- **Steiger**: de mapping `XQ-steiger-OUTER_WALL_GROSS_AREA-m2` (APP_QUANTITY_SUBJECT, geen interne code) is VERIFIED via `XWD-00006`, met de reden van de gebruiker letterlijk overgenomen.
+  - Het VERIFY-besluit is pas vastgelegd nadat de kostenlogica per pand in de app geïmplementeerd en getest was.
+  - De mapping declareert `pricing_context` (BUILDING_HEIGHT per pand).
+- **Generieke regel** (app, `Q.scaffoldPricing`). Het tarief is de bestaande app-regel: werkhoogte = gebouwhoogte op 0,1 m en dan op hele meters; meer dan 8 m geeft € 11/m², anders € 6/m².
+  - Enkel pand: hoeveelheid × tarief.
+  - Scope waarin alle panden in één tariefklasse vallen: scopetotaal × dat tarief.
+  - Scope met verschillende tariefklassen: SOM(pand-m² × tarief(eigen hoogte)).
+  - Ontbrekende hoogte: kosten onbekend.
+- **Bundels**:
+  - De export hangt per pand een `pricing_context` aan de PRIMARY-regel, met BUILDING_HEIGHT-evidence-ref plus waarde, of MISSING/null.
+  - De validator controleert:
+    - dat de mapping de context declareert;
+    - dat het onderwerp CONTEXT_ONLY is;
+    - de exacte pandset;
+    - dat de waarden canoniek zijn;
+    - dat een MISSING-pand nooit 0 is en niet voorkomt terwijl er evidence bestaat.
+  - Nieuw: `maldenhof_geometry_expanded_v3.json` en `doc012_geometry_v3.json`. De drie oudere bundels blijven byte-identiek.
+- **Review**: `reports/quantity/scaffolding_height_review_v1.{json,md}` (`scripts/scaffolding_height_review.py`).
+  - Maldenhof: alle 15 panden vallen in de klasse > 8 m (9,44 tot 12,25 m). A = B = € 19.221.
+  - DOC-012: 3048,46 m², 19,56 m, € 33.533.
+
+Niet in deze stap: historische gevelcontext (2110), quantity resolutions, een derde gebouw.

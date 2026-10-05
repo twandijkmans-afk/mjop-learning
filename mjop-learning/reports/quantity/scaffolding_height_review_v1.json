@@ -1,0 +1,362 @@
+{
+ "report_version": "scaffolding_height_review_v1",
+ "inputs": {
+  "evidence_sha256": "216b2625e2082f2503a764b5d951737e493e9afbd2b494e33fda7e1ee9f3ac1b",
+  "subjects_vocab_sha256": "f28d0a0ccbb1e01f9f2b666a54783cd9006a77b9054b021dba91dd7b2c94a8f6",
+  "app_crosswalk_sha256": "1967af3ba33fcdb3e33923c45755d3b42edbd3072e7e5d2b2d41ee7924264408",
+  "network": "geen (alleen canonieke evidence/snapshots)"
+ },
+ "app_rule_replicated_for_review": {
+  "source": "MJOP-App src/quantity.js (scaffoldRate, workHeightFromBuildingHeight); bestaande tarieven, geen nieuwe",
+  "work_height": "round(round(BUILDING_HEIGHT, 0.1 m), 1 m)",
+  "rate": "werkhoogte > 8 m -> EUR 11/m2, anders EUR 6/m2",
+  "indexation": "geen"
+ },
+ "buildings": [
+  {
+   "name": "DOC-005 + DOC-006",
+   "documents": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "kind": "MULTI_PAND_SCOPE",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "pand_count": 15,
+   "rows": [
+    {
+     "bag_pand_id": "0363100012070344",
+     "outer_wall_gross_area_m2": "100.84",
+     "outer_wall_evidence_id": "QE-6be5a69db91e2772",
+     "building_height_m": "12.1749999523162844",
+     "building_height_evidence_id": "QE-f345095ac2c7641d",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.763999938964844,
+      "b3_h_maaiveld": -1.4110000133514404
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1109.24"
+    },
+    {
+     "bag_pand_id": "0363100012071880",
+     "outer_wall_gross_area_m2": "132.64",
+     "outer_wall_evidence_id": "QE-d82c7db69dc6359f",
+     "building_height_m": "12.1870001554489136",
+     "building_height_evidence_id": "QE-ecd159677260b8f3",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.755000114440918,
+      "b3_h_maaiveld": -1.4320000410079956
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1459.04"
+    },
+    {
+     "bag_pand_id": "0363100012078022",
+     "outer_wall_gross_area_m2": "99.61",
+     "outer_wall_evidence_id": "QE-10fe9e7acfcb8550",
+     "building_height_m": "12.1429998874664306",
+     "building_height_evidence_id": "QE-a005c5e01c2a9f3b",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.744999885559082,
+      "b3_h_maaiveld": -1.3980000019073486
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1095.71"
+    },
+    {
+     "bag_pand_id": "0363100012091756",
+     "outer_wall_gross_area_m2": "99.06",
+     "outer_wall_evidence_id": "QE-5e045e1e83e2d7b5",
+     "building_height_m": "12.158999800682068",
+     "building_height_evidence_id": "QE-e88594351de9098c",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.751999855041504,
+      "b3_h_maaiveld": -1.406999945640564
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1089.66"
+    },
+    {
+     "bag_pand_id": "0363100012091974",
+     "outer_wall_gross_area_m2": "98.09",
+     "outer_wall_evidence_id": "QE-cab5714d35b8e7f8",
+     "building_height_m": "12.1499998569488526",
+     "building_height_evidence_id": "QE-7c1b9dc2f2b3a833",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.751999855041504,
+      "b3_h_maaiveld": -1.3980000019073486
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1078.99"
+    },
+    {
+     "bag_pand_id": "0363100012102659",
+     "outer_wall_gross_area_m2": "150.33",
+     "outer_wall_evidence_id": "QE-b9d25398b96e2bda",
+     "building_height_m": "12.1640002727508544",
+     "building_height_evidence_id": "QE-f7a6f0f80eb3ebae",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.753000259399414,
+      "b3_h_maaiveld": -1.4110000133514404
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1653.63"
+    },
+    {
+     "bag_pand_id": "0363100012107492",
+     "outer_wall_gross_area_m2": "103.5",
+     "outer_wall_evidence_id": "QE-acbb5a91e2cf677a",
+     "building_height_m": "12.2469997406005855",
+     "building_height_evidence_id": "QE-324803993a477842",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.779999732971191,
+      "b3_h_maaiveld": -1.4670000076293945
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1138.5"
+    },
+    {
+     "bag_pand_id": "0363100012121455",
+     "outer_wall_gross_area_m2": "101.13",
+     "outer_wall_evidence_id": "QE-9611242cb162f832",
+     "building_height_m": "12.1100000143051145",
+     "building_height_evidence_id": "QE-c4f76ed7b52fc6e7",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.736000061035156,
+      "b3_h_maaiveld": -1.3739999532699585
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1112.43"
+    },
+    {
+     "bag_pand_id": "0363100012127361",
+     "outer_wall_gross_area_m2": "197.42",
+     "outer_wall_evidence_id": "QE-6e8e47cf10c1a5fa",
+     "building_height_m": "12.1269999742507936",
+     "building_height_evidence_id": "QE-46962f0928b15792",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.756999969482422,
+      "b3_h_maaiveld": -1.3700000047683716
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "2171.62"
+    },
+    {
+     "bag_pand_id": "0363100012134188",
+     "outer_wall_gross_area_m2": "116.45",
+     "outer_wall_evidence_id": "QE-c7200fb62f5444d2",
+     "building_height_m": "12.0950005054473873",
+     "building_height_evidence_id": "QE-c1dfd674c0d036b5",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.737000465393066,
+      "b3_h_maaiveld": -1.3580000400543213
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1280.95"
+    },
+    {
+     "bag_pand_id": "0363100012137996",
+     "outer_wall_gross_area_m2": "118.32",
+     "outer_wall_evidence_id": "QE-0fe6a230409ccad7",
+     "building_height_m": "9.4440004825592042",
+     "building_height_evidence_id": "QE-0f10351efeec3928",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 8.079000473022461,
+      "b3_h_maaiveld": -1.3650000095367432
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 9,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1301.52"
+    },
+    {
+     "bag_pand_id": "0363100012140664",
+     "outer_wall_gross_area_m2": "99.35",
+     "outer_wall_evidence_id": "QE-2e9164e4a7e6a8f5",
+     "building_height_m": "12.1379998922348022",
+     "building_height_evidence_id": "QE-a671756cbdd209db",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.744999885559082,
+      "b3_h_maaiveld": -1.3930000066757202
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1092.85"
+    },
+    {
+     "bag_pand_id": "0363100012141419",
+     "outer_wall_gross_area_m2": "106.74",
+     "outer_wall_evidence_id": "QE-14f3014c9d1ca8ce",
+     "building_height_m": "12.136999845504761",
+     "building_height_evidence_id": "QE-03fe251ca5280695",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.758999824523926,
+      "b3_h_maaiveld": -1.378000020980835
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1174.14"
+    },
+    {
+     "bag_pand_id": "0363100012143647",
+     "outer_wall_gross_area_m2": "102.5",
+     "outer_wall_evidence_id": "QE-c88540b06dc96c26",
+     "building_height_m": "12.1670004129409788",
+     "building_height_evidence_id": "QE-420e84f7d4552624",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.75100040435791,
+      "b3_h_maaiveld": -1.4160000085830688
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1127.5"
+    },
+    {
+     "bag_pand_id": "0363100012144766",
+     "outer_wall_gross_area_m2": "121.37",
+     "outer_wall_evidence_id": "QE-ea55346307b41973",
+     "building_height_m": "12.1209995746612546",
+     "building_height_evidence_id": "QE-4abdfc82cd8e52b7",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 10.722999572753906,
+      "b3_h_maaiveld": -1.3980000019073486
+     },
+     "snapshot_id": "BAGSNAP-431559474da45dcf",
+     "app_work_height_m": 12,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "1335.07"
+    }
+   ],
+   "outer_wall_scope_evidence_id": "QE-bbcbef41efede680",
+   "outer_wall_total_m2": "1747.35",
+   "sum_of_pand_walls_equals_scope_total": true,
+   "height_min_m": "9.4440004825592042",
+   "height_max_m": "12.2469997406005855",
+   "panden_per_tariff_band": {
+    "> 8 m": 15
+   },
+   "panden_missing_height": [],
+   "single_tariff_band": true,
+   "cost_A_scope_total_x_plan_pand_rate_eur": [
+    19221
+   ],
+   "cost_B_per_pand_sum_eur": 19221,
+   "A_equals_B": true
+  },
+  {
+   "name": "DOC-012",
+   "documents": [
+    "DOC-012"
+   ],
+   "kind": "SINGLE_PAND",
+   "building_id": "BAG:0518100000354752",
+   "pand_count": 1,
+   "rows": [
+    {
+     "bag_pand_id": "0518100000354752",
+     "outer_wall_gross_area_m2": "3048.46",
+     "outer_wall_evidence_id": "QE-d614bb24c23d1fab",
+     "building_height_m": "19.55500030517578",
+     "building_height_evidence_id": "QE-0ec156f03368047e",
+     "height_raw_inputs": {
+      "b3_h_dak_max": 19.30500030517578,
+      "b3_h_maaiveld": -0.25
+     },
+     "snapshot_id": "BAGSNAP-599d2f2004100011",
+     "app_work_height_m": 20,
+     "tariff_band": "> 8 m",
+     "rate_eur_per_m2": "11",
+     "pand_cost_eur": "33533.06"
+    }
+   ],
+   "outer_wall_scope_evidence_id": "QE-d614bb24c23d1fab",
+   "outer_wall_total_m2": "3048.46",
+   "sum_of_pand_walls_equals_scope_total": true,
+   "height_min_m": "19.55500030517578",
+   "height_max_m": "19.55500030517578",
+   "panden_per_tariff_band": {
+    "> 8 m": 1
+   },
+   "panden_missing_height": [],
+   "single_tariff_band": true,
+   "cost_A_scope_total_x_plan_pand_rate_eur": [
+    33533
+   ],
+   "cost_B_per_pand_sum_eur": 33533,
+   "A_equals_B": true
+  }
+ ],
+ "generic_rule": {
+  "SINGLE_PAND": "hoeveelheid OUTER_WALL_GROSS_AREA x tarief(werkhoogte van het pand)",
+  "MULTI_PAND_SAME_BAND": "scopetotaal OUTER_WALL_GROSS_AREA x gemeenschappelijk tarief",
+  "MULTI_PAND_MIXED_BANDS": "SOM(pand OUTER_WALL_GROSS_AREA x tarief(eigen BUILDING_HEIGHT)); geen gemiddelde hoogte, geen max-hoogte, geen stille fallback",
+  "MISSING_HEIGHT": "kosten onbekend / review required (nooit EUR 0, nooit een willekeurige hoogte)",
+  "carrier": "bundel v3 PRIMARY-regel steiger: optionele pricing_context met per pand BUILDING_HEIGHT-evidence-ref + waarde (geen schema-ophoging)"
+ },
+ "state": {
+  "xq_steiger_status": "VERIFIED",
+  "xq_steiger_decision_id": "XWD-00006",
+  "building_height_product_role": "CONTEXT_ONLY",
+  "historical_2110_mappings_verified": [],
+  "crosswalk_decisions": [
+   "XWD-00001",
+   "XWD-00002",
+   "XWD-00003",
+   "XWD-00004",
+   "XWD-00005",
+   "XWD-00006"
+  ],
+  "quantity_resolutions": 0,
+  "reference_bundles": {
+   "doc012_meppelweg_v3.json": {
+    "sha256": "748ebcbe53e83afc06fd4dba67467f1014d3cc88c728b55c56c3adfd33e0a191",
+    "unchanged": true
+   },
+   "maldenhof_DOC-005_DOC-006_v3.json": {
+    "sha256": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",
+    "unchanged": true
+   },
+   "maldenhof_expanded_v3.json": {
+    "sha256": "c78f387e66ce7963d7a434270350f0ee8fa4c9f232099f871e83ed202cd2975d",
+    "unchanged": true
+   }
+  }
+ }
+}
