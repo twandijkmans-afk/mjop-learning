@@ -1,0 +1,951 @@
+{
+  "store_version": "maldenhof_photo_frame_instances_v1",
+  "builder_version": "frame_instance_activation_v1.0.0",
+  "note": "Foto-gebaseerde frame instances voor Maldenhof 240-296, apart van data/frame_inventory/frame_inventory_v1.json (dat ongewijzigd blijft). Een instance is een kozijn-/gevelopening (component_type EXTERIOR_FRAME) en draagt bij aan FRAME_COUNT en WINDOW_COUNT; de deur aan EXTERIOR_DOOR_COUNT. Alleen PHOTO_VISIBLE_CONFIRMED_COUNT; geen BUILDING_TOTAL.",
+  "counting_unit": "Een frame instance is een fysieke kozijn-/gevelopening tussen bouwkundige scheidingen. Meerdere raamvleugels binnen een onafgebroken kozijnopening zijn een instance; twee openingen gescheiden door metselwerk zijn twee instances. Niet iedere glasruit of draaivleugel apart.",
+  "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+  "instances": [
+    {
+      "frame_instance_id": "FI-M2-001",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-001",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00001",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "CORRECTED_CHILD_CANDIDATE",
+          "candidate_id": "FC-M2-001-A",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00001",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-002",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-001",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00001",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "CORRECTED_CHILD_CANDIDATE",
+          "candidate_id": "FC-M2-001-B",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00001",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-003",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-002",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00002",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00002",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-004",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-003",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00003",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00003",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-005",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-004",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00005",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00005",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-006",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-005",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00006",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00006",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-007",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-006",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00008",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "CORRECTED_CHILD_CANDIDATE",
+          "candidate_id": "FC-M2-006-A",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00008",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-008",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-006",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00008",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "CORRECTED_CHILD_CANDIDATE",
+          "candidate_id": "FC-M2-006-B",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00008",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-009",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "UNKNOWN",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-006",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00008",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "CORRECTED_CHILD_CANDIDATE",
+          "candidate_id": "FC-M2-006-C",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00008",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-010",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "FIRST",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-007",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00009",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00009",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-011",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "FIRST",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-008",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00010",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00010",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-012",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_FRAME",
+      "facade_side": "UNKNOWN",
+      "storey": "GROUND",
+      "subtype": "UNKNOWN",
+      "material": "WOOD",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-009",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00011",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        },
+        {
+          "ref_type": "MATERIAL_BASIS",
+          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+          "material_as_reported": "hout",
+          "presence_decision_id": "CPD-00001",
+          "considered_evidence_ids": [
+            "CPE-1887622943b3d8bb",
+            "CPE-747f24497e7b23d4"
+          ],
+          "note": "Materiaal komt uit de historische MJOP-vermelding op gebouwniveau (Kozijn buiten hout), niet uit visuele vaststelling per kozijn."
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00011",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    },
+    {
+      "frame_instance_id": "FI-M2-013",
+      "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+      "bag_pand_id": null,
+      "component_type": "EXTERIOR_DOOR",
+      "facade_side": "UNKNOWN",
+      "storey": "GROUND",
+      "subtype": "EXTERIOR_DOOR",
+      "material": "UNKNOWN",
+      "count": 1,
+      "source_refs": [
+        {
+          "ref_type": "PHOTO",
+          "photo_id": "maldenhof_2",
+          "photo_sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d"
+        },
+        {
+          "ref_type": "ORIGINAL_CANDIDATE",
+          "candidate_id": "FC-M2-011",
+          "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"
+        },
+        {
+          "ref_type": "HUMAN_DECISION",
+          "decision_id": "PCD-00013",
+          "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"
+        }
+      ],
+      "provenance": {
+        "source_type": "USER_ASSISTED_PHOTO",
+        "photo_id": "maldenhof_2",
+        "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"
+      },
+      "status": "CONFIRMED",
+      "human_decision_ref": "PCD-00013",
+      "repeat_group_id": null,
+      "frame_group_id": null
+    }
+  ],
+  "frame_groups": [],
+  "instance_annotations": {
+    "FI-M2-001": {
+      "candidate_id": "FC-M2-001-A",
+      "origin_candidate_id": "FC-M2-001",
+      "photo_visibility": "PARTIAL",
+      "bbox_norm": [
+        0.2765,
+        0.348,
+        0.3275,
+        0.4067
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-A",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-002": {
+      "candidate_id": "FC-M2-001-B",
+      "origin_candidate_id": "FC-M2-001",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.345,
+        0.348,
+        0.375,
+        0.4067
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-A",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-003": {
+      "candidate_id": "FC-M2-002",
+      "origin_candidate_id": "FC-M2-002",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.47,
+        0.352,
+        0.4985,
+        0.41
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-A",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-004": {
+      "candidate_id": "FC-M2-003",
+      "origin_candidate_id": "FC-M2-003",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.514,
+        0.3533,
+        0.5975,
+        0.412
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-A",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-005": {
+      "candidate_id": "FC-M2-004",
+      "origin_candidate_id": "FC-M2-004",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.654,
+        0.3567,
+        0.726,
+        0.4133
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-006": {
+      "candidate_id": "FC-M2-005",
+      "origin_candidate_id": "FC-M2-005",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.7415,
+        0.3567,
+        0.77,
+        0.4133
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-007": {
+      "candidate_id": "FC-M2-006-A",
+      "origin_candidate_id": "FC-M2-006",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.859,
+        0.3587,
+        0.889,
+        0.4147
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-008": {
+      "candidate_id": "FC-M2-006-B",
+      "origin_candidate_id": "FC-M2-006",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.8915,
+        0.3587,
+        0.946,
+        0.4147
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-009": {
+      "candidate_id": "FC-M2-006-C",
+      "origin_candidate_id": "FC-M2-006",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.9465,
+        0.3587,
+        0.975,
+        0.4147
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-010": {
+      "candidate_id": "FC-M2-007",
+      "origin_candidate_id": "FC-M2-007",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.5275,
+        0.472,
+        0.5975,
+        0.5547
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-A",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-011": {
+      "candidate_id": "FC-M2-008",
+      "origin_candidate_id": "FC-M2-008",
+      "photo_visibility": "PARTIAL",
+      "bbox_norm": [
+        0.6725,
+        0.4733,
+        0.7525,
+        0.5547
+      ],
+      "address_hint": null,
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-012": {
+      "candidate_id": "FC-M2-009",
+      "origin_candidate_id": "FC-M2-009",
+      "photo_visibility": "FULL",
+      "bbox_norm": [
+        0.956,
+        0.608,
+        0.9975,
+        0.6633
+      ],
+      "address_hint": "Maldenhof 288",
+      "module_hint": "MOD-M2-B",
+      "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL",
+      "quantity_contributions": {
+        "FRAME_COUNT": 1,
+        "WINDOW_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    },
+    "FI-M2-013": {
+      "candidate_id": "FC-M2-011",
+      "origin_candidate_id": "FC-M2-011",
+      "photo_visibility": "PARTIAL",
+      "bbox_norm": [
+        0.36,
+        0.6033,
+        0.4425,
+        0.7667
+      ],
+      "address_hint": "Maldenhof 290",
+      "module_hint": "MOD-M2-A",
+      "material_basis": "UNKNOWN",
+      "quantity_contributions": {
+        "EXTERIOR_DOOR_COUNT": 1
+      },
+      "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"
+    }
+  },
+  "photo_visible_counts": {
+    "count_basis": "PHOTO_VISIBLE_CONFIRMED_COUNT",
+    "photo": "maldenhof_2.jpg",
+    "is_building_total": false,
+    "PHOTO_VISIBLE_FRAME_COUNT": 12,
+    "PHOTO_VISIBLE_WINDOW_COUNT": 12,
+    "PHOTO_VISIBLE_EXTERIOR_DOOR_COUNT": 1,
+    "ordinary_frames_FULL": 10,
+    "ordinary_frames_PARTIAL": 2,
+    "exterior_doors_PARTIAL": 1,
+    "excluded": {
+      "ROOF_WINDOW": 5,
+      "DORMER_WINDOW": 1,
+      "REJECTED": 2,
+      "KEEP_UNKNOWN": 1
+    }
+  },
+  "building_totals": {
+    "FRAME_COUNT": {
+      "status": "UNKNOWN",
+      "value": null
+    },
+    "WINDOW_COUNT": {
+      "status": "UNKNOWN",
+      "value": null
+    },
+    "EXTERIOR_DOOR_COUNT": {
+      "status": "UNKNOWN",
+      "value": null
+    },
+    "WINDOW_OPENING_AREA": {
+      "status": "UNKNOWN",
+      "value": null
+    },
+    "FRAME_OUTER_AREA": {
+      "status": "UNKNOWN",
+      "value": null
+    },
+    "FRAME_PAINTING_AREA": {
+      "status": "UNKNOWN",
+      "value": null
+    },
+    "GLASS_AREA": {
+      "status": "UNKNOWN",
+      "value": null
+    }
+  },
+  "policy": {
+    "metric_dimensions": "NONE",
+    "painting_area": "NEVER_AUTOMATIC",
+    "quantity_resolution": "NOT_WRITTEN",
+    "repeat_modules": "NOT_ACTIVE",
+    "historical_756_80_m2": "NOT_COMPARABLE",
+    "photo_scale": "NONE_PROVEN"
+  }
+}

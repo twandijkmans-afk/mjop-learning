@@ -2225,6 +2225,21 @@
    "reason": "COMMENT: herkomst van regel F7"
   },
   {
+   "file": "scripts/build_frame_instance_activation.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "Maldenhof"
+   ],
+   "lines": [
+    1,
+    55,
+    222,
+    267,
+    375
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/build_frame_inventory.py",
    "classification": "REPORT_ONLY",
    "patterns": [
@@ -2794,6 +2809,17 @@
     84,
     89,
     133
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_frame_instance_activation.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "Maldenhof"
+   ],
+   "lines": [
+    65
    ],
    "reason": null
   },
