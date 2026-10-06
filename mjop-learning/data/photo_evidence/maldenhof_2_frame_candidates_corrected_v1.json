@@ -99,7 +99,8 @@
       "children": [
         "FC-M2-006-A",
         "FC-M2-006-B",
-        "FC-M2-006-C"
+        "FC-M2-006-C",
+        "FC-M2-006-BC"
       ]
     },
     {
@@ -310,7 +311,8 @@
         0.3367,
         0.375,
         0.41
-      ]
+      ],
+      "lifecycle": "ACTIVE"
     },
     {
       "candidate_id": "FC-M2-001-B",
@@ -336,7 +338,8 @@
         0.3367,
         0.375,
         0.41
-      ]
+      ],
+      "lifecycle": "ACTIVE"
     },
     {
       "candidate_id": "FC-M2-006-A",
@@ -362,7 +365,8 @@
         0.3487,
         0.975,
         0.4147
-      ]
+      ],
+      "lifecycle": "ACTIVE"
     },
     {
       "candidate_id": "FC-M2-006-B",
@@ -388,7 +392,10 @@
         0.3487,
         0.975,
         0.4147
-      ]
+      ],
+      "lifecycle": "SUPERSEDED",
+      "superseded_by": "FC-M2-006-BC",
+      "superseded_by_decision_id": "PCD-00024"
     },
     {
       "candidate_id": "FC-M2-006-C",
@@ -414,6 +421,48 @@
         0.3487,
         0.975,
         0.4147
+      ],
+      "lifecycle": "SUPERSEDED",
+      "superseded_by": "FC-M2-006-BC",
+      "superseded_by_decision_id": "PCD-00024"
+    },
+    {
+      "candidate_id": "FC-M2-006-BC",
+      "parent_candidate_id": "FC-M2-006",
+      "split_decision_id": "PCD-00008",
+      "correction_decision_id": "PCD-00024",
+      "merged_from": [
+        "FC-M2-006-B",
+        "FC-M2-006-C"
+      ],
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.8915,
+        0.3587,
+        0.975,
+        0.4147
+      ],
+      "storey": "UNKNOWN",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "bag_address_scope_hint": null,
+      "module_hint": "MOD-M2-B",
+      "note": "Een onafgebroken kozijnopening: de scheiding tussen de vroegere B en C is een kozijnstijl (mullion) binnen een kozijn, geen bouwkundige scheiding.",
+      "bbox_method": "MERGED_FROM_CHILD_BBOXES",
+      "bbox_method_note": "Omhullende van de bboxes van FC-M2-006-B en FC-M2-006-C (eigen handmatige lezing, geen automatische detectie).",
+      "original_parent_bbox_norm": [
+        0.859,
+        0.3487,
+        0.975,
+        0.4147
+      ],
+      "lifecycle": "ACTIVE",
+      "refs": [
+        "FC-M2-006",
+        "FC-M2-006-B",
+        "FC-M2-006-C",
+        "PCD-00008",
+        "PCD-00024"
       ]
     }
   ],
@@ -554,5 +603,5 @@
       "human_decision_id": "PCD-00015"
     }
   ],
-  "lineage_rule": "parent candidate -> human split decision -> child candidates -> confirmed frame instance; parent-evidence wordt nooit overschreven."
+  "lineage_rule": "parent candidate -> human split decision -> child candidates -> (eventuele human correction -> superseded children + merged child) -> confirmed frame instance; parent-evidence en superseded children/besluiten worden nooit overschreven of verwijderd."
 }
