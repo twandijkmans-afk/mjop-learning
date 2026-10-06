@@ -8,7 +8,7 @@ Alle observaties zijn een AI-eerste lezing: REVIEW_REQUIRED of REPEAT_CANDIDATE,
 
 - **maldenhof_1** (2048x1536, STREET_SIDE_OBLIQUE, CONTEXT_ONLY): Brede schuine straatzijde; veel begroeiing voor de onderbouw, aangrenzende blokken rechts maken de gebouwgrens onduidelijk. Zonnig, geen huisnummers leesbaar.
 - **maldenhof_2** (2048x1536, STREET_SIDE_FRONTAL, BEST_FOR_STREET_FACADE): Bijna frontale straatzijde met huisnummers 290 en 288 leesbaar; tegenlicht rechtsboven, lantaarnpaal en begroeiing verbergen delen van de begane grond.
-- **maldenhof_3** (2048x1536, REAR_SIDE_OBLIQUE_FROM_BELOW, ROOF_AND_REAR_DETAIL): Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Zelfde bestand als data/download.jpg.
+- **maldenhof_3** (2048x1536, REAR_SIDE_OBLIQUE_FROM_BELOW, ROOF_AND_REAR_DETAIL): Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Was byte-identiek aan het inmiddels verwijderde data/download.jpg.
 
 ## Observaties
 

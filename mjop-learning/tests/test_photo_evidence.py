@@ -22,8 +22,12 @@ def test_observations_are_never_confirmed_and_have_no_quantities():
     assert set(doc["quantity_concepts_status"].values()) == {"UNKNOWN"}
 
 
-def test_download_jpg_duplicate_is_maldenhof_3():
-    assert bpe.build()["duplicates_in_repo"][0]["matches"] is True
+def test_download_jpg_removed_and_was_maldenhof_3():
+    doc = bpe.build()
+    rec = doc["removed_duplicates"][0]
+    maldenhof_3 = next(p for p in doc["photos"] if p["photo_id"] == "maldenhof_3")
+    assert rec["sha256"] == maldenhof_3["sha256"]
+    assert not os.path.exists(os.path.join(ROOT, "data", "download.jpg"))
 
 
 def test_committed_output_is_current():

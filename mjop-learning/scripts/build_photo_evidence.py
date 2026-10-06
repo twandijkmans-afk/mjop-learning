@@ -26,7 +26,7 @@ PHOTOS = {
     "maldenhof_2.jpg": {"view": "STREET_SIDE_FRONTAL", "usability": "BEST_FOR_STREET_FACADE",
                         "notes": "Bijna frontale straatzijde met huisnummers 290 en 288 leesbaar; tegenlicht rechtsboven, lantaarnpaal en begroeiing verbergen delen van de begane grond."},
     "maldenhof_3.jpg": {"view": "REAR_SIDE_OBLIQUE_FROM_BELOW", "usability": "ROOF_AND_REAR_DETAIL",
-                        "notes": "Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Zelfde bestand als data/download.jpg."},
+                        "notes": "Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Was byte-identiek aan het inmiddels verwijderde data/download.jpg."},
 }
 
 def _obs(oid, photo, element, desc, status, regions="", limits=""):
@@ -73,13 +73,12 @@ def build():
                        "width_px": im.size[0], "height_px": im.size[1], "view": meta["view"],
                        "usability_as_evidence": meta["usability"], "notes": meta["notes"],
                        "exif_present": bool(im.getexif())})
-    dup = ROOT / "data" / "download.jpg"
     return {
         "builder_version": VERSION, "building_label": "Maldenhof 240-296 (DOC-005 + DOC-006)", "building_link_status": "REVIEW_REQUIRED",
         "scope": "Foto-evidence; geen tekening. EXTERIOR_FRAME=PRESENT blijft CPD-00001; alle quantity-concepten blijven UNKNOWN.",
         "quantity_concepts_status": {k: "UNKNOWN" for k in QUANTITY_CONCEPTS},
         "photos": photos, "observations": OBSERVATIONS,
-        "duplicates_in_repo": [{"path": "data/download.jpg", "same_sha256_as": "maldenhof_3", "matches": dup.exists() and sha256(dup) == next(p["sha256"] for p in photos if p["photo_id"] == "maldenhof_3")}],
+        "removed_duplicates": [{"path": "data/download.jpg", "sha256": "52866e56eda4887fd1c14d0b1b42d69639582d4fb03dabecccf8afd248572a71", "byte_identical_to": "maldenhof_3", "status": "REMOVED_CANONICAL_IS_PHOTO_INPUT"}],
         "open_questions": ["Welke gevel(s) en bouwlagen horen bij DOC-005/006 en vallen binnen de VvE-scope?",
                            "Is een vector-gevelaanzicht beschikbaar om kozijnen te kunnen tellen en meten?",
                            "Bevestigt een reviewer de huisnummers 288/290 als onderdeel van DOC-005 (Maldenhof 240-296)?"],

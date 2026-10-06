@@ -43,7 +43,7 @@
       "height_px": 1536,
       "view": "REAR_SIDE_OBLIQUE_FROM_BELOW",
       "usability_as_evidence": "ROOF_AND_REAR_DETAIL",
-      "notes": "Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Zelfde bestand als data/download.jpg.",
+      "notes": "Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Was byte-identiek aan het inmiddels verwijderde data/download.jpg.",
       "exif_present": false
     }
   ],
@@ -289,11 +289,12 @@
       "confirmed": false
     }
   ],
-  "duplicates_in_repo": [
+  "removed_duplicates": [
     {
       "path": "data/download.jpg",
-      "same_sha256_as": "maldenhof_3",
-      "matches": true
+      "sha256": "52866e56eda4887fd1c14d0b1b42d69639582d4fb03dabecccf8afd248572a71",
+      "byte_identical_to": "maldenhof_3",
+      "status": "REMOVED_CANONICAL_IS_PHOTO_INPUT"
     }
   ],
   "open_questions": [
