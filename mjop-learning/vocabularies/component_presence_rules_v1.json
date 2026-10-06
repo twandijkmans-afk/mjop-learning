@@ -1,0 +1,50 @@
+{
+  "$id": "component_presence_rules_v1",
+  "version": "1.0.0",
+  "description": "Deterministische regels waarmee bestaande canonical bronnen COMPONENT PRESENCE-evidence opleveren (Building Element Inventory Foundation v1). Presence is een ander concept dan quantity: een regel mag een aanwezigheidsassertie opleveren, nooit een hoeveelheid. Geen fuzzy matching: historische regels matchen uitsluitend exact op interne element_code + (genormaliseerde, hoofdletterongevoelige) letterlijke omschrijving (+ optioneel exacte locatie). Stilte is nooit ABSENT: ontbreken in een oud MJOP, op een foto of in een tekening levert nooit ABSENT op.",
+  "assertion_semantics": {
+    "PRESENT": "een bron stelt expliciet dat het bouwdeel bestaat",
+    "ABSENT": "een bron stelt expliciet dat het bouwdeel niet bestaat (expliciete verklaring of expliciet aanwezige nulwaarde); NOOIT uit stilte; altijd REVIEW_REQUIRED",
+    "UNKNOWN": "de bron kan het niet zeggen (veld ontbreekt); stilte levert geen record op"
+  },
+  "bag3d_presence_rules": [
+    {
+      "rule_id": "bag3d.presence.roof_flat_covering", "rule_version": "1.0.0", "component_type": "ROOF_FLAT_COVERING",
+      "quantity_subject_rule_id": "bag3d.roof_flat_area", "quantity_subject_key": "ROOF_FLAT_AREA",
+      "present_if": "value > 0", "absent_if": "value is explicitly present and == 0", "unknown_if": "required field missing / not numeric (NOT_AVAILABLE)",
+      "caveat": "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt.",
+      "status": "ACTIVE"
+    },
+    {
+      "rule_id": "bag3d.presence.roof_sloped_covering", "rule_version": "1.0.0", "component_type": "ROOF_SLOPED_COVERING",
+      "quantity_subject_rule_id": "bag3d.roof_sloped_area", "quantity_subject_key": "ROOF_SLOPED_AREA",
+      "present_if": "value > 0", "absent_if": "value is explicitly present and == 0", "unknown_if": "required field missing / not numeric (NOT_AVAILABLE)",
+      "caveat": "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel).",
+      "status": "ACTIVE"
+    }
+  ],
+  "historical_mjop_presence_rules": [
+    {"rule_id": "hpr.roof_flat_covering.app_platte_dak", "component_type": "ROOF_FLAT_COVERING", "element_code_internal": "4711", "element_description_original_exact": ["Dakbedekking APP"], "location_original_exact": ["Platte dak"], "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE", "note": "Locatie 'Platte dak' staat expliciet in de bron."},
+    {"rule_id": "hpr.roof_flat_covering.app_no_location", "component_type": "ROOF_FLAT_COVERING", "element_code_internal": "4711", "element_description_original_exact": ["Dakbedekking app"], "location_original_exact": [null], "material_as_reported_from_description": null, "inference": "MATERIAL_IMPLIES_FLAT_ROOF", "status": "ACTIVE", "note": "De bron noemt geen locatie; 'APP' (bitumineuze dakbedekking) wijst op een plat dak maar de bron zegt dat niet. Daarom altijd REVIEW_REQUIRED."},
+    {"rule_id": "hpr.roof_sloped_covering.dakpan", "component_type": "ROOF_SLOPED_COVERING", "element_code_internal": "4712", "element_description_original_exact": ["Dakpan beton", "Dakpan keramisch"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE", "note": "Dakpannen zijn per definitie hellend-dakbedekking; 4712 is gemengd (leisteen, shingles, zink, loodslabben, dakranden) en wordt nooit als geheel gemapt."},
+    {"rule_id": "hpr.rainwater_drainage.dakgoot", "component_type": "RAINWATER_DRAINAGE", "element_code_internal": "2716", "element_description_original_exact": ["Dakgoot zink"], "location_original_exact": null, "material_as_reported_from_description": "zink", "inference": "NONE", "status": "ACTIVE"},
+    {"rule_id": "hpr.rainwater_drainage.hemelwaterafvoer", "component_type": "RAINWATER_DRAINAGE", "element_code_internal": "5211", "element_description_original_exact": ["Hemelwaterafvoer staal", "Hemelwaterafvoer staal gegalvaniseerd", "Hemelwaterafvoer pvc"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE", "note": "Materiaal komt uit material_original van de bron indien aanwezig."},
+    {"rule_id": "hpr.facade_masonry.gevelconstructie", "component_type": "FACADE_MASONRY", "element_code_internal": "2110", "element_description_original_exact": ["Gevelconstructie metselwerk"], "location_original_exact": null, "material_as_reported_from_description": "metselwerk", "inference": "NONE", "status": "ACTIVE", "note": "2110 bevat ook loodslabben en dilatatievoegen; alleen de exacte omschrijving telt."},
+    {"rule_id": "hpr.facade_cladding.hout", "component_type": "FACADE_CLADDING", "element_code_internal": "4112", "element_description_original_exact": ["Gevelbekleding hout"], "location_original_exact": null, "material_as_reported_from_description": "hout", "inference": "NONE", "status": "ACTIVE"},
+    {"rule_id": "hpr.exterior_frame.kozijn_buiten_hout", "component_type": "EXTERIOR_FRAME", "element_code_internal": "3120", "element_description_original_exact": ["Kozijn buiten hout"], "location_original_exact": null, "material_as_reported_from_description": "hout", "inference": "NONE", "status": "ACTIVE", "note": "De gerapporteerde hoeveelheid (m2) is HISTORICAL_REPORTED_QUANTITY_CONTEXT en NIET een raamopening, kozijnoppervlak, schilderoppervlak of aantal. 3230 'Kozijnen hout' is binnenwandopening (hoofdgroep 32) en valt hier bewust buiten."},
+    {"rule_id": "hpr.balcony_railing.balustrade_staal", "component_type": "BALCONY_RAILING", "element_code_internal": "3410", "element_description_original_exact": ["Balustrade staal"], "location_original_exact": ["Achtergevel - balkons"], "material_as_reported_from_description": "staal", "inference": "NONE", "status": "ACTIVE"},
+    {"rule_id": "hpr.lift_installation.personenlift", "component_type": "LIFT_INSTALLATION", "element_code_internal": "6612", "element_description_original_exact": ["Personenlift (Hydraulische lift)"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE"},
+    {"rule_id": "hpr.common_lighting.armaturen", "component_type": "COMMON_LIGHTING", "element_code_internal": "6311", "element_description_original_exact": ["Elektra armaturen", "Elektra armaturen buiten LED"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "COMMON_AREA_SCOPE_ASSUMED", "status": "ACTIVE", "note": "Armaturen zijn expliciet; dat ze bij gemeenschappelijke ruimten horen volgt uit het MJOP-karakter (VvE) en de locatie, niet uit een expliciete bronuitspraak: REVIEW_REQUIRED."},
+    {"rule_id": "hpr.collective_heating.ketel_expansievat", "component_type": "COLLECTIVE_HEATING_INSTALLATION", "element_code_internal": "5121", "element_description_original_exact": ["C.V.-ketel collect. HR Remeha"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE"},
+    {"rule_id": "hpr.collective_heating.expansievat", "component_type": "COLLECTIVE_HEATING_INSTALLATION", "element_code_internal": "5610", "element_description_original_exact": ["CV-expansievat collectief"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE"},
+    {"rule_id": "hpr.common_water.hydrofoor", "component_type": "COMMON_WATER_INSTALLATION", "element_code_internal": "5314", "element_description_original_exact": ["Hydrofoor"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "COMMON_AREA_SCOPE_ASSUMED", "status": "ACTIVE", "note": "Een hydrofoor is een collectieve drukverhoging; de rest van de waterinstallatie wordt hieruit niet afgeleid. REVIEW_REQUIRED."},
+    {"rule_id": "hpr.site_paving.terrein", "component_type": "SITE_PAVING", "element_code_internal": "9041", "element_description_original_exact": ["Betontegels", "Terreinverharding klinkers"], "location_original_exact": null, "material_as_reported_from_description": null, "inference": "NONE", "status": "ACTIVE"}
+  ],
+  "deliberately_not_mapped": [
+    {"element_code_internal": "3230", "element_description_original_exact": "Kozijnen hout", "reason": "3230 valt onder binnenwandopeningen (hoofdgroep 32) en wordt in DOC-012 samen met binnenschilderwerk trappenhuis/entree genoemd; geen buitenkozijn."},
+    {"element_code_internal": "6411", "element_description_original_exact": "Deurbelinstallatie", "reason": "Een deurbel is geen intercom-/video-deuropener-installatie; menselijk besluit nodig."},
+    {"element_code_internal": "5240", "element_description_original_exact": "Standleidingen", "reason": "Lump sum zonder duidelijk bouwdeel (binnenriolering of waterleiding); menselijk besluit nodig."},
+    {"element_code_internal": "4634", "element_description_original_exact": "Buitenschilderwerk kozijn&raam hout transparant ( achtergevel )", "reason": "Schilderwerkregel (onderhoud), geen bouwdeelregel; levert geen presence-evidence op. Het kozijn zelf staat al via 3120 'Kozijn buiten hout'."},
+    {"element_code_internal": "4712", "element_description_original_exact": "dakpannen leisteen / Dakbedekking shingles bitumen / Dakbedekking zink", "reason": "Gemengde 4712-omschrijvingen; geen exacte, goedgekeurde regel."}
+  ]
+}

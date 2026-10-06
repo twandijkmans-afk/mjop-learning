@@ -1,0 +1,4387 @@
+{
+ "builder_version": "component_inventory_v1.0.0",
+ "note": "Afgeleide component presence evidence (PROPOSED/REVIEW_REQUIRED). Besluiten staan in data/component_presence/component_presence_decision_records.json. Geen hoeveelheden.",
+ "evidence": [
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "BALCONY_RAILING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-009",
+    "provenance": {
+     "block_id": "P06-L018",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "3410 Balustrade staal Achtergevel - balkons 20,00m1 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.balcony_railing.balustrade_staal"
+   },
+   "details": {
+    "element_code_internal": "3410",
+    "element_description_as_reported": "Balustrade staal",
+    "location_as_reported": "Achtergevel - balkons",
+    "material_as_reported": "staal",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.balcony_railing.balustrade_staal",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-009",
+     "quantity_as_stated": "20,00",
+     "quantity_value": "20.00",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-009"
+   },
+   "evidence_id": "CPE-4c8ebc406e1b6249"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "BALCONY_RAILING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-009",
+    "provenance": {
+     "block_id": "P06-L016",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "3410 Balustrade staal Achtergevel - balkons 20,00m1 2"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.balcony_railing.balustrade_staal"
+   },
+   "details": {
+    "element_code_internal": "3410",
+    "element_description_as_reported": "Balustrade staal",
+    "location_as_reported": "Achtergevel - balkons",
+    "material_as_reported": "staal",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.balcony_railing.balustrade_staal",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-009",
+     "quantity_as_stated": "20,00",
+     "quantity_value": "20.00",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-009"
+   },
+   "evidence_id": "CPE-a5c6c2b66f606c72"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "COMMON_LIGHTING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT_WITH_INFERENCE",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-031",
+    "provenance": {
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "6311 Elektra armaturen buiten LED Voorgevel - trappenhuizen 1,00 st 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.common_lighting.armaturen"
+   },
+   "details": {
+    "element_code_internal": "6311",
+    "element_description_as_reported": "Elektra armaturen buiten LED",
+    "location_as_reported": "Voorgevel - trappenhuizen",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.common_lighting.armaturen",
+    "presence_rule_inference": "COMMON_AREA_SCOPE_ASSUMED",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-031",
+     "quantity_as_stated": "1,00",
+     "quantity_value": "1.00",
+     "unit_normalized": "piece",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [
+    "INFERENCE_COMMON_AREA_SCOPE_ASSUMED"
+   ],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-031"
+   },
+   "evidence_id": "CPE-41d1a4a52a0654bf"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "COMMON_LIGHTING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT_WITH_INFERENCE",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-031",
+    "provenance": {
+     "block_id": "P07-L022",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "6311 Elektra armaturen buiten LED Voorgevel - trappenhuizen 1,00st 1"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.common_lighting.armaturen"
+   },
+   "details": {
+    "element_code_internal": "6311",
+    "element_description_as_reported": "Elektra armaturen buiten LED",
+    "location_as_reported": "Voorgevel - trappenhuizen",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.common_lighting.armaturen",
+    "presence_rule_inference": "COMMON_AREA_SCOPE_ASSUMED",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-031",
+     "quantity_as_stated": "1,00",
+     "quantity_value": "1.00",
+     "unit_normalized": "piece",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [
+    "INFERENCE_COMMON_AREA_SCOPE_ASSUMED"
+   ],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-031"
+   },
+   "evidence_id": "CPE-abee7bed2303ed8a"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "EXTERIOR_FRAME",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-007",
+    "provenance": {
+     "block_id": "P06-L013",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 2"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.exterior_frame.kozijn_buiten_hout"
+   },
+   "details": {
+    "element_code_internal": "3120",
+    "element_description_as_reported": "Kozijn buiten hout",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "hout",
+    "material_normalized": "wood",
+    "presence_rule_id": "hpr.exterior_frame.kozijn_buiten_hout",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-007",
+     "quantity_as_stated": "756,80",
+     "quantity_value": "756.80",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY",
+      "FRAME_COUNT",
+      "WINDOW_OPENING_AREA",
+      "FRAME_SURFACE_AREA",
+      "FRAME_PAINTING_AREA",
+      "MEASURED_FRAME_AREA"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [
+    "AMBIGUOUS_QUANTITY_KIND_UNIT_MISMATCH"
+   ],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-007"
+   },
+   "evidence_id": "CPE-1887622943b3d8bb"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "EXTERIOR_FRAME",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-007",
+    "provenance": {
+     "block_id": "P06-L013",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "3120 Kozijn buiten hout Alle gevels 756,80m2 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.exterior_frame.kozijn_buiten_hout"
+   },
+   "details": {
+    "element_code_internal": "3120",
+    "element_description_as_reported": "Kozijn buiten hout",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "hout",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.exterior_frame.kozijn_buiten_hout",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-007",
+     "quantity_as_stated": "756,80",
+     "quantity_value": "756.80",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY",
+      "FRAME_COUNT",
+      "WINDOW_OPENING_AREA",
+      "FRAME_SURFACE_AREA",
+      "FRAME_PAINTING_AREA",
+      "MEASURED_FRAME_AREA"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-007"
+   },
+   "evidence_id": "CPE-747f24497e7b23d4"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "FACADE_CLADDING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-012",
+    "provenance": {
+     "block_id": "P06-L024",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4112 Gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.facade_cladding.hout"
+   },
+   "details": {
+    "element_code_internal": "4112",
+    "element_description_as_reported": "Gevelbekleding hout",
+    "location_as_reported": "Voorgevel - gevelbekleding",
+    "material_as_reported": "hout",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.facade_cladding.hout",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-012",
+     "quantity_as_stated": "332,00",
+     "quantity_value": "332.00",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-012"
+   },
+   "evidence_id": "CPE-8b33a580e6622fca"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "FACADE_CLADDING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-012",
+    "provenance": {
+     "block_id": "P06-L020",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4112 Gevelbekleding hout Voorgevel - gevelbekleding 332,00m2 1"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.facade_cladding.hout"
+   },
+   "details": {
+    "element_code_internal": "4112",
+    "element_description_as_reported": "Gevelbekleding hout",
+    "location_as_reported": "Voorgevel - gevelbekleding",
+    "material_as_reported": "hout",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.facade_cladding.hout",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-012",
+     "quantity_as_stated": "332,00",
+     "quantity_value": "332.00",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-012"
+   },
+   "evidence_id": "CPE-ebc86b07313399fa"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "FACADE_MASONRY",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-001",
+    "provenance": {
+     "block_id": "P06-L005",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "2110 Gevelconstructie metselwerk Alle gevels 1631,90m2 2"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.facade_masonry.gevelconstructie"
+   },
+   "details": {
+    "element_code_internal": "2110",
+    "element_description_as_reported": "Gevelconstructie metselwerk",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "metselwerk",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.facade_masonry.gevelconstructie",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-001",
+     "quantity_as_stated": "1631,90",
+     "quantity_value": "1631.90",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-001"
+   },
+   "evidence_id": "CPE-00f510a05212c582"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "FACADE_MASONRY",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-001",
+    "provenance": {
+     "block_id": "P06-L005",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "2110 Gevelconstructie metselwerk Alle gevels 1631,90m2 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.facade_masonry.gevelconstructie"
+   },
+   "details": {
+    "element_code_internal": "2110",
+    "element_description_as_reported": "Gevelconstructie metselwerk",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "metselwerk",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.facade_masonry.gevelconstructie",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-001",
+     "quantity_as_stated": "1631,90",
+     "quantity_value": "1631.90",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-001"
+   },
+   "evidence_id": "CPE-0f5d46f82dd03f21"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-004",
+    "provenance": {
+     "block_id": "P06-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "2716 Dakgoot zink Alle gevels 165,80m1 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.rainwater_drainage.dakgoot"
+   },
+   "details": {
+    "element_code_internal": "2716",
+    "element_description_as_reported": "Dakgoot zink",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "zink",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.rainwater_drainage.dakgoot",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-004",
+     "quantity_as_stated": "165,80",
+     "quantity_value": "165.80",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-004"
+   },
+   "evidence_id": "CPE-0724217c85000458"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-029",
+    "provenance": {
+     "block_id": "P07-L019",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 2"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.rainwater_drainage.hemelwaterafvoer"
+   },
+   "details": {
+    "element_code_internal": "5211",
+    "element_description_as_reported": "Hemelwaterafvoer staal",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "staal",
+    "material_normalized": "steel",
+    "presence_rule_id": "hpr.rainwater_drainage.hemelwaterafvoer",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-029",
+     "quantity_as_stated": "41,40",
+     "quantity_value": "41.40",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-029"
+   },
+   "evidence_id": "CPE-3ee9bb519ab784a8"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-030",
+    "provenance": {
+     "block_id": "P07-L014",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.rainwater_drainage.hemelwaterafvoer"
+   },
+   "details": {
+    "element_code_internal": "5211",
+    "element_description_as_reported": "Hemelwaterafvoer pvc",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "pvc",
+    "material_normalized": "pvc",
+    "presence_rule_id": "hpr.rainwater_drainage.hemelwaterafvoer",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-030",
+     "quantity_as_stated": "91,60",
+     "quantity_value": "91.60",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-030"
+   },
+   "evidence_id": "CPE-551c8ad16137c4c8"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-029",
+    "provenance": {
+     "block_id": "P07-L013",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5211 Hemelwaterafvoer staal Alle gevels 41,40m1 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.rainwater_drainage.hemelwaterafvoer"
+   },
+   "details": {
+    "element_code_internal": "5211",
+    "element_description_as_reported": "Hemelwaterafvoer staal",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "staal",
+    "material_normalized": "steel",
+    "presence_rule_id": "hpr.rainwater_drainage.hemelwaterafvoer",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-029",
+     "quantity_as_stated": "41,40",
+     "quantity_value": "41.40",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-029"
+   },
+   "evidence_id": "CPE-61ef7b3c1a28a44d"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-030",
+    "provenance": {
+     "block_id": "P07-L020",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5211 Hemelwaterafvoer pvc Alle gevels 91,60m1 3"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.rainwater_drainage.hemelwaterafvoer"
+   },
+   "details": {
+    "element_code_internal": "5211",
+    "element_description_as_reported": "Hemelwaterafvoer pvc",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "pvc",
+    "material_normalized": "pvc",
+    "presence_rule_id": "hpr.rainwater_drainage.hemelwaterafvoer",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-030",
+     "quantity_as_stated": "91,60",
+     "quantity_value": "91.60",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-030"
+   },
+   "evidence_id": "CPE-6e7ce6d8f00f0a19"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-004",
+    "provenance": {
+     "block_id": "P06-L009",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "2716 Dakgoot zink Alle gevels 165,80m1 2"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.rainwater_drainage.dakgoot"
+   },
+   "details": {
+    "element_code_internal": "2716",
+    "element_description_as_reported": "Dakgoot zink",
+    "location_as_reported": "Alle gevels",
+    "material_as_reported": "zink",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.rainwater_drainage.dakgoot",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-004",
+     "quantity_as_stated": "165,80",
+     "quantity_value": "165.80",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-004"
+   },
+   "evidence_id": "CPE-c1af0f2acc3b9550"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012070344",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012070344",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 7.61
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012070344",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "15bf298803c14b7003d391c2e54c452f3c23382199a49eee7e2e89699180c04e",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-c0a7a77dfed689d5"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-82ce63e9cbff3197"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012071880",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012071880",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 8.8
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012071880",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "834c881bbffbfbf9f3bf049ec0a7849861ba4cede29041a466897a95c15cbc82",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-d9c4c97864805d9e"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-c5eaf64309b71537"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012078022",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012078022",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 16.05
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012078022",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "084f9b4d20f0d858da633ad2c11a7c044e64e89ca3a4286c9ec0b6d4f5502706",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-4f17530f790bb48a"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-0c7c7e1a0fbcacaa"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012091756",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012091756",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 8.27
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091756",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "27e73963f9b6ea224dab62571c50cafdedc044e7347c2870fbe7a959ebeb70a2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-43d4e82529464339"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-73f667ef1f2a1753"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012091974",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012091974",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 14.56
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091974",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "b9df5b9a9e8fb3940f8093c2168665a47fb628cf08e823aec8c1900245d0e7d4",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-ea816e3de9336545"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-c7fc4af7bfa4d227"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012102659",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012102659",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 10.55
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012102659",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "fa7b8d2d63a9330a50623473f0ff25252ac889ea280ecc4ae2b69f65e43b65b0",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-2f34fe96853075ff"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-96d3126609c0ad9d"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012107492",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012107492",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 15.99
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012107492",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "9725e741af3d6028f8bd5c425dfe31bb121c65dc1e33e7d6861d9f7b40002213",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-c618ae1068b0eaac"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-acf46a4df6cb5347"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012121455",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012121455",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 18.04
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012121455",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "c6de0c1f92cbbeb17d356ded85c45c3bd164b6dd2223040577596aa7a5657435",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-ecd6fb6a75c9673a"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-920efa171dfb6401"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012127361",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012127361",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 10.33
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012127361",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "4e70427821a69cedb38e54200b08f21a7c6d60fb8cc112bd48aa3dba70355b43",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-70c72e3009374da4"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-884878fa746229d7"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012134188",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012134188",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 23.56
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012134188",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "1ea9c00abf62000e43206f942652b31aaf7452174dfd7c5dc342da8f1419f983",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-95b0720f8dfbcbf7"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-ce341c327f28664e"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012137996",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012137996",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 12.74
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012137996",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "b9b0309d9464214248a649b0ac94051b7228cd0e0db68741eb7092cc57c704ba",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-9cb6be219c2d4e6a"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-f1310d204a9e5666"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012140664",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012140664",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 16.31
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012140664",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "7a8cd9c99af7c9e7223ab0c2cc6ab8b0f28fbef402fde9ad6e50fecd254f4703",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-e58817976ce36ab2"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-2d63d0ad7cfe13f7"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012141419",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012141419",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 9.38
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012141419",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "5b9129611f20d9b83dbefa270baa213680ddc3dd15c938149a5fd7f1f8bb8af6",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-cf37ff666d79d716"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-48a5977066cf13dd"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012143647",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012143647",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 10.49
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012143647",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "a1502488ff711efca10bedf87b6ff68a4fae039129d23ea924ca869c4234644d",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-63f182348b77a77c"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-965a6f0cf610b76b"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012144766",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012144766",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 7.97
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012144766",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "bd76fe80e459b29ae0e26e5fa65c21c39b4172a42018ea42ec65c2abe33281c9",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-3ca9f54cb900191e"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-b43e51519acd75ba"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-025",
+    "provenance": {
+     "block_id": "P07-L007",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.roof_flat_covering.app_platte_dak"
+   },
+   "details": {
+    "element_code_internal": "4711",
+    "element_description_as_reported": "Dakbedekking APP",
+    "location_as_reported": "Platte dak",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.roof_flat_covering.app_platte_dak",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-025",
+     "quantity_as_stated": "425,80",
+     "quantity_value": "425.80",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-025"
+   },
+   "evidence_id": "CPE-613dd11860bb576c"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-025",
+    "provenance": {
+     "block_id": "P07-L013",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4711 Dakbedekking APP Platte dak 425,80m2 3"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.roof_flat_covering.app_platte_dak"
+   },
+   "details": {
+    "element_code_internal": "4711",
+    "element_description_as_reported": "Dakbedekking APP",
+    "location_as_reported": "Platte dak",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.roof_flat_covering.app_platte_dak",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-025",
+     "quantity_as_stated": "425,80",
+     "quantity_value": "425.80",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-025"
+   },
+   "evidence_id": "CPE-63c1750f7f1538ac"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012070344",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012070344",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 99.91
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012070344",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "15bf298803c14b7003d391c2e54c452f3c23382199a49eee7e2e89699180c04e",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-9e9a7a5ea570de35"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-bc0830c5488cc5ad"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012071880",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012071880",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 101.57
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012071880",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "834c881bbffbfbf9f3bf049ec0a7849861ba4cede29041a466897a95c15cbc82",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-9cbc210157bce630"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-cfd7beaf00f3eb34"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012078022",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012078022",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 91.19
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012078022",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "084f9b4d20f0d858da633ad2c11a7c044e64e89ca3a4286c9ec0b6d4f5502706",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-2454fd0d1bc52ae3"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-7bc20fe0a3c6c238"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012091756",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012091756",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 101.68
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091756",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "27e73963f9b6ea224dab62571c50cafdedc044e7347c2870fbe7a959ebeb70a2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-4b0c7854df78a0a0"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-6c3980aeec1b8414"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012091974",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012091974",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 88.42
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012091974",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "b9df5b9a9e8fb3940f8093c2168665a47fb628cf08e823aec8c1900245d0e7d4",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-55892703d748462d"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-a6d2bc3a913c585b"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012102659",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012102659",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 99.32
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012102659",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "fa7b8d2d63a9330a50623473f0ff25252ac889ea280ecc4ae2b69f65e43b65b0",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-7a18d84092f74918"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-0b73001ef8f3c717"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012107492",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012107492",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 90.34
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012107492",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "9725e741af3d6028f8bd5c425dfe31bb121c65dc1e33e7d6861d9f7b40002213",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-05dbf3a10e79dee5"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-2cc180daef08d9ff"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012121455",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012121455",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 89.12
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012121455",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "c6de0c1f92cbbeb17d356ded85c45c3bd164b6dd2223040577596aa7a5657435",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-76f2bd20861492a6"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-cd3c9a579b2fa199"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012127361",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012127361",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 98.56
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012127361",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "4e70427821a69cedb38e54200b08f21a7c6d60fb8cc112bd48aa3dba70355b43",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-cd1373eaf544d9f4"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-cb7dc21b306d989f"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012134188",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012134188",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 87.94
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012134188",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "1ea9c00abf62000e43206f942652b31aaf7452174dfd7c5dc342da8f1419f983",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-77b3391146dbc646"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-d25e14f34013f230"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012137996",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012137996",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 74.07
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012137996",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "b9b0309d9464214248a649b0ac94051b7228cd0e0db68741eb7092cc57c704ba",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-3a39191f7f1e132a"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-d29dfbc41e821188"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012140664",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012140664",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 87.81
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012140664",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "7a8cd9c99af7c9e7223ab0c2cc6ab8b0f28fbef402fde9ad6e50fecd254f4703",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-470da4ac3947914b"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-324dc6837c2f5df4"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012141419",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012141419",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 105.92
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012141419",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "5b9129611f20d9b83dbefa270baa213680ddc3dd15c938149a5fd7f1f8bb8af6",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-a1d254734f2d6b14"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-e28d64e971dcff6d"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012143647",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012143647",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 93.57
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012143647",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "a1502488ff711efca10bedf87b6ff68a4fae039129d23ea924ca869c4234644d",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-623106e50028db08"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-79044a7317988d3c"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "PAND",
+   "bag_pand_id": "0363100012144766",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0363100012144766",
+    "snapshot_id": "BAGSNAP-431559474da45dcf",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 106.15
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0363100012144766",
+    "fetched_at": "2026-10-05T09:15:50Z",
+    "response_sha256": "bd76fe80e459b29ae0e26e5fa65c21c39b4172a42018ea42ec65c2abe33281c9",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00001",
+     "BLINK-00002",
+     "BLINK-00003",
+     "BLINK-00004",
+     "BLINK-00005",
+     "BLINK-00006",
+     "BLINK-00007",
+     "BLINK-00008",
+     "BLINK-00009",
+     "BLINK-00010",
+     "BLINK-00011",
+     "BLINK-00012",
+     "BLINK-00013",
+     "BLINK-00014",
+     "BLINK-00015",
+     "BLINK-00041",
+     "BLINK-00042",
+     "BLINK-00043",
+     "BLINK-00044",
+     "BLINK-00045",
+     "BLINK-00046",
+     "BLINK-00047",
+     "BLINK-00048",
+     "BLINK-00049",
+     "BLINK-00050",
+     "BLINK-00051",
+     "BLINK-00052",
+     "BLINK-00053",
+     "BLINK-00054",
+     "BLINK-00055"
+    ],
+    "quantity_evidence_id": "QE-2b18b45f180f765e"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-431559474da45dcf"
+   },
+   "evidence_id": "CPE-d8697ea35eb82f2f"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-027",
+    "provenance": {
+     "block_id": "P07-L015",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 3"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.roof_sloped_covering.dakpan"
+   },
+   "details": {
+    "element_code_internal": "4712",
+    "element_description_as_reported": "Dakpan beton",
+    "location_as_reported": "Hellend dak",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.roof_sloped_covering.dakpan",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-027",
+     "quantity_as_stated": "1485,60",
+     "quantity_value": "1485.60",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-027"
+   },
+   "evidence_id": "CPE-1c2b1db6611adc7c"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-027",
+    "provenance": {
+     "block_id": "P07-L009",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4712 Dakpan beton Hellend dak 1485,60m2 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.roof_sloped_covering.dakpan"
+   },
+   "details": {
+    "element_code_internal": "4712",
+    "element_description_as_reported": "Dakpan beton",
+    "location_as_reported": "Hellend dak",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.roof_sloped_covering.dakpan",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-027",
+     "quantity_as_stated": "1485,60",
+     "quantity_value": "1485.60",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-027"
+   },
+   "evidence_id": "CPE-8f9e73f429beafc0"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "SITE_PAVING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-005",
+    "quantity_observation_id": "QO-DOC-005-EL-033",
+    "provenance": {
+     "block_id": "P07-L026",
+     "document_id": "DOC-005",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "9041 Betontegels Terrein 200,00m2 1"
+    },
+    "source_file_sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+    "rule_id": "hpr.site_paving.terrein"
+   },
+   "details": {
+    "element_code_internal": "9041",
+    "element_description_as_reported": "Betontegels",
+    "location_as_reported": "Terrein",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.site_paving.terrein",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-005-EL-033",
+     "quantity_as_stated": "200,00",
+     "quantity_value": "200.00",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-006"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-005-EL-033"
+   },
+   "evidence_id": "CPE-68e58c7c09bcb9d0"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "SITE_PAVING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-006",
+    "quantity_observation_id": "QO-DOC-006-EL-033",
+    "provenance": {
+     "block_id": "P07-L024",
+     "document_id": "DOC-006",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "9041 Betontegels Terrein 200,00m2 1"
+    },
+    "source_file_sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+    "rule_id": "hpr.site_paving.terrein"
+   },
+   "details": {
+    "element_code_internal": "9041",
+    "element_description_as_reported": "Betontegels",
+    "location_as_reported": "Terrein",
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.site_paving.terrein",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-006-EL-033",
+     "quantity_as_stated": "200,00",
+     "quantity_value": "200.00",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "same_object_document_ids": [
+     "DOC-005",
+     "DOC-014"
+    ]
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-006-EL-033"
+   },
+   "evidence_id": "CPE-864018717f71d676"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "COLLECTIVE_HEATING_INSTALLATION",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-034",
+    "provenance": {
+     "block_id": "P07-L020",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5610 CV-expansievat collectief 2,00st 2"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.collective_heating.expansievat"
+   },
+   "details": {
+    "element_code_internal": "5610",
+    "element_description_as_reported": "CV-expansievat collectief",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.collective_heating.expansievat",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-034",
+     "quantity_as_stated": "2,00",
+     "quantity_value": "2.00",
+     "unit_normalized": "piece",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-034"
+   },
+   "evidence_id": "CPE-ef2c6d5c27fbe6af"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "COMMON_LIGHTING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT_WITH_INFERENCE",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-037",
+    "provenance": {
+     "block_id": "P07-L024",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "6311 Elektra armaturen 68,00st 2"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.common_lighting.armaturen"
+   },
+   "details": {
+    "element_code_internal": "6311",
+    "element_description_as_reported": "Elektra armaturen",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.common_lighting.armaturen",
+    "presence_rule_inference": "COMMON_AREA_SCOPE_ASSUMED",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-037",
+     "quantity_as_stated": "68,00",
+     "quantity_value": "68.00",
+     "unit_normalized": "piece",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [
+    "INFERENCE_COMMON_AREA_SCOPE_ASSUMED"
+   ],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-037"
+   },
+   "evidence_id": "CPE-1192e0826e0c14bf"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "COMMON_WATER_INSTALLATION",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT_WITH_INFERENCE",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-033",
+    "provenance": {
+     "block_id": "P07-L018",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5314 Hydrofoor 1,00st 2"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.common_water.hydrofoor"
+   },
+   "details": {
+    "element_code_internal": "5314",
+    "element_description_as_reported": "Hydrofoor",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.common_water.hydrofoor",
+    "presence_rule_inference": "COMMON_AREA_SCOPE_ASSUMED",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-033",
+     "quantity_as_stated": "1,00",
+     "quantity_value": "1.00",
+     "unit_normalized": "piece",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [
+    "INFERENCE_COMMON_AREA_SCOPE_ASSUMED"
+   ],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-033"
+   },
+   "evidence_id": "CPE-839d0d72fb8646ea"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "EXTERIOR_FRAME",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-007",
+    "provenance": {
+     "block_id": "P06-L013",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "3120 Kozijn buiten hout 1296,59m2 1"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.exterior_frame.kozijn_buiten_hout"
+   },
+   "details": {
+    "element_code_internal": "3120",
+    "element_description_as_reported": "Kozijn buiten hout",
+    "location_as_reported": null,
+    "material_as_reported": "hout",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.exterior_frame.kozijn_buiten_hout",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-007",
+     "quantity_as_stated": "1296,59",
+     "quantity_value": "1296.59",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY",
+      "FRAME_COUNT",
+      "WINDOW_OPENING_AREA",
+      "FRAME_SURFACE_AREA",
+      "FRAME_PAINTING_AREA",
+      "MEASURED_FRAME_AREA"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-007"
+   },
+   "evidence_id": "CPE-90e3d60a9a12689c"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "FACADE_MASONRY",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-001",
+    "provenance": {
+     "block_id": "P06-L005",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 6,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "2110 Gevelconstructie metselwerk 1326,46m2 1"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.facade_masonry.gevelconstructie"
+   },
+   "details": {
+    "element_code_internal": "2110",
+    "element_description_as_reported": "Gevelconstructie metselwerk",
+    "location_as_reported": null,
+    "material_as_reported": "metselwerk",
+    "material_normalized": null,
+    "presence_rule_id": "hpr.facade_masonry.gevelconstructie",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-001",
+     "quantity_as_stated": "1326,46",
+     "quantity_value": "1326.46",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-001"
+   },
+   "evidence_id": "CPE-7c378b5f9a93521f"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "LIFT_INSTALLATION",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-039",
+    "provenance": {
+     "block_id": "P07-L028",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "6612 Personenlift (Hydraulische lift) 1,00st 2"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.lift_installation.personenlift"
+   },
+   "details": {
+    "element_code_internal": "6612",
+    "element_description_as_reported": "Personenlift (Hydraulische lift)",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.lift_installation.personenlift",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-039",
+     "quantity_as_stated": "1,00",
+     "quantity_value": "1.00",
+     "unit_normalized": "piece",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-039"
+   },
+   "evidence_id": "CPE-929fb681cc2de8c5"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-030",
+    "provenance": {
+     "block_id": "P07-L014",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5211 Hemelwaterafvoer staal gegalvaniseerd 32,00m1 3"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.rainwater_drainage.hemelwaterafvoer"
+   },
+   "details": {
+    "element_code_internal": "5211",
+    "element_description_as_reported": "Hemelwaterafvoer staal gegalvaniseerd",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.rainwater_drainage.hemelwaterafvoer",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-030",
+     "quantity_as_stated": "32,00",
+     "quantity_value": "32.00",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-030"
+   },
+   "evidence_id": "CPE-0a2caeb427d32a4d"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "RAINWATER_DRAINAGE",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-031",
+    "provenance": {
+     "block_id": "P07-L015",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "5211 Hemelwaterafvoer pvc 80,80m1 1"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.rainwater_drainage.hemelwaterafvoer"
+   },
+   "details": {
+    "element_code_internal": "5211",
+    "element_description_as_reported": "Hemelwaterafvoer pvc",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.rainwater_drainage.hemelwaterafvoer",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-031",
+     "quantity_as_stated": "80,80",
+     "quantity_value": "80.80",
+     "unit_normalized": "m1",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-031"
+   },
+   "evidence_id": "CPE-5e163959e841fa16"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "PAND",
+   "bag_pand_id": "0518100000354752",
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_POSITIVE_VALUE",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_opp_dak_plat"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_plat": 875.63
+    },
+    "rule_id": "bag3d.presence.roof_flat_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_flat_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ],
+    "quantity_evidence_id": "QE-0cd5f153f2a60245"
+   },
+   "details": {},
+   "absence_basis": null,
+   "scope_caveats": [
+    "3D BAG-geometrie van platte dakdelen is evidence voor een plat dakdeel; geen universeel bewijs voor het type afwerking en niet voor andere fysieke varianten (bijv. dakkapel- of opbouwdaken). De waarde zelf blijft quantity-evidence en wordt hier niet als presence-detail hergebruikt."
+   ],
+   "review_reasons": [],
+   "dependency": {},
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "CPE-a234084475113ef1"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "ROOF_FLAT_COVERING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT_WITH_INFERENCE",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-024",
+    "provenance": {
+     "block_id": "P07-L006",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 7,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "4711 Dakbedekking app 801,04m2 1"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.roof_flat_covering.app_no_location"
+   },
+   "details": {
+    "element_code_internal": "4711",
+    "element_description_as_reported": "Dakbedekking app",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.roof_flat_covering.app_no_location",
+    "presence_rule_inference": "MATERIAL_IMPLIES_FLAT_ROOF",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-024",
+     "quantity_as_stated": "801,04",
+     "quantity_value": "801.04",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [
+    "INFERENCE_MATERIAL_IMPLIES_FLAT_ROOF"
+   ],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-024"
+   },
+   "evidence_id": "CPE-0ea19ed466ad6a20"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "PAND",
+   "bag_pand_id": "0518100000354752",
+   "component_type": "ROOF_SLOPED_COVERING",
+   "assertion": "ABSENT",
+   "source_type": "3D_BAG",
+   "method_class": "GEOMETRY_EXPLICIT_ZERO",
+   "source_ref": {
+    "bag_pand_id": "0518100000354752",
+    "snapshot_id": "BAGSNAP-599d2f2004100011",
+    "fields": [
+     "b3_opp_dak_schuin"
+    ],
+    "raw_inputs": {
+     "b3_opp_dak_schuin": 0.0
+    },
+    "rule_id": "bag3d.presence.roof_sloped_covering",
+    "rule_version": "1.0.0",
+    "quantity_rule_id": "bag3d.roof_sloped_area",
+    "url": "https://api.3dbag.nl/collections/pand/items/NL.IMBAG.Pand.0518100000354752",
+    "fetched_at": "2026-10-05T12:38:17Z",
+    "response_sha256": "30a725b99176a369452334f5ed780426a14f2a4cf8b80dcb19b8f0adba0e62e2",
+    "live_api_status": "NOT_VERIFIED_AGAINST_LIVE_API",
+    "building_link_ids": [
+     "BLINK-00081"
+    ],
+    "quantity_evidence_id": "QE-f446e3716ff206e3"
+   },
+   "details": {},
+   "absence_basis": {
+    "kind": "EXPLICIT_ZERO_VALUE_IN_SOURCE_FIELD",
+    "statement": "3D BAG-veld b3_opp_dak_schuin is expliciet aanwezig met waarde 0 (geometry-absence in het 3D-model; geen bewijs voor alle fysieke varianten)"
+   },
+   "scope_caveats": [
+    "Een expliciete 0 in het 3D BAG-veld is geometry-absence (geen hellend dakvlak in het 3D-model); geen universeel bewijs voor alle mogelijke fysieke afwerkingen. Ontbrekend veld = UNKNOWN, nooit ABSENT (bestaande missing != 0-regel)."
+   ],
+   "review_reasons": [
+    "GEOMETRY_ABSENCE_NEEDS_HUMAN_REVIEW"
+   ],
+   "dependency": {},
+   "requires_human_review": true,
+   "status": "REVIEW_REQUIRED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "snapshot_id": "BAGSNAP-599d2f2004100011"
+   },
+   "evidence_id": "CPE-b3773acaf3519afb"
+  },
+  {
+   "contract_version": "component_presence_evidence_v1",
+   "building_id": "BAG:0518100000354752",
+   "scope_level": "BUILDING_SCOPE",
+   "bag_pand_id": null,
+   "component_type": "SITE_PAVING",
+   "assertion": "PRESENT",
+   "source_type": "MJOP",
+   "method_class": "SOURCE_EXPLICIT_ELEMENT",
+   "source_ref": {
+    "document_id": "DOC-012",
+    "quantity_observation_id": "QO-DOC-012-EL-046",
+    "provenance": {
+     "block_id": "P08-L009",
+     "document_id": "DOC-012",
+     "extraction_rule": "profile:pro_vve_overzicht15.elements.overview_row",
+     "page": 8,
+     "source_confidence": "high",
+     "table_index": null,
+     "text_fragment": "9041 Terreinverharding klinkers 300,00m2 3"
+    },
+    "source_file_sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+    "rule_id": "hpr.site_paving.terrein"
+   },
+   "details": {
+    "element_code_internal": "9041",
+    "element_description_as_reported": "Terreinverharding klinkers",
+    "location_as_reported": null,
+    "material_as_reported": null,
+    "material_normalized": null,
+    "presence_rule_id": "hpr.site_paving.terrein",
+    "presence_rule_inference": "NONE",
+    "historical_reported_quantity_context": {
+     "quantity_observation_id": "QO-DOC-012-EL-046",
+     "quantity_as_stated": "300,00",
+     "quantity_value": "300.00",
+     "unit_normalized": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "not_interpreted_as": [
+      "MEASURED_QUANTITY",
+      "GEOMETRY_QUANTITY"
+     ]
+    }
+   },
+   "absence_basis": null,
+   "scope_caveats": [
+    "Expliciete bronregel van een historisch MJOP: bewijs dat het bouwdeel in dat document staat, geen actuele inspectie.",
+    "De gerapporteerde hoeveelheid is context en geen gemeten of geometrische hoeveelheid van dit bouwdeel."
+   ],
+   "review_reasons": [],
+   "dependency": {
+    "source_cluster": "SC-DOC-012",
+    "same_object_document_ids": []
+   },
+   "requires_human_review": false,
+   "status": "PROPOSED",
+   "created_by": "component_inventory_v1.0.0",
+   "input_hashes": {
+    "quantity_observation_id": "QO-DOC-012-EL-046"
+   },
+   "evidence_id": "CPE-e9b56f2d8cc5cc54"
+  }
+ ],
+ "notes": []
+}

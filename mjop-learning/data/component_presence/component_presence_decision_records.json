@@ -1,0 +1,6 @@
+{
+ "store_version": "component_presence_decision_v1",
+ "append_only": true,
+ "description": "Menselijke besluiten over componentaanwezigheid (scripts/component_presence.py). Append-only; per (building_id, bag_pand_id, component_type) hoogstens één ACTIVE record. Bewust LEEG in Building Element Inventory Foundation v1: er zijn nog geen besluiten genomen.",
+ "records": []
+}

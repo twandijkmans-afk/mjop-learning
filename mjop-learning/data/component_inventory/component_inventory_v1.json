@@ -1,0 +1,1885 @@
+{
+ "builder_version": "component_inventory_v1.0.0",
+ "contract_version": "component_inventory_v1",
+ "note": "Afgeleide gebouwinventaris (component presence). Niet met de hand aanpassen. Zonder menselijk besluit is niets 'confirmed' of 'absent'. Bevat GEEN hoeveelheden, onderhoudsplannen of prijzen.",
+ "input_hashes": {
+  "building_links": "400d368ee91d9353a12846bf089a3d3f17efb926b9fcac7c4d9ba7f86230cd47",
+  "quantity_observations": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
+  "component_types": "60d52f237d5e266c55d9e3c63039ce9520593c1a8f58a55258382e1a9d903a26",
+  "presence_rules": "f6c53db41c9715ccc81c299c493c0e444a1806eae927798ece8edbc80c9ed864",
+  "decision_store": "a8240e3da898a2acd1856d3e003dc2ed2469852f02b45821213250bcfe69d1a2"
+ },
+ "summary": {
+  "buildings": 2,
+  "component_types": 22,
+  "evidence_records": 64,
+  "by_assertion": {
+   "PRESENT": 63,
+   "ABSENT": 1,
+   "UNKNOWN": 0
+  },
+  "by_source_type": {
+   "3D_BAG": 32,
+   "MJOP": 32
+  },
+  "decisions_in_store": 0,
+  "active_decisions": 0
+ },
+ "buildings": [
+  {
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "document_ids": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "building_link_ids": [
+    "BLINK-00001",
+    "BLINK-00002",
+    "BLINK-00003",
+    "BLINK-00004",
+    "BLINK-00005",
+    "BLINK-00006",
+    "BLINK-00007",
+    "BLINK-00008",
+    "BLINK-00009",
+    "BLINK-00010",
+    "BLINK-00011",
+    "BLINK-00012",
+    "BLINK-00013",
+    "BLINK-00014",
+    "BLINK-00015",
+    "BLINK-00041",
+    "BLINK-00042",
+    "BLINK-00043",
+    "BLINK-00044",
+    "BLINK-00045",
+    "BLINK-00046",
+    "BLINK-00047",
+    "BLINK-00048",
+    "BLINK-00049",
+    "BLINK-00050",
+    "BLINK-00051",
+    "BLINK-00052",
+    "BLINK-00053",
+    "BLINK-00054",
+    "BLINK-00055"
+   ],
+   "components": {
+    "confirmed": [],
+    "proposed": [
+     {
+      "component_type": "BALCONY_RAILING",
+      "evidence_ids": [
+       "CPE-4c8ebc406e1b6249",
+       "CPE-a5c6c2b66f606c72"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-4c8ebc406e1b6249",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-a5c6c2b66f606c72",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-4c8ebc406e1b6249",
+         "CPE-a5c6c2b66f606c72"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "COMMON_LIGHTING",
+      "evidence_ids": [
+       "CPE-41d1a4a52a0654bf",
+       "CPE-abee7bed2303ed8a"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-41d1a4a52a0654bf",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-abee7bed2303ed8a",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-41d1a4a52a0654bf",
+         "CPE-abee7bed2303ed8a"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "EXTERIOR_FRAME",
+      "evidence_ids": [
+       "CPE-1887622943b3d8bb",
+       "CPE-747f24497e7b23d4"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-1887622943b3d8bb",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-747f24497e7b23d4",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-1887622943b3d8bb",
+         "CPE-747f24497e7b23d4"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "FACADE_CLADDING",
+      "evidence_ids": [
+       "CPE-8b33a580e6622fca",
+       "CPE-ebc86b07313399fa"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-8b33a580e6622fca",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-ebc86b07313399fa",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-8b33a580e6622fca",
+         "CPE-ebc86b07313399fa"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "FACADE_MASONRY",
+      "evidence_ids": [
+       "CPE-00f510a05212c582",
+       "CPE-0f5d46f82dd03f21"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-00f510a05212c582",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-0f5d46f82dd03f21",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-00f510a05212c582",
+         "CPE-0f5d46f82dd03f21"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "RAINWATER_DRAINAGE",
+      "evidence_ids": [
+       "CPE-0724217c85000458",
+       "CPE-3ee9bb519ab784a8",
+       "CPE-551c8ad16137c4c8",
+       "CPE-61ef7b3c1a28a44d",
+       "CPE-6e7ce6d8f00f0a19",
+       "CPE-c1af0f2acc3b9550"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-0724217c85000458",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-3ee9bb519ab784a8",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-551c8ad16137c4c8",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-61ef7b3c1a28a44d",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-6e7ce6d8f00f0a19",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-c1af0f2acc3b9550",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-0724217c85000458",
+         "CPE-3ee9bb519ab784a8",
+         "CPE-551c8ad16137c4c8",
+         "CPE-61ef7b3c1a28a44d",
+         "CPE-6e7ce6d8f00f0a19",
+         "CPE-c1af0f2acc3b9550"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "ROOF_FLAT_COVERING",
+      "evidence_ids": [
+       "CPE-0c7c7e1a0fbcacaa",
+       "CPE-2d63d0ad7cfe13f7",
+       "CPE-48a5977066cf13dd",
+       "CPE-613dd11860bb576c",
+       "CPE-63c1750f7f1538ac",
+       "CPE-73f667ef1f2a1753",
+       "CPE-82ce63e9cbff3197",
+       "CPE-884878fa746229d7",
+       "CPE-920efa171dfb6401",
+       "CPE-965a6f0cf610b76b",
+       "CPE-96d3126609c0ad9d",
+       "CPE-acf46a4df6cb5347",
+       "CPE-b43e51519acd75ba",
+       "CPE-c5eaf64309b71537",
+       "CPE-c7fc4af7bfa4d227",
+       "CPE-ce341c327f28664e",
+       "CPE-f1310d204a9e5666"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [
+         "0363100012070344",
+         "0363100012071880",
+         "0363100012078022",
+         "0363100012091756",
+         "0363100012091974",
+         "0363100012102659",
+         "0363100012107492",
+         "0363100012121455",
+         "0363100012127361",
+         "0363100012134188",
+         "0363100012137996",
+         "0363100012140664",
+         "0363100012141419",
+         "0363100012143647",
+         "0363100012144766"
+        ],
+        "scope_sources": [
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-613dd11860bb576c",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-63c1750f7f1538ac",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-0c7c7e1a0fbcacaa",
+         "CPE-2d63d0ad7cfe13f7",
+         "CPE-48a5977066cf13dd",
+         "CPE-613dd11860bb576c",
+         "CPE-63c1750f7f1538ac",
+         "CPE-73f667ef1f2a1753",
+         "CPE-82ce63e9cbff3197",
+         "CPE-884878fa746229d7",
+         "CPE-920efa171dfb6401",
+         "CPE-965a6f0cf610b76b",
+         "CPE-96d3126609c0ad9d",
+         "CPE-acf46a4df6cb5347",
+         "CPE-b43e51519acd75ba",
+         "CPE-c5eaf64309b71537",
+         "CPE-c7fc4af7bfa4d227",
+         "CPE-ce341c327f28664e",
+         "CPE-f1310d204a9e5666"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 15,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "ROOF_SLOPED_COVERING",
+      "evidence_ids": [
+       "CPE-0b73001ef8f3c717",
+       "CPE-1c2b1db6611adc7c",
+       "CPE-2cc180daef08d9ff",
+       "CPE-324dc6837c2f5df4",
+       "CPE-6c3980aeec1b8414",
+       "CPE-79044a7317988d3c",
+       "CPE-7bc20fe0a3c6c238",
+       "CPE-8f9e73f429beafc0",
+       "CPE-a6d2bc3a913c585b",
+       "CPE-bc0830c5488cc5ad",
+       "CPE-cb7dc21b306d989f",
+       "CPE-cd3c9a579b2fa199",
+       "CPE-cfd7beaf00f3eb34",
+       "CPE-d25e14f34013f230",
+       "CPE-d29dfbc41e821188",
+       "CPE-d8697ea35eb82f2f",
+       "CPE-e28d64e971dcff6d"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [
+         "0363100012070344",
+         "0363100012071880",
+         "0363100012078022",
+         "0363100012091756",
+         "0363100012091974",
+         "0363100012102659",
+         "0363100012107492",
+         "0363100012121455",
+         "0363100012127361",
+         "0363100012134188",
+         "0363100012137996",
+         "0363100012140664",
+         "0363100012141419",
+         "0363100012143647",
+         "0363100012144766"
+        ],
+        "scope_sources": [
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-1c2b1db6611adc7c",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-8f9e73f429beafc0",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-0b73001ef8f3c717",
+         "CPE-1c2b1db6611adc7c",
+         "CPE-2cc180daef08d9ff",
+         "CPE-324dc6837c2f5df4",
+         "CPE-6c3980aeec1b8414",
+         "CPE-79044a7317988d3c",
+         "CPE-7bc20fe0a3c6c238",
+         "CPE-8f9e73f429beafc0",
+         "CPE-a6d2bc3a913c585b",
+         "CPE-bc0830c5488cc5ad",
+         "CPE-cb7dc21b306d989f",
+         "CPE-cd3c9a579b2fa199",
+         "CPE-cfd7beaf00f3eb34",
+         "CPE-d25e14f34013f230",
+         "CPE-d29dfbc41e821188",
+         "CPE-d8697ea35eb82f2f",
+         "CPE-e28d64e971dcff6d"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 15,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "SITE_PAVING",
+      "evidence_ids": [
+       "CPE-68e58c7c09bcb9d0",
+       "CPE-864018717f71d676"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-68e58c7c09bcb9d0",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-864018717f71d676",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-68e58c7c09bcb9d0",
+         "CPE-864018717f71d676"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     }
+    ],
+    "proposed_absent": [],
+    "absent": [],
+    "unknown": [
+     {
+      "component_type": "BICYCLE_STORAGE",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COLLECTIVE_HEATING_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_ELECTRICAL_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_FLOOR_FINISH",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_STAIRWELL_ENTRANCE",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_WATER_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "EXTERIOR_DOOR",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "EXTERIOR_WINDOW",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "FIRE_SAFETY_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "INTERCOM_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "LIFT_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "SEWERAGE_DRAINAGE_INTERNAL",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "VENTILATION_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     }
+    ],
+    "review_required": []
+   },
+   "counts": {
+    "confirmed": 0,
+    "proposed": 9,
+    "proposed_absent": 0,
+    "absent": 0,
+    "unknown": 13,
+    "review_required": 0
+   }
+  },
+  {
+   "building_id": "BAG:0518100000354752",
+   "bag_pand_ids": [
+    "0518100000354752"
+   ],
+   "document_ids": [
+    "DOC-012"
+   ],
+   "building_link_ids": [
+    "BLINK-00081"
+   ],
+   "components": {
+    "confirmed": [],
+    "proposed": [
+     {
+      "component_type": "COLLECTIVE_HEATING_INSTALLATION",
+      "evidence_ids": [
+       "CPE-ef2c6d5c27fbe6af"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-ef2c6d5c27fbe6af",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-ef2c6d5c27fbe6af"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "COMMON_LIGHTING",
+      "evidence_ids": [
+       "CPE-1192e0826e0c14bf"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-1192e0826e0c14bf",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-1192e0826e0c14bf"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "COMMON_WATER_INSTALLATION",
+      "evidence_ids": [
+       "CPE-839d0d72fb8646ea"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-839d0d72fb8646ea",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-839d0d72fb8646ea"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "EXTERIOR_FRAME",
+      "evidence_ids": [
+       "CPE-90e3d60a9a12689c"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-90e3d60a9a12689c",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-90e3d60a9a12689c"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "FACADE_MASONRY",
+      "evidence_ids": [
+       "CPE-7c378b5f9a93521f"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-7c378b5f9a93521f",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-7c378b5f9a93521f"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "LIFT_INSTALLATION",
+      "evidence_ids": [
+       "CPE-929fb681cc2de8c5"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-929fb681cc2de8c5",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-929fb681cc2de8c5"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "RAINWATER_DRAINAGE",
+      "evidence_ids": [
+       "CPE-0a2caeb427d32a4d",
+       "CPE-5e163959e841fa16"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-0a2caeb427d32a4d",
+          "source_cluster": "SC-DOC-012"
+         },
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-5e163959e841fa16",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-0a2caeb427d32a4d",
+         "CPE-5e163959e841fa16"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "ROOF_FLAT_COVERING",
+      "evidence_ids": [
+       "CPE-0ea19ed466ad6a20",
+       "CPE-a234084475113ef1"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [
+         "0518100000354752"
+        ],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-0ea19ed466ad6a20",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-0ea19ed466ad6a20",
+         "CPE-a234084475113ef1"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 1,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     },
+     {
+      "component_type": "SITE_PAVING",
+      "evidence_ids": [
+       "CPE-e9b56f2d8cc5cc54"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-e9b56f2d8cc5cc54",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-e9b56f2d8cc5cc54"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_PRESENT"
+     }
+    ],
+    "proposed_absent": [
+     {
+      "component_type": "ROOF_SLOPED_COVERING",
+      "evidence_ids": [
+       "CPE-b3773acaf3519afb"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [
+         "0518100000354752"
+        ],
+        "scope_sources": [],
+        "evidence_ids": [
+         "CPE-b3773acaf3519afb"
+        ]
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 1,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [],
+      "state": "PROPOSED_ABSENT"
+     }
+    ],
+    "absent": [],
+    "unknown": [
+     {
+      "component_type": "BALCONY_RAILING",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "BICYCLE_STORAGE",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_ELECTRICAL_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_FLOOR_FINISH",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "COMMON_STAIRWELL_ENTRANCE",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "EXTERIOR_DOOR",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "EXTERIOR_WINDOW",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "FACADE_CLADDING",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "FIRE_SAFETY_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "INTERCOM_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "SEWERAGE_DRAINAGE_INTERNAL",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     },
+     {
+      "component_type": "VENTILATION_INSTALLATION",
+      "evidence_ids": [],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": null,
+      "notes": [
+       "Geen enkel bewijs; stilte telt niet als afwezigheid."
+      ],
+      "state": "UNKNOWN_NO_EVIDENCE"
+     }
+    ],
+    "review_required": []
+   },
+   "counts": {
+    "confirmed": 0,
+    "proposed": 9,
+    "proposed_absent": 1,
+    "absent": 0,
+    "unknown": 12,
+    "review_required": 0
+   }
+  }
+ ]
+}

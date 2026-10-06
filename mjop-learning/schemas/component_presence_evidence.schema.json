@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "component_presence_evidence.schema.json",
+  "title": "ComponentPresenceEvidence",
+  "description": "Eén bewijsstuk over de aanwezigheid van een fysiek bouwdeel (building_component_types_v1) in een gebouwscope of pand. Presence is een ander concept dan quantity en impliceert geen hoeveelheid. Content-addressed: evidence_id = 'CPE-' + eerste 16 hex van sha256(canonieke JSON zonder evidence_id). ABSENT vereist expliciet bewijs (absence_basis), is altijd REVIEW_REQUIRED en volgt nooit uit stilte.",
+  "type": "object",
+  "definitions": {
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "contract_version": {"const": "component_presence_evidence_v1"},
+        "evidence_id": {"type": "string", "pattern": "^CPE-[0-9a-f]{16}$"},
+        "building_id": {"type": "string", "pattern": "^BAG:[0-9]+(\\+[0-9]+)*$"},
+        "scope_level": {"enum": ["PAND", "BUILDING_SCOPE"]},
+        "bag_pand_id": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+        "component_type": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"},
+        "assertion": {"enum": ["PRESENT", "ABSENT", "UNKNOWN"]},
+        "source_type": {"enum": ["3D_BAG", "BAG", "MJOP", "DRAWING", "PHOTO", "MANUAL"]},
+        "method_class": {"enum": ["GEOMETRY_POSITIVE_VALUE", "GEOMETRY_EXPLICIT_ZERO", "GEOMETRY_FIELD_MISSING", "SOURCE_EXPLICIT_ELEMENT", "SOURCE_EXPLICIT_ELEMENT_WITH_INFERENCE", "EXPLICIT_ABSENCE_STATEMENT", "MANUAL_STATEMENT"]},
+        "source_ref": {"type": "object", "minProperties": 1},
+        "details": {"type": "object"},
+        "absence_basis": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "object", "properties": {"kind": {"enum": ["EXPLICIT_ZERO_VALUE_IN_SOURCE_FIELD", "EXPLICIT_SOURCE_STATEMENT"]}, "statement": {"type": "string", "minLength": 1}}, "required": ["kind", "statement"], "additionalProperties": false}
+          ]
+        },
+        "scope_caveats": {"type": "array", "items": {"type": "string"}},
+        "review_reasons": {"type": "array", "items": {"type": "string"}},
+        "dependency": {"type": "object"},
+        "requires_human_review": {"type": "boolean"},
+        "status": {"enum": ["PROPOSED", "REVIEW_REQUIRED"]},
+        "created_by": {"type": "string"},
+        "input_hashes": {"type": "object"}
+      },
+      "required": ["contract_version", "evidence_id", "building_id", "scope_level", "bag_pand_id", "component_type", "assertion", "source_type", "method_class", "source_ref", "details", "absence_basis", "scope_caveats", "review_reasons", "requires_human_review", "status", "created_by"],
+      "additionalProperties": false,
+      "allOf": [
+        {"if": {"properties": {"assertion": {"const": "ABSENT"}}, "required": ["assertion"]},
+         "then": {"properties": {"absence_basis": {"type": "object"}, "status": {"const": "REVIEW_REQUIRED"}, "method_class": {"enum": ["GEOMETRY_EXPLICIT_ZERO", "EXPLICIT_ABSENCE_STATEMENT", "MANUAL_STATEMENT"]}}}},
+        {"if": {"properties": {"assertion": {"enum": ["PRESENT", "UNKNOWN"]}}, "required": ["assertion"]},
+         "then": {"properties": {"absence_basis": {"type": "null"}}}},
+        {"if": {"properties": {"scope_level": {"const": "PAND"}}, "required": ["scope_level"]},
+         "then": {"properties": {"bag_pand_id": {"type": "string"}}}},
+        {"if": {"properties": {"scope_level": {"const": "BUILDING_SCOPE"}}, "required": ["scope_level"]},
+         "then": {"properties": {"bag_pand_id": {"type": "null"}}}}
+      ]
+    }
+  },
+  "properties": {
+    "builder_version": {"type": "string"},
+    "note": {"type": "string"},
+    "evidence": {"type": "array", "items": {"$ref": "#/definitions/evidence"}}
+  },
+  "required": ["builder_version", "evidence"]
+}

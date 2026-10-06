@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "component_presence_decision.schema.json",
+  "title": "ComponentPresenceDecisionStore",
+  "description": "Append-only menselijke besluiten over de aanwezigheid van een bouwdeel per building_id + component_type (of, indien nodig, building_id + bag_pand_id + component_type). Geen meerderheidstem, geen middeling, geen automatische winnaar: het besluit is altijd door een mens genomen (reviewer_type = human). Een besluit verwijst naar de overwogen evidence (PRESENT/ABSENT vereisen minstens één; menselijke kennis zonder document komt eerst als MANUAL-evidence binnen).",
+  "type": "object",
+  "definitions": {
+    "record": {
+      "type": "object",
+      "properties": {
+        "decision_id": {"type": "string", "pattern": "^CPD-[0-9]{5}$"},
+        "building_id": {"type": "string", "pattern": "^BAG:[0-9]+(\\+[0-9]+)*$"},
+        "bag_pand_id": {"type": ["string", "null"], "pattern": "^[0-9]+$"},
+        "component_type": {"type": "string", "pattern": "^[A-Z][A-Z0-9_]+$"},
+        "decision": {"enum": ["PRESENT", "ABSENT", "UNKNOWN"]},
+        "decision_reason": {"type": "string", "minLength": 1},
+        "considered_evidence_ids": {"type": "array", "items": {"type": "string", "pattern": "^CPE-[0-9a-f]{16}$"}, "uniqueItems": true},
+        "reviewer": {
+          "type": "object",
+          "properties": {"reviewer_id": {"type": "string", "minLength": 1}, "reviewer_type": {"const": "human"}},
+          "required": ["reviewer_id", "reviewer_type"],
+          "additionalProperties": false
+        },
+        "reviewed_at": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$"},
+        "rule_version": {"type": "string"},
+        "supersedes": {"oneOf": [{"type": "string", "pattern": "^CPD-[0-9]{5}$"}, {"type": "null"}]},
+        "status": {"enum": ["ACTIVE", "SUPERSEDED", "REVIEW_REQUIRED"]}
+      },
+      "required": ["decision_id", "building_id", "bag_pand_id", "component_type", "decision", "decision_reason", "considered_evidence_ids", "reviewer", "reviewed_at", "rule_version", "supersedes", "status"],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "store_version": {"const": "component_presence_decision_v1"},
+    "description": {"type": "string"},
+    "append_only": {"const": true},
+    "records": {"type": "array", "items": {"$ref": "#/definitions/record"}}
+  },
+  "required": ["store_version", "append_only", "records"],
+  "additionalProperties": false
+}
