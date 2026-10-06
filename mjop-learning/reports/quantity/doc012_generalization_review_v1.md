@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 15, TEST_ONLY 25.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 16, TEST_ONLY 25.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -122,6 +122,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/bag_snapshots.py` | NOT_A_PROBLEM | DOC-005, Maldenhof, 1106 EZ | DOCSTRING_EXAMPLE: CLI-voorbeelden en een docstring-voorbeeld ('Maldenhof 240 - 296') |
 | `scripts/build_comparability.py` | NOT_A_PROBLEM | DOC-005 | COMMENT: herkomst van regel F7 |
 | `scripts/build_frame_inventory.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
+| `scripts/build_photo_evidence.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/building_element_inventory_report.py` | REPORT_ONLY | DOC-005, Maldenhof | — |
 | `scripts/building_links.py` | NOT_A_PROBLEM | DOC-005 | DOCSTRING_EXAMPLE: CLI-voorbeeld '--document DOC-005' |
 | `scripts/decision_package_4645_interior_painting_wood.py` | NOT_A_PROBLEM | DOC-006 | DOCUMENT_SPECIFIC_DECISION_PACKAGE: vaste observation-ID's van een beslispakket |
