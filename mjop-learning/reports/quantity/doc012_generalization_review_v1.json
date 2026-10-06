@@ -2263,6 +2263,24 @@
    "reason": null
   },
   {
+   "file": "scripts/build_photo_frame_review.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "Maldenhof"
+   ],
+   "lines": [
+    1,
+    33,
+    60,
+    61,
+    62,
+    93,
+    309,
+    317
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/building_element_inventory_report.py",
    "classification": "REPORT_ONLY",
    "patterns": [
@@ -2907,6 +2925,18 @@
     37,
     40,
     59
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_photo_frame_review.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    23
    ],
    "reason": null
   },
