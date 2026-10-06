@@ -1,0 +1,366 @@
+{
+  "builder_version": "rear_annotation_coverage_v1.0.0",
+  "photo": {
+    "photo_id": "maldenhof_3",
+    "path": "data/photos/incoming/maldenhof/maldenhof_3.jpg",
+    "sha256": "52866e56eda4887fd1c14d0b1b42d69639582d4fb03dabecccf8afd248572a71",
+    "role": "REAR_DETAIL"
+  },
+  "building_scope": "Maldenhof",
+  "bag_pand_id": null,
+  "address_scope": "NOT_PROVEN",
+  "facade_side": "REAR",
+  "annotation_method": "MANUAL_VISUAL_READING",
+  "annotation_note": "Handmatige visuele lezing van de foto door Claude; geen automatische detectie en geen foto-AI-model. Alle kandidaten wachten op menselijke review; er zijn geen instances.",
+  "counting_unit": "Een frame instance/candidate is een fysieke kozijn-/gevelopening tussen bouwkundige scheidingen. Meerdere glasvlakken of vleugels binnen een onafgebroken kozijn zijn een opening; een kozijnstijl (mullion) is geen nieuwe opening; metselwerk/bouwkundige scheiding is wel een aparte opening.",
+  "coordinate_system": "bbox_norm = [x1, y1, x2, y2] genormaliseerd 0..1 over de beeldbreedte/-hoogte, oorsprong linksboven. Alleen beeldcoordinaten.",
+  "metric_scale": "NONE_PROVEN",
+  "no_scale_note": "Geen schaalbewijs; geen afmetingen, oppervlakken, painting area of glasoppervlak.",
+  "candidates": [
+    {
+      "candidate_id": "FC-M3-001",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "UNKNOWN_OPENING",
+      "bbox_norm": [
+        0.15,
+        0.67,
+        0.245,
+        0.71
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "UNKNOWN",
+      "visibility": "HEAVILY_OCCLUDED",
+      "occlusion_reason": "Houten scherm, bloembakken en palmblad verbergen een lichte strook onder de dakgoot links",
+      "parent": null,
+      "relation_review": null,
+      "note": "Mogelijk een raam achter het scherm; type niet te bepalen",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-002",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "UNKNOWN_OPENING",
+      "bbox_norm": [
+        0.15,
+        0.7333,
+        0.1975,
+        0.7733
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "UNKNOWN",
+      "visibility": "HEAVILY_OCCLUDED",
+      "occlusion_reason": "Palmbladeren en bloembakkenmuur verbergen een kozijn met witte onderdorpel",
+      "parent": null,
+      "relation_review": null,
+      "note": "Kozijnrand en dorpel zichtbaar, de opening zelf niet",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-003",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.273,
+        0.6733,
+        0.3325,
+        0.746
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "UNKNOWN",
+      "visibility": "PARTIAL",
+      "occlusion_reason": "Dakschild snijdt de rechterzijde af; balkonhekwerk en bloemen voor de onderrand",
+      "parent": null,
+      "relation_review": null,
+      "note": "Kozijn met lamellen/jaloezie onder een uitgeklapte zonwering (PHO-M-016)",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-004",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "EXTERIOR_DOOR",
+      "bbox_norm": [
+        0.616,
+        0.63,
+        0.6715,
+        0.7
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "UNKNOWN",
+      "visibility": "PARTIAL",
+      "occlusion_reason": "Balkonhekwerk en glasvulling verbergen de onderzijde",
+      "parent": null,
+      "relation_review": "REL-M3-001",
+      "note": "Rode balkondeur (PHO-M-015); het rode paneel links ervan hoort bij dezelfde rode kozijnopbouw en is niet apart geannoteerd; deurtype en materiaal niet te beoordelen",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-005",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.673,
+        0.6147,
+        0.7945,
+        0.7
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "UNKNOWN",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "parent": null,
+      "relation_review": "REL-M3-001",
+      "note": "Wit kozijn met roedeverdeling en gordijnen naast de balkondeur; rechts begrensd door het metselwerk van de kopgevel (PHO-M-016)",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-006",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "ROOF_WINDOW",
+      "bbox_norm": [
+        0.0,
+        0.5967,
+        0.0435,
+        0.6333
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "ROOF",
+      "visibility": "PARTIAL",
+      "occlusion_reason": "Beeldrand snijdt het dakraam af; palmblad voor de onderrand",
+      "parent": null,
+      "relation_review": null,
+      "note": "Dakraam linksonder in het dakvlak",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-007",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "ROOF_WINDOW",
+      "bbox_norm": [
+        0.033,
+        0.582,
+        0.087,
+        0.6267
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "ROOF",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "parent": null,
+      "relation_review": null,
+      "note": "Geopend dakraam links (PHO-M-014)",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-008",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "ROOF_WINDOW",
+      "bbox_norm": [
+        0.235,
+        0.524,
+        0.31,
+        0.5933
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "ROOF",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "parent": null,
+      "relation_review": null,
+      "note": "Dakraam links van de dakkapel",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-009",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "ROOF_WINDOW",
+      "bbox_norm": [
+        0.764,
+        0.384,
+        0.834,
+        0.4667
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "ROOF",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "parent": null,
+      "relation_review": null,
+      "note": "Geopend dakraam rechts (PHO-M-014)",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    },
+    {
+      "candidate_id": "FC-M3-010",
+      "photo": "maldenhof_3.jpg",
+      "facade_side": "REAR",
+      "candidate_type": "DORMER_WINDOW",
+      "bbox_norm": [
+        0.3195,
+        0.4413,
+        0.4935,
+        0.5687
+      ],
+      "bag_address_scope_hint": null,
+      "bag_pand_id": null,
+      "storey": "ROOF",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "parent": {
+        "type": "ROOF_DORMER",
+        "ref": "DORMER-M3-001"
+      },
+      "relation_review": null,
+      "note": "Vijfdelig wit kozijn in een onafgebroken kozijnopening onder de groene dakrand (PHO-M-013); posten zijn kozijnstijlen, geen metselwerk, dus een opening",
+      "annotation_method": "MANUAL_VISUAL_READING",
+      "review_status": "REVIEW_REQUIRED",
+      "human_decision": "PENDING"
+    }
+  ],
+  "context_objects": [
+    {
+      "object_id": "DORMER-M3-001",
+      "object_type": "ROOF_DORMER",
+      "bbox_norm": [
+        0.3175,
+        0.4127,
+        0.5435,
+        0.5767
+      ],
+      "related_observation": "PHO-M-013",
+      "counts_as_window_candidate": false,
+      "note": "Dakkapel zelf; geen EXTERIOR_FRAME quantity-koppeling."
+    }
+  ],
+  "relation_reviews": [
+    {
+      "group_id": "REL-M3-001",
+      "candidate_ids": [
+        "FC-M3-004",
+        "FC-M3-005"
+      ],
+      "status": "SAME_FRAME_OPENING_REVIEW_REQUIRED",
+      "question": "Vormen de rode balkondeur (004) en het witte raam (005) een onafgebroken raam-deurcombinatie (een opening) of twee openingen? Op de foto loopt een doorlopende witte kozijnbovenregel over beide en ligt er geen metselwerk tussen; de kozijnstijl alleen is geen scheiding. Niet samengevoegd; de mens beslist."
+    }
+  ],
+  "cross_photo_deduplication": {
+    "status": "NONE",
+    "rule": "Foto 2 (voorzijde) en foto 3 (achterzijde) tonen verschillende gevelzijden; kandidaten worden nooit tussen voor- en achterzijde als duplicate samengevoegd."
+  },
+  "visible_counts": {
+    "count_basis": "VISIBLE_COUNT_ON_PHOTO_3",
+    "photo": "maldenhof_3.jpg",
+    "is_building_total": false,
+    "confirmed_instances": 0,
+    "FULL_WINDOWS": 1,
+    "PARTIAL_WINDOWS": 1,
+    "EXTERIOR_DOORS": 1,
+    "ROOF_WINDOWS": 4,
+    "ROOF_WINDOWS_FULL": 3,
+    "ROOF_WINDOWS_PARTIAL": 1,
+    "DORMER_WINDOWS": 1,
+    "UNKNOWN_OPENINGS": 2,
+    "TOTAL_ANNOTATION_CANDIDATES": 10,
+    "candidates_in_open_relation_review": [
+      "FC-M3-004",
+      "FC-M3-005"
+    ],
+    "OPENINGS_IF_RELATION_GROUPS_COUNT_ONCE": 2,
+    "candidate_ids_by_category": {
+      "UNKNOWN_OPENING": [
+        "FC-M3-001",
+        "FC-M3-002"
+      ],
+      "WINDOW_PARTIAL": [
+        "FC-M3-003"
+      ],
+      "EXTERIOR_DOOR": [
+        "FC-M3-004"
+      ],
+      "WINDOW_FULL": [
+        "FC-M3-005"
+      ],
+      "ROOF_WINDOW": [
+        "FC-M3-006",
+        "FC-M3-007",
+        "FC-M3-008",
+        "FC-M3-009"
+      ],
+      "DORMER_WINDOW": [
+        "FC-M3-010"
+      ]
+    }
+  },
+  "repeat_candidates": {
+    "status": "REPEAT_CANDIDATE",
+    "active": false,
+    "multiplier": null,
+    "user_confirmed_repeat": false,
+    "candidates": [
+      {
+        "repeat_candidate_id": "RC-M3-001",
+        "kind": "SAME_REAR_ASSEMBLY_OR_MIRRORED",
+        "members": [
+          "linker woning: kozijn onder zonwering met bloembakkenbalkon (FC-M3-003)",
+          "rechter woning: balkon met rode deur en raam (FC-M3-004/005)"
+        ],
+        "note": "Beide woningen tonen een terugliggende bouwlaag met balkon onder een lager dakschild; mogelijk een gespiegeld/gelijk achtergeveltype. Zichtbare inhoud verschilt (kozijnindeling) en de linker woning is grotendeels afgedekt."
+      },
+      {
+        "repeat_candidate_id": "RC-M3-002",
+        "kind": "SAME_REAR_ROOF_WINDOW_PATTERN",
+        "members": [
+          "FC-M3-006",
+          "FC-M3-007",
+          "FC-M3-008",
+          "FC-M3-009"
+        ],
+        "note": "Verspreide dakramen in het achterdakvlak; patroon niet regelmatig genoeg voor een module."
+      }
+    ],
+    "conclusion": "Alleen kandidaten; multiplier = null, active = false. Geen extrapolatie en geen koppeling aan de voorgevelmodules MOD-M2-A/B."
+  },
+  "coverage_gaps": [
+    "Begane grond: golfplaten overkapping en houten schutting verbergen de volledige begane grond; geen enkele opening op de begane grond is beoordeelbaar.",
+    "Linkerhelft: palmbladeren, bloembakken en een houten scherm verbergen de openingen in de linker woning (candidates 001 en 002 zijn heavily occluded).",
+    "Rechterrand: de kopgevel (zijgevel) is slechts als bakstenen wand zichtbaar, zonder zichtbare openingen; zijgevel niet gedekt.",
+    "Opname van onderen met dakvlak dominant: de bovenste gevelrij onder de dakgoot is smal en schuin in beeld (bouwlagen niet vast te stellen).",
+    "Foto 3 toont een deel van de achterzijde: de woningen links en rechts van de zichtbare delen zijn niet in beeld.",
+    "Het exacte adres/pand van foto 3 is niet bewezen (geen huisnummers in beeld); bag_pand_id blijft null."
+  ],
+  "frame_inventory_effect": "NONE: geen frame instances/groups aangemaakt; kandidaten blijven REVIEW_REQUIRED."
+}

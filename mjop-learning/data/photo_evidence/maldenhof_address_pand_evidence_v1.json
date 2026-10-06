@@ -1,0 +1,810 @@
+{
+  "evidence_version": "maldenhof_address_pand_evidence_v1",
+  "builder_version": "rear_annotation_coverage_v1.0.0",
+  "network_calls": false,
+  "method": "BAG-snapshots (contains_address_point_of) van DOC-005 en DOC-006 plus mens-bevestigde building links (BLINK-records); geen nieuwe BAG/PDOK-aanroep.",
+  "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+  "confirmed_pand_count": 15,
+  "address_count": 29,
+  "resolution": {
+    "Maldenhof 288": {
+      "huisnummer": 288,
+      "adresseerbaarobject_id": "0363010000900076",
+      "pdok_id": "adr-2561a648197f1cb45646e70d3f419ea3",
+      "bag_pand_id": "0363100012121455",
+      "pand_addresses": [
+        286,
+        288
+      ],
+      "building_link_ids": [
+        "BLINK-00008",
+        "BLINK-00048"
+      ],
+      "status": "PROVEN_BY_BAG_SNAPSHOT_AND_CONFIRMED_BUILDING_LINK"
+    },
+    "Maldenhof 290": {
+      "huisnummer": 290,
+      "adresseerbaarobject_id": "0363010000900078",
+      "pdok_id": "adr-3f44ba53b32114f677f0382f96fdcb77",
+      "bag_pand_id": "0363100012134188",
+      "pand_addresses": [
+        290,
+        292
+      ],
+      "building_link_ids": [
+        "BLINK-00010",
+        "BLINK-00050"
+      ],
+      "status": "PROVEN_BY_BAG_SNAPSHOT_AND_CONFIRMED_BUILDING_LINK"
+    }
+  },
+  "same_pand": false,
+  "street_order_note": "De volgorde van de panden volgt de laagste even huisnummers (afgeleid van de BAG-adrespunten). Het is een volgorde langs de straat, geen bewijs over bouwblokgrenzen, kopgevels of gevelposities.",
+  "pand_order": [
+    {
+      "order": 1,
+      "bag_pand_id": "0363100012137996",
+      "addresses": [
+        240
+      ]
+    },
+    {
+      "order": 2,
+      "bag_pand_id": "0363100012102659",
+      "addresses": [
+        242,
+        244
+      ]
+    },
+    {
+      "order": 3,
+      "bag_pand_id": "0363100012078022",
+      "addresses": [
+        246,
+        248
+      ]
+    },
+    {
+      "order": 4,
+      "bag_pand_id": "0363100012140664",
+      "addresses": [
+        250,
+        252
+      ]
+    },
+    {
+      "order": 5,
+      "bag_pand_id": "0363100012141419",
+      "addresses": [
+        254,
+        256
+      ]
+    },
+    {
+      "order": 6,
+      "bag_pand_id": "0363100012091974",
+      "addresses": [
+        258,
+        260
+      ]
+    },
+    {
+      "order": 7,
+      "bag_pand_id": "0363100012070344",
+      "addresses": [
+        262,
+        264
+      ]
+    },
+    {
+      "order": 8,
+      "bag_pand_id": "0363100012107492",
+      "addresses": [
+        266,
+        268
+      ]
+    },
+    {
+      "order": 9,
+      "bag_pand_id": "0363100012071880",
+      "addresses": [
+        270,
+        272
+      ]
+    },
+    {
+      "order": 10,
+      "bag_pand_id": "0363100012144766",
+      "addresses": [
+        274,
+        276
+      ]
+    },
+    {
+      "order": 11,
+      "bag_pand_id": "0363100012091756",
+      "addresses": [
+        278,
+        280
+      ]
+    },
+    {
+      "order": 12,
+      "bag_pand_id": "0363100012143647",
+      "addresses": [
+        282,
+        284
+      ]
+    },
+    {
+      "order": 13,
+      "bag_pand_id": "0363100012121455",
+      "addresses": [
+        286,
+        288
+      ]
+    },
+    {
+      "order": 14,
+      "bag_pand_id": "0363100012134188",
+      "addresses": [
+        290,
+        292
+      ]
+    },
+    {
+      "order": 15,
+      "bag_pand_id": "0363100012127361",
+      "addresses": [
+        294,
+        296
+      ]
+    }
+  ],
+  "addresses": [
+    {
+      "huisnummer": 240,
+      "weergavenaam": "Maldenhof 240, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900029",
+      "pdok_id": "adr-e2c59424029b7f16e3f06efb87300a15",
+      "bag_pand_id": "0363100012137996",
+      "centroide_ll": "POINT(4.96562575 52.30244154)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00011",
+        "BLINK-00051"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 242,
+      "weergavenaam": "Maldenhof 242, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900031",
+      "pdok_id": "adr-5de17882076766f2b4087b5821ce31ba",
+      "bag_pand_id": "0363100012102659",
+      "centroide_ll": "POINT(4.96563998 52.30248653)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00006",
+        "BLINK-00046"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 244,
+      "weergavenaam": "Maldenhof 244, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900033",
+      "pdok_id": "adr-f24bbd0e1543cb4a4427eae13e341257",
+      "bag_pand_id": "0363100012102659",
+      "centroide_ll": "POINT(4.96568388 52.30249567)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00006",
+        "BLINK-00046"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 246,
+      "weergavenaam": "Maldenhof 246, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900035",
+      "pdok_id": "adr-1f9b6387168932dd66f58f83cc83fc96",
+      "bag_pand_id": "0363100012078022",
+      "centroide_ll": "POINT(4.96571303 52.30251375)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00003",
+        "BLINK-00043"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 248,
+      "weergavenaam": "Maldenhof 248, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900037",
+      "pdok_id": "adr-36108eb85c996de0b73b491c9ef3c890",
+      "bag_pand_id": "0363100012078022",
+      "centroide_ll": "POINT(4.96574226 52.30252284)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00003",
+        "BLINK-00043"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 250,
+      "weergavenaam": "Maldenhof 250, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900039",
+      "pdok_id": "adr-8233130f312a0e947727dc0bad83e7be",
+      "bag_pand_id": "0363100012140664",
+      "centroide_ll": "POINT(4.96578608 52.30254098)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00012",
+        "BLINK-00052"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 252,
+      "weergavenaam": "Maldenhof 252, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900041",
+      "pdok_id": "adr-fbc8e6e9b4cbb3aa8f955b24d0df6bec",
+      "bag_pand_id": "0363100012140664",
+      "centroide_ll": "POINT(4.96582997 52.30255012)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00012",
+        "BLINK-00052"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 254,
+      "weergavenaam": "Maldenhof 254, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900043",
+      "pdok_id": "adr-e420b771bc04f19ba5e4d01a64ec86b4",
+      "bag_pand_id": "0363100012141419",
+      "centroide_ll": "POINT(4.96584455 52.30255916)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00013",
+        "BLINK-00053"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 256,
+      "weergavenaam": "Maldenhof 256, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900045",
+      "pdok_id": "adr-ba5f71c5ce4b0411bca64d07b0359acf",
+      "bag_pand_id": "0363100012141419",
+      "centroide_ll": "POINT(4.96588844 52.3025683)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00013",
+        "BLINK-00053"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 258,
+      "weergavenaam": "Maldenhof 258, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900047",
+      "pdok_id": "adr-6f18679ca005c4345d8443ef3d33091b",
+      "bag_pand_id": "0363100012091974",
+      "centroide_ll": "POINT(4.96593226 52.30258644)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00005",
+        "BLINK-00045"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 260,
+      "weergavenaam": "Maldenhof 260, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900049",
+      "pdok_id": "adr-7d075af42c207c488c6326eb528a1831",
+      "bag_pand_id": "0363100012091974",
+      "centroide_ll": "POINT(4.96596149 52.30259553)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00005",
+        "BLINK-00045"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 262,
+      "weergavenaam": "Maldenhof 262, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900051",
+      "pdok_id": "adr-4e734ff18a78141f3f84f3074871067c",
+      "bag_pand_id": "0363100012070344",
+      "centroide_ll": "POINT(4.96599073 52.30260462)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00001",
+        "BLINK-00041"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 264,
+      "weergavenaam": "Maldenhof 264, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900053",
+      "pdok_id": "adr-d17a279cc093939334dd74a51f11def3",
+      "bag_pand_id": "0363100012070344",
+      "centroide_ll": "POINT(4.96601988 52.3026227)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00001",
+        "BLINK-00041"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 266,
+      "weergavenaam": "Maldenhof 266, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900055",
+      "pdok_id": "adr-626381627089a0a5ef6b08aa23b4fb8e",
+      "bag_pand_id": "0363100012107492",
+      "centroide_ll": "POINT(4.96606378 52.30263184)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00007",
+        "BLINK-00047"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 268,
+      "weergavenaam": "Maldenhof 268, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900056",
+      "pdok_id": "adr-f7feec0bde9a86385f4e5bcbf4157767",
+      "bag_pand_id": "0363100012107492",
+      "centroide_ll": "POINT(4.96610767 52.30264099)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00007",
+        "BLINK-00047"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 270,
+      "weergavenaam": "Maldenhof 270, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900058",
+      "pdok_id": "adr-67fa8581b25d7262588101f3695b7913",
+      "bag_pand_id": "0363100012071880",
+      "centroide_ll": "POINT(4.96613691 52.30265008)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00002",
+        "BLINK-00042"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 272,
+      "weergavenaam": "Maldenhof 272, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900060",
+      "pdok_id": "adr-ee199fdca7e6c9aa603ad95d8e13fb99",
+      "bag_pand_id": "0363100012071880",
+      "centroide_ll": "POINT(4.96616606 52.30266816)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00002",
+        "BLINK-00042"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 274,
+      "weergavenaam": "Maldenhof 274, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900062",
+      "pdok_id": "adr-d19a8687818b9a9fde7fd239cc741806",
+      "bag_pand_id": "0363100012144766",
+      "centroide_ll": "POINT(4.96621021 52.30265034)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00015",
+        "BLINK-00055"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 276,
+      "weergavenaam": "Maldenhof 276, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900064",
+      "pdok_id": "adr-395e3846c8845864c0e76608ee92c551",
+      "bag_pand_id": "0363100012144766",
+      "centroide_ll": "POINT(4.96625403 52.30266847)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00015",
+        "BLINK-00055"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 278,
+      "weergavenaam": "Maldenhof 278, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900066",
+      "pdok_id": "adr-e682859c4cc3a0159f585c6d2634cd5d",
+      "bag_pand_id": "0363100012091756",
+      "centroide_ll": "POINT(4.96628326 52.30267756)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00004",
+        "BLINK-00044"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 280,
+      "weergavenaam": "Maldenhof 280, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900068",
+      "pdok_id": "adr-c5ee0e2aa22feb7ce0100d32c59a9b43",
+      "bag_pand_id": "0363100012091756",
+      "centroide_ll": "POINT(4.96632707 52.3026957)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00004",
+        "BLINK-00044"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 282,
+      "weergavenaam": "Maldenhof 282, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900070",
+      "pdok_id": "adr-effa9e8d3eacd89296c0de21067c24fe",
+      "bag_pand_id": "0363100012143647",
+      "centroide_ll": "POINT(4.96635631 52.30270479)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00014",
+        "BLINK-00054"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 284,
+      "weergavenaam": "Maldenhof 284, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900072",
+      "pdok_id": "adr-67a9a6c61b8b872a57d56229fdfe8ebd",
+      "bag_pand_id": "0363100012143647",
+      "centroide_ll": "POINT(4.96640021 52.30271393)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00014",
+        "BLINK-00054"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 286,
+      "weergavenaam": "Maldenhof 286, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900074",
+      "pdok_id": "adr-07423ce51abbcf71a6c797ace3f742fc",
+      "bag_pand_id": "0363100012121455",
+      "centroide_ll": "POINT(4.96642944 52.30272302)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00008",
+        "BLINK-00048"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 288,
+      "weergavenaam": "Maldenhof 288, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900076",
+      "pdok_id": "adr-2561a648197f1cb45646e70d3f419ea3",
+      "bag_pand_id": "0363100012121455",
+      "centroide_ll": "POINT(4.9664586 52.3027411)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00008",
+        "BLINK-00048"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": true
+    },
+    {
+      "huisnummer": 290,
+      "weergavenaam": "Maldenhof 290, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900078",
+      "pdok_id": "adr-3f44ba53b32114f677f0382f96fdcb77",
+      "bag_pand_id": "0363100012134188",
+      "centroide_ll": "POINT(4.96650241 52.30275923)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00010",
+        "BLINK-00050"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": true
+    },
+    {
+      "huisnummer": 292,
+      "weergavenaam": "Maldenhof 292, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900080",
+      "pdok_id": "adr-11d5b58979796a03f5aaf082cfa7a612",
+      "bag_pand_id": "0363100012134188",
+      "centroide_ll": "POINT(4.96653173 52.30275934)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00010",
+        "BLINK-00050"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 294,
+      "weergavenaam": "Maldenhof 294, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900082",
+      "pdok_id": "adr-38f0a653263a466e5335253677d3303d",
+      "bag_pand_id": "0363100012127361",
+      "centroide_ll": "POINT(4.96656088 52.30277742)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00009",
+        "BLINK-00049"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    },
+    {
+      "huisnummer": 296,
+      "weergavenaam": "Maldenhof 296, 1106EZ Amsterdam",
+      "adresseerbaarobject_id": "0363010000900084",
+      "pdok_id": "adr-fcdccebfafa94afc54d9dd831fb68c9b",
+      "bag_pand_id": "0363100012127361",
+      "centroide_ll": "POINT(4.96660478 52.30278656)",
+      "snapshot_ids": [
+        "BAGSNAP-431559474da45dcf",
+        "BAGSNAP-e23aa139a8589881"
+      ],
+      "building_link_ids": [
+        "BLINK-00009",
+        "BLINK-00049"
+      ],
+      "pand_in_confirmed_scope": true,
+      "requested": false
+    }
+  ],
+  "photo2_instance_assignment_policy": "Alleen toewijzen als de bbox aantoonbaar bij een adres hoort. Foto-2 instances blijven bevroren (PR #35); de instance-store is niet gewijzigd. Onderstaande records leggen vast waarom niets is toegewezen.",
+  "photo2_instance_assignment": [
+    {
+      "frame_instance_id": "FI-M2-001",
+      "candidate_id": "FC-M2-001-A",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-002",
+      "candidate_id": "FC-M2-001-B",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-003",
+      "candidate_id": "FC-M2-002",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-004",
+      "candidate_id": "FC-M2-003",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-005",
+      "candidate_id": "FC-M2-004",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-006",
+      "candidate_id": "FC-M2-005",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-007",
+      "candidate_id": "FC-M2-006-A",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-010",
+      "candidate_id": "FC-M2-007",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-011",
+      "candidate_id": "FC-M2-008",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    },
+    {
+      "frame_instance_id": "FI-M2-012",
+      "candidate_id": "FC-M2-009",
+      "address_hint": "Maldenhof 288",
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": "ADJACENT_TO_HOUSE_NUMBER_PLATE",
+      "reason": "Het huisnummer is alleen als hint uit de ligging naast de huisnummerplaat afgeleid. Het adres->pand verband is bewezen, maar dat de opening bij dat adres (en dit pand) hoort niet: de pandgrens tussen de aangrenzende panden is niet in het evidence en de plaat bepaalt de eigenaar van de opening niet. Geen positional guessing.",
+      "candidate_pand_for_human_confirmation": "0363100012121455"
+    },
+    {
+      "frame_instance_id": "FI-M2-013",
+      "candidate_id": "FC-M2-011",
+      "address_hint": "Maldenhof 290",
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": "ADJACENT_TO_HOUSE_NUMBER_PLATE",
+      "reason": "Het huisnummer is alleen als hint uit de ligging naast de huisnummerplaat afgeleid. Het adres->pand verband is bewezen, maar dat de opening bij dat adres (en dit pand) hoort niet: de pandgrens tussen de aangrenzende panden is niet in het evidence en de plaat bepaalt de eigenaar van de opening niet. Geen positional guessing.",
+      "candidate_pand_for_human_confirmation": "0363100012134188"
+    },
+    {
+      "frame_instance_id": "FI-M2-014",
+      "candidate_id": "FC-M2-006-BC",
+      "address_hint": null,
+      "bag_pand_id_in_instance_store": null,
+      "assignment": "NOT_ASSIGNED",
+      "hint_basis": null,
+      "reason": "Geen aantoonbaar adres bij deze opening; positie in het beeld is geen bewijs voor een adres of pand."
+    }
+  ],
+  "photo3_scope": {
+    "building_scope": "Maldenhof",
+    "bag_pand_id": null,
+    "address_scope": "NOT_PROVEN",
+    "reason": "Geen huisnummers in beeld; geen bestaand evidence dat foto 3 aan een adres of pand koppelt."
+  },
+  "hypothesis_not_evidence": [
+    "De huisnummers nemen op foto 2 naar rechts af (290 links, 288 rechts); de linker rand van foto 2 ligt dus aan de kant van de hogere nummers. Dit is een leesrichting, geen bewijs voor kopgevelposities."
+  ]
+}
