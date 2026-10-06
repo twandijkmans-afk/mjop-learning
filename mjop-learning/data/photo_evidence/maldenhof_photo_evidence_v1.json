@@ -1,0 +1,304 @@
+{
+  "builder_version": "photo_evidence_poc_v1.0.0",
+  "building_label": "Maldenhof 240-296 (DOC-005 + DOC-006)",
+  "building_link_status": "REVIEW_REQUIRED",
+  "scope": "Foto-evidence; geen tekening. EXTERIOR_FRAME=PRESENT blijft CPD-00001; alle quantity-concepten blijven UNKNOWN.",
+  "quantity_concepts_status": {
+    "FRAME_COUNT": "UNKNOWN",
+    "WINDOW_COUNT": "UNKNOWN",
+    "EXTERIOR_DOOR_COUNT": "UNKNOWN",
+    "WINDOW_OPENING_AREA": "UNKNOWN",
+    "FRAME_OUTER_AREA": "UNKNOWN",
+    "FRAME_PAINTING_AREA": "UNKNOWN",
+    "GLASS_AREA": "UNKNOWN"
+  },
+  "photos": [
+    {
+      "photo_id": "maldenhof_1",
+      "path": "data/photos/incoming/maldenhof/maldenhof_1.jpg",
+      "sha256": "902b2a6ab8b719ee05bd773887fe1070fc967e8079b0eebf4662b007192d75eb",
+      "width_px": 2048,
+      "height_px": 1536,
+      "view": "STREET_SIDE_OBLIQUE",
+      "usability_as_evidence": "CONTEXT_ONLY",
+      "notes": "Brede schuine straatzijde; veel begroeiing voor de onderbouw, aangrenzende blokken rechts maken de gebouwgrens onduidelijk. Zonnig, geen huisnummers leesbaar.",
+      "exif_present": false
+    },
+    {
+      "photo_id": "maldenhof_2",
+      "path": "data/photos/incoming/maldenhof/maldenhof_2.jpg",
+      "sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d",
+      "width_px": 2048,
+      "height_px": 1536,
+      "view": "STREET_SIDE_FRONTAL",
+      "usability_as_evidence": "BEST_FOR_STREET_FACADE",
+      "notes": "Bijna frontale straatzijde met huisnummers 290 en 288 leesbaar; tegenlicht rechtsboven, lantaarnpaal en begroeiing verbergen delen van de begane grond.",
+      "exif_present": false
+    },
+    {
+      "photo_id": "maldenhof_3",
+      "path": "data/photos/incoming/maldenhof/maldenhof_3.jpg",
+      "sha256": "52866e56eda4887fd1c14d0b1b42d69639582d4fb03dabecccf8afd248572a71",
+      "width_px": 2048,
+      "height_px": 1536,
+      "view": "REAR_SIDE_OBLIQUE_FROM_BELOW",
+      "usability_as_evidence": "ROOF_AND_REAR_DETAIL",
+      "notes": "Achterzijde, opname van onderen met datumstempel 14.AUG.2026 in beeld; dakvlak domineert, begane grond deels door overkapping en schutting verborgen. Zelfde bestand als data/download.jpg.",
+      "exif_present": false
+    }
+  ],
+  "observations": [
+    {
+      "observation_id": "PHO-M-001",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "HOUSE_NUMBER_PLATE",
+      "description": "Huisnummers 290 en 288 leesbaar op gemetselde borstweringen bij de entrees.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "benedenste helft, midden en rechts",
+      "limitations": "Alleen twee nummers zichtbaar; koppeling aan DOC-005 (Maldenhof 240-296) is een hint, geen bevestiging.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-002",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "WINDOW_FRAME",
+      "description": "Lichte (wit ogende) kozijnen met draai/kiep-delen op de eerste verdieping en bij entrees; materiaal niet vast te stellen.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "tweede bouwlaag over de volle breedte",
+      "limitations": "Materiaal, afmeting en aantal onbekend; deels geopend of door bomen verborgen.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-003",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "ROOF_DORMER",
+      "description": "Dakkapel met drie-delig kozijn in het bovendakvlak.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "bovenaan midden",
+      "limitations": "Dakkapel hoort mogelijk bij ander onderhoudselement dan EXTERIOR_FRAME.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-004",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "ROOF_WINDOW",
+      "description": "Meerdere dakramen (Velux-achtig) in het dakvlak en op de lagere dakschilden.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "dakvlak links, midden en rechts",
+      "limitations": "Zichtbare dakramen zijn niet hetzelfde als het totaal; achterzijde niet meegeteld.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-005",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "CHIMNEY_OR_VENT_STACK",
+      "description": "Paren schoorsteen-/ventilatiekoppen op de nok.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "nok, twee groepen",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-006",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "ENTRANCE_PORTICO",
+      "description": "Entreeportiek onder het lagere dakschild met trap en voordeur in schaduw.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "linksonder",
+      "limitations": "Deur zelf niet te beoordelen (donker).",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-007",
+      "photo": "maldenhof_2.jpg",
+      "element_type_candidate": "BRICKWORK_PARAPET",
+      "description": "Metselwerk borstweringen/erfafscheidingen met houten beplating en bergkasten ervoor.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "onderste helft",
+      "limitations": "Gevelmetselwerk en bergkasten zijn geen onderdeel van het kozijnenonderzoek.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-008",
+      "photo": "maldenhof_1.jpg",
+      "element_type_candidate": "WINDOW_FRAME",
+      "description": "Kozijnen op de tweede bouwlaag en bij de terugliggende gevelvlakken; herhaald patroon langs de straat.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "midden tot rechts",
+      "limitations": "Perspectief en begroeiing maken individuele kozijnen niet betrouwbaar te onderscheiden.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-009",
+      "photo": "maldenhof_1.jpg",
+      "element_type_candidate": "ROOF_DORMER",
+      "description": "Dakkapel linksboven met wit kozijn.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "linksboven",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-010",
+      "photo": "maldenhof_1.jpg",
+      "element_type_candidate": "ROOF_WINDOW",
+      "description": "Verspreide dakramen in het dakvlak en op lage dakschilden.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "dakvlak",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-011",
+      "photo": "maldenhof_1.jpg",
+      "element_type_candidate": "CHIMNEY_OR_VENT_STACK",
+      "description": "Meerdere schoorsteen-/ventilatiekoppen op de nok.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "nok",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-012",
+      "photo": "maldenhof_1.jpg",
+      "element_type_candidate": "ADJACENT_BUILDING_BLOCK",
+      "description": "Aangrenzend bouwblok rechts met vergelijkbare opbouw.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "rechts achter",
+      "limitations": "Buiten scope tot gebouwgrens is vastgesteld; niet meetellen.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-013",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "ROOF_DORMER",
+      "description": "Dakkapel met groene dakrand en wit vierdelig kozijn; houten/lichte wangen.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "midden",
+      "limitations": "Kleur/materiaal wangen en kozijn niet te bevestigen.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-014",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "ROOF_WINDOW",
+      "description": "Dakramen in het achterdakvlak, een daarvan geopend.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "dakvlak rechts en links",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-015",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "EXTERIOR_DOOR",
+      "description": "Rode deur naast kozijn op balkon-/terrasniveau.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "rechtsonder midden",
+      "limitations": "Deurtype en -materiaal niet te beoordelen.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-016",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "WINDOW_FRAME",
+      "description": "Wit kozijn met roedeverdeling naast balkondeur; kozijn onder dakoverstek links.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "rechtsonder en linksonder",
+      "limitations": "Gedeeltelijk verborgen door overkapping en planten.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-017",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "BALCONY_RAILING",
+      "description": "Wit balkonhekwerk met glasvulling.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "rechtsonder",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-018",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "CHIMNEY_OR_VENT_STACK",
+      "description": "Schoorsteenkoppen en ventilatie-/afvoerpijpen op de nok en het dakvlak.",
+      "status": "REPEAT_CANDIDATE",
+      "location_hint": "nok",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-019",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "RAINWATER_GUTTER",
+      "description": "Dakgoten en hemelwaterafvoer langs het dakschild.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "onderrand dakvlak",
+      "limitations": "",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    },
+    {
+      "observation_id": "PHO-M-020",
+      "photo": "maldenhof_3.jpg",
+      "element_type_candidate": "GARDEN_CANOPY",
+      "description": "Doorzichtige/lichte golfplaten overkapping op de begane grond.",
+      "status": "REVIEW_REQUIRED",
+      "location_hint": "onderin",
+      "limitations": "Waarschijnlijk niet-VvE; eigendom onbekend.",
+      "method": "AI_VISUAL_FIRST_PASS",
+      "requires_human_review": true,
+      "confirmed": false
+    }
+  ],
+  "duplicates_in_repo": [
+    {
+      "path": "data/download.jpg",
+      "same_sha256_as": "maldenhof_3",
+      "matches": true
+    }
+  ],
+  "open_questions": [
+    "Welke gevel(s) en bouwlagen horen bij DOC-005/006 en vallen binnen de VvE-scope?",
+    "Is een vector-gevelaanzicht beschikbaar om kozijnen te kunnen tellen en meten?",
+    "Bevestigt een reviewer de huisnummers 288/290 als onderdeel van DOC-005 (Maldenhof 240-296)?"
+  ]
+}
