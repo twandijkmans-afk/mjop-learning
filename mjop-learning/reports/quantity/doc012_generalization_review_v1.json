@@ -2376,6 +2376,19 @@
    "reason": null
   },
   {
+   "file": "scripts/kengetal_product_bridge_review.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    364,
+    456
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/maldenhof_quantity_activation.py",
    "classification": "REPORT_ONLY",
    "patterns": [
@@ -2681,6 +2694,18 @@
    "lines": [
     367,
     368
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_kengetal_product_bridge_review.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006"
+   ],
+   "lines": [
+    21
    ],
    "reason": null
   },

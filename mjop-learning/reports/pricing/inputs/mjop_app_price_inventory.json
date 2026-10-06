@@ -1,0 +1,701 @@
+{
+ "inventory_version": "mjop_app_price_inventory_v1",
+ "app_repository": "twandijkmans-afk/MJOP-App",
+ "reference_commit": "b77909a5cd51c76391e147c29a85385a7d769e9b",
+ "latest_commit": "eaeb256897d9a643d0a44ba4d298df33d0d4e211",
+ "price_values_identical_across_commits": true,
+ "snapshots": [
+  {
+   "commit": "b77909a5cd51c76391e147c29a85385a7d769e9b",
+   "src_sha256": {
+    "src/app.js": "6c5a15ac0e3d9e9a9892f838696bd5f6e962a7441494cd39d80627891efc98e6",
+    "src/quantity.js": "893e32a90a5c79f16e6d5eed4f7da48e53f352209f7aaee74e64a37ed0c92fa2"
+   },
+   "prices": {
+    "element_library": [
+     {
+      "key": "dak-plat",
+      "naam": "Dakbedekking plat dak",
+      "categorie": "Dak",
+      "sfb": "27.1",
+      "type": "dak",
+      "cyclus": 25,
+      "kengetal": 165,
+      "bron": "dakPlatM2",
+      "optioneel": true
+     },
+     {
+      "key": "dakgoten",
+      "naam": "Dakgoten en hemelwaterafvoeren",
+      "categorie": "Dak",
+      "sfb": "27.3",
+      "type": "vast-variabel",
+      "cyclus": 20,
+      "basis": 300,
+      "perEenheid": 90,
+      "bron": "units"
+     },
+     {
+      "key": "dakinspectie",
+      "naam": "Dakinspectie en klein onderhoud",
+      "categorie": "Dak",
+      "sfb": "27",
+      "type": "vast-variabel",
+      "cyclus": 2,
+      "basis": 420,
+      "perEenheid": 2,
+      "bron": "dakM2"
+     },
+     {
+      "key": "dak-hellend",
+      "naam": "Dakbedekking hellend dak (pannen)",
+      "categorie": "Dak",
+      "sfb": "27.2",
+      "type": "dak",
+      "cyclus": 40,
+      "kengetal": 95,
+      "bron": "dakSchuinM2",
+      "optioneel": true
+     },
+     {
+      "key": "dakisolatie",
+      "naam": "Dakisolatie na-isoleren",
+      "categorie": "Dak",
+      "sfb": "47.2",
+      "type": "dak",
+      "cyclus": 30,
+      "kengetal": 60,
+      "bron": "dakM2",
+      "optioneel": true
+     },
+     {
+      "key": "gevel-metselwerk",
+      "naam": "Gevelreiniging en metselwerkherstel",
+      "categorie": "Gevel",
+      "sfb": "21.1",
+      "type": "gevel",
+      "cyclus": 15,
+      "kengetal": 26,
+      "bron": "gevelM2",
+      "benadering": true
+     },
+     {
+      "key": "schilderwerk-buiten",
+      "naam": "Schilderwerk buitenkozijnen en gevelhoutwerk",
+      "categorie": "Gevel",
+      "sfb": "31.2",
+      "type": "gevel",
+      "cyclus": 6,
+      "kengetal": 22,
+      "bron": "gevelM2",
+      "benadering": true
+     },
+     {
+      "key": "kozijnen-onderhoud",
+      "naam": "Onderhoud buitenkozijnen",
+      "categorie": "Gevel",
+      "sfb": "31.1",
+      "type": "kozijnen",
+      "cyclus": 6
+     },
+     {
+      "key": "steiger",
+      "naam": "Steiger of hoogwerker",
+      "categorie": "Gevel",
+      "sfb": "21",
+      "type": "steiger",
+      "cyclus": 6,
+      "bron": "gevelM2"
+     },
+     {
+      "key": "voegwerk",
+      "naam": "Voegwerk buitengevel",
+      "categorie": "Gevel",
+      "sfb": "21.1",
+      "type": "gevel",
+      "cyclus": 30,
+      "kengetal": 45,
+      "bron": "gevelM2",
+      "benadering": true,
+      "optioneel": true
+     },
+     {
+      "key": "balkonhekken",
+      "naam": "Balkonhekken en borstweringen",
+      "categorie": "Gevel",
+      "sfb": "34.1",
+      "type": "per-unit",
+      "cyclus": 20,
+      "kengetal": 210,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "intercom",
+      "naam": "Intercom en video-deuropener",
+      "categorie": "Installaties",
+      "sfb": "66",
+      "type": "per-unit",
+      "cyclus": 20,
+      "kengetal": 575,
+      "bron": "units"
+     },
+     {
+      "key": "riolering",
+      "naam": "Riolering en hemelwaterafvoer (inpandig)",
+      "categorie": "Installaties",
+      "sfb": "52",
+      "type": "vast-variabel",
+      "cyclus": 10,
+      "basis": 1100,
+      "perEenheid": 120,
+      "bron": "units"
+     },
+     {
+      "key": "elektra",
+      "naam": "Elektrische installatie gemeenschappelijk",
+      "categorie": "Installaties",
+      "sfb": "62/63",
+      "type": "vast-variabel",
+      "cyclus": 25,
+      "basis": 800,
+      "perEenheid": 90,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "verlichting",
+      "naam": "Verlichting gemeenschappelijke ruimten",
+      "categorie": "Installaties",
+      "sfb": "64",
+      "type": "per-unit",
+      "cyclus": 15,
+      "kengetal": 65,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "waterleiding",
+      "naam": "Waterleiding gemeenschappelijk",
+      "categorie": "Installaties",
+      "sfb": "52",
+      "type": "vast-variabel",
+      "cyclus": 30,
+      "basis": 600,
+      "perEenheid": 55,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "brandveiligheid",
+      "naam": "Brandveiligheid (blusmiddelen, vluchtwegverlichting)",
+      "categorie": "Installaties",
+      "sfb": "67",
+      "type": "per-unit",
+      "cyclus": 10,
+      "kengetal": 45,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "cv-installatie",
+      "naam": "Collectieve cv-installatie (ketel)",
+      "categorie": "Installaties",
+      "sfb": "51",
+      "type": "vast-variabel",
+      "cyclus": 18,
+      "basis": 3500,
+      "perEenheid": 350,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "ventilatie",
+      "naam": "Mechanische ventilatie",
+      "categorie": "Installaties",
+      "sfb": "57",
+      "type": "per-unit",
+      "cyclus": 15,
+      "kengetal": 220,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "lift",
+      "naam": "Liftinstallatie — onderhoud en modernisering",
+      "categorie": "Installaties",
+      "sfb": "59",
+      "type": "vast-variabel",
+      "cyclus": 20,
+      "basis": 12000,
+      "perEenheid": 0,
+      "bron": "none",
+      "optioneel": true
+     },
+     {
+      "key": "trappenhuis",
+      "naam": "Trappenhuis en entree",
+      "categorie": "Binnen",
+      "sfb": "42/43",
+      "type": "per-unit",
+      "cyclus": 8,
+      "kengetal": 480,
+      "bron": "units"
+     },
+     {
+      "key": "vloerafwerking",
+      "naam": "Vloerafwerking gemeenschappelijke ruimten",
+      "categorie": "Binnen",
+      "sfb": "43",
+      "type": "per-unit",
+      "cyclus": 15,
+      "kengetal": 120,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "bestrating",
+      "naam": "Bestrating en terreininrichting",
+      "categorie": "Terrein",
+      "sfb": "81/89",
+      "type": "vast-variabel",
+      "cyclus": 20,
+      "basis": 500,
+      "perEenheid": 60,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "fietsenstalling",
+      "naam": "Fietsenstalling en bergingen",
+      "categorie": "Terrein",
+      "sfb": "89",
+      "type": "per-unit",
+      "cyclus": 25,
+      "kengetal": 150,
+      "bron": "units",
+      "optioneel": true
+     }
+    ],
+    "koz_def": [
+     [
+      "Draaiend raam",
+      174
+     ],
+     [
+      "Vast glas",
+      96
+     ],
+     [
+      "Deur",
+      240
+     ],
+     [
+      "Dakkapel",
+      320
+     ]
+    ],
+    "koz_materiaal": {
+     "hout": {
+      "label": "Hout",
+      "cyclus": 6,
+      "factor": 1
+     },
+     "aluminium": {
+      "label": "Aluminium",
+      "cyclus": 15,
+      "factor": 0.35
+     },
+     "kunststof": {
+      "label": "Kunststof (pvc)",
+      "cyclus": 20,
+      "factor": 0.2
+     },
+     "staal": {
+      "label": "Staal",
+      "cyclus": 8,
+      "factor": 1.1
+     }
+    },
+    "scaffold": {
+     "rate_low_eur_per_m2": 6,
+     "rate_high_eur_per_m2": 11,
+     "height_threshold_m": 8
+    },
+    "indexation": {
+     "fallback_rate_per_year": 0.03,
+     "cbs_table": "83547NED",
+     "cbs_field": "BestaandeWoningen_7"
+    }
+   },
+   "price_values_sha256": "b0f56705842659037f40b768cd914240e2b7efad34782d3e5535fb61bee27e8b",
+   "code_facts": {
+    "kengetal_input_handler": true,
+    "koz_eigen_tarief_handler": true,
+    "custom_bedrag_and_basisjaar_handlers": true,
+    "basis_or_per_eenheid_input_handler": false,
+    "werkhoogte_input_handler": true,
+    "offers_used_in_element_cost": false,
+    "offers_stored_per_element": true,
+    "offer_comparison_fills_missing_lines_with_average": true,
+    "library_costs_indexed_per_year": false,
+    "custom_costs_indexed_from_basisjaar": true,
+    "ui_claims_offer_overrides_tariff": true,
+    "ui_claims_current_year_price_level": true,
+    "ui_calls_defaults_kengetallen": true,
+    "ui_price_note_says_app_estimate": false
+   }
+  },
+  {
+   "commit": "eaeb256897d9a643d0a44ba4d298df33d0d4e211",
+   "src_sha256": {
+    "src/app.js": "2d90182ec433400dc9fb4381f5f98eeaba8e3c41db7867c96c145351e7b4f597",
+    "src/quantity.js": "893e32a90a5c79f16e6d5eed4f7da48e53f352209f7aaee74e64a37ed0c92fa2"
+   },
+   "prices": {
+    "element_library": [
+     {
+      "key": "dak-plat",
+      "naam": "Dakbedekking plat dak",
+      "categorie": "Dak",
+      "sfb": "27.1",
+      "type": "dak",
+      "cyclus": 25,
+      "kengetal": 165,
+      "bron": "dakPlatM2",
+      "optioneel": true
+     },
+     {
+      "key": "dakgoten",
+      "naam": "Dakgoten en hemelwaterafvoeren",
+      "categorie": "Dak",
+      "sfb": "27.3",
+      "type": "vast-variabel",
+      "cyclus": 20,
+      "basis": 300,
+      "perEenheid": 90,
+      "bron": "units"
+     },
+     {
+      "key": "dakinspectie",
+      "naam": "Dakinspectie en klein onderhoud",
+      "categorie": "Dak",
+      "sfb": "27",
+      "type": "vast-variabel",
+      "cyclus": 2,
+      "basis": 420,
+      "perEenheid": 2,
+      "bron": "dakM2"
+     },
+     {
+      "key": "dak-hellend",
+      "naam": "Dakbedekking hellend dak (pannen)",
+      "categorie": "Dak",
+      "sfb": "27.2",
+      "type": "dak",
+      "cyclus": 40,
+      "kengetal": 95,
+      "bron": "dakSchuinM2",
+      "optioneel": true
+     },
+     {
+      "key": "dakisolatie",
+      "naam": "Dakisolatie na-isoleren",
+      "categorie": "Dak",
+      "sfb": "47.2",
+      "type": "dak",
+      "cyclus": 30,
+      "kengetal": 60,
+      "bron": "dakM2",
+      "optioneel": true
+     },
+     {
+      "key": "gevel-metselwerk",
+      "naam": "Gevelreiniging en metselwerkherstel",
+      "categorie": "Gevel",
+      "sfb": "21.1",
+      "type": "gevel",
+      "cyclus": 15,
+      "kengetal": 26,
+      "bron": "gevelM2",
+      "benadering": true
+     },
+     {
+      "key": "schilderwerk-buiten",
+      "naam": "Schilderwerk buitenkozijnen en gevelhoutwerk",
+      "categorie": "Gevel",
+      "sfb": "31.2",
+      "type": "gevel",
+      "cyclus": 6,
+      "kengetal": 22,
+      "bron": "gevelM2",
+      "benadering": true
+     },
+     {
+      "key": "kozijnen-onderhoud",
+      "naam": "Onderhoud buitenkozijnen",
+      "categorie": "Gevel",
+      "sfb": "31.1",
+      "type": "kozijnen",
+      "cyclus": 6
+     },
+     {
+      "key": "steiger",
+      "naam": "Steiger of hoogwerker",
+      "categorie": "Gevel",
+      "sfb": "21",
+      "type": "steiger",
+      "cyclus": 6,
+      "bron": "gevelM2"
+     },
+     {
+      "key": "voegwerk",
+      "naam": "Voegwerk buitengevel",
+      "categorie": "Gevel",
+      "sfb": "21.1",
+      "type": "gevel",
+      "cyclus": 30,
+      "kengetal": 45,
+      "bron": "gevelM2",
+      "benadering": true,
+      "optioneel": true
+     },
+     {
+      "key": "balkonhekken",
+      "naam": "Balkonhekken en borstweringen",
+      "categorie": "Gevel",
+      "sfb": "34.1",
+      "type": "per-unit",
+      "cyclus": 20,
+      "kengetal": 210,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "intercom",
+      "naam": "Intercom en video-deuropener",
+      "categorie": "Installaties",
+      "sfb": "66",
+      "type": "per-unit",
+      "cyclus": 20,
+      "kengetal": 575,
+      "bron": "units"
+     },
+     {
+      "key": "riolering",
+      "naam": "Riolering en hemelwaterafvoer (inpandig)",
+      "categorie": "Installaties",
+      "sfb": "52",
+      "type": "vast-variabel",
+      "cyclus": 10,
+      "basis": 1100,
+      "perEenheid": 120,
+      "bron": "units"
+     },
+     {
+      "key": "elektra",
+      "naam": "Elektrische installatie gemeenschappelijk",
+      "categorie": "Installaties",
+      "sfb": "62/63",
+      "type": "vast-variabel",
+      "cyclus": 25,
+      "basis": 800,
+      "perEenheid": 90,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "verlichting",
+      "naam": "Verlichting gemeenschappelijke ruimten",
+      "categorie": "Installaties",
+      "sfb": "64",
+      "type": "per-unit",
+      "cyclus": 15,
+      "kengetal": 65,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "waterleiding",
+      "naam": "Waterleiding gemeenschappelijk",
+      "categorie": "Installaties",
+      "sfb": "52",
+      "type": "vast-variabel",
+      "cyclus": 30,
+      "basis": 600,
+      "perEenheid": 55,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "brandveiligheid",
+      "naam": "Brandveiligheid (blusmiddelen, vluchtwegverlichting)",
+      "categorie": "Installaties",
+      "sfb": "67",
+      "type": "per-unit",
+      "cyclus": 10,
+      "kengetal": 45,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "cv-installatie",
+      "naam": "Collectieve cv-installatie (ketel)",
+      "categorie": "Installaties",
+      "sfb": "51",
+      "type": "vast-variabel",
+      "cyclus": 18,
+      "basis": 3500,
+      "perEenheid": 350,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "ventilatie",
+      "naam": "Mechanische ventilatie",
+      "categorie": "Installaties",
+      "sfb": "57",
+      "type": "per-unit",
+      "cyclus": 15,
+      "kengetal": 220,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "lift",
+      "naam": "Liftinstallatie — onderhoud en modernisering",
+      "categorie": "Installaties",
+      "sfb": "59",
+      "type": "vast-variabel",
+      "cyclus": 20,
+      "basis": 12000,
+      "perEenheid": 0,
+      "bron": "none",
+      "optioneel": true
+     },
+     {
+      "key": "trappenhuis",
+      "naam": "Trappenhuis en entree",
+      "categorie": "Binnen",
+      "sfb": "42/43",
+      "type": "per-unit",
+      "cyclus": 8,
+      "kengetal": 480,
+      "bron": "units"
+     },
+     {
+      "key": "vloerafwerking",
+      "naam": "Vloerafwerking gemeenschappelijke ruimten",
+      "categorie": "Binnen",
+      "sfb": "43",
+      "type": "per-unit",
+      "cyclus": 15,
+      "kengetal": 120,
+      "bron": "units",
+      "optioneel": true
+     },
+     {
+      "key": "bestrating",
+      "naam": "Bestrating en terreininrichting",
+      "categorie": "Terrein",
+      "sfb": "81/89",
+      "type": "vast-variabel",
+      "cyclus": 20,
+      "basis": 500,
+      "perEenheid": 60,
+      "bron": "units",
+      "optioneel": true,
+      "aanbevolen": true
+     },
+     {
+      "key": "fietsenstalling",
+      "naam": "Fietsenstalling en bergingen",
+      "categorie": "Terrein",
+      "sfb": "89",
+      "type": "per-unit",
+      "cyclus": 25,
+      "kengetal": 150,
+      "bron": "units",
+      "optioneel": true
+     }
+    ],
+    "koz_def": [
+     [
+      "Draaiend raam",
+      174
+     ],
+     [
+      "Vast glas",
+      96
+     ],
+     [
+      "Deur",
+      240
+     ],
+     [
+      "Dakkapel",
+      320
+     ]
+    ],
+    "koz_materiaal": {
+     "hout": {
+      "label": "Hout",
+      "cyclus": 6,
+      "factor": 1
+     },
+     "aluminium": {
+      "label": "Aluminium",
+      "cyclus": 15,
+      "factor": 0.35
+     },
+     "kunststof": {
+      "label": "Kunststof (pvc)",
+      "cyclus": 20,
+      "factor": 0.2
+     },
+     "staal": {
+      "label": "Staal",
+      "cyclus": 8,
+      "factor": 1.1
+     }
+    },
+    "scaffold": {
+     "rate_low_eur_per_m2": 6,
+     "rate_high_eur_per_m2": 11,
+     "height_threshold_m": 8
+    },
+    "indexation": {
+     "fallback_rate_per_year": 0.03,
+     "cbs_table": "83547NED",
+     "cbs_field": "BestaandeWoningen_7"
+    }
+   },
+   "price_values_sha256": "b0f56705842659037f40b768cd914240e2b7efad34782d3e5535fb61bee27e8b",
+   "code_facts": {
+    "kengetal_input_handler": true,
+    "koz_eigen_tarief_handler": true,
+    "custom_bedrag_and_basisjaar_handlers": true,
+    "basis_or_per_eenheid_input_handler": false,
+    "werkhoogte_input_handler": true,
+    "offers_used_in_element_cost": false,
+    "offers_stored_per_element": true,
+    "offer_comparison_fills_missing_lines_with_average": true,
+    "library_costs_indexed_per_year": false,
+    "custom_costs_indexed_from_basisjaar": true,
+    "ui_claims_offer_overrides_tariff": false,
+    "ui_claims_current_year_price_level": false,
+    "ui_calls_defaults_kengetallen": false,
+    "ui_price_note_says_app_estimate": true
+   }
+  }
+ ]
+}

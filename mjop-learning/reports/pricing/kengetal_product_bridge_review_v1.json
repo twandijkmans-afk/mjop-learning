@@ -1,0 +1,2548 @@
+{
+ "report_version": "kengetal_product_bridge_review_v1",
+ "scope": "read-only review; geen activatie, geen prijswijziging, geen nieuw kengetal, geen indexatie, geen besluit",
+ "inputs": {
+  "official_kengetallen": {
+   "path": "data/kengetallen/kengetallen_batch1.json",
+   "sha256": "e8b9b2260fb681da242817e51dfdb5ca3b1ab3ec1e3e5dcd6b56d3cc71761897",
+   "rules_version": "kengetallen_rules_v1",
+   "note": "Kengetallen v1: mediaan van source-cluster contributions van volledig menselijk beoordeelde vergelijkbare groepen met minimaal 3 source clusters. Historisch, niet geïndexeerd, geen marktprijs of normprijs. Geen weging, score of confidence."
+  },
+  "not_used_as_official": [
+   "data/kentallen/",
+   "data/kengetallen/history/",
+   "scripts/compute_kentallen.py"
+  ],
+  "comparability_sha256": "b9ab04c6759d28f9e74b692921438d92321e9e0ac03f90a0b7c69eb34d190b6e",
+  "normalized_observations_sha256": "0d50de0f6607c5e2870d612fc363b90526eb94ddc05cd691a38fd71658a07d53",
+  "readiness_report_sha256": "26674b2813ac119724de49c7f335d1355debba4e6a26d3e220222410eef8a005",
+  "app_price_inventory": {
+   "path": "reports/pricing/inputs/mjop_app_price_inventory.json",
+   "sha256": "7a17c9e924deb6104e3dea110715d59510e1e1a9d656b3938cd5b7a7e8c9ec49",
+   "reference_commit": "b77909a5cd51c76391e147c29a85385a7d769e9b",
+   "latest_commit": "eaeb256897d9a643d0a44ba4d298df33d0d4e211",
+   "price_values_identical_across_commits": true
+  }
+ },
+ "A_official_kengetallen": {
+  "available_count": 2,
+  "kengetallen": [
+   {
+    "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+    "element_code": "4711",
+    "action": "replace",
+    "material": "aluminium",
+    "unit": "m1",
+    "value_display": "37.47",
+    "min_display": "33.88",
+    "max_display": "39.06",
+    "source_cluster_count": 3,
+    "independent_source_clusters": 3,
+    "source_cluster_ids": [
+     "SC-DOC-008+DOC-009",
+     "SC-DOC-011",
+     "SC-DOC-012"
+    ],
+    "price_levels_per_cluster": {
+     "SC-DOC-008+DOC-009": [
+      null
+     ],
+     "SC-DOC-011": [
+      null
+     ],
+     "SC-DOC-012": [
+      "1-4-2024"
+     ]
+    },
+    "price_level_years": [
+     2024
+    ],
+    "mixed_price_level": false,
+    "missing_price_level": true,
+    "vat_basis": [
+     "inclusive"
+    ],
+    "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+    "caveats": {
+     "decision_caveats": {
+      "PRICE_LEVEL_ABSENT": 3
+     },
+     "observation_caveats": [
+      "PRICE_LEVEL_ABSENT"
+     ],
+     "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2024 en ontbrekend: niet presenteren als prijs van één specifiek jaar."
+    },
+    "object_descriptions": [
+     "Dakrandafwerking aluminium trim"
+    ],
+    "indexation_readiness": "INDEXATION_NOT_POSSIBLE",
+    "presentation": "historisch, niet geïndexeerd; geen actuele marktprijs, geen normprijs, geen prijspeil van één jaar"
+   },
+   {
+    "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+    "element_code": "5211",
+    "action": "replace",
+    "material": "pvc",
+    "unit": "m1",
+    "value_display": "54.39",
+    "min_display": "45.23",
+    "max_display": "61.09",
+    "source_cluster_count": 5,
+    "independent_source_clusters": 5,
+    "source_cluster_ids": [
+     "SC-DOC-001",
+     "SC-DOC-008+DOC-009",
+     "SC-DOC-010",
+     "SC-DOC-012",
+     "SC-DOC-013"
+    ],
+    "price_levels_per_cluster": {
+     "SC-DOC-001": [
+      null
+     ],
+     "SC-DOC-008+DOC-009": [
+      "21-4-2025"
+     ],
+     "SC-DOC-010": [
+      "1-4-2023"
+     ],
+     "SC-DOC-012": [
+      "1-4-2024"
+     ],
+     "SC-DOC-013": [
+      "14-7-2026"
+     ]
+    },
+    "price_level_years": [
+     2023,
+     2024,
+     2025,
+     2026
+    ],
+    "mixed_price_level": true,
+    "missing_price_level": true,
+    "vat_basis": [
+     "inclusive"
+    ],
+    "calculation_method": "median of source-cluster contributions; contribution = median of post values within the cluster; post value = median of its observations' derived_unit_price_per_execution (annual_amount_used / quantity_value); exact Decimal; no weighting; no indexation",
+    "caveats": {
+     "decision_caveats": {
+      "PRICE_LEVEL_ABSENT": 4,
+      "PRICE_LEVEL_DIFFERENCE": 6,
+      "QUANTITY_SCALE_DIFFERENCE": 2
+     },
+     "observation_caveats": [
+      "PRICE_LEVEL_ABSENT"
+     ],
+     "presentation_note": "Historisch, niet geïndexeerd; geen marktprijs of normprijs. Prijspeilen 2023–2026 en ontbrekend: niet presenteren als prijs van één specifiek jaar."
+    },
+    "object_descriptions": [
+     "Hemelwaterafvoer pvc"
+    ],
+    "indexation_readiness": "INDEXATION_NOT_POSSIBLE",
+    "presentation": "historisch, niet geïndexeerd; geen actuele marktprijs, geen normprijs, geen prijspeil van één jaar"
+   }
+  ],
+  "other_statuses": []
+ },
+ "B_app_price_inventory": {
+  "components": [
+   {
+    "component": "dak-plat.kengetal",
+    "value": 165,
+    "unit": "€/m²",
+    "app_element": "dak-plat",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "dakgoten.basis",
+    "value": 300,
+    "unit": "€ vast per beurt",
+    "app_element": "dakgoten",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "dakgoten.perEenheid",
+    "value": 90,
+    "unit": "€/appartement",
+    "app_element": "dakgoten",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "dakinspectie.basis",
+    "value": 420,
+    "unit": "€ vast per beurt",
+    "app_element": "dakinspectie",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "dakinspectie.perEenheid",
+    "value": 2,
+    "unit": "€/m²",
+    "app_element": "dakinspectie",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "dak-hellend.kengetal",
+    "value": 95,
+    "unit": "€/m²",
+    "app_element": "dak-hellend",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "dakisolatie.kengetal",
+    "value": 60,
+    "unit": "€/m²",
+    "app_element": "dakisolatie",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "gevel-metselwerk.kengetal",
+    "value": 26,
+    "unit": "€/m²",
+    "app_element": "gevel-metselwerk",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "schilderwerk-buiten.kengetal",
+    "value": 22,
+    "unit": "€/m²",
+    "app_element": "schilderwerk-buiten",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "voegwerk.kengetal",
+    "value": 45,
+    "unit": "€/m²",
+    "app_element": "voegwerk",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "balkonhekken.kengetal",
+    "value": 210,
+    "unit": "€/appartement",
+    "app_element": "balkonhekken",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "intercom.kengetal",
+    "value": 575,
+    "unit": "€/appartement",
+    "app_element": "intercom",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "riolering.basis",
+    "value": 1100,
+    "unit": "€ vast per beurt",
+    "app_element": "riolering",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "riolering.perEenheid",
+    "value": 120,
+    "unit": "€/appartement",
+    "app_element": "riolering",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "elektra.basis",
+    "value": 800,
+    "unit": "€ vast per beurt",
+    "app_element": "elektra",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "elektra.perEenheid",
+    "value": 90,
+    "unit": "€/appartement",
+    "app_element": "elektra",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "verlichting.kengetal",
+    "value": 65,
+    "unit": "€/appartement",
+    "app_element": "verlichting",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "waterleiding.basis",
+    "value": 600,
+    "unit": "€ vast per beurt",
+    "app_element": "waterleiding",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "waterleiding.perEenheid",
+    "value": 55,
+    "unit": "€/appartement",
+    "app_element": "waterleiding",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "brandveiligheid.kengetal",
+    "value": 45,
+    "unit": "€/appartement",
+    "app_element": "brandveiligheid",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "cv-installatie.basis",
+    "value": 3500,
+    "unit": "€ vast per beurt",
+    "app_element": "cv-installatie",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "cv-installatie.perEenheid",
+    "value": 350,
+    "unit": "€/appartement",
+    "app_element": "cv-installatie",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "ventilatie.kengetal",
+    "value": 220,
+    "unit": "€/appartement",
+    "app_element": "ventilatie",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "lift.basis",
+    "value": 12000,
+    "unit": "€ vast per beurt",
+    "app_element": "lift",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "lift.perEenheid",
+    "value": 0,
+    "unit": "€",
+    "app_element": "lift",
+    "category": "NO_PRICE",
+    "source": "bron 'none': geen hoeveelheid, alleen vast bedrag",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "trappenhuis.kengetal",
+    "value": 480,
+    "unit": "€/appartement",
+    "app_element": "trappenhuis",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "vloerafwerking.kengetal",
+    "value": 120,
+    "unit": "€/appartement",
+    "app_element": "vloerafwerking",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "bestrating.basis",
+    "value": 500,
+    "unit": "€ vast per beurt",
+    "app_element": "bestrating",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "bestrating.perEenheid",
+    "value": 60,
+    "unit": "€/appartement",
+    "app_element": "bestrating",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY, geen bron/prijspeil",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "fietsenstalling.kengetal",
+    "value": 150,
+    "unit": "€/appartement",
+    "app_element": "fietsenstalling",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded ELEMENT_LIBRARY (MJOP-App src/app.js), geen bron/prijspeil",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "steiger.tarief",
+    "value": "€ 6 (werkhoogte <= 8 m) / € 11 (> 8 m)",
+    "unit": "€/m² bruto buitenmuur",
+    "app_element": "steiger",
+    "category": "FORMULA_DEFAULT",
+    "source": "hardcoded tariefregel (MJOP-App src/quantity.js), sinds de eerste commit; geen bron",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null,
+    "note": "Alleen de werkhoogte (context) en de hoeveelheid zijn aanpasbaar, niet de tarieven."
+   },
+   {
+    "component": "kozijnen.Draaiend raam",
+    "value": 174,
+    "unit": "€/stuk (houten kozijn, vóór materiaalfactor)",
+    "app_element": "kozijnen-onderhoud",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded KOZ_DEF, geen bron",
+    "user_editable": true,
+    "user_edit_tracked": true,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.Vast glas",
+    "value": 96,
+    "unit": "€/stuk (houten kozijn, vóór materiaalfactor)",
+    "app_element": "kozijnen-onderhoud",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded KOZ_DEF, geen bron",
+    "user_editable": true,
+    "user_edit_tracked": true,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.Deur",
+    "value": 240,
+    "unit": "€/stuk (houten kozijn, vóór materiaalfactor)",
+    "app_element": "kozijnen-onderhoud",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded KOZ_DEF, geen bron",
+    "user_editable": true,
+    "user_edit_tracked": true,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.Dakkapel",
+    "value": 320,
+    "unit": "€/stuk (houten kozijn, vóór materiaalfactor)",
+    "app_element": "kozijnen-onderhoud",
+    "category": "APP_DEFAULT_ESTIMATE",
+    "source": "hardcoded KOZ_DEF, geen bron",
+    "user_editable": true,
+    "user_edit_tracked": true,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.materiaalfactor.aluminium",
+    "value": 0.35,
+    "unit": "factor op het houten tarief",
+    "app_element": "kozijnen-onderhoud",
+    "category": "FORMULA_DEFAULT",
+    "source": "hardcoded KOZ_MATERIAAL, geen bron",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.materiaalfactor.hout",
+    "value": 1,
+    "unit": "factor op het houten tarief",
+    "app_element": "kozijnen-onderhoud",
+    "category": "FORMULA_DEFAULT",
+    "source": "hardcoded KOZ_MATERIAAL, geen bron",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.materiaalfactor.kunststof",
+    "value": 0.2,
+    "unit": "factor op het houten tarief",
+    "app_element": "kozijnen-onderhoud",
+    "category": "FORMULA_DEFAULT",
+    "source": "hardcoded KOZ_MATERIAAL, geen bron",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "kozijnen.materiaalfactor.staal",
+    "value": 1.1,
+    "unit": "factor op het houten tarief",
+    "app_element": "kozijnen-onderhoud",
+    "category": "FORMULA_DEFAULT",
+    "source": "hardcoded KOZ_MATERIAAL, geen bron",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null
+   },
+   {
+    "component": "custom.bedrag (geïmporteerd oud MJOP)",
+    "value": null,
+    "unit": "€ per post",
+    "app_element": "custom",
+    "category": "IMPORTED_HISTORICAL_PRICE",
+    "source": "MJOP-upload; prijspeil (basisjaar) door de gebruiker ingevuld",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": "document/regel bij import; geïndexeerd vanaf basisjaar"
+   },
+   {
+    "component": "offerte (per post)",
+    "value": null,
+    "unit": "€ per offerteregel",
+    "app_element": "alle",
+    "category": "OFFER_PRICE",
+    "source": "handmatig ingevoerde offertes (state.offertes)",
+    "user_editable": true,
+    "user_edit_tracked": true,
+    "offer_can_replace": false,
+    "provenance": "door de gebruiker ingevoerd",
+    "note": "Alleen tonen en vergelijken; komt NIET in elementCost."
+   },
+   {
+    "component": "kengetal handmatig aangepast",
+    "value": null,
+    "unit": "zoals het element",
+    "app_element": "dak/gevel/per-unit",
+    "category": "USER_OVERRIDE",
+    "source": "invoerveld 'Prijs per m²/unit' overschrijft el.kengetal",
+    "user_editable": true,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": null,
+    "note": "Overschrijft de default in place: na opslaan niet te onderscheiden van de default."
+   },
+   {
+    "component": "kozijnen eigen tarief",
+    "value": null,
+    "unit": "€/stuk",
+    "app_element": "kozijnen-onderhoud",
+    "category": "USER_OVERRIDE",
+    "source": "k.eigenTarief",
+    "user_editable": true,
+    "user_edit_tracked": true,
+    "offer_can_replace": false,
+    "provenance": "door de gebruiker ingevoerd (apart veld)"
+   },
+   {
+    "component": "indexatie",
+    "value": "CBS 83547NED BestaandeWoningen_7 (laatste jaarmutatie) of terugval 3%/jaar",
+    "unit": "%/jaar",
+    "app_element": "custom",
+    "category": "FORMULA_DEFAULT",
+    "source": "CBS OData; vaste terugval 3%",
+    "user_editable": false,
+    "user_edit_tracked": false,
+    "offer_can_replace": false,
+    "provenance": "CBS-tabel (alleen jaarmutatie)",
+    "note": "Alleen op custom/geïmporteerde posten; bibliotheekposten worden niet geïndexeerd."
+   }
+  ],
+  "by_category": {
+   "OFFICIAL_INTERNAL_KENGETAL": 0,
+   "APP_DEFAULT_ESTIMATE": 33,
+   "FORMULA_DEFAULT": 6,
+   "IMPORTED_HISTORICAL_PRICE": 1,
+   "OFFER_PRICE": 1,
+   "USER_OVERRIDE": 2,
+   "NO_PRICE": 1
+  },
+  "official_internal_kengetal_in_app": 0,
+  "code_facts": {
+   "kengetal_input_handler": true,
+   "koz_eigen_tarief_handler": true,
+   "custom_bedrag_and_basisjaar_handlers": true,
+   "basis_or_per_eenheid_input_handler": false,
+   "werkhoogte_input_handler": true,
+   "offers_used_in_element_cost": false,
+   "offers_stored_per_element": true,
+   "offer_comparison_fills_missing_lines_with_average": true,
+   "library_costs_indexed_per_year": false,
+   "custom_costs_indexed_from_basisjaar": true,
+   "ui_claims_offer_overrides_tariff": false,
+   "ui_claims_current_year_price_level": false,
+   "ui_calls_defaults_kengetallen": false,
+   "ui_price_note_says_app_estimate": true
+  }
+ },
+ "C_app_element_kg_matrix": [
+  {
+   "app_element_key": "dak-plat",
+   "naam": "Dakbedekking plat dak",
+   "type": "dak",
+   "quantity_source": "3D BAG b3_opp_dak_plat (ROOF_FLAT_AREA)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 165
+   },
+   "internal_element_code_safe": "4711",
+   "related_internal_codes_candidate": [
+    "4711"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "install"
+   ],
+   "material": "dakbedekking plat dak (APP/bitumen, niet expliciet)",
+   "official_kg_checks": [
+    {
+     "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+     "unit_match": false,
+     "action_match": true,
+     "material_match": false,
+     "semantic_match": false,
+     "semantic_reason": "Kengetal 4711 aluminium m1 gaat over daktrim/dakrandafwerking, niet over dakbedekking per m²."
+    }
+   ],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "4711|install|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4711|replace|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4711|replace|m1|zinc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4711|replace|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4711|install|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4711|repair|piece|bitumen",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4711|replace|m2|bitumen",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "KG_EXISTS_BUT_NOT_COMPATIBLE",
+   "note": "Hoeveelheid ROOF_FLAT_AREA is betrouwbaar (XW-dak-plat-4711-m2 VERIFIED)."
+  },
+  {
+   "app_element_key": "dakgoten",
+   "naam": "Dakgoten en hemelwaterafvoeren",
+   "type": "vast-variabel",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 300,
+    "perEenheid": 90
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "5211",
+    "2716"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "repair",
+    "maintain"
+   ],
+   "material": "goten/HWA (materiaal niet gespecificeerd)",
+   "official_kg_checks": [
+    {
+     "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+     "unit_match": false,
+     "action_match": true,
+     "material_match": false,
+     "semantic_match": false,
+     "semantic_reason": "Kengetal 5211 pvc m1 gaat over hemelwaterafvoer per strekkende meter; de app rekent goten+HWA per appartement."
+    }
+   ],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "5211|replace|piece|unknown",
+     "readiness": "BLOCKED_OTHER",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 3
+    },
+    {
+     "candidate_group": "2716|clean|m1|zinc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2716|replace|m1|zinc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "5211|replace|m1|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2716|clean|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "2716|repair|m1|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "2716|replace|m1|pvc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "2716|replace|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "5211|replace|piece|pvc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "5211|replace|piece|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "KG_EXISTS_BUT_NOT_COMPATIBLE",
+   "note": "App rekent per appartement; interne HWA/goten zijn m1 of piece."
+  },
+  {
+   "app_element_key": "dakinspectie",
+   "naam": "Dakinspectie en klein onderhoud",
+   "type": "vast-variabel",
+   "quantity_source": "3D BAG plat + schuin (ROOF_TOTAL_AREA)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 420,
+    "perEenheid": 2
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [],
+   "maintenance_actions": [
+    "inspect",
+    "maintain"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Vast bedrag + per m² totaal dakoppervlak; geen inspectie-kengetal per m²."
+  },
+  {
+   "app_element_key": "dak-hellend",
+   "naam": "Dakbedekking hellend dak (pannen)",
+   "type": "dak",
+   "quantity_source": "3D BAG b3_opp_dak_schuin (ROOF_SLOPED_AREA)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 95
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "4712"
+   ],
+   "maintenance_actions": [
+    "replace"
+   ],
+   "material": "dakpannen",
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "4712|replace|m2|bitumen",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4712|replace|m2|zinc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "Hoeveelheid ROOF_SLOPED_AREA is betrouwbaar (XQ VERIFIED); XW-dak-hellend-4712-m2 blijft REVIEW_REQUIRED (4712 is gemengd)."
+  },
+  {
+   "app_element_key": "dakisolatie",
+   "naam": "Dakisolatie na-isoleren",
+   "type": "dak",
+   "quantity_source": "3D BAG plat + schuin (ROOF_TOTAL_AREA)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 60
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [],
+   "maintenance_actions": [
+    "install"
+   ],
+   "material": "isolatie",
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "NO_KG_AVAILABLE",
+   "note": "Geen interne code voor dakisolatie."
+  },
+  {
+   "app_element_key": "gevel-metselwerk",
+   "naam": "Gevelreiniging en metselwerkherstel",
+   "type": "gevel",
+   "quantity_source": "3D BAG b3_opp_buitenmuur (OUTER_WALL_GROSS_AREA, bruto)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": true,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 26
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "2110"
+   ],
+   "maintenance_actions": [
+    "clean",
+    "repair",
+    "impregnate"
+   ],
+   "material": "metselwerk",
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "2110|impregnate|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2110|repair|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2110|replace|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2110|clean|m2|natural_stone",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "2110|repair|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App-hoeveelheid is bruto buitenmuur als benadering (ESTIMATED), geen metselwerkoppervlak."
+  },
+  {
+   "app_element_key": "schilderwerk-buiten",
+   "naam": "Schilderwerk buitenkozijnen en gevelhoutwerk",
+   "type": "gevel",
+   "quantity_source": "3D BAG b3_opp_buitenmuur (OUTER_WALL_GROSS_AREA, bruto)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": true,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 22
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "4621",
+    "4631"
+   ],
+   "maintenance_actions": [
+    "exterior_painting"
+   ],
+   "material": "hout (kozijnen/gevelhoutwerk)",
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "4621|exterior_painting|m2|wood",
+     "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 7
+    },
+    {
+     "candidate_group": "4631|exterior_painting|m2|wood",
+     "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 6
+    },
+    {
+     "candidate_group": "4621|exterior_painting|m2|unknown",
+     "readiness": "BLOCKED_OTHER",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 4
+    },
+    {
+     "candidate_group": "4631|exterior_painting|m1|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4621|exterior_painting|m1|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4621|exterior_painting|m1|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4621|exterior_painting|piece|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4621|exterior_painting|piece|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4621|exterior_painting|piece|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4621|install|m1|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4631|exterior_painting|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App-hoeveelheid is bruto buitenmuur als benadering; geschilderd oppervlak is veel kleiner."
+  },
+  {
+   "app_element_key": "kozijnen-onderhoud",
+   "naam": "Onderhoud buitenkozijnen",
+   "type": "kozijnen",
+   "quantity_source": "per kozijnrij (schatting uit appartementen)",
+   "quantity_unit": "piece",
+   "quantity_is_proxy": false,
+   "price_formula": "Σ aantal × round(tarief × materiaalfactor) per kozijnrij",
+   "price_values": {
+    "KOZ_DEF": "zie B"
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "3120",
+    "3122",
+    "3131",
+    "4631"
+   ],
+   "maintenance_actions": [
+    "maintain",
+    "exterior_painting",
+    "repair"
+   ],
+   "material": "per kozijnrij (hout/alu/kunststof/staal)",
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "4631|exterior_painting|m2|wood",
+     "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 6
+    },
+    {
+     "candidate_group": "3120|repair|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4631|exterior_painting|m1|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "3120|clean|m2|aluminium",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3120|clean|m2|pvc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3120|clean|piece|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3120|maintain|piece|pvc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3120|repair|m1|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3120|replace|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3120|replace|m2|pvc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3122|repair|piece|wood",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4631|exterior_painting|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Samengestelde prijs: aantal per kozijntype × tarief × materiaalfactor."
+  },
+  {
+   "app_element_key": "steiger",
+   "naam": "Steiger of hoogwerker",
+   "type": "steiger",
+   "quantity_source": "3D BAG b3_opp_buitenmuur (OUTER_WALL_GROSS_AREA, bruto)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × tarief(werkhoogte) (per pand bij een scope)",
+   "price_values": {
+    "tarief_laag": 6,
+    "tarief_hoog": 11
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "9999"
+   ],
+   "maintenance_actions": [
+    "scaffolding"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Tarief per m² bruto buitenmuur naar werkhoogte; historisch alleen lump sums."
+  },
+  {
+   "app_element_key": "voegwerk",
+   "naam": "Voegwerk buitengevel",
+   "type": "gevel",
+   "quantity_source": "3D BAG b3_opp_buitenmuur (OUTER_WALL_GROSS_AREA, bruto)",
+   "quantity_unit": "m2",
+   "quantity_is_proxy": true,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 45
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "4111",
+    "2110"
+   ],
+   "maintenance_actions": [
+    "repair",
+    "repoint"
+   ],
+   "material": "metselwerk/voegwerk",
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "2110|impregnate|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2110|repair|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2110|replace|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4111|replace|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "2110|clean|m2|natural_stone",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": true,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "2110|repair|m1|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App-hoeveelheid is bruto buitenmuur als benadering (ESTIMATED)."
+  },
+  {
+   "app_element_key": "balkonhekken",
+   "naam": "Balkonhekken en borstweringen",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 210
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "3410"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "exterior_painting",
+    "repair"
+   ],
+   "material": "hekwerk/balustrade",
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "3410|replace|m1|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "3410|replace|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement."
+  },
+  {
+   "app_element_key": "intercom",
+   "naam": "Intercom en video-deuropener",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 575
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "6422"
+   ],
+   "maintenance_actions": [
+    "replace"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement."
+  },
+  {
+   "app_element_key": "riolering",
+   "naam": "Riolering en hemelwaterafvoer (inpandig)",
+   "type": "vast-variabel",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 1100,
+    "perEenheid": 120
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "5240",
+    "5211"
+   ],
+   "maintenance_actions": [
+    "clean",
+    "repair",
+    "replace"
+   ],
+   "material": null,
+   "official_kg_checks": [
+    {
+     "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+     "unit_match": false,
+     "action_match": true,
+     "material_match": false,
+     "semantic_match": false,
+     "semantic_reason": "Kengetal 5211 pvc m1 is hemelwaterafvoer, geen binnenriolering; de app rekent per appartement."
+    }
+   ],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "5211|replace|piece|unknown",
+     "readiness": "BLOCKED_OTHER",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 3
+    },
+    {
+     "candidate_group": "5211|replace|m1|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m1",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "5211|replace|piece|pvc",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "5211|replace|piece|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "KG_EXISTS_BUT_NOT_COMPATIBLE",
+   "note": "Vast bedrag + per appartement."
+  },
+  {
+   "app_element_key": "elektra",
+   "naam": "Elektrische installatie gemeenschappelijk",
+   "type": "vast-variabel",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 800,
+    "perEenheid": 90
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "6111"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "inspect"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Vast bedrag + per appartement."
+  },
+  {
+   "app_element_key": "verlichting",
+   "naam": "Verlichting gemeenschappelijke ruimten",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 65
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "6311"
+   ],
+   "maintenance_actions": [
+    "replace"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "6311|replace|piece|unknown",
+     "readiness": "BLOCKED_OTHER",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 4
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement; intern piece (armaturen)."
+  },
+  {
+   "app_element_key": "waterleiding",
+   "naam": "Waterleiding gemeenschappelijk",
+   "type": "vast-variabel",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 600,
+    "perEenheid": 55
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "5310"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "inspect"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Vast bedrag + per appartement."
+  },
+  {
+   "app_element_key": "brandveiligheid",
+   "naam": "Brandveiligheid (blusmiddelen, vluchtwegverlichting)",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 45
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "6511",
+    "6513"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "inspect"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "6511|replace|piece|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "6513|replace|piece|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement."
+  },
+  {
+   "app_element_key": "cv-installatie",
+   "naam": "Collectieve cv-installatie (ketel)",
+   "type": "vast-variabel",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 3500,
+    "perEenheid": 350
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [],
+   "maintenance_actions": [
+    "replace"
+   ],
+   "material": "ketel",
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Geen interne code voor een collectieve ketel (5610 = stadsverwarmingleidingen)."
+  },
+  {
+   "app_element_key": "ventilatie",
+   "naam": "Mechanische ventilatie",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 220
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "5721"
+   ],
+   "maintenance_actions": [
+    "replace"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement."
+  },
+  {
+   "app_element_key": "lift",
+   "naam": "Liftinstallatie — onderhoud en modernisering",
+   "type": "vast-variabel",
+   "quantity_source": "geen hoeveelheid (vast bedrag)",
+   "quantity_unit": null,
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 12000,
+    "perEenheid": 0
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "6611",
+    "6612"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "maintain"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Alleen vast bedrag, geen hoeveelheid."
+  },
+  {
+   "app_element_key": "trappenhuis",
+   "naam": "Trappenhuis en entree",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 480
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "2410",
+    "4211"
+   ],
+   "maintenance_actions": [
+    "repair",
+    "interior_painting"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "2410|clean|piece|steel",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "piece",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    },
+    {
+     "candidate_group": "4211|repair|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement."
+  },
+  {
+   "app_element_key": "vloerafwerking",
+   "naam": "Vloerafwerking gemeenschappelijke ruimten",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 120
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "4321",
+    "4322"
+   ],
+   "maintenance_actions": [
+    "replace",
+    "repair"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [
+    {
+     "candidate_group": "4321|replace|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 2
+    },
+    {
+     "candidate_group": "4322|repair|m2|unknown",
+     "readiness": "INSUFFICIENT_CLUSTERS",
+     "unit": "m2",
+     "unit_match": false,
+     "potential_source_clusters": 1
+    }
+   ],
+   "result": "NO_KG_AVAILABLE",
+   "note": "App rekent per appartement; intern m2."
+  },
+  {
+   "app_element_key": "bestrating",
+   "naam": "Bestrating en terreininrichting",
+   "type": "vast-variabel",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "basis + hoeveelheid × perEenheid",
+   "price_values": {
+    "basis": 500,
+    "perEenheid": 60
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [
+    "9041"
+   ],
+   "maintenance_actions": [
+    "repair",
+    "replace"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "FORMULA_PRICING_ONLY",
+   "note": "Vast bedrag + per appartement; intern m2."
+  },
+  {
+   "app_element_key": "fietsenstalling",
+   "naam": "Fietsenstalling en bergingen",
+   "type": "per-unit",
+   "quantity_source": "aantal appartementen (BAG verblijfsobjecten)",
+   "quantity_unit": "app",
+   "quantity_is_proxy": false,
+   "price_formula": "hoeveelheid × kengetal",
+   "price_values": {
+    "kengetal": 150
+   },
+   "internal_element_code_safe": null,
+   "related_internal_codes_candidate": [],
+   "maintenance_actions": [
+    "repair"
+   ],
+   "material": null,
+   "official_kg_checks": [],
+   "price_candidate_groups": [],
+   "result": "NO_KG_AVAILABLE",
+   "note": "Geen interne code."
+  }
+ ],
+ "D_flat_roof": {
+  "official_available_m2_kg": [],
+  "observations_m2": [
+   {
+    "observation_id": "PO-DOC-005-P012-L077",
+    "document_id": "DOC-005",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "action": "install",
+    "description": "Dakbedekking APP",
+    "action_text": "Aanbrengen nieuwe laag dakbedekking APP",
+    "material_terms": [
+     "app"
+    ],
+    "derived_price_per_m2": "76.47",
+    "price_level": "1-8-2026",
+    "vat_basis": "inclusive",
+    "independent_input": false,
+    "exclusion_reasons": [
+     "POSSIBLY_DEPENDENT"
+    ]
+   },
+   {
+    "observation_id": "PO-DOC-006-P015-L079",
+    "document_id": "DOC-006",
+    "source_cluster": "SC-DOC-005+DOC-006",
+    "action": "install",
+    "description": "Dakbedekking APP",
+    "action_text": "Aanbrengen nieuwe laag dakbedekking APP",
+    "material_terms": [
+     "app"
+    ],
+    "derived_price_per_m2": "63.20",
+    "price_level": "1-3-2023",
+    "vat_basis": "inclusive",
+    "independent_input": false,
+    "exclusion_reasons": [
+     "POSSIBLY_DEPENDENT"
+    ]
+   },
+   {
+    "observation_id": "PO-DOC-007-P017-L119",
+    "document_id": "DOC-007",
+    "source_cluster": "SC-DOC-007",
+    "action": "replace",
+    "description": "Dakbedekking APP",
+    "action_text": "Vervangen dakbedekking APP dakvlak 2",
+    "material_terms": [
+     "app"
+    ],
+    "derived_price_per_m2": "138.63",
+    "price_level": "28-4-2023",
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-007-P017-L123",
+    "document_id": "DOC-007",
+    "source_cluster": "SC-DOC-007",
+    "action": "replace",
+    "description": "Dakbedekking APP",
+    "action_text": "Vervangen dakbedekking APP dakvlak 3",
+    "material_terms": [
+     "app"
+    ],
+    "derived_price_per_m2": "138.63",
+    "price_level": "28-4-2023",
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-007-P017-L127",
+    "document_id": "DOC-007",
+    "source_cluster": "SC-DOC-007",
+    "action": "install",
+    "description": "Dakbedekking APP",
+    "action_text": "Aanbrengen nieuwe laag dakbedekking APP dakvlak 1-4-5",
+    "material_terms": [
+     "app"
+    ],
+    "derived_price_per_m2": "83.19",
+    "price_level": "28-4-2023",
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-008-P009-L035",
+    "document_id": "DOC-008",
+    "source_cluster": "SC-DOC-008+DOC-009",
+    "action": "replace",
+    "description": "Dakbedekking APP+ballast (hoofddak)",
+    "action_text": "Vervangen dakbedekking APP",
+    "material_terms": [
+     "app",
+     "ballast"
+    ],
+    "derived_price_per_m2": "175.45",
+    "price_level": null,
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-008-P009-L041",
+    "document_id": "DOC-008",
+    "source_cluster": "SC-DOC-008+DOC-009",
+    "action": "replace",
+    "description": "Dakbedekking APP+ballast (hoofddak)",
+    "action_text": "Vervangen grind",
+    "material_terms": [
+     "app",
+     "ballast",
+     "grind"
+    ],
+    "derived_price_per_m2": "22.51",
+    "price_level": null,
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-008-P009-L051",
+    "document_id": "DOC-008",
+    "source_cluster": "SC-DOC-008+DOC-009",
+    "action": "replace",
+    "description": "Dakbedekking bitumen ballast (liftdak)",
+    "action_text": "Vervangen dakbedekking bitumen geballast",
+    "material_terms": [
+     "ballast",
+     "bitumen"
+    ],
+    "derived_price_per_m2": "175.45",
+    "price_level": null,
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-008-P009-L059",
+    "document_id": "DOC-008",
+    "source_cluster": "SC-DOC-008+DOC-009",
+    "action": "replace",
+    "description": "Dakbedekking bitumen ballast (liftdak)",
+    "action_text": "Vervangen grind",
+    "material_terms": [
+     "ballast",
+     "bitumen",
+     "grind"
+    ],
+    "derived_price_per_m2": "22.51",
+    "price_level": null,
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-011-P021-L077",
+    "document_id": "DOC-011",
+    "source_cluster": "SC-DOC-011",
+    "action": null,
+    "description": "Dakbedekking bitumen",
+    "action_text": "Aanbrengen nieuwe laag dakbedekking bitumen ongeballast",
+    "material_terms": [
+     "ballast",
+     "bitumen"
+    ],
+    "derived_price_per_m2": "72.60",
+    "price_level": null,
+    "vat_basis": "inclusive",
+    "independent_input": false,
+    "exclusion_reasons": [
+     "ELIGIBILITY_UNKNOWN"
+    ]
+   },
+   {
+    "observation_id": "PO-DOC-012-P014-L097",
+    "document_id": "DOC-012",
+    "source_cluster": "SC-DOC-012",
+    "action": null,
+    "description": "Dakbedekking app",
+    "action_text": "Aanbrengen nieuwe laag dakbedekking bitumen",
+    "material_terms": [
+     "app",
+     "bitumen"
+    ],
+    "derived_price_per_m2": "78.65",
+    "price_level": "1-4-2024",
+    "vat_basis": "inclusive",
+    "independent_input": false,
+    "exclusion_reasons": [
+     "ELIGIBILITY_UNKNOWN"
+    ]
+   },
+   {
+    "observation_id": "PO-DOC-013-P018-L081",
+    "document_id": "DOC-013",
+    "source_cluster": "SC-DOC-013",
+    "action": "install",
+    "description": "Dakbedekking APP",
+    "action_text": "Aanbrengen nieuwe laag dakbedekking APP",
+    "material_terms": [
+     "app"
+    ],
+    "derived_price_per_m2": "102.85",
+    "price_level": "14-7-2026",
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   }
+  ],
+  "observations_m2_count": 12,
+  "source_clusters_all": [
+   "SC-DOC-005+DOC-006",
+   "SC-DOC-007",
+   "SC-DOC-008+DOC-009",
+   "SC-DOC-011",
+   "SC-DOC-012",
+   "SC-DOC-013"
+  ],
+  "source_clusters_independent_input": [
+   "SC-DOC-007",
+   "SC-DOC-008+DOC-009",
+   "SC-DOC-013"
+  ],
+  "covering_lines_excluding_ballast_gravel": {
+   "count": 10,
+   "source_clusters": [
+    "SC-DOC-005+DOC-006",
+    "SC-DOC-007",
+    "SC-DOC-008+DOC-009",
+    "SC-DOC-011",
+    "SC-DOC-012",
+    "SC-DOC-013"
+   ],
+   "by_action": {
+    "install": [
+     "SC-DOC-005+DOC-006",
+     "SC-DOC-007",
+     "SC-DOC-013"
+    ],
+    "onbekend": [
+     "SC-DOC-011",
+     "SC-DOC-012"
+    ],
+    "replace": [
+     "SC-DOC-007",
+     "SC-DOC-008+DOC-009"
+    ]
+   },
+   "by_material_term": {
+    "app": [
+     "SC-DOC-005+DOC-006",
+     "SC-DOC-007",
+     "SC-DOC-008+DOC-009",
+     "SC-DOC-012",
+     "SC-DOC-013"
+    ],
+    "ballast": [
+     "SC-DOC-008+DOC-009",
+     "SC-DOC-011"
+    ],
+    "bitumen": [
+     "SC-DOC-008+DOC-009",
+     "SC-DOC-011",
+     "SC-DOC-012"
+    ]
+   }
+  },
+  "readiness_groups": [
+   {
+    "candidate_group": "4711|replace|m2|bitumen",
+    "readiness": "INSUFFICIENT_CLUSTERS",
+    "observations": 2,
+    "independent_source_clusters": 1,
+    "potential_source_clusters": 1
+   },
+   {
+    "candidate_group": "4711|install|m2|unknown",
+    "readiness": "INSUFFICIENT_CLUSTERS",
+    "observations": 2,
+    "independent_source_clusters": 2,
+    "potential_source_clusters": 2
+   },
+   {
+    "candidate_group": "4711|replace|m2|unknown",
+    "readiness": "INSUFFICIENT_CLUSTERS",
+    "observations": 4,
+    "independent_source_clusters": 2,
+    "potential_source_clusters": 2
+   }
+  ],
+  "conclusion": "Geen officieel AVAILABLE m2-kengetal voor 4711. Het enige 4711-kengetal is aluminium daktrim in m1 en is niet koppelbaar aan dak-plat (m2). De dakbedekkingsregels (zonder grind) noemen APP en/of bitumen; één bron noemt beide in dezelfde regel (APP is in de bronnen een bitumineuze dakbedekking). Volgens de huidige regels is elke 4711 m2-groep INSUFFICIENT_CLUSTERS. Blokkades voor één generiek dak-plat-kengetal: (1) APP en bitumen: één materiaalfamilie of twee (menselijk materiaalbesluit); (2) 'aanbrengen nieuwe laag' (overlagen) versus 'vervangen' (incl. ballast) zijn verschillende acties; (3) ballast/grind is een aparte deelpost; (4) twee bronnen hebben eligibility UNKNOWN (actie niet genormaliseerd) en DOC-005/DOC-006 vormen samen één source cluster (mogelijk afhankelijk). De 'aanbrengen nieuwe laag'-regels raken na die besluiten potentieel de meeste clusters en zijn de meest kansrijke toekomstige kandidaat. Readiness: NIET klaar; geen kengetal gemaakt."
+ },
+ "E_sloped_roof": {
+  "official_available_m2_kg": [],
+  "observations_m2": [
+   {
+    "observation_id": "PO-DOC-013-P019-L007",
+    "document_id": "DOC-013",
+    "source_cluster": "SC-DOC-013",
+    "action": "replace",
+    "description": "Dakbedekking shingles bitumen",
+    "action_text": "Vervangen dakbedekking shingles bitumen",
+    "material_terms": [
+     "bitumen",
+     "shingles"
+    ],
+    "derived_price_per_m2": "78.65",
+    "price_level": "14-7-2026",
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   },
+   {
+    "observation_id": "PO-DOC-013-P019-L013",
+    "document_id": "DOC-013",
+    "source_cluster": "SC-DOC-013",
+    "action": "replace",
+    "description": "Dakbedekking zink",
+    "action_text": "Vervangen dakbedekking zink",
+    "material_terms": [
+     "zink"
+    ],
+    "derived_price_per_m2": "211.76",
+    "price_level": "14-7-2026",
+    "vat_basis": "inclusive",
+    "independent_input": true,
+    "exclusion_reasons": []
+   }
+  ],
+  "observations_m2_count": 2,
+  "source_clusters_all": [
+   "SC-DOC-013"
+  ],
+  "source_clusters_independent_input": [
+   "SC-DOC-013"
+  ],
+  "covering_lines_excluding_ballast_gravel": {
+   "count": 2,
+   "source_clusters": [
+    "SC-DOC-013"
+   ],
+   "by_action": {
+    "replace": [
+     "SC-DOC-013"
+    ]
+   },
+   "by_material_term": {
+    "bitumen": [
+     "SC-DOC-013"
+    ],
+    "shingles": [
+     "SC-DOC-013"
+    ],
+    "zink": [
+     "SC-DOC-013"
+    ]
+   }
+  },
+  "readiness_groups": [
+   {
+    "candidate_group": "4712|replace|m2|bitumen",
+    "readiness": "INSUFFICIENT_CLUSTERS",
+    "observations": 1,
+    "independent_source_clusters": 1,
+    "potential_source_clusters": 1
+   },
+   {
+    "candidate_group": "4712|replace|m2|zinc",
+    "readiness": "INSUFFICIENT_CLUSTERS",
+    "observations": 1,
+    "independent_source_clusters": 1,
+    "potential_source_clusters": 1
+   }
+  ],
+  "tile_price_observations": 0,
+  "tile_quantity_observations_without_price": [
+   "QO-DOC-001-EL-041",
+   "QO-DOC-005-EL-027",
+   "QO-DOC-006-EL-027",
+   "QO-DOC-013-EL-021"
+  ],
+  "conclusion": "Geen enkele dakpan-prijsobservation (beton of keramisch): de 4712 m2-prijsregels zijn alleen shingles en zink uit één bron. De dakpanregels bestaan alleen als hoeveelheid (zie tile_quantity_observations_without_price), zonder prijsregel. Leisteen, shingles, zink en loodslabben blijven aparte materialen. Readiness: geen kandidaat mogelijk met de huidige data (0 onafhankelijke dakpan-clusters); niets samengevoegd op basis van code 4712."
+ },
+ "F_scaffolding_price": {
+  "app_rule": "€ 6/m² bruto buitenmuur bij werkhoogte <= 8 m, € 11/m² daarboven (per pand bij een scope)",
+  "origin": "hardcoded sinds de eerste commits van MJOP-App (2026-09-19); geen bron, geen prijspeil",
+  "category": "FORMULA_DEFAULT (tariefregel) met APP_DEFAULT_ESTIMATE-tarieven",
+  "historical_observations": [
+   {
+    "observation_id": "PO-DOC-001-P026-L087",
+    "source_cluster": "SC-DOC-001",
+    "unit": "pst",
+    "unit_normalized": "lump_sum",
+    "eligibility": "NOT_ELIGIBLE",
+    "description": "Vaste steiger t.b.v. schilderwerkzaamheden buiten (incl. precario en bouwplaatsvoorzieningen)"
+   },
+   {
+    "observation_id": "PO-DOC-004-P039-L023",
+    "source_cluster": "SC-DOC-004",
+    "unit": "pst",
+    "unit_normalized": "lump_sum",
+    "eligibility": "NOT_ELIGIBLE",
+    "description": "Vaste steiger"
+   },
+   {
+    "observation_id": "PO-DOC-004-P039-L031",
+    "source_cluster": "SC-DOC-004",
+    "unit": "pst",
+    "unit_normalized": "lump_sum",
+    "eligibility": "NOT_ELIGIBLE",
+    "description": "Vaste steiger"
+   },
+   {
+    "observation_id": "PO-DOC-010-P014-L011",
+    "source_cluster": "SC-DOC-010",
+    "unit": "pst",
+    "unit_normalized": "lump_sum",
+    "eligibility": "NOT_ELIGIBLE",
+    "description": "Hoogwerker tot 18 meter hoog"
+   },
+   {
+    "observation_id": "PO-DOC-015-S01-R0195",
+    "source_cluster": "SC-DOC-015",
+    "unit": "pst",
+    "unit_normalized": "lump_sum",
+    "eligibility": "NOT_ELIGIBLE",
+    "description": "Vaste steiger"
+   }
+  ],
+  "historical_per_m2_evidence": [],
+  "conclusion": "Alle historische steigerposten zijn lump sums (pst) per project, zonder m² of hoogte: er is geen historische onderbouwing voor € 6 of € 11 per m². OUTER_WALL_GROSS_AREA en BUILDING_HEIGHT zijn betrouwbare hoeveelheid/context, maar dat maakt het tarief niet betrouwbaar. Geen tarief gewijzigd."
+ },
+ "G_facade": {
+  "elements": [
+   {
+    "app_element_key": "gevel-metselwerk",
+    "quantity_uncertainty": "PROXY: bruto buitenmuur (ESTIMATED)",
+    "price_per_unit_uncertainty": "APP_DEFAULT_ESTIMATE (geen bron)",
+    "price_candidate_groups": [
+     {
+      "candidate_group": "2110|impregnate|m2|unknown",
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 2
+     },
+     {
+      "candidate_group": "2110|repair|m2|unknown",
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 2
+     },
+     {
+      "candidate_group": "2110|replace|m1|unknown",
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "unit": "m1",
+      "unit_match": false,
+      "potential_source_clusters": 2
+     }
+    ]
+   },
+   {
+    "app_element_key": "schilderwerk-buiten",
+    "quantity_uncertainty": "PROXY: bruto buitenmuur (ESTIMATED)",
+    "price_per_unit_uncertainty": "APP_DEFAULT_ESTIMATE (geen bron)",
+    "price_candidate_groups": [
+     {
+      "candidate_group": "4621|exterior_painting|m2|wood",
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 7
+     },
+     {
+      "candidate_group": "4631|exterior_painting|m2|wood",
+      "readiness": "MATERIAL_AND_REVIEW_NEEDED",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 6
+     },
+     {
+      "candidate_group": "4621|exterior_painting|m2|unknown",
+      "readiness": "BLOCKED_OTHER",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 4
+     }
+    ]
+   },
+   {
+    "app_element_key": "voegwerk",
+    "quantity_uncertainty": "PROXY: bruto buitenmuur (ESTIMATED)",
+    "price_per_unit_uncertainty": "APP_DEFAULT_ESTIMATE (geen bron)",
+    "price_candidate_groups": [
+     {
+      "candidate_group": "2110|impregnate|m2|unknown",
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 2
+     },
+     {
+      "candidate_group": "2110|repair|m2|unknown",
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "unit": "m2",
+      "unit_match": true,
+      "potential_source_clusters": 2
+     },
+     {
+      "candidate_group": "2110|replace|m1|unknown",
+      "readiness": "INSUFFICIENT_CLUSTERS",
+      "unit": "m1",
+      "unit_match": false,
+      "potential_source_clusters": 2
+     }
+    ]
+   }
+  ],
+  "rule": "Hoeveelheidsonzekerheid en prijs-per-eenheid-onzekerheid zijn twee aparte problemen: een goed kengetal per m² maakt een proxy-hoeveelheid (bruto buitenmuur incl. ramen) niet goed. Historische 2110-hoeveelheden zijn geen bruto buitenmuur en worden er niet aan gelijkgesteld. Eerst een eigen hoeveelheidsdefinitie (bijv. geschilderd oppervlak, metselwerkoppervlak), daarna pas een kengetal."
+ },
+ "H_offer_and_override_flow": {
+  "as_implemented": [
+   "Effectieve prijs per element = el.kengetal (default uit de bibliotheek, in place overschreven als de gebruiker het veld 'Prijs per m²/unit' aanpast; daarna niet meer te onderscheiden van de default).",
+   "Kozijnen: k.eigenTarief (apart bewaard) gaat vóór round(tarief × materiaalfactor).",
+   "Vast + variabel (basis/perEenheid) en steigertarieven hebben geen prijsinvoer: alleen hoeveelheid/werkhoogte zijn aanpasbaar.",
+   "Geïmporteerde/eigen posten: el.bedrag + basisjaar, geïndexeerd naar het uitvoeringsjaar.",
+   "Offertes worden per post opgeslagen, gelezen (Q.parseOfferteAmounts) en vergeleken, maar komen NIET in elementCost of de planning. Er is geen 'offerte accepteren'."
+  ],
+  "effective_hierarchy_today": [
+   "USER_OVERRIDE (kengetal in place / eigenTarief)",
+   "APP_DEFAULT_ESTIMATE / FORMULA_DEFAULT",
+   "(OFFER_PRICE: alleen weergave)"
+  ],
+  "proposed_hierarchy_not_implemented": [
+   "USER_OVERRIDE of geaccepteerde OFFER_PRICE",
+   "OFFICIAL_INTERNAL_KENGETAL",
+   "APP_DEFAULT_ESTIMATE"
+  ],
+  "conflicts": [
+   "Een offerte heeft nu geen effect op de kosten; 'geaccepteerde offerte' bestaat nog niet (eerst productbesluit).",
+   "Een aangepast kengetal verliest zijn herkomst (geen USER_OVERRIDE-markering, geen oude waarde bewaard).",
+   "Offertevergelijking vult ontbrekende regels met het gemiddelde van de andere offertes (alleen weergave); bij integratie in kosten mag dat geen bron worden.",
+   "Een offerte is een totaalbedrag per post (regels), een kengetal is een prijs per eenheid: koppelen vraagt een expliciete keuze (offerte vervangt de post, niet het kengetal).",
+   "UI beweerde 'een offerte overschrijft het tarief' (onjuist): gecorrigeerd in MJOP-App 'Price Source Labels v1'."
+  ]
+ },
+ "I_indexation": {
+  "app_logic": "CBS 83547NED 'BestaandeWoningen' — alleen de LAATSTE jaarmutatie, als vast percentage samengesteld vanaf basisjaar; terugval 3%/jaar. Alleen op custom/geïmporteerde posten; bibliotheekprijzen worden niet geïndexeerd.",
+  "per_kg": [
+   {
+    "kengetal_id": "KG-4711-replace-m1-aluminium-d463b0a2",
+    "indexation_readiness": "INDEXATION_NOT_POSSIBLE",
+    "price_levels_per_cluster": {
+     "SC-DOC-008+DOC-009": [
+      null
+     ],
+     "SC-DOC-011": [
+      null
+     ],
+     "SC-DOC-012": [
+      "1-4-2024"
+     ]
+    }
+   },
+   {
+    "kengetal_id": "KG-5211-replace-m1-pvc-5cb98033",
+    "indexation_readiness": "INDEXATION_NOT_POSSIBLE",
+    "price_levels_per_cluster": {
+     "SC-DOC-001": [
+      null
+     ],
+     "SC-DOC-008+DOC-009": [
+      "21-4-2025"
+     ],
+     "SC-DOC-010": [
+      "1-4-2023"
+     ],
+     "SC-DOC-012": [
+      "1-4-2024"
+     ],
+     "SC-DOC-013": [
+      "14-7-2026"
+     ]
+    }
+   }
+  ],
+  "rule": "READY alleen als ALLE source clusters één bekend prijspeil hebben; gemengde prijspeilen = AMBIGUOUS; een ontbrekend prijspeil = NOT_POSSIBLE. Nooit stil naar één jaar omrekenen. Ook bij READY is de huidige app-logica (laatste jaarmutatie als vast percentage) geen exacte indexreeks.",
+  "applied": false
+ },
+ "J_ui_source_labels": {
+  "before": {
+   "ui_claims_offer_overrides_tariff": true,
+   "ui_claims_current_year_price_level": true,
+   "ui_calls_defaults_kengetallen": true
+  },
+  "after": {
+   "ui_claims_offer_overrides_tariff": false,
+   "ui_claims_current_year_price_level": false,
+   "ui_calls_defaults_kengetallen": false,
+   "ui_price_note_says_app_estimate": true
+  },
+  "misleading_spots_fixed": [
+   "Overzicht 'Waar komen deze cijfers vandaan?': 'indicatieve richtprijzen (… prijspeil <huidig jaar>)' — het jaar schoof elk jaar mee zonder prijsbron.",
+   "Printrapport 'Kosten.': idem 'prijspeil <huidig jaar>'.",
+   "Voetnoten start/scherm: 'Kengetallen zijn indicatieve richtprijzen' — app-defaults heten nu app-schattingen.",
+   "Kozijnen: 'een offerte overschrijft het tarief' — onjuist, offertes komen niet in de kosten.",
+   "Vast + variabel per appartement toonde '12 m² × € 90' — nu '12 app. × € 90'."
+  ],
+  "remaining_for_later": [
+   "Het prijsinvoerveld 'Prijs per m²/unit' toont geen bronlabel (App-schatting / Intern kengetal / Offerte / Door gebruiker aangepast).",
+   "Het herkomstlabel van een post volgt de HOEVEELHEID (bijv. '3D BAG'), niet de prijs; een aangepaste prijs wordt niet als 'Door gebruiker aangepast' getoond."
+  ],
+  "fix_pr": "MJOP-App 'Price Source Labels v1' (geen prijswaarden gewijzigd)"
+ },
+ "K_coverage": {
+  "by_result": {
+   "READY_FOR_KG_INTEGRATION": [],
+   "KG_EXISTS_BUT_NOT_COMPATIBLE": [
+    "dak-plat",
+    "dakgoten",
+    "riolering"
+   ],
+   "REVIEWABLE_KG_CANDIDATE": [],
+   "NO_KG_AVAILABLE": [
+    "balkonhekken",
+    "brandveiligheid",
+    "dak-hellend",
+    "dakisolatie",
+    "fietsenstalling",
+    "gevel-metselwerk",
+    "intercom",
+    "schilderwerk-buiten",
+    "trappenhuis",
+    "ventilatie",
+    "verlichting",
+    "vloerafwerking",
+    "voegwerk"
+   ],
+   "FORMULA_PRICING_ONLY": [
+    "bestrating",
+    "cv-installatie",
+    "dakinspectie",
+    "elektra",
+    "kozijnen-onderhoud",
+    "lift",
+    "steiger",
+    "waterleiding"
+   ]
+  },
+  "counts": {
+   "READY_FOR_KG_INTEGRATION": 0,
+   "KG_EXISTS_BUT_NOT_COMPATIBLE": 3,
+   "REVIEWABLE_KG_CANDIDATE": 0,
+   "NO_KG_AVAILABLE": 13,
+   "FORMULA_PRICING_ONLY": 8
+  },
+  "app_elements": 24,
+  "priority_elements": [
+   {
+    "app_element_key": "dak-plat",
+    "why": "grootste bedragen (€ 165/m²), hoeveelheid betrouwbaar (ROOF_FLAT_AREA), meeste 4711 m2-prijsregels (meerdere clusters), semantiek redelijk helder; vraagt alleen menselijke groepsbesluiten."
+   },
+   {
+    "app_element_key": "schilderwerk-buiten",
+    "why": "hoogste frequentie (6 jaar) en de sterkste prijsdata (4621/4631 buitenschilderwerk hout m2, 6–7 potentiële clusters), maar eerst een eigen hoeveelheidsdefinitie (geen bruto buitenmuur)."
+   },
+   {
+    "app_element_key": "kozijnen-onderhoud",
+    "why": "grote post met prijs per stuk; interne kozijn-/schilderwerkdata bestaat maar per stuk/m1 en met materiaal; vraagt een stuks-hoeveelheid die nu een schatting is."
+   },
+   {
+    "app_element_key": "dakgoten",
+    "why": "officieel kengetal 5211 pvc m1 bestaat al, maar de app rekent per appartement: pas bruikbaar met een m1-hoeveelheid (nu geen bron; geen nieuwe subjects in deze stap)."
+   }
+  ]
+ },
+ "L_next_price_milestones": [
+  {
+   "name": "Price Source Model v1 (MJOP-App)",
+   "what": "prijsobject per post naast het hoeveelheidsobject: bron (APP_DEFAULT_ESTIMATE / OFFICIAL_INTERNAL_KENGETAL / OFFER_PRICE / USER_OVERRIDE), oude waarde bewaren bij aanpassen, bronlabel in de UI; nog geen kengetal-waarden activeren."
+  },
+  {
+   "name": "Flat Roof Price Group Review (mjop-learning)",
+   "what": "besluitpakket voor de 4711 m2-regels: APP vs bitumen, overlagen vs vervangen, ballast/grind apart, eligibility DOC-011/DOC-012, afhankelijkheid DOC-005/006 — doel: een eerste m2-kengetal-kandidaat voor dak-plat (niet automatisch AVAILABLE)."
+  },
+  {
+   "name": "Offer Acceptance Decision (product)",
+   "what": "beslissen of en hoe een geaccepteerde offerte de kosten van een post vervangt (totaal per post, niet per eenheid), inclusief prijspeil/indexatie van offertes."
+  }
+ ],
+ "M_human_decisions_needed": [
+  "Prijsbronhiërarchie: USER_OVERRIDE/geaccepteerde OFFER_PRICE > OFFICIAL_INTERNAL_KENGETAL > APP_DEFAULT_ESTIMATE — akkoord?",
+  "Mag een geaccepteerde offerte de kosten van een post vervangen (totaal per post), en wat is dan het prijspeil?",
+  "Indexatiebeleid voor kengetallen met ontbrekende/gemengde prijspeilen: niet tonen, of ongeïndexeerd tonen met caveat?",
+  "4711 dakbedekking: is APP een eigen materiaal of een bitumen-subtype? Zijn 'aanbrengen nieuwe laag' en 'vervangen' één actie of twee?",
+  "4711: ballast/grind-regels als aparte deelpost uitsluiten van een dakbedekkingskengetal?",
+  "Steigertarief € 6/€ 11: als app-schatting behouden en zo labelen, of een bron zoeken?",
+  "Gevel: eerst een eigen hoeveelheidsdefinitie (geschilderd oppervlak / metselwerkoppervlak) vóór een gevel-kengetal?",
+  "Moeten basis/perEenheid (vast + variabel) door de gebruiker aanpasbaar worden?"
+ ],
+ "state_unchanged": {
+  "official_kengetallen_sha256": "e8b9b2260fb681da242817e51dfdb5ca3b1ab3ec1e3e5dcd6b56d3cc71761897",
+  "quantity_bundles_sha256": {
+   "doc012_geometry_v3.json": "fe12a4eb7999f784056d46a607e5e37b6223fc30a6eff0c4c86924390f074a87",
+   "doc012_meppelweg_v3.json": "748ebcbe53e83afc06fd4dba67467f1014d3cc88c728b55c56c3adfd33e0a191",
+   "maldenhof_DOC-005_DOC-006_v3.json": "b1ca1d196eb720744ca7dc0fd2a71a59f350bf4dfa0ff2cde4f81fbe3a4a1933",
+   "maldenhof_expanded_v3.json": "c78f387e66ce7963d7a434270350f0ee8fa4c9f232099f871e83ed202cd2975d",
+   "maldenhof_geometry_expanded_v3.json": "8264bdceb2c0ee633333b79ac6a073f8c9ea48661659007f69ff22df391a52ca"
+  },
+  "crosswalk_decisions": [
+   "XWD-00001",
+   "XWD-00002",
+   "XWD-00003",
+   "XWD-00004",
+   "XWD-00005",
+   "XWD-00006"
+  ],
+  "crosswalk_decisions_sha256": "bbd2872cf038c6e5e60a0d2a0d44f994831b5c2694c6319d36d1532e05084114",
+  "quantity_evidence_sha256": "216b2625e2082f2503a764b5d951737e493e9afbd2b494e33fda7e1ee9f3ac1b",
+  "quantity_resolutions": 0,
+  "app_price_values_identical": true
+ }
+}
