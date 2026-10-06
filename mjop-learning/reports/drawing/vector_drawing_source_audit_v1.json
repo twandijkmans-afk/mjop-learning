@@ -1,0 +1,7552 @@
+{
+ "audit_version": "vector_drawing_source_audit_v1.0.0",
+ "tools": {
+  "pdfplumber": "0.11.10",
+  "pdfminer.six": "20260107"
+ },
+ "method": "pdfplumber primitives + tekstlabels; thresholds: sterk label + >= 30 primitives + >= 10 niet-orthogonale lijnen/complexe curves",
+ "non_pdf_drawing_like_files": [
+  "reports/quantity/facade_poc_v2_review_images/round_A_sheet1.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_A_sheet2.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_A_sheet3.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_A_sheet4.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_B_B1.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_B_B2.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_B_B3.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_B_B4.jpg",
+  "reports/quantity/facade_poc_v2_review_images/round_B_B5.jpg"
+ ],
+ "summary": {
+  "unique_pdfs": 13,
+  "total_pdf_paths": 16,
+  "total_pages": 323,
+  "by_document_classification": {
+   "VECTOR_DRAWING_CANDIDATE": 0,
+   "RASTER_DRAWING_CANDIDATE": 0,
+   "MJOP_REPORT_ONLY": 13,
+   "NO_DRAWING_FOUND": 0
+  },
+  "pages_with_strong_drawing_label": 0,
+  "pages_with_vector_primitives_ge_30": 161,
+  "vector_drawing_candidate_pages": 0,
+  "raster_drawing_candidate_pages": 0
+ },
+ "real_world_status": "REAL_WORLD_POC_BLOCKED_NO_DRAWING",
+ "documents": [
+  {
+   "sha256": "8a3171b691e3c76fb4109c9acb87ca4d3741ecaae234a7b6d9951e31e308c7e5",
+   "paths": [
+    "data/incoming/Testbatch 01/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf",
+    "data/raw/incoming/DOC-011/Actualisatie MJOP VvE Granidastraat 46-80 2020 pdf.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-011"
+   ],
+   "page_count": 37,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 37
+   },
+   "pages_with_images_ge_15pct": [],
+   "max_non_orthogonal_per_page": 27,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 0,
+      "total": 4,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.105,
+     "chars": 93,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 626,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 371,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 2286,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 587,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 2012,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 1359,
+     "label_hits": {
+      "voorgevel": 1,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 111,
+      "curves": 0,
+      "total": 111,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 942,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 2082,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 195,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 826,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 32,
+      "curves": 0,
+      "total": 52,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 6,
+     "image_area_ratio": 0.128,
+     "chars": 736,
+     "label_hits": {
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 32,
+      "curves": 0,
+      "total": 62,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 6,
+     "image_area_ratio": 0.126,
+     "chars": 916,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 11,
+      "rects": 9,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 2,
+     "image_area_ratio": 0.045,
+     "chars": 328,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 1975,
+     "label_hits": {
+      "kozijn": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 2510,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 85,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 788,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 84,
+      "curves": 1,
+      "total": 91,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1739,
+     "label_hits": {
+      "kozijn": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 94,
+      "curves": 2,
+      "total": 101,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1869,
+     "label_hits": {
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 91,
+      "curves": 3,
+      "total": 97,
+      "non_orthogonal_lines_or_complex_curves": 3
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 2123,
+     "label_hits": {
+      "achtergevel": 1,
+      "kozijn": 2,
+      "raam": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 82,
+      "curves": 0,
+      "total": 89,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1750,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 39,
+      "curves": 0,
+      "total": 41,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 796,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 84,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 447,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 889,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 27,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 258,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 28,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 64,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 29,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 769,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 30,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 24,
+      "curves": 0,
+      "total": 25,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 312,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 31,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 769,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 32,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 109,
+      "curves": 0,
+      "total": 109,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1743,
+     "label_hits": {
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 33,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 17,
+      "curves": 0,
+      "total": 18,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 211,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 34,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 0,
+      "curves": 0,
+      "total": 0,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.004,
+     "chars": 72,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 35,
+     "width_pt": 595.56,
+     "height_pt": 842.04,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 8,
+      "curves": 27,
+      "total": 35,
+      "non_orthogonal_lines_or_complex_curves": 27
+     },
+     "images": 5,
+     "image_area_ratio": 0.036,
+     "chars": 3076,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 36,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 10,
+      "total": 14,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 3,
+     "image_area_ratio": 0.028,
+     "chars": 2183,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 37,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 11,
+      "total": 15,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 3,
+     "image_area_ratio": 0.029,
+     "chars": 2074,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "86bf554e24b00f976b72465e2ceb3ce20db6083b7c487a77310a476054a7e716",
+   "paths": [
+    "data/incoming/Testbatch 01/Actualisatie MOP 2024.pdf",
+    "data/raw/incoming/DOC-012/Actualisatie MOP 2024.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-012"
+   ],
+   "page_count": 21,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 21
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 22,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.151,
+     "chars": 78,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 493,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2151,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2763,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 524,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 131,
+      "curves": 22,
+      "total": 153,
+      "non_orthogonal_lines_or_complex_curves": 22
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1402,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 1,
+      "achtergevel": 4,
+      "zijgevel": 1,
+      "kozijn": 4,
+      "raam": 1,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 126,
+      "curves": 18,
+      "total": 144,
+      "non_orthogonal_lines_or_complex_curves": 18
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 932,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 51,
+      "curves": 6,
+      "total": 57,
+      "non_orthogonal_lines_or_complex_curves": 6
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 444,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 853,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 18,
+      "rects": 1386,
+      "curves": 2,
+      "total": 1406,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 6,
+     "image_area_ratio": 0.085,
+     "chars": 794,
+     "label_hits": {
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 19,
+      "rects": 1390,
+      "curves": 2,
+      "total": 1411,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 7,
+     "image_area_ratio": 0.095,
+     "chars": 787,
+     "label_hits": {
+      "achtergevel": 1,
+      "zijgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 901,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 76,
+      "curves": 1,
+      "total": 84,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1602,
+     "label_hits": {
+      "gevel": 1,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 78,
+      "curves": 3,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 3
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 2283,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 1,
+      "achtergevel": 4,
+      "zijgevel": 1,
+      "kozijn": 4,
+      "raam": 3,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 79,
+      "curves": 1,
+      "total": 86,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1653,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 79,
+      "curves": 1,
+      "total": 85,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1712,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 27,
+      "curves": 0,
+      "total": 29,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 557,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 559,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1091,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 882,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 41,
+      "curves": 3,
+      "total": 45,
+      "non_orthogonal_lines_or_complex_curves": 3
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 601,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "853b5ea3c33776fd552ef5279653600c56730a12779d99fa6f04d93ad786f513",
+   "paths": [
+    "data/incoming/Testbatch 01/MOP 2026 totaal.pdf",
+    "data/raw/incoming/DOC-013/MOP 2026 totaal.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-013"
+   ],
+   "page_count": 28,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 28
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 27,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 3,
+     "image_area_ratio": 0.167,
+     "chars": 99,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 657,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 2210,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 3238,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 575,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 113,
+      "curves": 27,
+      "total": 140,
+      "non_orthogonal_lines_or_complex_curves": 27
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 944,
+     "label_hits": {
+      "voorgevel": 2,
+      "kozijn": 3,
+      "raam": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 73,
+      "curves": 17,
+      "total": 90,
+      "non_orthogonal_lines_or_complex_curves": 17
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 614,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 582,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 68,
+      "curves": 15,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 15
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 643,
+     "label_hits": {
+      "kozijn": 1,
+      "raam": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 931,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 23,
+      "curves": 17,
+      "total": 60,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.104,
+     "chars": 512,
+     "label_hits": {
+      "voorgevel": 1,
+      "kozijn": 1,
+      "raam": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 22,
+      "curves": 18,
+      "total": 60,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 4,
+     "image_area_ratio": 0.092,
+     "chars": 504,
+     "label_hits": {
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 26,
+      "curves": 17,
+      "total": 63,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.094,
+     "chars": 519,
+     "label_hits": {
+      "kozijn": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 11,
+      "rects": 8,
+      "curves": 9,
+      "total": 28,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 2,
+     "image_area_ratio": 0.042,
+     "chars": 393,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 938,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 31,
+      "rects": 26,
+      "curves": 26,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 5,
+     "image_area_ratio": 0.111,
+     "chars": 800,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 431,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 91,
+      "curves": 6,
+      "total": 102,
+      "non_orthogonal_lines_or_complex_curves": 6
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1717,
+     "label_hits": {
+      "voorgevel": 1,
+      "kozijn": 4,
+      "raam": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 88,
+      "curves": 2,
+      "total": 96,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1714,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 45,
+      "curves": 2,
+      "total": 51,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 957,
+     "label_hits": {
+      "kozijn": 2,
+      "raam": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 604,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 576,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 611,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 348,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 974,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 75,
+      "curves": 7,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 7
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 934,
+     "label_hits": {
+      "voorgevel": 1,
+      "kozijn": 5,
+      "raam": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 27,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 981,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 28,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 12,
+      "curves": 1,
+      "total": 14,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 295,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "df698e6edd40c97ab9287ba912c10209a91a55222b7f6af2f1be0e2b6bf819da",
+   "paths": [
+    "data/incoming/Testbatch 01/Meerjarenonderhoudsplan 2023_VvE 9261.pdf"
+   ],
+   "registry_document_ids": [],
+   "page_count": 20,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 20
+   },
+   "pages_with_images_ge_15pct": [
+    1,
+    11
+   ],
+   "max_non_orthogonal_per_page": 23,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.228,
+     "chars": 80,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 714,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 2256,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 3140,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 526,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 132,
+      "curves": 23,
+      "total": 155,
+      "non_orthogonal_lines_or_complex_curves": 23
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1582,
+     "label_hits": {
+      "gevel": 9,
+      "voorgevel": 7,
+      "achtergevel": 6,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 81,
+      "curves": 10,
+      "total": 91,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 762,
+     "label_hits": {
+      "gevel": 3,
+      "voorgevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 855,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 12,
+      "rects": 933,
+      "curves": 1,
+      "total": 946,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.094,
+     "chars": 636,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 12,
+      "rects": 946,
+      "curves": 1,
+      "total": 959,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 6,
+     "image_area_ratio": 0.115,
+     "chars": 694,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 12,
+      "rects": 949,
+      "curves": 2,
+      "total": 963,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 7,
+     "image_area_ratio": 0.155,
+     "chars": 603,
+     "label_hits": {
+      "gevel": 1,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 471,
+      "curves": 1,
+      "total": 479,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 3,
+     "image_area_ratio": 0.063,
+     "chars": 389,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 903,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 85,
+      "curves": 1,
+      "total": 92,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1812,
+     "label_hits": {
+      "gevel": 5,
+      "voorgevel": 4,
+      "achtergevel": 3,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 71,
+      "curves": 5,
+      "total": 79,
+      "non_orthogonal_lines_or_complex_curves": 5
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2211,
+     "label_hits": {
+      "gevel": 5,
+      "voorgevel": 4,
+      "achtergevel": 2,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 46,
+      "curves": 1,
+      "total": 51,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 917,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 561,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 582,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 884,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 12,
+      "curves": 1,
+      "total": 14,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 292,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "a1a84e3333b20d2c0d75bd87c9af6a5c03b0a6d4c01a8e498a9f9486b13d1925",
+   "paths": [
+    "data/raw/alkmaarstraat-1-83/9543_vvem_mop_14-01-2022_Pro VVEBeheer B.V._626720.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-001"
+   ],
+   "page_count": 27,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 27
+   },
+   "pages_with_images_ge_15pct": [],
+   "max_non_orthogonal_per_page": 38,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 2,
+     "image_area_ratio": 0.134,
+     "chars": 162,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 14,
+      "curves": 0,
+      "total": 14,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 694,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 6,
+      "curves": 0,
+      "total": 6,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 2297,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 0,
+      "total": 4,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 3205,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 21,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 638,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 130,
+      "curves": 31,
+      "total": 161,
+      "non_orthogonal_lines_or_complex_curves": 31
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 1367,
+     "label_hits": {
+      "gevel": 8,
+      "kozijn": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 140,
+      "curves": 38,
+      "total": 178,
+      "non_orthogonal_lines_or_complex_curves": 38
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 1665,
+     "label_hits": {
+      "gevel": 4,
+      "kozijn": 2,
+      "raam": 1,
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 70,
+      "curves": 14,
+      "total": 84,
+      "non_orthogonal_lines_or_complex_curves": 14
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 959,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 21,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 994,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 24,
+      "curves": 25,
+      "total": 79,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.121,
+     "chars": 1447,
+     "label_hits": {
+      "gevel": 2,
+      "deur": 5
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 40,
+      "rects": 21,
+      "curves": 33,
+      "total": 94,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.132,
+     "chars": 1986,
+     "label_hits": {
+      "gevel": 2,
+      "deur": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 24,
+      "curves": 25,
+      "total": 79,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.121,
+     "chars": 1410,
+     "label_hits": {
+      "gevel": 1,
+      "kozijn": 3,
+      "raam": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 31,
+      "curves": 17,
+      "total": 68,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 6,
+     "image_area_ratio": 0.135,
+     "chars": 1168,
+     "label_hits": {
+      "gevel": 1,
+      "kozijn": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 27,
+      "curves": 26,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 5,
+     "image_area_ratio": 0.124,
+     "chars": 1500,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 24,
+      "curves": 25,
+      "total": 79,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.121,
+     "chars": 1410,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 40,
+      "rects": 21,
+      "curves": 33,
+      "total": 94,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.128,
+     "chars": 1802,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 27,
+      "curves": 26,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 5,
+     "image_area_ratio": 0.125,
+     "chars": 1621,
+     "label_hits": {
+      "gevel": 2,
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 20,
+      "curves": 17,
+      "total": 57,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 4,
+     "image_area_ratio": 0.092,
+     "chars": 1459,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 11,
+      "rects": 16,
+      "curves": 9,
+      "total": 36,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 3,
+     "image_area_ratio": 0.064,
+     "chars": 509,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 954,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 131,
+      "curves": 14,
+      "total": 145,
+      "non_orthogonal_lines_or_complex_curves": 14
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 2069,
+     "label_hits": {
+      "gevel": 9,
+      "kozijn": 3,
+      "raam": 2,
+      "deur": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 9,
+      "curves": 0,
+      "total": 10,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.014,
+     "chars": 223,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 973,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 101,
+      "curves": 10,
+      "total": 117,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1925,
+     "label_hits": {
+      "gevel": 6,
+      "kozijn": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 101,
+      "curves": 6,
+      "total": 108,
+      "non_orthogonal_lines_or_complex_curves": 6
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2308,
+     "label_hits": {
+      "gevel": 4,
+      "kozijn": 4,
+      "raam": 3,
+      "deur": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 89,
+      "curves": 0,
+      "total": 94,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2236,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 27,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 25,
+      "curves": 0,
+      "total": 26,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 383,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "cd3b67f3981f0cf336ce4bfc6699af57f5f67f3c04675c66c9ee1b08db1e9221",
+   "paths": [
+    "data/raw/jp-heijestraat/2026_Meerjarenonderhoudsplan_VvE 9690.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-002"
+   ],
+   "page_count": 26,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 26
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 24,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.167,
+     "chars": 138,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 789,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 2249,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 3029,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 584,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 113,
+      "curves": 20,
+      "total": 133,
+      "non_orthogonal_lines_or_complex_curves": 20
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1225,
+     "label_hits": {
+      "voorgevel": 12,
+      "achtergevel": 6,
+      "kozijn": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 116,
+      "curves": 22,
+      "total": 138,
+      "non_orthogonal_lines_or_complex_curves": 22
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1213,
+     "label_hits": {
+      "voorgevel": 11,
+      "achtergevel": 3,
+      "kozijn": 5,
+      "raam": 2,
+      "deur": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 113,
+      "curves": 20,
+      "total": 133,
+      "non_orthogonal_lines_or_complex_curves": 20
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1321,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 5,
+      "achtergevel": 8
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 116,
+      "curves": 24,
+      "total": 140,
+      "non_orthogonal_lines_or_complex_curves": 24
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1623,
+     "label_hits": {
+      "voorgevel": 11,
+      "achtergevel": 3,
+      "deur": 5
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 107,
+      "curves": 20,
+      "total": 127,
+      "non_orthogonal_lines_or_complex_curves": 20
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1341,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 4,
+      "achtergevel": 2,
+      "kozijn": 7
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 85,
+      "curves": 11,
+      "total": 96,
+      "non_orthogonal_lines_or_complex_curves": 11
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 743,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 961,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 75,
+      "curves": 0,
+      "total": 78,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1907,
+     "label_hits": {
+      "voorgevel": 10,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 66,
+      "curves": 0,
+      "total": 67,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2003,
+     "label_hits": {
+      "voorgevel": 8,
+      "achtergevel": 5,
+      "kozijn": 15,
+      "raam": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 78,
+      "curves": 0,
+      "total": 81,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1884,
+     "label_hits": {
+      "voorgevel": 5,
+      "achtergevel": 3,
+      "kozijn": 5,
+      "raam": 1,
+      "deur": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 78,
+      "curves": 0,
+      "total": 82,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1871,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 5,
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 78,
+      "curves": 0,
+      "total": 79,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2360,
+     "label_hits": {
+      "voorgevel": 10,
+      "achtergevel": 6,
+      "deur": 6
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 81,
+      "curves": 0,
+      "total": 81,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2400,
+     "label_hits": {
+      "voorgevel": 2,
+      "achtergevel": 5,
+      "kozijn": 6,
+      "deur": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 78,
+      "curves": 0,
+      "total": 81,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2097,
+     "label_hits": {
+      "gevel": 1,
+      "voorgevel": 3,
+      "kozijn": 8
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 8,
+      "rects": 78,
+      "curves": 0,
+      "total": 86,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1562,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 33,
+      "curves": 0,
+      "total": 35,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 656,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 619,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 821,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 344,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 942,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 11,
+      "curves": 0,
+      "total": 12,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 281,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "24c5f3192529861a0561fef382a5f225bbff0ba887a416f97397533c173ec269",
+   "paths": [
+    "data/raw/jp-heijestraat/9690_vvem_mop_v_15-03-2018_Innax_hele_schil_376215.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-004"
+   ],
+   "page_count": 41,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 41
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 44,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 4,
+     "image_area_ratio": 0.177,
+     "chars": 126,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 16,
+      "curves": 0,
+      "total": 16,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 609,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 21,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 960,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 20,
+      "curves": 17,
+      "total": 57,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 3,
+     "image_area_ratio": 0.078,
+     "chars": 885,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 1,
+      "kozijn": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 27,
+      "curves": 26,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 4,
+     "image_area_ratio": 0.106,
+     "chars": 1040,
+     "label_hits": {
+      "gevel": 1,
+      "achtergevel": 2,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 35,
+      "curves": 17,
+      "total": 72,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 6,
+     "image_area_ratio": 0.142,
+     "chars": 849,
+     "label_hits": {
+      "gevel": 1,
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 35,
+      "curves": 17,
+      "total": 72,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 6,
+     "image_area_ratio": 0.142,
+     "chars": 621,
+     "label_hits": {
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 35,
+      "curves": 17,
+      "total": 72,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 6,
+     "image_area_ratio": 0.132,
+     "chars": 872,
+     "label_hits": {
+      "voorgevel": 1,
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 27,
+      "curves": 17,
+      "total": 64,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 4,
+     "image_area_ratio": 0.099,
+     "chars": 746,
+     "label_hits": {
+      "voorgevel": 2,
+      "kozijn": 2,
+      "raam": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 27,
+      "curves": 26,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 4,
+     "image_area_ratio": 0.106,
+     "chars": 1445,
+     "label_hits": {
+      "voorgevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 31,
+      "curves": 17,
+      "total": 68,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.121,
+     "chars": 822,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 20,
+      "curves": 17,
+      "total": 57,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 3,
+     "image_area_ratio": 0.078,
+     "chars": 624,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 11,
+      "rects": 19,
+      "curves": 9,
+      "total": 39,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 2,
+     "image_area_ratio": 0.05,
+     "chars": 486,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 21,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 606,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 133,
+      "curves": 37,
+      "total": 170,
+      "non_orthogonal_lines_or_complex_curves": 37
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1443,
+     "label_hits": {
+      "voorgevel": 17,
+      "achtergevel": 6,
+      "kozijn": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 138,
+      "curves": 39,
+      "total": 177,
+      "non_orthogonal_lines_or_complex_curves": 39
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1362,
+     "label_hits": {
+      "voorgevel": 7,
+      "achtergevel": 5,
+      "kozijn": 6,
+      "raam": 2,
+      "deur": 7
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 138,
+      "curves": 39,
+      "total": 177,
+      "non_orthogonal_lines_or_complex_curves": 39
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1616,
+     "label_hits": {
+      "voorgevel": 10,
+      "achtergevel": 4,
+      "deur": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 143,
+      "curves": 44,
+      "total": 187,
+      "non_orthogonal_lines_or_complex_curves": 44
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1888,
+     "label_hits": {
+      "voorgevel": 9,
+      "achtergevel": 5,
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 136,
+      "curves": 37,
+      "total": 173,
+      "non_orthogonal_lines_or_complex_curves": 37
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1448,
+     "label_hits": {
+      "voorgevel": 6,
+      "achtergevel": 2,
+      "kozijn": 7,
+      "raam": 7
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 65,
+      "curves": 11,
+      "total": 76,
+      "non_orthogonal_lines_or_complex_curves": 11
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 572,
+     "label_hits": {
+      "voorgevel": 2,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 918,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 123,
+      "curves": 0,
+      "total": 123,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1952,
+     "label_hits": {
+      "voorgevel": 7,
+      "achtergevel": 8,
+      "kozijn": 4,
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 595.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 27,
+      "curves": 0,
+      "total": 28,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 380,
+     "label_hits": {
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 938,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 55,
+      "curves": 0,
+      "total": 56,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1196,
+     "label_hits": {
+      "voorgevel": 8
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 60,
+      "curves": 0,
+      "total": 63,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1111,
+     "label_hits": {
+      "voorgevel": 4,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 27,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 56,
+      "curves": 0,
+      "total": 56,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1329,
+     "label_hits": {
+      "voorgevel": 5,
+      "achtergevel": 4,
+      "kozijn": 12
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 28,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 71,
+      "curves": 0,
+      "total": 72,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1345,
+     "label_hits": {
+      "voorgevel": 7,
+      "achtergevel": 4,
+      "kozijn": 5,
+      "raam": 4,
+      "deur": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 29,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 54,
+      "curves": 0,
+      "total": 56,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1134,
+     "label_hits": {
+      "deur": 12
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 30,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 67,
+      "curves": 0,
+      "total": 69,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1310,
+     "label_hits": {
+      "voorgevel": 7,
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 31,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 58,
+      "curves": 0,
+      "total": 60,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1098,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 32,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 62,
+      "curves": 0,
+      "total": 63,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1426,
+     "label_hits": {
+      "voorgevel": 5,
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 33,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 68,
+      "curves": 0,
+      "total": 68,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1531,
+     "label_hits": {
+      "voorgevel": 5,
+      "achtergevel": 7,
+      "deur": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 34,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 68,
+      "curves": 0,
+      "total": 68,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1366,
+     "label_hits": {
+      "voorgevel": 2,
+      "achtergevel": 2,
+      "deur": 5
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 35,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 64,
+      "curves": 0,
+      "total": 64,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1412,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 2,
+      "kozijn": 6,
+      "raam": 6,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 36,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 67,
+      "curves": 0,
+      "total": 68,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1344,
+     "label_hits": {
+      "voorgevel": 2,
+      "kozijn": 8,
+      "raam": 8
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 37,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 57,
+      "curves": 0,
+      "total": 61,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1045,
+     "label_hits": {
+      "voorgevel": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 38,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 67,
+      "curves": 0,
+      "total": 71,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1008,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 39,
+     "width_pt": 842.0,
+     "height_pt": 595.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 45,
+      "curves": 0,
+      "total": 49,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 898,
+     "label_hits": {
+      "voorgevel": 2,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 40,
+     "width_pt": 1684.0,
+     "height_pt": 1191.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 550,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 41,
+     "width_pt": 1684.0,
+     "height_pt": 1191.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 34,
+      "curves": 0,
+      "total": 35,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 0,
+     "image_area_ratio": 0.0,
+     "chars": 1473,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "89cd0b06fa4bf00a36a507043f68c012311c8ffd9c01c60786a824913f9a8ae8",
+   "paths": [
+    "data/raw/maldenhof/2026_Meerjarenonderhoudsplan_VvE 9261 Maldenhof 240-296.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-005"
+   ],
+   "page_count": 15,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 15
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 18,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.223,
+     "chars": 82,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 718,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 3234,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 3142,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 528,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 113,
+      "curves": 18,
+      "total": 131,
+      "non_orthogonal_lines_or_complex_curves": 18
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1226,
+     "label_hits": {
+      "gevel": 7,
+      "voorgevel": 5,
+      "achtergevel": 5,
+      "kozijn": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 109,
+      "curves": 17,
+      "total": 126,
+      "non_orthogonal_lines_or_complex_curves": 17
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1157,
+     "label_hits": {
+      "gevel": 5,
+      "voorgevel": 4,
+      "achtergevel": 1,
+      "kozijn": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 857,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 477,
+      "curves": 1,
+      "total": 485,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 4,
+     "image_area_ratio": 0.066,
+     "chars": 427,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 905,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 81,
+      "curves": 0,
+      "total": 87,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1874,
+     "label_hits": {
+      "gevel": 4,
+      "voorgevel": 4,
+      "achtergevel": 3,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 79,
+      "curves": 1,
+      "total": 83,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2378,
+     "label_hits": {
+      "gevel": 5,
+      "voorgevel": 4,
+      "achtergevel": 2,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 24,
+      "curves": 0,
+      "total": 26,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 360,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 563,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 569,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "b593a3a2e62bcf1566e9286cce4d2bf120f67b3e96bb14edc65ab2e7163acb00",
+   "paths": [
+    "data/raw/maldenhof/9261_vvem_mop_01-03-2023_Pro VVE Beheer B.V._851361.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-006"
+   ],
+   "page_count": 20,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 20
+   },
+   "pages_with_images_ge_15pct": [
+    1,
+    11
+   ],
+   "max_non_orthogonal_per_page": 23,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.228,
+     "chars": 113,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 14,
+      "curves": 0,
+      "total": 14,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 747,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 6,
+      "curves": 0,
+      "total": 6,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 2289,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 0,
+      "total": 4,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 3173,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 21,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 559,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 133,
+      "curves": 23,
+      "total": 156,
+      "non_orthogonal_lines_or_complex_curves": 23
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 1615,
+     "label_hits": {
+      "gevel": 9,
+      "voorgevel": 7,
+      "achtergevel": 6,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 82,
+      "curves": 10,
+      "total": 92,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 795,
+     "label_hits": {
+      "gevel": 3,
+      "voorgevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 21,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 888,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 12,
+      "rects": 934,
+      "curves": 1,
+      "total": 947,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 5,
+     "image_area_ratio": 0.094,
+     "chars": 669,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 12,
+      "rects": 947,
+      "curves": 1,
+      "total": 960,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 6,
+     "image_area_ratio": 0.115,
+     "chars": 728,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 12,
+      "rects": 950,
+      "curves": 2,
+      "total": 964,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 7,
+     "image_area_ratio": 0.155,
+     "chars": 637,
+     "label_hits": {
+      "gevel": 1,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 472,
+      "curves": 1,
+      "total": 480,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 3,
+     "image_area_ratio": 0.063,
+     "chars": 423,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 937,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 86,
+      "curves": 1,
+      "total": 93,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 1846,
+     "label_hits": {
+      "gevel": 5,
+      "voorgevel": 4,
+      "achtergevel": 3,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 72,
+      "curves": 5,
+      "total": 80,
+      "non_orthogonal_lines_or_complex_curves": 5
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 2245,
+     "label_hits": {
+      "gevel": 5,
+      "voorgevel": 4,
+      "achtergevel": 2,
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 47,
+      "curves": 1,
+      "total": 52,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.007,
+     "chars": 951,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 595,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 21,
+      "curves": 0,
+      "total": 22,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 616,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 918,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 13,
+      "curves": 1,
+      "total": 15,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.013,
+     "chars": 326,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "6ee443cf5bc80bb6270698e281d1f2ae1be404346dbdcee3dc56af79a1c7fded",
+   "paths": [
+    "data/raw/mauritstaete/Actualisatie MOP 2023 met bijlage.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-007"
+   ],
+   "page_count": 26,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 26
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 27,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.229,
+     "chars": 63,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 559,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2770,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 4862,
+     "label_hits": {
+      "kozijn": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1715,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 500,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 118,
+      "curves": 0,
+      "total": 118,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1064,
+     "label_hits": {
+      "kozijn": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 117,
+      "curves": 0,
+      "total": 117,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1267,
+     "label_hits": {
+      "gevel": 1,
+      "kozijn": 2,
+      "raam": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 43,
+      "curves": 0,
+      "total": 43,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 391,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 829,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 20,
+      "curves": 0,
+      "total": 40,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 4,
+     "image_area_ratio": 0.095,
+     "chars": 571,
+     "label_hits": {
+      "deur": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 20,
+      "rects": 28,
+      "curves": 0,
+      "total": 48,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.106,
+     "chars": 570,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 21,
+      "rects": 31,
+      "curves": 0,
+      "total": 52,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 6,
+     "image_area_ratio": 0.128,
+     "chars": 691,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 876,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 83,
+      "curves": 2,
+      "total": 90,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 2005,
+     "label_hits": {
+      "kozijn": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 94,
+      "curves": 2,
+      "total": 102,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1794,
+     "label_hits": {
+      "kozijn": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 76,
+      "curves": 1,
+      "total": 78,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 2293,
+     "label_hits": {
+      "kozijn": 5,
+      "raam": 5,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 82,
+      "curves": 1,
+      "total": 87,
+      "non_orthogonal_lines_or_complex_curves": 1
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1847,
+     "label_hits": {
+      "gevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 60,
+      "curves": 0,
+      "total": 66,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1353,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 534,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1066,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 857,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 11,
+      "curves": 0,
+      "total": 12,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 216,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 595.56,
+     "height_pt": 842.04,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 8,
+      "curves": 27,
+      "total": 35,
+      "non_orthogonal_lines_or_complex_curves": 27
+     },
+     "images": 5,
+     "image_area_ratio": 0.036,
+     "chars": 3076,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 10,
+      "total": 14,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 3,
+     "image_area_ratio": 0.028,
+     "chars": 2183,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 4,
+      "curves": 11,
+      "total": 15,
+      "non_orthogonal_lines_or_complex_curves": 10
+     },
+     "images": 3,
+     "image_area_ratio": 0.029,
+     "chars": 2074,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "741ba07755797c2fb2d720193deca6c65ff08ed167f4528ea0224d65d2b2004e",
+   "paths": [
+    "data/raw/st-jacobstraat/Hoofd.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-008"
+   ],
+   "page_count": 15,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 15
+   },
+   "pages_with_images_ge_15pct": [],
+   "max_non_orthogonal_per_page": 4,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 2,
+     "image_area_ratio": 0.136,
+     "chars": 73,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 349,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 510,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 87,
+      "curves": 0,
+      "total": 87,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 842,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 838,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 21,
+      "curves": 0,
+      "total": 51,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 4,
+     "image_area_ratio": 0.103,
+     "chars": 808,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 11,
+      "rects": 24,
+      "curves": 0,
+      "total": 35,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.108,
+     "chars": 491,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 885,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 80,
+      "curves": 4,
+      "total": 88,
+      "non_orthogonal_lines_or_complex_curves": 4
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1884,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 60,
+      "curves": 0,
+      "total": 63,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1579,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 24,
+      "curves": 0,
+      "total": 26,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 678,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 544,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 536,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 867,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 100,
+      "curves": 0,
+      "total": 101,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1530,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "e8f13e275704857d9ab9ff2d873068099fb225eb324dd876a38d1a2e4ffd8782",
+   "paths": [
+    "data/raw/st-jacobstraat/Woningen.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-009"
+   ],
+   "page_count": 30,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 30
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 5,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.229,
+     "chars": 80,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 617,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2329,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 4575,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2979,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 517,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 107,
+      "curves": 0,
+      "total": 107,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1110,
+     "label_hits": {
+      "voorgevel": 2,
+      "achtergevel": 5,
+      "kozijn": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 101,
+      "curves": 0,
+      "total": 101,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1345,
+     "label_hits": {
+      "achtergevel": 6,
+      "kozijn": 2,
+      "raam": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 104,
+      "curves": 0,
+      "total": 104,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 998,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 28,
+      "curves": 0,
+      "total": 28,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 280,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 846,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 28,
+      "curves": 0,
+      "total": 58,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.107,
+     "chars": 910,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 28,
+      "curves": 0,
+      "total": 58,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.114,
+     "chars": 752,
+     "label_hits": {
+      "achtergevel": 4,
+      "kozijn": 2,
+      "raam": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 32,
+      "curves": 0,
+      "total": 62,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 6,
+     "image_area_ratio": 0.136,
+     "chars": 842,
+     "label_hits": {
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 30,
+      "rects": 28,
+      "curves": 0,
+      "total": 58,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 4,
+     "image_area_ratio": 0.095,
+     "chars": 829,
+     "label_hits": {
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 31,
+      "rects": 21,
+      "curves": 0,
+      "total": 52,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 4,
+     "image_area_ratio": 0.102,
+     "chars": 874,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 893,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 18,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 94,
+      "curves": 4,
+      "total": 103,
+      "non_orthogonal_lines_or_complex_curves": 4
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1993,
+     "label_hits": {
+      "voorgevel": 3,
+      "achtergevel": 4,
+      "kozijn": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 19,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 4,
+      "rects": 85,
+      "curves": 4,
+      "total": 93,
+      "non_orthogonal_lines_or_complex_curves": 4
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1924,
+     "label_hits": {
+      "achtergevel": 5,
+      "kozijn": 6
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 20,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 96,
+      "curves": 5,
+      "total": 102,
+      "non_orthogonal_lines_or_complex_curves": 5
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 2218,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 5,
+      "kozijn": 4,
+      "raam": 4,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 21,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 70,
+      "curves": 0,
+      "total": 73,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 2247,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 22,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 81,
+      "curves": 2,
+      "total": 90,
+      "non_orthogonal_lines_or_complex_curves": 2
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1616,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 23,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 50,
+      "curves": 0,
+      "total": 51,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1835,
+     "label_hits": {
+      "voorgevel": 2,
+      "achtergevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 24,
+     "width_pt": 1191.0,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 2,
+      "rects": 24,
+      "curves": 0,
+      "total": 26,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 732,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 25,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 551,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 26,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1117,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 27,
+     "width_pt": 842.0,
+     "height_pt": 595.22,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 288,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 28,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 874,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 29,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 121,
+      "curves": 0,
+      "total": 121,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1857,
+     "label_hits": {
+      "achtergevel": 11,
+      "kozijn": 6,
+      "raam": 2,
+      "deur": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 30,
+     "width_pt": 595.22,
+     "height_pt": 842.0,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 79,
+      "curves": 0,
+      "total": 80,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1289,
+     "label_hits": {
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  },
+  {
+   "sha256": "d102f1f7f0faf8641e9874efab2a3d0516a7add2eb333e6c2f4e60965dc3099a",
+   "paths": [
+    "data/raw/zomerdijkstraat-14/Meerjarenonderhoudsplan 2023_VvE Zomerdijkstraat 14.pdf"
+   ],
+   "registry_document_ids": [
+    "DOC-010"
+   ],
+   "page_count": 17,
+   "looks_like_mjop_report": true,
+   "classification": "MJOP_REPORT_ONLY",
+   "page_classification_counts": {
+    "MJOP_REPORT_ONLY": 17
+   },
+   "pages_with_images_ge_15pct": [
+    1
+   ],
+   "max_non_orthogonal_per_page": 24,
+   "pages": [
+    {
+     "page": 1,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 1,
+      "curves": 0,
+      "total": 1,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 5,
+     "image_area_ratio": 0.203,
+     "chars": 114,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 2,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 13,
+      "curves": 0,
+      "total": 13,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 799,
+     "label_hits": {
+      "voorgevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 3,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 5,
+      "curves": 0,
+      "total": 5,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2224,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 4,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 3,
+      "curves": 0,
+      "total": 3,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 2902,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 5,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 560,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 6,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 129,
+      "curves": 21,
+      "total": 150,
+      "non_orthogonal_lines_or_complex_curves": 21
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1278,
+     "label_hits": {
+      "voorgevel": 3,
+      "achtergevel": 7,
+      "kozijn": 4
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 7,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 137,
+      "curves": 24,
+      "total": 161,
+      "non_orthogonal_lines_or_complex_curves": 24
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 1411,
+     "label_hits": {
+      "voorgevel": 7,
+      "achtergevel": 1
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 8,
+     "width_pt": 595.32,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 76,
+      "curves": 8,
+      "total": 84,
+      "non_orthogonal_lines_or_complex_curves": 8
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 693,
+     "label_hits": {
+      "voorgevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 9,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 936,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 10,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 5,
+      "rects": 81,
+      "curves": 0,
+      "total": 86,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1736,
+     "label_hits": {
+      "voorgevel": 3,
+      "achtergevel": 5,
+      "kozijn": 9
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 11,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 6,
+      "rects": 78,
+      "curves": 0,
+      "total": 84,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1750,
+     "label_hits": {
+      "voorgevel": 1,
+      "achtergevel": 3
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 12,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 78,
+      "curves": 0,
+      "total": 81,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1942,
+     "label_hits": {
+      "voorgevel": 6
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 13,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 7,
+      "rects": 78,
+      "curves": 0,
+      "total": 85,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1701,
+     "label_hits": {
+      "voorgevel": 2
+     },
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 14,
+     "width_pt": 1190.52,
+     "height_pt": 841.92,
+     "vector_primitives": {
+      "lines": 3,
+      "rects": 39,
+      "curves": 0,
+      "total": 42,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.008,
+     "chars": 1234,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 15,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 2,
+      "curves": 0,
+      "total": 2,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 595,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 16,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 0,
+      "rects": 20,
+      "curves": 0,
+      "total": 20,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 860,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    },
+    {
+     "page": 17,
+     "width_pt": 841.92,
+     "height_pt": 595.32,
+     "vector_primitives": {
+      "lines": 1,
+      "rects": 20,
+      "curves": 0,
+      "total": 21,
+      "non_orthogonal_lines_or_complex_curves": 0
+     },
+     "images": 1,
+     "image_area_ratio": 0.017,
+     "chars": 283,
+     "label_hits": {},
+     "strong_drawing_labels": [],
+     "classification": "MJOP_REPORT_ONLY",
+     "reasons": [
+      "tabel-/tekstpagina van een onderhoudsplan"
+     ]
+    }
+   ]
+  }
+ ]
+}

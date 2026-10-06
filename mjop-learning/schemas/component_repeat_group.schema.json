@@ -1,0 +1,135 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "component_repeat_group.schema.json",
+ "title": "ComponentRepeatGroupStore",
+ "description": "Repeat groups over panden (bv. 13 middenpanden). Een groep geldt per componenttype. Alleen status ACTIVE (en dus bruikbaar) na een menselijk USER_CONFIRMED_REPEAT-besluit in decision_ref. Tekening/vision mag uitsluitend een REPEAT_CANDIDATE voorstellen; nooit een automatische '13 panden lijken hetzelfde dus x13'.",
+ "type": "object",
+ "definitions": {
+  "group": {
+   "type": "object",
+   "properties": {
+    "repeat_group_id": {
+     "type": "string",
+     "pattern": "^RG-[A-Za-z0-9._-]+$"
+    },
+    "building_id": {
+     "type": "string",
+     "pattern": "^BAG:[0-9]+(\\+[0-9]+)*$"
+    },
+    "component_type": {
+     "enum": [
+      "EXTERIOR_FRAME",
+      "EXTERIOR_WINDOW",
+      "EXTERIOR_DOOR"
+     ]
+    },
+    "representative_pand_id": {
+     "type": "string",
+     "pattern": "^[0-9]+$"
+    },
+    "applies_to_pand_ids": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string",
+      "pattern": "^[0-9]+$"
+     },
+     "uniqueItems": true
+    },
+    "transformation": {
+     "enum": [
+      "SAME",
+      "MIRRORED"
+     ]
+    },
+    "evidence_refs": {
+     "type": "array",
+     "items": {
+      "type": "object"
+     }
+    },
+    "decision_ref": {
+     "oneOf": [
+      {
+       "type": "null"
+      },
+      {
+       "type": "object",
+       "properties": {
+        "decision_type": {
+         "const": "USER_CONFIRMED_REPEAT"
+        },
+        "decision_id": {
+         "type": "string"
+        },
+        "reviewer": {
+         "type": "object",
+         "properties": {
+          "reviewer_id": {
+           "type": "string",
+           "minLength": 1
+          },
+          "reviewer_type": {
+           "const": "human"
+          }
+         },
+         "required": [
+          "reviewer_id",
+          "reviewer_type"
+         ]
+        },
+        "reviewed_at": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "decision_type",
+        "decision_id",
+        "reviewer",
+        "reviewed_at"
+       ]
+      }
+     ]
+    },
+    "status": {
+     "enum": [
+      "REPEAT_CANDIDATE",
+      "ACTIVE",
+      "REJECTED"
+     ]
+    }
+   },
+   "required": [
+    "repeat_group_id",
+    "building_id",
+    "component_type",
+    "representative_pand_id",
+    "applies_to_pand_ids",
+    "transformation",
+    "evidence_refs",
+    "decision_ref",
+    "status"
+   ],
+   "additionalProperties": false
+  }
+ },
+ "properties": {
+  "store_version": {
+   "const": "component_repeat_group_v1"
+  },
+  "note": {
+   "type": "string"
+  },
+  "groups": {
+   "type": "array",
+   "items": {
+    "$ref": "#/definitions/group"
+   }
+  }
+ },
+ "required": [
+  "store_version",
+  "groups"
+ ],
+ "additionalProperties": false
+}

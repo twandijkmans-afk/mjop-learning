@@ -1,0 +1,28 @@
+{
+ "vocabulary_version": "frame_quantity_concepts_v1",
+ "note": "Zeven APARTE quantity-concepten voor kozijnen. Geen enkele is automatisch gelijk aan een andere (auto_equal_to is overal leeg). 'derivation' zegt onder welke voorwaarden een waarde uit instance-data mag worden afgeleid; FRAME_PAINTING_AREA wordt NOOIT automatisch afgeleid.",
+ "concepts": [
+  {"concept": "FRAME_COUNT", "unit": "count", "component_types": ["EXTERIOR_FRAME"], "auto_equal_to": [], "derivation": "SUM_OF_CONFIRMED_INSTANCE_COUNTS", "auto_derivable": true},
+  {"concept": "WINDOW_COUNT", "unit": "count", "component_types": ["EXTERIOR_WINDOW"], "auto_equal_to": [], "derivation": "SUM_OF_CONFIRMED_INSTANCE_COUNTS", "auto_derivable": true},
+  {"concept": "EXTERIOR_DOOR_COUNT", "unit": "count", "component_types": ["EXTERIOR_DOOR"], "auto_equal_to": [], "derivation": "SUM_OF_CONFIRMED_INSTANCE_COUNTS", "auto_derivable": true},
+  {"concept": "WINDOW_OPENING_AREA", "unit": "m2", "component_types": ["EXTERIOR_FRAME", "EXTERIOR_WINDOW", "EXTERIOR_DOOR"], "auto_equal_to": [], "derivation": "COUNT_X_WIDTH_X_HEIGHT_ONLY_IF_DIMENSION_BASIS_OPENING_AND_COUNT_CONFIRMED", "auto_derivable": true},
+  {"concept": "FRAME_OUTER_AREA", "unit": "m2", "component_types": ["EXTERIOR_FRAME", "EXTERIOR_WINDOW", "EXTERIOR_DOOR"], "auto_equal_to": [], "derivation": "COUNT_X_WIDTH_X_HEIGHT_ONLY_IF_DIMENSION_BASIS_FRAME_OUTER_AND_COUNT_CONFIRMED", "auto_derivable": true},
+  {"concept": "FRAME_PAINTING_AREA", "unit": "m2", "component_types": ["EXTERIOR_FRAME", "EXTERIOR_WINDOW", "EXTERIOR_DOOR"], "auto_equal_to": [], "derivation": "NEVER_AUTOMATIC", "auto_derivable": false},
+  {"concept": "GLASS_AREA", "unit": "m2", "component_types": ["EXTERIOR_WINDOW", "EXTERIOR_DOOR"], "auto_equal_to": [], "derivation": "NEVER_AUTOMATIC", "auto_derivable": false}
+ ],
+ "historical_context_only": {
+  "concept": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+  "note": "Een historisch gerapporteerde m2 (bv. Maldenhof 'Kozijn buiten hout' 756,80 m2) is context en wordt nooit als een van de zeven concepten geinterpreteerd; geen ratio, geen conversiefactor, geen accuracy-claim.",
+  "never_interpreted_as": ["FRAME_COUNT", "WINDOW_COUNT", "EXTERIOR_DOOR_COUNT", "WINDOW_OPENING_AREA", "FRAME_OUTER_AREA", "FRAME_PAINTING_AREA", "GLASS_AREA"]
+ },
+ "legacy_estimate_fallback": {
+  "source": "LEGACY_ESTIMATE_FALLBACK",
+  "app_constant": "KOZ_FACTOREN",
+  "factors": ["1", "0.25", "0.125", "0.125"],
+  "basis": "appartementen x vaste factor (bestaande MJOP-App-schatting; app-code NIET gewijzigd in deze milestone)",
+  "priority": "ONLY_WHEN_NO_CONFIRMED_MANUAL_OR_DRAWING_BASED_FRAME_INVENTORY",
+  "label": "ESTIMATED"
+ },
+ "future_source_priority": ["USER_CONFIRMED_MANUAL", "DRAWING_MEASURED", "USER_ASSISTED_PHOTO", "SOURCE_REPORTED_HISTORICAL", "LEGACY_ESTIMATE_FALLBACK"],
+ "future_source_priority_scope": "Alleen binnen EXACT hetzelfde quantity-subject (zelfde concept, zelfde gebouw/scope). Geen automatische winnaar tussen verschillende subjects."
+}

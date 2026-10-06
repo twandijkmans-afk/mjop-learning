@@ -118,7 +118,7 @@ def section_e(store):
                       "geen meerderheidstem, geen middeling, geen automatische winnaar",
                       "PRESENT/ABSENT vereisen overwogen evidence; menselijke kennis zonder document eerst als MANUAL-evidence",
                       "komt er evidence bij na een besluit, dan wordt de component DECISION_REVIEW_REQUIRED"],
-            "records_in_store": len(store["records"]), "decisions_made_in_this_milestone": 0}
+            "records_in_store": len(store["records"]), "active_decisions_in_store": sum(1 for r in store["records"] if r["status"] == "ACTIVE")}
 
 
 def _entry_rows(inv_building, evidence_by_id):
@@ -369,7 +369,7 @@ def render_md(rep):
           "Geen productiegedrag gewijzigd; geen automatische activatie of verwijdering.", "",
           "## D. Evidence-model", "", f"Schema `{D['contract']}`; id: {D['evidence_id']}.", "", f"- Stilte: {D['silence_rule']}", f"- Ontbrekend: {D['missing_rule']}",
           f"- Historische hoeveelheid: {D['historical_quantity_rule']}", f"- Stand: {D['stats']['records']} records; per assertion {D['stats']['by_assertion']}; per bron {D['stats']['by_source_type']}; per status {D['stats']['by_status']}.", "",
-          "## E. Menselijk besluitmodel", "", f"Schema `{E['contract']}`, store `{E['store']}` ({E['records_in_store']} records; **{E['decisions_made_in_this_milestone']} besluiten in deze milestone**).", ""]
+          "## E. Menselijk besluitmodel", "", f"Schema `{E['contract']}`, store `{E['store']}` ({E['records_in_store']} records; **{E['active_decisions_in_store']} ACTIVE besluiten**; alleen EXTERIOR_FRAME-presence is besloten, zie Frame Inventory Foundation v1).", ""]
     L += [f"- {r}" for r in E["rules"]] + [""]
     L += _building_md("F. Maldenhof — voorgestelde inventaris", rep["F_maldenhof_proposed_inventory"])
     L += _building_md("G. DOC-012 — voorgestelde inventaris", rep["G_doc012_proposed_inventory"])

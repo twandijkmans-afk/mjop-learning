@@ -1,0 +1,115 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "frame_group.schema.json",
+ "title": "FrameGroup",
+ "description": "Groep identieke instances (bv. 8 identieke ramen 1,20 x 1,50) i.p.v. acht records. Eén tekeningsymbool meerdere keren mag alleen als iedere occurrence aantoonbaar hetzelfde type is (occurrence_basis SAME_DRAWING_SYMBOL + occurrence_evidence_refs, één per occurrence). Geen gebouwbrede multiplier (scope BUILDING_WIDE) zonder menselijk besluit.",
+ "type": "object",
+ "properties": {
+  "frame_group_id": {
+   "type": "string",
+   "pattern": "^FG-[A-Za-z0-9._-]+$"
+  },
+  "building_id": {
+   "type": "string",
+   "pattern": "^BAG:[0-9]+(\\+[0-9]+)*$"
+  },
+  "representative_instance": {
+   "$ref": "frame_component_instance.schema.json"
+  },
+  "count": {
+   "type": "integer",
+   "minimum": 2
+  },
+  "applies_to": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object",
+    "properties": {
+     "scope": {
+      "enum": [
+       "PAND",
+       "FACADE",
+       "STOREY",
+       "BUILDING_WIDE"
+      ]
+     },
+     "bag_pand_id": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "facade_side": {
+      "type": [
+       "string",
+       "null"
+      ]
+     },
+     "storey": {}
+    },
+    "required": [
+     "scope"
+    ]
+   }
+  },
+  "occurrence_basis": {
+   "enum": [
+    "SAME_DRAWING_SYMBOL",
+    "USER_CONFIRMED_IDENTICAL",
+    "COUNTED_INDIVIDUALLY"
+   ]
+  },
+  "occurrence_evidence_refs": {
+   "type": "array",
+   "items": {
+    "type": "object"
+   }
+  },
+  "opening_area_m2": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "frame_outer_area_m2": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "source_refs": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object"
+   }
+  },
+  "status": {
+   "enum": [
+    "PROPOSED",
+    "REVIEW_REQUIRED",
+    "CONFIRMED",
+    "USER_OVERRIDDEN"
+   ]
+  },
+  "human_decision_ref": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ },
+ "required": [
+  "frame_group_id",
+  "building_id",
+  "representative_instance",
+  "count",
+  "applies_to",
+  "source_refs",
+  "status"
+ ],
+ "additionalProperties": false
+}

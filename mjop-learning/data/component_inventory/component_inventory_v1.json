@@ -7,7 +7,7 @@
   "quantity_observations": "3be69bd3e6dfa5f4bf31c75227684b56e944b4a9f448f4cf470d36b9f3939bd3",
   "component_types": "60d52f237d5e266c55d9e3c63039ce9520593c1a8f58a55258382e1a9d903a26",
   "presence_rules": "f6c53db41c9715ccc81c299c493c0e444a1806eae927798ece8edbc80c9ed864",
-  "decision_store": "a8240e3da898a2acd1856d3e003dc2ed2469852f02b45821213250bcfe69d1a2"
+  "decision_store": "984a6436bababc42c2ea2777476f6b7e08d699774ec5490c96c724c0efe75757"
  },
  "summary": {
   "buildings": 2,
@@ -22,8 +22,8 @@
    "3D_BAG": 32,
    "MJOP": 32
   },
-  "decisions_in_store": 0,
-  "active_decisions": 0
+  "decisions_in_store": 2,
+  "active_decisions": 2
  },
  "buildings": [
   {
@@ -82,7 +82,55 @@
     "BLINK-00055"
    ],
    "components": {
-    "confirmed": [],
+    "confirmed": [
+     {
+      "component_type": "EXTERIOR_FRAME",
+      "evidence_ids": [
+       "CPE-1887622943b3d8bb",
+       "CPE-747f24497e7b23d4"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-005",
+          "evidence_id": "CPE-1887622943b3d8bb",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         },
+         {
+          "document_id": "DOC-006",
+          "evidence_id": "CPE-747f24497e7b23d4",
+          "source_cluster": "SC-DOC-005+DOC-006"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-1887622943b3d8bb",
+         "CPE-747f24497e7b23d4"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 15,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": "CPD-00001",
+      "notes": [],
+      "state": "CONFIRMED_PRESENT"
+     }
+    ],
     "proposed": [
      {
       "component_type": "BALCONY_RAILING",
@@ -155,53 +203,6 @@
         "evidence_ids": [
          "CPE-41d1a4a52a0654bf",
          "CPE-abee7bed2303ed8a"
-        ]
-       },
-       "ABSENT": {
-        "pand_ids": [],
-        "scope_sources": [],
-        "evidence_ids": []
-       },
-       "UNKNOWN": {
-        "pand_ids": [],
-        "scope_sources": [],
-        "evidence_ids": []
-       }
-      },
-      "pand_coverage": {
-       "scope_pand_count": 15,
-       "present": 0,
-       "absent": 0,
-       "unknown": 0
-      },
-      "human_decision_ref": null,
-      "notes": [],
-      "state": "PROPOSED_PRESENT"
-     },
-     {
-      "component_type": "EXTERIOR_FRAME",
-      "evidence_ids": [
-       "CPE-1887622943b3d8bb",
-       "CPE-747f24497e7b23d4"
-      ],
-      "by_assertion": {
-       "PRESENT": {
-        "pand_ids": [],
-        "scope_sources": [
-         {
-          "document_id": "DOC-005",
-          "evidence_id": "CPE-1887622943b3d8bb",
-          "source_cluster": "SC-DOC-005+DOC-006"
-         },
-         {
-          "document_id": "DOC-006",
-          "evidence_id": "CPE-747f24497e7b23d4",
-          "source_cluster": "SC-DOC-005+DOC-006"
-         }
-        ],
-        "evidence_ids": [
-         "CPE-1887622943b3d8bb",
-         "CPE-747f24497e7b23d4"
         ]
        },
        "ABSENT": {
@@ -1051,8 +1052,8 @@
     "review_required": []
    },
    "counts": {
-    "confirmed": 0,
-    "proposed": 9,
+    "confirmed": 1,
+    "proposed": 8,
     "proposed_absent": 0,
     "absent": 0,
     "unknown": 13,
@@ -1071,7 +1072,48 @@
     "BLINK-00081"
    ],
    "components": {
-    "confirmed": [],
+    "confirmed": [
+     {
+      "component_type": "EXTERIOR_FRAME",
+      "evidence_ids": [
+       "CPE-90e3d60a9a12689c"
+      ],
+      "by_assertion": {
+       "PRESENT": {
+        "pand_ids": [],
+        "scope_sources": [
+         {
+          "document_id": "DOC-012",
+          "evidence_id": "CPE-90e3d60a9a12689c",
+          "source_cluster": "SC-DOC-012"
+         }
+        ],
+        "evidence_ids": [
+         "CPE-90e3d60a9a12689c"
+        ]
+       },
+       "ABSENT": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       },
+       "UNKNOWN": {
+        "pand_ids": [],
+        "scope_sources": [],
+        "evidence_ids": []
+       }
+      },
+      "pand_coverage": {
+       "scope_pand_count": 1,
+       "present": 0,
+       "absent": 0,
+       "unknown": 0
+      },
+      "human_decision_ref": "CPD-00002",
+      "notes": [],
+      "state": "CONFIRMED_PRESENT"
+     }
+    ],
     "proposed": [
      {
       "component_type": "COLLECTIVE_HEATING_INSTALLATION",
@@ -1170,46 +1212,6 @@
         ],
         "evidence_ids": [
          "CPE-839d0d72fb8646ea"
-        ]
-       },
-       "ABSENT": {
-        "pand_ids": [],
-        "scope_sources": [],
-        "evidence_ids": []
-       },
-       "UNKNOWN": {
-        "pand_ids": [],
-        "scope_sources": [],
-        "evidence_ids": []
-       }
-      },
-      "pand_coverage": {
-       "scope_pand_count": 1,
-       "present": 0,
-       "absent": 0,
-       "unknown": 0
-      },
-      "human_decision_ref": null,
-      "notes": [],
-      "state": "PROPOSED_PRESENT"
-     },
-     {
-      "component_type": "EXTERIOR_FRAME",
-      "evidence_ids": [
-       "CPE-90e3d60a9a12689c"
-      ],
-      "by_assertion": {
-       "PRESENT": {
-        "pand_ids": [],
-        "scope_sources": [
-         {
-          "document_id": "DOC-012",
-          "evidence_id": "CPE-90e3d60a9a12689c",
-          "source_cluster": "SC-DOC-012"
-         }
-        ],
-        "evidence_ids": [
-         "CPE-90e3d60a9a12689c"
         ]
        },
        "ABSENT": {
@@ -1873,8 +1875,8 @@
     "review_required": []
    },
    "counts": {
-    "confirmed": 0,
-    "proposed": 9,
+    "confirmed": 1,
+    "proposed": 8,
     "proposed_absent": 1,
     "absent": 0,
     "unknown": 12,

@@ -1,0 +1,242 @@
+{
+ "store_version": "frame_inventory_v1",
+ "note": "Frame Inventory Foundation v1. Geen instances/groepen: er is nog geen tekening-meting of handmatige bevestiging. Presence is een ander concept dan quantity.",
+ "instances": [],
+ "frame_groups": [],
+ "buildings": [
+  {
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "label": "Maldenhof 240-296 (DOC-005 + DOC-006)",
+   "bag_pand_ids": [
+    "0363100012070344",
+    "0363100012071880",
+    "0363100012078022",
+    "0363100012091756",
+    "0363100012091974",
+    "0363100012102659",
+    "0363100012107492",
+    "0363100012121455",
+    "0363100012127361",
+    "0363100012134188",
+    "0363100012137996",
+    "0363100012140664",
+    "0363100012141419",
+    "0363100012143647",
+    "0363100012144766"
+   ],
+   "exterior_frame_presence": {
+    "state": "CONFIRMED_PRESENT",
+    "decision_id": "CPD-00001",
+    "considered_evidence_ids": [
+     "CPE-1887622943b3d8bb",
+     "CPE-747f24497e7b23d4"
+    ],
+    "material_as_reported": "hout"
+   },
+   "quantities": {
+    "FRAME_COUNT": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "count",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "WINDOW_COUNT": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "count",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "EXTERIOR_DOOR_COUNT": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "count",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "WINDOW_OPENING_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "FRAME_OUTER_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "FRAME_PAINTING_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "GLASS_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    }
+   },
+   "historical_reported_quantity_context": [
+    {
+     "document_id": "DOC-005",
+     "quantity_observation_id": "QO-DOC-005-EL-007",
+     "element_description_as_reported": "Kozijn buiten hout",
+     "quantity_value": "756.80",
+     "unit": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "never_interpreted_as": [
+      "FRAME_COUNT",
+      "WINDOW_COUNT",
+      "EXTERIOR_DOOR_COUNT",
+      "WINDOW_OPENING_AREA",
+      "FRAME_OUTER_AREA",
+      "FRAME_PAINTING_AREA",
+      "GLASS_AREA"
+     ]
+    },
+    {
+     "document_id": "DOC-006",
+     "quantity_observation_id": "QO-DOC-006-EL-007",
+     "element_description_as_reported": "Kozijn buiten hout",
+     "quantity_value": "756.80",
+     "unit": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "never_interpreted_as": [
+      "FRAME_COUNT",
+      "WINDOW_COUNT",
+      "EXTERIOR_DOOR_COUNT",
+      "WINDOW_OPENING_AREA",
+      "FRAME_OUTER_AREA",
+      "FRAME_PAINTING_AREA",
+      "GLASS_AREA"
+     ]
+    }
+   ],
+   "legacy_estimate_fallback": {
+    "source": "LEGACY_ESTIMATE_FALLBACK",
+    "applies": true,
+    "reason": "geen confirmed/manual/drawing-based frame inventory beschikbaar; app gebruikt appartementen x KOZ_FACTOREN als zichtbare schatting"
+   },
+   "drawing_source_status": "REAL_WORLD_POC_BLOCKED_NO_DRAWING"
+  },
+  {
+   "building_id": "BAG:0518100000354752",
+   "label": "Meppelweg (DOC-012)",
+   "bag_pand_ids": [
+    "0518100000354752"
+   ],
+   "exterior_frame_presence": {
+    "state": "CONFIRMED_PRESENT",
+    "decision_id": "CPD-00002",
+    "considered_evidence_ids": [
+     "CPE-90e3d60a9a12689c"
+    ],
+    "material_as_reported": "hout"
+   },
+   "quantities": {
+    "FRAME_COUNT": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "count",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "WINDOW_COUNT": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "count",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "EXTERIOR_DOOR_COUNT": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "count",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "WINDOW_OPENING_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "FRAME_OUTER_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "FRAME_PAINTING_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    },
+    "GLASS_AREA": {
+     "status": "UNKNOWN",
+     "value": null,
+     "unit": "m2",
+     "reason": "geen bevestigde instances, geen tekening-meting; presence zegt niets over aantal/oppervlak"
+    }
+   },
+   "historical_reported_quantity_context": [
+    {
+     "document_id": "DOC-012",
+     "quantity_observation_id": "QO-DOC-012-EL-007",
+     "element_description_as_reported": "Kozijn buiten hout",
+     "quantity_value": "1296.59",
+     "unit": "m2",
+     "interpretation": "HISTORICAL_REPORTED_QUANTITY_CONTEXT",
+     "never_interpreted_as": [
+      "FRAME_COUNT",
+      "WINDOW_COUNT",
+      "EXTERIOR_DOOR_COUNT",
+      "WINDOW_OPENING_AREA",
+      "FRAME_OUTER_AREA",
+      "FRAME_PAINTING_AREA",
+      "GLASS_AREA"
+     ]
+    }
+   ],
+   "legacy_estimate_fallback": {
+    "source": "LEGACY_ESTIMATE_FALLBACK",
+    "applies": true,
+    "reason": "geen confirmed/manual/drawing-based frame inventory beschikbaar; app gebruikt appartementen x KOZ_FACTOREN als zichtbare schatting"
+   },
+   "drawing_source_status": "REAL_WORLD_POC_BLOCKED_NO_DRAWING"
+  }
+ ],
+ "policy": {
+  "quantity_concepts": [
+   "FRAME_COUNT",
+   "WINDOW_COUNT",
+   "EXTERIOR_DOOR_COUNT",
+   "WINDOW_OPENING_AREA",
+   "FRAME_OUTER_AREA",
+   "FRAME_PAINTING_AREA",
+   "GLASS_AREA"
+  ],
+  "auto_equal_to": "NONE",
+  "painting_area": "NEVER_AUTOMATIC",
+  "legacy_estimate_fallback": {
+   "source": "LEGACY_ESTIMATE_FALLBACK",
+   "app_constant": "KOZ_FACTOREN",
+   "factors": [
+    "1",
+    "0.25",
+    "0.125",
+    "0.125"
+   ],
+   "basis": "appartementen x vaste factor (bestaande MJOP-App-schatting; app-code NIET gewijzigd in deze milestone)",
+   "priority": "ONLY_WHEN_NO_CONFIRMED_MANUAL_OR_DRAWING_BASED_FRAME_INVENTORY",
+   "label": "ESTIMATED"
+  },
+  "future_source_priority": [
+   "USER_CONFIRMED_MANUAL",
+   "DRAWING_MEASURED",
+   "USER_ASSISTED_PHOTO",
+   "SOURCE_REPORTED_HISTORICAL",
+   "LEGACY_ESTIMATE_FALLBACK"
+  ],
+  "future_source_priority_scope": "Alleen binnen EXACT hetzelfde quantity-subject (zelfde concept, zelfde gebouw/scope). Geen automatische winnaar tussen verschillende subjects."
+ }
+}
