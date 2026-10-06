@@ -7,7 +7,7 @@ Status: **REAL_WORLD_POC_BLOCKED_NO_DRAWING** — er staat geen bruikbare vector
 - RASTER_DRAWING_CANDIDATE pagina's: 0
 - Pagina's met een sterk tekeninglabel (aanzicht/plattegrond/doorsnede/tekening/maatvoering/schaal 1:N): 0
 - Pagina's met >= 30 vector-primitives (vrijwel allemaal tabelrasters/grafieken): 161
-- Niet-PDF tekeningachtige bestanden (dwg/dxf/png/jpg/svg/ifc...): 13 (alleen de review-sheets van de eerdere public-image facade-PoC; foto's, geen tekeningen)
+- Niet-PDF tekeningachtige bestanden (dwg/dxf/png/jpg/svg/ifc...): 14 (alleen de review-sheets van de eerdere public-image facade-PoC; foto's, geen tekeningen)
 - Methode: pdfplumber primitives + tekstlabels; thresholds: sterk label + >= 30 primitives + >= 10 niet-orthogonale lijnen/complexe curves
 - Tools: pdfplumber 0.11.10, pdfminer.six 20260107
 
@@ -37,6 +37,7 @@ Interpretatie: 'voorgevel'/'achtergevel'/'kozijn' staan in elke MJOP als tabelte
 - data/photos/incoming/maldenhof/maldenhof_2.jpg
 - data/photos/incoming/maldenhof/maldenhof_3.jpg
 - reports/frames/photo_review_v1/maldenhof_2_frame_overlay.png
+- reports/frames/photo_review_v2/maldenhof_2_frame_overlay_corrected.png
 - reports/quantity/facade_poc_v2_review_images/round_A_sheet1.jpg
 - reports/quantity/facade_poc_v2_review_images/round_A_sheet2.jpg
 - reports/quantity/facade_poc_v2_review_images/round_A_sheet3.jpg
