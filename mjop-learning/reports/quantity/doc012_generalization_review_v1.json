@@ -2225,6 +2225,26 @@
    "reason": "COMMENT: herkomst van regel F7"
   },
   {
+   "file": "scripts/building_element_inventory_report.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "Maldenhof"
+   ],
+   "lines": [
+    6,
+    174,
+    181,
+    183,
+    184,
+    278,
+    299,
+    304,
+    374
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/building_links.py",
    "classification": "NOT_A_PROBLEM",
    "patterns": [
@@ -2563,6 +2583,26 @@
     21,
     22,
     23
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_building_element_inventory.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    30,
+    225,
+    251,
+    269,
+    274,
+    281,
+    298,
+    323
    ],
    "reason": null
   },

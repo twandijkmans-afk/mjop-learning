@@ -1,0 +1,65 @@
+{
+  "$id": "app_element_requirements_v1",
+  "version": "1.0.0",
+  "description": "Legt vast welke fysieke component(en) een MJOP-App-post (ELEMENT_LIBRARY, src/app.js) nodig heeft en wat voor soort post het is. De app-elementenbibliotheek mengt fysieke bouwdelen, onderhoud/service en ondersteunende kostenposten; daarom is ELEMENT_LIBRARY GEEN bewijs dat 'dit gebouw deze elementen heeft'. Dit bestand verandert GEEN productiegedrag: de app wordt er niet door aangestuurd. Een requirement zegt alleen wanneer een post inhoudelijk relevant KAN zijn, nooit dat hij actief moet worden. Geen automatische activatie, geen verwijdering van standaardposten.",
+  "app_source": {"repo": "twandijkmans-afk/MJOP-App", "ref": "eaeb256897d9a643d0a44ba4d298df33d0d4e211", "file": "src/app.js", "symbol": "ELEMENT_LIBRARY", "snapshot": "reports/quantity/subject_expansion_inputs/mjop_app_element_library_eaeb256.json"},
+  "classifications": {
+    "PHYSICAL_COMPONENT_MAINTENANCE": "Onderhoud/vervanging van een fysiek bouwdeel; relevant als dat bouwdeel aanwezig is.",
+    "COMPONENT_SERVICE": "Service (inspectie, reiniging) op een of meer bouwdelen; relevant als minstens één van de bouwdelen aanwezig is.",
+    "ATTRIBUTE_DEPENDENT_MAINTENANCE": "Onderhoud dat afhangt van een attribuut (materiaal/afwerking) van een aanwezig bouwdeel; aanwezigheid alleen is onvoldoende.",
+    "SUPPORT_SERVICE": "Ondersteunende kostenpost (bijv. steiger/hoogwerker); NIET presence-driven.",
+    "OPTIONAL_IMPROVEMENT": "Verbetering die de gebruiker kiest; wordt NIET geactiveerd door aanwezigheid van een bouwdeel."
+  },
+  "activation_modes": {
+    "PRESENCE_DRIVEN_ALL": "alle 'requires' components moeten aanwezig zijn",
+    "PRESENCE_DRIVEN_ANY": "minstens één van 'requires_any' moet aanwezig zijn",
+    "PRESENCE_AND_ATTRIBUTE": "component aanwezig EN attribuutvoorwaarde (materiaal/afwerking) vastgesteld; presence alleen volstaat niet",
+    "NOT_PRESENCE_DRIVEN": "presence bepaalt niets (support service)",
+    "USER_SELECTED": "alleen via gebruikerskeuze"
+  },
+  "requirements": [
+    {"app_element_key": "dak-plat", "app_label": "Dakbedekking plat dak", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["ROOF_FLAT_COVERING"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "dak-hellend", "app_label": "Dakbedekking hellend dak (pannen)", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["ROOF_SLOPED_COVERING"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "dakinspectie", "app_label": "Dakinspectie en klein onderhoud", "classification": "COMPONENT_SERVICE", "activation_mode": "PRESENCE_DRIVEN_ANY", "requires": [], "requires_any": ["ROOF_FLAT_COVERING", "ROOF_SLOPED_COVERING"], "app_optional": false},
+    {"app_element_key": "dakisolatie", "app_label": "Dakisolatie na-isoleren", "classification": "OPTIONAL_IMPROVEMENT", "activation_mode": "USER_SELECTED", "requires": [], "requires_any": [], "physical_context_any": ["ROOF_FLAT_COVERING", "ROOF_SLOPED_COVERING"], "app_optional": true, "note": "Wordt niet automatisch geactiveerd omdat er een dak is; het te isoleren dakvlak en de bestaande isolatiestatus zijn onbekend. physical_context_any is alleen informatief (een dak is een voorwaarde om het te KUNNEN kiezen)."},
+    {"app_element_key": "dakgoten", "app_label": "Dakgoten en hemelwaterafvoeren", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["RAINWATER_DRAINAGE"], "requires_any": [], "app_optional": false},
+    {"app_element_key": "gevel-metselwerk", "app_label": "Gevelreiniging en metselwerkherstel", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["FACADE_MASONRY"], "requires_any": [], "app_optional": false},
+    {"app_element_key": "schilderwerk-buiten", "app_label": "Schilderwerk buitenkozijnen en gevelhoutwerk", "classification": "ATTRIBUTE_DEPENDENT_MAINTENANCE", "activation_mode": "PRESENCE_AND_ATTRIBUTE", "requires": [], "requires_any": ["EXTERIOR_FRAME", "FACADE_CLADDING"], "required_attributes": [{"attribute": "material_or_finish", "applies_to": ["EXTERIOR_FRAME", "FACADE_CLADDING"], "status": "UNDETERMINED_BY_PRESENCE", "note": "Schilderwerk is zinvol voor geschilderd hout/staal, niet voor aluminium/kunststof of onbehandeld materiaal. 'Gevel aanwezig' volstaat NIET; materiaal/afwerking moet uit bron- of beslisinformatie komen."}], "app_optional": false},
+    {"app_element_key": "kozijnen-onderhoud", "app_label": "Onderhoud buitenkozijnen", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["EXTERIOR_FRAME"], "requires_any": [], "app_optional": false, "legacy_estimate_fallback_id": "LEF-kozijnen-appartementen-factor"},
+    {"app_element_key": "steiger", "app_label": "Steiger of hoogwerker", "classification": "SUPPORT_SERVICE", "activation_mode": "NOT_PRESENCE_DRIVEN", "requires": [], "requires_any": [], "app_optional": false, "note": "Kostenpost die andere werkzaamheden ondersteunt; wordt niet door componentaanwezigheid bepaald."},
+    {"app_element_key": "voegwerk", "app_label": "Voegwerk buitengevel", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["FACADE_MASONRY"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "balkonhekken", "app_label": "Balkonhekken en borstweringen", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["BALCONY_RAILING"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "intercom", "app_label": "Intercom en video-deuropener", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["INTERCOM_INSTALLATION"], "requires_any": [], "app_optional": false},
+    {"app_element_key": "riolering", "app_label": "Riolering en hemelwaterafvoer (inpandig)", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["SEWERAGE_DRAINAGE_INTERNAL"], "requires_any": [], "app_optional": false},
+    {"app_element_key": "elektra", "app_label": "Elektrische installatie gemeenschappelijk", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["COMMON_ELECTRICAL_INSTALLATION"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "verlichting", "app_label": "Verlichting gemeenschappelijke ruimten", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["COMMON_LIGHTING"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "waterleiding", "app_label": "Waterleiding gemeenschappelijk", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["COMMON_WATER_INSTALLATION"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "brandveiligheid", "app_label": "Brandveiligheid (blusmiddelen, vluchtwegverlichting)", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["FIRE_SAFETY_INSTALLATION"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "cv-installatie", "app_label": "Collectieve cv-installatie (ketel)", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["COLLECTIVE_HEATING_INSTALLATION"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "ventilatie", "app_label": "Mechanische ventilatie", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["VENTILATION_INSTALLATION"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "lift", "app_label": "Liftinstallatie — onderhoud en modernisering", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["LIFT_INSTALLATION"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "trappenhuis", "app_label": "Trappenhuis en entree", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["COMMON_STAIRWELL_ENTRANCE"], "requires_any": [], "app_optional": false},
+    {"app_element_key": "vloerafwerking", "app_label": "Vloerafwerking gemeenschappelijke ruimten", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["COMMON_FLOOR_FINISH"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "bestrating", "app_label": "Bestrating en terreininrichting", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["SITE_PAVING"], "requires_any": [], "app_optional": true},
+    {"app_element_key": "fietsenstalling", "app_label": "Fietsenstalling en bergingen", "classification": "PHYSICAL_COMPONENT_MAINTENANCE", "activation_mode": "PRESENCE_DRIVEN_ALL", "requires": ["BICYCLE_STORAGE"], "requires_any": [], "app_optional": true}
+  ],
+  "legacy_estimate_fallbacks": [
+    {
+      "fallback_id": "LEF-kozijnen-appartementen-factor",
+      "classification": "LEGACY_ESTIMATE_FALLBACK",
+      "app_symbol": "KOZ_FACTOREN / KOZ_MINIMA / autoKozijn (MJOP-App src/quantity.js) en KOZ_DEF (src/app.js)",
+      "app_element_key": "kozijnen-onderhoud",
+      "factors": [1, 0.25, 0.125, 0.125],
+      "minima": [1, 0, 1, 0],
+      "types": ["Draaiend raam", "Vast glas", "Deur", "Dakkapel"],
+      "formula": "max(minimum, round(appartementen × vaste factor))",
+      "behaviour_in_this_milestone": "ONGEWIJZIGD: niet verwijderd, niet aangepast, niet geactiveerd of gedeactiveerd.",
+      "allowed_future_use": "Alleen als er GEEN betere component-/instance-evidence is (geen EXTERIOR_FRAME-instance/groep-records met bron en status).",
+      "forbidden_use": ["canonical measured evidence", "bron voor FRAME_COUNT / WINDOW_OPENING_AREA / FRAME_PAINTING_AREA zonder expliciete menselijke beslissing", "stille aanvulling van gemeten of bevestigde aantallen"],
+      "method_class": "ESTIMATED"
+    }
+  ],
+  "other_estimate_based_app_sources": {
+    "note": "Naast de kozijnfactor gebruiken veel app-posten 'units' (aantal appartementen) als prijsbasis (bron 'units'/'none'). Dat zijn eveneens schattingen en geen componentbewijs; zie reports/quantity/quantity_subject_expansion_review_v1.* voor de beoordeling per post. Hier niet gewijzigd."
+  }
+}
