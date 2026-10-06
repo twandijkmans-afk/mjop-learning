@@ -1,0 +1,558 @@
+{
+  "builder_version": "frame_instance_activation_v1.0.0",
+  "photo": {
+    "photo_id": "maldenhof_2",
+    "path": "data/photos/incoming/maldenhof/maldenhof_2.jpg",
+    "sha256": "a316ce71e71e8a3bb02241f686bd3329c3ca4c0a4b53f0d1d59e9e1c4b803a3d",
+    "role": "FIRST_FRAME_ANNOTATION_SOURCE"
+  },
+  "source_annotation": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json (ongewijzigd)",
+  "counting_unit": "Een frame instance is een fysieke kozijn-/gevelopening tussen bouwkundige scheidingen. Meerdere raamvleugels binnen een onafgebroken kozijnopening zijn een instance; twee openingen gescheiden door metselwerk zijn twee instances. Niet iedere glasruit of draaivleugel apart.",
+  "metric_scale": "NONE_PROVEN",
+  "coordinate_system": "bbox_norm = [x1, y1, x2, y2] genormaliseerd 0..1 over de beeldbreedte/-hoogte, oorsprong linksboven. Alleen beeldcoordinaten.",
+  "candidate_decisions": [
+    {
+      "candidate_id": "FC-M2-001",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "PARTIAL",
+      "original_bbox_norm": [
+        0.2765,
+        0.3367,
+        0.375,
+        0.41
+      ],
+      "human_decision_id": "PCD-00001",
+      "human_decision": "SPLIT_REQUIRED",
+      "children": [
+        "FC-M2-001-A",
+        "FC-M2-001-B"
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-002",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.47,
+        0.352,
+        0.4985,
+        0.41
+      ],
+      "human_decision_id": "PCD-00002",
+      "human_decision": "ACCEPT_DISTINCT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-003",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.514,
+        0.3533,
+        0.5975,
+        0.412
+      ],
+      "human_decision_id": "PCD-00003",
+      "human_decision": "ACCEPT_DISTINCT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-004",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.654,
+        0.3567,
+        0.726,
+        0.4133
+      ],
+      "human_decision_id": "PCD-00005",
+      "human_decision": "ACCEPT_DISTINCT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-005",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.7415,
+        0.3567,
+        0.77,
+        0.4133
+      ],
+      "human_decision_id": "PCD-00006",
+      "human_decision": "ACCEPT_DISTINCT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-006",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.859,
+        0.3487,
+        0.975,
+        0.4147
+      ],
+      "human_decision_id": "PCD-00008",
+      "human_decision": "SPLIT_REQUIRED",
+      "children": [
+        "FC-M2-006-A",
+        "FC-M2-006-B",
+        "FC-M2-006-C"
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-007",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.5275,
+        0.472,
+        0.5975,
+        0.5547
+      ],
+      "human_decision_id": "PCD-00009",
+      "human_decision": "ACCEPT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-008",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "PARTIAL",
+      "original_bbox_norm": [
+        0.6725,
+        0.4733,
+        0.7525,
+        0.5547
+      ],
+      "human_decision_id": "PCD-00010",
+      "human_decision": "ACCEPT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-009",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.956,
+        0.608,
+        0.9975,
+        0.6633
+      ],
+      "human_decision_id": "PCD-00011",
+      "human_decision": "ACCEPT_FRAME",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-010",
+      "original_candidate_type": "UNKNOWN_OPENING",
+      "original_visibility": "HEAVILY_OCCLUDED",
+      "original_bbox_norm": [
+        0.464,
+        0.6053,
+        0.506,
+        0.6453
+      ],
+      "human_decision_id": "PCD-00012",
+      "human_decision": "REJECT",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-011",
+      "original_candidate_type": "EXTERIOR_DOOR",
+      "original_visibility": "PARTIAL",
+      "original_bbox_norm": [
+        0.36,
+        0.6033,
+        0.4425,
+        0.7667
+      ],
+      "human_decision_id": "PCD-00013",
+      "human_decision": "ACCEPT_EXTERIOR_DOOR",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-012",
+      "original_candidate_type": "UNKNOWN_OPENING",
+      "original_visibility": "HEAVILY_OCCLUDED",
+      "original_bbox_norm": [
+        0.6065,
+        0.62,
+        0.6225,
+        0.6747
+      ],
+      "human_decision_id": "PCD-00014",
+      "human_decision": "KEEP_UNKNOWN",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-013",
+      "original_candidate_type": "UNKNOWN_OPENING",
+      "original_visibility": "HEAVILY_OCCLUDED",
+      "original_bbox_norm": [
+        0.655,
+        0.6167,
+        0.7575,
+        0.6567
+      ],
+      "human_decision_id": "PCD-00015",
+      "human_decision": "REJECT",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-014",
+      "original_candidate_type": "ROOF_WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.2775,
+        0.2467,
+        0.3125,
+        0.2767
+      ],
+      "human_decision_id": "PCD-00016",
+      "human_decision": "ACCEPT_PHOTO_OBSERVATION",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-015",
+      "original_candidate_type": "ROOF_WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.65,
+        0.2587,
+        0.684,
+        0.288
+      ],
+      "human_decision_id": "PCD-00017",
+      "human_decision": "ACCEPT_PHOTO_OBSERVATION",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-016",
+      "original_candidate_type": "ROOF_WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.8935,
+        0.262,
+        0.93,
+        0.292
+      ],
+      "human_decision_id": "PCD-00018",
+      "human_decision": "ACCEPT_PHOTO_OBSERVATION",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-017",
+      "original_candidate_type": "ROOF_WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.3825,
+        0.488,
+        0.4375,
+        0.5333
+      ],
+      "human_decision_id": "PCD-00019",
+      "human_decision": "ACCEPT_PHOTO_OBSERVATION",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-018",
+      "original_candidate_type": "ROOF_WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.8815,
+        0.4913,
+        0.95,
+        0.54
+      ],
+      "human_decision_id": "PCD-00020",
+      "human_decision": "ACCEPT_PHOTO_OBSERVATION",
+      "children": []
+    },
+    {
+      "candidate_id": "FC-M2-019",
+      "original_candidate_type": "WINDOW",
+      "original_visibility": "FULL",
+      "original_bbox_norm": [
+        0.52,
+        0.2347,
+        0.589,
+        0.2933
+      ],
+      "human_decision_id": "PCD-00021",
+      "human_decision": "ACCEPT_PHOTO_OBSERVATION",
+      "children": []
+    }
+  ],
+  "child_candidates": [
+    {
+      "candidate_id": "FC-M2-001-A",
+      "parent_candidate_id": "FC-M2-001",
+      "split_decision_id": "PCD-00001",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.2765,
+        0.348,
+        0.3275,
+        0.4067
+      ],
+      "storey": "UNKNOWN",
+      "visibility": "PARTIAL",
+      "occlusion_reason": "Lantaarnpaal en boom verbergen het linkerdeel van de linker opening; de linkerrand ligt achter het gebladerte",
+      "bag_address_scope_hint": null,
+      "module_hint": "MOD-M2-A",
+      "note": "Linker kozijnopening; open vleugel rechts naast het kozijn",
+      "bbox_method": "MANUAL_VISUAL_READING_CORRECTION",
+      "bbox_method_note": "Child bbox is een eigen handmatige visuele lezing van maldenhof_2.jpg door Claude (geen automatische detectie, geen foto-AI-model); de parent-bbox is niet overschreven.",
+      "original_parent_bbox_norm": [
+        0.2765,
+        0.3367,
+        0.375,
+        0.41
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-001-B",
+      "parent_candidate_id": "FC-M2-001",
+      "split_decision_id": "PCD-00001",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.345,
+        0.348,
+        0.375,
+        0.4067
+      ],
+      "storey": "UNKNOWN",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "bag_address_scope_hint": null,
+      "module_hint": "MOD-M2-A",
+      "note": "Rechter kozijnopening, gescheiden van de linker door zichtbaar metselwerk (ca. x 655-690)",
+      "bbox_method": "MANUAL_VISUAL_READING_CORRECTION",
+      "bbox_method_note": "Child bbox is een eigen handmatige visuele lezing van maldenhof_2.jpg door Claude (geen automatische detectie, geen foto-AI-model); de parent-bbox is niet overschreven.",
+      "original_parent_bbox_norm": [
+        0.2765,
+        0.3367,
+        0.375,
+        0.41
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-006-A",
+      "parent_candidate_id": "FC-M2-006",
+      "split_decision_id": "PCD-00008",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.859,
+        0.3587,
+        0.889,
+        0.4147
+      ],
+      "storey": "UNKNOWN",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "bag_address_scope_hint": null,
+      "module_hint": "MOD-M2-B",
+      "note": "Smalle linker opening met geopende vleugel",
+      "bbox_method": "MANUAL_VISUAL_READING_CORRECTION",
+      "bbox_method_note": "Child bbox is een eigen handmatige visuele lezing van maldenhof_2.jpg door Claude (geen automatische detectie, geen foto-AI-model); de parent-bbox is niet overschreven.",
+      "original_parent_bbox_norm": [
+        0.859,
+        0.3487,
+        0.975,
+        0.4147
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-006-B",
+      "parent_candidate_id": "FC-M2-006",
+      "split_decision_id": "PCD-00008",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.8915,
+        0.3587,
+        0.946,
+        0.4147
+      ],
+      "storey": "UNKNOWN",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "bag_address_scope_hint": null,
+      "module_hint": "MOD-M2-B",
+      "note": "Grotere middenopening met geopende vleugel links en gordijn",
+      "bbox_method": "MANUAL_VISUAL_READING_CORRECTION",
+      "bbox_method_note": "Child bbox is een eigen handmatige visuele lezing van maldenhof_2.jpg door Claude (geen automatische detectie, geen foto-AI-model); de parent-bbox is niet overschreven.",
+      "original_parent_bbox_norm": [
+        0.859,
+        0.3487,
+        0.975,
+        0.4147
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-006-C",
+      "parent_candidate_id": "FC-M2-006",
+      "split_decision_id": "PCD-00008",
+      "candidate_type": "WINDOW",
+      "bbox_norm": [
+        0.9465,
+        0.3587,
+        0.975,
+        0.4147
+      ],
+      "storey": "UNKNOWN",
+      "visibility": "FULL",
+      "occlusion_reason": null,
+      "bag_address_scope_hint": null,
+      "module_hint": "MOD-M2-B",
+      "note": "Smalle rechter opening met geopende vleugel; de scheiding met de middenopening is op de foto een kozijnstijl (geen zichtbaar metselwerk); gevolgd conform het menselijke besluit",
+      "bbox_method": "MANUAL_VISUAL_READING_CORRECTION",
+      "bbox_method_note": "Child bbox is een eigen handmatige visuele lezing van maldenhof_2.jpg door Claude (geen automatische detectie, geen foto-AI-model); de parent-bbox is niet overschreven.",
+      "original_parent_bbox_norm": [
+        0.859,
+        0.3487,
+        0.975,
+        0.4147
+      ]
+    }
+  ],
+  "duplicate_groups": [
+    {
+      "group_id": "DUP-M2-001",
+      "candidate_ids": [
+        "FC-M2-002",
+        "FC-M2-003"
+      ],
+      "original_status": "DUPLICATE_REVIEW_REQUIRED",
+      "original_question": "Zijn 002 (smalle vleugel) en 003 (hoofdkozijn) hetzelfde fysieke kozijn of twee kozijnen?",
+      "human_resolution": "NOT_DUPLICATES",
+      "human_decision_id": "PCD-00004",
+      "resolution_reason": "FC-M2-002 en FC-M2-003 zijn afzonderlijke kozijnopeningen met een zichtbare gemetselde penant ertussen."
+    },
+    {
+      "group_id": "DUP-M2-002",
+      "candidate_ids": [
+        "FC-M2-004",
+        "FC-M2-005"
+      ],
+      "original_status": "DUPLICATE_REVIEW_REQUIRED",
+      "original_question": "Zijn 004 (kozijn) en 005 (losse vleugel) hetzelfde fysieke kozijn of twee kozijnen?",
+      "human_resolution": "NOT_DUPLICATES",
+      "human_decision_id": "PCD-00007",
+      "resolution_reason": "FC-M2-004 en FC-M2-005 zijn afzonderlijke kozijnopeningen met zichtbaar metselwerk ertussen."
+    }
+  ],
+  "repeat_modules": [
+    {
+      "module_id": "MOD-M2-A",
+      "status": "REPEAT_CANDIDATE",
+      "active": false,
+      "multiplier": null,
+      "user_confirmed_repeat": false,
+      "human_decision": "DO_NOT_ACTIVATE_REPEAT_YET",
+      "human_decision_id": "PCD-00022"
+    },
+    {
+      "module_id": "MOD-M2-B",
+      "status": "REPEAT_CANDIDATE",
+      "active": false,
+      "multiplier": null,
+      "user_confirmed_repeat": false,
+      "human_decision": "DO_NOT_ACTIVATE_REPEAT_YET",
+      "human_decision_id": "PCD-00023"
+    }
+  ],
+  "roof_context_observations": [
+    {
+      "candidate_id": "FC-M2-014",
+      "category": "ROOF_WINDOW",
+      "human_decision_id": "PCD-00016",
+      "bbox_norm": [
+        0.2775,
+        0.2467,
+        0.3125,
+        0.2767
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-015",
+      "category": "ROOF_WINDOW",
+      "human_decision_id": "PCD-00017",
+      "bbox_norm": [
+        0.65,
+        0.2587,
+        0.684,
+        0.288
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-016",
+      "category": "ROOF_WINDOW",
+      "human_decision_id": "PCD-00018",
+      "bbox_norm": [
+        0.8935,
+        0.262,
+        0.93,
+        0.292
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-017",
+      "category": "ROOF_WINDOW",
+      "human_decision_id": "PCD-00019",
+      "bbox_norm": [
+        0.3825,
+        0.488,
+        0.4375,
+        0.5333
+      ]
+    },
+    {
+      "candidate_id": "FC-M2-018",
+      "category": "ROOF_WINDOW",
+      "human_decision_id": "PCD-00020",
+      "bbox_norm": [
+        0.8815,
+        0.4913,
+        0.95,
+        0.54
+      ]
+    }
+  ],
+  "dormer_context_observations": [
+    {
+      "candidate_id": "FC-M2-019",
+      "category": "DORMER_WINDOW",
+      "parent": {
+        "type": "ROOF_DORMER",
+        "ref": "DORMER-M2-001"
+      },
+      "human_decision_id": "PCD-00021",
+      "bbox_norm": [
+        0.52,
+        0.2347,
+        0.589,
+        0.2933
+      ]
+    }
+  ],
+  "rejected_or_unknown": [
+    {
+      "candidate_id": "FC-M2-010",
+      "human_decision": "REJECT",
+      "human_decision_id": "PCD-00012"
+    },
+    {
+      "candidate_id": "FC-M2-012",
+      "human_decision": "KEEP_UNKNOWN",
+      "human_decision_id": "PCD-00014"
+    },
+    {
+      "candidate_id": "FC-M2-013",
+      "human_decision": "REJECT",
+      "human_decision_id": "PCD-00015"
+    }
+  ],
+  "lineage_rule": "parent candidate -> human split decision -> child candidates -> confirmed frame instance; parent-evidence wordt nooit overschreven."
+}
