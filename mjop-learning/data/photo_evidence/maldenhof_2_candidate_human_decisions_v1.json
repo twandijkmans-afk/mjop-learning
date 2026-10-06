@@ -306,6 +306,26 @@
       "reviewed_at": "2026-10-06T13:00:56Z",
       "supersedes": null,
       "status": "ACTIVE"
+    },
+    {
+      "decision_id": "PCD-00024",
+      "target_type": "CHILD_CANDIDATES",
+      "target_id": "FC-M2-006-B+FC-M2-006-C",
+      "decision": "MERGE_AS_SINGLE_FRAME_OPENING",
+      "reason": "De scheiding tussen B en C is een kozijnstijl binnen een onafgebroken kozijnopening en geen bouwkundige scheiding/metselwerk. Volgens de vastgelegde counting unit vormen zij een frame instance.",
+      "parent_candidate": "FC-M2-006",
+      "merge_children": [
+        "FC-M2-006-B",
+        "FC-M2-006-C"
+      ],
+      "merged_child_id": "FC-M2-006-BC",
+      "unchanged_child": "FC-M2-006-A",
+      "supersedes_scope": "PARTIAL: alleen de splitsing in B en C; de afscheiding van FC-M2-006-A blijft uit PCD-00008 gelden",
+      "reviewer_type": "human",
+      "reviewer_id": "user-approved",
+      "reviewed_at": "2026-10-06T13:32:03Z",
+      "supersedes": "PCD-00008",
+      "status": "ACTIVE"
     }
   ]
 }

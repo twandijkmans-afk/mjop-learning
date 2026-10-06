@@ -1,4 +1,4 @@
-"""Maldenhof Frame Candidate Correction + Instance Activation v1.
+"""Maldenhof Frame Candidate Correction + Instance Activation v1, met Counting Semantics Correction v1.
 
 Bouwt, bovenop de ongewijzigde annotatie van PR #33 (data/photo_evidence/maldenhof_2_frame_annotation_v1.json):
 1. een append-only store met de menselijke kandidaat-besluiten (data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json);
@@ -7,6 +7,9 @@ Bouwt, bovenop de ongewijzigde annotatie van PR #33 (data/photo_evidence/maldenh
 3. frame instances (data/frame_inventory/maldenhof_photo_frame_instances_v1.json, apart van frame_inventory_v1.json) voor de
    human-accepted gewone gevelopeningen en de deur, status CONFIRMED, source USER_ASSISTED_PHOTO;
 4. PHOTO_VISIBLE_* counts (geen BUILDING_TOTAL), corrected overlay en rapport onder reports/frames/photo_review_v2/.
+
+Correction v1 (PCD-00024): 006-B en 006-C vormen een onafgebroken kozijnopening (kozijnstijl is geen bouwkundige scheiding); de child candidates en instances
+van B en C blijven als SUPERSEDED bewaard en een nieuwe merged child/instance wordt actief.
 
 Counting unit: een frame instance is een fysieke kozijn-/gevelopening tussen bouwkundige scheidingen (metselwerk); NIET iedere ruit of vleugel.
 Geen maten, geen oppervlakken, geen painting area, geen quantity-resolutie, geen repeat-activatie. Deterministisch en idempotent.
@@ -32,7 +35,8 @@ REPORT = OUT_DIR / "maldenhof_2_frame_instance_activation_v1.md"
 VERSION = "frame_instance_activation_v1.0.0"
 REVIEWER_ID = "user-approved"
 REVIEWED_AT = "2026-10-06T13:00:56Z"
-EXPECTED_ORDINARY_WINDOW_CANDIDATES = 12  # ASSERTION TO VERIFY uit de gecorrigeerde bboxes (stopregel), niet gebruikt om het getal te produceren
+EXPECTED_BASELINE_ORDINARY_WINDOW_CANDIDATES = 12  # v1-basislijn (voor de counting-semantics-correctie); assertion, niet gebruikt om het getal te produceren
+EXPECTED_ORDINARY_WINDOW_CANDIDATES = 11  # na correctie: ASSERTION TO VERIFY uit de actieve gecorrigeerde bboxes (stopregel)
 BASE_W, BASE_H = 2000.0, 1500.0
 
 COUNTING_UNIT = ("Een frame instance is een fysieke kozijn-/gevelopening tussen bouwkundige scheidingen. Meerdere raamvleugels binnen een onafgebroken "
@@ -62,6 +66,11 @@ HUMAN = [
      {"observation_type": "WINDOW", "parent": "ROOF_DORMER", "promote_to_exterior_frame": False}),
     ("REPEAT_MODULE", "MOD-M2-A", "DO_NOT_ACTIVATE_REPEAT_YET", "De modules vertonen overeenkomsten maar verschillen zichtbaar in dakkapel, bovenste gevelrij en begane-grondsituatie; coverage is bovendien onvolledig.", {}),
     ("REPEAT_MODULE", "MOD-M2-B", "DO_NOT_ACTIVATE_REPEAT_YET", "De modules vertonen overeenkomsten maar verschillen zichtbaar in dakkapel, bovenste gevelrij en begane-grondsituatie; coverage is bovendien onvolledig.", {}),
+    ("CHILD_CANDIDATES", "FC-M2-006-B+FC-M2-006-C", "MERGE_AS_SINGLE_FRAME_OPENING",
+     "De scheiding tussen B en C is een kozijnstijl binnen een onafgebroken kozijnopening en geen bouwkundige scheiding/metselwerk. Volgens de vastgelegde counting unit vormen zij een frame instance.",
+     {"parent_candidate": "FC-M2-006", "merge_children": ["FC-M2-006-B", "FC-M2-006-C"], "merged_child_id": "FC-M2-006-BC", "unchanged_child": "FC-M2-006-A",
+      "supersedes": "PCD-00008", "supersedes_scope": "PARTIAL: alleen de splitsing in B en C; de afscheiding van FC-M2-006-A blijft uit PCD-00008 gelden",
+      "reviewed_at": "2026-10-06T13:32:03Z"}),
 ]
 
 # --- gecorrigeerde child candidates (EIGEN handmatige lezing van foto 2 door Claude; bbox in 2000x1500-pixels) ----------------------------
@@ -111,8 +120,10 @@ def apply_decisions(store):
         if (ttype, tid, decision) in have:
             continue
         rec = {"decision_id": f"PCD-{len(store['records']) + 1:05d}", "target_type": ttype, "target_id": tid, "decision": decision, "reason": reason}
-        rec.update(extra)
+        over = {k: extra[k] for k in ("supersedes", "reviewed_at") if k in extra}
+        rec.update({k: v for k, v in extra.items() if k not in over})
         rec.update({"reviewer_type": "human", "reviewer_id": REVIEWER_ID, "reviewed_at": REVIEWED_AT, "supersedes": None, "status": "ACTIVE"})
+        rec.update(over)
         store["records"].append(rec)
     return store
 
@@ -138,7 +149,25 @@ def build_corrected(ann, store):
             "candidate_type": "WINDOW", "bbox_norm": norm(bbox), "storey": p["storey"], "visibility": vis, "occlusion_reason": occ,
             "bag_address_scope_hint": p["bag_address_scope_hint"], "module_hint": p["module_hint"], "note": note,
             "bbox_method": "MANUAL_VISUAL_READING_CORRECTION", "bbox_method_note": CHILD_NOTE,
-            "original_parent_bbox_norm": p["bbox_norm"]})
+            "original_parent_bbox_norm": p["bbox_norm"], "lifecycle": "ACTIVE"})
+    merge = idx.get(("CHILD_CANDIDATES", "FC-M2-006-B+FC-M2-006-C"))
+    if merge:
+        kb, kc = (next(k for k in children if k["candidate_id"] == f"FC-M2-006-{x}") for x in "BC")
+        for k in (kb, kc):
+            k["lifecycle"] = "SUPERSEDED"
+            k["superseded_by"] = merge["merged_child_id"]
+            k["superseded_by_decision_id"] = merge["decision_id"]
+        b1, c1 = kb["bbox_norm"], kc["bbox_norm"]
+        children.append({
+            "candidate_id": merge["merged_child_id"], "parent_candidate_id": "FC-M2-006", "split_decision_id": kb["split_decision_id"],
+            "correction_decision_id": merge["decision_id"], "merged_from": [kb["candidate_id"], kc["candidate_id"]],
+            "candidate_type": "WINDOW", "bbox_norm": [min(b1[0], c1[0]), min(b1[1], c1[1]), max(b1[2], c1[2]), max(b1[3], c1[3])], "storey": kb["storey"],
+            "visibility": "FULL" if kb["visibility"] == kc["visibility"] == "FULL" else "PARTIAL",
+            "occlusion_reason": kb["occlusion_reason"] or kc["occlusion_reason"], "bag_address_scope_hint": kb["bag_address_scope_hint"], "module_hint": kb["module_hint"],
+            "note": "Een onafgebroken kozijnopening: de scheiding tussen de vroegere B en C is een kozijnstijl (mullion) binnen een kozijn, geen bouwkundige scheiding.",
+            "bbox_method": "MERGED_FROM_CHILD_BBOXES", "bbox_method_note": "Omhullende van de bboxes van FC-M2-006-B en FC-M2-006-C (eigen handmatige lezing, geen automatische detectie).",
+            "original_parent_bbox_norm": kb["original_parent_bbox_norm"], "lifecycle": "ACTIVE",
+            "refs": ["FC-M2-006", "FC-M2-006-B", "FC-M2-006-C", kb["split_decision_id"], merge["decision_id"]]})
     entries = []
     for c in ann["candidates"]:
         d = idx[("CANDIDATE", c["candidate_id"])]
@@ -164,13 +193,15 @@ def build_corrected(ann, store):
         "roof_context_observations": roof, "dormer_context_observations": dormer,
         "rejected_or_unknown": [{"candidate_id": e["candidate_id"], "human_decision": e["human_decision"], "human_decision_id": e["human_decision_id"]}
                                 for e in entries if e["human_decision"] in {"REJECT", "KEEP_UNKNOWN"}],
-        "lineage_rule": "parent candidate -> human split decision -> child candidates -> confirmed frame instance; parent-evidence wordt nooit overschreven.",
+        "lineage_rule": ("parent candidate -> human split decision -> child candidates -> (eventuele human correction -> superseded children + merged child) -> confirmed frame instance; "
+                         "parent-evidence en superseded children/besluiten worden nooit overschreven of verwijderd."),
     }
     return doc
 
 
-def ordinary_window_candidates(ann, corrected):
-    """Gewone gevel-window/frame candidates na splits en human review: (id, visibility, bbox, storey, decision_id, parent)."""
+def ordinary_window_candidates(ann, corrected, baseline=False):
+    """Gewone gevel-window/frame candidates na splits en human review. baseline=True: de v1-set (voor de counting-semantics-correctie, zonder merged children);
+    anders de actieve set (superseded children vervangen door merged children)."""
     by_parent = {}
     for k in corrected["child_candidates"]:
         by_parent.setdefault(k["parent_candidate_id"], []).append(k)
@@ -181,6 +212,8 @@ def ordinary_window_candidates(ann, corrected):
         d = dec[cid]
         if d["human_decision"] == "SPLIT_REQUIRED":
             for k in by_parent[cid]:
+                if (baseline and "merged_from" in k) or (not baseline and k["lifecycle"] != "ACTIVE"):
+                    continue
                 out.append({"candidate_id": k["candidate_id"], "origin_candidate_id": cid, "visibility": k["visibility"], "bbox_norm": k["bbox_norm"],
                             "storey": k["storey"], "human_decision_id": d["human_decision_id"], "occlusion_reason": k["occlusion_reason"],
                             "address_hint": k["bag_address_scope_hint"], "module_hint": k["module_hint"], "child": True})
@@ -195,30 +228,47 @@ def geometry_errors(ann, corrected):
     """Controleert splitsing: exact 2 resp. 3 children, binnen de parent, onderling disjunct."""
     errs = []
     parents = {c["candidate_id"]: c for c in ann["candidates"]}
-    for pid, n in (("FC-M2-001", 2), ("FC-M2-006", 3)):
-        kids = [k for k in corrected["child_candidates"] if k["parent_candidate_id"] == pid]
+    for pid, n, n_active in (("FC-M2-001", 2, 2), ("FC-M2-006", 3, 2)):
+        kids = [k for k in corrected["child_candidates"] if k["parent_candidate_id"] == pid and "merged_from" not in k]
         if len(kids) != n:
-            errs.append(f"{pid}: {len(kids)} children, verwacht {n}")
+            errs.append(f"{pid}: {len(kids)} originele children, verwacht {n}")
+        active = [k for k in corrected["child_candidates"] if k["parent_candidate_id"] == pid and k["lifecycle"] == "ACTIVE"]
+        if len(active) != n_active:
+            errs.append(f"{pid}: {len(active)} actieve children, verwacht {n_active}")
         pb = parents[pid]["bbox_norm"]
-        for k in kids:
+        for k in kids + [k for k in active if "merged_from" in k]:
             b = k["bbox_norm"]
             if not (pb[0] <= b[0] < b[2] <= pb[2] and pb[1] <= b[1] < b[3] <= pb[3]):
                 errs.append(f"{k['candidate_id']}: bbox valt buiten parent")
-        for i, a in enumerate(kids):
-            for b in kids[i + 1:]:
-                if not (a["bbox_norm"][2] <= b["bbox_norm"][0] or b["bbox_norm"][2] <= a["bbox_norm"][0]):
-                    errs.append(f"{a['candidate_id']}/{b['candidate_id']}: overlappen")
+        for grp in (kids, active):
+            errs += _overlap_errors(grp)
+        for k in active:
+            for src in k.get("merged_from", []):
+                sb = next(x for x in kids if x["candidate_id"] == src)["bbox_norm"]
+                if not (k["bbox_norm"][0] <= sb[0] and sb[2] <= k["bbox_norm"][2] and k["bbox_norm"][1] <= sb[1] and sb[3] <= k["bbox_norm"][3]):
+                    errs.append(f"{k['candidate_id']}: omvat {src} niet")
+    return errs
+
+
+def _overlap_errors(kids):
+    errs = []
+    for i, a in enumerate(kids):
+        for b in kids[i + 1:]:
+            if not (a["bbox_norm"][2] <= b["bbox_norm"][0] or b["bbox_norm"][2] <= a["bbox_norm"][0]):
+                errs.append(f"{a['candidate_id']}/{b['candidate_id']}: overlappen")
     return errs
 
 
 # --- frame instances ----------------------------------------------------------------------------------------------------------
 def build_instances(ann, corrected, store, inventory):
-    cands = ordinary_window_candidates(ann, corrected)
-    stopped = None
-    if len(cands) != EXPECTED_ORDINARY_WINDOW_CANDIDATES:
-        stopped = {"expected": EXPECTED_ORDINARY_WINDOW_CANDIDATES, "found": len(cands), "candidate_ids": [c["candidate_id"] for c in cands]}
-        raise CountMismatch(stopped)
+    # v1-basislijn: de 12 instances zoals geactiveerd in PR #34 (historie blijft bewaard); daarna de counting-semantics-correctie.
+    cands = ordinary_window_candidates(ann, corrected, baseline=True)
+    if len(cands) != EXPECTED_BASELINE_ORDINARY_WINDOW_CANDIDATES:
+        raise CountMismatch({"expected": EXPECTED_BASELINE_ORDINARY_WINDOW_CANDIDATES, "found": len(cands), "candidate_ids": [c["candidate_id"] for c in cands]})
     assert [c["candidate_id"] for c in cands] == FRAME_ORDER, "volgorde/kandidaten wijken af"
+    active_cands = ordinary_window_candidates(ann, corrected)
+    if len(active_cands) != EXPECTED_ORDINARY_WINDOW_CANDIDATES:
+        raise CountMismatch({"expected": EXPECTED_ORDINARY_WINDOW_CANDIDATES, "found": len(active_cands), "candidate_ids": [c["candidate_id"] for c in active_cands]})
     building = next(b for b in inventory["buildings"] if b["label"].startswith("Maldenhof"))
     cpd = building["exterior_frame_presence"]
     idx = decision_index(store)
@@ -262,13 +312,48 @@ def build_instances(ann, corrected, store, inventory):
     extras[iid] = {"candidate_id": DOOR_CANDIDATE, "origin_candidate_id": DOOR_CANDIDATE, "photo_visibility": "PARTIAL", "bbox_norm": door["bbox_norm"],
                    "address_hint": door["bag_address_scope_hint"], "module_hint": door["module_hint"], "material_basis": "UNKNOWN",
                    "quantity_contributions": {"EXTERIOR_DOOR_COUNT": 1}, "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT"}
+    # --- counting-semantics-correctie: superseded B/C-instances bewaren, merged instance toevoegen -----------------------------------
+    superseded = []
+    merged_kids = [k for k in corrected["child_candidates"] if "merged_from" in k and k["lifecycle"] == "ACTIVE"]
+    for mk in merged_kids:
+        new_id = f"FI-M2-{len(instances) + 1:03d}"
+        old_ids = []
+        for src in mk["merged_from"]:
+            old_id = next(i for i, e in extras.items() if e["candidate_id"] == src)
+            old_ids.append(old_id)
+            rec = next(i for i in instances if i["frame_instance_id"] == old_id)
+            instances.remove(rec)
+            superseded.append({"instance": rec, "annotation": extras.pop(old_id), "lifecycle": "SUPERSEDED", "superseded_by_instance": new_id,
+                               "supersession_decision_id": mk["correction_decision_id"],
+                               "reason": "Kozijnstijl binnen een onafgebroken kozijnopening; geen aparte physical frame instance (counting unit)."})
+        corr = mk["correction_decision_id"]
+        instances.append({
+            "frame_instance_id": new_id, "building_id": building["building_id"], "bag_pand_id": None, "component_type": "EXTERIOR_FRAME", "facade_side": "UNKNOWN",
+            "storey": mk["storey"], "subtype": "UNKNOWN", "material": "WOOD", "count": 1,
+            "source_refs": [{"ref_type": "PHOTO", "photo_id": photo["photo_id"], "photo_sha256": photo["sha256"]},
+                            {"ref_type": "ORIGINAL_CANDIDATE", "candidate_id": mk["parent_candidate_id"], "candidate_file": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json"},
+                            {"ref_type": "HUMAN_DECISION", "decision_id": mk["split_decision_id"], "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"},
+                            {"ref_type": "HUMAN_CORRECTION_DECISION", "decision_id": corr, "store": "data/photo_evidence/maldenhof_2_candidate_human_decisions_v1.json"},
+                            {"ref_type": "CORRECTED_CHILD_CANDIDATE", "candidate_id": mk["candidate_id"], "candidate_file": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json"}]
+                           + [{"ref_type": "SUPERSEDED_CHILD_CANDIDATE", "candidate_id": src} for src in mk["merged_from"]]
+                           + [{"ref_type": "SUPERSEDED_INSTANCE", "frame_instance_id": o} for o in old_ids] + [mat_ref()],
+            "provenance": {"source_type": "USER_ASSISTED_PHOTO", "photo_id": photo["photo_id"], "method": "HUMAN_CONFIRMED_MANUAL_PHOTO_READING"},
+            "status": "CONFIRMED", "human_decision_ref": corr, "repeat_group_id": None, "frame_group_id": None})
+        extras[new_id] = {"candidate_id": mk["candidate_id"], "origin_candidate_id": mk["parent_candidate_id"], "photo_visibility": mk["visibility"],
+                          "bbox_norm": mk["bbox_norm"], "address_hint": mk["bag_address_scope_hint"], "module_hint": mk["module_hint"],
+                          "material_basis": "SOURCE_REPORTED_BUILDING_LEVEL", "quantity_contributions": {"FRAME_COUNT": 1, "WINDOW_COUNT": 1},
+                          "scope": "PHOTO_VISIBLE_CONFIRMED_COUNT", "supersedes_instances": old_ids, "merged_from_candidates": mk["merged_from"]}
+    active_ids = [e["candidate_id"] for e in extras.values() if e["candidate_id"] != DOOR_CANDIDATE]
+    assert sorted(active_ids) == sorted(c["candidate_id"] for c in active_cands), "actieve instances wijken af van actieve kandidaten"
     return {
         "store_version": "maldenhof_photo_frame_instances_v1", "builder_version": VERSION,
         "note": ("Foto-gebaseerde frame instances voor Maldenhof 240-296, apart van data/frame_inventory/frame_inventory_v1.json (dat ongewijzigd blijft). "
+                 "`instances` bevat alleen ACTIEVE instances; vervangen instances staan ongewijzigd in `superseded_instances` (provenance blijft bewaard). "
                  "Een instance is een kozijn-/gevelopening (component_type EXTERIOR_FRAME) en draagt bij aan FRAME_COUNT en WINDOW_COUNT; de deur aan EXTERIOR_DOOR_COUNT. "
                  "Alleen PHOTO_VISIBLE_CONFIRMED_COUNT; geen BUILDING_TOTAL."),
         "counting_unit": COUNTING_UNIT, "building_id": building["building_id"], "instances": instances, "frame_groups": [], "instance_annotations": extras,
-        "photo_visible_counts": photo_counts(instances, extras),
+        "superseded_instances": superseded,
+        "photo_visible_counts": photo_counts(instances, extras, superseded),
         "building_totals": {k: {"status": "UNKNOWN", "value": None} for k in
                             ("FRAME_COUNT", "WINDOW_COUNT", "EXTERIOR_DOOR_COUNT", "WINDOW_OPENING_AREA", "FRAME_OUTER_AREA", "FRAME_PAINTING_AREA", "GLASS_AREA")},
         "policy": {"metric_dimensions": "NONE", "painting_area": "NEVER_AUTOMATIC", "quantity_resolution": "NOT_WRITTEN", "repeat_modules": "NOT_ACTIVE",
@@ -280,7 +365,7 @@ class CountMismatch(Exception):
     pass
 
 
-def photo_counts(instances, extras):
+def photo_counts(instances, extras, superseded=()):
     frames = [i for i in instances if i["component_type"] == "EXTERIOR_FRAME"]
     doors = [i for i in instances if i["component_type"] == "EXTERIOR_DOOR"]
     vis = lambda i: extras[i["frame_instance_id"]]["photo_visibility"]  # noqa: E731
@@ -290,11 +375,12 @@ def photo_counts(instances, extras):
             "PHOTO_VISIBLE_EXTERIOR_DOOR_COUNT": sum(extras[i["frame_instance_id"]]["quantity_contributions"].get("EXTERIOR_DOOR_COUNT", 0) for i in instances),
             "ordinary_frames_FULL": len([i for i in frames if vis(i) == "FULL"]), "ordinary_frames_PARTIAL": len([i for i in frames if vis(i) == "PARTIAL"]),
             "exterior_doors_PARTIAL": len([i for i in doors if vis(i) == "PARTIAL"]),
+            "superseded_instance_ids": [x["instance"]["frame_instance_id"] for x in superseded],
             "excluded": {"ROOF_WINDOW": 5, "DORMER_WINDOW": 1, "REJECTED": 2, "KEEP_UNKNOWN": 1}}
 
 
 def instance_store_errors(doc):
-    errs = fi.store_errors({"instances": doc["instances"], "frame_groups": doc["frame_groups"]})
+    errs = fi.store_errors({"instances": doc["instances"] + [x["instance"] for x in doc.get("superseded_instances", [])], "frame_groups": doc["frame_groups"]})
     for i in doc["instances"]:
         for k in ("width_m", "height_m", "opening_area_m2", "frame_outer_area_m2"):
             if i.get(k) is not None:
@@ -346,7 +432,7 @@ def render_overlay(ann, corrected, inst):
         label(txt, c["bbox_norm"][0] * W, c["bbox_norm"][3] * H + 4, GREY, small)
     # confirmed frames; label-posities (above1/above2/below)
     pos = {"FI-M2-001": "a2", "FI-M2-002": "a1", "FI-M2-003": "b", "FI-M2-004": "a2", "FI-M2-005": "b", "FI-M2-006": "a2", "FI-M2-007": "b",
-           "FI-M2-008": "a2", "FI-M2-009": "b2", "FI-M2-010": "a1", "FI-M2-011": "a1", "FI-M2-012": "a1", "FI-M2-013": "a1"}
+           "FI-M2-008": "a2", "FI-M2-009": "b2", "FI-M2-010": "a1", "FI-M2-011": "a1", "FI-M2-012": "a1", "FI-M2-013": "a1", "FI-M2-014": "a2"}
     for i in inst["instances"]:
         iid = i["frame_instance_id"]
         e = inst["instance_annotations"][iid]
@@ -372,19 +458,30 @@ def render_overlay(ann, corrected, inst):
 
 def render_report(ann, corrected, store, inst):
     pc = inst["photo_visible_counts"]
-    L = ["# Maldenhof Frame Instance Activation v1", "",
+    L = ["# Maldenhof Frame Instance Activation v1 (incl. Counting Semantics Correction v1)", "",
          "Scope: menselijke kandidaat-correctie en activatie van foto-gebaseerde frame instances voor maldenhof_2.jpg. Geen gebouwtotaal, geen maten, geen painting area, "
          "geen quantity-resolutie, geen repeat-activatie, geen MJOP-App wijziging.", "", "## Counting unit", "", COUNTING_UNIT, "",
          "## 1. Human candidate decisions (append-only)", "", "| Decision | Target | Besluit | Reviewer |", "|---|---|---|---|"]
     for r in store["records"]:
         L.append(f"| {r['decision_id']} | {r['target_type']} {r['target_id']} | {r['decision']} | {r['reviewer_type']} ({r['reviewer_id']}), {r['reviewed_at']} |")
     L += ["", "## 2. Corrected child candidates", "",
-          CHILD_NOTE, "", "| Child | Parent | Split decision | Visibility | bbox_norm |", "|---|---|---|---|---|"]
+          CHILD_NOTE, "", "| Child | Parent | Split decision | Visibility | Lifecycle | bbox_norm |", "|---|---|---|---|---|---|"]
     for k in corrected["child_candidates"]:
-        L.append(f"| {k['candidate_id']} | {k['parent_candidate_id']} | {k['split_decision_id']} | {k['visibility']} | {k['bbox_norm']} |")
-    L += ["", "Opmerking bij FC-M2-006-B/C: op de foto is de scheiding tussen middenopening en rechter opening een kozijnstijl en geen zichtbaar metselwerk; "
-          "de splitsing volgt het menselijke besluit. Bij FC-M2-001-B: de rechter opening is zichtbaar en niet door lantaarnpaal of boom afgedekt, daarom FULL; "
+        life = k["lifecycle"] + (f" door {k['superseded_by']} ({k['superseded_by_decision_id']})" if k["lifecycle"] == "SUPERSEDED" else "")
+        L.append(f"| {k['candidate_id']} | {k['parent_candidate_id']} | {k['split_decision_id']} | {k['visibility']} | {life} | {k['bbox_norm']} |")
+    L += ["", "FC-M2-006-B en FC-M2-006-C zijn na de counting-semantics-correctie SUPERSEDED door FC-M2-006-BC (zie sectie 3a); beide blijven met hun oorspronkelijke bbox bewaard. "
+          "Bij FC-M2-001-B: de rechter opening is zichtbaar en niet door lantaarnpaal of boom afgedekt, daarom FULL; "
           "alleen de linker opening is PARTIAL.", "",
+          "## 3a. Counting semantics correction (PCD-00024)", "",
+          "De splitsing van FC-M2-006 in drie openingen (PCD-00008) was te ruim: de scheiding tussen de middenopening (B) en de rechter opening (C) is op de foto een "
+          "kozijnstijl (mullion) binnen een onafgebroken kozijn en geen metselwerk. FC-M2-006-A blijft een afzonderlijke opening; B en C vormen samen een opening.", "",
+          "**Waarom een kozijnstijl geen bouwkundige scheiding is.** Een kozijnstijl is een onderdeel van het kozijn zelf: hij verdeelt een opening in vakken maar maakt geen nieuwe "
+          "opening in de gevel. Een bouwkundige scheiding is metselwerk (een penant) of ander gevelvlak tussen twee openingen. De counting unit telt openingen tussen bouwkundige scheidingen, dus een stijl binnen een kozijn telt niet mee.", "",
+          "| Begrip | Wat het is | Telt als frame instance? |", "|---|---|---|",
+          "| GLAZING / OPERABLE LEAF | glasvlak, draaiende of kierende vleugel binnen een kozijn | Nee: nooit per ruit of vleugel |",
+          "| MULLION (kozijnstijl) | verdeling binnen een onafgebroken kozijnopening | Nee: geen scheiding tussen instances |",
+          "| FRAME OPENING | fysieke kozijn-/gevelopening tussen bouwkundige scheidingen (metselwerk) | Ja: een instance per opening |", "",
+          "PCD-00008 en de oorspronkelijke child candidates en instances zijn niet verwijderd of overschreven; PCD-00024 supersedet PCD-00008 alleen voor de splitsing in B en C.", "",
           "## 3. Duplicate groups", "", "| Groep | Oorspronkelijke status (bewaard) | Menselijke resolutie |", "|---|---|---|"]
     for g in corrected["duplicate_groups"]:
         L.append(f"| {g['group_id']} ({', '.join(g['candidate_ids'])}) | {g['original_status']} | {g['human_resolution']} ({g['human_decision_id']}) |")
@@ -392,6 +489,9 @@ def render_report(ann, corrected, store, inst):
     for i in inst["instances"]:
         e = inst["instance_annotations"][i["frame_instance_id"]]
         L.append(f"| {i['frame_instance_id']} | {e['candidate_id']} | {e['origin_candidate_id']} | {e['photo_visibility']} | {i['material']} ({e['material_basis']}) | {i['human_decision_ref']} |")
+    L += ["", "Vervangen (SUPERSEDED, ongewijzigd bewaard in `superseded_instances`):", "", "| Instance | Kandidaat | Vervangen door | Besluit |", "|---|---|---|---|"]
+    for x in inst["superseded_instances"]:
+        L.append(f"| {x['instance']['frame_instance_id']} | {x['annotation']['candidate_id']} | {x['superseded_by_instance']} | {x['supersession_decision_id']} |")
     L += ["", "Materiaal WOOD op de gewone kozijnen komt uit de historische MJOP-vermelding op gebouwniveau (material_as_reported hout, CPD-00001) en is "
           "niet per kozijn visueel bewezen. De deur heeft materiaal UNKNOWN.", "",
           "## 5. PHOTO_VISIBLE counts (maldenhof_2.jpg, NIET BUILDING_TOTAL)", "", "| Concept | Waarde |", "|---|---|",
@@ -399,8 +499,8 @@ def render_report(ann, corrected, store, inst):
           f"| PHOTO_VISIBLE_EXTERIOR_DOOR_COUNT | {pc['PHOTO_VISIBLE_EXTERIOR_DOOR_COUNT']} |",
           f"| Gewone kozijnen FULL / PARTIAL | {pc['ordinary_frames_FULL']} / {pc['ordinary_frames_PARTIAL']} |",
           f"| Deuren PARTIAL | {pc['exterior_doors_PARTIAL']} |", "",
-          f"De gecorrigeerde bboxes leveren {pc['PHOTO_VISIBLE_FRAME_COUNT']} gewone gevelopeningen op ({EXPECTED_ORDINARY_WINDOW_CANDIDATES} verwacht; "
-          "de stopregel is gecontroleerd en niet geactiveerd). De verdeling FULL/PARTIAL volgt uit de visibility van de bboxes (verwacht ongeveer 9/3).", "",
+          f"De actieve instances leveren {pc['PHOTO_VISIBLE_FRAME_COUNT']} gewone gevelopeningen op ({EXPECTED_ORDINARY_WINDOW_CANDIDATES} verwacht na de correctie; "
+          "de stopregel is gecontroleerd). Voor de correctie waren dat er 12 (FI-M2-001..012). De verdeling FULL/PARTIAL volgt uit de visibility van de actieve instances.", "",
           "Buiten de count: dakramen FC-M2-014..018 (aparte physical/maintenance context), dakkapelraam FC-M2-019 (aparte dakkapelraam-context, niet samengevoegd), "
           "afgewezen FC-M2-010 en FC-M2-013, FC-M2-012 KEEP_UNKNOWN. Geen van deze heeft een instance.", "",
           "## 6. Building totals en quantity-status", "", "FRAME_COUNT, WINDOW_COUNT en EXTERIOR_DOOR_COUNT als BUILDING_TOTAL = UNKNOWN. WINDOW_OPENING_AREA, FRAME_OUTER_AREA, "
