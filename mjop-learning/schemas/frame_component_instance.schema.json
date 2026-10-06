@@ -1,0 +1,185 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "frame_component_instance.schema.json",
+ "title": "FrameComponentInstance",
+ "description": "Één kozijn-/raam-/deur-instance. Frame, window en door zijn aparte component types. Maten alleen met bekende dimension_basis (en bij DRAWING_MEASURED met scale_evidence); opening_area_m2/frame_outer_area_m2 alleen onder de afleidingsregels van scripts/frame_inventory.py (count bevestigd, juiste basis). Er bestaat bewust GEEN painting_area_m2: schilderoppervlak wordt nooit automatisch afgeleid.",
+ "type": "object",
+ "properties": {
+  "frame_instance_id": {
+   "type": "string",
+   "pattern": "^FI-[A-Za-z0-9._-]+$"
+  },
+  "building_id": {
+   "type": "string",
+   "pattern": "^BAG:[0-9]+(\\+[0-9]+)*$"
+  },
+  "bag_pand_id": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+$"
+  },
+  "component_type": {
+   "enum": [
+    "EXTERIOR_FRAME",
+    "EXTERIOR_WINDOW",
+    "EXTERIOR_DOOR"
+   ]
+  },
+  "facade_side": {
+   "enum": [
+    "FRONT",
+    "REAR",
+    "LEFT",
+    "RIGHT",
+    "COURTYARD",
+    "UNKNOWN"
+   ]
+  },
+  "storey": {
+   "oneOf": [
+    {
+     "type": "integer"
+    },
+    {
+     "type": "string",
+     "minLength": 1
+    }
+   ]
+  },
+  "subtype": {
+   "enum": [
+    "FIXED_WINDOW",
+    "TURN_TILT",
+    "CASEMENT",
+    "SLIDING",
+    "EXTERIOR_DOOR",
+    "FRENCH_DOOR",
+    "WINDOW_DOOR_COMBINATION",
+    "OTHER",
+    "UNKNOWN"
+   ]
+  },
+  "material": {
+   "enum": [
+    "WOOD",
+    "PVC",
+    "ALUMINIUM",
+    "STEEL",
+    "OTHER",
+    "UNKNOWN"
+   ]
+  },
+  "count": {
+   "type": "integer",
+   "minimum": 1
+  },
+  "width_m": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "height_m": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "dimension_basis": {
+   "enum": [
+    "OPENING",
+    "FRAME_OUTER",
+    "DRAWING_DIMENSION",
+    "UNKNOWN"
+   ]
+  },
+  "opening_area_m2": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "frame_outer_area_m2": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "scale_evidence": {
+   "type": [
+    "object",
+    "null"
+   ]
+  },
+  "source_refs": {
+   "type": "array",
+   "minItems": 1,
+   "items": {
+    "type": "object"
+   }
+  },
+  "provenance": {
+   "type": "object",
+   "properties": {
+    "source_type": {
+     "enum": [
+      "DRAWING_MEASURED",
+      "USER_ASSISTED_PHOTO",
+      "USER_CONFIRMED_MANUAL",
+      "SOURCE_REPORTED_HISTORICAL"
+     ]
+    }
+   },
+   "required": [
+    "source_type"
+   ]
+  },
+  "status": {
+   "enum": [
+    "PROPOSED",
+    "REVIEW_REQUIRED",
+    "CONFIRMED",
+    "USER_OVERRIDDEN"
+   ]
+  },
+  "human_decision_ref": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "repeat_group_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "frame_group_id": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ },
+ "required": [
+  "frame_instance_id",
+  "building_id",
+  "bag_pand_id",
+  "component_type",
+  "facade_side",
+  "storey",
+  "subtype",
+  "material",
+  "count",
+  "source_refs",
+  "provenance",
+  "status"
+ ],
+ "additionalProperties": false
+}

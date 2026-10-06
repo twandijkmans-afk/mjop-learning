@@ -2225,6 +2225,26 @@
    "reason": "COMMENT: herkomst van regel F7"
   },
   {
+   "file": "scripts/build_frame_inventory.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    24,
+    81,
+    92,
+    113,
+    118,
+    146,
+    157,
+    158
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/building_element_inventory_report.py",
    "classification": "REPORT_ONLY",
    "patterns": [
@@ -2301,12 +2321,12 @@
     4,
     45,
     199,
-    212,
     213,
     214,
-    219,
-    404,
-    503
+    215,
+    220,
+    406,
+    505
    ],
    "reason": null
   },
@@ -2521,6 +2541,21 @@
    "reason": null
   },
   {
+   "file": "scripts/record_frame_presence_decisions.py",
+   "classification": "NOT_A_PROBLEM",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    3,
+    22,
+    29
+   ],
+   "reason": "DOCUMENT_SPECIFIC_DECISION_PACKAGE: legt twee door de gebruiker goedgekeurde EXTERIOR_FRAME-besluiten vast; geen extractie- of quantity-logica"
+  },
+  {
    "file": "scripts/record_relation_decision.py",
    "classification": "NOT_A_PROBLEM",
    "patterns": [
@@ -2597,12 +2632,14 @@
    "lines": [
     30,
     225,
-    251,
-    269,
-    274,
-    281,
-    298,
-    323
+    252,
+    270,
+    275,
+    279,
+    285,
+    302,
+    327,
+    379
    ],
    "reason": null
   },
@@ -2721,6 +2758,20 @@
     84,
     89,
     133
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_frame_inventory_foundation.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    44,
+    130
    ],
    "reason": null
   },
@@ -3019,6 +3070,17 @@
     5,
     101,
     145
+   ],
+   "reason": null
+  },
+  {
+   "file": "vocabularies/frame_quantity_concepts_v1.json",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "Maldenhof"
+   ],
+   "lines": [
+    15
    ],
    "reason": null
   },

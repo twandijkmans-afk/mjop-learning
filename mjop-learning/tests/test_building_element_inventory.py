@@ -227,7 +227,8 @@ def test_no_mjop_evidence_is_ever_absent_and_silent_components_stay_unknown(evid
         e = entry(b, ct)
         assert e["state"] == "UNKNOWN_NO_EVIDENCE" and e["evidence_ids"] == []  # niet gevonden != afwezig
     for b in inventory["buildings"]:
-        assert b["components"]["absent"] == [] and b["components"]["confirmed"] == []
+        # Frame Inventory Foundation v1: alleen EXTERIOR_FRAME is door de gebruiker bevestigd (PRESENT)
+        assert b["components"]["absent"] == [] and [e["component_type"] for e in b["components"]["confirmed"]] == ["EXTERIOR_FRAME"]
 
 
 def test_missing_snapshot_field_gives_unknown_evidence_in_the_builder(built):
@@ -272,8 +273,11 @@ def test_explicit_historical_element_gives_present_evidence_with_material(eviden
         assert e["details"]["material_as_reported"] == "hout"
         assert e["details"]["element_description_as_reported"] == "Kozijn buiten hout"
     mald = building(inventory, "DOC-005")
-    assert entry(mald, "EXTERIOR_FRAME")["state"] == "PROPOSED_PRESENT"
-    assert entry(building(inventory, "DOC-012"), "EXTERIOR_FRAME")["state"] == "PROPOSED_PRESENT"
+    assert entry(mald, "EXTERIOR_FRAME")["state"] == "CONFIRMED_PRESENT"  # menselijk besluit (Frame Inventory Foundation v1)
+    assert entry(building(inventory, "DOC-012"), "EXTERIOR_FRAME")["state"] == "CONFIRMED_PRESENT"
+    bare = bci.build(decisions_store=cp.new_store())["inventory"]  # zonder besluiten blijft het evidence-niveau PROPOSED_PRESENT
+    assert entry(building(bare, "DOC-005"), "EXTERIOR_FRAME")["state"] == "PROPOSED_PRESENT"
+    assert entry(building(bare, "DOC-012"), "EXTERIOR_FRAME")["state"] == "PROPOSED_PRESENT"
 
 
 def test_interior_frames_and_painting_lines_are_not_exterior_frame_presence(evidence):
@@ -372,11 +376,12 @@ def test_builder_is_deterministic_and_committed_outputs_are_current(built):
 
 def test_no_decisions_written_and_inventory_is_only_proposed_or_unknown(inventory):
     store = load(cp.DECISIONS)
-    assert store["records"] == [] and store["append_only"] is True
-    assert inventory["summary"]["decisions_in_store"] == 0 and inventory["summary"]["active_decisions"] == 0
+    # sinds Frame Inventory Foundation v1: precies twee besluiten, alleen EXTERIOR_FRAME = PRESENT (Maldenhof en DOC-012)
+    assert [(r["component_type"], r["decision"]) for r in store["records"]] == [("EXTERIOR_FRAME", "PRESENT")] * 2 and store["append_only"] is True
+    assert inventory["summary"]["decisions_in_store"] == 2 and inventory["summary"]["active_decisions"] == 2
     for b in inventory["buildings"]:
-        assert b["counts"]["confirmed"] == 0 and b["counts"]["absent"] == 0
-        assert all(e["human_decision_ref"] is None for lst in b["components"].values() for e in lst)
+        assert b["counts"]["confirmed"] == 1 and b["counts"]["absent"] == 0
+        assert [e["component_type"] for lst in b["components"].values() for e in lst if e["human_decision_ref"]] == ["EXTERIOR_FRAME"]
     jsonschema.validate(store, load(os.path.join(ROOT, "schemas", "component_presence_decision.schema.json")))
 
 
@@ -396,7 +401,7 @@ def test_human_decision_confirms_component_in_memory_only(built):
     res = bci.build(decisions_store=store)
     e = entry(building(res["inventory"], "DOC-012"), "ROOF_FLAT_COVERING")
     assert (e["state"], e["human_decision_ref"]) == ("CONFIRMED_PRESENT", rec["decision_id"])
-    assert load(cp.DECISIONS)["records"] == []  # canoniek bestand onaangeroerd
+    assert [r["decision_id"] for r in load(cp.DECISIONS)["records"]] == ["CPD-00001", "CPD-00002"]  # canoniek bestand onaangeroerd (geen ROOF_FLAT_COVERING)
 
 
 def test_decision_rules(built):

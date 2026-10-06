@@ -1,0 +1,198 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "frame_inventory.schema.json",
+ "title": "FrameInventoryStore",
+ "description": "Frame Inventory v1: instances, groepen en per gebouw de status van elk van de zeven aparte quantity-concepten. Zonder drawing/handmatige bevestiging is elke quantity UNKNOWN; EXTERIOR_FRAME presence is een menselijk besluit en zegt niets over aantal, oppervlak, afmetingen of schilderoppervlak. De legacy appartementfactor is uitsluitend LEGACY_ESTIMATE_FALLBACK.",
+ "type": "object",
+ "definitions": {
+  "quantity_status": {
+   "type": "object",
+   "properties": {
+    "status": {
+     "enum": [
+      "UNKNOWN",
+      "DERIVED_CONFIRMED"
+     ]
+    },
+    "value": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "unit": {
+     "type": "string"
+    },
+    "reason": {
+     "type": [
+      "string",
+      "null"
+     ]
+    }
+   },
+   "required": [
+    "status",
+    "value",
+    "unit",
+    "reason"
+   ],
+   "additionalProperties": false
+  }
+ },
+ "properties": {
+  "store_version": {
+   "const": "frame_inventory_v1"
+  },
+  "note": {
+   "type": "string"
+  },
+  "instances": {
+   "type": "array",
+   "items": {
+    "$ref": "frame_component_instance.schema.json"
+   }
+  },
+  "frame_groups": {
+   "type": "array",
+   "items": {
+    "$ref": "frame_group.schema.json"
+   }
+  },
+  "buildings": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "properties": {
+     "building_id": {
+      "type": "string"
+     },
+     "label": {
+      "type": "string"
+     },
+     "bag_pand_ids": {
+      "type": "array",
+      "items": {
+       "type": "string"
+      }
+     },
+     "exterior_frame_presence": {
+      "type": "object",
+      "properties": {
+       "state": {
+        "const": "CONFIRMED_PRESENT"
+       },
+       "decision_id": {
+        "type": "string",
+        "pattern": "^CPD-[0-9]{5}$"
+       },
+       "considered_evidence_ids": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "material_as_reported": {
+        "type": [
+         "string",
+         "null"
+        ]
+       }
+      },
+      "required": [
+       "state",
+       "decision_id",
+       "considered_evidence_ids",
+       "material_as_reported"
+      ],
+      "additionalProperties": false
+     },
+     "quantities": {
+      "type": "object",
+      "properties": {
+       "FRAME_COUNT": {
+        "$ref": "#/definitions/quantity_status"
+       },
+       "WINDOW_COUNT": {
+        "$ref": "#/definitions/quantity_status"
+       },
+       "EXTERIOR_DOOR_COUNT": {
+        "$ref": "#/definitions/quantity_status"
+       },
+       "WINDOW_OPENING_AREA": {
+        "$ref": "#/definitions/quantity_status"
+       },
+       "FRAME_OUTER_AREA": {
+        "$ref": "#/definitions/quantity_status"
+       },
+       "FRAME_PAINTING_AREA": {
+        "$ref": "#/definitions/quantity_status"
+       },
+       "GLASS_AREA": {
+        "$ref": "#/definitions/quantity_status"
+       }
+      },
+      "required": [
+       "FRAME_COUNT",
+       "WINDOW_COUNT",
+       "EXTERIOR_DOOR_COUNT",
+       "WINDOW_OPENING_AREA",
+       "FRAME_OUTER_AREA",
+       "FRAME_PAINTING_AREA",
+       "GLASS_AREA"
+      ],
+      "additionalProperties": false
+     },
+     "historical_reported_quantity_context": {
+      "type": "array",
+      "items": {
+       "type": "object"
+      }
+     },
+     "legacy_estimate_fallback": {
+      "type": "object",
+      "properties": {
+       "source": {
+        "const": "LEGACY_ESTIMATE_FALLBACK"
+       },
+       "applies": {
+        "type": "boolean"
+       },
+       "reason": {
+        "type": "string"
+       }
+      },
+      "required": [
+       "source",
+       "applies",
+       "reason"
+      ],
+      "additionalProperties": false
+     },
+     "drawing_source_status": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "building_id",
+     "exterior_frame_presence",
+     "quantities",
+     "historical_reported_quantity_context",
+     "legacy_estimate_fallback",
+     "drawing_source_status"
+    ],
+    "additionalProperties": false
+   }
+  },
+  "policy": {
+   "type": "object"
+  }
+ },
+ "required": [
+  "store_version",
+  "instances",
+  "frame_groups",
+  "buildings",
+  "policy"
+ ],
+ "additionalProperties": false
+}

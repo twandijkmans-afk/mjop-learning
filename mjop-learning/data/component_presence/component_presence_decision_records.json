@@ -2,5 +2,45 @@
  "store_version": "component_presence_decision_v1",
  "append_only": true,
  "description": "Menselijke besluiten over componentaanwezigheid (scripts/component_presence.py). Append-only; per (building_id, bag_pand_id, component_type) hoogstens één ACTIVE record. Bewust LEEG in Building Element Inventory Foundation v1: er zijn nog geen besluiten genomen.",
- "records": []
+ "records": [
+  {
+   "decision_id": "CPD-00001",
+   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
+   "bag_pand_id": null,
+   "component_type": "EXTERIOR_FRAME",
+   "decision": "PRESENT",
+   "decision_reason": "Het historische MJOP noemt expliciet 'Kozijn buiten hout'. Dit is voldoende bewijs dat buitenkozijnen aanwezig zijn. Dit besluit zegt niets over aantal, oppervlak, afmetingen, ramen/deuren of schilderoppervlak.",
+   "considered_evidence_ids": [
+    "CPE-1887622943b3d8bb",
+    "CPE-747f24497e7b23d4"
+   ],
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-06T08:01:12Z",
+   "rule_version": "component_presence_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  },
+  {
+   "decision_id": "CPD-00002",
+   "building_id": "BAG:0518100000354752",
+   "bag_pand_id": null,
+   "component_type": "EXTERIOR_FRAME",
+   "decision": "PRESENT",
+   "decision_reason": "Het historische MJOP noemt expliciet 'Kozijn buiten hout'. Dit is voldoende bewijs dat buitenkozijnen aanwezig zijn. Dit besluit zegt niets over aantal, oppervlak, afmetingen, ramen/deuren of schilderoppervlak.",
+   "considered_evidence_ids": [
+    "CPE-90e3d60a9a12689c"
+   ],
+   "reviewer": {
+    "reviewer_id": "user-approved",
+    "reviewer_type": "human"
+   },
+   "reviewed_at": "2026-10-06T08:01:12Z",
+   "rule_version": "component_presence_rules_v1",
+   "supersedes": null,
+   "status": "ACTIVE"
+  }
+ ]
 }

@@ -83,7 +83,7 @@ Schema `schemas/component_presence_evidence.schema.json`; id: CPE-<sha256(canoni
 
 ## E. Menselijk besluitmodel
 
-Schema `schemas/component_presence_decision.schema.json`, store `data/component_presence/component_presence_decision_records.json` (0 records; **0 besluiten in deze milestone**).
+Schema `schemas/component_presence_decision.schema.json`, store `data/component_presence/component_presence_decision_records.json` (2 records; **2 ACTIVE besluiten**; alleen EXTERIOR_FRAME-presence is besloten, zie Frame Inventory Foundation v1).
 
 - append-only (alleen status ACTIVE -> SUPERSEDED / REVIEW_REQUIRED)
 - per sleutel hoogstens één ACTIVE record
@@ -95,13 +95,13 @@ Schema `schemas/component_presence_decision.schema.json`, store `data/component_
 
 Gebouwscope `BAG:0363100012070344+0363100012071880+0363100012078022+03631…` · documenten DOC-005, DOC-006 · 15 bevestigd(e) pand(en). Geen menselijk besluit: alles is PROPOSED of unknown.
 
-Telling: confirmed 0, proposed 9, proposed_absent 0, absent 0, unknown 13, review_required 0.
+Telling: confirmed 1, proposed 8, proposed_absent 0, absent 0, unknown 13, review_required 0.
 
 | component | staat | 3D BAG per pand | MJOP-documenten | materiaal (zoals gerapporteerd) | review-evidence |
 |---|---|---|---|---|---|
+| EXTERIOR_FRAME | CONFIRMED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | hout | 1 |
 | BALCONY_RAILING | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | staal | 0 |
 | COMMON_LIGHTING | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | — | 2 |
-| EXTERIOR_FRAME | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | hout | 1 |
 | FACADE_CLADDING | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | hout | 0 |
 | FACADE_MASONRY | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | metselwerk | 0 |
 | RAINWATER_DRAINAGE | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-005, DOC-006 | pvc, staal, zink | 0 |
@@ -115,14 +115,14 @@ Unknown (geen enkel bewijs; stilte is geen afwezigheid): BICYCLE_STORAGE, COLLEC
 
 Gebouwscope `BAG:0518100000354752` · documenten DOC-012 · 1 bevestigd(e) pand(en). Geen menselijk besluit: alles is PROPOSED of unknown.
 
-Telling: confirmed 0, proposed 9, proposed_absent 1, absent 0, unknown 12, review_required 0.
+Telling: confirmed 1, proposed 8, proposed_absent 1, absent 0, unknown 12, review_required 0.
 
 | component | staat | 3D BAG per pand | MJOP-documenten | materiaal (zoals gerapporteerd) | review-evidence |
 |---|---|---|---|---|---|
+| EXTERIOR_FRAME | CONFIRMED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | hout | 0 |
 | COLLECTIVE_HEATING_INSTALLATION | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | — | 0 |
 | COMMON_LIGHTING | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | — | 1 |
 | COMMON_WATER_INSTALLATION | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | — | 1 |
-| EXTERIOR_FRAME | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | hout | 0 |
 | FACADE_MASONRY | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | metselwerk | 0 |
 | LIFT_INSTALLATION | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | — | 0 |
 | RAINWATER_DRAINAGE | PROPOSED_PRESENT | scope-brede bron (geen 3D BAG-regel) | DOC-012 | — | 0 |
@@ -233,32 +233,30 @@ Kandidaat-groepen uit Facade PoC v2 (geen besluit): END_OF_ROW_1_ADDR (1), END_O
 |---|---|---|---|---|
 | 1 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): BALCONY_RAILING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
 | 2 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): COMMON_LIGHTING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 3 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): EXTERIOR_FRAME bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 4 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): FACADE_CLADDING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 5 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): FACADE_MASONRY bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 6 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): RAINWATER_DRAINAGE bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 7 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): ROOF_FLAT_COVERING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 8 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): ROOF_SLOPED_COVERING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 9 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): SITE_PAVING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 10 | PRESENCE_DECISION | DOC-012 (1 pand): COLLECTIVE_HEATING_INSTALLATION bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 11 | PRESENCE_DECISION | DOC-012 (1 pand): COMMON_LIGHTING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 12 | PRESENCE_DECISION | DOC-012 (1 pand): COMMON_WATER_INSTALLATION bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 13 | PRESENCE_DECISION | DOC-012 (1 pand): EXTERIOR_FRAME bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 14 | PRESENCE_DECISION | DOC-012 (1 pand): FACADE_MASONRY bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 15 | PRESENCE_DECISION | DOC-012 (1 pand): LIFT_INSTALLATION bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 16 | PRESENCE_DECISION | DOC-012 (1 pand): RAINWATER_DRAINAGE bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 17 | PRESENCE_DECISION | DOC-012 (1 pand): ROOF_FLAT_COVERING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 18 | PRESENCE_DECISION | DOC-012 (1 pand): SITE_PAVING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
-| 19 | ABSENCE_DECISION | DOC-012 (1 pand): ROOF_SLOPED_COVERING afwezig verklaren op basis van een expliciete 3D BAG-nulwaarde? | ABSENT / UNKNOWN | UNKNOWN (3D BAG-geometrie is geen universeel bewijs; liefst bevestigen met foto/tekening) |
-| 20 | RULE_APPROVAL | Zijn de presence-regels met inferentie acceptabel (hpr.common_lighting.armaturen, hpr.common_water.hydrofoor, hpr.roof_flat_covering.app_no_location)? | ACCEPT / REJECT / RESTRICT_TO_EXPLICIT | ACCEPT als REVIEW_REQUIRED-evidence |
-| 21 | SEMANTIC_MAPPING | Is 'Deurbelinstallatie' (6411, DOC-012) een INTERCOM_INSTALLATION? | YES / NO / ADD_COMPONENT_TYPE_DOORBELL | NO |
-| 22 | SEMANTIC_MAPPING | Welk bouwdeel is 'Standleidingen' (5240, DOC-012): binnenriolering of waterleiding? | SEWERAGE_DRAINAGE_INTERNAL / COMMON_WATER_INSTALLATION / NEITHER | geen mapping zonder bron |
-| 23 | ATTRIBUTE_RULE | Welke kozijn-/gevelmaterialen maken 'schilderwerk-buiten' relevant? | WOOD / WOOD+STEEL / ALL_PAINTED_ONLY | WOOD+STEEL, alleen met materiaalbewijs |
-| 24 | FRAME_MODEL | Instance-model voor kozijnen goedkeuren (granulariteit: pand x gevel x verdieping x subtype)? | APPROVE / COARSER / FINER | APPROVE |
-| 25 | FRAME_QUANTITIES | FRAME_COUNT, WINDOW_OPENING_AREA en FRAME_PAINTING_AREA als drie aparte quantity-onderwerpen vastleggen? | YES / NO | YES |
-| 26 | REPEAT_POLICY | Repeat groups alleen na expliciete bevestiging per componenttype en per pand? | YES / NO | YES |
-| 27 | LEGACY_FALLBACK | Legacy kozijnfactor mag later alleen als zichtbare ESTIMATED-fallback zonder component-/instance-evidence? | YES / NO / REMOVE_LATER | YES |
-| 28 | DRAWING_SOURCE | Welke vectortekening(en) gebruiken we voor de Vector Drawing Reader PoC (Maldenhof en/of Meppelweg)? | MALDENHOF / MEPPELWEG / BOTH | één gebouw eerst |
+| 3 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): FACADE_CLADDING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 4 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): FACADE_MASONRY bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 5 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): RAINWATER_DRAINAGE bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 6 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): ROOF_FLAT_COVERING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 7 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): ROOF_SLOPED_COVERING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 8 | PRESENCE_DECISION | DOC-005+DOC-006 (15 panden): SITE_PAVING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 9 | PRESENCE_DECISION | DOC-012 (1 pand): COLLECTIVE_HEATING_INSTALLATION bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 10 | PRESENCE_DECISION | DOC-012 (1 pand): COMMON_LIGHTING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 11 | PRESENCE_DECISION | DOC-012 (1 pand): COMMON_WATER_INSTALLATION bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 12 | PRESENCE_DECISION | DOC-012 (1 pand): FACADE_MASONRY bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 13 | PRESENCE_DECISION | DOC-012 (1 pand): LIFT_INSTALLATION bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 14 | PRESENCE_DECISION | DOC-012 (1 pand): RAINWATER_DRAINAGE bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 15 | PRESENCE_DECISION | DOC-012 (1 pand): ROOF_FLAT_COVERING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 16 | PRESENCE_DECISION | DOC-012 (1 pand): SITE_PAVING bevestigen als aanwezig? | PRESENT / UNKNOWN | PRESENT |
+| 17 | ABSENCE_DECISION | DOC-012 (1 pand): ROOF_SLOPED_COVERING afwezig verklaren op basis van een expliciete 3D BAG-nulwaarde? | ABSENT / UNKNOWN | UNKNOWN (3D BAG-geometrie is geen universeel bewijs; liefst bevestigen met foto/tekening) |
+| 18 | RULE_APPROVAL | Zijn de presence-regels met inferentie acceptabel (hpr.common_lighting.armaturen, hpr.common_water.hydrofoor, hpr.roof_flat_covering.app_no_location)? | ACCEPT / REJECT / RESTRICT_TO_EXPLICIT | ACCEPT als REVIEW_REQUIRED-evidence |
+| 19 | SEMANTIC_MAPPING | Is 'Deurbelinstallatie' (6411, DOC-012) een INTERCOM_INSTALLATION? | YES / NO / ADD_COMPONENT_TYPE_DOORBELL | NO |
+| 20 | SEMANTIC_MAPPING | Welk bouwdeel is 'Standleidingen' (5240, DOC-012): binnenriolering of waterleiding? | SEWERAGE_DRAINAGE_INTERNAL / COMMON_WATER_INSTALLATION / NEITHER | geen mapping zonder bron |
+| 21 | ATTRIBUTE_RULE | Welke kozijn-/gevelmaterialen maken 'schilderwerk-buiten' relevant? | WOOD / WOOD+STEEL / ALL_PAINTED_ONLY | WOOD+STEEL, alleen met materiaalbewijs |
+| 22 | FRAME_MODEL | Instance-model voor kozijnen goedkeuren (granulariteit: pand x gevel x verdieping x subtype)? | APPROVE / COARSER / FINER | APPROVE |
+| 23 | FRAME_QUANTITIES | FRAME_COUNT, WINDOW_OPENING_AREA en FRAME_PAINTING_AREA als drie aparte quantity-onderwerpen vastleggen? | YES / NO | YES |
+| 24 | REPEAT_POLICY | Repeat groups alleen na expliciete bevestiging per componenttype en per pand? | YES / NO | YES |
+| 25 | LEGACY_FALLBACK | Legacy kozijnfactor mag later alleen als zichtbare ESTIMATED-fallback zonder component-/instance-evidence? | YES / NO / REMOVE_LATER | YES |
+| 26 | DRAWING_SOURCE | Welke vectortekening(en) gebruiken we voor de Vector Drawing Reader PoC (Maldenhof en/of Meppelweg)? | MALDENHOF / MEPPELWEG / BOTH | één gebouw eerst |
 
 ## Ongewijzigd
 

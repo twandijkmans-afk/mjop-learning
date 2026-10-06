@@ -1245,8 +1245,8 @@
    "PRESENT/ABSENT vereisen overwogen evidence; menselijke kennis zonder document eerst als MANUAL-evidence",
    "komt er evidence bij na een besluit, dan wordt de component DECISION_REVIEW_REQUIRED"
   ],
-  "records_in_store": 0,
-  "decisions_made_in_this_milestone": 0
+  "records_in_store": 2,
+  "active_decisions_in_store": 2
  },
  "F_maldenhof_proposed_inventory": {
   "building_id": "BAG:0363100012070344+0363100012071880+0363100012078022+0363100012091756+0363100012091974+0363100012102659+0363100012107492+0363100012121455+0363100012127361+0363100012134188+0363100012137996+0363100012140664+0363100012141419+0363100012143647+0363100012144766",
@@ -1256,14 +1256,38 @@
   ],
   "pand_count": 15,
   "counts": {
-   "confirmed": 0,
-   "proposed": 9,
+   "confirmed": 1,
+   "proposed": 8,
    "proposed_absent": 0,
    "absent": 0,
    "unknown": 13,
    "review_required": 0
   },
   "components_with_evidence": [
+   {
+    "component_type": "EXTERIOR_FRAME",
+    "state": "CONFIRMED_PRESENT",
+    "list": "confirmed",
+    "pand_coverage": {
+     "scope_pand_count": 15,
+     "present": 0,
+     "absent": 0,
+     "unknown": 0
+    },
+    "mjop_documents": [
+     "DOC-005",
+     "DOC-006"
+    ],
+    "materials_as_reported": [
+     "hout"
+    ],
+    "review_required_evidence": 1,
+    "evidence_ids": [
+     "CPE-1887622943b3d8bb",
+     "CPE-747f24497e7b23d4"
+    ],
+    "notes": []
+   },
    {
     "component_type": "BALCONY_RAILING",
     "state": "PROPOSED_PRESENT",
@@ -1307,30 +1331,6 @@
     "evidence_ids": [
      "CPE-41d1a4a52a0654bf",
      "CPE-abee7bed2303ed8a"
-    ],
-    "notes": []
-   },
-   {
-    "component_type": "EXTERIOR_FRAME",
-    "state": "PROPOSED_PRESENT",
-    "list": "proposed",
-    "pand_coverage": {
-     "scope_pand_count": 15,
-     "present": 0,
-     "absent": 0,
-     "unknown": 0
-    },
-    "mjop_documents": [
-     "DOC-005",
-     "DOC-006"
-    ],
-    "materials_as_reported": [
-     "hout"
-    ],
-    "review_required_evidence": 1,
-    "evidence_ids": [
-     "CPE-1887622943b3d8bb",
-     "CPE-747f24497e7b23d4"
     ],
     "notes": []
    },
@@ -1533,14 +1533,36 @@
   ],
   "pand_count": 1,
   "counts": {
-   "confirmed": 0,
-   "proposed": 9,
+   "confirmed": 1,
+   "proposed": 8,
    "proposed_absent": 1,
    "absent": 0,
    "unknown": 12,
    "review_required": 0
   },
   "components_with_evidence": [
+   {
+    "component_type": "EXTERIOR_FRAME",
+    "state": "CONFIRMED_PRESENT",
+    "list": "confirmed",
+    "pand_coverage": {
+     "scope_pand_count": 1,
+     "present": 0,
+     "absent": 0,
+     "unknown": 0
+    },
+    "mjop_documents": [
+     "DOC-012"
+    ],
+    "materials_as_reported": [
+     "hout"
+    ],
+    "review_required_evidence": 0,
+    "evidence_ids": [
+     "CPE-90e3d60a9a12689c"
+    ],
+    "notes": []
+   },
    {
     "component_type": "COLLECTIVE_HEATING_INSTALLATION",
     "state": "PROPOSED_PRESENT",
@@ -1598,28 +1620,6 @@
     "review_required_evidence": 1,
     "evidence_ids": [
      "CPE-839d0d72fb8646ea"
-    ],
-    "notes": []
-   },
-   {
-    "component_type": "EXTERIOR_FRAME",
-    "state": "PROPOSED_PRESENT",
-    "list": "proposed",
-    "pand_coverage": {
-     "scope_pand_count": 1,
-     "present": 0,
-     "absent": 0,
-     "unknown": 0
-    },
-    "mjop_documents": [
-     "DOC-012"
-    ],
-    "materials_as_reported": [
-     "hout"
-    ],
-    "review_required_evidence": 0,
-    "evidence_ids": [
-     "CPE-90e3d60a9a12689c"
     ],
     "notes": []
    },
@@ -2300,7 +2300,7 @@
   {
    "nr": 3,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): EXTERIOR_FRAME bevestigen als aanwezig?",
+   "decision": "DOC-005+DOC-006 (15 panden): FACADE_CLADDING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2310,7 +2310,7 @@
   {
    "nr": 4,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): FACADE_CLADDING bevestigen als aanwezig?",
+   "decision": "DOC-005+DOC-006 (15 panden): FACADE_MASONRY bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2320,7 +2320,7 @@
   {
    "nr": 5,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): FACADE_MASONRY bevestigen als aanwezig?",
+   "decision": "DOC-005+DOC-006 (15 panden): RAINWATER_DRAINAGE bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2330,7 +2330,7 @@
   {
    "nr": 6,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): RAINWATER_DRAINAGE bevestigen als aanwezig?",
+   "decision": "DOC-005+DOC-006 (15 panden): ROOF_FLAT_COVERING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2340,7 +2340,7 @@
   {
    "nr": 7,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): ROOF_FLAT_COVERING bevestigen als aanwezig?",
+   "decision": "DOC-005+DOC-006 (15 panden): ROOF_SLOPED_COVERING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2350,7 +2350,7 @@
   {
    "nr": 8,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): ROOF_SLOPED_COVERING bevestigen als aanwezig?",
+   "decision": "DOC-005+DOC-006 (15 panden): SITE_PAVING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2360,7 +2360,7 @@
   {
    "nr": 9,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-005+DOC-006 (15 panden): SITE_PAVING bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): COLLECTIVE_HEATING_INSTALLATION bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2370,7 +2370,7 @@
   {
    "nr": 10,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): COLLECTIVE_HEATING_INSTALLATION bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): COMMON_LIGHTING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2380,7 +2380,7 @@
   {
    "nr": 11,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): COMMON_LIGHTING bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): COMMON_WATER_INSTALLATION bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2390,7 +2390,7 @@
   {
    "nr": 12,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): COMMON_WATER_INSTALLATION bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): FACADE_MASONRY bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2400,7 +2400,7 @@
   {
    "nr": 13,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): EXTERIOR_FRAME bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): LIFT_INSTALLATION bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2410,7 +2410,7 @@
   {
    "nr": 14,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): FACADE_MASONRY bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): RAINWATER_DRAINAGE bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2420,7 +2420,7 @@
   {
    "nr": 15,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): LIFT_INSTALLATION bevestigen als aanwezig?",
+   "decision": "DOC-012 (1 pand): ROOF_FLAT_COVERING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
     "UNKNOWN"
@@ -2430,26 +2430,6 @@
   {
    "nr": 16,
    "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): RAINWATER_DRAINAGE bevestigen als aanwezig?",
-   "options": [
-    "PRESENT",
-    "UNKNOWN"
-   ],
-   "recommended": "PRESENT"
-  },
-  {
-   "nr": 17,
-   "kind": "PRESENCE_DECISION",
-   "decision": "DOC-012 (1 pand): ROOF_FLAT_COVERING bevestigen als aanwezig?",
-   "options": [
-    "PRESENT",
-    "UNKNOWN"
-   ],
-   "recommended": "PRESENT"
-  },
-  {
-   "nr": 18,
-   "kind": "PRESENCE_DECISION",
    "decision": "DOC-012 (1 pand): SITE_PAVING bevestigen als aanwezig?",
    "options": [
     "PRESENT",
@@ -2458,7 +2438,7 @@
    "recommended": "PRESENT"
   },
   {
-   "nr": 19,
+   "nr": 17,
    "kind": "ABSENCE_DECISION",
    "decision": "DOC-012 (1 pand): ROOF_SLOPED_COVERING afwezig verklaren op basis van een expliciete 3D BAG-nulwaarde?",
    "options": [
@@ -2468,7 +2448,7 @@
    "recommended": "UNKNOWN (3D BAG-geometrie is geen universeel bewijs; liefst bevestigen met foto/tekening)"
   },
   {
-   "nr": 20,
+   "nr": 18,
    "kind": "RULE_APPROVAL",
    "decision": "Zijn de presence-regels met inferentie acceptabel (hpr.common_lighting.armaturen, hpr.common_water.hydrofoor, hpr.roof_flat_covering.app_no_location)?",
    "options": [
@@ -2479,7 +2459,7 @@
    "recommended": "ACCEPT als REVIEW_REQUIRED-evidence"
   },
   {
-   "nr": 21,
+   "nr": 19,
    "kind": "SEMANTIC_MAPPING",
    "decision": "Is 'Deurbelinstallatie' (6411, DOC-012) een INTERCOM_INSTALLATION?",
    "options": [
@@ -2490,7 +2470,7 @@
    "recommended": "NO"
   },
   {
-   "nr": 22,
+   "nr": 20,
    "kind": "SEMANTIC_MAPPING",
    "decision": "Welk bouwdeel is 'Standleidingen' (5240, DOC-012): binnenriolering of waterleiding?",
    "options": [
@@ -2501,7 +2481,7 @@
    "recommended": "geen mapping zonder bron"
   },
   {
-   "nr": 23,
+   "nr": 21,
    "kind": "ATTRIBUTE_RULE",
    "decision": "Welke kozijn-/gevelmaterialen maken 'schilderwerk-buiten' relevant?",
    "options": [
@@ -2512,7 +2492,7 @@
    "recommended": "WOOD+STEEL, alleen met materiaalbewijs"
   },
   {
-   "nr": 24,
+   "nr": 22,
    "kind": "FRAME_MODEL",
    "decision": "Instance-model voor kozijnen goedkeuren (granulariteit: pand x gevel x verdieping x subtype)?",
    "options": [
@@ -2523,7 +2503,7 @@
    "recommended": "APPROVE"
   },
   {
-   "nr": 25,
+   "nr": 23,
    "kind": "FRAME_QUANTITIES",
    "decision": "FRAME_COUNT, WINDOW_OPENING_AREA en FRAME_PAINTING_AREA als drie aparte quantity-onderwerpen vastleggen?",
    "options": [
@@ -2533,7 +2513,7 @@
    "recommended": "YES"
   },
   {
-   "nr": 26,
+   "nr": 24,
    "kind": "REPEAT_POLICY",
    "decision": "Repeat groups alleen na expliciete bevestiging per componenttype en per pand?",
    "options": [
@@ -2543,7 +2523,7 @@
    "recommended": "YES"
   },
   {
-   "nr": 27,
+   "nr": 25,
    "kind": "LEGACY_FALLBACK",
    "decision": "Legacy kozijnfactor mag later alleen als zichtbare ESTIMATED-fallback zonder component-/instance-evidence?",
    "options": [
@@ -2554,7 +2534,7 @@
    "recommended": "YES"
   },
   {
-   "nr": 28,
+   "nr": 26,
    "kind": "DRAWING_SOURCE",
    "decision": "Welke vectortekening(en) gebruiken we voor de Vector Drawing Reader PoC (Maldenhof en/of Meppelweg)?",
    "options": [
