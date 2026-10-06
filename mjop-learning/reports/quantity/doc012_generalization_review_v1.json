@@ -2296,6 +2296,38 @@
    "reason": null
   },
   {
+   "file": "scripts/build_rear_annotation_coverage.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    1,
+    21,
+    107,
+    124,
+    125,
+    129,
+    130,
+    141,
+    163,
+    165,
+    173,
+    215,
+    278,
+    423,
+    424,
+    426,
+    429,
+    430,
+    441,
+    464
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/building_element_inventory_report.py",
    "classification": "REPORT_ONLY",
    "patterns": [
@@ -3069,6 +3101,23 @@
     101,
     102,
     142
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_rear_annotation_coverage.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "DOC-005",
+    "DOC-006",
+    "Maldenhof"
+   ],
+   "lines": [
+    72,
+    74,
+    75,
+    90,
+    167
    ],
    "reason": null
   },
