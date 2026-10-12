@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Maldenhof Human Visual Decision Pack v1.1</title>
+<title>Maldenhof Human Visual Decision Pack v1.2</title>
 <style>
 :root{--bg:#f6f6f4;--card:#fff;--ink:#1d2327;--mute:#5b656c;--line:#d5d9dc;--p1:#b3261e;--p2:#a15c00;--p3:#3b6b3b;--acc:#0b5cab;--ok:#1b7a3a}
 @media (prefers-color-scheme: dark){:root{--bg:#15191c;--card:#1f2529;--ink:#e8ecee;--mute:#a2adb4;--line:#38424a;--p1:#ff8a80;--p2:#ffc266;--p3:#8fd18f;--acc:#7db8ff;--ok:#6fdc8c}}
@@ -39,6 +39,9 @@ button.sec{background:transparent;color:var(--acc)}button.small{padding:1px 8px;
 #export-json{width:100%;min-height:160px;font:12px/1.4 ui-monospace,Consolas,monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
 .pill{border:1px solid var(--line);border-radius:12px;padding:1px 10px;background:var(--bg);font-size:13px}
 .hidden{display:none!important}
+.pilot-card{background:var(--card);border:2px solid var(--acc);border-radius:10px;padding:10px 12px;margin:16px 0}.pilot-card h3{margin:0 0 4px}.pilot-card .cols h4{color:var(--acc)}.pilot-card .review-item{border:0;padding:6px 0 0;margin:6px 0 0}
+body.pilot-only main > *{display:none!important}body.pilot-only main > #pilot,body.pilot-only main > #exportsec{display:block!important}
+.pilot-stub{background:var(--bg);border-left:3px solid var(--acc);padding:2px 8px}
 .qa{background:var(--bg);border:1px dashed var(--line);border-radius:6px;padding:6px 10px;margin:6px 0;font-size:13px}.qa p{margin:4px 0}.qa table{margin:4px 0}.qa th{width:34%}
 .chip.st-VISUALLY_SUPPORTED{border-color:var(--ok);color:var(--ok)}.chip.st-NEEDS_MANUAL_REVIEW{border-color:var(--p2);color:var(--p2)}.chip.st-NEEDS_BETTER_PHOTO{border-color:var(--p1);color:var(--p1)}.chip.st-TECHNICALLY_VALIDATED{border-color:var(--acc);color:var(--acc)}
 .chip.corr{border-color:var(--p2);color:var(--p2)}.chip.rt-FACADE{border-color:var(--acc);color:var(--acc);font-weight:600}.chip.rt-OBJECT{border-color:var(--p3);color:var(--p3);font-weight:600}
@@ -48,24 +51,24 @@ button.sec{background:transparent;color:var(--acc)}button.small{padding:1px 8px;
 </head>
 <body>
 <header class="top">
-<strong>Maldenhof Human Visual Decision Pack v1.1</strong>
+<strong>Maldenhof Human Visual Decision Pack v1.2</strong>
 <span class="pill">Beslist: <span id="cnt-decided">0</span> / <span id="cnt-total">0</span></span>
 <span class="pill">P1 <span id="cnt-P1">0</span></span><span class="pill">P2 <span id="cnt-P2">0</span></span><span class="pill">P3 <span id="cnt-P3">0</span></span>
 <span class="bar" id="filters">
-<button class="sec small" data-filter="ALL">Alles</button><button class="sec small" data-filter="P1">Alleen P1</button><button class="sec small" data-filter="P2">Alleen P2</button><button class="sec small" data-filter="P3">Alleen P3</button>
+<button class="small" data-filter="PILOT" title="Alleen de 10 pilotpunten">Pilot Review</button><button class="sec small" data-filter="ALL">Alles</button><button class="sec small" data-filter="P1">Alleen P1</button><button class="sec small" data-filter="P2">Alleen P2</button><button class="sec small" data-filter="P3">Alleen P3</button>
 <label><input type="checkbox" id="only-open"> alleen OPEN</label>
 </span>
 <button id="btn-export">Exporteer JSON</button>
 </header>
 <main>
 __BODY__
-<h2 id="export">Exporteren, bewaren en hervatten</h2>
+<section id="exportsec"><h2 id="export">Exporteren, bewaren en hervatten</h2>
 <div class="note">
 <p><b>Opslag:</b> <span id="persist-status">controle...</span></p>
 <p>Je keuzes worden nooit automatisch ergens toegepast. De export is een <b>voorlopig reviewresultaat</b>: het maakt geen instances, voegt niets samen, wijzigt geen status en past geen APP-besluit aan. Niet-beoordeelde punten staan als <code>OPEN</code> (met <code>decision_source: NONE</code>) in het bestand; een voorstel van Claude staat apart (<code>claude_non_binding</code>) en wordt nooit als menselijk besluit geexporteerd of geimporteerd.</p>
 </div>
 <div class="bar">
-<label>Omvang van de export: <select id="export-scope"><option value="ALL">Alles (volledig bestand)</option><option value="DECIDED">Alleen beoordeelde punten (deelbestand)</option><option value="P1">Alleen P1 (deelbestand)</option><option value="P2">Alleen P2 (deelbestand)</option><option value="P3">Alleen P3 (deelbestand)</option></select></label>
+<label>Omvang van de export: <select id="export-scope"><option value="ALL">Alles (volledig bestand)</option><option value="PILOT">Alleen Pilot Review (deelbestand, 10 punten)</option><option value="DECIDED">Alleen beoordeelde punten (deelbestand)</option><option value="P1">Alleen P1 (deelbestand)</option><option value="P2">Alleen P2 (deelbestand)</option><option value="P3">Alleen P3 (deelbestand)</option></select></label>
 <button id="btn-export2">Download JSON</button>
 <button class="sec" id="btn-show">Toon JSON hieronder</button>
 <button class="sec" id="btn-copy">Kopieer JSON</button>
@@ -83,6 +86,7 @@ __BODY__
 </div>
 <p id="export-msg" class="evid"></p>
 <textarea id="export-json" readonly placeholder="De JSON verschijnt hier na 'Toon JSON'."></textarea>
+</section>
 </main>
 <script>
 const PACK = __PACK__;
@@ -129,9 +133,11 @@ function refresh(save){
 let curFilter = "ALL";
 function applyFilter(){
   const onlyOpen = q("#only-open").checked;
+  document.body.classList.toggle("pilot-only", curFilter === "PILOT");
   qa(".review-item").forEach(el => {
     const p = el.getAttribute("data-priority"); const id = el.getAttribute("data-id");
-    const hide = (curFilter !== "ALL" && p !== curFilter) || (onlyOpen && getDecision(id) !== "OPEN");
+    const pil = el.getAttribute("data-pilot") === "1";
+    const hide = (curFilter === "PILOT" ? !pil : (curFilter !== "ALL" && p !== curFilter)) || (onlyOpen && getDecision(id) !== "OPEN");
     el.classList.toggle("hidden", hide);
   });
 }
@@ -144,6 +150,7 @@ function showPersist(){
 function curScope(){ return q("#export-scope").value; }
 function inScope(it, scope){
   if (scope === "ALL") return true;
+  if (scope === "PILOT") return !!it.pilot;
   if (scope === "DECIDED") return getDecision(it.review_id) !== "OPEN" || getComment(it.review_id) !== "";
   return it.priority === scope;
 }
@@ -205,7 +212,7 @@ function validateImport(o){
   const legacy = (o.export_format === LEGACY_FORMAT);
   if (o.export_format !== FORMAT && !legacy) fail("onbekend exportformaat: " + JSON.stringify(o.export_format));
   if (legacy) { if (o.pack_version !== PACK.legacy_pack_version) fail("pakketversie " + JSON.stringify(o.pack_version) + " hoort niet bij het oude formaat"); }
-  else if (o.pack_version !== PACK.pack_version) fail("andere pakketversie: " + JSON.stringify(o.pack_version) + " (dit pakket: " + PACK.pack_version + ")");
+  else if (o.pack_version !== PACK.pack_version && (PACK.compatible_pack_versions || []).indexOf(o.pack_version) < 0) fail("andere pakketversie: " + JSON.stringify(o.pack_version) + " (dit pakket: " + PACK.pack_version + ")");
   if (o.review_package_version !== PACK.review_package_version) fail("ander reviewpakket: " + JSON.stringify(o.review_package_version));
   if (o.status !== STATUS) fail("status moet " + STATUS + " zijn");
   if (!o.effects || typeof o.effects !== "object") fail("effects ontbreekt");

@@ -1,0 +1,35 @@
+{
+ "proposal_id": "CORR-OBS-MAP003-009-VIS-001",
+ "status": "PROPOSED_NOT_APPLIED",
+ "requires": "afzonderlijke menselijke goedkeuring; de bronobservatie in maldenhof_visual_photo_review_map003_map004_v1.json is NIET gewijzigd",
+ "observation_id": "OBS-MAP003-009",
+ "field": "visibility",
+ "current_value": "FULL",
+ "proposed_value": "PARTIAL",
+ "bbox_px": [
+  783,
+  453,
+  842,
+  563
+ ],
+ "finding": "Het label FULL betekent dat de volledige omtrek zichtbaar is. Op MAP-003 wordt de rechterrand van het smalle element in het bovenste deel bedekt door de open, blauw omrande vleugel van OBS-MAP003-010; het kader van 009 eindigt precies waar het kader van 010 begint (x=842) en de blauwe vleugel valt voor een deel binnen het kader van 009. Linkerzijde, boven- en onderrand zijn wel zichtbaar.",
+ "evidence": {
+  "figure": "pilot_review/PQ-009_visibility_zoom.jpg",
+  "other_photos": "MAP-013 REF-004 toont het element wel volledig met metselwerk ernaast; foto 2 (FC-M2-006-A) is FULL en blijft bevroren",
+  "bbox_overlap_scan": "In MAP-003/MAP-004 raken of overlappen alleen de kaders van OBS-MAP003-009 en -010 elkaar (breedte 0 px); geen andere observatie heeft deze inconsistentie"
+ },
+ "neighbour": {
+  "observation_id": "OBS-MAP003-010",
+  "visibility": "FULL",
+  "note": "ongewijzigd"
+ },
+ "effects_if_applied": {
+  "instances_created": 0,
+  "counts_changed": false,
+  "counts_in_any_total": false,
+  "bag_links": 0,
+  "photo2_frozen_data_changed": false,
+  "note": "Observaties staan buiten de instance-store en tellen in geen enkel totaal; het is een label-correctie voor de leesbaarheid."
+ },
+ "alternative": "FULL behouden met een extra notitie 'rechterrand bedekt door open vleugel van 010'; de zichtbaarheidsdefinitie (FULL = volledige omtrek zichtbaar) pleit voor PARTIAL."
+}

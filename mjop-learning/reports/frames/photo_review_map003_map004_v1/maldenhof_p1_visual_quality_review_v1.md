@@ -1,6 +1,6 @@
 # Maldenhof P1 Visual Review: Quality Corrections v1
 
-Pakketversie: `human_visual_decision_pack_v1.1.0` (Human Visual Decision Pack, PR #41). Status: **aanvullende kwaliteitscontrole, geen menselijke goedkeuring**. Alle 48 APP-besluiten blijven OPEN; er ontstaan geen instances, pandkoppelingen, unieke totalen, maten of kosten; de bevroren foto-2-telling (11 kozijnopeningen, 1 buitendeur, 9 FULL, 2 PARTIAL), de 50 observaties en de 43 relaties zijn ongewijzigd.
+Pakketversie: `human_visual_decision_pack_v1.2.0` (Human Visual Decision Pack, PR #41). Status: **aanvullende kwaliteitscontrole, geen menselijke goedkeuring**. Alle 48 APP-besluiten blijven OPEN; er ontstaan geen instances, pandkoppelingen, unieke totalen, maten of kosten; de bevroren foto-2-telling (11 kozijnopeningen, 1 buitendeur, 9 FULL, 2 PARTIAL), de 50 observaties en de 43 relaties zijn ongewijzigd.
 
 > **Een technisch geldige reviewkaart is niet automatisch een visueel bewezen object.** Technische juistheid (ID, verwijzing, kader, hash, keuzes) en visueel bewijs zijn hier gescheiden gemeten.
 

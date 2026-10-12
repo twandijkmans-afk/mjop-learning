@@ -25,6 +25,8 @@ from PIL import Image, ImageDraw
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_visual_photo_review_map003_map004 as B  # noqa: E402
 import build_p1_quality_review as QR  # noqa: E402
+import build_pilot_review as PR  # noqa: E402
+import pilot_review_data as PD  # noqa: E402
 import human_decision_pack_data as H  # noqa: E402
 import p1_quality_review_data as Q  # noqa: E402
 import visual_review_map003_map004_data as V  # noqa: E402
@@ -35,7 +37,8 @@ PACK_DIR = REVIEW_DIR / "decision_pack"
 OUT_HTML = PACK_DIR / "maldenhof_human_visual_decision_pack_v1.html"
 OUT_INDEX = PACK_DIR / "maldenhof_human_visual_decision_pack_v1_index.json"
 TEMPLATE = Path(__file__).resolve().parent / "human_decision_pack_template.html"
-PACK_VERSION = "human_visual_decision_pack_v1.1.0"
+PACK_VERSION = "human_visual_decision_pack_v1.2.0"
+COMPATIBLE_PACK_VERSIONS = ["human_visual_decision_pack_v1.1.0"]   # zelfde review-ID's, bronverwijzingen en keuzes; alleen de pilot-sectie is nieuw
 LEGACY_PACK_VERSION = "human_visual_decision_pack_v1.0.0"
 E = html.escape
 TYPE_NL = {"WINDOW_OPENING": "raam/kozijn", "EXTERIOR_DOOR": "buitendeur", "ROOF_WINDOW": "dakraam", "DORMER_OPENING": "dakkapel", "UNKNOWN_OPENING": "onbepaald",
@@ -501,7 +504,7 @@ def build(args):
     prio_html = ('<h2 id="prio">Prioriteiten</h2><p><b>P1 kritiek:</b> mogelijke dubbeltellingen, mogelijke verkeerde scheiding tussen kozijnen, onduidelijke deuren, overlap met bevroren foto 2 en besluiten die nodig zijn voordat instance-creatie verantwoord is. '
                  '<b>P2 belangrijk:</b> FULL/PARTIAL, dakramen en dakkapel, relaties met MAP-009/013/033, onzekerheden in de classificatie. <b>P3 later:</b> detailcorrecties zonder directe invloed op unieke objectidentificatie en punten die eerst extra fotobewijs vragen.</p>'
                  + "".join(rows) + '<p class="evid">Dit zijn <b>reviewpunten</b>, geen aantallen unieke fysieke kozijnen: observaties en relaties overlappen elkaar en foto 2. Je hoeft niet alles te beoordelen; gebruik de filterknoppen bovenaan.</p>')
-    howto = ('<h2 id="howto">Zo gebruik je dit pakket</h2><ol><li>Open dit bestand in een browser (dubbelklik; geen server of internet nodig).</li>'
+    howto = ('<h2 id="howto">Zo gebruik je dit pakket</h2><p><b>Eerste keer?</b> Begin met de <a href="#pilot">Pilot Review</a> (10 punten) hieronder.</p><ol><li>Open dit bestand in een browser (dubbelklik; geen server of internet nodig).</li>'
              '<li>Begin met <b>P1</b> (filterknop bovenaan). Bekijk de uitsnede, lees de toelichting en het voorstel van Claude (nooit voorgekozen).</li>'
              '<li>Kies per punt een keuzerondje (CONFIRM/REJECT/UNDECIDABLE/NEEDS_BETTER_PHOTO; bij overlap SAME/DIFFERENT/UNDECIDABLE). Optioneel: opmerking. Met <b>OPEN zetten</b> maak je een keuze ongedaan.</li>'
              '<li>Klik bovenaan of onderaan op <b>Exporteer JSON</b>. Het bestand bevat per punt de beslissing (OPEN als je niets koos), je opmerking, foto-/observatie-ID&apos;s en de bronverwijzing. Onderaan kies je de omvang: alles, alleen beoordeelde punten of P1/P2/P3.</li>'
@@ -509,12 +512,43 @@ def build(args):
              '<li>Een eerder bewaard bestand laad je met <b>Eerdere export laden</b>: het bestand wordt eerst volledig gecontroleerd; bij een fout verandert er niets. Daarna kies je tussen volledig vervangen en gedeeltelijk samenvoegen.</li>'
              '<li>Stuur het exportbestand terug; het wordt pas na controle verwerkt. De export zelf wijzigt niets.</li></ol>')
     page = TEMPLATE.read_text()
-    bodyhtml = "\n".join(html_parts).replace("__HOWTO__", howto).replace("__PRIO_TABLE__", prio_html)
+    bodyhtml = "\n".join(html_parts).replace("__HOWTO__", howto + "__PILOT__").replace("__PRIO_TABLE__", prio_html)
+    pilot_figs = PR.make_figures(ims, rev)
+    corr = PR.correction_proposal(rev)
+    qa_figs = {"q009": figs["Q009_010_four_photos.jpg"]}
+    cards = []
+    for k, pid in enumerate(PD.PILOT_ORDER, 1):
+        p = PD.PILOT[pid]
+        it = next(i for i in items if i["review_id"] == pid)
+        it["pilot"] = {"order": k, "situation": p["situation"]}
     for it in items:
         bodyhtml = bodyhtml.replace(f'<!--QA:{it["review_id"]}-->', qa_block(recmap[it["review_id"]]) if it["review_id"] in recmap else "")
     assert "<!--QA:" not in bodyhtml
+    for k, pid in enumerate(PD.PILOT_ORDER, 1):
+        p = PD.PILOT[pid]
+        m = re.search(rf'<article class="review-item [^"]*" id="item-{re.escape(pid)}".*?</article>', bodyhtml, re.S)
+        art = m.group(0)
+        bodyhtml = bodyhtml.replace(art, f'<p class="evid pilot-stub">Dit reviewpunt ({E(pid)}) staat in de <a href="#pilot">Pilot Review</a> (punt {k} van {len(PD.PILOT_ORDER)}).</p>')
+        art = art.replace('<article class="review-item ', '<article class="review-item pilot ', 1).replace('data-priority=', 'data-pilot="1" data-priority=', 1)
+        fig = p["figure"]
+        img = ""
+        if fig.startswith("rel:"):
+            img = img_tag(pilot_figs[f"PQ-rel-{fig[4:]}.jpg"], "panel", f"Uitsneden {fig[4:]}", 80, 1100)
+        elif fig == "q009" and pid == "RV-OBS-MAP003-009":
+            img = img_tag(qa_figs["q009"], "panel", "009 en 010 in vier foto's", 78, 1100) + img_tag(pilot_figs["PQ-009_visibility_zoom.jpg"], "panel", "Rechterrand van 009", 80, 1100)
+        elif fig == "q009":
+            img = '<p class="evid">De vier foto&apos;s staan bij pilotpunt 8.</p>'
+        rows = "".join(f'<div><h4>{lab}</h4><p>{E(p[key])}</p></div>' for lab, key in (("Wat is zichtbaar", "visible"), ("Welke beslissing is nodig", "decision"), ("Welk bewijs ondersteunt het voorstel", "evidence"),
+                                                                                  ("Wat is nog onzeker", "uncertain"), ("Wat de keuze wel doet", "does"), ("Wat de keuze niet doet", "doesnt")))
+        cards.append(f'<div class="pilot-card"><h3>Pilotpunt {k} van {len(PD.PILOT_ORDER)}: {E(p["title"])} <span class="chip">{E(p["situation"])}</span></h3>'
+                     f'<p class="evid">Reviewpunt {E(pid)}. Waarom in de pilot: {E(p["reason"])}</p>{img}<div class="cols">{rows}</div>{art}</div>')
+    pilot_html = ('<section id="pilot"><h2>Pilot Review</h2><div class="note warn"><b>Begin hier.</b> Deze tien punten zijn een representatieve eerste ronde. Kies per punt een keuzerondje; er is niets voorgekozen en '
+                  'de voorstellen van Claude zijn niet-bindend. Dit is een voorlopig reviewresultaat: er wordt niets toegepast, geen instance gemaakt, niets samengevoegd en geen pandkoppeling gelegd. '
+                  'Kies bij het exporteren de omvang <b>Alleen Pilot Review</b>. Alle andere punten blijven OPEN. Met de knop <b>Pilot Review</b> bovenaan zie je alleen deze sectie.</div>'
+                  + "".join(cards) + '</section>')
+    bodyhtml = bodyhtml.replace("__PILOT__", pilot_html)
     page = page.replace("__BODY__", bodyhtml)
-    pack_json = {"pack_version": PACK_VERSION, "legacy_pack_version": LEGACY_PACK_VERSION, "review_package_version": B.VERSION, "meaning": H.MEANING, "items": items}
+    pack_json = {"pack_version": PACK_VERSION, "legacy_pack_version": LEGACY_PACK_VERSION, "compatible_pack_versions": COMPATIBLE_PACK_VERSIONS, "review_package_version": B.VERSION, "meaning": H.MEANING, "items": items}
     page = page.replace("__PACK__", json.dumps(pack_json, ensure_ascii=False).replace("</", "<\\/"))
     PACK_DIR.mkdir(parents=True, exist_ok=True)
     OUT_HTML.write_text(page)
@@ -531,6 +565,7 @@ def build(args):
              "network_dependencies": "none (alle afbeeldingen als data-URI; geen externe scripts)"}
     OUT_INDEX.write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n")
     QR.write_reports(items, rev, recs, PACK_VERSION)
+    PR.write_report(items, recmap, corr, PACK_VERSION)
     print(f"HTML {OUT_HTML.stat().st_size/1e6:.1f} MB; reviewpunten {len(items)}; per prioriteit {dict(tot)}")
 
 

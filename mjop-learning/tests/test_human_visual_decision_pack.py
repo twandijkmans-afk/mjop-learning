@@ -49,7 +49,7 @@ def test_review_points_are_complete_and_traceable():
     assert len(obs_ids) == 50 and len(rel_ids) == 43
     assert {i["review_id"] for i in ITEMS if i["review_type"] == "OBSERVATION"} == {"RV-OBS-" + o[4:] for o in obs_ids}
     assert {r for i in ITEMS for r in i["relation_ids"]} == rel_ids          # alle 43 relaties behouden en beoordeelbaar
-    assert PACK_JSON["pack_version"] == "human_visual_decision_pack_v1.1.0" and PACK_JSON["legacy_pack_version"] == "human_visual_decision_pack_v1.0.0"
+    assert PACK_JSON["pack_version"] == "human_visual_decision_pack_v1.2.0" and PACK_JSON["legacy_pack_version"] == "human_visual_decision_pack_v1.0.0"
     for i in ITEMS:                                                          # elke bronverwijzing is gebonden aan het reviewpunt (basis voor een veilige import)
         assert i["ref_hash"] == H.ref_hash(i), i["review_id"]
     assert len({i["ref_hash"] for i in ITEMS}) == len(ITEMS)
@@ -464,9 +464,73 @@ def test_import_of_old_v1_export_skips_facade_decisions(tmp_path):
         P.pg.click("#imp-replace")
         st = P.state()
         assert st["RV-REL-VR-001"][0] == "OPEN" and st["RV-REL-VR-002"] == ("SAME", "")
-        bad = dict(legacy, pack_version="human_visual_decision_pack_v1.1.0")
+        bad = dict(legacy, pack_version="human_visual_decision_pack_v1.2.0")
         P.load(_write(tmp_path, "legacy_bad.json", bad))
         assert not P.panel()["can_apply"]
+        assert P.errors == []
+    finally:
+        br.close()
+        pw.stop()
+
+
+PILOT = ["RV-SEP-001", "RV-REL-VR-027", "RV-REL-VR-020", "RV-REL-VR-024", "RV-REL-VR-026", "RV-OBS-MAP004-012", "RV-OBS-MAP003-027", "RV-OBS-MAP003-009", "RV-OBS-MAP003-010", "HQ-VR-001"]
+
+
+def test_pilot_section_uses_existing_items_and_explains_each_point():
+    assert [i["review_id"] for i in sorted((i for i in ITEMS if "pilot" in i), key=lambda i: i["pilot"]["order"])] == PILOT
+    sec = re.search(r'<section id="pilot">.*?</section>', HTML, re.S).group(0)
+    assert sec.count('class="pilot-card"') == 10 and sec.count('data-pilot="1"') == 10
+    for rid in PILOT:
+        assert f'id="item-{rid}"' in sec and HTML.count(f'id="item-{rid}"') == 1            # elk punt precies een keer: de bestaande reviewkaart
+        assert f'name="d-{rid}" value="OPEN" checked' in sec
+    for lab in ("Wat is zichtbaar", "Welke beslissing is nodig", "Welk bewijs ondersteunt het voorstel", "Wat is nog onzeker", "Wat de keuze wel doet", "Wat de keuze niet doet"):
+        assert sec.count(f"<h4>{lab}</h4>") == 10, lab
+    assert all(i["pilot"]["situation"] for i in ITEMS if "pilot" in i) and sum("pilot" in i for i in ITEMS) == 10
+    # alleen bestaande classificaties: geen nieuwe review-ID's, aantal punten ongewijzigd
+    assert len(ITEMS) == 123 and set(PILOT) <= {i["review_id"] for i in ITEMS}
+
+
+def test_pilot_filter_and_export_keep_all_other_points_open_in_browser(tmp_path):
+    pw, br = _browser()
+    try:
+        P = Page(br)
+        pg = P.pg
+        pg.click('button[data-filter="PILOT"]')
+        assert pg.locator(".review-item:visible").count() == 10
+        assert {pg.locator(".review-item:visible").nth(k).get_attribute("data-id") for k in range(10)} == set(PILOT)
+        assert pg.is_visible("#pilot") and pg.is_visible("#exportsec") and not pg.is_visible("#RG-01")
+        choices = {"RV-SEP-001": "CONFIRM", "RV-REL-VR-027": "SAME", "RV-REL-VR-020": "SAME", "RV-REL-VR-024": "UNDECIDABLE", "RV-REL-VR-026": "UNDECIDABLE",
+                   "RV-OBS-MAP004-012": "UNDECIDABLE", "RV-OBS-MAP003-027": "NEEDS_BETTER_PHOTO", "RV-OBS-MAP003-009": "UNDECIDABLE", "RV-OBS-MAP003-010": "CONFIRM", "HQ-VR-001": "UNDECIDABLE"}
+        for rid, c in choices.items():
+            P.choose(rid, c, f"opm {rid}")
+        pex = P.export("PILOT")
+        assert pex["export_scope"] == {"kind": "PARTIAL", "filter": "PILOT", "included_review_ids": [i["review_id"] for i in ITEMS if "pilot" in i], "pack_review_points_total": 123}
+        assert len(pex["reviews"]) == 10 and pex["summary"]["decided_by_human"] == 10 and pex["summary"]["open"] == 0
+        r = {x["review_id"]: x for x in pex["reviews"]}
+        for rid, c in choices.items():
+            h = r[rid]["human"]
+            assert (h["decision"], h["decision_source"], h["comment"]) == (c, "HUMAN", f"opm {rid}")
+        assert r["RV-REL-VR-020"]["human"]["decision_meaning"] == "SAME_FACADE_SECTION" and r["RV-REL-VR-020"]["human"]["implies"]["same_physical_frame_proven"] is False
+        assert r["RV-REL-VR-027"]["human"]["decision_meaning"] == "SAME_PHYSICAL_OBJECT_CANDIDATE" and r["RV-REL-VR-027"]["human"]["implies"]["bag_pand_link"] is False
+        full = P.export("ALL")
+        others = [x for x in full["reviews"] if x["review_id"] not in PILOT]
+        assert len(others) == 113 and all(x["human"]["decision"] == "OPEN" and x["human"]["decision_source"] == "NONE" and x["human"]["comment"] == "" for x in others)
+        # het pilotbestand kan in een schone pagina als deelbestand worden teruggeladen
+        path = tmp_path / "pilot.json"
+        path.write_text(json.dumps(pex))
+        pg.click("#btn-reset-all")
+        P.load(path)
+        pg.click("#imp-replace")
+        st = P.state()
+        assert {k for k, v in st.items() if v[0] != "OPEN"} == set(PILOT) and st["RV-OBS-MAP003-027"][0] == "NEEDS_BETTER_PHOTO"
+        # een export van het vorige pakket (v1.1.0) blijft bruikbaar
+        old = json.loads(json.dumps(full))
+        old["pack_version"] = "human_visual_decision_pack_v1.1.0"
+        P.load(_write(tmp_path, "v110.json", old))
+        assert P.panel()["can_apply"] and not P.panel()["errors"]
+        pg.click("#imp-cancel")
+        pg.click('button[data-filter="ALL"]')
+        assert not pg.evaluate("document.body.classList.contains('pilot-only')")
         assert P.errors == []
     finally:
         br.close()
