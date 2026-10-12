@@ -1,0 +1,169 @@
+{
+  "state_version": "photo3_human_review_state_v1",
+  "photo": {
+    "photo_id": "maldenhof_3",
+    "path": "data/photos/incoming/maldenhof/maldenhof_3.jpg",
+    "sha256": "52866e56eda4887fd1c14d0b1b42d69639582d4fb03dabecccf8afd248572a71",
+    "role": "REAR_DETAIL"
+  },
+  "bag_pand_id": null,
+  "address_scope": "NOT_PROVEN",
+  "address_scope_note": "Geen pandinferentie uit gelijkenis met foto 2, dakraampatroon, dakkapel, kopgevel of camerapositie.",
+  "decision_store": "data/photo_evidence/maldenhof_3_candidate_human_decisions_v1.json",
+  "candidates": [
+    {
+      "candidate_id": "FC-M3-001",
+      "review_status": "KEEP_UNKNOWN",
+      "human_decision_id": "P3D-00001",
+      "type": "UNKNOWN_OPENING",
+      "visibility": "HEAVILY_OCCLUDED",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-002",
+      "review_status": "KEEP_UNKNOWN",
+      "human_decision_id": "P3D-00002",
+      "type": "UNKNOWN_OPENING",
+      "visibility": "HEAVILY_OCCLUDED",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-003",
+      "review_status": "ACCEPT_OBSERVATION",
+      "human_decision_id": "P3D-00003",
+      "type": "WINDOW",
+      "visibility": "PARTIAL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-004",
+      "review_status": "PART_OF_REL_M3_001_FRAME_OPENING",
+      "human_decision_id": "P3D-00004",
+      "type": "EXTERIOR_DOOR",
+      "visibility": "PARTIAL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-005",
+      "review_status": "PART_OF_REL_M3_001_FRAME_OPENING",
+      "human_decision_id": "P3D-00004",
+      "type": "WINDOW",
+      "visibility": "FULL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-006",
+      "review_status": "ACCEPT_PHOTO_OBSERVATION",
+      "human_decision_id": "P3D-00005",
+      "type": "ROOF_WINDOW",
+      "visibility": "PARTIAL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-007",
+      "review_status": "ACCEPT_PHOTO_OBSERVATION",
+      "human_decision_id": "P3D-00006",
+      "type": "ROOF_WINDOW",
+      "visibility": "FULL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-008",
+      "review_status": "ACCEPT_PHOTO_OBSERVATION",
+      "human_decision_id": "P3D-00007",
+      "type": "ROOF_WINDOW",
+      "visibility": "FULL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-009",
+      "review_status": "ACCEPT_PHOTO_OBSERVATION",
+      "human_decision_id": "P3D-00008",
+      "type": "ROOF_WINDOW",
+      "visibility": "FULL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    },
+    {
+      "candidate_id": "FC-M3-010",
+      "review_status": "ACCEPT_PHOTO_OBSERVATION",
+      "human_decision_id": "P3D-00009",
+      "type": "DORMER_WINDOW",
+      "visibility": "FULL",
+      "is_frame_instance": false,
+      "bag_pand_id": null
+    }
+  ],
+  "relation_review": {
+    "group_id": "REL-M3-001",
+    "decision_id": "P3D-00004",
+    "decision": "SAME_FRAME_OPENING_WINDOW_DOOR_COMBINATION",
+    "candidate_ids": [
+      "FC-M3-004",
+      "FC-M3-005"
+    ],
+    "frame_subtype": "WINDOW_DOOR_COMBINATION",
+    "physical_frame_openings": 1,
+    "semantic_subcomponents": [
+      {
+        "component": "WINDOW_SECTION",
+        "source_candidate": "FC-M3-005",
+        "count": 1
+      },
+      {
+        "component": "EXTERIOR_DOOR_SECTION",
+        "source_candidate": "FC-M3-004",
+        "count": 1
+      }
+    ],
+    "future_quantity_contributions": {
+      "FRAME_COUNT": 1,
+      "WINDOW_COUNT": 1,
+      "EXTERIOR_DOOR_COUNT": 1
+    },
+    "material": "UNKNOWN",
+    "instance_created": false
+  },
+  "dormer_window": {
+    "candidate_id": "FC-M3-010",
+    "parent": "DORMER-M3-001",
+    "continuous_frame_openings": 1,
+    "internal_mullions_are_separations": false
+  },
+  "photo_observation_summary": {
+    "count_basis": "REVIEWED_OBSERVATIONS_ON_PHOTO_3",
+    "is_building_total": false,
+    "KEEP_UNKNOWN": 2,
+    "ACCEPTED_PARTIAL_WINDOW": 1,
+    "WINDOW_DOOR_COMBINATION_FRAME_OPENINGS": 1,
+    "ROOF_WINDOW_OBSERVATIONS": 4,
+    "DORMER_WINDOW_OBSERVATIONS": 1
+  },
+  "frame_instances_created": 0,
+  "repeat_candidates": {
+    "RC-M3-001": "REPEAT_CANDIDATE",
+    "RC-M3-002": "REPEAT_CANDIDATE",
+    "active": false,
+    "multiplier": null,
+    "user_confirmed_repeat": false
+  },
+  "photo_2_unchanged": {
+    "FRAME": 11,
+    "WINDOW": 11,
+    "EXTERIOR_DOOR": 1,
+    "FULL": 9,
+    "PARTIAL": 2
+  },
+  "building_total": null,
+  "metric_quantities": null,
+  "quantity_resolutions": 0,
+  "comparability_756_80": "NOT_COMPARABLE"
+}
