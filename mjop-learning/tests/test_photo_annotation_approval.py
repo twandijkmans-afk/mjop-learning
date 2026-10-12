@@ -28,7 +28,7 @@ def test_shortlist_complete_with_valid_status():
 
 def test_decisions_unique_and_all_open():
     ids = [r.split("|")[1].strip() for r in ROWS]
-    assert len(ids) == len(set(ids)) >= 40
+    assert ids == [f"APP-{i:03d}" for i in range(1, 49)]  # 48 unieke, aaneengesloten besluit-ID's
     assert all(r.rstrip().endswith("| OPEN |") for r in ROWS)
     assert not re.search(r"goedgekeurd door|APPROVED|\| GOEDGEKEURD", DOC)
     assert f"Totaal: {len(ids)} beslispunten, {len(ids)} OPEN, 0 goedgekeurd." in DOC
