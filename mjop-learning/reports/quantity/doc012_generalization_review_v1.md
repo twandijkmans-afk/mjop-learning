@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 20, TEST_ONLY 28.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 21, TEST_ONLY 28.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -133,6 +133,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/deterministic_extraction.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | PER_DOCUMENT_CONFIG: extractieprofiel per document (alle documenten) |
 | `scripts/doc012_generalization_review.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden | — |
 | `scripts/doc012_quantity_activation.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
+| `scripts/export_app_component_inventory.py` | REPORT_ONLY | DOC-005, DOC-006 | — |
 | `scripts/export_human_review_queue.py` | NOT_A_PROBLEM | DOC-005 | COMMENT: uitleg bij een regel |
 | `scripts/facade_coverage_poc_v2.py` | REPORT_ONLY | DOC-005, Maldenhof, 15 panden | — |
 | `scripts/facade_panorama_poc.py` | REPORT_ONLY | DOC-005, Maldenhof | — |
