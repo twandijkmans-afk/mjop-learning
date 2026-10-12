@@ -2272,6 +2272,23 @@
    "reason": null
   },
   {
+   "file": "scripts/build_photo_archive_audit.py",
+   "classification": "REPORT_ONLY",
+   "patterns": [
+    "Maldenhof",
+    "15 panden"
+   ],
+   "lines": [
+    2,
+    4,
+    33,
+    168,
+    231,
+    248
+   ],
+   "reason": null
+  },
+  {
    "file": "scripts/build_photo_evidence.py",
    "classification": "REPORT_ONLY",
    "patterns": [
@@ -3007,6 +3024,17 @@
     37,
     40,
     59
+   ],
+   "reason": null
+  },
+  {
+   "file": "tests/test_photo_archive_audit.py",
+   "classification": "TEST_ONLY",
+   "patterns": [
+    "Maldenhof"
+   ],
+   "lines": [
+    14
    ],
    "reason": null
   },
