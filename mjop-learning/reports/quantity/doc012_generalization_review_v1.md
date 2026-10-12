@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 26, TEST_ONLY 30.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 28, TEST_ONLY 30.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -124,6 +124,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/build_frame_instance_activation.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_frame_inventory.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/build_human_visual_decision_pack.py` | REPORT_ONLY | Maldenhof | — |
+| `scripts/build_p1_quality_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_photo3_human_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_photo_archive_audit.py` | REPORT_ONLY | Maldenhof, 15 panden | — |
 | `scripts/build_photo_evidence.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
@@ -145,6 +146,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/kengetal_product_bridge_review.py` | REPORT_ONLY | DOC-005, DOC-006 | — |
 | `scripts/maldenhof_quantity_activation.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/multi_pand_scope_demo.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 1106 EZ | — |
+| `scripts/p1_visual_quality_evidence.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/prepare_relation_review.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld |
 | `scripts/quantity_engine_activation_review.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 15 panden | — |
 | `scripts/quantity_subject_expansion_review.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
