@@ -7,7 +7,7 @@ Status: **REAL_WORLD_POC_BLOCKED_NO_DRAWING** — er staat geen bruikbare vector
 - RASTER_DRAWING_CANDIDATE pagina's: 0
 - Pagina's met een sterk tekeninglabel (aanzicht/plattegrond/doorsnede/tekening/maatvoering/schaal 1:N): 0
 - Pagina's met >= 30 vector-primitives (vrijwel allemaal tabelrasters/grafieken): 161
-- Niet-PDF tekeningachtige bestanden (dwg/dxf/png/jpg/svg/ifc...): 18 (alleen de review-sheets van de eerdere public-image facade-PoC; foto's, geen tekeningen)
+- Niet-PDF tekeningachtige bestanden (dwg/dxf/png/jpg/svg/ifc...): 29 (alleen de review-sheets van de eerdere public-image facade-PoC; foto's, geen tekeningen)
 - Methode: pdfplumber primitives + tekstlabels; thresholds: sterk label + >= 30 primitives + >= 10 niet-orthogonale lijnen/complexe curves
 - Tools: pdfplumber 0.11.10, pdfminer.six 20260107
 
@@ -39,6 +39,17 @@ Interpretatie: 'voorgevel'/'achtergevel'/'kozijn' staan in elke MJOP als tabelte
 - reports/frames/photo_archive_audit_v1/maldenhof_archive_contact_sheet_1.jpg
 - reports/frames/photo_archive_audit_v1/maldenhof_archive_contact_sheet_2.jpg
 - reports/frames/photo_archive_audit_v1/maldenhof_archive_contact_sheet_3.jpg
+- reports/frames/photo_review_map003_map004_v1/A_overview_MAP-003.jpg
+- reports/frames/photo_review_map003_map004_v1/B_overview_MAP-004.jpg
+- reports/frames/photo_review_map003_map004_v1/C1_MAP-003_vs_MAP-004_upper_facade.jpg
+- reports/frames/photo_review_map003_map004_v1/C2_MAP-003_vs_MAP-004_middle_facade.jpg
+- reports/frames/photo_review_map003_map004_v1/C3_MAP-003_vs_MAP-004_roof_kap_ground.jpg
+- reports/frames/photo_review_map003_map004_v1/D1_MAP-002_vs_MAP-003_ground_wall_288.jpg
+- reports/frames/photo_review_map003_map004_v1/D2_MAP-002_vs_MAP-003_kap_and_middle_row.jpg
+- reports/frames/photo_review_map003_map004_v1/D3_MAP-002_vs_MAP-003_upper_row.jpg
+- reports/frames/photo_review_map003_map004_v1/D4_MAP-002_vs_MAP-003_roof_dormer.jpg
+- reports/frames/photo_review_map003_map004_v1/E_plates_MAP-003_MAP-004.jpg
+- reports/frames/photo_review_map003_map004_v1/F_reference_MAP-009_MAP-013_MAP-033.jpg
 - reports/frames/photo_review_rear_v1/maldenhof_3_frame_overlay.png
 - reports/frames/photo_review_v1/maldenhof_2_frame_overlay.png
 - reports/frames/photo_review_v2/maldenhof_2_frame_overlay_corrected.png

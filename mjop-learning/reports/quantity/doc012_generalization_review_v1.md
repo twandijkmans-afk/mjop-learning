@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 22, TEST_ONLY 30.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 24, TEST_ONLY 30.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -128,6 +128,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/build_photo_evidence.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/build_photo_frame_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_rear_annotation_coverage.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
+| `scripts/build_visual_photo_review_map003_map004.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/building_element_inventory_report.py` | REPORT_ONLY | DOC-005, Maldenhof | — |
 | `scripts/building_links.py` | NOT_A_PROBLEM | DOC-005 | DOCSTRING_EXAMPLE: CLI-voorbeeld '--document DOC-005' |
 | `scripts/decision_package_4645_interior_painting_wood.py` | NOT_A_PROBLEM | DOC-006 | DOCUMENT_SPECIFIC_DECISION_PACKAGE: vaste observation-ID's van een beslispakket |
@@ -149,6 +150,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/record_relation_decision.py` | NOT_A_PROBLEM | DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld |
 | `scripts/scaffolding_height_review.py` | REPORT_ONLY | DOC-005, DOC-006 | — |
 | `scripts/validate_app_quantity_bundle.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld met het pad van de Maldenhof-bundel |
+| `scripts/visual_review_map003_map004_data.py` | REPORT_ONLY | Maldenhof | — |
 | `vocabularies/frame_quantity_concepts_v1.json` | REPORT_ONLY | Maldenhof | — |
 | `vocabularies/quantity_subjects_v1.json` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/bag_snapshots.py` | GENERIC_CODE_PROBLEM_FIXED | — | exact_address_match/range-filter vergeleken de woonplaats uit het document letterlijk met de BAG-woonplaatsnaam; 'Den Haag' (DOC-012) vond daardoor zelfs het exacte adres niet ('s-Gravenhage). Opgelost met de expliciete aliaslijst vocabularies/woonplaats_aliases_v1.json (exacte gelijkheid, vastgelegd in de snapshot-query; bestaande snapshots ongewijzigd). |
