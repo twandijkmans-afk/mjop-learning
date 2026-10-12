@@ -1,0 +1,1901 @@
+{
+  "audit_version": "photo_archive_audit_v1.0.0",
+  "photo_count": 36,
+  "accessibility_check": {
+    "result": "ALL_36_ORIGINAL_IMAGES_ACCESSIBLE",
+    "method": "Zip volledig geopend (testzip OK), alle 36 afbeeldingen gedecodeerd, SHA256, bytes en resolutie per bestand vergeleken met manifest.csv: 0 afwijkingen; alle contactbladen visueel gecontroleerd.",
+    "source_zip": "Maldenhof_kozijnfoto_selectie (4) 2.zip",
+    "originals_in_repository": false,
+    "originals_note": "De originelen staan niet in de repository (circa 61 MB); de zip blijft in het projectbestand. Het register + manifest bewijzen de bytes via SHA256. Originelen zijn niet gewijzigd."
+  },
+  "manifest_copy": "data/photos/archive/maldenhof_selection_manifest_v1.csv",
+  "manifest_unmodified_copy": true,
+  "photos": [
+    {
+      "photo_id": "MAP-001",
+      "original_file": "IMG_8514.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8514.JPEG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "775255894feeda7de9b510e504b366eee89102fa55719f3a57f145a2a0c2a37e",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 1241741,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "SIDE_GABLE_OBLIQUE",
+        "view": "Straatzijde schuin vanaf de kopgevel; dakkapel en dakramen zichtbaar",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "CONTEXT_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Schuine, verkorte gevelrij; kopgevel links; kozijnen te klein/verkort voor annotatie."
+    },
+    {
+      "photo_id": "MAP-002",
+      "original_file": "IMG_8517.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8517.JPEG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "dacdd5e7c2bdb22e6e8a0d81c715c34f1a9af5390d541618db42809ef98a55ee",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 1178230,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT",
+        "view": "Frontale straatzijde, voorgevel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_HIGH",
+      "visible_house_number_plates": [
+        290,
+        288
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012121455",
+          "0363100012134188"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Bron van maldenhof_2.jpg (pixelmatch). Platen 290/288 klein maar leesbaar bij vergroting."
+    },
+    {
+      "photo_id": "MAP-003",
+      "original_file": "IMG_8518.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8518.JPEG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 1075127,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT",
+        "view": "Frontale straatzijde, voorgevel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_HIGH",
+      "visible_house_number_plates": [
+        288,
+        286,
+        284,
+        282,
+        280,
+        278,
+        276
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012144766",
+          "0363100012091756",
+          "0363100012143647",
+          "0363100012121455"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Zeven platen leesbaar bij vergroting; tegenlicht, bomen en auto beperken de onderste rij."
+    },
+    {
+      "photo_id": "MAP-004",
+      "original_file": "IMG_8520.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8520.JPEG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 1032908,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT",
+        "view": "Frontale straatzijde, voorgevel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_HIGH",
+      "visible_house_number_plates": [
+        280,
+        278,
+        276,
+        274
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012144766",
+          "0363100012091756"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Lantaarnpaal en auto voor de begane grond; platen leesbaar bij vergroting."
+    },
+    {
+      "photo_id": "MAP-005",
+      "original_file": "IMG_8523.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8523.JPEG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "0c4a0afbbcdcb6f2ede2309084d236d46b0df7e5e1b523c537e196af66fdf7bb",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 931538,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT",
+        "view": "Frontale straatzijde, voorgevel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [
+        262,
+        260,
+        258
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012091974",
+          "0363100012070344"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Lantaarnpaal, struik, motor en aanhanger voor de begane grond; platen leesbaar bij vergroting."
+    },
+    {
+      "photo_id": "MAP-006",
+      "original_file": "IMG_8525.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8525.JPEG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "2c3d39a71aa85c41952881003d87686960fe052611d512cf268665416920a52c",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 1126361,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT",
+        "view": "Brede straatzijde, voorgevel op afstand",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_LOW",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Sterk tegenlicht en zonnevlek; kozijnen klein; geen leesbare huisnummers."
+    },
+    {
+      "photo_id": "MAP-007",
+      "original_file": "P1000214.JPG",
+      "zip_path": "Opname 14-08-2026/P1000214.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "8b8be499766be2f1b6ff1acc38fd445582a92999d0c3a0fbf2ab6164c4f77100",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1886743,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin van onderen",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Boom/conifeer voor de rechterhelft; geen leesbare platen."
+    },
+    {
+      "photo_id": "MAP-008",
+      "original_file": "P1000218.JPG",
+      "zip_path": "Opname 14-08-2026/P1000218.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "e139392c662ec9090adb4da227c7d56b2d7d0efb54ce45fafe2f2172cba30592",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1866312,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin, entreemuur 266/268 op de voorgrond",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [
+        268,
+        266
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012107492"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Beide platen leesbaar; raam met kippengaas bij plaat 268."
+    },
+    {
+      "photo_id": "MAP-009",
+      "original_file": "P1000236.JPG",
+      "zip_path": "Opname 14-08-2026/P1000236.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "15591a9648ddfec7391df5c87291c6f82c997bf1352f560a85251de76a97fe85",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1863107,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin, entreemuur met plaat",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [
+        280
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012091756"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 280 leesbaar bij vergroting; auto en hortensia voor de onderkant."
+    },
+    {
+      "photo_id": "MAP-010",
+      "original_file": "P1000243.JPG",
+      "zip_path": "Opname 14-08-2026/P1000243.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "e8a7080041beac180e1948251b8a9d8a12f3eb5b0c7d4e8eab82b028f700e611",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1871991,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin met straatperspectief",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_LOW",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Plaat(en) mogelijk aanwezig maar niet leesbaar vastgesteld; sterke vooruitzichtvervorming."
+    },
+    {
+      "photo_id": "MAP-011",
+      "original_file": "P1000270.JPG",
+      "zip_path": "Opname 14-08-2026/P1000270.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "9629dbdf2cae3a6b85e673246260138caa6ca11b11dfedd3dbbbb97fbebe1177",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1846811,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "STREET_CONTEXT",
+        "view": "Straat met schutting en boom; gevelrij ver weg",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "CONTEXT_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Gevel grotendeels afgedekt door boom en schutting."
+    },
+    {
+      "photo_id": "MAP-012",
+      "original_file": "P1000275.JPG",
+      "zip_path": "Opname 14-08-2026/P1000275.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "ea2e0309de8ab5058e9d28952563863b7baf39862a467f5ec9a23dd549565f58",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1886400,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "STREET_CONTEXT",
+        "view": "Straatperspectief langs de gevelrij",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "CONTEXT_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Gevelrij sterk verkort en verborgen achter beplanting."
+    },
+    {
+      "photo_id": "MAP-013",
+      "original_file": "P1000294.JPG",
+      "zip_path": "Opname 14-08-2026/P1000294.JPG",
+      "group_folder": "01_straat_en_voorzijde",
+      "sha256": "d7d8839fc966a927360ecb14e01b908c5b9466ac24195d881dda9aafad1acfca",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1856364,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin, entreemuren 288/286",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [
+        288,
+        286
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012121455"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Beide platen leesbaar; raam naast plaat 288."
+    },
+    {
+      "photo_id": "MAP-014",
+      "original_file": "P1000252.JPG",
+      "zip_path": "Opname 14-08-2026/P1000252.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "11ff84fc4ff0cf96ad8aa6a80d0b9b7f14ac519aed0b09b5d6b8dbbb3533d300",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1865137,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "REAR_OR_SIDE",
+        "view": "Achterzijde/dakvlak met kopgevel rechts, balkons en dakkapel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Houten schutting voor de begane grond; geen huisnummers. Zelfde tafereel als maldenhof_3 (foto 15) vanuit iets andere positie."
+    },
+    {
+      "photo_id": "MAP-015",
+      "original_file": "P1000254.JPG",
+      "zip_path": "Opname 14-08-2026/P1000254.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "117e4818595f20f8e8fbd4dede87490fa9891ac9b3f562157683feac8c72d10b",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1910575,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "REAR_OR_SIDE",
+        "view": "Achterzijde/dakvlak met kopgevel rechts, balkons en dakkapel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Bron van maldenhof_3.jpg (pixelmatch, hogere resolutie 3264x2448). Pand nog NOT_PROVEN."
+    },
+    {
+      "photo_id": "MAP-016",
+      "original_file": "P1000255.JPG",
+      "zip_path": "Opname 14-08-2026/P1000255.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "df64d55c1a6f842c3aa95f0993c6039f232342785ca26e534f121d62dff3f108",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1905159,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "REAR_OR_SIDE",
+        "view": "Achterzijde/dakvlak, tuinafscheiding en boom voor de gevel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_LOW",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Boom en hekwerk verbergen de onderste bouwlagen."
+    },
+    {
+      "photo_id": "MAP-017",
+      "original_file": "P1000258.JPG",
+      "zip_path": "Opname 14-08-2026/P1000258.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "98615f0811bba8023aff58abcc86087ee613fd17374b33ffd37d6d85c43ee4d5",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1929186,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "REAR_OR_SIDE",
+        "view": "Achterzijde met tuinafscheiding, schuurtje en balkon",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_LOW",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Begroeiing en schutting verbergen het grootste deel van de begane grond."
+    },
+    {
+      "photo_id": "MAP-018",
+      "original_file": "P1000259.JPG",
+      "zip_path": "Opname 14-08-2026/P1000259.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "ce5ad5b4f89b1cde32b91c7f91a6ad934073c90efdcd7de4bb717e7d4f1bc5f3",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1937005,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "REAR_OR_SIDE",
+        "view": "Achterzijde met balkons, rode deuren en dakschild",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Rode deur en balkons zichtbaar; schutting onderrand."
+    },
+    {
+      "photo_id": "MAP-019",
+      "original_file": "P1000261.JPG",
+      "zip_path": "Opname 14-08-2026/P1000261.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "a8861c1f512091e585eb70927271a9620dcb0f0bf494ed241c2c51fda8d0a773",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1912382,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "ROOF",
+        "view": "Achterzijde, dakvlak dominant met balkon en dakramen",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_LOW",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Dakvlak vult het beeld; opname van onderen; bovenste gevelrij smal."
+    },
+    {
+      "photo_id": "MAP-020",
+      "original_file": "P1000262.JPG",
+      "zip_path": "Opname 14-08-2026/P1000262.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "c37276275bbc9de72e5c27ce3df22322483122735d0ea46b4ccd260d064993d8",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1857115,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "ROOF",
+        "view": "Achterzijde, dakvlak met dakramen en tuinhuis",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_LOW",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Dakvlak dominant; tuinhuis en hekwerk voor de begane grond."
+    },
+    {
+      "photo_id": "MAP-021",
+      "original_file": "P1000266.JPG",
+      "zip_path": "Opname 14-08-2026/P1000266.JPG",
+      "group_folder": "02_dak_en_achterzijde",
+      "sha256": "4c76f41fb8eadeab9f522cf0eb2bf91b28649e3017bc7d6f5dd711243af138d4",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1863690,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "REAR_OR_SIDE",
+        "view": "Tuinzijde met dakkapel, veranda en tuin",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Boom en tuinmeubilair afdekking; zijde (achter of kopgevel) niet vast te stellen."
+    },
+    {
+      "photo_id": "MAP-022",
+      "original_file": "IMG_8524.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8524.JPEG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "7055bf3124aad073330ff65b1875c659ba70fa5814353595138cbdd24121bb30",
+      "width_px": 2048,
+      "height_px": 1536,
+      "bytes": 636150,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail raam en houten betimmering naast dakschild",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Zijde onbekend; geen plaat."
+    },
+    {
+      "photo_id": "MAP-023",
+      "original_file": "P1000225.JPG",
+      "zip_path": "Opname 14-08-2026/P1000225.JPG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "6179ef36ba5a851e415f59efbc3d351437ad4e73e2533e83188208abf34c99a9",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1832418,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail ramen met open draaideel naast een houten bouwdeel",
+        "rotated_in_display": true,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Camera sterk gekanteld; zijde onbekend."
+    },
+    {
+      "photo_id": "MAP-024",
+      "original_file": "P1000226.JPG",
+      "zip_path": "Opname 14-08-2026/P1000226.JPG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "bc0c969ab7f46942e1eb05ca584c3ee1b15e0a4d2da7a9e71e83b6721404c39a",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1886501,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail ramen met open draaideel in houten betimmering",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Van onderen; zijde onbekend."
+    },
+    {
+      "photo_id": "MAP-025",
+      "original_file": "P1000228.JPG",
+      "zip_path": "Opname 14-08-2026/P1000228.JPG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "2ea7c05c9c8a6bcc45e24f7a2ebc221d362bc3b88b55ffdb61c2f874ca3d328b",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1774062,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail ramen en balkondeur aan houten dakschild",
+        "rotated_in_display": true,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Beeld 90 graden gedraaid weergegeven; zijde onbekend."
+    },
+    {
+      "photo_id": "MAP-026",
+      "original_file": "P1000276.JPG",
+      "zip_path": "Opname 14-08-2026/P1000276.JPG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "90435e39a6a1aa556155ff0a873ccb5a47464e35f73c01f1ef3848892b82adbf",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1819621,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail raam en deur aan houten betimmering",
+        "rotated_in_display": true,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Beeld 90 graden gedraaid weergegeven; zijde onbekend."
+    },
+    {
+      "photo_id": "MAP-027",
+      "original_file": "P1000279.JPG",
+      "zip_path": "Opname 14-08-2026/P1000279.JPG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "ffd7ae55e234bdfe9723e3c8be8f596c64750c4b7db3f54c6c2f22b3197845e9",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1735167,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail ramen onder de dakgoot met schoorstenen, van onderen",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Zijde niet vast te stellen; gelijkenis met bovenverdieping voorzijde is een hypothese."
+    },
+    {
+      "photo_id": "MAP-028",
+      "original_file": "P1000284.JPG",
+      "zip_path": "Opname 14-08-2026/P1000284.JPG",
+      "group_folder": "03_kozijn_en_geveldetails",
+      "sha256": "0e81b116369b29781bfc53bc28bcffda854c96f3b5dd48118fb234ad3f6fdd96",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1885965,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Detail twee ramen met open draaideel en houten betimmering",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [],
+      "plate_reading_basis": null,
+      "bag_pand_link": {
+        "status": "NOT_PROVEN",
+        "bag_pand_ids": [],
+        "scope_note": "Geen leesbaar huisnummer; geen pandkoppeling."
+      },
+      "note": "Zijde onbekend."
+    },
+    {
+      "photo_id": "MAP-029",
+      "original_file": "P1000193.JPG",
+      "zip_path": "Opname 14-08-2026/P1000193.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "b85192ab5a9886de15a538defca1361f5626b9becdcd53fe789953ddcdb05ee4",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1898042,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Entreemuur met plaat 248 en raam, voorgevelzijde waarschijnlijk",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [
+        248
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012078022"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 248 leesbaar; zijde FRONT_PROBABLE (entreemuur zoals op foto 2)."
+    },
+    {
+      "photo_id": "MAP-030",
+      "original_file": "P1000199.JPG",
+      "zip_path": "Opname 14-08-2026/P1000199.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "5227f194de34deaf27f144c6bc1acd1805df69c9d3e088088a959c56f5bd29fe",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1884033,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Entree met trap en plaat 244, voorgevelzijde waarschijnlijk",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [
+        244
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012102659"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 244 leesbaar; tegenlicht en bladeren."
+    },
+    {
+      "photo_id": "MAP-031",
+      "original_file": "P1000204.JPG",
+      "zip_path": "Opname 14-08-2026/P1000204.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "a42961d1f2599412dd21c217887de05d9eeb27bab16c6cc82de50806b8b5f257",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1865517,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin met entreemuur 250",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [
+        250
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012140664"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 250 leesbaar; lensflare linksboven."
+    },
+    {
+      "photo_id": "MAP-032",
+      "original_file": "P1000216.JPG",
+      "zip_path": "Opname 14-08-2026/P1000216.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "888118a65a94a004f58029ada06c2e8987cc17fac16f17ee5d9dd91ffd47c07c",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1864973,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "FRONT_OBLIQUE",
+        "view": "Voorgevel schuin met entreemuur 266 en open raamvleugel",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "FRAME_ANNOTATION_MEDIUM",
+      "visible_house_number_plates": [
+        266
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012107492"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 266 leesbaar; struiken voor de begane grond."
+    },
+    {
+      "photo_id": "MAP-033",
+      "original_file": "P1000229.JPG",
+      "zip_path": "Opname 14-08-2026/P1000229.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "f2d13c4cb991bbb3cc139e41c566bb7a7f371eed5c02088e6452090141427a88",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1814689,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Raamdetail met plaat 276 (houten kozijn, verwering zichtbaar)",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [
+        276
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012144766"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat onder het raam; plaat bewijst het adres van de muur, niet automatisch dat het raam bij 276 hoort."
+    },
+    {
+      "photo_id": "MAP-034",
+      "original_file": "P1000281.JPG",
+      "zip_path": "Opname 14-08-2026/P1000281.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "3cefcb549e5b1be4967651a1d07c89ffa7afa22995e0d0ca170d01a66be50a14",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1752859,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Entreemuur met plaat 258, dakvlak en balkon, 90 graden gedraaid",
+        "rotated_in_display": true,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [
+        258
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012091974"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Beeld 90 graden gedraaid weergegeven; plaat 258 leesbaar."
+    },
+    {
+      "photo_id": "MAP-035",
+      "original_file": "P1000289.JPG",
+      "zip_path": "Opname 14-08-2026/P1000289.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "b29ad024751af4ec706c0f9ca51efa295891f8ea659ee22353d7e275b74936ff",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1852075,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Raamdetail met plaat 270",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [
+        270
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012071880"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 270 rechtsboven het raam; zelfde voorbehoud over elementtoewijzing."
+    },
+    {
+      "photo_id": "MAP-036",
+      "original_file": "P1000290.JPG",
+      "zip_path": "Opname 14-08-2026/P1000290.JPG",
+      "group_folder": "04_huisnummers_en_ankers",
+      "sha256": "3cabb36e19eab7376340c179978b054a4d36f979bbdc0485d7e46d00c497055f",
+      "width_px": 3264,
+      "height_px": 2448,
+      "bytes": 1839558,
+      "manifest_status": "SOURCE_ONLY_UNREVIEWED",
+      "classification": {
+        "facade_side": "DETAIL",
+        "view": "Raamdetail met plaat 268 en kippengaas",
+        "rotated_in_display": false,
+        "method": "MANUAL_VISUAL_READING"
+      },
+      "usability": "DETAIL_ONLY",
+      "visible_house_number_plates": [
+        268
+      ],
+      "plate_reading_basis": "Handmatige lezing; bij kleine platen vergroting nodig.",
+      "bag_pand_link": {
+        "status": "PAND_PROVEN_BY_VISIBLE_PLATE_ONLY",
+        "bag_pand_ids": [
+          "0363100012107492"
+        ],
+        "scope_note": "Alleen de muur met de leesbare plaat is aan het pand gekoppeld; kozijnen/elementen krijgen geen pand tenzij apart bewezen. Een plaat op een detail bewijst niet de rest van de fotoreeks."
+      },
+      "note": "Plaat 268 links naast het raam; zelfde voorbehoud over elementtoewijzing."
+    }
+  ],
+  "classification_counts": {
+    "SIDE_GABLE_OBLIQUE": 1,
+    "FRONT": 5,
+    "FRONT_OBLIQUE": 7,
+    "STREET_CONTEXT": 2,
+    "REAR_OR_SIDE": 6,
+    "ROOF": 2,
+    "DETAIL": 13
+  },
+  "usability_counts": {
+    "CONTEXT_ONLY": 3,
+    "FRAME_ANNOTATION_HIGH": 3,
+    "FRAME_ANNOTATION_MEDIUM": 11,
+    "FRAME_ANNOTATION_LOW": 6,
+    "DETAIL_ONLY": 13
+  },
+  "existing_photo_source_matches": [
+    {
+      "existing_photo": "maldenhof_2",
+      "archive_photo": "MAP-002",
+      "pearson": 1.0,
+      "status": "SAME_SOURCE_PHOTO_VISUAL_MATCH",
+      "byte_identical": false,
+      "note": "Zelfde opname, ander bestand (herbewerkt/herencodeerd; SHA256 verschilt). Foto-2 besluiten en instances blijven gebaseerd op maldenhof_2.jpg."
+    },
+    {
+      "existing_photo": "maldenhof_3",
+      "archive_photo": "MAP-015",
+      "pearson": 1.0,
+      "status": "SAME_SOURCE_PHOTO_VISUAL_MATCH",
+      "byte_identical": false,
+      "note": "maldenhof_3.jpg is een verkleinde versie van P1000254.JPG (3264x2448). Pand van foto 3 blijft NOT_PROVEN."
+    },
+    {
+      "existing_photo": "maldenhof_1",
+      "archive_photo": null,
+      "pearson": 0.598,
+      "status": "NO_SOURCE_MATCH_IN_ARCHIVE",
+      "byte_identical": false,
+      "note": "Beste archiefkandidaat is MAP-001 (andere opname, andere camerapositie); maldenhof_1 blijft CONTEXT_ONLY."
+    }
+  ],
+  "same_object_candidates": [
+    {
+      "group_id": "SOC-001",
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003"
+      ],
+      "basis": "Plaat 288 en aangrenzende voorgevel in beide frames.",
+      "confidence": "MEDIUM",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-002",
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004",
+        "MAP-009"
+      ],
+      "basis": "Platen 276/278/280 in meerdere frames (MAP-003 en MAP-004: 276, 278, 280; MAP-009: 280).",
+      "confidence": "MEDIUM",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-003",
+      "photo_ids": [
+        "MAP-003",
+        "MAP-013"
+      ],
+      "basis": "Platen 288/286 en bijbehorende ramen in beide frames.",
+      "confidence": "MEDIUM",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-004",
+      "photo_ids": [
+        "MAP-005",
+        "MAP-006"
+      ],
+      "basis": "Zelfde stuk straatzijde met aanhanger/kozijnen rond de platen 258-262 (visuele gelijkenis).",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-005",
+      "photo_ids": [
+        "MAP-005",
+        "MAP-034"
+      ],
+      "basis": "Plaat 258 in beide frames.",
+      "confidence": "MEDIUM",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-006",
+      "photo_ids": [
+        "MAP-008",
+        "MAP-032"
+      ],
+      "basis": "Plaat 266 in beide frames.",
+      "confidence": "MEDIUM",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-007",
+      "photo_ids": [
+        "MAP-008",
+        "MAP-036"
+      ],
+      "basis": "Plaat 268 met raam met kippengaas in beide frames.",
+      "confidence": "HIGH",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-008",
+      "photo_ids": [
+        "MAP-004",
+        "MAP-033"
+      ],
+      "basis": "Plaat 276 met raam in beide frames (raamtoewijzing aan plaat niet bewezen).",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-009",
+      "photo_ids": [
+        "MAP-014",
+        "MAP-015"
+      ],
+      "basis": "Zelfde dakkapel, dakschild en rode balkondeur vanuit twee opnamepunten; MAP-015 is de bron van maldenhof_3.",
+      "confidence": "HIGH",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-010",
+      "photo_ids": [
+        "MAP-017",
+        "MAP-020"
+      ],
+      "basis": "Tuinafscheiding en schuurtje met rood dak in beide frames.",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-011",
+      "photo_ids": [
+        "MAP-018",
+        "MAP-019"
+      ],
+      "basis": "Balkon met rood kozijn en rode deuren in beide frames.",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-012",
+      "photo_ids": [
+        "MAP-024",
+        "MAP-028"
+      ],
+      "basis": "Twee ramen met open draaidelen in houten betimmering in beide frames.",
+      "confidence": "MEDIUM",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-013",
+      "photo_ids": [
+        "MAP-023",
+        "MAP-024"
+      ],
+      "basis": "Raam met open boven-/draaideel in houten betimmering; hoek verschilt sterk.",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-014",
+      "photo_ids": [
+        "MAP-025",
+        "MAP-026"
+      ],
+      "basis": "Houten dakschild met raam en deur in beide (gedraaide) frames.",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    },
+    {
+      "group_id": "SOC-015",
+      "photo_ids": [
+        "MAP-007",
+        "MAP-008",
+        "MAP-009",
+        "MAP-010"
+      ],
+      "basis": "Aansluitende schuine opnamen van dezelfde voorgevelstrook; kozijnen kunnen in meerdere frames voorkomen.",
+      "confidence": "LOW",
+      "status": "SAME_OBJECT_CANDIDATE",
+      "merged": false
+    }
+  ],
+  "deduplication": "NONE_AUTOMATIC",
+  "photo2_comparison": {
+    "photo": "maldenhof_2",
+    "archive_source": "MAP-002",
+    "existing_confirmed_counts": {
+      "PHOTO_VISIBLE_FRAME_COUNT": 11,
+      "PHOTO_VISIBLE_WINDOW_COUNT": 11,
+      "PHOTO_VISIBLE_EXTERIOR_DOOR_COUNT": 1,
+      "FULL": 9,
+      "PARTIAL": 2
+    },
+    "archive_photos_overlapping_photo2_scene": [
+      "MAP-003"
+    ],
+    "result": "Geen wijziging aan besluiten of instances; MAP-002 is dezelfde opname als maldenhof_2. MAP-003 overlapt mogelijk met kozijnen rond plaat 288 (SOC-001) en wordt niet als extra kozijnen geteld.",
+    "photo2_decisions_changed": false,
+    "photo2_instances_changed": false
+  },
+  "coverage_matrix": {
+    "definition": "Voorlopige dekking: alleen of een foto met leesbare plaat per pand bestaat. Geen compleetheid van kozijnen; geen FULL_COVERAGE-claim.",
+    "panden": [
+      {
+        "order": 1,
+        "bag_pand_id": "0363100012137996",
+        "addresses": [
+          240
+        ],
+        "plates_seen": [],
+        "FRONT_ARCHIVE": {
+          "state": "NO_ARCHIVE_PHOTO_EVIDENCE",
+          "overview_photo_ids": [],
+          "detail_photo_ids": [],
+          "provenance": null
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Geen frontale/schuine overzichtsfoto met leesbare plaat voor dit pand.",
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 2,
+        "bag_pand_id": "0363100012102659",
+        "addresses": [
+          242,
+          244
+        ],
+        "plates_seen": [
+          244
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_DETAIL_PHOTO_ONLY",
+          "overview_photo_ids": [],
+          "detail_photo_ids": [
+            "MAP-030"
+          ],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Geen frontale/schuine overzichtsfoto met leesbare plaat voor dit pand.",
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 3,
+        "bag_pand_id": "0363100012078022",
+        "addresses": [
+          246,
+          248
+        ],
+        "plates_seen": [
+          248
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_DETAIL_PHOTO_ONLY",
+          "overview_photo_ids": [],
+          "detail_photo_ids": [
+            "MAP-029"
+          ],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Geen frontale/schuine overzichtsfoto met leesbare plaat voor dit pand.",
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 4,
+        "bag_pand_id": "0363100012140664",
+        "addresses": [
+          250,
+          252
+        ],
+        "plates_seen": [
+          250
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-031"
+          ],
+          "detail_photo_ids": [],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 5,
+        "bag_pand_id": "0363100012141419",
+        "addresses": [
+          254,
+          256
+        ],
+        "plates_seen": [],
+        "FRONT_ARCHIVE": {
+          "state": "NO_ARCHIVE_PHOTO_EVIDENCE",
+          "overview_photo_ids": [],
+          "detail_photo_ids": [],
+          "provenance": null
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Geen frontale/schuine overzichtsfoto met leesbare plaat voor dit pand.",
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 6,
+        "bag_pand_id": "0363100012091974",
+        "addresses": [
+          258,
+          260
+        ],
+        "plates_seen": [
+          258,
+          260
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-005"
+          ],
+          "detail_photo_ids": [
+            "MAP-034"
+          ],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 7,
+        "bag_pand_id": "0363100012070344",
+        "addresses": [
+          262,
+          264
+        ],
+        "plates_seen": [
+          262
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-005"
+          ],
+          "detail_photo_ids": [],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 8,
+        "bag_pand_id": "0363100012107492",
+        "addresses": [
+          266,
+          268
+        ],
+        "plates_seen": [
+          266,
+          268
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-008",
+            "MAP-032"
+          ],
+          "detail_photo_ids": [
+            "MAP-036"
+          ],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 9,
+        "bag_pand_id": "0363100012071880",
+        "addresses": [
+          270,
+          272
+        ],
+        "plates_seen": [
+          270
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_DETAIL_PHOTO_ONLY",
+          "overview_photo_ids": [],
+          "detail_photo_ids": [
+            "MAP-035"
+          ],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Geen frontale/schuine overzichtsfoto met leesbare plaat voor dit pand.",
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 10,
+        "bag_pand_id": "0363100012144766",
+        "addresses": [
+          274,
+          276
+        ],
+        "plates_seen": [
+          274,
+          276
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-003",
+            "MAP-004"
+          ],
+          "detail_photo_ids": [
+            "MAP-033"
+          ],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 11,
+        "bag_pand_id": "0363100012091756",
+        "addresses": [
+          278,
+          280
+        ],
+        "plates_seen": [
+          278,
+          280
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-003",
+            "MAP-004",
+            "MAP-009"
+          ],
+          "detail_photo_ids": [],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 12,
+        "bag_pand_id": "0363100012143647",
+        "addresses": [
+          282,
+          284
+        ],
+        "plates_seen": [
+          282,
+          284
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-003"
+          ],
+          "detail_photo_ids": [],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 13,
+        "bag_pand_id": "0363100012121455",
+        "addresses": [
+          286,
+          288
+        ],
+        "plates_seen": [
+          286,
+          288
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-002",
+            "MAP-003",
+            "MAP-013"
+          ],
+          "detail_photo_ids": [],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 14,
+        "bag_pand_id": "0363100012134188",
+        "addresses": [
+          290,
+          292
+        ],
+        "plates_seen": [
+          290
+        ],
+        "FRONT_ARCHIVE": {
+          "state": "PLATE_SEEN_IN_OVERVIEW_PHOTO",
+          "overview_photo_ids": [
+            "MAP-002"
+          ],
+          "detail_photo_ids": [],
+          "provenance": "Huisnummerplaat via BAG-snapshot en bevestigde building links (maldenhof_address_pand_evidence_v1)."
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      },
+      {
+        "order": 15,
+        "bag_pand_id": "0363100012127361",
+        "addresses": [
+          294,
+          296
+        ],
+        "plates_seen": [],
+        "FRONT_ARCHIVE": {
+          "state": "NO_ARCHIVE_PHOTO_EVIDENCE",
+          "overview_photo_ids": [],
+          "detail_photo_ids": [],
+          "provenance": null
+        },
+        "REAR_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "LEFT_RIGHT_SIDE_ARCHIVE": {
+          "state": "NO_PROVEN_PHOTO",
+          "photo_ids": []
+        },
+        "missing_coverage": [
+          "Geen frontale/schuine overzichtsfoto met leesbare plaat voor dit pand.",
+          "Achterzijde niet aan dit pand gekoppeld.",
+          "Kopgevel/zijgevel niet aan dit pand gekoppeld."
+        ]
+      }
+    ],
+    "summary": {
+      "panden_total": 15,
+      "front_overview_with_plate": 9,
+      "front_detail_plate_only": 3,
+      "front_no_evidence": 3,
+      "rear_proven": 0,
+      "side_proven": 0
+    },
+    "unassigned_photo_ids_without_plate": [
+      "MAP-001",
+      "MAP-006",
+      "MAP-007",
+      "MAP-010",
+      "MAP-011",
+      "MAP-012",
+      "MAP-014",
+      "MAP-015",
+      "MAP-016",
+      "MAP-017",
+      "MAP-018",
+      "MAP-019",
+      "MAP-020",
+      "MAP-021",
+      "MAP-022",
+      "MAP-023",
+      "MAP-024",
+      "MAP-025",
+      "MAP-026",
+      "MAP-027",
+      "MAP-028"
+    ],
+    "note_unassigned": "Foto's zonder leesbare plaat (inclusief alle achterzijde/dak/detailfoto's zonder plaat en maldenhof_3/MAP-015) zijn niet aan een pand gekoppeld."
+  },
+  "shortlist": [
+    {
+      "rank": 1,
+      "photo_id": "MAP-003",
+      "reason": "Frontaal 276-288, hoogste dekking voorgevel naast foto 2; overlap met MAP-002/004/013 expliciet markeren.",
+      "photo_file": "IMG_8518.JPEG",
+      "usability": "FRAME_ANNOTATION_HIGH"
+    },
+    {
+      "rank": 2,
+      "photo_id": "MAP-004",
+      "reason": "Frontaal 274-280; sluit links aan op MAP-003.",
+      "photo_file": "IMG_8520.JPEG",
+      "usability": "FRAME_ANNOTATION_HIGH"
+    },
+    {
+      "rank": 3,
+      "photo_id": "MAP-005",
+      "reason": "Frontaal 258-262: enige frontale foto van panden 6 en 7 (afdekking door lantaarn en aanhanger).",
+      "photo_file": "IMG_8523.JPEG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 4,
+      "photo_id": "MAP-013",
+      "reason": "Schuin 286/288, dekking aan de hogere nummers van de rij.",
+      "photo_file": "P1000294.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 5,
+      "photo_id": "MAP-008",
+      "reason": "Schuin 266/268, enige schuine foto van pand 8 met twee platen.",
+      "photo_file": "P1000218.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 6,
+      "photo_id": "MAP-009",
+      "reason": "Schuin met plaat 280, tweede opname van het stuk rond 280.",
+      "photo_file": "P1000236.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 7,
+      "photo_id": "MAP-031",
+      "reason": "Schuin met plaat 250, enige foto van pand 4 met volledige gevelstrook.",
+      "photo_file": "P1000204.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 8,
+      "photo_id": "MAP-032",
+      "reason": "Schuin met plaat 266 en open raamvleugel; controleer overlap met MAP-008.",
+      "photo_file": "P1000216.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 9,
+      "photo_id": "MAP-029",
+      "reason": "Entreemuur met plaat 248 en raam, enige foto van pand 3.",
+      "photo_file": "P1000193.JPG",
+      "usability": "DETAIL_ONLY"
+    },
+    {
+      "rank": 10,
+      "photo_id": "MAP-014",
+      "reason": "Achterzijde met dakkapel, balkons en rood kozijn; vult het beeld van maldenhof_3 links aan (pand NOT_PROVEN).",
+      "photo_file": "P1000252.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 11,
+      "photo_id": "MAP-018",
+      "reason": "Achterzijde met rode deuren/balkons; onderste bouwlagen deels zichtbaar.",
+      "photo_file": "P1000259.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    },
+    {
+      "rank": 12,
+      "photo_id": "MAP-017",
+      "reason": "Achterzijde met balkon en schuurtje; begane grond afgedekt.",
+      "photo_file": "P1000258.JPG",
+      "usability": "FRAME_ANNOTATION_LOW"
+    },
+    {
+      "rank": 13,
+      "photo_id": "MAP-019",
+      "reason": "Achterzijde met balkon en dakramen (dakvlak dominant).",
+      "photo_file": "P1000261.JPG",
+      "usability": "FRAME_ANNOTATION_LOW"
+    },
+    {
+      "rank": 14,
+      "photo_id": "MAP-020",
+      "reason": "Achterzijde met dakramen en tuinhuis.",
+      "photo_file": "P1000262.JPG",
+      "usability": "FRAME_ANNOTATION_LOW"
+    },
+    {
+      "rank": 15,
+      "photo_id": "MAP-021",
+      "reason": "Tuinzijde met dakkapel en veranda; afwijkend type, zijde nog onbekend.",
+      "photo_file": "P1000266.JPG",
+      "usability": "FRAME_ANNOTATION_MEDIUM"
+    }
+  ],
+  "shortlist_note": "Maximaal 15; MAP-002 (bron foto 2) en MAP-015 (bron foto 3) zijn al geannoteerd en staan er niet op.",
+  "contact_sheets": [
+    "reports/frames/photo_archive_audit_v1/maldenhof_archive_contact_sheet_1.jpg",
+    "reports/frames/photo_archive_audit_v1/maldenhof_archive_contact_sheet_2.jpg",
+    "reports/frames/photo_archive_audit_v1/maldenhof_archive_contact_sheet_3.jpg"
+  ],
+  "effects": {
+    "new_confirmed_instances": 0,
+    "frame_instances_created": 0,
+    "building_totals": null,
+    "repeat_multipliers": null,
+    "metric_dimensions": null,
+    "painting_area": null,
+    "kg_price_changes": false,
+    "mjop_app_updates": false,
+    "quantity_resolutions": 0,
+    "human_decisions_added": 0,
+    "comparability_756_80": "NOT_COMPARABLE"
+  },
+  "stop": "STOP voor menselijke goedkeuring of instance-activatie."
+}
