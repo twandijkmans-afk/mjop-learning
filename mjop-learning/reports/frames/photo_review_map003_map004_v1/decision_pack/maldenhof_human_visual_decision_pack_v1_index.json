@@ -1,5 +1,5 @@
 {
-  "pack_version": "human_visual_decision_pack_v1.0.0",
+  "pack_version": "human_visual_decision_pack_v1.1.0",
   "review_package_version": "visual_photo_review_map003_map004_v1.0.0",
   "html": "maldenhof_human_visual_decision_pack_v1.html",
   "sources": [
@@ -524,5 +524,25 @@
     "default_decision": "OPEN",
     "claude_proposals_exported_as_human_decisions": false
   },
+  "quality_review": {
+    "report": "maldenhof_p1_visual_quality_review_v1.md",
+    "p1_points": 54,
+    "technically_correct": 54,
+    "by_quality_status": {
+      "NEEDS_MANUAL_REVIEW": 16,
+      "VISUALLY_SUPPORTED": 25,
+      "NEEDS_BETTER_PHOTO": 8,
+      "TECHNICALLY_VALIDATED": 5
+    },
+    "proposal_corrections": [
+      "RV-OBS-MAP003-027",
+      "RV-OBS-MAP004-022",
+      "RV-REL-VR-008",
+      "RV-REL-VR-026",
+      "RV-REL-VR-044"
+    ]
+  },
+  "export_format": "maldenhof_visual_decision_export_v2",
+  "legacy_export_format_accepted": "maldenhof_visual_decision_export_v1",
   "network_dependencies": "none (alle afbeeldingen als data-URI; geen externe scripts)"
 }

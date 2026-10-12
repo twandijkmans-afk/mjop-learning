@@ -1,0 +1,1356 @@
+{
+ "report": "maldenhof_p1_visual_quality_review_v1",
+ "pack_version": "human_visual_decision_pack_v1.1.0",
+ "status": "QUALITY_CHECK_NOT_A_HUMAN_APPROVAL",
+ "counts": {
+  "p1_review_points": 54,
+  "technically_correct": 54,
+  "by_quality_status": {
+   "TECHNICALLY_VALIDATED": 5,
+   "VISUALLY_SUPPORTED": 25,
+   "NEEDS_MANUAL_REVIEW": 16,
+   "NEEDS_BETTER_PHOTO": 8
+  },
+  "relations_by_evidence_class": {
+   "STRONG_VISUAL_SUPPORT": 14,
+   "MODERATE_VISUAL_SUPPORT": 7,
+   "INSUFFICIENT_EVIDENCE": 6
+  }
+ },
+ "effects": {
+  "instances_created": 0,
+  "bag_links_created": 0,
+  "building_totals": null,
+  "costs": null,
+  "app_decisions_open": 48
+ },
+ "feature_match_noise_note": "Niet-partners halen tot 24 inliers; getal beslist nooit alleen.",
+ "proposal_corrections": {
+  "RV-OBS-MAP003-027": {
+   "from": "UNDECIDABLE",
+   "to": "NEEDS_BETTER_PHOTO",
+   "reason": "Te donker: zonder betere belichting of een nieuwe foto is geen enkele uitspraak mogelijk."
+  },
+  "RV-OBS-MAP004-022": {
+   "from": "UNDECIDABLE",
+   "to": "NEEDS_BETTER_PHOTO",
+   "reason": "Klein, bedekt door begroeiing en de beeldrand: een nieuwe foto lost dit op, extra onderzoek op deze foto niet."
+  },
+  "RV-REL-VR-008": {
+   "from": "UNDECIDABLE",
+   "to": "SAME",
+   "reason": "Het smalle element staat in alle vier de foto's links van het unieke hoofdkozijn (MODERATE); of het een apart kozijn is, blijft een apart besluit (HQ-VR-001)."
+  },
+  "RV-REL-VR-026": {
+   "from": "SAME",
+   "to": "UNDECIDABLE",
+   "reason": "Onvoldoende bewijs: in MAP-003 slechts een strook; identieke buurramen."
+  },
+  "RV-REL-VR-044": {
+   "from": "SAME",
+   "to": "UNDECIDABLE",
+   "reason": "Onvoldoende bewijs: schuine opname met afwijkende vleugelpositie en verborgen strook in MAP-003."
+  }
+ },
+ "records": [
+  {
+   "review_id": "RV-OBS-MAP003-009",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "WINDOW_OPENING FULL (onzekerheid HIGH)",
+   "finding": "Zichtbaar raamelement links van 010; de rechterrand wordt door de open vleugel van 010 overlapt (zichtbaarheid is dus niet echt FULL). Apart kozijn volgens MAP-002 en MAP-013 (metselwerk ertussen), niet zelfstandig af te leiden uit MAP-003.",
+   "visual_evidence": "Q009_010_four_photos.jpg",
+   "next_step": "Mens beslist HQ-VR-001 (apart kozijn of vleugel); geen extra telling.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee: MAP-013 levert het bewijs, een frontale foto bevestigt het."
+  },
+  {
+   "review_id": "RV-OBS-MAP003-010",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "WINDOW_OPENING FULL (onzekerheid MEDIUM)",
+   "finding": "Hoofdkozijn met gordijn en twee open vleugels, eenduidig herkenbaar in vier foto's; kader klopt.",
+   "visual_evidence": "Q009_010_four_photos.jpg",
+   "next_step": "Beoordelen als voorlopige zichtbare opening (geen instance).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-OBS-MAP003-020",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "WINDOW_OPENING PARTIAL (onzekerheid HIGH)",
+   "finding": "Zichtbaar raamdeel (hoek en ruit) achter lantaarnpaal en kap; partieel, niet meetbaar; identiteit met MAP004-016 niet onderbouwd.",
+   "visual_evidence": "QD-MAP003-020.jpg",
+   "next_step": "Menselijk bevestigen dat alleen de zichtbare opening telt; geen koppeling.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja: een foto van rechts of dichterbij",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "YES",
+     "note": "Kozijnhoek en ruit zichtbaar tussen dakschild en lantaarnpaal."
+    },
+    "object_type": {
+     "answer": "WINDOW",
+     "note": "Raam met wit kozijn en ruit; geen deur of dakraam."
+    },
+    "full_or_partial": {
+     "answer": "PARTIAL",
+     "note": "Alleen de linkerbovenhoek en een deel van de ruit; rest achter dak en paal."
+    },
+    "separately_identifiable": {
+     "answer": "UNCERTAIN",
+     "note": "Als zichtbaar raamdeel wel; de koppeling met OBS-MAP004-016 is onvoldoende onderbouwd (VR-026)."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Deels bedekt, geen schaal."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Geen leesbare plaat bij dit raam."
+    }
+   }
+  },
+  {
+   "review_id": "RV-OBS-MAP003-026",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "EXTERIOR_DOOR PARTIAL (onzekerheid MEDIUM)",
+   "finding": "Deurvorm in entreenis met kozijnprofiel; de kleur 'rood' is op deze belichting niet te verifieren; onderkant bedekt. Alle entreeen zijn identiek (herhalingsrisico).",
+   "visual_evidence": "QD-MAP003-026.jpg",
+   "next_step": "HQ-VR-003 (tellen deuren mee?) beslissen; kleur niet gebruiken.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja: betere belichting (flits/avond is niet nodig; schaduwloze opname)",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "YES",
+     "note": "Donker paneel in de entreenis met wit kozijnprofiel rechts."
+    },
+    "object_type": {
+     "answer": "PLAUSIBLE_DOOR",
+     "note": "Deurvorm in de entreenis; de kleur 'rood' in de observatienotitie is op deze belichting niet te verifieren (donkerblauw/zwart)."
+    },
+    "full_or_partial": {
+     "answer": "PARTIAL",
+     "note": "Onderkant door begroeiing bedekt; schaduw."
+    },
+    "separately_identifiable": {
+     "answer": "YES",
+     "note": "Binnen de entreenis, naast regenpijp en trap. Let op: alle entreeen zijn identiek (herhalingsrisico)."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Deels bedekt, geen schaalreferentie."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Plaat 286 hangt ernaast; die bewijst alleen de plaatmuur."
+    }
+   }
+  },
+  {
+   "review_id": "RV-OBS-MAP003-027",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "NEEDS_BETTER_PHOTO",
+   "current_classification": "EXTERIOR_DOOR PARTIAL (onzekerheid HIGH)",
+   "finding": "Zeer donker: een rechthoekig vlak naast het plaatje 278, geen contrast, twee donkere vlakken. Geen enkele uitspraak over type of zichtbaarheid mogelijk.",
+   "visual_evidence": "QD-MAP003-027.jpg",
+   "next_step": "Betere foto nodig; geen koppeling met MAP004-020 afdwingen.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja: opname met voldoende licht of nabij",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "UNCERTAIN",
+     "note": "Zeer donker rechthoekig vlak rechts van plaat 278; twee donkere vlakken naast elkaar."
+    },
+    "object_type": {
+     "answer": "UNDETERMINED",
+     "note": "Deur of donkere doorgang niet te onderscheiden."
+    },
+    "full_or_partial": {
+     "answer": "UNDETERMINED",
+     "note": "Niet te bepalen door ontbrekend contrast."
+    },
+    "separately_identifiable": {
+     "answer": "NO",
+     "note": "Vloeit samen met het tweede donkere vlak."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Geen bruikbare randen."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Plaat 278 bewijst alleen de plaatmuur."
+    }
+   },
+   "proposal_correction": {
+    "from": "UNDECIDABLE",
+    "to": "NEEDS_BETTER_PHOTO",
+    "reason": "Te donker: zonder betere belichting of een nieuwe foto is geen enkele uitspraak mogelijk."
+   }
+  },
+  {
+   "review_id": "RV-OBS-MAP003-028",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "UNKNOWN_OPENING UNKNOWN_OPENING (onzekerheid HIGH)",
+   "finding": "Wit kozijnprofiel met donkere ruit achter hortensia's; kan een raam zijn, kan ook een muurband zijn. Blijft UNKNOWN_OPENING.",
+   "visual_evidence": "QD-MAP003-028.jpg",
+   "next_step": "Mens kan REJECT (geen opening) of UNDECIDABLE kiezen; geen type toekennen.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja: foto zonder begroeiing",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "UNCERTAIN",
+     "note": "Wit verticaal kozijnprofiel met donkere ruit achter hortensia's; kan een raam zijn."
+    },
+    "object_type": {
+     "answer": "UNKNOWN",
+     "note": "Raam plausibel, niet vast te stellen; blijft UNKNOWN_OPENING."
+    },
+    "full_or_partial": {
+     "answer": "PARTIAL",
+     "note": "Grotendeels door begroeiing bedekt."
+    },
+    "separately_identifiable": {
+     "answer": "NO",
+     "note": "Alleen een kozijnstijl te zien."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Niet meetbaar."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Geen plaat in de buurt."
+    }
+   }
+  },
+  {
+   "review_id": "RV-OBS-MAP004-012",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "WINDOW_OPENING PARTIAL (onzekerheid HIGH)",
+   "finding": "Raamstrook aan de beeldrand; bestaat zichtbaar (kozijn, ruit, rolkast) maar is afgesneden en niet te koppelen.",
+   "visual_evidence": "QD-MAP004-012.jpg",
+   "next_step": "UNDECIDABLE laten; geen koppeling met MAP-003.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja: bredere opname van het rechterpand",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "YES",
+     "note": "Wit kozijn met ruit en rolkast aan de beeldrand."
+    },
+    "object_type": {
+     "answer": "WINDOW",
+     "note": "Raam."
+    },
+    "full_or_partial": {
+     "answer": "PARTIAL",
+     "note": "Door de beeldrand afgesneden; ongeveer de linkerhelft van een raam."
+    },
+    "separately_identifiable": {
+     "answer": "NO",
+     "note": "Niet te koppelen aan het rechterpand op MAP-003 (VR-035 UNDETERMINABLE)."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Afgesneden."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Geen plaat zichtbaar."
+    }
+   }
+  },
+  {
+   "review_id": "RV-OBS-MAP004-020",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "EXTERIOR_DOOR PARTIAL (onzekerheid MEDIUM)",
+   "finding": "Deurblad met wit kozijn in de entreenis, regenpijp links en trap erachter; kleur donkerrood (op MAP-004 wel te zien); PARTIAL blijft juist.",
+   "visual_evidence": "QD-MAP004-020.jpg",
+   "next_step": "HQ-VR-003 beslissen (deuren tellen mee of context).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "YES",
+     "note": "Donkerrode deur met wit kozijnprofiel rechts, regenpijp links, trap erachter."
+    },
+    "object_type": {
+     "answer": "PLAUSIBLE_DOOR",
+     "note": "Deurblad met kozijn in de entreenis (nog geen besluit of deuren meetellen: HQ-VR-003)."
+    },
+    "full_or_partial": {
+     "answer": "PARTIAL",
+     "note": "Regenpijp links en de onderkant deels bedekt; PARTIAL blijft."
+    },
+    "separately_identifiable": {
+     "answer": "YES",
+     "note": "Binnen de entreenis rechts van plaat 278."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Deels bedekt; geen schaalreferentie."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Plaat 278 bewijst alleen de plaatmuur."
+    }
+   }
+  },
+  {
+   "review_id": "RV-OBS-MAP004-022",
+   "review_type": "OBSERVATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "NEEDS_BETTER_PHOTO",
+   "current_classification": "EXTERIOR_DOOR PARTIAL (onzekerheid HIGH)",
+   "finding": "Klein deurblad met kozijn achter hortensia's aan de beeldrand; grotendeels bedekt; hoort bij het buurpand.",
+   "visual_evidence": "QD-MAP004-022.jpg",
+   "next_step": "Betere foto nodig.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja: opname van het buurpand links",
+   "six_questions": {
+    "exists_visibly": {
+     "answer": "YES",
+     "note": "Klein deurblad met wit kozijn achter hortensia's."
+    },
+    "object_type": {
+     "answer": "PLAUSIBLE_DOOR",
+     "note": "Deurvorm; te klein voor zekerheid."
+    },
+    "full_or_partial": {
+     "answer": "PARTIAL",
+     "note": "Grotendeels door begroeiing en de beeldrand bedekt."
+    },
+    "separately_identifiable": {
+     "answer": "UNCERTAIN",
+     "note": "Hoort bij het buurpand links; niets te koppelen."
+    },
+    "measurable": {
+     "answer": "NO",
+     "note": "Niet meetbaar."
+    },
+    "pand_link_proven": {
+     "answer": "NOT_PROVEN",
+     "note": "Geen leesbare plaat."
+    }
+   },
+   "proposal_correction": {
+    "from": "UNDECIDABLE",
+    "to": "NEEDS_BETTER_PHOTO",
+    "reason": "Klein, bedekt door begroeiing en de beeldrand: een nieuwe foto lost dit op, extra onderzoek op deze foto niet."
+   }
+  },
+  {
+   "review_id": "RV-REL-VR-001",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "SAME_FACADE_SECTION (sterkte HIGH); relatietype FACADE_SECTION",
+   "relation_type": "FACADE_SECTION",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "PLATE_ANCHOR",
+    "FACADE_CONTEXT"
+   ],
+   "feature_match": null,
+   "finding": "sterke visuele ondersteuning: Plaat 288, muurverband, kap/dakraam en het raam rechts van de plaat staan in dezelfde onderlinge ligging op MAP-002 en MAP-003. Dit bewijst alleen dezelfde gevelsectie.",
+   "visual_evidence": "D1_MAP-002_vs_MAP-003_ground_wall_288.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-002",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte HIGH); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "PLATE_ANCHOR",
+    "UNIQUE_CONFIGURATION"
+   ],
+   "feature_match": {
+    "inliers": 6,
+    "good_matches": 31
+   },
+   "finding": "sterke visuele ondersteuning: Raam met gordijn tussen plaat 288 en plaat 286 onder dezelfde donkere latei; zelfde kozijnvorm met brede onderdorpel. Kenmerkmatch zwak door kijkhoek (6 inliers), visueel eenduidig.",
+   "visual_evidence": "QREL-sheet-1.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-050",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte HIGH); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "PLATE_ANCHOR",
+    "OBLIQUE_VIEW"
+   ],
+   "feature_match": {
+    "inliers": 7,
+    "good_matches": 20
+   },
+   "finding": "matige visuele ondersteuning: MAP-013 is schuin; raam naast een gedeeltelijk zichtbare plaat met kantgordijn. Zelfde positie, maar de schuine opname laat geen unieke details vergelijken.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)"
+  },
+  {
+   "review_id": "RV-REL-VR-004",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "SAME_LAYOUT",
+    "SEQUENCE_ORDER",
+    "PARTIAL_OVERLAP"
+   ],
+   "feature_match": {
+    "inliers": 7,
+    "good_matches": 31
+   },
+   "finding": "matige visuele ondersteuning: Raam met onderpaneel naast de kap; in MAP-003 deels door het dakschild bedekt. Indeling gelijk, geen uniek kenmerk in beide beelden.",
+   "visual_evidence": "QREL-sheet-1.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)"
+  },
+  {
+   "review_id": "RV-REL-VR-005",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte LOW); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "INSUFFICIENT_EVIDENCE",
+   "evidence_basis": [
+    "SEQUENCE_ORDER",
+    "REPETITION_RISK",
+    "PARTIAL_OVERLAP"
+   ],
+   "feature_match": {
+    "inliers": 7,
+    "good_matches": 36
+   },
+   "finding": "onvoldoende bewijs: In MAP-003 is slechts de rechtervleugel aan de beeldrand zichtbaar; de woningen zijn identiek, dus herkenning berust alleen op de volgorde.",
+   "visual_evidence": "QREL-sheet-1.jpg",
+   "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja"
+  },
+  {
+   "review_id": "RV-REL-VR-006",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "FEATURE_MATCH"
+   ],
+   "feature_match": {
+    "inliers": 22,
+    "good_matches": 74
+   },
+   "finding": "sterke visuele ondersteuning: Tweedelig kozijn (smalle linkervleugel, groot rechterdeel met rolkast) met identieke merktekens op de stijl; 22 kenmerkmatches (inliers).",
+   "visual_evidence": "QREL-sheet-1.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-007",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "SAME_LAYOUT",
+    "SEQUENCE_ORDER"
+   ],
+   "feature_match": {
+    "inliers": 7,
+    "good_matches": 28
+   },
+   "finding": "matige visuele ondersteuning: Smal raam met rolkast direct rechts van de penant; vorm gelijk, kleine details zijn door resolutie niet te vergelijken.",
+   "visual_evidence": "QREL-sheet-1.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)"
+  },
+  {
+   "review_id": "RV-REL-VR-054",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "OBLIQUE_VIEW"
+   ],
+   "feature_match": {
+    "inliers": 2,
+    "good_matches": 4
+   },
+   "finding": "sterke visuele ondersteuning: Tweedelig kozijn + penant + smal los kozijn in dezelfde volgorde op MAP-003 en MAP-013 (schuin); penant in beide zichtbaar.",
+   "visual_evidence": "QREL-sheet-3.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-008",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "SAME",
+   "current_classification": "UNDETERMINABLE (sterkte LOW); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "PARTIAL_OVERLAP"
+   ],
+   "feature_match": {
+    "inliers": 3,
+    "good_matches": 17
+   },
+   "finding": "matige visuele ondersteuning: Het smalle linker element staat in alle foto's links van het unieke hoofdkozijn 010; in MAP-003 deels door de open vleugel van 010 bedekt. Dat het een afzonderlijk kozijn is, volgt uit MAP-002/MAP-013, niet uit MAP-003.",
+   "visual_evidence": "QREL-sheet-5.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)",
+   "proposal_correction": {
+    "from": "UNDECIDABLE",
+    "to": "SAME",
+    "reason": "Het smalle element staat in alle vier de foto's links van het unieke hoofdkozijn (MODERATE); of het een apart kozijn is, blijft een apart besluit (HQ-VR-001)."
+   }
+  },
+  {
+   "review_id": "RV-REL-VR-009",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION"
+   ],
+   "feature_match": {
+    "inliers": 7,
+    "good_matches": 28
+   },
+   "finding": "sterke visuele ondersteuning: Gordijn, blauw-omrande open vleugel links en open vleugel rechts: onderscheidende combinatie, identiek op MAP-002 en MAP-003.",
+   "visual_evidence": "QREL-sheet-5.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-031",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "FEATURE_MATCH"
+   ],
+   "feature_match": {
+    "inliers": 24,
+    "good_matches": 57
+   },
+   "finding": "sterke visuele ondersteuning: Zelfde combinatie op MAP-003 en MAP-004 (24 inliers). Het telverschil 2 observaties versus 1 is een leesverschil: het smalle element is op MAP-004 grotendeels bedekt.",
+   "visual_evidence": "QREL-sheet-3.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-053",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "OBLIQUE_VIEW"
+   ],
+   "feature_match": {
+    "inliers": 6,
+    "good_matches": 30
+   },
+   "finding": "sterke visuele ondersteuning: MAP-013 (schuin) toont dezelfde combinatie: smal element, metselwerk, hoofdkozijn met blauw-omrande open vleugel, rechter open vleugel.",
+   "visual_evidence": "QREL-sheet-5.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-010",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "UNDETERMINABLE (sterkte LOW); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "INSUFFICIENT_EVIDENCE",
+   "evidence_basis": [
+    "SAME_LAYOUT",
+    "REPETITION_RISK",
+    "PARTIAL_OVERLAP"
+   ],
+   "feature_match": {
+    "inliers": 9,
+    "good_matches": 52
+   },
+   "finding": "onvoldoende bewijs: Raam aan de beeldrand van MAP-003; vergelijkbare open vleugel en rolkast, maar afgesneden en identiek aan buurramen: kan een buurraam zijn.",
+   "visual_evidence": "QREL-sheet-2.jpg",
+   "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja"
+  },
+  {
+   "review_id": "RV-REL-VR-027",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "FEATURE_MATCH"
+   ],
+   "feature_match": {
+    "inliers": 39,
+    "good_matches": 82,
+    "rank_of_partner_among_MAP004": 1,
+    "rank_of_partner_among_MAP003": 1,
+    "best_other_inliers_row": 13,
+    "best_other_inliers_col": 24
+   },
+   "finding": "sterke visuele ondersteuning: Tweedelig kozijn met identieke merktekens, stickers en gordijn; 39 inliers, mutueel beste partner (volgende 24).",
+   "visual_evidence": "QREL-sheet-2.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-028",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "FEATURE_MATCH"
+   ],
+   "feature_match": {
+    "inliers": 20,
+    "good_matches": 36,
+    "rank_of_partner_among_MAP004": 1,
+    "rank_of_partner_among_MAP003": 1,
+    "best_other_inliers_row": 6,
+    "best_other_inliers_col": 8
+   },
+   "finding": "sterke visuele ondersteuning: Smal raam met afgeplakte/foliebedekte ruit, identiek patroon; 20 inliers, mutueel beste partner (volgende 8).",
+   "visual_evidence": "QREL-sheet-3.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-029",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "SEQUENCE_ORDER",
+    "SAME_LAYOUT"
+   ],
+   "feature_match": {
+    "inliers": 5,
+    "good_matches": 15,
+    "rank_of_partner_among_MAP004": 4,
+    "rank_of_partner_among_MAP003": 10,
+    "best_other_inliers_row": 8,
+    "best_other_inliers_col": 17
+   },
+   "finding": "matige visuele ondersteuning: Smal raam met rolkast tussen twee sterk gematchte buren (012 en 014); in beide beelden iets openstaande vleugel, maar de ruitinhoud verschilt door de kijkhoek. Weinig kenmerken (5 inliers); koppeling steunt op de volgorde.",
+   "visual_evidence": "QREL-sheet-3.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)"
+  },
+  {
+   "review_id": "RV-REL-VR-030",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION",
+    "FEATURE_MATCH"
+   ],
+   "feature_match": {
+    "inliers": 28,
+    "good_matches": 79,
+    "rank_of_partner_among_MAP004": 1,
+    "rank_of_partner_among_MAP003": 1,
+    "best_other_inliers_row": 15,
+    "best_other_inliers_col": 7
+   },
+   "finding": "sterke visuele ondersteuning: Kozijn met rolkast en donkere open vleugel rechts; 28 inliers, mutueel beste partner (volgende 15).",
+   "visual_evidence": "QREL-sheet-3.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-045",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte LOW); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "INSUFFICIENT_EVIDENCE",
+   "evidence_basis": [
+    "OBLIQUE_VIEW",
+    "PARTIAL_OVERLAP"
+   ],
+   "feature_match": {
+    "inliers": 4,
+    "good_matches": 7
+   },
+   "finding": "onvoldoende bewijs: MAP-009 is sterk verkort: alleen het tweedelige kozijn is herkenbaar, het smalle raam ontbreekt; geen uniek kenmerk.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja"
+  },
+  {
+   "review_id": "RV-REL-VR-024",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "SAME_LAYOUT",
+    "FEATURE_MATCH",
+    "REPETITION_RISK"
+   ],
+   "feature_match": {
+    "inliers": 28,
+    "good_matches": 68,
+    "rank_of_partner_among_MAP004": 1,
+    "rank_of_partner_among_MAP003": 1,
+    "best_other_inliers_row": 17,
+    "best_other_inliers_col": 17
+   },
+   "finding": "matige visuele ondersteuning: Open vleugel rechts, onderpaneel en tak-spiegeling gelijk (28 inliers, mutueel beste). De gordijnen lijken op MAP-003 en MAP-004 verschillend (kijkhoek/glans): geen uniek kenmerk, dus MODERATE.",
+   "visual_evidence": "QREL-sheet-2.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)"
+  },
+  {
+   "review_id": "RV-REL-VR-025",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "MODERATE_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "SAME_LAYOUT",
+    "PARTIAL_OVERLAP"
+   ],
+   "feature_match": {
+    "inliers": 20,
+    "good_matches": 51,
+    "rank_of_partner_among_MAP004": 1,
+    "rank_of_partner_among_MAP003": 1,
+    "best_other_inliers_row": 13,
+    "best_other_inliers_col": 19
+   },
+   "finding": "matige visuele ondersteuning: Linkervleugel met spiegeling en onderpaneel gelijk; de flessen op de dorpel (uniek kenmerk) zijn in MAP-004 door de kap bedekt. Inliers 20 tegen 19 voor de beste andere partner: geen marge.",
+   "visual_evidence": "QREL-sheet-2.jpg",
+   "next_step": "Mens beoordeelt de uitsnedes zelf; SAME alleen met eigen visuele bevestiging.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee (optioneel een frontale foto)"
+  },
+  {
+   "review_id": "RV-REL-VR-043",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "UNIQUE_CONFIGURATION"
+   ],
+   "feature_match": null,
+   "finding": "sterke visuele ondersteuning: Flessen op de dorpel, tak voor het onderpaneel en dezelfde raamverdeling op MAP-003 en MAP-009.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-026",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "INSUFFICIENT_EVIDENCE",
+   "evidence_basis": [
+    "HIDDEN",
+    "REPETITION_RISK"
+   ],
+   "feature_match": {
+    "inliers": 3,
+    "good_matches": 4,
+    "rank_of_partner_among_MAP004": 1,
+    "rank_of_partner_among_MAP003": 16,
+    "best_other_inliers_row": 0,
+    "best_other_inliers_col": 10
+   },
+   "finding": "onvoldoende bewijs: In MAP-003 is slechts een smalle strook achter lantaarnpaal en kap zichtbaar; het raam rechts van de kap lijkt op het raam links van de kap (identieke woningen). Geen vergelijkbaar kenmerk zichtbaar.",
+   "visual_evidence": "QREL-sheet-2.jpg",
+   "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja",
+   "proposal_correction": {
+    "from": "SAME",
+    "to": "UNDECIDABLE",
+    "reason": "Onvoldoende bewijs: in MAP-003 slechts een strook; identieke buurramen."
+   }
+  },
+  {
+   "review_id": "RV-REL-VR-044",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte MEDIUM); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "INSUFFICIENT_EVIDENCE",
+   "evidence_basis": [
+    "OBLIQUE_VIEW",
+    "HIDDEN",
+    "REPETITION_RISK"
+   ],
+   "feature_match": null,
+   "finding": "onvoldoende bewijs: MAP-009 toont het raam vanaf de andere kant met de vleugel op een andere plaats; combinatie met een verborgen strook in MAP-003 levert geen controleerbaar kenmerk.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja",
+   "proposal_correction": {
+    "from": "SAME",
+    "to": "UNDECIDABLE",
+    "reason": "Onvoldoende bewijs: schuine opname met afwijkende vleugelpositie en verborgen strook in MAP-003."
+   }
+  },
+  {
+   "review_id": "RV-REL-VR-020",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "SAME_FACADE_SECTION (sterkte HIGH); relatietype FACADE_SECTION",
+   "relation_type": "FACADE_SECTION",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "PLATE_ANCHOR",
+    "FACADE_CONTEXT"
+   ],
+   "feature_match": null,
+   "finding": "sterke visuele ondersteuning: De drie platen 280/278/276 zijn in beide foto's leesbaar en staan in dezelfde volgorde met de bijbehorende entreemuren. Dit bewijst alleen dezelfde gevelsectie.",
+   "visual_evidence": "E_plates_MAP-003_MAP-004.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-021",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte HIGH); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "PLATE_ANCHOR",
+    "UNIQUE_CONFIGURATION"
+   ],
+   "feature_match": {
+    "inliers": 10,
+    "good_matches": 38,
+    "rank_of_partner_among_MAP004": 2,
+    "rank_of_partner_among_MAP003": 2,
+    "best_other_inliers_row": 14,
+    "best_other_inliers_col": 11
+   },
+   "finding": "sterke visuele ondersteuning: Raam direct links van het leesbare plaatnummer 278 met dezelfde latei en dorpel. Kenmerkmatch zwak (10 inliers, rang 2) door identieke buurramen en spiegelingen: de plaat is hier het anker, niet het raamdetail.",
+   "visual_evidence": "QREL-sheet-5.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-REL-VR-022",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte LOW); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "INSUFFICIENT_EVIDENCE",
+   "evidence_basis": [
+    "TOO_DARK",
+    "REPETITION_RISK"
+   ],
+   "feature_match": {
+    "inliers": 0,
+    "good_matches": 1,
+    "rank_of_partner_among_MAP004": 20,
+    "rank_of_partner_among_MAP003": 27,
+    "best_other_inliers_row": 3,
+    "best_other_inliers_col": 9
+   },
+   "finding": "onvoldoende bewijs: OBS-MAP003-027 is te donker (0 bruikbare kenmerken). De entreenis met regenpijp, trap en deur is bij elke woning identiek: OBS-MAP003-026 lijkt in uitzicht sterker op MAP004-020 dan 027, maar die ligt bij plaat 286. Alleen de plaatpositie (278) en de verschuiving passen bij 027.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+   "quality_status": "NEEDS_BETTER_PHOTO",
+   "extra_evidence_needed": "Ja"
+  },
+  {
+   "review_id": "RV-REL-VR-041",
+   "review_type": "OVERLAP_RELATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "SAME",
+   "claude_proposal_now": "SAME",
+   "current_classification": "POSSIBLY_SAME_PHYSICAL_FRAME (sterkte HIGH); relatietype PHYSICAL_OBJECT",
+   "relation_type": "PHYSICAL_OBJECT",
+   "evidence_class": "STRONG_VISUAL_SUPPORT",
+   "evidence_basis": [
+    "PLATE_ANCHOR",
+    "UNIQUE_CONFIGURATION"
+   ],
+   "feature_match": null,
+   "finding": "sterke visuele ondersteuning: Raam links van plaat 278 op MAP-003, MAP-004 en (schuin) MAP-009; zelfde latei en spiegeling van de boom.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "Mens kan SAME overwegen (bewijs ondersteunt de kandidaatrelatie; geen merge).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-VR-001",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "bestaande vraag (Smal linker element (MAP-003 OBS-009))",
+   "finding": "Extra bewijs: MAP-013 toont metselwerk tussen het smalle element en het hoofdkozijn; ondersteunt 'apart kozijn' maar kan de keuze niet vervangen.",
+   "visual_evidence": "Q009_010_four_photos.jpg",
+   "next_step": "Mens beslist.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-SEP-001",
+   "review_type": "SEPARATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "scheiding door metselwerk (voorstel CONFIRM)",
+   "separation_checks": {
+    "pier_visible": true,
+    "separate_openings": true,
+    "bbox_correct": true,
+    "evidence_sufficient": true,
+    "note": "Doorlopend metselwerk (steenverband) tussen kozijn 007 en raam 008; beide kaders sluiten op de kozijnbuitenkant."
+   },
+   "finding": "Penant (doorlopend metselwerk) zichtbaar, afzonderlijke openingen, kaders correct (zie QSEP-figuur). Doorlopend metselwerk (steenverband) tussen kozijn 007 en raam 008; beide kaders sluiten op de kozijnbuitenkant.",
+   "visual_evidence": "QSEP-001.jpg",
+   "next_step": "Mens bevestigt (telregel PCD-00004 ongewijzigd).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-SEP-002",
+   "review_type": "SEPARATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "scheiding door metselwerk (voorstel CONFIRM)",
+   "separation_checks": {
+    "pier_visible": true,
+    "separate_openings": true,
+    "bbox_correct": true,
+    "evidence_sufficient": true,
+    "note": "Metselwerk tussen 011 en 012 volledig zichtbaar; folie op de ruit van 012."
+   },
+   "finding": "Penant (doorlopend metselwerk) zichtbaar, afzonderlijke openingen, kaders correct (zie QSEP-figuur). Metselwerk tussen 011 en 012 volledig zichtbaar; folie op de ruit van 012.",
+   "visual_evidence": "QSEP-002.jpg",
+   "next_step": "Mens bevestigt (telregel PCD-00004 ongewijzigd).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-SEP-003",
+   "review_type": "SEPARATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "scheiding door metselwerk (voorstel CONFIRM)",
+   "separation_checks": {
+    "pier_visible": true,
+    "separate_openings": true,
+    "bbox_correct": true,
+    "evidence_sufficient": true,
+    "note": "Penant tussen 013 (open vleugel links) en 014; het linkerkader van 013 raakt de buitenrand van de open vleugel (<=5 px)."
+   },
+   "finding": "Penant (doorlopend metselwerk) zichtbaar, afzonderlijke openingen, kaders correct (zie QSEP-figuur). Penant tussen 013 (open vleugel links) en 014; het linkerkader van 013 raakt de buitenrand van de open vleugel (<=5 px).",
+   "visual_evidence": "QSEP-003.jpg",
+   "next_step": "Mens bevestigt (telregel PCD-00004 ongewijzigd).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-SEP-004",
+   "review_type": "SEPARATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "scheiding door metselwerk (voorstel CONFIRM)",
+   "separation_checks": {
+    "pier_visible": true,
+    "separate_openings": true,
+    "bbox_correct": true,
+    "evidence_sufficient": true,
+    "note": "Zelfde indeling als MAP-003 007|008, ander standpunt; penant volledig zichtbaar."
+   },
+   "finding": "Penant (doorlopend metselwerk) zichtbaar, afzonderlijke openingen, kaders correct (zie QSEP-figuur). Zelfde indeling als MAP-003 007|008, ander standpunt; penant volledig zichtbaar.",
+   "visual_evidence": "QSEP-004.jpg",
+   "next_step": "Mens bevestigt (telregel PCD-00004 ongewijzigd).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-SEP-005",
+   "review_type": "SEPARATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "scheiding door metselwerk (voorstel CONFIRM)",
+   "separation_checks": {
+    "pier_visible": true,
+    "separate_openings": true,
+    "bbox_correct": true,
+    "evidence_sufficient": true,
+    "note": "Metselwerk tussen 008 en 009; de linkervleugel van 008 staat iets open maar het kader sluit aan."
+   },
+   "finding": "Penant (doorlopend metselwerk) zichtbaar, afzonderlijke openingen, kaders correct (zie QSEP-figuur). Metselwerk tussen 008 en 009; de linkervleugel van 008 staat iets open maar het kader sluit aan.",
+   "visual_evidence": "QSEP-005.jpg",
+   "next_step": "Mens bevestigt (telregel PCD-00004 ongewijzigd).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "RV-SEP-006",
+   "review_type": "SEPARATION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "scheiding door metselwerk (voorstel CONFIRM)",
+   "separation_checks": {
+    "pier_visible": true,
+    "separate_openings": true,
+    "bbox_correct": true,
+    "evidence_sufficient": true,
+    "note": "Metselwerk tussen 010 (open vleugel links) en 011 in het rechterpand; kader 010 omvat de open vleugel."
+   },
+   "finding": "Penant (doorlopend metselwerk) zichtbaar, afzonderlijke openingen, kaders correct (zie QSEP-figuur). Metselwerk tussen 010 (open vleugel links) en 011 in het rechterpand; kader 010 omvat de open vleugel.",
+   "visual_evidence": "QSEP-006.jpg",
+   "next_step": "Mens bevestigt (telregel PCD-00004 ongewijzigd).",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-001",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Plaatregel)",
+   "finding": "Regelvraag: een plaat bewijst alleen de plaatmuur. Beide plaatrelaties (VR-001/VR-020) bewijzen alleen gevelsecties.",
+   "visual_evidence": "-",
+   "next_step": "Mens bevestigt de regel.",
+   "quality_status": "TECHNICALLY_VALIDATED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-002",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Plaatlezing MAP-003)",
+   "finding": "Alle zeven platen MAP-003 (288..276) opnieuw gelezen op afbeelding E: leesbaar en correct.",
+   "visual_evidence": "E_plates_MAP-003_MAP-004.jpg",
+   "next_step": "Mens bevestigt de lezing.",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-003",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Plaatlezing MAP-004)",
+   "finding": "Alle vier platen MAP-004 (280..274) opnieuw gelezen: leesbaar en correct.",
+   "visual_evidence": "E_plates_MAP-003_MAP-004.jpg",
+   "next_step": "Mens bevestigt de lezing.",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-011",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "bestaande vraag (Overlap MAP-002/MAP-003)",
+   "finding": "Mengbeeld: VR-002/006/009 sterk, VR-004/007/008 matig, VR-005/010 onvoldoende (zie relatietabel).",
+   "visual_evidence": "QREL-sheet-1.jpg, QREL-sheet-5.jpg",
+   "next_step": "Mens beslist per paar.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja voor VR-005 en VR-010"
+  },
+  {
+   "review_id": "HQ-APP-012",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "bestaande vraag (Overlap MAP-003/MAP-004/MAP-009)",
+   "finding": "Mengbeeld: VR-021/027/028/030/031 sterk, VR-024/025/029 matig, VR-022/026/044/045 onvoldoende.",
+   "visual_evidence": "QREL-sheet-2.jpg, QREL-sheet-3.jpg, QREL-sheet-4.jpg",
+   "next_step": "Mens beslist per paar.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja voor VR-022, VR-026, VR-044, VR-045"
+  },
+  {
+   "review_id": "HQ-APP-013",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Overlap MAP-003/MAP-013)",
+   "finding": "VR-050 matig (schuine opname); VR-051 is P2 en hier niet opnieuw beoordeeld.",
+   "visual_evidence": "QREL-sheet-4.jpg",
+   "next_step": "Mens beslist.",
+   "quality_status": "TECHNICALLY_VALIDATED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-031",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Overlapzone met bevroren foto 2)",
+   "finding": "Procesvraag (overlapmarkering zonder optelling). Geen visuele claim; de relaties met foto 2 zijn technisch consistent.",
+   "visual_evidence": "-",
+   "next_step": "Mens beslist.",
+   "quality_status": "TECHNICALLY_VALIDATED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-034",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Geschiktheid MAP-003)",
+   "finding": "Geschiktheidsvraag: de lijst open punten (009/-020/-027/-028) mist MAP003-026 (kleurclaim niet te verifieren).",
+   "visual_evidence": "QD-MAP003-026.jpg",
+   "next_step": "Open-puntenlijst aanvullen bij de beslissing.",
+   "quality_status": "TECHNICALLY_VALIDATED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-APP-035",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Geschiktheid MAP-004)",
+   "finding": "Geschiktheidsvraag: de lijst open punten (005/-012/-022) mist MAP004-020 (deur deels bedekt, PARTIAL).",
+   "visual_evidence": "QD-MAP004-020.jpg",
+   "next_step": "Open-puntenlijst aanvullen bij de beslissing.",
+   "quality_status": "TECHNICALLY_VALIDATED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-VR-002",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "CONFIRM",
+   "claude_proposal_now": "CONFIRM",
+   "current_classification": "bestaande vraag (Telconventie penant tussen kozijnen)",
+   "finding": "Alle zes de penanten zijn volledig zichtbaar (metselwerk scheidt); telregel en bestaand foto-2-besluit ongewijzigd.",
+   "visual_evidence": "QSEP-001.jpg .. QSEP-006.jpg",
+   "next_step": "Mens bevestigt.",
+   "quality_status": "VISUALLY_SUPPORTED",
+   "extra_evidence_needed": "Nee"
+  },
+  {
+   "review_id": "HQ-VR-003",
+   "review_type": "EXISTING_QUESTION",
+   "technically_correct": true,
+   "technical_failures": [],
+   "claude_proposal_v1_0_0": "UNDECIDABLE",
+   "claude_proposal_now": "UNDECIDABLE",
+   "current_classification": "bestaande vraag (Deuren in de entreenissen)",
+   "finding": "Vier deurobservaties met verschillende kwaliteit: MAP004-020 goed, MAP003-026 matig, MAP003-027 en MAP004-022 onbruikbaar.",
+   "visual_evidence": "QD-MAP004-020.jpg e.a.",
+   "next_step": "Mens beslist of deuren meetellen.",
+   "quality_status": "NEEDS_MANUAL_REVIEW",
+   "extra_evidence_needed": "Ja voor 027 en 022"
+  }
+ ]
+}

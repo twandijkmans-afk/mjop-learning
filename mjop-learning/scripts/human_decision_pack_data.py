@@ -167,12 +167,54 @@ SEPARATIONS = [
 
 CHOICES_STD = ["CONFIRM", "REJECT", "UNDECIDABLE", "NEEDS_BETTER_PHOTO"]
 CHOICES_OVERLAP = ["SAME", "DIFFERENT", "UNDECIDABLE"]
+
+# Gevelsectie-overlap en objectoverlap zijn verschillende uitspraken. De waarde SAME betekent per relatietype iets anders en bewijst nooit een pandkoppeling.
+FACADE_SECTION = "FACADE_SECTION"
+PHYSICAL_OBJECT = "PHYSICAL_OBJECT"
+MEANING = {
+    FACADE_SECTION: {"SAME": "SAME_FACADE_SECTION", "DIFFERENT": "DIFFERENT_FACADE_SECTION", "UNDECIDABLE": "UNDECIDABLE"},
+    PHYSICAL_OBJECT: {"SAME": "SAME_PHYSICAL_OBJECT_CANDIDATE", "DIFFERENT": "DIFFERENT_PHYSICAL_OBJECTS", "UNDECIDABLE": "UNDECIDABLE"},
+}
+MEANING_TEXT = {
+    FACADE_SECTION: "Gevelsectie-overlap: SAME betekent uitsluitend dat beide foto's dezelfde gevelsectie (muur met plaat en omgeving) tonen. SAME betekent NIET dat een kozijn "
+                    "hetzelfde fysieke kozijn is en bewijst geen pandkoppeling.",
+    PHYSICAL_OBJECT: "Objectoverlap: SAME betekent dat de beide observaties, afzonderlijk beoordeeld, vermoedelijk hetzelfde fysieke object tonen (kandidaat). Het voegt niets samen, "
+                     "maakt geen instance en bewijst geen pandkoppeling.",
+}
+IMPLIES_NONE = {"same_facade_section": False, "same_physical_object_candidate": False, "same_physical_frame_proven": False, "bag_pand_link": False, "merge": False, "unique_instance": False}
+
+
+def ref_hash(item):
+    """Stabiele korte hash van de bronverwijzingen van een reviewpunt; de import controleert dat een bestand bij dit pakket hoort."""
+    import hashlib
+    import json
+    core = [item["review_id"], item["review_type"], item["observation_ids"], item["relation_ids"], item["evidence_refs"]]
+    return hashlib.sha256(json.dumps(core, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:16]
+
+
+def relation_type(klass):
+    """SAME_FACADE_SECTION is gevelniveau; alle andere klassen gaan over fysieke objecten."""
+    return FACADE_SECTION if klass == "SAME_FACADE_SECTION" else PHYSICAL_OBJECT
+
+
+def relation_semantics(klass, left, right):
+    rt = relation_type(klass)
+    n_to_1 = any(c in (left + right) for c in ("+", " / ", "/"))
+    imp = dict(IMPLIES_NONE)
+    if rt == FACADE_SECTION:
+        imp["same_facade_section"] = True            # SAME bij een gevelrelatie = alleen dezelfde gevelsectie; same_physical_frame_proven blijft altijd False
+    else:
+        imp["same_physical_object_candidate"] = True  # SAME bij een objectrelatie = kandidaat; nooit bewezen, nooit samengevoegd
+    return {"relation_type": rt, "endpoint_cardinality": "GROUP" if n_to_1 else "ONE_TO_ONE", "same_means": MEANING[rt]["SAME"], "meaning_text": MEANING_TEXT[rt],
+            "implies_when_same": imp}
+
+
 CHOICE_HELP = {
     "CONFIRM": "Klopt zoals voorgesteld",
     "REJECT": "Klopt niet",
     "UNDECIDABLE": "Niet te beslissen",
     "NEEDS_BETTER_PHOTO": "Betere foto nodig",
-    "SAME": "Vermoedelijk hetzelfde fysieke object (geen pandkoppeling)",
+    "SAME": "Gevelsectie: dezelfde gevelsectie. Object: vermoedelijk hetzelfde fysieke object (kandidaat). Nooit een pandkoppeling.",
     "DIFFERENT": "Verschillende objecten",
 }
 

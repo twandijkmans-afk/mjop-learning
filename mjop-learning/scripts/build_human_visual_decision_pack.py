@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Maldenhof Human Visual Decision Pack v1 (voortbouwend op Visual Photo Review MAP-003 & MAP-004).
+"""Maldenhof Human Visual Decision Pack v1.1 (voortbouwend op Visual Photo Review MAP-003 & MAP-004; P1 Quality Corrections v1).
 
 Bouwt een zelfstandig HTML-beoordelingspakket (geen externe scripts of netwerk; afbeeldingen als data-URI) waarmee een mens de voorlopige
 observaties en de 43 kandidaat-overlaprelaties kan beoordelen, met prioriteiten (P1/P2/P3), een beslisformulier (keuzerondjes, opmerking, OPEN
@@ -24,7 +24,9 @@ from PIL import Image, ImageDraw
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_visual_photo_review_map003_map004 as B  # noqa: E402
+import build_p1_quality_review as QR  # noqa: E402
 import human_decision_pack_data as H  # noqa: E402
+import p1_quality_review_data as Q  # noqa: E402
 import visual_review_map003_map004_data as V  # noqa: E402
 
 ROOT = B.ROOT
@@ -33,10 +35,20 @@ PACK_DIR = REVIEW_DIR / "decision_pack"
 OUT_HTML = PACK_DIR / "maldenhof_human_visual_decision_pack_v1.html"
 OUT_INDEX = PACK_DIR / "maldenhof_human_visual_decision_pack_v1_index.json"
 TEMPLATE = Path(__file__).resolve().parent / "human_decision_pack_template.html"
-PACK_VERSION = "human_visual_decision_pack_v1.0.0"
+PACK_VERSION = "human_visual_decision_pack_v1.1.0"
+LEGACY_PACK_VERSION = "human_visual_decision_pack_v1.0.0"
 E = html.escape
 TYPE_NL = {"WINDOW_OPENING": "raam/kozijn", "EXTERIOR_DOOR": "buitendeur", "ROOF_WINDOW": "dakraam", "DORMER_OPENING": "dakkapel", "UNKNOWN_OPENING": "onbepaald",
            "WINDOW_DOOR_COMBINATION": "raam-deurcombinatie"}
+
+
+def P(rid, proposal):
+    """Voorstel van Claude na de kwaliteitscontrole (apart vastgelegde correctie); controleert dat de oude waarde klopt."""
+    c = Q.PROPOSAL_CORRECTIONS.get(rid)
+    if not c:
+        return proposal
+    assert c[0] == proposal, (rid, c, proposal)
+    return c[1]
 
 
 def jpeg_uri(im, q=80, max_w=None):
@@ -165,11 +177,21 @@ def side_refs(rev, text, p2px):
     return refs
 
 
-def radio_block(rid, choices, proposal, with_reset=True):
+def radio_block(rid, choices, proposal, rtype=None):
     out = ['<fieldset class="choices" aria-label="Beslissing">']
     out.append(f'<label title="Nog niets gekozen"><input type="radio" name="d-{E(rid)}" value="OPEN" checked> <b>OPEN</b></label>')
     for c in choices:
-        out.append(f'<label title="{E(H.CHOICE_HELP.get(c, c))}"><input type="radio" name="d-{E(rid)}" value="{c}"> {c}</label>')
+        help_ = H.CHOICE_HELP.get(c, c)
+        extra = ""
+        if rtype:                                  # overlap: de betekenis van SAME/DIFFERENT hangt van het relatietype af
+            meaning = H.MEANING[rtype][c]
+            help_ = {"SAME_FACADE_SECTION": "Dezelfde gevelsectie. Dit zegt niets over hetzelfde kozijn en bewijst geen pandkoppeling.",
+                     "DIFFERENT_FACADE_SECTION": "Verschillende gevelsecties.",
+                     "SAME_PHYSICAL_OBJECT_CANDIDATE": "De observaties tonen vermoedelijk hetzelfde fysieke object (kandidaat; geen merge, geen pandkoppeling).",
+                     "DIFFERENT_PHYSICAL_OBJECTS": "Verschillende fysieke objecten."}.get(meaning, help_)
+            if meaning != c:
+                extra = f' <span class="meaning">= {meaning}</span>'
+        out.append(f'<label title="{E(help_)}"><input type="radio" name="d-{E(rid)}" value="{c}"> {c}{extra}</label>')
     out.append("</fieldset>")
     return "".join(out)
 
@@ -178,9 +200,11 @@ def item_shell(rid, priority, inner, extra_cls=""):
     return f'<article class="review-item open {extra_cls}" id="item-{E(rid)}" data-id="{E(rid)}" data-priority="{priority}">{inner}</article>'
 
 
-def controls(rid, choices, proposal, nonbinding_label="Voorstel Claude (niet-bindend)"):
-    return (f'<div class="proposal">{nonbinding_label}: <b>{E(proposal)}</b> &mdash; dit is geen besluit; er is niets voorgekozen.</div>'
-            + radio_block(rid, choices, proposal)
+def controls(rid, choices, proposal, nonbinding_label="Voorstel Claude (niet-bindend)", rtype=None):
+    corr = Q.PROPOSAL_CORRECTIONS.get(rid)
+    note = (f' <span class="chip corr">gecorrigeerd t.o.v. v1.0.0: was {corr[0]}</span>' if corr else "")
+    return (f'<div class="proposal">{nonbinding_label}: <b>{E(proposal)}</b>{note} &mdash; dit is geen besluit; er is niets voorgekozen.</div>' + f"<!--QA:{rid}-->"
+            + radio_block(rid, choices, proposal, rtype)
             + f'<button class="sec small" data-reset="{E(rid)}" type="button">OPEN zetten</button>'
             + f'<textarea class="cmt" id="c-{E(rid)}" placeholder="Opmerking (optioneel)" aria-label="Opmerking bij {E(rid)}"></textarea>')
 
@@ -194,15 +218,18 @@ def build(args):
     items = []
     body = []
 
-    def add_item(review_id, review_type, priority, title, photos, obs_ids, rel_ids, app_links, proposal, choices, evidence):
-        items.append({"review_id": review_id, "review_type": review_type, "priority": priority, "title": title, "photo_ids": photos,
-                      "observation_ids": obs_ids, "relation_ids": rel_ids, "app_links": app_links, "claude_proposal": proposal, "choices": choices,
-                      "evidence_refs": evidence})
+    def add_item(review_id, review_type, priority, title, photos, obs_ids, rel_ids, app_links, proposal, choices, evidence, semantics=None):
+        it = {"review_id": review_id, "review_type": review_type, "priority": priority, "title": title, "photo_ids": photos,
+              "observation_ids": obs_ids, "relation_ids": rel_ids, "app_links": app_links, "claude_proposal": proposal, "choices": choices,
+              "evidence_refs": evidence}
+        if semantics:
+            it["relation_semantics"] = semantics
+        items.append(it)
 
     # ------------------------------------------------------------------ Sectie A: overzicht per foto + observatie-items
     special = set(H.SPECIAL_THEMES)
     in_c = {k for k in special}
-    body.append("<h1>Maldenhof Human Visual Decision Pack v1</h1>")
+    body.append("<h1>Maldenhof Human Visual Decision Pack v1.1</h1>")
     body.append('<div class="note warn"><b>Alleen voor menselijke beoordeling.</b> Alle beslissingen staan op OPEN. Dit pakket maakt geen instances, voegt niets samen, koppelt geen kozijnen aan een pand en berekent geen totalen, maten of kosten. '
                 'Voorstellen van Claude zijn niet-bindend en staan nooit voorgekozen. Alle 48 APP-besluiten blijven OPEN en onveranderd; de bevroren foto-2-telling (11 kozijnopeningen, 1 buitendeur, 9 FULL, 2 PARTIAL) blijft ongewijzigd.</div>')
     body.append("__HOWTO__")
@@ -230,7 +257,7 @@ def build(args):
     for o in rev["observations"]:
         rid = "RV-OBS-" + o["obs_id"][4:]
         prio = H.observation_priority(o, {"OBS-MAP003-009", "OBS-MAP003-010"})
-        proposal = H.proposal_for_observation(o)
+        proposal = P(rid, H.proposal_for_observation(o))
         evid = [source_ref(rev, o["photo_id"], o["bbox_px"], extra={"observation_id": o["obs_id"]}),
                 {"type": "report_figure", "file": B.IMG["A" if o["photo_id"] == "MAP-003" else "B"]}]
         add_item(rid, "OBSERVATION", prio, f'{o["obs_id"]} {o["observation_type"]} {o["visibility"]}', [o["photo_id"]], [o["obs_id"]], [], [],
@@ -267,17 +294,21 @@ def build(args):
         for rid_vr in rel_ids:
             r = rels[rid_vr]
             used_rels.add(rid_vr)
-            proposal = H.proposal_for_relation(r["class"], r["strength"])
             rid = "RV-REL-" + rid_vr
+            proposal = P(rid, H.proposal_for_relation(r["class"], r["strength"]))
+            sem = H.relation_semantics(r["class"], r["left"], r["right"])
+            rtype = sem["relation_type"]
             evid = side_refs(rev, r["left"], p2px) + side_refs(rev, r["right"], p2px) + [{"type": "review_group", "group_id": gid}]
             for f in (("D1", "D2", "D3", "D4") if r["soc"] == "SOC-001" else ("C1", "C2", "C3") if r["soc"] == "SOC-002" else ("F",)):
                 evid.append({"type": "report_figure", "file": B.IMG[f]})
             obs_ids = sorted(set(re.findall(r"OBS-MAP00[34]-\d{3}", r["left"] + " " + r["right"])))
             phs = sorted(set(re.findall(r"MAP-\d{3}", r["left"] + " " + r["right"])))
-            add_item(rid, "OVERLAP_RELATION", prio, f'{rid_vr} {r["left"]} <-> {r["right"]}', phs, obs_ids, [rid_vr], apps, proposal, H.CHOICES_OVERLAP, evid)
-            inner = (f'<div class="body"><h4>{rid_vr} <span class="chip">{r["class"]}</span> <span class="chip">sterkte {r["strength"]}</span> <span class="prio {prio}">{prio}</span></h4>'
+            add_item(rid, "OVERLAP_RELATION", prio, f'{rid_vr} {r["left"]} <-> {r["right"]}', phs, obs_ids, [rid_vr], apps, proposal, H.CHOICES_OVERLAP, evid, sem)
+            tchip = ('<span class="chip rt-FACADE">GEVELSECTIE-overlap</span>' if rtype == H.FACADE_SECTION else '<span class="chip rt-OBJECT">OBJECT-overlap</span>')
+            inner = (f'<div class="body"><h4>{rid_vr} {tchip} <span class="chip">{r["class"]}</span> <span class="chip">sterkte {r["strength"]}</span> <span class="prio {prio}">{prio}</span></h4>'
                      f'<p><b>Links:</b> {E(r["left"])}<br><b>Rechts:</b> {E(r["right"])}</p><p>{E(r["basis"])}</p>'
-                     + controls(rid, H.CHOICES_OVERLAP, proposal) + "</div>")
+                     f'<p class="semantics {"sem-facade" if rtype == H.FACADE_SECTION else "sem-object"}"><b>Wat SAME hier betekent:</b> {E(sem["meaning_text"])}</p>'
+                     + controls(rid, H.CHOICES_OVERLAP, proposal, rtype=rtype) + "</div>")
             parts.append(item_shell(rid, prio, inner))
         parts.append("</section>")
         body.append("".join(parts))
@@ -298,7 +329,7 @@ def build(args):
     for rid_o in ("OBS-MAP003-009", "OBS-MAP003-010"):
         o = obs[rid_o]
         rid = "RV-OBS-" + rid_o[4:]
-        proposal = H.proposal_for_observation(o)
+        proposal = P(rid, H.proposal_for_observation(o))
         inner = (img_tag(obs_crop(ims, o, 640), "thumb", f"Uitsnede {rid_o}", 82) +
                  f'<div class="body"><h4>{rid_o} <span class="chip t-{o["observation_type"]}">{o["observation_type"]}</span> {o["visibility"]} <span class="chip">onzekerheid {o["uncertainty"]}</span> <span class="prio P1">P1</span></h4>'
                  f'<p>{E(o["note"])}</p><p class="evid">Bron: {o["photo_id"]} {E(o["source_file"])}, regio px {o["bbox_px"]}. Thema: {E("; ".join(H.SPECIAL_THEMES[rid_o]))}.</p>'
@@ -390,6 +421,61 @@ def build(args):
             continue
         body.append(hq_item(qid))
 
+    # ------------------------------------------------------------------ Sectie F: kwaliteitscontrole P1 (v1.1)
+    for it in items:
+        it["ref_hash"] = H.ref_hash(it)
+        if it["review_id"] in Q.PROPOSAL_CORRECTIONS:
+            it["claude_proposal_v1"] = Q.PROPOSAL_CORRECTIONS[it["review_id"]][0]
+    recs = QR.quality_records(items, rev)
+    recmap = {r["review_id"]: r for r in recs}
+    for it in items:
+        r = recmap.get(it["review_id"])
+        if r:
+            it["quality"] = {"quality_status": r["quality_status"], "evidence_class": r.get("evidence_class"), "technically_correct": r["technically_correct"]}
+    figs = QR.make_figures(ims, rev)
+    body.append(f'<h2 id="F">F. Kwaliteitscontrole P1 (v1.1)</h2>')
+    body.append('<div class="note warn"><b>Een technisch geldige reviewkaart is niet automatisch een visueel bewezen object.</b> Alle P1-punten zijn opnieuw met de originele pixels vergeleken. '
+                'De bevindingen van een externe review zijn als invoer gebruikt, niet als waarheid. Dit is geen menselijke goedkeuring: alle 48 APP-besluiten blijven OPEN en er ontstaan geen instances, pandkoppelingen, totalen of kosten.</div>')
+    cnt_st = Counter(r["quality_status"] for r in recs)
+    body.append('<p>' + " ".join(f'<span class="chip st-{k}">{k}: {cnt_st.get(k, 0)}</span>' for k in Q.QUALITY_STATUSES) + f' &mdash; technisch correct: <b>{sum(r["technically_correct"] for r in recs)}</b> van {len(recs)} P1-punten.</p>')
+    body.append('<p class="evid">' + E(Q.CLASS_RULE) + '</p>')
+    rows = ["<table><tr><th>#</th><th>Review-ID</th><th>Kwaliteitsstatus</th><th>Bevinding</th><th>Volgende stap</th></tr>"]
+    for k, r in enumerate(recs, 1):
+        rows.append(f'<tr><td>{k}</td><td><a href="#item-{E(r["review_id"])}">{E(r["review_id"])}</a></td><td><span class="chip st-{r["quality_status"]}">{r["quality_status"]}</span></td>'
+                    f'<td>{E(r["finding"])}</td><td>{E(r["next_step"])}</td></tr>')
+    rows.append("</table>")
+    body.append("".join(rows))
+    body.append("<h3>Extra bewijs (originele pixels)</h3>")
+    caps = {"QSEP": "Scheiding (penant): ruwe uitsnede en kaders", "Q009": "OBS-MAP003-009 versus 010 in vier foto's", "QREL": "Relatieblad: de gekoppelde uitsneden naast elkaar", "QD-": "Object met bijzonder punt: ruwe uitsnede en kader"}
+    gal = ['<div class="gallery">']
+    for name, im in sorted(figs.items()):
+        cap = next(v for k, v in caps.items() if name.startswith(k))
+        gal.append(f'<figure id="fig-{E(name[:-4])}">{img_tag(im, "fig", name, 74, 1100)}<figcaption><b>{E(name)}</b> &mdash; {E(cap)}</figcaption></figure>')
+    gal.append("</div>")
+    body.append("".join(gal))
+
+    def qa_block(rec):
+        st = rec["quality_status"]
+        out = [f'<div class="qa st-{st}"><b>Kwaliteitscontrole v1.1 (extra, niet-bindend)</b> <span class="chip st-{st}">{st}</span>']
+        if rec.get("evidence_class"):
+            out.append(f'<span class="chip">{rec["evidence_class"]}</span>')
+        out.append(f'<span class="chip">{"technisch correct" if rec["technically_correct"] else "TECHNISCHE FOUT"}</span>')
+        out.append(f'<p>{E(rec["finding"])}</p>')
+        if rec.get("six_questions"):
+            out.append("<table>" + "".join(f'<tr><th>{E(Q.Q6_NL[k])}</th><td><b>{E(v["answer"])}</b> {E(v["note"])}</td></tr>' for k, v in rec["six_questions"].items()) + "</table>")
+        if rec.get("separation_checks"):
+            c = rec["separation_checks"]
+            out.append(f'<p class="evid">Penant zichtbaar: {"ja" if c["pier_visible"] else "nee"}; afzonderlijke openingen: {"ja" if c["separate_openings"] else "nee"}; kaders correct: {"ja" if c["bbox_correct"] else "nee"}; bewijs voldoende: {"ja" if c["evidence_sufficient"] else "nee"}.</p>')
+        fm = rec.get("feature_match")
+        if fm:
+            out.append(f'<p class="evid">Kenmerkmatch (hulpmiddel, beslist niet): {fm["inliers"]} inliers' + (f', rang {fm["rank_of_partner_among_MAP004"]} / {fm["rank_of_partner_among_MAP003"]}' if "rank_of_partner_among_MAP004" in fm else "") + ".</p>")
+        out.append(f'<p class="evid">Bewijs: <code>{E(rec["visual_evidence"])}</code> (sectie F). Volgende stap: {E(rec["next_step"])} Extra bewijs nodig: {E(rec["extra_evidence_needed"])}.</p>')
+        if "proposal_correction" in rec:
+            c = rec["proposal_correction"]
+            out.append(f'<p class="evid"><b>Voorstel gecorrigeerd:</b> {c["from"]} &rarr; {c["to"]}. {E(c["reason"])}</p>')
+        out.append("</div>")
+        return "".join(out)
+
     # ------------------------------------------------------------------ samenstellen
     obscards = [b for b in body if isinstance(b, tuple)]
     html_parts = []
@@ -418,11 +504,17 @@ def build(args):
     howto = ('<h2 id="howto">Zo gebruik je dit pakket</h2><ol><li>Open dit bestand in een browser (dubbelklik; geen server of internet nodig).</li>'
              '<li>Begin met <b>P1</b> (filterknop bovenaan). Bekijk de uitsnede, lees de toelichting en het voorstel van Claude (nooit voorgekozen).</li>'
              '<li>Kies per punt een keuzerondje (CONFIRM/REJECT/UNDECIDABLE/NEEDS_BETTER_PHOTO; bij overlap SAME/DIFFERENT/UNDECIDABLE). Optioneel: opmerking. Met <b>OPEN zetten</b> maak je een keuze ongedaan.</li>'
-             '<li>Klik bovenaan of onderaan op <b>Exporteer JSON</b>. Het bestand bevat per punt de beslissing (OPEN als je niets koos), je opmerking, foto-/observatie-ID&apos;s en de bronverwijzing.</li>'
+             '<li>Klik bovenaan of onderaan op <b>Exporteer JSON</b>. Het bestand bevat per punt de beslissing (OPEN als je niets koos), je opmerking, foto-/observatie-ID&apos;s en de bronverwijzing. Onderaan kies je de omvang: alles, alleen beoordeelde punten of P1/P2/P3.</li>'
+             '<li><b>Overlap heeft twee soorten.</b> Bij GEVELSECTIE-overlap betekent SAME alleen dezelfde gevelsectie (niet hetzelfde kozijn); bij OBJECT-overlap betekent SAME dat de observaties vermoedelijk hetzelfde fysieke object tonen. Geen van beide is een pandkoppeling.</li>'
+             '<li>Een eerder bewaard bestand laad je met <b>Eerdere export laden</b>: het bestand wordt eerst volledig gecontroleerd; bij een fout verandert er niets. Daarna kies je tussen volledig vervangen en gedeeltelijk samenvoegen.</li>'
              '<li>Stuur het exportbestand terug; het wordt pas na controle verwerkt. De export zelf wijzigt niets.</li></ol>')
     page = TEMPLATE.read_text()
-    page = page.replace("__BODY__", "\n".join(html_parts).replace("__HOWTO__", howto).replace("__PRIO_TABLE__", prio_html))
-    pack_json = {"pack_version": PACK_VERSION, "review_package_version": B.VERSION, "items": items}
+    bodyhtml = "\n".join(html_parts).replace("__HOWTO__", howto).replace("__PRIO_TABLE__", prio_html)
+    for it in items:
+        bodyhtml = bodyhtml.replace(f'<!--QA:{it["review_id"]}-->', qa_block(recmap[it["review_id"]]) if it["review_id"] in recmap else "")
+    assert "<!--QA:" not in bodyhtml
+    page = page.replace("__BODY__", bodyhtml)
+    pack_json = {"pack_version": PACK_VERSION, "legacy_pack_version": LEGACY_PACK_VERSION, "review_package_version": B.VERSION, "meaning": H.MEANING, "items": items}
     page = page.replace("__PACK__", json.dumps(pack_json, ensure_ascii=False).replace("</", "<\\/"))
     PACK_DIR.mkdir(parents=True, exist_ok=True)
     OUT_HTML.write_text(page)
@@ -433,8 +525,12 @@ def build(args):
              "review_groups": group_index, "review_ids": [i["review_id"] for i in items],
              "effects": {"instances_created": 0, "bag_links_created": 0, "building_totals": None, "costs": None, "app_decisions_open": 48, "photo2_unchanged": True,
                          "default_decision": "OPEN", "claude_proposals_exported_as_human_decisions": False},
+             "quality_review": {"report": QR.OUT_MD.name, "p1_points": len(recs), "technically_correct": sum(r["technically_correct"] for r in recs),
+                                "by_quality_status": dict(cnt_st), "proposal_corrections": sorted(Q.PROPOSAL_CORRECTIONS)},
+             "export_format": "maldenhof_visual_decision_export_v2", "legacy_export_format_accepted": "maldenhof_visual_decision_export_v1",
              "network_dependencies": "none (alle afbeeldingen als data-URI; geen externe scripts)"}
     OUT_INDEX.write_text(json.dumps(index, ensure_ascii=False, indent=2) + "\n")
+    QR.write_reports(items, rev, recs, PACK_VERSION)
     print(f"HTML {OUT_HTML.stat().st_size/1e6:.1f} MB; reviewpunten {len(items)}; per prioriteit {dict(tot)}")
 
 
