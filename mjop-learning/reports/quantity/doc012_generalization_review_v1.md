@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 28, TEST_ONLY 30.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 29, TEST_ONLY 30.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -129,6 +129,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/build_photo_archive_audit.py` | REPORT_ONLY | Maldenhof, 15 panden | — |
 | `scripts/build_photo_evidence.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/build_photo_frame_review.py` | REPORT_ONLY | Maldenhof | — |
+| `scripts/build_pilot_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_rear_annotation_coverage.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/build_visual_photo_review_map003_map004.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/building_element_inventory_report.py` | REPORT_ONLY | DOC-005, Maldenhof | — |

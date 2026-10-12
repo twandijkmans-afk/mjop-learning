@@ -7,7 +7,7 @@ Status: **REAL_WORLD_POC_BLOCKED_NO_DRAWING** — er staat geen bruikbare vector
 - RASTER_DRAWING_CANDIDATE pagina's: 0
 - Pagina's met een sterk tekeninglabel (aanzicht/plattegrond/doorsnede/tekening/maatvoering/schaal 1:N): 0
 - Pagina's met >= 30 vector-primitives (vrijwel allemaal tabelrasters/grafieken): 161
-- Niet-PDF tekeningachtige bestanden (dwg/dxf/png/jpg/svg/ifc...): 48 (alleen de review-sheets van de eerdere public-image facade-PoC; foto's, geen tekeningen)
+- Niet-PDF tekeningachtige bestanden (dwg/dxf/png/jpg/svg/ifc...): 53 (alleen de review-sheets van de eerdere public-image facade-PoC; foto's, geen tekeningen)
 - Methode: pdfplumber primitives + tekstlabels; thresholds: sterk label + >= 30 primitives + >= 10 niet-orthogonale lijnen/complexe curves
 - Tools: pdfplumber 0.11.10, pdfminer.six 20260107
 
@@ -69,6 +69,11 @@ Interpretatie: 'voorgevel'/'achtergevel'/'kozijn' staan in elke MJOP als tabelte
 - reports/frames/photo_review_map003_map004_v1/p1_quality_review/QSEP-004.jpg
 - reports/frames/photo_review_map003_map004_v1/p1_quality_review/QSEP-005.jpg
 - reports/frames/photo_review_map003_map004_v1/p1_quality_review/QSEP-006.jpg
+- reports/frames/photo_review_map003_map004_v1/pilot_review/PQ-009_visibility_zoom.jpg
+- reports/frames/photo_review_map003_map004_v1/pilot_review/PQ-rel-VR-020.jpg
+- reports/frames/photo_review_map003_map004_v1/pilot_review/PQ-rel-VR-024.jpg
+- reports/frames/photo_review_map003_map004_v1/pilot_review/PQ-rel-VR-026.jpg
+- reports/frames/photo_review_map003_map004_v1/pilot_review/PQ-rel-VR-027.jpg
 - reports/frames/photo_review_rear_v1/maldenhof_3_frame_overlay.png
 - reports/frames/photo_review_v1/maldenhof_2_frame_overlay.png
 - reports/frames/photo_review_v2/maldenhof_2_frame_overlay_corrected.png
