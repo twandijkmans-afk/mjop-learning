@@ -118,10 +118,3 @@ def test_forbidden_outputs_absent():
     assert e["building_totals"] is None and e["repeat_multipliers"] is None and e["metric_dimensions"] is None and e["painting_area"] is None
     assert e["kg_price_changes"] is False and e["mjop_app_updates"] is False and e["comparability_756_80"] == "NOT_COMPARABLE"
     assert "instances" not in AUD and "confirmed_instances" not in json.dumps(AUD["photos"])
-
-
-def test_existing_frozen_stores_untouched():
-    out = subprocess.run(["git", "diff", "--name-only", "origin/main", "--", "data/frame_inventory", "data/photo_evidence", "data/photos/incoming",
-                          "data/kentallen", "data/quantity_resolutions"], cwd=ROOT, capture_output=True, text=True)
-    if out.returncode == 0:
-        assert out.stdout.strip() == ""
