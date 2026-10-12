@@ -1,0 +1,528 @@
+{
+  "pack_version": "human_visual_decision_pack_v1.0.0",
+  "review_package_version": "visual_photo_review_map003_map004_v1.0.0",
+  "html": "maldenhof_human_visual_decision_pack_v1.html",
+  "sources": [
+    {
+      "exif_orientation": 1,
+      "raw_dims": [
+        2048,
+        1536
+      ],
+      "photo_id": "MAP-002",
+      "file": "IMG_8517.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8517.JPEG",
+      "sha256_register": "dacdd5e7c2bdb22e6e8a0d81c715c34f1a9af5390d541618db42809ef98a55ee",
+      "sha256_verified": true,
+      "width_px": 2048,
+      "height_px": 1536,
+      "dims_match_register": true
+    },
+    {
+      "exif_orientation": 1,
+      "raw_dims": [
+        2048,
+        1536
+      ],
+      "photo_id": "MAP-003",
+      "file": "IMG_8518.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8518.JPEG",
+      "sha256_register": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+      "sha256_verified": true,
+      "width_px": 2048,
+      "height_px": 1536,
+      "dims_match_register": true
+    },
+    {
+      "exif_orientation": 1,
+      "raw_dims": [
+        2048,
+        1536
+      ],
+      "photo_id": "MAP-004",
+      "file": "IMG_8520.JPEG",
+      "zip_path": "Opname 14-08-2026/IMG_8520.JPEG",
+      "sha256_register": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576",
+      "sha256_verified": true,
+      "width_px": 2048,
+      "height_px": 1536,
+      "dims_match_register": true
+    },
+    {
+      "exif_orientation": 1,
+      "raw_dims": [
+        3264,
+        2448
+      ],
+      "photo_id": "MAP-009",
+      "file": "P1000236.JPG",
+      "zip_path": "Opname 14-08-2026/P1000236.JPG",
+      "sha256_register": "15591a9648ddfec7391df5c87291c6f82c997bf1352f560a85251de76a97fe85",
+      "sha256_verified": true,
+      "width_px": 3264,
+      "height_px": 2448,
+      "dims_match_register": true
+    },
+    {
+      "exif_orientation": 1,
+      "raw_dims": [
+        3264,
+        2448
+      ],
+      "photo_id": "MAP-013",
+      "file": "P1000294.JPG",
+      "zip_path": "Opname 14-08-2026/P1000294.JPG",
+      "sha256_register": "d7d8839fc966a927360ecb14e01b908c5b9466ac24195d881dda9aafad1acfca",
+      "sha256_verified": true,
+      "width_px": 3264,
+      "height_px": 2448,
+      "dims_match_register": true
+    },
+    {
+      "exif_orientation": 6,
+      "raw_dims": [
+        3264,
+        2448
+      ],
+      "photo_id": "MAP-033",
+      "file": "P1000229.JPG",
+      "zip_path": "Opname 14-08-2026/P1000229.JPG",
+      "sha256_register": "f2d13c4cb991bbb3cc139e41c566bb7a7f371eed5c02088e6452090141427a88",
+      "sha256_verified": true,
+      "width_px": 3264,
+      "height_px": 2448,
+      "dims_match_register": true
+    }
+  ],
+  "counts": {
+    "observations": 50,
+    "relations": 43,
+    "review_groups": 18,
+    "review_points": 123,
+    "by_type_priority": {
+      "EXISTING_QUESTION|P1": 12,
+      "EXISTING_QUESTION|P3": 1,
+      "OBSERVATION|P1": 9,
+      "OBSERVATION|P2": 26,
+      "OBSERVATION|P3": 15,
+      "OVERLAP_RELATION|P1": 27,
+      "OVERLAP_RELATION|P2": 13,
+      "OVERLAP_RELATION|P3": 3,
+      "PLATE_READING|P2": 11,
+      "SEPARATION|P1": 6
+    },
+    "by_priority": {
+      "P1": 54,
+      "P2": 50,
+      "P3": 19
+    }
+  },
+  "review_groups": [
+    {
+      "group_id": "RG-01",
+      "key": "plaat288",
+      "priority": "P1",
+      "title": "Begane grond: plaat 288 en het raam ernaast",
+      "relation_ids": [
+        "VR-001",
+        "VR-002",
+        "VR-050"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003",
+        "MAP-013"
+      ]
+    },
+    {
+      "group_id": "RG-02",
+      "key": "midrij_links",
+      "priority": "P1",
+      "title": "Middelste rij links van de linker kap (MAP-002 en MAP-003)",
+      "relation_ids": [
+        "VR-004",
+        "VR-005"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003"
+      ]
+    },
+    {
+      "group_id": "RG-03",
+      "key": "bovenrij_007_008",
+      "priority": "P1",
+      "title": "Bovenste rij: tweedelig kozijn en smal raam (007/008)",
+      "relation_ids": [
+        "VR-006",
+        "VR-007",
+        "VR-054"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003",
+        "MAP-013"
+      ]
+    },
+    {
+      "group_id": "RG-04",
+      "key": "bovenrij_009_010",
+      "priority": "P1",
+      "title": "Bovenste rij: raam met gordijn en open vleugels (009/010)",
+      "relation_ids": [
+        "VR-008",
+        "VR-009",
+        "VR-031",
+        "VR-053"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003",
+        "MAP-004",
+        "MAP-013"
+      ]
+    },
+    {
+      "group_id": "RG-05",
+      "key": "rand_006",
+      "priority": "P1",
+      "title": "Raam aan de beeldrand links van MAP-003 (006)",
+      "relation_ids": [
+        "VR-010"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003"
+      ]
+    },
+    {
+      "group_id": "RG-06",
+      "key": "bovenrij_rechts",
+      "priority": "P1",
+      "title": "Bovenste rij rechts: ramen 011-014 (MAP-003) en 006-009 (MAP-004)",
+      "relation_ids": [
+        "VR-027",
+        "VR-028",
+        "VR-029",
+        "VR-030",
+        "VR-045"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004",
+        "MAP-009"
+      ]
+    },
+    {
+      "group_id": "RG-07",
+      "key": "midrij_kap_links",
+      "priority": "P1",
+      "title": "Middelste rij links van de rechter kap (018/019)",
+      "relation_ids": [
+        "VR-024",
+        "VR-025",
+        "VR-043"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004",
+        "MAP-009"
+      ]
+    },
+    {
+      "group_id": "RG-08",
+      "key": "midrij_kap_rechts",
+      "priority": "P1",
+      "title": "Middelste rij rechts van de rechter kap (020)",
+      "relation_ids": [
+        "VR-026",
+        "VR-044"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004",
+        "MAP-009"
+      ]
+    },
+    {
+      "group_id": "RG-09",
+      "key": "begane_grond_278",
+      "priority": "P1",
+      "title": "Begane grond bij de platen 280, 278 en 276: raam 278 en entreenisdeur",
+      "relation_ids": [
+        "VR-020",
+        "VR-021",
+        "VR-022",
+        "VR-041"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004",
+        "MAP-009"
+      ]
+    },
+    {
+      "group_id": "RG-10",
+      "key": "dakkapel",
+      "priority": "P2",
+      "title": "Dakkapel links van de schoorstenen",
+      "relation_ids": [
+        "VR-011"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003"
+      ]
+    },
+    {
+      "group_id": "RG-11",
+      "key": "dakramen_midden",
+      "priority": "P2",
+      "title": "Dakramen links en midden in het hoofddakvlak",
+      "relation_ids": [
+        "VR-012",
+        "VR-013"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003"
+      ]
+    },
+    {
+      "group_id": "RG-12",
+      "key": "dakraam_kap_links",
+      "priority": "P2",
+      "title": "Dakraam in de kap boven de entreemuur 288/286",
+      "relation_ids": [
+        "VR-003",
+        "VR-052"
+      ],
+      "photo_ids": [
+        "MAP-002",
+        "MAP-003",
+        "MAP-013"
+      ]
+    },
+    {
+      "group_id": "RG-13",
+      "key": "dakraam_kap_rechts",
+      "priority": "P2",
+      "title": "Dakraam in de kap boven plaat 280/278",
+      "relation_ids": [
+        "VR-023",
+        "VR-040"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004",
+        "MAP-009"
+      ]
+    },
+    {
+      "group_id": "RG-14",
+      "key": "dakramen_hoofd",
+      "priority": "P2",
+      "title": "Dakramen in het hoofddakvlak (MAP-003 en MAP-004)",
+      "relation_ids": [
+        "VR-032",
+        "VR-033",
+        "VR-034"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004"
+      ]
+    },
+    {
+      "group_id": "RG-15",
+      "key": "raam_276",
+      "priority": "P2",
+      "title": "Raam bij plaat 276 (MAP-004, MAP-009 en detailfoto MAP-033)",
+      "relation_ids": [
+        "VR-042",
+        "VR-060"
+      ],
+      "photo_ids": [
+        "MAP-004",
+        "MAP-009",
+        "MAP-033"
+      ]
+    },
+    {
+      "group_id": "RG-16",
+      "key": "ramen_284",
+      "priority": "P2",
+      "title": "Raam bij plaat 284 (MAP-003 en MAP-013)",
+      "relation_ids": [
+        "VR-051"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-013"
+      ]
+    },
+    {
+      "group_id": "RG-17",
+      "key": "rand_rechts",
+      "priority": "P3",
+      "title": "Pand rechts aan de rand van MAP-003 en de grote ramen in MAP-004",
+      "relation_ids": [
+        "VR-035"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004"
+      ]
+    },
+    {
+      "group_id": "RG-18",
+      "key": "links_alleen",
+      "priority": "P3",
+      "title": "Linkerdeel van MAP-003 zonder tegenhanger op MAP-004",
+      "relation_ids": [
+        "VR-036",
+        "VR-037"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004"
+      ]
+    }
+  ],
+  "review_ids": [
+    "RV-OBS-MAP003-001",
+    "RV-OBS-MAP003-002",
+    "RV-OBS-MAP003-003",
+    "RV-OBS-MAP003-004",
+    "RV-OBS-MAP003-005",
+    "RV-OBS-MAP003-006",
+    "RV-OBS-MAP003-007",
+    "RV-OBS-MAP003-008",
+    "RV-OBS-MAP003-009",
+    "RV-OBS-MAP003-010",
+    "RV-OBS-MAP003-011",
+    "RV-OBS-MAP003-012",
+    "RV-OBS-MAP003-013",
+    "RV-OBS-MAP003-014",
+    "RV-OBS-MAP003-015",
+    "RV-OBS-MAP003-016",
+    "RV-OBS-MAP003-017",
+    "RV-OBS-MAP003-018",
+    "RV-OBS-MAP003-019",
+    "RV-OBS-MAP003-020",
+    "RV-OBS-MAP003-021",
+    "RV-OBS-MAP003-022",
+    "RV-OBS-MAP003-023",
+    "RV-OBS-MAP003-024",
+    "RV-OBS-MAP003-025",
+    "RV-OBS-MAP003-026",
+    "RV-OBS-MAP003-027",
+    "RV-OBS-MAP003-028",
+    "RV-OBS-MAP004-001",
+    "RV-OBS-MAP004-002",
+    "RV-OBS-MAP004-003",
+    "RV-OBS-MAP004-004",
+    "RV-OBS-MAP004-005",
+    "RV-OBS-MAP004-006",
+    "RV-OBS-MAP004-007",
+    "RV-OBS-MAP004-008",
+    "RV-OBS-MAP004-009",
+    "RV-OBS-MAP004-010",
+    "RV-OBS-MAP004-011",
+    "RV-OBS-MAP004-012",
+    "RV-OBS-MAP004-013",
+    "RV-OBS-MAP004-014",
+    "RV-OBS-MAP004-015",
+    "RV-OBS-MAP004-016",
+    "RV-OBS-MAP004-017",
+    "RV-OBS-MAP004-018",
+    "RV-OBS-MAP004-019",
+    "RV-OBS-MAP004-020",
+    "RV-OBS-MAP004-021",
+    "RV-OBS-MAP004-022",
+    "RV-REL-VR-001",
+    "RV-REL-VR-002",
+    "RV-REL-VR-050",
+    "RV-REL-VR-004",
+    "RV-REL-VR-005",
+    "RV-REL-VR-006",
+    "RV-REL-VR-007",
+    "RV-REL-VR-054",
+    "RV-REL-VR-008",
+    "RV-REL-VR-009",
+    "RV-REL-VR-031",
+    "RV-REL-VR-053",
+    "RV-REL-VR-010",
+    "RV-REL-VR-027",
+    "RV-REL-VR-028",
+    "RV-REL-VR-029",
+    "RV-REL-VR-030",
+    "RV-REL-VR-045",
+    "RV-REL-VR-024",
+    "RV-REL-VR-025",
+    "RV-REL-VR-043",
+    "RV-REL-VR-026",
+    "RV-REL-VR-044",
+    "RV-REL-VR-020",
+    "RV-REL-VR-021",
+    "RV-REL-VR-022",
+    "RV-REL-VR-041",
+    "RV-REL-VR-011",
+    "RV-REL-VR-012",
+    "RV-REL-VR-013",
+    "RV-REL-VR-003",
+    "RV-REL-VR-052",
+    "RV-REL-VR-023",
+    "RV-REL-VR-040",
+    "RV-REL-VR-032",
+    "RV-REL-VR-033",
+    "RV-REL-VR-034",
+    "RV-REL-VR-042",
+    "RV-REL-VR-060",
+    "RV-REL-VR-051",
+    "RV-REL-VR-035",
+    "RV-REL-VR-036",
+    "RV-REL-VR-037",
+    "HQ-VR-001",
+    "RV-SEP-001",
+    "RV-SEP-002",
+    "RV-SEP-003",
+    "RV-SEP-004",
+    "RV-SEP-005",
+    "RV-SEP-006",
+    "RV-PLATE-MAP003-288",
+    "RV-PLATE-MAP003-286",
+    "RV-PLATE-MAP003-284",
+    "RV-PLATE-MAP003-282",
+    "RV-PLATE-MAP003-280",
+    "RV-PLATE-MAP003-278",
+    "RV-PLATE-MAP003-276",
+    "RV-PLATE-MAP004-280",
+    "RV-PLATE-MAP004-278",
+    "RV-PLATE-MAP004-276",
+    "RV-PLATE-MAP004-274",
+    "HQ-APP-001",
+    "HQ-APP-002",
+    "HQ-APP-003",
+    "HQ-APP-011",
+    "HQ-APP-012",
+    "HQ-APP-013",
+    "HQ-APP-031",
+    "HQ-APP-034",
+    "HQ-APP-035",
+    "HQ-VR-002",
+    "HQ-VR-003",
+    "HQ-VR-004"
+  ],
+  "effects": {
+    "instances_created": 0,
+    "bag_links_created": 0,
+    "building_totals": null,
+    "costs": null,
+    "app_decisions_open": 48,
+    "photo2_unchanged": true,
+    "default_decision": "OPEN",
+    "claude_proposals_exported_as_human_decisions": false
+  },
+  "network_dependencies": "none (alle afbeeldingen als data-URI; geen externe scripts)"
+}

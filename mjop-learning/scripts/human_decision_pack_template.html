@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maldenhof Human Visual Decision Pack v1</title>
+<style>
+:root{--bg:#f6f6f4;--card:#fff;--ink:#1d2327;--mute:#5b656c;--line:#d5d9dc;--p1:#b3261e;--p2:#a15c00;--p3:#3b6b3b;--acc:#0b5cab;--ok:#1b7a3a}
+@media (prefers-color-scheme: dark){:root{--bg:#15191c;--card:#1f2529;--ink:#e8ecee;--mute:#a2adb4;--line:#38424a;--p1:#ff8a80;--p2:#ffc266;--p3:#8fd18f;--acc:#7db8ff;--ok:#6fdc8c}}
+*{box-sizing:border-box}[id]{scroll-margin-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+header.top{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line);padding:8px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+header.top strong{font-size:16px}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:8px 0}h2{font-size:20px;margin:28px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}h3{font-size:17px;margin:20px 0 6px}h4{font-size:15px;margin:0 0 4px}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);padding:10px 14px;border-radius:6px;margin:10px 0}
+.warn{border-left-color:var(--p1)}
+table{border-collapse:collapse;width:100%;background:var(--card)}th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;font-size:14px}th{background:var(--bg)}
+.chip{display:inline-block;border-radius:10px;padding:0 8px;font-size:12px;border:1px solid var(--line);margin-right:4px;background:var(--bg)}
+.prio{font-weight:700;border-radius:4px;padding:0 6px;color:#fff;font-size:12px}.prio.P1{background:var(--p1)}.prio.P2{background:var(--p2)}.prio.P3{background:var(--p3)}
+.t-WINDOW_OPENING{border-color:#d4b400}.t-EXTERIOR_DOOR{border-color:#e53935}.t-ROOF_WINDOW{border-color:#00acc1}.t-DORMER_OPENING{border-color:#43a047}.t-UNKNOWN_OPENING{border-color:#888;border-style:dashed}
+.review-item{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;display:flex;flex-wrap:wrap;gap:12px}
+.review-item.decided{border-left:5px solid var(--ok)}.review-item.open{border-left:5px solid var(--line)}
+.review-item .thumb{max-width:420px;width:100%;height:auto;border-radius:4px;border:1px solid var(--line);align-self:flex-start}
+.review-item .body{flex:1;min-width:280px}
+.proposal{color:var(--mute);font-size:13px;margin:4px 0}.proposal b{color:var(--ink)}
+.evid{color:var(--mute);font-size:12px;margin:4px 0}
+.choices{border:0;padding:0;margin:6px 0;display:flex;flex-wrap:wrap;gap:4px 14px}
+.choices label{cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+textarea.cmt{width:100%;min-height:34px;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px}
+button,.btn{font:inherit;padding:5px 12px;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:5px;cursor:pointer}
+button.sec{background:transparent;color:var(--acc)}button.small{padding:1px 8px;font-size:12px}
+.group{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:16px 0;padding:12px}
+.group img.panel{max-width:100%;height:auto;border:1px solid var(--line);border-radius:4px;margin:6px 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.gallery{display:flex;flex-wrap:wrap;gap:10px}.gallery figure{margin:0;max-width:100%}.gallery img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:4px}figcaption{font-size:12px;color:var(--mute)}
+.fig{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#export-json{width:100%;min-height:160px;font:12px/1.4 ui-monospace,Consolas,monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.pill{border:1px solid var(--line);border-radius:12px;padding:1px 10px;background:var(--bg);font-size:13px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<header class="top">
+<strong>Maldenhof Human Visual Decision Pack v1</strong>
+<span class="pill">Beslist: <span id="cnt-decided">0</span> / <span id="cnt-total">0</span></span>
+<span class="pill">P1 <span id="cnt-P1">0</span></span><span class="pill">P2 <span id="cnt-P2">0</span></span><span class="pill">P3 <span id="cnt-P3">0</span></span>
+<span class="bar" id="filters">
+<button class="sec small" data-filter="ALL">Alles</button><button class="sec small" data-filter="P1">Alleen P1</button><button class="sec small" data-filter="P2">Alleen P2</button><button class="sec small" data-filter="P3">Alleen P3</button>
+<label><input type="checkbox" id="only-open"> alleen OPEN</label>
+</span>
+<button id="btn-export">Exporteer JSON</button>
+</header>
+<main>
+__BODY__
+<h2 id="export">Exporteren, bewaren en hervatten</h2>
+<div class="note">
+<p><b>Opslag:</b> <span id="persist-status">controle...</span></p>
+<p>Je keuzes worden nooit automatisch ergens toegepast. De export is een <b>voorlopig reviewresultaat</b>: het maakt geen instances, voegt niets samen, wijzigt geen status en past geen APP-besluit aan. Niet-beoordeelde punten staan als <code>OPEN</code> (met <code>decision_source: NONE</code>) in het bestand; een voorstel van Claude wordt nooit als menselijk besluit geëxporteerd.</p>
+</div>
+<div class="bar">
+<button id="btn-export2">Download JSON</button>
+<button class="sec" id="btn-show">Toon JSON hieronder</button>
+<button class="sec" id="btn-copy">Kopieer JSON</button>
+<label class="btn sec" style="padding:4px 12px">Eerdere export laden <input type="file" id="import-file" accept="application/json,.json" style="display:none"></label>
+<button class="sec" id="btn-reset-all">Alles op OPEN zetten</button>
+</div>
+<p id="export-msg" class="evid"></p>
+<textarea id="export-json" readonly placeholder="De JSON verschijnt hier na 'Toon JSON'."></textarea>
+</main>
+<script>
+const PACK = __PACK__;
+(function(){
+"use strict";
+const KEY = "maldenhof_visual_decision_pack_v1:" + PACK.pack_version;
+const items = PACK.items;
+const byId = {}; items.forEach(it => { byId[it.review_id] = it; });
+let persist = false;
+try { localStorage.setItem("__t", "1"); localStorage.removeItem("__t"); persist = true; } catch (e) { persist = false; }
+const q = (s, r) => (r || document).querySelector(s);
+const qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+function getDecision(id){ const r = q('input[name="d-' + id + '"]:checked'); return r ? r.value : "OPEN"; }
+function getComment(id){ const t = document.getElementById("c-" + id); return t ? t.value : ""; }
+function setDecision(id, d){ qa('input[name="d-' + id + '"]').forEach(r => { r.checked = (r.value === d); }); }
+function setComment(id, c){ const t = document.getElementById("c-" + id); if (t) t.value = c || ""; }
+function refresh(save){
+  const per = {P1:[0,0], P2:[0,0], P3:[0,0]}; let dec = 0;
+  items.forEach(it => {
+    const d = getDecision(it.review_id); const done = d !== "OPEN";
+    per[it.priority][1]++; if (done) { per[it.priority][0]++; dec++; }
+    const el = document.getElementById("item-" + it.review_id);
+    if (el) { el.classList.toggle("decided", done); el.classList.toggle("open", !done); }
+  });
+  q("#cnt-decided").textContent = dec; q("#cnt-total").textContent = items.length;
+  ["P1","P2","P3"].forEach(p => { q("#cnt-" + p).textContent = per[p][0] + "/" + per[p][1]; });
+  applyFilter();
+  if (save && persist) {
+    try {
+      const st = {}; items.forEach(it => { const d = getDecision(it.review_id), c = getComment(it.review_id); if (d !== "OPEN" || c) st[it.review_id] = {d: d, c: c}; });
+      localStorage.setItem(KEY, JSON.stringify(st));
+    } catch (e) { persist = false; showPersist(); }
+  }
+}
+let curFilter = "ALL";
+function applyFilter(){
+  const onlyOpen = q("#only-open").checked;
+  qa(".review-item").forEach(el => {
+    const p = el.getAttribute("data-priority"); const id = el.getAttribute("data-id");
+    const hide = (curFilter !== "ALL" && p !== curFilter) || (onlyOpen && getDecision(id) !== "OPEN");
+    el.classList.toggle("hidden", hide);
+  });
+}
+function showPersist(){
+  q("#persist-status").textContent = persist
+    ? "Je keuzes worden automatisch in dit browservenster bewaard (localStorage) zodra je ze invult. Dit werkt alleen in deze browser; gebruik de export om ze veilig te stellen."
+    : "Bewaren in de browser is hier niet beschikbaar (de browser blokkeert opslag voor lokale bestanden). Je keuzes blijven alleen staan zolang dit tabblad open is: exporteer de JSON voordat je het tabblad sluit.";
+}
+function evidenceOf(it){ return it.evidence_refs; }
+function buildExport(){
+  const per = {P1:{total:0,decided:0}, P2:{total:0,decided:0}, P3:{total:0,decided:0}}; let dec = 0;
+  const reviews = items.map(it => {
+    const d = getDecision(it.review_id); const done = d !== "OPEN";
+    per[it.priority].total++; if (done) { per[it.priority].decided++; dec++; }
+    return {
+      review_id: it.review_id, review_type: it.review_type, priority: it.priority, title: it.title,
+      photo_ids: it.photo_ids, observation_ids: it.observation_ids, relation_ids: it.relation_ids, linked_app_decisions: it.app_links,
+      decision: d, decision_source: done ? "HUMAN" : "NONE", comment: getComment(it.review_id),
+      claude_proposal_non_binding: it.claude_proposal, source_evidence: evidenceOf(it), pack_version: PACK.pack_version
+    };
+  });
+  return {
+    export_format: "maldenhof_visual_decision_export_v1", pack_version: PACK.pack_version, review_package_version: PACK.review_package_version,
+    exported_at: new Date().toISOString(),
+    status: "PROVISIONAL_HUMAN_REVIEW_RESULT_NOT_APPLIED",
+    effects: {instances_created: false, merges_performed: false, status_changes: false, bag_pand_links_created: false, unique_totals_computed: false, app_decisions_modified: false},
+    app_decisions: "ALL_48_APP_DECISIONS_REMAIN_OPEN_AND_UNCHANGED",
+    summary: {review_points_total: items.length, decided_by_human: dec, open: items.length - dec, per_priority: per,
+              note: "Reviewpunten zijn geen aantallen unieke fysieke kozijnen."},
+    reviews: reviews
+  };
+}
+function exportText(){ return JSON.stringify(buildExport(), null, 2); }
+function showJson(){ q("#export-json").value = exportText(); q("#export-msg").textContent = "JSON opgebouwd uit je huidige keuzes (" + new Date().toLocaleTimeString() + ")."; }
+function download(){
+  const text = exportText(); showJson();
+  try {
+    const blob = new Blob([text], {type: "application/json"});
+    const a = document.createElement("a"); const ts = new Date().toISOString().replace(/[:.]/g, "-");
+    a.href = URL.createObjectURL(blob); a.download = "maldenhof_visual_decision_export_v1_" + ts + ".json";
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    q("#export-msg").textContent = "Download gestart. Komt er geen bestand, kopieer dan de JSON uit het veld hieronder.";
+  } catch (e) { q("#export-msg").textContent = "Download is geblokkeerd door de browser; kopieer de JSON uit het veld hieronder."; }
+}
+function importFile(f){
+  const rd = new FileReader();
+  rd.onload = () => {
+    try {
+      const o = JSON.parse(rd.result);
+      if (o.export_format !== "maldenhof_visual_decision_export_v1") throw new Error("onbekend formaat");
+      if (o.pack_version !== PACK.pack_version) throw new Error("andere pakketversie: " + o.pack_version);
+      let n = 0;
+      (o.reviews || []).forEach(r => {
+        const it = byId[r.review_id]; if (!it) return;
+        if (r.decision_source === "HUMAN" && it.choices.indexOf(r.decision) >= 0) { setDecision(r.review_id, r.decision); n++; }
+        else setDecision(r.review_id, "OPEN");
+        setComment(r.review_id, r.comment || "");
+      });
+      refresh(true); q("#export-msg").textContent = n + " menselijke keuzes uit de export geladen.";
+    } catch (e) { q("#export-msg").textContent = "Laden mislukt: " + e.message; }
+  };
+  rd.readAsText(f);
+}
+document.addEventListener("change", ev => { const t = ev.target; if (t && t.matches && t.matches("input[type=radio]")) refresh(true); if (t && t.id === "only-open") applyFilter(); });
+document.addEventListener("input", ev => { const t = ev.target; if (t && t.classList && t.classList.contains("cmt")) refresh(true); });
+document.addEventListener("click", ev => {
+  const t = ev.target; if (!t || !t.getAttribute) return;
+  const r = t.getAttribute("data-reset"); if (r) { setDecision(r, "OPEN"); refresh(true); return; }
+  const f = t.getAttribute("data-filter"); if (f) { curFilter = f; applyFilter(); }
+});
+q("#btn-export").addEventListener("click", () => { download(); });
+q("#btn-export2").addEventListener("click", () => { download(); });
+q("#btn-show").addEventListener("click", showJson);
+q("#btn-copy").addEventListener("click", () => {
+  showJson(); const ta = q("#export-json"); ta.focus(); ta.select();
+  try { const ok = document.execCommand("copy"); q("#export-msg").textContent = ok ? "JSON gekopieerd." : "Kopiëren niet gelukt; de tekst is geselecteerd, gebruik Ctrl+C."; } catch (e) { q("#export-msg").textContent = "Selecteer de tekst en gebruik Ctrl+C."; }
+});
+q("#btn-reset-all").addEventListener("click", () => { if (window.confirm("Alle keuzes en opmerkingen op OPEN zetten?")) { items.forEach(it => { setDecision(it.review_id, "OPEN"); setComment(it.review_id, ""); }); refresh(true); } });
+q("#import-file").addEventListener("change", ev => { if (ev.target.files && ev.target.files[0]) importFile(ev.target.files[0]); ev.target.value = ""; });
+if (persist) {
+  try {
+    const st = JSON.parse(localStorage.getItem(KEY) || "{}");
+    Object.keys(st).forEach(id => { if (byId[id] && byId[id].choices.indexOf(st[id].d) >= 0) setDecision(id, st[id].d); if (byId[id]) setComment(id, st[id].c || ""); });
+  } catch (e) { /* negeren */ }
+}
+showPersist(); refresh(false);
+})();
+</script>
+</body>
+</html>
