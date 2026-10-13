@@ -1,0 +1,424 @@
+{
+  "candidates": [
+    {
+      "bag_pand_id": null,
+      "candidate_group_id": "OIC-VR-027",
+      "cost": null,
+      "counts_in_any_total": false,
+      "decision_refs": [
+        {
+          "approval_channel": "ChatGPT conversation",
+          "decision": "SAME",
+          "decision_label": "SAME_PHYSICAL_OBJECT_CANDIDATE",
+          "decision_source": "HUMAN_CHAT_CONFIRMATION",
+          "meaning": "SAME_PHYSICAL_OBJECT_CANDIDATE: kandidaat, niet bewezen, niet samengevoegd",
+          "register": "maldenhof_pilot_decision_register_v1.json",
+          "review_id": "RV-REL-VR-027",
+          "source_ref_hash": "b4c272b4bf256bba"
+        }
+      ],
+      "evidence_basis": [
+        "FEATURE_MATCH",
+        "UNIQUE_CONFIGURATION"
+      ],
+      "evidence_class": "STRONG_VISUAL_SUPPORT",
+      "evidence_refs": [
+        {
+          "file": "IMG_8518.JPEG",
+          "observation_id": "OBS-MAP003-011",
+          "photo_id": "MAP-003",
+          "region_px": [
+            1167,
+            481,
+            1316,
+            571
+          ],
+          "sha256": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+          "sha256_verified": true,
+          "type": "original_crop"
+        },
+        {
+          "file": "IMG_8520.JPEG",
+          "observation_id": "OBS-MAP004-006",
+          "photo_id": "MAP-004",
+          "region_px": [
+            535,
+            477,
+            692,
+            569
+          ],
+          "sha256": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576",
+          "sha256_verified": true,
+          "type": "original_crop"
+        },
+        {
+          "group_id": "RG-06",
+          "type": "review_group"
+        },
+        {
+          "file": "C1_MAP-003_vs_MAP-004_upper_facade.jpg",
+          "type": "report_figure"
+        },
+        {
+          "file": "C2_MAP-003_vs_MAP-004_middle_facade.jpg",
+          "type": "report_figure"
+        },
+        {
+          "file": "C3_MAP-003_vs_MAP-004_roof_kap_ground.jpg",
+          "type": "report_figure"
+        },
+        {
+          "best_other_inliers_col": 24,
+          "best_other_inliers_row": 13,
+          "good_matches": 82,
+          "inliers": 39,
+          "note": "SIFT/RANSAC is alleen ondersteunend: niet-partners halen tot 24 inliers.",
+          "type": "feature_match_support_only"
+        }
+      ],
+      "evidence_strength": "STRONG_VISUAL_SUPPORT",
+      "frame_instance_id": null,
+      "identity_status": "SUPPORTED_CANDIDATE",
+      "is_instance": false,
+      "kind": "PROVISIONAL_IDENTITY_LINK",
+      "merged": false,
+      "observation_ids": [
+        "OBS-MAP003-011",
+        "OBS-MAP004-006"
+      ],
+      "photo_ids": [
+        "MAP-003",
+        "MAP-004"
+      ],
+      "quantity": null,
+      "reasons": [
+        "MENSELIJK_SAME + STERK BEWIJS + ONDERSCHEIDEND ANKER"
+      ],
+      "relation_class": "POSSIBLY_SAME_PHYSICAL_FRAME",
+      "relation_strength_in_source": "MEDIUM",
+      "same_physical_frame_proven": false,
+      "source_hashes": {
+        "MAP-003": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+        "MAP-004": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576"
+      },
+      "supporting_relation_ids": [
+        "VR-027"
+      ],
+      "unresolved_questions": [
+        "Bewijst de visuele combinatie (stickers, merktekens, gordijn) het fysieke object, of staan er identieke woningen met dezelfde inrichting? Alleen een derde onafhankelijke foto of een unieke afwijking kan dat beslissen.",
+        "Beide observaties liggen in dezelfde gevelreeks (SOC-002); die groep is een foto-niveau-kandidaat (confidence MEDIUM), geen bewijs voor het kozijn.",
+        "Geen van beide observaties heeft een bewezen pand (pand_status NOT_PROVEN); een objectidentiteit zegt niets over het BAG-pand.",
+        "De bronrelatie noemt sterkte MEDIUM, de kwaliteitsreview STRONG_VISUAL_SUPPORT; het verschil is niet menselijk opgelost.",
+        "De pilot-SAME is bevestigd via ChatGPT, niet via het HTML-formulier; er is geen instance-besluit gegeven."
+      ]
+    }
+  ],
+  "concepts": [
+    {
+      "id_pattern": "OBS-*",
+      "meaning": "Wat in één foto zichtbaar is. Buiten de instance-store, telt nergens.",
+      "name": "PHOTO_OBSERVATION"
+    },
+    {
+      "id_pattern": "VR-*",
+      "meaning": "Visuele relatie tussen twee observaties of gevelsecties (review-JSON). FACADE_SECTION ≠ PHYSICAL_OBJECT.",
+      "name": "VISUAL_OVERLAP_RELATION"
+    },
+    {
+      "id_pattern": "OIC-*",
+      "meaning": "NIEUW: kandidaat dat twee observaties hetzelfde fysieke object tonen. Geen instance.",
+      "name": "PROVISIONAL_IDENTITY_LINK"
+    },
+    {
+      "id_pattern": "FI-*",
+      "meaning": "Bestaat alleen in de instance-store (bevroren); wordt door deze pilot nooit aangemaakt.",
+      "name": "APPROVED_PHYSICAL_INSTANCE"
+    }
+  ],
+  "effects": {
+    "app_decisions_changed": 0,
+    "bag_links_created": 0,
+    "building_totals": null,
+    "costs": null,
+    "definitive_instance_transition_exists": false,
+    "human_decisions_changed": 0,
+    "instances_created": 0,
+    "merges": 0,
+    "new_observations": 0,
+    "photo2_changed": false,
+    "quantities": null
+  },
+  "inputs": {
+    "evidence_json_sha256": "1039b6231497c4b3335799b85bfafdd32bc521f4d8cb4d897551857a555ed04c",
+    "quality_json_sha256": "2a8d6643927e3e14fb9554cc0379421230be8c97d3d73bb406281c8965b8b088",
+    "register_provenance": "ChatGPT conversation",
+    "register_sha256": "d2545b484275513ab253315bd812001ded58fe0cc9e7422b6b1a012a713fa61f",
+    "review_json_sha256": "28cccaf2eccfc82aa871b6a66c342043112406fb127d044ddf1f1051703e0719"
+  },
+  "model_version": "physical_object_identity_candidate_v1",
+  "negative_controls": [
+    {
+      "assumed_decision_hypothetical": null,
+      "control": "A",
+      "creates_identity_link": false,
+      "human_decision": "SAME",
+      "note": null,
+      "passed": true,
+      "reasons": [
+        "GEVELSECTIE_IS_GEEN_FYSIEK_OBJECT: SAME_FACADE_SECTION kan geen objectidentiteit worden"
+      ],
+      "relation_id": "VR-020",
+      "result_status": "REJECTED",
+      "title": "Gevelsectie is geen fysiek kozijn"
+    },
+    {
+      "assumed_decision_hypothetical": null,
+      "control": "B",
+      "creates_identity_link": false,
+      "human_decision": "UNDECIDABLE",
+      "note": null,
+      "passed": true,
+      "reasons": [
+        "MENSELIJK_BESLUIT_UNDECIDABLE: geen identiteit afleiden uit gelijkenis",
+        "BEWIJSBLOKKADE HIDDEN",
+        "BEWIJSBLOKKADE REPETITION_RISK"
+      ],
+      "relation_id": "VR-026",
+      "result_status": "UNRESOLVED",
+      "title": "Onvoldoende bewijs (UNDECIDABLE)"
+    },
+    {
+      "assumed_decision_hypothetical": null,
+      "control": "C",
+      "creates_identity_link": false,
+      "human_decision": "UNDECIDABLE",
+      "note": null,
+      "passed": true,
+      "reasons": [
+        "MENSELIJK_BESLUIT_UNDECIDABLE: geen identiteit afleiden uit gelijkenis",
+        "BEWIJSBLOKKADE REPETITION_RISK"
+      ],
+      "relation_id": "VR-024",
+      "result_status": "UNRESOLVED",
+      "title": "Matig bewijs (UNDECIDABLE)"
+    },
+    {
+      "assumed_decision_hypothetical": "SAME",
+      "control": "C2",
+      "creates_identity_link": false,
+      "human_decision": "UNDECIDABLE",
+      "note": "Met REPETITION_RISK en zonder onderscheidend anker volstaat zelfs een SAME-besluit niet.",
+      "passed": true,
+      "reasons": [
+        "BEWIJSBLOKKADE REPETITION_RISK",
+        "GEEN_ONDERSCHEIDEND_ANKER: vorm/kleur/indeling/feature-match alleen is onvoldoende",
+        "BEWIJS_NIET_STERK",
+        "BEWIJSBLOKKADE: geen identiteitsverband, ook niet bij SAME"
+      ],
+      "relation_id": "VR-024",
+      "result_status": "UNRESOLVED",
+      "title": "Hypothetisch: VR-024 met SAME maakt nog geen identiteitsverband"
+    },
+    {
+      "assumed_decision_hypothetical": "SAME",
+      "control": "D1",
+      "creates_identity_link": false,
+      "human_decision": null,
+      "note": null,
+      "passed": true,
+      "reasons": [
+        "BEWIJSBLOKKADE REPETITION_RISK",
+        "BEWIJSBLOKKADE TOO_DARK",
+        "GEEN_ONDERSCHEIDEND_ANKER: vorm/kleur/indeling/feature-match alleen is onvoldoende",
+        "BEWIJS_NIET_STERK",
+        "BEWIJSBLOKKADE: geen identiteitsverband, ook niet bij SAME"
+      ],
+      "relation_id": "VR-022",
+      "result_status": "UNRESOLVED",
+      "title": "Repeterende woningen, te donker (VR-022), hypothetisch SAME"
+    },
+    {
+      "assumed_decision_hypothetical": "SAME",
+      "control": "D2",
+      "creates_identity_link": false,
+      "human_decision": null,
+      "note": null,
+      "passed": true,
+      "reasons": [
+        "ONBEKENDE_OBSERVATIE OBS-MAP003-020 / MAP-004:OBS-MAP004-016"
+      ],
+      "relation_id": "VR-044",
+      "result_status": "REJECTED",
+      "title": "Groepseindpunt met herhaling (VR-044) wordt geweigerd, ook bij hypothetisch SAME"
+    },
+    {
+      "assumed_decision_hypothetical": "SAME",
+      "control": "D3",
+      "creates_identity_link": true,
+      "human_decision": null,
+      "note": null,
+      "passed": true,
+      "reasons": [
+        "GEEN_ONDERSCHEIDEND_ANKER: vorm/kleur/indeling/feature-match alleen is onvoldoende",
+        "BEWIJS_NIET_STERK",
+        "SAME zonder voldoende bewijs: hooguit kandidaat, nooit SUPPORTED"
+      ],
+      "relation_id": "VR-025",
+      "result_status": "CANDIDATE",
+      "title": "Alleen gelijke indeling/feature-match: VR-025"
+    },
+    {
+      "control": "E",
+      "note": "Geen groep van drie; keten blijft UNRESOLVED_CHAIN.",
+      "passed": true,
+      "result": {
+        "chains": [
+          {
+            "missing_direct_pairs": [
+              [
+                "A",
+                "C"
+              ]
+            ],
+            "observation_ids": [
+              "A",
+              "B",
+              "C"
+            ],
+            "status": "UNRESOLVED_CHAIN",
+            "transitive_merge_performed": false
+          }
+        ],
+        "groups": [],
+        "pairs_kept_separate": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "B",
+            "C"
+          ]
+        ]
+      },
+      "title": "Niet-transitief A~B, B~C, A≁C"
+    },
+    {
+      "control": "E2",
+      "passed": true,
+      "result": {
+        "chains": [],
+        "groups": [
+          [
+            "A",
+            "B",
+            "C"
+          ]
+        ],
+        "pairs_kept_separate": []
+      },
+      "title": "Alleen volledig ondersteunde clique A,B,C wordt één kandidaatgroep"
+    },
+    {
+      "control": "F",
+      "creates_identity_link": false,
+      "passed": true,
+      "reasons": [
+        "ZELFDE_FOTO: twee observaties in één foto zijn verschillende openingen"
+      ],
+      "relation_id": "VR-SELF (synthetisch)",
+      "result_status": "REJECTED",
+      "title": "Twee observaties in dezelfde foto kunnen nooit hetzelfde object zijn"
+    }
+  ],
+  "repetition_risk": {
+    "best_non_partner_inliers_vr027": 24,
+    "feature_match_vr027_inliers": 39,
+    "note": "Niet-partners halen tot 24 inliers: gelijkenis tussen buurwoningen is meetbaar hoog. Feature-match is alleen ondersteunend."
+  },
+  "status": "PILOT_PROPOSAL_NO_INSTANCE_ACTIVATION",
+  "status_model": {
+    "CANDIDATE": {
+      "beslissing_nodig": "Menselijke beoordeling van de relatie (SAME / DIFFERENT / UNDECIDABLE).",
+      "toegestaan": [
+        "bewijs verzamelen",
+        "door mens laten beoordelen",
+        "betere foto vragen"
+      ],
+      "verboden": [
+        "instance maken",
+        "samenvoegen",
+        "BAG-koppelen",
+        "tellen",
+        "hoeveelheid of kosten afleiden"
+      ],
+      "voorwaarden": "Relatie is PHYSICAL_OBJECT; observaties bestaan, verschillende foto's, bronhashes kloppen. Nog geen (voldoende) menselijk SAME of onderscheidend bewijs."
+    },
+    "REJECTED": {
+      "beslissing_nodig": "Geen; herbeoordeling kan alleen met nieuw bewijs en nieuw besluit.",
+      "toegestaan": [
+        "vastleggen waarom afgewezen"
+      ],
+      "verboden": [
+        "alsnog samenvoegen",
+        "als kandidaat blijven tonen"
+      ],
+      "voorwaarden": "Menselijk besluit DIFFERENT, of de relatie is geen objectrelatie (gevelsectie) of botst met de regels (zelfde foto)."
+    },
+    "SUPPORTED_CANDIDATE": {
+      "beslissing_nodig": "Een afzonderlijk, expliciet menselijk besluit voor elke verdere stap (instance, BAG-koppeling).",
+      "toegestaan": [
+        "als kandidaat tonen in review en rapport",
+        "extra onafhankelijke foto's zoeken",
+        "vervolgbesluit voorbereiden"
+      ],
+      "verboden": [
+        "automatisch instance maken",
+        "samenvoegen",
+        "BAG-pand koppelen",
+        "unieke telling aanpassen",
+        "hoeveelheden/kosten afleiden",
+        "transitief uitbreiden naar andere observaties"
+      ],
+      "voorwaarden": "Geregistreerd menselijk SAME met kloppende source_ref_hash voor een PHYSICAL_OBJECT-relatie, evidence_class STRONG met onderscheidend anker (UNIQUE_CONFIGURATION of PLATE_ANCHOR), geen REPETITION_RISK/HIDDEN/TOO_DARK."
+    },
+    "UNRESOLVED": {
+      "beslissing_nodig": "Betere foto of nieuw menselijk besluit.",
+      "toegestaan": [
+        "bewaren als open vraag",
+        "betere foto aanvragen"
+      ],
+      "verboden": [
+        "identiteit afleiden uit gelijkenis",
+        "samenvoegen",
+        "tellen",
+        "BAG-koppelen"
+      ],
+      "voorwaarden": "Menselijk besluit UNDECIDABLE (of bewijs onvoldoende/repetitief). Er wordt GEEN identiteitsverband gemaakt."
+    }
+  },
+  "stop": "Stop vóór het activeren van een definitieve fysieke instance of het mergen van PR #42.",
+  "transitions": {
+    "(geen)": [
+      "CANDIDATE",
+      "UNRESOLVED",
+      "REJECTED",
+      "SUPPORTED_CANDIDATE"
+    ],
+    "CANDIDATE": [
+      "SUPPORTED_CANDIDATE",
+      "UNRESOLVED",
+      "REJECTED"
+    ],
+    "NOOIT_AUTOMATISCH": "Geen enkele overgang leidt naar een definitieve fysieke instance; die stap bestaat in deze pilot niet.",
+    "REJECTED": [],
+    "SUPPORTED_CANDIDATE": [
+      "UNRESOLVED",
+      "REJECTED"
+    ],
+    "UNRESOLVED": [
+      "CANDIDATE",
+      "REJECTED"
+    ]
+  }
+}
