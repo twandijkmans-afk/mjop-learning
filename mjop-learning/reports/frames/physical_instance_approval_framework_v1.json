@@ -1,0 +1,654 @@
+{
+  "allowed_effects": [
+    "produce_draft_request",
+    "produce_human_review_pack",
+    "report_validation_results",
+    "record_human_decision_in_separate_later_register"
+  ],
+  "decision_levels": {
+    "A": "Fysieke objectidentiteit: tonen de observaties hetzelfde fysieke kozijn?",
+    "B": "Pandtoewijzing: bij welk gebouw of BAG-pand hoort het kozijn?",
+    "C": "Hoeveelheid, afmeting, onderhoudsactie en kosten van dat onderdeel."
+  },
+  "draft_request": {
+    "additional_evidence": [
+      {
+        "arguments": [
+          "andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520)",
+          "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie met plakstrook rechts",
+          "positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004",
+          "buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie"
+        ],
+        "file": "P1000236.JPG",
+        "limits": [
+          "zelfde dag (14-08-2026) en tijdelijke kenmerken: onafhankelijk in toestel/hoek, niet in tijd",
+          "geen leesbaar huisnummer bij dit raam; plaat 280 bewijst alleen die muur, niet het pand van het kozijn",
+          "schuin perspectief: feature-match onbruikbaar (8 inliers)"
+        ],
+        "photo_id": "MAP-009",
+        "strength": "STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK"
+      }
+    ],
+    "allowed_effects": [
+      "produce_draft_request",
+      "produce_human_review_pack",
+      "report_validation_results",
+      "record_human_decision_in_separate_later_register"
+    ],
+    "approval_request_id": "IAR-OIC-VR-027",
+    "approval_status": "READY_FOR_HUMAN_REVIEW",
+    "candidate_group_id": "OIC-VR-027",
+    "candidate_status": "SUPPORTED_CANDIDATE",
+    "decision_levels": {
+      "A": {
+        "decided_by_human": false,
+        "question": "Fysieke objectidentiteit: tonen de observaties hetzelfde fysieke kozijn?",
+        "status": "NOT_DECIDED"
+      },
+      "B": {
+        "bag_pand_id": null,
+        "question": "Pandtoewijzing: bij welk gebouw of BAG-pand hoort het kozijn?",
+        "status": "NOT_DECIDED"
+      },
+      "C": {
+        "cost": null,
+        "dimensions": null,
+        "quantity": null,
+        "question": "Hoeveelheid, afmeting, onderhoudsactie en kosten van dat onderdeel.",
+        "status": "NOT_DECIDED"
+      }
+    },
+    "decision_provenance": {
+      "candidate_decision": [
+        {
+          "approval_channel": "ChatGPT conversation",
+          "decision": "SAME",
+          "decision_label": "SAME_PHYSICAL_OBJECT_CANDIDATE",
+          "decision_source": "HUMAN_CHAT_CONFIRMATION",
+          "meaning": "SAME_PHYSICAL_OBJECT_CANDIDATE: kandidaat, niet bewezen, niet samengevoegd",
+          "register": "maldenhof_pilot_decision_register_v1.json",
+          "review_id": "RV-REL-VR-027",
+          "source_ref_hash": "b4c272b4bf256bba"
+        }
+      ],
+      "instance_decision": null,
+      "note": "Het pilotbesluit RV-REL-VR-027 = SAME_PHYSICAL_OBJECT_CANDIDATE (ChatGPT-bevestiging) is geen instance-besluit."
+    },
+    "derived_open_questions": [
+      "Gerelateerde relatie VR-045 (zonder menselijk besluit) raakt deze observaties; Claude-voorstel UNDECIDABLE; kwaliteitsreview: onvoldoende bewijs: MAP-009 is sterk verkort: alleen het tweedelige kozijn is herkenbaar, het smalle raam ontbreekt; geen uniek kenmerk.",
+      "APP-012 (Overlap SOC-002) is een open fotoniveau-vraag over dezelfde foto's; die is niet gelijk aan dit kozijnniveau-verband.",
+      "APP-025 (Overlap SOC-015) is een open fotoniveau-vraag over dezelfde foto's; die is niet gelijk aan dit kozijnniveau-verband."
+    ],
+    "evidence_class": "STRONG_VISUAL_SUPPORT",
+    "evidence_refs": [
+      {
+        "file": "IMG_8518.JPEG",
+        "observation_id": "OBS-MAP003-011",
+        "photo_id": "MAP-003",
+        "region_px": [
+          1167,
+          481,
+          1316,
+          571
+        ],
+        "sha256": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+        "sha256_verified": true,
+        "type": "original_crop"
+      },
+      {
+        "file": "IMG_8520.JPEG",
+        "observation_id": "OBS-MAP004-006",
+        "photo_id": "MAP-004",
+        "region_px": [
+          535,
+          477,
+          692,
+          569
+        ],
+        "sha256": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576",
+        "sha256_verified": true,
+        "type": "original_crop"
+      },
+      {
+        "group_id": "RG-06",
+        "type": "review_group"
+      },
+      {
+        "file": "C1_MAP-003_vs_MAP-004_upper_facade.jpg",
+        "type": "report_figure"
+      },
+      {
+        "file": "C2_MAP-003_vs_MAP-004_middle_facade.jpg",
+        "type": "report_figure"
+      },
+      {
+        "file": "C3_MAP-003_vs_MAP-004_roof_kap_ground.jpg",
+        "type": "report_figure"
+      },
+      {
+        "best_other_inliers_col": 24,
+        "best_other_inliers_row": 13,
+        "good_matches": 82,
+        "inliers": 39,
+        "note": "SIFT/RANSAC is alleen ondersteunend: niet-partners halen tot 24 inliers.",
+        "type": "feature_match_support_only"
+      }
+    ],
+    "forbidden_effects": [
+      "create_or_modify_frame_instance",
+      "reserve_instance_id",
+      "merge_observations",
+      "link_bag_pand",
+      "set_dimensions",
+      "change_building_total",
+      "change_unique_count",
+      "set_quantity",
+      "set_cost",
+      "set_maintenance_action",
+      "change_photo2_inventory",
+      "change_app_decision",
+      "change_pilot_decision",
+      "change_source_observation",
+      "activate_repeat_multiplier",
+      "write_instance_store"
+    ],
+    "frame_instance_id": null,
+    "human_decision": null,
+    "is_instance": false,
+    "kind": "PHYSICAL_INSTANCE_APPROVAL_REQUEST",
+    "observation_ids": [
+      "OBS-MAP003-011",
+      "OBS-MAP004-006"
+    ],
+    "photo_ids": [
+      "MAP-003",
+      "MAP-004"
+    ],
+    "proposed_instance_type": {
+      "component_type": "EXTERIOR_FRAME",
+      "material": "UNKNOWN",
+      "observation_type": "WINDOW_OPENING",
+      "status": "PROPOSED_NOT_DECIDED",
+      "subtype": "UNKNOWN"
+    },
+    "rejected_by": null,
+    "relation_strength_in_source": "MEDIUM",
+    "request_hash": "aa556297be5d6713d298a06fa40492b8",
+    "request_note": "Een approval request is geen fysieke instance en reserveert geen instance-id.",
+    "required_human_decisions": [
+      "Besluit over VR-045 (RV-REL-VR-045), of expliciete erkenning dat het open blijft",
+      "APP-012: antwoorden of expliciet laten openstaan (verplicht te erkennen in het instance-besluit)",
+      "APP-025: antwoorden of expliciet laten openstaan (verplicht te erkennen in het instance-besluit)"
+    ],
+    "reserved_instance_id": null,
+    "source_hashes": {
+      "MAP-003": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+      "MAP-004": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576"
+    },
+    "supporting_relation_ids": [
+      "VR-027"
+    ],
+    "unresolved_questions": [
+      "Bewijst de visuele combinatie (stickers, merktekens, gordijn) het fysieke object, of staan er identieke woningen met dezelfde inrichting? Alleen een derde onafhankelijke foto of een unieke afwijking kan dat beslissen.",
+      "Beide observaties liggen in dezelfde gevelreeks (SOC-002); die groep is een foto-niveau-kandidaat (confidence MEDIUM), geen bewijs voor het kozijn.",
+      "Geen van beide observaties heeft een bewezen pand (pand_status NOT_PROVEN); een objectidentiteit zegt niets over het BAG-pand.",
+      "De bronrelatie noemt sterkte MEDIUM, de kwaliteitsreview STRONG_VISUAL_SUPPORT; het verschil is niet menselijk opgelost.",
+      "De pilot-SAME is bevestigd via ChatGPT, niet via het HTML-formulier; er is geen instance-besluit gegeven.",
+      "De bronfoto's (MAP-003, MAP-004) en de aanvullende foto MAP-009 zijn van dezelfde dag (14-08-2026): onafhankelijk in toestel en hoek, niet in tijd.",
+      "De onderscheidende kenmerken (merktekens, gordijn met voorwerpen, folie met plakstrook) zijn deels tijdelijk en bewijzen geen blijvende identiteit van het kozijn."
+    ],
+    "validation_results": {
+      "blocked_by": [],
+      "checks": [
+        {
+          "detail": "alle verplichte velden, geen FI-id, geen niveau B/C-inhoud, geen voorgesteld besluit",
+          "id": "S0",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Aanvraagstructuur en verboden velden"
+        },
+        {
+          "detail": "OIC-VR-027 staat in het pilotrapport",
+          "id": "C1",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Het OIC-verband bestaat"
+        },
+        {
+          "detail": "live status SUPPORTED_CANDIDATE (opnieuw bepaald uit de brondata)",
+          "id": "C2",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "OIC heeft status SUPPORTED_CANDIDATE"
+        },
+        {
+          "detail": "observaties, foto's, relaties, bronhashes, relatiesterkte en bewijsklasse identiek",
+          "id": "C3a",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Aanvraag komt overeen met het live kandidaatverband"
+        },
+        {
+          "detail": "geldig, geen instance, telt nergens, geen pandkoppeling",
+          "id": "C3",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Alle bronobservaties zijn geldig"
+        },
+        {
+          "detail": "SHA256 identiek in alle drie de bronnen",
+          "id": "C4",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Alle bronhashes komen overeen (review-bron, onafhankelijk archiefregister, bewijsreferentie)"
+        },
+        {
+          "detail": "VR-relatie is PHYSICAL_OBJECT; gevelsectie-relaties (SAME_FACADE_SECTION) tellen niet",
+          "id": "C5",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "De onderliggende relatie is een geldige fysieke-objectrelatie met exact deze twee eindpunten"
+        },
+        {
+          "detail": "RV-REL-VR-027 = SAME, menselijke herkomst (ChatGPT conversation), source_ref_hash gevalideerd. Dit is een KANDIDAAT-besluit, geen instance-besluit.",
+          "id": "C6",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Menselijk kandidaatbesluit (SAME) is geldig en herleidbaar"
+        },
+        {
+          "detail": "STRONG_VISUAL_SUPPORT met anker ['UNIQUE_CONFIGURATION']; feature-match is slechts ondersteunend. Let op: alle onderbouwing is visueel; een niet-visueel anker (bv. leesbaar nummer bij dit raam) ontbreekt.",
+          "id": "C7",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Visuele onderbouwing is onderscheidend (geen louter gelijkende buurwoningen)"
+        },
+        {
+          "detail": "geen menselijk DIFFERENT/UNDECIDABLE op relaties die deze observaties raken; 1 gerelateerde relatie(s) zonder besluit blijven zichtbaar open",
+          "id": "C8",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Geen tegenstrijdige DIFFERENT- of UNDECIDABLE-besluiten genegeerd"
+        },
+        {
+          "detail": [
+            "instance-store: 12 actieve + 2 vervangen instances, alle foto 2 (maldenhof_2 = MAP-002); geen verwijzing naar deze observaties of foto's",
+            "SOC-001: foto-niveau overlap met bevroren foto ['MAP-002']; geen kozijn-niveau claim"
+          ],
+          "id": "C9",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Geen conflict met bestaande instances, andere kandidaten of eerder goedgekeurde objectidentiteiten"
+        },
+        {
+          "detail": "15 gerelateerd; direct relevante fotoniveau-overlapvragen ['APP-012', 'APP-025'] (de rest indirect: plaat/pand niveau B, geschiktheid, telregel); alle blijven OPEN; geen wordt door deze aanvraag beantwoord of gewijzigd",
+          "id": "C10",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Relatie met de 48 APP-besluiten expliciet onderzocht"
+        }
+      ],
+      "meaning": "Technisch geschikt voor beoordeling is NIET: menselijk goedgekeurd, en nooit: geactiveerde instance.",
+      "needs_evidence_by": [],
+      "related_app_decisions": [
+        {
+          "app_id": "APP-001",
+          "kind": "PLATE_RULE_LEVEL_B",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Plaatregel: een plaat bewijst alleen de muur"
+        },
+        {
+          "app_id": "APP-002",
+          "kind": "PLATE_AND_PAND_LINK_LEVEL_B",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Plaatlezing en pandkoppeling MAP-003"
+        },
+        {
+          "app_id": "APP-003",
+          "kind": "PLATE_AND_PAND_LINK_LEVEL_B",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Plaatlezing en pandkoppeling MAP-004"
+        },
+        {
+          "app_id": "APP-006",
+          "kind": "PLATE_AND_PAND_LINK_LEVEL_B",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Plaatlezing en pandkoppeling MAP-009"
+        },
+        {
+          "app_id": "APP-011",
+          "kind": "PHOTO_OVERLAP_QUESTION",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Overlap SOC-001"
+        },
+        {
+          "app_id": "APP-012",
+          "kind": "PHOTO_OVERLAP_QUESTION",
+          "relevance": "DIRECT",
+          "status": "OPEN",
+          "subject": "Overlap SOC-002"
+        },
+        {
+          "app_id": "APP-013",
+          "kind": "PHOTO_OVERLAP_QUESTION",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Overlap SOC-003"
+        },
+        {
+          "app_id": "APP-018",
+          "kind": "PHOTO_OVERLAP_QUESTION",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Overlap SOC-008"
+        },
+        {
+          "app_id": "APP-025",
+          "kind": "PHOTO_OVERLAP_QUESTION",
+          "relevance": "DIRECT",
+          "status": "OPEN",
+          "subject": "Overlap SOC-015"
+        },
+        {
+          "app_id": "APP-029",
+          "kind": "COUNTING_RULE",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Telregel en samengestelde kozijnen hergebruiken"
+        },
+        {
+          "app_id": "APP-030",
+          "kind": "COUNTING_RULE",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Zichtbaarheid FULL/PARTIAL"
+        },
+        {
+          "app_id": "APP-031",
+          "kind": "OTHER",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Overlapzone met bevroren foto 2"
+        },
+        {
+          "app_id": "APP-034",
+          "kind": "PHOTO_SUITABILITY",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Geschiktheid als annotatiebron MAP-003"
+        },
+        {
+          "app_id": "APP-035",
+          "kind": "PHOTO_SUITABILITY",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Geschiktheid als annotatiebron MAP-004"
+        },
+        {
+          "app_id": "APP-039",
+          "kind": "PHOTO_SUITABILITY",
+          "relevance": "INDIRECT",
+          "status": "OPEN",
+          "subject": "Geschiktheid als annotatiebron MAP-009"
+        }
+      ],
+      "technical_verdict": "SUITABLE_FOR_HUMAN_REVIEW"
+    }
+  },
+  "effects": {
+    "app_decisions_changed": 0,
+    "approved_requests": 0,
+    "bag_links_created": 0,
+    "building_totals": null,
+    "costs": null,
+    "human_decisions_changed": 0,
+    "human_decisions_created": 0,
+    "instance_ids_reserved": 0,
+    "instance_store_written": false,
+    "instances_created": 0,
+    "merges": 0,
+    "photo2_changed": false,
+    "pilot_decisions_changed": 0,
+    "quantities": null,
+    "source_observations_changed": 0
+  },
+  "fact_classes": {
+    "AUTO_VALIDATED_FACT": "Door deze code opnieuw uit de brondata gecontroleerd (C1-C10).",
+    "HUMAN_DECISION_NOT_YET_TAKEN": "Instance-besluit niveau A; niveau B en C; APP-012; RV-REL-VR-045.",
+    "MANUAL_VISUAL_ASSESSMENT": "Handmatige lezing van foto's door Claude (fotobewijs, MAP-009, tegenvoorbeelden); geen menselijk besluit."
+  },
+  "forbidden_effects": [
+    "create_or_modify_frame_instance",
+    "reserve_instance_id",
+    "merge_observations",
+    "link_bag_pand",
+    "set_dimensions",
+    "change_building_total",
+    "change_unique_count",
+    "set_quantity",
+    "set_cost",
+    "set_maintenance_action",
+    "change_photo2_inventory",
+    "change_app_decision",
+    "change_pilot_decision",
+    "change_source_observation",
+    "activate_repeat_multiplier",
+    "write_instance_store"
+  ],
+  "framework_version": "physical_instance_approval_framework_v1",
+  "later_activation_phase_proposal": [
+    "Een apart register van instance-besluiten (append-only, eigen PR) met het besluit APPROVE_PHYSICAL_IDENTITY, de request_hash en erkenning van de APP-overlapvragen.",
+    "Een afzonderlijk, door jou geautoriseerd activatieproces dat alleen een verifieerbaar APPROVED_FOR_ACTIVATION leest, een nieuw FI-id uit de bestaande nummering toekent, de hele instance-store en scope guard opnieuw valideert en dubbele koppeling uitsluit.",
+    "Activatie raakt alleen niveau A. Pandkoppeling (B) en hoeveelheid/kosten (C) vragen elk een eigen, later besluit.",
+    "Dry-run met diff-rapport vóór elke schrijfactie; terugdraaien via de bestaande append-only store."
+  ],
+  "photo_evidence_summary": {
+    "additional_matches": [
+      {
+        "arguments": [
+          "andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520)",
+          "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie met plakstrook rechts",
+          "positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004",
+          "buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie"
+        ],
+        "file": "P1000236.JPG",
+        "limits": [
+          "zelfde dag (14-08-2026) en tijdelijke kenmerken: onafhankelijk in toestel/hoek, niet in tijd",
+          "geen leesbaar huisnummer bij dit raam; plaat 280 bewijst alleen die muur, niet het pand van het kozijn",
+          "schuin perspectief: feature-match onbruikbaar (8 inliers)"
+        ],
+        "photo_id": "MAP-009",
+        "strength": "STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK"
+      }
+    ],
+    "conclusion": "AANVULLEND_BEWIJS_GEVONDEN",
+    "contradictions": [],
+    "counter_examples": [
+      {
+        "label": "zelfde raamtype boven een kap met twee dakramen (ander huis)",
+        "photo_id": "MAP-007",
+        "region_px": [
+          650,
+          980,
+          1300,
+          1320
+        ],
+        "role": "COUNTER_EXAMPLE_OTHER_HOUSE"
+      },
+      {
+        "label": "linkerbuur-raam",
+        "photo_id": "MAP-003",
+        "region_px": [
+          300,
+          440,
+          600,
+          580
+        ],
+        "role": "NEIGHBOUR"
+      },
+      {
+        "label": "rechterbuur-raam",
+        "photo_id": "MAP-003",
+        "region_px": [
+          1580,
+          470,
+          1850,
+          590
+        ],
+        "role": "NEIGHBOUR"
+      },
+      {
+        "label": "buur-raam",
+        "photo_id": "MAP-004",
+        "region_px": [
+          980,
+          455,
+          1280,
+          590
+        ],
+        "role": "NEIGHBOUR"
+      }
+    ],
+    "feature_match_measurements": [
+      {
+        "best_other_inliers_col": 24,
+        "best_other_inliers_row": 13,
+        "crops": "exacte observatie-uitsneden (OBS-MAP003-011, OBS-MAP004-006)",
+        "good_matches": 82,
+        "id": "FM-QUALITY-REVIEW",
+        "inliers": 39,
+        "meaning": "oorspronkelijke meting uit de P1-kwaliteitsreview; partner is wederzijds beste, volgende 24",
+        "method": "SIFT_RATIO_RANSAC_SIMILARITY",
+        "source": "p1_quality_review/p1_feature_match_evidence_v1.json"
+      },
+      {
+        "crops": "ruimere uitsneden inclusief het smalle raam rechts (zie regio's)",
+        "good_matches": 61,
+        "id": "FM-EVIDENCE-VERIFICATION",
+        "inliers": 29,
+        "meaning": "nieuwe meting op andere uitsneden en schaal; geeft een andere waarde dan 39 zonder dat het bewijs verandert",
+        "method": "SIFT_RATIO_RANSAC_SIMILARITY",
+        "source": "dit rapport (physical_object_identity_evidence_verification_v1.json)"
+      }
+    ],
+    "figure": "physical_object_identity_evidence_v1/EV-window_comparison.jpg",
+    "swap_risk": "Hoog voor alle kenmerken die op de hele rij voorkomen (indeling, kasten); gedekt door de unieke, tijdelijke combinatie die bij geen onderzocht buurraam voorkomt. Geen derde foto op dezelfde plek uit een andere sessie/dag."
+  },
+  "request_model": {
+    "id_pattern": "IAR-<candidate_group_id>",
+    "is_instance": false,
+    "note": "Een approval request is geen fysieke instance en reserveert geen FI-id.",
+    "required_fields": [
+      "approval_request_id",
+      "candidate_group_id",
+      "observation_ids",
+      "supporting_relation_ids",
+      "evidence_refs",
+      "source_hashes",
+      "candidate_status",
+      "proposed_instance_type",
+      "approval_status",
+      "human_decision",
+      "decision_provenance",
+      "unresolved_questions",
+      "validation_results",
+      "allowed_effects",
+      "forbidden_effects",
+      "decision_levels",
+      "request_hash"
+    ],
+    "reserved_instance_id": null
+  },
+  "status": "FRAMEWORK_AND_DRAFT_REQUEST_ONLY_NO_APPROVAL_NO_ACTIVATION",
+  "status_machine": {
+    "meaning": {
+      "APPROVED_FOR_ACTIVATION": "MENSELIJK GOEDGEKEURD voor fysieke identiteit (alleen niveau A). Alleen via een verifieerbaar menselijk besluit; maakt zelf geen instance.",
+      "DRAFT": "Aanvraag opgesteld; nog niet technisch beoordeeld.",
+      "NEEDS_MORE_EVIDENCE": "Technisch niet geschikt: bewijs of menselijk besluit ontbreekt of is onvoldoende. Nieuw bewijs vraagt een nieuwe aanvraag-hash.",
+      "READY_FOR_HUMAN_REVIEW": "TECHNISCH GESCHIKT VOOR BEOORDELING. Zegt niets over de identiteit zelf en is geen goedkeuring.",
+      "REJECTED": "Afgewezen (menselijk besluit) of geblokkeerd door de technische controle (conflict, vervalsing, beschadigde invoer). Eindstatus voor deze aanvraag-hash."
+    },
+    "rules": [
+      "READY_FOR_HUMAN_REVIEW alleen via de technische validatie, nooit op verzoek.",
+      "APPROVED_FOR_ACTIVATION alleen met een geregistreerd, verifieerbaar menselijk niveau-A-besluit dat de exacte request_hash noemt.",
+      "Geen overgang leidt tot een instance; activatie bestaat in dit framework niet.",
+      "REJECTED door validatie is geen menselijk besluit en is eindstatus voor die request_hash."
+    ],
+    "statuses": [
+      "DRAFT",
+      "READY_FOR_HUMAN_REVIEW",
+      "NEEDS_MORE_EVIDENCE",
+      "APPROVED_FOR_ACTIVATION",
+      "REJECTED"
+    ],
+    "transitions": {
+      "APPROVED_FOR_ACTIVATION": [
+        "NEEDS_MORE_EVIDENCE",
+        "REJECTED"
+      ],
+      "DRAFT": [
+        "READY_FOR_HUMAN_REVIEW",
+        "NEEDS_MORE_EVIDENCE",
+        "REJECTED"
+      ],
+      "NEEDS_MORE_EVIDENCE": [
+        "DRAFT",
+        "REJECTED"
+      ],
+      "READY_FOR_HUMAN_REVIEW": [
+        "NEEDS_MORE_EVIDENCE",
+        "REJECTED",
+        "APPROVED_FOR_ACTIVATION"
+      ],
+      "REJECTED": []
+    }
+  },
+  "stop": "Stop vóór een menselijk instance-goedkeuringsbesluit, iedere definitieve instance-activatie en het mergen van PR #43.",
+  "technical_conditions": [
+    {
+      "condition": "Het OIC-verband bestaat (OIC-register)",
+      "id": "C1"
+    },
+    {
+      "condition": "Status SUPPORTED_CANDIDATE, live opnieuw bepaald",
+      "id": "C2"
+    },
+    {
+      "condition": "Alle bronobservaties geldig",
+      "id": "C3"
+    },
+    {
+      "condition": "Alle bronhashes komen overeen (review-bron, archiefregister, bewijsreferentie)",
+      "id": "C4"
+    },
+    {
+      "condition": "Relatie is PHYSICAL_OBJECT met exact deze eindpunten",
+      "id": "C5"
+    },
+    {
+      "condition": "Menselijk kandidaatbesluit SAME, menselijke herkomst, hash gevalideerd",
+      "id": "C6"
+    },
+    {
+      "condition": "Onderscheidend bewijs: STRONG + anker, geen blokkade",
+      "id": "C7"
+    },
+    {
+      "condition": "Geen genegeerd DIFFERENT/UNDECIDABLE; open gerelateerde relaties zichtbaar",
+      "id": "C8"
+    },
+    {
+      "condition": "Geen conflict met instances, andere kandidaten of aanvragen",
+      "id": "C9"
+    },
+    {
+      "condition": "Relatie met de 48 APP-besluiten expliciet onderzocht",
+      "id": "C10"
+    }
+  ]
+}
