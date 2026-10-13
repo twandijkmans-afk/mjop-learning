@@ -73,9 +73,9 @@ def test_maldenhof_reference_never_used_as_model_input():
 
 def test_maldenhof_mock_harness_end_to_end(tmp_path):
     import photo_reviewer_demo as D
-    ev = D.run_maldenhof_mock(str(tmp_path))
+    ev = D.run_reference_mock(str(tmp_path), "maldenhof_2")
     assert ev["overall"]["tp"] == 17 and ev["overall"]["fp"] == 1 and ev["overall"]["fn"] == 1
-    saved = json.load(open(tmp_path / "maldenhof_photo2_mock_evaluation.json"))
+    saved = json.load(open(tmp_path / "reference_mock_evaluation.json"))
     assert saved["reference_meta"]["usage"] == "EVALUATION_ONLY_NOT_MODEL_INPUT"
 
 

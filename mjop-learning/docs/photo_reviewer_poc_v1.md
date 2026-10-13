@@ -94,10 +94,11 @@ Een afzonderlijk contract naast de foto-observaties; bestaande velden veranderen
 
 ```
 python scripts/photo_reviewer_demo.py demo --out /pad/buiten/de/repo                  # synthetische gevel, replay, verifier, hoeveelheden, evaluatie, review.html
-python scripts/photo_reviewer_demo.py eval-maldenhof-mock --out /pad/buiten/de/repo   # evaluatieharnas op de menselijke referentie van foto 2 met GEMOCKTE resultaten
+python scripts/photo_reviewer_demo.py eval-reference-mock --reference-set maldenhof_2 --out /pad/buiten/de/repo   # evaluatieharnas op de menselijke referentie van foto 2 met GEMOCKTE resultaten
 ```
 
-De CLI weigert een uitvoermap binnen de repository (testresultaten horen niet in de publieke repo; `.gitignore` is een extra vangnet). `review.html` is zelfstandig (afbeelding als
+Uitvoerpaden worden door `run_demo` en `run_reference_mock` zelf gecontroleerd (`safe_out_dir`), dus ook bij direct gebruik buiten de CLI: een map in of boven de repository, een map met bestanden die het script niet zelf schrijft, en symlinks als uitvoerbestand worden geweigerd (testresultaten horen niet in de publieke repo; `.gitignore` is een extra vangnet). Het demo-script bevat geen enkel schrijfpad in de repository; de synthetische fixtures worden uitsluitend opnieuw gegenereerd met het aparte ontwikkelaarshulpmiddel `tests/photo_reviewer/regenerate_fixtures.py` (vereist `MJOP_PHOTO_REGENERATE_FIXTURES=1` en `--confirm-overwrite-fixtures`).
+`render_review_page` controleert zijn invoer zelf (voorstelset via de verifier, afbeeldingshash, maatinvoer, en de hoeveelhedenstaat tegen de deterministische herberekening) en weigert met `PhotoError` bij een ongeldige of gemanipuleerde invoer. `review.html` is zelfstandig (afbeelding als
 data-URI, geen externe bronnen), escapet alle tekst, toont boxes met ID, onzekerheid, aantallen per type, de gevalideerde maten, bruto m² en een vaste banner dat alles voorstellen zijn.
 
 ## Evaluatie
@@ -117,3 +118,11 @@ Geen wijziging aan originele foto's, `data/`, `reports/`, menselijke besluiten, 
 
 Zie het eindrapport van de PR: (1) privacy- en toestemmingsbesluit per foto, (2) provider-voorwaarden controleren en vastleggen, (3) afgeleide kopieën maken (EXIF/GPS weg, lange zijde binnen de limiet),
 (4) privé-opslag voor runartefacten, (5) operatorconfiguratie (model, limieten, budget), (6) blind gelabelde evaluatiefoto's en vastgelegde drempels, (7) menselijke maatinvoer.
+
+## Verplichte voorwaarden voor de eerste externe Vision-test (bewust nog niet opgelost)
+
+Tot onderstaande punten zijn opgelost en door de gebruiker zijn goedgekeurd, vindt er **geen echte Claude Vision-aanroep** plaats:
+
+1. Persistente, gedeelde API-budgetcontrole over processen heen (nu alleen per proces).
+2. Verificatie van de werkelijke afbeeldingsafmetingen en bestandsgrootte vóór verzending.
+3. Definitieve provider- en privacygoedkeuring.

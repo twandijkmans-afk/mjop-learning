@@ -2,6 +2,10 @@
 import base64
 import html
 
+from agent.photo.contract import PhotoError, canonical_sha256
+from agent.photo.quantity import compute_quantity_state, state_problems, validate_dimension_input
+from agent.photo.verifier import verify_or_raise
+
 COLORS = {"WINDOW_OPENING": "#1f6feb", "EXTERIOR_DOOR": "#d1242f", "BALCONY_DOOR": "#bf8700", "BALCONY_STRUCTURE": "#8250df",
           "BALCONY_RAILING": "#8250df", "ROOF_WINDOW": "#1a7f37", "DORMER_OPENING": "#1a7f37", "UNKNOWN_OPENING": "#6e7781"}
 LABELS = {"WINDOW_OPENING": "Kozijnopening", "EXTERIOR_DOOR": "Buitendeur", "BALCONY_DOOR": "Balkondeur", "BALCONY_STRUCTURE": "Balkon",
@@ -16,7 +20,69 @@ def _fmt(v, suffix=""):
     return "&mdash;" if v is None else E(str(v)) + suffix
 
 
+PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
+_COUNT_KEYS = ("tp", "fp", "fn", "count_error")
+
+
+def _is_int(v):
+    return isinstance(v, int) and not isinstance(v, bool)
+
+
+def _is_ratio(v):
+    return v is None or (isinstance(v, (int, float)) and not isinstance(v, bool) and 0 <= v <= 1)
+
+
+def _evaluation_problems(evaluation):
+    if not isinstance(evaluation, dict) or not isinstance(evaluation.get("per_type"), dict) or not isinstance(evaluation.get("overall"), dict):
+        return ["evaluatie mist per_type of overall"]
+    errs = []
+    if not isinstance(evaluation["overall"].get("note"), str):
+        errs.append("overall.note ontbreekt")
+    for k, v in evaluation["per_type"].items():
+        if k not in LABELS or not isinstance(v, dict):
+            errs.append(f"onbekend type {k!r}")
+            continue
+        if not all(_is_int(v.get(c)) for c in _COUNT_KEYS) or min(v["tp"], v["fp"], v["fn"]) < 0:
+            errs.append(f"{k}: tp/fp/fn/count_error moeten gehele getallen zijn")
+        if not (_is_ratio(v.get("precision")) and _is_ratio(v.get("recall"))):
+            errs.append(f"{k}: precisie/recall moeten null of binnen 0..1 liggen")
+    return errs
+
+
+def validate_render_inputs(image_png, proposal_set, quantity_state, dimension_input=None, evaluation=None):
+    """De renderer vertrouwt zijn invoer niet: voorstelset, maatinvoer en hoeveelhedenstaat worden hier zelf gecontroleerd.
+
+    De staat moet exact gelijk zijn aan de deterministische herberekening uit (voorstelset, maatinvoer); een gemanipuleerd aantal,
+    oppervlak, totaal of invariant (geen instance, geen gebouwtotaal) wordt dus nooit als betrouwbaar voorstel getoond.
+    Gooit PhotoError bij elke afwijking (fail-closed)."""
+    if not isinstance(image_png, (bytes, bytearray)) or not bytes(image_png).startswith(PNG_SIGNATURE):
+        raise PhotoError("RENDER_INPUT_INVALID", "afbeelding is geen PNG")
+    verify_or_raise(proposal_set, image_bytes=bytes(image_png))
+    if dimension_input is not None:
+        errs = validate_dimension_input(dimension_input)
+        if errs:
+            raise PhotoError("RENDER_INPUT_INVALID", "maatinvoer afgewezen", errs)
+    if not isinstance(quantity_state, dict):
+        raise PhotoError("RENDER_INPUT_INVALID", "hoeveelhedenstaat moet een object zijn")
+    problems = state_problems(quantity_state)
+    if problems:
+        raise PhotoError("RENDER_INPUT_INVALID", "hoeveelhedenstaat voldoet niet aan het contract", problems)
+    ref = quantity_state["proposal_set_ref"]
+    if ref != {"set_id": proposal_set["set_id"], "set_sha256": canonical_sha256(proposal_set)}:
+        raise PhotoError("RENDER_INPUT_INVALID", "hoeveelhedenstaat hoort niet bij deze voorstelset")
+    if quantity_state["dimension_input_sha256"] != (canonical_sha256(dimension_input) if dimension_input is not None else None):
+        raise PhotoError("RENDER_INPUT_INVALID", "hoeveelhedenstaat hoort niet bij deze maatinvoer")
+    expected = compute_quantity_state(proposal_set, dimension_input)
+    if canonical_sha256(quantity_state) != canonical_sha256(expected):
+        raise PhotoError("RENDER_INPUT_INVALID", "hoeveelhedenstaat wijkt af van de deterministische herberekening (gemanipuleerd of verouderd)")
+    if evaluation is not None:
+        errs = _evaluation_problems(evaluation)
+        if errs:
+            raise PhotoError("RENDER_INPUT_INVALID", "evaluatie voldoet niet aan het contract", errs)
+
+
 def render_review_page(image_png, proposal_set, quantity_state, dimension_input=None, evaluation=None, title="Photo Reviewer — voorstellen"):
+    validate_render_inputs(image_png, proposal_set, quantity_state, dimension_input, evaluation)
     photo = proposal_set["photo"]
     w, h = photo["width_px"], photo["height_px"]
     img = "data:image/png;base64," + base64.standard_b64encode(image_png).decode("ascii")

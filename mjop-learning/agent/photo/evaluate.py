@@ -38,6 +38,11 @@ def load_maldenhof_photo2_reference(root=PROJECT_ROOT):
     return ref, meta
 
 
+# Beschikbare menselijke referentiesets voor het evaluatieharnas (id -> loader die (referentie, meta) teruggeeft). Casusspecifieke
+# kennis staat hier, niet in de generieke demo-CLI.
+REFERENCE_SETS = {"maldenhof_2": load_maldenhof_photo2_reference}
+
+
 def match(pred, ref, threshold=0.5):
     """Deterministische greedy-koppeling per type op afnemende IoU. Geeft (paren, ongekoppelde pred, ongekoppelde ref)."""
     pairs, used_p, used_r = [], set(), set()

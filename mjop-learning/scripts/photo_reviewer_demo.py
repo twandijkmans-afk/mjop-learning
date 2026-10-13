@@ -2,12 +2,13 @@
 """Photo Reviewer PoC: offline demo en evaluatie (docs/photo_reviewer_poc_v1.md).
 
 Subcommando's:
-  demo --out DIR                  synthetische gevel -> ReplayProvider -> verifier -> hoeveelheden -> evaluatie -> HTML
-  eval-maldenhof-mock --out DIR   evaluatieharnas op de menselijke referentie van Maldenhof-foto 2 met GEMOCKTE modelresultaten
-  write-fixtures                  (ontwikkeling) schrijft de synthetische fixtures in tests/fixtures/photo_reviewer/
+  demo --out DIR                                  synthetische gevel -> ReplayProvider -> verifier -> hoeveelheden -> evaluatie -> HTML
+  eval-reference-mock --reference-set ID --out DIR   evaluatieharnas op een menselijke referentieset (agent/photo/evaluate.py: REFERENCE_SETS)
+                                                  met GEMOCKTE modelresultaten
 
-Uitvoer gaat uitsluitend naar een map BUITEN de repository (nooit naar data/ of reports/). Geen netwerk, geen echte foto's,
-geen externe AI-aanroep."""
+Uitvoer gaat uitsluitend naar een map BUITEN de repository (nooit naar data/ of reports/); dat wordt in elke run-functie zelf afgedwongen
+(safe_out_dir), niet alleen in de CLI. Dit script schrijft nooit in de repository: het ontwikkelcommando dat de synthetische fixtures
+opnieuw genereert staat bewust apart (tests/photo_reviewer/regenerate_fixtures.py). Geen netwerk, geen echte foto's, geen externe AI-aanroep."""
 import argparse
 import json
 import os
@@ -34,11 +35,34 @@ def repo_root():
     return ROOT
 
 
+DEMO_OUTPUTS = ("synthetic_facade_v1.png", "proposal_set.json", "quantity_state.json", "evaluation.json", "review.html", "run_manifest.json")
+MOCK_OUTPUTS = ("reference_mock_evaluation.json",)
+OUTPUT_NAMES = frozenset(DEMO_OUTPUTS + MOCK_OUTPUTS)
+
+
 def safe_out_dir(path):
+    """Valideert en maakt de uitvoermap. Wordt door run_demo en run_reference_mock zelf aangeroepen (dus ook bij direct gebruik buiten de CLI).
+
+    Weigert (SystemExit): een map in of boven de repository (canonieke lagen), een pad dat geen map is, een map met bestanden die dit
+    script niet zelf schrijft (bestaande gevoelige bestanden worden nooit overschreven) en een uitvoerbestand dat een symlink of
+    geen gewoon bestand is. Alleen eerdere uitvoer van dit script (OUTPUT_NAMES) wordt bij een herhaalde run vervangen."""
     out = os.path.realpath(path)
-    root = os.path.realpath(repo_root())
-    if out == root or out.startswith(root + os.sep):
-        raise SystemExit(f"WEIGERING: uitvoermap {out} ligt binnen de repository; kies een map erbuiten (testresultaten horen niet in de publieke repo).")
+    for root in {os.path.realpath(repo_root()), os.path.realpath(ROOT)}:
+        if out == root or out.startswith(root + os.sep):
+            raise SystemExit(f"WEIGERING: uitvoermap {out} ligt binnen de repository; kies een map erbuiten (testresultaten horen niet in de publieke repo).")
+        if root.startswith(out + os.sep):
+            raise SystemExit(f"WEIGERING: uitvoermap {out} bevat de repository; kies een eigen lege map erbuiten.")
+    if os.path.lexists(out) and not os.path.isdir(out):
+        raise SystemExit(f"WEIGERING: {out} is geen map.")
+    if os.path.isdir(out):
+        foreign = sorted(n for n in os.listdir(out) if n not in OUTPUT_NAMES)
+        if foreign:
+            raise SystemExit(f"WEIGERING: uitvoermap {out} bevat bestanden die dit script niet schrijft ({', '.join(foreign[:5])}); "
+                             "kies een lege map zodat niets bestaands wordt overschreven.")
+        for n in OUTPUT_NAMES:
+            p = os.path.join(out, n)
+            if os.path.lexists(p) and (os.path.islink(p) or not os.path.isfile(p)):
+                raise SystemExit(f"WEIGERING: {p} is een symlink of geen gewoon bestand.")
     os.makedirs(out, exist_ok=True)
     return out
 
@@ -56,7 +80,7 @@ def synthetic_request(png):
 
 
 def run_demo(out):
-    os.makedirs(out, exist_ok=True)
+    out = safe_out_dir(out)
     with open(os.path.join(FIX, "synthetic_facade_v1.png"), "rb") as f:
         png = f.read()
     req = synthetic_request(png)
@@ -83,13 +107,16 @@ def run_demo(out):
     return pset, state, ev
 
 
-def run_maldenhof_mock(out):
-    os.makedirs(out, exist_ok=True)
-    ref, meta = evaluate.load_maldenhof_photo2_reference()
+def run_reference_mock(out, reference_set):
+    out = safe_out_dir(out)
+    if reference_set not in evaluate.REFERENCE_SETS:
+        raise SystemExit(f"onbekende referentieset {reference_set!r}; kies uit {sorted(evaluate.REFERENCE_SETS)}")
+    ref, meta = evaluate.REFERENCE_SETS[reference_set]()
     # GEMOCKT modelresultaat: kleine afwijkingen, een gemiste opening, een onterecht voorstel; geen echte afbeelding gebruikt.
     prop = []
+    missed = max((r["ref_id"] for r in ref if r["element_type"] == "WINDOW_OPENING"), default=None)
     for i, r in enumerate(ref):
-        if r["ref_id"] == "FI-M2-005":
+        if r["ref_id"] == missed:
             continue                                                  # gemist
         b = r["bbox_norm"]
         d = 0.003 if i % 2 == 0 else -0.003
@@ -105,37 +132,24 @@ def run_maldenhof_mock(out):
     pset = build_proposal_set(req, ReplayProvider({mock_hash: {"proposals": prop, "hidden_element_hypotheses": []}}).analyze(req))
     verify_or_raise(pset)
     ev = evaluate.evaluate_proposals(pset["proposals"], ref)
-    write_json(os.path.join(out, "maldenhof_photo2_mock_evaluation.json"), {"reference_meta": meta, "evaluation": ev})
+    write_json(os.path.join(out, "reference_mock_evaluation.json"), {"reference_set": reference_set, "reference_meta": meta, "evaluation": ev})
     return ev
-
-
-def write_fixtures():
-    png = synthetic.png_bytes()
-    sha = sha256_bytes(png)
-    os.makedirs(FIX, exist_ok=True)
-    with open(os.path.join(FIX, "synthetic_facade_v1.png"), "wb") as f:
-        f.write(png)
-    write_json(os.path.join(FIX, "synthetic_facade_v1_replay.json"), synthetic.model_like_recording(sha))
-    write_json(os.path.join(FIX, "synthetic_facade_v1_ground_truth.json"), {"photo_id": "synthetic_facade_v1", "ground_truth": synthetic.GROUND_TRUTH})
-    print("fixtures geschreven; sha256", sha)
 
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("demo", "eval-maldenhof-mock"):
-        sub.add_parser(name).add_argument("--out", required=True, help="uitvoermap BUITEN de repository")
-    sub.add_parser("write-fixtures")
+    sub.add_parser("demo").add_argument("--out", required=True, help="uitvoermap BUITEN de repository")
+    mock = sub.add_parser("eval-reference-mock")
+    mock.add_argument("--out", required=True, help="uitvoermap BUITEN de repository")
+    mock.add_argument("--reference-set", required=True, choices=sorted(evaluate.REFERENCE_SETS))
     a = ap.parse_args(argv)
-    if a.cmd == "write-fixtures":
-        write_fixtures()
-        return 0
     out = safe_out_dir(a.out)
     if a.cmd == "demo":
         pset, state, ev = run_demo(out)
         print(json.dumps({"set_id": pset["set_id"], "state_id": state["state_id"], "totals": state["totals"], "overall": ev["overall"], "out": out}, indent=2, ensure_ascii=False))
     else:
-        ev = run_maldenhof_mock(out)
+        ev = run_reference_mock(out, a.reference_set)
         print(json.dumps({"overall": ev["overall"], "out": out}, indent=2, ensure_ascii=False))
     return 0
 

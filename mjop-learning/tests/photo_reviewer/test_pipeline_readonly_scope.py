@@ -75,7 +75,7 @@ def test_demo_does_not_modify_canonical_layers_or_inputs(tmp_path):
     before = S.tree_manifest()
     fix_before = S.tree_manifest(dirs=("tests/fixtures/photo_reviewer", "schemas", "vocabularies"))
     D.run_demo(str(tmp_path / "x"))
-    D.run_maldenhof_mock(str(tmp_path / "x"))
+    D.run_reference_mock(str(tmp_path / "x"), "maldenhof_2")
     assert S.tree_manifest() == before
     assert S.tree_manifest(dirs=("tests/fixtures/photo_reviewer", "schemas", "vocabularies")) == fix_before
 
