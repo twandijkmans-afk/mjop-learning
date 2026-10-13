@@ -27,9 +27,11 @@ class SyntheticIntakeSource(H.IntakeSourceProvider):
     """TEST-ONLY. Levert vooraf ingestelde attestaties; er is geen netwerk en geen echte identiteit."""
     provider_id = SYNTH
 
-    def __init__(self, messages=None):
+    def __init__(self, messages=None, human_ok=True):
         self.messages = dict(messages or {})
+        self.human_ok = human_ok
         self.calls = []
+        self.presence_calls = []
 
     def fetch(self, source_message_id):
         self.calls.append(source_message_id)
@@ -37,6 +39,11 @@ class SyntheticIntakeSource(H.IntakeSourceProvider):
         if isinstance(v, Exception):
             raise v
         return v
+
+    def verify_human_presence(self, attestation, message_sha256):
+        """TEST-ONLY simulatie van een bronzijdige controle (bv. WebAuthn user verification) die aan DIT bericht (hash) is gebonden."""
+        self.presence_calls.append(message_sha256)
+        return self.human_ok and attestation.human_presence_evidence in H.PROVABLE_PRESENCE_METHODS and attestation.message_sha256 == message_sha256
 
 
 class FixtureTrustAnchor(H.TrustAnchor):
@@ -57,24 +64,30 @@ def live_request(ctx):
     return P.evaluate_request(ctx, P.build_request(ctx, "OIC-VR-027"))
 
 
+def statement_fields(live, decision="NEEDS_MORE_EVIDENCE"):
+    return {"approval_request_id": live["approval_request_id"], "request_hash": live["request_hash"], "candidate_group_id": live["candidate_group_id"], "decision": decision,
+            "covers_levels": ["A"], "acknowledged_open_app_ids": ["APP-012", "APP-025"], "acknowledged_open_relations": ["VR-045"],
+            "evidence_reviewed": live["observation_ids"] + live["photo_ids"] + live["supporting_relation_ids"] + ["MAP-009"]}
+
+
 def decision_text(live, decision="NEEDS_MORE_EVIDENCE", extra=""):
-    return (f"Synthetische testverklaring: voor {live['approval_request_id']} met request_hash {live['request_hash']} kies ik {decision}. "
-            f"Dit is een testbericht zonder echte beslisser.{extra}")
+    """De exact gebonden besluitverklaring (zie H.canonical_statement); `extra` maakt de tekst bewust afwijkend."""
+    return H.canonical_statement(statement_fields(live, decision)) + extra
 
 
 def make_envelope(live, text=None, decision="NEEDS_MORE_EVIDENCE", claims=None, pointer=True, **over):
-    text = text if text is not None else decision_text(live, decision)
-    env = {"envelope_version": H.ENVELOPE_VERSION, "approval_request_id": live["approval_request_id"], "request_hash": live["request_hash"],
-           "candidate_group_id": live["candidate_group_id"], "decision_text": text, "decision_text_sha256": H.text_sha256(text), "text_encoding": "UTF-8",
-           "text_normalization": "NONE", "decision": decision, "covers_levels": ["A"], "acknowledged_open_app_ids": ["APP-012", "APP-025"],
-           "acknowledged_open_relations": ["VR-045"],
-           "evidence_reviewed": live["observation_ids"] + live["photo_ids"] + live["supporting_relation_ids"] + ["MAP-009"], "reviewer_notes": "synthetische testnotitie",
+    env = {"envelope_version": H.ENVELOPE_VERSION, "text_encoding": "UTF-8", "text_normalization": "NONE", "reviewer_notes": "",
+           **statement_fields(live, decision),
            "source_pointer": {"provider_id": SYNTH if pointer else None, "source_message_id": MSG if pointer else None},
            "claims": {"author_id": REVIEWER_A, "author_identity_source": "SYNTHETIC", "source_message_id": MSG if pointer else None, "source_timestamp": TS,
                       "channel": "FILE_EDITED_BY_HUMAN", "entered_by_kind": "HUMAN_DIRECT"}}
     if claims:
         env["claims"].update(claims)
     env.update(over)
+    if text is None:      # de tekst volgt de uiteindelijke velden, zodat scenario's de ECHTE faalreden raken (niet de tekstbinding)
+        text = H.canonical_statement(env)
+    env["decision_text"] = text
+    env.setdefault("decision_text_sha256", H.text_sha256(text))
     return env
 
 
@@ -129,16 +142,19 @@ def write_v1(path, records):
     Path(path).write_bytes(b"".join((R.canonical(r) + "\n").encode("utf-8") for r in records))
 
 
-def v2_record(seq, prev, v1_head, live, text, key=f"{SYNTH}:{MSG}"):
-    rec = {"approval_request_id": live["approval_request_id"], "request_hash": live["request_hash"], "candidate_group_id": live["candidate_group_id"], "decision": "NEEDS_MORE_EVIDENCE",
+def v2_record(seq, prev, v1_head, live, text=None, key="provider-x:m1", synthetic=False, decision="NEEDS_MORE_EVIDENCE"):
+    prov_id, msg_id = key.split(":", 1)
+    rec = {"approval_request_id": live["approval_request_id"], "request_hash": live["request_hash"], "candidate_group_id": live["candidate_group_id"], "decision": decision,
            "covers_levels": ["A"], "acknowledged_open_app_ids": ["APP-012", "APP-025"], "acknowledged_open_relations": ["VR-045"], "evidence_reviewed": ["x"], "reviewer_notes": "",
-           "record_version": 2, "intake_id": "INT-0123456789abcdef", "decision_text": text, "decision_text_sha256": H.text_sha256(text), "text_encoding": "UTF-8", "text_normalization": "NONE",
-           "provenance": {"provenance_verification_status": "SOURCE_VERIFIED", "authentication_status": "AUTHENTICATED_HUMAN_PRESENCE", "provider_id": "provider-x", "trust_registry_sha256": "a" * 64,
+           "record_version": 2, "intake_id": "INT-0123456789abcdef", "decision_text": "", "decision_text_sha256": "", "text_encoding": "UTF-8", "text_normalization": "NONE",
+           "provenance": {"provenance_verification_status": "SOURCE_VERIFIED", "authentication_status": "AUTHENTICATED_HUMAN_PRESENCE", "provider_id": prov_id, "trust_registry_sha256": "a" * 64,
                           "attestation_sha256": "b" * 64, "authenticated_author_id": "subject-x", "author_authentication_method": "METHOD", "human_presence_evidence": "WEBAUTHN_USER_VERIFIED",
-                          "source_message_id": "m1", "source_timestamp": TS, "received_timestamp": TS, "synthetic_source": False},
-           "authorization": {"status": "AUTHORIZED", "registry_sha256": "c" * 64, "anchor_authority_ids": ["admin-x"], "designation_ref": "D-1", "reviewer_id": "provider-x:subject-x"},
+                          "source_message_id": msg_id, "source_timestamp": TS, "received_timestamp": TS, "synthetic_source": synthetic},
+           "authorization": {"status": "AUTHORIZED", "registry_sha256": "c" * 64, "anchor_authority_ids": ["admin-x"], "designation_ref": "D-1", "reviewer_id": prov_id + ":subject-x"},
            "source_message_key": key, "v1_register_head": v1_head, "decision_id": R.decision_id_for(seq), "sequence": seq, "previous_record_hash": prev,
            "register_version": H.V2_REGISTER_VERSION}
+    text = text if text is not None else H.canonical_statement(rec)
+    rec["decision_text"], rec["decision_text_sha256"] = text, H.text_sha256(text)
     rec["record_hash"] = R.record_hash(rec)
     return rec
 
@@ -181,9 +197,11 @@ def run_scenarios(ctx, tmpdir):
     # 6-8 ontbrekende erkenning APP-012, APP-025, VR-045
     for nr, name, over in ((6, "APP-012", {"acknowledged_open_app_ids": ["APP-025"]}), (7, "APP-025", {"acknowledged_open_app_ids": ["APP-012"]}),
                            (8, "VR-045", {"acknowledged_open_relations": []})):
-        add(nr, f"Ontbrekende erkenning {name}", "INVALID_DECISION", H.validate_intake(make_envelope(live, text, **over), **kit(ctx, text)))
+        e = make_envelope(live, None, **over)
+        add(nr, f"Ontbrekende erkenning {name}", "INVALID_DECISION", H.validate_intake(e, **kit(ctx, e["decision_text"])))
     # 9 onterecht niveau B of C
-    r9a = H.validate_intake(make_envelope(live, text, covers_levels=["A", "B"]), **kit(ctx, text))
+    e9a = make_envelope(live, None, covers_levels=["A", "B"])
+    r9a = H.validate_intake(e9a, **kit(ctx, e9a["decision_text"]))
     t9 = decision_text(live, extra=" Ik bevestig ook niveau C.")
     r9b = H.validate_intake(make_envelope(live, t9), **kit(ctx, t9))
     add(9, "Besluit dat onterecht niveau B of C dekt (veld covers_levels)", "INVALID_DECISION", r9a)
@@ -196,7 +214,7 @@ def run_scenarios(ctx, tmpdir):
     add(10, "AI-gegenereerd bericht dat menselijke toestemming claimt (bron meldt automatisering)", "BLOCKED", r10b)
     # 11 gemodificeerde berichttekst met oude hash
     env11 = make_envelope(live, text)
-    env11["decision_text"] = text.replace("kies ik", "kies ik niet")
+    env11["decision_text"] = text.replace("decision=NEEDS_MORE_EVIDENCE", "decision=REJECT")
     add(11, "Gemodificeerde berichttekst met oude hash", "BLOCKED", H.validate_intake(env11, **kit(ctx, text)))
     # 12 ongeldige of gemanipuleerde tijdstempels
     ts_cases = (("niet-parsebaar", "gisteren rond lunchtijd", "INVALID_DECISION"), ("zonder tijdzone", "2026-10-13T11:00:00", "INVALID_DECISION"),
@@ -207,7 +225,7 @@ def run_scenarios(ctx, tmpdir):
         add(12, f"Gemanipuleerde tijdstempel: {label}", exp, H.validate_intake(make_envelope(live, text, claims={"source_timestamp": ts}), **kit(ctx, text, att=att)))
     # 13 dubbele source_message_id (verschillende inhoud, zelfde bronbericht) - batch
     e13a = make_envelope(live, text)
-    e13b = make_envelope(live, text, reviewer_notes="andere synthetische notitie")
+    e13b = make_envelope(live, text, claims={"entered_by_kind": "AI_TRANSCRIPTION_OF_HUMAN_MESSAGE"})
     r13 = H.validate_batch([e13a, e13b], **kit(ctx, text))
     add(13, "Dubbele source_message_id (tweede envelope, andere inhoud)", "BLOCKED", r13[1], "eerste envelope: " + r13[0]["final_status"])
     # 14 replay van hetzelfde intake-event

@@ -254,7 +254,7 @@ def test_intake_id_is_content_addressed(live, text, ctx):
 # --- hashintegriteit en tekst ------------------------------------------------------------------------------------------------------------------------
 def test_modified_text_with_old_hash_is_rejected(live, text, ctx):
     e = S.make_envelope(live, text)
-    e["decision_text"] = text.replace("kies ik", "kies ik niet")
+    e["decision_text"] = text.replace("decision=NEEDS_MORE_EVIDENCE", "decision=REJECT")
     rep = run(e, ctx, text)
     assert rep["text_integrity"]["status"] == "MISMATCH" and rep["final_status"] == "BLOCKED" and rep["provenance"]["status"] == "INVALID"
 
@@ -275,7 +275,7 @@ def test_no_normalization_newlines_and_unicode_forms_change_the_hash(live):
 
 
 def test_crlf_export_of_the_source_is_rejected_not_normalized(live, text, ctx):
-    crlf = text.replace(". ", ".\r\n")
+    crlf = text.replace("\n", "\r\n")
     e = S.make_envelope(live, text)
     rep = run(e, ctx, text, att=S.attestation(crlf))
     assert rep["text_integrity"]["status"] == "MISMATCH" and rep["final_status"] == "BLOCKED"
@@ -297,7 +297,7 @@ def test_lone_surrogate_and_overlong_text_are_rejected(live, ctx):
 def test_text_must_name_exactly_one_decision_that_matches_the_field(live, ctx):
     t = S.decision_text(live, extra=" Of toch REJECT, ik twijfel.")
     rep = run(S.make_envelope(live, t), ctx, t)
-    assert rep["final_status"] == "INVALID_DECISION" and any("PRECIES_EEN" in p for p in rep["open_problems"])
+    assert rep["final_status"] == "INVALID_DECISION" and any("GEBONDEN_BESLUITVERKLARING" in p for p in rep["open_problems"])
     t2 = S.decision_text(live, "REJECT")
     rep = run(S.make_envelope(live, t2, decision="NEEDS_MORE_EVIDENCE"), ctx, t2)
     assert rep["final_status"] == "INVALID_DECISION"
@@ -518,10 +518,10 @@ def test_v2_schema_is_closed_and_excludes_synthetic_and_weak_provenance(live, tm
     schema = H.v2_schema()
     jsonschema.Draft7Validator.check_schema(schema)
     assert json.loads(H.V2_SCHEMA_PATH.read_text()) == schema
-    rec = S.v2_record(1, R.GENESIS, R.GENESIS, live, S.decision_text(live))
+    rec = S.v2_record(1, R.GENESIS, R.GENESIS, live)
     v = jsonschema.Draft7Validator(schema)
     assert not list(v.iter_errors(rec))
-    for mut in (lambda r: r.update(extra=1), lambda r: r["provenance"].update(provenance_verification_status="SELF_ASSERTED"), lambda r: r["provenance"].update(synthetic_source=True),
+    for mut in (lambda r: r.update(extra=1), lambda r: r["provenance"].update(provenance_verification_status="SELF_ASSERTED"), lambda r: r["provenance"].update(synthetic_source="ja"), lambda r: r["provenance"].update(human_presence_evidence="INTERACTIVE_MFA_SESSION_SEPARATE_FROM_AUTOMATION"),
                 lambda r: r["provenance"].update(authentication_status="AUTHENTICATED_ACCOUNT_ONLY"), lambda r: r["provenance"].update(human_presence_evidence="NONE"),
                 lambda r: r["authorization"].update(status="UNANCHORED"), lambda r: r.update(covers_levels=["A", "B"]), lambda r: r.update(record_version=1),
                 lambda r: r.pop("source_message_key"), lambda r: r.update(text_normalization="NFC")):
@@ -535,16 +535,15 @@ def test_v2_loader_checks_chain_v1_head_and_duplicate_message_keys(live, tmp_pat
     p1 = tmp_path / "v1.jsonl"
     S.write_v1(p1, [v1])
     head = v1["record_hash"]
-    t1, t2 = S.decision_text(live), S.decision_text(live, "REJECT")
-    a = S.v2_record(1, head, head, live, t1, key="p:m1")
-    b = S.v2_record(2, a["record_hash"], head, live, t2, key="p:m2")
+    a = S.v2_record(1, head, head, live, key="provider-x:m1")
+    b = S.v2_record(2, a["record_hash"], head, live, key="provider-x:m2", decision="REJECT")
     p2 = tmp_path / "v2.jsonl"
     S.write_v1(p2, [a, b])
     view = H.unified_register_view(p1, p2)
-    assert (view["v1_records"], view["v2_records"]) == (1, 2) and view["entries"][0]["legacy_v1"] is True and view["entries"][1]["legacy_v1"] is False and view["entries"][2]["counts_as_verified_v2"] is True
+    assert (view["v1_records"], view["v2_records"]) == (1, 2) and view["entries"][0]["legacy_v1"] is True and view["entries"][1]["legacy_v1"] is False and view["entries"][2]["counts_as_verified_v2"] is False and view["entries"][2]["verification_state"] == "SCHEMA_VALID_UNPROVEN"
     assert H.load_register_v2(tmp_path / "bestaat_niet.jsonl", head) == []
-    dup = S.v2_record(2, a["record_hash"], head, live, t2, key="p:m1")
-    for records in ([a, dup], [S.v2_record(1, R.GENESIS, head, live, t1)], [S.v2_record(1, head, R.GENESIS, live, t1)]):
+    dup = S.v2_record(2, a["record_hash"], head, live, key="provider-x:m1", decision="REJECT")
+    for records in ([a, dup], [S.v2_record(1, R.GENESIS, head, live)], [S.v2_record(1, head, R.GENESIS, live)]):
         S.write_v1(p2, records)
         with pytest.raises(R.RegisterCorrupt):
             H.load_register_v2(p2, head)
@@ -775,3 +774,251 @@ def test_report_documents_required_sections_and_current_hash():
     data = json.loads((ROOT / "reports/frames/human_decision_intake_provenance_v1.json").read_text(encoding="utf-8"))
     assert all(r["match"] for r in data["scenarios"]) and data["trusted_providers_configured"] == 0 and data["reviewer_designations_configured"] == 0
     assert data["register_v1"]["records"] == 0 and data["app_decisions"] == {"total": 48, "open": 48}
+
+
+# === Hardening na de beveiligingsreview (F2-F8): regressietests ===========================================================================================
+# --- F2: geen publieke route naar v1-acceptabele invoer ----------------------------------------------------------------------------------------------
+def test_f2_no_public_function_returns_v1_acceptable_input(env, ctx):
+    assert not hasattr(H, "to_content_input") and hasattr(H, "_content_check_input")
+    assert "to_content_input" not in H.__all__ and all(not n.startswith("_") for n in H.__all__)
+    for name in dir(H):
+        obj = getattr(H, name)
+        if name.startswith("_") or not callable(obj) or isinstance(obj, type) or getattr(obj, "__module__", None) != H.__name__:
+            continue
+        try:
+            res = obj(env, S.NOW)
+        except Exception:   # noqa: BLE001 — andere signatuur: geen kandidaat
+            continue
+        if isinstance(res, dict) and set(res) == set(R.INPUT_KEYS):
+            why, _, _ = R.validate_input(R.load_context(), res, [], now=S.NOW)
+            assert why, f"publieke functie {name} levert v1-acceptabele invoer"
+
+
+def test_f2_stand_in_identity_fields_only_exist_inside_the_private_function():
+    tree = ast.parse(CORE.read_text(encoding="utf-8"))
+    for fn in ast.walk(tree):
+        if isinstance(fn, ast.FunctionDef) and fn.name != "_content_check_input":
+            src = ast.get_source_segment(CORE.read_text(encoding="utf-8"), fn)
+            assert "intake-content-check" not in src and "HUMAN_CHAT_CONFIRMATION" not in src, fn.name
+
+
+def test_f2_the_intake_report_never_contains_register_input(env, ctx, text):
+    rep = run(env, ctx, text)
+    blob = json.dumps(rep, default=str)
+    assert "intake-content-check" not in blob and "record_preview" not in blob and R.CONFIRM_TOKEN not in blob
+
+
+# --- F3: exacte inhoudsbinding ---------------------------------------------------------------------------------------------------------------------------
+@pytest.mark.parametrize("variant", [
+    lambda t: t + "Ik trek dit besluit terug.\n", lambda t: t.replace("decision=NEEDS_MORE_EVIDENCE", "decision=NEEDS_MORE_EVIDENCE niet"),
+    lambda t: t + "behalve APP-012\n", lambda t: t + "onder voorbehoud\n", lambda t: t.replace("\n", " "), lambda t: t.replace("covers_levels=A", "covers_levels=A,B"),
+    lambda t: t.replace("APP-012,APP-025", "APP-012"), lambda t: "Niet akkoord. " + t, lambda t: t.rstrip("\n"), lambda t: t.replace("MJOP-BESLUIT-V1", "MJOP-BESLUIT-V2")])
+def test_f3_any_deviation_from_the_bound_statement_fails_closed(live, ctx, text, variant):
+    t = variant(text)
+    assert t != text
+    rep = run(S.make_envelope(live, t), ctx, t)
+    assert rep["final_status"] != "VALIDATED_DRY_RUN" and rep["text_integrity"]["statement_binding"] == "MISMATCH"
+    assert rep["registration_eligibility"] == "NOT_ELIGIBLE" and rep["ladder"]["5_valid_level_a_decision"]["present"] is False
+
+
+def test_f3_statement_is_derived_from_the_fields_and_order_independent(live):
+    e = S.make_envelope(live)
+    assert e["decision_text"] == H.canonical_statement(e)
+    shuffled = dict(e, acknowledged_open_app_ids=list(reversed(e["acknowledged_open_app_ids"])), evidence_reviewed=list(reversed(e["evidence_reviewed"])))
+    assert H.canonical_statement(shuffled) == e["decision_text"]
+    assert H.canonical_statement(dict(e, decision="REJECT")) != e["decision_text"] and H.canonical_statement(dict(e, request_hash="0" * 32)) != e["decision_text"]
+
+
+@pytest.mark.parametrize("bad", [dict(covers_levels=["A", "A"]), dict(evidence_reviewed=["a,b"]), dict(decision="X;Y"), dict(approval_request_id="a\nb"), dict(evidence_reviewed=[""])])
+def test_f3_ambiguous_field_content_has_no_statement(live, bad):
+    assert H.canonical_statement({**S.make_envelope(live), **bad}) is None
+
+
+def test_f3_reviewer_notes_must_be_empty_because_they_are_not_bound(live, ctx):
+    e = S.make_envelope(live, reviewer_notes="alleen ter info")
+    rep = run(e, ctx, e["decision_text"])
+    assert rep["final_status"] == "INVALID_DECISION" and any("REVIEWER_NOTES_NIET_TOEGESTAAN" in p for p in rep["open_problems"])
+
+
+def test_f3_binding_failure_is_failclosed_even_with_a_fully_verified_source(live, ctx, text):
+    t = text + "niet\n"
+    rep = run(S.make_envelope(live, t), ctx, t)
+    assert rep["provenance"]["status"] == "SOURCE_VERIFIED" and rep["final_status"] == "INVALID_DECISION"
+
+
+# --- F4: geen onbewezen menselijke bevestiging van velden ------------------------------------------------------------------------------------------------
+def test_f4_fields_are_not_reported_as_human_confirmed_without_a_verified_source(env, ctx, text, live):
+    rep = H.validate_intake(env, ctx=ctx, now=S.NOW)               # standaardconfiguratie: geen bron
+    assert set(rep["human_confirmation_of_fields"]) == {"covers_levels", "acknowledged_open_app_ids", "acknowledged_open_relations", "evidence_reviewed"}
+    assert all(v.startswith("NOT_PROVEN_HUMAN_CONFIRMED") for v in rep["human_confirmation_of_fields"].values())
+    ok = run(env, ctx, text)                                        # synthetisch geslaagd
+    assert all(v.startswith("BOUND_TO_VERIFIED_SOURCE_STATEMENT") for v in ok["human_confirmation_of_fields"].values())
+    unauth = run(env, ctx, text, att=S.attestation(text, presence="NONE"))
+    assert all(v.startswith("NOT_PROVEN_HUMAN_CONFIRMED") for v in unauth["human_confirmation_of_fields"].values())
+
+
+def test_f4_generated_report_makes_no_unproven_claim_of_human_acknowledgement():
+    md = H.OUT_MD.read_text(encoding="utf-8")
+    assert "zijn erkend;" not in md and "APP-012, APP-025 en VR-045 zijn erkend" not in md
+    assert "Niet door een mens bevestigd" in md and "NOT_PROVEN_HUMAN_CONFIRMED" in md
+
+
+# --- F5: schemageldigheid versus gesimuleerde versus echte verificatie ----------------------------------------------------------------------------------
+def test_f5_no_v2_record_ever_counts_as_verified(live, tmp_path):
+    v1 = S.v1_record(1, R.GENESIS, live)
+    p1, p2 = tmp_path / "v1.jsonl", tmp_path / "v2.jsonl"
+    S.write_v1(p1, [v1])
+    head = v1["record_hash"]
+    real = S.v2_record(1, head, head, live, key="provider-x:m1")
+    synth = S.v2_record(2, real["record_hash"], head, live, key="provider-x:m2", synthetic=True, decision="REJECT")
+    S.write_v1(p2, [real, synth])
+    entries = H.unified_register_view(p1, p2)["entries"]
+    assert [e["counts_as_verified_v2"] for e in entries] == [False, False, False]
+    assert [e["verification_state"] for e in entries] == ["LEGACY_SELF_ASSERTED", "SCHEMA_VALID_UNPROVEN", "SIMULATED_VERIFICATION"]
+    assert all(e["schema_valid"] is True for e in entries) and all(e["instance_activated"] is False for e in entries)
+    assert "REAL_VERIFIED" in H.VERIFICATION_STATES and all(e["verification_state"] != "REAL_VERIFIED" for e in entries)
+    assert entries[1]["recorded_provenance_claim"] == "SOURCE_VERIFIED" and "provenance_verification_status" not in entries[1]
+
+
+def test_f5_source_never_assigns_verified_state_or_true_flag():
+    src = CORE.read_text(encoding="utf-8")
+    assert '"counts_as_verified_v2": True' not in src and "'counts_as_verified_v2': True" not in src
+    assert not re.search(r'verification_state"\s*:\s*"REAL_VERIFIED"', src)
+
+
+@pytest.mark.parametrize("mut", [lambda r: r["provenance"].update(provider_id="other-p"), lambda r: r["authorization"].update(reviewer_id="provider-x:someone-else"),
+                                 lambda r: r.update(source_message_key="provider-x:other"), lambda r: r.update(decision_text="vrije tekst " * 8), lambda r: r.update(reviewer_notes="x")])
+def test_f5_forged_or_inconsistent_v2_record_is_rejected_by_the_loader(live, tmp_path, mut):
+    head = R.GENESIS
+    rec = S.v2_record(1, head, head, live)
+    mut(rec)
+    rec["record_hash"] = R.record_hash(rec)
+    p = tmp_path / "v2.jsonl"
+    S.write_v1(p, [rec])
+    with pytest.raises(R.RegisterCorrupt):
+        H.load_register_v2(p, head)
+
+
+# --- F6: eenduidige identiteiten en bewezen menselijke aanwezigheid -------------------------------------------------------------------------------------
+@pytest.mark.parametrize("bad", ["a:b", "a b", "ａlice", "al​ice", "", " alice", "alice\n", "x" * 200, "é", "../x"])
+def test_f6_ambiguous_ids_are_never_accepted(bad):
+    assert not H.is_clean_id(bad)
+    with pytest.raises(ValueError):
+        H.reviewer_key(bad, "x")
+
+
+def test_f6_colon_ambiguity_cannot_alias_a_designated_reviewer(live, ctx, text):
+    # "synthetic-intake-source:synthetic-reviewer-a" mag nooit ontstaan uit provider "synthetic-intake-source:synthetic" + auteur "reviewer-a"
+    for prov_id, author in (("synthetic-intake-source:synthetic", "reviewer-a"), ("synthetic-intake-source", "synthetic-reviewer-a:x")):
+        att = S.attestation(text, author=author, provider=prov_id)
+        rep = run(S.make_envelope(live, text), ctx, text, att=att)
+        assert rep["final_status"] != "VALIDATED_DRY_RUN" and rep["authorization"]["status"] != "AUTHORIZED"
+    rep = run(S.make_envelope(live, text, source_pointer={"provider_id": "a:b", "source_message_id": S.MSG}), ctx, text)
+    assert rep["final_status"] == "BLOCKED" and any("BRONVERWIJZING_ID_DUBBELZINNIG" in p for p in rep["open_problems"])
+
+
+def test_f6_authorization_config_with_ambiguous_or_duplicate_identities_is_invalid(live, ctx, text):
+    for mut in (lambda d: d.update(reviewer_id="a:b:c"), lambda d: d.update(reviewer_id="noprovider"), lambda d: d.update(designated_by="admin:x"), lambda d: d.update(reviewer_id="é:é")):
+        az = S.authorization_doc()
+        mut(az["designations"][0])
+        assert H.authorization_problems_in_doc(az)
+        rep = H.validate_intake(S.make_envelope(live, text), **S.kit(ctx, text, az=az))
+        assert rep["final_status"] == "UNAUTHORIZED_REVIEWER"
+    az = S.authorization_doc()
+    az["designations"].append(dict(az["designations"][0], reviewer_id=az["designations"][0]["reviewer_id"].upper(), designation_ref="SYN-DESIG-0002"))
+    assert H.authorization_problems_in_doc(az)
+
+
+def test_f6_registry_with_duplicate_or_ambiguous_providers_is_invalid():
+    tp = S.trusted_providers()
+    assert H._registry_problems(tp) == []
+    assert H._registry_problems({**tp, "providers": tp["providers"] + [dict(tp["providers"][0], provider_id=S.SYNTH.upper())]})
+    assert H._registry_problems({**tp, "providers": [dict(tp["providers"][0], provider_id="a:b")]})
+
+
+def test_f6_claimed_human_presence_string_is_not_proof(live, ctx, text):
+    env_ = S.make_envelope(live, text)
+    kit = S.kit(ctx, text)
+    kit["provider"].human_ok = False                                  # de bron kan de aanwezigheid NIET bevestigen
+    rep = H.validate_intake(env_, **kit)
+    assert rep["provenance"]["authentication_status"] == "AUTHENTICATED_ACCOUNT_ONLY" and rep["final_status"] == "UNVERIFIED_SOURCE"
+    assert len(kit["provider"].presence_calls) == 1 and kit["provider"].presence_calls[0] == H.text_sha256(text)    # gecontroleerd voor DIT bericht
+
+
+def test_f6_default_provider_method_failclosed_and_exceptions_are_failclosed(live, ctx, text):
+    assert H.NullIntakeSourceProvider().verify_human_presence(S.attestation(text), H.text_sha256(text)) is False
+
+    class Boom(S.SyntheticIntakeSource):
+        def verify_human_presence(self, attestation, message_sha256):
+            raise RuntimeError("bron onbereikbaar")
+    kit = S.kit(ctx, text)
+    kit["provider"] = Boom({S.MSG: S.attestation(text)})
+    assert H.validate_intake(S.make_envelope(live, text), **kit)["final_status"] == "UNVERIFIED_SOURCE"
+
+    class Truthy(S.SyntheticIntakeSource):
+        def verify_human_presence(self, attestation, message_sha256):
+            return "ja"                                               # niet exact True
+    kit["provider"] = Truthy({S.MSG: S.attestation(text)})
+    assert H.validate_intake(S.make_envelope(live, text), **kit)["final_status"] == "UNVERIFIED_SOURCE"
+
+
+def test_f6_unprovable_presence_methods_never_give_human_presence(live, ctx, text):
+    m = "INTERACTIVE_MFA_SESSION_SEPARATE_FROM_AUTOMATION"
+    assert m not in H.PROVABLE_PRESENCE_METHODS
+    rep = run(S.make_envelope(live, text), ctx, text, tp=S.trusted_providers(presence=(m,)), att=S.attestation(text, presence=m))
+    assert rep["provenance"]["authentication_status"] == "AUTHENTICATED_ACCOUNT_ONLY" and rep["final_status"] == "UNVERIFIED_SOURCE"
+    # methode niet door het register geaccepteerd, hoewel de bron het bevestigt
+    rep = run(S.make_envelope(live, text), ctx, text, tp=S.trusted_providers(presence=("HARDWARE_KEY_SIGNATURE",)))
+    assert rep["final_status"] == "UNVERIFIED_SOURCE"
+
+
+# --- F7: dubbele JSON-sleutels --------------------------------------------------------------------------------------------------------------------------------
+@pytest.mark.parametrize("raw", ['{"a": 1, "a": 2}', '{"a": {"b": 1, "b": 1}}', '[{"x": 1, "x": 1}]', '{"a": NaN}', '{"a": Infinity}', '{"a": -Infinity}'])
+def test_f7_strict_json_rejects_duplicates_and_nonfinite(raw):
+    with pytest.raises(ValueError):
+        H.strict_json_loads(raw)
+    assert H.strict_json_loads('{"a": 1, "b": {"c": [1, 2]}}') == {"a": 1, "b": {"c": [1, 2]}}
+
+
+def test_f7_cli_rejects_envelope_with_duplicate_keys_even_when_last_value_is_valid(env, tmp_path):
+    good = json.dumps(env)
+    dup = good[:-1] + ', "decision": "REJECT"}'                       # tweede `decision`: json.loads zou stil de laatste nemen
+    assert json.loads(dup)["decision"] == "REJECT"
+    p = tmp_path / "dup.json"
+    p.write_text(dup, encoding="utf-8")
+    r = subprocess.run([sys.executable, str(CORE), "check", "--envelope", str(p)], capture_output=True, text=True, cwd=ROOT)
+    out = json.loads(r.stdout)
+    assert r.returncode == 1 and out["final_status"] == "BLOCKED" and any("DubbeleSleutel" in x or "DuplicateKeyError" in x for x in out["open_problems"])
+    bad = tmp_path / "bytes.json"
+    bad.write_bytes(b"\xff\xfe{")
+    r = subprocess.run([sys.executable, str(CORE), "check", "--envelope", str(bad)], capture_output=True, text=True, cwd=ROOT)
+    assert r.returncode == 1 and json.loads(r.stdout)["final_status"] == "BLOCKED"
+
+
+def test_f7_config_and_v2_register_with_duplicate_keys_are_rejected(tmp_path, live):
+    cfg = tmp_path / "cfg.json"
+    cfg.write_text('{"registry_version": "x", "registry_version": "y", "note": "", "providers": []}', encoding="utf-8")
+    data, err = H.load_trusted_providers(cfg)
+    assert data is None and err == "DuplicateKeyError"
+    head = R.GENESIS
+    rec = S.v2_record(1, head, head, live)
+    line = R.canonical(rec)
+    p = tmp_path / "v2.jsonl"
+    p.write_text(line[:-1] + ',"sequence":2}\n', encoding="utf-8")
+    with pytest.raises(R.RegisterCorrupt):
+        H.load_register_v2(p, head)
+
+
+# --- F8: automatische CI -------------------------------------------------------------------------------------------------------------------------------------------
+def test_f8_ci_workflow_covers_the_intake_module_and_guarded_paths():
+    wf = (ROOT.parent / ".github/workflows/human-decision-intake-tests.yml").read_text(encoding="utf-8")
+    assert re.search(r"^on:\s*\n\s+pull_request:", wf, re.M) and "workflow_dispatch" in wf
+    for path in ("scripts/human_decision_intake.py", "scripts/human_decision_intake_report.py", "scripts/human_instance_decision_register", "tests/test_human_decision_intake.py",
+                 "tests/fixtures/human_decision_intake/", "data/instance_decisions/", "schemas/human_decision_intake_envelope.schema.json", "schemas/human_instance_decision*.schema.json",
+                 "config/human_decision_intake_trusted_providers_v1.json", "config/human_decision_reviewer_authorization_v1.json", "reports/frames/human_decision_intake_provenance_v1",
+                 ".github/workflows/human-decision-intake-tests.yml"):
+        assert path in wf, path
+    for needle in ("test_human_decision_intake.py", "test_human_instance_decision_register.py", "test_scope_guard.py", "human_decision_intake.py generate --check",
+                   "xpdf_runner_setup.py", "check_test_baseline.py", "git status --porcelain"):
+        assert needle in wf, needle
+    assert "contents: read" in wf and "secrets." not in wf and "pull_request_target" not in wf

@@ -55,6 +55,12 @@ PRECEDENCE = ("BLOCKED", "STALE_REQUEST", "INVALID_DECISION", "UNVERIFIED_SOURCE
 ACTOR_TYPES = ("HUMAN", "BOT", "AUTOMATION", "UNKNOWN")
 HUMAN_PRESENCE_METHODS = ("NONE", "WEBAUTHN_USER_VERIFIED", "HARDWARE_KEY_SIGNATURE", "INTERACTIVE_MFA_SESSION_SEPARATE_FROM_AUTOMATION")
 TEXT_STATUSES = ("MATCHES_SOURCE_TEXT", "MATCHES_CLAIMED_HASH_SELF_ONLY", "MISMATCH", "INVALID_TEXT")
+# Alleen methoden waarvan een provider een CONTROLEERBAAR bewijs per bericht kan leveren tellen als menselijke aanwezigheid. "Een interactieve MFA-sessie los van
+# automatisering" is een bewering over een omgeving, geen bewijs per bericht: zo'n account blijft AUTHENTICATED_ACCOUNT_ONLY.
+PROVABLE_PRESENCE_METHODS = ("WEBAUTHN_USER_VERIFIED", "HARDWARE_KEY_SIGNATURE")
+# Verificatieniveaus van een record in het gecombineerde registerbeeld. REAL_VERIFIED kan deze module nooit toekennen: een bestand kan zijn eigen herkomst niet bewijzen.
+VERIFICATION_STATES = ("LEGACY_SELF_ASSERTED", "SCHEMA_VALID_UNPROVEN", "SIMULATED_VERIFICATION", "REAL_VERIFIED")
+STATEMENT_HEADER = "MJOP-BESLUIT-V1"
 
 SKEW = timedelta(minutes=5)
 TIMESTAMP_FLOOR = datetime(2026, 10, 1, tzinfo=timezone.utc)          # vóór het approval-framework bestond er geen niveau-A-besluit
@@ -100,6 +106,11 @@ class IntakeSourceProvider(ABC):
     @abstractmethod
     def fetch(self, source_message_id):
         """Retourneert een SourceAttestation of None als de bron het bericht niet kent."""
+
+    def verify_human_presence(self, attestation, message_sha256):
+        """Controleert BIJ DE BRON (bv. WebAuthn-assertie met user verification, handtekening van een hardwaresleutel) dat een mens dit exacte bericht (message_sha256)
+        heeft bevestigd. Een string `human_presence_evidence` in de attestatie is een bewering en telt niet. Standaard: False (fail-closed)."""
+        return False
 
 
 class NullIntakeSourceProvider(IntakeSourceProvider):
@@ -197,11 +208,56 @@ def _parse_ts(s):
     return t.astimezone(timezone.utc), None
 
 
+class DuplicateKeyError(ValueError):
+    """Een JSON-object met twee keer dezelfde sleutel: json.loads zou stil de laatste waarde nemen (twee lezers kunnen dan iets anders zien)."""
+
+
+def _no_duplicate_keys(pairs):
+    out = {}
+    for k, v in pairs:
+        if k in out:
+            raise DuplicateKeyError(f"DUBBELE_JSON_SLEUTEL {k!r}")
+        out[k] = v
+    return out
+
+
+def _reject_constant(name):
+    raise ValueError(f"NIET_TOEGESTANE_JSON_CONSTANTE {name}")
+
+
+def strict_json_loads(text):
+    """json.loads zonder stille keuzes: dubbele sleutels (op elk niveau) en NaN/Infinity worden geweigerd."""
+    return json.loads(text, object_pairs_hook=_no_duplicate_keys, parse_constant=_reject_constant)
+
+
 def _read_json(path):
     try:
-        return json.loads(Path(path).read_text(encoding="utf-8")), None
+        return strict_json_loads(Path(path).read_text(encoding="utf-8")), None
     except (OSError, ValueError) as exc:
         return None, f"{type(exc).__name__}"
+
+
+# Identiteiten (provider, auteur, bericht, aanwijzer) zijn eenduidige ASCII-tokens ZONDER dubbele punt: `provider:subject` is anders dubbelzinnig
+# ("a:b"+"c" en "a"+"b:c" geven dezelfde tekenreeks) en Unicode-/witruimtevarianten kunnen op een andere identiteit lijken.
+ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._@-]{0,127}")
+
+
+def is_clean_id(v):
+    return isinstance(v, str) and ID_RE.fullmatch(v) is not None
+
+
+def reviewer_key(provider_id, subject_id):
+    """Enige toegestane samenstelling van een reviewer-identiteit; alleen voor schone ID's (geen dubbele punt)."""
+    if not (is_clean_id(provider_id) and is_clean_id(subject_id)):
+        raise ValueError("ID_NIET_EENDUIDIG")
+    return provider_id + ":" + subject_id
+
+
+def _split_reviewer_key(v):
+    if not isinstance(v, str) or v.count(":") != 1:
+        return None
+    a, b = v.split(":")
+    return (a, b) if is_clean_id(a) and is_clean_id(b) else None
 
 
 def load_trusted_providers(path=TRUSTED_PROVIDERS_PATH):
@@ -215,7 +271,7 @@ def load_authorization(path=AUTHORIZATION_PATH):
 # --- 1. tekstintegriteit -------------------------------------------------------------------------------------------------------------
 def check_text_integrity(env, attestation=None):
     res = {"status": "INVALID_TEXT", "computed_sha256": None, "claimed_sha256": env.get("decision_text_sha256"), "encoding": "UTF-8", "normalization": "NONE",
-           "matches_claimed_hash": False, "matches_source_text": None, "proves_author": False, "problems": []}
+           "matches_claimed_hash": False, "matches_source_text": None, "proves_author": False, "statement_binding": "NOT_EVALUATED", "problems": []}
     text = env.get("decision_text")
     if not isinstance(text, str) or not text:
         res["problems"].append("TEKST_ONTBREEKT")
@@ -231,6 +287,10 @@ def check_text_integrity(env, attestation=None):
     sus = suspicious_characters(text)
     if sus:
         res["problems"].append("ONZICHTBARE_OF_STUURTEKENS_IN_TEKST " + ", ".join(sus))
+    stmt = canonical_statement(env)
+    res["statement_binding"] = "EXACT_MATCH" if stmt is not None and text == stmt else "MISMATCH"
+    if res["statement_binding"] != "EXACT_MATCH":
+        res["problems"].append("TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed)")
     res["matches_claimed_hash"] = res["computed_sha256"] == env.get("decision_text_sha256")
     if not res["matches_claimed_hash"]:
         res["status"] = "MISMATCH"
@@ -259,6 +319,25 @@ def _decision_tokens_in(text):
     return [t for t in DECISION_TOKENS if t in text]
 
 
+def canonical_statement(env):
+    """De ENIGE tekst die een besluitbericht mag zijn: een vaste, volledig afgeleide verklaring van de exacte besluitinhoud (aanvraag, hash, kandidaat, keuze, niveau,
+    erkende APP's/relaties, beoordeeld bewijs). Vrije tekst is niet toegestaan, want vrije tekst kan de inhoud ontkennen of afzwakken ('niet', 'behalve', 'onder voorbehoud').
+    Dit bindt tekst aan inhoud; het bewijst NIET dat een mens de tekst las of schreef (dat doet alleen de bron) en is de voorloper van het toekomstige,
+    ondertekende DecisionStatement. Retourneert None als de inhoud geen eenduidige verklaring toelaat."""
+    try:
+        lists = {k: env[k] for k in ("covers_levels", "acknowledged_open_app_ids", "acknowledged_open_relations", "evidence_reviewed")}
+        scal = {k: env[k] for k in ("approval_request_id", "request_hash", "candidate_group_id", "decision")}
+        if any(not isinstance(v, str) or not v or any(ord(c) < 32 or c in "=;" for c in v) for v in scal.values()):
+            return None
+        if any(not isinstance(v, list) or any(not isinstance(x, str) or not x or any(ord(c) < 32 or c in ",=;" for c in x) for x in v) or len(set(v)) != len(v)
+               for v in lists.values()):
+            return None
+    except (KeyError, TypeError):
+        return None
+    lines = [STATEMENT_HEADER] + [f"{k}={v}" for k, v in scal.items()] + [f"{k}={','.join(sorted(v))}" for k, v in lists.items()]
+    return "\n".join(lines) + "\n"
+
+
 # --- 2. herkomst ---------------------------------------------------------------------------------------------------------------------
 def _attestation_shape_problems(att):
     need = {"provider_id": str, "authenticated_author_id": str, "author_authentication_method": str, "actor_type": str, "human_presence_evidence": str,
@@ -270,6 +349,9 @@ def _attestation_shape_problems(att):
         v = getattr(att, k, None)
         if not isinstance(v, t) or not v.strip():
             p.append(f"ATTESTATIE_VELD_ONTBREEKT_OF_ONGELDIG {k}")
+    for k in ("provider_id", "authenticated_author_id", "source_message_id"):
+        if isinstance(getattr(att, k, None), str) and getattr(att, k).strip() and not is_clean_id(getattr(att, k)):
+            p.append(f"ATTESTATIE_ID_DUBBELZINNIG_OF_ONGELDIG {k} (alleen [A-Za-z0-9._@-], geen dubbele punt, geen spaties of Unicode)")
     if att.actor_type not in ACTOR_TYPES:
         p.append("ATTESTATIE_ACTOR_TYPE_ONBEKEND")
     if att.human_presence_evidence not in HUMAN_PRESENCE_METHODS:
@@ -280,14 +362,20 @@ def _attestation_shape_problems(att):
 def _registry_problems(doc):
     if not isinstance(doc, dict) or doc.get("registry_version") != TRUSTED_PROVIDERS_VERSION or set(doc) != {"registry_version", "note", "providers"}:
         return ["TRUSTED_PROVIDERS_REGISTRY_ONGELDIG"]
+    if not isinstance(doc["providers"], list):
+        return ["TRUSTED_PROVIDERS_REGISTRY_ONGELDIG"]
     for p in doc["providers"]:
-        if not isinstance(p, dict) or set(p) != {"provider_id", "provider_kind", "accepted_human_presence_methods", "synthetic"} or not isinstance(p.get("provider_id"), str) \
+        if not isinstance(p, dict) or set(p) != {"provider_id", "provider_kind", "accepted_human_presence_methods", "synthetic"} or not is_clean_id(p.get("provider_id")) \
                 or not isinstance(p["accepted_human_presence_methods"], list) or not isinstance(p["synthetic"], bool):
-            return ["TRUSTED_PROVIDERS_REGISTRY_ONGELDIG (providerrecord)"]
+            return ["TRUSTED_PROVIDERS_REGISTRY_ONGELDIG (providerrecord of dubbelzinnig provider_id)"]
+    folded = [p["provider_id"].casefold() for p in doc["providers"]]
+    if len(set(folded)) != len(folded):
+        return ["TRUSTED_PROVIDERS_REGISTRY_ONGELDIG (provider_id dubbel, ook niet op hoofdlettergebruik na)"]
     return []
 
 
-def evaluate_provenance(env, attestation_fetch_error, attestation, trusted_providers, anchor, now, text_res):
+def evaluate_provenance(env, attestation_fetch_error, attestation, trusted_providers, anchor, now, text_res, provider=None):
+    provider = provider or NullIntakeSourceProvider()
     claims = env["claims"]
     out = {"status": PROV_UNVERIFIABLE, "authentication_status": AUTH_NOT, "claimed": {k: claims.get(k) for k in ("author_id", "author_identity_source", "source_message_id", "source_timestamp")},
            "attested": None, "provider_trusted": False, "synthetic_source": False, "problems": [], "timestamp_format_problems": [], "invalid": [], "unverifiable": []}
@@ -362,13 +450,23 @@ def evaluate_provenance(env, attestation_fetch_error, attestation, trusted_provi
             entry = next((p for p in trusted_providers["providers"] if p["provider_id"] == attestation.provider_id), None)
             if entry is None:
                 unv.append("PROVIDER_NIET_VERTROUWD")
+    out["human_presence"] = {"claimed_method": attestation.human_presence_evidence, "provable_method": attestation.human_presence_evidence in PROVABLE_PRESENCE_METHODS,
+                             "accepted_by_registry": False, "verified_by_provider_check": False}
     if entry is not None:
         out["provider_trusted"], out["synthetic_source"] = True, bool(entry["synthetic"])
-        if attestation.human_presence_evidence in entry["accepted_human_presence_methods"] and attestation.human_presence_evidence != "NONE":
+        hp = out["human_presence"]
+        hp["accepted_by_registry"] = attestation.human_presence_evidence in entry["accepted_human_presence_methods"]
+        if hp["provable_method"] and hp["accepted_by_registry"]:
+            # een bewering van de attestatie volstaat nooit: de provider moet het bewijs voor DIT exacte bericht ter plekke controleren
+            try:
+                hp["verified_by_provider_check"] = provider.verify_human_presence(attestation, text_res["computed_sha256"]) is True
+            except Exception:   # noqa: BLE001 — fail-closed
+                hp["verified_by_provider_check"] = False
+        if hp["verified_by_provider_check"]:
             out["authentication_status"] = AUTH_HUMAN
         else:
             out["authentication_status"] = AUTH_ACCOUNT
-            unv.append("ACCOUNT_GEAUTHENTICEERD_MAAR_MENSELIJKE_AANWEZIGHEID_NIET_BEWEZEN (zelfde account kan door een AI-tool worden gebruikt)")
+            unv.append("ACCOUNT_GEAUTHENTICEERD_MAAR_MENSELIJKE_AANWEZIGHEID_NIET_BEWEZEN (een bewering in de attestatie telt niet; zelfde account kan door een AI-tool worden gebruikt)")
         if attestation.actor_type == "UNKNOWN":
             unv.append("ACTOR_TYPE_ONBEKEND")
     else:
@@ -389,9 +487,17 @@ def authorization_problems_in_doc(doc):
             or not isinstance(doc["designations"], list):
         return ["AUTORISATIE_CONFIG_ONGELDIG"]
     keys = {"reviewer_id", "designated_by", "designation_ref", "scope_levels", "approval_request_ids", "valid_from", "valid_until"}
+    seen = set()
     for d in doc["designations"]:
         if not isinstance(d, dict) or set(d) != keys:
             return ["AUTORISATIE_CONFIG_ONGELDIG (aanwijzingsrecord)"]
+        if _split_reviewer_key(d["reviewer_id"]) is None or not is_clean_id(d["designated_by"]) or not isinstance(d["scope_levels"], list) \
+                or not isinstance(d["approval_request_ids"], list):
+            return ["AUTORISATIE_CONFIG_ONGELDIG (dubbelzinnige of ongeldige identiteit: reviewer_id moet exact `provider:subject` zijn, designated_by een schoon ID)"]
+        ident = (d["reviewer_id"].casefold(), tuple(d["approval_request_ids"]))
+        if ident in seen:
+            return ["AUTORISATIE_CONFIG_ONGELDIG (dubbele aanwijzing voor dezelfde reviewer en aanvraag, ook niet op hoofdlettergebruik na)"]
+        seen.add(ident)
     return []
 
 
@@ -400,7 +506,12 @@ def evaluate_authorization(prov, authz_doc, anchor, approval_request_id, now):
     if prov["status"] != PROV_SOURCE_VERIFIED:
         res["problems"].append("NIET_BEOORDEELD: er is geen geauthenticeerde auteur (een opgegeven reviewer-id wordt nooit als bewijs gebruikt)")
         return res
-    reviewer = prov["attested"]["provider_id"] + ":" + prov["attested"]["authenticated_author_id"]
+    try:
+        reviewer = reviewer_key(prov["attested"]["provider_id"], prov["attested"]["authenticated_author_id"])
+    except ValueError:
+        res["status"] = "UNAUTHORIZED"
+        res["problems"].append("REVIEWER_IDENTITEIT_DUBBELZINNIG (provider/subject niet eenduidig samen te stellen)")
+        return res
     res["reviewer_id"] = reviewer
     bad = authorization_problems_in_doc(authz_doc)
     if bad:
@@ -421,7 +532,7 @@ def evaluate_authorization(prov, authz_doc, anchor, approval_request_id, now):
         return res
     for d in mine:
         why = []
-        if d["designated_by"] in (reviewer, prov["attested"]["authenticated_author_id"]):
+        if d["designated_by"].casefold() in (reviewer.casefold(), prov["attested"]["authenticated_author_id"].casefold()):
             why.append("ZELFAANWIJZING")
         if d["designated_by"] not in anchored.authority_ids:
             why.append("AANWIJZER_IS_GEEN_GEANKERD_GEZAG")
@@ -442,10 +553,12 @@ def evaluate_authorization(prov, authz_doc, anchor, approval_request_id, now):
 
 
 # --- 4. inhoud (hergebruikt de v1-registervalidatie) -------------------------------------------------------------------------------------------
-def to_content_input(env, now):
-    """Afbeelding op het v1-registerinvoerformaat ALLEEN om de bestaande inhoudsregels te hergebruiken (live aanvraag, hash, bewijs, erkenning APP/relaties,
+def _content_check_input(env, now):
+    """PRIVÉ. Afbeelding op het v1-registerinvoerformaat ALLEEN om de bestaande inhoudsregels te hergebruiken (live aanvraag, hash, bewijs, erkenning APP/relaties,
     niveau A, FI-/pandverbod, duplicaten). Drie velden zijn bewust neutrale stand-ins en GEEN bewijs: decision_source, decided_by en identity_verification
-    (identiteit en tijdstip worden uitsluitend door de herkomst- en autorisatiecontrole beoordeeld)."""
+    (identiteit en tijdstip worden uitsluitend door de herkomst- en autorisatiecontrole beoordeeld).
+    Dit is GEEN registerinvoer: de uitkomst mag nooit buiten `evaluate_content` komen, want v1 accepteert deze velden als "menselijk besluit". Daarom is de functie privé,
+    staat niet in `__all__`, en bewaakt een test dat geen publieke functie van deze module v1-acceptabele invoer teruggeeft."""
     return {"approval_request_id": env["approval_request_id"], "request_hash": env["request_hash"], "candidate_group_id": env["candidate_group_id"],
             "decision": env["decision"], "covers_levels": list(env["covers_levels"]), "decision_source": "HUMAN_CHAT_CONFIRMATION", "decided_by": "intake-content-check",
             "decision_provenance": {"channel": "FILE_EDITED_BY_HUMAN", "entered_by_kind": "HUMAN_DIRECT", "source_message_ref": "intake-content-check",
@@ -459,14 +572,17 @@ def evaluate_content(env, ctx, existing, now):
     res = {"status": "INVALID", "stale_request": False, "register_conflict": False, "problems": [], "warnings": [], "live_request_hash": None, "live_approval_status": None}
     extra = []
     text = env["decision_text"]
-    toks = _decision_tokens_in(text)
-    if len(toks) != 1:
-        extra.append("BESLUITTEKST_NOEMT_NIET_PRECIES_EEN_BESLUITKEUZE " + str(toks))
-    elif toks[0] != env["decision"]:
-        extra.append("BESLUITTEKST_KEUZE_KOMT_NIET_OVEREEN_MET_VELD_DECISION")
+    stmt = canonical_statement(env)
+    if stmt is None or text != stmt:
+        extra.append("BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)")
+    toks = _decision_tokens_in(text)           # tweede, onafhankelijke vangnet
+    if len(toks) != 1 or toks[0] != env["decision"]:
+        extra.append("BESLUITTEKST_NOEMT_NIET_PRECIES_DE_GEKOZEN_BESLUITKEUZE " + str(toks))
+    if env["reviewer_notes"] != "":
+        extra.append("REVIEWER_NOTES_NIET_TOEGESTAAN (vrije tekst is niet gebonden aan de besluitinhoud en kan die ontkennen; fail-closed)")
     if LEVEL_BC_TEXT.search(text) or LEVEL_BC_TEXT.search(env["reviewer_notes"]):
         extra.append("TEKST_CLAIMT_NIVEAU_B_OF_C (fail-closed, ook als disclaimer)")
-    inp = to_content_input(env, now)
+    inp = _content_check_input(env, now)
     why, warn, fresh = R.validate_input(ctx, inp, existing, now=now)
     res["warnings"] = warn
     if fresh:
@@ -557,13 +673,17 @@ def _validate_intake(envelope, ctx, provider, trusted_providers, authorization, 
     # bron ophalen: alleen op basis van de verwijzing; nooit iets uit het bestand overnemen
     attestation, fetch_error = None, None
     ptr = env["source_pointer"]
+    for k in ("provider_id", "source_message_id"):
+        if ptr[k] is not None and not is_clean_id(ptr[k]):
+            comp["blocked"].append(f"BRONVERWIJZING_ID_DUBBELZINNIG_OF_ONGELDIG {k}")
+            ptr = {**ptr, k: None}
     if ptr["provider_id"] and ptr["source_message_id"]:
         try:
             attestation = provider.fetch(ptr["source_message_id"])
         except Exception as exc:   # noqa: BLE001
             fetch_error = type(exc).__name__
     text_res = check_text_integrity(env, attestation if isinstance(attestation, SourceAttestation) else None)
-    prov = evaluate_provenance(env, fetch_error, attestation, trusted_providers, anchor, now, text_res)
+    prov = evaluate_provenance(env, fetch_error, attestation, trusted_providers, anchor, now, text_res, provider)
     if text_res["problems"]:
         comp["invalid_decision"] += ["TEKST " + p for p in text_res["problems"] if not p.startswith("TEKST_KOMT_NIET") and not p.startswith("BRONTEKST")]
     comp["invalid_decision"] += ["TIJDSTEMPEL " + p for p in prov["timestamp_format_problems"]]
@@ -629,6 +749,10 @@ def _report(env, iid, final, comp, problems, now, text_res=None, prov=None, auth
         "6_registered": {"present": False, "meaning": "daadwerkelijk geregistreerd; niet mogelijk in deze intake (DRY_RUN)"},
         "7_instance_activated": {"present": False, "meaning": "geactiveerde fysieke instance; bestaat niet"},
     }
+    confirmed_via_source = bool(prov and prov["status"] == PROV_SOURCE_VERIFIED and text_res and text_res.get("matches_source_text") and text_res.get("statement_binding") == "EXACT_MATCH")
+    field_state = ("BOUND_TO_VERIFIED_SOURCE_STATEMENT (inhoud staat in een door een geverifieerde bron aangeleverde verklaring; alleen een mens met bewezen aanwezigheid kan dat bevestigen)"
+                   if confirmed_via_source else "NOT_PROVEN_HUMAN_CONFIRMED (veld is alleen aangeleverd/gebonden aan tekst; niemand heeft aantoonbaar bevestigd dat een mens het las of koos)")
+    human_confirmation = {k: field_state for k in ("covers_levels", "acknowledged_open_app_ids", "acknowledged_open_relations", "evidence_reviewed")}
     eligible = final == "VALIDATED_DRY_RUN" and not synthetic
     return {
         "report_version": REPORT_VERSION, "intake_version": INTAKE_VERSION, "mode": MODE, "final_status": final,
@@ -647,7 +771,7 @@ def _report(env, iid, final, comp, problems, now, text_res=None, prov=None, auth
         "open_problems": sorted(set((problems or []) + (comp.get("blocked", []) + comp.get("stale", []) + comp.get("invalid_decision", []) + comp.get("unverified", []) + comp.get("unauthorized", [])))),
         "component_status": {"blocked": bool(comp.get("blocked")), "stale": bool(comp.get("stale")), "invalid_decision": bool(comp.get("invalid_decision")),
                              "unverified": bool(comp.get("unverified")), "unauthorized": bool(comp.get("unauthorized"))},
-        "ladder": ladder,
+        "ladder": ladder, "human_confirmation_of_fields": human_confirmation,
         "registration_eligibility": "ELIGIBLE_FOR_FUTURE_REGISTRATION_STEP" if eligible else ("NOT_ELIGIBLE_SYNTHETIC_SOURCE" if final == "VALIDATED_DRY_RUN" and synthetic else "NOT_ELIGIBLE"),
         "registration_performed": False, "registration_possible_in_this_intake": False,
         "register_state": {"records": n_recs, "head": recs_head, "written": False},
@@ -676,7 +800,7 @@ def v1_record_as_legacy_view(rec):
     """Een v1-record blijft wat het was: een zelf opgegeven, niet-geauthenticeerde verklaring. Nooit sterker, ook niet als het record velden claimt."""
     return {"schema_version": 1, "decision_id": rec["decision_id"], "approval_request_id": rec["approval_request_id"], "request_hash": rec["request_hash"], "decision": rec["decision"],
             "provenance_verification_status": PROV_SELF_ASSERTED, "authentication_status": AUTH_NOT, "authorization_status": "NOT_ASSESSED_LEGACY_V1",
-            "legacy_v1": True, "counts_as_verified_v2": False, "instance_activated": False}
+            "legacy_v1": True, "schema_valid": True, "verification_state": "LEGACY_SELF_ASSERTED", "counts_as_verified_v2": False, "instance_activated": False}
 
 
 def load_register_v2(path, v1_head):
@@ -688,11 +812,11 @@ def load_register_v2(path, v1_head):
     raw = p.read_bytes()
     if raw and not raw.endswith(b"\n"):
         raise R.RegisterCorrupt("V2_GEDEELTELIJK_GESCHREVEN")
-    schema = json.loads(V2_SCHEMA_PATH.read_text(encoding="utf-8"))
+    schema = strict_json_loads(V2_SCHEMA_PATH.read_text(encoding="utf-8"))
     recs, prev, keys = [], v1_head, set()
     for n, line in enumerate(raw.decode("utf-8").splitlines(), 1):
         try:
-            rec = json.loads(line)
+            rec = strict_json_loads(line)
         except ValueError:
             raise R.RegisterCorrupt(f"V2_REGEL_{n}_GEEN_JSON")
         if list(jsonschema.Draft7Validator(schema).iter_errors(rec)):
@@ -701,6 +825,14 @@ def load_register_v2(path, v1_head):
             raise R.RegisterCorrupt(f"V2_REGEL_{n}_NIET_CANONIEK_OF_VOLGORDE_OF_V1_KOP")
         if rec["previous_record_hash"] != prev or rec["record_hash"] != R.record_hash(rec):
             raise R.RegisterCorrupt(f"V2_REGEL_{n}_KETEN_OF_HASH_ONJUIST")
+        pv, az = rec["provenance"], rec["authorization"]
+        if not (is_clean_id(pv["provider_id"]) and is_clean_id(pv["authenticated_author_id"]) and is_clean_id(pv["source_message_id"])):
+            raise R.RegisterCorrupt(f"V2_REGEL_{n}_ID_DUBBELZINNIG")
+        if rec["source_message_key"] != pv["provider_id"] + ":" + pv["source_message_id"] or az["reviewer_id"] != pv["provider_id"] + ":" + pv["authenticated_author_id"]:
+            raise R.RegisterCorrupt(f"V2_REGEL_{n}_IDENTITEITSVELDEN_TEGENSTRIJDIG")
+        stmt = canonical_statement(rec)
+        if stmt is None or rec["decision_text"] != stmt or rec["decision_text_sha256"] != text_sha256(rec["decision_text"]) or rec["reviewer_notes"] != "":
+            raise R.RegisterCorrupt(f"V2_REGEL_{n}_TEKST_NIET_GEBONDEN_AAN_BESLUITINHOUD")
         if rec["source_message_key"] in keys:
             raise R.RegisterCorrupt(f"V2_REGEL_{n}_DUBBEL_BRONBERICHT")
         keys.add(rec["source_message_key"])
@@ -710,7 +842,10 @@ def load_register_v2(path, v1_head):
 
 
 def unified_register_view(v1_path=None, v2_path=None):
-    """Eén logisch register, twee bestandsformaten: v1-records (legacy, nooit opgewaardeerd) en eventuele v2-records (geverifieerde herkomst + autorisatie)."""
+    """Eén logisch register, twee bestandsformaten. Drie begrippen blijven gescheiden: `schema_valid` (het bestand voldoet aan schema, keten en consistentiecontroles),
+    `verification_state` (LEGACY_SELF_ASSERTED | SCHEMA_VALID_UNPROVEN | SIMULATED_VERIFICATION) en echte verificatie. Echte verificatie (REAL_VERIFIED) kent deze leesfunctie
+    NOOIT toe: een bestand kan zijn eigen herkomst en autorisatie niet bewijzen, en deze module heeft geen trust anchor om de bron opnieuw te controleren.
+    `counts_as_verified_v2` is daarom altijd False."""
     v1 = R.load_register(v1_path or R.REGISTER_PATH)
     for r in v1:                 # een v1-record blijft een v1-record: geen ander versienummer, geen ander registerlabel
         if r.get("record_version") != R.RECORD_VERSION or isinstance(r.get("record_version"), bool) or r.get("register_version") != R.REGISTER_VERSION:
@@ -719,9 +854,11 @@ def unified_register_view(v1_path=None, v2_path=None):
     v2 = load_register_v2(v2_path, head) if v2_path else []
     entries = [v1_record_as_legacy_view(r) for r in v1]
     for r in v2:
+        synthetic = r["provenance"]["synthetic_source"]
         entries.append({"schema_version": 2, "decision_id": r["decision_id"], "approval_request_id": r["approval_request_id"], "request_hash": r["request_hash"], "decision": r["decision"],
-                        "provenance_verification_status": r["provenance"]["provenance_verification_status"], "authentication_status": r["provenance"]["authentication_status"],
-                        "authorization_status": r["authorization"]["status"], "legacy_v1": False, "counts_as_verified_v2": True, "instance_activated": False})
+                        "recorded_provenance_claim": r["provenance"]["provenance_verification_status"], "recorded_authentication_claim": r["provenance"]["authentication_status"],
+                        "recorded_authorization_claim": r["authorization"]["status"], "legacy_v1": False, "schema_valid": True,
+                        "verification_state": "SIMULATED_VERIFICATION" if synthetic else "SCHEMA_VALID_UNPROVEN", "counts_as_verified_v2": False, "instance_activated": False})
     return {"v1_records": len(v1), "v2_records": len(v2), "v1_head": head, "entries": entries}
 
 
@@ -733,8 +870,8 @@ def v2_schema():
                          "author_authentication_method", "human_presence_evidence", "source_message_id", "source_timestamp", "received_timestamp", "synthetic_source"],
             "properties": {"provenance_verification_status": {"const": PROV_SOURCE_VERIFIED}, "authentication_status": {"const": AUTH_HUMAN}, "provider_id": str_ne,
                            "trust_registry_sha256": h64, "attestation_sha256": h64, "authenticated_author_id": str_ne, "author_authentication_method": str_ne,
-                           "human_presence_evidence": {"enum": [m for m in HUMAN_PRESENCE_METHODS if m != "NONE"]}, "source_message_id": str_ne,
-                           "source_timestamp": str_ne, "received_timestamp": str_ne, "synthetic_source": {"const": False}}}
+                           "human_presence_evidence": {"enum": list(PROVABLE_PRESENCE_METHODS)}, "source_message_id": str_ne,
+                           "source_timestamp": str_ne, "received_timestamp": str_ne, "synthetic_source": {"type": "boolean"}}}
     authz = {"type": "object", "additionalProperties": False, "required": ["status", "registry_sha256", "anchor_authority_ids", "designation_ref", "reviewer_id"],
              "properties": {"status": {"const": "AUTHORIZED"}, "registry_sha256": h64, "anchor_authority_ids": {"type": "array", "minItems": 1, "items": str_ne},
                             "designation_ref": str_ne, "reviewer_id": str_ne}}
@@ -749,13 +886,19 @@ def v2_schema():
              "v1_register_head": h64, "decision_id": {"type": "string", "pattern": "^HID-\\d{4}$"}, "sequence": {"type": "integer", "minimum": 1},
              "previous_record_hash": h64, "record_hash": h64, "register_version": {"const": V2_REGISTER_VERSION}}
     return {"$schema": "http://json-schema.org/draft-07/schema#", "$id": "human_instance_decision_v2.schema.json", "title": "Menselijk niveau-A-besluit, registerversie 2 (opgeslagen record)",
-            "description": "ONTWERP/LEESFORMAAT. Een v2-record bestaat alleen voor een besluit met SOURCE_VERIFIED herkomst en AUTHORIZED reviewer; synthetische bronnen zijn uitgesloten "
-                           "(`synthetic_source` const false). Het schema is gesloten. v1-records worden nooit omgezet: het v1-bestand blijft ongewijzigd en de v2-keten begint bij de kop van v1 "
+            "description": "ONTWERP/LEESFORMAAT. Een v2-record beschrijft een besluit met SOURCE_VERIFIED herkomst en AUTHORIZED reviewer, zoals de schrijver het VERKLAARDE; het bestand bewijst dat zelf niet. Schemageldigheid is geen verificatie "
+                           "(`synthetic_source` true => `SIMULATED_VERIFICATION`, nooit meetellend). Het schema is gesloten. v1-records worden nooit omgezet: het v1-bestand blijft ongewijzigd en de v2-keten begint bij de kop van v1 "
                            "(`v1_register_head`). In deze PR bestaat geen v2-bestand en schrijft niets naar een register.",
             "type": "object", "additionalProperties": False, "required": V2_KEYS, "properties": props}
 
 
 # --- CLI --------------------------------------------------------------------------------------------------------------------------------------------
+# Bewust geen `to_content_input`/`_content_check_input` in de publieke API.
+__all__ = ["validate_intake", "validate_batch", "check_text_integrity", "canonical_statement", "strict_json_loads", "DuplicateKeyError", "unified_register_view",
+           "load_register_v2", "v2_schema", "text_sha256", "SourceAttestation", "IntakeSourceProvider", "NullIntakeSourceProvider", "TrustAnchor", "NullTrustAnchor",
+           "AnchorResult", "InMemoryReplayLedger", "is_clean_id", "reviewer_key", "main"]
+
+
 def main(argv=None):
     import argparse
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
@@ -766,7 +909,13 @@ def main(argv=None):
     g.add_argument("--check", action="store_true", help="controleert alleen of de rapporten actueel zijn")
     a = ap.parse_args(argv)
     if a.cmd == "check":
-        env = json.loads(Path(a.envelope).read_text(encoding="utf-8"))
+        try:
+            env = strict_json_loads(Path(a.envelope).read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:         # ook DuplicateKeyError en UnicodeDecodeError: weigeren, niet raden
+            rep = validate_intake(None)
+            rep["open_problems"] = sorted(set(rep["open_problems"]) | {f"ENVELOPE_ONLEESBAAR_OF_ONTOELAATBAAR_JSON {type(exc).__name__}: {str(exc)[:120]}"})
+            print(json.dumps(rep, indent=2, ensure_ascii=False, sort_keys=True))
+            return 1
         rep = validate_intake(env)       # standaardconfiguratie: geen provider, geen anchor => nooit SOURCE_VERIFIED
         print(json.dumps(rep, indent=2, ensure_ascii=False, sort_keys=True))
         return 0 if rep["final_status"] == "VALIDATED_DRY_RUN" else 1

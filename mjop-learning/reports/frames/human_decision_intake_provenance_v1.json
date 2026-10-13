@@ -153,7 +153,8 @@
       "authorization": "AUTHORIZED",
       "expected": "INVALID_DECISION",
       "first_problems": [
-        "VERKLARING_NOEMT_REQUEST_HASH_NIET"
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "TEKST TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed)"
       ],
       "match": true,
       "note": "",
@@ -237,7 +238,8 @@
       "authorization": "AUTHORIZED",
       "expected": "INVALID_DECISION",
       "first_problems": [
-        "TEKST_CLAIMT_NIVEAU_B_OF_C (fail-closed, ook als disclaimer)"
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "TEKST TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed)"
       ],
       "match": true,
       "note": "",
@@ -251,6 +253,7 @@
       "authorization": "NOT_EVALUATED",
       "expected": "BLOCKED",
       "first_problems": [
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
         "HERKOMST_INVALID AI_HERKOMST_KENMERK_IN_BERICHT (een bericht dat menselijke toestemming claimt maar AI-kenmerken draagt)"
       ],
       "match": true,
@@ -279,7 +282,8 @@
       "authorization": "NOT_EVALUATED",
       "expected": "BLOCKED",
       "first_problems": [
-        "HERKOMST_INVALID TEKST_INTEGRITEIT_GESCHONDEN"
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "BESLUITTEKST_NOEMT_NIET_PRECIES_DE_GEKOZEN_BESLUITKEUZE ['REJECT']"
       ],
       "match": true,
       "note": "",

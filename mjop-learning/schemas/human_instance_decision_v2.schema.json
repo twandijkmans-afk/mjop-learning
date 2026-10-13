@@ -2,7 +2,7 @@
   "$id": "human_instance_decision_v2.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "additionalProperties": false,
-  "description": "ONTWERP/LEESFORMAAT. Een v2-record bestaat alleen voor een besluit met SOURCE_VERIFIED herkomst en AUTHORIZED reviewer; synthetische bronnen zijn uitgesloten (`synthetic_source` const false). Het schema is gesloten. v1-records worden nooit omgezet: het v1-bestand blijft ongewijzigd en de v2-keten begint bij de kop van v1 (`v1_register_head`). In deze PR bestaat geen v2-bestand en schrijft niets naar een register.",
+  "description": "ONTWERP/LEESFORMAAT. Een v2-record beschrijft een besluit met SOURCE_VERIFIED herkomst en AUTHORIZED reviewer, zoals de schrijver het VERKLAARDE; het bestand bewijst dat zelf niet. Schemageldigheid is geen verificatie (`synthetic_source` true => `SIMULATED_VERIFICATION`, nooit meetellend). Het schema is gesloten. v1-records worden nooit omgezet: het v1-bestand blijft ongewijzigd en de v2-keten begint bij de kop van v1 (`v1_register_head`). In deze PR bestaat geen v2-bestand en schrijft niets naar een register.",
   "properties": {
     "acknowledged_open_app_ids": {
       "items": {
@@ -125,8 +125,7 @@
         "human_presence_evidence": {
           "enum": [
             "WEBAUTHN_USER_VERIFIED",
-            "HARDWARE_KEY_SIGNATURE",
-            "INTERACTIVE_MFA_SESSION_SEPARATE_FROM_AUTOMATION"
+            "HARDWARE_KEY_SIGNATURE"
           ]
         },
         "provenance_verification_status": {
@@ -149,7 +148,7 @@
           "type": "string"
         },
         "synthetic_source": {
-          "const": false
+          "type": "boolean"
         },
         "trust_registry_sha256": {
           "pattern": "^[0-9a-f]{64}$",

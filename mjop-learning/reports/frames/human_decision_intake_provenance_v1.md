@@ -31,7 +31,8 @@ Schema: `schemas/human_decision_intake_envelope.schema.json` (gesloten). Alles i
 |---|---|---|
 | `approval_request_id`, `request_hash`, `candidate_group_id` | envelope | nee: wordt tegen de live aanvraag gecontroleerd |
 | `decision_text`, `decision_text_sha256`, `text_encoding=UTF-8`, `text_normalization=NONE` | envelope | tekst + integriteitsbewering (hash bewijst geen auteur) |
-| `decision`, `covers_levels`, `acknowledged_open_app_ids`, `acknowledged_open_relations`, `evidence_reviewed`, `reviewer_notes` | envelope | inhoud; gevalideerd |
+| `decision`, `covers_levels`, `acknowledged_open_app_ids`, `acknowledged_open_relations`, `evidence_reviewed` | envelope | inhoud; formeel gevalideerd en exact gebonden aan `decision_text`; **niet** aantoonbaar door een mens bevestigd zolang de bron dat niet bewijst (`human_confirmation_of_fields`) |
+| `reviewer_notes` | envelope | vrije tekst is niet aan de besluitinhoud gebonden en moet leeg zijn (fail-closed) |
 | `claims.{author_id, author_identity_source, source_message_id, source_timestamp, channel, entered_by_kind}` | envelope | **zelf opgegeven**; nooit bewijs; afwijking van de bron = INVALID |
 | `source_pointer.{provider_id, source_message_id}` | envelope | alleen een verwijzing om het bronbericht bij de provider op te vragen |
 | `intake_id` | envelope (optioneel) / validator | inhoudsgebonden (`INT-` + sha256); een afwijkende waarde blokkeert |
@@ -79,7 +80,8 @@ altijd `NOT_ELIGIBLE_SYNTHETIC_SOURCE`.
 - Canonieke representatie: de **exacte UTF-8-bytes** van de aangeleverde tekens (`text_encoding=UTF-8`). **Geen** normalisatie (`text_normalization=NONE`): regeleinden (`\n` versus `\r\n`), witruimte, hoofdletters en Unicode-vorm (NFC/NFD) blijven zoals ze zijn, zodat elke betekenisvolle wijziging de hash verandert.
 - Onzichtbare tekens (Unicode-categorie Cf zoals bidi-sturing en zero-width, en overige stuurtekens behalve nieuwe regel/tab) en niet-codeerbare tekst maken het besluit ongeldig.
 - Drie lagen: (a) opgegeven `decision_text_sha256` versus berekende hash (alleen zelfconsistentie); (b) berichttekst van de provider, door de validator zelf opnieuw gehasht (de hash die de provider meegeeft wordt niet vertrouwd);
-  (c) `decision_text` moet precies één besluitkeuze noemen die gelijk is aan het veld `decision`, plus aanvraag-id en request_hash.
+  (c) **exacte inhoudsbinding**: `decision_text` moet byte-voor-byte gelijk zijn aan de uit de velden afgeleide `canonical_statement` (aanvraag-id, request_hash, kandidaat, keuze, niveau, erkende APP's/relaties en beoordeeld bewijs). Vrije of afwijkende tekst
+  (ook `niet`, `behalve`, `onder voorbehoud`, extra zinnen) wordt geweigerd: fail-closed. Dit bindt tekst aan inhoud; het bewijst niet dat een mens de tekst las of schreef. De volledige binding komt pas met het toekomstige, ondertekende DecisionStatement.
 - De hash bewijst alleen tekstintegriteit, nooit de authenticiteit van de auteur.
 
 ## 6. Compatibiliteit register v1 en v2
@@ -87,16 +89,20 @@ altijd `NOT_ELIGIBLE_SYNTHETIC_SOURCE`.
 Gekozen: een **apart, gesloten v2-schema** (`schemas/human_instance_decision_v2.schema.json`) plus een **alleen-lezen adapter** (`unified_register_view`), geen versieveld in het v1-bestand. Reden: het v1-bestand accepteert alleen exact de v1-sleutels en
 een extra veld wordt als beschadiging geweigerd (`load_register`), dus een v1-record kan niet stilzwijgend opgewaardeerd of gemigreerd worden.
 
-- v1-records blijven leesbaar en worden altijd getoond als `SELF_ASSERTED` / `NOT_AUTHENTICATED` / `NOT_ASSESSED_LEGACY_V1` en `counts_as_verified_v2=false`. Er bestaat geen functie die v1 naar v2 omzet.
-- Een v2-record bestaat alleen met `SOURCE_VERIFIED`, `AUTHENTICATED_HUMAN_PRESENCE`, `AUTHORIZED` en `synthetic_source=false`, plus verwijzingen naar provider, attestatie-hash, vertrouwenslijst-hash, autorisatielijst-hash en `designation_ref`.
+- v1-records blijven leesbaar en worden altijd getoond als `SELF_ASSERTED` / `NOT_AUTHENTICATED` / `NOT_ASSESSED_LEGACY_V1`, `verification_state=LEGACY_SELF_ASSERTED` en `counts_as_verified_v2=false`. Er bestaat geen functie die v1 naar v2 omzet.
+- Drie begrippen blijven gescheiden: `schema_valid` (schema, keten en consistentie kloppen), `verification_state` (`SCHEMA_VALID_UNPROVEN` of `SIMULATED_VERIFICATION` bij `synthetic_source=true`) en echte verificatie (`REAL_VERIFIED`). Deze module kent `REAL_VERIFIED` nooit toe en `counts_as_verified_v2` is **altijd false**: een bestand kan zijn eigen herkomst niet bewijzen, en een v2-record toont alleen wat de schrijver *verklaarde* (`recorded_*_claim`).
+- Een v2-record bevat verklaarde `SOURCE_VERIFIED`, `AUTHENTICATED_HUMAN_PRESENCE` en `AUTHORIZED`, plus verwijzingen naar provider, attestatie-hash, vertrouwenslijst-hash, autorisatielijst-hash en `designation_ref`; de lader controleert bovendien dat `source_message_key`, `reviewer_id`, tekst, tekst-hash en inhoudsbinding onderling kloppen.
 - De v2-keten begint bij de kop van het v1-register (`v1_register_head`): één logische keten, twee bestanden; v1 blijft byte-identiek.
 - `source_message_key` (`provider_id:source_message_id`) is uniek in v2: dat is de plek voor **persistente** replaybescherming bij een toekomstige registratie.
 - In deze PR bestaat geen v2-bestand en wordt niets geschreven; `load_register_v2` leest en controleert alleen.
 
 ## 7. Wat zonder externe provider wel en niet aantoonbaar is
 
-**Wel aantoonbaar (getest):** de letterlijke tekst is ongewijzigd ten opzichte van de opgegeven hash; het besluit is inhoudelijk geldig voor de ACTUELE aanvraag (live opnieuw opgebouwd, hash exact); APP-012, APP-025 en VR-045 zijn erkend;
-alleen niveau A; geen FI-/pandgegevens; geen conflict met het register; AI-kenmerken, vervalste tijdstempels, dubbele of herhaalde events (binnen één proces) worden gevonden.
+**Wel aantoonbaar (getest):** de letterlijke tekst is ongewijzigd ten opzichte van de opgegeven hash en is exact de uit de velden afgeleide verklaring; het besluit is formeel geldig voor de ACTUELE aanvraag (live opnieuw opgebouwd, hash exact);
+de velden noemen APP-012, APP-025 en VR-045 als erkend, uitsluitend niveau A en het beoordeelde bewijs; geen FI-/pandgegevens; geen conflict met het register; AI-kenmerken, vervalste tijdstempels, dubbele of herhaalde events (binnen één proces) worden gevonden.
+
+**Niet door een mens bevestigd (tenzij een geverifieerde bron dat bewijst):** de erkenningen (APP/relaties), het beoordeelde bewijs (`evidence_reviewed`) en `covers_levels` zijn velden die iemand heeft *aangeleverd*; dat een mens ze las en koos is zonder geverifieerde bron niet aantoonbaar.
+Het rapport toont dit per veld in `human_confirmation_of_fields` (`NOT_PROVEN_HUMAN_CONFIRMED` of `BOUND_TO_VERIFIED_SOURCE_STATEMENT`).
 
 **Niet aantoonbaar:** wie de tekst schreef. Zonder geauthenticeerde bron is elke auteur-ID, elk bericht-ID, elke tijd en elke hash zelf opgegeven. Een AI kan een perfect geldig besluit met een correcte hash schrijven; de intake
 geeft dan `UNVERIFIED_SOURCE`.
@@ -122,16 +128,16 @@ Alle scenario's gebruiken synthetische tekst, ID's en een synthetische bron/anke
 | 1 | Correct besluit, maar zelf opgegeven auteur | UNVERIFIED_SOURCE | UNVERIFIED_SOURCE | ja | SELF_ASSERTED | NOT_EVALUATED | HERKOMST_SELF_ASSERTED GEEN_GEAUTHENTICEERDE_BRON (geen attestatie van een vertrouwde provider) |
 | 2 | Correct besluit, maar ontbrekende geauthenticeerde bron | UNVERIFIED_SOURCE | UNVERIFIED_SOURCE | ja | UNVERIFIABLE | NOT_EVALUATED | HERKOMST_UNVERIFIABLE GEEN_GEAUTHENTICEERDE_BRON (geen attestatie van een vertrouwde provider) |
 | 3 | Correct besluit van niet-geautoriseerde auteur | UNAUTHORIZED_REVIEWER | UNAUTHORIZED_REVIEWER | ja | SOURCE_VERIFIED | UNAUTHORIZED | AUTORISATIE_UNAUTHORIZED GEEN_AANWIJZING_VOOR_DEZE_GEAUTHENTICEERDE_REVIEWER |
-| 4 | Geverifieerde auteur met ongeldige besluittekst | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | VERKLARING_NOEMT_REQUEST_HASH_NIET |
+| 4 | Geverifieerde auteur met ongeldige besluittekst | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed); TEKST TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed) |
 | 5 | Verouderde request_hash | STALE_REQUEST | STALE_REQUEST | ja | SOURCE_VERIFIED | AUTHORIZED | REQUEST_HASH_VEROUDERD (eerder gepubliceerde, vervangen hash) |
 | 6 | Ontbrekende erkenning APP-012 | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | FRAMEWORK: OPENSTAANDE_APP_OVERLAPVRAGEN_NIET_ERKEND ['APP-012', 'APP-025'] |
 | 7 | Ontbrekende erkenning APP-025 | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | FRAMEWORK: OPENSTAANDE_APP_OVERLAPVRAGEN_NIET_ERKEND ['APP-012', 'APP-025'] |
 | 8 | Ontbrekende erkenning VR-045 | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | FRAMEWORK: OPENSTAANDE_RELATIES_NIET_ERKEND ['VR-045'] |
 | 9 | Besluit dat onterecht niveau B of C dekt (veld covers_levels) | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | BESLUIT_DEKT_MEER_DAN_NIVEAU_A_OF_GEEN_NIVEAU |
-| 9 | Besluit dat onterecht niveau B of C dekt (tekst) | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | TEKST_CLAIMT_NIVEAU_B_OF_C (fail-closed, ook als disclaimer) |
-| 10 | AI-gegenereerd bericht dat menselijke toestemming claimt (AI-kenmerk in tekst) | BLOCKED | BLOCKED | ja | INVALID | NOT_EVALUATED | HERKOMST_INVALID AI_HERKOMST_KENMERK_IN_BERICHT (een bericht dat menselijke toestemming claimt maar AI-kenmerken draagt) |
+| 9 | Besluit dat onterecht niveau B of C dekt (tekst) | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed); TEKST TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed) |
+| 10 | AI-gegenereerd bericht dat menselijke toestemming claimt (AI-kenmerk in tekst) | BLOCKED | BLOCKED | ja | INVALID | NOT_EVALUATED | BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed); HERKOMST_INVALID AI_HERKOMST_KENMERK_IN_BERICHT (een bericht dat menselijke toestemming claimt maar AI-kenmerken draagt) |
 | 10 | AI-gegenereerd bericht dat menselijke toestemming claimt (bron meldt automatisering) | BLOCKED | BLOCKED | ja | INVALID | NOT_EVALUATED | HERKOMST_INVALID GEAUTHENTICEERDE_ACTOR_IS_GEEN_MENS |
-| 11 | Gemodificeerde berichttekst met oude hash | BLOCKED | BLOCKED | ja | INVALID | NOT_EVALUATED | HERKOMST_INVALID TEKST_INTEGRITEIT_GESCHONDEN |
+| 11 | Gemodificeerde berichttekst met oude hash | BLOCKED | BLOCKED | ja | INVALID | NOT_EVALUATED | BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed); BESLUITTEKST_NOEMT_NIET_PRECIES_DE_GEKOZEN_BESLUITKEUZE ['REJECT'] |
 | 12 | Gemanipuleerde tijdstempel: niet-parsebaar | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | TIJDSTEMPEL TIMESTAMP_UNPARSABLE |
 | 12 | Gemanipuleerde tijdstempel: zonder tijdzone | INVALID_DECISION | INVALID_DECISION | ja | SOURCE_VERIFIED | AUTHORIZED | TIJDSTEMPEL TIMESTAMP_NO_TIMEZONE |
 | 12 | Gemanipuleerde tijdstempel: in de toekomst | BLOCKED | BLOCKED | ja | INVALID | NOT_EVALUATED | HERKOMST_INVALID TIMESTAMP_IN_FUTURE |
@@ -174,7 +180,19 @@ Register v1: 0 records (kop `0000000000000000…`). APP-besluiten: 48 van 48 OPE
 5. De gebruiker levert het echte besluit via dat kanaal; eerst `check` (DRY_RUN) tonen; pas daarna, na een tweede expliciete opdracht, registreren.
 6. Activatie van een instance blijft een nog later, apart geautoriseerd proces (niveau B en C blijven buiten dit besluit).
 
-## 12. Verboden effecten (door deze intake nooit uitgevoerd)
+## 12. Hardening na de beveiligingsreview (F2-F8)
+
+- F2: de hulpfunctie die intake-velden op het v1-invoerformaat afbeeldt is privé (`_content_check_input`), staat niet in `__all__` en geeft nooit invoer terug buiten de inhoudscontrole.
+- F3: exacte inhoudsbinding aan `canonical_statement` (zie §5); `reviewer_notes` moet leeg zijn.
+- F4: geen enkel veld wordt als menselijk bevestigd gepresenteerd zonder geverifieerde bron (§7, `human_confirmation_of_fields`).
+- F5: `counts_as_verified_v2` is altijd false; `schema_valid`, `verification_state` en echte verificatie zijn gescheiden (§6).
+- F6: provider-, auteur- en bericht-ID's zijn schone ASCII-tokens zonder dubbele punt; reviewer-ID is exact `provider:subject`; dubbele of op hoofdlettergebruik botsende providers/aanwijzingen maken de configuratie ongeldig. Menselijke aanwezigheid
+  telt alleen als de methode controleerbaar is (`WEBAUTHN_USER_VERIFIED`, `HARDWARE_KEY_SIGNATURE`), het register die accepteert en `IntakeSourceProvider.verify_human_presence` (standaard `False`) het bewijs voor dit exacte bericht bevestigt.
+  Een bewering in de attestatie, en `INTERACTIVE_MFA_SESSION_SEPARATE_FROM_AUTOMATION`, leveren hooguit `AUTHENTICATED_ACCOUNT_ONLY` op.
+- F7: JSON met dubbele sleutels (op elk niveau) of NaN/Infinity wordt geweigerd: CLI, configuratiebestanden, schema en v2-register.
+- F8: automatische CI (`.github/workflows/human-decision-intake-tests.yml`) bij wijzigingen aan de intakemodule en de bewaakte registerpaden.
+
+## 13. Verboden effecten (door deze intake nooit uitgevoerd)
 
 - `create_or_modify_frame_instance`
 - `reserve_instance_id`
