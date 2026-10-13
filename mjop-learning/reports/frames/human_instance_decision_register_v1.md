@@ -45,9 +45,9 @@ Bestand: `data/instance_decisions/human_instance_decision_register_v1.jsonl` (JS
 |---|---|
 | `DRY_RUN` (standaard) | Alles gevalideerd, **niets geschreven**. |
 | `VALIDATION_FAILED` | Minstens één voorwaarde faalt; niets geschreven; redenen genoemd. |
-| `REGISTERED` | Alleen met `mode=REGISTER` **en** de bevestigingstoken; één record toegevoegd. |
+| `REGISTERED` | Niet mogelijk op het canonieke v1-register (GESLOTEN, fail-closed); alleen op een tijdelijk testregister. |
 
-Echte registratie vraagt een afzonderlijke handeling (`register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER`). Er bestaat geen codepad dat zelf een besluit genereert, goedkeurt of een instance activeert.
+Het canonieke v1-register is **gesloten**: `register()` en `register --decision` stoppen altijd, ook met de bevestigingstoken (die in de code staat en dus geen bewijs van menselijke goedkeuring is). Er bestaat geen codepad dat zelf een besluit genereert, goedkeurt of een instance activeert.
 
 ## 3. Autorisatievoorwaarden
 
@@ -139,7 +139,7 @@ Het ingevulde-maar-lege sjabloon geeft in DRY_RUN `VALIDATION_FAILED` (verwacht:
 1. De gebruiker levert zelf (of bevestigt in een apart bericht) één besluit over IAR-OIC-VR-027 met de actuele request_hash.
 2. Een thread zet dat letterlijk in een invoerbestand (entered_by_kind AI_TRANSCRIPTION_OF_HUMAN_MESSAGE, bronbericht-ID en letterlijke tekst) of de gebruiker vult het zelf in.
 3. Eerst `python scripts/human_instance_decision_register.py check --decision <bestand>` (DRY_RUN) en het resultaat tonen.
-4. Pas na een tweede, expliciete opdracht van de gebruiker: `... register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER` in een eigen PR.
+4. Registratie in het canonieke v1-register is GESLOTEN (fail-closed); een nieuw, apart door de gebruiker goedgekeurd registratiepad met echte authenticatie is vereist.
 5. Activatie van een instance blijft een nog later, apart door de gebruiker geautoriseerd proces.
 
 **STOP.** Deze PR registreert geen besluit, maakt geen FI-id en activeert niets. Merge alleen met jouw expliciete opdracht.

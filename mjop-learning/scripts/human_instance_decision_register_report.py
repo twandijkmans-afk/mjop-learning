@@ -60,9 +60,9 @@ def render_md(rep):
           "6. Bestaande besluiten op duplicaten en conflicten controleren. 7. Alleen het besluit append-only toevoegen. 8. Resultaat rapporteren zonder iets anders te wijzigen.", "",
           "| Status | Betekenis |", "|---|---|",
           "| `DRY_RUN` (standaard) | Alles gevalideerd, **niets geschreven**. |", "| `VALIDATION_FAILED` | Minstens één voorwaarde faalt; niets geschreven; redenen genoemd. |",
-          "| `REGISTERED` | Alleen met `mode=REGISTER` **en** de bevestigingstoken; één record toegevoegd. |", "",
-          f"Echte registratie vraagt een afzonderlijke handeling (`register --decision <bestand> --confirm {rep['confirm_token']}`). Er bestaat geen codepad dat zelf een besluit "
-          "genereert, goedkeurt of een instance activeert.", "", "## 3. Autorisatievoorwaarden", ""]
+          "| `REGISTERED` | Niet mogelijk op het canonieke v1-register (GESLOTEN, fail-closed); alleen op een tijdelijk testregister. |", "",
+          "Het canonieke v1-register is **gesloten**: `register()` en `register --decision` stoppen altijd, ook met de bevestigingstoken (die in de code staat en dus geen bewijs van "
+          "menselijke goedkeuring is). Er bestaat geen codepad dat zelf een besluit genereert, goedkeurt of een instance activeert.", "", "## 3. Autorisatievoorwaarden", ""]
     L += ["- " + x for x in ["De actuele aanvraag is live opnieuw opgebouwd en slaagt (READY_FOR_HUMAN_REVIEW).", "De `request_hash` komt exact overeen; een vervangen of gewijzigde hash faalt.",
                              "Een expliciete keuze uit de drie toegestane besluiten.", "Herkomst: menselijke bron, niet-AI-beslisser, kanaal en invoerwijze benoemd, `ai_authored_decision=false`, "
                              "letterlijke verklaring die aanvraag-id, request_hash en keuze noemt.", "Alleen niveau A (`covers_levels == [\"A\"]`).",
@@ -139,5 +139,5 @@ def render_pack(rep):
              f"<code>{E(rq['request_hash'])}</code>. Verplicht te erkennen APP: " + ", ".join(E(r['app_id']) for r in rq['related_app_decisions'] if r['relevance'] == 'DIRECT')
              + "; open relatie(s): " + ", ".join(E(x) for x in rq['open_related_relations']) + ".</p>")
     h.append(f"<pre>{E(json.dumps(rep['template'], indent=2, ensure_ascii=False))}</pre>")
-    h.append(f"<p>Registratie gebeurt alleen op jouw afzonderlijke, expliciete opdracht, eerst als DRY_RUN. Status nu: {rep['records_registered']} besluiten geregistreerd.</p></body></html>")
+    h.append(f"<p>Registratie in het canonieke v1-register is momenteel gesloten (fail-closed); dit pakket registreert niets. Status nu: {rep['records_registered']} besluiten geregistreerd.</p></body></html>")
     return base + "\n".join(h)
