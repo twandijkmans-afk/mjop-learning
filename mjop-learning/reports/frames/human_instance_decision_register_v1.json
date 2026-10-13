@@ -1,0 +1,319 @@
+{
+  "app_decisions": {
+    "open": 48,
+    "total": 48
+  },
+  "channels": [
+    "CLAUDE_CODE_CHAT",
+    "CHATGPT_CONVERSATION",
+    "HTML_FORM_EXPORT",
+    "FILE_EDITED_BY_HUMAN"
+  ],
+  "confirm_token": "REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER",
+  "confirm_token_required_for_register": true,
+  "decision_state": {
+    "approval_request_id": "IAR-OIC-VR-027",
+    "decisions": [],
+    "level_A": "NOT_DECIDED",
+    "level_B": "NOT_DECIDED",
+    "level_C": "NOT_DECIDED",
+    "request_hash": "e276feeb5849ba8af4c41e2e429aca21",
+    "step_1_technically_valid_request": true,
+    "step_2_explicit_human_decision_registered": false,
+    "step_3_technically_verified_decision": false,
+    "step_4_instance_activated": false
+  },
+  "decisions_supported": [
+    "APPROVE_PHYSICAL_IDENTITY",
+    "REJECT",
+    "NEEDS_MORE_EVIDENCE"
+  ],
+  "default_mode": "DRY_RUN",
+  "effects": {
+    "app_decisions_changed": 0,
+    "bag_links_created": 0,
+    "costs": null,
+    "decisions_registered": 0,
+    "fi_ids_created": 0,
+    "instance_store_written": false,
+    "instances_created": 0,
+    "photo2_changed": false,
+    "pilot_decisions_changed": 0,
+    "quantities": null,
+    "source_observations_changed": 0
+  },
+  "entered_by_kinds": [
+    "HUMAN_DIRECT",
+    "AI_TRANSCRIPTION_OF_HUMAN_MESSAGE"
+  ],
+  "forbidden_effects": [
+    "create_or_modify_frame_instance",
+    "reserve_instance_id",
+    "merge_observations",
+    "link_bag_pand",
+    "set_dimensions",
+    "change_building_total",
+    "change_unique_count",
+    "set_quantity",
+    "set_cost",
+    "set_maintenance_action",
+    "change_photo2_inventory",
+    "change_app_decision",
+    "change_pilot_decision",
+    "change_source_observation",
+    "activate_repeat_multiplier",
+    "write_instance_store",
+    "create_fi_id",
+    "activate_instance",
+    "write_register_without_confirmation",
+    "overwrite_or_delete_registered_decision",
+    "generate_decision_by_code",
+    "treat_ai_recommendation_as_human_decision"
+  ],
+  "identity_verification_literal": "NONE_SELF_ASSERTED",
+  "input_keys": [
+    "approval_request_id",
+    "request_hash",
+    "candidate_group_id",
+    "decision",
+    "covers_levels",
+    "decision_source",
+    "decided_by",
+    "decision_provenance",
+    "decision_timestamp",
+    "acknowledged_open_app_ids",
+    "acknowledged_open_relations",
+    "evidence_reviewed",
+    "reviewer_notes",
+    "record_version"
+  ],
+  "ladder": [
+    {
+      "meaning": "De aanvraag slaagt voor C1-C11 (READY_FOR_HUMAN_REVIEW). Geen oordeel over de identiteit.",
+      "step": "1_TECHNICALLY_VALID_REQUEST"
+    },
+    {
+      "meaning": "Een mens heeft apart en expliciet gekozen (invoerbestand/chatbericht). Dit is bewijs-op-gezag, geen verificatie.",
+      "step": "2_EXPLICIT_HUMAN_DECISION"
+    },
+    {
+      "meaning": "Het besluit is door `verify_human_approval` en de registerregels gecontroleerd en append-only vastgelegd.",
+      "step": "3_TECHNICALLY_VERIFIED_DECISION"
+    },
+    {
+      "meaning": "Bestaat niet in dit register of deze module; vereist een apart, later door de gebruiker geautoriseerd activatieproces.",
+      "step": "4_ACTIVATED_PHYSICAL_INSTANCE"
+    }
+  ],
+  "later_registration_action": [
+    "De gebruiker levert zelf (of bevestigt in een apart bericht) één besluit over IAR-OIC-VR-027 met de actuele request_hash.",
+    "Een thread zet dat letterlijk in een invoerbestand (entered_by_kind AI_TRANSCRIPTION_OF_HUMAN_MESSAGE, bronbericht-ID en letterlijke tekst) of de gebruiker vult het zelf in.",
+    "Eerst `python scripts/human_instance_decision_register.py check --decision <bestand>` (DRY_RUN) en het resultaat tonen.",
+    "Pas na een tweede, expliciete opdracht van de gebruiker: `... register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER` in een eigen PR.",
+    "Activatie van een instance blijft een nog later, apart door de gebruiker geautoriseerd proces."
+  ],
+  "provenance_keys": [
+    "channel",
+    "entered_by_kind",
+    "source_message_ref",
+    "source_message_text",
+    "identity_verification",
+    "ai_authored_decision"
+  ],
+  "records_registered": 0,
+  "register_file": "data/instance_decisions/human_instance_decision_register_v1.jsonl",
+  "register_head": "0000000000000000000000000000000000000000000000000000000000000000",
+  "register_version": "human_instance_decision_register_v1",
+  "request": {
+    "approval_request_id": "IAR-OIC-VR-027",
+    "approval_status": "READY_FOR_HUMAN_REVIEW",
+    "candidate_group_id": "OIC-VR-027",
+    "observation_ids": [
+      "OBS-MAP003-011",
+      "OBS-MAP004-006"
+    ],
+    "open_related_relations": [
+      "VR-045"
+    ],
+    "related_app_decisions": [
+      {
+        "app_id": "APP-001",
+        "kind": "PLATE_RULE_LEVEL_B",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Plaatregel: een plaat bewijst alleen de muur"
+      },
+      {
+        "app_id": "APP-002",
+        "kind": "PLATE_AND_PAND_LINK_LEVEL_B",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Plaatlezing en pandkoppeling MAP-003"
+      },
+      {
+        "app_id": "APP-003",
+        "kind": "PLATE_AND_PAND_LINK_LEVEL_B",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Plaatlezing en pandkoppeling MAP-004"
+      },
+      {
+        "app_id": "APP-006",
+        "kind": "PLATE_AND_PAND_LINK_LEVEL_B",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Plaatlezing en pandkoppeling MAP-009"
+      },
+      {
+        "app_id": "APP-011",
+        "kind": "PHOTO_OVERLAP_QUESTION",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Overlap SOC-001"
+      },
+      {
+        "app_id": "APP-012",
+        "kind": "PHOTO_OVERLAP_QUESTION",
+        "relevance": "DIRECT",
+        "status": "OPEN",
+        "subject": "Overlap SOC-002"
+      },
+      {
+        "app_id": "APP-013",
+        "kind": "PHOTO_OVERLAP_QUESTION",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Overlap SOC-003"
+      },
+      {
+        "app_id": "APP-018",
+        "kind": "PHOTO_OVERLAP_QUESTION",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Overlap SOC-008"
+      },
+      {
+        "app_id": "APP-025",
+        "kind": "PHOTO_OVERLAP_QUESTION",
+        "relevance": "DIRECT",
+        "status": "OPEN",
+        "subject": "Overlap SOC-015"
+      },
+      {
+        "app_id": "APP-029",
+        "kind": "COUNTING_RULE",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Telregel en samengestelde kozijnen hergebruiken"
+      },
+      {
+        "app_id": "APP-030",
+        "kind": "COUNTING_RULE",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Zichtbaarheid FULL/PARTIAL"
+      },
+      {
+        "app_id": "APP-031",
+        "kind": "OTHER",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Overlapzone met bevroren foto 2"
+      },
+      {
+        "app_id": "APP-034",
+        "kind": "PHOTO_SUITABILITY",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Geschiktheid als annotatiebron MAP-003"
+      },
+      {
+        "app_id": "APP-035",
+        "kind": "PHOTO_SUITABILITY",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Geschiktheid als annotatiebron MAP-004"
+      },
+      {
+        "app_id": "APP-039",
+        "kind": "PHOTO_SUITABILITY",
+        "relevance": "INDIRECT",
+        "status": "OPEN",
+        "subject": "Geschiktheid als annotatiebron MAP-009"
+      }
+    ],
+    "request_hash": "e276feeb5849ba8af4c41e2e429aca21",
+    "required_human_decisions": [
+      "Besluit over VR-045 (RV-REL-VR-045), of expliciete erkenning dat het open blijft",
+      "APP-012: antwoorden of expliciet laten openstaan (verplicht te erkennen in het instance-besluit)",
+      "APP-025: antwoorden of expliciet laten openstaan (verplicht te erkennen in het instance-besluit)"
+    ],
+    "superseded_request_hashes": [
+      "aa556297be5d6713d298a06fa40492b8",
+      "34c61b5e5f274764e86491a838502ede"
+    ],
+    "technical_verdict": "SUITABLE_FOR_HUMAN_REVIEW"
+  },
+  "schema_file": "schemas/human_instance_decision.schema.json",
+  "status": "REGISTER_FRAMEWORK_ONLY_EMPTY_REGISTER_NO_DECISION_NO_ACTIVATION",
+  "stored_keys": [
+    "approval_request_id",
+    "request_hash",
+    "candidate_group_id",
+    "decision",
+    "covers_levels",
+    "decision_source",
+    "decided_by",
+    "decision_provenance",
+    "decision_timestamp",
+    "acknowledged_open_app_ids",
+    "acknowledged_open_relations",
+    "evidence_reviewed",
+    "reviewer_notes",
+    "record_version",
+    "decision_id",
+    "sequence",
+    "previous_record_hash",
+    "record_hash",
+    "register_version"
+  ],
+  "template": {
+    "acknowledged_open_app_ids": [],
+    "acknowledged_open_relations": [],
+    "approval_request_id": "IAR-OIC-VR-027",
+    "candidate_group_id": "OIC-VR-027",
+    "covers_levels": [],
+    "decided_by": "",
+    "decision": "",
+    "decision_provenance": {
+      "ai_authored_decision": null,
+      "channel": "",
+      "entered_by_kind": "",
+      "identity_verification": "",
+      "source_message_ref": "",
+      "source_message_text": ""
+    },
+    "decision_source": "",
+    "decision_timestamp": "",
+    "evidence_reviewed": [],
+    "record_version": 1,
+    "request_hash": "e276feeb5849ba8af4c41e2e429aca21",
+    "reviewer_notes": ""
+  },
+  "template_dry_run": {
+    "reasons": [
+      "ONBEKEND_BESLUIT (toegestaan: APPROVE_PHYSICAL_IDENTITY, REJECT, NEEDS_MORE_EVIDENCE)",
+      "BESLUIT_DEKT_MEER_DAN_NIVEAU_A_OF_GEEN_NIVEAU",
+      "HERKOMST_NIET_MENSELIJK (decision_source)",
+      "BESLISSER_NIET_MENSELIJK",
+      "KANAAL_ONBEKEND (toegestaan: CLAUDE_CODE_CHAT, CHATGPT_CONVERSATION, HTML_FORM_EXPORT, FILE_EDITED_BY_HUMAN)",
+      "INVOERWIJZE_ONBEKEND (toegestaan: HUMAN_DIRECT, AI_TRANSCRIPTION_OF_HUMAN_MESSAGE)",
+      "IDENTITEITSVERIFICATIE_MOET_EERLIJK_NONE_SELF_ASSERTED_ZIJN",
+      "AI_OPGESTELD_BESLUIT_TELT_NIET_ALS_MENSELIJK",
+      "BRONBERICHT_VERWIJZING_ONTBREEKT",
+      "LETTERLIJKE_MENSELIJKE_VERKLARING_ONTBREEKT_OF_TE_KORT",
+      "TIJDSTIP_ONGELDIG (ISO 8601 met tijdzone)"
+    ],
+    "status": "VALIDATION_FAILED"
+  }
+}
