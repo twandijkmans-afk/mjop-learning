@@ -3,3 +3,9 @@ __pycache__/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Photo Reviewer: uitvoer van demo/evaluatie hoort buiten de repository (scripts/photo_reviewer_demo.py weigert paden binnen de repo);
+# dit is een extra vangnet tegen per ongeluk committen van runresultaten, ruwe responsen of foto's.
+photo_reviewer_runs/
+photo_reviewer_out/
+*.raw_response.json

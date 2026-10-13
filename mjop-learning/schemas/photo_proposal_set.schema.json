@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "photo_proposal_set.schema.json",
+  "title": "PhotoProposalSet",
+  "description": "Voorstelset van de Photo Reviewer voor EEN foto (docs/photo_reviewer_poc_v1.md). Elke regel is een door een model (of een geimporteerde handmatige annotatie) VOORGESTELDE waarneming op niveau 1 (zichtbare observatie). Het is nooit een instance (FI-*), nooit een telling in een totaal, nooit een pandkoppeling en nooit een besluit. Een eigen, nieuwe voorstelsoort naast de bestaande OBS-/PCD-/FI-records; bestaande velden veranderen niet van betekenis.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "set_id", "photo", "provider", "policy", "proposals", "hidden_element_hypotheses"],
+  "properties": {
+    "contract_version": {"const": "photo_proposal_set_v1"},
+    "set_id": {"type": "string", "pattern": "^PPS-[0-9a-f]{16}$", "description": "Content-addressed: PPS- + eerste 16 hex van sha256(canonieke JSON zonder set_id)."},
+    "photo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["photo_id", "source_sha256", "derivative_sha256", "width_px", "height_px", "derivative_transform"],
+      "properties": {
+        "photo_id": {"type": "string", "pattern": "^[A-Za-z0-9_.-]{1,64}$"},
+        "source_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "SHA256 van het ONGEWIJZIGDE origineel (zoals in het fotoregister)."},
+        "derivative_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "SHA256 van de afgeleide kopie die daadwerkelijk is geanalyseerd."},
+        "width_px": {"type": "integer", "minimum": 1},
+        "height_px": {"type": "integer", "minimum": 1},
+        "derivative_transform": {"type": "array", "uniqueItems": true, "items": {"enum": ["NONE", "EXIF_ORIENTATION_APPLIED", "DOWNSCALED", "EXIF_STRIPPED", "REDACTED", "SYNTHETIC", "MOCK_NO_IMAGE"]}}
+      }
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["adapter_id", "adapter_version", "provider_name", "model_served", "consent_ref", "response_sha256", "prompt_id"],
+      "properties": {
+        "adapter_id": {"type": "string", "minLength": 1},
+        "adapter_version": {"type": "string", "minLength": 1},
+        "provider_name": {"enum": ["replay", "human_import", "anthropic", "null_provider"]},
+        "model_served": {"type": ["string", "null"], "description": "Alleen gevuld bij een echte providercall; wat de provider teruggaf."},
+        "consent_ref": {"type": ["string", "null"], "pattern": "^PCON-[0-9]{5}$", "description": "Verplicht bij provider_name = anthropic (door de verifier afgedwongen)."},
+        "response_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "Hash van het ruwe, bewaarde providerantwoord."},
+        "prompt_id": {"type": ["string", "null"]}
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count_basis", "is_building_total"],
+      "properties": {
+        "count_basis": {"const": "PHOTO_VISIBLE_ONLY"},
+        "is_building_total": {"const": false}
+      }
+    },
+    "proposals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observation_id", "element_type", "bbox_norm", "visibility", "visible_quantity", "uncertainties", "observation", "review_status", "human_decision", "is_instance", "counts_in_any_total", "bag_pand_id"],
+        "properties": {
+          "observation_id": {"type": "string", "pattern": "^PO-[0-9]{3}$"},
+          "element_type": {"enum": ["WINDOW_OPENING", "EXTERIOR_DOOR", "BALCONY_DOOR", "BALCONY_STRUCTURE", "BALCONY_RAILING", "ROOF_WINDOW", "DORMER_OPENING", "UNKNOWN_OPENING"]},
+          "bbox_norm": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0, "maximum": 1}, "description": "[x1,y1,x2,y2] genormaliseerd 0..1 over het ORIGINELE beeld; oorsprong linksboven (conventie van maldenhof_2_frame_annotation_v1). Verifier: x1<x2, y1<y2, minimale zijde."},
+          "visibility": {"enum": ["FULL", "PARTIAL", "OCCLUDED"]},
+          "visible_quantity": {"const": 1, "description": "Telsemantiek: een fysieke kozijnopening blijft 1 opening, ook met meerdere vaste of draaiende delen."},
+          "parts_visible": {"type": "integer", "minimum": 1, "description": "Informatief: aantal zichtbare vaste/draaiende delen binnen deze ene opening. Telt NOOIT mee."},
+          "uncertainties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["code", "level"],
+              "properties": {
+                "code": {"enum": ["OCCLUDED_BY_OBJECT", "OCCLUDED_BY_VEGETATION", "OBLIQUE_ANGLE", "LOW_RESOLUTION", "BACKLIT", "CROPPED_AT_EDGE", "AMBIGUOUS_COUNTING_UNIT", "AMBIGUOUS_TYPE", "REFLECTION_OR_GLARE", "OTHER"]},
+                "level": {"enum": ["LOW", "MEDIUM", "HIGH"]},
+                "note": {"type": "string", "maxLength": 120}
+              }
+            }
+          },
+          "observation": {"type": "string", "minLength": 1, "maxLength": 200, "description": "Beschrijving van wat zichtbaar is; geen personen, geen eigendommen, geen gebreken of kosten."},
+          "review_status": {"const": "PROPOSED"},
+          "human_decision": {"type": "null"},
+          "is_instance": {"const": false},
+          "counts_in_any_total": {"const": false},
+          "bag_pand_id": {"type": "null"}
+        }
+      }
+    },
+    "hidden_element_hypotheses": {
+      "type": "array",
+      "description": "Verborgen of niet zichtbare elementen: hypothese, nooit een waarneming of telling.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["hypothesis_id", "element_type", "reason", "visible_quantity", "counts_in_any_total", "hypothesis_only"],
+        "properties": {
+          "hypothesis_id": {"type": "string", "pattern": "^PH-[0-9]{3}$"},
+          "element_type": {"enum": ["WINDOW_OPENING", "EXTERIOR_DOOR", "BALCONY_DOOR", "BALCONY_STRUCTURE", "BALCONY_RAILING", "ROOF_WINDOW", "DORMER_OPENING", "UNKNOWN_OPENING"]},
+          "region_hint": {"type": "array", "minItems": 4, "maxItems": 4, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+          "reason": {"type": "string", "minLength": 1, "maxLength": 200},
+          "visible_quantity": {"type": "null"},
+          "counts_in_any_total": {"const": false},
+          "hypothesis_only": {"const": true}
+        }
+      }
+    }
+  }
+}

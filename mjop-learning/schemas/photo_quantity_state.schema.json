@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "photo_quantity_state.schema.json",
+  "title": "PhotoQuantityState",
+  "description": "Afzonderlijk hoeveelhedencontract naast de foto-observaties (docs/photo_reviewer_poc_v1.md). Bevat (1) PHOTO_VISIBLE-aantallen en (2) bruto kozijnoppervlakte per type, deterministisch berekend uit een geverifieerde voorstelset en gevalideerde maten. Het is een VOORSTEL: geen instance, geen gebouwtotaal, geen onderhoudshoeveelheid, geen schilderoppervlak, geen koppeling aan kengetallen of prijzen. Bruto m2 = buitenbreedte x buitenhoogte x aantal (glas en vaste/draaiende delen binnen de buitenmaat).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "state_id", "review_status", "photo_id", "proposal_set_ref", "dimension_input_sha256", "area_method", "photo_visible_counts", "groups", "totals", "building_total", "invariants"],
+  "properties": {
+    "contract_version": {"const": "photo_quantity_state_v1"},
+    "state_id": {"type": "string", "pattern": "^PQS-[0-9a-f]{16}$"},
+    "review_status": {"const": "PROPOSED"},
+    "photo_id": {"type": "string"},
+    "proposal_set_ref": {
+      "type": "object", "additionalProperties": false, "required": ["set_id", "set_sha256"],
+      "properties": {"set_id": {"type": "string", "pattern": "^PPS-[0-9a-f]{16}$"}, "set_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+    },
+    "dimension_input_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "area_method": {
+      "type": "object", "additionalProperties": false, "required": ["method_id", "formula", "includes_glass", "includes_movable_parts_within_outer_dimensions", "movable_parts_added_separately", "dimension_basis", "decimal_places"],
+      "properties": {
+        "method_id": {"const": "GROSS_FRAME_AREA_OUTER_V1"},
+        "formula": {"const": "outer_width_m * outer_height_m * count_full"},
+        "includes_glass": {"const": true},
+        "includes_movable_parts_within_outer_dimensions": {"const": true},
+        "movable_parts_added_separately": {"const": false},
+        "dimension_basis": {"const": "OUTER_FRAME"},
+        "decimal_places": {"const": 2}
+      }
+    },
+    "photo_visible_counts": {
+      "type": "object", "additionalProperties": false, "required": ["count_basis", "is_building_total", "by_type"],
+      "properties": {
+        "count_basis": {"const": "PHOTO_VISIBLE_ONLY"},
+        "is_building_total": {"const": false},
+        "by_type": {
+          "type": "object",
+          "propertyNames": {"enum": ["WINDOW_OPENING", "EXTERIOR_DOOR", "BALCONY_DOOR", "BALCONY_STRUCTURE", "BALCONY_RAILING", "ROOF_WINDOW", "DORMER_OPENING", "UNKNOWN_OPENING"]},
+          "additionalProperties": {
+            "type": "object", "additionalProperties": false, "required": ["counts_toward_frame_counts", "full", "partial", "occluded"],
+            "properties": {"counts_toward_frame_counts": {"type": "boolean"}, "full": {"type": "integer", "minimum": 0}, "partial": {"type": "integer", "minimum": 0}, "occluded": {"type": "integer", "minimum": 0}}
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["group_key", "element_type", "dimension_ref_id", "observation_ids_full", "observation_ids_partial_excluded", "observation_ids_occluded_excluded", "count_full", "outer_width_m", "outer_height_m", "gross_area_m2", "gross_area_m2_exact", "area_status", "partial_treated_as_fully_measured"],
+        "properties": {
+          "group_key": {"type": "string"},
+          "element_type": {"enum": ["WINDOW_OPENING", "EXTERIOR_DOOR", "BALCONY_DOOR"]},
+          "dimension_ref_id": {"type": ["string", "null"]},
+          "observation_ids_full": {"type": "array", "items": {"type": "string"}},
+          "observation_ids_partial_excluded": {"type": "array", "items": {"type": "string"}},
+          "observation_ids_occluded_excluded": {"type": "array", "items": {"type": "string"}},
+          "count_full": {"type": "integer", "minimum": 0},
+          "outer_width_m": {"type": ["string", "null"]},
+          "outer_height_m": {"type": ["string", "null"]},
+          "gross_area_m2": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{2}$"},
+          "gross_area_m2_exact": {"type": ["string", "null"]},
+          "area_status": {"enum": ["COMPUTED", "NULL_NO_TYPE_ASSIGNMENT", "NULL_NO_DIMENSION_REFERENCE", "NULL_INVALID_DIMENSIONS", "NULL_ELEMENT_TYPE_MISMATCH", "NULL_NO_FULL_MEMBERS"]},
+          "partial_treated_as_fully_measured": {"const": false}
+        },
+        "allOf": [
+          {"if": {"properties": {"area_status": {"const": "COMPUTED"}}}, "then": {"properties": {"gross_area_m2": {"type": "string"}, "gross_area_m2_exact": {"type": "string"}, "outer_width_m": {"type": "string"}, "outer_height_m": {"type": "string"}}}, "else": {"properties": {"gross_area_m2": {"type": "null"}, "gross_area_m2_exact": {"type": "null"}}}}
+        ]
+      }
+    },
+    "totals": {
+      "type": "object", "additionalProperties": false, "required": ["photo_visible_full_gross_area_m2", "known_groups_subtotal_m2", "complete_for_photo_visible_full", "groups_missing_area"],
+      "properties": {
+        "photo_visible_full_gross_area_m2": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{2}$", "description": "Alleen gevuld als ELKE volledig zichtbare opening in een groep met berekende oppervlakte valt; anders null."},
+        "known_groups_subtotal_m2": {"type": ["string", "null"], "pattern": "^[0-9]+\\.[0-9]{2}$", "description": "Informatief; geen totaal."},
+        "complete_for_photo_visible_full": {"type": "boolean"},
+        "groups_missing_area": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "building_total": {
+      "type": "object", "additionalProperties": false, "required": ["status", "value"],
+      "properties": {"status": {"const": "UNKNOWN"}, "value": {"type": "null"}}
+    },
+    "invariants": {
+      "type": "object", "additionalProperties": false,
+      "required": ["is_instance", "counts_in_any_total", "is_building_total", "is_maintenance_quantity", "painting_area_m2", "kengetal_link", "price_link"],
+      "properties": {
+        "is_instance": {"const": false}, "counts_in_any_total": {"const": false}, "is_building_total": {"const": false},
+        "is_maintenance_quantity": {"const": false}, "painting_area_m2": {"type": "null"}, "kengetal_link": {"type": "null"}, "price_link": {"type": "null"}
+      }
+    }
+  }
+}

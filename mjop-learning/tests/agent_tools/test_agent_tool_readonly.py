@@ -26,7 +26,10 @@ WRITE_ATTRS = {"write", "writelines", "write_text", "write_bytes", "replace", "r
 
 def agent_files():
     out = []
-    for d, _, files in os.walk(AGENT_DIR):
+    for d, dirs, files in os.walk(AGENT_DIR):
+        # agent/photo/ is het afzonderlijke Photo Reviewer-pakket met eigen tests (tests/photo_reviewer/);
+        # deze tests bewaken uitsluitend het kengetallen-agentpakket.
+        dirs[:] = [x for x in dirs if x not in ("photo", "__pycache__")]
         out += [os.path.join(d, f) for f in files if f.endswith(".py")]
     return sorted(out)
 
