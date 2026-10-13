@@ -60,8 +60,9 @@ def render_md(rep):
           "6. Bestaande besluiten op duplicaten en conflicten controleren. 7. Alleen het besluit append-only toevoegen. 8. Resultaat rapporteren zonder iets anders te wijzigen.", "",
           "| Status | Betekenis |", "|---|---|",
           "| `DRY_RUN` (standaard) | Alles gevalideerd, **niets geschreven**. |", "| `VALIDATION_FAILED` | Minstens één voorwaarde faalt; niets geschreven; redenen genoemd. |",
-          "| `REGISTERED` | Alleen met `mode=REGISTER` **en** de bevestigingstoken; één record toegevoegd. |", "",
-          f"Echte registratie vraagt een afzonderlijke handeling (`register --decision <bestand> --confirm {rep['confirm_token']}`). Er bestaat geen codepad dat zelf een besluit "
+          "| `REGISTERED` | **Niet mogelijk op het canonieke register** (zie hieronder); alleen de schrijfmechaniek op tijdelijke testbestanden. |", "",
+          f"**Registratie is gesloten** (`{rep['registration_status']}`): `register()` en `register --decision …` stoppen op het canonieke register altijd, ongeacht token, invoer, omgeving of configuratie. "
+          "v1 kent alleen zelf opgegeven herkomst (`NONE_SELF_ASSERTED`) en kan dus geen definitief menselijk besluit vastleggen. Er bestaat geen codepad dat zelf een besluit "
           "genereert, goedkeurt of een instance activeert.", "", "## 3. Autorisatievoorwaarden", ""]
     L += ["- " + x for x in ["De actuele aanvraag is live opnieuw opgebouwd en slaagt (READY_FOR_HUMAN_REVIEW).", "De `request_hash` komt exact overeen; een vervangen of gewijzigde hash faalt.",
                              "Een expliciete keuze uit de drie toegestane besluiten.", "Herkomst: menselijke bron, niet-AI-beslisser, kanaal en invoerwijze benoemd, `ai_authored_decision=false`, "
