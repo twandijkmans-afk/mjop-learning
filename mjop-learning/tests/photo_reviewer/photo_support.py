@@ -7,6 +7,7 @@ import os
 from agent.photo.contract import PROJECT_ROOT
 from agent.photo.providers import ReplayProvider, VisionRequest, build_proposal_set
 
+AUTH_KEY = "test-only-human-approver-key-0123456789abcdef"
 FIX = os.path.join(PROJECT_ROOT, "tests", "fixtures", "photo_reviewer")
 
 

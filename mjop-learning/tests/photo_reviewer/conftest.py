@@ -22,11 +22,9 @@ def no_network(monkeypatch):
     monkeypatch.delenv("MJOP_PHOTO_EXTERNAL_CONSENT_ID", raising=False)
 
 
-AUTH_KEY = "test-only-human-approver-key-0123456789abcdef"
-
-
 @pytest.fixture
 def approved_gate(monkeypatch, tmp_path):
+    from photo_support import AUTH_KEY
     """Alleen voor tests: provider tijdelijk APPROVED, sleutel en tweede sleutel gezet, tijdelijk grootboek buiten de repository.
     Geeft het grootboek terug. In productie staat de provider op NOT_APPROVED."""
     import vision_budget_ledger as L

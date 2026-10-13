@@ -15,9 +15,9 @@ import pytest
 from agent.photo import providers as P
 from agent.photo import safety_gate as G
 from agent.photo.contract import PROJECT_ROOT, sha256_bytes
-from conftest import AUTH_KEY
 
 import photo_support as S
+from photo_support import AUTH_KEY
 from test_providers import FakeClient, GOOD_TEXT, cfg, consent, signed
 
 import vision_budget_ledger as L

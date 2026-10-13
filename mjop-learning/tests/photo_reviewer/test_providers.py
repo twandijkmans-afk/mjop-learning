@@ -29,7 +29,7 @@ def consent(**over):
 
 
 def signed(**over):
-    from conftest import AUTH_KEY
+    from photo_support import AUTH_KEY
     from agent.photo.safety_gate import sign_consent
     return sign_consent(consent(**over), AUTH_KEY)
 
