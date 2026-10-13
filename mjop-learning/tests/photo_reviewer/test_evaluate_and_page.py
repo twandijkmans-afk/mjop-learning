@@ -65,6 +65,9 @@ def test_maldenhof_reference_never_used_as_model_input():
     for name in os.listdir(os.path.join(PROJECT_ROOT, "agent", "photo")):
         if name.endswith(".py") and name != "evaluate.py":
             text = open(os.path.join(PROJECT_ROOT, "agent", "photo", name), encoding="utf-8").read()
+            if name == "safety_gate.py":                                  # decodeert uitsluitend bytes in het geheugen, nooit een pad
+                assert text.count("Image.open") == text.count("Image.open(io.BytesIO("), "safety_gate.py: Image.open alleen op in-memory bytes"
+                text = text.replace("Image.open(io.BytesIO(", "")
             for needle in ("data/photos", "data/photo_evidence", "data/frame_inventory", ".jpg", ".jpeg", "Image.open"):
                 assert needle not in text, f"{name}: {needle}"
     ev_text = open(os.path.join(PROJECT_ROOT, "agent", "photo", "evaluate.py"), encoding="utf-8").read()

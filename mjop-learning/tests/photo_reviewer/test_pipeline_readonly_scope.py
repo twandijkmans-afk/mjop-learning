@@ -17,7 +17,7 @@ import photo_support as S
 
 PKG = os.path.join(PROJECT_ROOT, "agent", "photo")
 ALLOWED_IMPORTS = {"abc", "base64", "copy", "dataclasses", "datetime", "decimal", "collections", "hashlib", "html", "io", "json", "math",
-                   "os", "re", "jsonschema", "PIL", "agent", "anthropic"}
+                   "os", "re", "jsonschema", "PIL", "agent", "anthropic", "hmac", "struct", "zlib"}   # hmac/struct/zlib: veiligheidspoort
 FORBIDDEN_BARE = {"eval", "exec", "compile", "__import__"}
 FORBIDDEN_CALLS = {"system", "popen", "Popen", "run", "check_call", "check_output", "urlopen",
                    "urlretrieve", "connect", "write", "writelines", "write_text", "write_bytes", "rename", "remove", "unlink",
