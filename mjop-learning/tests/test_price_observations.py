@@ -436,13 +436,19 @@ def test_observation_validates_against_schema():
 def test_full_build_on_batch1_sources():
     result = bpo.build(PROJECT_ROOT, PDFTOTEXT)
     per_doc = result["checks"]["per_document"]
+    # Documentselectie = reports/document_inventory.json (sinds de promotie van Testbatch 01 ook DOC-011/012/013/015).
+    # DOC-011/012/013 zijn pdf's (46/48/29 observations, gelijk aan de canonieke observations uit de incoming
+    # staging). DOC-015 is een spreadsheet: deze pdf-builder parst dat niet (0, zoals DOC-003); de 18 observations
+    # van DOC-015 komen uit scripts/spreadsheet_extraction.py (incoming-route), niet uit build().
     expected = {"DOC-001": 31, "DOC-002": 75, "DOC-003": 0, "DOC-004": 58, "DOC-005": 20, "DOC-006": 20,
-                "DOC-007": 56, "DOC-008": 22, "DOC-009": 85, "DOC-010": 37}
+                "DOC-007": 56, "DOC-008": 22, "DOC-009": 85, "DOC-010": 37,
+                "DOC-011": 46, "DOC-012": 48, "DOC-013": 29, "DOC-015": 0}
     assert {d: c["observations"] for d, c in per_doc.items()} == expected
     totals = result["checks"]["totals"]
-    assert totals["total_scope"] == {"ONE_EXECUTION": 308, "MULTIPLE_EXECUTIONS": 96}
-    assert totals["cycle_length_blank_in_source"] == 105
-    assert totals["price_level_basis"] == {"explicit": 351, "absent": 53}
+    # Totalen = oude batch-1-waarden (DOC-001..010: 308/96, 105, 351/53) + DOC-011..013 (105/18, 38, 77/46).
+    assert totals["total_scope"] == {"ONE_EXECUTION": 413, "MULTIPLE_EXECUTIONS": 114}
+    assert totals["cycle_length_blank_in_source"] == 143
+    assert totals["price_level_basis"] == {"explicit": 428, "absent": 99}
     # som van de observation-totalen sluit op het eigen 'Totaal object' (afronding)
     for d, c in per_doc.items():
         if c.get("totaal_object_difference") is not None:
