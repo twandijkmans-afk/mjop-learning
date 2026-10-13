@@ -34,7 +34,7 @@ BLOCKER: 0. MAJOR: 0. MINOR: 2. INFORMATIONAL: 3.
 - MINOR-2: de browsertests vereisen Playwright en Chromium, die niet in `requirements-pipeline.txt` staan; zonder die tools worden ze overgeslagen. Gevolg: lokale/CI-run zonder Playwright toetst de HTML niet.
 - INFO-1: OBS-MAP003-009 blijft UNDECIDABLE terwijl HQ-VR-001 (hetzelfde element) CONFIRM is. Geen tegenspraak: 009 gaat over wat MAP-003 zelf toont, HQ-VR-001 over de regel op basis van MAP-002/013 en foto 2.
 - INFO-2: correctievoorstel CORR-OBS-MAP003-009-VIS-001 (FULL → PARTIAL) klopt met de bronbbox (783–842, grenst exact aan 010) en de definitie van FULL; bronobservatie is ongewijzigd; geen effect op totalen of photo-2 (FC-M2-006-A blijft FULL). Status PROPOSED_NOT_APPLIED; vereist afzonderlijke menselijke goedkeuring.
-- INFO-3: de PR voegt ca. 15 MB beelden en een 9,2 MB HTML toe.
+- INFO-3: de PR voegt ca. 5,8 MB beelden en een 9,2 MB HTML toe.
 
 Security/integriteit HTML: import valideert het hele bestand voordat iets verandert; ongeldige of gemanipuleerde bestanden worden volledig afgewezen (onbekende en dubbele ID's, verkeerde versie/hash/type, `__proto__`/`constructor` als ID of sleutel, ongeldige keuze of bron, voorstel als menselijk besluit). Opmerkingen worden alleen als tekst of `value` gezet; geen `eval`, `document.write` of onveilige `innerHTML`. Een HTML-injectie in een opmerking voert niets uit. Er is geen automatische goedkeuring; een deelexport bewaart de andere punten.
 
