@@ -23,6 +23,7 @@ BASE = ROOT / "reports/frames/photo_review_map003_map004_v1"
 REVIEW_JSON = BASE / "maldenhof_visual_photo_review_map003_map004_v1.json"
 QUALITY_JSON = BASE / "maldenhof_p1_visual_quality_review_v1.json"
 EVIDENCE_JSON = BASE / "p1_quality_review/p1_feature_match_evidence_v1.json"
+ARCHIVE_JSON = ROOT / "reports/frames/photo_archive_audit_v1/maldenhof_photo_archive_audit_v1.json"
 REGISTER_JSON = BASE / "pilot_decisions/maldenhof_pilot_decision_register_v1.json"
 OUT_JSON = ROOT / "reports/frames/physical_object_identity_pilot_v1.json"
 OUT_MD = ROOT / "reports/frames/physical_object_identity_pilot_v1.md"
@@ -32,6 +33,7 @@ STATUSES = ("CANDIDATE", "SUPPORTED_CANDIDATE", "UNRESOLVED", "REJECTED")
 ANCHORS = {"UNIQUE_CONFIGURATION", "PLATE_ANCHOR"}   # onderscheidend bewijs; vorm/kleur/indeling is dat niet
 SIMILARITY_ONLY = {"SAME_LAYOUT", "FEATURE_MATCH", "SEQUENCE_ORDER", "PARTIAL_OVERLAP", "OBLIQUE_VIEW", "FACADE_CONTEXT"}
 BLOCKING_BASIS = {"REPETITION_RISK", "HIDDEN", "TOO_DARK"}
+HUMAN_SOURCES = {"HUMAN_CHAT_CONFIRMATION", "HUMAN"}   # alleen een geregistreerd menselijk besluit telt; nooit een voorstel van Claude
 
 CONCEPTS = [
     ("PHOTO_OBSERVATION", "OBS-*", "Wat in één foto zichtbaar is. Buiten de instance-store, telt nergens."),
@@ -99,6 +101,7 @@ def load_context():
         "decisions": {d["review_id"]: d for d in register["decisions"]},
         "pack": {i["review_id"]: i for i in pack["items"]},
         "photo_sha": {s["photo_id"]: s["sha256_register"] for s in review["sources"]},
+        "archive_sha": {p["photo_id"]: p["sha256"] for p in _load(ARCHIVE_JSON)["photos"]},   # onafhankelijk register van de 36 originelen
         "register_provenance": register["approval"],
     }
 
@@ -117,6 +120,9 @@ def evaluate_relation(ctx, rid, decision_override=None):
     reasons = []
     if item is None or qual is None:
         return _result("REJECTED", rid, ["ONTBREKENDE_BRONVERWIJZING_PACK_OF_KWALITEITSREVIEW"])
+    expected_type = "FACADE_SECTION" if rel["class"] == "SAME_FACADE_SECTION" else "PHYSICAL_OBJECT"
+    if item["relation_semantics"]["relation_type"] != expected_type:
+        return _result("REJECTED", rid, ["RELATIETYPE_INCONSISTENT tussen review-JSON en Decision Pack"])
     if item["relation_semantics"]["relation_type"] != "PHYSICAL_OBJECT":
         return _result("REJECTED", rid, ["GEVELSECTIE_IS_GEEN_FYSIEK_OBJECT: SAME_FACADE_SECTION kan geen objectidentiteit worden"],
                        relation_type=item["relation_semantics"]["relation_type"], human_decision=(ctx["decisions"].get(review_id) or {}).get("decision"))
@@ -127,7 +133,7 @@ def evaluate_relation(ctx, rid, decision_override=None):
         o = ctx["observations"].get(oid)
         if o is None:
             return _result("REJECTED", rid, [f"ONBEKENDE_OBSERVATIE {oid}"])
-        if ctx["photo_sha"].get(o["photo_id"]) != o["source_sha256"]:
+        if ctx["photo_sha"].get(o["photo_id"]) != o["source_sha256"] or ctx["archive_sha"].get(o["photo_id"]) != o["source_sha256"]:
             return _result("REJECTED", rid, [f"BRONHASH_KLOPT_NIET {oid}"])
         obs.append(o)
     if obs[0]["photo_id"] == obs[1]["photo_id"]:
@@ -135,12 +141,24 @@ def evaluate_relation(ctx, rid, decision_override=None):
     if item["ref_hash"] != ctx["decisions"].get(review_id, {}).get("source_ref_hash", item["ref_hash"]):
         return _result("REJECTED", rid, ["BESLUIT_HASH_KLOPT_NIET_MET_PACK"])
     dec = ctx["decisions"].get(review_id)
-    d = decision_override if decision_override is not None else (dec["decision"] if dec else None)
+    invalid = []
+    if decision_override is not None:
+        d = decision_override                       # alleen voor hypothetische controles
+    elif dec is None:
+        d = None
+    elif dec.get("decision") in item["choices"] and (dec.get("provenance") or {}).get("decision_source") in HUMAN_SOURCES \
+            and dec.get("source_ref_hash_validated") is True:
+        d = dec["decision"]
+    else:
+        d = None                                    # ongeldig/niet-menselijk besluit telt nooit als goedkeuring
+        invalid = ["ONGELDIG_OF_NIET_MENSELIJK_BESLUIT_GENEGEERD"]
     basis = set(qual["evidence_basis"])
     strong = qual["evidence_class"] == "STRONG_VISUAL_SUPPORT"
     anchored = bool(basis & ANCHORS)
     blockers = sorted(basis & BLOCKING_BASIS)
     base = {"relation_type": "PHYSICAL_OBJECT", "evidence_class": qual["evidence_class"], "evidence_basis": sorted(basis), "human_decision": d}
+    if invalid:
+        base["decision_problem"] = invalid[0]
     if d == "DIFFERENT":
         return _result("REJECTED", rid, ["MENSELIJK_BESLUIT_DIFFERENT"], **base)
     if d == "UNDECIDABLE":
@@ -156,11 +174,11 @@ def evaluate_relation(ctx, rid, decision_override=None):
         if d == "SAME":
             return {**_result("CANDIDATE", rid, why + ["SAME zonder voldoende bewijs: hooguit kandidaat, nooit SUPPORTED"], **base), "creates_identity_link": True,
                     "_obs": obs, "_decision": dec}
-        return _result("CANDIDATE", rid, why or ["GEEN_MENSELIJK_BESLUIT"], **base)
+        return _result("CANDIDATE", rid, (why or ["GEEN_MENSELIJK_BESLUIT"]) + invalid, **base)
     if d == "SAME":
         return {**_result("SUPPORTED_CANDIDATE", rid, ["MENSELIJK_SAME + STERK BEWIJS + ONDERSCHEIDEND ANKER"], **base), "creates_identity_link": True,
                 "_obs": obs, "_decision": dec}
-    return {**_result("CANDIDATE", rid, ["GEEN_MENSELIJK_BESLUIT: alleen visueel bewijs"], **base), "creates_identity_link": True, "_obs": obs, "_decision": dec}
+    return {**_result("CANDIDATE", rid, ["GEEN_MENSELIJK_BESLUIT: alleen visueel bewijs"] + invalid, **base), "creates_identity_link": True, "_obs": obs, "_decision": None if invalid else dec}
 
 
 UNRESOLVED_VR027 = [

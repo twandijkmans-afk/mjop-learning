@@ -181,3 +181,43 @@ def test_pilot_does_not_modify_its_sources():
     OI.build_report()
     assert before == {p: sha(p) for p in before}
     assert sha(OI.REVIEW_JSON) == "28cccaf2eccfc82aa871b6a66c342043112406fb127d044ddf1f1051703e0719"
+
+
+# --- regressietests uit de onafhankelijke bewijscontrole (concrete tekortkomingen) ---
+
+@pytest.mark.parametrize("mutate", [
+    lambda d: d["provenance"].update(decision_source="CLAUDE_PROPOSAL"),
+    lambda d: d["provenance"].update(decision_source="NONE"),
+    lambda d: d.pop("provenance"),
+    lambda d: d.update(source_ref_hash_validated=False),
+    lambda d: d.update(decision="MAYBE"),
+    lambda d: d.update(decision="CONFIRM"),     # geen geldige keuze voor een overlaprelatie
+])
+def test_invalid_or_non_human_register_decision_is_never_treated_as_approval(mutate):
+    c = ctx_copy()
+    mutate(c["decisions"]["RV-REL-VR-027"])
+    ev = OI.evaluate_relation(c, "VR-027")
+    assert ev["identity_status"] != "SUPPORTED_CANDIDATE"
+    assert ev["identity_status"] == "CANDIDATE" and "ONGELDIG_OF_NIET_MENSELIJK_BESLUIT_GENEGEERD" in ev["reasons"]
+    assert ev["_decision"] is None and OI.to_candidate(c, ev)["decision_refs"] == []
+
+
+def test_source_hash_is_also_checked_against_the_independent_archive_register():
+    c = ctx_copy()
+    c["archive_sha"]["MAP-004"] = "0" * 64
+    ev = OI.evaluate_relation(c, "VR-027")
+    assert ev["identity_status"] == "REJECTED" and any("BRONHASH" in r for r in ev["reasons"])
+    c = ctx_copy()
+    del c["archive_sha"]["MAP-003"]
+    assert not OI.evaluate_relation(c, "VR-027")["creates_identity_link"]
+    assert CTX["archive_sha"]["MAP-003"] == CTX["observations"]["OBS-MAP003-011"]["source_sha256"]
+
+
+def test_relation_type_must_agree_between_review_json_and_decision_pack():
+    c = ctx_copy()
+    c["relations"]["VR-027"]["class"] = "SAME_FACADE_SECTION"        # JSON zegt gevelsectie, pack zegt object
+    ev = OI.evaluate_relation(c, "VR-027")
+    assert ev["identity_status"] == "REJECTED" and any("RELATIETYPE_INCONSISTENT" in r for r in ev["reasons"])
+    c = ctx_copy()
+    c["relations"]["VR-020"]["class"] = "POSSIBLY_SAME_PHYSICAL_FRAME"   # omgekeerd: pack zegt gevelsectie
+    assert not OI.evaluate_relation(c, "VR-020", "SAME")["creates_identity_link"]

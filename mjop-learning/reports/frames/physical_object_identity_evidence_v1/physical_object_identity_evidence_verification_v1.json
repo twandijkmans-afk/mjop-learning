@@ -1,0 +1,660 @@
+{
+  "additional_matches": [
+    {
+      "arguments": [
+        "andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520)",
+        "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie met plakstrook rechts",
+        "positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004",
+        "buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie"
+      ],
+      "file": "P1000236.JPG",
+      "limits": [
+        "zelfde dag (14-08-2026) en tijdelijke kenmerken: onafhankelijk in toestel/hoek, niet in tijd",
+        "geen leesbaar huisnummer bij dit raam; plaat 280 bewijst alleen die muur, niet het pand van het kozijn",
+        "schuin perspectief: feature-match onbruikbaar (8 inliers)"
+      ],
+      "photo_id": "MAP-009",
+      "strength": "STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK"
+    }
+  ],
+  "candidate_group_id": "OIC-VR-027",
+  "conclusion": "AANVULLEND_BEWIJS_GEVONDEN",
+  "contradictions": [],
+  "crops": [
+    {
+      "label": "OBS-MAP003-011 (+ smal raam rechts)",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1150,
+        470,
+        1420,
+        590
+      ],
+      "role": "SOURCE_OBSERVATION"
+    },
+    {
+      "label": "OBS-MAP004-006 (+ smal raam rechts)",
+      "photo_id": "MAP-004",
+      "region_px": [
+        520,
+        465,
+        790,
+        585
+      ],
+      "role": "SOURCE_OBSERVATION"
+    },
+    {
+      "label": "zelfde positie, schuin van links, andere camera",
+      "photo_id": "MAP-009",
+      "region_px": [
+        300,
+        300,
+        1050,
+        800
+      ],
+      "role": "ADDITIONAL_VIEW"
+    },
+    {
+      "label": "zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "photo_id": "MAP-007",
+      "region_px": [
+        650,
+        980,
+        1300,
+        1320
+      ],
+      "role": "COUNTER_EXAMPLE_OTHER_HOUSE"
+    },
+    {
+      "label": "linkerbuur-raam",
+      "photo_id": "MAP-003",
+      "region_px": [
+        300,
+        440,
+        600,
+        580
+      ],
+      "role": "NEIGHBOUR"
+    },
+    {
+      "label": "rechterbuur-raam",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1580,
+        470,
+        1850,
+        590
+      ],
+      "role": "NEIGHBOUR"
+    },
+    {
+      "label": "buur-raam",
+      "photo_id": "MAP-004",
+      "region_px": [
+        980,
+        455,
+        1280,
+        590
+      ],
+      "role": "NEIGHBOUR"
+    }
+  ],
+  "effects": {
+    "bag_links_created": 0,
+    "building_totals": null,
+    "costs": null,
+    "human_decisions_changed": 0,
+    "instances_created": 0,
+    "merges": 0,
+    "new_observations": 0,
+    "oic_changed": false,
+    "quantities": null
+  },
+  "feature_match_note": "SIFT/RANSAC op uitsneden; alleen ondersteunend en hier aantoonbaar niet-identificerend.",
+  "feature_match_pairs": [
+    {
+      "a": "MAP-003:OBS-MAP003-011 (+ smal raam rechts)",
+      "b": "MAP-004:OBS-MAP004-006 (+ smal raam rechts)",
+      "good_matches": 61,
+      "inliers": 29
+    },
+    {
+      "a": "MAP-003:OBS-MAP003-011 (+ smal raam rechts)",
+      "b": "MAP-009:zelfde positie, schuin van links, andere camera",
+      "good_matches": 22,
+      "inliers": 8
+    },
+    {
+      "a": "MAP-003:OBS-MAP003-011 (+ smal raam rechts)",
+      "b": "MAP-007:zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "good_matches": 17,
+      "inliers": 3
+    },
+    {
+      "a": "MAP-003:OBS-MAP003-011 (+ smal raam rechts)",
+      "b": "MAP-003:linkerbuur-raam",
+      "good_matches": 48,
+      "inliers": 8
+    },
+    {
+      "a": "MAP-003:OBS-MAP003-011 (+ smal raam rechts)",
+      "b": "MAP-003:rechterbuur-raam",
+      "good_matches": 27,
+      "inliers": 8
+    },
+    {
+      "a": "MAP-003:OBS-MAP003-011 (+ smal raam rechts)",
+      "b": "MAP-004:buur-raam",
+      "good_matches": 33,
+      "inliers": 5
+    },
+    {
+      "a": "MAP-004:OBS-MAP004-006 (+ smal raam rechts)",
+      "b": "MAP-009:zelfde positie, schuin van links, andere camera",
+      "good_matches": 18,
+      "inliers": 5
+    },
+    {
+      "a": "MAP-004:OBS-MAP004-006 (+ smal raam rechts)",
+      "b": "MAP-007:zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "good_matches": 16,
+      "inliers": 5
+    },
+    {
+      "a": "MAP-004:OBS-MAP004-006 (+ smal raam rechts)",
+      "b": "MAP-003:linkerbuur-raam",
+      "good_matches": 29,
+      "inliers": 14
+    },
+    {
+      "a": "MAP-004:OBS-MAP004-006 (+ smal raam rechts)",
+      "b": "MAP-003:rechterbuur-raam",
+      "good_matches": 20,
+      "inliers": 6
+    },
+    {
+      "a": "MAP-004:OBS-MAP004-006 (+ smal raam rechts)",
+      "b": "MAP-004:buur-raam",
+      "good_matches": 23,
+      "inliers": 8
+    },
+    {
+      "a": "MAP-009:zelfde positie, schuin van links, andere camera",
+      "b": "MAP-007:zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "good_matches": 40,
+      "inliers": 4
+    },
+    {
+      "a": "MAP-009:zelfde positie, schuin van links, andere camera",
+      "b": "MAP-003:linkerbuur-raam",
+      "good_matches": 22,
+      "inliers": 8
+    },
+    {
+      "a": "MAP-009:zelfde positie, schuin van links, andere camera",
+      "b": "MAP-003:rechterbuur-raam",
+      "good_matches": 13,
+      "inliers": 2
+    },
+    {
+      "a": "MAP-009:zelfde positie, schuin van links, andere camera",
+      "b": "MAP-004:buur-raam",
+      "good_matches": 25,
+      "inliers": 7
+    },
+    {
+      "a": "MAP-007:zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "b": "MAP-003:linkerbuur-raam",
+      "good_matches": 60,
+      "inliers": 26
+    },
+    {
+      "a": "MAP-007:zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "b": "MAP-003:rechterbuur-raam",
+      "good_matches": 41,
+      "inliers": 12
+    },
+    {
+      "a": "MAP-007:zelfde raamtype boven een kap met twee dakramen (ander huis)",
+      "b": "MAP-004:buur-raam",
+      "good_matches": 87,
+      "inliers": 54
+    },
+    {
+      "a": "MAP-003:linkerbuur-raam",
+      "b": "MAP-003:rechterbuur-raam",
+      "good_matches": 16,
+      "inliers": 5
+    },
+    {
+      "a": "MAP-003:linkerbuur-raam",
+      "b": "MAP-004:buur-raam",
+      "good_matches": 23,
+      "inliers": 5
+    },
+    {
+      "a": "MAP-003:rechterbuur-raam",
+      "b": "MAP-004:buur-raam",
+      "good_matches": 53,
+      "inliers": 12
+    }
+  ],
+  "features": [
+    {
+      "comment": "Komt op vrijwel elke woning in de rij voor (MAP-003/004/006/007/010).",
+      "feature": "Kozijnindeling: tweedelig raam + los smal raam rechts",
+      "identifying": false
+    },
+    {
+      "comment": "Standaard op de naastgelegen woningen.",
+      "feature": "Rolgordijn-/lamellenkast boven de ruiten",
+      "identifying": false
+    },
+    {
+      "comment": "Beperkt de kandidaten tot één plek in de gevelsectie; bewijst het pand niet.",
+      "feature": "Positie links boven de kap van de wand met plaat 280",
+      "identifying": true
+    },
+    {
+      "comment": "In MAP-003, MAP-004 en MAP-009 herkenbaar; tijdelijk van aard.",
+      "feature": "Witte merktekens (stickers) in het linkervak",
+      "identifying": true
+    },
+    {
+      "comment": "In alle drie de foto's; buurramen hebben rolgordijnen of open vleugels.",
+      "feature": "Gordijn in het middenvak met witte voorwerpen op de vensterbank",
+      "identifying": true
+    },
+    {
+      "comment": "In alle drie de foto's; bij geen enkel onderzocht buurraam gezien.",
+      "feature": "Smal raam rechts met doorschijnende folie en verticale plakstrook",
+      "identifying": true
+    },
+    {
+      "comment": "Niet identificerend: verschillende ramen halen tot 54 inliers, het echte paar via MAP-009 slechts 8.",
+      "feature": "Hoge feature-matchscore",
+      "identifying": false
+    }
+  ],
+  "figure": "physical_object_identity_evidence_v1/EV-window_comparison.jpg",
+  "identity_status_after": "SUPPORTED_CANDIDATE",
+  "identity_status_before": "SUPPORTED_CANDIDATE",
+  "inputs": {
+    "archive_json_sha256": "8d2171fb5c55605af1ff2d93277d5041e4fefd5a3c3f02453989fdc747ec344b",
+    "oic_json_sha256": "88cb87d908a97166c63d0bbeec40a61f3bd3c39c19f390de80e2089da4dcf139"
+  },
+  "model_version": "physical_object_identity_evidence_verification_v1",
+  "observation_ids": [
+    "OBS-MAP003-011",
+    "OBS-MAP004-006"
+  ],
+  "originals_in_repository": false,
+  "photos": [
+    {
+      "file": "IMG_8514.JPEG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Schuin van de kopgevel, rij te verkort.",
+      "photo_id": "MAP-001",
+      "relevance": "NIET_BRUIKBAAR",
+      "sha256": "775255894feeda7de9b510e504b366eee89102fa55719f3a57f145a2a0c2a37e",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "IMG_8517.JPEG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Frontaal, andere sectie (platen 290/288).",
+      "photo_id": "MAP-002",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "dacdd5e7c2bdb22e6e8a0d81c715c34f1a9af5390d541618db42809ef98a55ee",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "IMG_8518.JPEG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Bronfoto van OBS-MAP003-011.",
+      "photo_id": "MAP-003",
+      "relevance": "BRONFOTO",
+      "sha256": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "IMG_8520.JPEG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Bronfoto van OBS-MAP004-006; zelfde camera/sessie als MAP-003 (niet onderling onafhankelijk).",
+      "photo_id": "MAP-004",
+      "relevance": "BRONFOTO",
+      "sha256": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "IMG_8523.JPEG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Frontaal, andere sectie (262-258); zelfde raamtypen.",
+      "photo_id": "MAP-005",
+      "relevance": "HERHALINGSCONTEXT",
+      "sha256": "0c4a0afbbcdcb6f2ede2309084d236d46b0df7e5e1b523c537e196af66fdf7bb",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "IMG_8525.JPEG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Breed beeld van andere huizen (platen 260-246) met exact hetzelfde tweedelige raam met smal raam rechts op elke woning.",
+      "photo_id": "MAP-006",
+      "relevance": "HERHALINGSCONTEXT",
+      "sha256": "2c3d39a71aa85c41952881003d87686960fe052611d512cf268665416920a52c",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000214.JPG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Zelfde raamtype (tweedelig + smal raam) boven een kap met twee dakramen; rolgordijnen, geen gordijn, geen folie: ander huis. Laat zien dat het type herhaald wordt.",
+      "photo_id": "MAP-007",
+      "relevance": "TEGENVOORBEELD",
+      "sha256": "8b8be499766be2f1b6ff1acc38fd445582a92999d0c3a0fbf2ab6164c4f77100",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000218.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Schuin bij 266/268.",
+      "photo_id": "MAP-008",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "e139392c662ec9090adb4da227c7d56b2d7d0efb54ce45fafe2f2172cba30592",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000236.JPG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Schuin van links met plaat 280; ander toestel (P1000236) en andere hoek. Het raam links boven de kap toont dezelfde combinatie: witte merktekens in het linkervak, gordijn met witte voorwerpen op de vensterbank in het middenvak, smal raam rechts met doorschijnende folie en verticale plakstrook.",
+      "photo_id": "MAP-009",
+      "relevance": "EXTRA_MATCH",
+      "sha256": "15591a9648ddfec7391df5c87291c6f82c997bf1352f560a85251de76a97fe85",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000243.JPG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Schuin langs de rij vanaf plaat 288; dezelfde raamtypen herhalen zich op elk huis, te klein voor identificatie.",
+      "photo_id": "MAP-010",
+      "relevance": "HERHALINGSCONTEXT",
+      "sha256": "e8a7080041beac180e1948251b8a9d8a12f3eb5b0c7d4e8eab82b028f700e611",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000270.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Straat met schutting en boom, rij ver weg.",
+      "photo_id": "MAP-011",
+      "relevance": "NIET_BRUIKBAAR",
+      "sha256": "9629dbdf2cae3a6b85e673246260138caa6ca11b11dfedd3dbbbb97fbebe1177",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000275.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Straatperspectief, rij verborgen achter beplanting.",
+      "photo_id": "MAP-012",
+      "relevance": "NIET_BRUIKBAAR",
+      "sha256": "ea2e0309de8ab5058e9d28952563863b7baf39862a467f5ec9a23dd549565f58",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000294.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Schuin bij 288/286; rij te ver weg voor het raam.",
+      "photo_id": "MAP-013",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "d7d8839fc966a927360ecb14e01b908c5b9466ac24195d881dda9aafad1acfca",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000252.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde.",
+      "photo_id": "MAP-014",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "11ff84fc4ff0cf96ad8aa6a80d0b9b7f14ac519aed0b09b5d6b8dbbb3533d300",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000254.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde.",
+      "photo_id": "MAP-015",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "117e4818595f20f8e8fbd4dede87490fa9891ac9b3f562157683feac8c72d10b",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000255.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde.",
+      "photo_id": "MAP-016",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "df64d55c1a6f842c3aa95f0993c6039f232342785ca26e534f121d62dff3f108",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000258.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde.",
+      "photo_id": "MAP-017",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "98615f0811bba8023aff58abcc86087ee613fd17374b33ffd37d6d85c43ee4d5",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000259.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde.",
+      "photo_id": "MAP-018",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "ce5ad5b4f89b1cde32b91c7f91a6ad934073c90efdcd7de4bb717e7d4f1bc5f3",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000261.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde/dakvlak.",
+      "photo_id": "MAP-019",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "a8861c1f512091e585eb70927271a9620dcb0f0bf494ed241c2c51fda8d0a773",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000262.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Achterzijde/dakvlak.",
+      "photo_id": "MAP-020",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "c37276275bbc9de72e5c27ce3df22322483122735d0ea46b4ccd260d064993d8",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000266.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Tuinzijde.",
+      "photo_id": "MAP-021",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "4c76f41fb8eadeab9f522cf0eb2bf91b28649e3017bc7d6f5dd711243af138d4",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "IMG_8524.JPEG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Detail, zijde onbekend.",
+      "photo_id": "MAP-022",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "7055bf3124aad073330ff65b1875c659ba70fa5814353595138cbdd24121bb30",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000225.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Detail tweede verdieping met open vleugel en lamellen; locatie onbekend, geen herkenbare folie/gordijn-combinatie.",
+      "photo_id": "MAP-023",
+      "relevance": "MOGELIJK_NIET_BRUIKBAAR",
+      "sha256": "6179ef36ba5a851e415f59efbc3d351437ad4e73e2533e83188208abf34c99a9",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000226.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Detail van onderen; zelfde onzekerheid.",
+      "photo_id": "MAP-024",
+      "relevance": "MOGELIJK_NIET_BRUIKBAAR",
+      "sha256": "bc0c969ab7f46942e1eb05ca584c3ee1b15e0a4d2da7a9e71e83b6721404c39a",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000228.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Detail tussen kappen; locatie niet vast te stellen.",
+      "photo_id": "MAP-025",
+      "relevance": "MOGELIJK_NIET_BRUIKBAAR",
+      "sha256": "2ea7c05c9c8a6bcc45e24f7a2ebc221d362bc3b88b55ffdb61c2f874ca3d328b",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000276.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Detail; locatie niet vast te stellen.",
+      "photo_id": "MAP-026",
+      "relevance": "MOGELIJK_NIET_BRUIKBAAR",
+      "sha256": "90435e39a6a1aa556155ff0a873ccb5a47464e35f73c01f1ef3848892b82adbf",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000279.JPG",
+      "inspection": "DETAIL",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Bovenste raamrij van onderen met tegenlicht; locatie niet vast te stellen, geen herkenbare kenmerken (geen folie/gordijn herkenbaar).",
+      "photo_id": "MAP-027",
+      "relevance": "MOGELIJK_NIET_BRUIKBAAR",
+      "sha256": "ffd7ae55e234bdfe9723e3c8be8f596c64750c4b7db3f54c6c2f22b3197845e9",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000284.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Detail met open vleugels; geen herkenbare kenmerken van het kandidaatraam.",
+      "photo_id": "MAP-028",
+      "relevance": "MOGELIJK_NIET_BRUIKBAAR",
+      "sha256": "0e81b116369b29781bfc53bc28bcffda854c96f3b5dd48118fb234ad3f6fdd96",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000193.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Entreemuur plaat 248.",
+      "photo_id": "MAP-029",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "b85192ab5a9886de15a538defca1361f5626b9becdcd53fe789953ddcdb05ee4",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000199.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Entree plaat 244.",
+      "photo_id": "MAP-030",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "5227f194de34deaf27f144c6bc1acd1805df69c9d3e088088a959c56f5bd29fe",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000204.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Plaat 250.",
+      "photo_id": "MAP-031",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "a42961d1f2599412dd21c217887de05d9eeb27bab16c6cc82de50806b8b5f257",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000216.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Plaat 266.",
+      "photo_id": "MAP-032",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "888118a65a94a004f58029ada06c2e8987cc17fac16f17ee5d9dd91ffd47c07c",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000229.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Begane-grondraam plaat 276; geen bovenste rij.",
+      "photo_id": "MAP-033",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "f2d13c4cb991bbb3cc139e41c566bb7a7f371eed5c02088e6452090141427a88",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000281.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Plaat 258.",
+      "photo_id": "MAP-034",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "3cefcb549e5b1be4967651a1d07c89ffa7afa22995e0d0ca170d01a66be50a14",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000289.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Begane-grondraam plaat 270.",
+      "photo_id": "MAP-035",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "b29ad024751af4ec706c0f9ca51efa295891f8ea659ee22353d7e275b74936ff",
+      "sha256_verified_against_register": true
+    },
+    {
+      "file": "P1000290.JPG",
+      "inspection": "SHEET",
+      "method": "MANUAL_VISUAL_READING",
+      "note": "Begane-grondraam plaat 268.",
+      "photo_id": "MAP-036",
+      "relevance": "TOONT_SECTIE_NIET",
+      "sha256": "3cabb36e19eab7376340c179978b054a4d36f979bbdc0485d7e46d00c497055f",
+      "sha256_verified_against_register": true
+    }
+  ],
+  "recommendation": "SUPPORTED_CANDIDATE behouden en voorbereiden voor een afzonderlijke menselijke instance-review; geen activatie.",
+  "relation_id": "VR-027",
+  "source_zip": "Maldenhof_kozijnfoto_selectie (4) 2.zip (projectbestanden)",
+  "status_changed": false,
+  "stop": "Stop vóór instance-activatie en vóór het mergen van PR #42.",
+  "swap_risk": "Hoog voor alle kenmerken die op de hele rij voorkomen (indeling, kasten); gedekt door de unieke, tijdelijke combinatie die bij geen onderzocht buurraam voorkomt. Geen derde foto op dezelfde plek uit een andere sessie/dag."
+}
