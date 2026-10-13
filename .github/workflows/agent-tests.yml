@@ -1,0 +1,88 @@
+# Agent-tools fase 1 (mjop-learning/agent/, docs/agent_tools_v1.md).
+#
+# Alleen testen, alleen lezen: geen AI-SDK, geen modelaanroepen, geen netwerk in de tests, niets committen of
+# publiceren. De volledige testsuite draait hier met de gepinde xpdf pdftotext 4.06; scripts/check_test_baseline.py
+# onderscheidt nieuwe fouten van de gedocumenteerde xpdf-omgevingsproblemen (config/known_environment_failures.json).
+name: Agent tools tests
+
+on:
+  pull_request:
+    paths:
+      - "mjop-learning/agent/**"
+      - "mjop-learning/tests/agent_tools/**"
+      - "mjop-learning/scripts/check_test_baseline.py"
+      - "mjop-learning/config/known_environment_failures.json"
+      - ".github/workflows/agent-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agent-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  agent-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python-afhankelijkheden (vastgepind, zonder AI-SDK's)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pipeline.txt
+          if python -c "import anthropic" 2>/dev/null || python -c "import openai" 2>/dev/null; then
+            echo "::error::AI-SDK aanwezig op de runner; de agent-tools fase 1 hebben geen modelroute"; exit 1
+          fi
+      - name: Agent-tests en de bestaande workflow-/matchtests
+        run: python -m pytest -q tests/agent_tools tests/test_mjop_kengetal_workflow.py tests/test_match_kengetal.py tests/test_human_match_review.py
+      - name: Niets geschreven door de tests (werkboom ongewijzigd)
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::de tests hebben bestanden gewijzigd of aangemaakt"; git status --porcelain; exit 1
+          fi
+
+  full-suite-with-xpdf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python-afhankelijkheden
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pipeline.txt pyyaml pyproj
+      - name: xpdf pdftotext 4.06 installeren en verifiëren (vastgepinde download + checksum)
+        run: |
+          python scripts/xpdf_runner_setup.py --install "$RUNNER_TEMP/xpdf" \
+            --out "$RUNNER_TEMP/runner_setup.json" --verify-reproduction
+          echo "PDFTOTEXT=$RUNNER_TEMP/xpdf/pdftotext" >> "$GITHUB_ENV"
+      - name: Volledige testsuite
+        run: python -m pytest -q -p no:cacheprovider --junitxml="$RUNNER_TEMP/junit.xml" || true
+      - name: Nieuwe fouten versus bekende baseline - xpdf is hier beschikbaar, niets wordt getolereerd
+        run: python scripts/check_test_baseline.py "$RUNNER_TEMP/junit.xml"
+      - name: Werkboom ongewijzigd
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::de testsuite heeft bestanden gewijzigd of aangemaakt"; git status --porcelain; exit 1
+          fi
