@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "get_kengetal_candidates — invoer",
+  "description": "Input-object v1 van de matchinglaag (docs/matching_rules_v1.md). Strikt: geen onbekende velden en geen bestandspaden. Bedragen en hoeveelheden zijn Decimal-strings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["object_id", "element_code_internal"],
+  "definitions": {
+    "shortText": {"type": "string", "minLength": 1, "maxLength": 80, "pattern": "^[^\\u0000-\\u001f\\u007f]+$"},
+    "text": {"type": "string", "minLength": 1, "maxLength": 300, "pattern": "^[^\\u0000-\\u001f\\u007f]+$"}
+  },
+  "properties": {
+    "object_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,63}$"},
+    "element_code_internal": {"type": "string", "pattern": "^[A-Za-z0-9]{1,12}$"},
+    "action_normalized": {"$ref": "#/definitions/shortText"},
+    "action_text": {"$ref": "#/definitions/text"},
+    "unit_normalized": {"$ref": "#/definitions/shortText"},
+    "unit_text": {"$ref": "#/definitions/shortText"},
+    "material_normalized": {"$ref": "#/definitions/shortText"},
+    "material_text": {"$ref": "#/definitions/text"},
+    "material_source": {"type": "string", "pattern": "^[a-z_]{1,40}$"},
+    "object_description": {"$ref": "#/definitions/text"},
+    "quantity": {"type": ["string", "null"], "pattern": "^[0-9]{1,15}(\\.[0-9]{1,6})?$"},
+    "price_level_requested": {"type": ["integer", "null"], "minimum": 1990, "maximum": 2100},
+    "vat_basis": {"enum": ["inclusive", "exclusive", null]},
+    "building_type": {"type": ["string", "null"], "maxLength": 80, "pattern": "^[^\\u0000-\\u001f\\u007f]*$"},
+    "construction_year": {"type": ["integer", "null"], "minimum": 1500, "maximum": 2100},
+    "location": {"type": ["string", "null"], "maxLength": 120, "pattern": "^[^\\u0000-\\u001f\\u007f]*$"},
+    "condition_defect": {"type": ["string", "null"], "maxLength": 120, "pattern": "^[^\\u0000-\\u001f\\u007f]*$"},
+    "maintenance_type": {"type": ["string", "null"], "maxLength": 80, "pattern": "^[^\\u0000-\\u001f\\u007f]*$"}
+  }
+}

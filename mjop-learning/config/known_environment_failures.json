@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "description": "Bekende, gedocumenteerde omgevingsproblemen van de testsuite. Een test hier tolereert een falen ALLEEN als xpdf pdftotext 4.06 ontbreekt EN de foutmelding de bekende afhankelijkheidsfout is. Alles anders is een nieuwe fout (scripts/check_test_baseline.py). Besluit twandijkmans 2026-10-13: voorlopig geaccepteerd als baseline; volledige status wordt in CI gecontroleerd waar xpdf 4.06 beschikbaar is.",
+  "requires": {
+    "tool": "xpdf pdftotext",
+    "version_line_regex": "^pdftotext version 4\\.06 \\[www\\.xpdfreader\\.com\\]$",
+    "pin": "config/xpdf_pin.json"
+  },
+  "known_failures": [
+    {
+      "nodeid": "tests/test_deterministic_extraction.py::test_doc007_dekkend_actions_link_to_element",
+      "signature_regex": "Ongeschikte pdftotext .*vereist 'pdftotext version 4\\.06 \\[www\\.xpdfreader\\.com\\]'",
+      "reason": "De deterministische route eist xpdf pdftotext 4.06 en weigert bewust een andere parser (DependencyError in scripts/deterministic_extraction.py)."
+    },
+    {
+      "nodeid": "tests/test_price_observations.py::test_known_wrap_and_page_break_cases_on_batch1_sources",
+      "signature_regex": "pdftotext faalde voor .*\\.pdf: pdftotext version",
+      "reason": "build_price_observations gebruikt de xpdf-optie -table; poppler-pdftotext weigert die (RuntimeError in scripts/mjop_source_sections.py)."
+    },
+    {
+      "nodeid": "tests/test_price_observations.py::test_full_build_on_batch1_sources",
+      "signature_regex": "pdftotext faalde voor .*\\.pdf: pdftotext version",
+      "reason": "Zelfde oorzaak als hierboven: xpdf 4.06 ontbreekt."
+    }
+  ]
+}

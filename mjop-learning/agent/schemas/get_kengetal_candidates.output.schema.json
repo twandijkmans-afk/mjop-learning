@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "get_kengetal_candidates — uitvoer",
+  "description": "Alleen-lezen resultaat. Een kandidaat zonder menselijk besluit is nooit een geaccepteerde prijs: price_presentation.is_accepted_price=false dwingt effective_amount=null af. Elke kandidaat moet herleidbaar zijn tot kengetal-, cluster- en observation-ID's; bronhashes zijn verplicht.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tool", "tool_version", "read_only", "call_id", "workflow_result_id", "match_result_id", "status",
+               "decision_state", "price_presentation", "candidates", "insufficient_data_kengetal_ids",
+               "current_decision", "financial_result", "caveats", "provenance", "notice"],
+  "definitions": {
+    "decimalString": {"type": "string", "pattern": "^-?[0-9]+(\\.[0-9]+)?$"},
+    "nullableDecimalString": {"type": ["string", "null"], "pattern": "^-?[0-9]+(\\.[0-9]+)?$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "idList": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+  },
+  "properties": {
+    "tool": {"const": "get_kengetal_candidates"},
+    "tool_version": {"type": "string"},
+    "read_only": {"const": true},
+    "call_id": {"type": "string", "pattern": "^AC-[0-9a-f]{16}$"},
+    "workflow_result_id": {"type": "string", "pattern": "^WF-[0-9a-f]{16}$"},
+    "match_result_id": {"type": "string", "pattern": "^MR-[0-9a-f]{16}$"},
+    "status": {"enum": ["NO_KENGETAL", "REVIEW_REQUIRED", "MATCH_PENDING_DECISION", "ACCEPTED", "ADJUSTED", "REJECTED"]},
+    "decision_state": {"enum": ["NO_HUMAN_DECISION", "HUMAN_ACCEPTED", "HUMAN_ADJUSTED", "HUMAN_REJECTED"]},
+    "price_presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "is_accepted_price", "effective_amount", "effective_amount_unit", "effective_amount_source",
+                   "system_candidate_amount", "system_candidate_kengetal_id", "statement"],
+      "properties": {
+        "label": {"enum": ["NO_PRICE", "SYSTEM_CANDIDATE_NOT_ACCEPTED", "REJECTED_BY_HUMAN", "HUMAN_ACCEPTED_PRICE",
+                           "HUMAN_ADJUSTED_PRICE"]},
+        "is_accepted_price": {"type": "boolean"},
+        "effective_amount": {"$ref": "#/definitions/nullableDecimalString"},
+        "effective_amount_unit": {"type": ["string", "null"]},
+        "effective_amount_source": {"type": ["string", "null"]},
+        "system_candidate_amount": {"$ref": "#/definitions/nullableDecimalString"},
+        "system_candidate_kengetal_id": {"type": ["string", "null"]},
+        "statement": {"type": "string"}
+      },
+      "if": {"properties": {"is_accepted_price": {"const": false}}},
+      "then": {"properties": {"effective_amount": {"type": "null"}, "effective_amount_unit": {"type": "null"},
+                              "effective_amount_source": {"type": "null"}}},
+      "else": {"properties": {"effective_amount": {"$ref": "#/definitions/decimalString"},
+                              "label": {"enum": ["HUMAN_ACCEPTED_PRICE", "HUMAN_ADJUSTED_PRICE"]}}}
+    },
+    "candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kengetal_id", "kengetal_status", "scope_status", "scope_reasons", "is_proposed_candidate",
+                     "presentation", "is_accepted_price", "element_code", "action", "unit", "material", "vat_basis",
+                     "value_exact", "value_display", "min_exact", "max_exact", "price_levels", "source_cluster_ids",
+                     "source_clusters", "observation_ids", "decision_ids", "caveats"],
+        "properties": {
+          "kengetal_id": {"type": "string", "minLength": 1},
+          "kengetal_status": {"const": "AVAILABLE"},
+          "scope_status": {"enum": ["EXACT_MATCH", "MISMATCH", "HUMAN_REVIEW_REQUIRED", "NOT_EVALUATED"]},
+          "scope_reasons": {"type": "array", "items": {"type": "string"}},
+          "is_proposed_candidate": {"type": "boolean"},
+          "presentation": {"enum": ["SYSTEM_CANDIDATE_NOT_ACCEPTED", "HUMAN_SELECTED"]},
+          "is_accepted_price": {"type": "boolean"},
+          "element_code": {"type": "string"},
+          "action": {"type": "string"},
+          "unit": {"type": "string"},
+          "material": {"type": "object"},
+          "vat_basis": {"type": "array"},
+          "value_exact": {"$ref": "#/definitions/decimalString"},
+          "value_display": {"$ref": "#/definitions/decimalString"},
+          "min_exact": {"$ref": "#/definitions/decimalString"},
+          "max_exact": {"$ref": "#/definitions/decimalString"},
+          "price_levels": {"type": "object"},
+          "source_cluster_ids": {"$ref": "#/definitions/idList"},
+          "source_clusters": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["source_cluster", "contribution_exact", "observation_ids", "price_levels"],
+              "properties": {
+                "source_cluster": {"type": "string", "minLength": 1},
+                "contribution_exact": {"$ref": "#/definitions/decimalString"},
+                "observation_ids": {"$ref": "#/definitions/idList"},
+                "price_levels": {"type": "array"}
+              }
+            }
+          },
+          "observation_ids": {"$ref": "#/definitions/idList"},
+          "decision_ids": {"type": "array", "items": {"type": "string"}},
+          "caveats": {"type": "object"}
+        },
+        "allOf": [{"if": {"properties": {"presentation": {"const": "SYSTEM_CANDIDATE_NOT_ACCEPTED"}}},
+                   "then": {"properties": {"is_accepted_price": {"const": false}}}}]
+      }
+    },
+    "insufficient_data_kengetal_ids": {"type": "array", "items": {"type": "string"}},
+    "current_decision": {"type": "object"},
+    "financial_result": {"type": "object"},
+    "caveats": {"type": "object"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_hashes", "kengetallen_file", "rule_versions"],
+      "properties": {
+        "kengetallen_file": {"type": "string"},
+        "rule_versions": {"type": "object"},
+        "source_hashes": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kengetallen_output_sha256", "normalized_observations_sha256", "decision_store_sha256",
+                       "vocabularies_sha256"],
+          "properties": {
+            "kengetallen_output_sha256": {"$ref": "#/definitions/sha256"},
+            "normalized_observations_sha256": {"$ref": "#/definitions/sha256"},
+            "decision_store_sha256": {"$ref": "#/definitions/sha256"},
+            "vocabularies_sha256": {
+              "type": "object",
+              "minProperties": 1,
+              "additionalProperties": {"$ref": "#/definitions/sha256"}
+            }
+          }
+        }
+      }
+    },
+    "notice": {"type": "string"}
+  },
+  "allOf": [
+    {"if": {"properties": {"decision_state": {"const": "NO_HUMAN_DECISION"}}},
+     "then": {"properties": {"price_presentation": {"properties": {"is_accepted_price": {"const": false}}}}}},
+    {"if": {"properties": {"decision_state": {"const": "HUMAN_REJECTED"}}},
+     "then": {"properties": {"price_presentation": {"properties": {"is_accepted_price": {"const": false}}}}}}
+  ]
+}
