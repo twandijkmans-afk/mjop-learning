@@ -589,8 +589,13 @@ def test_fi_ids_are_scanned_everywhere_in_the_request():
     assert "FI-M" not in P.OUT_JSON.read_text(encoding="utf-8").replace("FI-M2-nnn", "")
 
 
+REGISTER_SCRIPTS = {"human_instance_decision_register.py", "human_instance_decision_register_report.py"}   # PR #44: het besluitenregister hergebruikt het framework bewust
+
+
 def test_no_other_script_imports_or_drives_the_approval_framework():
     for f in (ROOT / "scripts").glob("*.py"):
+        if f.name in REGISTER_SCRIPTS:
+            continue
         if f.name.startswith(("physical_instance_", "object_identity_")) or f.name == "doc012_generalization_review.py":    # laatste: alleen de lijst REPORT_ONLY_SCRIPTS
             continue
         txt = f.read_text(encoding="utf-8")

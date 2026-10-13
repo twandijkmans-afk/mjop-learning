@@ -129,7 +129,10 @@ Het ingevulde-maar-lege sjabloon geeft in DRY_RUN `VALIDATION_FAILED` (verwacht:
 
 ## 9. Testresultaten
 
-Zie het eindrapport van de PR en `tests/test_human_instance_decision_register.py`. (Draai: `python -m pytest -q`.)
+- `tests/test_human_instance_decision_register.py`: 157 tests (registratievalidatie, gesloten schema, hash-integriteit, append-only, duplicaten/conflicten, onbetrouwbare herkomst, vervalste autorisatie, corrupte/gedeeltelijke registers, atomische writes, gelijktijdige registratie, niveau-A-isolatie, verboden activatie, bescherming van bestaande bestanden, deterministische generatie): alle geslaagd.
+- Bestaande approval-, reconciliatie- en scope-guard-tests: geslaagd (samen 236 met de registertests).
+- Volledige suite: alleen de 3 bekende Xpdf 4.06-downloadfouten (zelfde als op `main`): `test_doc007_dekkend_actions_link_to_element`, `test_known_wrap_and_page_break_cases_on_batch1_sources`, `test_full_build_on_batch1_sources`.
+- Het enige aangepaste bestaande bewaker-test (`test_no_other_script_imports_or_drives_the_approval_framework`) is niet verzwakt: alleen de twee registerscripts zijn bij naam toegestaan en een apart registertest bewaakt dat geen ander script het register aanroept.
 
 ## 10. De exacte latere handeling om één echt besluit te registreren
 
