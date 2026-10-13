@@ -94,6 +94,15 @@ Vergelijkingsbeeld: `physical_object_identity_evidence_v1/EV-window_comparison.j
 
 SIFT/RANSAC op uitsneden; alleen ondersteunend en hier aantoonbaar niet-identificerend.
 
+Twee verschillende metingen voor hetzelfde paar (VR-027); ze zijn niet uitwisselbaar en geen van beide bewijst identiteit:
+
+| Meting | Bron | Uitsneden | Goede matches | Inliers |
+|---|---|---|---|---|
+| FM-QUALITY-REVIEW | p1_quality_review/p1_feature_match_evidence_v1.json | exacte observatie-uitsneden (OBS-MAP003-011, OBS-MAP004-006) | 82 | 39 |
+| FM-EVIDENCE-VERIFICATION | dit rapport (physical_object_identity_evidence_verification_v1.json) | ruimere uitsneden inclusief het smalle raam rechts (zie regio's) | 61 | 29 |
+
+Alle paren van de nieuwe meting:
+
 | Paar | Goede matches | Inliers |
 |---|---|---|
 | MAP-003:OBS-MAP003-011 (+ smal raam rechts) ↔ MAP-004:OBS-MAP004-006 (+ smal raam rechts) | 61 | 29 |

@@ -62,3 +62,19 @@ def test_report_is_rendered_from_the_json_and_is_deterministic():
     assert EV.render_md(REC) == EV.OUT_MD.read_text(encoding="utf-8")
     assert EV.render_md(REC) == EV.render_md(json.loads(json.dumps(REC)))
     assert "bewijst alleen de muur" in EV.OUT_MD.read_text(encoding="utf-8")
+
+
+def test_two_feature_match_measurements_are_documented_separately():
+    m = {x["id"]: x for x in REC["feature_match_measurements"]}
+    assert m["FM-QUALITY-REVIEW"]["inliers"] == 39 and m["FM-QUALITY-REVIEW"]["good_matches"] == 82
+    assert m["FM-EVIDENCE-VERIFICATION"]["inliers"] == 29 and m["FM-EVIDENCE-VERIFICATION"]["good_matches"] == 61
+    assert m["FM-QUALITY-REVIEW"]["crops"] != m["FM-EVIDENCE-VERIFICATION"]["crops"]
+    orig = next(r for r in json.loads(OI.EVIDENCE_JSON.read_text(encoding="utf-8"))["relations"] if r["relation_id"] == "VR-027")
+    assert (orig["inliers"], orig["good_matches"]) == (39, 82)
+    text = EV.OUT_MD.read_text(encoding="utf-8")
+    assert "FM-QUALITY-REVIEW" in text and "FM-EVIDENCE-VERIFICATION" in text and "niet uitwisselbaar" in text
+
+
+def test_relation_strength_and_quality_class_are_kept_apart():
+    assert OIC["relation_strength_in_source"] == "MEDIUM" and OIC["evidence_class"] == "STRONG_VISUAL_SUPPORT"
+    assert OIC["relation_strength_in_source"] != OIC["evidence_strength"]

@@ -110,7 +110,46 @@ def _result(status, relation_id, reasons, **kw):
     return {"relation_id": relation_id, "identity_status": status, "creates_identity_link": False, "reasons": reasons, **kw}
 
 
+KNOWN_CLASSES = {"SAME_FACADE_SECTION", "POSSIBLY_SAME_PHYSICAL_FRAME", "DIFFERENT_FRAMES", "UNDETERMINABLE"}
+KNOWN_EVIDENCE = {"STRONG_VISUAL_SUPPORT", "MODERATE_VISUAL_SUPPORT", "INSUFFICIENT_EVIDENCE"}
+
+
+def _hex(x, n):
+    return isinstance(x, str) and len(x) == n and all(c in "0123456789abcdef" for c in x)
+
+
+def _problems(rid, rel, item, qual):
+    """Vorm- en invariantcontrole van de bronrecords. Elke afwijking = weigeren (fail-closed)."""
+    p = []
+    if not isinstance(rel, dict) or rel.get("rel_id") != rid or rel.get("class") not in KNOWN_CLASSES or not isinstance(rel.get("left"), str) \
+            or not isinstance(rel.get("right"), str) or rel.get("merged") is not False or rel.get("confirmed") is not False:
+        p.append("RELATIERECORD_ONGELDIG_OF_NIET_ONGEMERGED")
+    if not isinstance(item, dict) or not isinstance(item.get("ref_hash"), str) or not isinstance(item.get("choices"), list) \
+            or not isinstance(item.get("evidence_refs"), list) or not isinstance(item.get("relation_semantics"), dict) \
+            or item["relation_semantics"].get("relation_type") not in ("FACADE_SECTION", "PHYSICAL_OBJECT"):
+        p.append("PACKRECORD_ONGELDIG")
+    if not isinstance(qual, dict) or not isinstance(qual.get("evidence_basis"), list) or not all(isinstance(b, str) for b in qual["evidence_basis"]) \
+            or qual.get("evidence_class") not in KNOWN_EVIDENCE:
+        p.append("KWALITEITSRECORD_ONGELDIG")
+    return p
+
+
+def _obs_problem(key, o):
+    if not isinstance(o, dict) or o.get("obs_id") != key or not isinstance(o.get("photo_id"), str) or not _hex(o.get("source_sha256"), 64) \
+            or o.get("is_instance") is not False or o.get("counts_in_any_total") is not False or "bag_pand_id" not in o or o["bag_pand_id"] is not None:
+        return f"OBSERVATIERECORD_ONGELDIG {key}"
+    return None
+
+
 def evaluate_relation(ctx, rid, decision_override=None):
+    """Veilige ingang: elke fout of beschadigde invoer valt terug op een weigering (nooit een ondersteund verband)."""
+    try:
+        return _evaluate_relation(ctx, rid, decision_override)
+    except Exception as e:      # noqa: BLE001 - bewust breed: fail-closed
+        return _result("REJECTED", rid, [f"ONGELDIGE_OF_BESCHADIGDE_INVOER ({type(e).__name__})"])
+
+
+def _evaluate_relation(ctx, rid, decision_override=None):
     """Beoordeelt één relatie. Geeft een kandidaatverband (alleen CANDIDATE/SUPPORTED_CANDIDATE) of een weigering."""
     rel = ctx["relations"].get(rid)
     if rel is None:
@@ -120,6 +159,13 @@ def evaluate_relation(ctx, rid, decision_override=None):
     reasons = []
     if item is None or qual is None:
         return _result("REJECTED", rid, ["ONTBREKENDE_BRONVERWIJZING_PACK_OF_KWALITEITSREVIEW"])
+    bad = _problems(rid, rel, item, qual)
+    if bad:
+        return _result("REJECTED", rid, bad)
+    if rel["class"] == "DIFFERENT_FRAMES":
+        return _result("REJECTED", rid, ["RELATIE_ZEGT_VERSCHILLENDE_KOZIJNEN"])
+    if rel["class"] == "UNDETERMINABLE":
+        return _result("UNRESOLVED", rid, ["RELATIE_IS_ONBESLISBAAR"])
     expected_type = "FACADE_SECTION" if rel["class"] == "SAME_FACADE_SECTION" else "PHYSICAL_OBJECT"
     if item["relation_semantics"]["relation_type"] != expected_type:
         return _result("REJECTED", rid, ["RELATIETYPE_INCONSISTENT tussen review-JSON en Decision Pack"])
@@ -133,25 +179,32 @@ def evaluate_relation(ctx, rid, decision_override=None):
         o = ctx["observations"].get(oid)
         if o is None:
             return _result("REJECTED", rid, [f"ONBEKENDE_OBSERVATIE {oid}"])
+        op = _obs_problem(oid, o)
+        if op:
+            return _result("REJECTED", rid, [op])
         if ctx["photo_sha"].get(o["photo_id"]) != o["source_sha256"] or ctx["archive_sha"].get(o["photo_id"]) != o["source_sha256"]:
             return _result("REJECTED", rid, [f"BRONHASH_KLOPT_NIET {oid}"])
         obs.append(o)
     if obs[0]["photo_id"] == obs[1]["photo_id"]:
         return _result("REJECTED", rid, ["ZELFDE_FOTO: twee observaties in één foto zijn verschillende openingen"])
-    if item["ref_hash"] != ctx["decisions"].get(review_id, {}).get("source_ref_hash", item["ref_hash"]):
-        return _result("REJECTED", rid, ["BESLUIT_HASH_KLOPT_NIET_MET_PACK"])
     dec = ctx["decisions"].get(review_id)
+    if dec is not None and (not isinstance(dec, dict) or (dec.get("source_ref_hash") is not None and dec.get("source_ref_hash") != item["ref_hash"])):
+        return _result("REJECTED", rid, ["BESLUIT_ONGELDIG_OF_HASH_KLOPT_NIET_MET_PACK"])
     invalid = []
     if decision_override is not None:
         d = decision_override                       # alleen voor hypothetische controles
     elif dec is None:
         d = None
-    elif dec.get("decision") in item["choices"] and (dec.get("provenance") or {}).get("decision_source") in HUMAN_SOURCES \
-            and dec.get("source_ref_hash_validated") is True:
+    elif isinstance(dec.get("decision"), str) and dec["decision"] in item["choices"] and isinstance(dec.get("provenance"), dict) \
+            and dec["provenance"].get("decision_source") in HUMAN_SOURCES and isinstance(dec.get("source_ref_hash"), str) \
+            and dec.get("source_ref_hash_validated") is True and isinstance(dec.get("decision_label", ""), (str, type(None))):
         d = dec["decision"]
     else:
         d = None                                    # ongeldig/niet-menselijk besluit telt nooit als goedkeuring
         invalid = ["ONGELDIG_OF_NIET_MENSELIJK_BESLUIT_GENEGEERD"]
+    crops = [e for e in item["evidence_refs"] if isinstance(e, dict) and e.get("type") == "original_crop"]
+    if not all(any(r.get("observation_id") == o["obs_id"] and r.get("sha256") == o["source_sha256"] for r in crops) for o in obs):
+        return _result("REJECTED", rid, ["BEWIJSVERWIJZING_ONTBREEKT_OF_AFWIJKEND: originele uitsnede per observatie met kloppende hash vereist"])
     basis = set(qual["evidence_basis"])
     strong = qual["evidence_class"] == "STRONG_VISUAL_SUPPORT"
     anchored = bool(basis & ANCHORS)
@@ -194,7 +247,9 @@ def to_candidate(ctx, ev):
     rid = ev["relation_id"]
     rel, review_id = ctx["relations"][rid], "RV-REL-" + rid
     item, qual, dec, obs = ctx["pack"][review_id], ctx["quality"][review_id], ev["_decision"], ev["_obs"]
-    fm = ctx["feature"].get(rid)
+    fm = (ctx.get("feature") or {}).get(rid)
+    if not (isinstance(fm, dict) and all(k in fm for k in ("inliers", "good_matches", "best_other_inliers_row", "best_other_inliers_col"))):
+        fm = None
     evrefs = [dict(e) for e in item["evidence_refs"]]
     if fm:
         evrefs.append({"type": "feature_match_support_only", "inliers": fm["inliers"], "good_matches": fm["good_matches"], "best_other_inliers_row": fm["best_other_inliers_row"],
@@ -205,8 +260,8 @@ def to_candidate(ctx, ev):
         "supporting_relation_ids": [rid], "relation_class": rel["class"], "relation_strength_in_source": rel["strength"],
         "evidence_class": qual["evidence_class"], "evidence_basis": sorted(qual["evidence_basis"]), "evidence_strength": qual["evidence_class"],
         "evidence_refs": evrefs,
-        "decision_refs": [{"review_id": dec["review_id"], "decision": dec["decision"], "decision_label": dec["decision_label"], "source_ref_hash": dec["source_ref_hash"],
-                           "register": REGISTER_JSON.name, "decision_source": dec["provenance"]["decision_source"], "approval_channel": dec["provenance"]["approval_channel"],
+        "decision_refs": [{"review_id": dec["review_id"], "decision": dec["decision"], "decision_label": dec.get("decision_label"), "source_ref_hash": dec["source_ref_hash"],
+                           "register": REGISTER_JSON.name, "decision_source": dec["provenance"]["decision_source"], "approval_channel": dec["provenance"].get("approval_channel"),
                            "meaning": "SAME_PHYSICAL_OBJECT_CANDIDATE: kandidaat, niet bewezen, niet samengevoegd"}] if dec else [],
         "source_hashes": {o["photo_id"]: o["source_sha256"] for o in obs},
         "unresolved_questions": UNRESOLVED_VR027 if rid == "VR-027" else ["Nog niet beoordeeld in deze pilot."],
@@ -249,6 +304,8 @@ def resolve_groups(pair_candidates):
 def build_report():
     ctx = load_context()
     ev27 = evaluate_relation(ctx, "VR-027")
+    if not ev27["creates_identity_link"]:
+        raise SystemExit("VR-027 levert geen kandidaatverband op: " + "; ".join(ev27["reasons"]))
     cand = to_candidate(ctx, ev27)
     controls = []
 
@@ -277,10 +334,11 @@ def build_report():
                      "passed": clique["groups"] == [["A", "B", "C"]] and clique["chains"] == []})
     own = [o for o in ctx["observations"].values() if o["photo_id"] == "MAP-003"][:2]
     synth = dict(ctx)
-    synth["relations"] = dict(ctx["relations"], **{"VR-SELF": {"rel_id": "VR-SELF", "left": "MAP-003:" + own[0]["obs_id"], "right": "MAP-003:" + own[1]["obs_id"], "class": "POSSIBLY_SAME_PHYSICAL_FRAME", "strength": "MEDIUM"}})
+    synth["relations"] = dict(ctx["relations"], **{"VR-SELF": {"rel_id": "VR-SELF", "left": "MAP-003:" + own[0]["obs_id"], "right": "MAP-003:" + own[1]["obs_id"], "class": "POSSIBLY_SAME_PHYSICAL_FRAME", "strength": "MEDIUM", "merged": False, "confirmed": False}})
     synth["pack"] = dict(ctx["pack"], **{"RV-REL-VR-SELF": ctx["pack"]["RV-REL-VR-027"]})
     synth["quality"] = dict(ctx["quality"], **{"RV-REL-VR-SELF": ctx["quality"]["RV-REL-VR-027"]})
     rs = evaluate_relation(synth, "VR-SELF", "SAME")
+    assert any("ZELFDE_FOTO" in r for r in rs["reasons"]), rs["reasons"]      # de regel zelf, niet een bijkomende fout
     controls.append({"control": "F", "title": "Twee observaties in dezelfde foto kunnen nooit hetzelfde object zijn", "relation_id": "VR-SELF (synthetisch)", "result_status": rs["identity_status"],
                      "creates_identity_link": rs["creates_identity_link"], "reasons": rs["reasons"], "passed": not rs["creates_identity_link"]})
     other = {r: ctx["feature"][r]["inliers"] for r in ("VR-027",)}

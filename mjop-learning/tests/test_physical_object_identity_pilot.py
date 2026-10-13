@@ -149,10 +149,11 @@ def test_relations_with_group_or_frozen_photo2_endpoints_are_refused():
 def test_two_observations_in_one_photo_cannot_be_the_same_object():
     c = ctx_copy()
     a, b = [o["obs_id"] for o in CTX["observations"].values() if o["photo_id"] == "MAP-003"][:2]
-    c["relations"]["VR-X"] = {"rel_id": "VR-X", "left": "MAP-003:" + a, "right": "MAP-003:" + b, "class": "POSSIBLY_SAME_PHYSICAL_FRAME", "strength": "MEDIUM"}
+    c["relations"]["VR-X"] = {"rel_id": "VR-X", "left": "MAP-003:" + a, "right": "MAP-003:" + b, "class": "POSSIBLY_SAME_PHYSICAL_FRAME", "strength": "MEDIUM", "merged": False, "confirmed": False}
     c["pack"]["RV-REL-VR-X"] = c["pack"]["RV-REL-VR-027"]
     c["quality"]["RV-REL-VR-X"] = c["quality"]["RV-REL-VR-027"]
-    assert not OI.evaluate_relation(c, "VR-X", "SAME")["creates_identity_link"]
+    ev = OI.evaluate_relation(c, "VR-X", "SAME")
+    assert not ev["creates_identity_link"] and any("ZELFDE_FOTO" in r for r in ev["reasons"]), ev["reasons"]
 
 
 def test_negative_controls_all_pass_in_committed_report():
@@ -221,3 +222,86 @@ def test_relation_type_must_agree_between_review_json_and_decision_pack():
     c = ctx_copy()
     c["relations"]["VR-020"]["class"] = "POSSIBLY_SAME_PHYSICAL_FRAME"   # omgekeerd: pack zegt gevelsectie
     assert not OI.evaluate_relation(c, "VR-020", "SAME")["creates_identity_link"]
+
+
+# --- fuzz: gedeeltelijk corrupte invoer valt veilig terug (eindcontrole PR #42) ---
+
+PROTECTED = {
+    "relations": {"rel_id", "class", "left", "right", "merged", "confirmed"},
+    "observations": {"obs_id", "photo_id", "source_sha256", "is_instance", "counts_in_any_total", "bag_pand_id"},
+    "quality": {"evidence_basis", "evidence_class"},
+    "pack": {"ref_hash", "choices", "relation_semantics", "evidence_refs"},
+    "decisions": {"decision", "source_ref_hash", "source_ref_hash_validated", "provenance"},
+}
+CORRUPT_VALUES = ("__DEL__", None, "", 0, [], {}, "corrupt", True, False, "0" * 64, ["REPETITION_RISK"], "MAYBE")
+VR027_KEYS = {"relations": ["VR-027"], "observations": ["OBS-MAP003-011", "OBS-MAP004-006"], "quality": ["RV-REL-VR-027"],
+              "pack": ["RV-REL-VR-027"], "decisions": ["RV-REL-VR-027"]}
+
+
+def _set(c, top, key, field, val):
+    rec = c[top][key]
+    if val == "__DEL__":
+        rec.pop(field, None)
+    else:
+        rec[field] = val
+
+
+def test_corrupt_inputs_never_raise_and_never_create_a_supported_link():
+    base = OI.evaluate_relation(CTX, "VR-027")
+    assert base["identity_status"] == "SUPPORTED_CANDIDATE"
+    checked = 0
+    for top, keys in VR027_KEYS.items():
+        for key in keys:
+            for field in list(CTX[top][key]):
+                for val in CORRUPT_VALUES:
+                    c = ctx_copy()
+                    _set(c, top, key, field, val)
+                    ev = OI.evaluate_relation(c, "VR-027")          # mag nooit een uitzondering gooien
+                    checked += 1
+                    if ev["identity_status"] == "SUPPORTED_CANDIDATE":
+                        # alleen toegestaan als de corruptie het waarde niet veranderde of een niet-beslissend veld raakt
+                        assert field not in PROTECTED[top] or c[top][key].get(field) == CTX[top][key].get(field), (top, key, field, val)
+                    if field in PROTECTED[top] and c[top][key].get(field, "__DEL__") != CTX[top][key].get(field, "__DEL__"):
+                        assert ev["identity_status"] != "SUPPORTED_CANDIDATE", (top, key, field, val)
+                        assert ev["identity_status"] in ("REJECTED", "UNRESOLVED", "CANDIDATE"), (top, key, field, val)
+    assert checked > 500
+
+
+def test_corrupt_register_and_hash_maps_fail_closed():
+    for top in ("photo_sha", "archive_sha"):
+        for pid in ("MAP-003", "MAP-004"):
+            for val in ("__DEL__", None, "", "0" * 64, 5):
+                c = ctx_copy()
+                if val == "__DEL__":
+                    c[top].pop(pid)
+                else:
+                    c[top][pid] = val
+                assert OI.evaluate_relation(c, "VR-027")["identity_status"] == "REJECTED", (top, pid, val)
+    for top in ("relations", "observations", "quality", "pack", "decisions"):
+        c = ctx_copy()
+        c[top] = None
+        assert OI.evaluate_relation(c, "VR-027")["identity_status"] != "SUPPORTED_CANDIDATE", top
+
+
+def test_relation_classes_that_say_different_or_undeterminable_never_link():
+    for cls, status in (("DIFFERENT_FRAMES", "REJECTED"), ("UNDETERMINABLE", "UNRESOLVED")):
+        c = ctx_copy()
+        c["relations"]["VR-027"]["class"] = cls
+        ev = OI.evaluate_relation(c, "VR-027", "SAME")
+        assert ev["identity_status"] == status and not ev["creates_identity_link"]
+
+
+def test_mapping_in_pack_and_review_json_cannot_make_a_merged_or_confirmed_relation_supported():
+    for flag in ("merged", "confirmed"):
+        c = ctx_copy()
+        c["relations"]["VR-027"][flag] = True
+        assert OI.evaluate_relation(c, "VR-027")["identity_status"] == "REJECTED"
+
+
+def test_three_views_do_not_double_count_and_map009_is_not_an_observation():
+    review = json.loads(OI.REVIEW_JSON.read_text(encoding="utf-8"))
+    assert not any(o["photo_id"] == "MAP-009" for o in review["observations"])
+    assert all(o["counts_in_any_total"] is False and o["is_instance"] is False for o in review["observations"])
+    c = REP["candidates"][0]
+    assert len(c["observation_ids"]) == 2 and set(c["photo_ids"]) == {"MAP-003", "MAP-004"} and "MAP-009" not in c["source_hashes"]
+    assert c["counts_in_any_total"] is False and c["quantity"] is None

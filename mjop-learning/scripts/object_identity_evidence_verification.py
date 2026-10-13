@@ -159,6 +159,7 @@ def record(arch, verified, pairs):
         "photos": photos, "crops": [{"photo_id": p, "label": l, "region_px": b, "role": r} for p, l, b, r in CROPS], "figure": "physical_object_identity_evidence_v1/" + FIGURE.name,
         "features": [{"feature": f, "identifying": i, "comment": c} for f, i, c in FEATURE_TABLE],
         "feature_match_pairs": pairs,
+        "feature_match_measurements": measurements(pairs),
         "feature_match_note": "SIFT/RANSAC op uitsneden; alleen ondersteunend en hier aantoonbaar niet-identificerend.",
         "additional_matches": [{"photo_id": "MAP-009", "file": "P1000236.JPG", "strength": "STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK",
                                 "arguments": ["andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520)",
@@ -176,6 +177,21 @@ def record(arch, verified, pairs):
                     "human_decisions_changed": 0, "oic_changed": False},
         "stop": "Stop vóór instance-activatie en vóór het mergen van PR #42.",
     }
+
+
+def measurements(pairs):
+    """Twee verschillende metingen voor VR-027; niet met elkaar te verwarren en geen van beide is identiteitsbewijs."""
+    orig = next(r for r in OI._load(OI.EVIDENCE_JSON)["relations"] if r["relation_id"] == "VR-027")
+    new = next(p for p in pairs if p["a"].startswith("MAP-003:OBS-MAP003-011") and p["b"].startswith("MAP-004:OBS-MAP004-006"))
+    return [
+        {"id": "FM-QUALITY-REVIEW", "source": "p1_quality_review/p1_feature_match_evidence_v1.json", "method": orig["method"],
+         "crops": "exacte observatie-uitsneden (OBS-MAP003-011, OBS-MAP004-006)", "good_matches": orig["good_matches"], "inliers": orig["inliers"],
+         "best_other_inliers_row": orig["best_other_inliers_row"], "best_other_inliers_col": orig["best_other_inliers_col"],
+         "meaning": "oorspronkelijke meting uit de P1-kwaliteitsreview; partner is wederzijds beste, volgende 24"},
+        {"id": "FM-EVIDENCE-VERIFICATION", "source": "dit rapport (physical_object_identity_evidence_verification_v1.json)", "method": "SIFT_RATIO_RANSAC_SIMILARITY",
+         "crops": "ruimere uitsneden inclusief het smalle raam rechts (zie regio's)", "good_matches": new["good_matches"], "inliers": new["inliers"],
+         "meaning": "nieuwe meting op andere uitsneden en schaal; geeft een andere waarde dan 39 zonder dat het bewijs verandert"},
+    ]
 
 
 def render_md(rec):
@@ -202,7 +218,11 @@ def render_md(rec):
     L += [f"| {c['photo_id']} | {c['role']} | {c['region_px']} | {c['label']} |" for c in rec["crops"]]
     L += ["", "## 4. Kenmerken: identificerend of niet", "", "| Kenmerk | Identificerend | Opmerking |", "|---|---|---|"]
     L += [f"| {f['feature']} | {'ja' if f['identifying'] else 'nee'} | {f['comment']} |" for f in rec["features"]]
-    L += ["", "## 5. Feature-match (alleen ondersteunend)", "", rec["feature_match_note"], "", "| Paar | Goede matches | Inliers |", "|---|---|---|"]
+    L += ["", "## 5. Feature-match (alleen ondersteunend)", "", rec["feature_match_note"], "",
+          "Twee verschillende metingen voor hetzelfde paar (VR-027); ze zijn niet uitwisselbaar en geen van beide bewijst identiteit:", "",
+          "| Meting | Bron | Uitsneden | Goede matches | Inliers |", "|---|---|---|---|---|"]
+    L += [f"| {m['id']} | {m['source']} | {m['crops']} | {m['good_matches']} | {m['inliers']} |" for m in rec["feature_match_measurements"]]
+    L += ["", "Alle paren van de nieuwe meting:", "", "| Paar | Goede matches | Inliers |", "|---|---|---|"]
     L += [f"| {p['a']} ↔ {p['b']} | {p['good_matches']} | {p['inliers']} |" for p in rec["feature_match_pairs"]]
     L += ["", "## 6. Tegenspraak, verwisselingsrisico, openstaande punten", "",
           "- Tegenspraak met bestaand bewijs: geen gevonden.", f"- Verwisselingsrisico: {rec['swap_risk']}",

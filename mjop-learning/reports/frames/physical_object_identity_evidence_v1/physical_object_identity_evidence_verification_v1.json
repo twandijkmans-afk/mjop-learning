@@ -110,6 +110,28 @@
     "oic_changed": false,
     "quantities": null
   },
+  "feature_match_measurements": [
+    {
+      "best_other_inliers_col": 24,
+      "best_other_inliers_row": 13,
+      "crops": "exacte observatie-uitsneden (OBS-MAP003-011, OBS-MAP004-006)",
+      "good_matches": 82,
+      "id": "FM-QUALITY-REVIEW",
+      "inliers": 39,
+      "meaning": "oorspronkelijke meting uit de P1-kwaliteitsreview; partner is wederzijds beste, volgende 24",
+      "method": "SIFT_RATIO_RANSAC_SIMILARITY",
+      "source": "p1_quality_review/p1_feature_match_evidence_v1.json"
+    },
+    {
+      "crops": "ruimere uitsneden inclusief het smalle raam rechts (zie regio's)",
+      "good_matches": 61,
+      "id": "FM-EVIDENCE-VERIFICATION",
+      "inliers": 29,
+      "meaning": "nieuwe meting op andere uitsneden en schaal; geeft een andere waarde dan 39 zonder dat het bewijs verandert",
+      "method": "SIFT_RATIO_RANSAC_SIMILARITY",
+      "source": "dit rapport (physical_object_identity_evidence_verification_v1.json)"
+    }
+  ],
   "feature_match_note": "SIFT/RANSAC op uitsneden; alleen ondersteunend en hier aantoonbaar niet-identificerend.",
   "feature_match_pairs": [
     {
