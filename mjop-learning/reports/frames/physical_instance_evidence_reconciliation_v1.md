@@ -78,7 +78,7 @@ Beeld: `physical_instance_approval_v1/RC-feature_comparison.jpg` (per kenmerk MA
 | C-PR42-WIDE | MAP-009 | [300, 300, 1050, 800] | PR #42: ruimere uitsnede; tweedelig kozijn + smal raam rechts + omgeving |
 | C-NARROW | MAP-009 | [800, 500, 960, 760] | MAP-009: smal raam met folie (buiten de VR-045-uitsnede) |
 | C-LEFTPANE | MAP-009 | [362, 362, 520, 600] | MAP-009: linkervak met witte merktekens (binnen de VR-045-uitsnede) |
-| C-SILL | MAP-009 | [480, 570, 720, 720] | MAP-009: vensterbank onder het gordijn (binnen de VR-045-uitsnede) |
+| C-SILL | MAP-009 | [480, 570, 747, 682] | MAP-009: vensterbank onder het gordijn (binnen de VR-045-uitsnede) |
 | C-M3-OBS | MAP-003 | [1167, 481, 1316, 571] | OBS-MAP003-011 (exacte observatie-uitsnede) |
 | C-M3-WIDE | MAP-003 | [1150, 470, 1420, 590] | OBS-MAP003-011 plus smal raam rechts |
 | C-M3-NARROW | MAP-003 | [1350, 478, 1415, 580] | MAP-003: smal raam met folie |

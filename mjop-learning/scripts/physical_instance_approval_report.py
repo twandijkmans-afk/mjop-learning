@@ -171,7 +171,8 @@ def render_pack(rep):
     h.append("<li>Het niveau-A-besluit zelf (apart, met de request_hash; niet door Claude in te vullen).</li></ul>")
     tmpl = {"decision_id": "(door het latere besluitenregister toe te kennen)", "request_id": req["approval_request_id"], "request_hash": req["request_hash"],
             "decision": "(APPROVE_PHYSICAL_IDENTITY | REJECT | NEEDS_MORE_EVIDENCE)", "level": "A", "covers_levels": ["A"], "decided_by": "(naam van de beslisser)",
-            "decision_source": "HUMAN", "statement": "(eigen verklaring)", "acknowledged_app_decisions": [r["app_id"] for r in vr["related_app_decisions"] if r["relevance"] == "DIRECT"]}
+            "decision_source": "HUMAN", "statement": "(eigen verklaring)", "acknowledged_app_decisions": [r["app_id"] for r in vr["related_app_decisions"] if r["relevance"] == "DIRECT"],
+            "acknowledged_open_relations": list(vr["open_related_relations"])}
     h.append("<h2>Vorm van een later besluitrecord</h2><p class='ok'>Voorbeeld van de vorm, <b>niet ingevuld, niet geregistreerd en zonder werking</b>. Verifieerbaarheid vraagt registratie in een apart besluitenregister.</p>")
     h.append(f"<pre>{e(json.dumps(tmpl, indent=2, ensure_ascii=False))}</pre></body></html>")
     return "\n".join(h)

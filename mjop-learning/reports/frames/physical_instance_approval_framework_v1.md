@@ -70,7 +70,7 @@ Elke voorwaarde faalt gesloten: een fout, ontbrekend of tegenstrijdig gegeven ge
 
 ## 6. Conceptaanvraag OIC-VR-027
 
-- Aanvraag: `IAR-OIC-VR-027` (hash `34c61b5e5f274764e86491a838502ede`), status **`READY_FOR_HUMAN_REVIEW`**, technisch oordeel **SUITABLE_FOR_HUMAN_REVIEW**.
+- Aanvraag: `IAR-OIC-VR-027` (hash `e276feeb5849ba8af4c41e2e429aca21`), status **`READY_FOR_HUMAN_REVIEW`**, technisch oordeel **SUITABLE_FOR_HUMAN_REVIEW**.
 - Observaties: OBS-MAP003-011, OBS-MAP004-006 (foto's MAP-003, MAP-004); relatie VR-027; bronsterkte MEDIUM, kwaliteitsreview STRONG_VISUAL_SUPPORT.
 - Voorgesteld type: EXTERIOR_FRAME, materiaal en subtype UNKNOWN (voorstel, niet besloten). Geen BAG-pand, geen hoeveelheid, geen kosten.
 
@@ -79,7 +79,7 @@ Elke voorwaarde faalt gesloten: een fout, ontbrekend of tegenstrijdig gegeven ge
 | S0 Aanvraagstructuur en verboden velden | geslaagd | AUTO_VALIDATED_FACT | alle verplichte velden, geen FI-id, geen niveau B/C-inhoud, geen voorgesteld besluit |
 | C1 Het OIC-verband bestaat | geslaagd | AUTO_VALIDATED_FACT | OIC-VR-027 staat in het pilotrapport |
 | C2 OIC heeft status SUPPORTED_CANDIDATE | geslaagd | AUTO_VALIDATED_FACT | live status SUPPORTED_CANDIDATE (opnieuw bepaald uit de brondata) |
-| C3a Aanvraag komt overeen met het live kandidaatverband | geslaagd | AUTO_VALIDATED_FACT | observaties, foto's, relaties, bronhashes, relatiesterkte en bewijsklasse identiek |
+| C3a Aanvraag komt overeen met het live kandidaatverband | geslaagd | AUTO_VALIDATED_FACT | observaties, foto's, relaties, bronhashes, relatiesterkte, bewijsklasse, bewijsverwijzingen, type, aanvullend bewijs en herkomst identiek aan een vers opgebouwde aanvraag |
 | C3 Alle bronobservaties zijn geldig | geslaagd | AUTO_VALIDATED_FACT | geldig, geen instance, telt nergens, geen pandkoppeling |
 | C4 Alle bronhashes komen overeen (review-bron, onafhankelijk archiefregister, bewijsreferentie) | geslaagd | AUTO_VALIDATED_FACT | SHA256 identiek in alle drie de bronnen |
 | C5 De onderliggende relatie is een geldige fysieke-objectrelatie met exact deze twee eindpunten | geslaagd | AUTO_VALIDATED_FACT | VR-relatie is PHYSICAL_OBJECT; gevelsectie-relaties (SAME_FACADE_SECTION) tellen niet |
@@ -134,7 +134,7 @@ Uitkomst **COMPATIBLE_DIFFERENT_SCOPE** (AI-verklaring van het verschil; geen me
 | F6 Positie: rechts van het tweedelige kozijn, onder de goot, boven donkere houten bekleding, bij de kaphoek rechtsonder | DIRECTLY_VISIBLE | nee |
 | F7 Buurkozijnen: zelfde indeling maar rolgordijnkast en geen folie | DIRECTLY_VISIBLE | nee |
 
-Volledig rapport: `reports/frames/physical_instance_evidence_reconciliation_v1.md`. De aanvraag steunt niet op MAP-009 (`ADDITIONAL_EVIDENCE_NOT_RELIED_ON`); VR-045 blijft zonder menselijk besluit. De eerder gepubliceerde request_hash `aa556297be5d6713d298a06fa40492b8` is verouderd (de aanvraag is inhoudelijk uitgebreid met de bewijsverzoening); er hangt aan die hash geen besluit.
+Volledig rapport: `reports/frames/physical_instance_evidence_reconciliation_v1.md`. De aanvraag steunt niet op MAP-009 (`ADDITIONAL_EVIDENCE_NOT_RELIED_ON`); VR-045 blijft zonder menselijk besluit. De eerder gepubliceerde request_hash `aa556297be5d6713d298a06fa40492b8`, `34c61b5e5f274764e86491a838502ede` is verouderd (de aanvraag is inhoudelijk uitgebreid met de bewijsverzoening); er hangt aan die hash geen besluit.
 
 ## 7. Relatie met de 48 APP-besluiten
 

@@ -62,7 +62,7 @@ REQUIRED_FIELDS = ["approval_request_id", "candidate_group_id", "observation_ids
                    "proposed_instance_type", "approval_status", "human_decision", "decision_provenance", "unresolved_questions", "validation_results",
                    "allowed_effects", "forbidden_effects", "decision_levels", "evidence_reconciliation", "request_hash"]
 RECON_OUTCOMES = ("COMPATIBLE_DIFFERENT_SCOPE", "GENUINE_EVIDENCE_CONFLICT", "INSUFFICIENT_TO_RECONCILE")
-SUPERSEDED_HASHES = ["aa556297be5d6713d298a06fa40492b8"]   # request_hash van de aanvraag zoals eerder gepubliceerd (PR #43 head 0483632); verouderd, nooit gebruikt voor een besluit
+SUPERSEDED_HASHES = ["aa556297be5d6713d298a06fa40492b8", "34c61b5e5f274764e86491a838502ede"]   # eerder gepubliceerde request_hashes (PR #43 head 0483632 en a02f98d); verouderd, nooit gebruikt voor een besluit
 STRIP_CORRECTION = "folie rechts (de verticale plakstrook is alleen in MAP-003/004 zichtbaar en in MAP-009 niet verifieerbaar; zie reconciliatierapport)"
 FI_PATTERN = re.compile(r"\bFI-[A-Z0-9]")
 NON_HUMAN = re.compile(r"claude|\bai\b|assistant|bot|automat", re.I)
@@ -91,7 +91,7 @@ def digest(obj):
 def request_hash(req):
     """Hash over de inhoud die de identiteitsvraag bepaalt; niet over status, besluit en validatieresultaat."""
     core = {k: req.get(k) for k in ("approval_request_id", "candidate_group_id", "observation_ids", "supporting_relation_ids", "source_hashes", "candidate_status",
-                                    "proposed_instance_type", "evidence_refs", "decision_levels", "photo_ids", "relation_strength_in_source", "evidence_class", "unresolved_questions", "evidence_reconciliation")}
+                                    "proposed_instance_type", "evidence_refs", "decision_levels", "photo_ids", "relation_strength_in_source", "evidence_class", "unresolved_questions", "evidence_reconciliation", "additional_evidence", "decision_provenance")}
     return digest(core)[:32]
 
 
@@ -236,7 +236,7 @@ def _structure_check(req):
         problems.append("BEWIJS_OF_VRAGEN_ONGELDIG")
     if req.get("is_instance") is not False or req.get("frame_instance_id") is not None or req.get("reserved_instance_id") is not None:
         problems.append("AANVRAAG_CLAIMT_INSTANCE_OF_RESERVEERT_ID")
-    if any(FI_PATTERN.search(s) for s in _walk_strings({k: v for k, v in req.items() if k != "request_note"})):
+    if any(FI_PATTERN.search(s) for s in _walk_strings(req)):
         problems.append("FI_ID_IN_AANVRAAG")
     if not isinstance(req["forbidden_effects"], list) or not set(FORBIDDEN_EFFECTS) <= set(req["forbidden_effects"]):
         problems.append("VERBODEN_EFFECTEN_ONVOLLEDIG")
@@ -310,16 +310,22 @@ def _evaluate(ctx, req):
     else:
         checks.append(_chk("C2", "OIC heeft status SUPPORTED_CANDIDATE", "PASS", "live status SUPPORTED_CANDIDATE (opnieuw bepaald uit de brondata)"))
 
-    # aanvraag moet exact het live verband beschrijven
-    live_cmp = {**live, "relation_strength_in_source": live["relation_strength_in_source"]}
-    drift = [k for k in ("observation_ids", "supporting_relation_ids", "source_hashes", "photo_ids", "relation_strength_in_source", "evidence_class") if req.get(k) != live_cmp[k]]
-    missing_q = [q for q in live["unresolved_questions"] + EXTRA_QUESTIONS if q not in req["unresolved_questions"]]
-    if missing_q:
-        drift.append("unresolved_questions (onzekerheden mogen niet worden verwijderd)")
-    if drift:
-        checks.append(_chk("C3a", "Aanvraag komt overeen met het live kandidaatverband", "BLOCK", "afwijking in " + ", ".join(drift)))
-        return checks, questions, required
-    checks.append(_chk("C3a", "Aanvraag komt overeen met het live kandidaatverband", "PASS", "observaties, foto's, relaties, bronhashes, relatiesterkte en bewijsklasse identiek"))
+    # aanvraag moet exact het live verband beschrijven: alle bewijsclaims worden vergeleken met een vers uit de brondata opgebouwde aanvraag
+    try:
+        exp = build_request(ctx, oic_id)
+    except Exception as exc:   # noqa: BLE001
+        exp = None
+        checks.append(_chk("C3a", "Aanvraag komt overeen met het live kandidaatverband", "BLOCK", f"verwachte aanvraag niet op te bouwen: {type(exc).__name__}"))
+    if exp is not None:
+        drift = [k for k in ("observation_ids", "supporting_relation_ids", "source_hashes", "photo_ids", "relation_strength_in_source", "evidence_class", "evidence_refs",
+                             "proposed_instance_type", "additional_evidence", "decision_provenance") if req.get(k) != exp[k]]
+        if any(q not in req["unresolved_questions"] for q in exp["unresolved_questions"]):
+            drift.append("unresolved_questions (onzekerheden mogen niet worden verwijderd)")
+        if drift:
+            checks.append(_chk("C3a", "Aanvraag komt overeen met het live kandidaatverband", "BLOCK", "afwijking in " + ", ".join(drift)))
+        else:
+            checks.append(_chk("C3a", "Aanvraag komt overeen met het live kandidaatverband", "PASS",
+                               "observaties, foto's, relaties, bronhashes, relatiesterkte, bewijsklasse, bewijsverwijzingen, type, aanvullend bewijs en herkomst identiek aan een vers opgebouwde aanvraag"))
 
     # 3 observaties geldig; 4 bronhashes (review-bron, archiefregister en bewijsreferenties)
     probs = [p for o in obs_ids for p in [OIP._obs_problem(o, ctx["observations"].get(o))] if p]
@@ -415,6 +421,7 @@ def _evaluate(ctx, req):
     for r in open_rel:
         questions.append(f"Gerelateerde relatie {r['relation_id']} (zonder menselijk besluit) raakt deze observaties; Claude-voorstel {r['claude_proposal']}; kwaliteitsreview: {r['quality_finding']}")
         required.append(f"Besluit over {r['relation_id']} (RV-REL-{r['relation_id']}), of expliciete erkenning dat het open blijft")
+    req["_open_relations"] = sorted(r["relation_id"] for r in open_rel)
 
     # 9 conflict met bestaande instances, andere kandidaten en andere aanvragen
     conflicts, infos = [], []
@@ -513,6 +520,7 @@ def evaluate_request(ctx, req):
     except Exception as exc:   # noqa: BLE001 — fail-closed: beschadigde invoer mag nooit tot goedkeuring leiden
         checks, questions, required = [_chk("S9", "Onverwachte fout bij validatie", "BLOCK", f"{type(exc).__name__}: {str(exc)[:160]}")], [], []
     related = out.pop("_related_app_decisions", [])
+    open_relations = out.pop("_open_relations", [])
     results = {c["result"] for c in checks}
     if "BLOCK" in results:
         verdict, status = "BLOCKED", "REJECTED"
@@ -523,6 +531,7 @@ def evaluate_request(ctx, req):
     out["validation_results"] = {
         "technical_verdict": verdict, "checks": checks, "blocked_by": [c["id"] for c in checks if c["result"] == "BLOCK"],
         "needs_evidence_by": [c["id"] for c in checks if c["result"] == "NEEDS_EVIDENCE"], "related_app_decisions": related,
+        "open_related_relations": open_relations,
         "meaning": "Technisch geschikt voor beoordeling is NIET: menselijk goedgekeurd, en nooit: geactiveerde instance.",
     }
     out["approval_status"] = status
@@ -561,17 +570,28 @@ def process_batch(ctx, requests):
 
 
 # ----------------------------------------------------------------------------------------------------------------------------------
+RECORD_KEYS = {"decision_id", "request_id", "request_hash", "decision", "level", "covers_levels", "decided_by", "decision_source", "statement", "acknowledged_app_decisions",
+               "acknowledged_open_relations"}
+
+
 def verify_human_approval(ctx, req, rec):
-    """Verifieerbaar menselijk niveau-A-besluit voor deze exacte aanvraag. Retourneert (ok, redenen). Fail-closed."""
+    """Verifieerbaar menselijk niveau-A-besluit voor deze exacte aanvraag. Retourneert (ok, redenen). Fail-closed; de aanvraag wordt zelf opnieuw beoordeeld
+    en een door de aanroeper meegegeven validatieresultaat wordt nooit vertrouwd."""
     p = []
-    if not isinstance(rec, dict):
-        return False, ["BESLUIT_GEEN_OBJECT"]
-    for f in ("decision_id", "request_id", "request_hash", "decision", "level", "decided_by", "decision_source", "statement", "covers_levels", "acknowledged_app_decisions"):
-        if f not in rec:
-            p.append("VELD_ONTBREEKT " + f)
+    if not isinstance(rec, dict) or not isinstance(req, dict):
+        return False, ["BESLUIT_OF_AANVRAAG_GEEN_OBJECT"]
+    missing = sorted(RECORD_KEYS - set(rec))
+    extra = sorted(set(rec) - RECORD_KEYS)
+    if missing:
+        p.append("VELD_ONTBREEKT " + ", ".join(missing))
+    if extra:
+        p.append("ONBEKENDE_VELDEN_IN_BESLUIT " + ", ".join(extra))
     if p:
         return False, p
-    if rec["request_id"] != req.get("approval_request_id") or rec["request_hash"] != req.get("request_hash") or request_hash(req) != req.get("request_hash"):
+    fresh = evaluate_request(ctx, {**req, "approval_status": "DRAFT", "human_decision": None, "validation_results": None})     # nooit het meegegeven resultaat vertrouwen
+    if fresh["approval_status"] != "READY_FOR_HUMAN_REVIEW":
+        p.append("AANVRAAG_IS_NIET_TECHNISCH_GESCHIKT_VOOR_BEOORDELING")
+    if rec["request_id"] != fresh.get("approval_request_id") or rec["request_hash"] != fresh.get("request_hash") or request_hash(fresh) != fresh.get("request_hash"):
         p.append("BESLUIT_HOORT_NIET_BIJ_DEZE_AANVRAAG_OF_INHOUD_GEWIJZIGD")
     if rec["decision"] not in HUMAN_DECISIONS:
         p.append("ONBEKEND_BESLUIT")
@@ -585,9 +605,13 @@ def verify_human_approval(ctx, req, rec):
         p.append("VERKLARING_ONTBREEKT")
     if any(rec.get(k) not in (None, "") for k in LEVEL_B_C_KEYS):
         p.append("BESLUIT_BEVAT_NIVEAU_B_OF_C_INHOUD")
-    need = sorted(r["app_id"] for r in (req.get("validation_results") or {}).get("related_app_decisions", []) if r.get("relevance") == "DIRECT")
+    vr = fresh.get("validation_results") or {}
+    need = sorted(r["app_id"] for r in vr.get("related_app_decisions", []) if r.get("relevance") == "DIRECT")
     if not isinstance(rec["acknowledged_app_decisions"], list) or not set(need) <= set(rec["acknowledged_app_decisions"]):
         p.append("OPENSTAANDE_APP_OVERLAPVRAGEN_NIET_ERKEND " + str(need))
+    need_rel = sorted(vr.get("open_related_relations", []))
+    if not isinstance(rec["acknowledged_open_relations"], list) or not set(need_rel) <= set(rec["acknowledged_open_relations"]):
+        p.append("OPENSTAANDE_RELATIES_NIET_ERKEND " + str(need_rel))
     reg = [d for d in (ctx.get("human_approvals") or []) if isinstance(d, dict) and d.get("decision_id") == rec["decision_id"]]
     if len(reg) != 1 or canonical(reg[0]) != canonical(rec):
         p.append("BESLUIT_STAAT_NIET_IN_HET_GEREGISTREERDE_BESLUITENREGISTER")

@@ -152,8 +152,8 @@ def test_required_uncertainties_stay_visible_in_the_request():
 
 
 def test_hash_changed_and_old_hash_is_marked_stale_without_any_decision():
-    assert BASE["request_hash"] == REP["draft_request"]["request_hash"] != "aa556297be5d6713d298a06fa40492b8"
-    assert BASE["superseded_request_hashes"] == ["aa556297be5d6713d298a06fa40492b8"] and REP["evidence_reconciliation"]["stale_request_hashes"] == ["aa556297be5d6713d298a06fa40492b8"]
+    assert BASE["request_hash"] == REP["draft_request"]["request_hash"] not in P.SUPERSEDED_HASHES
+    assert BASE["superseded_request_hashes"] == P.SUPERSEDED_HASHES == REP["evidence_reconciliation"]["stale_request_hashes"] and "aa556297be5d6713d298a06fa40492b8" in P.SUPERSEDED_HASHES
     assert CTX["human_approvals"] == [] and REP["draft_request"]["human_decision"] is None
     r = copy.deepcopy(BASE)
     r["superseded_request_hashes"].append(r["request_hash"])
@@ -161,7 +161,7 @@ def test_hash_changed_and_old_hash_is_marked_stale_without_any_decision():
     # een besluit op de verouderde hash werkt niet
     ready = ev()
     rec = {"decision_id": "IAD-T", "request_id": ready["approval_request_id"], "request_hash": "aa556297be5d6713d298a06fa40492b8", "decision": "APPROVE_PHYSICAL_IDENTITY", "level": "A", "covers_levels": ["A"],
-           "decided_by": "Test Beslisser", "decision_source": "HUMAN", "statement": "Synthetische testverklaring.", "acknowledged_app_decisions": ["APP-012", "APP-025"]}
+           "decided_by": "Test Beslisser", "decision_source": "HUMAN", "statement": "Synthetische testverklaring.", "acknowledged_app_decisions": ["APP-012", "APP-025"], "acknowledged_open_relations": ["VR-045"]}
     assert P.transition(ctx_copy(human_approvals=[rec]), ready, "APPROVED_FOR_ACTIVATION", rec)["ok"] is False
 
 
@@ -236,3 +236,40 @@ def test_other_outcomes_do_not_make_map009_a_requirement():
         out = P.evaluate_request(c, r)
         assert out["evidence_reconciliation"]["outcome"] == outcome and out["approval_status"] != "APPROVED_FOR_ACTIVATION"
         assert out["evidence_reconciliation"]["oic_depends_on_map009"] is False
+
+
+def test_wider_map009_crop_contains_the_narrow_window_and_the_vr045_crop_does_not():
+    by = {c["crop_id"]: c["region_px"] for c in REC["crops"]}
+    inside = lambda a, b: a[0] >= b[0] and a[1] >= b[1] and a[2] <= b[2] and a[3] <= b[3]       # noqa: E731
+    overlap = lambda a, b: not (a[2] <= b[0] or b[2] <= a[0] or a[3] <= b[1] or b[3] <= a[1])    # noqa: E731
+    assert inside(by["C-NARROW"], by["C-PR42-WIDE"]) and not overlap(by["C-NARROW"], by["C-VR045-REF"])
+    assert inside(by["C-LEFTPANE"], by["C-VR045-REF"]) and inside(by["C-SILL"], by["C-VR045-REF"])      # F1 en F3 lagen wel in de VR-045-uitsnede
+    f = {x["id"]: x for x in REC["features"]}
+    assert f["F4"]["in_vr045_crop"] is False and f["F1"]["in_vr045_crop"] and f["F3"]["in_vr045_crop"]
+    assert f["F5"]["class"] == "NOT_VERIFIABLE" and f["F5"]["m9"] is None
+
+
+def test_feature_match_inliers_are_never_used_as_a_gate_or_identity_claim_in_the_framework():
+    src = (ROOT / "scripts/physical_instance_approval.py").read_text(encoding="utf-8")
+    assert "inliers" not in src.replace("slechts ondersteunend", "") or "feature_match_support_only" in src
+    for line in src.splitlines():
+        if "inliers" in line:
+            assert "if " not in line and "NEEDS_EVIDENCE" not in line and "BLOCK" not in line, line
+    rec = json.loads(RC.OUT_JSON.read_text(encoding="utf-8"))
+    assert "alleen ondersteunend" in rec["feature_match_note"] and "niets op te baseren" in rec["feature_match_note"]
+
+
+PINNED = {   # SHA256 van de bestanden zoals ze op main staan (PR #41/#42); de reconciliatie mag er niets aan wijzigen
+    "reports/frames/photo_review_map003_map004_v1/maldenhof_visual_photo_review_map003_map004_v1.json": "28cccaf2eccfc82aa871b6a66c342043112406fb127d044ddf1f1051703e0719",
+    "reports/frames/photo_review_map003_map004_v1/maldenhof_p1_visual_quality_review_v1.json": "2a8d6643927e3e14fb9554cc0379421230be8c97d3d73bb406281c8965b8b088",
+    "reports/frames/photo_review_map003_map004_v1/p1_quality_review/p1_feature_match_evidence_v1.json": "1039b6231497c4b3335799b85bfafdd32bc521f4d8cb4d897551857a555ed04c",
+    "reports/frames/photo_review_map003_map004_v1/p1_quality_review/QREL-sheet-4.jpg": "23048b601415e0052ba3e9b1374249c3d09cdfbb80ed0857fa646928622adee0",
+    "reports/frames/physical_object_identity_pilot_v1.json": "88cb87d908a97166c63d0bbeec40a61f3bd3c39c19f390de80e2089da4dcf139",
+    "reports/frames/physical_object_identity_evidence_v1/physical_object_identity_evidence_verification_v1.json": "34c403eff900b07423c4627c946588ef1cce2ae24f4ab93e1b5def58e9f61a7c",
+    "reports/frames/photo_review_map003_map004_v1/pilot_decisions/maldenhof_pilot_decision_register_v1.json": "d2545b484275513ab253315bd812001ded58fe0cc9e7422b6b1a012a713fa61f",
+}
+
+
+def test_original_vr045_quality_review_pilot_register_and_pr42_reports_are_byte_identical_to_main():
+    for rel, h in PINNED.items():
+        assert sha(ROOT / rel) == h, rel

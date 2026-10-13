@@ -99,7 +99,7 @@
       "oic_depends_on_map009": false,
       "outcome": "COMPATIBLE_DIFFERENT_SCOPE",
       "record": "physical_instance_evidence_reconciliation_v1.json",
-      "record_sha256": "13677d703a3447c71f74a512472454c2bcae493d9b0e7c1ee15e865eb99b943e",
+      "record_sha256": "db09bac14b67d28667add6677401984665d637025b1c4d7600fb8bf18dc8f553",
       "vr045_human_decision": null,
       "vr045_modified": false
     },
@@ -196,7 +196,7 @@
     },
     "rejected_by": null,
     "relation_strength_in_source": "MEDIUM",
-    "request_hash": "34c61b5e5f274764e86491a838502ede",
+    "request_hash": "e276feeb5849ba8af4c41e2e429aca21",
     "request_note": "Een approval request is geen fysieke instance en reserveert geen instance-id.",
     "required_human_decisions": [
       "Besluit over VR-045 (RV-REL-VR-045), of expliciete erkenning dat het open blijft",
@@ -209,7 +209,8 @@
       "MAP-004": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576"
     },
     "superseded_request_hashes": [
-      "aa556297be5d6713d298a06fa40492b8"
+      "aa556297be5d6713d298a06fa40492b8",
+      "34c61b5e5f274764e86491a838502ede"
     ],
     "supporting_relation_ids": [
       "VR-027"
@@ -250,7 +251,7 @@
           "title": "OIC heeft status SUPPORTED_CANDIDATE"
         },
         {
-          "detail": "observaties, foto's, relaties, bronhashes, relatiesterkte en bewijsklasse identiek",
+          "detail": "observaties, foto's, relaties, bronhashes, relatiesterkte, bewijsklasse, bewijsverwijzingen, type, aanvullend bewijs en herkomst identiek aan een vers opgebouwde aanvraag",
           "id": "C3a",
           "kind": "AUTO_VALIDATED_FACT",
           "result": "PASS",
@@ -325,6 +326,9 @@
       ],
       "meaning": "Technisch geschikt voor beoordeling is NIET: menselijk goedgekeurd, en nooit: geactiveerde instance.",
       "needs_evidence_by": [],
+      "open_related_relations": [
+        "VR-045"
+      ],
       "related_app_decisions": [
         {
           "app_id": "APP-001",
@@ -580,7 +584,8 @@
     ],
     "report": "reports/frames/physical_instance_evidence_reconciliation_v1.md",
     "stale_request_hashes": [
-      "aa556297be5d6713d298a06fa40492b8"
+      "aa556297be5d6713d298a06fa40492b8",
+      "34c61b5e5f274764e86491a838502ede"
     ],
     "summary": {
       "corrections": [
@@ -600,7 +605,7 @@
       "oic_depends_on_map009": false,
       "outcome": "COMPATIBLE_DIFFERENT_SCOPE",
       "record": "physical_instance_evidence_reconciliation_v1.json",
-      "record_sha256": "13677d703a3447c71f74a512472454c2bcae493d9b0e7c1ee15e865eb99b943e",
+      "record_sha256": "db09bac14b67d28667add6677401984665d637025b1c4d7600fb8bf18dc8f553",
       "vr045_human_decision": null,
       "vr045_modified": false
     }

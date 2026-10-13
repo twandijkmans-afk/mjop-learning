@@ -143,7 +143,7 @@ def test_04_human_candidate_decision_missing():
     assert not_ready(ev(ctx=c))
     r = req_copy()
     r["decision_provenance"]["candidate_decision"] = []
-    out = ev(r)
+    out = ev(rehash(r))
     assert not_ready(out) and "C6" in failed(out)
 
 
@@ -242,7 +242,7 @@ def test_11_automatic_bag_link_is_refused(where):
         rec = _valid_record()
         rec["bag_pand_id"] = "0363100012121455"
         ok, why = P.verify_human_approval(_ctx_with(rec), _ready(), rec)
-        assert not ok and any("NIVEAU_B_OF_C" in w for w in why)
+        assert not ok and any(("NIVEAU_B_OF_C" in w) or ("ONBEKENDE_VELDEN" in w) for w in why)
         return
     r = req_copy()
     if where == "levels_b":
@@ -275,7 +275,7 @@ def _valid_record(req=None):
     req = req or _ready()
     return {"decision_id": "IAD-TEST-001", "request_id": req["approval_request_id"], "request_hash": req["request_hash"], "decision": "APPROVE_PHYSICAL_IDENTITY",
             "level": "A", "covers_levels": ["A"], "decided_by": "Test Beslisser", "decision_source": "HUMAN", "statement": "Synthetische testverklaring van een mens.",
-            "acknowledged_app_decisions": ["APP-012", "APP-025"]}
+            "acknowledged_app_decisions": ["APP-012", "APP-025"], "acknowledged_open_relations": ["VR-045"]}
 
 
 def _ctx_with(rec):
@@ -481,3 +481,117 @@ def test_report_distinguishes_validated_manual_and_pending_and_documents_uncerta
     for needle in ("VR-045", "tegenstrijdige beoordeling van MAP-009", "STOP", "Ontbrekend vóór deze PR", "APPROVE_PHYSICAL_IDENTITY"):
         assert needle in md, needle
     assert REP["later_activation_phase_proposal"] and REP["forbidden_effects"] == P.FORBIDDEN_EFFECTS
+
+
+# ---------------------------------------------------------------- eindcontrole PR #43: aanvullende regressietests
+def test_every_hashed_claim_field_is_checked_against_a_fresh_live_build_even_when_rehashed():
+    for mutate in (lambda r: r["additional_evidence"][0]["arguments"].append("extra sterke claim"),
+                   lambda r: r["proposed_instance_type"].update(material="WOOD"),
+                   lambda r: r["proposed_instance_type"].update(component_type="DOOR"),
+                   lambda r: r["evidence_refs"][0].update(region_px=[0, 0, 5, 5]),
+                   lambda r: r["decision_provenance"].update(note="aangepast"),
+                   lambda r: r["decision_provenance"]["candidate_decision"][0].update(approval_channel="HTML-formulier"),
+                   lambda r: r.update(relation_strength_in_source="HIGH"), lambda r: r.update(evidence_class="MODERATE_VISUAL_SUPPORT"),
+                   lambda r: r.update(photo_ids=["MAP-003", "MAP-009"])):
+        r = req_copy()
+        mutate(r)
+        out = ev(rehash(r))                                  # ook met opnieuw berekende hash: afwijking van de live opbouw blokkeert
+        assert out["approval_status"] == "REJECTED" and "C3a" in out["validation_results"]["blocked_by"]
+        r2 = req_copy()
+        mutate(r2)
+        assert ev(r2)["approval_status"] == "REJECTED"        # zonder nieuwe hash faalt de hashcontrole
+
+
+def test_request_hash_is_deterministic_bound_to_content_and_never_an_approval():
+    h = BASE["request_hash"]
+    assert h == P.request_hash(BASE) == P.request_hash(copy.deepcopy(BASE)) and len(h) == 32 and h not in P.SUPERSEDED_HASHES
+    assert P.SUPERSEDED_HASHES == ["aa556297be5d6713d298a06fa40492b8", "34c61b5e5f274764e86491a838502ede"]
+    for f in ("observation_ids", "evidence_refs", "unresolved_questions", "additional_evidence", "decision_provenance", "evidence_reconciliation", "proposed_instance_type", "photo_ids"):
+        r = req_copy()
+        r[f] = copy.deepcopy(r[f]) if f != "photo_ids" else ["X"]
+        if isinstance(r[f], list):
+            r[f].append("x")
+        elif isinstance(r[f], dict):
+            r[f]["zz"] = 1
+        assert P.request_hash(r) != h, f
+    out = ev()
+    assert out["request_hash"] == h and out["human_decision"] is None and out["approval_status"] == "READY_FOR_HUMAN_REVIEW"     # de hash alleen is geen goedkeuring
+
+
+def test_human_record_schema_is_closed_and_must_acknowledge_open_relations_and_app_questions():
+    ready = ev()
+    rec = _valid_record(ready)
+    assert P.verify_human_approval(_ctx_with(rec), ready, rec) == (True, [])
+    assert ready["validation_results"]["open_related_relations"] == ["VR-045"]
+    for bad in (dict(rec, creates_instance=True), dict(rec, activate=True), dict(rec, bag_pand="x"), {k: v for k, v in rec.items() if k != "acknowledged_open_relations"},
+                dict(rec, acknowledged_open_relations=[]), dict(rec, acknowledged_app_decisions=["APP-012"])):
+        ok, why = P.verify_human_approval(_ctx_with(bad), ready, bad)
+        assert ok is False and why, bad
+
+
+def test_verify_never_trusts_a_caller_supplied_validation_result():
+    ready = ev()
+    rec = _valid_record(ready)
+    forged = copy.deepcopy(ready)
+    forged["validation_results"]["related_app_decisions"] = []
+    forged["validation_results"]["open_related_relations"] = []
+    bad = dict(rec, acknowledged_app_decisions=[], acknowledged_open_relations=[])
+    assert P.verify_human_approval(_ctx_with(bad), forged, bad)[0] is False
+    # een niet meer technisch geschikte aanvraag kan niet worden goedgekeurd, ook niet met een geldig record
+    c = _ctx_with(rec)
+    c["archive_sha"]["MAP-003"] = "9" * 64
+    assert P.verify_human_approval(c, ready, rec)[0] is False
+
+
+def test_status_machine_matches_the_code_for_every_pair():
+    ready = ev()
+    rec = _valid_record(ready)
+    ctx = _ctx_with(rec)
+    for cur in P.STATUSES:
+        for target in P.STATUSES:
+            r = {**ready, "approval_status": cur}
+            out = P.transition(ctx, r, target, rec if target == "APPROVED_FOR_ACTIVATION" else None)
+            allowed = target in P.TRANSITIONS[cur]
+            if not allowed:
+                assert out["ok"] is False, (cur, target)
+            elif out["ok"]:
+                assert out["request"]["approval_status"] == target and out["request"]["is_instance"] is False
+            if target == "APPROVED_FOR_ACTIVATION" and out["ok"]:
+                assert cur == "READY_FOR_HUMAN_REVIEW"
+            if cur == "REJECTED":
+                assert out["ok"] is False
+    # evaluate_request levert alleen overgangen die vanuit DRAFT toegestaan zijn
+    for case in (ev(), ev(ctx=ctx_copy(reconciliation={}))):
+        assert case["approval_status"] in P.TRANSITIONS["DRAFT"]
+
+
+def test_feature_match_alone_is_never_identity_evidence():
+    c = ctx_copy()
+    c["quality"]["RV-REL-VR-027"]["evidence_basis"] = ["FEATURE_MATCH"]            # alleen feature-match, geen anker
+    out = ev(ctx=c)
+    assert out["approval_status"] != "READY_FOR_HUMAN_REVIEW" and {"C2", "C7"} & set(failed(out))      # zonder anker vervalt zelfs het SUPPORTED-OIC
+    c = ctx_copy()
+    for k in c["feature"]["VR-027"]:
+        if "inliers" in k or k == "good_matches":
+            c["feature"]["VR-027"][k] = 999
+    assert ev(ctx=c)["approval_status"] in ("READY_FOR_HUMAN_REVIEW", "NEEDS_MORE_EVIDENCE", "REJECTED")
+    c2 = ctx_copy()
+    c2["quality"]["RV-REL-VR-027"]["evidence_basis"] = ["FEATURE_MATCH", "SAME_LAYOUT"]
+    assert ev(ctx=c2)["approval_status"] != "READY_FOR_HUMAN_REVIEW"
+
+
+def test_fi_ids_are_scanned_everywhere_in_the_request():
+    for key in ("request_note", "kind", "extra_field"):
+        r = req_copy()
+        r[key] = "FI-M3-777"
+        assert ev(rehash(r))["approval_status"] == "REJECTED", key
+    assert not any(P.FI_PATTERN.search(s) for s in P._walk_strings(BASE))
+    assert "FI-M" not in P.OUT_JSON.read_text(encoding="utf-8").replace("FI-M2-nnn", "")
+
+
+def test_no_other_script_imports_or_drives_the_approval_framework():
+    for f in (ROOT / "scripts").glob("*.py"):
+        if f.name.startswith(("physical_instance_", "object_identity_")) or f.name == "doc012_generalization_review.py":    # laatste: alleen de lijst REPORT_ONLY_SCRIPTS
+            continue
+        txt = f.read_text(encoding="utf-8")
+        assert "physical_instance_approval" not in txt and "physical_instance_evidence_reconciliation" not in txt, f.name

@@ -46,7 +46,7 @@ CROPS = [
     ("MAP-009", "C-PR42-WIDE", [300, 300, 1050, 800], "PR #42: ruimere uitsnede; tweedelig kozijn + smal raam rechts + omgeving"),
     ("MAP-009", "C-NARROW", [800, 500, 960, 760], "MAP-009: smal raam met folie (buiten de VR-045-uitsnede)"),
     ("MAP-009", "C-LEFTPANE", [362, 362, 520, 600], "MAP-009: linkervak met witte merktekens (binnen de VR-045-uitsnede)"),
-    ("MAP-009", "C-SILL", [480, 570, 720, 720], "MAP-009: vensterbank onder het gordijn (binnen de VR-045-uitsnede)"),
+    ("MAP-009", "C-SILL", [480, 570, 747, 682], "MAP-009: vensterbank onder het gordijn (binnen de VR-045-uitsnede)"),
     ("MAP-003", "C-M3-OBS", [1167, 481, 1316, 571], "OBS-MAP003-011 (exacte observatie-uitsnede)"),
     ("MAP-003", "C-M3-WIDE", [1150, 470, 1420, 590], "OBS-MAP003-011 plus smal raam rechts"),
     ("MAP-003", "C-M3-NARROW", [1350, 478, 1415, 580], "MAP-003: smal raam met folie"),
