@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maldenhof Human Visual Decision Pack v1.2</title>
+<style>
+:root{--bg:#f6f6f4;--card:#fff;--ink:#1d2327;--mute:#5b656c;--line:#d5d9dc;--p1:#b3261e;--p2:#a15c00;--p3:#3b6b3b;--acc:#0b5cab;--ok:#1b7a3a}
+@media (prefers-color-scheme: dark){:root{--bg:#15191c;--card:#1f2529;--ink:#e8ecee;--mute:#a2adb4;--line:#38424a;--p1:#ff8a80;--p2:#ffc266;--p3:#8fd18f;--acc:#7db8ff;--ok:#6fdc8c}}
+*{box-sizing:border-box}[id]{scroll-margin-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,Segoe UI,Roboto,sans-serif}
+header.top{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line);padding:8px 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+header.top strong{font-size:16px}
+main{max-width:1500px;margin:0 auto;padding:16px}
+h1{font-size:24px;margin:8px 0}h2{font-size:20px;margin:28px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}h3{font-size:17px;margin:20px 0 6px}h4{font-size:15px;margin:0 0 4px}
+.note{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--acc);padding:10px 14px;border-radius:6px;margin:10px 0}
+.warn{border-left-color:var(--p1)}
+table{border-collapse:collapse;width:100%;background:var(--card)}th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;font-size:14px}th{background:var(--bg)}
+.chip{display:inline-block;border-radius:10px;padding:0 8px;font-size:12px;border:1px solid var(--line);margin-right:4px;background:var(--bg)}
+.prio{font-weight:700;border-radius:4px;padding:0 6px;color:#fff;font-size:12px}.prio.P1{background:var(--p1)}.prio.P2{background:var(--p2)}.prio.P3{background:var(--p3)}
+.t-WINDOW_OPENING{border-color:#d4b400}.t-EXTERIOR_DOOR{border-color:#e53935}.t-ROOF_WINDOW{border-color:#00acc1}.t-DORMER_OPENING{border-color:#43a047}.t-UNKNOWN_OPENING{border-color:#888;border-style:dashed}
+.review-item{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;margin:8px 0;display:flex;flex-wrap:wrap;gap:12px}
+.review-item.decided{border-left:5px solid var(--ok)}.review-item.open{border-left:5px solid var(--line)}
+.review-item .thumb{max-width:420px;width:100%;height:auto;border-radius:4px;border:1px solid var(--line);align-self:flex-start}
+.review-item .body{flex:1;min-width:280px}
+.proposal{color:var(--mute);font-size:13px;margin:4px 0}.proposal b{color:var(--ink)}
+.evid{color:var(--mute);font-size:12px;margin:4px 0}
+.choices{border:0;padding:0;margin:6px 0;display:flex;flex-wrap:wrap;gap:4px 14px}
+.choices label{cursor:pointer;display:inline-flex;gap:4px;align-items:center}
+textarea.cmt{width:100%;min-height:34px;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:4px}
+button,.btn{font:inherit;padding:5px 12px;border:1px solid var(--acc);background:var(--acc);color:#fff;border-radius:5px;cursor:pointer}
+button.sec{background:transparent;color:var(--acc)}button.small{padding:1px 8px;font-size:12px}
+.group{background:var(--card);border:1px solid var(--line);border-radius:8px;margin:16px 0;padding:12px}
+.group img.panel{max-width:100%;height:auto;border:1px solid var(--line);border-radius:4px;margin:6px 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.gallery{display:flex;flex-wrap:wrap;gap:10px}.gallery figure{margin:0;max-width:100%}.gallery img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:4px}figcaption{font-size:12px;color:var(--mute)}
+.fig{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#export-json{width:100%;min-height:160px;font:12px/1.4 ui-monospace,Consolas,monospace;background:var(--bg);color:var(--ink);border:1px solid var(--line)}
+.pill{border:1px solid var(--line);border-radius:12px;padding:1px 10px;background:var(--bg);font-size:13px}
+.hidden{display:none!important}
+.pilot-card{background:var(--card);border:2px solid var(--acc);border-radius:10px;padding:10px 12px;margin:16px 0}.pilot-card h3{margin:0 0 4px}.pilot-card .cols h4{color:var(--acc)}.pilot-card .review-item{border:0;padding:6px 0 0;margin:6px 0 0}
+body.pilot-only main > *{display:none!important}body.pilot-only main > #pilot,body.pilot-only main > #exportsec{display:block!important}
+.pilot-stub{background:var(--bg);border-left:3px solid var(--acc);padding:2px 8px}
+.qa{background:var(--bg);border:1px dashed var(--line);border-radius:6px;padding:6px 10px;margin:6px 0;font-size:13px}.qa p{margin:4px 0}.qa table{margin:4px 0}.qa th{width:34%}
+.chip.st-VISUALLY_SUPPORTED{border-color:var(--ok);color:var(--ok)}.chip.st-NEEDS_MANUAL_REVIEW{border-color:var(--p2);color:var(--p2)}.chip.st-NEEDS_BETTER_PHOTO{border-color:var(--p1);color:var(--p1)}.chip.st-TECHNICALLY_VALIDATED{border-color:var(--acc);color:var(--acc)}
+.chip.corr{border-color:var(--p2);color:var(--p2)}.chip.rt-FACADE{border-color:var(--acc);color:var(--acc);font-weight:600}.chip.rt-OBJECT{border-color:var(--p3);color:var(--p3);font-weight:600}
+.semantics{font-size:13px;border-left:3px solid var(--line);padding:2px 8px;margin:6px 0}.sem-facade{border-left-color:var(--acc)}.sem-object{border-left-color:var(--p3)}.meaning{color:var(--mute);font-size:12px}
+.err li{color:var(--p1)}#import-panel{border-left-color:var(--p2)}
+</style>
+</head>
+<body>
+<header class="top">
+<strong>Maldenhof Human Visual Decision Pack v1.2</strong>
+<span class="pill">Beslist: <span id="cnt-decided">0</span> / <span id="cnt-total">0</span></span>
+<span class="pill">P1 <span id="cnt-P1">0</span></span><span class="pill">P2 <span id="cnt-P2">0</span></span><span class="pill">P3 <span id="cnt-P3">0</span></span>
+<span class="bar" id="filters">
+<button class="small" data-filter="PILOT" title="Alleen de 10 pilotpunten">Pilot Review</button><button class="sec small" data-filter="ALL">Alles</button><button class="sec small" data-filter="P1">Alleen P1</button><button class="sec small" data-filter="P2">Alleen P2</button><button class="sec small" data-filter="P3">Alleen P3</button>
+<label><input type="checkbox" id="only-open"> alleen OPEN</label>
+</span>
+<button id="btn-export">Exporteer JSON</button>
+</header>
+<main>
+__BODY__
+<section id="exportsec"><h2 id="export">Exporteren, bewaren en hervatten</h2>
+<div class="note">
+<p><b>Opslag:</b> <span id="persist-status">controle...</span></p>
+<p>Je keuzes worden nooit automatisch ergens toegepast. De export is een <b>voorlopig reviewresultaat</b>: het maakt geen instances, voegt niets samen, wijzigt geen status en past geen APP-besluit aan. Niet-beoordeelde punten staan als <code>OPEN</code> (met <code>decision_source: NONE</code>) in het bestand; een voorstel van Claude staat apart (<code>claude_non_binding</code>) en wordt nooit als menselijk besluit geexporteerd of geimporteerd.</p>
+</div>
+<div class="bar">
+<label>Omvang van de export: <select id="export-scope"><option value="ALL">Alles (volledig bestand)</option><option value="PILOT">Alleen Pilot Review (deelbestand, 10 punten)</option><option value="DECIDED">Alleen beoordeelde punten (deelbestand)</option><option value="P1">Alleen P1 (deelbestand)</option><option value="P2">Alleen P2 (deelbestand)</option><option value="P3">Alleen P3 (deelbestand)</option></select></label>
+<button id="btn-export2">Download JSON</button>
+<button class="sec" id="btn-show">Toon JSON hieronder</button>
+<button class="sec" id="btn-copy">Kopieer JSON</button>
+<label class="btn sec" style="padding:4px 12px">Eerdere export laden <input type="file" id="import-file" accept="application/json,.json" style="display:none"></label>
+<button class="sec" id="btn-reset-all">Alles op OPEN zetten</button>
+</div>
+<div id="import-panel" class="note hidden" role="region" aria-label="Import van een eerdere export">
+<p id="import-summary"></p>
+<ul id="import-errors" class="err"></ul>
+<div class="bar" id="import-actions">
+<button id="imp-replace" title="Alle punten die niet in het bestand staan gaan naar OPEN en oude opmerkingen verdwijnen">Volledig vervangen</button>
+<button class="sec" id="imp-merge" title="Alleen de menselijke keuzes en opmerkingen uit het bestand worden toegepast; de rest blijft staan">Gedeeltelijk samenvoegen</button>
+<button class="sec" id="imp-cancel">Annuleren</button>
+</div>
+</div>
+<p id="export-msg" class="evid"></p>
+<textarea id="export-json" readonly placeholder="De JSON verschijnt hier na 'Toon JSON'."></textarea>
+</section>
+</main>
+<script>
+const PACK = __PACK__;
+(function(){
+"use strict";
+const KEY = "maldenhof_visual_decision_pack_v1:" + PACK.pack_version;
+const FORMAT = "maldenhof_visual_decision_export_v2", LEGACY_FORMAT = "maldenhof_visual_decision_export_v1";
+const STATUS = "PROVISIONAL_HUMAN_REVIEW_RESULT_NOT_APPLIED";
+const items = PACK.items;
+const byId = {}; items.forEach(it => { byId[it.review_id] = it; });
+let persist = false;
+try { localStorage.setItem("__t", "1"); localStorage.removeItem("__t"); persist = true; } catch (e) { persist = false; }
+const q = (s, r) => (r || document).querySelector(s);
+const qa = (s, r) => Array.from((r || document).querySelectorAll(s));
+function getDecision(id){ const r = q('input[name="d-' + id + '"]:checked'); return r ? r.value : "OPEN"; }
+function getComment(id){ const t = document.getElementById("c-" + id); return t ? t.value : ""; }
+function setDecision(id, d){ qa('input[name="d-' + id + '"]').forEach(r => { r.checked = (r.value === d); }); }
+function setComment(id, c){ const t = document.getElementById("c-" + id); if (t) t.value = c || ""; }
+function rtype(it){ return it.relation_semantics ? it.relation_semantics.relation_type : null; }
+function meaningOf(it, d){ const rt = rtype(it); if (d === "OPEN") return "OPEN"; return (rt && PACK.meaning[rt] && PACK.meaning[rt][d]) ? PACK.meaning[rt][d] : d; }
+function impliesOf(it, d){
+  const none = {same_facade_section: false, same_physical_object_candidate: false, same_physical_frame_proven: false, bag_pand_link: false, merge: false, unique_instance: false};
+  if (!it.relation_semantics || d !== "SAME") return none;
+  return Object.assign({}, none, it.relation_semantics.implies_when_same);
+}
+function refresh(save){
+  const per = {P1:[0,0], P2:[0,0], P3:[0,0]}; let dec = 0;
+  items.forEach(it => {
+    const d = getDecision(it.review_id); const done = d !== "OPEN";
+    per[it.priority][1]++; if (done) { per[it.priority][0]++; dec++; }
+    const el = document.getElementById("item-" + it.review_id);
+    if (el) { el.classList.toggle("decided", done); el.classList.toggle("open", !done); }
+  });
+  q("#cnt-decided").textContent = dec; q("#cnt-total").textContent = items.length;
+  ["P1","P2","P3"].forEach(p => { q("#cnt-" + p).textContent = per[p][0] + "/" + per[p][1]; });
+  applyFilter();
+  if (save && persist) {
+    try {
+      const st = {}; items.forEach(it => { const d = getDecision(it.review_id), c = getComment(it.review_id); if (d !== "OPEN" || c) st[it.review_id] = {d: d, c: c}; });
+      localStorage.setItem(KEY, JSON.stringify(st));
+    } catch (e) { persist = false; showPersist(); }
+  }
+}
+let curFilter = "ALL";
+function applyFilter(){
+  const onlyOpen = q("#only-open").checked;
+  document.body.classList.toggle("pilot-only", curFilter === "PILOT");
+  qa(".review-item").forEach(el => {
+    const p = el.getAttribute("data-priority"); const id = el.getAttribute("data-id");
+    const pil = el.getAttribute("data-pilot") === "1";
+    const hide = (curFilter === "PILOT" ? !pil : (curFilter !== "ALL" && p !== curFilter)) || (onlyOpen && getDecision(id) !== "OPEN");
+    el.classList.toggle("hidden", hide);
+  });
+}
+function showPersist(){
+  q("#persist-status").textContent = persist
+    ? "Je keuzes worden automatisch in dit browservenster bewaard (localStorage) zodra je ze invult. Dit werkt alleen in deze browser; gebruik de export om ze veilig te stellen."
+    : "Bewaren in de browser is hier niet beschikbaar (de browser blokkeert opslag voor lokale bestanden). Je keuzes blijven alleen staan zolang dit tabblad open is: exporteer de JSON voordat je het tabblad sluit.";
+}
+// ---------------------------------------------------------------------------------------------------------------- export
+function curScope(){ return q("#export-scope").value; }
+function inScope(it, scope){
+  if (scope === "ALL") return true;
+  if (scope === "PILOT") return !!it.pilot;
+  if (scope === "DECIDED") return getDecision(it.review_id) !== "OPEN" || getComment(it.review_id) !== "";
+  return it.priority === scope;
+}
+function reviewEntry(it){
+  const id = it.review_id, d = getDecision(id), done = d !== "OPEN";
+  return {
+    review_id: id, review_type: it.review_type, priority: it.priority, title: it.title,
+    photo_ids: it.photo_ids, observation_ids: it.observation_ids, relation_ids: it.relation_ids, linked_app_decisions: it.app_links,
+    source_ref_hash: it.ref_hash, relation_semantics: it.relation_semantics || null,
+    human: {decision: d, decision_source: done ? "HUMAN" : "NONE", comment: getComment(id), decision_meaning: meaningOf(it, d), implies: impliesOf(it, d)},
+    claude_non_binding: {proposal: it.claude_proposal, proposal_v1_0_0: it.claude_proposal_v1 || null,
+      quality_status: it.quality ? it.quality.quality_status : null, evidence_class: it.quality ? it.quality.evidence_class : null,
+      note: "Voorstel en bewijsbeoordeling van Claude; geen menselijk besluit en nooit een invoer voor de beslissing."},
+    source_evidence: it.evidence_refs, pack_version: PACK.pack_version
+  };
+}
+function buildExport(scope){
+  scope = scope || curScope();
+  const sel = items.filter(it => inScope(it, scope));
+  const per = {P1:{total:0,decided:0}, P2:{total:0,decided:0}, P3:{total:0,decided:0}}; let dec = 0, packDec = 0;
+  items.forEach(it => { if (getDecision(it.review_id) !== "OPEN") packDec++; });
+  const reviews = sel.map(it => {
+    const e = reviewEntry(it), done = e.human.decision !== "OPEN";
+    per[it.priority].total++; if (done) { per[it.priority].decided++; dec++; }
+    return e;
+  });
+  return {
+    export_format: FORMAT, pack_version: PACK.pack_version, review_package_version: PACK.review_package_version,
+    exported_at: new Date().toISOString(),
+    status: STATUS,
+    export_scope: {kind: scope === "ALL" ? "FULL" : "PARTIAL", filter: scope, included_review_ids: sel.map(it => it.review_id), pack_review_points_total: items.length},
+    effects: {instances_created: false, merges_performed: false, status_changes: false, bag_pand_links_created: false, unique_totals_computed: false, app_decisions_modified: false},
+    app_decisions: "ALL_48_APP_DECISIONS_REMAIN_OPEN_AND_UNCHANGED",
+    summary: {review_points_total: items.length, included_review_points: sel.length, decided_by_human: dec, open: sel.length - dec, pack_decided_by_human_total: packDec, per_priority: per,
+              note: "Reviewpunten zijn geen aantallen unieke fysieke kozijnen."},
+    reviews: reviews
+  };
+}
+function exportText(scope){ return JSON.stringify(buildExport(scope), null, 2); }
+function showJson(){ q("#export-json").value = exportText(); q("#export-msg").textContent = "JSON opgebouwd uit je huidige keuzes (" + new Date().toLocaleTimeString() + "; omvang: " + curScope() + ")."; }
+function download(){
+  const scope = curScope(); const exp = buildExport(scope);
+  if (exp.reviews.length === 0) { q("#export-msg").textContent = "Er zijn geen punten in deze omvang (nog niets beoordeeld): er is niets te exporteren."; return; }
+  const text = JSON.stringify(exp, null, 2); showJson();
+  try {
+    const blob = new Blob([text], {type: "application/json"});
+    const a = document.createElement("a"); const ts = new Date().toISOString().replace(/[:.]/g, "-");
+    a.href = URL.createObjectURL(blob); a.download = "maldenhof_visual_decision_export_v2_" + scope.toLowerCase() + "_" + ts + ".json";
+    document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 500);
+    q("#export-msg").textContent = "Download gestart. Komt er geen bestand, kopieer dan de JSON uit het veld hieronder.";
+  } catch (e) { q("#export-msg").textContent = "Download is geblokkeerd door de browser; kopieer de JSON uit het veld hieronder."; }
+}
+// ---------------------------------------------------------------------------------------------------------------- import
+// Stap 1: het hele bestand valideren zonder iets aan de pagina te wijzigen. Stap 2: de gebruiker kiest vervangen of samenvoegen. Stap 3: pas daarna toepassen.
+function validateImport(o){
+  const errors = [], warnings = [];
+  const fail = m => { if (errors.length < 30) errors.push(m); else if (errors.length === 30) errors.push("... en meer fouten"); };
+  if (!o || typeof o !== "object" || Array.isArray(o)) return {errors: ["Het bestand bevat geen JSON-object."], warnings: warnings, entries: []};
+  const legacy = (o.export_format === LEGACY_FORMAT);
+  if (o.export_format !== FORMAT && !legacy) fail("onbekend exportformaat: " + JSON.stringify(o.export_format));
+  if (legacy) { if (o.pack_version !== PACK.legacy_pack_version) fail("pakketversie " + JSON.stringify(o.pack_version) + " hoort niet bij het oude formaat"); }
+  else if (o.pack_version !== PACK.pack_version && (PACK.compatible_pack_versions || []).indexOf(o.pack_version) < 0) fail("andere pakketversie: " + JSON.stringify(o.pack_version) + " (dit pakket: " + PACK.pack_version + ")");
+  if (o.review_package_version !== PACK.review_package_version) fail("ander reviewpakket: " + JSON.stringify(o.review_package_version));
+  if (o.status !== STATUS) fail("status moet " + STATUS + " zijn");
+  if (!o.effects || typeof o.effects !== "object") fail("effects ontbreekt");
+  else Object.keys(o.effects).forEach(k => { if (o.effects[k] !== false) fail("effects." + k + " moet false zijn"); });
+  if (!Array.isArray(o.reviews) || o.reviews.length === 0) { fail("reviews ontbreekt of is leeg"); return {errors: errors, warnings: warnings, entries: []}; }
+  let kind = "LEGACY", declared = null;
+  if (!legacy) {
+    const sc = o.export_scope;
+    if (!sc || typeof sc !== "object") fail("export_scope ontbreekt");
+    else {
+      kind = sc.kind;
+      if (kind !== "FULL" && kind !== "PARTIAL") fail("export_scope.kind moet FULL of PARTIAL zijn");
+      if (!Array.isArray(sc.included_review_ids)) fail("export_scope.included_review_ids ontbreekt"); else declared = sc.included_review_ids;
+    }
+  }
+  const seen = {}, entries = [];
+  o.reviews.forEach((r, idx) => {
+    const tag = "reviews[" + idx + "]";
+    if (!r || typeof r !== "object" || Array.isArray(r)) { fail(tag + " is geen object"); return; }
+    const id = r.review_id;
+    if (typeof id !== "string" || !Object.prototype.hasOwnProperty.call(byId, id)) { fail(tag + ": onbekend review_id " + JSON.stringify(id)); return; }
+    if (seen[id]) { fail(tag + ": dubbel review_id " + id); return; }
+    seen[id] = true;
+    const it = byId[id];
+    let d, c, src;
+    if (legacy) { d = r.decision; c = r.comment; src = r.decision_source; }
+    else {
+      const h = r.human;
+      if (!h || typeof h !== "object" || Array.isArray(h)) { fail(id + ": human ontbreekt"); return; }
+      d = h.decision; c = h.comment; src = h.decision_source;
+      if (r.source_ref_hash !== it.ref_hash) fail(id + ": de bronverwijzing komt niet overeen met dit pakket");
+      if (r.review_type !== it.review_type) fail(id + ": review_type wijkt af");
+      if (it.relation_semantics) {
+        if (!r.relation_semantics || r.relation_semantics.relation_type !== it.relation_semantics.relation_type) fail(id + ": relatietype wijkt af");
+        else if (typeof d === "string" && d !== "OPEN" && h.decision_meaning !== meaningOf(it, d)) fail(id + ": decision_meaning " + JSON.stringify(h.decision_meaning) + " klopt niet bij relatietype " + rtype(it));
+      }
+    }
+    if (typeof d !== "string" || (d !== "OPEN" && it.choices.indexOf(d) < 0)) { fail(id + ": ongeldige keuze " + JSON.stringify(d)); return; }
+    if (src !== (d === "OPEN" ? "NONE" : "HUMAN")) { fail(id + ": decision_source " + JSON.stringify(src) + " past niet bij de keuze " + d + " (een voorstel van Claude telt nooit als menselijk besluit)"); return; }
+    if (c === undefined || c === null) c = "";
+    if (typeof c !== "string" || c.length > 5000) { fail(id + ": ongeldige opmerking"); return; }
+    if (legacy && it.relation_semantics && rtype(it) === "FACADE_SECTION" && d !== "OPEN") {
+      warnings.push(id + ": keuze " + d + " uit het oude formaat niet overgenomen (de betekenis van SAME bij gevelrelaties is verduidelijkt: opnieuw beoordelen).");
+      d = "OPEN";
+    }
+    entries.push({id: id, d: d, c: c});
+  });
+  if (declared) {
+    const ids = entries.map(e => e.id).sort().join("|"), dec = declared.slice().sort().join("|");
+    if (declared.length !== new Set(declared).size) fail("export_scope.included_review_ids bevat dubbele ID's");
+    else if (ids !== dec) fail("export_scope.included_review_ids komt niet overeen met de reviews in het bestand");
+    if (kind === "FULL" && entries.length !== items.length) fail("een volledige export moet alle " + items.length + " reviewpunten bevatten (dit bestand: " + entries.length + ")");
+  }
+  return {errors: errors, warnings: warnings, entries: entries, legacy: legacy, kind: kind};
+}
+let pending = null;
+function hidePanel(){ pending = null; q("#import-panel").classList.add("hidden"); }
+function showErrors(list, fname){
+  pending = null; const p = q("#import-panel"); p.classList.remove("hidden");
+  q("#import-summary").textContent = "Import van " + fname + " afgewezen: er is niets gewijzigd. Corrigeer het bestand of exporteer opnieuw.";
+  q("#import-errors").innerHTML = ""; list.forEach(m => { const li = document.createElement("li"); li.textContent = m; q("#import-errors").appendChild(li); });
+  q("#imp-replace").classList.add("hidden"); q("#imp-merge").classList.add("hidden");
+  q("#export-msg").textContent = "Import afgewezen (" + list.length + " fout(en)); de keuzes zijn ongewijzigd.";
+}
+function showChoice(v, fname){
+  pending = v; const p = q("#import-panel"); p.classList.remove("hidden");
+  const human = v.entries.filter(e => e.d !== "OPEN").length;
+  const overwrite = v.entries.filter(e => e.d !== "OPEN" && getDecision(e.id) !== "OPEN" && getDecision(e.id) !== e.d).length;
+  q("#import-summary").textContent = fname + " is geldig (" + (v.legacy ? "oud formaat v1" : "formaat v2") + ", omvang " + v.kind + "): " + v.entries.length + " punten, waarvan " + human + " met een menselijke keuze; "
+    + overwrite + " bestaande keuze(s) zouden worden overschreven. Kies hoe je het wilt toepassen (er is nog niets gewijzigd).";
+  const ul = q("#import-errors"); ul.innerHTML = ""; v.warnings.forEach(m => { const li = document.createElement("li"); li.textContent = m; ul.appendChild(li); });
+  q("#imp-replace").classList.remove("hidden"); q("#imp-merge").classList.remove("hidden");
+}
+function applyImport(mode){
+  if (!pending) return;
+  const next = {};
+  items.forEach(it => { next[it.review_id] = mode === "replace" ? {d: "OPEN", c: ""} : {d: getDecision(it.review_id), c: getComment(it.review_id)}; });
+  pending.entries.forEach(e => {
+    if (mode === "replace") next[e.id] = {d: e.d, c: e.c};
+    else { if (e.d !== "OPEN") next[e.id].d = e.d; if (e.c !== "") next[e.id].c = e.c; }
+  });
+  items.forEach(it => { setDecision(it.review_id, next[it.review_id].d); setComment(it.review_id, next[it.review_id].c); });
+  const n = pending.entries.filter(e => e.d !== "OPEN").length;
+  hidePanel(); refresh(true);
+  q("#export-msg").textContent = "Import toegepast (" + (mode === "replace" ? "volledig vervangen" : "gedeeltelijk samengevoegd") + "): " + n + " menselijke keuzes uit het bestand.";
+}
+function importFile(f){
+  const rd = new FileReader();
+  rd.onerror = () => showErrors(["Het bestand kon niet worden gelezen."], f.name);
+  rd.onload = () => {
+    let o;
+    try { o = JSON.parse(rd.result); } catch (e) { showErrors(["Geen geldige JSON: " + e.message], f.name); return; }
+    const v = validateImport(o);
+    if (v.errors.length) showErrors(v.errors, f.name); else showChoice(v, f.name);
+  };
+  rd.readAsText(f);
+}
+document.addEventListener("change", ev => { const t = ev.target; if (t && t.matches && t.matches("input[type=radio]")) refresh(true); if (t && t.id === "only-open") applyFilter(); });
+document.addEventListener("input", ev => { const t = ev.target; if (t && t.classList && t.classList.contains("cmt")) refresh(true); });
+document.addEventListener("click", ev => {
+  const t = ev.target; if (!t || !t.getAttribute) return;
+  const r = t.getAttribute("data-reset"); if (r) { setDecision(r, "OPEN"); refresh(true); return; }
+  const f = t.getAttribute("data-filter"); if (f) { curFilter = f; applyFilter(); }
+});
+q("#btn-export").addEventListener("click", () => { download(); });
+q("#btn-export2").addEventListener("click", () => { download(); });
+q("#btn-show").addEventListener("click", showJson);
+q("#btn-copy").addEventListener("click", () => {
+  showJson(); const ta = q("#export-json"); ta.focus(); ta.select();
+  try { const ok = document.execCommand("copy"); q("#export-msg").textContent = ok ? "JSON gekopieerd." : "Kopiëren niet gelukt; de tekst is geselecteerd, gebruik Ctrl+C."; } catch (e) { q("#export-msg").textContent = "Selecteer de tekst en gebruik Ctrl+C."; }
+});
+q("#btn-reset-all").addEventListener("click", () => { if (window.confirm("Alle keuzes en opmerkingen op OPEN zetten?")) { items.forEach(it => { setDecision(it.review_id, "OPEN"); setComment(it.review_id, ""); }); refresh(true); } });
+q("#import-file").addEventListener("change", ev => { if (ev.target.files && ev.target.files[0]) importFile(ev.target.files[0]); ev.target.value = ""; });
+q("#imp-replace").addEventListener("click", () => applyImport("replace"));
+q("#imp-merge").addEventListener("click", () => applyImport("merge"));
+q("#imp-cancel").addEventListener("click", () => { hidePanel(); q("#export-msg").textContent = "Import geannuleerd; de keuzes zijn ongewijzigd."; });
+if (persist) {
+  try {
+    const st = JSON.parse(localStorage.getItem(KEY) || "{}");
+    Object.keys(st).forEach(id => { if (byId[id] && byId[id].choices.indexOf(st[id].d) >= 0) setDecision(id, st[id].d); if (byId[id]) setComment(id, st[id].c || ""); });
+  } catch (e) { /* negeren */ }
+}
+showPersist(); refresh(false);
+})();
+</script>
+</body>
+</html>

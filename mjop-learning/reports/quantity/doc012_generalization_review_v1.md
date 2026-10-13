@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 22, TEST_ONLY 30.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 30, TEST_ONLY 30.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -123,11 +123,15 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/build_comparability.py` | NOT_A_PROBLEM | DOC-005 | COMMENT: herkomst van regel F7 |
 | `scripts/build_frame_instance_activation.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_frame_inventory.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
+| `scripts/build_human_visual_decision_pack.py` | REPORT_ONLY | Maldenhof | — |
+| `scripts/build_p1_quality_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_photo3_human_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_photo_archive_audit.py` | REPORT_ONLY | Maldenhof, 15 panden | — |
 | `scripts/build_photo_evidence.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/build_photo_frame_review.py` | REPORT_ONLY | Maldenhof | — |
+| `scripts/build_pilot_review.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/build_rear_annotation_coverage.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
+| `scripts/build_visual_photo_review_map003_map004.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/building_element_inventory_report.py` | REPORT_ONLY | DOC-005, Maldenhof | — |
 | `scripts/building_links.py` | NOT_A_PROBLEM | DOC-005 | DOCSTRING_EXAMPLE: CLI-voorbeeld '--document DOC-005' |
 | `scripts/decision_package_4645_interior_painting_wood.py` | NOT_A_PROBLEM | DOC-006 | DOCUMENT_SPECIFIC_DECISION_PACKAGE: vaste observation-ID's van een beslispakket |
@@ -139,16 +143,20 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/facade_coverage_poc_v2.py` | REPORT_ONLY | DOC-005, Maldenhof, 15 panden | — |
 | `scripts/facade_panorama_poc.py` | REPORT_ONLY | DOC-005, Maldenhof | — |
 | `scripts/facade_poc_v2_report.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 15 panden | — |
+| `scripts/human_decision_pack_data.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/kengetal_product_bridge_review.py` | REPORT_ONLY | DOC-005, DOC-006 | — |
 | `scripts/maldenhof_quantity_activation.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/multi_pand_scope_demo.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 1106 EZ | — |
+| `scripts/p1_visual_quality_evidence.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/prepare_relation_review.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld |
 | `scripts/quantity_engine_activation_review.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof, 15 panden | — |
 | `scripts/quantity_subject_expansion_review.py` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/record_frame_presence_decisions.py` | NOT_A_PROBLEM | DOC-005, DOC-006, Maldenhof | DOCUMENT_SPECIFIC_DECISION_PACKAGE: legt twee door de gebruiker goedgekeurde EXTERIOR_FRAME-besluiten vast; geen extractie- of quantity-logica |
 | `scripts/record_relation_decision.py` | NOT_A_PROBLEM | DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld |
+| `scripts/register_pilot_decisions.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/scaffolding_height_review.py` | REPORT_ONLY | DOC-005, DOC-006 | — |
 | `scripts/validate_app_quantity_bundle.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld met het pad van de Maldenhof-bundel |
+| `scripts/visual_review_map003_map004_data.py` | REPORT_ONLY | Maldenhof | — |
 | `vocabularies/frame_quantity_concepts_v1.json` | REPORT_ONLY | Maldenhof | — |
 | `vocabularies/quantity_subjects_v1.json` | REPORT_ONLY | DOC-005, DOC-006, Maldenhof | — |
 | `scripts/bag_snapshots.py` | GENERIC_CODE_PROBLEM_FIXED | — | exact_address_match/range-filter vergeleken de woonplaats uit het document letterlijk met de BAG-woonplaatsnaam; 'Den Haag' (DOC-012) vond daardoor zelfs het exacte adres niet ('s-Gravenhage). Opgelost met de expliciete aliaslijst vocabularies/woonplaats_aliases_v1.json (exacte gelijkheid, vastgelegd in de snapshot-query; bestaande snapshots ongewijzigd). |

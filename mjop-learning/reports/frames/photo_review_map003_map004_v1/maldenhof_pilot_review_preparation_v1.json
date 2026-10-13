@@ -1,0 +1,147 @@
+{
+ "report": "maldenhof_pilot_review_preparation_v1",
+ "pack_version": "human_visual_decision_pack_v1.2.0",
+ "status": "PREPARATION_NOT_A_HUMAN_APPROVAL",
+ "selected": [
+  {
+   "review_id": "RV-SEP-001",
+   "situation": "Duidelijke bouwkundige penantscheiding",
+   "reason": "Een van de zes penanten; alle zes zijn visueel bevestigd. Een goed eerste punt om te wennen aan het formulier.",
+   "claude_proposal": "CONFIRM",
+   "quality_status": "VISUALLY_SUPPORTED"
+  },
+  {
+   "review_id": "RV-REL-VR-027",
+   "situation": "Sterke kandidaat-objectoverlap",
+   "reason": "Duidelijk voorbeeld waarbij het bewijs sterk is: een kozijn met herkenbare merktekens, gezien vanaf twee standpunten.",
+   "claude_proposal": "SAME",
+   "quality_status": "VISUALLY_SUPPORTED"
+  },
+  {
+   "review_id": "RV-REL-VR-020",
+   "situation": "Gevelsectie-overlap zonder objectbewijs",
+   "reason": "Laat het verschil zien tussen dezelfde gevelsectie en hetzelfde kozijn: hier gaat het alleen om de muur.",
+   "claude_proposal": "SAME",
+   "quality_status": "VISUALLY_SUPPORTED"
+  },
+  {
+   "review_id": "RV-REL-VR-024",
+   "situation": "Matige kandidaat-overlap",
+   "reason": "Voorbeeld waarbij de indeling klopt maar uniek bewijs ontbreekt: jij moet zelf wegen.",
+   "claude_proposal": "SAME",
+   "quality_status": "NEEDS_MANUAL_REVIEW"
+  },
+  {
+   "review_id": "RV-REL-VR-026",
+   "situation": "Onvoldoende overlapbewijs",
+   "reason": "Voorbeeld waarbij de foto's te weinig tonen: hier hoort UNDECIDABLE het gewone antwoord te zijn.",
+   "claude_proposal": "UNDECIDABLE",
+   "quality_status": "NEEDS_BETTER_PHOTO"
+  },
+  {
+   "review_id": "RV-OBS-MAP004-012",
+   "situation": "Een deels zichtbaar kozijn",
+   "reason": "Het eenvoudigste voorbeeld van een deels zichtbaar kozijn: afgesneden door de beeldrand.",
+   "claude_proposal": "UNDECIDABLE",
+   "quality_status": "NEEDS_MANUAL_REVIEW"
+  },
+  {
+   "review_id": "RV-OBS-MAP003-027",
+   "situation": "Een onduidelijke buitendeur",
+   "reason": "Voorbeeld van een object dat de foto niet laat beoordelen.",
+   "claude_proposal": "NEEDS_BETTER_PHOTO",
+   "quality_status": "NEEDS_BETTER_PHOTO"
+  },
+  {
+   "review_id": "RV-OBS-MAP003-009",
+   "situation": "De configuratie OBS-MAP003-009/010",
+   "reason": "Eerste van drie punten over dezelfde configuratie: het smalle linkerelement. Hier zit ook het gevonden label-probleem (zie correctievoorstel).",
+   "claude_proposal": "UNDECIDABLE",
+   "quality_status": "NEEDS_MANUAL_REVIEW"
+  },
+  {
+   "review_id": "RV-OBS-MAP003-010",
+   "situation": "De configuratie OBS-MAP003-009/010",
+   "reason": "Tweede punt van de configuratie: dit kozijn is wel eenduidig herkenbaar.",
+   "claude_proposal": "CONFIRM",
+   "quality_status": "VISUALLY_SUPPORTED"
+  },
+  {
+   "review_id": "HQ-VR-001",
+   "situation": "De configuratie OBS-MAP003-009/010",
+   "reason": "Derde punt van de configuratie: de eigenlijke vraag waar de foto's zelf niet uitkomen. Gebruik de afbeelding bij punt 8.",
+   "claude_proposal": "UNDECIDABLE",
+   "quality_status": "NEEDS_MANUAL_REVIEW"
+  }
+ ],
+ "situations": {
+  "Duidelijke bouwkundige penantscheiding": [
+   "RV-SEP-001"
+  ],
+  "Sterke kandidaat-objectoverlap": [
+   "RV-REL-VR-027"
+  ],
+  "Gevelsectie-overlap zonder objectbewijs": [
+   "RV-REL-VR-020"
+  ],
+  "Matige kandidaat-overlap": [
+   "RV-REL-VR-024"
+  ],
+  "Onvoldoende overlapbewijs": [
+   "RV-REL-VR-026"
+  ],
+  "Een deels zichtbaar kozijn": [
+   "RV-OBS-MAP004-012"
+  ],
+  "Een onduidelijke buitendeur": [
+   "RV-OBS-MAP003-027"
+  ],
+  "De configuratie OBS-MAP003-009/010": [
+   "RV-OBS-MAP003-009",
+   "RV-OBS-MAP003-010",
+   "HQ-VR-001"
+  ]
+ },
+ "correction_proposal": {
+  "proposal_id": "CORR-OBS-MAP003-009-VIS-001",
+  "status": "PROPOSED_NOT_APPLIED",
+  "requires": "afzonderlijke menselijke goedkeuring; de bronobservatie in maldenhof_visual_photo_review_map003_map004_v1.json is NIET gewijzigd",
+  "observation_id": "OBS-MAP003-009",
+  "field": "visibility",
+  "current_value": "FULL",
+  "proposed_value": "PARTIAL",
+  "bbox_px": [
+   783,
+   453,
+   842,
+   563
+  ],
+  "finding": "Het label FULL betekent dat de volledige omtrek zichtbaar is. Op MAP-003 wordt de rechterrand van het smalle element in het bovenste deel bedekt door de open, blauw omrande vleugel van OBS-MAP003-010; het kader van 009 eindigt precies waar het kader van 010 begint (x=842) en de blauwe vleugel valt voor een deel binnen het kader van 009. Linkerzijde, boven- en onderrand zijn wel zichtbaar.",
+  "evidence": {
+   "figure": "pilot_review/PQ-009_visibility_zoom.jpg",
+   "other_photos": "MAP-013 REF-004 toont het element wel volledig met metselwerk ernaast; foto 2 (FC-M2-006-A) is FULL en blijft bevroren",
+   "bbox_overlap_scan": "In MAP-003/MAP-004 raken of overlappen alleen de kaders van OBS-MAP003-009 en -010 elkaar (breedte 0 px); geen andere observatie heeft deze inconsistentie"
+  },
+  "neighbour": {
+   "observation_id": "OBS-MAP003-010",
+   "visibility": "FULL",
+   "note": "ongewijzigd"
+  },
+  "effects_if_applied": {
+   "instances_created": 0,
+   "counts_changed": false,
+   "counts_in_any_total": false,
+   "bag_links": 0,
+   "photo2_frozen_data_changed": false,
+   "note": "Observaties staan buiten de instance-store en tellen in geen enkel totaal; het is een label-correctie voor de leesbaarheid."
+  },
+  "alternative": "FULL behouden met een extra notitie 'rechterrand bedekt door open vleugel van 010'; de zichtbaarheidsdefinitie (FULL = volledige omtrek zichtbaar) pleit voor PARTIAL."
+ },
+ "effects": {
+  "instances_created": 0,
+  "bag_links_created": 0,
+  "building_totals": null,
+  "costs": null,
+  "app_decisions_open": 48
+ }
+}
