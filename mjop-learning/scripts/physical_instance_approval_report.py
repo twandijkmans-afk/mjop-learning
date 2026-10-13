@@ -5,6 +5,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+RC_FIGS = [
+    ("reports/frames/physical_instance_approval_v1/RC-crop_scope.jpg", "Waarom VR-045 en PR #42 verschillen: boven MAP-003/004; onder MAP-009 met de VR-045-uitsnede (zonder smal raam) en de ruimere uitsnede (met smal raam)."),
+    ("reports/frames/physical_instance_approval_v1/RC-feature_comparison.jpg", "Kenmerken naast elkaar: merktekens, vensterbank en folie in MAP-003, MAP-004 en MAP-009."),
+]
 FIGS = [
     ("reports/frames/photo_review_map003_map004_v1/pilot_review/PQ-rel-VR-027.jpg", "OBS-MAP003-011 (links) en OBS-MAP004-006 (rechts): de twee observaties van het kandidaatverband."),
     ("reports/frames/physical_object_identity_evidence_v1/EV-window_comparison.jpg", "Bewijsvergelijking: bronobservaties, MAP-009 (andere camera en hoek), MAP-007 (tegenvoorbeeld, ander huis) en buurramen."),
@@ -74,6 +78,13 @@ def render_md(rep):
     L += [f"- {q}" for q in req["unresolved_questions"] + req.get("derived_open_questions", [])]
     L += ["", "**Let op, tegenstrijdige beoordeling van MAP-009:** de aanvullende MAP-009-lezing uit PR #42 is een handmatige beoordeling door Claude. De bestaande P1-kwaliteitsreview van de open relatie VR-045 (zelfde kozijn, MAP-009 als referentie, andere uitsnede) "
           "noemt het bewijs daar onvoldoende en stelt UNDECIDABLE voor. Er is geen menselijk besluit over VR-045. Deze aanvraag steunt daarom niet op MAP-009; het blijft aanvullend en openstaand.", "",
+          "## 6b. Bewijsverzoening VR-045 en MAP-009", ""]
+    er = rep["evidence_reconciliation"]
+    L += [f"Uitkomst **{er['summary']['outcome']}** ({er['note']}).", ""] + [f"- {x}" for x in er["outcome_explanation"]]
+    L += ["", "| Kenmerk | Klasse | In VR-045-uitsnede |", "|---|---|---|"]
+    L += [f"| {f['id']} {f['feature']} | {f['class']} | {'ja' if f['in_vr045_crop'] else 'nee'} |" for f in er["features"]]
+    L += ["", f"Volledig rapport: `{er['report']}`. De aanvraag steunt niet op MAP-009 (`{er['summary']['map009_role']}`); VR-045 blijft zonder menselijk besluit. "
+          f"De eerder gepubliceerde request_hash {', '.join('`'+h+'`' for h in er['stale_request_hashes'])} is verouderd (de aanvraag is inhoudelijk uitgebreid met de bewijsverzoening); er hangt aan die hash geen besluit.", "",
           "## 7. Relatie met de 48 APP-besluiten", ""]
     rel = vr["related_app_decisions"]
     L += ["| APP | Onderwerp | Soort | Relevantie | Status |", "|---|---|---|---|---|"]
@@ -138,6 +149,17 @@ def render_pack(rep):
     h += [f"<li>{e(q)}</li>" for q in req["unresolved_questions"] + req.get("derived_open_questions", [])]
     h.append("<li>Tegenvoorbeeld MAP-007: zelfde raamtype bij een ander huis. Buurramen halen tot 54 feature-match-inliers; feature-match onderscheidt niet.</li>")
     h.append("<li>De MAP-009-lezing is een handmatige beoordeling door Claude. De P1-kwaliteitsreview van VR-045 noemt MAP-009 onvoldoende en stelt UNDECIDABLE voor; er is geen menselijk besluit over VR-045.</li></ul>")
+    er = rep["evidence_reconciliation"]
+    h.append(f"<h2>Bewijsverzoening VR-045 en MAP-009: {e(er['summary']['outcome'])}</h2><p>{e(er['note'])}</p><ul>")
+    h += [f"<li>{e(x)}</li>" for x in er["outcome_explanation"]]
+    h.append("</ul>")
+    for rel, cap in RC_FIGS:
+        h.append(f"<figure><img alt='{e(cap)}' src='data:image/jpeg;base64,{_b64(rel)}'><figcaption>{e(cap)} <small>({e(rel)})</small></figcaption></figure>")
+    h.append("<table><tr><th>Kenmerk</th><th>Klasse</th><th>In VR-045-uitsnede</th><th>Opmerking</th></tr>")
+    for f in er["features"]:
+        h.append(f"<tr><td>{e(f['id'])} {e(f['feature'])}</td><td>{e(f['class'])}</td><td>{'ja' if f['in_vr045_crop'] else 'nee'}</td><td>{e(f['comment'])}</td></tr>")
+    h.append("</table>")
+    h.append(f"<p>MAP-009-rol: <b>{e(er['summary']['map009_role'])}</b>; VR-045 zonder menselijk besluit; verouderde request-hash(es): {e(', '.join(er['stale_request_hashes']))}.</p>")
     h.append("<h2>Technische controles</h2><table><tr><th>Check</th><th>Resultaat</th><th>Detail</th></tr>")
     for c in vr["checks"]:
         h.append(f"<tr><td>{e(c['id'])} {e(c['title'])}</td><td>{e(ICON[c['result']])}</td><td>{e(_flat(c['detail']))}</td></tr>")

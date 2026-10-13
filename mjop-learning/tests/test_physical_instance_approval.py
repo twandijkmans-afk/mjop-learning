@@ -332,7 +332,7 @@ def test_14_missing_or_corrupt_data_never_approves_and_never_raises():
     rng = random.Random(43)
     junk = [None, "", "x", 0, 1, -1, [], {}, [None], {"a": 1}, True, False, "FI-M2-001", 3.5, ["OBS-MAP003-011"], "0" * 64]
     cases = 0
-    for f in P.REQUIRED_FIELDS + ["photo_ids", "evidence_refs", "is_instance", "frame_instance_id", "relation_strength_in_source", "evidence_class", "reserved_instance_id"]:
+    for f in P.REQUIRED_FIELDS + ["photo_ids", "evidence_refs", "is_instance", "frame_instance_id", "relation_strength_in_source", "evidence_class", "reserved_instance_id", "superseded_request_hashes"]:
         for j in junk:
             r = req_copy()
             r[f] = j
@@ -467,7 +467,7 @@ def test_review_pack_is_static_escaped_and_not_an_approval():
     html = P.PACK_HTML.read_text(encoding="utf-8")
     assert "<form" not in html and "<script" not in html and "<input" not in html
     assert "geen goedkeuring en geen instance" in html and "niet ingevuld, niet geregistreerd en zonder werking" in html
-    assert html.count("data:image/jpeg;base64,") == 3
+    assert html.count("data:image/jpeg;base64,") == 5
     rep = copy.deepcopy(REP)
     rep["draft_request"]["derived_open_questions"].append("<script>alert(1)</script>")
     out = PR.render_pack(rep)

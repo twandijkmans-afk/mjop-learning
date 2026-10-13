@@ -24,6 +24,7 @@ import object_identity_pilot as OIP  # noqa: E402
 
 PILOT_JSON = OIP.OUT_JSON
 EVIDENCE_VERIFICATION_JSON = ROOT / "reports/frames/physical_object_identity_evidence_v1/physical_object_identity_evidence_verification_v1.json"
+RECONCILIATION_JSON = ROOT / "reports/frames/physical_instance_approval_v1/physical_instance_evidence_reconciliation_v1.json"
 INSTANCE_STORE = ROOT / "data/frame_inventory/maldenhof_photo_frame_instances_v1.json"
 APP_APPROVAL_MD = ROOT / "reports/frames/photo_archive_audit_v1/maldenhof_photo_annotation_approval_v1.md"
 OUT_DIR = ROOT / "reports/frames/physical_instance_approval_v1"
@@ -59,13 +60,18 @@ FORBIDDEN_EFFECTS = ["create_or_modify_frame_instance", "reserve_instance_id", "
 ALLOWED_EFFECTS = ["produce_draft_request", "produce_human_review_pack", "report_validation_results", "record_human_decision_in_separate_later_register"]
 REQUIRED_FIELDS = ["approval_request_id", "candidate_group_id", "observation_ids", "supporting_relation_ids", "evidence_refs", "source_hashes", "candidate_status",
                    "proposed_instance_type", "approval_status", "human_decision", "decision_provenance", "unresolved_questions", "validation_results",
-                   "allowed_effects", "forbidden_effects", "decision_levels", "request_hash"]
+                   "allowed_effects", "forbidden_effects", "decision_levels", "evidence_reconciliation", "request_hash"]
+RECON_OUTCOMES = ("COMPATIBLE_DIFFERENT_SCOPE", "GENUINE_EVIDENCE_CONFLICT", "INSUFFICIENT_TO_RECONCILE")
+SUPERSEDED_HASHES = ["aa556297be5d6713d298a06fa40492b8"]   # request_hash van de aanvraag zoals eerder gepubliceerd (PR #43 head 0483632); verouderd, nooit gebruikt voor een besluit
+STRIP_CORRECTION = "folie rechts (de verticale plakstrook is alleen in MAP-003/004 zichtbaar en in MAP-009 niet verifieerbaar; zie reconciliatierapport)"
 FI_PATTERN = re.compile(r"\bFI-[A-Z0-9]")
 NON_HUMAN = re.compile(r"claude|\bai\b|assistant|bot|automat", re.I)
 ARCHIVE_ALIAS = {"maldenhof_1": None, "maldenhof_2": "MAP-002", "maldenhof_3": "MAP-015"}   # foto-bestandsnaam in de instance-store -> archief-id
 EXTRA_QUESTIONS = [
     "De bronfoto's (MAP-003, MAP-004) en de aanvullende foto MAP-009 zijn van dezelfde dag (14-08-2026): onafhankelijk in toestel en hoek, niet in tijd.",
-    "De onderscheidende kenmerken (merktekens, gordijn met voorwerpen, folie met plakstrook) zijn deels tijdelijk en bewijzen geen blijvende identiteit van het kozijn."]
+    "De onderscheidende kenmerken (merktekens, gordijn met voorwerpen, folie met plakstrook) zijn deels tijdelijk en bewijzen geen blijvende identiteit van het kozijn.",
+    "De MAP-009-beoordeling (PR #42) en de P1-kwaliteitsreview van VR-045 zijn verzoend als COMPATIBLE_DIFFERENT_SCOPE (andere uitsnede en bewijsclaim); dat is een AI-uitleg en geen menselijk besluit, en VR-045 blijft zonder menselijk besluit.",
+    "De plakstrook is in MAP-009 niet verifieerbaar; de PR #42-tekst die dat wel stelde is gecorrigeerd. MAP-009 blijft aanvullend en wordt niet als bewijs gebruikt voor de status van het OIC."]
 LEVEL_B_C_KEYS = ("bag_pand_id", "quantity", "cost", "dimensions", "maintenance_action", "building_total", "unique_total", "m2")
 
 
@@ -85,7 +91,7 @@ def digest(obj):
 def request_hash(req):
     """Hash over de inhoud die de identiteitsvraag bepaalt; niet over status, besluit en validatieresultaat."""
     core = {k: req.get(k) for k in ("approval_request_id", "candidate_group_id", "observation_ids", "supporting_relation_ids", "source_hashes", "candidate_status",
-                                    "proposed_instance_type", "evidence_refs", "decision_levels", "photo_ids", "relation_strength_in_source", "evidence_class", "unresolved_questions")}
+                                    "proposed_instance_type", "evidence_refs", "decision_levels", "photo_ids", "relation_strength_in_source", "evidence_class", "unresolved_questions", "evidence_reconciliation")}
     return digest(core)[:32]
 
 
@@ -119,12 +125,24 @@ def load_context():
     ctx["instance_store"] = _load(INSTANCE_STORE)
     ctx["app_decisions"] = parse_app_decisions(APP_APPROVAL_MD.read_text(encoding="utf-8"))
     ctx["verification"] = _load(EVIDENCE_VERIFICATION_JSON)
+    ctx["reconciliation"] = _load(RECONCILIATION_JSON)
+    ctx["reconciliation_sha256"] = hashlib.sha256(RECONCILIATION_JSON.read_bytes()).hexdigest()
     ctx["human_approvals"] = []   # er bestaat in deze PR geen register van instance-besluiten; bewust leeg
     ctx["other_requests"] = []
     return ctx
 
 
 # ----------------------------------------------------------------------------------------------------------------------------------
+def reconciliation_summary(ctx):
+    """Wat de aanvraag over de bewijsverzoening zegt; volledig afgeleid uit het reconciliatierecord (JSON), niets zelf bedacht."""
+    rec = ctx["reconciliation"]
+    return {"outcome": rec["outcome"], "record": RECONCILIATION_JSON.name, "record_sha256": ctx["reconciliation_sha256"],
+            "map009_role": rec["consequences_for_iar_oic_vr_027"]["map009_role"], "oic_depends_on_map009": rec["consequences_for_iar_oic_vr_027"]["oic_depends_on_map009"],
+            "vr045_human_decision": rec["vr045_as_reviewed"]["human_decision"], "vr045_modified": rec["effects"]["vr045_modified"],
+            "features": {f["id"]: f["class"] for f in rec["features"]}, "corrections": list(rec["corrections_to_pr42_text"]),
+            "is_human_decision": False}
+
+
 def build_request(ctx, oic_id):
     """Maakt een CONCEPT-aanvraag uit een bestaand OIC. Verzint niets: alles komt uit het live geëvalueerde kandidaatverband."""
     rid = oic_id[len("OIC-"):]
@@ -133,7 +151,10 @@ def build_request(ctx, oic_id):
         raise ValueError("Geen kandidaatverband om aan te vragen: " + "; ".join(ev["reasons"]))
     cand = OIP.to_candidate(ctx, ev)
     verification = ctx.get("verification") or {}
-    extra = [dict(m) for m in verification.get("additional_matches", [])]
+    extra = copy.deepcopy(verification.get("additional_matches", []))
+    for m in extra:      # reconciliatie: de plakstrook is in MAP-009 niet verifieerbaar
+        m["arguments"] = [a.replace("folie met plakstrook rechts", STRIP_CORRECTION) for a in m.get("arguments", [])]
+        m["corrected_by"] = RECONCILIATION_JSON.name
     req = {
         "kind": "PHYSICAL_INSTANCE_APPROVAL_REQUEST",
         "approval_request_id": "IAR-" + cand["candidate_group_id"],
@@ -153,6 +174,8 @@ def build_request(ctx, oic_id):
         "decision_provenance": {"candidate_decision": cand["decision_refs"], "instance_decision": None,
                                 "note": "Het pilotbesluit RV-REL-VR-027 = SAME_PHYSICAL_OBJECT_CANDIDATE (ChatGPT-bevestiging) is geen instance-besluit."},
         "additional_evidence": extra,
+        "evidence_reconciliation": reconciliation_summary(ctx),
+        "superseded_request_hashes": list(SUPERSEDED_HASHES),
         "unresolved_questions": list(cand["unresolved_questions"]) + EXTRA_QUESTIONS,
         "validation_results": None,
         "allowed_effects": list(ALLOWED_EFFECTS),
@@ -232,6 +255,9 @@ def _structure_check(req):
     for k in LEVEL_B_C_KEYS:
         if req.get(k) not in (None, ""):
             problems.append("NIVEAU_B_OF_C_VELD_IN_AANVRAAG " + k)
+    sup = req.get("superseded_request_hashes")
+    if sup != SUPERSEDED_HASHES or req["request_hash"] in sup:
+        problems.append("VEROUDERDE_HASHES_ONGELDIG_OF_BEVAT_HUIDIGE_HASH")
     if req["approval_status"] != "DRAFT" or req["human_decision"] is not None:
         problems.append("VOORGESTELD_BESLUIT_OF_STATUS_NIET_VERIFIEERBAAR")   # status volgt uit validatie of verifieerbaar besluit, niet uit de aanvraag zelf
     elif request_hash(req) != req["request_hash"]:
@@ -451,6 +477,30 @@ def _evaluate(ctx, req):
             if r["relevance"] == "DIRECT":
                 questions.append(f"{r['app_id']} ({r['subject']}) is een open fotoniveau-vraag over dezelfde foto's; die is niet gelijk aan dit kozijnniveau-verband.")
                 required.append(f"{r['app_id']}: antwoorden of expliciet laten openstaan (verplicht te erkennen in het instance-besluit)")
+    # 11 bewijsverzoening aanwezig, consistent met de aanvraag, en VR-045 nog zonder menselijk besluit
+    rec = ctx.get("reconciliation")
+    rp = []
+    if not isinstance(rec, dict) or rec.get("outcome") not in RECON_OUTCOMES:
+        rp.append("reconciliatierecord ontbreekt of heeft een onbekende uitkomst")
+    else:
+        try:
+            if req["evidence_reconciliation"] != reconciliation_summary(ctx):
+                rp.append("aanvraag toont andere bewijsverzoening dan het record (verouderd of gewijzigd)")
+            eff = rec["effects"]
+            if eff.get("vr045_modified") is not False or eff.get("human_decisions_created") != 0 or eff.get("instances_created") != 0:
+                rp.append("record meldt een wijziging van VR-045, een besluit of een instance")
+            if rec["consequences_for_iar_oic_vr_027"].get("oic_depends_on_map009") is not False:
+                rp.append("OIC mag niet van MAP-009 afhangen")
+        except (KeyError, TypeError) as exc:
+            rp.append("reconciliatierecord onvolledig: " + type(exc).__name__)
+    vr45 = (ctx.get("decisions") or {}).get("RV-REL-VR-045") if isinstance(ctx.get("decisions"), dict) else None
+    if rp:
+        checks.append(_chk("C11", "Bewijsverzoening (VR-045/MAP-009) consistent met de aanvraag", "BLOCK", rp))
+    elif vr45 is not None:
+        checks.append(_chk("C11", "Bewijsverzoening (VR-045/MAP-009) consistent met de aanvraag", "NEEDS_EVIDENCE", "er is inmiddels een menselijk besluit over VR-045; de aanvraag moet opnieuw worden opgesteld (verouderd)"))
+    else:
+        checks.append(_chk("C11", "Bewijsverzoening (VR-045/MAP-009) consistent met de aanvraag", "PASS",
+                           f"uitkomst {rec['outcome']} (AI-uitleg, geen menselijk besluit); MAP-009 {rec['consequences_for_iar_oic_vr_027']['map009_role']}; VR-045 zonder menselijk besluit; aanvraag en record komen overeen"))
     req["_related_app_decisions"] = related
     return checks, questions, required
 
@@ -612,10 +662,15 @@ def build_report():
             ("C4", "Alle bronhashes komen overeen (review-bron, archiefregister, bewijsreferentie)"), ("C5", "Relatie is PHYSICAL_OBJECT met exact deze eindpunten"),
             ("C6", "Menselijk kandidaatbesluit SAME, menselijke herkomst, hash gevalideerd"), ("C7", "Onderscheidend bewijs: STRONG + anker, geen blokkade"),
             ("C8", "Geen genegeerd DIFFERENT/UNDECIDABLE; open gerelateerde relaties zichtbaar"),
-            ("C9", "Geen conflict met instances, andere kandidaten of aanvragen"), ("C10", "Relatie met de 48 APP-besluiten expliciet onderzocht")]],
+            ("C9", "Geen conflict met instances, andere kandidaten of aanvragen"), ("C10", "Relatie met de 48 APP-besluiten expliciet onderzocht"),
+            ("C11", "Bewijsverzoening VR-045/MAP-009 consistent met de aanvraag; VR-045 zonder menselijk besluit")]],
         "decision_levels": LEVELS, "allowed_effects": ALLOWED_EFFECTS, "forbidden_effects": FORBIDDEN_EFFECTS,
         "draft_request": req,
-        "photo_evidence_summary": {"conclusion": ver.get("conclusion"), "additional_matches": ver.get("additional_matches"), "swap_risk": ver.get("swap_risk"),
+        "evidence_reconciliation": {"summary": req["evidence_reconciliation"], "stale_request_hashes": list(SUPERSEDED_HASHES),
+                                    "outcome_explanation": ctx["reconciliation"]["outcome_explanation"], "features": ctx["reconciliation"]["features"],
+                                    "comparison_table": ctx["reconciliation"]["comparison_table"], "report": "reports/frames/physical_instance_evidence_reconciliation_v1.md",
+                                    "note": "AI-verklaring van het verschil; geen menselijk besluit en geen wijziging van VR-045 of de kwaliteitsreview."},
+        "photo_evidence_summary": {"conclusion": ver.get("conclusion"), "additional_matches": req["additional_evidence"], "swap_risk": ver.get("swap_risk"),
                                    "feature_match_measurements": ver.get("feature_match_measurements"), "contradictions": ver.get("contradictions"),
                                    "counter_examples": [c for c in ver.get("crops", []) if "COUNTER" in c.get("role", "") or c.get("role") == "NEIGHBOUR"],
                                    "figure": ver.get("figure")},

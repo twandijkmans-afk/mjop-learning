@@ -15,10 +15,11 @@
       {
         "arguments": [
           "andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520)",
-          "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie met plakstrook rechts",
+          "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie rechts (de verticale plakstrook is alleen in MAP-003/004 zichtbaar en in MAP-009 niet verifieerbaar; zie reconciliatierapport)",
           "positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004",
           "buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie"
         ],
+        "corrected_by": "physical_instance_evidence_reconciliation_v1.json",
         "file": "P1000236.JPG",
         "limits": [
           "zelfde dag (14-08-2026) en tijdelijke kenmerken: onafhankelijk in toestel/hoek, niet in tijd",
@@ -80,6 +81,28 @@
       "APP-025 (Overlap SOC-015) is een open fotoniveau-vraag over dezelfde foto's; die is niet gelijk aan dit kozijnniveau-verband."
     ],
     "evidence_class": "STRONG_VISUAL_SUPPORT",
+    "evidence_reconciliation": {
+      "corrections": [
+        "Plakstrook (F5) is in MAP-009 niet verifieerbaar; PR #42 noemde die als zichtbaar. De overige MAP-009-argumenten blijven staan."
+      ],
+      "features": {
+        "F1": "DIRECTLY_VISIBLE",
+        "F2": "DIRECTLY_VISIBLE",
+        "F3": "DIRECTLY_VISIBLE_LOW_RESOLUTION",
+        "F4": "DIRECTLY_VISIBLE",
+        "F5": "NOT_VERIFIABLE",
+        "F6": "DIRECTLY_VISIBLE",
+        "F7": "DIRECTLY_VISIBLE"
+      },
+      "is_human_decision": false,
+      "map009_role": "ADDITIONAL_EVIDENCE_NOT_RELIED_ON",
+      "oic_depends_on_map009": false,
+      "outcome": "COMPATIBLE_DIFFERENT_SCOPE",
+      "record": "physical_instance_evidence_reconciliation_v1.json",
+      "record_sha256": "13677d703a3447c71f74a512472454c2bcae493d9b0e7c1ee15e865eb99b943e",
+      "vr045_human_decision": null,
+      "vr045_modified": false
+    },
     "evidence_refs": [
       {
         "file": "IMG_8518.JPEG",
@@ -173,7 +196,7 @@
     },
     "rejected_by": null,
     "relation_strength_in_source": "MEDIUM",
-    "request_hash": "aa556297be5d6713d298a06fa40492b8",
+    "request_hash": "34c61b5e5f274764e86491a838502ede",
     "request_note": "Een approval request is geen fysieke instance en reserveert geen instance-id.",
     "required_human_decisions": [
       "Besluit over VR-045 (RV-REL-VR-045), of expliciete erkenning dat het open blijft",
@@ -185,6 +208,9 @@
       "MAP-003": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
       "MAP-004": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576"
     },
+    "superseded_request_hashes": [
+      "aa556297be5d6713d298a06fa40492b8"
+    ],
     "supporting_relation_ids": [
       "VR-027"
     ],
@@ -195,7 +221,9 @@
       "De bronrelatie noemt sterkte MEDIUM, de kwaliteitsreview STRONG_VISUAL_SUPPORT; het verschil is niet menselijk opgelost.",
       "De pilot-SAME is bevestigd via ChatGPT, niet via het HTML-formulier; er is geen instance-besluit gegeven.",
       "De bronfoto's (MAP-003, MAP-004) en de aanvullende foto MAP-009 zijn van dezelfde dag (14-08-2026): onafhankelijk in toestel en hoek, niet in tijd.",
-      "De onderscheidende kenmerken (merktekens, gordijn met voorwerpen, folie met plakstrook) zijn deels tijdelijk en bewijzen geen blijvende identiteit van het kozijn."
+      "De onderscheidende kenmerken (merktekens, gordijn met voorwerpen, folie met plakstrook) zijn deels tijdelijk en bewijzen geen blijvende identiteit van het kozijn.",
+      "De MAP-009-beoordeling (PR #42) en de P1-kwaliteitsreview van VR-045 zijn verzoend als COMPATIBLE_DIFFERENT_SCOPE (andere uitsnede en bewijsclaim); dat is een AI-uitleg en geen menselijk besluit, en VR-045 blijft zonder menselijk besluit.",
+      "De plakstrook is in MAP-009 niet verifieerbaar; de PR #42-tekst die dat wel stelde is gecorrigeerd. MAP-009 blijft aanvullend en wordt niet als bewijs gebruikt voor de status van het OIC."
     ],
     "validation_results": {
       "blocked_by": [],
@@ -286,6 +314,13 @@
           "kind": "AUTO_VALIDATED_FACT",
           "result": "PASS",
           "title": "Relatie met de 48 APP-besluiten expliciet onderzocht"
+        },
+        {
+          "detail": "uitkomst COMPATIBLE_DIFFERENT_SCOPE (AI-uitleg, geen menselijk besluit); MAP-009 ADDITIONAL_EVIDENCE_NOT_RELIED_ON; VR-045 zonder menselijk besluit; aanvraag en record komen overeen",
+          "id": "C11",
+          "kind": "AUTO_VALIDATED_FACT",
+          "result": "PASS",
+          "title": "Bewijsverzoening (VR-045/MAP-009) consistent met de aanvraag"
         }
       ],
       "meaning": "Technisch geschikt voor beoordeling is NIET: menselijk goedgekeurd, en nooit: geactiveerde instance.",
@@ -417,6 +452,159 @@
     "quantities": null,
     "source_observations_changed": 0
   },
+  "evidence_reconciliation": {
+    "comparison_table": [
+      {
+        "dimension": "Welke relatie",
+        "pr42_verification": "VR-027: PHYSICAL_OBJECT, sterkte MEDIUM, paar OBS-MAP003-011 / OBS-MAP004-006; MAP-009 alleen aanvullend",
+        "vr045_p1_review": "VR-045: PHYSICAL_OBJECT, sterkte LOW, groep-tegen-referentie"
+      },
+      {
+        "dimension": "Eindpunten",
+        "pr42_verification": "OBS-MAP003-011 en OBS-MAP004-006, beide met het smalle raam rechts, tegen een brede MAP-009-uitsnede",
+        "vr045_p1_review": "MAP-003:OBS-MAP003-011/012 en MAP-004:OBS-MAP004-006/007 (tweedelig kozijn plus smal raam) tegen MAP-009:REF-MAP009-006"
+      },
+      {
+        "dimension": "MAP-009-uitsnede",
+        "pr42_verification": "[300,300,1050,800], 750x500 px, tweedelig kozijn plus smal raam met folie",
+        "vr045_p1_review": "[362,362,747,682], 385x320 px, alleen het tweedelige kozijn"
+      },
+      {
+        "dimension": "Zichtbaar in de MAP-009-uitsnede",
+        "pr42_verification": "F1, F2, F3, F4, F6; F5 niet verifieerbaar",
+        "vr045_p1_review": "F1, F2, F3; niet F4, F5, F6"
+      },
+      {
+        "dimension": "Vraag",
+        "pr42_verification": "Geeft MAP-009 aanvullende steun voor het paar uit VR-027?",
+        "vr045_p1_review": "Is de referentie hetzelfde als de groep (met smal raam)? Smal raam ontbreekt in de referentie"
+      },
+      {
+        "dimension": "Bewijsstandaard",
+        "pr42_verification": "Kenmerk-voor-kenmerk lezing van de originele pixels, positie en verwisselingscontrole",
+        "vr045_p1_review": "Uniek kenmerk binnen de uitsnede plus feature-match; indeling alleen telt niet"
+      },
+      {
+        "dimension": "Feature-match",
+        "pr42_verification": "8 inliers op 22 matches; methode: zonder CLAHE, hoogte 400 px, ruime uitsneden (alleen ondersteunend). De getallen zijn niet vergelijkbaar",
+        "vr045_p1_review": "4 inliers op 7 matches; methode: CLAHE, +12% marge, max 360 px, groepsuitsnede (alleen ondersteunend)"
+      },
+      {
+        "dimension": "Uitkomst",
+        "pr42_verification": "STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK (aanvullend; mijn handmatige lezing)",
+        "vr045_p1_review": "INSUFFICIENT_EVIDENCE; Claude-voorstel UNDECIDABLE; NEEDS_BETTER_PHOTO"
+      },
+      {
+        "dimension": "Menselijk besluit",
+        "pr42_verification": "geen",
+        "vr045_p1_review": "geen"
+      }
+    ],
+    "features": [
+      {
+        "class": "DIRECTLY_VISIBLE",
+        "comment": "Zelfde twee tekens op dezelfde plaats in alle drie de foto's, ook binnen de VR-045-uitsnede. Niet uniek op zichzelf: de linkerbuur in MAP-003 heeft één los merkteken op een andere plaats.",
+        "feature": "Twee witte merktekens in het linkervak (rechtsboven en rechtsonder)",
+        "id": "F1",
+        "in_vr045_crop": true,
+        "m3": true,
+        "m4": true,
+        "m9": true
+      },
+      {
+        "class": "DIRECTLY_VISIBLE",
+        "comment": "Zichtbaar in alle drie, ook in de VR-045-uitsnede. Gordijnen zijn op zichzelf niet onderscheidend; de buurvensters tonen een rolgordijnkast.",
+        "feature": "Wit geplooid gordijn in het grote vak",
+        "id": "F2",
+        "in_vr045_crop": true,
+        "m3": true,
+        "m4": true,
+        "m9": true
+      },
+      {
+        "class": "DIRECTLY_VISIBLE_LOW_RESOLUTION",
+        "comment": "In MAP-009 herkenbaar als lichte doos en wit puntje, maar op lage resolutie en schuin; de kleinere voorwerpen uit MAP-003/004 zijn niet afzonderlijk te onderscheiden.",
+        "feature": "Vensterbankvoorwerpen: lichte doos plus klein puntig voorwerp",
+        "id": "F3",
+        "in_vr045_crop": true,
+        "m3": true,
+        "m4": true,
+        "m9": true
+      },
+      {
+        "class": "DIRECTLY_VISIBLE",
+        "comment": "Folie is in MAP-009 zichtbaar, maar het smalle raam ligt buiten REF-MAP009-006; dit is het meest onderscheidende kenmerk en ontbrak dus in de VR-045-vergelijking.",
+        "feature": "Doorschijnende folie in het smalle raam rechts",
+        "id": "F4",
+        "in_vr045_crop": false,
+        "m3": true,
+        "m4": true,
+        "m9": true
+      },
+      {
+        "class": "NOT_VERIFIABLE",
+        "comment": "In MAP-003/004 duidelijk. In MAP-009 is aan de linkerrand van de folie een lichtere verticale baan te zien, maar dat kan ook een plooi of weerspiegeling zijn. PR #42 stelde de strook ook in MAP-009 vast; dat is hierbij teruggebracht tot niet verifieerbaar.",
+        "feature": "Verticale plakstrook langs de folie",
+        "id": "F5",
+        "in_vr045_crop": false,
+        "m3": true,
+        "m4": true,
+        "m9": null
+      },
+      {
+        "class": "DIRECTLY_VISIBLE",
+        "comment": "Dezelfde ruimtelijke combinatie in alle drie; schuin perspectief maakt maten onvergelijkbaar. Plaat 280 bewijst alleen de muur, niet het pand van dit kozijn.",
+        "feature": "Positie: rechts van het tweedelige kozijn, onder de goot, boven donkere houten bekleding, bij de kaphoek rechtsonder",
+        "id": "F6",
+        "in_vr045_crop": false,
+        "m3": true,
+        "m4": true,
+        "m9": true
+      },
+      {
+        "class": "DIRECTLY_VISIBLE",
+        "comment": "Linkerbuur in MAP-003 heeft dezelfde indeling met rolgordijnkast op het smalle raam, zonder folie. Slechts enkele buren zijn zichtbaar in een lange rij identieke woningen.",
+        "feature": "Buurkozijnen: zelfde indeling maar rolgordijnkast en geen folie",
+        "id": "F7",
+        "in_vr045_crop": false,
+        "m3": true,
+        "m4": true,
+        "m9": null
+      }
+    ],
+    "note": "AI-verklaring van het verschil; geen menselijk besluit en geen wijziging van VR-045 of de kwaliteitsreview.",
+    "outcome_explanation": [
+      "De twee beoordelingen gaan over verschillende MAP-009-uitsneden en verschillende bewijsclaims. REF-MAP009-006 bevat alleen het tweedelige kozijn en sluit het smalle raam met folie, het meest onderscheidende kenmerk, buiten; VR-045 vergelijkt bovendien een groep (kozijn plus smal raam) met die enkele uitsnede.",
+      "De P1-review heeft daarom terecht vastgesteld dat deze uitsnede en de feature-match (4 van 7) geen identiteit bewijzen. Mijn PR #42-beoordeling steunt op een ruimere uitsnede met het smalle raam en op een kenmerk-voor-kenmerk lezing. Beide uitspraken kunnen naast elkaar bestaan.",
+      "Twee kanttekeningen: (1) de P1-bevinding 'geen uniek kenmerk' en 'smal raam ontbreekt' is juist voor de uitsnede maar niet voor de foto: het smalle raam staat in MAP-009, net buiten de uitsnede, en F1-F3 waren ook binnen de uitsnede zichtbaar. (2) Mijn PR #42-tekst noemde de plakstrook ook in MAP-009; dat is niet verifieerbaar en is hierbij teruggebracht."
+    ],
+    "report": "reports/frames/physical_instance_evidence_reconciliation_v1.md",
+    "stale_request_hashes": [
+      "aa556297be5d6713d298a06fa40492b8"
+    ],
+    "summary": {
+      "corrections": [
+        "Plakstrook (F5) is in MAP-009 niet verifieerbaar; PR #42 noemde die als zichtbaar. De overige MAP-009-argumenten blijven staan."
+      ],
+      "features": {
+        "F1": "DIRECTLY_VISIBLE",
+        "F2": "DIRECTLY_VISIBLE",
+        "F3": "DIRECTLY_VISIBLE_LOW_RESOLUTION",
+        "F4": "DIRECTLY_VISIBLE",
+        "F5": "NOT_VERIFIABLE",
+        "F6": "DIRECTLY_VISIBLE",
+        "F7": "DIRECTLY_VISIBLE"
+      },
+      "is_human_decision": false,
+      "map009_role": "ADDITIONAL_EVIDENCE_NOT_RELIED_ON",
+      "oic_depends_on_map009": false,
+      "outcome": "COMPATIBLE_DIFFERENT_SCOPE",
+      "record": "physical_instance_evidence_reconciliation_v1.json",
+      "record_sha256": "13677d703a3447c71f74a512472454c2bcae493d9b0e7c1ee15e865eb99b943e",
+      "vr045_human_decision": null,
+      "vr045_modified": false
+    }
+  },
   "fact_classes": {
     "AUTO_VALIDATED_FACT": "Door deze code opnieuw uit de brondata gecontroleerd (C1-C10).",
     "HUMAN_DECISION_NOT_YET_TAKEN": "Instance-besluit niveau A; niveau B en C; APP-012; RV-REL-VR-045.",
@@ -452,10 +640,11 @@
       {
         "arguments": [
           "andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520)",
-          "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie met plakstrook rechts",
+          "dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie rechts (de verticale plakstrook is alleen in MAP-003/004 zichtbaar en in MAP-009 niet verifieerbaar; zie reconciliatierapport)",
           "positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004",
           "buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie"
         ],
+        "corrected_by": "physical_instance_evidence_reconciliation_v1.json",
         "file": "P1000236.JPG",
         "limits": [
           "zelfde dag (14-08-2026) en tijdelijke kenmerken: onafhankelijk in toestel/hoek, niet in tijd",
@@ -560,6 +749,7 @@
       "allowed_effects",
       "forbidden_effects",
       "decision_levels",
+      "evidence_reconciliation",
       "request_hash"
     ],
     "reserved_instance_id": null
@@ -649,6 +839,10 @@
     {
       "condition": "Relatie met de 48 APP-besluiten expliciet onderzocht",
       "id": "C10"
+    },
+    {
+      "condition": "Bewijsverzoening VR-045/MAP-009 consistent met de aanvraag; VR-045 zonder menselijk besluit",
+      "id": "C11"
     }
   ]
 }

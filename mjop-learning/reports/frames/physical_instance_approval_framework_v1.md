@@ -19,7 +19,7 @@ Centrale vraag: hoe voorkomen we dat een foutief of onvoldoende onderbouwd kandi
 
 ## 2. Het approval-requestmodel
 
-Velden: `approval_request_id`, `candidate_group_id`, `observation_ids`, `supporting_relation_ids`, `evidence_refs`, `source_hashes`, `candidate_status`, `proposed_instance_type`, `approval_status`, `human_decision`, `decision_provenance`, `unresolved_questions`, `validation_results`, `allowed_effects`, `forbidden_effects`, `decision_levels`, `request_hash`.
+Velden: `approval_request_id`, `candidate_group_id`, `observation_ids`, `supporting_relation_ids`, `evidence_refs`, `source_hashes`, `candidate_status`, `proposed_instance_type`, `approval_status`, `human_decision`, `decision_provenance`, `unresolved_questions`, `validation_results`, `allowed_effects`, `forbidden_effects`, `decision_levels`, `evidence_reconciliation`, `request_hash`.
 
 - `approval_request_id` = `IAR-<candidate_group_id>`; botst per constructie nooit met `FI-*`. `frame_instance_id` en `reserved_instance_id` zijn altijd `null`; een `FI-`-id ergens in de aanvraag blokkeert.
 - `request_hash` bindt het besluit aan de exacte inhoud: wijzigt het bewijs, dan hoort een eerder besluit niet meer bij de aanvraag.
@@ -64,12 +64,13 @@ Onderscheid dat nooit automatisch overgaat: **technisch geschikt voor beoordelin
 - **C8** Geen genegeerd DIFFERENT/UNDECIDABLE; open gerelateerde relaties zichtbaar
 - **C9** Geen conflict met instances, andere kandidaten of aanvragen
 - **C10** Relatie met de 48 APP-besluiten expliciet onderzocht
+- **C11** Bewijsverzoening VR-045/MAP-009 consistent met de aanvraag; VR-045 zonder menselijk besluit
 
 Elke voorwaarde faalt gesloten: een fout, ontbrekend of tegenstrijdig gegeven geeft `NEEDS_MORE_EVIDENCE` of `REJECTED` (technische blokkade, geen menselijk besluit), nooit een gunstiger uitkomst. Een geldig SAME-pilotbesluit is een *kandidaat*-besluit en geen instance-goedkeuring.
 
 ## 6. Conceptaanvraag OIC-VR-027
 
-- Aanvraag: `IAR-OIC-VR-027` (hash `aa556297be5d6713d298a06fa40492b8`), status **`READY_FOR_HUMAN_REVIEW`**, technisch oordeel **SUITABLE_FOR_HUMAN_REVIEW**.
+- Aanvraag: `IAR-OIC-VR-027` (hash `34c61b5e5f274764e86491a838502ede`), status **`READY_FOR_HUMAN_REVIEW`**, technisch oordeel **SUITABLE_FOR_HUMAN_REVIEW**.
 - Observaties: OBS-MAP003-011, OBS-MAP004-006 (foto's MAP-003, MAP-004); relatie VR-027; bronsterkte MEDIUM, kwaliteitsreview STRONG_VISUAL_SUPPORT.
 - Voorgesteld type: EXTERIOR_FRAME, materiaal en subtype UNKNOWN (voorstel, niet besloten). Geen BAG-pand, geen hoeveelheid, geen kosten.
 
@@ -87,10 +88,11 @@ Elke voorwaarde faalt gesloten: een fout, ontbrekend of tegenstrijdig gegeven ge
 | C8 Geen tegenstrijdige DIFFERENT- of UNDECIDABLE-besluiten genegeerd | geslaagd | AUTO_VALIDATED_FACT | geen menselijk DIFFERENT/UNDECIDABLE op relaties die deze observaties raken; 1 gerelateerde relatie(s) zonder besluit blijven zichtbaar open |
 | C9 Geen conflict met bestaande instances, andere kandidaten of eerder goedgekeurde objectidentiteiten | geslaagd | AUTO_VALIDATED_FACT | instance-store: 12 actieve + 2 vervangen instances, alle foto 2 (maldenhof_2 = MAP-002); geen verwijzing naar deze observaties of foto's; SOC-001: foto-niveau overlap met bevroren foto ['MAP-002']; geen kozijn-niveau claim |
 | C10 Relatie met de 48 APP-besluiten expliciet onderzocht | geslaagd | AUTO_VALIDATED_FACT | 15 gerelateerd; direct relevante fotoniveau-overlapvragen ['APP-012', 'APP-025'] (de rest indirect: plaat/pand niveau B, geschiktheid, telregel); alle blijven OPEN; geen wordt door deze aanvraag beantwoord of gewijzigd |
+| C11 Bewijsverzoening (VR-045/MAP-009) consistent met de aanvraag | geslaagd | AUTO_VALIDATED_FACT | uitkomst COMPATIBLE_DIFFERENT_SCOPE (AI-uitleg, geen menselijk besluit); MAP-009 ADDITIONAL_EVIDENCE_NOT_RELIED_ON; VR-045 zonder menselijk besluit; aanvraag en record komen overeen |
 
 ### Fotobewijs (samenvatting)
 
-- **MAP-009** (STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK): andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520); dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie met plakstrook rechts; positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004; buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie
+- **MAP-009** (STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK): andere camera (P1000236, 3264x2448, datumstempel) en andere hoek dan de bronfoto's (iPhone IMG_8518/8520); dezelfde combinatie: merktekens links, gordijn + witte voorwerpen midden, folie rechts (de verticale plakstrook is alleen in MAP-003/004 zichtbaar en in MAP-009 niet verifieerbaar; zie reconciliatierapport); positie links boven de kap van de wand met plaat 280, zoals in MAP-003/004; buurramen en MAP-007 tonen rolgordijnen of open vleugels, niet deze combinatie
   - Beperking: zelfde dag (14-08-2026) en tijdelijke kenmerken: onafhankelijk in toestel/hoek, niet in tijd
   - Beperking: geen leesbaar huisnummer bij dit raam; plaat 280 bewijst alleen die muur, niet het pand van het kozijn
   - Beperking: schuin perspectief: feature-match onbruikbaar (8 inliers)
@@ -106,11 +108,33 @@ Elke voorwaarde faalt gesloten: een fout, ontbrekend of tegenstrijdig gegeven ge
 - De pilot-SAME is bevestigd via ChatGPT, niet via het HTML-formulier; er is geen instance-besluit gegeven.
 - De bronfoto's (MAP-003, MAP-004) en de aanvullende foto MAP-009 zijn van dezelfde dag (14-08-2026): onafhankelijk in toestel en hoek, niet in tijd.
 - De onderscheidende kenmerken (merktekens, gordijn met voorwerpen, folie met plakstrook) zijn deels tijdelijk en bewijzen geen blijvende identiteit van het kozijn.
+- De MAP-009-beoordeling (PR #42) en de P1-kwaliteitsreview van VR-045 zijn verzoend als COMPATIBLE_DIFFERENT_SCOPE (andere uitsnede en bewijsclaim); dat is een AI-uitleg en geen menselijk besluit, en VR-045 blijft zonder menselijk besluit.
+- De plakstrook is in MAP-009 niet verifieerbaar; de PR #42-tekst die dat wel stelde is gecorrigeerd. MAP-009 blijft aanvullend en wordt niet als bewijs gebruikt voor de status van het OIC.
 - Gerelateerde relatie VR-045 (zonder menselijk besluit) raakt deze observaties; Claude-voorstel UNDECIDABLE; kwaliteitsreview: onvoldoende bewijs: MAP-009 is sterk verkort: alleen het tweedelige kozijn is herkenbaar, het smalle raam ontbreekt; geen uniek kenmerk.
 - APP-012 (Overlap SOC-002) is een open fotoniveau-vraag over dezelfde foto's; die is niet gelijk aan dit kozijnniveau-verband.
 - APP-025 (Overlap SOC-015) is een open fotoniveau-vraag over dezelfde foto's; die is niet gelijk aan dit kozijnniveau-verband.
 
 **Let op, tegenstrijdige beoordeling van MAP-009:** de aanvullende MAP-009-lezing uit PR #42 is een handmatige beoordeling door Claude. De bestaande P1-kwaliteitsreview van de open relatie VR-045 (zelfde kozijn, MAP-009 als referentie, andere uitsnede) noemt het bewijs daar onvoldoende en stelt UNDECIDABLE voor. Er is geen menselijk besluit over VR-045. Deze aanvraag steunt daarom niet op MAP-009; het blijft aanvullend en openstaand.
+
+## 6b. Bewijsverzoening VR-045 en MAP-009
+
+Uitkomst **COMPATIBLE_DIFFERENT_SCOPE** (AI-verklaring van het verschil; geen menselijk besluit en geen wijziging van VR-045 of de kwaliteitsreview.).
+
+- De twee beoordelingen gaan over verschillende MAP-009-uitsneden en verschillende bewijsclaims. REF-MAP009-006 bevat alleen het tweedelige kozijn en sluit het smalle raam met folie, het meest onderscheidende kenmerk, buiten; VR-045 vergelijkt bovendien een groep (kozijn plus smal raam) met die enkele uitsnede.
+- De P1-review heeft daarom terecht vastgesteld dat deze uitsnede en de feature-match (4 van 7) geen identiteit bewijzen. Mijn PR #42-beoordeling steunt op een ruimere uitsnede met het smalle raam en op een kenmerk-voor-kenmerk lezing. Beide uitspraken kunnen naast elkaar bestaan.
+- Twee kanttekeningen: (1) de P1-bevinding 'geen uniek kenmerk' en 'smal raam ontbreekt' is juist voor de uitsnede maar niet voor de foto: het smalle raam staat in MAP-009, net buiten de uitsnede, en F1-F3 waren ook binnen de uitsnede zichtbaar. (2) Mijn PR #42-tekst noemde de plakstrook ook in MAP-009; dat is niet verifieerbaar en is hierbij teruggebracht.
+
+| Kenmerk | Klasse | In VR-045-uitsnede |
+|---|---|---|
+| F1 Twee witte merktekens in het linkervak (rechtsboven en rechtsonder) | DIRECTLY_VISIBLE | ja |
+| F2 Wit geplooid gordijn in het grote vak | DIRECTLY_VISIBLE | ja |
+| F3 Vensterbankvoorwerpen: lichte doos plus klein puntig voorwerp | DIRECTLY_VISIBLE_LOW_RESOLUTION | ja |
+| F4 Doorschijnende folie in het smalle raam rechts | DIRECTLY_VISIBLE | nee |
+| F5 Verticale plakstrook langs de folie | NOT_VERIFIABLE | nee |
+| F6 Positie: rechts van het tweedelige kozijn, onder de goot, boven donkere houten bekleding, bij de kaphoek rechtsonder | DIRECTLY_VISIBLE | nee |
+| F7 Buurkozijnen: zelfde indeling maar rolgordijnkast en geen folie | DIRECTLY_VISIBLE | nee |
+
+Volledig rapport: `reports/frames/physical_instance_evidence_reconciliation_v1.md`. De aanvraag steunt niet op MAP-009 (`ADDITIONAL_EVIDENCE_NOT_RELIED_ON`); VR-045 blijft zonder menselijk besluit. De eerder gepubliceerde request_hash `aa556297be5d6713d298a06fa40492b8` is verouderd (de aanvraag is inhoudelijk uitgebreid met de bewijsverzoening); er hangt aan die hash geen besluit.
 
 ## 7. Relatie met de 48 APP-besluiten
 

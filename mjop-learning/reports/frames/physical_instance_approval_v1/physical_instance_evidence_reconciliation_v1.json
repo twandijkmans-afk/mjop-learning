@@ -1,0 +1,510 @@
+{
+  "advice_for_human_review": [
+    "Laat de reviewer VR-045 apart beoordelen met de ruimere uitsnede (smal raam erbij), niet met REF-MAP009-006 alleen.",
+    "Leg de beperking vast dat alle bewijs visueel en deels tijdelijk is; een derde foto uit een andere sessie of dag zou de verwisselingsvraag het sterkst beslissen.",
+    "Neem de plakstrook niet als MAP-009-bewijs mee."
+  ],
+  "comparison_table": [
+    {
+      "dimension": "Welke relatie",
+      "pr42_verification": "VR-027: PHYSICAL_OBJECT, sterkte MEDIUM, paar OBS-MAP003-011 / OBS-MAP004-006; MAP-009 alleen aanvullend",
+      "vr045_p1_review": "VR-045: PHYSICAL_OBJECT, sterkte LOW, groep-tegen-referentie"
+    },
+    {
+      "dimension": "Eindpunten",
+      "pr42_verification": "OBS-MAP003-011 en OBS-MAP004-006, beide met het smalle raam rechts, tegen een brede MAP-009-uitsnede",
+      "vr045_p1_review": "MAP-003:OBS-MAP003-011/012 en MAP-004:OBS-MAP004-006/007 (tweedelig kozijn plus smal raam) tegen MAP-009:REF-MAP009-006"
+    },
+    {
+      "dimension": "MAP-009-uitsnede",
+      "pr42_verification": "[300,300,1050,800], 750x500 px, tweedelig kozijn plus smal raam met folie",
+      "vr045_p1_review": "[362,362,747,682], 385x320 px, alleen het tweedelige kozijn"
+    },
+    {
+      "dimension": "Zichtbaar in de MAP-009-uitsnede",
+      "pr42_verification": "F1, F2, F3, F4, F6; F5 niet verifieerbaar",
+      "vr045_p1_review": "F1, F2, F3; niet F4, F5, F6"
+    },
+    {
+      "dimension": "Vraag",
+      "pr42_verification": "Geeft MAP-009 aanvullende steun voor het paar uit VR-027?",
+      "vr045_p1_review": "Is de referentie hetzelfde als de groep (met smal raam)? Smal raam ontbreekt in de referentie"
+    },
+    {
+      "dimension": "Bewijsstandaard",
+      "pr42_verification": "Kenmerk-voor-kenmerk lezing van de originele pixels, positie en verwisselingscontrole",
+      "vr045_p1_review": "Uniek kenmerk binnen de uitsnede plus feature-match; indeling alleen telt niet"
+    },
+    {
+      "dimension": "Feature-match",
+      "pr42_verification": "8 inliers op 22 matches; methode: zonder CLAHE, hoogte 400 px, ruime uitsneden (alleen ondersteunend). De getallen zijn niet vergelijkbaar",
+      "vr045_p1_review": "4 inliers op 7 matches; methode: CLAHE, +12% marge, max 360 px, groepsuitsnede (alleen ondersteunend)"
+    },
+    {
+      "dimension": "Uitkomst",
+      "pr42_verification": "STERK_VISUEEL_ONAFHANKELIJK_TOESTEL_EN_HOEK (aanvullend; mijn handmatige lezing)",
+      "vr045_p1_review": "INSUFFICIENT_EVIDENCE; Claude-voorstel UNDECIDABLE; NEEDS_BETTER_PHOTO"
+    },
+    {
+      "dimension": "Menselijk besluit",
+      "pr42_verification": "geen",
+      "vr045_p1_review": "geen"
+    }
+  ],
+  "consequences_for_iar_oic_vr_027": {
+    "map009_role": "ADDITIONAL_EVIDENCE_NOT_RELIED_ON",
+    "oic_depends_on_map009": false,
+    "ready_for_human_review_remains": true,
+    "reasons": [
+      "OIC-VR-027 is SUPPORTED_CANDIDATE op basis van VR-027 (MEDIUM bron, STRONG kwaliteitsreview, menselijk SAME); MAP-009 speelt daarin geen rol.",
+      "VR-045 heeft geen menselijk besluit; het blijft open en wordt in de aanvraag zo getoond.",
+      "MAP-009 is aanvullend bewijs voor hetzelfde kozijn, geen nieuwe fysieke instance en geen nieuwe observatie."
+    ]
+  },
+  "corrections_to_pr42_text": [
+    "Plakstrook (F5) is in MAP-009 niet verifieerbaar; PR #42 noemde die als zichtbaar. De overige MAP-009-argumenten blijven staan."
+  ],
+  "crops": [
+    {
+      "crop_id": "C-VR045-REF",
+      "photo_id": "MAP-009",
+      "region_px": [
+        362,
+        362,
+        747,
+        682
+      ],
+      "what": "REF-MAP009-006: de uitsnede van de VR-045-review; alleen het tweedelige kozijn"
+    },
+    {
+      "crop_id": "C-PR42-WIDE",
+      "photo_id": "MAP-009",
+      "region_px": [
+        300,
+        300,
+        1050,
+        800
+      ],
+      "what": "PR #42: ruimere uitsnede; tweedelig kozijn + smal raam rechts + omgeving"
+    },
+    {
+      "crop_id": "C-NARROW",
+      "photo_id": "MAP-009",
+      "region_px": [
+        800,
+        500,
+        960,
+        760
+      ],
+      "what": "MAP-009: smal raam met folie (buiten de VR-045-uitsnede)"
+    },
+    {
+      "crop_id": "C-LEFTPANE",
+      "photo_id": "MAP-009",
+      "region_px": [
+        362,
+        362,
+        520,
+        600
+      ],
+      "what": "MAP-009: linkervak met witte merktekens (binnen de VR-045-uitsnede)"
+    },
+    {
+      "crop_id": "C-SILL",
+      "photo_id": "MAP-009",
+      "region_px": [
+        480,
+        570,
+        720,
+        720
+      ],
+      "what": "MAP-009: vensterbank onder het gordijn (binnen de VR-045-uitsnede)"
+    },
+    {
+      "crop_id": "C-M3-OBS",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1167,
+        481,
+        1316,
+        571
+      ],
+      "what": "OBS-MAP003-011 (exacte observatie-uitsnede)"
+    },
+    {
+      "crop_id": "C-M3-WIDE",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1150,
+        470,
+        1420,
+        590
+      ],
+      "what": "OBS-MAP003-011 plus smal raam rechts"
+    },
+    {
+      "crop_id": "C-M3-NARROW",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1350,
+        478,
+        1415,
+        580
+      ],
+      "what": "MAP-003: smal raam met folie"
+    },
+    {
+      "crop_id": "C-M3-LEFTPANE",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1170,
+        485,
+        1220,
+        570
+      ],
+      "what": "MAP-003: linkervak"
+    },
+    {
+      "crop_id": "C-M3-SILL",
+      "photo_id": "MAP-003",
+      "region_px": [
+        1215,
+        535,
+        1305,
+        575
+      ],
+      "what": "MAP-003: vensterbank"
+    },
+    {
+      "crop_id": "C-M3-NEIGH-L",
+      "photo_id": "MAP-003",
+      "region_px": [
+        300,
+        440,
+        600,
+        580
+      ],
+      "what": "MAP-003: linkerbuur, zelfde indeling"
+    },
+    {
+      "crop_id": "C-M4-OBS",
+      "photo_id": "MAP-004",
+      "region_px": [
+        535,
+        477,
+        692,
+        569
+      ],
+      "what": "OBS-MAP004-006 (exacte observatie-uitsnede)"
+    },
+    {
+      "crop_id": "C-M4-WIDE",
+      "photo_id": "MAP-004",
+      "region_px": [
+        520,
+        465,
+        790,
+        585
+      ],
+      "what": "OBS-MAP004-006 plus smal raam rechts"
+    },
+    {
+      "crop_id": "C-M4-NARROW",
+      "photo_id": "MAP-004",
+      "region_px": [
+        730,
+        470,
+        790,
+        583
+      ],
+      "what": "MAP-004: smal raam met folie"
+    },
+    {
+      "crop_id": "C-M4-LEFTPANE",
+      "photo_id": "MAP-004",
+      "region_px": [
+        540,
+        480,
+        590,
+        568
+      ],
+      "what": "MAP-004: linkervak"
+    },
+    {
+      "crop_id": "C-M4-SILL",
+      "photo_id": "MAP-004",
+      "region_px": [
+        580,
+        535,
+        675,
+        575
+      ],
+      "what": "MAP-004: vensterbank"
+    }
+  ],
+  "effects": {
+    "bag_links_created": 0,
+    "building_totals": null,
+    "costs": null,
+    "human_decisions_changed": 0,
+    "human_decisions_created": 0,
+    "instances_created": 0,
+    "new_observations": 0,
+    "oic_changed": false,
+    "pilot_register_changed": false,
+    "quality_review_modified": false,
+    "quantities": null,
+    "vr045_modified": false
+  },
+  "feature_classes": [
+    "DIRECTLY_VISIBLE",
+    "DIRECTLY_VISIBLE_LOW_RESOLUTION",
+    "INTERPRETATION",
+    "NOT_VERIFIABLE"
+  ],
+  "feature_match_note": "SIFT/RANSAC is alleen ondersteunend. De waarde hangt sterk af van uitsnede en methode: de exacte REF-MAP009-006-uitsnede geeft hier 35 en 26 inliers tegen de observatie-uitsneden, terwijl de P1-review (CLAHE, +12% marge, 360 px, groepsuitsnede) 4 vond en de ruime uitsneden van PR #42 8 of 5. Dat deze waarden zo uiteenlopen is zelf een reden om er niets op te baseren; hogere waarden komen ook bij niet-partners voor (PR #42: tot 54).",
+  "feature_match_pairs": [
+    {
+      "a": "C-VR045-REF",
+      "b": "C-M3-OBS",
+      "good_matches": 69,
+      "inliers": 35
+    },
+    {
+      "a": "C-VR045-REF",
+      "b": "C-M4-OBS",
+      "good_matches": 50,
+      "inliers": 26
+    },
+    {
+      "a": "C-PR42-WIDE",
+      "b": "C-M3-WIDE",
+      "good_matches": 18,
+      "inliers": 5
+    },
+    {
+      "a": "C-PR42-WIDE",
+      "b": "C-M4-WIDE",
+      "good_matches": 26,
+      "inliers": 5
+    },
+    {
+      "a": "C-NARROW",
+      "b": "C-M3-NARROW",
+      "good_matches": 46,
+      "inliers": 18
+    },
+    {
+      "a": "C-NARROW",
+      "b": "C-M4-NARROW",
+      "good_matches": 9,
+      "inliers": 5
+    },
+    {
+      "a": "C-M3-OBS",
+      "b": "C-M4-OBS",
+      "good_matches": 20,
+      "inliers": 12
+    },
+    {
+      "a": "C-M3-WIDE",
+      "b": "C-M4-WIDE",
+      "good_matches": 61,
+      "inliers": 29
+    }
+  ],
+  "features": [
+    {
+      "class": "DIRECTLY_VISIBLE",
+      "comment": "Zelfde twee tekens op dezelfde plaats in alle drie de foto's, ook binnen de VR-045-uitsnede. Niet uniek op zichzelf: de linkerbuur in MAP-003 heeft één los merkteken op een andere plaats.",
+      "feature": "Twee witte merktekens in het linkervak (rechtsboven en rechtsonder)",
+      "id": "F1",
+      "in_vr045_crop": true,
+      "m3": true,
+      "m4": true,
+      "m9": true
+    },
+    {
+      "class": "DIRECTLY_VISIBLE",
+      "comment": "Zichtbaar in alle drie, ook in de VR-045-uitsnede. Gordijnen zijn op zichzelf niet onderscheidend; de buurvensters tonen een rolgordijnkast.",
+      "feature": "Wit geplooid gordijn in het grote vak",
+      "id": "F2",
+      "in_vr045_crop": true,
+      "m3": true,
+      "m4": true,
+      "m9": true
+    },
+    {
+      "class": "DIRECTLY_VISIBLE_LOW_RESOLUTION",
+      "comment": "In MAP-009 herkenbaar als lichte doos en wit puntje, maar op lage resolutie en schuin; de kleinere voorwerpen uit MAP-003/004 zijn niet afzonderlijk te onderscheiden.",
+      "feature": "Vensterbankvoorwerpen: lichte doos plus klein puntig voorwerp",
+      "id": "F3",
+      "in_vr045_crop": true,
+      "m3": true,
+      "m4": true,
+      "m9": true
+    },
+    {
+      "class": "DIRECTLY_VISIBLE",
+      "comment": "Folie is in MAP-009 zichtbaar, maar het smalle raam ligt buiten REF-MAP009-006; dit is het meest onderscheidende kenmerk en ontbrak dus in de VR-045-vergelijking.",
+      "feature": "Doorschijnende folie in het smalle raam rechts",
+      "id": "F4",
+      "in_vr045_crop": false,
+      "m3": true,
+      "m4": true,
+      "m9": true
+    },
+    {
+      "class": "NOT_VERIFIABLE",
+      "comment": "In MAP-003/004 duidelijk. In MAP-009 is aan de linkerrand van de folie een lichtere verticale baan te zien, maar dat kan ook een plooi of weerspiegeling zijn. PR #42 stelde de strook ook in MAP-009 vast; dat is hierbij teruggebracht tot niet verifieerbaar.",
+      "feature": "Verticale plakstrook langs de folie",
+      "id": "F5",
+      "in_vr045_crop": false,
+      "m3": true,
+      "m4": true,
+      "m9": null
+    },
+    {
+      "class": "DIRECTLY_VISIBLE",
+      "comment": "Dezelfde ruimtelijke combinatie in alle drie; schuin perspectief maakt maten onvergelijkbaar. Plaat 280 bewijst alleen de muur, niet het pand van dit kozijn.",
+      "feature": "Positie: rechts van het tweedelige kozijn, onder de goot, boven donkere houten bekleding, bij de kaphoek rechtsonder",
+      "id": "F6",
+      "in_vr045_crop": false,
+      "m3": true,
+      "m4": true,
+      "m9": true
+    },
+    {
+      "class": "DIRECTLY_VISIBLE",
+      "comment": "Linkerbuur in MAP-003 heeft dezelfde indeling met rolgordijnkast op het smalle raam, zonder folie. Slechts enkele buren zijn zichtbaar in een lange rij identieke woningen.",
+      "feature": "Buurkozijnen: zelfde indeling maar rolgordijnkast en geen folie",
+      "id": "F7",
+      "in_vr045_crop": false,
+      "m3": true,
+      "m4": true,
+      "m9": null
+    }
+  ],
+  "figures": [
+    "RC-crop_scope.jpg",
+    "RC-feature_comparison.jpg"
+  ],
+  "inputs": {
+    "archive_json_sha256": "8d2171fb5c55605af1ff2d93277d5041e4fefd5a3c3f02453989fdc747ec344b",
+    "quality_json_sha256": "2a8d6643927e3e14fb9554cc0379421230be8c97d3d73bb406281c8965b8b088",
+    "register_sha256": "d2545b484275513ab253315bd812001ded58fe0cc9e7422b6b1a012a713fa61f",
+    "review_json_sha256": "28cccaf2eccfc82aa871b6a66c342043112406fb127d044ddf1f1051703e0719"
+  },
+  "model_version": "physical_instance_evidence_reconciliation_v1",
+  "neighbour_and_swap_check": {
+    "counter_example": "MAP-007: zelfde raamtype bij een ander huis, rolgordijnen",
+    "residual_risk": "Laag-tot-matig: de combinatie F1+F2+F3+F4 komt bij geen zichtbare buur voor, maar slechts enkele buren zijn zichtbaar in een rij van identieke woningen; kenmerken zijn deels tijdelijk (zelfde dag, 14-08-2026).",
+    "visible_neighbours": [
+      "linkerbuur MAP-003 (zelfde indeling, rolgordijnkast, geen folie, één los merkteken elders)",
+      "rechterbuur MAP-003 (andere indeling, open vleugels)",
+      "buur MAP-004"
+    ]
+  },
+  "not_a_genuine_conflict_because": "Dezelfde bewijsclaim (zelfde uitsnede, zelfde eindpunten) heeft geen tegenstrijdige beoordelingen gekregen; er is geen menselijk besluit over VR-045 dat door een AI-beoordeling zou worden vervangen.",
+  "outcome": "COMPATIBLE_DIFFERENT_SCOPE",
+  "outcome_explanation": [
+    "De twee beoordelingen gaan over verschillende MAP-009-uitsneden en verschillende bewijsclaims. REF-MAP009-006 bevat alleen het tweedelige kozijn en sluit het smalle raam met folie, het meest onderscheidende kenmerk, buiten; VR-045 vergelijkt bovendien een groep (kozijn plus smal raam) met die enkele uitsnede.",
+    "De P1-review heeft daarom terecht vastgesteld dat deze uitsnede en de feature-match (4 van 7) geen identiteit bewijzen. Mijn PR #42-beoordeling steunt op een ruimere uitsnede met het smalle raam en op een kenmerk-voor-kenmerk lezing. Beide uitspraken kunnen naast elkaar bestaan.",
+    "Twee kanttekeningen: (1) de P1-bevinding 'geen uniek kenmerk' en 'smal raam ontbreekt' is juist voor de uitsnede maar niet voor de foto: het smalle raam staat in MAP-009, net buiten de uitsnede, en F1-F3 waren ook binnen de uitsnede zichtbaar. (2) Mijn PR #42-tekst noemde de plakstrook ook in MAP-009; dat is niet verifieerbaar en is hierbij teruggebracht."
+  ],
+  "photos": [
+    {
+      "file": "IMG_8518.JPEG",
+      "height_px": 1536,
+      "inspection": "ORIGINAL_PIXELS_FULL_RESOLUTION",
+      "method": "MANUAL_VISUAL_READING",
+      "photo_id": "MAP-003",
+      "sha256": "9f121e711b0cea13cc22f8ff7ea89c234fcd35fc8a95ce8c43334f05d43cc02d",
+      "sha256_verified_against_register": true,
+      "width_px": 2048
+    },
+    {
+      "file": "IMG_8520.JPEG",
+      "height_px": 1536,
+      "inspection": "ORIGINAL_PIXELS_FULL_RESOLUTION",
+      "method": "MANUAL_VISUAL_READING",
+      "photo_id": "MAP-004",
+      "sha256": "197556869a8e91a9fe285197aa4c0db595f059bf18ae79126bdefd05d4867576",
+      "sha256_verified_against_register": true,
+      "width_px": 2048
+    },
+    {
+      "file": "P1000236.JPG",
+      "height_px": 2448,
+      "inspection": "ORIGINAL_PIXELS_FULL_RESOLUTION",
+      "method": "MANUAL_VISUAL_READING",
+      "photo_id": "MAP-009",
+      "sha256": "15591a9648ddfec7391df5c87291c6f82c997bf1352f560a85251de76a97fe85",
+      "sha256_verified_against_register": true,
+      "width_px": 3264
+    }
+  ],
+  "sources": {
+    "p1_feature_match": {
+      "file": "reports/frames/photo_review_map003_map004_v1/p1_quality_review/p1_feature_match_evidence_v1.json",
+      "path": "relations[relation_id=VR-045]"
+    },
+    "p1_review_sheet": {
+      "file": "reports/frames/photo_review_map003_map004_v1/p1_quality_review/QREL-sheet-4.jpg",
+      "path": "rij VR-045"
+    },
+    "pr42_verification": {
+      "file": "reports/frames/physical_object_identity_evidence_v1/physical_object_identity_evidence_verification_v1.json",
+      "path": "additional_matches[MAP-009]"
+    },
+    "quality_review_vr027": {
+      "file": "reports/frames/photo_review_map003_map004_v1/maldenhof_p1_visual_quality_review_v1.json",
+      "path": "records[review_id=RV-REL-VR-027]"
+    },
+    "quality_review_vr045": {
+      "file": "reports/frames/photo_review_map003_map004_v1/maldenhof_p1_visual_quality_review_v1.json",
+      "path": "records[review_id=RV-REL-VR-045]"
+    },
+    "reference_ref009_006": {
+      "file": "reports/frames/photo_review_map003_map004_v1/maldenhof_visual_photo_review_map003_map004_v1.json",
+      "path": "references[ref_id=REF-MAP009-006]"
+    },
+    "relation_vr027": {
+      "file": "reports/frames/photo_review_map003_map004_v1/maldenhof_visual_photo_review_map003_map004_v1.json",
+      "path": "relations[rel_id=VR-027]"
+    },
+    "relation_vr045": {
+      "file": "reports/frames/photo_review_map003_map004_v1/maldenhof_visual_photo_review_map003_map004_v1.json",
+      "path": "relations[rel_id=VR-045]"
+    }
+  },
+  "stop": "Stop vóór iedere menselijke goedkeuring, instance-activatie en merge.",
+  "vr045_as_reviewed": {
+    "human_decision": null,
+    "left_endpoints": [
+      "OBS-MAP003-011",
+      "OBS-MAP003-012",
+      "OBS-MAP004-006",
+      "OBS-MAP004-007"
+    ],
+    "quality_record": {
+      "claude_proposal_now": "UNDECIDABLE",
+      "evidence_basis": [
+        "OBLIQUE_VIEW",
+        "PARTIAL_OVERLAP"
+      ],
+      "evidence_class": "INSUFFICIENT_EVIDENCE",
+      "feature_match": {
+        "good_matches": 7,
+        "inliers": 4
+      },
+      "finding": "onvoldoende bewijs: MAP-009 is sterk verkort: alleen het tweedelige kozijn is herkenbaar, het smalle raam ontbreekt; geen uniek kenmerk.",
+      "next_step": "UNDECIDABLE of NEEDS_BETTER_PHOTO; geen SAME op deze foto's.",
+      "quality_status": "NEEDS_BETTER_PHOTO"
+    },
+    "relation_id": "VR-045",
+    "relation_to_vr027": "Zelfde soort vraag (PHYSICAL_OBJECT) en dezelfde twee observaties in de groep, maar een andere claim: groep tegen een enkele MAP-009-referentie. VR-027 zelf vergelijkt alleen OBS-MAP003-011 met OBS-MAP004-006.",
+    "right_endpoint": "REF-MAP009-006",
+    "same_question_as_vr027": false
+  }
+}
