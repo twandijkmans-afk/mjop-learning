@@ -1,0 +1,116 @@
+{
+  "format": "maldenhof_pilot_10_chat_confirmed_v1",
+  "pack_version": "human_visual_decision_pack_v1.2.0",
+  "status": "USER_CONFIRMED_IN_CHAT_PENDING_CLAUDE_VALIDATION",
+  "approval_statement": "Ik heb de 10 pilotkeuzes gecontroleerd en keur ze goed.",
+  "approval_channel": "ChatGPT conversation",
+  "source_prepared_file": "maldenhof_pilot_10_keuzes_ter_controle.json",
+  "decision_count": 10,
+  "pilot_decisions": [
+    {
+      "review_id": "RV-SEP-001",
+      "decision": "CONFIRM",
+      "source_ref_hash": "1e9d25ff56b1c53a",
+      "rationale": "Zichtbaar doorlopend metselwerk tussen 007 en 008; twee bouwkundige openingen. Geen instance-/pandbesluit.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-REL-VR-027",
+      "decision": "SAME",
+      "source_ref_hash": "b4c272b4bf256bba",
+      "rationale": "Bijzondere combinatie stickers/merktekens/gordijn en controle in twee beelden: sterk kandidaat hetzelfde fysieke raam; nog geen merge.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-REL-VR-020",
+      "decision": "SAME",
+      "source_ref_hash": "d190aa7da367ecf7",
+      "rationale": "Zelfde reeks plaatmuren 280/278/276; SAME geldt uitsluitend voor dezelfde gevelsectie, niet kozijnen.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-REL-VR-024",
+      "decision": "UNDECIDABLE",
+      "source_ref_hash": "8f090844608b5183",
+      "rationale": "Raamindeling en takspiegeling komen overeen, maar repetitieve woningen en ontbrekend uniek anker; identiteit niet overtuigend.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-REL-VR-026",
+      "decision": "UNDECIDABLE",
+      "source_ref_hash": "e238bdf7aae4ed8e",
+      "rationale": "MAP003-020 grotendeels bedekt, slechts strook; geen veilig te verifiëren correspondentie met MAP004-016.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-OBS-MAP004-012",
+      "decision": "CONFIRM",
+      "source_ref_hash": "b92db1107de7a6b3",
+      "rationale": "Wit kozijn, ruit, rolkast duidelijk zichtbaar aan rechter beeldrand; alleen aanwezigheid PARTIAL bevestigd, niet identiteit/afmeting/pand.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-OBS-MAP003-027",
+      "decision": "NEEDS_BETTER_PHOTO",
+      "source_ref_hash": "d2cd1d5462dda2bf",
+      "rationale": "Entreenis bij plaat 278 toont te weinig contrast om deurtype/grenzen vast te stellen.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-OBS-MAP003-009",
+      "decision": "UNDECIDABLE",
+      "source_ref_hash": "7d7b9d6491f33100",
+      "rationale": "Smal raamdeel zichtbaar maar FULL is vermoedelijk fout; voorgestelde PARTIAL correctie blijft afzonderlijk en niet toegepast.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "RV-OBS-MAP003-010",
+      "decision": "CONFIRM",
+      "source_ref_hash": "4633e688e2a7b720",
+      "rationale": "Hoofdkozijn met gordijn en twee open vleugels zichtbaar, als een enkele opening (geen unieke instance).",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    },
+    {
+      "review_id": "HQ-VR-001",
+      "decision": "CONFIRM",
+      "source_ref_hash": "5ed6f7f14bb01ed3",
+      "rationale": "Het smalle linker element is afzonderlijk volgens zichtbaar metselwerk in MAP002/MAP013 en bevroren foto2; bevestigt regel, geen extra telling.",
+      "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+      "approval_scope": "PILOT_REVIEW_ONLY",
+      "not_an_html_export": true
+    }
+  ],
+  "non_pilot_review_points_remain_open": 113,
+  "existing_app_decisions_remain_open": 48,
+  "not_an_html_export": true,
+  "do_not_impersonate_html_export": true,
+  "apply_to_instances_authorized": false,
+  "merges_authorized": false,
+  "bag_links_authorized": false,
+  "unique_totals_authorized": false,
+  "costs_authorized": false,
+  "separate_correction_proposal": {
+    "id": "CORR-OBS-MAP003-009-VIS-001",
+    "from": "FULL",
+    "to": "PARTIAL",
+    "status": "PROPOSED_NOT_APPLIED"
+  }
+}

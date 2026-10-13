@@ -1,0 +1,386 @@
+{
+  "format": "maldenhof_pilot_decision_register_v1",
+  "pack_version": "human_visual_decision_pack_v1.2.0",
+  "status": "REGISTERED_PILOT_ONLY_NO_FURTHER_PROCESSING",
+  "approval": {
+    "statement": "Ik heb de 10 pilotkeuzes gecontroleerd en keur ze goed.",
+    "channel": "ChatGPT conversation",
+    "via_html_form": false,
+    "is_html_export": false,
+    "source_file": "maldenhof_pilot_10_bevestigd_in_chat.json",
+    "source_file_sha256": "04917f89cd401e537bb8355e4ba3ee7a9933d82f886d1483df0effaf83db4e88",
+    "source_prepared_file": "maldenhof_pilot_10_keuzes_ter_controle.json",
+    "also_confirmed_in_project_chat": "2026-10-13"
+  },
+  "decision_count": 10,
+  "decisions": [
+    {
+      "review_id": "RV-SEP-001",
+      "review_type": "SEPARATION",
+      "title": "OBS-MAP003-007 | OBS-MAP003-008: gescheiden door metselwerk?",
+      "decision": "CONFIRM",
+      "decision_label": null,
+      "relation_type": null,
+      "source_ref_hash": "1e9d25ff56b1c53a",
+      "source_ref_hash_validated": true,
+      "rationale": "Zichtbaar doorlopend metselwerk tussen 007 en 008; twee bouwkundige openingen. Geen instance-/pandbesluit.",
+      "claude_proposal_in_pack": "CONFIRM",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Bevestigt visueel: 007 en 008 zijn door metselwerk gescheiden (twee bouwkundige openingen). Geen instance, geen totaal.",
+      "related_app_decisions_unchanged": [
+        "HQ-VR-002"
+      ],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-REL-VR-027",
+      "review_type": "OVERLAP_RELATION",
+      "title": "VR-027 MAP-003:OBS-MAP003-011 <-> MAP-004:OBS-MAP004-006",
+      "decision": "SAME",
+      "decision_label": "SAME_PHYSICAL_OBJECT_CANDIDATE",
+      "relation_type": "PHYSICAL_OBJECT",
+      "source_ref_hash": "b4c272b4bf256bba",
+      "source_ref_hash_validated": true,
+      "rationale": "Bijzondere combinatie stickers/merktekens/gordijn en controle in twee beelden: sterk kandidaat hetzelfde fysieke raam; nog geen merge.",
+      "claude_proposal_in_pack": "SAME",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Kandidaat hetzelfde fysieke raam (SAME_PHYSICAL_OBJECT_CANDIDATE). Niet bewezen, niet samengevoegd, geen pandkoppeling.",
+      "related_app_decisions_unchanged": [
+        "APP-012"
+      ],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-REL-VR-020",
+      "review_type": "OVERLAP_RELATION",
+      "title": "VR-020 MAP-003:P-280/P-278/P-276 <-> MAP-004:P-280/P-278/P-276",
+      "decision": "SAME",
+      "decision_label": "SAME_FACADE_SECTION",
+      "relation_type": "FACADE_SECTION",
+      "source_ref_hash": "d190aa7da367ecf7",
+      "source_ref_hash_validated": true,
+      "rationale": "Zelfde reeks plaatmuren 280/278/276; SAME geldt uitsluitend voor dezelfde gevelsectie, niet kozijnen.",
+      "claude_proposal_in_pack": "SAME",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Alleen dezelfde gevelsectie (SAME_FACADE_SECTION). Zegt niets over hetzelfde kozijn (same_physical_frame_proven=false).",
+      "related_app_decisions_unchanged": [
+        "APP-001",
+        "APP-012"
+      ],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-REL-VR-024",
+      "review_type": "OVERLAP_RELATION",
+      "title": "VR-024 MAP-003:OBS-MAP003-018 <-> MAP-004:OBS-MAP004-013",
+      "decision": "UNDECIDABLE",
+      "decision_label": null,
+      "relation_type": "PHYSICAL_OBJECT",
+      "source_ref_hash": "8f090844608b5183",
+      "source_ref_hash_validated": true,
+      "rationale": "Raamindeling en takspiegeling komen overeen, maar repetitieve woningen en ontbrekend uniek anker; identiteit niet overtuigend.",
+      "claude_proposal_in_pack": "SAME",
+      "differs_from_claude_pack_proposal": true,
+      "effect": "Identiteit niet te beslissen; geen kandidaatrelatie vastgelegd.",
+      "related_app_decisions_unchanged": [
+        "APP-012"
+      ],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-REL-VR-026",
+      "review_type": "OVERLAP_RELATION",
+      "title": "VR-026 MAP-003:OBS-MAP003-020 <-> MAP-004:OBS-MAP004-016",
+      "decision": "UNDECIDABLE",
+      "decision_label": null,
+      "relation_type": "PHYSICAL_OBJECT",
+      "source_ref_hash": "e238bdf7aae4ed8e",
+      "source_ref_hash_validated": true,
+      "rationale": "MAP003-020 grotendeels bedekt, slechts strook; geen veilig te verifiëren correspondentie met MAP004-016.",
+      "claude_proposal_in_pack": "UNDECIDABLE",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Correspondentie niet te beslissen; geen kandidaatrelatie vastgelegd.",
+      "related_app_decisions_unchanged": [
+        "APP-012"
+      ],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-OBS-MAP004-012",
+      "review_type": "OBSERVATION",
+      "title": "OBS-MAP004-012 WINDOW_OPENING PARTIAL",
+      "decision": "CONFIRM",
+      "decision_label": null,
+      "relation_type": null,
+      "source_ref_hash": "b92db1107de7a6b3",
+      "source_ref_hash_validated": true,
+      "rationale": "Wit kozijn, ruit, rolkast duidelijk zichtbaar aan rechter beeldrand; alleen aanwezigheid PARTIAL bevestigd, niet identiteit/afmeting/pand.",
+      "claude_proposal_in_pack": "UNDECIDABLE",
+      "differs_from_claude_pack_proposal": true,
+      "effect": "Bevestigt alleen de aanwezigheid van een deels zichtbaar raam (PARTIAL) in de voorlopige observatie. Geen identiteit, afmeting of pand.",
+      "related_app_decisions_unchanged": [],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-OBS-MAP003-027",
+      "review_type": "OBSERVATION",
+      "title": "OBS-MAP003-027 EXTERIOR_DOOR PARTIAL",
+      "decision": "NEEDS_BETTER_PHOTO",
+      "decision_label": null,
+      "relation_type": null,
+      "source_ref_hash": "d2cd1d5462dda2bf",
+      "source_ref_hash_validated": true,
+      "rationale": "Entreenis bij plaat 278 toont te weinig contrast om deurtype/grenzen vast te stellen.",
+      "claude_proposal_in_pack": "NEEDS_BETTER_PHOTO",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Observatie blijft onbeslist; er is een betere foto nodig. Geen deurtype vastgelegd.",
+      "related_app_decisions_unchanged": [],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-OBS-MAP003-009",
+      "review_type": "OBSERVATION",
+      "title": "OBS-MAP003-009 WINDOW_OPENING FULL",
+      "decision": "UNDECIDABLE",
+      "decision_label": null,
+      "relation_type": null,
+      "source_ref_hash": "7d7b9d6491f33100",
+      "source_ref_hash_validated": true,
+      "rationale": "Smal raamdeel zichtbaar maar FULL is vermoedelijk fout; voorgestelde PARTIAL correctie blijft afzonderlijk en niet toegepast.",
+      "claude_proposal_in_pack": "UNDECIDABLE",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Observatie 009 blijft ongewijzigd (label FULL blijft staan); de FULL-naar-PARTIAL correctie is afzonderlijk voorgesteld en NIET goedgekeurd.",
+      "related_app_decisions_unchanged": [],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "RV-OBS-MAP003-010",
+      "review_type": "OBSERVATION",
+      "title": "OBS-MAP003-010 WINDOW_OPENING FULL",
+      "decision": "CONFIRM",
+      "decision_label": null,
+      "relation_type": null,
+      "source_ref_hash": "4633e688e2a7b720",
+      "source_ref_hash_validated": true,
+      "rationale": "Hoofdkozijn met gordijn en twee open vleugels zichtbaar, als een enkele opening (geen unieke instance).",
+      "claude_proposal_in_pack": "CONFIRM",
+      "differs_from_claude_pack_proposal": false,
+      "effect": "Bevestigt hoofdkozijn met twee open vleugels als een enkele opening in de voorlopige observatie. Geen unieke instance.",
+      "related_app_decisions_unchanged": [],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    },
+    {
+      "review_id": "HQ-VR-001",
+      "review_type": "EXISTING_QUESTION",
+      "title": "Smal linker element (MAP-003 OBS-009)",
+      "decision": "CONFIRM",
+      "decision_label": null,
+      "relation_type": null,
+      "source_ref_hash": "5ed6f7f14bb01ed3",
+      "source_ref_hash_validated": true,
+      "rationale": "Het smalle linker element is afzonderlijk volgens zichtbaar metselwerk in MAP002/MAP013 en bevroren foto2; bevestigt regel, geen extra telling.",
+      "claude_proposal_in_pack": "UNDECIDABLE",
+      "differs_from_claude_pack_proposal": true,
+      "effect": "Bevestigt de regel: smal linker element is afzonderlijk volgens metselwerk (MAP-002/013, foto 2). Geen extra telling; photo-2 ongewijzigd.",
+      "related_app_decisions_unchanged": [],
+      "never": {
+        "creates_instance": false,
+        "merge": false,
+        "bag_pand_link": false,
+        "unique_total": false,
+        "cost": false,
+        "changes_source_observation": false,
+        "changes_app_decision": false,
+        "same_physical_frame_proven": false
+      },
+      "provenance": {
+        "decision_source": "HUMAN_CHAT_CONFIRMATION",
+        "approval_channel": "ChatGPT conversation",
+        "via_html_form": false,
+        "is_html_export": false,
+        "approval_provenance": "USER_EXPLICITLY_CONFIRMED_IN_CHAT",
+        "approval_scope": "PILOT_REVIEW_ONLY"
+      }
+    }
+  ],
+  "other_review_points_open": 113,
+  "existing_app_decisions_open_unchanged": 48,
+  "authorized": {
+    "apply_to_instances": false,
+    "merges": false,
+    "bag_links": false,
+    "unique_totals": false,
+    "costs": false,
+    "source_observation_changes": false
+  },
+  "separate_correction_proposal": {
+    "id": "CORR-OBS-MAP003-009-VIS-001",
+    "from": "FULL",
+    "to": "PARTIAL",
+    "status": "PROPOSED_NOT_APPLIED",
+    "approved": false
+  },
+  "relation_semantics_kept": {
+    "SAME_FACADE_SECTION": "alleen dezelfde gevelsectie (VR-001, VR-020); nooit hetzelfde kozijn",
+    "SAME_PHYSICAL_OBJECT_CANDIDATE": "kandidaat, niet bewezen, niet samengevoegd"
+  },
+  "follow_up_decisions_needed": [
+    "Goedkeuring OBS-MAP003-009 FULL naar PARTIAL (afzonderlijk, niet toegepast)",
+    "Formele verwerkingsrelatie van pilotbesluiten tot de 48 APP-besluiten (nog niet goedgekeurd)",
+    "Overige 113 reviewpunten (P1 rest 44, P2 50, P3 19) blijven OPEN",
+    "Eventuele verwerking van SAME-kandidaten (VR-027) naar objectidentiteit: alleen na afzonderlijk besluit"
+  ]
+}

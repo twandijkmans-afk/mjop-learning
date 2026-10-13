@@ -201,7 +201,7 @@ AUDIT_PATTERNS = ("DOC-005", "DOC-006", "Maldenhof", "1106EZ", "1106 EZ", "190.6
 # of fixture is, geldt als generieke code.
 REPORT_ONLY_SCRIPTS = {
     "scripts/multi_pand_scope_demo.py", "scripts/maldenhof_quantity_activation.py", "scripts/quantity_engine_activation_review.py",
-    "scripts/doc012_generalization_review.py", "scripts/doc012_quantity_activation.py", "scripts/quantity_subject_expansion_review.py",
+    "scripts/doc012_generalization_review.py", "scripts/register_pilot_decisions.py", "scripts/doc012_quantity_activation.py", "scripts/quantity_subject_expansion_review.py",
     "scripts/scaffolding_height_review.py", "scripts/kengetal_product_bridge_review.py", "scripts/building_element_inventory_report.py",
     "scripts/build_frame_inventory.py", "scripts/build_photo_evidence.py", "scripts/build_photo_frame_review.py", "scripts/build_frame_instance_activation.py", "scripts/build_rear_annotation_coverage.py", "scripts/build_photo3_human_review.py", "scripts/build_photo_archive_audit.py", "scripts/export_app_component_inventory.py", "scripts/build_visual_photo_review_map003_map004.py", "scripts/visual_review_map003_map004_data.py", "scripts/build_human_visual_decision_pack.py", "scripts/human_decision_pack_data.py", "scripts/build_p1_quality_review.py", "scripts/p1_quality_review_data.py", "scripts/p1_visual_quality_evidence.py", "scripts/build_pilot_review.py", "scripts/pilot_review_data.py",
     "scripts/facade_coverage_poc_v2.py", "scripts/facade_element_detection_poc.py",
