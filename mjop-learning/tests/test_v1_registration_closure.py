@@ -279,7 +279,7 @@ def test_t7_only_known_functions_write_and_each_is_guarded_or_a_tempfile_helper(
 
 
 def test_t7_no_other_python_file_in_scripts_or_agent_touches_the_canonical_register_for_writing():
-    allowed = {"human_instance_decision_register.py", "human_decision_intake.py"}      # tweede: alleen-lezen (PR intake; eigen AST-bewaking)
+    allowed = {"human_instance_decision_register.py", "human_decision_intake.py", "human_decision_intake_report.py"}      # laatste twee: alleen-lezen (PR #49; eigen AST-bewaking)
     needles = ("human_instance_decision_register_v1.jsonl", "REGISTER_PATH", "instance_decisions", "_atomic_replace", "build_stored_record")
     offenders = []
     for base in ("scripts", "agent"):
