@@ -1,0 +1,122 @@
+{
+  "contract_version": "photo_dimension_input_v1",
+  "photo_id": "synthetic_facade_v1",
+  "dimension_references": [
+    {
+      "dimension_ref_id": "DIM-001",
+      "type_group_key": "RAAM_A",
+      "element_type": "WINDOW_OPENING",
+      "outer_width_m": "1.200",
+      "outer_height_m": "1.400",
+      "dimension_basis": "OUTER_FRAME",
+      "source": {
+        "kind": "HUMAN_INPUT",
+        "reference": "synthetische testwaarde",
+        "validated_by": {
+          "reviewer_type": "human",
+          "reviewer_id": "test-reviewer"
+        },
+        "validated_at": "2026-10-13T12:00:00Z"
+      }
+    },
+    {
+      "dimension_ref_id": "DIM-002",
+      "type_group_key": "RAAM_B",
+      "element_type": "WINDOW_OPENING",
+      "outer_width_m": "1.800",
+      "outer_height_m": "1.400",
+      "dimension_basis": "OUTER_FRAME",
+      "source": {
+        "kind": "BUILDING_DRAWING",
+        "reference": "synthetische testtekening",
+        "validated_by": {
+          "reviewer_type": "human",
+          "reviewer_id": "test-reviewer"
+        },
+        "validated_at": "2026-10-13T12:00:00Z"
+      }
+    },
+    {
+      "dimension_ref_id": "DIM-003",
+      "type_group_key": "DEUR_A",
+      "element_type": "EXTERIOR_DOOR",
+      "outer_width_m": "0.950",
+      "outer_height_m": "2.150",
+      "dimension_basis": "OUTER_FRAME",
+      "source": {
+        "kind": "VALIDATED_REFERENCE_MEASURE",
+        "reference": "synthetische referentiemaat",
+        "validated_by": {
+          "reviewer_type": "human",
+          "reviewer_id": "test-reviewer"
+        },
+        "validated_at": "2026-10-13T12:00:00Z"
+      }
+    }
+  ],
+  "type_assignments": [
+    {
+      "observation_id": "PO-001",
+      "type_group_key": "RAAM_B",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    },
+    {
+      "observation_id": "PO-002",
+      "type_group_key": "RAAM_A",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    },
+    {
+      "observation_id": "PO-003",
+      "type_group_key": "RAAM_A",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    },
+    {
+      "observation_id": "PO-004",
+      "type_group_key": "DEUR_A",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    },
+    {
+      "observation_id": "PO-005",
+      "type_group_key": "RAAM_A",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    },
+    {
+      "observation_id": "PO-006",
+      "type_group_key": "RAAM_A",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    },
+    {
+      "observation_id": "PO-008",
+      "type_group_key": "RAAM_A",
+      "basis": "HUMAN_ASSIGNED",
+      "assigned_by": {
+        "reviewer_type": "human",
+        "reviewer_id": "test-reviewer"
+      }
+    }
+  ]
+}

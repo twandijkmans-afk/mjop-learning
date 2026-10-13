@@ -1,0 +1,54 @@
+# Photo Reviewer PoC (mjop-learning/agent/photo/, docs/photo_reviewer_poc_v1.md).
+#
+# Alleen testen, alleen lezen: geen AI-SDK, geen modelaanroepen, geen netwerk, geen echte foto's; niets committen of
+# publiceren. Alle tests gebruiken synthetische afbeeldingen en opgenomen (replay) antwoorden.
+name: Photo reviewer tests
+
+on:
+  pull_request:
+    paths:
+      - "mjop-learning/agent/photo/**"
+      - "mjop-learning/tests/photo_reviewer/**"
+      - "mjop-learning/tests/fixtures/photo_reviewer/**"
+      - "mjop-learning/schemas/photo_*.schema.json"
+      - "mjop-learning/scripts/photo_reviewer_demo.py"
+      - ".github/workflows/photo-reviewer-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: photo-reviewer-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  photo-reviewer-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python-afhankelijkheden (vastgepind, zonder AI-SDK's)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pipeline.txt
+          if python -c "import anthropic" 2>/dev/null || python -c "import openai" 2>/dev/null; then
+            echo "::error::AI-SDK aanwezig op de runner; de Photo Reviewer-tests hebben geen modelroute"; exit 1
+          fi
+      - name: Photo Reviewer-tests en bewaking van de bestaande agent- en scope-tests
+        run: python -m pytest -q -p no:cacheprovider tests/photo_reviewer tests/agent_tools tests/test_scope_guard.py
+      - name: Niets geschreven door de tests (werkboom ongewijzigd)
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::de tests hebben bestanden gewijzigd of aangemaakt"; git status --porcelain; exit 1
+          fi
