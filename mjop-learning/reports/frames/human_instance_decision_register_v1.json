@@ -9,14 +9,13 @@
     "HTML_FORM_EXPORT",
     "FILE_EDITED_BY_HUMAN"
   ],
-  "confirm_token": "REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER",
-  "confirm_token_required_for_register": true,
   "decision_state": {
     "approval_request_id": "IAR-OIC-VR-027",
     "decisions": [],
     "level_A": "NOT_DECIDED",
     "level_B": "NOT_DECIDED",
     "level_C": "NOT_DECIDED",
+    "registration_status": "CLOSED_NO_VERIFIED_HUMAN_CHANNEL",
     "request_hash": "e276feeb5849ba8af4c41e2e429aca21",
     "step_1_technically_valid_request": true,
     "step_2_explicit_human_decision_registered": false,
@@ -109,7 +108,7 @@
     "De gebruiker levert zelf (of bevestigt in een apart bericht) één besluit over IAR-OIC-VR-027 met de actuele request_hash.",
     "Een thread zet dat letterlijk in een invoerbestand (entered_by_kind AI_TRANSCRIPTION_OF_HUMAN_MESSAGE, bronbericht-ID en letterlijke tekst) of de gebruiker vult het zelf in.",
     "Eerst `python scripts/human_instance_decision_register.py check --decision <bestand>` (DRY_RUN) en het resultaat tonen.",
-    "Pas na een tweede, expliciete opdracht van de gebruiker: `... register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER` in een eigen PR.",
+    "Registreren is in v1 GESLOTEN (CLOSED_NO_VERIFIED_HUMAN_CHANNEL). Een toekomstig v2-register met geverifieerd menselijk bewijs is de enige route; v1 wordt niet heropend.",
     "Activatie van een instance blijft een nog later, apart door de gebruiker geautoriseerd proces."
   ],
   "provenance_keys": [
@@ -124,6 +123,8 @@
   "register_file": "data/instance_decisions/human_instance_decision_register_v1.jsonl",
   "register_head": "0000000000000000000000000000000000000000000000000000000000000000",
   "register_version": "human_instance_decision_register_v1",
+  "registration_closed_reason": "V1_REGISTRATIE_GESLOTEN: het canonieke v1-register accepteert geen nieuwe besluiten (v1 kent alleen zelf opgegeven herkomst, `NONE_SELF_ASSERTED`); er is geen schakelaar, omgevingsvariabele, optie of configuratie die dit opent",
+  "registration_status": "CLOSED_NO_VERIFIED_HUMAN_CHANNEL",
   "request": {
     "approval_request_id": "IAR-OIC-VR-027",
     "approval_status": "READY_FOR_HUMAN_REVIEW",
