@@ -322,8 +322,14 @@ def _targets_canonical(path):
             return True
         if cand.exists() and canon.exists() and os.path.samefile(cand, canon):          # hardlink of symlink
             return True
-        if cand.parent.exists() and canon.parent.exists() and os.path.samefile(cand.parent, canon.parent) and cand.name.casefold() == canon.name.casefold():
+        # de HELE registermap is beschermd (ook een ander bestand, `.lock`- of tmp-naam, of een submap): geen enkel schrijfdoel daarin
+        area = canon.parent.resolve()
+        here = cand.resolve()
+        if here == area or area in here.parents:
             return True
+        for anc in (cand.parent, *cand.parent.parents):
+            if anc.exists() and area.exists() and os.path.samefile(anc, area):
+                return True
         return False
     except (TypeError, ValueError, OSError):
         return True

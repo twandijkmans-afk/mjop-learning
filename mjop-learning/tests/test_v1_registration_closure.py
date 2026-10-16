@@ -109,6 +109,25 @@ def test_t1_every_alias_of_the_canonical_path_is_closed(live, ctx, tmp_path, mon
     assert closed(H.register(make(live), mode="REGISTER", confirm=TOKEN, path=CANON.name, ctx=ctx, now=NOW))
 
 
+def test_t1_the_whole_register_directory_is_protected_not_only_the_one_file(live, ctx, tmp_path):
+    """Een ander bestand, de .lock- of tmp-naam of een submap in de registermap kan later naar het register worden hernoemd; daarom is de hele map dicht."""
+    targets = [CANON.parent / "ander_register.jsonl", CANON.parent / (CANON.name + ".lock"), CANON.parent / ("." + CANON.name + ".1.tmp"), CANON.parent / "sub" / "x.jsonl"]
+    dirlink = tmp_path / "mapalias"
+    dirlink.symlink_to(CANON.parent, target_is_directory=True)
+    targets.append(dirlink / "nieuw.jsonl")
+    for t in targets:
+        assert closed(H.register(make(live), mode="REGISTER", confirm=TOKEN, path=t, ctx=ctx, now=NOW)), t
+        with pytest.raises(H.RegistrationClosed):
+            H._atomic_replace(t, b"x")
+    assert not (CANON.parent / "sub").exists()
+
+
+def test_t1_a_sibling_directory_is_not_blocked_so_temp_registers_keep_working(live, ctx, tmp_path):
+    reg = tmp_path / "x.jsonl"
+    reg.write_bytes(b"")
+    assert H.register(make(live), mode="REGISTER", confirm=TOKEN, path=reg, ctx=ctx, now=NOW)["status"] == "REGISTERED"
+
+
 @pytest.mark.parametrize("bad", [None, 0, 1.5, b"x", object(), [], {}])
 def test_t1_unassessable_path_is_failclosed(live, ctx, bad):
     res = H.register(make(live), mode="REGISTER", confirm=TOKEN, path=bad, ctx=ctx, now=NOW)

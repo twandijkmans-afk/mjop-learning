@@ -53,6 +53,17 @@ jobs:
           fi
       - name: Canoniek v1-register is 0 bytes (geen record, hashketen ongewijzigd)
         run: test ! -s data/instance_decisions/human_instance_decision_register_v1.jsonl
+      - name: Register-hash gelijk aan de vastgepinde repositoryvariabele (buiten het bereik van een PR)
+        working-directory: .
+        env:
+          EXPECTED: ${{ vars.V1_REGISTER_SHA256 }}
+        run: |
+          actual=$(sha256sum mjop-learning/data/instance_decisions/human_instance_decision_register_v1.jsonl | cut -d' ' -f1)
+          if [ -z "$EXPECTED" ]; then
+            echo "::warning::repositoryvariabele V1_REGISTER_SHA256 is niet ingesteld; stel haar in op $actual (sha256 van het lege register) voor onafhankelijke bewaking"
+          elif [ "$EXPECTED" != "$actual" ]; then
+            echo "::error::het v1-register wijkt af van de vastgepinde hash"; exit 1
+          fi
       - name: Geen workflow roept de v1-registeropdracht aan of bevat het bevestigingstoken
         working-directory: .
         run: |
