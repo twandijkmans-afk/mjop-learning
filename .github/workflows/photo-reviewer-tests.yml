@@ -12,6 +12,7 @@ on:
       - "mjop-learning/tests/fixtures/photo_reviewer/**"
       - "mjop-learning/schemas/photo_*.schema.json"
       - "mjop-learning/scripts/photo_reviewer_demo.py"
+      - "mjop-learning/scripts/vision_budget_ledger.py"
       - ".github/workflows/photo-reviewer-tests.yml"
   workflow_dispatch:
 

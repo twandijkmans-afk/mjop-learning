@@ -14,6 +14,7 @@ from dataclasses import dataclass, field
 
 from agent.photo.contract import (COUNTING_TYPES, ELEMENT_TYPES, MEDIA_TYPES, VISIBILITIES, PhotoError, ProviderError,
                                   canonical_sha256, sha256_bytes)
+from agent.photo.safety_gate import GateRefusal, authorize_external_call, require_authorization
 from agent.photo.verifier import seal_set
 
 ADAPTER_VERSION = "0.1.0"
@@ -58,13 +59,34 @@ class ProviderResult:
 
 
 class VisionProvider(ABC):
+    """Basisklasse. Een provider met `data_egress == "EXTERNAL"` mag `analyze` NIET zelf overschrijven: de basisklasse draait dan
+    eerst de centrale veiligheidspoort (safety_gate.authorize_external_call) en roept pas daarna `_analyze_authorized` aan."""
+    data_egress = "NONE"
+
+    def __init_subclass__(cls, **kw):
+        super().__init_subclass__(**kw)
+        if cls.data_egress != "NONE":
+            if "analyze" in cls.__dict__:
+                raise TypeError(f"{cls.__name__}: een externe provider mag analyze niet overschrijven (centrale veiligheidspoort)")
+            if "_analyze_authorized" not in cls.__dict__ and not any("_analyze_authorized" in b.__dict__ for b in cls.__mro__[1:]):
+                raise TypeError(f"{cls.__name__}: een externe provider moet _analyze_authorized implementeren")
+
     @abstractmethod
     def describe(self):
         """{adapter_id, adapter_version, provider_name, data_egress}"""
 
-    @abstractmethod
     def analyze(self, request: VisionRequest) -> ProviderResult:
         """Levert een RUW antwoord {proposals:[...], hidden_element_hypotheses:[...]} (bbox_norm), nooit een besluit."""
+        if self.data_egress == "NONE":
+            return self._analyze_local(request)
+        auth = self._authorize(request)
+        return self._analyze_authorized(request, auth)
+
+    def _analyze_local(self, request):
+        raise NotImplementedError
+
+    def _authorize(self, request):
+        raise NotImplementedError
 
 
 def _result(raw, info):
@@ -75,7 +97,7 @@ class NullProvider(VisionProvider):
     def describe(self):
         return {"adapter_id": "null", "adapter_version": ADAPTER_VERSION, "provider_name": "null_provider", "data_egress": "NONE"}
 
-    def analyze(self, request):
+    def _analyze_local(self, request):
         return _result({"proposals": [], "hidden_element_hypotheses": []},
                        {**self.describe(), "model_served": None, "consent_ref": None, "prompt_id": None})
 
@@ -94,7 +116,7 @@ class ReplayProvider(VisionProvider):
     def describe(self):
         return {"adapter_id": "replay", "adapter_version": ADAPTER_VERSION, "provider_name": "replay", "data_egress": "NONE"}
 
-    def analyze(self, request):
+    def _analyze_local(self, request):
         if request.derivative_sha256 not in self._rec:
             raise ProviderError("NO_RECORDING", f"geen opgenomen antwoord voor derivative_sha256 {request.derivative_sha256[:12]}...")
         return _result(self._rec[request.derivative_sha256],
@@ -130,84 +152,90 @@ class HumanImportProvider(VisionProvider):
     def describe(self):
         return {"adapter_id": "human_import", "adapter_version": ADAPTER_VERSION, "provider_name": "human_import", "data_egress": "NONE"}
 
-    def analyze(self, request):
+    def _analyze_local(self, request):
         return _result({"proposals": self._ann, "hidden_element_hypotheses": []},
                        {**self.describe(), "model_served": None, "consent_ref": None, "prompt_id": None})
 
 
 class ClaudeVisionConfig:
-    """Alle waarden komen van de operator; er zijn bewust geen standaard modelnaam of limieten ingebouwd.
-    max_long_edge_px / max_image_bytes horen uit de actuele providerdocumentatie te worden overgenomen (consentrecord)."""
+    """Alle waarden komen van de operator; er zijn bewust geen standaard modelnaam of limieten ingebouwd. Afmetings- en
+    bestandslimieten komen uit het (ondertekende) toestemmingsrecord, niet uit deze configuratie."""
 
-    def __init__(self, enabled=False, model=None, max_tokens=None, max_long_edge_px=None, max_image_base64_bytes=None):
+    def __init__(self, enabled=False, model=None, max_tokens=None):
         self.enabled, self.model, self.max_tokens = enabled, model, max_tokens
-        self.max_long_edge_px, self.max_image_base64_bytes = max_long_edge_px, max_image_base64_bytes
 
 
 class ClaudeVisionProvider(VisionProvider):
-    """Optionele Anthropic-adapter. STANDAARD UITGESCHAKELD. Een call vereist: enabled=True, een volledige configuratie,
-    een geldig toestemmingsrecord (consent.py) en de tweede sleutel in de omgeving. De SDK wordt pas bij een echte call geimporteerd
-    (of een `client` wordt geinjecteerd, bv. een mock in tests). API-sleutel: uitsluitend via de omgeving van de SDK; nooit gelogd.
+    """Optionele Anthropic-adapter. STANDAARD UITGESCHAKELD en bovendien geblokkeerd door de centrale veiligheidspoort
+    (safety_gate.py): providerregister (NOT_APPROVED), ondertekend toestemmingsrecord, inspectie van de werkelijke bytes en een
+    procesoverstijgend persistent budgetgrootboek. De SDK wordt pas na de poort geimporteerd (of een `client` wordt geinjecteerd,
+    bv. een mock in tests). API-sleutel: uitsluitend via de omgeving van de SDK; nooit gelogd.
     Geen tracing, geen sampling-parameters, geen thinking-/tool-opties: alleen een image- en een tekstblok."""
+    data_egress = "EXTERNAL"
 
-    def __init__(self, config=None, consent=None, client=None, calls_used=0):
+    def __init__(self, config=None, consent=None, client=None, ledger=None):
         self.config = config or ClaudeVisionConfig()
-        self.consent, self._client, self.calls_used = consent, client, calls_used
+        self.consent, self._client, self.ledger = consent, client, ledger
 
     def describe(self):
         return {"adapter_id": "claude_vision", "adapter_version": ADAPTER_VERSION, "provider_name": "anthropic", "data_egress": "EXTERNAL"}
 
-    def _require_ready(self, request):
+    def _authorize(self, request):
         c = self.config
         if not c.enabled:
             raise ProviderError("PROVIDER_DISABLED", "ClaudeVisionProvider is standaard uitgeschakeld")
-        missing = [n for n in ("model", "max_tokens", "max_long_edge_px", "max_image_base64_bytes") if getattr(c, n) in (None, 0, "")]
+        missing = [n for n in ("model", "max_tokens") if getattr(c, n) in (None, 0, "")]
         if missing:
             raise ProviderError("CONFIG_INCOMPLETE", "ontbrekende configuratie (geen ingebouwde standaardwaarden): " + ", ".join(missing))
-        if request.image_bytes is None:
-            raise ProviderError("NO_IMAGE", "afgeleide afbeelding ontbreekt")
-        if request.media_type not in MEDIA_TYPES:
-            raise ProviderError("MEDIA_TYPE", f"niet ondersteund mediatype {request.media_type}")
-        if sha256_bytes(request.image_bytes) != request.derivative_sha256:
-            raise ProviderError("HASH_MISMATCH", "afbeelding komt niet overeen met derivative_sha256")
-        if max(request.width_px, request.height_px) > c.max_long_edge_px:
-            raise ProviderError("IMAGE_TOO_LARGE", "lange zijde groter dan de geconfigureerde limiet; verklein de afgeleide kopie zelf, "
-                                                   "zodat de provider het beeld niet herschaalt (anders kloppen de coordinaten niet)")
-        if 4 * ((len(request.image_bytes) + 2) // 3) > c.max_image_base64_bytes:
-            raise ProviderError("IMAGE_TOO_LARGE", "afbeelding (base64) groter dan de geconfigureerde limiet")
-        from agent.photo.consent import require_consent
-        return require_consent(self.consent, provider="anthropic", photo_id=request.photo_id, derivative_sha256=request.derivative_sha256,
-                               derivative_long_edge_px=max(request.width_px, request.height_px), media_type=request.media_type,
-                               calls_used=self.calls_used)
+        return authorize_external_call(provider="anthropic", request=request, config=c, consent=self.consent, ledger=self.ledger,
+                                       prompt_sha256=PROMPT_SHA256)
 
-    def analyze(self, request):
-        consent_id = self._require_ready(request)
-        import base64
-        client = self._client
-        if client is None:
-            try:
-                import anthropic
-            except ImportError as ex:
-                raise ProviderError("SDK_MISSING", "de anthropic-SDK is niet geinstalleerd") from ex
-            client = anthropic.Anthropic()
-        content = [{"type": "image", "source": {"type": "base64", "media_type": request.media_type,
-                                                "data": base64.standard_b64encode(request.image_bytes).decode("ascii")}},
-                   {"type": "text", "text": PROMPT}]
-        message = client.messages.create(model=self.config.model, max_tokens=self.config.max_tokens,
-                                         messages=[{"role": "user", "content": content}])
-        self.calls_used += 1
+    def _analyze_authorized(self, request, auth):
+        try:
+            client = self._client
+            if client is None:
+                try:
+                    import anthropic
+                except ImportError as ex:
+                    raise ProviderError("SDK_MISSING", "de anthropic-SDK is niet geinstalleerd") from ex
+                client = anthropic.Anthropic()
+            require_authorization(auth, provider="anthropic", model=self.config.model, max_tokens=self.config.max_tokens,
+                                  image_bytes=request.image_bytes, prompt_sha256=PROMPT_SHA256)
+        except Exception:
+            auth.release_unsent("PRE_SEND_FAILURE")                      # aantoonbaar niets verzonden: reservering vrijgeven
+            raise
+        auth.consume()
+        try:
+            message = _send_authorized(client, auth, request, self.config, PROMPT)
+        except Exception:
+            auth.settle("SEND_FAILED")                                   # onzeker of de provider iets ontving: telt als verbruikt
+            raise
+        tokens = getattr(getattr(message, "usage", None), "output_tokens", None)
         if getattr(message, "stop_reason", None) in ("refusal", "max_tokens"):
+            auth.settle("UNUSABLE_" + str(message.stop_reason).upper(), tokens)
             raise ProviderError("UNUSABLE_RESPONSE", f"stop_reason={message.stop_reason}; geen herstel of aanvulling")
+        auth.settle("OK", tokens)
         text = "".join(getattr(b, "text", "") for b in message.content if getattr(b, "type", None) == "text")
         try:
             parsed = json.loads(text)
         except ValueError as ex:
             raise ProviderError("UNUSABLE_RESPONSE", "antwoord is geen geldige JSON") from ex
         raw = _px_to_norm(parsed, request.width_px, request.height_px)
-        info = {**self.describe(), "model_served": getattr(message, "model", None), "consent_ref": consent_id, "prompt_id": PROMPT_ID}
+        info = {**self.describe(), "model_served": getattr(message, "model", None), "consent_ref": auth.consent_id, "prompt_id": PROMPT_ID}
         res = _result(raw, info)
         res.response_sha256 = sha256_bytes(text.encode("utf-8"))      # hash van het ruwe antwoord zoals ontvangen
         return res
+
+
+def _send_authorized(client, auth, request, config, prompt):
+    """De ENIGE plek in het pakket waar afbeeldingsdata naar een externe client gaat; weigert zonder geldig, ongebruikt poorttoken."""
+    import base64
+    if not auth._state == "SENDING":
+        raise GateRefusal(["AUTHORIZATION_MISSING"])
+    content = [{"type": "image", "source": {"type": "base64", "media_type": request.media_type,
+                                            "data": base64.standard_b64encode(request.image_bytes).decode("ascii")}},
+               {"type": "text", "text": prompt}]
+    return client.messages.create(model=config.model, max_tokens=config.max_tokens, messages=[{"role": "user", "content": content}])
 
 
 def _px_to_norm(parsed, w, h):

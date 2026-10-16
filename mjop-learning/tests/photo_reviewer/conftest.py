@@ -20,3 +20,18 @@ def no_network(monkeypatch):
     monkeypatch.setattr(socket, "getaddrinfo", refuse)
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     monkeypatch.delenv("MJOP_PHOTO_EXTERNAL_CONSENT_ID", raising=False)
+
+
+@pytest.fixture
+def approved_gate(monkeypatch, tmp_path):
+    from photo_support import AUTH_KEY
+    """Alleen voor tests: provider tijdelijk APPROVED, sleutel en tweede sleutel gezet, tijdelijk grootboek buiten de repository.
+    Geeft het grootboek terug. In productie staat de provider op NOT_APPROVED."""
+    import vision_budget_ledger as L
+    from agent.photo import safety_gate as G
+    monkeypatch.setitem(G.PROVIDER_APPROVALS, "anthropic", {"status": "APPROVED", "reason": "alleen test"})
+    monkeypatch.setenv(G.ENV_AUTH_KEY, AUTH_KEY)
+    monkeypatch.setenv("MJOP_PHOTO_EXTERNAL_CONSENT_ID", "PCON-00001")
+    d = tmp_path / "ledger"
+    d.mkdir(mode=0o700)
+    return L.FileBudgetLedger(str(d))

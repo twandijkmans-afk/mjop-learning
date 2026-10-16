@@ -119,10 +119,27 @@ Geen wijziging aan originele foto's, `data/`, `reports/`, menselijke besluiten, 
 Zie het eindrapport van de PR: (1) privacy- en toestemmingsbesluit per foto, (2) provider-voorwaarden controleren en vastleggen, (3) afgeleide kopieën maken (EXIF/GPS weg, lange zijde binnen de limiet),
 (4) privé-opslag voor runartefacten, (5) operatorconfiguratie (model, limieten, budget), (6) blind gelabelde evaluatiefoto's en vastgelegde drempels, (7) menselijke maatinvoer.
 
-## Verplichte voorwaarden voor de eerste externe Vision-test (bewust nog niet opgelost)
+## External Vision Safety Gate v1 (voorwaarden voor de eerste externe Vision-test)
 
-Tot onderstaande punten zijn opgelost en door de gebruiker zijn goedgekeurd, vindt er **geen echte Claude Vision-aanroep** plaats:
+De drie verplichte voorwaarden uit de vorige release zijn technisch ingebouwd in `agent/photo/safety_gate.py` (+ `scripts/vision_budget_ledger.py`).
+Er is **nog steeds geen echte aanroep mogelijk**: `PROVIDER_APPROVALS["anthropic"]` staat op `NOT_APPROVED` en kan alleen door een menselijk
+gereviewde codewijziging worden omgezet (definitieve provider- en privacygoedkeuring blijft een menselijk besluit).
 
-1. Persistente, gedeelde API-budgetcontrole over processen heen (nu alleen per proces).
-2. Verificatie van de werkelijke afbeeldingsafmetingen en bestandsgrootte vóór verzending.
-3. Definitieve provider- en privacygoedkeuring.
+Elke externe aanroep loopt via `authorize_external_call`, in deze volgorde; het grootboek wordt als laatste geraakt, dus een weigering verbruikt niets:
+1. **Providerregister**: alleen status exact `APPROVED`.
+2. **Grootboek**: een `BudgetLedger` met `persistent` en `cross_process_safe` (geen geheugen- of eigen implementatie).
+3. **Authentiek consentrecord**: strikt schema (nu met `allowed_models`, `derivative_policy.max_file_bytes` en `authorization`), HMAC-SHA256-handtekening van de menselijke
+   goedkeurder (`MJOP_VISION_AUTH_KEY`, minstens 32 tekens, nooit in de repository; `sign_consent` is voor de goedkeurder), plus de inhoudelijke controles
+   (foto+hash eenduidig, DENY wint altijd, redactie, geldigheid, model, tokens, bestandsgrootte) en de tweede sleutel `MJOP_PHOTO_EXTERNAL_CONSENT_ID`.
+4. **Werkelijke afbeelding** (`inspect_image`): echte bytes, niet de claim: bestandskop = declared media type, containerstructuur per formaat (PNG-CRC's, JPEG-segmenten,
+   GIF-blokken, WEBP-chunks), EXIF/GPS/XMP/ICC/commentaar/onbekende chunks geweigerd, geen data na het einde, geen animatie, volledige decodering, echte afmetingen gelijk aan het
+   verzoek en binnen `max_long_edge_px`, echte bytegrootte binnen `max_file_bytes` en een harde absolute grens, pixelgrens tegen decompressiebommen vóór decodering, hash gelijk aan het verzoek en aan het consentrecord.
+5. **Procesoverstijgend budget**: `FileBudgetLedger` reserveert atomair (`flock`) in een hash-geketend append-only JSONL buiten de repository (`MJOP_VISION_LEDGER_DIR`, 0700, geen symlinks).
+   `max_calls` en `max_output_tokens` gelden als totaal per `consent_id` over alle processen; een gewijzigd record onder hetzelfde id wordt geweigerd; corrupte of aangepaste keten = alles geweigerd.
+   Een niet-verzonden call (bv. ontbrekende SDK) wordt vrijgegeven; een verzonden of mislukt-onzeker verzonden call blijft verbruikt.
+6. **Niet te omzeilen**: de gate levert een eenmalig, aan bytes, model, tokens en prompt gebonden `GateAuthorization` (niet zelf te construeren); `_send_authorized` is de enige plek met
+   `client.messages.create`; een externe `VisionProvider` kan `analyze` niet overschrijven (de basisklasse draait eerst de poort; `TypeError` bij definitie); tests bewaken dit statisch.
+
+Bekende grenzen: het grootboek beschermt tegen vergissingen, races en onopgemerkte wijzigingen, niet tegen iemand met schrijfrechten op de grootboekmap (die kan het vervangen of de staart afkappen);
+de HMAC bewijst dat het record met de sleutel van de goedkeurder is gemaakt, niet wie de sleutel bewaart. Wat nog menselijk moet gebeuren vóór de eerste echte test: provider- en privacygoedkeuring
+(`PROVIDER_APPROVALS`), het ondertekenen van een consentrecord met waarden uit de actuele providerdocumentatie, en het instellen van sleutel en grootboekmap.
