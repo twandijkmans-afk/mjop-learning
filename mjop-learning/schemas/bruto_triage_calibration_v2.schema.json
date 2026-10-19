@@ -1,0 +1,353 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bruto_triage_calibration_v2.schema.json",
+  "title": "BrutoTriageCalibrationV2",
+  "description": "Kalibratieconfiguratie van de triagedrempels. UNCALIBRATED is de standaard: alle drempels leeg, triage conservatief. CALIBRATED wordt aanvullend door scripts/bruto_triage_calibration.py inhoudelijk herberekend; echtheid van het label blijft NOT_VERIFIED.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "status",
+    "note",
+    "dataset",
+    "splits",
+    "results",
+    "error_budget",
+    "audit_sample",
+    "parameters",
+    "authenticity"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "bruto_triage_calibration_v2"
+    },
+    "status": {
+      "enum": [
+        "UNCALIBRATED",
+        "CALIBRATED"
+      ]
+    },
+    "note": {
+      "type": "string"
+    },
+    "dataset": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "dataset_id",
+        "version",
+        "dataset_sha256",
+        "labeling",
+        "representative",
+        "size"
+      ],
+      "properties": {
+        "dataset_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dataset_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "labeling": {
+          "enum": [
+            "HUMAN_LABELED",
+            "SYNTHETIC"
+          ]
+        },
+        "representative": {
+          "type": "boolean"
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "splits": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "development",
+        "calibration",
+        "test"
+      ],
+      "properties": {
+        "development": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "split_sha256",
+            "size"
+          ],
+          "properties": {
+            "split_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "calibration": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "split_sha256",
+            "size"
+          ],
+          "properties": {
+            "split_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "test": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "split_sha256",
+            "size"
+          ],
+          "properties": {
+            "split_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      }
+    },
+    "results": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "split",
+        "clean_predictions_n",
+        "false_clean_k",
+        "confidence_level",
+        "declared_upper_bound"
+      ],
+      "properties": {
+        "split": {
+          "const": "test"
+        },
+        "clean_predictions_n": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "false_clean_k": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "confidence_level": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "declared_upper_bound": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "error_budget": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "max_false_clean_rate",
+        "set_by",
+        "set_in_ref"
+      ],
+      "properties": {
+        "max_false_clean_rate": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1
+        },
+        "set_by": {
+          "const": "USER"
+        },
+        "set_in_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "audit_sample": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "seed",
+        "size"
+      ],
+      "properties": {
+        "seed": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min_independent_anchors",
+        "dimension_deviation_tolerance_m",
+        "estimate_min_references",
+        "estimate_allowed_bases",
+        "estimate_max_spread_m"
+      ],
+      "properties": {
+        "min_independent_anchors": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "dimension_deviation_tolerance_m": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]+)?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "estimate_min_references": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "estimate_allowed_bases": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "estimate_max_spread_m": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]+)?$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "authenticity": {
+      "const": "NOT_VERIFIED"
+    }
+  },
+  "if": {
+    "properties": {
+      "status": {
+        "const": "UNCALIBRATED"
+      }
+    }
+  },
+  "then": {
+    "properties": {
+      "dataset": {
+        "type": "null"
+      },
+      "splits": {
+        "type": "null"
+      },
+      "results": {
+        "type": "null"
+      },
+      "error_budget": {
+        "type": "null"
+      },
+      "audit_sample": {
+        "type": "null"
+      },
+      "parameters": {
+        "properties": {
+          "min_independent_anchors": {
+            "type": "null"
+          },
+          "dimension_deviation_tolerance_m": {
+            "type": "null"
+          },
+          "estimate_min_references": {
+            "type": "null"
+          },
+          "estimate_allowed_bases": {
+            "type": "null"
+          },
+          "estimate_max_spread_m": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  },
+  "else": {
+    "properties": {
+      "dataset": {
+        "type": "object"
+      },
+      "splits": {
+        "type": "object"
+      },
+      "results": {
+        "type": "object"
+      },
+      "error_budget": {
+        "type": "object"
+      },
+      "audit_sample": {
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bruto_triage_input_v2.schema.json",
+  "title": "BrutoTriageInputV2",
+  "description": "Invoer voor Quantity Review & Triage v1: v2-types, -objecten en -observaties plus gestructureerd identiteits- en maatbewijs. Geen foto-inhoud, geen persoonsgegevens. Bewering over goedkeuring of AI-zekerheid is informatie, nooit bewijs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "types",
+    "objects",
+    "observations",
+    "identity_evidence",
+    "observation_flags",
+    "dimension_evidence",
+    "ai_confidence_info"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "bruto_triage_input_v2"
+    },
+    "types": {
+      "type": "array",
+      "items": {
+        "$ref": "bruto_frame_type_v2.schema.json"
+      }
+    },
+    "objects": {
+      "type": "array",
+      "items": {
+        "$ref": "bruto_quantity_object_v2.schema.json"
+      }
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "$ref": "bruto_observation_v2.schema.json"
+      }
+    },
+    "identity_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "observation_ids",
+          "evidence_basis",
+          "polarity",
+          "source_ref",
+          "source_sha256"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observation_ids": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidence_basis": {
+            "enum": [
+              "UNIQUE_CONFIGURATION",
+              "PLATE_ANCHOR",
+              "SAME_LAYOUT",
+              "FEATURE_MATCH",
+              "SEQUENCE_ORDER",
+              "PARTIAL_OVERLAP",
+              "OBLIQUE_VIEW",
+              "FACADE_CONTEXT",
+              "REPETITION_RISK",
+              "HIDDEN",
+              "TOO_DARK"
+            ]
+          },
+          "polarity": {
+            "enum": [
+              "SUPPORTS_SAME",
+              "CONTRADICTS_SAME"
+            ]
+          },
+          "source_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_sha256": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "observation_flags": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "observation_id",
+          "flags"
+        ],
+        "properties": {
+          "observation_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "flags": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "enum": [
+                "LOW_QUALITY",
+                "OBLIQUE_VIEW",
+                "POSSIBLE_OVERLAP"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "dimension_evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "object_id",
+          "sources"
+        ],
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "source_ref",
+                "outer_width_m",
+                "outer_height_m",
+                "uncertainty_m"
+              ],
+              "properties": {
+                "source_ref": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "outer_width_m": {
+                  "type": "string",
+                  "pattern": "^[0-9]+(\\.[0-9]+)?$"
+                },
+                "outer_height_m": {
+                  "type": "string",
+                  "pattern": "^[0-9]+(\\.[0-9]+)?$"
+                },
+                "uncertainty_m": {
+                  "type": "string",
+                  "pattern": "^[0-9]+(\\.[0-9]+)?$"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ai_confidence_info": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "object_id",
+          "value"
+        ],
+        "properties": {
+          "object_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    }
+  }
+}
