@@ -7,6 +7,9 @@ public struct QualityFlag: Codable, Equatable {
     public var severity: Severity
     public var detail: String?
     public var instruction_nl: String
+    public init(code: String, severity: Severity, detail: String?, instruction_nl: String) {
+        self.code = code; self.severity = severity; self.detail = detail; self.instruction_nl = instruction_nl
+    }
 }
 
 /// Zelfde codes en instructies als photo_walk_core/quality.py (pariteit wordt bewaakt in ParityTests).
