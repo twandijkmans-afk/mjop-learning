@@ -1,0 +1,198 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "bruto_quantity_object_v2.schema.json",
+ "title": "BrutoQuantityObjectV2",
+ "description": "Een kozijn- of deurobject (of een groep identieke objecten met dezelfde maat, quantity > 1) in het Bruto Quantity Model v2. Geen FI-instance. De laag (PROVISIONAL_UNIQUE/CONFIRMED/ESTIMATED/REVIEW_LOW_CERTAINTY) wordt door de rekenkern afgeleid, nooit door het record zelf opgegeven. approval_refs zijn beweringen; pas een geinjecteerde verifier maakt ze geldig.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "contract_version",
+  "object_id",
+  "object_origin",
+  "object_category",
+  "type_id",
+  "quantity",
+  "dimension",
+  "observation_refs",
+  "consolidation",
+  "approval_refs",
+  "repetition_basis",
+  "is_physical_instance",
+  "fi_id"
+ ],
+ "properties": {
+  "contract_version": {
+   "const": "bruto_quantity_object_v2"
+  },
+  "object_id": {
+   "type": "string",
+   "pattern": "^BQO-[A-Z0-9][A-Z0-9-]*$"
+  },
+  "object_origin": {
+   "enum": [
+    "OBSERVED",
+    "ESTIMATED_MISSING"
+   ]
+  },
+  "object_category": {
+   "enum": [
+    "FRAME",
+    "FRAME_WITH_DOOR",
+    "DOOR"
+   ]
+  },
+  "type_id": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^BQT-[A-Z0-9][A-Z0-9-]*$"
+  },
+  "quantity": {
+   "type": "integer",
+   "minimum": 1
+  },
+  "dimension": {
+   "$ref": "bruto_dimension_v2.schema.json"
+  },
+  "observation_refs": {
+   "type": "array",
+   "uniqueItems": true,
+   "items": {
+    "type": "string",
+    "minLength": 1
+   }
+  },
+  "consolidation": {
+   "type": [
+    "object",
+    "null"
+   ],
+   "additionalProperties": false,
+   "required": [
+    "proposed_by",
+    "certainty",
+    "basis_refs"
+   ],
+   "properties": {
+    "proposed_by": {
+     "enum": [
+      "AI_PROPOSAL",
+      "RULE",
+      "HUMAN_PROPOSAL"
+     ]
+    },
+    "certainty": {
+     "enum": [
+      "HIGH",
+      "LOW",
+      "UNKNOWN"
+     ]
+    },
+    "basis_refs": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "approval_refs": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "level",
+     "record_ref",
+     "record_sha256"
+    ],
+    "properties": {
+     "level": {
+      "enum": [
+       "A",
+       "B",
+       "C"
+      ]
+     },
+     "record_ref": {
+      "type": "string",
+      "minLength": 1
+     },
+     "record_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+     }
+    }
+   }
+  },
+  "repetition_basis": {
+   "type": [
+    "object",
+    "null"
+   ],
+   "additionalProperties": false,
+   "required": [
+    "evidence_refs",
+    "reason"
+   ],
+   "properties": {
+    "evidence_refs": {
+     "type": "array",
+     "minItems": 1,
+     "items": {
+      "type": "string"
+     }
+    },
+    "reason": {
+     "type": "string",
+     "minLength": 10
+    }
+   }
+  },
+  "is_physical_instance": {
+   "const": false
+  },
+  "fi_id": {
+   "type": "null",
+   "description": "v2 maakt of reserveert nooit FI-id's."
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "object_origin": {
+      "const": "ESTIMATED_MISSING"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "observation_refs": {
+      "maxItems": 0
+     },
+     "repetition_basis": {
+      "type": "object"
+     },
+     "consolidation": {
+      "type": "null"
+     },
+     "approval_refs": {
+      "maxItems": 0
+     }
+    }
+   },
+   "else": {
+    "properties": {
+     "observation_refs": {
+      "minItems": 1
+     },
+     "repetition_basis": {
+      "type": "null"
+     }
+    }
+   }
+  }
+ ]
+}

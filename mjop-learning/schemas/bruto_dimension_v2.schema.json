@@ -1,0 +1,365 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "bruto_dimension_v2.schema.json",
+ "title": "BrutoDimensionV2",
+ "description": "Maatvoering van een kozijn of deur (buitenmaat) met status, herkomst en onzekerheid. Bruto oppervlak wordt uitsluitend door scripts/bruto_quantity_core.py berekend. Zie vocabularies/bruto_quantity_concepts_v2.json.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "outer_width_m",
+  "outer_height_m",
+  "dimension_basis",
+  "dimension_status",
+  "measurement_method",
+  "source",
+  "scale_evidence_ref",
+  "validated_reference_ref",
+  "uncertainty",
+  "estimate"
+ ],
+ "definitions": {
+  "source": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "source_kind",
+    "source_id",
+    "recorded_at",
+    "recorded_by",
+    "authentication"
+   ],
+   "properties": {
+    "source_kind": {
+     "enum": [
+      "HUMAN_MEASUREMENT",
+      "VALIDATED_REFERENCE_MEASURE",
+      "BUILDING_DRAWING",
+      "TYPE_REFERENCE",
+      "NONE"
+     ]
+    },
+    "source_id": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "recorded_at": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "recorded_by": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "Bewering over de herkomst; geen bewijs van identiteit of goedkeuring."
+    },
+    "authentication": {
+     "const": "NONE_SELF_ASSERTED"
+    }
+   }
+  }
+ },
+ "properties": {
+  "outer_width_m": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "outer_height_m": {
+   "type": [
+    "string",
+    "null"
+   ],
+   "pattern": "^[0-9]+(\\.[0-9]+)?$"
+  },
+  "dimension_basis": {
+   "const": "OUTER_FRAME"
+  },
+  "dimension_status": {
+   "enum": [
+    "MEASURED",
+    "DRAWING_DERIVED",
+    "REFERENCE_DERIVED_ESTIMATE",
+    "UNKNOWN"
+   ]
+  },
+  "measurement_method": {
+   "enum": [
+    "MANUAL_MEASUREMENT",
+    "VALIDATED_REFERENCE_MEASURE",
+    "DRAWING_SCALE",
+    "TYPE_REFERENCE_DERIVATION",
+    "NONE"
+   ]
+  },
+  "source": {
+   "$ref": "#/definitions/source"
+  },
+  "scale_evidence_ref": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "validated_reference_ref": {
+   "type": [
+    "string",
+    "null"
+   ]
+  },
+  "uncertainty": {
+   "type": [
+    "object",
+    "null"
+   ],
+   "additionalProperties": false,
+   "required": [
+    "absolute_m",
+    "note"
+   ],
+   "properties": {
+    "absolute_m": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "pattern": "^[0-9]+(\\.[0-9]+)?$"
+    },
+    "note": {
+     "type": [
+      "string",
+      "null"
+     ]
+    }
+   }
+  },
+  "estimate": {
+   "oneOf": [
+    {
+     "type": "null"
+    },
+    {
+     "type": "object",
+     "additionalProperties": false,
+     "required": [
+      "estimate_status",
+      "proposal_origin",
+      "reference_type_id",
+      "reference_ids",
+      "original_measure_sources",
+      "comparability_basis",
+      "comparability_reason",
+      "derivation_method",
+      "uncertainty",
+      "deviations",
+      "validated_measure"
+     ],
+     "properties": {
+      "estimate_status": {
+       "const": "ESTIMATED"
+      },
+      "proposal_origin": {
+       "enum": [
+        "AI_PROPOSAL",
+        "RULE",
+        "HUMAN_PROPOSAL"
+       ]
+      },
+      "reference_type_id": {
+       "type": "string",
+       "pattern": "^BQT-[A-Z0-9][A-Z0-9-]*$"
+      },
+      "reference_ids": {
+       "type": "array",
+       "minItems": 1,
+       "uniqueItems": true,
+       "items": {
+        "type": "string",
+        "minLength": 1
+       }
+      },
+      "original_measure_sources": {
+       "type": "array",
+       "minItems": 1,
+       "items": {
+        "$ref": "#/definitions/source"
+       }
+      },
+      "comparability_basis": {
+       "type": "array",
+       "minItems": 1,
+       "uniqueItems": true,
+       "items": {
+        "enum": [
+         "SAME_TYPE_CLASSIFICATION",
+         "SAME_MATERIAL",
+         "SIMILAR_VISIBLE_PROPORTIONS",
+         "SAME_FACADE_SECTION",
+         "DEMONSTRATED_REPETITION"
+        ]
+       }
+      },
+      "comparability_reason": {
+       "type": "string",
+       "minLength": 10
+      },
+      "derivation_method": {
+       "enum": [
+        "COPY_SINGLE_REFERENCE_V1",
+        "MEDIAN_OF_REFERENCES_V1"
+       ]
+      },
+      "uncertainty": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "reference_count",
+        "spread_width_m",
+        "spread_height_m",
+        "note"
+       ],
+       "properties": {
+        "reference_count": {
+         "type": "integer",
+         "minimum": 1
+        },
+        "spread_width_m": {
+         "type": "string",
+         "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "spread_height_m": {
+         "type": "string",
+         "pattern": "^[0-9]+(\\.[0-9]+)?$"
+        },
+        "note": {
+         "type": [
+          "string",
+          "null"
+         ]
+        }
+       }
+      },
+      "deviations": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      },
+      "validated_measure": {
+       "const": false,
+       "description": "Een schatting of AI-voorstel is nooit automatisch een gevalideerde maat."
+      }
+     }
+    }
+   ]
+  }
+ },
+ "allOf": [
+  {
+   "if": {
+    "properties": {
+     "dimension_status": {
+      "const": "UNKNOWN"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "outer_width_m": {
+      "type": "null"
+     },
+     "outer_height_m": {
+      "type": "null"
+     },
+     "estimate": {
+      "type": "null"
+     },
+     "measurement_method": {
+      "const": "NONE"
+     }
+    }
+   },
+   "else": {
+    "properties": {
+     "outer_width_m": {
+      "type": "string"
+     },
+     "outer_height_m": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "dimension_status": {
+      "const": "REFERENCE_DERIVED_ESTIMATE"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "estimate": {
+      "type": "object"
+     },
+     "measurement_method": {
+      "const": "TYPE_REFERENCE_DERIVATION"
+     }
+    }
+   },
+   "else": {
+    "properties": {
+     "estimate": {
+      "type": "null"
+     }
+    }
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "dimension_status": {
+      "const": "DRAWING_DERIVED"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "scale_evidence_ref": {
+      "type": "string",
+      "minLength": 1
+     },
+     "measurement_method": {
+      "const": "DRAWING_SCALE"
+     }
+    }
+   }
+  },
+  {
+   "if": {
+    "properties": {
+     "dimension_status": {
+      "const": "MEASURED"
+     }
+    }
+   },
+   "then": {
+    "properties": {
+     "measurement_method": {
+      "enum": [
+       "MANUAL_MEASUREMENT",
+       "VALIDATED_REFERENCE_MEASURE"
+      ]
+     }
+    }
+   }
+  }
+ ]
+}

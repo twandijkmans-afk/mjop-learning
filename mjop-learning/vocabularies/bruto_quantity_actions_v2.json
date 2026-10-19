@@ -1,0 +1,54 @@
+{
+  "$id": "bruto_quantity_actions_v2",
+  "vocabulary_version": "bruto_quantity_actions_v2",
+  "description": "Onderhoudsacties voor het Bruto Quantity Model v2. Onderscheidt per actie: de actie zelf, de hoeveelheidseenheid, de meetgrondslag, het historische kengetal en de prijseenheid. De koppeling met echte historische kengetallen en prijzen volgt pas in een latere fase: historical_kengetal_ref en price_unit zijn in deze versie altijd null.",
+  "measurement_bases": [
+    {"basis": "GROSS_FRAME_AREA_OUTER", "unit": "m2", "note": "Bruto kozijnoppervlak: buitenbreedte x buitenhoogte x aantal."},
+    {"basis": "DOOR_PIECES", "unit": "stuks", "note": "Aantal deuren in stuks."},
+    {"basis": "HISTORICAL_SOURCE_BASIS", "unit": null, "note": "De meetgrondslag van het historische kengetal; leidend voor de onderhoudsberekening zodra het kengetal gekoppeld wordt (latere fase)."},
+    {"basis": "UNKNOWN", "unit": null, "note": "Nog niet vastgesteld. Geen automatische aanname."}
+  ],
+  "basis_statuses": ["DEFAULT", "CANDIDATE", "UNKNOWN"],
+  "door_treatments": [
+    {"treatment": "PART_OF_GROSS_FRAME_AREA", "note": "Losse deur telt mee in het bruto kozijn-m2 van deze actie."},
+    {"treatment": "AS_PIECES", "note": "Deur wordt afzonderlijk in stuks geregistreerd."},
+    {"treatment": "NOT_RELEVANT", "note": "Deuren zijn niet relevant voor deze actie."},
+    {"treatment": "UNDECIDED", "note": "Nog niet vastgesteld: deuren worden alleen in stuks geregistreerd (geen onderhoudshoeveelheid) en tellen niet mee in m2."}
+  ],
+  "actions": [
+    {"action_id": "PAINT_EXTERIOR", "label_nl": "Buitenschilderwerk", "object_scope": "FRAME", "side": "EXTERIOR", "quantity_unit": "m2",
+     "measurement_basis": "GROSS_FRAME_AREA_OUTER", "measurement_basis_status": "DEFAULT",
+     "basis_override": "HISTORICAL_SOURCE_BASIS_IF_DEMONSTRABLY_DIFFERENT",
+     "door_treatment_default": "UNDECIDED", "historical_kengetal_ref": null, "price_unit": null,
+     "note": "Standaard bruto kozijn-m2, tenzij de historische bron aantoonbaar een andere meetgrondslag heeft."},
+    {"action_id": "PAINT_INTERIOR", "label_nl": "Binnenschilderwerk", "object_scope": "FRAME", "side": "INTERIOR", "quantity_unit": null,
+     "measurement_basis": "UNKNOWN", "measurement_basis_status": "UNKNOWN",
+     "basis_override": null,
+     "door_treatment_default": "UNDECIDED", "historical_kengetal_ref": null, "price_unit": null,
+     "note": "Afzonderlijke actie met eigen kengetal. Meetgrondslag en hoeveelheid blijven UNKNOWN tot expliciet vastgesteld; niet af te leiden uit de buitenoppervlakte."},
+    {"action_id": "FRAME_MAINTENANCE", "label_nl": "Kozijnonderhoud", "object_scope": "FRAME", "side": "NOT_APPLICABLE", "quantity_unit": null,
+     "measurement_basis": "UNKNOWN", "measurement_basis_status": "UNKNOWN", "basis_override": null,
+     "door_treatment_default": "UNDECIDED", "historical_kengetal_ref": null, "price_unit": null,
+     "note": "Eenheid en grondslag volgen uit het historische kengetal (latere fase)."},
+    {"action_id": "FRAME_REPLACEMENT", "label_nl": "Kozijnvervanging", "object_scope": "FRAME", "side": "NOT_APPLICABLE", "quantity_unit": null,
+     "measurement_basis": "UNKNOWN", "measurement_basis_status": "UNKNOWN", "basis_override": null,
+     "door_treatment_default": "UNDECIDED", "historical_kengetal_ref": null, "price_unit": null,
+     "note": "Eenheid en grondslag volgen uit het historische kengetal (latere fase)."},
+    {"action_id": "DOOR_MAINTENANCE", "label_nl": "Deuronderhoud", "object_scope": "DOOR", "side": "NOT_APPLICABLE", "quantity_unit": "stuks",
+     "measurement_basis": "DOOR_PIECES", "measurement_basis_status": "CANDIDATE", "basis_override": null,
+     "door_treatment_default": "UNDECIDED", "historical_kengetal_ref": null, "price_unit": null,
+     "note": "Kandidaat-grondslag stuks; niet vastgesteld. Geen automatisch extra onderhoud."},
+    {"action_id": "DOOR_REPLACEMENT", "label_nl": "Deurvervanging", "object_scope": "DOOR", "side": "NOT_APPLICABLE", "quantity_unit": "stuks",
+     "measurement_basis": "DOOR_PIECES", "measurement_basis_status": "CANDIDATE", "basis_override": null,
+     "door_treatment_default": "UNDECIDED", "historical_kengetal_ref": null, "price_unit": null,
+     "note": "Kandidaat-grondslag stuks; niet vastgesteld."}
+  ],
+  "rules": {
+    "interior_and_exterior_are_separate_actions": true,
+    "interior_never_derived_from_exterior": true,
+    "no_double_maintenance_for_same_work": true,
+    "balcony_door_with_frame_is_one_object": true,
+    "historical_kengetal_link_phase": "LATER",
+    "price_link_phase": "LATER"
+  }
+}

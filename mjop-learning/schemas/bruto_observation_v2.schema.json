@@ -1,0 +1,44 @@
+{
+ "$schema": "http://json-schema.org/draft-07/schema#",
+ "$id": "bruto_observation_v2.schema.json",
+ "title": "BrutoObservationV2",
+ "description": "Verwijzing naar één foto-observatie. Een observatie is geen uniek object en wordt niet automatisch als kozijn geteld.",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "observation_id",
+  "photo_id",
+  "object_category",
+  "visibility"
+ ],
+ "properties": {
+  "observation_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "photo_id": {
+   "type": "string",
+   "minLength": 1
+  },
+  "object_category": {
+   "enum": [
+    "FRAME",
+    "FRAME_WITH_DOOR",
+    "DOOR"
+   ]
+  },
+  "visibility": {
+   "enum": [
+    "FULL",
+    "PARTIAL",
+    "OCCLUDED"
+   ]
+  },
+  "source_ref": {
+   "type": [
+    "string",
+    "null"
+   ]
+  }
+ }
+}
