@@ -293,6 +293,7 @@ def object_record(o, state):
         ("gross_m2_high", est["gross_m2_high"] if est else None), ("estimate_sources", est["sources"] if est else []),
         ("cross_photo_consistency", est["cross_photo_consistency"] if est else None),
         ("unknown_reason", None if est else unknown_reason(o)), ("estimate_notes", o["estimate_notes"]),
+        ("evidence_layers", evidence_layers(o, state)),
         ("source_and_uncertainty", "Bestaande handmatige annotatie (niet onafhankelijk geverifieerd) + geometrische afleiding; maten uit "
                                    "expliciete aannames, geen meting." if est else "Geen bruikbare maat."),
     ])
@@ -300,6 +301,27 @@ def object_record(o, state):
 
 
 ESTIMATE_LABEL = pq.ESTIMATE_STATUS
+EVIDENCE_LEVELS = OrderedDict([
+    ("AUTO_DETECTED", "Automatisch gedetecteerd: lokale OpenCV-detector, alleen vergelijking; niet gebruikt als invoer van de inventaris"),
+    ("EXISTING_ANNOTATION", "Bestaande annotatie: handmatige lezing; MAP-002 met vastgelegde menselijke besluiten, MAP-003/004 nog niet menselijk beoordeeld"),
+    ("PROVISIONAL_LINK", "Voorlopige objectkoppeling: bestaande relatie, geometrisch gecontroleerd, geen bevestigde identiteit"),
+    ("PHOTO_RATIO", "Foto-gebaseerde maatverhouding: dimensieloos (verdiepingssteek-eenheden), geen meters"),
+    ("METRIC_ASSUMPTION", "Indicatieve metrische aanname: PHOTO_ASSUMPTION_ESTIMATE, geen meting"),
+])
+
+
+def evidence_layers(o, state):
+    auto = state.get("auto_agree")
+    keys = [(m["photo_id"], m["obs_id"]) for m in o["members"]]
+    return OrderedDict([
+        ("AUTO_DETECTED", None if auto is None else {"observations_agreeing_with_detector": sum(1 for k in keys if k in auto),
+                                                      "observations_total": len(keys)}),
+        ("EXISTING_ANNOTATION", {"observations": len(keys), "human_decision_refs_readonly": [m["fi_ref_readonly"] for m in o["members"] if m.get("fi_ref_readonly")],
+                                 "human_review_status": "MAP-002: besluiten vastgelegd; MAP-003/004: handmatige lezing, review open"}),
+        ("PROVISIONAL_LINK", {"links": [ln["rel_id"] for ln in o["raw"]["links"]], "status": o["raw"]["identity_status"]}),
+        ("PHOTO_RATIO", bool(o["geometry"] and o["geometry"].get("width_pitch_units") is not None)),
+        ("METRIC_ASSUMPTION", bool(o["estimate"])),
+    ])
 
 
 def unknown_reason(o):
@@ -352,6 +374,7 @@ def build_outputs(state, cfg):
             ("warning", "Deelsom van PHOTO_ASSUMPTION_ESTIMATE over unieke kozijnen met een schatting; objecten zonder maat ontbreken "
                         "in de som. Geen gebouwtotaal, geen MEASURED, geen onderhoudshoeveelheid."),
         ])),
+        ("evidence_overview", evidence_overview(state, seg)),
         ("missing_facade_coverage", [
             "Maldenhof 274 (alleen plaat zichtbaar; bijbehorende wand en kozijnen niet aangetoond) en 290/292 (MAP-002: begroeiing, lantaarnpaal).",
             "Linkerrand van MAP-003 en rechterrand van MAP-004: deels afgesneden kozijnen (PARTIAL) zonder volledige tweede opname.",
@@ -362,15 +385,32 @@ def build_outputs(state, cfg):
     return recs, summary
 
 
+def evidence_overview(state, seg):
+    auto = state.get("auto_agree")
+    keys = [k for o in seg for k in o["raw"]["members"]]
+    return OrderedDict([
+        ("scope", "gevelkozijnen in het geanalyseerde segment"),
+        ("AUTO_DETECTED", {"frame_observations_agreeing_with_detector": None if auto is None else sum(1 for k in keys if k in auto),
+                           "frame_observations": len(keys), "objects_created_from_detection_alone": 0,
+                           "note": "Detector draait op MAP-002 (herencodeerd) en op reviewweergaven met ingebrande overlay; geen nauwkeurigheidsscore."}),
+        ("EXISTING_ANNOTATION", {"frame_observations": len(keys), "share_of_inventory_from_annotation": "100%"}),
+        ("PROVISIONAL_LINK", {"objects_with_cross_photo_link": sum(1 for o in seg if len(o["raw"]["photos"]) > 1),
+                              "unresolved": sum(1 for o in seg if "UNRESOLVED_IDENTITY_CONFLICT" in o["raw"]["identity_flags"]),
+                              "confirmed_identities": 0}),
+        ("PHOTO_RATIO", {"objects_with_relative_geometry": sum(1 for o in seg if o["geometry"] and o["geometry"].get("width_pitch_units") is not None)}),
+        ("METRIC_ASSUMPTION", {"objects_with_estimate": sum(1 for o in seg if o["estimate"]), "measured_objects": 0}),
+    ])
+
+
 def write_csv(path, recs):
     cols = ["provisional_object_id", "category", "in_analysed_segment", "facade_position", "photo_ids", "reference_photo_ids", "frame_type",
             "door_present", "best_visibility", "width_m_central", "height_m_central", "gross_m2_central", "gross_m2_low", "gross_m2_high",
-            "dimension_status", "identity_status", "identity_flags", "geometry_group", "deviating_size_rel_to_peers", "source_and_uncertainty"]
+            "dimension_status", "identity_status", "identity_flags", "geometry_group", "deviating_size_rel_to_peers", "evidence_tags", "source_and_uncertainty"]
     with open(path, "w", newline="", encoding="utf-8-sig") as fh:
         w = csv.writer(fh, delimiter=";")
         w.writerow(cols)
         for r in recs:
-            w.writerow([";".join(map(str, r[c])) if isinstance(r[c], list) else ("" if r[c] is None else r[c]) for c in cols])
+            w.writerow([evidence_tags(r) if c == "evidence_tags" else ";".join(map(str, r[c])) if isinstance(r[c], list) else ("" if r[c] is None else r[c]) for c in cols])
 
 
 # --------------------------------------------------------------------------
@@ -559,6 +599,7 @@ def detection_comparison(state, cfg):
                if m["photo_id"] == photo and m["category"] in ("FACADE_FRAME", "ROOF_WINDOW", "DORMER")]
         cmp = pq.compare_detections(boxes, ann)
         cmp["source_pixels"] = cfg["photo_sources"][photo]["kind"]
+        cmp["agreeing_obs_ids"] = [m["annotation"] for m in cmp["matches"]]
         res["per_photo"][photo] = cmp
     return res
 
@@ -581,10 +622,26 @@ def esc(s):
     return str(s).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+def evidence_tags(r):
+    """Korte bewijsmarkering per object: A annotatie, D detector bevestigt, K voorlopige koppeling, G maatverhouding, M aanname."""
+    e = r["evidence_layers"]
+    tags = ["A"]
+    if e["AUTO_DETECTED"] and e["AUTO_DETECTED"]["observations_agreeing_with_detector"]:
+        tags.append("D")
+    if e["PROVISIONAL_LINK"]["links"]:
+        tags.append("K")
+    if e["PHOTO_RATIO"]:
+        tags.append("G")
+    if e["METRIC_ASSUMPTION"]:
+        tags.append("M")
+    return " ".join(tags)
+
+
 def build_html(state, cfg, recs, summary, register, mism, detect, images, guard, tests_info):
     seg = state["seg_frames"]
     B, C = summary["B_PROVISIONAL_UNIQUE"], summary["C_PHOTO_ESTIMATED_AREA"]
     es = C["assumption_estimate_sum"]
+    EO = summary["evidence_overview"]
     sc = state["scen"]
     inv_rows = []
     for r in recs:
@@ -592,7 +649,8 @@ def build_html(state, cfg, recs, summary, register, mism, detect, images, guard,
             continue
         inv_rows.append(
             "<tr><td>{id}</td><td>{cat}</td><td>{pos}</td><td>{ph}</td><td>{typ}</td><td>{door}</td><td>{vis}</td><td>{w}</td><td>{h}</td>"
-            "<td>{a}</td><td>{band}</td><td>{ds}</td><td>{ids}{fl}</td><td>{g}</td><td>{dv}</td></tr>".format(
+            "<td>{a}</td><td>{band}</td><td>{ds}</td><td>{ids}{fl}</td><td>{g}</td><td>{dv}</td><td>{ev}</td></tr>".format(
+                ev=evidence_tags(r),
                 id=r["provisional_object_id"], cat=r["category"], pos=esc(r["facade_position"]), ph=esc(", ".join(r["photo_ids"] + [f"({p})" for p in r["reference_photo_ids"]])),
                 typ=r["frame_type"], door=r["door_present"], vis=r["best_visibility"], w=r["width_m_central"] or "UNKNOWN",
                 h=r["height_m_central"] or "UNKNOWN", a=r["gross_m2_central"] or "UNKNOWN",
@@ -604,7 +662,9 @@ def build_html(state, cfg, recs, summary, register, mism, detect, images, guard,
         if len(o["raw"]["photos"]) > 1 or o["raw"]["reference_evidence"]:
             ev = "; ".join(f"{l['rel_id']} ({l['strength']})" for l in o["raw"]["links"]) or "–"
             refs = ", ".join(sorted({f"{e['ref_id']}" for e in o["raw"]["reference_evidence"]})) or "–"
-            overlap.append(f"<tr><td>{o['id']}</td><td>{esc(', '.join(f'{m['photo_id']}:{m['obs_id'][-7:]}' for m in o['members']))}</td><td>{ev}</td><td>{refs}</td><td>{esc(', '.join(o['raw']['identity_flags']) or '–')}</td></tr>")
+            members_txt = ", ".join(m["photo_id"] + ":" + m["obs_id"][-7:] for m in o["members"])
+            flags_txt = ", ".join(o["raw"]["identity_flags"]) or "–"
+            overlap.append(f"<tr><td>{o['id']}</td><td>{esc(members_txt)}</td><td>{ev}</td><td>{refs}</td><td>{esc(flags_txt)}</td></tr>")
     unres = []
     for u in state["identity"]["unresolved"]:
         names = [state["key_to_obj"][k]["id"] for k in u["left"] + u["right"]]
@@ -669,6 +729,15 @@ th,td{border:1px solid #c8ccd2;padding:3px 6px;text-align:left;vertical-align:to
 <div><b>{B['exterior_door_objects_in_segment']}</b>buitendeur-objecten (los, niet in een kozijn gezien)</div>
 </div>
 <div class="warn"><b>Voorlopige bruto m² (deelsom, alleen aannames):</b> centraal {es['gross_m2_central_presented']} m², bandbreedte {es['gross_m2_low_presented']}–{es['gross_m2_high_presented']} m², over {es['n_with_estimate']} unieke kozijnen met een schatting; {es['n_without_estimate']} unieke kozijnen/objecten in het segment ontbreken in deze som. Dit is <b>PHOTO_ASSUMPTION_ESTIMATE</b>: absolute schaal is niet aantoonbaar. Geen definitief gebouwtotaal.</div>
+<div class="bad"><b>Status: experimenteel.</b> De cijfers {B['unique_facade_frames_provisional']} voorlopige kozijnen en {es['gross_m2_central_presented']} m² zijn uitsluitend experimentele resultaten op basis van bestaande annotaties en expliciete aannames. Er is niets gemeten, bevestigd of goedgekeurd en er is geen definitief gebouwtotaal.</div>
+<h2>1b. Herkomst en bewijsniveau (strikt gescheiden)</h2>
+<table><tr><th>Niveau</th><th>Betekenis</th><th>Omvang in dit segment</th></tr>
+<tr><td>Automatisch gedetecteerd</td><td>{esc(EVIDENCE_LEVELS['AUTO_DETECTED'])}</td><td>{EO['AUTO_DETECTED']['frame_observations_agreeing_with_detector']} van {EO['AUTO_DETECTED']['frame_observations']} kozijn-observaties komen overeen met een detectie; 0 objecten uitsluitend op detectie</td></tr>
+<tr><td>Bestaande annotatie</td><td>{esc(EVIDENCE_LEVELS['EXISTING_ANNOTATION'])}</td><td>alle {EO['EXISTING_ANNOTATION']['frame_observations']} kozijn-observaties (100% van de inventaris)</td></tr>
+<tr><td>Voorlopige objectkoppeling</td><td>{esc(EVIDENCE_LEVELS['PROVISIONAL_LINK'])}</td><td>{EO['PROVISIONAL_LINK']['objects_with_cross_photo_link']} objecten gekoppeld over foto's; {EO['PROVISIONAL_LINK']['unresolved']} met open conflict; 0 bevestigde identiteiten</td></tr>
+<tr><td>Foto-gebaseerde maatverhouding</td><td>{esc(EVIDENCE_LEVELS['PHOTO_RATIO'])}</td><td>{EO['PHOTO_RATIO']['objects_with_relative_geometry']} objecten</td></tr>
+<tr><td>Indicatieve metrische aanname</td><td>{esc(EVIDENCE_LEVELS['METRIC_ASSUMPTION'])}</td><td>{EO['METRIC_ASSUMPTION']['objects_with_estimate']} objecten; 0 gemeten</td></tr></table>
+<p>Kolom 'Bewijs' in de inventaris: A = annotatie, D = detector bevestigt, K = voorlopige koppeling, G = maatverhouding, M = metrische aanname.</p>
 <h2>2. Foto's: beschikbaarheid en register</h2>
 <p>De 36 registerregels zijn tegen het manifest gelegd: {36 - mism} van 36 komen overeen op SHA256, afmeting en bestandsnaam ({mism} afwijkingen). Dit controleert register ↔ manifest; de originele bytes zelf zijn niet opnieuw gecontroleerd omdat het archief ontbrak. Zijde en bruikbaarheid zijn overgenomen uit de bestaande audit (handmatige lezing).</p>
 <table><tr><th>ID</th><th>Bestand</th><th>Zijde</th><th>Bruikbaarheid</th><th>Platen</th><th>Register = manifest</th><th>In deze sessie</th></tr>{''.join(reg)}</table>
@@ -677,7 +746,7 @@ th,td{border:1px solid #c8ccd2;padding:3px 6px;text-align:left;vertical-align:to
 <h3>Gevelschema met fotodekking</h3><img src="{b64_jpeg(images['schema'], 1800)}" alt="gevelschema">
 <h2>4. Kozijninventaris (voorlopig, segment)</h2>
 <p>Maten zijn PHOTO_ASSUMPTION_ESTIMATE (centraal; bandbreedte in m² = onder–bovengrens). Een kozijn met meerdere ramen telt als één kozijn. 'Deur in kozijn': in geen enkel kozijn is een deur waargenomen; buitendeuren staan als eigen objecten.</p>
-<table><tr><th>ID</th><th>Cat.</th><th>Gevelpositie</th><th>Foto's (referenties)</th><th>Type</th><th>Deur</th><th>Zichtb.</th><th>B (m)</th><th>H (m)</th><th>Bruto m²</th><th>Band m²</th><th>Maatstatus</th><th>Identiteit</th><th>Geom.-groep</th><th>Afw. breedte</th></tr>{''.join(inv_rows)}</table>
+<table><tr><th>ID</th><th>Cat.</th><th>Gevelpositie</th><th>Foto's (referenties)</th><th>Type</th><th>Deur</th><th>Zichtb.</th><th>B (m)</th><th>H (m)</th><th>Bruto m²</th><th>Band m²</th><th>Maatstatus</th><th>Identiteit</th><th>Geom.-groep</th><th>Afw. breedte</th><th>Bewijs</th></tr>{''.join(inv_rows)}</table>
 <p>Kolom 'Geom.-groep': kozijnen met vergelijkbare relatieve geometrie (herhalingskandidaat, nooit een identiteitsbesluit). 'Afw. breedte': relatieve afwijking t.o.v. gelijksoortige kozijnen (alleen groepen ≥3).</p>
 <table><tr><th>Laag</th><th>Type</th><th>n</th><th>Objecten</th></tr>{''.join(geo_groups)}</table>
 <h2>5. Overlappende foto-observaties en dubbeltellingen</h2>
@@ -739,9 +808,11 @@ def main(argv=None):
     cfg = jload(CONFIG)
     before = sha_tree(GUARDED)
     state = run_pipeline(cfg)
+    detect = detection_comparison(state, cfg)
+    if detect.get("available"):
+        state["auto_agree"] = {(p, i) for p, c in detect["per_photo"].items() for i in c["agreeing_obs_ids"]}
     recs, summary = build_outputs(state, cfg)
     register, mism = photo_register(cfg)
-    detect = detection_comparison(state, cfg)
     images = {"annotated": make_annotated(state, cfg, out_dir), "schema": make_schema(state, cfg, out_dir)}
     after = sha_tree(GUARDED)
     changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))

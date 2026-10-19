@@ -267,3 +267,54 @@ def test_pipeline_smoke_on_repository_data_is_readonly_and_consistent(tmp_path):
     assert Decimal(C["assumption_estimate_sum"]["gross_m2_central_exact"]) == exp
     rc = run.main(["--out", str(tmp_path / "out"), "--tests-info", "test"])
     assert rc == 0 and (tmp_path / "out" / "pilot_report.html").exists()
+
+
+def _nested_same_quote_fstrings(path):
+    """Python 3.11 (CI) weigert dezelfde aanhalingsteken binnen een f-string-expressie; 3.12+ staat het toe. Tokenizer-controle."""
+    import io
+    import tokenize
+    if sys.version_info < (3, 12):
+        return []  # 3.11 zelf weigert de syntaxis al bij het importeren
+    bad, stack = [], []
+    src = Path(path).read_text(encoding="utf-8")
+    for tok in tokenize.generate_tokens(io.StringIO(src).readline):
+        if tok.type == tokenize.FSTRING_START:
+            quote = tok.string.lstrip("rRfFbBuU")
+            if stack and stack[-1] == quote:
+                bad.append(tok.start[0])
+            stack.append(quote)
+        elif tok.type == tokenize.FSTRING_END:
+            stack.pop()
+        elif tok.type == tokenize.STRING and stack and tok.string.lstrip("rRfFbBuU")[:1] == stack[-1][:1]:
+            bad.append(tok.start[0])
+    return sorted(set(bad))
+
+
+@pytest.mark.parametrize("name", ["scripts/photo_quantity_pilot.py", "scripts/run_maldenhof_photo_quantity_pilot.py", "tests/test_photo_quantity_pilot.py"])
+def test_no_python311_incompatible_nested_fstring_quotes(name):
+    assert _nested_same_quote_fstrings(ROOT / name) == []
+
+
+def test_nested_quote_detector_catches_the_known_bad_pattern(tmp_path):
+    if sys.version_info < (3, 12):
+        pytest.skip("detector is alleen zinvol op 3.12+")
+    bad = tmp_path / "bad.py"
+    bad.write_text("m = {'a': 1}\nx = f\"{', '.join(f'{m['a']}' for _ in range(2))}\"\n", encoding="utf-8")
+    assert _nested_same_quote_fstrings(bad) == [2]
+
+
+def test_evidence_levels_are_separated_in_every_record_and_summary(tmp_path):
+    pytest.importorskip("PIL")
+    run = pytest.importorskip("run_maldenhof_photo_quantity_pilot")
+    cfg = json.loads(run.CONFIG.read_text(encoding="utf-8"))
+    state = run.run_pipeline(cfg)
+    recs, summary = run.build_outputs(state, cfg)
+    assert list(run.EVIDENCE_LEVELS) == ["AUTO_DETECTED", "EXISTING_ANNOTATION", "PROVISIONAL_LINK", "PHOTO_RATIO", "METRIC_ASSUMPTION"]
+    for r in recs:
+        assert list(r["evidence_layers"]) == list(run.EVIDENCE_LEVELS)
+        assert r["evidence_layers"]["EXISTING_ANNOTATION"]["observations"] >= 1
+        assert r["evidence_layers"]["METRIC_ASSUMPTION"] == (r["dimension_status"] == "PHOTO_ASSUMPTION_ESTIMATE")
+    eo = summary["evidence_overview"]
+    assert eo["AUTO_DETECTED"]["objects_created_from_detection_alone"] == 0
+    assert eo["METRIC_ASSUMPTION"]["measured_objects"] == 0 and eo["PROVISIONAL_LINK"]["confirmed_identities"] == 0
+    assert eo["EXISTING_ANNOTATION"]["share_of_inventory_from_annotation"] == "100%"
