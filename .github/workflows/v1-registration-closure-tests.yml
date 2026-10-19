@@ -1,0 +1,118 @@
+# v1-registratie is GESLOTEN (mjop-learning/scripts/human_instance_decision_register.py, tests/test_v1_registration_closure.py).
+#
+# Draait automatisch bij elke wijziging aan het v1-register, de registercode, de sluitingstests of deze workflow. Alleen testen en alleen lezen: geen secrets,
+# geen netwerk, geen registratie, geen instance-activatie. Job 1 is de snelle gerichte controle (register-integriteit, sluiting, scope guards, register 0 bytes en
+# geen enkele workflow die de registeropdracht aanroept). Job 2 draait de volledige suite met de gepinde xpdf pdftotext 4.06 en de baselinecontrole.
+name: v1 registration closure tests
+
+on:
+  pull_request:
+    paths:
+      - "mjop-learning/data/instance_decisions/**"
+      - "mjop-learning/scripts/human_instance_decision_register*.py"
+      - "mjop-learning/scripts/physical_instance_approval*.py"
+      - "mjop-learning/tests/test_v1_registration_closure.py"
+      - "mjop-learning/tests/test_human_instance_decision_register.py"
+      - "mjop-learning/tests/test_physical_instance_approval.py"
+      - "mjop-learning/tests/test_scope_guard.py"
+      - "mjop-learning/schemas/human_instance_decision*.schema.json"
+      - "mjop-learning/reports/frames/human_instance_decision_register_v1*"
+      - "mjop-learning/scripts/check_test_baseline.py"
+      - "mjop-learning/config/known_environment_failures.json"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v1-registration-closure-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  closure-focused:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python-afhankelijkheden (vastgepind, zonder AI-SDK's)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pipeline.txt pyyaml pyproj
+          if python -c "import anthropic" 2>/dev/null || python -c "import openai" 2>/dev/null; then
+            echo "::error::AI-SDK aanwezig op de runner"; exit 1
+          fi
+      - name: Canoniek v1-register is 0 bytes (geen record, hashketen ongewijzigd)
+        run: test ! -s data/instance_decisions/human_instance_decision_register_v1.jsonl
+      - name: Register-hash gelijk aan de vastgepinde repositoryvariabele (buiten het bereik van een PR)
+        working-directory: .
+        env:
+          EXPECTED: ${{ vars.V1_REGISTER_SHA256 }}
+        run: |
+          actual=$(sha256sum mjop-learning/data/instance_decisions/human_instance_decision_register_v1.jsonl | cut -d' ' -f1)
+          if [ -z "$EXPECTED" ]; then
+            echo "::warning::repositoryvariabele V1_REGISTER_SHA256 is niet ingesteld; stel haar in op $actual (sha256 van het lege register) voor onafhankelijke bewaking"
+          elif [ "$EXPECTED" != "$actual" ]; then
+            echo "::error::het v1-register wijkt af van de vastgepinde hash"; exit 1
+          fi
+      - name: Geen workflow roept de v1-registeropdracht aan of bevat het bevestigingstoken
+        working-directory: .
+        run: |
+          if grep -rEn "decision_register\.py[\"']? +register|REGISTER_ONE_HUMAN_DECISION" .github/workflows --include=*.yml | grep -v "v1-registration-closure-tests.yml"; then
+            echo "::error::een workflow gebruikt de gesloten v1-registratie"; exit 1
+          fi
+      - name: Sluiting, registerintegriteit, approval-framework en scope guards
+        run: python -m pytest -q -p no:cacheprovider tests/test_v1_registration_closure.py tests/test_human_instance_decision_register.py tests/test_physical_instance_approval.py tests/test_scope_guard.py
+      - name: Registerrapport actueel (gegenereerd rapport gelijk aan de code)
+        run: |
+          python scripts/human_instance_decision_register.py generate
+          git -C .. diff --exit-code -- mjop-learning/reports/frames mjop-learning/schemas mjop-learning/data
+      - name: Niets geschreven door de tests (werkboom ongewijzigd)
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::de tests hebben bestanden gewijzigd of aangemaakt"; git status --porcelain; exit 1
+          fi
+
+  full-suite-with-xpdf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: mjop-learning
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Python-afhankelijkheden
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-pipeline.txt pyyaml pyproj
+      - name: xpdf pdftotext 4.06 installeren en verifiëren (vastgepinde download + checksum)
+        run: |
+          python scripts/xpdf_runner_setup.py --install "$RUNNER_TEMP/xpdf" \
+            --out "$RUNNER_TEMP/runner_setup.json" --verify-reproduction
+          echo "PDFTOTEXT=$RUNNER_TEMP/xpdf/pdftotext" >> "$GITHUB_ENV"
+      - name: Volledige testsuite
+        run: python -m pytest -q -p no:cacheprovider --junitxml="$RUNNER_TEMP/junit.xml" || true
+      - name: Nieuwe fouten versus bekende baseline - xpdf is hier beschikbaar, niets wordt getolereerd
+        run: python scripts/check_test_baseline.py "$RUNNER_TEMP/junit.xml"
+      - name: Werkboom ongewijzigd
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::de testsuite heeft bestanden gewijzigd of aangemaakt"; git status --porcelain; exit 1
+          fi

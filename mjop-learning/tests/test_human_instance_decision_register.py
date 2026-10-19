@@ -605,7 +605,7 @@ def test_cli_check_is_dry_run_and_register_needs_confirm(live, tmp_path):
     r = subprocess.run([sys.executable, str(ROOT / "scripts/human_instance_decision_register.py"), "check", "--decision", str(f)], cwd=ROOT, capture_output=True, text=True)
     assert r.returncode == 1 and "VALIDATION_FAILED" in r.stdout
     r = subprocess.run([sys.executable, str(ROOT / "scripts/human_instance_decision_register.py"), "register", "--decision", str(f)], cwd=ROOT, capture_output=True, text=True)
-    assert r.returncode == 1 and "BEVESTIGING" in r.stdout
+    assert r.returncode == 2 and "V1_REGISTRATIE_GESLOTEN" in r.stdout        # v1-registratie is gesloten (zie tests/test_v1_registration_closure.py); ook zonder token
     assert H.REGISTER_PATH.read_bytes() == b""
 
 

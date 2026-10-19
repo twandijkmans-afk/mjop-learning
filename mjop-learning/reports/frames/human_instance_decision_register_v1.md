@@ -45,9 +45,9 @@ Bestand: `data/instance_decisions/human_instance_decision_register_v1.jsonl` (JS
 |---|---|
 | `DRY_RUN` (standaard) | Alles gevalideerd, **niets geschreven**. |
 | `VALIDATION_FAILED` | Minstens één voorwaarde faalt; niets geschreven; redenen genoemd. |
-| `REGISTERED` | Alleen met `mode=REGISTER` **en** de bevestigingstoken; één record toegevoegd. |
+| `REGISTERED` | **Niet mogelijk op het canonieke register** (zie hieronder); alleen de schrijfmechaniek op tijdelijke testbestanden. |
 
-Echte registratie vraagt een afzonderlijke handeling (`register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER`). Er bestaat geen codepad dat zelf een besluit genereert, goedkeurt of een instance activeert.
+**Registratie is gesloten** (`CLOSED_NO_VERIFIED_HUMAN_CHANNEL`): `register()` en `register --decision …` stoppen op het canonieke register altijd, ongeacht token, invoer, omgeving of configuratie. v1 kent alleen zelf opgegeven herkomst (`NONE_SELF_ASSERTED`) en kan dus geen definitief menselijk besluit vastleggen. Er bestaat geen codepad dat zelf een besluit genereert, goedkeurt of een instance activeert.
 
 ## 3. Autorisatievoorwaarden
 
@@ -139,7 +139,7 @@ Het ingevulde-maar-lege sjabloon geeft in DRY_RUN `VALIDATION_FAILED` (verwacht:
 1. De gebruiker levert zelf (of bevestigt in een apart bericht) één besluit over IAR-OIC-VR-027 met de actuele request_hash.
 2. Een thread zet dat letterlijk in een invoerbestand (entered_by_kind AI_TRANSCRIPTION_OF_HUMAN_MESSAGE, bronbericht-ID en letterlijke tekst) of de gebruiker vult het zelf in.
 3. Eerst `python scripts/human_instance_decision_register.py check --decision <bestand>` (DRY_RUN) en het resultaat tonen.
-4. Pas na een tweede, expliciete opdracht van de gebruiker: `... register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER` in een eigen PR.
+4. Registreren is in v1 GESLOTEN (CLOSED_NO_VERIFIED_HUMAN_CHANNEL). Een toekomstig v2-register met geverifieerd menselijk bewijs is de enige route; v1 wordt niet heropend.
 5. Activatie van een instance blijft een nog later, apart door de gebruiker geautoriseerd proces.
 
 **STOP.** Deze PR registreert geen besluit, maakt geen FI-id en activeert niets. Merge alleen met jouw expliciete opdracht.
