@@ -65,7 +65,7 @@ public struct MeasuredObject {
 public enum Status {
     /// Zelfde regels als pipeline._status_from: MEASURED vereist >= 2 consistente standpunten en geen downgrading-advisories.
     static let downgrading: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT",
-                                           "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED"]
+                                           "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "AUTO_DETECTED_UNCONFIRMED"]
     public static func status(for r: LevelResult, viewCount: Int) -> DimensionStatus {
         guard r.ok else { return .UNKNOWN }
         if r.level == .C { return .DERIVED }

@@ -14,6 +14,7 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     @Published var sensorText = ""
     @Published var modeText = ""
     @Published var keyframeCount = 0
+    @Published var hasFrame = false
     @Published var hint: String? = nil
     private(set) var capabilities = (lidarDepth: false, worldTracking: ARWorldTrackingConfiguration.isSupported)
     private var lastFrame: ARFrame?
@@ -39,6 +40,7 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     nonisolated func session(_ session: ARSession, didUpdate frame: ARFrame) {
         Task { @MainActor in
             self.lastFrame = frame
+            if !self.hasFrame { self.hasFrame = true }
             self.trackingText = Self.trackingString(frame.camera.trackingState)
             if case .normal = frame.camera.trackingState { self.hint = nil } else { self.hint = "Beweeg langzaam en richt op een gevel met textuur." }
         }
@@ -69,8 +71,9 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     }
 
     /// Legt het huidige frame vast als keyframe (lokaal; geen upload).
-    func captureKeyframe() {
-        guard let f = lastFrame, let store else { return }
+    @discardableResult
+    func captureKeyframe() -> Keyframe? {
+        guard let f = lastFrame, let store else { return nil }
         let K = f.camera.intrinsics
         let res = f.camera.imageResolution
         let intr = Intrinsics(fx: Double(K[0][0]), fy: Double(K[1][1]), cx: Double(K[2][0]), cy: Double(K[2][1]), width: Int(res.width), height: Int(res.height))
@@ -80,10 +83,11 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         let pose = Pose(rows: [row(0), row(1), row(2)], t: Vec3(Double(T.columns.3.x), Double(T.columns.3.y), Double(T.columns.3.z)))
         let id = String(format: "F%03d", store.keyframes.count)
         let kf = Keyframe(id: id, timestamp: Date(), intrinsics: intr, pose: pose, trackingState: Self.trackingString(f.camera.trackingState),
-                          depth: Self.depthMap(f), imageURL: Self.saveImage(f.capturedImage, id: id))
+                          depth: Self.depthMap(f), imageURL: Self.saveImage(f.capturedImage, id: id, sessionId: store.sessionId))
         store.keyframes.append(kf)
         keyframeCount = store.keyframes.count
-        if kf.depth == nil { hint = "Geen dieptebeeld: gebruik een tweede standpunt of voer een referentiemaat in." }
+        if kf.depth == nil { hint = "Geen dieptebeeld: maten blijven UNKNOWN tenzij je een referentiemaat invoert." }
+        return kf
     }
 
     private static func depthMap(_ f: ARFrame) -> DepthMap? {
@@ -111,14 +115,12 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         return DepthMap(width: w, height: h, values: vals)
     }
 
-    /// Slaat het camerabeeld lokaal op in Application Support, uitgesloten van back-up. Nooit een upload.
-    private static func saveImage(_ pb: CVPixelBuffer, id: String) -> URL? {
+    /// Slaat het camerabeeld lokaal op in de sessiemap (Application Support, uitgesloten van back-up). Nooit een upload.
+    private static func saveImage(_ pb: CVPixelBuffer, id: String, sessionId: String) -> URL? {
         let ci = CIImage(cvPixelBuffer: pb)
-        guard let jpeg = CIContext().jpegRepresentation(of: ci, colorSpace: CGColorSpaceCreateDeviceRGB(), options: [:]) else { return nil }
-        guard var dir = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("PhotoWalk", isDirectory: true) else { return nil }
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        var rv = URLResourceValues(); rv.isExcludedFromBackup = true; try? dir.setResourceValues(rv)
+        guard let jpeg = CIContext().jpegRepresentation(of: ci, colorSpace: CGColorSpaceCreateDeviceRGB(), options: [:]),
+              let dir = Persistence.sessionDir(sessionId) else { return nil }
         let url = dir.appendingPathComponent("\(id).jpg")
-        return (try? jpeg.write(to: url)) != nil ? url : nil
+        return (try? jpeg.write(to: url, options: [.atomic, .completeFileProtection])) != nil ? url : nil
     }
 }

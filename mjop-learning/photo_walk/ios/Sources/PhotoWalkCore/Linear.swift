@@ -1,7 +1,7 @@
 import Foundation
 
 /// 3D-vector in meter (wereld/camera) tenzij anders vermeld. Geen simd, zodat de kern ook op Linux compileert.
-public struct Vec3: Equatable {
+public struct Vec3: Equatable, Codable {
     public var x: Double, y: Double, z: Double
     public init(_ x: Double, _ y: Double, _ z: Double) { self.x = x; self.y = y; self.z = z }
     public static let zero = Vec3(0, 0, 0)
@@ -15,13 +15,13 @@ public struct Vec3: Equatable {
 }
 
 /// Pixel in het beeldstelsel: u rechts, v omlaag, oorsprong = linkerbovenhoek van de linkerbovenpixel (middens op +0.5).
-public struct Pixel: Equatable {
+public struct Pixel: Equatable, Codable {
     public var u: Double, v: Double
     public init(_ u: Double, _ v: Double) { self.u = u; self.v = v }
 }
 
 /// Camera-naar-wereld pose, OpenCV-cameraconventie (x rechts, y omlaag, z vooruit). x_wereld = R * x_camera + t.
-public struct Pose {
+public struct Pose: Codable {
     public var r: [Vec3]   // rijen van R
     public var t: Vec3
     public init(rows: [Vec3], t: Vec3) { precondition(rows.count == 3); self.r = rows; self.t = t }

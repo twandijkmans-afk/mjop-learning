@@ -12,6 +12,11 @@ struct FrameImageCanvas: View {
     let maxPoints: Int
     var overlay: [Pixel] = []                 // bestaande hoeken (groen), alleen weergave
     var pointNames: [String] = []             // voor de uitlezing, bv. ["linksboven", ...]
+    var boxes: [BoxOverlayItem] = []          // kaders (kandidaat-kozijnen); met `boxMode` selecteert een tik een kader
+    var boxMode = false
+    var onBoxTap: ((String) -> Void)? = nil
+    var fitTo: [Pixel]? = nil                 // eenmalig inzoomen op deze hoeken
+    var showReadout = true
     @StateObject private var controller = CanvasController()
 
     private var sizeMismatch: Bool {
@@ -30,7 +35,7 @@ struct FrameImageCanvas: View {
     var body: some View {
         VStack(spacing: 6) {
             ZStack(alignment: .topTrailing) {
-                ZoomableFrameCanvas(image: image, points: $points, maxPoints: maxPoints, overlay: overlay, controller: controller)
+                ZoomableFrameCanvas(image: image, points: $points, maxPoints: maxPoints, overlay: overlay, boxes: boxes, boxMode: boxMode, onBoxTap: onBoxTap, fitTo: fitTo, controller: controller)
                     .frame(maxWidth: .infinity, minHeight: 200, maxHeight: .infinity)
                 Text(String(format: "%.1f×", controller.zoom))
                     .font(.system(.subheadline, design: .rounded).bold()).monospacedDigit()
@@ -50,8 +55,10 @@ struct FrameImageCanvas: View {
             Text(String(format: "1 schermpunt ≈ %.2f beeldpixel · zoom = alleen weergave, geen extra meetnauwkeurigheid", controller.nativePerPoint))
                 .font(.caption2).foregroundStyle(.secondary).padding(.horizontal, 8)
             if sizeMismatch { Text("Let op: beeldafmeting wijkt af van de camera-intrinsics; resultaten zijn onbetrouwbaar.").font(.caption2).foregroundStyle(.red) }
-            Text(readout).font(.system(.caption, design: .monospaced)).frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 8)
-                .accessibilityIdentifier("pointsReadout")
+            if showReadout {
+                Text(readout).font(.system(.caption, design: .monospaced)).frame(maxWidth: .infinity, alignment: .leading).padding(.horizontal, 8)
+                    .accessibilityIdentifier("pointsReadout")
+            }
         }
     }
 }
@@ -60,6 +67,7 @@ struct FrameImageCanvas: View {
 struct ReferencePickerView: View {
     @EnvironmentObject var store: ScanStore
     let frame: Keyframe
+    var anchorObservationId: String? = nil     // het kozijn waarop de referentie ligt (bepaalt het referentievlak)
     @State private var taps: [Pixel] = []
     @State private var distance = ""
     @State private var sigma = ""
@@ -81,8 +89,11 @@ struct ReferencePickerView: View {
                     Button("Wissen") { taps = [] }
                     Button("Opslaan") {
                         if let d = num(distance), taps.count == 2 {
-                            store.references[frame.id] = ReferenceMeasure(referenceId: "REF-\(frame.id)", p1: taps[0], p2: taps[1], distanceM: d,
-                                                                          distanceSigmaM: num(sigma), planeId: planeId)
+                            var r = ReferenceMeasure(referenceId: "REF-\(frame.id)", p1: taps[0], p2: taps[1], distanceM: d,
+                                                     distanceSigmaM: num(sigma), planeId: planeId, anchorObservationId: anchorObservationId)
+                            r.frameId = frame.id
+                            store.setReference(r)
+                            store.measureAll(); store.persist()
                         }
                     }.buttonStyle(.borderedProminent).disabled(taps.count != 2 || num(distance) == nil)
                 }

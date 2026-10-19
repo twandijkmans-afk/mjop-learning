@@ -499,3 +499,39 @@ def test_swift_flag_table_is_subset_of_python_flags():
     import re
     for code in re.findall(r'^\s+"([A-Z_]+)": \(\.(?:BLOCKING|ADVISORY),', swift, flags=re.M):
         assert code in q.FLAGS, code
+
+
+def test_export_to_bruto_intake_validates_and_forces_nothing(facade, v1, v2, tmp_path):
+    from photo_walk_core import to_bruto
+    fr = facade.frames[0]
+    obs = [annotate(fr, v1, seed=3), annotate(fr, v2, seed=4), annotate(facade.frames[1], v2, seed=5)]
+    rec = build_record(session(), [v1, v2], obs, [], process_session(session(), [v1, v2], obs))
+    intake = to_bruto.convert(rec)
+    state = to_bruto.validate(intake)                                   # bestaande bruto_*_v2-schema's en rekenkern
+    assert len(intake["objects"]) == len(rec["objects"]) and intake["invariants"]["dimension_status_forced"] is False
+    claimed = [r for o in intake["objects"] for r in o["observation_refs"]]
+    assert len(claimed) == len(set(claimed)) == len(intake["observations"]), "elke waarneming bij precies een object: geen dubbeltelling"
+    assert all(o["dimension"]["dimension_status"] == "UNKNOWN" and o["approval_refs"] == [] and o["fi_id"] is None for o in intake["objects"])
+    assert state["layers"]["CONFIRMED"]["object_ids"] == []             # nooit bevestigd
+    assert any(p["proposed_gross_area_m2"] for p in intake["sensor_proposals"])   # voorstel blijft zichtbaar als zijkanaal
+    src = tmp_path / "rec.json"
+    src.write_text(json.dumps(rec))
+    assert to_bruto.main([str(src), str(Path(photo_walk_core.__file__).parent / "uit.json")]) == 2       # uitvoer in de repo wordt geweigerd
+    assert to_bruto.main([str(src), str(tmp_path / "uit.json")]) == 0 and (tmp_path / "uit.json").exists()
+
+
+def test_auto_detected_unconfirmed_is_flagged_and_never_measured(facade, v1, v2):
+    fr = facade.frames[0]
+    obs = [annotate(fr, v1, seed=3, source="AUTO_DETECTED_UNCONFIRMED"), annotate(fr, v2, seed=4, source="AUTO_DETECTED_UNCONFIRMED")]
+    res = process_session(session(), [v1, v2], obs)
+    o = res["objects"][0]
+    assert "AUTO_DETECTED_UNCONFIRMED" in {f["code"] for f in o["quality_flags"]} and o["dimension_status"] != "MEASURED" and o["review_required"]
+    rec = build_record(session(), [v1, v2], obs, [], res)
+    assert rec["scan_label"] == "AUTOMATIC_UNREVIEWED" and not schema_errors(rec)
+    rec2 = copy.deepcopy(rec)
+    rec2["contract_version"] = "1.1.0"; rec2["capture_mode"] = "PHOTO"; rec2["rejected_candidates"] = []
+    rec2["detection_summary"] = {"detectors": ["VN_RECTANGLE_CANDIDATE"], "core_ml_model_installed": False, "validated_on_real_buildings": False, "note": "x"}
+    rec2["observations"][0]["detection"] = {"detector": "VN_RECTANGLE_CANDIDATE", "score": 0.8, "status": "CANDIDATE_UNVERIFIED"}
+    assert not schema_errors(rec2)
+    rec2["detection_summary"]["validated_on_real_buildings"] = True
+    assert schema_errors(rec2)

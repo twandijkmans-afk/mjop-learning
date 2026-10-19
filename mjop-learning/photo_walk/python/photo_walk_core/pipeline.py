@@ -18,7 +18,7 @@ STATUSES = ("MEASURED", "DERIVED", "ESTIMATED", "UNKNOWN")
 # adviserende flags die 'MEASURED' uitsluiten
 DOWNGRADING = {"GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT", "METRIC_SCALE_UNVERIFIED",
                "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "ASSOCIATION_UNVERIFIED",
-               "AMBIGUOUS_ASSOCIATION", "VIO_SCALE_MISMATCH"}
+               "AMBIGUOUS_ASSOCIATION", "VIO_SCALE_MISMATCH", "AUTO_DETECTED_UNCONFIRMED"}
 INVARIANTS = OrderedDict([("quantity_layer", "PROVISIONAL"), ("approval_state", "PENDING_HUMAN_APPROVAL"), ("is_final", False),
                           ("human_decision_registered", False), ("approvals_simulated", False), ("cost_link", None), ("kengetal_link", None),
                           ("price_link", None), ("external_vision_calls", 0), ("images_uploaded", False)])
@@ -196,8 +196,10 @@ def _measure_cluster(ci, obs_list, per_obs, vmap, mode, references, cfg, session
     if len(obs_list) == 1 and kind == "A" and final.ok:
         flags.append(q.flag("SINGLE_VIEWPOINT"))
     for o in obs_list:
-        if o.corner_source in ("MANUAL", "AUTO_DETECTED_UNCONFIRMED"):
-            flags.append(q.flag("MANUAL_CORNERS") if o.corner_source == "MANUAL" else q.flag("MANUAL_CORNERS", "automatisch voorstel, niet bevestigd"))
+        if o.corner_source == "MANUAL":
+            flags.append(q.flag("MANUAL_CORNERS"))
+        if o.corner_source == "AUTO_DETECTED_UNCONFIRMED":
+            flags.append(q.flag("AUTO_DETECTED_UNCONFIRMED"))
         if o.corner_source == "MANUAL_CORRECTED":
             flags.append(q.flag("HUMAN_CORRECTED_CORNERS"))
         if o.obstruction_reported:

@@ -11,6 +11,26 @@ final class CanvasController: ObservableObject {
     func resetView() { canvas?.resetView(animated: true) }
 }
 
+/// Een kader op de foto (kandidaat-kozijn). De kleur is UITSLUITEND UI-feedback en geen goedkeuring.
+struct BoxOverlayItem: Equatable {
+    var id: String
+    var corners: [Pixel]           // NATIVE pixels, TL, TR, BR, BL
+    var feedback: BoxFeedback
+    var label: String
+    var selected = false
+}
+
+func polygonContains(_ poly: [Pixel], _ p: Pixel) -> Bool {
+    var inside = false
+    var j = poly.count - 1
+    for i in 0..<poly.count {
+        let a = poly[i], b = poly[j]
+        if (a.v > p.v) != (b.v > p.v), p.u < (b.u - a.u) * (p.v - a.v) / (b.v - a.v) + a.u { inside.toggle() }
+        j = i
+    }
+    return inside
+}
+
 /// Inzoombare, verschuifbare keyframe-weergave met nauwkeurige puntselectie.
 ///
 /// Alle posities die naar buiten gaan zijn ORIGINELE pixels van het keyframe (native oriëntatie); de omrekening zit uitsluitend in
@@ -31,6 +51,11 @@ final class ZoomCanvasView: UIView, UIGestureRecognizerDelegate {
     private let impact = UIImpactFeedbackGenerator(style: .medium)
     private let select = UISelectionFeedbackGenerator()
 
+    var boxMode = false                                  // true: tikken selecteert een kader i.p.v. een punt te plaatsen
+    var boxes: [BoxOverlayItem] = [] { didSet { markers.boxes = boxes; markers.setNeedsDisplay() } }
+    var onBoxTap: ((String) -> Void)?
+    var fitOnFirstLayout: [Pixel]?                       // eenmalig inzoomen op een kozijn (detailweergave)
+    private var didInitialFit = false
     var maxPoints = 4
     var points: [Pixel] = [] { didSet { markers.points = points; markers.setNeedsDisplay() } }
     var overlay: [Pixel] = [] { didSet { markers.overlay = overlay; markers.setNeedsDisplay() } }
@@ -72,6 +97,7 @@ final class ZoomCanvasView: UIView, UIGestureRecognizerDelegate {
         super.layoutSubviews()
         guard bounds.width > 1, bounds.height > 1 else { return }
         vp.setViewport(width: Double(bounds.width), height: Double(bounds.height))
+        if let f = fitOnFirstLayout, !didInitialFit { vp.fit(native: f); didInitialFit = true }
         markers.frame = bounds
         apply()
     }
@@ -175,6 +201,12 @@ final class ZoomCanvasView: UIView, UIGestureRecognizerDelegate {
 
     @objc private func handleTap(_ g: UITapGestureRecognizer) {
         let loc = g.location(in: self)
+        if boxMode {
+            let n = vp.nativePoint(fromView: px(loc))
+            let hit = boxes.filter { polygonContains($0.corners, n) }.min { CandidateFilter.area($0.corners) < CandidateFilter.area($1.corners) }
+            if let h = hit { select.selectionChanged(); onBoxTap?(h.id) }
+            return
+        }
         if let i = hitMarker(at: loc) { markers.activeIndex = i; showLoupe(at: points[i]); scheduleLoupeHide(after: 1.0); return }   // bestaand punt: niets plaatsen
         guard points.count < maxPoints else { UINotificationFeedbackGenerator().notificationOccurred(.warning); return }
         let n = vp.nativePoint(fromView: px(loc))
@@ -214,11 +246,39 @@ final class MarkerOverlayView: UIView {
     var vp: ViewportTransform?
     var points: [Pixel] = []
     var overlay: [Pixel] = []
+    var boxes: [BoxOverlayItem] = []
     var activeIndex: Int?
+
+    private func boxColor(_ f: BoxFeedback) -> UIColor {
+        switch f { case .green: return .systemGreen; case .orange: return .systemOrange; case .neutral: return UIColor(white: 0.88, alpha: 1) }
+    }
+
+    private func drawBox(_ ctx: CGContext, _ b: BoxOverlayItem, _ v: (Pixel) -> CGPoint) {
+        let pts = b.corners.map(v), color = boxColor(b.feedback)
+        ctx.saveGState()
+        ctx.beginPath(); ctx.move(to: pts[0]); for p in pts.dropFirst() { ctx.addLine(to: p) }; ctx.closePath()
+        ctx.setFillColor(color.withAlphaComponent(b.selected ? 0.25 : 0.12).cgColor); ctx.drawPath(using: .fill)
+        for (w, c) in [(b.selected ? 7.0 : 5.0, UIColor.black.withAlphaComponent(0.7)), (b.selected ? 4.0 : 2.5, color)] as [(CGFloat, UIColor)] {
+            ctx.setLineWidth(w); ctx.setStrokeColor(c.cgColor)
+            ctx.beginPath(); ctx.move(to: pts[0]); for p in pts.dropFirst() { ctx.addLine(to: p) }; ctx.closePath(); ctx.strokePath()
+        }
+        ctx.restoreGState()
+        // label boven het bovenste punt
+        let top = pts.min { ($0.y, $0.x) < ($1.y, $1.x) }!
+        let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.boldSystemFont(ofSize: 12), .foregroundColor: UIColor.black]
+        let size = (b.label as NSString).size(withAttributes: attrs)
+        var r = CGRect(x: top.x - 2, y: top.y - size.height - 6, width: size.width + 10, height: size.height + 4)
+        r.origin.x = min(max(r.origin.x, 2), max(2, bounds.width - r.width - 2)); r.origin.y = max(r.origin.y, 2)
+        ctx.setFillColor(color.withAlphaComponent(0.92).cgColor)
+        UIBezierPath(roundedRect: r, cornerRadius: 5).fill()
+        (b.label as NSString).draw(at: CGPoint(x: r.minX + 5, y: r.minY + 2), withAttributes: attrs)
+    }
 
     override func draw(_ rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext(), let vp = vp else { return }
         func v(_ p: Pixel) -> CGPoint { let q = vp.viewPoint(fromNative: p); return CGPoint(x: q.u, y: q.v) }
+        for b in boxes.sorted(by: { CandidateFilter.area($0.corners) > CandidateFilter.area($1.corners) }) where !b.selected { drawBox(ctx, b, v) }
+        for b in boxes where b.selected { drawBox(ctx, b, v) }
         for (i, p) in overlay.enumerated() { marker(ctx, v(p), .systemGreen, "\(i + 1)", big: false) }
         if overlay.count >= 2 { outline(ctx, overlay.map(v), .systemGreen) }
         if points.count >= 2 { outline(ctx, points.map(v), .systemYellow) }
@@ -299,13 +359,18 @@ struct ZoomableFrameCanvas: UIViewRepresentable {
     @Binding var points: [Pixel]
     let maxPoints: Int
     var overlay: [Pixel]
+    var boxes: [BoxOverlayItem] = []
+    var boxMode = false
+    var onBoxTap: ((String) -> Void)? = nil
+    var fitTo: [Pixel]? = nil
     @ObservedObject var controller: CanvasController
 
     func makeUIView(context: Context) -> ZoomCanvasView {
         let cg = image.cgImage!
         let v = ZoomCanvasView(image: image, nativeWidth: Double(cg.width), nativeHeight: Double(cg.height))
         v.maxPoints = maxPoints
-        v.points = points; v.overlay = overlay
+        v.boxMode = boxMode; v.onBoxTap = onBoxTap; v.fitOnFirstLayout = fitTo
+        v.points = points; v.overlay = overlay; v.boxes = boxes
         controller.canvas = v
         v.onPointsChanged = { new in DispatchQueue.main.async { if new != points { points = new } } }
         v.onViewChanged = { vp in DispatchQueue.main.async { controller.zoom = vp.zoom; controller.nativePerPoint = vp.nativePixelsPerPoint } }
@@ -316,5 +381,7 @@ struct ZoomableFrameCanvas: UIViewRepresentable {
         v.maxPoints = maxPoints
         if v.points != points { v.points = points }
         if v.overlay != overlay { v.overlay = overlay }
+        v.onBoxTap = onBoxTap; v.boxMode = boxMode
+        if v.boxes != boxes { v.boxes = boxes }
     }
 }

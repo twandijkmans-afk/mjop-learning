@@ -50,6 +50,7 @@ struct CornerPickerView: View {
         let o = Observation(id: "OBS-\(frame.id)-\(store.observations.count + 1)", frameId: frame.id, corners: taps, originalCorners: taps,
                             source: fromAuto ? .AUTO_DETECTED_CONFIRMED : .MANUAL)
         store.addObservation(o, to: targetDraft)
+        store.measureAll(); store.persist()
         taps = []; saved = "Opgeslagen (\(o.source.rawValue)). Je kunt een volgend kozijn markeren."
     }
 

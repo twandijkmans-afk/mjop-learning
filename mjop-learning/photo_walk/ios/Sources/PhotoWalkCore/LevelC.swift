@@ -2,14 +2,17 @@ import Foundation
 
 public struct ReferenceMeasure {
     public var referenceId: String
+    public var frameId: String = ""
     public var p1: Pixel, p2: Pixel
     public var distanceM: Double
     public var distanceSigmaM: Double?
     public var planeId: String?
     public var targetPlaneId: String?
-    public init(referenceId: String, p1: Pixel, p2: Pixel, distanceM: Double, distanceSigmaM: Double? = nil, planeId: String? = nil, targetPlaneId: String? = nil) {
+    /// Waarneming (kozijn) waarvan de rechthoek op het referentievlak ligt; voor andere kozijnen in dezelfde foto geldt dan COPLANARITY_ASSUMED.
+    public var anchorObservationId: String?
+    public init(referenceId: String, p1: Pixel, p2: Pixel, distanceM: Double, distanceSigmaM: Double? = nil, planeId: String? = nil, targetPlaneId: String? = nil, anchorObservationId: String? = nil) {
         self.referenceId = referenceId; self.p1 = p1; self.p2 = p2; self.distanceM = distanceM
-        self.distanceSigmaM = distanceSigmaM; self.planeId = planeId; self.targetPlaneId = targetPlaneId
+        self.distanceSigmaM = distanceSigmaM; self.planeId = planeId; self.targetPlaneId = targetPlaneId; self.anchorObservationId = anchorObservationId
     }
 }
 

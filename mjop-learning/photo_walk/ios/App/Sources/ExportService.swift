@@ -29,7 +29,8 @@ enum ExportService {
         let allUnknown = s.results.allSatisfy { $0.status == .UNKNOWN }
         var r: [String: Any] = [:]
         r["contract"] = "photo_walk_capture_v1"
-        r["contract_version"] = "1.0.0"
+        r["contract_version"] = "1.1.0"
+        r["capture_mode"] = s.keyframes.isEmpty || s.observations.contains(where: { $0.detection == nil }) ? "KEYFRAME_MANUAL" : "PHOTO"
         r["session_id"] = s.sessionId
         r["building_id"] = s.buildingId
         r["facade_id"] = s.facadeId
@@ -72,14 +73,24 @@ enum ExportService {
         r["thresholds"] = ["threshold_status": "PROVISIONAL_UNVALIDATED"]
         r["references"] = s.references.map { (fid, ref) -> [String: Any] in
             ["reference_id": ref.referenceId, "frame_id": fid, "p1_px": [ref.p1.u, ref.p1.v], "p2_px": [ref.p2.u, ref.p2.v], "distance_m": ref.distanceM,
-             "distance_sigma_m": ref.distanceSigmaM ?? NSNull(), "plane_id": ref.planeId ?? NSNull(), "entered_by": "inspecteur"]
+             "distance_sigma_m": ref.distanceSigmaM ?? NSNull(), "plane_id": ref.planeId ?? NSNull(), "entered_by": "inspecteur",
+             "anchor_observation_id": ref.anchorObservationId ?? NSNull()]
         }.sorted { ($0["reference_id"] as? String ?? "") < ($1["reference_id"] as? String ?? "") }
-        r["observations"] = s.observations.map { o -> [String: Any] in
-            ["observation_id": o.id, "frame_id": o.frameId, "corner_source": o.source.rawValue, "obstruction_reported": o.obstruction]
+        r["observations"] = s.observations.filter { !$0.rejected }.map { o -> [String: Any] in
+            var d: [String: Any] = ["observation_id": o.id, "frame_id": o.frameId, "corner_source": o.source.rawValue, "obstruction_reported": o.obstruction]
+            if let det = o.detection { d["detection"] = ["detector": det.detector, "score": det.score, "status": "CANDIDATE_UNVERIFIED"] as [String: Any] }
+            return d
         }
+        r["rejected_candidates"] = s.observations.filter { $0.rejected }.map { o -> [String: Any] in
+            ["observation_id": o.id, "frame_id": o.frameId, "detector": o.detection?.detector ?? "MANUAL", "reason": "door inspecteur afgewezen: geen kozijn"]
+        }
+        let detectors = DetectorCatalog.available().map { $0.name }
+        r["detection_summary"] = ["detectors": detectors, "core_ml_model_installed": DetectorCatalog.coreMLModelURL != nil, "validated_on_real_buildings": false,
+                                  "note": "Kandidaten van een algemene rechthoekdetector; niet gevalideerd als kozijndetector."] as [String: Any]
         r["objects"] = s.results.map { $0.json }
         r["coverage"] = NSNull()
-        r["scan_label"] = s.observations.allSatisfy({ $0.source == .AUTO_DETECTED_CONFIRMED }) && !s.observations.isEmpty ? "AUTOMATIC_CANDIDATES_HUMAN_CONFIRMED" : "SEMI_AUTOMATIC"
+        let srcs = Set(s.observations.filter { !$0.rejected }.map { $0.source })
+        r["scan_label"] = srcs.isEmpty ? "NO_OBSERVATIONS" : (srcs == [.AUTO_DETECTED_UNCONFIRMED] ? "AUTOMATIC_UNREVIEWED" : (srcs.isSubset(of: [.AUTO_DETECTED_CONFIRMED]) ? "AUTOMATIC_CANDIDATES_HUMAN_CONFIRMED" : "SEMI_AUTOMATIC"))
         var byStatus: [String: Any] = [:]
         for st in ["MEASURED", "DERIVED", "ESTIMATED", "UNKNOWN"] {
             let sel = s.results.filter { $0.status.rawValue == st }

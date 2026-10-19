@@ -35,6 +35,7 @@ public enum Flags {
         "SINGLE_VIEWPOINT": (.ADVISORY, "Slechts een standpunt; maak een tweede opname vanaf een ander standpunt voor een consistentiecontrole."),
         "COPLANARITY_ASSUMED": (.ADVISORY, "Het kozijn is op de referentieschaal gezet onder de aanname dat het in hetzelfde vlak ligt. Controleer dit."),
         "REFERENCE_UNCERTAINTY_NOT_PROVIDED": (.ADVISORY, "Bij de referentie is geen eigen onzekerheid opgegeven; die is niet in de onzekerheid meegenomen."),
+        "AUTO_DETECTED_UNCONFIRMED": (.ADVISORY, "Hoeken komen van een automatische kandidaatdetector en zijn niet bevestigd; controleer ze (zoom in) of corrigeer ze."),
         "MANUAL_CORNERS": (.ADVISORY, "Hoeken zijn handmatig geselecteerd (semi-automatisch)."),
         "HUMAN_CORRECTED_CORNERS": (.ADVISORY, "Hoeken zijn door een mens gecorrigeerd; herberekend zonder brondata te overschrijven."),
         "OBSTRUCTION_REPORTED": (.ADVISORY, "Gebruiker meldt begroeiing of obstakel voor het kozijn; hoeken kunnen onjuist zijn."),

@@ -98,6 +98,20 @@ public struct ViewportTransform: Equatable {
 
     public mutating func reset() { zoom = 1; panX = 0; panY = 0 }
 
+    /// Zoomt en verschuift zodat een rechthoek (in NATIVE pixels, als hoekpunten) met marge volledig in beeld staat (max. `maxZoom`).
+    public mutating func fit(native pts: [Pixel], paddingFraction: Double = 0.35) {
+        guard !pts.isEmpty else { return }
+        let ds = pts.map { displayPoint(fromNative: $0) }
+        let minX = ds.map { $0.u }.min()!, maxX = ds.map { $0.u }.max()!, minY = ds.map { $0.v }.min()!, maxY = ds.map { $0.v }.max()!
+        let w = max(maxX - minX, 1) * (1 + paddingFraction), h = max(maxY - minY, 1) * (1 + paddingFraction)
+        let z = min(Self.maxZoom, max(Self.minZoom, min(viewportWidth / (w * fitScale), viewportHeight / (h * fitScale))))
+        let cx = (minX + maxX) / 2, cy = (minY + maxY) / 2
+        zoom = z
+        // pan zodat het midden van de rechthoek in het midden van de weergave staat
+        panX = -(cx - displayWidth / 2) * scale; panY = -(cy - displayHeight / 2) * scale
+        clampPan()
+    }
+
     /// Zet de toestand rechtstreeks (voor animaties).
     public mutating func set(zoom z: Double, panX px: Double, panY py: Double) {
         zoom = min(max(z, Self.minZoom), Self.maxZoom); panX = px; panY = py; clampPan()

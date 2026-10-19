@@ -4,7 +4,7 @@ import PhotoWalkCore
 /// Genereert een SYNTHETISCH testbeeld (geen foto): muur met bakstenen/voegen en een kozijn op de opgegeven hoeken, in de native afmeting van de camera.
 /// Alleen voor de simulatiemodus en UI-tests; bevat geen persoonsgegevens en komt nooit uit een camera.
 enum SyntheticImage {
-    static func make(width: Int, height: Int, corners: [Pixel], id: String) -> URL? {
+    static func make(width: Int, height: Int, corners: [Pixel], id: String, sessionId: String) -> URL? {
         let size = CGSize(width: width, height: height)
         let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1; fmt.opaque = true
         let img = UIGraphicsImageRenderer(size: size, format: fmt).image { rc in
@@ -23,11 +23,8 @@ enum SyntheticImage {
                 UIColor.white.setStroke(); path.lineWidth = 14; path.stroke()
             }
         }
-        guard let data = img.jpegData(compressionQuality: 0.85),
-              var dir = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("PhotoWalk", isDirectory: true) else { return nil }
-        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        var rv = URLResourceValues(); rv.isExcludedFromBackup = true; try? dir.setResourceValues(rv)
-        let url = dir.appendingPathComponent("SIM_\(id).jpg")
+        guard let data = img.jpegData(compressionQuality: 0.9), let dir = Persistence.sessionDir(sessionId) else { return nil }
+        let url = dir.appendingPathComponent("\(id).jpg")
         return (try? data.write(to: url)) != nil ? url : nil
     }
 }

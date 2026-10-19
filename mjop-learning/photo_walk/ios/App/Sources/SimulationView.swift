@@ -6,6 +6,29 @@ import PhotoWalkCore
 enum SimulationRunner {
     private static func d(_ x: Any?) -> Double { (x as? NSNumber)?.doubleValue ?? 0 }
 
+    /// Alleen de synthetische FOTO (beeld + intrinsics + pose + dieptekaart) zonder waarnemingen: de detectie moet de kozijnen zelf vinden.
+    @MainActor @discardableResult static func runPhoto(_ store: ScanStore) -> String {
+        guard let (intr, depth, pose, corners, expectW, expectH) = load() else { return "Simulatiefixture niet gevonden of onleesbaar" }
+        store.newSession()
+        store.isSimulation = true; store.buildingId = "BLD-SYNTHETIC"; store.facadeId = "FACADE-A"
+        store.keyframes = [Keyframe(id: "F000", timestamp: Date(), intrinsics: intr, pose: pose, trackingState: "NORMAL", depth: depth,
+                                    imageURL: SyntheticImage.make(width: intr.width, height: intr.height, corners: corners, id: "F000", sessionId: store.sessionId))]
+        return "SIMULATIE-foto geladen; echte kozijn (synthetisch): \(expectW) x \(expectH) m"
+    }
+
+    private static func load() -> (Intrinsics, DepthMap, Pose, [Pixel], Double, Double)? {
+        guard let url = Bundle.main.url(forResource: "parity_cases", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let c = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+              let i = c["intrinsics"] as? [String: Any], let a = c["level_a"] as? [String: Any],
+              let rawDepth = a["depth"] as? [Any], let rawCorners = a["corners_px"] as? [[Double]],
+              let rawPose = c["pose_row_major"] as? [Any] else { return nil }
+        let intr = Intrinsics(fx: d(i["fx"]), fy: d(i["fy"]), cx: d(i["cx"]), cy: d(i["cy"]), width: Int(d(i["width"])), height: Int(d(i["height"])))
+        let values: [Float] = rawDepth.map { (v: Any) -> Float in let z = Float(d(v)); return z == 0 ? Float.nan : z }
+        return (intr, DepthMap(width: Int(d(a["depth_width"])), height: Int(d(a["depth_height"])), values: values), Pose(rowMajor: rawPose.map { d($0) }),
+                rawCorners.map { Pixel($0[0], $0[1]) }, d(a["expect_width_m"]), d(a["expect_height_m"]))
+    }
+
     @MainActor static func run(_ store: ScanStore) -> String {
         guard let url = Bundle.main.url(forResource: "parity_cases", withExtension: "json"),
               let data = try? Data(contentsOf: url),
@@ -21,7 +44,7 @@ enum SimulationRunner {
         store.newSession()
         store.isSimulation = true; store.buildingId = "BLD-SYNTHETIC"; store.facadeId = "FACADE-A"
         store.keyframes = [Keyframe(id: "F000", timestamp: Date(), intrinsics: intr, pose: pose, trackingState: "NORMAL", depth: depth,
-                                 imageURL: SyntheticImage.make(width: intr.width, height: intr.height, corners: corners, id: "F000"))]
+                                 imageURL: SyntheticImage.make(width: intr.width, height: intr.height, corners: corners, id: "F000", sessionId: store.sessionId))]
         store.addObservation(Observation(id: "OBS-F000-1", frameId: "F000", corners: corners, originalCorners: corners, source: .MANUAL), to: nil)
         store.measureAll()
         guard let o = store.results.first else { return "Geen resultaat" }

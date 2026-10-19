@@ -38,6 +38,7 @@ FLAGS = {
     "VIO_SCALE_MISMATCH": (ADVISORY, "De AR-schaal wijkt af van de ingevoerde referentie; de referentie is leidend gebruikt."),
     "COPLANARITY_ASSUMED": (ADVISORY, "Het kozijn is op de referentieschaal gezet onder de aanname dat het in hetzelfde vlak ligt. Controleer dit."),
     "REFERENCE_UNCERTAINTY_NOT_PROVIDED": (ADVISORY, "Bij de referentie is geen eigen onzekerheid opgegeven; die is niet in de onzekerheid meegenomen."),
+    "AUTO_DETECTED_UNCONFIRMED": (ADVISORY, "Hoeken komen van een automatische kandidaatdetector en zijn niet bevestigd; controleer ze (zoom in) of corrigeer ze."),
     "MANUAL_CORNERS": (ADVISORY, "Hoeken zijn handmatig geselecteerd (semi-automatisch)."),
     "HUMAN_CORRECTED_CORNERS": (ADVISORY, "Hoeken zijn door een mens gecorrigeerd; herberekend zonder brondata te overschrijven."),
     "ASSOCIATION_UNVERIFIED": (ADVISORY, "Niet vastgesteld of dit kozijn ook op andere foto's staat; dubbeltelling is niet uitgesloten."),
