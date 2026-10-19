@@ -8,7 +8,7 @@ Alles hieronder is **niet gedaan**: er was geen macOS/Xcode/iOS-hardware.
 |---|---|
 | Gebouwde code (Python-kern, schema, tests, docs) | ja |
 | Gecompileerde code | Python: ja. **Swift/iOS: ja, op macOS-CI (Xcode 16.4, Swift 6.1.2; simulator- + unsigned devicebuild).** Kotlin: nee. |
-| Simulatie (synthetische gevel/diepte/poses) | ja — 39 Python-tests + 12 Swift-tests + XCUITest-rooktest groen |
+| Simulatie (synthetische gevel/diepte/poses) | ja — 39 Python-tests + 25 Swift-tests + 5 XCUITests groen |
 | Echte sensormeting | **nee** |
 | Op fysiek toestel gevalideerd | **nee** |
 
