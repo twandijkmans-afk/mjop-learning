@@ -1,0 +1,1488 @@
+{
+  "building_id": "BLD-SYNTHETIC",
+  "camera_intrinsics": [
+    {
+      "cx": 960.0,
+      "cy": 720.0,
+      "fx": 1500.0,
+      "fy": 1500.0,
+      "height": 1440,
+      "intrinsics_id": "K1",
+      "width": 1920
+    }
+  ],
+  "camera_poses": [
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F000",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    },
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        1.5,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F001",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    },
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        3.0,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F002",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    },
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        4.5,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F003",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    },
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        6.0,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F004",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    },
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        7.5,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F005",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    },
+    {
+      "camera_to_world": [
+        1.0,
+        0.0,
+        0.0,
+        9.0,
+        0.0,
+        -1.0,
+        0.0,
+        1.6,
+        0.0,
+        0.0,
+        -1.0,
+        4.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "frame_id": "F006",
+      "intrinsics_id": "K1",
+      "pose_valid": true
+    }
+  ],
+  "capture_timestamp": "2026-01-01T00:00:00Z",
+  "contract": "photo_walk_capture_v1",
+  "contract_version": "1.0.0",
+  "coordinate_system": {
+    "camera": "OpenCV: x right, y down, z forward; unit m",
+    "depth": "depth_z: distance along the optical axis in m; 0/NaN invalid",
+    "pixel": "origin top-left corner of top-left pixel; u right, v down; unit px",
+    "pose": "camera_to_world 4x4 row-major as 16 numbers; x_world = R x_camera + t",
+    "units": "m, px, m2, degrees",
+    "world": "right-handed, Y up (gravity aligned), unit m; origin = AR session start"
+  },
+  "coverage": {
+    "cell_m": 0.5,
+    "cells_seen": 126,
+    "cells_seen_frontal": 126,
+    "cells_total": 126,
+    "coverage_fraction": 1.0,
+    "extent_assumed": false,
+    "extent_uv_m": [
+      0.0,
+      10.5,
+      0.0,
+      3.0
+    ],
+    "guidance_nl": [],
+    "overlap": [
+      {
+        "enough": true,
+        "frame_a": "F000",
+        "frame_b": "F001",
+        "overlap_fraction": 1.0
+      },
+      {
+        "enough": true,
+        "frame_a": "F001",
+        "frame_b": "F002",
+        "overlap_fraction": 0.875
+      },
+      {
+        "enough": true,
+        "frame_a": "F002",
+        "frame_b": "F003",
+        "overlap_fraction": 0.7
+      },
+      {
+        "enough": true,
+        "frame_a": "F003",
+        "frame_b": "F004",
+        "overlap_fraction": 0.7
+      },
+      {
+        "enough": true,
+        "frame_a": "F004",
+        "frame_b": "F005",
+        "overlap_fraction": 0.7
+      },
+      {
+        "enough": true,
+        "frame_a": "F005",
+        "frame_b": "F006",
+        "overlap_fraction": 0.875
+      }
+    ],
+    "views": [
+      {
+        "cells": 30,
+        "frame_id": "F000"
+      },
+      {
+        "cells": 48,
+        "frame_id": "F001"
+      },
+      {
+        "cells": 60,
+        "frame_id": "F002"
+      },
+      {
+        "cells": 60,
+        "frame_id": "F003"
+      },
+      {
+        "cells": 60,
+        "frame_id": "F004"
+      },
+      {
+        "cells": 60,
+        "frame_id": "F005"
+      },
+      {
+        "cells": 48,
+        "frame_id": "F006"
+      }
+    ]
+  },
+  "data_origin": "SIMULATION",
+  "depth_refs": [
+    {
+      "convention": "depth_z",
+      "frame_id": "F000",
+      "height": 192,
+      "ref": "local://synthetic/F000.depth.f32",
+      "unit": "m",
+      "width": 256
+    },
+    {
+      "convention": "depth_z",
+      "frame_id": "F001",
+      "height": 192,
+      "ref": "local://synthetic/F001.depth.f32",
+      "unit": "m",
+      "width": 256
+    },
+    {
+      "convention": "depth_z",
+      "frame_id": "F002",
+      "height": 192,
+      "ref": "local://synthetic/F002.depth.f32",
+      "unit": "m",
+      "width": 256
+    },
+    {
+      "convention": "depth_z",
+      "frame_id": "F003",
+      "height": 192,
+      "ref": "local://synthetic/F003.depth.f32",
+      "unit": "m",
+      "width": 256
+    },
+    {
+      "convention": "depth_z",
+      "frame_id": "F004",
+      "height": 192,
+      "ref": "local://synthetic/F004.depth.f32",
+      "unit": "m",
+      "width": 256
+    },
+    {
+      "convention": "depth_z",
+      "frame_id": "F005",
+      "height": 192,
+      "ref": "local://synthetic/F005.depth.f32",
+      "unit": "m",
+      "width": 256
+    },
+    {
+      "convention": "depth_z",
+      "frame_id": "F006",
+      "height": 192,
+      "ref": "local://synthetic/F006.depth.f32",
+      "unit": "m",
+      "width": 256
+    }
+  ],
+  "device_model": "synthetic-lidar-phone",
+  "facade_id": "FACADE-A",
+  "image_refs": [
+    {
+      "frame_id": "F000",
+      "ref": "local://synthetic/F000.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "frame_id": "F001",
+      "ref": "local://synthetic/F001.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "frame_id": "F002",
+      "ref": "local://synthetic/F002.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "frame_id": "F003",
+      "ref": "local://synthetic/F003.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "frame_id": "F004",
+      "ref": "local://synthetic/F004.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "frame_id": "F005",
+      "ref": "local://synthetic/F005.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "frame_id": "F006",
+      "ref": "local://synthetic/F006.jpg",
+      "timestamp": "2026-01-01T00:00:00Z"
+    }
+  ],
+  "invariants": {
+    "approval_state": "PENDING_HUMAN_APPROVAL",
+    "approvals_simulated": false,
+    "cost_link": null,
+    "external_vision_calls": 0,
+    "human_decision_registered": false,
+    "images_uploaded": false,
+    "is_final": false,
+    "kengetal_link": null,
+    "price_link": null,
+    "quantity_layer": "PROVISIONAL"
+  },
+  "measurement_method_version": "photo_walk_levels_ABC_v1",
+  "measurement_mode": {
+    "fallback_chain": [
+      "A",
+      "B",
+      "C"
+    ],
+    "mode": "A_METRIC_DEPTH",
+    "primary_level": "A",
+    "reason": "dieptesensor + wereldtracking aanwezig"
+  },
+  "objects": [
+    {
+      "approval_state": "PENDING_HUMAN_APPROVAL",
+      "corner_order": [
+        "TOP_LEFT",
+        "TOP_RIGHT",
+        "BOTTOM_RIGHT",
+        "BOTTOM_LEFT"
+      ],
+      "corner_pixels": [
+        {
+          "frame_id": "F000",
+          "observation_ref": "OBS-F000-K1",
+          "original_points": [
+            [
+              1337.04,
+              417.44
+            ],
+            [
+              1785.42,
+              419.43
+            ],
+            [
+              1784.55,
+              982.28
+            ],
+            [
+              1332.98,
+              982.27
+            ]
+          ],
+          "points": [
+            [
+              1337.04,
+              417.44
+            ],
+            [
+              1785.42,
+              419.43
+            ],
+            [
+              1784.55,
+              982.28
+            ],
+            [
+              1332.98,
+              982.27
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        },
+        {
+          "frame_id": "F001",
+          "observation_ref": "OBS-F001-K1",
+          "original_points": [
+            [
+              771.85,
+              419.83
+            ],
+            [
+              1224.16,
+              420.66
+            ],
+            [
+              1220.86,
+              982.49
+            ],
+            [
+              771.88,
+              982.65
+            ]
+          ],
+          "points": [
+            [
+              771.85,
+              419.83
+            ],
+            [
+              1224.16,
+              420.66
+            ],
+            [
+              1220.86,
+              982.49
+            ],
+            [
+              771.88,
+              982.65
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        },
+        {
+          "frame_id": "F002",
+          "observation_ref": "OBS-F002-K1",
+          "original_points": [
+            [
+              209.2,
+              418.68
+            ],
+            [
+              659.75,
+              420.42
+            ],
+            [
+              661.14,
+              982.61
+            ],
+            [
+              209.45,
+              981.72
+            ]
+          ],
+          "points": [
+            [
+              209.2,
+              418.68
+            ],
+            [
+              659.75,
+              420.42
+            ],
+            [
+              661.14,
+              982.61
+            ],
+            [
+              209.45,
+              981.72
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        }
+      ],
+      "corner_sources": [
+        "MANUAL"
+      ],
+      "detection_method": "SEMI_AUTOMATIC",
+      "dimension_status": "MEASURED",
+      "frame_type": "UNKNOWN",
+      "gross_area_m2": "1.804202",
+      "gross_area_m2_presented": "1.80",
+      "measurement_source": {
+        "level": "A",
+        "scale_evidence": {
+          "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+          "per_view": [
+            {
+              "depth_coverage": 0.9698738907052779,
+              "incidence_cos_min": 0.863090642522665,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9678545629665303,
+              "plane_points": 8306,
+              "plane_rms_m": 0.008511522458641374
+            },
+            {
+              "depth_coverage": 0.971830985915493,
+              "incidence_cos_min": 0.9663001436826029,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9650856389986825,
+              "plane_points": 9108,
+              "plane_rms_m": 0.00853668570057286
+            },
+            {
+              "depth_coverage": 0.9661597772542301,
+              "incidence_cos_min": 0.8798363785905938,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.966304588782975,
+              "plane_points": 9022,
+              "plane_rms_m": 0.008570357892439814
+            }
+          ],
+          "views": 3
+        },
+        "scale_method": "LIDAR_DEPTH_PLANE",
+        "views": [
+          "F000",
+          "F001",
+          "F002"
+        ]
+      },
+      "measurement_uncertainty": {
+        "area_sigma_m2": "0.0044",
+        "height_sigma_m": "0.0023",
+        "model": "MONTE_CARLO_PIXEL_PLANE_NOISE_V1",
+        "note": "1-sigma van een ruismodel met provisional parameters; geen gevalideerde tolerantie.",
+        "samples": 200,
+        "validated": false,
+        "width_sigma_m": "0.0023"
+      },
+      "next_steps_nl": [],
+      "observation_refs": [
+        "OBS-F000-K1",
+        "OBS-F001-K1",
+        "OBS-F002-K1"
+      ],
+      "outer_corner_coordinates": {
+        "coordinate_system": "WORLD_M_Y_UP",
+        "points": [
+          [
+            1.0055,
+            2.4068,
+            -0.0001
+          ],
+          [
+            2.201,
+            2.4015,
+            0.0002
+          ],
+          [
+            2.1989,
+            0.9006,
+            -0.0001
+          ],
+          [
+            0.9947,
+            0.9005,
+            -0.0005
+          ]
+        ],
+        "unit": "m"
+      },
+      "outer_height_m": "1.501",
+      "outer_width_m": "1.202",
+      "parts": {
+        "fixed_parts": null,
+        "movable_parts": null,
+        "note": "informatief; heeft geen invloed op het bruto oppervlak (regel 2)"
+      },
+      "provisional_object_id": "PROV-SYN-WALK-001-001",
+      "quality_flags": [
+        {
+          "code": "MANUAL_CORNERS",
+          "detail": null,
+          "instruction_nl": "Hoeken zijn handmatig geselecteerd (semi-automatisch).",
+          "severity": "ADVISORY"
+        }
+      ],
+      "quantity_layer": "PROVISIONAL",
+      "review_required": true
+    },
+    {
+      "approval_state": "PENDING_HUMAN_APPROVAL",
+      "corner_order": [
+        "TOP_LEFT",
+        "TOP_RIGHT",
+        "BOTTOM_RIGHT",
+        "BOTTOM_LEFT"
+      ],
+      "corner_pixels": [
+        {
+          "frame_id": "F002",
+          "observation_ref": "OBS-F002-K2",
+          "original_points": [
+            [
+              1036.05,
+              421.78
+            ],
+            [
+              1482.45,
+              419.86
+            ],
+            [
+              1486.01,
+              983.85
+            ],
+            [
+              1035.65,
+              984.0
+            ]
+          ],
+          "points": [
+            [
+              1036.05,
+              421.78
+            ],
+            [
+              1482.45,
+              419.86
+            ],
+            [
+              1486.01,
+              983.85
+            ],
+            [
+              1035.65,
+              984.0
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        },
+        {
+          "frame_id": "F003",
+          "observation_ref": "OBS-F003-K2",
+          "original_points": [
+            [
+              472.5,
+              420.3
+            ],
+            [
+              922.23,
+              419.11
+            ],
+            [
+              922.05,
+              981.51
+            ],
+            [
+              472.56,
+              983.84
+            ]
+          ],
+          "points": [
+            [
+              472.5,
+              420.3
+            ],
+            [
+              922.23,
+              419.11
+            ],
+            [
+              922.05,
+              981.51
+            ],
+            [
+              472.56,
+              983.84
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        }
+      ],
+      "corner_sources": [
+        "MANUAL"
+      ],
+      "detection_method": "SEMI_AUTOMATIC",
+      "dimension_status": "MEASURED",
+      "frame_type": "UNKNOWN",
+      "gross_area_m2": "1.796697",
+      "gross_area_m2_presented": "1.80",
+      "measurement_source": {
+        "level": "A",
+        "scale_evidence": {
+          "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+          "per_view": [
+            {
+              "depth_coverage": 0.9726816775157401,
+              "incidence_cos_min": 0.9277211781723298,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9668678003291278,
+              "plane_points": 9115,
+              "plane_rms_m": 0.00852109309446778
+            },
+            {
+              "depth_coverage": 0.970093656875266,
+              "incidence_cos_min": 0.9343615178681172,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9621503017004936,
+              "plane_points": 9115,
+              "plane_rms_m": 0.008560398370233707
+            }
+          ],
+          "views": 2
+        },
+        "scale_method": "LIDAR_DEPTH_PLANE",
+        "views": [
+          "F002",
+          "F003"
+        ]
+      },
+      "measurement_uncertainty": {
+        "area_sigma_m2": "0.0053",
+        "height_sigma_m": "0.0029",
+        "model": "MONTE_CARLO_PIXEL_PLANE_NOISE_V1",
+        "note": "1-sigma van een ruismodel met provisional parameters; geen gevalideerde tolerantie.",
+        "samples": 200,
+        "validated": false,
+        "width_sigma_m": "0.0027"
+      },
+      "next_steps_nl": [],
+      "observation_refs": [
+        "OBS-F002-K2",
+        "OBS-F003-K2"
+      ],
+      "outer_corner_coordinates": {
+        "coordinate_system": "WORLD_M_Y_UP",
+        "points": [
+          [
+            3.2001,
+            2.3991,
+            0.0004
+          ],
+          [
+            4.3993,
+            2.4023,
+            0.0003
+          ],
+          [
+            4.3988,
+            0.9027,
+            0.0001
+          ],
+          [
+            3.2002,
+            0.8965,
+            0.0002
+          ]
+        ],
+        "unit": "m"
+      },
+      "outer_height_m": "1.501",
+      "outer_width_m": "1.197",
+      "parts": {
+        "fixed_parts": null,
+        "movable_parts": null,
+        "note": "informatief; heeft geen invloed op het bruto oppervlak (regel 2)"
+      },
+      "provisional_object_id": "PROV-SYN-WALK-001-002",
+      "quality_flags": [
+        {
+          "code": "MANUAL_CORNERS",
+          "detail": null,
+          "instruction_nl": "Hoeken zijn handmatig geselecteerd (semi-automatisch).",
+          "severity": "ADVISORY"
+        }
+      ],
+      "quantity_layer": "PROVISIONAL",
+      "review_required": true
+    },
+    {
+      "approval_state": "PENDING_HUMAN_APPROVAL",
+      "corner_order": [
+        "TOP_LEFT",
+        "TOP_RIGHT",
+        "BOTTOM_RIGHT",
+        "BOTTOM_LEFT"
+      ],
+      "corner_pixels": [
+        {
+          "frame_id": "F004",
+          "observation_ref": "OBS-F004-K3",
+          "original_points": [
+            [
+              734.2,
+              420.24
+            ],
+            [
+              1520.84,
+              420.66
+            ],
+            [
+              1523.64,
+              982.05
+            ],
+            [
+              735.43,
+              982.75
+            ]
+          ],
+          "points": [
+            [
+              734.2,
+              420.24
+            ],
+            [
+              1520.84,
+              420.66
+            ],
+            [
+              1523.64,
+              982.05
+            ],
+            [
+              735.43,
+              982.75
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        },
+        {
+          "frame_id": "F005",
+          "observation_ref": "OBS-F005-K3",
+          "original_points": [
+            [
+              171.4,
+              419.27
+            ],
+            [
+              959.22,
+              420.27
+            ],
+            [
+              959.75,
+              982.63
+            ],
+            [
+              173.34,
+              983.36
+            ]
+          ],
+          "points": [
+            [
+              171.4,
+              419.27
+            ],
+            [
+              959.22,
+              420.27
+            ],
+            [
+              959.75,
+              982.63
+            ],
+            [
+              173.34,
+              983.36
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        }
+      ],
+      "corner_sources": [
+        "MANUAL"
+      ],
+      "detection_method": "SEMI_AUTOMATIC",
+      "dimension_status": "MEASURED",
+      "frame_type": "UNKNOWN",
+      "gross_area_m2": "3.148500",
+      "gross_area_m2_presented": "3.15",
+      "measurement_source": {
+        "level": "A",
+        "scale_evidence": {
+          "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+          "per_view": [
+            {
+              "depth_coverage": 0.971641608605305,
+              "incidence_cos_min": 0.9207261256329055,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.957919235123915,
+              "plane_points": 15898,
+              "plane_rms_m": 0.008480846490088772
+            },
+            {
+              "depth_coverage": 0.972530260201493,
+              "incidence_cos_min": 0.8714727205496515,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9534207780593233,
+              "plane_points": 13418,
+              "plane_rms_m": 0.008479622358238311
+            }
+          ],
+          "views": 2
+        },
+        "scale_method": "LIDAR_DEPTH_PLANE",
+        "views": [
+          "F004",
+          "F005"
+        ]
+      },
+      "measurement_uncertainty": {
+        "area_sigma_m2": "0.0076",
+        "height_sigma_m": "0.0029",
+        "model": "MONTE_CARLO_PIXEL_PLANE_NOISE_V1",
+        "note": "1-sigma van een ruismodel met provisional parameters; geen gevalideerde tolerantie.",
+        "samples": 200,
+        "validated": false,
+        "width_sigma_m": "0.0030"
+      },
+      "next_steps_nl": [],
+      "observation_refs": [
+        "OBS-F004-K3",
+        "OBS-F005-K3"
+      ],
+      "outer_corner_coordinates": {
+        "coordinate_system": "WORLD_M_Y_UP",
+        "points": [
+          [
+            5.3972,
+            2.4019,
+            0.0003
+          ],
+          [
+            7.4979,
+            2.3991,
+            0.0008
+          ],
+          [
+            7.4993,
+            0.8997,
+            0.0002
+          ],
+          [
+            5.402,
+            0.8976,
+            -0.0004
+          ]
+        ],
+        "unit": "m"
+      },
+      "outer_height_m": "1.500",
+      "outer_width_m": "2.099",
+      "parts": {
+        "fixed_parts": null,
+        "movable_parts": null,
+        "note": "informatief; heeft geen invloed op het bruto oppervlak (regel 2)"
+      },
+      "provisional_object_id": "PROV-SYN-WALK-001-003",
+      "quality_flags": [
+        {
+          "code": "MANUAL_CORNERS",
+          "detail": null,
+          "instruction_nl": "Hoeken zijn handmatig geselecteerd (semi-automatisch).",
+          "severity": "ADVISORY"
+        }
+      ],
+      "quantity_layer": "PROVISIONAL",
+      "review_required": true
+    },
+    {
+      "approval_state": "PENDING_HUMAN_APPROVAL",
+      "corner_order": [
+        "TOP_LEFT",
+        "TOP_RIGHT",
+        "BOTTOM_RIGHT",
+        "BOTTOM_LEFT"
+      ],
+      "corner_pixels": [
+        {
+          "frame_id": "F005",
+          "observation_ref": "OBS-F005-K4",
+          "original_points": [
+            [
+              1222.53,
+              533.86
+            ],
+            [
+              1561.22,
+              531.99
+            ],
+            [
+              1559.7,
+              981.97
+            ],
+            [
+              1223.07,
+              982.44
+            ]
+          ],
+          "points": [
+            [
+              1222.53,
+              533.86
+            ],
+            [
+              1561.22,
+              531.99
+            ],
+            [
+              1559.7,
+              981.97
+            ],
+            [
+              1223.07,
+              982.44
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        },
+        {
+          "frame_id": "F006",
+          "observation_ref": "OBS-F006-K4",
+          "original_points": [
+            [
+              659.99,
+              533.55
+            ],
+            [
+              998.24,
+              533.22
+            ],
+            [
+              999.12,
+              981.29
+            ],
+            [
+              659.37,
+              981.18
+            ]
+          ],
+          "points": [
+            [
+              659.99,
+              533.55
+            ],
+            [
+              998.24,
+              533.22
+            ],
+            [
+              999.12,
+              981.29
+            ],
+            [
+              659.37,
+              981.18
+            ]
+          ],
+          "revisions": [],
+          "unit": "px"
+        }
+      ],
+      "corner_sources": [
+        "MANUAL"
+      ],
+      "detection_method": "SEMI_AUTOMATIC",
+      "dimension_status": "MEASURED",
+      "frame_type": "UNKNOWN",
+      "gross_area_m2": "1.079988",
+      "gross_area_m2_presented": "1.08",
+      "measurement_source": {
+        "level": "A",
+        "scale_evidence": {
+          "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+          "per_view": [
+            {
+              "depth_coverage": 0.9688168210976479,
+              "incidence_cos_min": 0.916194439597271,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9681809821592791,
+              "plane_points": 5437,
+              "plane_rms_m": 0.008560862760527447
+            },
+            {
+              "depth_coverage": 0.9707769066286529,
+              "incidence_cos_min": 0.9664921563300766,
+              "kind": "LIDAR_DEPTH_FACADE_PLANE",
+              "plane_inlier_ratio": 0.9678781204111601,
+              "plane_points": 5448,
+              "plane_rms_m": 0.008513205449600377
+            }
+          ],
+          "views": 2
+        },
+        "scale_method": "LIDAR_DEPTH_PLANE",
+        "views": [
+          "F005",
+          "F006"
+        ]
+      },
+      "measurement_uncertainty": {
+        "area_sigma_m2": "0.0042",
+        "height_sigma_m": "0.0027",
+        "model": "MONTE_CARLO_PIXEL_PLANE_NOISE_V1",
+        "note": "1-sigma van een ruismodel met provisional parameters; geen gevalideerde tolerantie.",
+        "samples": 200,
+        "validated": false,
+        "width_sigma_m": "0.0029"
+      },
+      "next_steps_nl": [],
+      "observation_refs": [
+        "OBS-F005-K4",
+        "OBS-F006-K4"
+      ],
+      "outer_corner_coordinates": {
+        "coordinate_system": "WORLD_M_Y_UP",
+        "points": [
+          [
+            8.1998,
+            2.0973,
+            -0.0008
+          ],
+          [
+            9.102,
+            2.0981,
+            -0.0003
+          ],
+          [
+            9.1043,
+            0.9032,
+            0.0002
+          ],
+          [
+            8.1983,
+            0.9035,
+            -0.0003
+          ]
+        ],
+        "unit": "m"
+      },
+      "outer_height_m": "1.196",
+      "outer_width_m": "0.903",
+      "parts": {
+        "fixed_parts": null,
+        "movable_parts": null,
+        "note": "informatief; heeft geen invloed op het bruto oppervlak (regel 2)"
+      },
+      "provisional_object_id": "PROV-SYN-WALK-001-004",
+      "quality_flags": [
+        {
+          "code": "MANUAL_CORNERS",
+          "detail": null,
+          "instruction_nl": "Hoeken zijn handmatig geselecteerd (semi-automatisch).",
+          "severity": "ADVISORY"
+        }
+      ],
+      "quantity_layer": "PROVISIONAL",
+      "review_required": true
+    }
+  ],
+  "observations": [
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F000",
+      "observation_id": "OBS-F000-K1",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F001",
+      "observation_id": "OBS-F001-K1",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F002",
+      "observation_id": "OBS-F002-K1",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F002",
+      "observation_id": "OBS-F002-K2",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F003",
+      "observation_id": "OBS-F003-K2",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F004",
+      "observation_id": "OBS-F004-K3",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F005",
+      "observation_id": "OBS-F005-K3",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F005",
+      "observation_id": "OBS-F005-K4",
+      "obstruction_reported": false
+    },
+    {
+      "corner_source": "MANUAL",
+      "frame_id": "F006",
+      "observation_id": "OBS-F006-K4",
+      "obstruction_reported": false
+    }
+  ],
+  "platform": "SIMULATION",
+  "privacy": {
+    "external_calls": 0,
+    "location_stored": false,
+    "processing": "LOCAL_ONLY",
+    "raw_media_included": false,
+    "retention_proposal": "VOORSTEL (nog niet vastgesteld): ruwe beelden en dieptekaarten blijven alleen op het toestel; verwijderen na afronding van de review of uiterlijk 30 dagen na de scan; het exportrecord (zonder media, zonder locatie) mag bij het dossier blijven."
+  },
+  "processing_version": "photo_walk_core_0.1.0",
+  "references": [],
+  "scale_evidence": [
+    {
+      "dimension_status": "MEASURED",
+      "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+      "object": "PROV-SYN-WALK-001-001",
+      "per_view": [
+        {
+          "depth_coverage": 0.9698738907052779,
+          "incidence_cos_min": 0.863090642522665,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9678545629665303,
+          "plane_points": 8306,
+          "plane_rms_m": 0.008511522458641374
+        },
+        {
+          "depth_coverage": 0.971830985915493,
+          "incidence_cos_min": 0.9663001436826029,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9650856389986825,
+          "plane_points": 9108,
+          "plane_rms_m": 0.00853668570057286
+        },
+        {
+          "depth_coverage": 0.9661597772542301,
+          "incidence_cos_min": 0.8798363785905938,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.966304588782975,
+          "plane_points": 9022,
+          "plane_rms_m": 0.008570357892439814
+        }
+      ],
+      "views": 3
+    },
+    {
+      "dimension_status": "MEASURED",
+      "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+      "object": "PROV-SYN-WALK-001-002",
+      "per_view": [
+        {
+          "depth_coverage": 0.9726816775157401,
+          "incidence_cos_min": 0.9277211781723298,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9668678003291278,
+          "plane_points": 9115,
+          "plane_rms_m": 0.00852109309446778
+        },
+        {
+          "depth_coverage": 0.970093656875266,
+          "incidence_cos_min": 0.9343615178681172,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9621503017004936,
+          "plane_points": 9115,
+          "plane_rms_m": 0.008560398370233707
+        }
+      ],
+      "views": 2
+    },
+    {
+      "dimension_status": "MEASURED",
+      "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+      "object": "PROV-SYN-WALK-001-003",
+      "per_view": [
+        {
+          "depth_coverage": 0.971641608605305,
+          "incidence_cos_min": 0.9207261256329055,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.957919235123915,
+          "plane_points": 15898,
+          "plane_rms_m": 0.008480846490088772
+        },
+        {
+          "depth_coverage": 0.972530260201493,
+          "incidence_cos_min": 0.8714727205496515,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9534207780593233,
+          "plane_points": 13418,
+          "plane_rms_m": 0.008479622358238311
+        }
+      ],
+      "views": 2
+    },
+    {
+      "dimension_status": "MEASURED",
+      "kind": "LIDAR_DEPTH_FACADE_PLANE_MULTI_VIEW",
+      "object": "PROV-SYN-WALK-001-004",
+      "per_view": [
+        {
+          "depth_coverage": 0.9688168210976479,
+          "incidence_cos_min": 0.916194439597271,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9681809821592791,
+          "plane_points": 5437,
+          "plane_rms_m": 0.008560862760527447
+        },
+        {
+          "depth_coverage": 0.9707769066286529,
+          "incidence_cos_min": 0.9664921563300766,
+          "kind": "LIDAR_DEPTH_FACADE_PLANE",
+          "plane_inlier_ratio": 0.9678781204111601,
+          "plane_points": 5448,
+          "plane_rms_m": 0.008513205449600377
+        }
+      ],
+      "views": 2
+    }
+  ],
+  "scale_method": "LIDAR_DEPTH_PLANE",
+  "scan_label": "SEMI_AUTOMATIC",
+  "sensor_capabilities": {
+    "ar_world_tracking": true,
+    "camera_intrinsics_available": true,
+    "depth_api": false,
+    "lidar": true,
+    "metric_tracking": true,
+    "scene_depth": true
+  },
+  "session_id": "SYN-WALK-001",
+  "summary": {
+    "by_status": {
+      "DERIVED": {
+        "count": 0,
+        "gross_area_m2": "0"
+      },
+      "ESTIMATED": {
+        "count": 0,
+        "gross_area_m2": "0"
+      },
+      "MEASURED": {
+        "count": 4,
+        "gross_area_m2": "7.829387"
+      },
+      "UNKNOWN": {
+        "count": 0,
+        "gross_area_m2": null
+      }
+    },
+    "note": "Totalen zijn voorlopig en per status gescheiden; ze mogen niet worden opgeteld tot een definitieve hoeveelheid.",
+    "object_count": 4,
+    "review_required": 4
+  },
+  "thresholds": {
+    "annulus_inner_scale": 1.08,
+    "annulus_min_points": 60,
+    "annulus_min_valid_fraction": 0.35,
+    "annulus_outer_scale": 1.8,
+    "assoc_center_gate_factor": 0.5,
+    "assoc_normal_angle_deg": 15.0,
+    "assoc_plane_offset_m": 0.15,
+    "consistency_k": 3.0,
+    "corner_depth_block_m": 0.25,
+    "corner_depth_tol_m": 0.08,
+    "corner_pixel_sigma_px": 1.5,
+    "coverage_cell_m": 0.5,
+    "coverage_min_incidence_cos": 0.5,
+    "depth_max_range_m": 5.0,
+    "depth_min_range_m": 0.3,
+    "depth_noise_floor_m": 0.01,
+    "glass_beyond_plane_m": 0.3,
+    "glass_inner_scale": 0.85,
+    "glass_max_beyond_fraction": 0.25,
+    "glass_min_valid_fraction": 0.5,
+    "max_corner_planarity_m": 0.05,
+    "max_dim_m": 10.0,
+    "max_reproj_px": 3.0,
+    "mc_samples": 200,
+    "min_dim_m": 0.1,
+    "min_incidence_cos": 0.35,
+    "min_overlap_fraction": 0.2,
+    "min_triangulation_angle_deg": 4.0,
+    "plane_effective_samples_cap": 50,
+    "plane_max_rms_m": 0.02,
+    "plane_min_inlier_ratio": 0.6,
+    "plane_ransac_iterations": 200,
+    "plane_ransac_threshold_m": 0.02,
+    "rect_angle_tol_deg": 6.0,
+    "rect_edge_ratio_tol": 0.05,
+    "ref_orthogonality_tol": 0.08,
+    "ref_plane_tol_m": 0.05,
+    "scale_verify_tol": 0.03,
+    "threshold_status": "PROVISIONAL_UNVALIDATED"
+  },
+  "tracking_quality": [
+    {
+      "frame_id": "F000",
+      "state": "NORMAL"
+    },
+    {
+      "frame_id": "F001",
+      "state": "NORMAL"
+    },
+    {
+      "frame_id": "F002",
+      "state": "NORMAL"
+    },
+    {
+      "frame_id": "F003",
+      "state": "NORMAL"
+    },
+    {
+      "frame_id": "F004",
+      "state": "NORMAL"
+    },
+    {
+      "frame_id": "F005",
+      "state": "NORMAL"
+    },
+    {
+      "frame_id": "F006",
+      "state": "NORMAL"
+    }
+  ],
+  "validation_level": "SIMULATED"
+}

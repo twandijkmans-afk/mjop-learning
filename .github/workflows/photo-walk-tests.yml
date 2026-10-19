@@ -1,0 +1,53 @@
+# Photo Walk & Scale Capture v1 (mjop-learning/photo_walk/).
+#
+# Alleen testen, alleen lezen: geen AI-SDK, geen netwerk in de tests, geen echte foto's of sensordumps; niets committen of publiceren.
+# Draait uitsluitend de Python-meetkern met synthetische data. De Swift- en Kotlin-code wordt hier NIET gecompileerd (geen macOS-runner
+# ingericht); zie photo_walk/docs/device_validation.md.
+name: Photo walk tests
+
+on:
+  pull_request:
+    paths:
+      - "mjop-learning/photo_walk/**"
+      - ".github/workflows/photo-walk-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: photo-walk-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  photo-walk-python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: mjop-learning/photo_walk/python
+    env:
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONHASHSEED: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Afhankelijkheden (vastgepind, zonder AI-SDK's)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          if python -c "import anthropic" 2>/dev/null || python -c "import openai" 2>/dev/null; then
+            echo "::error::AI-SDK aanwezig op de runner; Photo Walk heeft geen modelroute"; exit 1
+          fi
+      - name: Testsuite
+        run: python -m pytest -q -p no:cacheprovider tests
+      - name: Demonstratie (naar een map buiten de repository)
+        run: python -m photo_walk_core.demo --out "$RUNNER_TEMP/photo_walk_demo"
+      - name: Niets geschreven door de tests (werkboom ongewijzigd)
+        working-directory: .
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "::error::de tests of de demo hebben bestanden gewijzigd of aangemaakt"; git status --porcelain; exit 1
+          fi

@@ -1,0 +1,30 @@
+# XcodeGen-specificatie (brew install xcodegen; xcodegen generate). Er wordt bewust geen .xcodeproj gecommit.
+# STATUS: niet gegenereerd en niet gecompileerd in de ontwikkelomgeving (geen macOS/Xcode).
+name: PhotoWalk
+options:
+  bundleIdPrefix: nl.mjop.photowalk
+  deploymentTarget:
+    iOS: "16.0"
+packages:
+  PhotoWalkCore:
+    path: ..
+targets:
+  PhotoWalk:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: ../Tests/PhotoWalkCoreTests/Fixtures/parity_cases.json   # alleen voor de simulatiemodus (synthetische data)
+        buildPhase: resources
+    dependencies:
+      - package: PhotoWalkCore
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_NSCameraUsageDescription: "De camera wordt lokaal gebruikt om kozijnen op te meten. Beelden verlaten het toestel niet."
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+        INFOPLIST_KEY_UIRequiredDeviceCapabilities: "arkit"
+        # Bewust GEEN NSLocationWhenInUseUsageDescription: er worden geen locatiegegevens bewaard.
+        PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.prototype
