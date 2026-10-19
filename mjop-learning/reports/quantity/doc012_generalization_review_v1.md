@@ -114,7 +114,7 @@ netto/gerapporteerd metselwerk (2110) is niet de bruto 3D BAG-buitenmuur; geen s
 
 ## J. Generalisatie-audit
 
-Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 33, TEST_ONLY 30.
+Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 panden in scripts/, tests/, vocabularies/, schemas/. GENERIC_CODE_PROBLEM_FIXED 1, NOT_A_PROBLEM 11, REPORT_ONLY 34, TEST_ONLY 30.
 
 | Bestand | Klasse | Patronen | Toelichting |
 |---|---|---|---|
@@ -157,6 +157,7 @@ Gezocht naar: DOC-005, DOC-006, Maldenhof, 1106EZ, 1106 EZ, 190.65, 425.80, 15 p
 | `scripts/record_frame_presence_decisions.py` | NOT_A_PROBLEM | DOC-005, DOC-006, Maldenhof | DOCUMENT_SPECIFIC_DECISION_PACKAGE: legt twee door de gebruiker goedgekeurde EXTERIOR_FRAME-besluiten vast; geen extractie- of quantity-logica |
 | `scripts/record_relation_decision.py` | NOT_A_PROBLEM | DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld |
 | `scripts/register_pilot_decisions.py` | REPORT_ONLY | Maldenhof | — |
+| `scripts/run_maldenhof_photo_quantity_pilot.py` | REPORT_ONLY | Maldenhof | — |
 | `scripts/scaffolding_height_review.py` | REPORT_ONLY | DOC-005, DOC-006 | — |
 | `scripts/validate_app_quantity_bundle.py` | NOT_A_PROBLEM | DOC-005, DOC-006 | DOCSTRING_EXAMPLE: CLI-voorbeeld met het pad van de Maldenhof-bundel |
 | `scripts/visual_review_map003_map004_data.py` | REPORT_ONLY | Maldenhof | — |

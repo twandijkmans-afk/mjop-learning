@@ -1,0 +1,41 @@
+{
+  "pilot_id": "maldenhof_photo_quantity_pilot_v1",
+  "requested_segment": "Maldenhof 274-290 (voorgevel)",
+  "relevant_photos": ["MAP-002", "MAP-003", "MAP-004", "MAP-009", "MAP-013"],
+  "photo_sources": {
+    "MAP-002": {"kind": "LOCAL_REENCODED_SAME_SOURCE", "path": "data/photos/incoming/maldenhof/maldenhof_2.jpg", "crop": null,
+                "note": "maldenhof_2.jpg is dezelfde opname als MAP-002 (Pearson 1.0, andere SHA256 door herencodering); geen originele bytes."},
+    "MAP-003": {"kind": "DERIVED_REVIEW_RENDER_WITH_BURNED_IN_OVERLAY", "path": "reports/frames/photo_review_map003_map004_v1/A_overview_MAP-003.jpg",
+                "crop": [0, 70, 2048, 1606], "note": "1:1 pixelcrop van de reviewweergave; eerdere annotatie-overlay zit in de pixels ingebrand."},
+    "MAP-004": {"kind": "DERIVED_REVIEW_RENDER_WITH_BURNED_IN_OVERLAY", "path": "reports/frames/photo_review_map003_map004_v1/B_overview_MAP-004.jpg",
+                "crop": [0, 70, 2048, 1606], "note": "1:1 pixelcrop van de reviewweergave; eerdere annotatie-overlay zit in de pixels ingebrand."}
+  },
+  "sources": {
+    "review_json": "reports/frames/photo_review_map003_map004_v1/maldenhof_visual_photo_review_map003_map004_v1.json",
+    "map002_annotation": "data/photo_evidence/maldenhof_2_frame_annotation_v1.json",
+    "map002_corrected": "data/photo_evidence/maldenhof_2_frame_candidates_corrected_v1.json",
+    "frame_instances_readonly": "data/frame_inventory/maldenhof_photo_frame_instances_v1.json",
+    "archive_audit": "reports/frames/photo_archive_audit_v1/maldenhof_photo_archive_audit_v1.json",
+    "manifest": "data/photos/archive/maldenhof_selection_manifest_v1.csv",
+    "bag_snapshot": "data/bag_snapshots/BAGSNAP-431559474da45dcf.json"
+  },
+  "pand_plate_groups": [["288", "286"], ["284", "282"], ["280", "278"], ["276", "274"]],
+  "pand_ids_by_address": {"274/276": "0363100012144766", "278/280": "0363100012091756", "282/284": "0363100012143647", "286/288": "0363100012121455"},
+  "storey_height_m": {"lo": "2.5", "central": "2.7", "hi": "2.9"},
+  "storey_height_basis": "AANNAME: 3D BAG b3_bouwlagen = 3 voor de panden 274-288 en gangbare verdiepingshoogte van naoorlogse (1981) woningbouw; geen meting.",
+  "perspective_margin": "0.10",
+  "plausible_frame_m": {"w_min": "0.30", "w_max": "4.00", "h_min": "0.40", "h_max": "3.00"},
+  "depth_order_far_to_near": ["ROOF_MAIN", "UPPER_ROW", "MIDDLE_ROW", "ROOF_KAP", "GROUND_ROW"],
+  "segment": {
+    "label": "Maldenhof 276-288 (plaatketen 288 -> 276), voorgevel",
+    "excluded_obs": {
+      "OBS-MAP004-004": "Hoger bouwvolume rechts van plaat 274: buiten de plaatketen 288-276.",
+      "OBS-MAP004-010": "Hoger bouwvolume rechts van plaat 274: buiten de plaatketen 288-276.",
+      "OBS-MAP004-011": "Hoger bouwvolume rechts van plaat 274: buiten de plaatketen 288-276.",
+      "OBS-MAP004-012": "Hoger bouwvolume rechts van plaat 274: buiten de plaatketen 288-276.",
+      "OBS-MAP004-017": "Hoger bouwvolume rechts van plaat 274: buiten de plaatketen 288-276.",
+      "OBS-MAP004-021": "Hoger bouwvolume rechts van plaat 274: buiten de plaatketen 288-276."
+    },
+    "map002_only_reason": "Alleen zichtbaar in MAP-002 links van de koppeling met MAP-003: zone pand 290/292, dekking onvoldoende aangetoond (struiken, lantaarnpaal, plaat 290 zonder aansluitende raamreeks)."
+  }
+}
