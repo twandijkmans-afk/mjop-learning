@@ -58,10 +58,6 @@ struct PhotoResultView: View {
                         .font(.footnote).accessibilityIdentifier("overviewArea")
                     Text("Controles (oranje): \(ov.checks) · zonder betrouwbare maat (grijs/UNKNOWN): \(ov.noScale) · meetbaar: \(ov.measurable)").font(.footnote).accessibilityIdentifier("overviewChecks")
                     if ov.linkSuggestions > 0 { NavigationLink("Koppelsuggesties bekijken (\(ov.linkSuggestions))") { LinkSuggestionsView().environmentObject(store) }.font(.footnote) }
-                    if let n = store.analysisNotes[frameId] { Text(n).font(.caption2).foregroundStyle(.secondary) }
-                    Text("Groen/oranje/grijs = alleen UI-feedback, geen goedkeuring. Herkenning en metingen zijn NIET gevalideerd op echte gebouwen. Zoom verandert geen meting.")
-                        .font(.caption2).foregroundStyle(.secondary)
-                    Toggle("Grijze kaders (zonder maat) op de foto verbergen", isOn: $hideNeutral).font(.footnote).accessibilityIdentifier("hideNeutralToggle")
                     ForEach(frameObservations) { o in
                         let m = store.measures[o.id]
                         Button {
@@ -86,9 +82,13 @@ struct PhotoResultView: View {
                         }
                         Button("Exporteren") { exportPath = (try? ExportService.write(store))?.path ?? "export mislukt" }.buttonStyle(.bordered).accessibilityIdentifier("exportButton")
                     }
+                    Toggle("Grijze kaders (zonder maat) op de foto verbergen", isOn: $hideNeutral).font(.footnote).accessibilityIdentifier("hideNeutralToggle")
+                    if let n = store.analysisNotes[frameId] { Text(n).font(.caption2).foregroundStyle(.secondary) }
+                    Text("Groen/oranje/grijs = alleen UI-feedback, geen goedkeuring. Herkenning en metingen zijn NIET gevalideerd op echte gebouwen. Zoom verandert geen meting.")
+                        .font(.caption2).foregroundStyle(.secondary)
                     if let p = exportPath { Text("Export: \(p)").font(.caption2).textSelection(.enabled) }
                 }.padding(.horizontal, 8)
-            }.frame(maxHeight: 250)
+            }.frame(maxHeight: 280)
         }
         .navigationTitle("Foto \(frameId)").navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $showDetail) { if let id = selected { BoxDetailView(observationId: id).environmentObject(store) } }
