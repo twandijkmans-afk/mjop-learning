@@ -21,7 +21,11 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
 
     func start(store: ScanStore) {
         self.store = store
-        guard ARWorldTrackingConfiguration.isSupported else { trackingText = "ARWorldTracking niet ondersteund -> alleen niveau C (referentie)"; modeText = "C_REFERENCE"; return }
+        guard ARWorldTrackingConfiguration.isSupported else {
+            trackingText = "ARWorldTracking niet ondersteund op dit toestel (bv. simulator) -> geen keyframes; alleen niveau C (referentie) mogelijk"
+            modeText = "C_REFERENCE"
+            return
+        }
         let cfg = ARWorldTrackingConfiguration()
         cfg.worldAlignment = .gravity                       // Y omhoog, meters
         cfg.planeDetection = [.vertical]
@@ -38,6 +42,15 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
             self.trackingText = Self.trackingString(frame.camera.trackingState)
             if case .normal = frame.camera.trackingState { self.hint = nil } else { self.hint = "Beweeg langzaam en richt op een gevel met textuur." }
         }
+    }
+
+    nonisolated func session(_ session: ARSession, didFailWithError error: Error) {
+        let msg = error.localizedDescription
+        Task { @MainActor in self.trackingText = "AR-fout: \(msg) - controleer de cameratoestemming; gebruik anders een referentiemaat" }
+    }
+
+    nonisolated func sessionWasInterrupted(_ session: ARSession) {
+        Task { @MainActor in self.trackingText = "Sessie onderbroken (tracking niet beschikbaar)" }
     }
 
     static func trackingString(_ s: ARCamera.TrackingState) -> String {

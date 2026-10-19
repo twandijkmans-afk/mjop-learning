@@ -28,6 +28,13 @@ struct Observation: Identifiable {
 
 struct ObjectDraft: Identifiable { let id: String; var observationIds: [String] }
 
+/// Deterministische seed (FNV-1a); `hashValue` is per proces willekeurig en zou resultaten niet reproduceerbaar maken.
+func stableSeed(_ s: String) -> UInt64 {
+    var h: UInt64 = 0xcbf29ce484222325
+    for b in s.utf8 { h = (h ^ UInt64(b)) &* 0x100000001b3 }
+    return h
+}
+
 @MainActor
 final class ScanStore: ObservableObject {
     @Published var sessionId = UUID().uuidString
@@ -67,7 +74,7 @@ final class ScanStore: ObservableObject {
             for o in obs {
                 guard let kf = frames[o.frameId] else { continue }
                 let v = ViewInput(frameId: kf.id, intrinsics: kf.intrinsics, pose: kf.pose, trackingNormal: kf.trackingState == "NORMAL", depth: kf.depth)
-                perView.append(measureDepthView(v, corners: o.corners, seed: UInt64(truncatingIfNeeded: d.id.hashValue), obstruction: o.obstruction))
+                perView.append(measureDepthView(v, corners: o.corners, seed: stableSeed(d.id), obstruction: o.obstruction))
             }
             var final = perView.count > 1 ? fuse(perView) : (perView.first ?? LevelResult(level: .A, scaleMethod: "NONE"))
             var viewCount = final.viewIds.count

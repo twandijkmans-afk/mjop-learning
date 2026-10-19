@@ -81,3 +81,73 @@ final class ParityTests: XCTestCase {
         XCTAssertNil(r.width); XCTAssertTrue(r.flags.contains { $0.code == "CORNER_ORDER_INVALID" })
     }
 }
+
+/// Workflow-/robuustheidstests zonder sensoren (zelfde fixture): geen LiDAR, onvoldoende diepte, referentie-terugval, export-invarianten.
+final class WorkflowTests: XCTestCase {
+    private func fixture() throws -> (ViewInput, [Pixel], [Pixel], Intrinsics, Pose) {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "parity_cases", withExtension: "json", subdirectory: "Fixtures"))
+        let c = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+        func d(_ x: Any?) -> Double { (x as! NSNumber).doubleValue }
+        let i = c["intrinsics"] as! [String: Any], a = c["level_a"] as! [String: Any], l = c["level_c"] as! [String: Any]
+        let intr = Intrinsics(fx: d(i["fx"]), fy: d(i["fy"]), cx: d(i["cx"]), cy: d(i["cy"]), width: Int(d(i["width"])), height: Int(d(i["height"])))
+        let pose = Pose(rowMajor: (c["pose_row_major"] as! [Any]).map { d($0) })
+        let target = (a["corners_px"] as! [[Double]]).map { Pixel($0[0], $0[1]) }
+        let anchor = (l["anchor_px"] as! [[Double]]).map { Pixel($0[0], $0[1]) }
+        let depth = DepthMap(width: 64, height: 48, values: (a["depth"] as! [Any]).map { Float(d($0)) == 0 ? Float.nan : Float(d($0)) })
+        return (ViewInput(frameId: "F", intrinsics: intr, pose: pose, trackingNormal: true, depth: depth), target, anchor, intr, pose)
+    }
+
+    func testNoDepthGivesUnknownNotCrash() throws {
+        var (v, target, _, _, _) = try fixture()
+        v.depth = nil
+        let r = measureDepthView(v, corners: target)
+        XCTAssertNil(r.width); XCTAssertTrue(r.flags.contains { $0.code == "NO_DEPTH" })
+        let o = makeObject(id: "P1", observations: [], result: r, viewCount: 1)
+        XCTAssertEqual(o.status, .UNKNOWN); XCTAssertNil(o.areaM2); XCTAssertTrue(o.reviewRequired)
+    }
+
+    func testInsufficientDepthCoverageGivesUnknown() throws {
+        var (v, target, _, _, _) = try fixture()
+        v.depth = DepthMap(width: 64, height: 48, values: [Float](repeating: .nan, count: 64 * 48))
+        let r = measureDepthView(v, corners: target)
+        XCTAssertNil(r.width); XCTAssertTrue(r.flags.contains { $0.code == "DEPTH_COVERAGE_LOW" })
+    }
+
+    func testReferenceFallbackWithoutDepthGivesDerivedAndGrossArea() throws {
+        var (v, target, anchor, _, _) = try fixture()
+        v.depth = nil
+        let ref = ReferenceMeasure(referenceId: "R", p1: anchor[0], p2: anchor[1], distanceM: 1.2, distanceSigmaM: 0.005, planeId: "P")
+        let r = measureWithReference(view: v, target: target, ref: ref, anchor: anchor)
+        XCTAssertTrue(r.ok)
+        let o = makeObject(id: "P1", observations: [], result: r, viewCount: 1)
+        XCTAssertEqual(o.status, .DERIVED)
+        XCTAssertEqual(Decimal(string: o.areaM2 ?? "0"), Decimal(string: o.widthM!)! * Decimal(string: o.heightM!)!)   // bruto m2 = b x h, glas niet afgetrokken
+        XCTAssertEqual(Double(o.widthM!)!, 1.2, accuracy: 0.005); XCTAssertEqual(Double(o.heightM!)!, 1.5, accuracy: 0.005)
+    }
+
+    func testReferenceOnWrongPlaneIsRejected() throws {
+        var (v, target, anchor, _, _) = try fixture()
+        v.depth = nil
+        let ref = ReferenceMeasure(referenceId: "R", p1: anchor[0], p2: anchor[1], distanceM: 1.2, planeId: "P1", targetPlaneId: "P2")
+        let r = measureWithReference(view: v, target: target, ref: ref)
+        XCTAssertNil(r.width); XCTAssertTrue(r.flags.contains { $0.code == "REFERENCE_PLANE_MISMATCH" })
+    }
+
+    func testTrackingLossGivesNoValueAndInvariantsHold() throws {
+        var (v, target, _, _, _) = try fixture()
+        v.trackingNormal = false
+        let o = makeObject(id: "P1", observations: [], result: measureDepthView(v, corners: target), viewCount: 1)
+        XCTAssertEqual(o.status, .UNKNOWN)
+        let j = o.json
+        XCTAssertEqual(j["quantity_layer"] as? String, "PROVISIONAL"); XCTAssertEqual(j["approval_state"] as? String, "PENDING_HUMAN_APPROVAL")
+        XCTAssertTrue(j["outer_width_m"] is NSNull); XCTAssertTrue(j["gross_area_m2"] is NSNull); XCTAssertTrue(j["measurement_uncertainty"] is NSNull)
+    }
+
+    func testPointsOutsideDepthMapDoNotCrash() throws {
+        var (v, target, _, _, _) = try fixture()
+        let ref = ReferenceMeasure(referenceId: "R", p1: Pixel(-50, -50), p2: Pixel(99999, 99999), distanceM: 1.0, planeId: "P")
+        _ = measureWithReference(view: v, target: target, ref: ref)       // moet een resultaat (mogelijk UNKNOWN) geven, geen crash
+        v.depth = DepthMap(width: 64, height: 48, values: [Float](repeating: 3, count: 64 * 48))
+        _ = measureWithReference(view: v, target: target, ref: ref)
+    }
+}

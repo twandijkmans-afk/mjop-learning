@@ -14,7 +14,10 @@ struct ResultsView: View {
                         Text(o.id).font(.headline)
                         Text(o.status == .UNKNOWN ? "UNKNOWN - geen betrouwbare maat" :
                                 "\(o.widthM ?? "?") x \(o.heightM ?? "?") m = \(o.areaM2 ?? "?") m2  [\(o.status.rawValue)]")
-                        Text("Bron/onzekerheid: zie export (modelgebaseerd, niet gevalideerd). Waarnemingen: \(o.observations.count)").font(.caption)
+                        if o.status != .UNKNOWN, let sa = o.result.sigmaArea {
+                            Text("Bron: \(o.result.scaleMethod) (niveau \(o.result.level.rawValue)) - onzekerheid 1σ ≈ \(String(format: "%.4f", sa)) m² (modelgebaseerd, NIET gevalideerd)").font(.caption)
+                        }
+                        Text("Waarnemingen: \(o.observations.count) - hoeken handmatig geselecteerd (semi-automatisch)").font(.caption)
                         if o.reviewRequired { Text("Review nodig").font(.caption).foregroundStyle(.orange) }
                         ForEach(o.nextSteps, id: \.self) { Text("• \($0)").font(.caption) }
                     }

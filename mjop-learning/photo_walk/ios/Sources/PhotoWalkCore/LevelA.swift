@@ -47,13 +47,16 @@ private func depthSamples(_ view: ViewInput) -> [DepthSample] {
 }
 
 private func localDepth(_ view: ViewInput, _ p: Pixel) -> Double? {
-    guard let d = view.depth else { return nil }
+    guard let d = view.depth, d.width > 0, d.height > 0, p.u.isFinite, p.v.isFinite else { return nil }
     let sx = Double(view.intrinsics.width) / Double(d.width), sy = Double(view.intrinsics.height) / Double(d.height)
-    let j = Int(p.u / sx), i = Int(p.v / sy)
+    let j = min(max(Int(p.u / sx), 0), d.width - 1), i = min(max(Int(p.v / sy), 0), d.height - 1)   // geklemd: nooit buiten de kaart
     var vals: [Double] = []
-    for ii in max(i - 1, 0)...min(i + 1, d.height - 1) { for jj in max(j - 1, 0)...min(j + 1, d.width - 1) {
-        let z = Double(d.values[ii * d.width + jj]); if z.isFinite && z > 0 { vals.append(z) }
-    } }
+    for ii in max(i - 1, 0)...min(i + 1, d.height - 1) {
+        for jj in max(j - 1, 0)...min(j + 1, d.width - 1) {
+            let z = Double(d.values[ii * d.width + jj])
+            if z.isFinite && z > 0 { vals.append(z) }
+        }
+    }
     guard vals.count >= 3 else { return nil }
     vals.sort()
     return vals[vals.count / 2]

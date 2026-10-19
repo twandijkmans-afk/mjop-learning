@@ -18,13 +18,19 @@ targets:
         buildPhase: resources
     dependencies:
       - package: PhotoWalkCore
+    info:
+      path: Info.generated.plist          # door XcodeGen gegenereerd; niet committen
+      properties:
+        CFBundleDisplayName: Photo Walk
+        NSCameraUsageDescription: "De camera wordt lokaal gebruikt om kozijnen op te meten. Beelden verlaten het toestel niet."
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities: [arkit]
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIFileSharingEnabled: true          # exportbestanden zichtbaar in de Bestanden-app (handig zonder Mac)
+        LSSupportsOpeningDocumentsInPlace: true
+        # Bewust GEEN NSLocationWhenInUseUsageDescription: er worden geen locatiegegevens bewaard.
     settings:
       base:
         SWIFT_VERSION: "5.9"
-        GENERATE_INFOPLIST_FILE: YES
-        INFOPLIST_KEY_NSCameraUsageDescription: "De camera wordt lokaal gebruikt om kozijnen op te meten. Beelden verlaten het toestel niet."
-        INFOPLIST_KEY_UILaunchScreen_Generation: YES
-        INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
-        INFOPLIST_KEY_UIRequiredDeviceCapabilities: "arkit"
-        # Bewust GEEN NSLocationWhenInUseUsageDescription: er worden geen locatiegegevens bewaard.
         PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.prototype
+        CODE_SIGN_STYLE: Automatic
