@@ -1,0 +1,230 @@
+{
+  "vocabulary_id": "bruto_triage_rules_v2",
+  "description": "Regelcatalogus voor Quantity Review & Triage v1. Twee onafhankelijke assen (identiteit/telling en maatvoering). Alle drempels zijn ongekalibreerd tot een menselijk gelabelde set is geëvalueerd.",
+  "classes": [
+    "CLEAN_PROVISIONAL",
+    "REVIEW_REQUIRED",
+    "INSUFFICIENT_EVIDENCE",
+    "CONFLICT"
+  ],
+  "class_rank": {
+    "CLEAN_PROVISIONAL": 0,
+    "REVIEW_REQUIRED": 1,
+    "INSUFFICIENT_EVIDENCE": 2,
+    "CONFLICT": 3
+  },
+  "work_states": [
+    "AUTO_PROVISIONAL",
+    "INDIVIDUAL_REVIEW",
+    "BLOCKED",
+    "READY_FOR_GROUP_REVIEW"
+  ],
+  "identity_evidence_basis": {
+    "anchors": [
+      "UNIQUE_CONFIGURATION",
+      "PLATE_ANCHOR"
+    ],
+    "similarity_only": [
+      "SAME_LAYOUT",
+      "FEATURE_MATCH",
+      "SEQUENCE_ORDER",
+      "PARTIAL_OVERLAP",
+      "OBLIQUE_VIEW",
+      "FACADE_CONTEXT"
+    ],
+    "blocking": [
+      "REPETITION_RISK",
+      "HIDDEN",
+      "TOO_DARK"
+    ]
+  },
+  "observation_flags": [
+    "LOW_QUALITY",
+    "OBLIQUE_VIEW",
+    "POSSIBLE_OVERLAP"
+  ],
+  "rules": [
+    {
+      "rule_id": "A-C1",
+      "axis": "IDENTITY",
+      "class": "CONFLICT",
+      "title": "Observatie bij meerdere objecten",
+      "description": "Eén observatie is aan meer dan één object toegekend: dubbeltelling."
+    },
+    {
+      "rule_id": "A-C2",
+      "axis": "IDENTITY",
+      "class": "CONFLICT",
+      "title": "Zelfde foto meerdere keren voor één object",
+      "description": "Eén fysiek object kan niet meer dan één keer op dezelfde foto staan; het aantal observaties per foto overschrijdt het aantal stuks."
+    },
+    {
+      "rule_id": "A-C3",
+      "axis": "IDENTITY",
+      "class": "CONFLICT",
+      "title": "Bewijs spreekt samenvoeging tegen",
+      "description": "Voor twee observaties van hetzelfde object bestaat bewijs dat ze NIET hetzelfde object zijn."
+    },
+    {
+      "rule_id": "A-C4",
+      "axis": "IDENTITY",
+      "class": "CONFLICT",
+      "title": "Ankerbewijs koppelt verschillende objecten",
+      "description": "Verankerd bewijs zegt dat observaties van verschillende objecten hetzelfde fysieke object zijn: onverenigbare identiteitsclaims."
+    },
+    {
+      "rule_id": "A-C5",
+      "axis": "IDENTITY",
+      "class": "CONFLICT",
+      "title": "Inconsistente objectverwijzingen",
+      "description": "Onbekend type of onbekende observatie, categoriemismatch, instance/FI-id, of geschat object met observaties."
+    },
+    {
+      "rule_id": "A-I1",
+      "axis": "IDENTITY",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Geen volledig zicht",
+      "description": "Geen enkele observatie van het object toont het kozijn volledig (FULL)."
+    },
+    {
+      "rule_id": "A-I2",
+      "axis": "IDENTITY",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Geen identiteitsvoorstel",
+      "description": "Er is geen consolidatievoorstel voor dit object: niet vast te stellen welk fysiek object het is."
+    },
+    {
+      "rule_id": "A-I3",
+      "axis": "IDENTITY",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Samenvoeging zonder verankerd bewijs",
+      "description": "Observaties van meerdere foto's zijn samengevoegd zonder verankerd bewijs (uniek kenmerk of plaatje); alleen overeenkomst telt niet."
+    },
+    {
+      "rule_id": "A-I4",
+      "axis": "IDENTITY",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Blokkerende bewijsgrond",
+      "description": "Bewijs vermeldt herhalingsrisico, verborgen of te donker beeld."
+    },
+    {
+      "rule_id": "A-R1",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Bewijsbron niet verifieerbaar",
+      "description": "Bewijs of observatie mist een bronverwijzing of hash."
+    },
+    {
+      "rule_id": "A-R2",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Mogelijke overlap niet opgelost",
+      "description": "Overeenkomst tussen observaties van verschillende objecten kan dezelfde opening betekenen; alleen gelijkenis, geen verankerd bewijs."
+    },
+    {
+      "rule_id": "A-R3",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Verminderde beeldkwaliteit",
+      "description": "Observatie is scheef gezien of van lage kwaliteit."
+    },
+    {
+      "rule_id": "A-R4",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Aantal niet gedekt door observaties",
+      "description": "Het aantal stuks is groter dan het aantal observaties."
+    },
+    {
+      "rule_id": "A-R5",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Drempel ongekalibreerd",
+      "description": "Bewijsdrempels zijn niet gekalibreerd; zonder kalibratie is geen enkel object schoon voorlopig."
+    },
+    {
+      "rule_id": "A-R6",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Te weinig onafhankelijke ankers",
+      "description": "Aantal onafhankelijke ankers is lager dan het gekalibreerde minimum."
+    },
+    {
+      "rule_id": "A-R7",
+      "axis": "IDENTITY",
+      "class": "REVIEW_REQUIRED",
+      "title": "Geschat ontbrekend object",
+      "description": "Object is niet waargenomen maar afgeleid uit herhaling; bestaan moet worden beoordeeld."
+    },
+    {
+      "rule_id": "B-C1",
+      "axis": "DIMENSION",
+      "class": "CONFLICT",
+      "title": "Maatbronnen spreken elkaar tegen",
+      "description": "Twee maatbronnen wijken verder af dan hun opgegeven onzekerheid."
+    },
+    {
+      "rule_id": "B-C2",
+      "axis": "DIMENSION",
+      "class": "CONFLICT",
+      "title": "Schattingsreferentie onverenigbaar",
+      "description": "Het referentietype van de schatting heeft een andere objectcategorie of ontbreekt."
+    },
+    {
+      "rule_id": "B-C3",
+      "axis": "DIMENSION",
+      "class": "CONFLICT",
+      "title": "Ongeldige maatvoering",
+      "description": "De maatvoering van het object voldoet niet aan de rekenkern."
+    },
+    {
+      "rule_id": "B-I1",
+      "axis": "DIMENSION",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Maat onbekend",
+      "description": "Er is geen maat; bruto oppervlak blijft onbekend (null)."
+    },
+    {
+      "rule_id": "B-I2",
+      "axis": "DIMENSION",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Schattingsreferentie niet herleidbaar",
+      "description": "De schatting verwijst naar ontbrekende of niet-betrouwbare referenties."
+    },
+    {
+      "rule_id": "B-R1",
+      "axis": "DIMENSION",
+      "class": "REVIEW_REQUIRED",
+      "title": "Schatting vraagt beoordeling",
+      "description": "Maat is een schatting uit een vergelijkbaar type; zonder gekalibreerde drempels altijd beoordelen."
+    },
+    {
+      "rule_id": "B-R2",
+      "axis": "DIMENSION",
+      "class": "REVIEW_REQUIRED",
+      "title": "Afwijking binnen typegroep",
+      "description": "Maat komt niet overeen met de referentiematen, varianten of de rest van de typegroep."
+    },
+    {
+      "rule_id": "B-R3",
+      "axis": "DIMENSION",
+      "class": "REVIEW_REQUIRED",
+      "title": "Maatbron onvolledig",
+      "description": "Gemeten of uit tekening afgeleide maat mist een traceerbare bron."
+    },
+    {
+      "rule_id": "B-R4",
+      "axis": "DIMENSION",
+      "class": "REVIEW_REQUIRED",
+      "title": "Perspectief beïnvloedt maat",
+      "description": "Maat is niet gemeten en steunt op een scheef gezien beeld."
+    },
+    {
+      "rule_id": "B-R5",
+      "axis": "DIMENSION",
+      "class": "REVIEW_REQUIRED",
+      "title": "Schattingsdrempel niet gehaald",
+      "description": "Aantal referenties, vergelijkbaarheidsgrond of spreiding voldoet niet aan de gekalibreerde drempel."
+    }
+  ]
+}
