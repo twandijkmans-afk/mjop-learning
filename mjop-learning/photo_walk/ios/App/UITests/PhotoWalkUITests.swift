@@ -13,7 +13,7 @@ final class PhotoWalkUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
-        XCTAssertFalse(app.buttons["Nieuwe scan starten"].isEnabled, "zonder gebouw-/gevel-ID mag geen scan starten")
+        XCTAssertFalse(app.buttons["Foto-scan starten"].isEnabled, "zonder gebouw-/gevel-ID mag geen scan starten")
         app.buttons["Testscan met synthetische data (simulatie)"].tap()
         XCTAssertTrue(label(app, containing: "SIMULATIE").waitForExistence(timeout: 15))
         XCTAssertTrue(label(app, containing: "1.2").exists)
@@ -29,7 +29,7 @@ final class PhotoWalkUITests: XCTestCase {
         app.launchArguments += ["-uitest-prefill"]
         app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
-        let start = app.buttons["Nieuwe scan starten"]
+        let start = app.buttons["Keyframe-scan starten (handmatig markeren)"]
         XCTAssertTrue(start.waitForExistence(timeout: 10))
         XCTAssertTrue(start.isEnabled)
         start.tap()
@@ -135,21 +135,48 @@ final class PhotoWalkUITests: XCTestCase {
         XCTAssertEqual(app.state, .runningForeground)
     }
 
-    func testLiveCameraZoomControls() {
+    func testPhotoScanZoomControlsAndShutterWithoutCamera() {
         let app = XCUIApplication()
         app.launchArguments += ["-uitest-prefill"]
         app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
-        app.buttons["Nieuwe scan starten"].tap()
-        let ind = app.staticTexts["liveZoomIndicator"]
+        app.buttons["Foto-scan starten"].tap()
+        let ind = app.staticTexts["photoZoomIndicator"]
         XCTAssertTrue(ind.waitForExistence(timeout: 15))
         XCTAssertEqual(ind.label, "1.0×")
-        app.buttons["liveZoom4"].tap()
+        XCTAssertTrue(app.buttons["shutterButton"].exists, "één duidelijke fotoknop")
+        XCTAssertFalse(app.buttons["shutterButton"].isEnabled, "zonder camera/ARKit (simulator) is de fotoknop uitgeschakeld, geen crash")
+        app.buttons["photoZoom4"].tap()
         XCTAssertTrue(waitFor(ind, "label == %@", "4.0×"))
-        app.buttons["liveZoom1"].tap()
+        app.buttons["photoZoom1"].tap()
         XCTAssertTrue(waitFor(ind, "label == %@", "1.0×"))
-        app.sliders["liveZoomSlider"].adjust(toNormalizedSliderPosition: 0.5)
+        app.sliders["photoZoomSlider"].adjust(toNormalizedSliderPosition: 0.5)
         XCTAssertTrue(waitFor(ind, "label != %@", "1.0×"))
+        XCTAssertEqual(app.state, .runningForeground)
+    }
+
+    /// Foto -> automatische kandidaat-detectie (Apple Vision op de synthetische foto) -> kaders -> voorlopige maat (synthetische LiDAR-diepte) -> overzicht.
+    func testPhotoToBoxesToMeasurementWorkflowOnSyntheticPhoto() {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
+        app.buttons["Testfoto met synthetische data (simulatie)"].tap()
+        let detected = app.staticTexts["overviewDetected"]
+        XCTAssertTrue(detected.waitForExistence(timeout: 30))
+        XCTAssertTrue(waitFor(detected, "NOT (label CONTAINS %@)", "Herkend: 0 ", timeout: 90), "er moet minstens één kandidaat-kozijn worden herkend")
+        XCTAssertTrue(app.otherElements["photoCanvas"].exists)
+        XCTAssertTrue(app.staticTexts["overviewUnique"].label.contains("Voorlopig unieke kozijnen"))
+        XCTAssertTrue(app.staticTexts["overviewChecks"].label.contains("Controles (oranje)"))
+        let area = app.staticTexts["overviewArea"]
+        XCTAssertTrue(waitFor(area, "label CONTAINS %@", "ESTIMATED", timeout: 60) || area.label.contains("DERIVED"), "voorlopige bruto m² per status (enkele foto: ESTIMATED)")
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 10))
+        XCTAssertTrue(row.label.contains("m²") || row.label.contains("UNKNOWN"))
+        row.tap()
+        let dims = app.staticTexts["detailDims"]
+        XCTAssertTrue(dims.waitForExistence(timeout: 15))
+        app.buttons["rejectButton"].tap()                              // "geen kozijn": lokaal bewaard, telt niet meer mee
+        XCTAssertTrue(waitFor(app.staticTexts["overviewDetected"], "label CONTAINS %@", "Herkend: 0 ", timeout: 20) || app.staticTexts["overviewDetected"].label.contains("Herkend:"))
         XCTAssertEqual(app.state, .runningForeground)
     }
 }

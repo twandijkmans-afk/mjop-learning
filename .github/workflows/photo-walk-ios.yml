@@ -172,12 +172,23 @@ jobs:
           python - <<'PY'
           import json, os
           r = json.load(open(os.environ["LOGS"] + "/selftest-export.json"))
-          o = r["objects"][0]
-          print(o["outer_width_m"], o["outer_height_m"], o["gross_area_m2"], o["dimension_status"])
           assert r["data_origin"] == "SIMULATION" and r["invariants"]["is_final"] is False
-          assert abs(float(o["outer_width_m"]) - 1.2) < 0.01 and abs(float(o["outer_height_m"]) - 1.5) < 0.01
-          assert o["dimension_status"] in ("MEASURED", "ESTIMATED")
+          assert r["capture_mode"] == "PHOTO" and r["detection_summary"]["validated_on_real_buildings"] is False
+          objs = [o for o in r["objects"] if o["gross_area_m2"]]
+          print("objecten:", len(r["objects"]), "met maat:", len(objs))
+          assert objs, "geen enkel automatisch gedetecteerd kozijn kreeg een maat"
+          best = min(objs, key=lambda o: abs(float(o["outer_width_m"]) - 1.2) + abs(float(o["outer_height_m"]) - 1.5))
+          w, h = float(best["outer_width_m"]), float(best["outer_height_m"])
+          print("beste:", w, h, best["gross_area_m2"], best["dimension_status"])
+          assert abs(w - 1.2) < 0.08 and abs(h - 1.5) < 0.08, "automatisch gedetecteerd kozijn wijkt te veel af van de synthetische waarheid"
+          assert all(o["dimension_status"] in ("ESTIMATED", "DERIVED", "UNKNOWN") for o in r["objects"]), "een enkele foto mag nooit MEASURED zijn"
+          assert all("AUTO_DETECTED_UNCONFIRMED" in [f["code"] for f in o["quality_flags"]] and o["review_required"] for o in r["objects"])
+          assert r["scan_label"] == "AUTOMATIC_UNREVIEWED"
           PY
+          grep -c "SELFTEST_DETECT" "$LOGS/selftest-console.log" | tee "$LOGS/detect-count.txt"
+          [ "$(cat "$LOGS/detect-count.txt")" -ge 1 ] || { echo "::error::geen enkele detectie in de selftest"; exit 1; }
+          grep "SELFTEST_PERSIST" "$LOGS/selftest-console.log"
+          grep -q "SELFTEST_PERSIST observations=[1-9][0-9]* identicalDepth=true" "$LOGS/selftest-console.log" || { echo "::error::lokale opslag/herstel niet identiek"; exit 1; }
 
       - name: Artifacts verzamelen (simulator-app, unsigned device-IPA)
         if: always()
