@@ -9,11 +9,13 @@ Zelfstandige component in `mjop-learning` met een duidelijke integratie-interfac
 |---|---|---|---|---|---|
 | Python-meetkern (`python/photo_walk_core`) — geometrie, niveau A/B/C, kwaliteitspoorten, dedup, dekking, contract, export | ja | **ja (39 tests groen)** | ja | nee | nee |
 | JSON-schema `photo_walk_capture_v1` | ja | ja (validatie in tests) | – | – | – |
-| Swift-package `PhotoWalkCore` + pariteitstests | ja | **nee** | – | – | nee |
-| iOS-app (SwiftUI/ARKit) | ja | **nee** | alleen simulatieknop | nee | nee |
+| Swift-package `PhotoWalkCore` + pariteits-/workflowtests | ja | **ja, op macOS-CI (Xcode 16.4): 12 tests groen** | ja | nee | nee |
+| iOS-app (SwiftUI/ARKit) | ja | **ja: simulator- en unsigned devicebuild groen in CI; XCUITest-rooktest + headless selftest** | simulatieflow | nee | **nee — nooit op een fysieke iPhone gedraaid** |
 | Android-contract/adapter (Kotlin) | ja (klein) | **nee** | – | nee | nee |
 
-Een synthetisch succesvolle test bewijst **geen** nauwkeurigheid op een echte gevel. Er is in deze omgeving geen macOS, Xcode, Swift, Kotlin of iPhone beschikbaar geweest; de Swift/Kotlin-code kan dus compilerfouten bevatten. Wat nog op een toestel moet: `docs/device_validation.md`.
+CI-workflow `photo-walk-ios.yml` bouwt Swift + app op `macos-15` (zonder code signing). Installatie op een iPhone: `docs/install_windows_free.md`.
+
+Een synthetisch succesvolle test bewijst **geen** nauwkeurigheid op een echte gevel. Lokaal was er geen macOS/Xcode/iPhone; de Swift-code wordt door GitHub Actions op macOS gecompileerd en getest. Kotlin is nog niet gecompileerd. Wat nog op een toestel moet: `docs/device_validation.md`.
 
 ## Mappen
 
@@ -56,7 +58,7 @@ Vereist: macOS met Xcode ≥ 15, iOS ≥ 16, iPhone met ARKit. **LiDAR is niet v
 
 ```bash
 cd photo_walk/ios
-swift test                      # Swift ↔ Python-pariteit (nog nooit uitgevoerd; verwacht eerst compilerfouten te herstellen)
+swift test                      # Swift ↔ Python-pariteit + workflowtests (draait groen in CI)
 cd App && brew install xcodegen && xcodegen generate && open PhotoWalk.xcodeproj
 ```
 Ondertekenen met eigen team en op een toestel draaien (de simulator heeft geen ARKit-camera).

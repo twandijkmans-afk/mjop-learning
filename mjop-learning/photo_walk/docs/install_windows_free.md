@@ -22,7 +22,7 @@ GitHub Actions kan zónder jouw Apple-gegevens dus nooit een direct installeerba
 ## Route A — Sideloadly (aanbevolen voor een eigen IPA)
 
 Vereist: Windows 10/11, USB-kabel, iPhone met iOS 16 of nieuwer, **Developer Mode aan** (Instellingen → Privacy en beveiliging → Ontwikkelaarsmodus), de *web*-versies van **iTunes** en **iCloud** (niet uit de Microsoft Store), je Apple-ID.
-1. Download de IPA: GitHub → PR #57 → *Checks* → workflow **Photo walk iOS build** → *Artifacts* → `photo-walk-ios-build` → `PhotoWalk-UNSIGNED-device.ipa`.
+1. Download de IPA: log in op GitHub → PR #57 → *Checks* → workflow **Photo walk iOS build** → run openen → onderaan *Artifacts* → **`photo-walk-UNSIGNED-device-ipa`** (zip; uitpakken geeft `PhotoWalk-UNSIGNED-device.ipa`). Artifacts verlopen na 14 dagen; start de workflow dan opnieuw (*Run workflow*).
 2. Installeer iTunes + iCloud (web-versies) en sideloadly.io; sluit de iPhone aan en kies "Vertrouwen".
 3. Sideloadly: sleep de IPA erin, vul je Apple-ID in (gebruik bij voorkeur een apart gratis Apple-ID), *Start*. Voer wachtwoord/2FA **alleen daar** in.
 4. iPhone: Instellingen → Algemeen → VPN en apparaatbeheer → je Apple-ID → *Vertrouw*. Start Photo Walk; sta de camera toe.

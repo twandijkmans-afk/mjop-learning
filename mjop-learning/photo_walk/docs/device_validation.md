@@ -7,12 +7,14 @@ Alles hieronder is **niet gedaan**: er was geen macOS/Xcode/iOS-hardware.
 | Niveau | Status |
 |---|---|
 | Gebouwde code (Python-kern, schema, tests, docs) | ja |
-| Gecompileerde code | Python: ja (uitgevoerd). **Swift: nee. Kotlin: nee.** |
-| Simulatie (synthetische gevel/diepte/poses) | ja — 39 Python-tests groen |
+| Gecompileerde code | Python: ja. **Swift/iOS: ja, op macOS-CI (Xcode 16.4, Swift 6.1.2; simulator- + unsigned devicebuild).** Kotlin: nee. |
+| Simulatie (synthetische gevel/diepte/poses) | ja — 39 Python-tests + 12 Swift-tests + XCUITest-rooktest groen |
 | Echte sensormeting | **nee** |
 | Op fysiek toestel gevalideerd | **nee** |
 
-## Eerst compileren (Mac met Xcode ≥ 15, iOS ≥ 16)
+## Compileren en testen
+
+Dit gebeurt in CI (`.github/workflows/photo-walk-ios.yml`, macOS-15 runner). Op een Mac:
 
 1. `cd photo_walk/ios && swift test` — draait `ParityTests` (Swift ↔ Python op gedeelde fixtures). Verwacht: eventuele compilerfouten (de Swift-code is nooit gecompileerd) en daarna groen.
 2. `cd photo_walk/ios/App && xcodegen generate && open PhotoWalk.xcodeproj`; ondertekenen met eigen team; draaien op een iPhone met LiDAR (iPhone 12 Pro of nieuwer, Pro-modellen) én op een model zonder LiDAR (modus B/C).

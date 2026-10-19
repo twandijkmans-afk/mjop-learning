@@ -185,14 +185,31 @@ jobs:
             rm -rf "$RUNNER_TEMP/ipa" && mkdir -p "$RUNNER_TEMP/ipa/Payload" && cp -R "$DEV" "$RUNNER_TEMP/ipa/Payload/"
             (cd "$RUNNER_TEMP/ipa" && zip -qry "$RUNNER_TEMP/out/PhotoWalk-UNSIGNED-device.ipa" Payload)
             codesign -dv "$DEV" 2>&1 | tee "$LOGS/codesign-device.txt" || true
+            echo "--- architecturen"; lipo -archs "$DEV/PhotoWalk" | tee "$LOGS/ipa-archs.txt"
+            grep -q arm64 "$LOGS/ipa-archs.txt" || { echo "::error::devicebuild bevat geen arm64"; exit 1; }
+            echo "--- IPA-inhoud"; unzip -l "$RUNNER_TEMP/out/PhotoWalk-UNSIGNED-device.ipa" | head -25 | tee "$LOGS/ipa-contents.txt"
+            plutil -p "$DEV/Info.plist" | grep -E "CFBundleIdentifier|MinimumOSVersion|UIRequiredDeviceCapabilities|NSCameraUsage" | tee "$LOGS/ipa-info.txt"
+            shasum -a 256 "$RUNNER_TEMP/out/PhotoWalk-UNSIGNED-device.ipa" | tee "$LOGS/ipa-sha256.txt"
           fi
           ls -la "$RUNNER_TEMP/out" || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: photo-walk-ios-build
-          path: |
-            ${{ runner.temp }}/out/*
-            ${{ github.workspace }}/ci-logs/*
+          name: photo-walk-UNSIGNED-device-ipa
+          path: ${{ runner.temp }}/out/PhotoWalk-UNSIGNED-device.ipa
+          if-no-files-found: warn
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: photo-walk-simulator-app
+          path: ${{ runner.temp }}/out/PhotoWalk-simulator.app.zip
+          if-no-files-found: warn
+          retention-days: 14
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: photo-walk-ci-logs
+          path: ${{ github.workspace }}/ci-logs
           if-no-files-found: warn
           retention-days: 14
