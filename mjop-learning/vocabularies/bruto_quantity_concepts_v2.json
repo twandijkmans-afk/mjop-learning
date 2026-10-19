@@ -1,0 +1,88 @@
+{
+  "$id": "bruto_quantity_concepts_v2",
+  "vocabulary_version": "bruto_quantity_concepts_v2",
+  "description": "Gesloten vocabulaire van het Bruto Quantity Model v2 (aanvullende laag naast frame_quantity_concepts_v1; v1 blijft ongewijzigd). Fase 1 en 2: alleen modelleren en deterministisch rekenen. Geen besluit, geen goedkeuring, geen instance, geen prijs- of kengetalkoppeling.",
+  "method": {
+    "method_id": "GROSS_FRAME_AREA_OUTER_V2",
+    "formula": "gross_area_m2 = outer_width_m * outer_height_m * quantity",
+    "dimension_basis": "OUTER_FRAME",
+    "includes_glass": true,
+    "includes_fixed_and_movable_parts_within_outer_dimensions": true,
+    "glass_area_deducted": false,
+    "movable_parts_added_separately": false,
+    "precision": "Decimal, volledige precisie; geen float",
+    "presentation_rounding": {
+      "rule_id": "ROUND_HALF_UP_2DP_LARGEST_REMAINDER_V1",
+      "decimal_places": 2,
+      "description": "Intern altijd exact. Alleen bij presentatie wordt afgerond op 2 decimalen (half-up). Een totaal wordt afgerond uit de exacte som; subtotalen worden met de grootste-restmethode zo verdeeld dat de afgeronde subtotalen exact optellen tot het afgeronde totaal (bij gelijke rest wint de eerste sleutel in vaste volgorde)."
+    },
+    "min_dimension_m": "0.10",
+    "max_dimension_m": "10"
+  },
+  "relation_to_v1": {
+    "frame_quantity_concepts_v1": "ONGEWIJZIGD. GROSS_FRAME_AREA_OUTER_V2 is een aanvullend begrip; er wordt geen v1-concept (FRAME_OUTER_AREA, WINDOW_OPENING_AREA, GLASS_AREA, FRAME_PAINTING_AREA) gelijkgesteld of hergeinterpreteerd.",
+    "photo_quantity_state_v1": "ONGEWIJZIGD. GROSS_FRAME_AREA_OUTER_V1 blijft het foto-contract; v2 is een apart contract.",
+    "legacy_terms": {
+      "EXTERIOR_WINDOW": "LEGACY: geen telling van unieke kozijnobjecten; wordt niet stilzwijgend hergeinterpreteerd.",
+      "WINDOW_COUNT": "LEGACY: geen telling van unieke kozijnobjecten; wordt niet stilzwijgend hergeinterpreteerd."
+    }
+  },
+  "object_categories": [
+    {"category": "FRAME", "label_nl": "Compleet kozijn", "counts_as": "FRAME_OBJECT", "note": "Eén compleet kozijn is één object, ongeacht het aantal vaste of draaiende ramen of ruiten."},
+    {"category": "FRAME_WITH_DOOR", "label_nl": "Kozijn met deur (bijv. balkondeur met omliggend kozijn)", "counts_as": "FRAME_OBJECT", "note": "Eén opening is één object; niet automatisch twee objecten. Valt altijd onder het kozijnoppervlak, nooit onder een apart deuraantal."},
+    {"category": "DOOR", "label_nl": "Losse deur", "counts_as": "DOOR_OBJECT", "note": "Wordt in stuks geregistreerd; of de deur in m2 meetelt hangt af van de onderhoudsactie (zie bruto_quantity_actions_v2)."}
+  ],
+  "type_classifications": ["FRAME_FIXED", "FRAME_CASEMENT", "FRAME_TURN_TILT", "FRAME_COMBINATION", "DOOR_ENTRANCE", "DOOR_GARDEN", "DOOR_BALCONY_WITH_FRAME", "OTHER", "UNKNOWN"],
+  "materials": ["WOOD", "PVC", "ALUMINIUM", "STEEL", "OTHER", "UNKNOWN"],
+  "dimension": {
+    "statuses": [
+      {"status": "MEASURED", "area_class": "KNOWN", "needs_scale_evidence": false, "note": "Gemeten maat (menselijke meting of gevalideerde referentiemaat). Een verwijzing naar een menselijke meting is op zichzelf geen geauthenticeerde goedkeuring."},
+      {"status": "DRAWING_DERIVED", "area_class": "KNOWN", "needs_scale_evidence": true, "note": "Afgeleid uit een bouwtekening; schaalbewijs verplicht."},
+      {"status": "REFERENCE_DERIVED_ESTIMATE", "area_class": "ESTIMATED", "needs_scale_evidence": false, "note": "Geschatte maat afgeleid van betrouwbare referentiematen (MEASURED/DRAWING_DERIVED) van vergelijkbare kozijnen. Status ESTIMATED; nooit een bekende maat."},
+      {"status": "UNKNOWN", "area_class": "UNKNOWN", "needs_scale_evidence": false, "note": "Maat onbekend; breedte en hoogte zijn null."}
+    ],
+    "measurement_methods": ["MANUAL_MEASUREMENT", "VALIDATED_REFERENCE_MEASURE", "DRAWING_SCALE", "TYPE_REFERENCE_DERIVATION", "NONE"],
+    "source_kinds": ["HUMAN_MEASUREMENT", "VALIDATED_REFERENCE_MEASURE", "BUILDING_DRAWING", "TYPE_REFERENCE", "NONE"],
+    "source_authentication": ["NONE_SELF_ASSERTED"],
+    "reliable_reference_statuses": ["MEASURED", "DRAWING_DERIVED"],
+    "estimate_derivation_methods": ["COPY_SINGLE_REFERENCE_V1", "MEDIAN_OF_REFERENCES_V1"],
+    "estimate_comparability_bases": ["SAME_TYPE_CLASSIFICATION", "SAME_MATERIAL", "SIMILAR_VISIBLE_PROPORTIONS", "SAME_FACADE_SECTION", "DEMONSTRATED_REPETITION"],
+    "estimate_proposal_origins": ["AI_PROPOSAL", "RULE", "HUMAN_PROPOSAL"],
+    "no_estimate_chains": true
+  },
+  "area_classes": [
+    {"area_class": "KNOWN", "note": "Bekende bruto m2: alle maten MEASURED of DRAWING_DERIVED."},
+    {"area_class": "ESTIMATED", "note": "Geschatte bruto m2: maat REFERENCE_DERIVED_ESTIMATE, of een geschat ontbrekend object."},
+    {"area_class": "UNKNOWN", "note": "Onbekende bruto m2: wordt als null gepresenteerd, nooit als 0 en nooit meegesommeerd."}
+  ],
+  "approval_levels": [
+    {"level": "A", "meaning": "Fysieke objectidentiteit"},
+    {"level": "B", "meaning": "Gebouw- of pandtoewijzing"},
+    {"level": "C", "meaning": "Goedkeuring van hoeveelheden"}
+  ],
+  "approval_policy": {
+    "phase_1_2_registers_decisions": false,
+    "phase_1_2_simulates_approvals": false,
+    "default_verifier": "NullApprovalVerifier",
+    "confirmed_requires_levels": ["A", "C"],
+    "state_final_statuses_forbidden": ["APPROVED", "RELEASED", "FINAL", "CONFIRMED_FOR_MJOP"],
+    "note": "Een v2-staat zet zichzelf nooit op een definitieve status. CONFIRMED vereist een door een geinjecteerde verifier gevalideerde goedkeuring voor niveau A en C; zonder verifier is de laag BLOCKED en leeg. Zelfs met CONFIRMED-objecten blijft de staat NOT_RELEASED en niet bruikbaar voor een MJOP."
+  },
+  "layers": [
+    {"layer": "OBSERVED", "unit": "OBSERVATION", "partition": false, "note": "Foto-observaties; meerdere observaties kunnen hetzelfde fysieke kozijn zijn. Geen uniek aantal."},
+    {"layer": "PROVISIONAL_UNIQUE", "unit": "OBJECT", "partition": true, "note": "Voorlopig unieke objecten na voorgestelde consolidatie met zekerheid HIGH. Niet goedgekeurd."},
+    {"layer": "CONFIRMED", "unit": "OBJECT", "partition": true, "note": "Alleen objecten met door een verifier gevalideerde goedkeuring (A en C). Zonder bron: BLOCKED en leeg."},
+    {"layer": "ESTIMATED", "unit": "OBJECT", "partition": true, "note": "Geschatte ontbrekende objecten met eigen herkomst (aantoonbare herhaling). Nooit stilzwijgend in CONFIRMED."},
+    {"layer": "REVIEW_LOW_CERTAINTY", "unit": "OBJECT", "partition": true, "note": "Voorgestelde consolidaties zonder hoge zekerheid: tellen nergens als uniek object mee en gaan naar gerichte review."},
+    {"layer": "UNKNOWN", "unit": "ATTRIBUTE", "partition": false, "note": "Onbekende maat of oppervlakte per laag; wordt nooit als nul gepresenteerd."}
+  ],
+  "object_origins": ["OBSERVED", "ESTIMATED_MISSING"],
+  "consolidation": {
+    "proposers": ["AI_PROPOSAL", "RULE", "HUMAN_PROPOSAL"],
+    "certainties": ["HIGH", "LOW", "UNKNOWN"],
+    "provisional_requires_certainty": "HIGH"
+  },
+  "observation_visibilities": ["FULL", "PARTIAL", "OCCLUDED"],
+  "evidence_ranks": ["OBSERVED_ONLY", "PROVISIONAL", "ESTIMATED", "CONFIRMED"],
+  "evidence_rule": "Een hoeveelheid krijgt geen hogere bewijsstatus dan objectidentiteit, telling en maatvoering rechtvaardigen. De effectieve status is het minimum van de drie."
+}
