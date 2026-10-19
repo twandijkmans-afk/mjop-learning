@@ -131,9 +131,18 @@ jobs:
           xcrun simctl boot "$UDID" || true
           xcrun simctl bootstatus "$UDID" -b | tail -2
           xcrun simctl install "$UDID" "$APP"
-          xcrun simctl launch --console-pty --terminate-running-process "$UDID" nl.mjop.photowalk.prototype -selftest > "$LOGS/selftest-console.log" 2>&1 &
-          LPID=$!
-          for i in $(seq 1 150); do grep -q "SELFTEST_EXPORT=" "$LOGS/selftest-console.log" && break; sleep 1; done
+          # De simulator start de app soms niet (CI-flake): tot 3 pogingen met opnieuw opstarten.
+          for attempt in 1 2 3; do
+            : > "$LOGS/selftest-console.log"
+            xcrun simctl terminate "$UDID" nl.mjop.photowalk.prototype 2>/dev/null || true
+            xcrun simctl launch --console-pty --terminate-running-process "$UDID" nl.mjop.photowalk.prototype -selftest > "$LOGS/selftest-console.log" 2>&1 &
+            LPID=$!
+            for i in $(seq 1 100); do grep -q "SELFTEST_EXPORT=" "$LOGS/selftest-console.log" && break; sleep 1; done
+            grep -q "SELFTEST_EXPORT=" "$LOGS/selftest-console.log" && break
+            echo "poging $attempt: geen selftest-uitvoer; simulator herstarten"
+            kill $LPID 2>/dev/null || true
+            xcrun simctl shutdown "$UDID" || true; xcrun simctl boot "$UDID" || true; xcrun simctl bootstatus "$UDID" -b | tail -1
+          done
           cat "$LOGS/selftest-console.log"
           if ! grep -q "SELFTEST_EXPORT=" "$LOGS/selftest-console.log"; then
             echo "--- diagnose: crashrapporten"; ls -la ~/Library/Logs/DiagnosticReports 2>/dev/null | tee "$LOGS/crash-list.txt"
