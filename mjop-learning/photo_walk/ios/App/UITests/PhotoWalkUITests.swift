@@ -41,4 +41,115 @@ final class PhotoWalkUITests: XCTestCase {
         XCTAssertFalse(label(app, containing: "m2  [").exists, "zonder keyframes mag er geen maat zijn")
         XCTAssertEqual(app.state, .runningForeground)
     }
+
+    // MARK: zoom en nauwkeurige selectie
+
+    private func waitFor(_ el: XCUIElement, _ format: String, _ arg: String, timeout: TimeInterval = 12) -> Bool {
+        let p = NSPredicate(format: format, arg)
+        let e = expectation(for: p, evaluatedWith: el)
+        return XCTWaiter().wait(for: [e], timeout: timeout) == .completed
+    }
+
+    private func parsePoint(_ s: String, index: Int = 0) -> (Double, Double)? {
+        let re = try! NSRegularExpression(pattern: "\\(([0-9.]+), ([0-9.]+)\\) px")
+        let ms = re.matches(in: s, range: NSRange(s.startIndex..., in: s))
+        guard index < ms.count, let a = Range(ms[index].range(at: 1), in: s), let b = Range(ms[index].range(at: 2), in: s) else { return nil }
+        return (Double(s[a])!, Double(s[b])!)
+    }
+
+    private func openTestImagePicker(_ app: XCUIApplication) {
+        app.launch()
+        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
+        app.buttons["Testscan met synthetische data (simulatie)"].tap()
+        XCTAssertTrue(label(app, containing: "SIMULATIE").waitForExistence(timeout: 15))
+        let open = app.buttons["Hoeken markeren op testbeeld"]
+        XCTAssertTrue(open.waitForExistence(timeout: 15)); open.tap()
+        XCTAssertTrue(app.otherElements["frameCanvas"].waitForExistence(timeout: 20))
+    }
+
+    func testZoomPanDoubleTapAndPointsAreInOriginalPixels() {
+        let app = XCUIApplication()
+        openTestImagePicker(app)
+        let canvas = app.otherElements["frameCanvas"]
+        let zoomLabel = app.staticTexts["zoomIndicator"], readout = app.staticTexts["pointsReadout"]
+        XCTAssertEqual(zoomLabel.label, "1.0×")
+
+        // 1x: tik het midden -> originele pixel ca. (960, 720) van het 1920x1440 keyframe, ongeacht schermformaat
+        canvas.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        XCTAssertTrue(waitFor(readout, "label CONTAINS %@", "1 linksboven"))
+        let p1 = parsePoint(readout.label)!
+        XCTAssertEqual(p1.0, 960, accuracy: 10); XCTAssertEqual(p1.1, 720, accuracy: 10)
+        app.buttons["Laatste punt weg"].tap()
+        XCTAssertTrue(waitFor(readout, "label CONTAINS %@", "Nog geen punten"))
+
+        // zoom met pinch: indicator moet stijgen
+        canvas.pinch(withScale: 4, velocity: 3)
+        XCTAssertTrue(waitFor(zoomLabel, "label != %@", "1.0×"))
+        let z = Double(zoomLabel.label.replacingOccurrences(of: "×", with: ""))!
+        XCTAssertGreaterThan(z, 2.0)
+
+        // dezelfde fysieke plek (midden, anker van de pinch) op hoge zoom -> (vrijwel) dezelfde originele pixel
+        canvas.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        XCTAssertTrue(waitFor(readout, "label CONTAINS %@", "1 linksboven"))
+        let p2 = parsePoint(readout.label)!
+        XCTAssertEqual(p2.0, p1.0, accuracy: 25); XCTAssertEqual(p2.1, p1.1, accuracy: 25)
+        app.buttons["Laatste punt weg"].tap()
+
+        // pannen met één vinger (niet op een punt) en daarna selecteren: andere beeldplek
+        let from = canvas.coordinate(withNormalizedOffset: CGVector(dx: 0.7, dy: 0.5)), to = canvas.coordinate(withNormalizedOffset: CGVector(dx: 0.3, dy: 0.5))
+        from.press(forDuration: 0.05, thenDragTo: to)
+        XCTAssertEqual(zoomLabel.label.replacingOccurrences(of: "×", with: ""), String(format: "%.1f", z), "pannen verandert de zoom niet")
+        canvas.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        XCTAssertTrue(waitFor(readout, "label CONTAINS %@", "1 linksboven"))
+        let p3 = parsePoint(readout.label)!
+        XCTAssertGreaterThan(abs(p3.0 - p1.0) + abs(p3.1 - p1.1), 40, "na pannen wijst het midden naar een ander deel van het beeld")
+        app.buttons["Laatste punt weg"].tap()
+
+        // dubbel tikken: reset
+        canvas.doubleTap()
+        XCTAssertTrue(waitFor(zoomLabel, "label == %@", "1.0×"))
+        // knoppen en slider
+        app.buttons["zoomButton4"].tap()
+        XCTAssertTrue(waitFor(zoomLabel, "label == %@", "4.0×"))
+        app.buttons["zoomReset"].tap()
+        XCTAssertTrue(waitFor(zoomLabel, "label == %@", "1.0×"))
+        app.sliders["zoomSlider"].adjust(toNormalizedSliderPosition: 1.0)
+        XCTAssertTrue(waitFor(zoomLabel, "label == %@", "8.0×"))
+        XCTAssertEqual(app.state, .runningForeground)
+    }
+
+    func testFourCornersCanBePlacedAndSavedWhileZoomed() {
+        let app = XCUIApplication()
+        openTestImagePicker(app)
+        let canvas = app.otherElements["frameCanvas"], readout = app.staticTexts["pointsReadout"]
+        app.buttons["zoomButton2"].tap()
+        XCTAssertTrue(waitFor(app.staticTexts["zoomIndicator"], "label == %@", "2.0×"))
+        for (i, o) in [(0.4, 0.4), (0.6, 0.4), (0.6, 0.6), (0.4, 0.6)].enumerated() {
+            canvas.coordinate(withNormalizedOffset: CGVector(dx: o.0, dy: o.1)).tap()
+            XCTAssertTrue(waitFor(readout, "label CONTAINS %@", "\(i + 1) "))
+        }
+        XCTAssertTrue(waitFor(app.staticTexts["cornerPrompt"], "label CONTAINS %@", "Alle vier"))
+        let save = app.buttons["Opslaan"]
+        XCTAssertTrue(save.isEnabled); save.tap()
+        XCTAssertTrue(waitFor(app.staticTexts["cornerPrompt"], "label CONTAINS %@", "Opgeslagen"))
+        XCTAssertEqual(app.state, .runningForeground)
+    }
+
+    func testLiveCameraZoomControls() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-uitest-prefill"]
+        app.launch()
+        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
+        app.buttons["Nieuwe scan starten"].tap()
+        let ind = app.staticTexts["liveZoomIndicator"]
+        XCTAssertTrue(ind.waitForExistence(timeout: 15))
+        XCTAssertEqual(ind.label, "1.0×")
+        app.buttons["liveZoom4"].tap()
+        XCTAssertTrue(waitFor(ind, "label == %@", "4.0×"))
+        app.buttons["liveZoom1"].tap()
+        XCTAssertTrue(waitFor(ind, "label == %@", "1.0×"))
+        app.sliders["liveZoomSlider"].adjust(toNormalizedSliderPosition: 0.5)
+        XCTAssertTrue(waitFor(ind, "label != %@", "1.0×"))
+        XCTAssertEqual(app.state, .runningForeground)
+    }
 }

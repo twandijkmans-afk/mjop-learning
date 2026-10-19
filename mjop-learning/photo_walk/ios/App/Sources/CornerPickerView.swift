@@ -13,20 +13,27 @@ struct CornerPickerView: View {
     @State private var candidates: [[Pixel]] = []
     @State private var targetDraft: String? = nil
     @State private var uiImage: UIImage? = nil
-    @State private var msg = "Tik de buitenhoeken: linksboven, rechtsboven, rechtsonder, linksonder (zoals het kozijn rechtop staat)."
+    @State private var saved: String? = nil
+    private static let names = ["linksboven", "rechtsboven", "rechtsonder", "linksonder"]
+    private var prompt: String {
+        taps.count < 4
+            ? "Hoek \(taps.count + 1) van 4: tik \(Self.names[taps.count]) (buitenhoek, zoals het kozijn rechtop staat). Zoom met twee vingers; sleep een punt om bij te stellen."
+            : "Alle vier de hoeken staan. Controleer ze (zoom in, sleep zo nodig) en sla op."
+    }
 
     var body: some View {
         VStack {
-            Text(msg).font(.footnote).padding(.horizontal)
-            if let img = uiImage { FrameImageCanvas(frame: frame, image: img, taps: $taps, maxTaps: 4) } else { ProgressView() }
+            Text(saved ?? prompt).font(.footnote).padding(.horizontal).accessibilityIdentifier("cornerPrompt")
+            if let img = uiImage { FrameImageCanvas(frame: frame, image: img, points: $taps, maxPoints: 4, pointNames: Self.names) } else { ProgressView() }
             HStack {
+                Button("Laatste punt weg") { if !taps.isEmpty { taps.removeLast() }; saved = nil }.disabled(taps.isEmpty)
                 Button("Voorstellen (on-device)") { detectCandidates() }.disabled(uiImage == nil)
-                Button("Wissen") { taps = [] }
+                Button("Wissen") { taps = []; saved = nil }
                 Button("Opslaan") { save() }.disabled(taps.count != 4).buttonStyle(.borderedProminent)
             }
             if !candidates.isEmpty {
                 ScrollView(.horizontal) { HStack { ForEach(Array(candidates.enumerated()), id: \.offset) { i, c in
-                    Button("Voorstel \(i + 1) (onbevestigd)") { taps = c; msg = "Voorstel overgenomen - controleer de hoeken; opslaan telt als bevestigd." }.buttonStyle(.bordered)
+                    Button("Voorstel \(i + 1) (onbevestigd)") { taps = c; saved = "Voorstel overgenomen - controleer de hoeken (zoom in); opslaan telt als bevestigd." }.buttonStyle(.bordered)
                 } } }
             }
             Picker("Koppel aan kozijn", selection: $targetDraft) {
@@ -43,7 +50,7 @@ struct CornerPickerView: View {
         let o = Observation(id: "OBS-\(frame.id)-\(store.observations.count + 1)", frameId: frame.id, corners: taps, originalCorners: taps,
                             source: fromAuto ? .AUTO_DETECTED_CONFIRMED : .MANUAL)
         store.addObservation(o, to: targetDraft)
-        taps = []; msg = "Opgeslagen (\(o.source.rawValue))."
+        taps = []; saved = "Opgeslagen (\(o.source.rawValue)). Je kunt een volgend kozijn markeren."
     }
 
     private func detectCandidates() {

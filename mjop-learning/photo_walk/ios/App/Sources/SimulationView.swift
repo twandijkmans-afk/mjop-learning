@@ -20,7 +20,8 @@ enum SimulationRunner {
         let corners = rawCorners.map { Pixel($0[0], $0[1]) }
         store.newSession()
         store.isSimulation = true; store.buildingId = "BLD-SYNTHETIC"; store.facadeId = "FACADE-A"
-        store.keyframes = [Keyframe(id: "F000", timestamp: Date(), intrinsics: intr, pose: pose, trackingState: "NORMAL", depth: depth, imageURL: nil)]
+        store.keyframes = [Keyframe(id: "F000", timestamp: Date(), intrinsics: intr, pose: pose, trackingState: "NORMAL", depth: depth,
+                                 imageURL: SyntheticImage.make(width: intr.width, height: intr.height, corners: corners, id: "F000"))]
         store.addObservation(Observation(id: "OBS-F000-1", frameId: "F000", corners: corners, originalCorners: corners, source: .MANUAL), to: nil)
         store.measureAll()
         guard let o = store.results.first else { return "Geen resultaat" }
@@ -43,6 +44,7 @@ struct SimulationView: View {
             VStack(alignment: .leading, spacing: 12) {
                 Text(text).font(.system(.footnote, design: .monospaced))
                 NavigationLink("Resultaten openen") { ResultsView().environmentObject(store) }
+                if let kf = store.keyframes.first { NavigationLink("Hoeken markeren op testbeeld") { CornerPickerView(frame: kf).environmentObject(store) } }
                 Button("Export schrijven") { exported = (try? ExportService.write(store))?.path ?? "mislukt" }
                 if let e = exported { Text(e).font(.caption2) }
             }.padding()
