@@ -37,3 +37,10 @@ Voor elke maat een referentie met lasermeter/duimstok (± 1 mm) op minimaal 10 k
 * UX buiten: tikprecisie van hoeken, zonlicht, handschoenen, tijd per kozijn.
 * Android: alles (nog geen app).
 * Gedeelde sensor-/AR-ruis in de Monte Carlo (nu ongecorreleerd en provisional).
+
+## Aanvullend voor Photo-to-Quantity v2 (foto-workflow)
+* Recall en precisie van de rechthoekdetector op echte gevels (ramen vs. deuren/borden/patronen), en of de gevonden vierhoek de buitenmaat of de glasruit is.
+* Vlakfit rond echte kozijnen met LiDAR bij de kaders; hoe vaak kaders groen/oranje/grijs worden en of dat klopt met een duimstokmeting.
+* Prestaties/geheugen met veel kandidaten en meerdere foto's; app-start met "laatste scan hervatten".
+* Koppelsuggesties bij repeterende, identieke kozijnen (kans op verkeerde suggesties).
+* Of een getraind Core ML-kozijnmodel nodig is (en trainingsdata met toestemming).

@@ -7,10 +7,10 @@ Zelfstandige component in `mjop-learning` met een duidelijke integratie-interfac
 
 | Onderdeel | Gebouwd | Gecompileerd/uitgevoerd | Gesimuleerd | Echte sensor | Op toestel gevalideerd |
 |---|---|---|---|---|---|
-| Python-meetkern (`python/photo_walk_core`) — geometrie, niveau A/B/C, kwaliteitspoorten, dedup, dekking, contract, export | ja | **ja (39 tests groen)** | ja | nee | nee |
+| Python-meetkern (`python/photo_walk_core`) — geometrie, niveau A/B/C, kwaliteitspoorten, dedup, dekking, contract, export | ja | **ja (41 tests groen)** | ja | nee | nee |
 | JSON-schema `photo_walk_capture_v1` | ja | ja (validatie in tests) | – | – | – |
-| Swift-package `PhotoWalkCore` + pariteits-/workflowtests | ja | **ja, op macOS-CI (Xcode 16.4): 25 tests groen (incl. 13 zoom-regressietests)** | ja | nee | nee |
-| iOS-app (SwiftUI/ARKit) | ja | **ja: simulator- en unsigned devicebuild groen in CI; 5 XCUITests (incl. zoom/pan/dubbeltik) + headless selftest** | simulatieflow | nee | **nee — nooit op een fysieke iPhone gedraaid** |
+| Swift-package `PhotoWalkCore` + pariteits-/workflowtests | ja | **ja, op macOS-CI (Xcode 16.4): 31 tests groen (incl. zoom-, feedback- en koppeltests)** | ja | nee | nee |
+| iOS-app (SwiftUI/ARKit) | ja | **ja: simulator- en unsigned devicebuild groen in CI; 6 XCUITests (incl. zoom/pan/dubbeltik en foto→detectie→meting) + headless selftest** | simulatieflow | nee | **nee — nooit op een fysieke iPhone gedraaid** |
 | Android-contract/adapter (Kotlin) | ja (klein) | **nee** | – | nee | nee |
 
 CI-workflow `photo-walk-ios.yml` bouwt Swift + app op `macos-15` (zonder code signing). Installatie op een iPhone: `docs/install_windows_free.md`.
@@ -23,7 +23,7 @@ Een synthetisch succesvolle test bewijst **geen** nauwkeurigheid op een echte ge
 photo_walk/
   schemas/photo_walk_capture_v1.schema.json   gesloten, versieerbaar contract
   python/photo_walk_core/                     meetkern (numpy + jsonschema; geen netwerk, geen AI-SDK)
-  python/tests/                               39 tests (synthetisch)
+  python/tests/                               41 tests (synthetisch)
   ios/Package.swift, ios/Sources/PhotoWalkCore  Swift-port van de kern (zonder ARKit)
   ios/Tests/…/Fixtures/parity_cases.json      Python-uitkomsten waar de Swift-tests tegen toetsen
   ios/App/                                    SwiftUI/ARKit-app (XcodeGen project.yml)
@@ -37,7 +37,7 @@ photo_walk/
 ```bash
 cd mjop-learning/photo_walk/python
 python -m pip install -r requirements.txt
-python -m pytest -q -p no:cacheprovider tests            # 39 tests
+python -m pytest -q -p no:cacheprovider tests            # 41 tests
 python -m photo_walk_core.demo --out /pad/buiten/de/repo   # demonstratie: 1 kozijn (stappen 1-11) + 4 kozijnen over 7 keyframes
 python -m photo_walk_core.validate examples/walk_measurement.json
 ```
@@ -70,6 +70,10 @@ Ondertekenen met eigen team en op een toestel draaien (de simulator heeft geen A
 **Echte scan:** gebouw-/gevel-ID invullen → *Nieuwe scan starten* → camera langs de gevel bewegen → *Keyframe* per standpunt (≥ 2 standpunten per kozijn voor `MEASURED`) → *Kozijnen markeren*: per keyframe vier buitenhoeken tikken (volgorde linksboven, rechtsboven, rechtsonder, linksonder), optioneel on-device voorstellen (onbevestigd) → *Koppel aan kozijn* kiezen als het kozijn al op een ander keyframe staat → optioneel *Referentiemaat* (twee punten + afstand) → *Resultaten*: lijst met breedte, hoogte, bruto m², status, bron, onzekerheid (in export), reviewmarkering en concrete vervolgacties; *Hoeken corrigeren* herberekent zonder brondata te overschrijven → *Exporteer naar bestand* → valideren met `python -m photo_walk_core.validate`.
 
 De scan is **semi-automatisch**: hoeken komen van de gebruiker (of van een onbevestigd voorstel). Er wordt geen automatische kozijnherkenning geclaimd.
+
+## Foto → kaders → voorlopige maten (v2)
+
+Camera openen, één foto maken: lokaal herkende **kandidaat-kozijnen** (Apple Vision-rechthoekdetector; géén gevalideerde kozijndetector, optioneel eigen Core ML-model) krijgen direct kaders en voorlopige breedte/hoogte/bruto m² (LiDAR-vlak of één referentiemaat) of `UNKNOWN`. Groen/oranje/grijs is alleen UI-feedback. Inzoomen, hoeken verslepen, referentiemaat, afwijzen, voorlopig koppelen over foto's; lokale opslag; export naar `photo_walk_capture_v1` 1.1.0 en naar het Bruto Quantity Model v2 (`photo_walk_core.to_bruto`, alle maten UNKNOWN tot menselijke intake). Zie `docs/photo_to_quantity_v2.md`. **Niet gevalideerd op echte gebouwen.**
 
 ## Zoom en nauwkeurige hoekselectie
 

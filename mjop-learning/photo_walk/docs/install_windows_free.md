@@ -46,14 +46,13 @@ Hetzelfde principe: AltServer op Windows (met iTunes/iCloud web-versies) onderte
 4. In `project.yml` `DEVELOPMENT_TEAM` en een eigen bundle-ID zetten.
 Dit is niet ingericht; zie de volgende stap alleen met jouw toestemming.
 
-## Eerste meting op de telefoon
-
-1. Open Photo Walk → gebouw-/gevel-ID invullen → *Nieuwe scan starten* → camera toestaan.
-2. Sta ca. 2–4 m recht voor één kozijn, houd het hele kozijn in beeld, tik *Keyframe*. Loop 1–2 m zijwaarts en tik nog een *Keyframe* (twee standpunten geeft een consistentiecontrole).
-3. *Kozijnen markeren* → keyframe kiezen → vier **buitenhoeken** tikken (linksboven, rechtsboven, rechtsonder, linksonder) → *Opslaan*. Tweede keyframe: *Koppel aan kozijn* → hetzelfde kozijn kiezen.
-4. Zonder LiDAR (alleen Pro-modellen hebben het): bij *Referentiemaat voor …* twee punten op het kozijnvlak tikken en een zelf gemeten afstand invoeren (bv. de kozijnbreedte met duimstok).
-5. *Resultaten*: breedte, hoogte, bruto m², status (MEASURED/DERIVED/ESTIMATED/UNKNOWN), bron en onzekerheid. *Hoeken corrigeren* herberekent zonder brondata te overschrijven. *Exporteer naar bestand* → het JSON staat in de Bestanden-app → "Op mijn iPhone" → Photo Walk.
-6. Meet het kozijn ook met een duimstok en vergelijk; de uitkomst is **voorlopig** en onvalideerd — geen basis voor een MJOP-hoeveelheid zonder menselijke goedkeuring.
+## Eerste meting op de telefoon (foto-workflow)
+1. Open Photo Walk → gebouw-/gevel-ID invullen → **Foto-scan starten** → camera toestaan.
+2. Sta 2–4 m recht voor de gevel (hele kozijn in beeld; zoom is alleen voorvertoning) en tik de **ronde fotoknop**.
+3. Direct verschijnen kaders op de foto: **groen** = voorlopig bruikbare maat, **oranje** = controle nodig, **grijs** = geen betrouwbare maat (`UNKNOWN`). De kaders zijn *kandidaten* van een algemene rechthoekdetector: controleer ze en verwijder valse met *Geen kozijn*.
+4. Tik een kader: automatisch ingezoomd; sleep de hoeken naar de buitenhoeken en kies *Toepassen*; of voeg één *Referentiemaat* toe (twee punten + zelf gemeten afstand) als er geen LiDAR/diepte is.
+5. Onder de foto staat het overzicht (herkend, voorlopig unieke kozijnen, bruto m² waar meetbaar, controles). Maak een tweede foto van dezelfde gevel; bij *Koppelsuggesties* kun je hetzelfde kozijn voorlopig koppelen.
+6. *Exporteren* → JSON in Bestanden → Op mijn iPhone → Photo Walk. Meet het kozijn ook met een duimstok en vergelijk; alles is voorlopig en niet gevalideerd.
 
 ## Een nieuwe versie installeren (update)
 1. Download opnieuw de artifact `photo-walk-UNSIGNED-device-ipa` van het nieuwste groene run van PR #57 (zie hierboven).
