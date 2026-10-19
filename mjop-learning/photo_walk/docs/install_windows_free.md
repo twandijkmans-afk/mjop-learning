@@ -54,3 +54,8 @@ Dit is niet ingericht; zie de volgende stap alleen met jouw toestemming.
 4. Zonder LiDAR (alleen Pro-modellen hebben het): bij *Referentiemaat voor …* twee punten op het kozijnvlak tikken en een zelf gemeten afstand invoeren (bv. de kozijnbreedte met duimstok).
 5. *Resultaten*: breedte, hoogte, bruto m², status (MEASURED/DERIVED/ESTIMATED/UNKNOWN), bron en onzekerheid. *Hoeken corrigeren* herberekent zonder brondata te overschrijven. *Exporteer naar bestand* → het JSON staat in de Bestanden-app → "Op mijn iPhone" → Photo Walk.
 6. Meet het kozijn ook met een duimstok en vergelijk; de uitkomst is **voorlopig** en onvalideerd — geen basis voor een MJOP-hoeveelheid zonder menselijke goedkeuring.
+
+## Een nieuwe versie installeren (update)
+1. Download opnieuw de artifact `photo-walk-UNSIGNED-device-ipa` van het nieuwste groene run van PR #57 (zie hierboven).
+2. Open Sideloadly, sleep de nieuwe IPA erin, zelfde Apple-ID, *Start*. Het bundle-ID blijft hetzelfde, dus de nieuwe versie wordt **over de oude heen** geïnstalleerd en je bewaarde scans/exports (Bestanden → Photo Walk) blijven behouden. Wil je schoon beginnen: verwijder de app eerst op de iPhone.
+3. Het 7-dagen-venster van het gratis profiel begint opnieuw bij elke installatie.

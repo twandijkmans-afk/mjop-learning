@@ -71,6 +71,10 @@ Ondertekenen met eigen team en op een toestel draaien (de simulator heeft geen A
 
 De scan is **semi-automatisch**: hoeken komen van de gebruiker (of van een onbevestigd voorstel). Er wordt geen automatische kozijnherkenning geclaimd.
 
+## Zoom en nauwkeurige hoekselectie
+
+Pinch-to-zoom (1×–8×), verschuiven, vergrootglas, dubbeltik-reset en sleepbare punten bij het markeren van hoeken en referenties; visuele live-zoom in de camera. Zoom is alleen weergave: de meetkern rekent met originele pixels en intrinsics/LiDAR blijven ongewijzigd (getest). Zie `docs/zoom_and_precision.md`.
+
 ## Meetpijplijn in het kort
 
 Niveau **A** (diepte): vlak uit de gevel *rond* het kozijn, hoekstralen snijden dat vlak — een dieptepixel op een hoek wordt niet blind vertrouwd. Niveau **B** (AR-triangulatie): zonder dieptesensor; schaal alleen metrisch bij gedeclareerde VIO-tracking en dan `ESTIMATED` tot een referentie ze bevestigt. Niveau **C** (referentie): één ingevoerde afstand op hetzelfde vlak + rechthoek-geometrie + intrinsics; verkeerd vlak wordt geweigerd. Geen standaarddeurbreedte/baksteen/verdiepingshoogte als schaal. Details: `docs/measurement_levels.md`.
