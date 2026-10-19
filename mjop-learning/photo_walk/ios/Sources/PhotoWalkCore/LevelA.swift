@@ -46,7 +46,7 @@ private func depthSamples(_ view: ViewInput) -> [DepthSample] {
     return out
 }
 
-private func localDepth(_ view: ViewInput, _ p: Pixel) -> Double? {
+func localDepth(_ view: ViewInput, _ p: Pixel) -> Double? {
     guard let d = view.depth, d.width > 0, d.height > 0, p.u.isFinite, p.v.isFinite else { return nil }
     let sx = Double(view.intrinsics.width) / Double(d.width), sy = Double(view.intrinsics.height) / Double(d.height)
     let j = min(max(Int(p.u / sx), 0), d.width - 1), i = min(max(Int(p.v / sy), 0), d.height - 1)   // geklemd: nooit buiten de kaart
