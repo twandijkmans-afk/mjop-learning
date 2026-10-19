@@ -29,8 +29,7 @@ struct PhotoWalkApp: App {
         let ov = store.overview(frameId: "F000")
         print("SELFTEST_OVERVIEW detected=\(ov.detected) unique=\(ov.unique) measurable=\(ov.measurable) checks=\(ov.checks) noScale=\(ov.noScale)")
         // 3) lokale opslag: bewaren en terugladen
-        Persistence.save(store)
-        try? await Task.sleep(nanoseconds: 1_500_000_000)
+        Persistence.saveNow(store)
         if let (snap, dir) = Persistence.latestAny() {
             let other = ScanStore()
             Persistence.restore(snap, from: dir, into: other)

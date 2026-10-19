@@ -73,12 +73,20 @@ enum Persistence {
             dismissedLinks: s.dismissedLinks.sorted())
     }
 
-    /// Schrijft de sessie (best effort; fouten worden niet gemeld aan de gebruiker maar breken niets).
+    /// Schrijft de sessie (best effort; fouten worden niet gemeld aan de gebruiker maar breken niets). Asynchroon, zodat de UI niet wacht.
     @MainActor static func save(_ s: ScanStore) {
-        guard !s.sessionId.isEmpty, !s.keyframes.isEmpty, let dir = sessionDir(s.sessionId) else { return }
+        guard let job = makeWriteJob(s) else { return }
+        DispatchQueue.global(qos: .utility).async { job() }
+    }
+
+    /// Zelfde als `save`, maar synchroon (voor de CI-selftest en voor afsluiten).
+    @MainActor static func saveNow(_ s: ScanStore) { makeWriteJob(s)?() }
+
+    @MainActor private static func makeWriteJob(_ s: ScanStore) -> (() -> Void)? {
+        guard !s.sessionId.isEmpty, !s.keyframes.isEmpty, let dir = sessionDir(s.sessionId) else { return nil }
         let snap = snapshot(s)
         let depths = s.keyframes.compactMap { k in k.depth.map { (k.id, $0) } }
-        DispatchQueue.global(qos: .utility).async {
+        return {
             for (id, d) in depths {
                 let url = dir.appendingPathComponent("\(id).depth")
                 if !FileManager.default.fileExists(atPath: url.path) { try? writeDepth(d, to: url) }     // brondata wordt nooit overschreven
