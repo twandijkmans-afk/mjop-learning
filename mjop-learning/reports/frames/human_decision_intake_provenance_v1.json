@@ -1,0 +1,524 @@
+{
+  "app_decisions": {
+    "open": 48,
+    "total": 48
+  },
+  "authentication_statuses": [
+    "NOT_AUTHENTICATED",
+    "SOURCE_UNTRUSTED",
+    "AUTHENTICATED_ACCOUNT_ONLY",
+    "AUTHENTICATED_HUMAN_PRESENCE"
+  ],
+  "final_statuses": [
+    "VALIDATED_DRY_RUN",
+    "UNVERIFIED_SOURCE",
+    "UNAUTHORIZED_REVIEWER",
+    "STALE_REQUEST",
+    "INVALID_DECISION",
+    "BLOCKED"
+  ],
+  "forbidden_effects": [
+    "create_or_modify_frame_instance",
+    "reserve_instance_id",
+    "merge_observations",
+    "link_bag_pand",
+    "set_dimensions",
+    "change_building_total",
+    "change_unique_count",
+    "set_quantity",
+    "set_cost",
+    "set_maintenance_action",
+    "change_photo2_inventory",
+    "change_app_decision",
+    "change_pilot_decision",
+    "change_source_observation",
+    "activate_repeat_multiplier",
+    "write_instance_store",
+    "create_fi_id",
+    "activate_instance",
+    "write_register_without_confirmation",
+    "overwrite_or_delete_registered_decision",
+    "generate_decision_by_code",
+    "treat_ai_recommendation_as_human_decision",
+    "register_decision_via_intake",
+    "write_register_v1",
+    "write_register_v2",
+    "migrate_v1_record_to_v2",
+    "treat_self_asserted_as_verified",
+    "treat_text_hash_as_authentication",
+    "trust_embedded_attestation",
+    "trust_self_declared_reviewer_list",
+    "persist_replay_state"
+  ],
+  "human_presence_methods": [
+    "NONE",
+    "WEBAUTHN_USER_VERIFIED",
+    "HARDWARE_KEY_SIGNATURE",
+    "INTERACTIVE_MFA_SESSION_SEPARATE_FROM_AUTOMATION"
+  ],
+  "intake_version": "human_decision_intake_v1",
+  "precedence": [
+    "BLOCKED",
+    "STALE_REQUEST",
+    "INVALID_DECISION",
+    "UNVERIFIED_SOURCE",
+    "UNAUTHORIZED_REVIEWER",
+    "VALIDATED_DRY_RUN"
+  ],
+  "provenance_statuses": [
+    "SELF_ASSERTED",
+    "SOURCE_VERIFIED",
+    "UNVERIFIABLE",
+    "INVALID"
+  ],
+  "register_v1": {
+    "head": "0000000000000000000000000000000000000000000000000000000000000000",
+    "records": 0
+  },
+  "report_version": "human_decision_intake_provenance_report_v1",
+  "request": {
+    "approval_request_id": "IAR-OIC-VR-027",
+    "approval_status": "READY_FOR_HUMAN_REVIEW",
+    "candidate_group_id": "OIC-VR-027",
+    "observation_ids": [
+      "OBS-MAP003-011",
+      "OBS-MAP004-006"
+    ],
+    "open_related_relations": [
+      "VR-045"
+    ],
+    "request_hash": "e276feeb5849ba8af4c41e2e429aca21",
+    "superseded_request_hashes": [
+      "aa556297be5d6713d298a06fa40492b8",
+      "34c61b5e5f274764e86491a838502ede"
+    ]
+  },
+  "reviewer_designations_configured": 0,
+  "scenarios": [
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "VALIDATED_DRY_RUN",
+      "first_problems": [],
+      "match": true,
+      "note": "synthetische bron; registratiegeschiktheid blijft NOT_ELIGIBLE_SYNTHETIC_SOURCE; er is niets geregistreerd",
+      "nr": 0,
+      "observed": "VALIDATED_DRY_RUN",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE_SYNTHETIC_SOURCE",
+      "title": "Referentie: volledig geslaagde SYNTHETISCHE intake (alle onderdelen slagen)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "UNVERIFIED_SOURCE",
+      "first_problems": [
+        "HERKOMST_SELF_ASSERTED GEEN_GEAUTHENTICEERDE_BRON (geen attestatie van een vertrouwde provider)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 1,
+      "observed": "UNVERIFIED_SOURCE",
+      "provenance": "SELF_ASSERTED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Correct besluit, maar zelf opgegeven auteur"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "UNVERIFIED_SOURCE",
+      "first_problems": [
+        "HERKOMST_UNVERIFIABLE GEEN_GEAUTHENTICEERDE_BRON (geen attestatie van een vertrouwde provider)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 2,
+      "observed": "UNVERIFIED_SOURCE",
+      "provenance": "UNVERIFIABLE",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Correct besluit, maar ontbrekende geauthenticeerde bron"
+    },
+    {
+      "authorization": "UNAUTHORIZED",
+      "expected": "UNAUTHORIZED_REVIEWER",
+      "first_problems": [
+        "AUTORISATIE_UNAUTHORIZED GEEN_AANWIJZING_VOOR_DEZE_GEAUTHENTICEERDE_REVIEWER"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 3,
+      "observed": "UNAUTHORIZED_REVIEWER",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Correct besluit van niet-geautoriseerde auteur"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "TEKST TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 4,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Geverifieerde auteur met ongeldige besluittekst"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "STALE_REQUEST",
+      "first_problems": [
+        "REQUEST_HASH_VEROUDERD (eerder gepubliceerde, vervangen hash)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 5,
+      "observed": "STALE_REQUEST",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Verouderde request_hash"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "FRAMEWORK: OPENSTAANDE_APP_OVERLAPVRAGEN_NIET_ERKEND ['APP-012', 'APP-025']"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 6,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Ontbrekende erkenning APP-012"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "FRAMEWORK: OPENSTAANDE_APP_OVERLAPVRAGEN_NIET_ERKEND ['APP-012', 'APP-025']"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 7,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Ontbrekende erkenning APP-025"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "FRAMEWORK: OPENSTAANDE_RELATIES_NIET_ERKEND ['VR-045']"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 8,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Ontbrekende erkenning VR-045"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "BESLUIT_DEKT_MEER_DAN_NIVEAU_A_OF_GEEN_NIVEAU"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 9,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Besluit dat onterecht niveau B of C dekt (veld covers_levels)"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "TEKST TEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (vrije of afwijkende tekst wordt niet geaccepteerd: fail-closed)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 9,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Besluit dat onterecht niveau B of C dekt (tekst)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "HERKOMST_INVALID AI_HERKOMST_KENMERK_IN_BERICHT (een bericht dat menselijke toestemming claimt maar AI-kenmerken draagt)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 10,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "AI-gegenereerd bericht dat menselijke toestemming claimt (AI-kenmerk in tekst)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "HERKOMST_INVALID GEAUTHENTICEERDE_ACTOR_IS_GEEN_MENS"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 10,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "AI-gegenereerd bericht dat menselijke toestemming claimt (bron meldt automatisering)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "BESLUITTEKST_IS_NIET_EXACT_DE_GEBONDEN_BESLUITVERKLARING (inhoudsbinding mislukt: fail-closed)",
+        "BESLUITTEKST_NOEMT_NIET_PRECIES_DE_GEKOZEN_BESLUITKEUZE ['REJECT']"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 11,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Gemodificeerde berichttekst met oude hash"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "TIJDSTEMPEL TIMESTAMP_UNPARSABLE"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 12,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Gemanipuleerde tijdstempel: niet-parsebaar"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "INVALID_DECISION",
+      "first_problems": [
+        "TIJDSTEMPEL TIMESTAMP_NO_TIMEZONE"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 12,
+      "observed": "INVALID_DECISION",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Gemanipuleerde tijdstempel: zonder tijdzone"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "HERKOMST_INVALID TIMESTAMP_IN_FUTURE"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 12,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Gemanipuleerde tijdstempel: in de toekomst"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "HERKOMST_INVALID TIMESTAMP_MISMATCH (opgegeven tijd wijkt af van de bron)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 12,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Gemanipuleerde tijdstempel: afwijkend van de bron"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "HERKOMST_INVALID TIMESTAMP_IMPLAUSIBLY_OLD"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 12,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Gemanipuleerde tijdstempel: onwaarschijnlijk oud"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "DUPLICATE_SOURCE_MESSAGE_ID (zelfde bronbericht, andere inhoud)"
+      ],
+      "match": true,
+      "note": "eerste envelope: VALIDATED_DRY_RUN",
+      "nr": 13,
+      "observed": "BLOCKED",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Dubbele source_message_id (tweede envelope, andere inhoud)"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "REPLAY_DETECTED (identiek intake-event eerder gezien in dit proces)"
+      ],
+      "match": true,
+      "note": "eerste: VALIDATED_DRY_RUN; een nieuw proces/ledger ziet dit NIET (zie replay_protection)",
+      "nr": 14,
+      "observed": "BLOCKED",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Replay van hetzelfde intake-event (zelfde ledger/proces)"
+    },
+    {
+      "authorization": "AUTHORIZED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "CONFLICTING_DECISIONS_SAME_SOURCE_EVENT (zelfde bronbericht, ander besluit)"
+      ],
+      "match": true,
+      "note": "eerste: VALIDATED_DRY_RUN",
+      "nr": 15,
+      "observed": "BLOCKED",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Verschillende beslissingen met hetzelfde event-ID"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "HERKOMST_INVALID ATTESTATIE_VELD_ONTBREEKT_OF_ONGELDIG authenticated_author_id"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 16,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Corrupte bronmetadata (lege geauthenticeerde auteur)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "HERKOMST_INVALID ATTESTATIE_GEEN_SOURCEATTESTATION"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 16,
+      "observed": "BLOCKED",
+      "provenance": "INVALID",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Corrupte bronmetadata (geen attestatie-object)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "UNVERIFIED_SOURCE",
+      "first_problems": [
+        "HERKOMST_SELF_ASSERTED GEEN_GEAUTHENTICEERDE_BRON (geen attestatie van een vertrouwde provider)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 16,
+      "observed": "UNVERIFIED_SOURCE",
+      "provenance": "SELF_ASSERTED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Ontbrekende bronmetadata (bron kent het bericht niet)"
+    },
+    {
+      "authorization": "NOT_ASSESSED_LEGACY_V1",
+      "expected": "SELF_ASSERTED (legacy) en forged record geweigerd",
+      "first_problems": [],
+      "match": true,
+      "note": "tijdelijke bestanden; echt register onaangeroerd",
+      "nr": 17,
+      "observed": "N.V.T. (registercontrole)",
+      "provenance": "SELF_ASSERTED",
+      "registration_eligibility": "n.v.t.",
+      "title": "v1-record dat ten onrechte SOURCE_VERIFIED probeert te worden"
+    },
+    {
+      "authorization": "UNANCHORED",
+      "expected": "UNAUTHORIZED_REVIEWER",
+      "first_problems": [
+        "AUTORISATIE_UNANCHORED AUTORISATIELIJST_ONGEANKERD (FIXTURE_ANCHOR_HEEFT_DEZE_HASH_NIET_VASTGEPIND): fail-closed; een lijst in de repository"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 18,
+      "observed": "UNAUTHORIZED_REVIEWER",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Vervalste reviewer-allowlist (aangeleverde lijst niet vastgepind: het gezag pint een andere lijst)"
+    },
+    {
+      "authorization": "UNANCHORED",
+      "expected": "UNAUTHORIZED_REVIEWER",
+      "first_problems": [
+        "AUTORISATIE_UNANCHORED AUTORISATIELIJST_ONGEANKERD (FIXTURE_ANCHOR_HEEFT_DEZE_HASH_NIET_VASTGEPIND): fail-closed; een lijst in de repository"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 18,
+      "observed": "UNAUTHORIZED_REVIEWER",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Vervalste reviewer-allowlist (er is geen enkele aanwijzing vastgepind)"
+    },
+    {
+      "authorization": "UNAUTHORIZED",
+      "expected": "UNAUTHORIZED_REVIEWER",
+      "first_problems": [
+        "AUTORISATIE_UNAUTHORIZED SYN-DESIG-0001: AANWIJZER_IS_GEEN_GEANKERD_GEZAG",
+        "AUTORISATIE_UNAUTHORIZED SYN-DESIG-0001: ZELFAANWIJZING"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 18,
+      "observed": "UNAUTHORIZED_REVIEWER",
+      "provenance": "SOURCE_VERIFIED",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Vervalste reviewer-allowlist (zelfaanwijzing, zelfs als de lijst is vastgepind)"
+    },
+    {
+      "authorization": "NOT_EVALUATED",
+      "expected": "BLOCKED",
+      "first_problems": [
+        "ENVELOPE_SCHEMA <root>: Additional properties are not allowed ('authorized_reviewer_id' was unexpected)",
+        "ZELF_OPGEGEVEN_VERTROUWD_VELD /authorized_reviewer_id (alleen de validator mag dit afleiden)"
+      ],
+      "match": true,
+      "note": "",
+      "nr": 18,
+      "observed": "BLOCKED",
+      "provenance": "UNVERIFIABLE",
+      "registration_eligibility": "NOT_ELIGIBLE",
+      "title": "Reviewer-id/allowlist in het aangeleverde besluit zelf"
+    }
+  ],
+  "status": "DRY_RUN_ONLY_NO_DECISION_REGISTERED_NO_ACTIVATION",
+  "trusted_providers_configured": 0,
+  "v2_schema": "schemas/human_instance_decision_v2.schema.json"
+}

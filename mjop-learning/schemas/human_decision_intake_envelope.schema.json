@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "human_decision_intake_envelope.schema.json",
+  "title": "HumanDecisionIntakeEnvelope",
+  "description": "Het AANGELEVERDE besluitbericht van een toekomstige menselijke niveau-A-beslisser, voor een DRY_RUN-intake. Alles in dit bestand is ONBETROUWBAAR: ook de gegevens onder `claims` zijn alleen beweringen. Betrouwbare herkomst (geauthenticeerde auteur, bronbericht, tijdstip, autorisatie) komt nooit uit dit bestand maar uit een afzonderlijk gecontroleerde bron (zie IntakeSourceProvider). Het schema is gesloten: velden die alleen de validator mag afleiden (authenticatiestatus, geauthenticeerde auteur, autorisatie, ontvangsttijd, herkomststatus) worden geweigerd.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["envelope_version", "approval_request_id", "request_hash", "candidate_group_id", "decision_text", "decision_text_sha256", "text_encoding", "text_normalization", "decision", "covers_levels", "acknowledged_open_app_ids", "acknowledged_open_relations", "evidence_reviewed", "reviewer_notes", "source_pointer", "claims"],
+  "properties": {
+    "envelope_version": {"const": "human_decision_intake_envelope_v1"},
+    "intake_id": {"type": "string", "pattern": "^INT-[0-9a-f]{16}$", "description": "Optioneel; als aanwezig moet het gelijk zijn aan de inhoudsgebonden id die de validator zelf berekent."},
+    "approval_request_id": {"type": "string", "pattern": "^IAR-OIC-"},
+    "request_hash": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+    "candidate_group_id": {"type": "string", "pattern": "^OIC-"},
+    "decision_text": {"type": "string", "minLength": 1, "description": "Letterlijke tekst van het menselijke bericht. Wordt als exacte UTF-8-bytes gehasht, zonder enige normalisatie."},
+    "decision_text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$", "description": "Bewering over de tekst. Bewijst alleen tekstintegriteit, nooit de auteur."},
+    "text_encoding": {"const": "UTF-8"},
+    "text_normalization": {"const": "NONE"},
+    "decision": {"type": "string", "description": "De gekozen uitkomst; de verifier accepteert uitsluitend APPROVE_PHYSICAL_IDENTITY, REJECT of NEEDS_MORE_EVIDENCE."},
+    "covers_levels": {"type": "array", "items": {"type": "string"}},
+    "acknowledged_open_app_ids": {"type": "array", "items": {"type": "string"}},
+    "acknowledged_open_relations": {"type": "array", "items": {"type": "string"}},
+    "evidence_reviewed": {"type": "array", "items": {"type": "string"}},
+    "reviewer_notes": {"type": "string"},
+    "source_pointer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "source_message_id"],
+      "description": "Alleen een VERWIJZING waarmee de validator het bronbericht bij een provider opvraagt. Bevat geen identiteit en bewijst niets.",
+      "properties": {"provider_id": {"type": ["string", "null"]}, "source_message_id": {"type": ["string", "null"]}}
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["author_id", "author_identity_source", "source_message_id", "source_timestamp", "channel", "entered_by_kind"],
+      "description": "ZELF OPGEGEVEN gegevens. Nooit een authenticatiebewijs. Waarden die niet overeenkomen met de geauthenticeerde bron maken de herkomst INVALID.",
+      "properties": {
+        "author_id": {"type": ["string", "null"]},
+        "author_identity_source": {"type": ["string", "null"]},
+        "source_message_id": {"type": ["string", "null"]},
+        "source_timestamp": {"type": ["string", "null"]},
+        "channel": {"type": ["string", "null"]},
+        "entered_by_kind": {"type": ["string", "null"]}
+      }
+    }
+  }
+}

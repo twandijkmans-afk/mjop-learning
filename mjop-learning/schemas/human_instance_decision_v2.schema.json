@@ -1,0 +1,239 @@
+{
+  "$id": "human_instance_decision_v2.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "description": "ONTWERP/LEESFORMAAT. Een v2-record beschrijft een besluit met SOURCE_VERIFIED herkomst en AUTHORIZED reviewer, zoals de schrijver het VERKLAARDE; het bestand bewijst dat zelf niet. Schemageldigheid is geen verificatie (`synthetic_source` true => `SIMULATED_VERIFICATION`, nooit meetellend). Het schema is gesloten. v1-records worden nooit omgezet: het v1-bestand blijft ongewijzigd en de v2-keten begint bij de kop van v1 (`v1_register_head`). In deze PR bestaat geen v2-bestand en schrijft niets naar een register.",
+  "properties": {
+    "acknowledged_open_app_ids": {
+      "items": {
+        "pattern": "^APP-\\d{3}$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "acknowledged_open_relations": {
+      "items": {
+        "pattern": "^VR-\\d{3}$",
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "approval_request_id": {
+      "pattern": "^IAR-OIC-",
+      "type": "string"
+    },
+    "authorization": {
+      "additionalProperties": false,
+      "properties": {
+        "anchor_authority_ids": {
+          "items": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "designation_ref": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "registry_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "reviewer_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "status": {
+          "const": "AUTHORIZED"
+        }
+      },
+      "required": [
+        "status",
+        "registry_sha256",
+        "anchor_authority_ids",
+        "designation_ref",
+        "reviewer_id"
+      ],
+      "type": "object"
+    },
+    "candidate_group_id": {
+      "pattern": "^OIC-",
+      "type": "string"
+    },
+    "covers_levels": {
+      "const": [
+        "A"
+      ]
+    },
+    "decision": {
+      "enum": [
+        "APPROVE_PHYSICAL_IDENTITY",
+        "REJECT",
+        "NEEDS_MORE_EVIDENCE"
+      ]
+    },
+    "decision_id": {
+      "pattern": "^HID-\\d{4}$",
+      "type": "string"
+    },
+    "decision_text": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "decision_text_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "evidence_reviewed": {
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "intake_id": {
+      "pattern": "^INT-[0-9a-f]{16}$",
+      "type": "string"
+    },
+    "previous_record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "provenance": {
+      "additionalProperties": false,
+      "properties": {
+        "attestation_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "authenticated_author_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "authentication_status": {
+          "const": "AUTHENTICATED_HUMAN_PRESENCE"
+        },
+        "author_authentication_method": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "human_presence_evidence": {
+          "enum": [
+            "WEBAUTHN_USER_VERIFIED",
+            "HARDWARE_KEY_SIGNATURE"
+          ]
+        },
+        "provenance_verification_status": {
+          "const": "SOURCE_VERIFIED"
+        },
+        "provider_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "received_timestamp": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source_message_id": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "source_timestamp": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "synthetic_source": {
+          "type": "boolean"
+        },
+        "trust_registry_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "provenance_verification_status",
+        "authentication_status",
+        "provider_id",
+        "trust_registry_sha256",
+        "attestation_sha256",
+        "authenticated_author_id",
+        "author_authentication_method",
+        "human_presence_evidence",
+        "source_message_id",
+        "source_timestamp",
+        "received_timestamp",
+        "synthetic_source"
+      ],
+      "type": "object"
+    },
+    "record_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "record_version": {
+      "const": 2
+    },
+    "register_version": {
+      "const": "human_instance_decision_register_v2"
+    },
+    "request_hash": {
+      "pattern": "^[0-9a-f]{32}$",
+      "type": "string"
+    },
+    "reviewer_notes": {
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "source_message_key": {
+      "description": "provider_id:source_message_id; uniek in het register (persistente replaybescherming bij registratie).",
+      "pattern": "^.+:.+$",
+      "type": "string"
+    },
+    "text_encoding": {
+      "const": "UTF-8"
+    },
+    "text_normalization": {
+      "const": "NONE"
+    },
+    "v1_register_head": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "approval_request_id",
+    "request_hash",
+    "candidate_group_id",
+    "decision",
+    "covers_levels",
+    "acknowledged_open_app_ids",
+    "acknowledged_open_relations",
+    "evidence_reviewed",
+    "reviewer_notes",
+    "record_version",
+    "intake_id",
+    "decision_text",
+    "decision_text_sha256",
+    "text_encoding",
+    "text_normalization",
+    "provenance",
+    "authorization",
+    "source_message_key",
+    "v1_register_head",
+    "decision_id",
+    "sequence",
+    "previous_record_hash",
+    "record_hash",
+    "register_version"
+  ],
+  "title": "Menselijk niveau-A-besluit, registerversie 2 (opgeslagen record)",
+  "type": "object"
+}
