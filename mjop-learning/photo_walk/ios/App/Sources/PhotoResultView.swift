@@ -13,6 +13,7 @@ struct PhotoResultView: View {
     @State private var showDetail = false
     @State private var noPoints: [Pixel] = []
     @State private var exportPath: String? = nil
+    @AppStorage("hideNeutralBoxes") private var hideNeutral = false
 
     static func dimsText(_ r: LevelResult) -> String {
         guard r.ok, let w = r.width, let h = r.height else { return "UNKNOWN" }
@@ -25,7 +26,7 @@ struct PhotoResultView: View {
     private var frameObservations: [Observation] { store.observations.filter { $0.frameId == frameId && !$0.rejected } }
 
     private var boxes: [BoxOverlayItem] {
-        frameObservations.map { o in
+        frameObservations.filter { o in !(hideNeutral && store.measures[o.id]?.feedback == .neutral && o.id != selected) }.map { o in
             let m = store.measures[o.id]
             let label = "\(store.shortName(ofObservation: o.id)) · \(m.map { Self.dimsText($0.result) } ?? "…")"
             return BoxOverlayItem(id: o.id, corners: o.corners, feedback: m?.feedback ?? .neutral, label: label, selected: o.id == selected)
@@ -60,6 +61,7 @@ struct PhotoResultView: View {
                     if let n = store.analysisNotes[frameId] { Text(n).font(.caption2).foregroundStyle(.secondary) }
                     Text("Groen/oranje/grijs = alleen UI-feedback, geen goedkeuring. Herkenning en metingen zijn NIET gevalideerd op echte gebouwen. Zoom verandert geen meting.")
                         .font(.caption2).foregroundStyle(.secondary)
+                    Toggle("Grijze kaders (zonder maat) op de foto verbergen", isOn: $hideNeutral).font(.footnote).accessibilityIdentifier("hideNeutralToggle")
                     ForEach(frameObservations) { o in
                         let m = store.measures[o.id]
                         Button {

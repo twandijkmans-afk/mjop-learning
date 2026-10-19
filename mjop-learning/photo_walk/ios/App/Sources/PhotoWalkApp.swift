@@ -24,7 +24,7 @@ struct PhotoWalkApp: App {
         for o in boxes {
             let m = store.measures[o.id]
             let dims = m.map { PhotoResultView.dimsText($0.result) } ?? "?"
-            print("SELFTEST_DETECT \(o.id) detector=\(o.detection?.detector ?? "") feedback=\(m?.feedback.rawValue ?? "?") \(dims)")
+            print("SELFTEST_DETECT \(o.id) detector=\(o.detection?.detector ?? "") feedback=\(m?.feedback.rawValue ?? "?") \(dims) flags=\(m?.result.flags.map { $0.code }.joined(separator: ",") ?? "")")
         }
         let ov = store.overview(frameId: "F000")
         print("SELFTEST_OVERVIEW detected=\(ov.detected) unique=\(ov.unique) measurable=\(ov.measurable) checks=\(ov.checks) noScale=\(ov.noScale)")

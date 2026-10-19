@@ -106,6 +106,14 @@ enum CandidateFilter {
         return uni > 0 ? inter / uni : 0
     }
 
+    /// Een kleinere kandidaat die (vrijwel) geheel binnen een grotere, niet gevelgrote kandidaat ligt, is waarschijnlijk de glasruit of een vak van hetzelfde kozijn.
+    static func contained(_ small: [Pixel], in big: [Pixel], totalArea: Double) -> Bool {
+        let (sx0, sy0, sx1, sy1) = bounds(small), (bx0, by0, bx1, by1) = bounds(big)
+        let iw = max(0, min(sx1, bx1) - max(sx0, bx0)), ih = max(0, min(sy1, by1) - max(sy0, by0))
+        let smallBox = (sx1 - sx0) * (sy1 - sy0)
+        return smallBox > 0 && (iw * ih) / smallBox > 0.85 && area(big) < 0.3 * totalArea
+    }
+
     static func clean(_ cands: [WindowCandidate], imageWidth W: Double, imageHeight H: Double, maxCount: Int = 25) -> [WindowCandidate] {
         let total = W * H
         let valid = cands.filter { c in
@@ -113,7 +121,7 @@ enum CandidateFilter {
         }
         let ordered = valid.sorted { (area($0.corners), $0.score) > (area($1.corners), $1.score) }          // groot -> klein
         var kept: [WindowCandidate] = []
-        for c in ordered where !kept.contains(where: { iou($0.corners, c.corners) > 0.55 }) { kept.append(c) }
+        for c in ordered where !kept.contains(where: { iou($0.corners, c.corners) > 0.55 || contained(c.corners, in: $0.corners, totalArea: total) }) { kept.append(c) }
         // reproduceerbare volgorde: van links naar rechts, dan boven naar onder in het rechtop getoonde beeld
         let vt = ViewportTransform(nativeWidth: W, nativeHeight: H, orientation: .right, viewportWidth: 1, viewportHeight: 1)
         func key(_ c: WindowCandidate) -> (Double, Double) { let d = vt.displayPoint(fromNative: c.corners[0]); return (d.u, d.v) }
