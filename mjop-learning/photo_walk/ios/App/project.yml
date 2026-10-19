@@ -26,6 +26,7 @@ targets:
         UILaunchScreen: {}
         UIRequiredDeviceCapabilities: [arkit]
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIRequiresFullScreen: true
         UIFileSharingEnabled: true          # exportbestanden zichtbaar in de Bestanden-app (handig zonder Mac)
         LSSupportsOpeningDocumentsInPlace: true
         # Bewust GEEN NSLocationWhenInUseUsageDescription: er worden geen locatiegegevens bewaard.
@@ -34,3 +35,23 @@ targets:
         SWIFT_VERSION: "5.9"
         PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.prototype
         CODE_SIGN_STYLE: Automatic
+  PhotoWalkUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+    dependencies:
+      - target: PhotoWalk
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.uitests
+        TEST_TARGET_NAME: PhotoWalk
+schemes:
+  PhotoWalk:
+    build:
+      targets:
+        PhotoWalk: all
+    test:
+      targets:
+        - PhotoWalkUITests

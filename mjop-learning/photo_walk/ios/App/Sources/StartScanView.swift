@@ -26,6 +26,10 @@ struct StartScanView: View {
                 Text("Alles wordt lokaal verwerkt. Er worden geen beelden geupload, geen externe Vision-aanroepen gedaan en geen locatie bewaard. Alle uitkomsten zijn voorlopig en wachten op menselijke goedkeuring.").font(.footnote)
             }
         }
+        .onAppear {
+            // alleen voor de UI-rooktest in CI: vult de verplichte ID's in zodat geen toetsenbord nodig is
+            if CommandLine.arguments.contains("-uitest-prefill") { store.buildingId = "BLD-UITEST"; store.facadeId = "FACADE-UITEST" }
+        }
         .navigationTitle("Photo Walk")
         .navigationDestination(isPresented: $go) { LiveScanView().environmentObject(store) }
     }
