@@ -6,7 +6,9 @@ Een append-only register waarin een MENSELIJK niveau-A-besluit over een approval
     besluit wordt met `physical_instance_approval.verify_human_approval` getoetst (statusmachine, C1-C11, gesloten besluitrecord);
   * maakt, wijzigt of reserveert nooit een instance (FI-*), pandkoppeling, hoeveelheid, afmeting of kosten;
   * genereert nooit zelf een besluit: een besluit komt uitsluitend als apart aangeleverde invoer binnen;
-  * schrijft standaard niets (DRY_RUN). Echte registratie vraagt `mode="REGISTER"` plus een expliciete bevestigingstoken.
+  * schrijft standaard niets (DRY_RUN). SINDS DE BEVEILIGINGS-PR IS HET CANONIEKE v1-REGISTER GESLOTEN: `register()`/CLI `register` kunnen er geen besluit meer in
+    schrijven, ook niet met de bevestigingstoken. De token staat in de code en is dus GEEN bewijs van menselijke goedkeuring; hij blijft uitsluitend een
+    ongelukkenbeveiliging voor registers op een ander (tijdelijk/test)pad. Er is bewust geen omgevingsvariabele, CLI-optie of configuratiebestand dat de sluiting opheft.
 
 Vier stappen die nooit automatisch samenvallen:
   1. technisch geldige aanvraag (READY_FOR_HUMAN_REVIEW)  2. expliciet menselijk besluit (invoer)
@@ -63,6 +65,27 @@ LADDER = [
 
 class RegisterCorrupt(Exception):
     pass
+
+
+CANONICAL_CLOSED = ("V1_CANONIEK_REGISTER_GESLOTEN (registratie in data/instance_decisions/human_instance_decision_register_v1.jsonl is uitgeschakeld; de bevestigingstoken "
+                    "is geen bewijs van menselijke goedkeuring; geen omgevingsvariabele, optie of configuratie heft dit op)")
+
+
+def _canonical_register_path():
+    """Het productieregister, vast afgeleid van de locatie van dit script (niet van een aanpasbare modulevariabele, omgevingsvariabele of optie)."""
+    return Path(__file__).resolve().parents[1] / "data/instance_decisions/human_instance_decision_register_v1.jsonl"
+
+
+def is_canonical_register(path):
+    """True als `path` het canonieke register is of er (via symlink, hardlink, `..` of hoofdletterverschil) naar wijst. Twijfel of fout = True (fail-closed)."""
+    try:
+        canon = _canonical_register_path()
+        p = Path(path)
+        if p.resolve(strict=False) == canon.resolve(strict=False):
+            return True
+        return p.exists() and canon.exists() and os.path.samefile(p, canon)
+    except Exception:   # noqa: BLE001 — fail-closed
+        return True
 
 
 def canonical(o):
@@ -311,6 +334,8 @@ def _fsync_dir(path):
 
 def _atomic_replace(path, data):
     """Schrijft naar een tijdelijk bestand in dezelfde map, fsync, en vervangt het register in één atomische stap."""
+    if is_canonical_register(path):     # laatste verdedigingslinie: ook directe aanroep van deze helper kan het canonieke register niet raken
+        raise PermissionError(CANONICAL_CLOSED)
     tmp = path.with_name(f".{path.name}.{os.getpid()}.tmp")
     try:
         with open(tmp, "wb") as fh:
@@ -325,13 +350,17 @@ def _atomic_replace(path, data):
 
 
 def register(inp, mode="DRY_RUN", confirm=None, path=REGISTER_PATH, ctx=None, now=None):
-    """Registratieprocedure. Standaard DRY_RUN: valideert en rapporteert zonder te schrijven. Echte registratie vraagt mode='REGISTER' én confirm=CONFIRM_TOKEN.
+    """Registratieprocedure. Standaard DRY_RUN: valideert en rapporteert zonder te schrijven. Registratie (mode='REGISTER' én confirm=CONFIRM_TOKEN) werkt alleen
+    op een niet-canoniek register (test/tijdelijk); op het canonieke v1-register is elke REGISTER-poging geblokkeerd, met of zonder token.
     Retourneert altijd een rapport met status DRY_RUN | VALIDATION_FAILED | REGISTERED; nooit een uitzondering."""
     path = Path(path)
     rep = {"mode": mode, "status": STATUS_FAILED, "reasons": [], "warnings": [], "decision_id": None, "register_head_before": None, "register_head_after": None,
            "changes": [], "instance_activated": False, "fi_ids_created": 0}
     if mode not in MODES:
         rep["reasons"].append("ONBEKENDE_MODUS")
+        return rep
+    if mode == "REGISTER" and is_canonical_register(path):
+        rep["reasons"].append(CANONICAL_CLOSED)
         return rep
     if mode == "REGISTER" and confirm != CONFIRM_TOKEN:
         rep["reasons"].append("REGISTRATIE_VRAAGT_EXPLICIETE_BEVESTIGING (confirm-token ontbreekt of onjuist)")
@@ -463,7 +492,7 @@ def build_report(path=REGISTER_PATH):
     return {
         "register_version": REGISTER_VERSION, "status": "REGISTER_FRAMEWORK_ONLY_EMPTY_REGISTER_NO_DECISION_NO_ACTIVATION",
         "register_file": str(Path(path).relative_to(ROOT)) if Path(path).is_relative_to(ROOT) else str(path), "schema_file": "schemas/human_instance_decision.schema.json",
-        "records_registered": len(recs), "register_head": register_head(recs), "default_mode": "DRY_RUN", "confirm_token_required_for_register": True, "confirm_token": CONFIRM_TOKEN,
+        "records_registered": len(recs), "register_head": register_head(recs), "default_mode": "DRY_RUN", "canonical_register_closed": True,
         "ladder": [{"step": s, "meaning": m} for s, m in LADDER], "decisions_supported": list(DECISIONS), "input_keys": INPUT_KEYS, "stored_keys": STORED_KEYS,
         "provenance_keys": PROVENANCE_KEYS, "channels": list(CHANNELS), "entered_by_kinds": list(ENTERED_BY), "identity_verification_literal": IDENTITY_VERIFICATION,
         "forbidden_effects": FORBIDDEN_EFFECTS,
@@ -480,7 +509,7 @@ def build_report(path=REGISTER_PATH):
             "De gebruiker levert zelf (of bevestigt in een apart bericht) één besluit over IAR-OIC-VR-027 met de actuele request_hash.",
             "Een thread zet dat letterlijk in een invoerbestand (entered_by_kind AI_TRANSCRIPTION_OF_HUMAN_MESSAGE, bronbericht-ID en letterlijke tekst) of de gebruiker vult het zelf in.",
             "Eerst `python scripts/human_instance_decision_register.py check --decision <bestand>` (DRY_RUN) en het resultaat tonen.",
-            "Pas na een tweede, expliciete opdracht van de gebruiker: `... register --decision <bestand> --confirm " + CONFIRM_TOKEN + "` in een eigen PR.",
+            "Registratie in het canonieke v1-register is GESLOTEN (fail-closed); een nieuw, apart door de gebruiker goedgekeurd registratiepad met echte authenticatie is vereist.",
             "Activatie van een instance blijft een nog later, apart door de gebruiker geautoriseerd proces.",
         ],
         "template": template,
@@ -499,13 +528,17 @@ def main(argv=None):
     sub.add_parser("generate", help="schrijft schema, rapporten, beslispakket en leeg invulsjabloon (geen register-schrijfactie)")
     c = sub.add_parser("check", help="DRY_RUN van een apart aangeleverd besluit; schrijft niets")
     c.add_argument("--decision", required=True)
-    r = sub.add_parser("register", help="registreert één menselijk besluit; vraagt --confirm")
+    r = sub.add_parser("register", help="GESLOTEN: stopt altijd fail-closed op het canonieke v1-register (--confirm is geen bewijs van goedkeuring)")
     r.add_argument("--decision", required=True)
     r.add_argument("--confirm", default=None)
     a = ap.parse_args(argv)
-    if a.cmd in ("check", "register"):
+    if a.cmd == "register":     # sluit voordat het invoerbestand wordt gelezen; het CLI heeft geen padoptie, dus altijd het canonieke register
+        res = register({}, mode="REGISTER", confirm=a.confirm)
+        print(json.dumps(res, indent=2, ensure_ascii=False))
+        return 1
+    if a.cmd == "check":
         inp = json.loads(Path(a.decision).read_text(encoding="utf-8"))
-        res = register(inp, mode="DRY_RUN" if a.cmd == "check" else "REGISTER", confirm=getattr(a, "confirm", None))
+        res = register(inp, mode="DRY_RUN")
         res.pop("record_preview", None) if res["status"] == STATUS_FAILED else None
         print(json.dumps(res, indent=2, ensure_ascii=False))
         return 0 if res["status"] in (STATUS_DRY_RUN, STATUS_REGISTERED) else 1

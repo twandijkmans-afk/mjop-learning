@@ -3,14 +3,13 @@
     "open": 48,
     "total": 48
   },
+  "canonical_register_closed": true,
   "channels": [
     "CLAUDE_CODE_CHAT",
     "CHATGPT_CONVERSATION",
     "HTML_FORM_EXPORT",
     "FILE_EDITED_BY_HUMAN"
   ],
-  "confirm_token": "REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER",
-  "confirm_token_required_for_register": true,
   "decision_state": {
     "approval_request_id": "IAR-OIC-VR-027",
     "decisions": [],
@@ -109,7 +108,7 @@
     "De gebruiker levert zelf (of bevestigt in een apart bericht) één besluit over IAR-OIC-VR-027 met de actuele request_hash.",
     "Een thread zet dat letterlijk in een invoerbestand (entered_by_kind AI_TRANSCRIPTION_OF_HUMAN_MESSAGE, bronbericht-ID en letterlijke tekst) of de gebruiker vult het zelf in.",
     "Eerst `python scripts/human_instance_decision_register.py check --decision <bestand>` (DRY_RUN) en het resultaat tonen.",
-    "Pas na een tweede, expliciete opdracht van de gebruiker: `... register --decision <bestand> --confirm REGISTER_ONE_HUMAN_DECISION_AS_EXPLICITLY_REQUESTED_BY_USER` in een eigen PR.",
+    "Registratie in het canonieke v1-register is GESLOTEN (fail-closed); een nieuw, apart door de gebruiker goedgekeurd registratiepad met echte authenticatie is vereist.",
     "Activatie van een instance blijft een nog later, apart door de gebruiker geautoriseerd proces."
   ],
   "provenance_keys": [
