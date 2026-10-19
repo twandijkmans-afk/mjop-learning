@@ -5,6 +5,12 @@ import XCTest
 final class PhotoWalkUITests: XCTestCase {
     override func setUp() { continueAfterFailure = false }
 
+    /// Het startscherm is een Form; onderste rijen (Geavanceerd) worden pas geladen na scrollen.
+    private func reveal(_ app: XCUIApplication, _ el: XCUIElement) {
+        var n = 0
+        while !(el.exists && el.isHittable) && n < 8 { app.swipeUp(); n += 1 }
+    }
+
     private func label(_ app: XCUIApplication, containing s: String) -> XCUIElement {
         app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", s)).firstMatch
     }
@@ -14,7 +20,8 @@ final class PhotoWalkUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         XCTAssertFalse(app.buttons["Foto-scan starten"].isEnabled, "zonder gebouw-/gevel-ID mag geen scan starten")
-        app.buttons["Testscan met synthetische data (simulatie)"].tap()
+        let legacySim = app.buttons["Testscan met synthetische data (simulatie)"]
+        reveal(app, legacySim); legacySim.tap()
         XCTAssertTrue(label(app, containing: "SIMULATIE").waitForExistence(timeout: 15))
         XCTAssertTrue(label(app, containing: "1.2").exists)
         app.buttons["Resultaten openen"].tap()
@@ -30,6 +37,7 @@ final class PhotoWalkUITests: XCTestCase {
         app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         let start = app.buttons["Keyframe-scan starten (handmatig markeren)"]
+        reveal(app, start)
         XCTAssertTrue(start.waitForExistence(timeout: 10))
         XCTAssertTrue(start.isEnabled)
         start.tap()
@@ -60,7 +68,8 @@ final class PhotoWalkUITests: XCTestCase {
     private func openTestImagePicker(_ app: XCUIApplication) {
         app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
-        app.buttons["Testscan met synthetische data (simulatie)"].tap()
+        let legacySim = app.buttons["Testscan met synthetische data (simulatie)"]
+        reveal(app, legacySim); legacySim.tap()
         XCTAssertTrue(label(app, containing: "SIMULATIE").waitForExistence(timeout: 15))
         let open = app.buttons["Hoeken markeren op testbeeld"]
         XCTAssertTrue(open.waitForExistence(timeout: 15)); open.tap()
