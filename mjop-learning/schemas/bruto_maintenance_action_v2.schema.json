@@ -1,0 +1,263 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bruto_maintenance_action_v2.schema.json",
+  "title": "BrutoMaintenanceActionV2",
+  "description": "Gesloten, versieerbaar onderhoudshoeveelheidsvoorstel. Altijd voorlopig en niet vrijgegeven; geen prijs, kengetal of definitieve hoeveelheid. proposed_quantity null = onbekend, nooit nul.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "action_id",
+    "action_type",
+    "vocabulary_action_id",
+    "element_category",
+    "quantity_unit",
+    "measurement_basis",
+    "measurement_basis_status",
+    "door_treatment",
+    "scope",
+    "source_quantity_ref",
+    "source_quantity_status",
+    "proposed_quantity",
+    "quantity_provenance",
+    "review_status",
+    "finding_ids",
+    "overlap_group",
+    "additive",
+    "release_state",
+    "is_final_quantity",
+    "usable_for_mjop",
+    "price_link",
+    "kengetal_link"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "bruto_maintenance_action_v2"
+    },
+    "action_id": {
+      "type": "string",
+      "pattern": "^MQ-[A-Z0-9][A-Z0-9-]*$"
+    },
+    "action_type": {
+      "enum": [
+        "EXTERIOR_PAINTING",
+        "INTERIOR_PAINTING",
+        "FRAME_MAINTENANCE",
+        "FRAME_REPLACEMENT",
+        "DOOR_MAINTENANCE",
+        "DOOR_REPLACEMENT"
+      ]
+    },
+    "vocabulary_action_id": {
+      "type": "string"
+    },
+    "element_category": {
+      "enum": [
+        "FRAME",
+        "DOOR"
+      ]
+    },
+    "quantity_unit": {
+      "enum": [
+        "m2",
+        "stuks",
+        null
+      ]
+    },
+    "measurement_basis": {
+      "enum": [
+        "GROSS_FRAME_AREA_OUTER",
+        "DOOR_PIECES",
+        "HISTORICAL_SOURCE_BASIS",
+        "UNKNOWN"
+      ]
+    },
+    "measurement_basis_status": {
+      "enum": [
+        "DEFAULT",
+        "CANDIDATE",
+        "UNKNOWN",
+        "REQUESTED"
+      ]
+    },
+    "door_treatment": {
+      "enum": [
+        "PART_OF_GROSS_FRAME_AREA",
+        "AS_PIECES",
+        "NOT_RELEVANT",
+        "UNDECIDED"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_ids",
+        "door_area_included",
+        "door_pieces_registered"
+      ],
+      "properties": {
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "door_area_included": {
+          "type": "boolean"
+        },
+        "door_pieces_registered": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "source_quantity_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_contract",
+        "pack_id",
+        "baseline_state_id",
+        "object_ids"
+      ],
+      "properties": {
+        "source_contract": {
+          "const": "bruto_review_pack_v2"
+        },
+        "pack_id": {
+          "type": "string"
+        },
+        "baseline_state_id": {
+          "type": "string"
+        },
+        "object_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "source_quantity_status": {
+      "enum": [
+        "KNOWN_SUPPORTED",
+        "PROVISIONAL_CALCULATED",
+        "ESTIMATED",
+        "UNKNOWN",
+        "BLOCKED_BY_CONFLICT"
+      ]
+    },
+    "proposed_quantity": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value_exact",
+            "value_presented",
+            "unit"
+          ],
+          "properties": {
+            "value_exact": {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]+)?$"
+            },
+            "value_presented": {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]{2})?$"
+            },
+            "unit": {
+              "enum": [
+                "m2",
+                "stuks"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "quantity_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "derivation",
+        "per_object",
+        "area_classes",
+        "triage_calibration_status",
+        "source_class"
+      ],
+      "properties": {
+        "derivation": {
+          "type": "string"
+        },
+        "per_object": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "area_classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "triage_calibration_status": {
+          "enum": [
+            "UNCALIBRATED",
+            "CALIBRATED"
+          ]
+        },
+        "source_class": {
+          "enum": [
+            "CLEAN_PROVISIONAL",
+            "REVIEW_REQUIRED",
+            "INSUFFICIENT_EVIDENCE",
+            "CONFLICT"
+          ]
+        }
+      }
+    },
+    "review_status": {
+      "enum": [
+        "CLEAN_PROVISIONAL",
+        "REVIEW_REQUIRED",
+        "INSUFFICIENT_EVIDENCE",
+        "CONFLICT"
+      ]
+    },
+    "finding_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "overlap_group": {
+      "type": "string"
+    },
+    "additive": {
+      "const": false
+    },
+    "release_state": {
+      "const": "NOT_RELEASED"
+    },
+    "is_final_quantity": {
+      "const": false
+    },
+    "usable_for_mjop": {
+      "const": false
+    },
+    "price_link": {
+      "const": null
+    },
+    "kengetal_link": {
+      "const": null
+    }
+  }
+}

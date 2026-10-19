@@ -1,0 +1,141 @@
+{
+  "vocabulary_id": "bruto_maintenance_rules_v2",
+  "description": "Onderhoudsactie- en dubbeltellingsregels voor Maintenance Actions & Door Treatment v1. Hergebruikt vocabularies/bruto_quantity_actions_v2.json voor acties, meetgrondslagen en deurbehandelingen; definieert geen concurrerende varianten.",
+  "reuses": "bruto_quantity_actions_v2",
+  "action_types": {
+    "EXTERIOR_PAINTING": {
+      "vocabulary_action_id": "PAINT_EXTERIOR"
+    },
+    "INTERIOR_PAINTING": {
+      "vocabulary_action_id": "PAINT_INTERIOR"
+    },
+    "FRAME_MAINTENANCE": {
+      "vocabulary_action_id": "FRAME_MAINTENANCE"
+    },
+    "FRAME_REPLACEMENT": {
+      "vocabulary_action_id": "FRAME_REPLACEMENT"
+    },
+    "DOOR_MAINTENANCE": {
+      "vocabulary_action_id": "DOOR_MAINTENANCE"
+    },
+    "DOOR_REPLACEMENT": {
+      "vocabulary_action_id": "DOOR_REPLACEMENT"
+    }
+  },
+  "overlapping_work_pairs": [
+    [
+      "FRAME_REPLACEMENT",
+      "EXTERIOR_PAINTING"
+    ],
+    [
+      "FRAME_REPLACEMENT",
+      "INTERIOR_PAINTING"
+    ],
+    [
+      "FRAME_REPLACEMENT",
+      "FRAME_MAINTENANCE"
+    ],
+    [
+      "FRAME_REPLACEMENT",
+      "DOOR_REPLACEMENT"
+    ],
+    [
+      "FRAME_REPLACEMENT",
+      "DOOR_MAINTENANCE"
+    ],
+    [
+      "FRAME_MAINTENANCE",
+      "EXTERIOR_PAINTING"
+    ],
+    [
+      "DOOR_REPLACEMENT",
+      "DOOR_MAINTENANCE"
+    ]
+  ],
+  "rules": [
+    {
+      "rule_id": "M-C1",
+      "class": "CONFLICT",
+      "title": "Dezelfde actie twee keer begroot",
+      "description": "Twee verzoeken met hetzelfde actietype en exact dezelfde objecten: hetzelfde onderhoud zou dubbel worden begroot."
+    },
+    {
+      "rule_id": "M-C2",
+      "class": "CONFLICT",
+      "title": "Bronobject in conflict",
+      "description": "Een object in de scope is door de triage als CONFLICT geblokkeerd; er wordt geen hoeveelheid voorgesteld."
+    },
+    {
+      "rule_id": "M-I1",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Meetgrondslag niet vastgesteld",
+      "description": "De meetgrondslag van deze actie is UNKNOWN of historisch en niet berekenbaar; de hoeveelheid blijft null."
+    },
+    {
+      "rule_id": "M-I2",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Bronoppervlak onbekend",
+      "description": "Minstens één object in de scope heeft geen bruto oppervlak; de hoeveelheid blijft null, nooit nul."
+    },
+    {
+      "rule_id": "M-I3",
+      "class": "INSUFFICIENT_EVIDENCE",
+      "title": "Bronidentiteit onvoldoende",
+      "description": "De identiteit of telling van een object in de scope is onvoldoende onderbouwd; de hoeveelheid blijft null."
+    },
+    {
+      "rule_id": "M-R1",
+      "class": "REVIEW_REQUIRED",
+      "title": "Scope overlapt gedeeltelijk",
+      "description": "Twee verzoeken van hetzelfde actietype delen objecten maar hebben niet exact dezelfde scope."
+    },
+    {
+      "rule_id": "M-R2",
+      "class": "REVIEW_REQUIRED",
+      "title": "Onderhoud en vervanging overlappen",
+      "description": "Voor hetzelfde object bestaan acties waarvan het werk elkaar kan insluiten (bijvoorbeeld vervanging en schilderwerk)."
+    },
+    {
+      "rule_id": "M-R3",
+      "class": "REVIEW_REQUIRED",
+      "title": "Deurbehandeling niet vastgesteld",
+      "description": "De deurbehandeling van deze actie is UNDECIDED of past niet bij de actie; er wordt geen deurhoeveelheid voorgesteld."
+    },
+    {
+      "rule_id": "M-R4",
+      "class": "REVIEW_REQUIRED",
+      "title": "Deur zit in bruto m2 en wordt in stuks gevraagd",
+      "description": "De deur zit in het bruto kozijnoppervlak terwijl de behandeling AS_PIECES is; het deeloppervlak is niet af te splitsen."
+    },
+    {
+      "rule_id": "M-R5",
+      "class": "REVIEW_REQUIRED",
+      "title": "Mogelijk dubbel object in scope",
+      "description": "De triage vermoedt dat twee objecten in de scope hetzelfde fysieke object zijn."
+    },
+    {
+      "rule_id": "M-R6",
+      "class": "REVIEW_REQUIRED",
+      "title": "Brontriage vraagt beoordeling",
+      "description": "Een object in de scope is door de triage niet CLEAN_PROVISIONAL (bij ongekalibreerde drempels altijd)."
+    },
+    {
+      "rule_id": "M-N1",
+      "class": "INFO",
+      "title": "Geschat bronoppervlak",
+      "description": "Het voorstel steunt op een geschat bruto oppervlak; het blijft een schatting."
+    },
+    {
+      "rule_id": "M-N2",
+      "class": "INFO",
+      "title": "Geldige dubbele registratie",
+      "description": "Hetzelfde object heeft een m2- en een stuksregistratie voor verschillende werkzaamheden; dat is geen dubbeltelling."
+    },
+    {
+      "rule_id": "M-N3",
+      "class": "INFO",
+      "title": "Afwijking binnen typegroep",
+      "description": "Het object wijkt af van de typegroep; de eigen maat van het object is gebruikt, nooit de typemaat."
+    }
+  ]
+}

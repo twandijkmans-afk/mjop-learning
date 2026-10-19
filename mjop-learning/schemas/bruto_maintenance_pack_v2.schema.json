@@ -1,0 +1,153 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "bruto_maintenance_pack_v2.schema.json",
+  "title": "BrutoMaintenancePackV2",
+  "description": "Verzameling onderhoudshoeveelheidsvoorstellen met bevindingen. Voorlopig; geen prijs, kengetal, besluit of definitieve hoeveelheid.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "pack_id",
+    "source",
+    "invariants",
+    "proposals",
+    "findings",
+    "summary",
+    "notes"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "bruto_maintenance_pack_v2"
+    },
+    "pack_id": {
+      "type": "string",
+      "pattern": "^BMP-[0-9a-f]{16}$"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "pack_id",
+        "baseline_state_id",
+        "calibration_effective_status",
+        "request_sha256"
+      ]
+    },
+    "invariants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "release_state",
+        "usable_for_mjop",
+        "decisions_registered",
+        "approvals_simulated",
+        "fi_ids_created",
+        "confirmed_output",
+        "final_quantities",
+        "price_calculated",
+        "cost_calculated",
+        "kengetal_linked",
+        "combined_total_across_actions",
+        "network_used"
+      ],
+      "properties": {
+        "release_state": {
+          "const": "NOT_RELEASED"
+        },
+        "usable_for_mjop": {
+          "const": false
+        },
+        "decisions_registered": {
+          "const": false
+        },
+        "approvals_simulated": {
+          "const": false
+        },
+        "fi_ids_created": {
+          "const": false
+        },
+        "confirmed_output": {
+          "const": false
+        },
+        "final_quantities": {
+          "const": false
+        },
+        "price_calculated": {
+          "const": false
+        },
+        "cost_calculated": {
+          "const": false
+        },
+        "kengetal_linked": {
+          "const": false
+        },
+        "combined_total_across_actions": {
+          "const": null
+        },
+        "network_used": {
+          "const": false
+        }
+      }
+    },
+    "proposals": {
+      "type": "array",
+      "items": {
+        "$ref": "bruto_maintenance_action_v2.schema.json"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "rule_id",
+          "class",
+          "action_ids",
+          "object_ids",
+          "detail"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          },
+          "rule_id": {
+            "type": "string"
+          },
+          "class": {
+            "enum": [
+              "CONFLICT",
+              "INSUFFICIENT_EVIDENCE",
+              "REVIEW_REQUIRED",
+              "INFO"
+            ]
+          },
+          "action_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "object_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
