@@ -45,6 +45,7 @@ public enum Flags {
         "NO_FACADE_PLANE": (.BLOCKING, "Rond het kozijn is geen bruikbaar plat wandvlak gevonden. Zorg dat een stuk effen muur naast, boven en onder het kozijn in beeld is en sta recht op de gevel."),
         "FACADE_NOT_PLANAR": (.BLOCKING, "Het oppervlak rond het kozijn is te ruw of onregelmatig (reliëf, begroeiing, rommel) voor een betrouwbare vlakfit. Kies een standpunt met meer vlakke muur in beeld."),
         "AMBIGUOUS_FACADE_PLANES": (.BLOCKING, "Rond het kozijn liggen meerdere even grote vlakken op verschillende diepte (verspringende gevel). Fotografeer vanaf een standpunt waar één wandvlak duidelijk om het kozijn zit, of gebruik een referentiemaat."),
+        "FACADE_NOT_REPRESENTATIVE": (.BLOCKING, "Het gekozen vlak is te smal of te klein om de gevel te vertegenwoordigen (bijv. alleen een profiel, dagkant of vensterbank). Houd meer effen muur rondom het kozijn in beeld."),
         "FACADE_ONE_SIDED": (.BLOCKING, "Het wandvlak is maar aan één of twee kanten van het kozijn gezien. Houd het kozijn met wand aan alle kanten in beeld."),
         "FRAME_PLANE_UNDETERMINED": (.BLOCKING, "De terugligging van het kozijn t.o.v. de wand is niet betrouwbaar te bepalen (te weinig diepte op de kozijnrand). Beweeg langzaam iets naar links en rechts en maak de foto opnieuw, of voer een gemeten referentiemaat in."),
         "FRAME_PLANE_INCONSISTENT": (.BLOCKING, "De kozijnrand ligt links/rechts/boven op verschillende diepte. Controleer of het kader precies om de buitenrand van het kozijn ligt."),
@@ -84,6 +85,7 @@ public struct Config {
     // niveau A v2 (PROVISIONAL; zelfde waarden als config.py)
     public var lidarSigma0M = 0.004, lidarSigma1PerM = 0.004, reliefTolM = 0.012, thrK = 2.5
     public var ringInnerScale = 1.06, ringOuterScale = 1.6, bandLoScale = 0.88, bandHiScale = 0.985, bandClusterMinShare = 0.35, glassScale = 0.70
+    public var facadeLocalBandK = 3.0, sideMinShare = 0.05, facadeMinExtentRatio = 0.04, unexplainedMax = 0.6
     public var maxPlanes = 3, minPlanePoints = 40, planeMinFraction = 0.06, ransacIterationsV2 = 150, maxRansacPoints = 2500
     public var facadeMinFacing = 0.35, facadeMaxVertical = 0.35, facadeSupportMin = 0.5, facadeRmsK = 1.5, ambiguityRatio = 0.6
     public var sideMinPoints = 15, frameSearchM = 0.35, frameSideMinPoints = 12, frameGroupTolK = 1.5, flushTolK = 1.2

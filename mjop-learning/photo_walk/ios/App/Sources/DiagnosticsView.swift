@@ -81,6 +81,32 @@ struct DiagnosticsView: View {
                         line("Kandidaat \(n + 1): \((p["role"] as? String) ?? "")", "\(i(p["count"]) ?? 0) punten · rms \(f(p["rms_m"], 1, scale: 1000, unit: " mm")) · cos \(f(p["facing"], 2))")
                     }
                 }
+                if let fa = g["facade_assessment"] as? [String: Any] {
+                    Section("Vlakbeoordeling (waarom wel/niet representatief)") {
+                        let loc = fa["local"] as? [String: Any], sd = fa["sides"] as? [String: Any], ex = fa["extent"] as? [String: Any]
+                        let xo = fa["excluded_other_layer"] as? [String: Any], un = fa["unexplained"] as? [String: Any]
+                        line("Punten op het gekozen vlak", "\(i(fa["facade_points"]) ?? 0) van \(i(fa["ring_points"]) ?? 0) ringpunten")
+                        line("Uitgesloten als andere dieptelaag", "\(i(xo?["count"]) ?? 0) (\(f(xo?["share"], 0, scale: 100, unit: " %")))")
+                        line("Niet bij een herkend vlak", "\(i(un?["count"]) ?? 0) (\(f(un?["share"], 0, scale: 100, unit: " %")))")
+                        line("Alleen dit vlak: rms / robuuste spreiding", "\(f(loc?["rms_m"], 1, scale: 1000, unit: " mm")) / \(f(loc?["robust_sigma_m"], 1, scale: 1000, unit: " mm"))")
+                        line("Toegestaan (rms / robuust)", "\(f(loc?["rms_limit_m"], 1, scale: 1000, unit: " mm")) / \(f(loc?["robust_limit_m"], 1, scale: 1000, unit: " mm"))")
+                        line("Totale ringspreiding (alleen achtergrond)", f(fa["ring_total_spread_m"], 1, scale: 1000, unit: " mm"))
+                        line("Punten per zijde (boven/rechts/onder/links)", ((sd?["counts"] as? [Any]) ?? []).map { "\(i($0) ?? 0)" }.joined(separator: " / "))
+                        line("Zijde voldoende gedekt", ((sd?["covered"] as? [Bool]) ?? []).map { $0 ? "ja" : "nee" }.joined(separator: " / "))
+                        line("In-vlak spreiding (min.) / vereist", "\(f(ex?["minor_std_m"], 2, unit: " m")) / \(f(ex?["min_required_m"], 2, unit: " m"))")
+                        line("Representatief", (fa["representative"] as? Bool) == true ? "ja" : "nee")
+                        if let rs = fa["reasons"] as? [String] { ForEach(rs, id: \.self) { Text($0).font(.caption2).foregroundStyle(.secondary) } }
+                        if let gt = fa["gate"] as? String { line("Blokkerende controle", gt) }
+                    }
+                }
+                if let ind = g["independence"] as? [String: Any] {
+                    Section("Onafhankelijkheid van de frames") {
+                        line("Frames geselecteerd / bruikbaar", "\(i(ind["frames_selected"]) ?? 0) / \(i(ind["frames_usable"]) ?? 0)")
+                        line("Verschillende standpunten (telt als onafhankelijk)", "\(i(ind["distinct_viewpoints"]) ?? 0)")
+                        line("Alleen gedraaid (zelfde plek, telt niet)", "\(i(ind["rotation_only_frames"]) ?? 0)")
+                        Text("Een kader telt als ander standpunt bij ≥ 2 cm verplaatsing; rotatie alleen geeft extra punten maar geen onafhankelijke bevestiging.").font(.caption2).foregroundStyle(.secondary)
+                    }
+                }
                 Section("Kozijnvlak t.o.v. wand") {
                     if let fp = g["frame_plane"] as? [String: Any] {
                         line("Modus", (fp["final_mode"] as? String) ?? (fp["mode"] as? String) ?? "–")

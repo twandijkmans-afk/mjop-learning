@@ -209,48 +209,107 @@ func classifyPlanes(_ planes: inout [PlaneCand], camPos: Vec3, cfg: Config) {
     }
 }
 
-/// Kiest het wandvlak of geeft een specifieke weigering: (index, code, detail).
-func pickFacade(_ planes: inout [PlaneCand], ring: [Vec3], zMed: Double, cfg: Config) -> (Int?, String?, String) {
-    let thr = thrAt(zMed, cfg)
+/// Kleinste/grootste standaardafwijking (m) van punten binnen hun vlak (normaal n); gesloten vorm, zelfde als Python `inplane_std`.
+func inplaneStd(_ P: [Vec3], _ n: Vec3) -> (major: Double, minor: Double) {
+    guard P.count >= 3 else { return (0, 0) }
+    let N = Double(P.count)
+    let m = P.reduce(Vec3.zero, +) * (1.0 / N)
+    var c = [[Double]](repeating: [0, 0, 0], count: 3)
+    for p in P {
+        var q = p - m
+        q = q - n * q.dot(n)
+        let a = [q.x, q.y, q.z]
+        for i in 0..<3 { for j in 0..<3 { c[i][j] += a[i] * a[j] / N } }
+    }
+    var tr = 0.0, p2 = 0.0
+    for i in 0..<3 { tr += c[i][i]; for j in 0..<3 { p2 += c[i][j] * c[i][j] } }
+    let det2 = max((tr * tr - p2) / 2.0, 0)
+    let disc = max(tr * tr / 4.0 - det2, 0).squareRoot()
+    return (max(tr / 2.0 + disc, 0).squareRoot(), max(tr / 2.0 - disc, 0).squareRoot())
+}
+
+/// Kiest het wandvlak of geeft een specifieke weigering: (index, code, detail, beoordeling). Aparte controles:
+/// 1 lokale vlakkwaliteit (alleen punten die bij DIT vlak horen), 2 conflicterende vlakken, 3 ondersteuning/onverklaard, 4 zijdeverdeling en in-vlak omvang.
+func pickFacade(_ planes: inout [PlaneCand], ring: [Vec3], zMed: Double, cfg: Config, quadDiagM: Double?) -> (Int?, String?, String, [String: Any]) {
+    let thr = thrAt(zMed, cfg), sig = sigmaAt(zMed, cfg)
+    let nRing = ring.count
+    var A: [String: Any] = ["ring_points": nRing, "gate": NSNull(), "reasons": [String](), "representative": false,
+                            "note_ring_spread": "alleen diagnostische achtergrondwaarde; geen kwaliteitsgate"]
+    A["planes"] = planes.map { ["role": $0.role, "count": $0.count] as [String: Any] }
     let cands = planes.indices.filter { planes[$0].role == "FACADE_CANDIDATE" }.sorted { a, b in
         planes[a].count != planes[b].count ? planes[a].count > planes[b].count : a < b
     }
-    guard let bi = cands.first else { return (nil, "NO_FACADE_PLANE", "geen verticaal, naar de camera gericht vlak in de ring") }
+    func fail(_ code: String, _ why: String) -> (Int?, String?, String, [String: Any]) {
+        A["gate"] = code; A["reasons"] = [why]; A["representative"] = false
+        return (nil, code, why, A)
+    }
+    guard let bi = cands.first else { return fail("NO_FACADE_PLANE", "geen verticaal, naar de camera gericht vlak in de ring") }
     for pi in cands.dropFirst() {
-        let parallel = abs(planes[pi].n.dot(planes[bi].n)) > 0.97
-        let pd = planes[pi].n.dot(planes[bi].n) > 0 ? planes[pi].d : -planes[pi].d
+        let dot = planes[pi].n.dot(planes[bi].n)
+        let parallel = abs(dot) > 0.97
+        let pd = dot > 0 ? planes[pi].d : -planes[pi].d
         let step = abs(pd - planes[bi].d)
-        if parallel && step > 1.5 * thr && Double(planes[pi].count) >= cfg.ambiguityRatio * Double(planes[bi].count) {
+        let big = Double(planes[pi].count) >= cfg.ambiguityRatio * Double(planes[bi].count)
+        if parallel && step > 1.5 * thr && big {
             planes[pi].role = "PARALLEL_STEP"
-            return (nil, "AMBIGUOUS_FACADE_PLANES", String(format: "twee grote parallelle vlakken, %.2f m uit elkaar", step))
+            return fail("AMBIGUOUS_FACADE_PLANES", String(format: "twee grote parallelle vlakken, %.2f m uit elkaar", step))
         }
+        if !parallel && big { return fail("AMBIGUOUS_FACADE_PLANES", "twee even grote verticale vlakken met verschillende richting (hoek/uitbouw)") }
         if parallel && step > 1.5 * thr { planes[pi].role = "PARALLEL_STEP" }
     }
     planes[bi].role = "FACADE"
-    var explained = 0
-    for (i, p) in planes.enumerated() where i != bi && (p.role == "REVEAL_OR_LEDGE" || p.role == "PARALLEL_STEP") { explained += p.count }
-    let denom = max(ring.count - explained, 1)
-    planes[bi].support = Double(planes[bi].count) / Double(denom)
-    if planes[bi].support < cfg.facadeSupportMin {
-        return (nil, "FACADE_NOT_PLANAR", String(format: "wandvlak verklaart slechts %.2f van de ringpunten", planes[bi].support))
-    }
-    if planes[bi].rms > cfg.facadeRmsK * sigmaAt(zMed, cfg) + 0.008 {
-        return (nil, "FACADE_NOT_PLANAR", String(format: "vlak te ruw: rms %.3f m", planes[bi].rms))
-    }
     let n = planes[bi].n, d = planes[bi].d
-    planes[bi].robustSigma = 1.4826 * medianOf(ring.map { abs($0.dot(n) - d) })
-    if planes[bi].robustSigma > 2.0 * sigmaAt(zMed, cfg) + 0.012 {
-        return (nil, "FACADE_NOT_PLANAR", String(format: "robuuste ruis rond het vlak %.3f m (ruw oppervlak)", planes[bi].robustSigma))
+    var own = [Bool](repeating: false, count: nRing), foreign = own, foreignPar = own
+    for g in planes[bi].idx { own[g] = true }
+    var explainedOther = 0
+    var excludedPlanes: [[String: Any]] = []
+    for (i, p) in planes.enumerated() where i != bi {
+        let par = abs(p.n.dot(n)) > 0.97
+        for g in p.idx { foreign[g] = true; if par { foreignPar[g] = true } }
+        if p.role == "REVEAL_OR_LEDGE" || p.role == "PARALLEL_STEP" { explainedOther += p.count }
+        excludedPlanes.append(["role": p.role, "count": p.count])
     }
-    let sidesOk = planes[bi].sides.filter { $0 >= cfg.sideMinPoints }.count
-    planes[bi].sidesCovered = sidesOk
-    if sidesOk < 2 { return (nil, "FACADE_ONE_SIDED", "wand slechts aan \(sidesOk) zijde(n) gezien") }
-    if sidesOk == 2 {
-        let s = planes[bi].sides, m = cfg.sideMinPoints
-        let opposite = (s[0] >= m && s[2] >= m) || (s[1] >= m && s[3] >= m)
-        if !opposite { return (nil, "FACADE_ONE_SIDED", "wand alleen aan twee aangrenzende zijden gezien") }
+    var resid = [Double](repeating: 0, count: nRing)
+    for i in 0..<nRing { resid[i] = abs(ring[i].dot(n) - d) }
+    A["ring_total_spread_m"] = rd(1.4826 * medianOf(resid))
+    var localRes: [Double] = []
+    var nForeign = 0, nUnexpl = 0
+    for i in 0..<nRing {
+        if foreign[i] { nForeign += 1 }
+        let unexpl = !own[i] && !foreign[i]
+        if unexpl { nUnexpl += 1 }
+        let nonPar = foreign[i] && !foreignPar[i]
+        if (own[i] || unexpl || foreignPar[i]) && resid[i] <= cfg.facadeLocalBandK * thr && !nonPar { localRes.append(resid[i]) }
     }
-    return (bi, nil, "")
+    planes[bi].robustSigma = localRes.isEmpty ? 0 : 1.4826 * medianOf(localRes)
+    planes[bi].support = Double(planes[bi].count) / Double(max(nRing - explainedOther, 1))
+    let denomRing = Double(max(nRing, 1))
+    let rmsLimit = cfg.facadeRmsK * sig + 0.008, robustLimit = 2.0 * sig + 0.012
+    A["facade_points"] = planes[bi].count
+    A["excluded_other_layer"] = ["count": nForeign, "share": rd(Double(nForeign) / denomRing), "planes": excludedPlanes] as [String: Any]
+    A["unexplained"] = ["count": nUnexpl, "share": rd(Double(nUnexpl) / denomRing)] as [String: Any]
+    A["local"] = ["points": localRes.count, "rms_m": rd(planes[bi].rms), "robust_sigma_m": rd(planes[bi].robustSigma), "rms_limit_m": rd(rmsLimit),
+                  "robust_limit_m": rd(robustLimit)] as [String: Any]
+    A["support"] = rd(planes[bi].support)
+    let sides = planes[bi].sides
+    let cnt = Double(max(planes[bi].count, 1))
+    let minPts = max(cfg.sideMinPoints, Int((cfg.sideMinShare * Double(planes[bi].count)).rounded(.up)))
+    let covered = sides.map { $0 >= minPts }
+    planes[bi].sidesCovered = covered.filter { $0 }.count
+    let ext = inplaneStd(planes[bi].idx.map { ring[$0] }, n)
+    let extMin: Double? = quadDiagM.map { cfg.facadeMinExtentRatio * $0 }
+    A["sides"] = ["counts": sides, "shares": sides.map { rd(Double($0) / cnt) }, "covered": covered, "min_points_per_side": minPts] as [String: Any]
+    A["extent"] = ["major_std_m": rd(ext.major), "minor_std_m": rd(ext.minor), "min_required_m": rdOpt(extMin)] as [String: Any]
+    if planes[bi].support < cfg.facadeSupportMin { return fail("FACADE_NOT_PLANAR", String(format: "wandvlak verklaart slechts %.2f van de ringpunten", planes[bi].support)) }
+    if planes[bi].rms > rmsLimit { return fail("FACADE_NOT_PLANAR", String(format: "vlak te ruw: rms %.3f m", planes[bi].rms)) }
+    if planes[bi].robustSigma > robustLimit { return fail("FACADE_NOT_PLANAR", String(format: "robuuste ruis rond het gekozen vlak %.3f m (ruw oppervlak)", planes[bi].robustSigma)) }
+    if Double(nUnexpl) / denomRing > cfg.unexplainedMax { return fail("FACADE_NOT_PLANAR", String(format: "%.2f van de ringpunten hoort bij geen enkel herkend vlak", Double(nUnexpl) / denomRing)) }
+    let nc = planes[bi].sidesCovered
+    if nc < 2 { return fail("FACADE_ONE_SIDED", "wand slechts aan \(nc) zijde(n) gezien") }
+    if nc == 2 && !((covered[0] && covered[2]) || (covered[1] && covered[3])) { return fail("FACADE_ONE_SIDED", "wand alleen aan twee aangrenzende zijden gezien") }
+    if let em = extMin, ext.minor < em { return fail("FACADE_NOT_REPRESENTATIVE", String(format: "vlak te smal: in-vlak spreiding %.3f m < %.3f m", ext.minor, em)) }
+    A["representative"] = true; A["reasons"] = ["lokale ruis, ondersteuning, zijdeverdeling en omvang voldoen"]
+    return (bi, nil, "", A)
 }
 
 // MARK: kozijnvlak (terugligging t.o.v. de wand)
@@ -378,9 +437,10 @@ struct Analysis {
     var zMed = 3.0
     var thr = 0.0
     var inlierRatio = 0.0
+    var assessment: [String: Any] = [:]
 }
 
-func analyzePoints(capture: ViewInput, _ pts: PointSet, cfg: Config, seed: UInt64) -> Analysis {
+func analyzePoints(capture: ViewInput, _ pts: PointSet, cfg: Config, seed: UInt64, quadDiagPx: Double? = nil) -> Analysis {
     var res = Analysis()
     var ring: [Vec3] = [], rs: [Int] = [], band: [Vec3] = [], bs: [Int] = []
     for i in 0..<pts.X.count {
@@ -397,7 +457,9 @@ func analyzePoints(capture: ViewInput, _ pts: PointSet, cfg: Config, seed: UInt6
     }
     var planes = sequentialPlanes(ring, side: rs, thr: thr, cfg: cfg, seed: seed)
     classifyPlanes(&planes, camPos: cam, cfg: cfg)
-    let (fi, code, detail) = pickFacade(&planes, ring: ring, zMed: zMed, cfg: cfg)
+    let quadDiagM: Double? = quadDiagPx.map { $0 * zMed / capture.intrinsics.fx }
+    let (fi, code, detail, assess) = pickFacade(&planes, ring: ring, zMed: zMed, cfg: cfg, quadDiagM: quadDiagM)
+    res.assessment = assess
     res.planes = planes.map { p in
         ["role": p.role, "count": p.count, "rms_m": rd(p.rms), "facing": rd(p.facing), "vertical": rd(p.vertical),
          "normal": [rd(p.n.x), rd(p.n.y), rd(p.n.z)], "offset": rd(p.d), "sides": p.sides] as [String: Any]
@@ -409,7 +471,7 @@ func analyzePoints(capture: ViewInput, _ pts: PointSet, cfg: Config, seed: UInt6
     res.stats["facade_support"] = rd(facade.support); res.stats["facade_rms_m"] = rd(facade.rms)
     res.stats["facade_sides"] = facade.sidesCovered; res.stats["facade_inlier_ratio"] = rd(res.inlierRatio)
     if facade.vertical > 0.2 { res.flags.append(Flags.make("FACADE_NOT_VERTICAL", String(format: "|n.up|=%.2f", facade.vertical))) }
-    if facade.sidesCovered == 2 { res.flags.append(Flags.make("LIMITED_SIDE_COVERAGE")) }
+    if facade.sidesCovered < 4 { res.flags.append(Flags.make("LIMITED_SIDE_COVERAGE", "\(facade.sidesCovered) van 4 zijden gedekt")) }
     res.frame = frameOffset(band: band, side: bs, facade: facade, zMed: zMed, cfg: cfg)
     return res
 }

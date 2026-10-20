@@ -33,6 +33,7 @@ FLAGS = {
     "NO_FACADE_PLANE": (BLOCKING, "Rond het kozijn is geen bruikbaar plat wandvlak gevonden. Zorg dat een stuk effen muur naast, boven en onder het kozijn in beeld is en sta recht op de gevel."),
     "FACADE_NOT_PLANAR": (BLOCKING, "Het oppervlak rond het kozijn is te ruw of onregelmatig (reliëf, begroeiing, rommel) voor een betrouwbare vlakfit. Kies een standpunt met meer vlakke muur in beeld."),
     "AMBIGUOUS_FACADE_PLANES": (BLOCKING, "Rond het kozijn liggen meerdere even grote vlakken op verschillende diepte (verspringende gevel). Fotografeer vanaf een standpunt waar één wandvlak duidelijk om het kozijn zit, of gebruik een referentiemaat."),
+    "FACADE_NOT_REPRESENTATIVE": (BLOCKING, "Het gekozen vlak is te smal of te klein om de gevel te vertegenwoordigen (bijv. alleen een profiel, dagkant of vensterbank). Houd meer effen muur rondom het kozijn in beeld."),
     "FACADE_ONE_SIDED": (BLOCKING, "Het wandvlak is maar aan één of twee kanten van het kozijn gezien. Houd het kozijn met wand aan alle kanten in beeld."),
     "FRAME_PLANE_UNDETERMINED": (BLOCKING, "De terugligging van het kozijn t.o.v. de wand is niet betrouwbaar te bepalen (te weinig diepte op de kozijnrand). Beweeg langzaam iets naar links en rechts en maak de foto opnieuw, of voer een gemeten referentiemaat in."),
     "FRAME_PLANE_INCONSISTENT": (BLOCKING, "De kozijnrand ligt links/rechts/boven op verschillende diepte. Controleer of het kader precies om de buitenrand van het kozijn ligt."),

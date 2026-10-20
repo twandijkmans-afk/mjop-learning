@@ -49,6 +49,7 @@ class SimFacade:
     protrusions: list = field(default_factory=list)   # [(x0,x1,y0,y1,z)] platen vóór de gevel (bv. balkon, vensterbank, verspringende wand)
     relief_m: float = 0.0                             # baksteenreliëf: voegen liggen zoveel dieper (0,012 = 12 mm)
     rough: list = field(default_factory=list)         # [(x0,x1,y0,y1,sigma_m)] ruwe/onregelmatige zones (begroeiing)
+    ledges: list = field(default_factory=list)        # [(x0,x1,y,zmax)] horizontale vlakken (vensterbank, dagkant-onderzijde) die tot zmax voor de gevel uitsteken
     facade_id: str = "FACADE-A"
 
 
@@ -112,6 +113,13 @@ def _render_depth(facade: SimFacade, pose, intr, rng, noise=0.005, hole_p=0.03, 
         Pp = o + dw * tp[..., None]
         hit = (tp > 0) & (Pp[..., 0] > px0) & (Pp[..., 0] < px1) & (Pp[..., 1] > py0) & (Pp[..., 1] < py1)
         depth[hit] = tp[hit]
+    for (lx0, lx1, ly, lz) in facade.ledges:
+        with np.errstate(divide="ignore", invalid="ignore"):
+            tl = (ly - o[1]) / dw[..., 1]
+        Pl = o + dw * tl[..., None]
+        hit = (tl > 0) & (Pl[..., 0] > lx0) & (Pl[..., 0] < lx1) & (Pl[..., 2] > -1e-9) & (Pl[..., 2] < lz)
+        hit &= np.isnan(depth) | (tl < depth)
+        depth[hit] = tl[hit]
     for (rx0, rx1, ry0, ry1, sg) in facade.rough:
         zone = ok & (P0[..., 0] > rx0) & (P0[..., 0] < rx1) & (P0[..., 1] > ry0) & (P0[..., 1] < ry1)
         depth[zone] = depth[zone] + rng.normal(0, sg, zone.sum())

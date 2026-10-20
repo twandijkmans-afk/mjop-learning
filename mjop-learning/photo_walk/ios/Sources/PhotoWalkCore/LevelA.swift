@@ -112,10 +112,10 @@ private func finishDiag(_ res: inout LevelResult, _ flags: [QualityFlag]) {
 }
 
 /// Analyse van de punten van EEN frame (consistentiecontrole): vlak + kozijnoffset + maat op dezelfde capture-stralen.
-private func analyzeSubset(capture: ViewInput, _ pts: PointSet, corners: [Pixel], cfg: Config, seed: UInt64) -> [String: Any] {
+private func analyzeSubset(capture: ViewInput, _ pts: PointSet, corners: [Pixel], cfg: Config, seed: UInt64, quadDiagPx: Double?) -> [String: Any] {
     var out: [String: Any] = ["ok": false]
     if pts.X.count < cfg.minPlanePoints { out["why"] = "te weinig punten"; return out }
-    let an = analyzePoints(capture: capture, pts, cfg: cfg, seed: seed)
+    let an = analyzePoints(capture: capture, pts, cfg: cfg, seed: seed, quadDiagPx: quadDiagPx)
     guard let fac = an.facade, !hasBlocking(an.flags) else { out["why"] = an.flags.map { $0.code }.joined(separator: ","); return out }
     guard let frm = an.frame, ["FLUSH", "RECESSED", "PROTRUDING"].contains(frm.mode), let off = frm.offset else {
         out["why"] = "kozijnoffset " + (an.frame?.mode ?? "?"); return out
@@ -192,9 +192,10 @@ public func measureDepthView(_ view: ViewInput, corners: [Pixel], cfg: Config = 
     res.diag["points_ring"] = all.kind.filter { $0 == 1 }.count
     res.diag["points_band"] = all.kind.filter { $0 == 2 }.count
     res.diag["points_glass"] = all.kind.filter { $0 == 3 }.count
-    let an = analyzePoints(capture: view, all, cfg: cfg, seed: seed)
+    let qDiag = ((corners[2].u - corners[0].u) * (corners[2].u - corners[0].u) + (corners[2].v - corners[0].v) * (corners[2].v - corners[0].v)).squareRoot()
+    let an = analyzePoints(capture: view, all, cfg: cfg, seed: seed, quadDiagPx: qDiag)
     res.flags += an.flags
-    res.diag["planes"] = an.planes; res.diag["stats"] = an.stats; res.diag["range_median_m"] = rd(an.zMed)
+    res.diag["planes"] = an.planes; res.diag["stats"] = an.stats; res.diag["range_median_m"] = rd(an.zMed); res.diag["facade_assessment"] = an.assessment
     if hasBlocking(res.flags) { finishDiag(&res, res.flags); return res }
     guard let fac = an.facade, let frm = an.frame else { finishDiag(&res, res.flags); return res }
     let n = fac.n, dWall = fac.d, zMed = an.zMed, thr = an.thr, sig = sigmaAt(zMed, cfg)
@@ -226,9 +227,10 @@ public func measureDepthView(_ view: ViewInput, corners: [Pixel], cfg: Config = 
         mode = frm.mode
         if cl.count == 1 && abs(cl[0].0) <= flush && cl[0].1 >= 20 { offset = 0; mode = "FLUSH_FROM_CORNERS" }
         else if cl.count >= 2 && cl[0].1 >= 12, let deep = cl.min(by: { $0.0 < $1.0 }), abs(deep.0) > flush, deep.1 >= 12 {
-            offset = deep.0; mode = deep.0 < 0 ? "RECESSED_FROM_CORNERS" : "PROTRUDING_FROM_CORNERS"
+            // NIET gebruikt als maat: bij diepe dagkanten pakt dit cluster de dagkant i.p.v. het kozijn (gesimuleerd 3-9 % fout). Alleen indicatief.
+            res.diag["indicative_corner_offset_m"] = ["offset_m": rd(deep.0), "note": "ALLEEN indicatief; terugligging niet betrouwbaar bepaald"] as [String: Any]
         }
-        if ["FLUSH_FROM_CORNERS", "RECESSED_FROM_CORNERS", "PROTRUDING_FROM_CORNERS"].contains(mode) {
+        if mode == "FLUSH_FROM_CORNERS" {
             res.flags.append(Flags.make("FRAME_OFFSET_FROM_CORNER_DEPTH", String(format: "%.1f cm", offset * 100) + " (\(mode))"))
         } else {
             if let g0 = planeGeometry(view, corners: corners, n: n, d: dWall) {
@@ -302,7 +304,7 @@ public func measureDepthView(_ view: ViewInput, corners: [Pixel], cfg: Config = 
         var rows: [[String: Any]] = []
         var usable = 0, inconsistent = false
         for (fi, f) in frames.enumerated() {
-            var sub = analyzeSubset(capture: view, perFrame[fi], corners: corners, cfg: cfg, seed: seed &+ UInt64(101 * (fi + 1)))
+            var sub = analyzeSubset(capture: view, perFrame[fi], corners: corners, cfg: cfg, seed: seed &+ UInt64(101 * (fi + 1)), quadDiagPx: qDiag)
             sub["frame"] = f.frameId
             if (sub["ok"] as? Bool) == true {
                 usable += 1
@@ -325,7 +327,23 @@ public func measureDepthView(_ view: ViewInput, corners: [Pixel], cfg: Config = 
             res.flags.append(Flags.make("FRAMES_INCONSISTENT", t.joined(separator: "; ")))
             finishDiag(&res, res.flags); return res
         }
-        agree = usable
+        // onafhankelijkheid: kaders met alleen rotatie (zelfde positie) leveren extra punten maar geen ander standpunt; alleen verschillende
+        // standpunten (>= minBaselineM) tellen als onafhankelijke metingen (LIDAR_DEPTH_MULTI_FRAME en MEASURED).
+        var vps: [Vec3] = []
+        for (fi, f) in frames.enumerated() {
+            let c = f.pose.t
+            var tr = 0.0
+            for i in 0..<3 { tr += f.pose.r[i].dot(view.pose.r[i]) }
+            rows[fi]["baseline_to_capture_m"] = rd((c - view.pose.t).norm)
+            rows[fi]["rotation_to_capture_deg"] = rd(acos(max(-1, min(1, (tr - 1) / 2))) * 180 / Double.pi, 1000)
+            if (rows[fi]["ok"] as? Bool) == true && vps.allSatisfy({ (c - $0).norm >= cfg.minBaselineM }) { vps.append(c) }
+        }
+        res.diag["per_frame"] = rows
+        res.diag["independence"] = ["criteria": ["min_baseline_m": cfg.minBaselineM, "min_rotation_deg": cfg.minRotationDeg,
+                                                 "rule": "kader geselecteerd bij baseline OF rotatie; onafhankelijk standpunt telt alleen bij baseline"] as [String: Any],
+                                    "frames_selected": frames.count, "frames_usable": usable, "distinct_viewpoints": vps.count,
+                                    "rotation_only_frames": max(usable - vps.count, 0)] as [String: Any]
+        agree = vps.count
     } else { res.diag["per_frame"] = [Any]() }
     let independent = max(1, agree)
     res.independentFrames = independent

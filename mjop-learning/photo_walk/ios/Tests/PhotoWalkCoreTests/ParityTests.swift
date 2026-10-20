@@ -63,6 +63,7 @@ final class ParityTests: XCTestCase {
             XCTAssertEqual(r.scaleMethod, cs["expect_scale_method"] as? String, name)
             XCTAssertEqual(r.independentFrames, Int(d(cs["expect_independent_frames"])), name)
             XCTAssertEqual(r.flags.filter { $0.severity == .BLOCKING }.map { $0.code }.sorted(), cs["expect_blocking"] as! [String], name)
+            if let rep = cs["expect_representative"] as? Bool { XCTAssertEqual((r.diag["facade_assessment"] as? [String: Any])?["representative"] as? Bool, rep, name) }
             if cs["expect_ok"] as? Bool == true {
                 XCTAssertEqual(try XCTUnwrap(r.width), d(cs["expect_width_m"]), accuracy: tol, name)
                 XCTAssertEqual(try XCTUnwrap(r.height), d(cs["expect_height_m"]), accuracy: tol, name)
@@ -70,7 +71,29 @@ final class ParityTests: XCTestCase {
             } else { XCTAssertNil(r.width, name) }
             seen += 1
         }
-        XCTAssertEqual(seen, 4)
+        XCTAssertEqual(seen, 6)
+    }
+
+    /// Puntenwolk-niveau: dezelfde vlakgates als Python (lokale ruis, conflicterende vlakken, zijdeverdeling, omvang) op gesimuleerde ringpunten.
+    func testFacadePointCasesMatchPython() throws {
+        let c = try load()
+        var seen = 0
+        for case let cs as [String: Any] in c["facade_point_cases"] as! [Any] {
+            let name = cs["name"] as! String
+            let flat = (cs["points"] as! [Any]).map { d($0) }
+            var pts = PointSet()
+            for i in stride(from: 0, to: flat.count, by: 3) { pts.X.append(Vec3(flat[i], flat[i + 1], flat[i + 2])) }
+            pts.side = (cs["sides"] as! [Any]).map { Int(d($0)) }
+            pts.kind = [Int](repeating: 1, count: pts.X.count)
+            let cam = ViewInput(frameId: "CAP", intrinsics: intrinsics(c), pose: Pose(rows: [Vec3(1, 0, 0), Vec3(0, -1, 0), Vec3(0, 0, -1)], t: Vec3(0, 0, 1.262)), trackingNormal: true, depth: nil)
+            let an = analyzePoints(capture: cam, pts, cfg: Config(), seed: 3, quadDiagPx: d(cs["quad_diag_px"]))
+            XCTAssertEqual(an.facade != nil, cs["expect_facade"] as? Bool, name)
+            XCTAssertEqual(an.flags.map { $0.code }.sorted(), cs["expect_codes"] as! [String], name)
+            XCTAssertEqual(an.assessment["representative"] as? Bool, cs["expect_representative"] as? Bool, name)
+            if let cov = cs["expect_covered"] as? [Bool] { XCTAssertEqual((an.assessment["sides"] as? [String: Any])?["covered"] as? [Bool], cov, name) }
+            seen += 1
+        }
+        XCTAssertEqual(seen, 6)
     }
 
     func testLevelCMatchesPython() throws {

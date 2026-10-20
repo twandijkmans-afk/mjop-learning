@@ -206,9 +206,10 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False,
     Xa = np.vstack([c[0] for c in chunks]); ka = np.concatenate([c[1] for c in chunks]); sa = np.concatenate([c[2] for c in chunks])
     fa = np.concatenate([c[3] for c in chunks])
     diag.update(points_valid_total=int(len(Xa)), points_ring=int((ka == 1).sum()), points_band=int((ka == 2).sum()), points_glass=int((ka == 3).sum()))
-    an = dp.analyze_points(view, Xa, ka, sa, cfg, seed)
+    qdiag = float(np.linalg.norm(corners_px[2] - corners_px[0]))
+    an = dp.analyze_points(view, Xa, ka, sa, cfg, seed, quad_diag_px=qdiag)
     fl.extend(an["flags"])
-    diag.update(planes=an["planes"], stats=an["stats"], range_median_m=an["stats"].get("range_median_m"))
+    diag.update(planes=an["planes"], stats=an["stats"], range_median_m=an["stats"].get("range_median_m"), facade_assessment=an.get("assessment"))
     if q.blocking(fl):
         _finish_diag(res, fl, an)
         return res
@@ -240,7 +241,8 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False,
         elif len(cl) >= 2 and cl[0][1] >= 12:
             deep = min(cl, key=lambda x: x[0])
             if abs(deep[0]) > flush and deep[1] >= 12:
-                offset, mode = float(deep[0]), "RECESSED_FROM_CORNERS" if deep[0] < 0 else "PROTRUDING_FROM_CORNERS"
+                # NIET gebruikt als maat: bij diepe dagkanten pakt dit cluster de dagkant i.p.v. het kozijn (gesimuleerd 3-9 % fout). Alleen indicatief.
+                diag["indicative_corner_offset_m"] = {"offset_m": round(float(deep[0]), 4), "note": "ALLEEN indicatief; terugligging niet betrouwbaar bepaald"}
         if mode in ("FLUSH_FROM_CORNERS", "RECESSED_FROM_CORNERS", "PROTRUDING_FROM_CORNERS"):
             fl.append(q.flag("FRAME_OFFSET_FROM_CORNER_DEPTH", f"{offset * 100:.1f} cm ({mode})"))
         else:
@@ -326,7 +328,7 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False,
         ref_wh = (w, h)
         for fi, f in enumerate(frames):
             m = fa == fi
-            sub = analyze_subset(view, Xa[m], ka[m], sa[m], corners_px, cfg, seed + 101 * (fi + 1))
+            sub = analyze_subset(view, Xa[m], ka[m], sa[m], corners_px, cfg, seed + 101 * (fi + 1), qdiag)
             per_frame.append({"frame": f.frame_id, **sub})
         usable = [p for p in per_frame if p.get("ok")]
         diag["frames_usable"] = len(usable)
@@ -341,7 +343,21 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False,
             diag["per_frame"] = per_frame
             _finish_diag(res, fl, an)
             return res
-        agree = len(usable)
+        # onafhankelijkheid: kaders met alleen rotatie (zelfde positie) leveren extra punten maar geen ander standpunt/parallax; alleen verschillende
+        # standpunten (>= min_baseline_m) tellen als onafhankelijke metingen voor LIDAR_DEPTH_MULTI_FRAME en voor MEASURED.
+        pos = {f.frame_id: f.pose[:3, 3] for f in frames}
+        vps = []
+        for p in per_frame:
+            c = pos[p["frame"]]
+            p["baseline_to_capture_m"] = round(float(np.linalg.norm(c - view.pose[:3, 3])), 4)
+            p["rotation_to_capture_deg"] = round(float(np.degrees(np.arccos(np.clip((np.trace(frames[[g.frame_id for g in frames].index(p["frame"])].pose[:3, :3].T @ view.pose[:3, :3]) - 1) / 2, -1, 1)))), 3)
+            if p.get("ok") and all(np.linalg.norm(c - q_) >= cfg.min_baseline_m for q_ in vps):
+                vps.append(c)
+        diag["independence"] = {"criteria": {"min_baseline_m": cfg.min_baseline_m, "min_rotation_deg": cfg.min_rotation_deg,
+                                             "rule": "kader geselecteerd bij baseline OF rotatie; onafhankelijk standpunt telt alleen bij baseline"},
+                                "frames_selected": len(frames), "frames_usable": len(usable), "distinct_viewpoints": len(vps),
+                                "rotation_only_frames": max(len(usable) - len(vps), 0)}
+        agree = len(vps)
     else:
         agree = 1
     diag["per_frame"] = per_frame
@@ -388,13 +404,13 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False,
     return res
 
 
-def analyze_subset(view, X, kind, side, corners_px, cfg, seed):
+def analyze_subset(view, X, kind, side, corners_px, cfg, seed, qdiag=None):
     """Analyse van de punten van EEN frame (voor de consistentiecontrole): vlak + kozijnoffset + maat op dezelfde capture-stralen."""
     out = {"ok": False}
     if len(X) < cfg.min_plane_points:
         out["why"] = "te weinig punten"
         return out
-    an = dp.analyze_points(view, X, kind, side, cfg, seed)
+    an = dp.analyze_points(view, X, kind, side, cfg, seed, quad_diag_px=qdiag)
     if an["facade"] is None or q.blocking(an["flags"]):
         out["why"] = ",".join(f["code"] for f in an["flags"])
         return out

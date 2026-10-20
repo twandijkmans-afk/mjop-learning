@@ -64,6 +64,11 @@ class Config:
     band_cluster_min_share: float = 0.35      # een dieptecluster telt mee als het >= dit aandeel van het grootste cluster heeft; het dichtstbijzijnde wint (profiel vóór glas)
     glass_scale: float = 0.70
     max_planes: int = 3
+    # gerichte reparatie FACADE_NOT_PLANAR: lokale vlakruis, ondersteuning per zijde, ruimtelijke omvang (PROVISIONAL)
+    facade_local_band_k: float = 3.0          # lokale ruis: punten binnen +-k*drempel van het vlak die niet bij een ander herkend vlak horen
+    side_min_share: float = 0.05              # een zijde telt als gedekt bij >= dit aandeel van de vlakpunten (en side_min_points)
+    facade_min_extent_ratio: float = 0.04     # kleinste in-vlak spreiding >= ratio * diagonaal van het kader (smal profiel/vensterbank is geen gevel)
+    unexplained_max: float = 0.6              # max. aandeel ringpunten dat bij geen enkel herkend vlak hoort
     min_plane_points: int = 40
     plane_min_fraction: float = 0.06
     ransac_iterations_v2: int = 150

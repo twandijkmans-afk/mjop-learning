@@ -21,9 +21,12 @@ enum Scene {
     }
 
     /// Camera kijkt langs -Z (OpenCV-camera = diag(1,-1,-1)); gevel op Z = 0, kozijn op Z = -recess, glas nog `glassRecess` dieper.
-    static func pose(_ p: Vec3) -> Pose { Pose(rows: [Vec3(1, 0, 0), Vec3(0, -1, 0), Vec3(0, 0, -1)], t: p) }
+    static func pose(_ p: Vec3, yawDeg: Double = 0) -> Pose {
+        let a = yawDeg * Double.pi / 180, c = cos(a), s = sin(a)
+        return Pose(rows: [Vec3(c, 0, -s), Vec3(0, -1, 0), Vec3(-s, 0, -c)], t: p)      // Ry * diag(1,-1,-1)
+    }
 
-    static func render(_ s: SceneSpec, pos: Vec3, id: String, seed: UInt64, tracking: Bool = true, intr: Intrinsics = intrinsics(), withDepth: Bool = true,
+    static func render(_ s: SceneSpec, pos: Vec3, id: String, seed: UInt64, yawDeg: Double = 0, tracking: Bool = true, intr: Intrinsics = intrinsics(), withDepth: Bool = true,
                        depthSize: (Int, Int) = (192, 256)) -> ViewInput {
         let (Hd, Wd) = depthSize
         var rng = SplitMix64(seed: seed)
@@ -33,7 +36,9 @@ enum Scene {
         func inRect(_ x: Double, _ y: Double, _ inset: Double) -> Bool { x > o.x0 + inset && x < o.x0 + o.w - inset && y > o.y0 + inset && y < o.y0 + o.h - inset }
         for i in 0..<Hd { for j in 0..<Wd {
             let a = ((Double(j) + 0.5) * sx - intr.cx) / intr.fx, b = ((Double(i) + 0.5) * sy - intr.cy) / intr.fy
-            func hit(_ z: Double) -> (d: Double, x: Double, y: Double) { let d = pos.z - z; return (d, pos.x + a * d, pos.y - b * d) }
+            let yc = cos(yawDeg * Double.pi / 180), ys = sin(yawDeg * Double.pi / 180)
+            let dx = yc * a - ys, dy = -b, dz = -ys * a - yc               // wereldrichting van de (a, b, 1)-straal
+            func hit(_ z: Double) -> (d: Double, x: Double, y: Double) { let t = (z - pos.z) / dz; return (t, pos.x + t * dx, pos.y + t * dy) }
             var depth: Double? = nil
             for p in s.protrusions where depth == nil { let h = hit(p.z); if h.x > p.x0 && h.x < p.x1 { depth = h.d } }
             if depth == nil && s.sill { let h = hit(0.05); if h.x > o.x0 - 0.03 && h.x < o.x0 + o.w + 0.03 && h.y > o.y0 - 0.05 && h.y < o.y0 { depth = h.d } }
@@ -58,7 +63,7 @@ enum Scene {
             for i in 0..<Hd { for j in 0..<Wd { sh[i * Wd + (j + s.shiftPx) % Wd] = vals[i * Wd + j] } }
             vals = sh
         }
-        return ViewInput(frameId: id, intrinsics: intr, pose: pose(pos), trackingNormal: tracking, depth: withDepth ? DepthMap(width: Wd, height: Hd, values: vals) : nil)
+        return ViewInput(frameId: id, intrinsics: intr, pose: pose(pos, yawDeg: yawDeg), trackingNormal: tracking, depth: withDepth ? DepthMap(width: Wd, height: Hd, values: vals) : nil)
     }
 
     /// Hoeken (TL, TR, BR, BL) van het kozijn op zijn eigen vlak, geprojecteerd in de camera.
@@ -174,6 +179,19 @@ final class LidarV2Tests: XCTestCase {
         ok.supports = [Scene.render(SceneSpec(), pos: Vec3(1.7, 1.6, 3), id: "BADS", seed: 2, tracking: false)]
         let r2 = measureDepthView(ok, corners: Scene.corners(SceneSpec(), pos: cam))
         XCTAssertTrue(r2.ok); XCTAssertEqual(r2.independentFrames, 1, "een frame met slechte tracking telt niet mee")
+    }
+
+    // 11b rotatie zonder verplaatsing: extra punten, maar geen onafhankelijk standpunt
+    func testS11bRotationOnlyFramesAreNotIndependentViewpoints() {
+        let s = SceneSpec()
+        var v = Scene.render(s, pos: cam, id: "CAP", seed: 1)
+        for k in 0..<3 { v.supports.append(Scene.render(s, pos: cam, id: "R\(k)", seed: UInt64(10 + k), yawDeg: 2.0 * Double(k + 1))) }
+        let r = measureDepthView(v, corners: Scene.corners(s, pos: cam), cfg: cfg, seed: 1)
+        XCTAssertTrue(r.ok, "\(codes(r))")
+        let ind = r.diag["independence"] as? [String: Any]
+        XCTAssertEqual(ind?["distinct_viewpoints"] as? Int, 1)
+        XCTAssertGreaterThanOrEqual(ind?["rotation_only_frames"] as? Int ?? 0, 1)
+        XCTAssertEqual(r.independentFrames, 1); XCTAssertEqual(r.scaleMethod, "LIDAR_DEPTH_PLANE")
     }
 
     // 14 verkeerd uitgelijnde dieptekaart: begrensde fout, of weigering

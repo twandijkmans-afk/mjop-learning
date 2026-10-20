@@ -144,44 +144,115 @@ def classify_planes(planes, cam_pos, cfg: Config):
     return planes
 
 
-def ring_resid(best, planes):
-    return best["_resid"]
+def inplane_std(P, n):
+    """(grootste, kleinste) standaardafwijking (m) van punten binnen hun vlak (normaal n). Gesloten vorm; geen basiskeuze nodig."""
+    P = np.asarray(P, float)
+    if len(P) < 3:
+        return 0.0, 0.0
+    X = P - P.mean(axis=0)
+    X = X - np.outer(X @ n, n)
+    C = X.T @ X / len(X)
+    tr = float(np.trace(C))
+    p2 = float(np.sum(C * C))
+    det2 = max((tr * tr - p2) / 2.0, 0.0)
+    disc = max(tr * tr / 4.0 - det2, 0.0) ** 0.5
+    l1, l2 = tr / 2.0 + disc, max(tr / 2.0 - disc, 0.0)
+    return float(max(l1, 0.0) ** 0.5), float(l2 ** 0.5)
 
 
-def pick_facade(planes, ring_valid, z_med, cfg: Config):
-    """Kies het wandvlak of geef een specifieke weigering. Geeft (plane|None, code|None, detail)."""
+def pick_facade(planes, Pr, side, z_med, cfg: Config, quad_diag_m=None):
+    """Kies het wandvlak of geef een specifieke weigering. Geeft (plane|None, code|None, detail, assessment).
+
+    Aparte controles (geen versoepeling, wel een zuivere toewijzing van punten):
+      1. lokale vlakkwaliteit: rms van de inliers en robuuste spreiding van de punten die bij DIT vlak horen (inliers + niet-toegewezen punten dicht bij het vlak);
+         punten van andere herkende vlakken (dagkant, vensterbank, parallelle stap) worden NIET meegeteld;
+      2. conflicterende vlakken (parallel of niet-parallel, vergelijkbaar groot) => ambigu;
+      3. ondersteuning: aandeel van de niet door andere structuur verklaarde ringpunten + onverklaard aandeel;
+      4. ruimtelijke verdeling over de vier zijden (aandeel per zijde, niet alleen een absoluut minimum) en in-vlak omvang."""
     thr = thr_at(z_med, cfg)
+    sig = sigma_at(z_med, cfg)
+    n_ring = len(Pr)
+    A = {"ring_points": int(n_ring), "gate": None, "reasons": [], "representative": False,
+         "ring_total_spread_m": None, "note_ring_spread": "alleen diagnostische achtergrondwaarde; geen kwaliteitsgate"}
     cands = sorted([p for p in planes if p["role"] == "FACADE_CANDIDATE"], key=lambda p: -p["count"])
+    A["planes"] = [{"role": p["role"], "count": int(p["count"])} for p in planes]
     if not cands:
-        return None, "NO_FACADE_PLANE", "geen verticaal, naar de camera gericht vlak in de ring"
+        A.update(gate="NO_FACADE_PLANE", reasons=["geen verticaal, naar de camera gericht vlak in de ring"])
+        return None, "NO_FACADE_PLANE", A["reasons"][0], A
     best = cands[0]
     for p in cands[1:]:
-        parallel = abs(p["n"] @ best["n"]) > 0.97
-        step = abs((p["d"] if p["n"] @ best["n"] > 0 else -p["d"]) - best["d"])
-        if parallel and step > 1.5 * thr and p["count"] >= cfg.ambiguity_ratio * best["count"]:
+        dot = float(p["n"] @ best["n"])
+        parallel = abs(dot) > 0.97
+        step = abs((p["d"] if dot > 0 else -p["d"]) - best["d"])
+        big = p["count"] >= cfg.ambiguity_ratio * best["count"]
+        if parallel and step > 1.5 * thr and big:
             p["role"] = "PARALLEL_STEP"
-            return None, "AMBIGUOUS_FACADE_PLANES", f"twee grote parallelle vlakken, {step:.2f} m uit elkaar"
+            A.update(gate="AMBIGUOUS_FACADE_PLANES", reasons=[f"twee grote parallelle vlakken, {step:.2f} m uit elkaar"])
+            return None, "AMBIGUOUS_FACADE_PLANES", A["reasons"][0], A
+        if not parallel and big:
+            A.update(gate="AMBIGUOUS_FACADE_PLANES", reasons=["twee even grote verticale vlakken met verschillende richting (hoek/uitbouw)"])
+            return None, "AMBIGUOUS_FACADE_PLANES", A["reasons"][0], A
         if parallel and step > 1.5 * thr:
             p["role"] = "PARALLEL_STEP"
     best["role"] = "FACADE"
-    explained_other = sum(p["count"] for p in planes if p is not best and p["role"] in ("REVEAL_OR_LEDGE", "PARALLEL_STEP"))
-    denom = max(ring_valid - explained_other, 1)
+    n, d = best["n"], best["d"]
+    others = [p for p in planes if p is not best]
+    other_idx = np.concatenate([p["idx"] for p in others]) if others else np.zeros(0, int)
+    explained_other = sum(p["count"] for p in others if p["role"] in ("REVEAL_OR_LEDGE", "PARALLEL_STEP"))
+    own = np.zeros(n_ring, bool)
+    own[best["idx"]] = True
+    foreign = np.zeros(n_ring, bool)
+    foreign[other_idx] = True
+    unexplained = ~own & ~foreign
+    resid = np.abs(Pr @ n - d)
+    A["ring_total_spread_m"] = round(float(1.4826 * np.median(resid)), 4)          # oude maat over ALLE ringpunten: alleen diagnose
+    # Lokale populatie: eigen inliers + niet-toegewezen punten + PARALLELLE vlakken dichtbij (een ruw oppervlak kan door RANSAC in schijven
+    # worden gesplitst; die schijven zijn geen aparte bouwdelen). Niet-parallelle vlakken (dagkant, vensterbank) en verre lagen blijven buiten.
+    foreign_par = np.zeros(n_ring, bool)
+    for p in others:
+        if abs(float(p["n"] @ n)) > 0.97:
+            foreign_par[p["idx"]] = True
+    foreign_nonpar = foreign & ~foreign_par
+    local = (own | unexplained | foreign_par) & (resid <= cfg.facade_local_band_k * thr) & ~foreign_nonpar
+    best["robust_sigma"] = float(1.4826 * np.median(resid[local])) if local.any() else 0.0
+    denom = max(n_ring - explained_other, 1)
     best["support"] = float(best["count"] / denom)
+    U = int(unexplained.sum())
+    A.update(facade_points=int(best["count"]), excluded_other_layer={"count": int(foreign.sum()), "share": round(float(foreign.sum() / max(n_ring, 1)), 4),
+                                                                    "planes": [{"role": p["role"], "count": int(p["count"])} for p in others]},
+             unexplained={"count": U, "share": round(U / max(n_ring, 1), 4)},
+             local={"points": int(local.sum()), "rms_m": round(float(best["rms"]), 4), "robust_sigma_m": round(best["robust_sigma"], 4),
+                    "rms_limit_m": round(cfg.facade_rms_k * sig + 0.008, 4), "robust_limit_m": round(2.0 * sig + 0.012, 4)},
+             support=round(best["support"], 4))
+    best["sides"] = np.asarray(best["sides"])
+    shares = best["sides"] / max(best["count"], 1)
+    min_pts = max(cfg.side_min_points, int(np.ceil(cfg.side_min_share * best["count"])))
+    covered = [int(c) >= min_pts for c in best["sides"]]
+    best["sides_covered"] = int(sum(covered))
+    maj, mnr = inplane_std(Pr[best["idx"]], n)
+    ext_min = cfg.facade_min_extent_ratio * quad_diag_m if quad_diag_m else None
+    A.update(sides={"counts": [int(c) for c in best["sides"]], "shares": [round(float(x), 4) for x in shares], "covered": covered, "min_points_per_side": int(min_pts)},
+             extent={"major_std_m": round(maj, 4), "minor_std_m": round(mnr, 4), "min_required_m": None if ext_min is None else round(ext_min, 4)})
+
+    def fail(code, why):
+        A.update(gate=code, reasons=[why], representative=False)
+        return None, code, why, A
     if best["support"] < cfg.facade_support_min:
-        return None, "FACADE_NOT_PLANAR", f"wandvlak verklaart slechts {best['support']:.2f} van de ringpunten"
-    if best["rms"] > cfg.facade_rms_k * sigma_at(z_med, cfg) + 0.008:
-        return None, "FACADE_NOT_PLANAR", f"vlak te ruw: rms {best['rms']:.3f} m"
-    best["robust_sigma"] = float(1.4826 * np.median(np.abs(ring_resid(best, planes))))
-    if best["robust_sigma"] > 2.0 * sigma_at(z_med, cfg) + 0.012:
-        return None, "FACADE_NOT_PLANAR", f"robuuste ruis rond het vlak {best['robust_sigma']:.3f} m (ruw oppervlak)"
-    sides_ok = int((best["sides"] >= cfg.side_min_points).sum())
-    best["sides_covered"] = sides_ok
-    if sides_ok < 2:
-        return None, "FACADE_ONE_SIDED", f"wand slechts aan {sides_ok} zijde(n) gezien"
-    if sides_ok == 2 and not ((best["sides"][0] >= cfg.side_min_points and best["sides"][2] >= cfg.side_min_points)
-                              or (best["sides"][1] >= cfg.side_min_points and best["sides"][3] >= cfg.side_min_points)):
-        return None, "FACADE_ONE_SIDED", "wand alleen aan twee aangrenzende zijden gezien"
-    return best, None, ""
+        return fail("FACADE_NOT_PLANAR", f"wandvlak verklaart slechts {best['support']:.2f} van de ringpunten")
+    if best["rms"] > cfg.facade_rms_k * sig + 0.008:
+        return fail("FACADE_NOT_PLANAR", f"vlak te ruw: rms {best['rms']:.3f} m")
+    if best["robust_sigma"] > 2.0 * sig + 0.012:
+        return fail("FACADE_NOT_PLANAR", f"robuuste ruis rond het gekozen vlak {best['robust_sigma']:.3f} m (ruw oppervlak)")
+    if U / max(n_ring, 1) > cfg.unexplained_max:
+        return fail("FACADE_NOT_PLANAR", f"{U / n_ring:.2f} van de ringpunten hoort bij geen enkel herkend vlak")
+    if best["sides_covered"] < 2:
+        return fail("FACADE_ONE_SIDED", f"wand slechts aan {best['sides_covered']} zijde(n) gezien (aandeel per zijde {[round(float(x), 2) for x in shares]})")
+    if best["sides_covered"] == 2 and not ((covered[0] and covered[2]) or (covered[1] and covered[3])):
+        return fail("FACADE_ONE_SIDED", "wand alleen aan twee aangrenzende zijden gezien")
+    if ext_min is not None and mnr < ext_min:
+        return fail("FACADE_NOT_REPRESENTATIVE", f"vlak te smal: in-vlak spreiding {mnr:.3f} m < {ext_min:.3f} m")
+    A.update(representative=True, reasons=["lokale ruis, ondersteuning, zijdeverdeling en omvang voldoen"])
+    return best, None, "", A
 
 
 def _clusters(s, thr):
@@ -273,7 +344,7 @@ def plane_geometry(capture, corners_px, n, d_plane):
 
 # ------------------------------------------------------------------ analyse van een puntenset
 
-def analyze_points(capture, X, kind, side, cfg: Config, seed, z_hint=None):
+def analyze_points(capture, X, kind, side, cfg: Config, seed, z_hint=None, quad_diag_px=None):
     """Meervlaks-analyse op een set punten (al in de gebieden ingedeeld). Geeft dict met flags, facade, frame, planes, stats."""
     res = {"flags": [], "planes": [], "facade": None, "frame": None, "stats": {}}
     ring = kind == 1
@@ -287,9 +358,9 @@ def analyze_points(capture, X, kind, side, cfg: Config, seed, z_hint=None):
         return res
     planes, remaining = sequential_planes(Pr, sr, thr, cfg, seed)
     classify_planes(planes, cam, cfg)
-    for p in planes:
-        p["_resid"] = np.abs(Pr @ p["n"] - p["d"])         # afstand van ALLE ringpunten tot dit vlak (voor de robuuste ruismaat)
-    facade, code, detail = pick_facade(planes, len(Pr), z_med, cfg)
+    quad_diag_m = None if not quad_diag_px else quad_diag_px * z_med / capture.intrinsics.fx
+    facade, code, detail, assess = pick_facade(planes, Pr, sr, z_med, cfg, quad_diag_m)
+    res["assessment"] = assess
     res["planes"] = [{"role": p["role"], "count": p["count"], "rms_m": p["rms"], "facing": p["facing"], "vertical": p["vertical"],
                       "normal": [float(x) for x in p["n"]], "offset": float(p["d"]), "sides": [int(x) for x in p["sides"]]} for p in planes]
     if facade is None:
@@ -300,8 +371,8 @@ def analyze_points(capture, X, kind, side, cfg: Config, seed, z_hint=None):
                         facade_inlier_ratio=float(facade["count"] / len(Pr)))
     if facade["vertical"] > 0.2:
         res["flags"].append(q.flag("FACADE_NOT_VERTICAL", f"|n.up|={facade['vertical']:.2f}"))
-    if facade.get("sides_covered", 4) == 2:
-        res["flags"].append(q.flag("LIMITED_SIDE_COVERAGE"))
+    if facade.get("sides_covered", 4) < 4:
+        res["flags"].append(q.flag("LIMITED_SIDE_COVERAGE", f"{facade.get('sides_covered')} van 4 zijden gedekt"))
     band = kind == 2
     res["frame"] = frame_offset(X[band], side[band], facade, z_med, cfg)
     return res
