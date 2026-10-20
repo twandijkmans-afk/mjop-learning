@@ -19,7 +19,9 @@ struct PhotoWalkApp: App {
         print("SELFTEST_SUMMARY_BEGIN\n\(summary)\nSELFTEST_SUMMARY_END")
         // 2) foto -> automatische detectie -> meting (lokaal, Apple Vision op de synthetische foto)
         SimulationRunner.runPhoto(store)
+        let t0 = Date()
         await store.analyze(frameId: "F000")
+        print("SELFTEST_TIMING analyze_seconds=\(String(format: "%.1f", Date().timeIntervalSince(t0)))")
         let boxes = store.observations.filter { $0.detection != nil && !$0.rejected }
         for o in boxes {
             let m = store.measures[o.id]
@@ -40,11 +42,13 @@ struct PhotoWalkApp: App {
         let path = (try? ExportService.write(store))?.path ?? "EXPORT_FAILED"
         print("SELFTEST_EXPORT=\(path)")
         // 4) LiDAR v2: synthetische scènes met meerdere dieptekaders; diagnose-export per scène
+        let t1 = Date()
         for name in ["flush", "recessed_8cm", "recessed_8cm_multi_frame", "ambiguous_planes"] {
             guard let line = SimulationRunner.runV2(store, name: name) else { print("SELFTEST_V2 name=\(name) NIET GELADEN"); continue }
             print("SELFTEST_V2 \(line)")
             if let oid = store.observations.first?.id, let u = try? DiagnosticsExport.write(store, observationId: oid) { print("SELFTEST_DIAG name=\(name) path=\(u.path)") }
         }
+        print("SELFTEST_TIMING v2_seconds=\(String(format: "%.1f", Date().timeIntervalSince(t1)))")
         print("SELFTEST_DONE")
     }
 }

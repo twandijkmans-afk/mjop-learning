@@ -75,6 +75,10 @@ De scan is **semi-automatisch**: hoeken komen van de gebruiker (of van een onbev
 
 Camera openen, één foto maken: lokaal herkende **kandidaat-kozijnen** (Apple Vision-rechthoekdetector; géén gevalideerde kozijndetector, optioneel eigen Core ML-model) krijgen direct kaders en voorlopige breedte/hoogte/bruto m² (LiDAR-vlak of één referentiemaat) of `UNKNOWN`. Groen/oranje/grijs is alleen UI-feedback. Inzoomen, hoeken verslepen, referentiemaat, afwijzen, voorlopig koppelen over foto's; lokale opslag; export naar `photo_walk_capture_v1` 1.1.0 en naar het Bruto Quantity Model v2 (`photo_walk_core.to_bruto`, alle maten UNKNOWN tot menselijke intake). Zie `docs/photo_to_quantity_v2.md`. **Niet gevalideerd op echte gebouwen.**
 
+## LiDAR-meting v2 en meetdiagnose
+
+Niveau A is herschreven (meerdere kandidaatvlakken, kozijnvlak t.o.v. wand, meerdere onafhankelijke dieptekaders uit een korte buffer, specifieke weigercodes, hoek- en kaderomvangcontroles) en elk kozijn heeft een **Meetdiagnose**-scherm met export (`photo_walk_measure_diagnostics_v1`, alleen getallen). Een geschatte referentie is geen meting (`ESTIMATED`). Zie `docs/lidar_measurement_v2.md`. **Synthetisch getest; niet gevalideerd op echte gevels.**
+
 ## Zoom en nauwkeurige hoekselectie
 
 Pinch-to-zoom (1×–8×), verschuiven, vergrootglas, dubbeltik-reset en sleepbare punten bij het markeren van hoeken en referenties; visuele live-zoom in de camera. Zoom is alleen weergave: de meetkern rekent met originele pixels en intrinsics/LiDAR blijven ongewijzigd (getest). Zie `docs/zoom_and_precision.md`.

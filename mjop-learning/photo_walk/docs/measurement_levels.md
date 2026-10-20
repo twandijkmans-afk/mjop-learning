@@ -5,6 +5,8 @@ Een niveau dat slaagt levert een waarde; een niveau dat faalt geeft concrete ins
 
 ## Niveau A — metrische diepte (LiDAR / ARCore Depth)
 
+> **Sinds LiDAR-v2** gebruikt niveau A meerdere kandidaatvlakken, het kozijnvlak (terugligging t.o.v. de wand), meerdere onafhankelijke dieptekaders en aparte weigercodes; zie `lidar_measurement_v2.md`. De onderstaande stappen beschrijven het oorspronkelijke ontwerp (stap 2 en 5 zijn vervangen; `MIXED_FACADE_DEPTH` komt in v2 niet meer voor).
+
 *Een dieptepixel op een verre hoek is geen betrouwbare hoekmeting* (randen mengen voorgrond/achtergrond, glas reflecteert, bereik ~5 m). Daarom:
 
 1. Hoekselectie valideren (simpele convexe vierhoek, binnen beeld).

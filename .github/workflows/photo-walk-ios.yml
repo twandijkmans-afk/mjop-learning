@@ -119,8 +119,11 @@ jobs:
           ls -la "$APP/parity_cases.json"
 
       - name: Simulator-smoketest (headless selftest, export valideren)
+        timeout-minutes: 15
         run: |
           set -o pipefail
+          # simctl kan zonder foutmelding blijven hangen (CI-flake): elke aanroep krijgt een tijdslimiet (perl alarm, macOS heeft geen `timeout`)
+          tmo() { perl -e 'alarm shift; exec @ARGV' "$@"; }
           UDID=$(xcrun simctl list devices available -j | python3 -c "
           import json,sys
           d=json.load(sys.stdin)['devices']
@@ -128,20 +131,24 @@ jobs:
           c.sort(key=lambda t:t[0])
           print(c[-1][1]['udid'])")
           echo "Simulator: $UDID"
-          xcrun simctl boot "$UDID" || true
-          xcrun simctl bootstatus "$UDID" -b | tail -2
-          xcrun simctl install "$UDID" "$APP"
+          tmo 60 xcrun simctl boot "$UDID" || true
+          tmo 240 xcrun simctl bootstatus "$UDID" -b | tail -2 || true
+          for i in 1 2 3; do
+            tmo 120 xcrun simctl install "$UDID" "$APP" && break
+            echo "simctl install poging $i mislukt of hing; simulator herstarten"
+            tmo 60 xcrun simctl shutdown "$UDID" || true; tmo 60 xcrun simctl boot "$UDID" || true; tmo 240 xcrun simctl bootstatus "$UDID" -b | tail -1 || true
+          done
           # De simulator start de app soms niet (CI-flake): tot 3 pogingen met opnieuw opstarten.
           for attempt in 1 2 3; do
             : > "$LOGS/selftest-console.log"
-            xcrun simctl terminate "$UDID" nl.mjop.photowalk.prototype 2>/dev/null || true
+            tmo 30 xcrun simctl terminate "$UDID" nl.mjop.photowalk.prototype 2>/dev/null || true
             xcrun simctl launch --console-pty --terminate-running-process "$UDID" nl.mjop.photowalk.prototype -selftest > "$LOGS/selftest-console.log" 2>&1 &
             LPID=$!
             for i in $(seq 1 100); do grep -q "SELFTEST_DONE" "$LOGS/selftest-console.log" && break; sleep 1; done
             grep -q "SELFTEST_DONE" "$LOGS/selftest-console.log" && break
             echo "poging $attempt: geen selftest-uitvoer; simulator herstarten"
             kill $LPID 2>/dev/null || true
-            xcrun simctl shutdown "$UDID" || true; xcrun simctl boot "$UDID" || true; xcrun simctl bootstatus "$UDID" -b | tail -1
+            tmo 60 xcrun simctl shutdown "$UDID" || true; tmo 60 xcrun simctl boot "$UDID" || true; tmo 240 xcrun simctl bootstatus "$UDID" -b | tail -1 || true
           done
           cat "$LOGS/selftest-console.log"
           if ! grep -q "SELFTEST_DONE" "$LOGS/selftest-console.log"; then
@@ -160,6 +167,7 @@ jobs:
           echo "export: $EXP"
 
       - name: UI-rooktest in de simulator (XCUITest; app zonder ARKit/sensoren mag niet crashen)
+        timeout-minutes: 20
         run: |
           set -o pipefail
           cd App

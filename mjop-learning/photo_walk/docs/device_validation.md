@@ -44,3 +44,11 @@ Voor elke maat een referentie met lasermeter/duimstok (± 1 mm) op minimaal 10 k
 * Prestaties/geheugen met veel kandidaten en meerdere foto's; app-start met "laatste scan hervatten".
 * Koppelsuggesties bij repeterende, identieke kozijnen (kans op verkeerde suggesties).
 * Of een getraind Core ML-kozijnmodel nodig is (en trainingsdata met toestemming).
+
+## Aanvullend voor LiDAR-v2 (zie `lidar_measurement_v2.md`)
+Per testkozijn: foto met de bewegingshint opgevolgd, **Meetdiagnose exporteren**, duimstokmaat noteren (buitenbreedte × buitenhoogte). Te beantwoorden:
+* Slaagt de automatische LiDAR-maat (`LIDAR_DEPTH_MULTI_FRAME`) binnen (kozijn) en buiten (baksteen, 2–4 m)? Zo niet: welke code (`AMBIGUOUS_FACADE_PLANES`, `FACADE_NOT_PLANAR`, `FRAME_PLANE_UNDETERMINED`, `DEPTH_COVERAGE_LOW`, …) en wat zegt de diagnose over ring/band-dekking en σ?
+* Echte LiDAR-ruis σ(z) en inlierdrempels (ring rms, `stats.sigma_m` / `threshold_m`); randprofielen (`quad_extent`); `edge_alignment` (diepte↔beeld-uitlijning).
+* Klopt de gemeten terugligging (`frame_plane.recess_cm`) met de werkelijke terugligging (diepte van het kozijn t.o.v. de wand)?
+* Halen 2–5 cm bewegingen en 1,8 s buffer genoeg onafhankelijke kaders (`frames_independent_candidates`, `baseline_m`)?
+* Foutverdeling t.o.v. de duimstok per afstand/hoek; pas daarna drempels aanpassen en nauwkeurigheid claimen.

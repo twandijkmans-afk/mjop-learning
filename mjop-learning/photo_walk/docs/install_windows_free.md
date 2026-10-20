@@ -54,6 +54,14 @@ Dit is niet ingericht; zie de volgende stap alleen met jouw toestemming.
 5. Onder de foto staat het overzicht (herkend, voorlopig unieke kozijnen, bruto m² waar meetbaar, controles). Maak een tweede foto van dezelfde gevel; bij *Koppelsuggesties* kun je hetzelfde kozijn voorlopig koppelen.
 6. *Exporteren* → JSON in Bestanden → Op mijn iPhone → Photo Walk. Meet het kozijn ook met een duimstok en vergelijk; alles is voorlopig en niet gevalideerd.
 
+## Nieuwe LiDAR-meting + meetdiagnose (LiDAR-v2)
+1. Foto-scan starten, 2–4 m **recht** voor de gevel, hele kozijn én wat muur rondom (alle vier de kanten) in beeld. Houd de telefoon rustig.
+2. Staat er in beeld *"Beweeg je telefoon langzaam iets naar links en rechts voor een betere meting."*: beweeg 2–5 cm zijwaarts (links-rechts) terwijl je richt, en tik daarna de fotoknop. De app bewaart tot ~1,8 s aan dieptekaders vóór de foto; de berekening gebruikt alleen kaders met voldoende verplaatsing.
+3. Tik het kader van het kozijn. Een automatische LiDAR-maat toont `LIDAR_DEPTH_MULTI_FRAME` (≥ 2 onafhankelijke kaders) onder *Meetdiagnose*; `LIDAR_DEPTH_PLANE` = één kader (altijd `ESTIMATED`).
+4. Geen maat (grijs/oranje)? Open **Meetdiagnose**: daar staat de specifieke reden (bijv. verspringende gevel, te ruwe muur, kader te groot/klein, kozijnvlak niet te bepalen) en wat je kunt doen.
+5. **Exporteer meetdiagnose**: schrijft `meetdiagnose_….json` (alleen getallen, geen foto's/puntenwolk/locatie) naar Bestanden → Op mijn iPhone → Photo Walk. Zet dat bestand (en de duimstokmaat van het kozijn) hier in een sessie, zodat de drempels op echte data gekalibreerd kunnen worden. Controleer op de pc met `python -m photo_walk_core.validate meetdiagnose_*.json`.
+6. *Referentiemaat*: kies **Gemeten** (duimstok/laser) of **Uit tekening** voor een echte referentie; **Geschat** blijft `ESTIMATED` en geldt niet als meting.
+
 ## Een nieuwe versie installeren (update)
 1. Download opnieuw de artifact `photo-walk-UNSIGNED-device-ipa` van het nieuwste groene run van PR #57 (zie hierboven).
 2. Open Sideloadly, sleep de nieuwe IPA erin, zelfde Apple-ID, *Start*. Het bundle-ID blijft hetzelfde, dus de nieuwe versie wordt **over de oude heen** geïnstalleerd en je bewaarde scans/exports (Bestanden → Photo Walk) blijven behouden. Wil je schoon beginnen: verwijder de app eerst op de iPhone.
