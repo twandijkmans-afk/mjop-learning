@@ -43,7 +43,7 @@ Ontworpen route (PKCE, alleen een eenmalige code reist mee):
 3. De brugpagina stuurt door naar `mjoplive://auth-callback?code=…`; iOS vraagt "Openen in MJOP Live?".
 4. De app (`AuthCallback.parse`, getest) accepteert **alleen** een plausibele `code` — tokens in de URL, extra parameters of een ander pad worden geweigerd — en laadt `…/MJOP-App/?code=…` in de WebView. supabase-js wisselt de code in met de verifier die al in die WebView staat. Een onderschepte code is zonder verifier nutteloos.
 
-**Dit werkt pas na een aparte wijziging aan de website en Supabase** (niet in deze PR; zie de aparte web-PR / hieronder):
+**Dit werkt pas na een aparte wijziging aan de website en Supabase** (niet in deze PR; website-PR: [MJOP-App#13](https://github.com/twandijkmans-afk/MJOP-App/pull/13), draft):
 
 * website: in de app (herkenbaar aan `MJOPLiveApp/1` in de User-Agent) `flowType: 'pkce'` gebruiken en `emailRedirectTo` op de brugpagina laten wijzen; de brugpagina `app-callback.html` toevoegen;
 * Supabase → Authentication → URL Configuration → **Redirect URLs**: `https://twandijkmans-afk.github.io/MJOP-App/app-callback.html` toevoegen.
