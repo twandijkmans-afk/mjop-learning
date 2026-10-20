@@ -52,6 +52,42 @@ class Config:
     ref_plane_tol_m: float = 0.05
     ref_orthogonality_tol: float = 0.08
     scale_verify_tol: float = 0.03
+    # niveau A v2: LiDAR-ruismodel en meervlaks-analyse (PROVISIONAL; te kalibreren met de meetdiagnose-exports van een echt toestel)
+    lidar_sigma0_m: float = 0.004
+    lidar_sigma1_per_m: float = 0.004         # sigma(z) = sigma0 + sigma1 * z   (diepteruis grows with distance)
+    relief_tol_m: float = 0.012               # baksteenreliëf/voegen
+    thr_k: float = 2.5                        # inlierdrempel = thr_k * sigma(z) + relief_tol
+    ring_inner_scale: float = 1.06
+    ring_outer_scale: float = 1.6
+    band_lo_scale: float = 0.88               # binnenband (kozijnprofiel) tussen 0,88 en 0,985 x kader
+    band_hi_scale: float = 0.985
+    band_cluster_min_share: float = 0.35      # een dieptecluster telt mee als het >= dit aandeel van het grootste cluster heeft; het dichtstbijzijnde wint (profiel vóór glas)
+    glass_scale: float = 0.70
+    max_planes: int = 3
+    min_plane_points: int = 40
+    plane_min_fraction: float = 0.06
+    ransac_iterations_v2: int = 150
+    max_ransac_points: int = 2500
+    facade_min_facing: float = 0.35
+    facade_max_vertical: float = 0.35         # |n_y|: verticale wand
+    facade_support_min: float = 0.5           # aandeel van de niet door andere structuur verklaarde ringpunten
+    facade_rms_k: float = 1.5                 # rms <= facade_rms_k * sigma(z) + 0.008
+    ambiguity_ratio: float = 0.6
+    min_sides_covered: int = 3
+    side_min_points: int = 15
+    frame_search_m: float = 0.35
+    frame_side_min_points: int = 12
+    frame_group_tol_k: float = 1.5
+    flush_tol_k: float = 1.2
+    corner_tol_k: float = 2.0
+    corners_contradict_block: int = 3
+    max_support_frames: int = 5
+    min_baseline_m: float = 0.02
+    min_rotation_deg: float = 1.5
+    frame_tol_rel: float = 0.03
+    frame_tol_abs_m: float = 0.01
+    frame_normal_deg: float = 4.0
+    frame_offset_k: float = 2.5
     # associatie / dekking
     assoc_center_gate_factor: float = 0.5   # x min(breedte, hoogte)
     assoc_normal_angle_deg: float = 15.0

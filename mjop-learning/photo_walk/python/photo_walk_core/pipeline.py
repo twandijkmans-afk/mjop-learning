@@ -18,7 +18,8 @@ STATUSES = ("MEASURED", "DERIVED", "ESTIMATED", "UNKNOWN")
 # adviserende flags die 'MEASURED' uitsluiten
 DOWNGRADING = {"GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT", "METRIC_SCALE_UNVERIFIED",
                "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "ASSOCIATION_UNVERIFIED",
-               "AMBIGUOUS_ASSOCIATION", "VIO_SCALE_MISMATCH", "AUTO_DETECTED_UNCONFIRMED"}
+               "AMBIGUOUS_ASSOCIATION", "VIO_SCALE_MISMATCH", "AUTO_DETECTED_UNCONFIRMED", "REFERENCE_USER_ESTIMATE",
+               "QUAD_LARGER_THAN_OPENING", "QUAD_INSIDE_OPENING", "FRAME_OFFSET_FROM_CORNER_DEPTH", "LIMITED_SIDE_COVERAGE"}
 INVARIANTS = OrderedDict([("quantity_layer", "PROVISIONAL"), ("approval_state", "PENDING_HUMAN_APPROVAL"), ("is_final", False),
                           ("human_decision_registered", False), ("approvals_simulated", False), ("cost_link", None), ("kengetal_link", None),
                           ("price_link", None), ("external_vision_calls", 0), ("images_uploaded", False)])
@@ -65,7 +66,7 @@ def _status_from(result, kind, n_views, verified):
         return "ESTIMATED"
     if kind == "B":
         return "DERIVED" if verified else "ESTIMATED"
-    return "DERIVED"          # C
+    return "ESTIMATED" if "REFERENCE_USER_ESTIMATE" in adv else "DERIVED"          # C: een geschatte referentie levert nooit DERIVED
 
 
 def process_session(session, views, observations, references=(), cfg: Config = DEFAULT, explicit_links=(), frame_meta=None,
@@ -85,7 +86,8 @@ def process_session(session, views, observations, references=(), cfg: Config = D
         v = vmap[ob.frame_id]
         ra = None
         if "A" in mode["fallback_chain"] and v.depth is not None:
-            ra = measure_depth_view(v, ob.corners_px, cfg, seed=stable_seed(seed0, ob.observation_id), obstruction=ob.obstruction_reported)
+            ra = measure_depth_view(v, ob.corners_px, cfg, seed=stable_seed(seed0, ob.observation_id), obstruction=ob.obstruction_reported,
+                                    supports=getattr(v, "support_views", ()))
         per_obs[ob.observation_id] = ra
         ok = ra is not None and ra.ok
         items.append({"obs_id": ob.observation_id, "frame_id": ob.frame_id, "center_w": ra.center_w if ok else None,
@@ -145,7 +147,8 @@ def _measure_cluster(ci, obs_list, per_obs, vmap, mode, references, cfg, session
             fused = fuse_results(ras, cfg) if len(ras) > 1 else ras[0]
             attempts.append(("A", fused))
             if fused.ok:
-                final, kind, n_views = fused, "A", len(fused.view_ids)
+                final, kind = fused, "A"
+                n_views = len(fused.view_ids) if len(ras) > 1 else max(1, fused.independent_frames)     # onafhankelijke diepteframes tellen als standpunten
             elif any(f["code"] == "VIEWS_INCONSISTENT" for f in fused.flags):
                 final, kind = fused, "A"      # inconsistent: geen terugval die de inconsistentie verbergt
     # B

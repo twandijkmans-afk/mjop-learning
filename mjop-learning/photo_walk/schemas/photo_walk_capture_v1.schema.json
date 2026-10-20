@@ -411,6 +411,7 @@
       "scale_method": {
        "enum": [
         "LIDAR_DEPTH_PLANE",
+        "LIDAR_DEPTH_MULTI_FRAME",
         "AR_TRIANGULATION_VIO",
         "REFERENCE_DISTANCE",
         "NONE"
@@ -811,6 +812,7 @@
   "scale_method": {
    "enum": [
     "LIDAR_DEPTH_PLANE",
+    "LIDAR_DEPTH_MULTI_FRAME",
     "AR_TRIANGULATION_VIO",
     "REFERENCE_DISTANCE",
     "MIXED",
@@ -898,6 +900,14 @@
        "string",
        "null"
       ]
+     },
+     "kind": {
+      "enum": [
+       "MEASURED_WITH_TOOL",
+       "KNOWN_FROM_DRAWING",
+       "USER_ESTIMATE"
+      ],
+      "description": "Herkomst van de referentieafstand. USER_ESTIMATE = geschat, niet gemeten (geeft nooit DERIVED). Optioneel."
      }
     }
    }

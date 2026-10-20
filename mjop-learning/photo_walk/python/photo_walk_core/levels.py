@@ -13,6 +13,7 @@ from .config import Config
 from .geometry import (UP, angle_between_deg, in_convex_polygon, intersect_rays_plane, is_simple_convex_quad, plane_basis,
                        project, rays_world, scale_polygon, signed_plane_distance, unproject_depth)
 from .model import TRACKING_NORMAL
+from . import depth_plane as dp
 from .plane import fit_plane_ransac
 
 
@@ -34,6 +35,8 @@ class LevelResult:
     view_ids: tuple = ()
     scale_evidence: dict = field(default_factory=dict)
     diagnostics: dict = field(default_factory=dict)
+    independent_frames: int = 1
+    diag: dict = field(default_factory=dict)             # meetdiagnose (numeriek, exporteerbaar)
 
     @property
     def ok(self):
@@ -140,14 +143,20 @@ def _tilt(n, delta):
     return m / np.linalg.norm(m)
 
 
-# ---------------------------------------------------------------- niveau A
+# ---------------------------------------------------------------- niveau A (v2: meervlaks, meerdere onafhankelijke frames)
 
-def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False):
-    """Niveau A voor een standpunt. De hoeken worden NIET via hun eigen dieptepixel gemeten: de hoekstralen worden gesneden
-    met het gevelvlak dat uit de omringende dieptepunten is aangepast (RANSAC)."""
+def _angle_deg(a, b):
+    return float(np.degrees(np.arccos(np.clip(abs(a @ b) / (np.linalg.norm(a) * np.linalg.norm(b)), -1, 1))))
+
+
+def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False, supports=()):
+    """Niveau A voor een foto, optioneel met ondersteunende dieptaframes (`supports`, uit de korte buffer vlak voor de foto).
+    Geeft altijd diagnostiek in `result.diag`; bij een blokkerende vlag is er GEEN metrische waarde."""
     res = LevelResult("A", "LIDAR_DEPTH_PLANE", view_ids=(view.frame_id,))
     fl = res.flags
     corners_px = np.asarray(corners_px, float)
+    diag = res.diag
+    diag.update(algorithm="LIDAR_PLANE_V2", frame_id=view.frame_id, tracking_capture=view.tracking_state)
     if view.tracking_state != TRACKING_NORMAL:
         fl.append(q.flag("TRACKING_LOST", view.tracking_state))
     if view.depth is None:
@@ -159,85 +168,256 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False)
     if obstruction:
         fl.append(q.flag("OBSTRUCTION_REPORTED"))
     if q.blocking(fl):
+        _finish_diag(res, fl)
         return res
-    fit, pf, diag = fit_facade_plane(view, corners_px, cfg, seed)
-    res.diagnostics.update(diag)
-    fl.extend(pf)
+    frames, rejected = dp.select_support_frames(view, supports, cfg)
+    regions = dp.Regions(corners_px, cfg)
+    # --- dekking in het capture-frame (alle pixels, ook ongeldige)
+    uv_all, z_all = _depth_grid(view)
+    kind_all, _ = regions.classify(uv_all)
+    ring_total = int((kind_all == 1).sum())
+    valid_z = np.isfinite(z_all) & (z_all > 0)
+    ring_valid_range = int(((kind_all == 1) & valid_z & (z_all >= cfg.depth_min_range_m) & (z_all <= cfg.depth_max_range_m)).sum())
+    beyond = int(((kind_all == 1) & valid_z & (z_all > cfg.depth_max_range_m)).sum())
+    coverage = ring_valid_range / ring_total if ring_total else 0.0
+    diag.update(frames_total=1 + len(supports), frames_independent_candidates=len(frames), frames_rejected=[{"frame": f, "why": w} for f, w in rejected],
+                ring_pixels=ring_total, ring_valid=ring_valid_range, ring_coverage=round(coverage, 4),
+                baseline_m=round(max([float(np.linalg.norm(a.pose[:3, 3] - b.pose[:3, 3])) for a in frames for b in frames] + [0.0]), 4))
+    if ring_total and beyond / ring_total >= 0.3:
+        fl.append(q.flag("DEPTH_RANGE_EXCEEDED", f"{beyond} van {ring_total} ringpixels voorbij {cfg.depth_max_range_m} m"))
+    elif ring_valid_range < cfg.annulus_min_points or coverage < 0.25:
+        fl.append(q.flag("DEPTH_COVERAGE_LOW", f"{ring_valid_range} geldige ringpunten, dekking {coverage:.2f}"))
     if q.blocking(fl):
+        _finish_diag(res, fl)
         return res
-    o, D = rays_world(view.pose, view.intrinsics, corners_px)
-    C, t, cosinc = intersect_rays_plane(o, D, fit.n, fit.d)
+    # --- punten van alle onafhankelijke frames naar het capture-beeldgebied
+    chunks = []
+    for fi, f in enumerate(frames):
+        X, uv, z = dp.grid_points(f, cfg)
+        if f is view:
+            uvc, zc = uv, z
+        else:
+            uvc, zc = project(view.pose, view.intrinsics, X)
+        ok = (zc > 0) & (uvc[:, 0] >= 0) & (uvc[:, 0] <= view.intrinsics.width) & (uvc[:, 1] >= 0) & (uvc[:, 1] <= view.intrinsics.height)
+        X, uvc = X[ok], uvc[ok]
+        kind, side = regions.classify(uvc)
+        keep = kind > 0
+        chunks.append((X[keep], kind[keep], side[keep], np.full(int(keep.sum()), fi)))
+    Xa = np.vstack([c[0] for c in chunks]); ka = np.concatenate([c[1] for c in chunks]); sa = np.concatenate([c[2] for c in chunks])
+    fa = np.concatenate([c[3] for c in chunks])
+    diag.update(points_valid_total=int(len(Xa)), points_ring=int((ka == 1).sum()), points_band=int((ka == 2).sum()), points_glass=int((ka == 3).sum()))
+    an = dp.analyze_points(view, Xa, ka, sa, cfg, seed)
+    fl.extend(an["flags"])
+    diag.update(planes=an["planes"], stats=an["stats"], range_median_m=an["stats"].get("range_median_m"))
+    if q.blocking(fl):
+        _finish_diag(res, fl, an)
+        return res
+    fac, frm = an["facade"], an["frame"]
+    n, d_wall = fac["n"], fac["d"]
+    z_med = an["stats"]["range_median_m"]
+    thr = an["stats"]["threshold_m"]
+    sig = dp.sigma_at(z_med, cfg)
+    diag["frame_plane"] = {"mode": frm["mode"], "offset_m": frm.get("offset_m"), "per_side": frm["per_side"], "group": frm.get("group"), "ledge_sides": frm.get("ledge", [])}
+    # hoekdieptes in het capture-frame (onafhankelijk van de vlakfits); een hoek ligt op een rand: het venster bevat wand- en kozijnwaarden
+    o_cam = view.pose[:3, 3]
+    zax = view.pose[:3, :3][:, 2]
+    vals = [dp.corner_values(view, c) for c in corners_px]
+    offset, mode = frm.get("offset_m"), frm["mode"]
+    if mode not in ("FLUSH", "RECESSED", "PROTRUDING"):
+        # terugval: terugligging uit de clusters van hoekdieptes (zwakker bewijs; altijd adviserend gemeld)
+        s_all = []
+        for c, v in zip(corners_px, vals):
+            if len(v):
+                Xv = unproject_depth(view.pose, view.intrinsics, np.repeat(c[None, :], len(v), axis=0), v)
+                s_all.extend((Xv @ n - d_wall).tolist())
+        s_all = np.array(s_all)
+        cl = dp._clusters(s_all[np.abs(s_all) <= cfg.frame_search_m], thr) if len(s_all) else []
+        cl = [c for c in cl if c[1] >= max(8, 0.2 * (max([x[1] for x in cl]) if cl else 0))]
+        diag["corner_offset_clusters_m"] = [[round(c[0], 4), c[1]] for c in cl]
+        flush = max(0.015, cfg.flush_tol_k * sig)
+        if len(cl) == 1 and abs(cl[0][0]) <= flush and cl[0][1] >= 20:
+            offset, mode = 0.0, "FLUSH_FROM_CORNERS"
+        elif len(cl) >= 2 and cl[0][1] >= 12:
+            deep = min(cl, key=lambda x: x[0])
+            if abs(deep[0]) > flush and deep[1] >= 12:
+                offset, mode = float(deep[0]), "RECESSED_FROM_CORNERS" if deep[0] < 0 else "PROTRUDING_FROM_CORNERS"
+        if mode in ("FLUSH_FROM_CORNERS", "RECESSED_FROM_CORNERS", "PROTRUDING_FROM_CORNERS"):
+            fl.append(q.flag("FRAME_OFFSET_FROM_CORNER_DEPTH", f"{offset * 100:.1f} cm ({mode})"))
+        else:
+            C0, t0, _ = dp.plane_geometry(view, corners_px, n, d_wall)
+            if not np.any(np.isnan(t0)):
+                w0, h0 = dims_from_corners(C0, UP)
+                diag["indicative_if_flush_m"] = {"width": round(float(w0), 3), "height": round(float(h0), 3), "note": "ALLEEN indicatief; geen meting"}
+            fl.append(q.flag("FRAME_PLANE_INCONSISTENT" if mode == "INCONSISTENT" else "FRAME_PLANE_UNDETERMINED", f"modus {mode}"))
+            _finish_diag(res, fl, an)
+            return res
+    d_plane = d_wall + float(offset)
+    diag["frame_plane"].update(final_mode=mode, final_offset_m=round(float(offset), 4), recess_cm=round(float(-offset) * 100, 1))
+    C, t, cosinc = dp.plane_geometry(view, corners_px, n, d_plane)
     if np.any(np.isnan(t)):
         fl.append(q.flag("CORNERS_NOT_ON_PLANE"))
+        _finish_diag(res, fl, an)
         return res
     if cosinc.min() < cfg.min_incidence_cos:
         fl.append(q.flag("OBLIQUE_ANGLE", f"min |cos|={cosinc.min():.2f}"))
+        _finish_diag(res, fl, an)
         return res
+    # --- hoekcontrole (onafhankelijk): ligt een deel van de dieptes rond elke hoek op het gekozen vlak? (alleen wand-/kozijnwaarden mengen is normaal op een rand)
+    tol_c = cfg.corner_tol_k * sig + 0.02
+    exp_z = (C - o_cam) @ zax
+    dev, share, contra = [], [], 0
+    for k in range(4):
+        v = vals[k]
+        if len(v) < 3:
+            dev.append(None); share.append(None)
+            continue
+        dd = v - float(exp_z[k])
+        near = np.abs(dd) <= tol_c
+        dev.append(round(float(dd[np.argmin(np.abs(dd))]), 4))
+        share.append(round(float(near.mean()), 3))
+        if not near.any():
+            contra += 1
+    diag.update(corner_deviation_m=dev, corner_share_on_plane=share, corner_tolerance_m=round(tol_c, 4), corners_contradicting=contra,
+                corners_checked=sum(v is not None for v in dev))
+    if contra >= cfg.corners_contradict_block:
+        fl.append(q.flag("CORNERS_OFF_PLANE", f"{contra} hoeken: geen enkele diepte binnen {tol_c * 100:.1f} cm van het gekozen vlak"))
+        _finish_diag(res, fl, an)
+        return res
+    if contra:
+        fl.append(q.flag("CORNER_DEPTH_MISMATCH", f"{contra} hoek(en)"))
     bad = rectangularity_flags(C, cfg)
     if bad:
         fl.append(q.flag("WRONG_CORNER_SELECTION", "; ".join(bad)))
+        _finish_diag(res, fl, an)
         return res
     w, h = dims_from_corners(C, UP)
     if not (cfg.min_dim_m <= w <= cfg.max_dim_m and cfg.min_dim_m <= h <= cfg.max_dim_m):
         fl.append(q.flag("DIMENSION_OUT_OF_RANGE", f"{w:.3f} x {h:.3f} m"))
+        _finish_diag(res, fl, an)
         return res
-    # hoekdiepte-controle (adviserend)
-    zc_plane = (C - o) @ view.pose[:3, :3][:, 2]
-    mism, gross = [], []
-    for k in range(4):
-        zl = _local_depth(view, corners_px[k])
-        if zl is not None and abs(zl - zc_plane[k]) > cfg.corner_depth_tol_m:
-            mism.append(k)
-            if abs(zl - zc_plane[k]) > cfg.corner_depth_block_m:
-                gross.append(k)
-    res.diagnostics["corner_depth_mismatch"] = mism
-    if len(gross) >= 3:
-        fl.append(q.flag("MIXED_FACADE_DEPTH", f"hoekdiepte wijkt >{cfg.corner_depth_block_m} m af van het aangepaste vlak (hoeken {gross}): vlak ligt waarschijnlijk niet op het kozijn"))
-        return res
-    if mism:
-        fl.append(q.flag("CORNER_DEPTH_MISMATCH", f"hoeken {mism}"))
-    # glas (adviserend): interieurdiepte niet gebruikt voor de maat, wel beoordeeld
-    uv, z = _depth_grid(view)
-    inner = in_convex_polygon(uv, scale_polygon(corners_px, cfg.glass_inner_scale))
-    n_in = int(inner.sum())
-    if n_in:
-        vin = inner & _valid(z, cfg)
-        frac_valid = vin.sum() / n_in
+    # --- ligt het kader om de buitenrand van het kozijn? (dieptesprongen loodrecht op de kaderranden)
+    qe, larger, inside = dp.quad_extent(view, corners_px, n, d_plane, z_med, cfg)
+    diag["quad_extent"] = {"sides": qe, "sides_deeper_step_inside": larger, "sides_closer_step_outside": inside}
+    if larger >= 3:
+        fl.append(q.flag("QUAD_LARGER_THAN_OPENING", f"{larger} zijden"))
+    if inside >= 3:
+        fl.append(q.flag("QUAD_INSIDE_OPENING", f"{inside} zijden"))
+    # --- uitlijning dieptekaart <-> beeld: alleen als diagnostiek bewaard (nog niet gevalideerd; leverde bij schuine opnamen vals alarm), geen vlag
+    if mode not in ("FLUSH", "FLUSH_FROM_CORNERS"):
+        ea = dp.edge_alignment(view, corners_px, cfg)
+        if ea[3] is not None and ea[2] is not None:
+            diag["edge_alignment"] = {"best_shift_depth_px": [ea[0], ea[1]], "score_best_m": round(ea[2], 4), "score_zero_m": round(ea[3], 4)}
+    # --- glas (adviserend; de maat gebruikt het glas nooit)
+    gm = kind_all == 3
+    if gm.sum():
+        vin = gm & valid_z
+        frac_valid = float(vin.sum() / gm.sum())
         beyond_frac = 0.0
         if vin.sum():
-            P = unproject_depth(view.pose, view.intrinsics, uv[vin], z[vin])
-            beyond_frac = float((np.abs(signed_plane_distance(P, fit.n, fit.d)) > cfg.glass_beyond_plane_m).mean())
-        res.diagnostics.update(glass_valid_fraction=float(frac_valid), glass_beyond_fraction=beyond_frac)
+            P = unproject_depth(view.pose, view.intrinsics, uv_all[vin], z_all[vin])
+            beyond_frac = float((np.abs(P @ n - d_plane) > cfg.glass_beyond_plane_m).mean())
+        diag["glass"] = {"valid_fraction": round(frac_valid, 3), "beyond_fraction": round(beyond_frac, 3)}
         if frac_valid < cfg.glass_min_valid_fraction or beyond_frac > cfg.glass_max_beyond_fraction:
             fl.append(q.flag("GLASS_DEPTH_UNRELIABLE", f"geldig {frac_valid:.2f}, buiten vlak {beyond_frac:.2f}"))
-    # onzekerheid (Monte Carlo, vaste seed)
+    # --- onafhankelijke consistentie tussen frames (zelfde analyse per frame, zelfde capture-stralen)
+    per_frame = []
+    agree = 0
+    if len(frames) > 1:
+        ref_wh = (w, h)
+        for fi, f in enumerate(frames):
+            m = fa == fi
+            sub = analyze_subset(view, Xa[m], ka[m], sa[m], corners_px, cfg, seed + 101 * (fi + 1))
+            per_frame.append({"frame": f.frame_id, **sub})
+        usable = [p for p in per_frame if p.get("ok")]
+        diag["frames_usable"] = len(usable)
+        for p in usable:
+            tol_w = cfg.frame_tol_rel * ref_wh[0] + cfg.frame_tol_abs_m
+            tol_h = cfg.frame_tol_rel * ref_wh[1] + cfg.frame_tol_abs_m
+            p["agrees"] = bool(abs(p["width_m"] - ref_wh[0]) <= tol_w and abs(p["height_m"] - ref_wh[1]) <= tol_h
+                               and p["normal_deg"] <= cfg.frame_normal_deg)
+        if any(not p["agrees"] for p in usable):
+            fl.append(q.flag("FRAMES_INCONSISTENT", "; ".join(f"{p['frame']}: {p['width_m']:.3f}x{p['height_m']:.3f}" for p in usable)))
+            diag["per_frame"] = per_frame
+            _finish_diag(res, fl, an)
+            return res
+        agree = len(usable)
+    else:
+        agree = 1
+    diag["per_frame"] = per_frame
+    independent = max(1, agree)
+    res.independent_frames = independent
+    if independent >= 2:
+        res.scale_method = "LIDAR_DEPTH_MULTI_FRAME"
+    # --- onzekerheid (Monte Carlo, vaste seed): hoekpixels, wandvlak (offset+kanteling) en kozijnoffset
     rng = np.random.default_rng(seed)
-    n_eff = min(fit.n_inliers, cfg.plane_effective_samples_cap)
-    sig_depth = max(fit.rms_m, cfg.depth_noise_floor_m)
+    n_eff = min(int(fac["count"]), cfg.plane_effective_samples_cap)
+    sig_depth = max(fac["rms"], sig)
     sig_d = sig_depth / np.sqrt(n_eff)
-    sig_tilt = sig_depth / (max(fit.spread_m, 0.05) * np.sqrt(n_eff))
+    frame_sup = max([v["support"] for v in frm["per_side"].values()] + [1])
+    sig_frame = (thr / np.sqrt(min(frame_sup, 50))) if mode not in ("FLUSH",) else 0.0
+    sig_tilt = sig_depth / (max(fac["spread"], 0.05) * np.sqrt(n_eff))
     ws, hs = [], []
+    ctr = fac["centroid"]
     for _ in range(cfg.mc_samples):
         cpx = corners_px + rng.normal(0, cfg.corner_pixel_sigma_px, corners_px.shape)
         dl = rng.normal(0, sig_tilt, 3)
-        n2 = _tilt(fit.n, dl - (dl @ fit.n) * fit.n)
-        d2 = float(n2 @ fit.centroid) + rng.normal(0, sig_d)
-        o2, D2 = rays_world(view.pose, view.intrinsics, cpx)
-        C2, t2, _ = intersect_rays_plane(o2, D2, n2, d2)
+        n2 = n + (dl - (dl @ n) * n)
+        n2 = n2 / np.linalg.norm(n2)
+        d2 = float(n2 @ ctr) + float(offset) + rng.normal(0, sig_d) + (rng.normal(0, sig_frame) if sig_frame else 0.0)
+        C2, t2, _ = dp.plane_geometry(view, cpx, n2, d2)
         if np.any(np.isnan(t2)):
             continue
-        a, b = dims_from_corners(C2, UP)
-        ws.append(a)
-        hs.append(b)
+        a_, b_ = dims_from_corners(C2, UP)
+        ws.append(a_)
+        hs.append(b_)
     res.width_m, res.height_m = float(w), float(h)
     res.sigma_w, res.sigma_h = float(np.std(ws)), float(np.std(hs))
     res.sigma_area = float(np.std(np.array(ws) * np.array(hs)))
     res.aspect_ratio = float(w / h)
-    res.corners_w, res.plane_n, res.plane_d, res.center_w = C, fit.n, fit.d, C.mean(axis=0)
-    res.scale_evidence = {"kind": "LIDAR_DEPTH_FACADE_PLANE", "plane_inlier_ratio": fit.inlier_ratio, "plane_rms_m": fit.rms_m,
-                          "plane_points": fit.n_points, "depth_coverage": diag["depth_coverage"],
-                          "incidence_cos_min": float(cosinc.min())}
+    res.corners_w, res.plane_n, res.plane_d, res.center_w = C, n, float(d_plane), C.mean(axis=0)
+    res.scale_evidence = {"kind": "LIDAR_DEPTH_FRAME_PLANE_V2", "frame_plane_mode": mode, "recess_cm": round(float(-offset) * 100, 1),
+                          "facade_support": round(float(fac["support"]), 3), "facade_rms_m": round(float(fac["rms"]), 4),
+                          "facade_inlier_ratio": round(float(an["stats"]["facade_inlier_ratio"]), 3), "independent_frames": independent,
+                          "depth_coverage": round(coverage, 3), "incidence_cos_min": round(float(cosinc.min()), 3)}
+    diag.update(selected_plane={"role": "FACADE", "inlier_ratio": round(float(an["stats"]["facade_inlier_ratio"]), 3), "rms_m": round(float(fac["rms"]), 4),
+                                "sides_covered": fac.get("sides_covered"), "normal": [round(float(x), 4) for x in n]},
+                distance_to_frame_m=round(float(np.linalg.norm(C.mean(axis=0) - o_cam)), 3), independent_frames=independent,
+                result={"width_m": round(float(w), 4), "height_m": round(float(h), 4)})
+    _finish_diag(res, fl, an)
     return res
+
+
+def analyze_subset(view, X, kind, side, corners_px, cfg, seed):
+    """Analyse van de punten van EEN frame (voor de consistentiecontrole): vlak + kozijnoffset + maat op dezelfde capture-stralen."""
+    out = {"ok": False}
+    if len(X) < cfg.min_plane_points:
+        out["why"] = "te weinig punten"
+        return out
+    an = dp.analyze_points(view, X, kind, side, cfg, seed)
+    if an["facade"] is None or q.blocking(an["flags"]):
+        out["why"] = ",".join(f["code"] for f in an["flags"])
+        return out
+    fac, frm = an["facade"], an["frame"]
+    off = frm.get("offset_m")
+    if frm["mode"] not in ("FLUSH", "RECESSED", "PROTRUDING") or off is None:
+        out["why"] = "kozijnoffset " + frm["mode"]
+        return out
+    C, t, _ = dp.plane_geometry(view, corners_px, fac["n"], fac["d"] + off)
+    if np.any(np.isnan(t)):
+        out["why"] = "hoekstraal"
+        return out
+    w, h = dims_from_corners(C, UP)
+    out.update(ok=True, width_m=float(w), height_m=float(h), offset_m=float(off), inlier_ratio=round(float(an["stats"]["facade_inlier_ratio"]), 3),
+               plane_offset=float(fac["d"] + off), normal=[float(x) for x in fac["n"]], normal_deg=0.0)
+    return out
+
+
+def _finish_diag(res, flags, an=None):
+    d = res.diag
+    d["flags"] = [{"code": f["code"], "severity": f["severity"], "detail": f["detail"]} for f in flags]
+    d["blocking"] = [f["code"] for f in q.blocking(flags)]
+    d["hints_nl"] = list(dict.fromkeys(f["instruction_nl"] for f in flags if f["severity"] == q.BLOCKING or f["code"] in ("FRAME_OFFSET_FROM_CORNER_DEPTH", "CORNER_DEPTH_MISMATCH", "QUAD_LARGER_THAN_OPENING", "QUAD_INSIDE_OPENING", "GLASS_DEPTH_UNRELIABLE", "LIMITED_SIDE_COVERAGE")))
+    d["ok"] = bool(res.width_m is not None and not q.blocking(flags))
 
 
 def fuse_results(results, cfg: Config):
@@ -491,6 +671,8 @@ def measure_with_reference(view, target_px, ref, cfg: Config, seed=0, anchor_px=
         return res
     if anchor_px is not None:
         fl.append(q.flag("COPLANARITY_ASSUMED"))
+    if ref.get("kind", "MEASURED_WITH_TOOL") == "USER_ESTIMATE":        # een door de gebruiker geschatte referentie is geen meting
+        fl.append(q.flag("REFERENCE_USER_ESTIMATE"))
     sig_ref = ref.get("distance_sigma_m")
     if sig_ref is None:
         fl.append(q.flag("REFERENCE_UNCERTAINTY_NOT_PROVIDED"))
@@ -513,7 +695,7 @@ def measure_with_reference(view, target_px, ref, cfg: Config, seed=0, anchor_px=
     res.plane_n = view.pose[:3, :3] @ sol["n"]
     res.plane_d = float(res.plane_n @ (view.pose[:3, :3] @ (sol["n"] * sol["d"]) + view.pose[:3, 3]))
     res.center_w = res.corners_w.mean(axis=0)
-    res.scale_evidence = {"kind": "REFERENCE_DISTANCE", "reference_id": ref.get("reference_id"), "reference_distance_m": float(dist),
+    res.scale_evidence = {"kind": "REFERENCE_DISTANCE", "reference_id": ref.get("reference_id"), "reference_distance_m": float(dist), "reference_kind": ref.get("kind", "MEASURED_WITH_TOOL"),
                           "reference_sigma_m": sig_ref, "plane_id": ref.get("plane_id"), "orthogonality_error": sol["ortho"],
                           "anchor_is_target": anchor_px is None}
     return res

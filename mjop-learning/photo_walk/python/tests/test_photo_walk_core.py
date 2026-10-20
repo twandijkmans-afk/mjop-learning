@@ -401,7 +401,7 @@ def test_mixed_facade_depth_blocks(facade):
     f = SimFacade(frames=facade.frames, protrusions=[(0.2, 1.0, 0.0, 3.0, 0.7), (2.2, 3.0, 0.0, 3.0, 0.7), (1.0, 2.2, 2.45, 3.0, 0.7)])
     v = make_view(f, "FM", [1.6, 1.6, 4.0], seed=1)
     r = measure_depth_view(v, annotate(f.frames[0], v, seed=3).corners_px, CFG, seed=1)
-    assert r.width_m is None and codes(r.flags) & {"MIXED_FACADE_DEPTH", "PLANE_NOISY"}
+    assert r.width_m is None and codes(r.flags) & {"MIXED_FACADE_DEPTH", "PLANE_NOISY", "AMBIGUOUS_FACADE_PLANES", "FACADE_NOT_PLANAR", "NO_FACADE_PLANE", "FACADE_ONE_SIDED"}
 
 
 def test_unknown_keeps_observation_and_gives_instruction(facade):
