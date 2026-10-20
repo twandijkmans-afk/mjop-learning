@@ -189,4 +189,32 @@ final class PhotoWalkUITests: XCTestCase {
         XCTAssertTrue(waitFor(app.staticTexts["overviewDetected"], "label CONTAINS %@", "Herkend: 0 ", timeout: 20) || app.staticTexts["overviewDetected"].label.contains("Herkend:"))
         XCTAssertEqual(app.state, .runningForeground)
     }
+
+    /// LiDAR-v2 op synthetische dieptekaders: kader -> detail -> Meetdiagnose-scherm -> export van het diagnosebestand.
+    func testDiagnosticsScreenAndExportOnSyntheticLidarV2Scene() {
+        let app = XCUIApplication()
+        app.launch()
+        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
+        app.buttons["Testfoto LiDAR-v2: terugliggend kozijn, meerdere dieptekaders (simulatie)"].tap()
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 30))
+        if !row.isHittable { app.scrollViews.firstMatch.swipeUp() }
+        row.tap()
+        XCTAssertTrue(app.staticTexts["detailDims"].waitForExistence(timeout: 15))
+        XCTAssertTrue(app.staticTexts["detailDims"].label.contains("1.2"), "automatische LiDAR-maat verwacht: \(app.staticTexts["detailDims"].label)")
+        let link = app.buttons["diagnosticsLink"]
+        var n = 0
+        while !(link.exists && link.isHittable) && n < 6 { app.scrollViews.firstMatch.swipeUp(); n += 1 }
+        link.tap()
+        XCTAssertTrue(app.navigationBars["Meetdiagnose"].waitForExistence(timeout: 15))
+        XCTAssertTrue(label(app, containing: "LIDAR_DEPTH_MULTI_FRAME").waitForExistence(timeout: 10))
+        let export = app.buttons["exportDiagnosticsButton"]
+        n = 0
+        while !(export.exists && export.isHittable) && n < 12 { app.swipeUp(); n += 1 }
+        export.tap()
+        let path = app.staticTexts["diagnosticsExportPath"]
+        XCTAssertTrue(path.waitForExistence(timeout: 10))
+        XCTAssertTrue(path.label.contains("meetdiagnose_"), path.label)
+        XCTAssertEqual(app.state, .runningForeground)
+    }
 }

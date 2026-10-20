@@ -141,13 +141,18 @@ struct BoxDetailView: View {
                             Button("Herstel detectie") { corners = obs.originalCorners }.buttonStyle(.bordered).disabled(corners == obs.originalCorners)
                             if obs.source == .AUTO_DETECTED_UNCONFIRMED { Button("Hoeken bevestigen") { store.confirmCorners(observation: obs.id); Task { await store.measureAllInBackground(); store.persist() } }.buttonStyle(.bordered) }
                         }
+                        if let m, DiagnosticsView.needsMotion(m.result) {
+                            Text(CaptureCoordinator.motionHint).font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("detailMotionHint")
+                        }
+                        NavigationLink("Meetdiagnose") { DiagnosticsView(observationId: obs.id).environmentObject(store) }
+                            .buttonStyle(.bordered).accessibilityIdentifier("diagnosticsLink")
                         HStack {
                             NavigationLink("Referentiemaat") { ReferencePickerView(frame: kf, anchorObservationId: obs.id).environmentObject(store) }.buttonStyle(.bordered)
                             Button("Geen kozijn") { store.setRejected(obs.id, true); dismiss() }.buttonStyle(.bordered).tint(.red).accessibilityIdentifier("rejectButton")
                         }
                         linkControls(obs)
                     }.padding(.horizontal, 8)
-                }.frame(maxHeight: 230)
+                }.frame(maxHeight: 260)
             } else { ProgressView() }
         }
         .navigationTitle("Kozijn").navigationBarTitleDisplayMode(.inline)

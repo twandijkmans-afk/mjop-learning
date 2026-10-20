@@ -68,13 +68,13 @@ enum ExportService {
         let methods = Set(s.results.filter { $0.status != .UNKNOWN }.map { $0.result.scaleMethod })
         r["scale_method"] = methods.isEmpty || allUnknown ? "NONE" : (methods.count == 1 ? methods.first! : "MIXED")
         r["scale_evidence"] = [Any]()
-        r["measurement_method_version"] = "photo_walk_levels_ABC_v1"
+        r["measurement_method_version"] = "photo_walk_levels_ABC_v2_lidar_multiframe"
         r["processing_version"] = "photo_walk_core_swift_0.1.0"
         r["thresholds"] = ["threshold_status": "PROVISIONAL_UNVALIDATED"]
         r["references"] = s.references.map { (fid, ref) -> [String: Any] in
             ["reference_id": ref.referenceId, "frame_id": fid, "p1_px": [ref.p1.u, ref.p1.v], "p2_px": [ref.p2.u, ref.p2.v], "distance_m": ref.distanceM,
              "distance_sigma_m": ref.distanceSigmaM ?? NSNull(), "plane_id": ref.planeId ?? NSNull(), "entered_by": "inspecteur",
-             "anchor_observation_id": ref.anchorObservationId ?? NSNull()]
+             "anchor_observation_id": ref.anchorObservationId ?? NSNull(), "kind": ref.kind.rawValue]
         }.sorted { ($0["reference_id"] as? String ?? "") < ($1["reference_id"] as? String ?? "") }
         r["observations"] = s.observations.filter { !$0.rejected }.map { o -> [String: Any] in
             var d: [String: Any] = ["observation_id": o.id, "frame_id": o.frameId, "corner_source": o.source.rawValue, "obstruction_reported": o.obstruction]

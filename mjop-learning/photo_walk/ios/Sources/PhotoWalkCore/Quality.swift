@@ -42,6 +42,20 @@ public enum Flags {
         "MANUAL_CORNERS": (.ADVISORY, "Hoeken zijn handmatig geselecteerd (semi-automatisch)."),
         "HUMAN_CORRECTED_CORNERS": (.ADVISORY, "Hoeken zijn door een mens gecorrigeerd; herberekend zonder brondata te overschrijven."),
         "OBSTRUCTION_REPORTED": (.ADVISORY, "Gebruiker meldt begroeiing of obstakel voor het kozijn; hoeken kunnen onjuist zijn."),
+        "NO_FACADE_PLANE": (.BLOCKING, "Rond het kozijn is geen bruikbaar plat wandvlak gevonden. Zorg dat een stuk effen muur naast, boven en onder het kozijn in beeld is en sta recht op de gevel."),
+        "FACADE_NOT_PLANAR": (.BLOCKING, "Het oppervlak rond het kozijn is te ruw of onregelmatig (reliëf, begroeiing, rommel) voor een betrouwbare vlakfit. Kies een standpunt met meer vlakke muur in beeld."),
+        "AMBIGUOUS_FACADE_PLANES": (.BLOCKING, "Rond het kozijn liggen meerdere even grote vlakken op verschillende diepte (verspringende gevel). Fotografeer vanaf een standpunt waar één wandvlak duidelijk om het kozijn zit, of gebruik een referentiemaat."),
+        "FACADE_ONE_SIDED": (.BLOCKING, "Het wandvlak is maar aan één of twee kanten van het kozijn gezien. Houd het kozijn met wand aan alle kanten in beeld."),
+        "FRAME_PLANE_UNDETERMINED": (.BLOCKING, "De terugligging van het kozijn t.o.v. de wand is niet betrouwbaar te bepalen (te weinig diepte op de kozijnrand). Beweeg langzaam iets naar links en rechts en maak de foto opnieuw, of voer een gemeten referentiemaat in."),
+        "FRAME_PLANE_INCONSISTENT": (.BLOCKING, "De kozijnrand ligt links/rechts/boven op verschillende diepte. Controleer of het kader precies om de buitenrand van het kozijn ligt."),
+        "CORNERS_OFF_PLANE": (.BLOCKING, "Drie of vier hoeken liggen niet op het gekozen vlak (de gemeten diepte wijkt af). Controleer of het kader om de buitenrand van het kozijn ligt."),
+        "FRAMES_INCONSISTENT": (.BLOCKING, "De dieptemetingen uit de korte beweging komen niet overeen (tracking-drift of bewegend object). Houd de telefoon rustig en herhaal de opname."),
+        "FRAME_OFFSET_FROM_CORNER_DEPTH": (.ADVISORY, "De terugligging van het kozijn is afgeleid uit de diepte op de hoeken; dat is minder betrouwbaar. Beweeg iets zijwaarts voor een betere meting."),
+        "LIMITED_SIDE_COVERAGE": (.ADVISORY, "Het wandvlak is maar aan twee kanten van het kozijn gezien. Houd wand aan alle vier de kanten in beeld voor een betere meting."),
+        "DEPTH_MISALIGNMENT_SUSPECTED": (.ADVISORY, "De dieptekaart lijkt verschoven t.o.v. het beeld (randen vallen niet samen). Herhaal de opname; houd de telefoon stil tijdens het richten."),
+        "QUAD_LARGER_THAN_OPENING": (.ADVISORY, "Het kader lijkt groter dan het kozijn (de gemeten dieptesprong ligt ver binnen het kader). Trek de hoeken naar de buitenrand van het kozijn."),
+        "QUAD_INSIDE_OPENING": (.ADVISORY, "Het kader lijkt binnen het kozijn te liggen (buiten het kader ligt nog dieper glas of een dieptesprong naar het profiel). Trek de hoeken naar de buitenrand van het kozijn."),
+        "REFERENCE_USER_ESTIMATE": (.ADVISORY, "De referentiemaat is door jou geschat, niet gemeten. De maat is daarom een schatting zonder metrische bevestiging; meet de referentie met duimstok of laser."),
     ]
     public static func make(_ code: String, _ detail: String? = nil) -> QualityFlag {
         let (sev, instr) = table[code] ?? (.BLOCKING, "Onbekende kwaliteitscode")
@@ -67,5 +81,14 @@ public struct Config {
     public var glassInnerScale = 0.85, glassMinValidFraction = 0.5, glassBeyondPlaneM = 0.30, glassMaxBeyondFraction = 0.25
     public var consistencyK = 3.0
     public var refPlaneTolM = 0.05, refOrthogonalityTol = 0.08
+    // niveau A v2 (PROVISIONAL; zelfde waarden als config.py)
+    public var lidarSigma0M = 0.004, lidarSigma1PerM = 0.004, reliefTolM = 0.012, thrK = 2.5
+    public var ringInnerScale = 1.06, ringOuterScale = 1.6, bandLoScale = 0.88, bandHiScale = 0.985, bandClusterMinShare = 0.35, glassScale = 0.70
+    public var maxPlanes = 3, minPlanePoints = 40, planeMinFraction = 0.06, ransacIterationsV2 = 150, maxRansacPoints = 2500
+    public var facadeMinFacing = 0.35, facadeMaxVertical = 0.35, facadeSupportMin = 0.5, facadeRmsK = 1.5, ambiguityRatio = 0.6
+    public var sideMinPoints = 15, frameSearchM = 0.35, frameSideMinPoints = 12, frameGroupTolK = 1.5, flushTolK = 1.2
+    public var cornerTolK = 2.0, cornersContradictBlock = 3
+    public var maxSupportFrames = 5, minBaselineM = 0.02, minRotationDeg = 1.5
+    public var frameTolRel = 0.03, frameTolAbsM = 0.01, frameNormalDeg = 4.0
     public init() {}
 }

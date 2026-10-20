@@ -9,7 +9,8 @@ public enum BoxFeedback: String, Codable {
 
 public enum Feedback {
     static let reviewAdvisories: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "OBSTRUCTION_REPORTED",
-                                                "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED"]
+                                                "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "REFERENCE_USER_ESTIMATE", "QUAD_LARGER_THAN_OPENING", "QUAD_INSIDE_OPENING",
+                                                "FRAME_OFFSET_FROM_CORNER_DEPTH", "LIMITED_SIDE_COVERAGE"]
     /// Blokkades die betekenen dat er geen betrouwbare schaal/diepte is (niet: dat het kader fout is).
     static let noScale: Set<String> = ["NO_DEPTH", "TRACKING_LOST", "DEPTH_COVERAGE_LOW", "DEPTH_RANGE_EXCEEDED", "NO_METRIC_SCALE", "REFERENCE_INVALID"]
 

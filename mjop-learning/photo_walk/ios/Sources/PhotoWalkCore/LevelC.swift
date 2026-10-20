@@ -10,9 +10,13 @@ public struct ReferenceMeasure {
     public var targetPlaneId: String?
     /// Waarneming (kozijn) waarvan de rechthoek op het referentievlak ligt; voor andere kozijnen in dezelfde foto geldt dan COPLANARITY_ASSUMED.
     public var anchorObservationId: String?
-    public init(referenceId: String, p1: Pixel, p2: Pixel, distanceM: Double, distanceSigmaM: Double? = nil, planeId: String? = nil, targetPlaneId: String? = nil, anchorObservationId: String? = nil) {
+    /// Soort referentie. Een door de gebruiker GESCHATTE afstand is geen meting en levert nooit status DERIVED/MEASURED (alleen ESTIMATED).
+    public enum Kind: String { case measuredWithTool = "MEASURED_WITH_TOOL", knownFromDrawing = "KNOWN_FROM_DRAWING", userEstimate = "USER_ESTIMATE" }
+    public var kind: Kind = .userEstimate
+    public init(referenceId: String, p1: Pixel, p2: Pixel, distanceM: Double, distanceSigmaM: Double? = nil, planeId: String? = nil, targetPlaneId: String? = nil, anchorObservationId: String? = nil,
+                kind: Kind = .userEstimate) {
         self.referenceId = referenceId; self.p1 = p1; self.p2 = p2; self.distanceM = distanceM
-        self.distanceSigmaM = distanceSigmaM; self.planeId = planeId; self.targetPlaneId = targetPlaneId; self.anchorObservationId = anchorObservationId
+        self.distanceSigmaM = distanceSigmaM; self.planeId = planeId; self.targetPlaneId = targetPlaneId; self.anchorObservationId = anchorObservationId; self.kind = kind
     }
 }
 
@@ -89,6 +93,7 @@ public func measureWithReference(view: ViewInput, target: [Pixel], ref: Referenc
     if !(cfg.minDimM...cfg.maxDimM).contains(sol.w) || !(cfg.minDimM...cfg.maxDimM).contains(sol.h) { res.flags.append(Flags.make("DIMENSION_OUT_OF_RANGE")); return res }
     if anchor != nil { res.flags.append(Flags.make("COPLANARITY_ASSUMED")) }
     if ref.distanceSigmaM == nil { res.flags.append(Flags.make("REFERENCE_UNCERTAINTY_NOT_PROVIDED")) }
+    if ref.kind == .userEstimate { res.flags.append(Flags.make("REFERENCE_USER_ESTIMATE")) }
     var rng = SplitMix64(seed: seed &+ 11)
     var ws: [Double] = [], hs: [Double] = []
     let s = cfg.cornerPixelSigmaPx
@@ -100,5 +105,6 @@ public func measureWithReference(view: ViewInput, target: [Pixel], ref: Referenc
     func sd(_ v: [Double]) -> Double { guard v.count > 1 else { return 0 }; let m = v.reduce(0, +) / Double(v.count); return (v.reduce(0) { $0 + pow($1 - m, 2) } / Double(v.count)).squareRoot() }
     res.width = sol.w; res.height = sol.h; res.sigmaW = sd(ws); res.sigmaH = sd(hs); res.sigmaArea = sd(zip(ws, hs).map { $0 * $1 })
     res.cornersWorld = sol.corners.map { view.pose.toWorld($0) }
+    res.scaleEvidence = ["kind": "REFERENCE_DISTANCE", "reference_id": ref.referenceId, "reference_distance_m": ref.distanceM, "reference_kind": ref.kind.rawValue]
     return res
 }

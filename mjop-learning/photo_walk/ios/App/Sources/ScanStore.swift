@@ -11,6 +11,19 @@ struct Keyframe: Identifiable {
     let trackingState: String       // NORMAL | LIMITED_* | NOT_AVAILABLE
     let depth: DepthMap?            // depth_z in meter; laag-vertrouwen-pixels staan op NaN
     let imageURL: URL?              // lokaal bestand in de app-sandbox; nooit geupload
+    /// Ondersteunende LiDAR-dieptekaders uit de korte buffer vlak voor de foto (eigen pose/tracking). Alleen geometrisch onafhankelijke kaders worden door de kern gebruikt.
+    var supportDepths: [SupportDepth] = []
+    /// ARKit smoothedSceneDepth van HETZELFDE frame: sterk gecorreleerd met `depth`, daarom uitsluitend een kruiscontrole in de diagnose (nooit extra bewijs).
+    var smoothedDepth: DepthMap? = nil
+}
+
+struct SupportDepth: Identifiable {
+    let id: String
+    let timestamp: Date
+    let intrinsics: Intrinsics
+    let pose: Pose
+    let trackingState: String
+    let depth: DepthMap
 }
 
 enum CornerSource: String { case MANUAL, AUTO_DETECTED_UNCONFIRMED, AUTO_DETECTED_CONFIRMED, MANUAL_CORRECTED }
@@ -61,7 +74,8 @@ enum Measurer {
     struct Output { var measures: [String: ObservationMeasure]; var results: [MeasuredObject] }
 
     static func input(_ kf: Keyframe) -> ViewInput {
-        ViewInput(frameId: kf.id, intrinsics: kf.intrinsics, pose: kf.pose, trackingNormal: kf.trackingState == "NORMAL", depth: kf.depth)
+        let sup = kf.supportDepths.map { ViewInput(frameId: $0.id, intrinsics: $0.intrinsics, pose: $0.pose, trackingNormal: $0.trackingState == "NORMAL", depth: $0.depth) }
+        return ViewInput(frameId: kf.id, intrinsics: kf.intrinsics, pose: kf.pose, trackingNormal: kf.trackingState == "NORMAL", depth: kf.depth, supports: sup)
     }
 
     static func measure(_ o: Observation, frames: [String: Keyframe], observations: [String: Observation], references: [String: ReferenceMeasure]) -> LevelResult {
@@ -70,11 +84,19 @@ enum Measurer {
         }
         let v = input(kf)
         var r = measureDepthView(v, corners: o.corners, seed: stableSeed(o.id), obstruction: o.obstruction)
+        if let sm = kf.smoothedDepth {          // kruiscontrole op de gladgestreken diepte van hetzelfde frame (gecorreleerd: alleen diagnose)
+            var vs = v; vs.depth = sm; vs.supports = []
+            let rs = measureDepthView(vs, corners: o.corners, seed: stableSeed(o.id))
+            r.diag["smoothed_cross_check"] = ["ok": rs.ok, "width_m": rdOpt(rs.width), "height_m": rdOpt(rs.height),
+                                              "delta_width_m": rdOpt(rs.ok && r.ok ? (rs.width ?? 0) - (r.width ?? 0) : nil),
+                                              "delta_height_m": rdOpt(rs.ok && r.ok ? (rs.height ?? 0) - (r.height ?? 0) : nil),
+                                              "note": "gecorreleerd met de hoofdmeting; geen onafhankelijk bewijs"] as [String: Any]
+        }
         if !r.ok, let ref = references[o.frameId] {
             var anchor: [Pixel]? = nil
             if let aid = ref.anchorObservationId, aid != o.id, let a = observations[aid], !a.rejected { anchor = a.corners }
             let rc = measureWithReference(view: v, target: o.corners, ref: ref, anchor: anchor, seed: stableSeed(o.id + "C"))
-            if rc.ok { r = rc } else { r.flags += rc.flags.filter { $0.severity == .BLOCKING }.map { QualityFlag(code: $0.code, severity: $0.severity, detail: "[referentie] \($0.detail ?? "")", instruction_nl: $0.instruction_nl) } }
+            if rc.ok { var rc2 = rc; rc2.diag = r.diag; rc2.diag["fallback"] = "REFERENCE_DISTANCE (niveau A gaf geen maat)"; rc2.diag["lidar_flags_before_fallback"] = r.flags.map { $0.code }; r = rc2 } else { r.flags += rc.flags.filter { $0.severity == .BLOCKING }.map { QualityFlag(code: $0.code, severity: $0.severity, detail: "[referentie] \($0.detail ?? "")", instruction_nl: $0.instruction_nl) } }
         }
         if !r.ok && !hasBlocking(r.flags) { r.flags.append(Flags.make("NO_METRIC_SCALE")) }
         return r
@@ -98,7 +120,7 @@ enum Measurer {
             var final: LevelResult
             var viewCount = 1
             if okA.count >= 2 { final = fuse(okA); viewCount = final.viewIds.count }
-            else if let a = okA.first { final = a }
+            else if let a = okA.first { final = a; viewCount = max(1, a.independentFrames) }      // onafhankelijke diepteframes tellen als standpunten
             else if let c = perView.first(where: { $0.ok }) { final = c }
             else { final = perView.first ?? LevelResult(level: .A, scaleMethod: "NONE") }
             if !final.ok && !hasBlocking(final.flags) { final.flags.append(Flags.make("NO_METRIC_SCALE")) }

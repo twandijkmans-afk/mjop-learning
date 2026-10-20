@@ -6,12 +6,15 @@ import PhotoWalkCore
 /// Float32 little-endian, depth_z in meter, NaN = ongeldig). Bestandsnamen zijn RELATIEF: het containerpad verandert bij een herinstallatie.
 struct SessionSnapshot: Codable {
     struct KF: Codable { var id: String; var timestamp: Date; var intrinsics: Intrinsics; var pose: Pose; var trackingState: String
-        var imageFile: String?; var depthFile: String?; var depthWidth: Int; var depthHeight: Int }
+        var imageFile: String?; var depthFile: String?; var depthWidth: Int; var depthHeight: Int
+        var smoothedFile: String? = nil
+        var supports: [Sup]? = nil }
+    struct Sup: Codable { var id: String; var timestamp: Date; var intrinsics: Intrinsics; var pose: Pose; var trackingState: String; var depthFile: String; var depthWidth: Int; var depthHeight: Int }
     struct Rev: Codable { var index: Int; var before: Pixel; var after: Pixel; var editedBy: String; var editedAt: Date; var reason: String? }
     struct Obs: Codable { var id: String; var frameId: String; var corners: [Pixel]; var originalCorners: [Pixel]; var source: String; var revisions: [Rev]
         var obstruction: Bool; var detector: String?; var score: Double?; var rejected: Bool }
     struct Ref: Codable { var referenceId: String; var frameId: String; var p1: Pixel; var p2: Pixel; var distanceM: Double; var distanceSigmaM: Double?
-        var planeId: String?; var anchorObservationId: String? }
+        var planeId: String?; var anchorObservationId: String?; var kind: String? = nil }
     struct Draft: Codable { var id: String; var observationIds: [String] }
     var version = 1
     var sessionId: String
@@ -61,7 +64,10 @@ enum Persistence {
             keyframes: s.keyframes.map { k in
                 SessionSnapshot.KF(id: k.id, timestamp: k.timestamp, intrinsics: k.intrinsics, pose: k.pose, trackingState: k.trackingState,
                                    imageFile: k.imageURL?.lastPathComponent, depthFile: k.depth != nil ? "\(k.id).depth" : nil,
-                                   depthWidth: k.depth?.width ?? 0, depthHeight: k.depth?.height ?? 0) },
+                                   depthWidth: k.depth?.width ?? 0, depthHeight: k.depth?.height ?? 0,
+                                   smoothedFile: k.smoothedDepth != nil ? "\(k.id).smooth.depth" : nil,
+                                   supports: k.supportDepths.map { SessionSnapshot.Sup(id: $0.id, timestamp: $0.timestamp, intrinsics: $0.intrinsics, pose: $0.pose, trackingState: $0.trackingState,
+                                                                                       depthFile: "\($0.id).depth", depthWidth: $0.depth.width, depthHeight: $0.depth.height) }) },
             observations: s.observations.map { o in
                 SessionSnapshot.Obs(id: o.id, frameId: o.frameId, corners: o.corners, originalCorners: o.originalCorners, source: o.source.rawValue,
                                     revisions: o.revisions.map { SessionSnapshot.Rev(index: $0.index, before: $0.before, after: $0.after, editedBy: $0.editedBy, editedAt: $0.editedAt, reason: $0.reason) },
@@ -69,7 +75,7 @@ enum Persistence {
             drafts: s.drafts.map { SessionSnapshot.Draft(id: $0.id, observationIds: $0.observationIds) },
             references: s.references.values.sorted { $0.referenceId < $1.referenceId }.map {
                 SessionSnapshot.Ref(referenceId: $0.referenceId, frameId: $0.frameId, p1: $0.p1, p2: $0.p2, distanceM: $0.distanceM, distanceSigmaM: $0.distanceSigmaM,
-                                    planeId: $0.planeId, anchorObservationId: $0.anchorObservationId) },
+                                    planeId: $0.planeId, anchorObservationId: $0.anchorObservationId, kind: $0.kind.rawValue) },
             dismissedLinks: s.dismissedLinks.sorted())
     }
 
@@ -85,9 +91,14 @@ enum Persistence {
     @MainActor private static func makeWriteJob(_ s: ScanStore) -> (() -> Void)? {
         guard !s.sessionId.isEmpty, !s.keyframes.isEmpty, let dir = sessionDir(s.sessionId) else { return nil }
         let snap = snapshot(s)
-        let depths = s.keyframes.compactMap { k in k.depth.map { (k.id, $0) } }
+        var depths = s.keyframes.compactMap { k in k.depth.map { (k.id, $0) } }
+        for k in s.keyframes {
+            if let sm = k.smoothedDepth { depths.append(("\(k.id).smooth", sm)) }
+            for sup in k.supportDepths { depths.append((sup.id, sup.depth)) }
+        }
+        let depthFiles = depths
         return {
-            for (id, d) in depths {
+            for (id, d) in depthFiles {
                 let url = dir.appendingPathComponent("\(id).depth")
                 if !FileManager.default.fileExists(atPath: url.path) { try? writeDepth(d, to: url) }     // brondata wordt nooit overschreven
             }
@@ -120,10 +131,17 @@ enum Persistence {
     @MainActor static func restore(_ snap: SessionSnapshot, from dir: URL, into s: ScanStore) {
         s.newSession()
         s.sessionId = snap.sessionId; s.buildingId = snap.buildingId; s.facadeId = snap.facadeId; s.isSimulation = snap.isSimulation
-        s.keyframes = snap.keyframes.map { k in
-            Keyframe(id: k.id, timestamp: k.timestamp, intrinsics: k.intrinsics, pose: k.pose, trackingState: k.trackingState,
-                     depth: k.depthFile.flatMap { readDepth(dir.appendingPathComponent($0), width: k.depthWidth, height: k.depthHeight) },
-                     imageURL: k.imageFile.map { dir.appendingPathComponent($0) })
+        s.keyframes = snap.keyframes.map { k -> Keyframe in
+            var kf = Keyframe(id: k.id, timestamp: k.timestamp, intrinsics: k.intrinsics, pose: k.pose, trackingState: k.trackingState,
+                              depth: k.depthFile.flatMap { readDepth(dir.appendingPathComponent($0), width: k.depthWidth, height: k.depthHeight) },
+                              imageURL: k.imageFile.map { dir.appendingPathComponent($0) })
+            kf.smoothedDepth = k.smoothedFile.flatMap { readDepth(dir.appendingPathComponent($0), width: k.depthWidth, height: k.depthHeight) }
+            kf.supportDepths = (k.supports ?? []).compactMap { sp in
+                readDepth(dir.appendingPathComponent(sp.depthFile), width: sp.depthWidth, height: sp.depthHeight).map {
+                    SupportDepth(id: sp.id, timestamp: sp.timestamp, intrinsics: sp.intrinsics, pose: sp.pose, trackingState: sp.trackingState, depth: $0)
+                }
+            }
+            return kf
         }
         s.observations = snap.observations.map { o in
             Observation(id: o.id, frameId: o.frameId, corners: o.corners, originalCorners: o.originalCorners, source: CornerSource(rawValue: o.source) ?? .MANUAL,
@@ -132,7 +150,8 @@ enum Persistence {
         }
         s.drafts = snap.drafts.map { ObjectDraft(id: $0.id, observationIds: $0.observationIds) }
         for r in snap.references {
-            var m = ReferenceMeasure(referenceId: r.referenceId, p1: r.p1, p2: r.p2, distanceM: r.distanceM, distanceSigmaM: r.distanceSigmaM, planeId: r.planeId, anchorObservationId: r.anchorObservationId)
+            var m = ReferenceMeasure(referenceId: r.referenceId, p1: r.p1, p2: r.p2, distanceM: r.distanceM, distanceSigmaM: r.distanceSigmaM, planeId: r.planeId, anchorObservationId: r.anchorObservationId,
+                                      kind: ReferenceMeasure.Kind(rawValue: r.kind ?? "USER_ESTIMATE") ?? .userEstimate)
             m.frameId = r.frameId
             s.references[r.frameId] = m
         }

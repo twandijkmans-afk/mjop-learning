@@ -39,5 +39,12 @@ struct PhotoWalkApp: App {
         } else { print("SELFTEST_PERSIST none") }
         let path = (try? ExportService.write(store))?.path ?? "EXPORT_FAILED"
         print("SELFTEST_EXPORT=\(path)")
+        // 4) LiDAR v2: synthetische scènes met meerdere dieptekaders; diagnose-export per scène
+        for name in ["flush", "recessed_8cm", "recessed_8cm_multi_frame", "ambiguous_planes"] {
+            guard let line = SimulationRunner.runV2(store, name: name) else { print("SELFTEST_V2 name=\(name) NIET GELADEN"); continue }
+            print("SELFTEST_V2 \(line)")
+            if let oid = store.observations.first?.id, let u = try? DiagnosticsExport.write(store, observationId: oid) { print("SELFTEST_DIAG name=\(name) path=\(u.path)") }
+        }
+        print("SELFTEST_DONE")
     }
 }

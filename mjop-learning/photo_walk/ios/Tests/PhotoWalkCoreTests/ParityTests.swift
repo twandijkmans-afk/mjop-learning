@@ -44,6 +44,35 @@ final class ParityTests: XCTestCase {
         XCTAssertEqual(r.flags.map { $0.code }.sorted(), a["expect_flags"] as! [String])
     }
 
+    /// LiDAR-v2: terugliggend kozijn, meerdere dieptekaders en een verspringende gevel; zelfde uitkomsten als de Python-kern op ruisvrije scènes.
+    func testLevelAV2MatchesPython() throws {
+        let c = try load()
+        let tol = d((c["tolerance"] as! [String: Any])["level_a_m"])
+        var seen = 0
+        for case let cs as [String: Any] in c["level_a_v2"] as! [Any] {
+            let name = cs["name"] as! String
+            let dw = Int(d(cs["depth_width"])), dh = Int(d(cs["depth_height"]))
+            func depthOf(_ e: [String: Any]) -> DepthMap { DepthMap(width: dw, height: dh, values: (e["depth"] as! [Any]).map { Float(d($0)) == 0 ? Float.nan : Float(d($0)) }) }
+            func poseOf(_ e: [String: Any]) -> Pose { Pose(rowMajor: (e["pose_row_major"] as! [Any]).map { d($0) }) }
+            let intr = intrinsics(c)
+            let cap = cs["capture"] as! [String: Any]
+            let sups = (cs["supports"] as! [[String: Any]]).enumerated().map { ViewInput(frameId: "S\($0.offset)", intrinsics: intr, pose: poseOf($0.element), trackingNormal: true, depth: depthOf($0.element)) }
+            let view = ViewInput(frameId: "CAP", intrinsics: intr, pose: poseOf(cap), trackingNormal: true, depth: depthOf(cap), supports: sups)
+            let r = measureDepthView(view, corners: (cs["corners_px"] as! [Any]).map(px), seed: 1)
+            XCTAssertEqual(r.ok, cs["expect_ok"] as? Bool, name)
+            XCTAssertEqual(r.scaleMethod, cs["expect_scale_method"] as? String, name)
+            XCTAssertEqual(r.independentFrames, Int(d(cs["expect_independent_frames"])), name)
+            XCTAssertEqual(r.flags.filter { $0.severity == .BLOCKING }.map { $0.code }.sorted(), cs["expect_blocking"] as! [String], name)
+            if cs["expect_ok"] as? Bool == true {
+                XCTAssertEqual(try XCTUnwrap(r.width), d(cs["expect_width_m"]), accuracy: tol, name)
+                XCTAssertEqual(try XCTUnwrap(r.height), d(cs["expect_height_m"]), accuracy: tol, name)
+                XCTAssertEqual((r.diag["frame_plane"] as? [String: Any])?["final_mode"] as? String, cs["expect_frame_mode"] as? String, name)
+            } else { XCTAssertNil(r.width, name) }
+            seen += 1
+        }
+        XCTAssertEqual(seen, 4)
+    }
+
     func testLevelCMatchesPython() throws {
         let c = try load(), l = c["level_c"] as! [String: Any]
         let tol = d((c["tolerance"] as! [String: Any])["level_c_m"])
@@ -116,7 +145,7 @@ final class WorkflowTests: XCTestCase {
     func testReferenceFallbackWithoutDepthGivesDerivedAndGrossArea() throws {
         var (v, target, anchor, _, _) = try fixture()
         v.depth = nil
-        let ref = ReferenceMeasure(referenceId: "R", p1: anchor[0], p2: anchor[1], distanceM: 1.2, distanceSigmaM: 0.005, planeId: "P")
+        let ref = ReferenceMeasure(referenceId: "R", p1: anchor[0], p2: anchor[1], distanceM: 1.2, distanceSigmaM: 0.005, planeId: "P", kind: .measuredWithTool)
         let r = measureWithReference(view: v, target: target, ref: ref, anchor: anchor)
         XCTAssertTrue(r.ok)
         let o = makeObject(id: "P1", observations: [], result: r, viewCount: 1)

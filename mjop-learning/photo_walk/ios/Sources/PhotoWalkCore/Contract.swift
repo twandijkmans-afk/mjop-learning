@@ -55,7 +55,7 @@ public struct MeasuredObject {
             "outer_width_m": o.widthM ?? NSNull(), "outer_height_m": o.heightM ?? NSNull(), "gross_area_m2": o.areaM2 ?? NSNull(),
             "gross_area_m2_presented": o.areaPresented ?? NSNull(), "dimension_status": o.status.rawValue, "measurement_uncertainty": unc,
             "measurement_source": ["level": ok ? o.result.level.rawValue : NSNull(), "scale_method": ok ? o.result.scaleMethod : "NONE", "views": ok ? o.result.viewIds : [String](),
-                                   "scale_evidence": [String: Any]()] as [String: Any],
+                                   "scale_evidence": jsonSafe(o.result.scaleEvidence)] as [String: Any],
             "review_required": o.reviewRequired, "quality_flags": flags, "next_steps_nl": o.nextSteps,
             "quantity_layer": "PROVISIONAL", "approval_state": "PENDING_HUMAN_APPROVAL",
         ]
@@ -65,11 +65,12 @@ public struct MeasuredObject {
 public enum Status {
     /// Zelfde regels als pipeline._status_from: MEASURED vereist >= 2 consistente standpunten en geen downgrading-advisories.
     static let downgrading: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT",
-                                           "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "AUTO_DETECTED_UNCONFIRMED"]
+                                           "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "AUTO_DETECTED_UNCONFIRMED", "REFERENCE_USER_ESTIMATE",
+                                           "QUAD_LARGER_THAN_OPENING", "QUAD_INSIDE_OPENING", "FRAME_OFFSET_FROM_CORNER_DEPTH", "LIMITED_SIDE_COVERAGE"]
     public static func status(for r: LevelResult, viewCount: Int) -> DimensionStatus {
         guard r.ok else { return .UNKNOWN }
-        if r.level == .C { return .DERIVED }
         let adv = Set(r.flags.filter { $0.severity == .ADVISORY }.map { $0.code })
+        if r.level == .C { return adv.contains("REFERENCE_USER_ESTIMATE") ? .ESTIMATED : .DERIVED }
         return (viewCount >= 2 && adv.isDisjoint(with: downgrading)) ? .MEASURED : .ESTIMATED
     }
 }

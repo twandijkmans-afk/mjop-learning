@@ -19,6 +19,10 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     private(set) var capabilities = (lidarDepth: false, worldTracking: ARWorldTrackingConfiguration.isSupported)
     private var lastFrame: ARFrame?
     private weak var store: ScanStore?
+    /// Rolling buffer van recente LiDAR-dieptekaders (zie DepthRingBuffer). `nonisolated`: wordt gevuld vanuit de ARSession-delegate.
+    nonisolated let ring = DepthRingBuffer()
+    static let motionHint = "Beweeg je telefoon langzaam iets naar links en rechts voor een betere meting."
+    private var lastMotionCheck: TimeInterval = 0
 
     func start(store: ScanStore) {
         self.store = store
@@ -31,6 +35,8 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         cfg.worldAlignment = .gravity                       // Y omhoog, meters
         cfg.planeDetection = [.vertical]
         if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) { cfg.frameSemantics.insert(.sceneDepth); capabilities.lidarDepth = true }
+        if capabilities.lidarDepth && ARWorldTrackingConfiguration.supportsFrameSemantics(.smoothedSceneDepth) { cfg.frameSemantics.insert(.smoothedSceneDepth) }
+        ring.reset()
         sensorText = "LiDAR/sceneDepth: \(capabilities.lidarDepth ? "ja" : "nee") - wereldtracking: ja"
         modeText = capabilities.lidarDepth ? "A_METRIC_DEPTH (terugval B/C)" : "B_AR_GEOMETRY / C_REFERENCE"
         session.delegate = self
@@ -38,11 +44,17 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     }
 
     nonisolated func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        ring.offer(frame)                                   // buiten de hoofdthread; goedkoop begrensd (max ~12 Hz)
         Task { @MainActor in
             self.lastFrame = frame
             if !self.hasFrame { self.hasFrame = true }
             self.trackingText = Self.trackingString(frame.camera.trackingState)
             if case .normal = frame.camera.trackingState { self.hint = nil } else { self.hint = "Beweeg langzaam en richt op een gevel met textuur." }
+            // bewegingshint: zonder voldoende onafhankelijke dieptekaders is een betrouwbare LiDAR-meting niet mogelijk
+            if self.capabilities.lidarDepth, case .normal = frame.camera.trackingState, frame.timestamp - self.lastMotionCheck > 0.5 {
+                self.lastMotionCheck = frame.timestamp
+                if self.ring.independentCount() < 2 { self.hint = Self.motionHint }
+            }
         }
     }
 
@@ -55,64 +67,28 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         Task { @MainActor in self.trackingText = "Sessie onderbroken (tracking niet beschikbaar)" }
     }
 
-    static func trackingString(_ s: ARCamera.TrackingState) -> String {
-        switch s {
-        case .normal: return "NORMAL"
-        case .notAvailable: return "NOT_AVAILABLE"
-        case .limited(let r):
-            switch r {
-            case .initializing: return "LIMITED_INITIALIZING"
-            case .excessiveMotion: return "LIMITED_EXCESSIVE_MOTION"
-            case .insufficientFeatures: return "LIMITED_INSUFFICIENT_FEATURES"
-            case .relocalizing: return "LIMITED_RELOCALIZING"
-            @unknown default: return "NOT_AVAILABLE"
-            }
-        }
-    }
+    static func trackingString(_ s: ARCamera.TrackingState) -> String { ARConvert.trackingString(s) }
 
-    /// Legt het huidige frame vast als keyframe (lokaal; geen upload).
+    /// Legt het huidige frame vast als keyframe (lokaal; geen upload), samen met de korte buffer van recente dieptekaders.
     @discardableResult
     func captureKeyframe() -> Keyframe? {
         guard let f = lastFrame, let store else { return nil }
-        let K = f.camera.intrinsics
-        let res = f.camera.imageResolution
-        let intr = Intrinsics(fx: Double(K[0][0]), fy: Double(K[1][1]), cx: Double(K[2][0]), cy: Double(K[2][1]), width: Int(res.width), height: Int(res.height))
-        let T = f.camera.transform
-        let flip: [Float] = [1, -1, -1]
-        func row(_ i: Int) -> Vec3 { Vec3(Double(T.columns.0[i] * flip[0]), Double(T.columns.1[i] * flip[1]), Double(T.columns.2[i] * flip[2])) }
-        let pose = Pose(rows: [row(0), row(1), row(2)], t: Vec3(Double(T.columns.3.x), Double(T.columns.3.y), Double(T.columns.3.z)))
+        let intr = ARConvert.intrinsics(f), pose = ARConvert.pose(f)
         let id = String(format: "F%03d", store.keyframes.count)
-        let kf = Keyframe(id: id, timestamp: Date(), intrinsics: intr, pose: pose, trackingState: Self.trackingString(f.camera.trackingState),
-                          depth: Self.depthMap(f), imageURL: Self.saveImage(f.capturedImage, id: id, sessionId: store.sessionId))
+        var kf = Keyframe(id: id, timestamp: Date(), intrinsics: intr, pose: pose, trackingState: ARConvert.trackingString(f.camera.trackingState),
+                          depth: ARConvert.depthMap(f.sceneDepth), imageURL: Self.saveImage(f.capturedImage, id: id, sessionId: store.sessionId))
+        kf.smoothedDepth = ARConvert.depthMap(f.smoothedSceneDepth)
+        // ondersteunende kaders: ruime baseline eerst; de kern houdt alleen geometrisch onafhankelijke kaders over
+        let recent = Array(ring.recent(before: f.timestamp).sorted { (a, b) in (a.pose.t - pose.t).norm > (b.pose.t - pose.t).norm }.prefix(8))
+        let now = Date()
+        kf.supportDepths = recent.enumerated().map { (i, e) in
+            SupportDepth(id: "\(id)-S\(i)", timestamp: now.addingTimeInterval(e.timestamp - f.timestamp), intrinsics: e.intrinsics, pose: e.pose, trackingState: e.tracking, depth: e.depth)
+        }
         store.keyframes.append(kf)
         keyframeCount = store.keyframes.count
         if kf.depth == nil { hint = "Geen dieptebeeld: maten blijven UNKNOWN tenzij je een referentiemaat invoert." }
+        else if kf.supportDepths.isEmpty { hint = Self.motionHint }
         return kf
-    }
-
-    private static func depthMap(_ f: ARFrame) -> DepthMap? {
-        guard let sd = f.sceneDepth else { return nil }
-        let buf = sd.depthMap
-        CVPixelBufferLockBaseAddress(buf, .readOnly); defer { CVPixelBufferUnlockBaseAddress(buf, .readOnly) }
-        let w = CVPixelBufferGetWidth(buf), h = CVPixelBufferGetHeight(buf)
-        guard let base = CVPixelBufferGetBaseAddress(buf) else { return nil }
-        let stride = CVPixelBufferGetBytesPerRow(buf) / MemoryLayout<Float32>.size
-        var vals = [Float](repeating: .nan, count: w * h)
-        var conf: [UInt8]? = nil
-        if let cm = sd.confidenceMap {
-            CVPixelBufferLockBaseAddress(cm, .readOnly)
-            if let cb = CVPixelBufferGetBaseAddress(cm) {
-                let cs = CVPixelBufferGetBytesPerRow(cm)
-                conf = (0..<h).flatMap { r in (0..<w).map { c in cb.load(fromByteOffset: r * cs + c, as: UInt8.self) } }
-            }
-            CVPixelBufferUnlockBaseAddress(cm, .readOnly)
-        }
-        for r in 0..<h { for c in 0..<w {
-            let z = base.assumingMemoryBound(to: Float32.self)[r * stride + c]
-            // laag vertrouwen (0) wordt als ongeldig behandeld; dit drempelbesluit is niet gevalideerd
-            if z.isFinite, z > 0, (conf?[r * w + c] ?? 2) >= 1 { vals[r * w + c] = z }
-        } }
-        return DepthMap(width: w, height: h, values: vals)
     }
 
     /// Slaat het camerabeeld lokaal op in de sessiemap (Application Support, uitgesloten van back-up). Nooit een upload.

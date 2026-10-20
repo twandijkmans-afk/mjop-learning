@@ -331,6 +331,7 @@ def measure_depth_view(view, corners_px, cfg: Config, seed=0, obstruction=False,
         usable = [p for p in per_frame if p.get("ok")]
         diag["frames_usable"] = len(usable)
         for p in usable:
+            p["normal_deg"] = round(_angle_deg(np.array(p["normal"]), n), 3)
             tol_w = cfg.frame_tol_rel * ref_wh[0] + cfg.frame_tol_abs_m
             tol_h = cfg.frame_tol_rel * ref_wh[1] + cfg.frame_tol_abs_m
             p["agrees"] = bool(abs(p["width_m"] - ref_wh[0]) <= tol_w and abs(p["height_m"] - ref_wh[1]) <= tol_h

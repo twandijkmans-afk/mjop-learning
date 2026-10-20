@@ -72,6 +72,7 @@ struct ReferencePickerView: View {
     @State private var distance = ""
     @State private var sigma = ""
     @State private var planeId = "P1"
+    @State private var kind: ReferenceMeasure.Kind = .userEstimate
     @State private var image: UIImage? = nil
 
     private func num(_ s: String) -> Double? { Double(s.replacingOccurrences(of: ",", with: ".")) }
@@ -84,13 +85,22 @@ struct ReferencePickerView: View {
                 TextField("Afstand in meter (bv. 1.200)", text: $distance).keyboardType(.decimalPad).textFieldStyle(.roundedBorder).padding(.horizontal)
                 TextField("Onzekerheid in meter (optioneel)", text: $sigma).keyboardType(.decimalPad).textFieldStyle(.roundedBorder).padding(.horizontal)
                 TextField("Vlak-ID", text: $planeId).textFieldStyle(.roundedBorder).padding(.horizontal)
+                Picker("Soort referentie", selection: $kind) {
+                    Text("Geschat").tag(ReferenceMeasure.Kind.userEstimate)
+                    Text("Gemeten (duimstok/laser)").tag(ReferenceMeasure.Kind.measuredWithTool)
+                    Text("Uit tekening").tag(ReferenceMeasure.Kind.knownFromDrawing)
+                }.pickerStyle(.segmented).padding(.horizontal).accessibilityIdentifier("referenceKindPicker")
+                if kind == .userEstimate {
+                    Text("Een geschatte referentie is GEEN meting: de maat wordt als SCHATTING (ESTIMATED) gemarkeerd en is geen gevalideerde bruto-m². Meet de referentie bij voorkeur met een duimstok of laser.")
+                        .font(.caption2).foregroundStyle(.orange).padding(.horizontal)
+                }
                 HStack {
                     Button("Laatste punt weg") { if !taps.isEmpty { taps.removeLast() } }.disabled(taps.isEmpty)
                     Button("Wissen") { taps = [] }
                     Button("Opslaan") {
                         if let d = num(distance), taps.count == 2 {
                             var r = ReferenceMeasure(referenceId: "REF-\(frame.id)", p1: taps[0], p2: taps[1], distanceM: d,
-                                                     distanceSigmaM: num(sigma), planeId: planeId, anchorObservationId: anchorObservationId)
+                                                     distanceSigmaM: num(sigma), planeId: planeId, anchorObservationId: anchorObservationId, kind: kind)
                             r.frameId = frame.id
                             store.setReference(r)
                             store.measureAll(); store.persist()

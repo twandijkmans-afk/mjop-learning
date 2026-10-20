@@ -19,6 +19,7 @@ struct StartScanView: View {
                 Button("Foto-scan starten") { store.newSession(); goPhoto = true }
                     .disabled(store.buildingId.isEmpty || store.facadeId.isEmpty)
                 Button("Testfoto met synthetische data (simulatie)") { SimulationRunner.runPhoto(store); goSimPhoto = true }
+                Button("Testfoto LiDAR-v2: terugliggend kozijn, meerdere dieptekaders (simulatie)") { SimulationRunner.runV2(store, name: "recessed_8cm_multi_frame"); goSimPhoto = true }
                 if let r = resumable {
                     Button("Laatste scan hervatten (\(r.0.keyframes.count) foto's, \(r.0.buildingId)/\(r.0.facadeId))") {
                         Persistence.restore(r.0, from: r.1, into: store); goResume = true

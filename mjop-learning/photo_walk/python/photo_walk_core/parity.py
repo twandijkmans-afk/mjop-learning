@@ -39,7 +39,29 @@ def build():
     ref = dict(reference_id="PAR-R", p1_px=corners2[0], p2_px=corners2[1], distance_m=1.2, distance_sigma_m=0.005, plane_id="P")
     vnod = View("PARC", intr_full, pose, "NORMAL", None)
     rc = measure_with_reference(vnod, corners, ref, DEFAULT, seed=1, anchor_px=corners2)
+    v2_cases = []
+    for name, rec, prot, nsup in (("flush", 0.0, [], 0), ("recessed_8cm", 0.08, [], 0), ("recessed_8cm_multi_frame", 0.08, [], 2),
+                                  ("ambiguous_planes", 0.0, [(0.2, 0.9, 0.0, 3.0, 0.15), (2.3, 3.0, 0.0, 3.0, 0.15)], 0)):
+        fr = SimFrame("K1", 1.0, 0.9, 1.2, 1.5, recess_m=rec)
+        fac = SimFacade(frames=[fr], protrusions=prot)
+
+        def mkview(pos, fid):
+            ps = look_pose(pos, 0.0)
+            dd = np.round(_render_depth(fac, ps, intr_full, np.random.default_rng(0), noise=0.0, hole_p=0.0, size=(72, 96)), 6)
+            return ps, dd, View(fid, intr_full, ps, "NORMAL", dd)
+        cps, cdd, cview = mkview([1.6, 1.6, 3.0], "CAP")
+        sups = [mkview([1.6 + 0.08 * (k + 1) * (1 if k % 2 == 0 else -1), 1.6, 3.0], f"S{k}") for k in range(nsup)]
+        cc = project(cps, intr_full, fr.corners_w)[0]
+        rr = measure_depth_view(cview, cc, DEFAULT, seed=1, supports=tuple(x[2] for x in sups))
+        fmt = lambda dd: [round(float(x), 6) for x in np.nan_to_num(dd, nan=0.0).reshape(-1)]
+        v2_cases.append({"name": name, "depth_width": 96, "depth_height": 72, "corners_px": [[round(float(x), 6) for x in c] for c in cc],
+                         "capture": {"pose_row_major": [round(float(x), 9) for x in cps.reshape(-1)], "depth": fmt(cdd)},
+                         "supports": [{"pose_row_major": [round(float(x), 9) for x in ps.reshape(-1)], "depth": fmt(dd)} for ps, dd, _ in sups],
+                         "expect_ok": bool(rr.ok), "expect_width_m": rr.width_m, "expect_height_m": rr.height_m, "expect_scale_method": rr.scale_method,
+                         "expect_independent_frames": rr.independent_frames, "expect_blocking": sorted(f["code"] for f in rr.flags if f["severity"] == "BLOCKING"),
+                         "expect_frame_mode": rr.diag.get("frame_plane", {}).get("final_mode")})
     cases = {
+        "level_a_v2": v2_cases,
         "version": "photo_walk_parity_v1",
         "tolerance": {"geometry_m": 1e-6, "level_a_m": 2e-3, "level_c_m": 1e-6},
         "pose_row_major": [round(float(x), 9) for x in pose.reshape(-1)],
