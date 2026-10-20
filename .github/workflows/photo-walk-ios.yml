@@ -3,6 +3,7 @@
 # - Geen code signing, geen Apple-accountgegevens, geen secrets. Er wordt niets gepubliceerd of geupload buiten de GitHub-artifacts van deze run.
 # - Alleen synthetische data. De simulator heeft geen ARKit-camera: de smoketest draait de app headless met `-selftest` (synthetische simulatie).
 # - De "unsigned device build" hieronder is NIET direct op een iPhone te installeren; zie photo_walk/docs/install_windows_free.md.
+# - De app is sinds de MJOP-integratie "MJOP Live" (Mijn MJOP in WebView + Gevelscanner); de target/artefactnamen (PhotoWalk) blijven gelijk.
 name: Photo walk iOS build
 
 on:
@@ -113,9 +114,14 @@ jobs:
           grep -q "NSCameraUsageDescription" "$LOGS/Info.plist.txt" || { echo "::error::NSCameraUsageDescription ontbreekt"; exit 1; }
           grep -q "arkit" "$LOGS/Info.plist.txt" || { echo "::error::UIRequiredDeviceCapabilities arkit ontbreekt"; exit 1; }
           if grep -q "NSLocation" "$LOGS/Info.plist.txt"; then echo "::error::locatiepermissie aanwezig; niet toegestaan"; exit 1; fi
-          # geen netwerk-API's in de eigen broncode
-          if grep -rEn "URLSession|NWConnection|CFNetwork|WKWebView|import Network|URLRequest" Sources App/Sources; then
-            echo "::error::netwerkcode gevonden in de Swift-bron"; exit 1; fi
+          # De scanner (PhotoWalkCore + scannercode) bevat geen netwerk- of WebKit-code; die staat uitsluitend in App/Sources/MJOP.
+          if grep -rEn "URLSession|NWConnection|CFNetwork|WKWebView|import Network|import WebKit|URLRequest" Sources/PhotoWalkCore App/Sources --exclude-dir=MJOP; then
+            echo "::error::netwerkcode buiten App/Sources/MJOP gevonden"; exit 1; fi
+          # de testbare integratiekern is platformonafhankelijk (alleen Foundation)
+          if grep -rEn "import (WebKit|UIKit|ARKit|SwiftUI|Network)" Sources/MJOPIntegration; then
+            echo "::error::MJOPIntegration mag alleen Foundation gebruiken"; exit 1; fi
+          grep -q "mjoplive" "$LOGS/Info.plist.txt" || { echo "::error::URL-schema mjoplive ontbreekt in Info.plist"; exit 1; }
+          grep -q "UIRequiredDeviceCapabilities" "$LOGS/Info.plist.txt" || { echo "::error::UIRequiredDeviceCapabilities ontbreekt"; exit 1; }
           ls -la "$APP/parity_cases.json"
 
       - name: Simulator-smoketest (headless selftest, export valideren)
@@ -162,6 +168,7 @@ jobs:
           DATA=$(xcrun simctl get_app_container "$UDID" nl.mjop.photowalk.prototype data)
           EXP=$(ls "$DATA"/Documents/photo_walk_*.json | head -1)
           cp "$EXP" "$LOGS/selftest-export.json"
+          cp "$DATA"/Documents/mjop_scan_proposal_selftest.json "$LOGS/selftest-proposal.json"
           mkdir -p "$LOGS/diag"; cp "$DATA"/Documents/meetdiagnose_*.json "$LOGS/diag/"; ls -la "$LOGS/diag"
           echo "UDID=$UDID" >> "$GITHUB_ENV"
           echo "export: $EXP"
@@ -204,6 +211,16 @@ jobs:
           assert r["scan_label"] == "AUTOMATIC_UNREVIEWED"
           PY
           python -m photo_walk_core.validate "$LOGS"/diag/*.json
+          # Swift-gecodeerd MJOP-scanvoorstel moet aan het schema voldoen (nullable sleutels aanwezig, geen boeking)
+          python - <<'PY'
+          import json, os, jsonschema
+          L = os.environ["LOGS"]
+          schema = json.load(open("../schemas/mjop_scan_proposal_v1.schema.json"))
+          doc = json.load(open(L + "/selftest-proposal.json"))
+          jsonschema.Draft7Validator(schema).validate(doc)
+          assert doc["booking_allowed"] is False and doc["confirmation"]["status"] == "PROPOSED"
+          print("scanvoorstel (Swift) voldoet aan mjop_scan_proposal_v1")
+          PY
           python - <<'PY'
           import json, os, re
           L = os.environ["LOGS"]
@@ -256,8 +273,9 @@ jobs:
             shasum -a 256 "$RUNNER_TEMP/out/PhotoWalk-UNSIGNED-device.ipa" | tee "$LOGS/ipa-sha256.txt"
           fi
           ls -la "$RUNNER_TEMP/out" || true
+      # De IPA wordt alleen aangeboden als ALLE voorgaande stappen (Swift-tests, UI-tests, schema-validatie) geslaagd zijn.
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: success()
         with:
           name: photo-walk-UNSIGNED-device-ipa
           path: ${{ runner.temp }}/out/PhotoWalk-UNSIGNED-device.ipa

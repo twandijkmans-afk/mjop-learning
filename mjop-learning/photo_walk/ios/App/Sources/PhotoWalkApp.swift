@@ -1,3 +1,4 @@
+import MJOPIntegration
 import SwiftUI
 
 @main
@@ -5,7 +6,7 @@ struct PhotoWalkApp: App {
     @StateObject private var store = ScanStore()
     var body: some Scene {
         WindowGroup {
-            NavigationStack { StartScanView().environmentObject(store) }
+            RootView().environmentObject(store)
                 .task { await runSelfTestIfRequested() }
         }
     }
@@ -47,6 +48,19 @@ struct PhotoWalkApp: App {
             guard let line = SimulationRunner.runV2(store, name: name) else { print("SELFTEST_V2 name=\(name) NIET GELADEN"); continue }
             print("SELFTEST_V2 \(line)")
             if let oid = store.observations.first?.id, let u = try? DiagnosticsExport.write(store, observationId: oid) { print("SELFTEST_DIAG name=\(name) path=\(u.path)") }
+        }
+        // 5) MJOP-scanvoorstel (contract mjop_scan_proposal_v1): Swift-codering naar Documents; CI valideert tegen het JSON-schema
+        let proposal = ScanProposal(
+            proposalId: "prop-selftest-0001", createdAt: "2026-10-20T10:00:00Z",
+            project: .init(mjopPlanId: nil, buildingId: store.buildingId.isEmpty ? "BLD-SELFTEST" : store.buildingId, facadeId: store.facadeId.isEmpty ? "FACADE-SELFTEST" : store.facadeId, bagPandId: nil),
+            element: .init(type: .FRAME, mjopElementKey: nil),
+            quantity: .init(unit: .m2, value: 1.8, widthM: 1.2, heightM: 1.5),
+            measurement: .init(method: .LIDAR_DEPTH_MULTI_FRAME, dimensionStatus: .ESTIMATED,
+                               uncertainty: .init(validated: false, areaSigmaM2: nil, note: "PROVISIONAL_UNVALIDATED")),
+            evidence: .init(sourcePhotoId: "F000", provisionalObjectId: "PROV-0001", qualityFlags: ["AUTO_DETECTED_UNCONFIRMED"]))
+        if let data = try? proposal.encode(), let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            try? data.write(to: docs.appendingPathComponent("mjop_scan_proposal_selftest.json"))
+            print("SELFTEST_PROPOSAL ok=\(((try? ScanProposal.decode(data)) != nil))")
         }
         print("SELFTEST_TIMING v2_seconds=\(String(format: "%.1f", Date().timeIntervalSince(t1)))")
         print("SELFTEST_DONE")
