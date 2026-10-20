@@ -1,0 +1,19 @@
+# Geen beelden, dieptekaarten of sensordumps in Git (alleen synthetische JSON/CSV-voorbeelden in examples/)
+*.jpg
+*.jpeg
+*.png
+*.heic
+*.mov
+*.mp4
+*.usdz
+*.ply
+*.depth
+*.f32
+.build/
+*.xcodeproj/
+xcuserdata/
+DerivedData/
+.gradle/
+build/
+ios/App/Info.generated.plist
+ios/App/PhotoWalk.xcodeproj
