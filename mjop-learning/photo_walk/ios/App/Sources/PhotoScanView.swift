@@ -7,6 +7,8 @@ import SwiftUI
 struct PhotoScanView: View {
     @EnvironmentObject var store: ScanStore
     @StateObject private var cap = CaptureCoordinator()
+    @Environment(\.scannerVisible) private var scannerVisible
+    @State private var onScreen = false     // alleen hervatten als dit scherm zelf zichtbaar is (niet als er een resultaatscherm overheen ligt)
     @State private var zoom: CGFloat = 1
     @State private var baseZoom: CGFloat = 1
     @State private var offset: CGSize = .zero
@@ -83,8 +85,9 @@ struct PhotoScanView: View {
             }
         }
         .ignoresSafeArea(edges: .top)
-        .onAppear { cap.start(store: store) }
-        .onDisappear { cap.session.pause() }
+        .onAppear { onScreen = true; cap.start(store: store) }
+        .onDisappear { onScreen = false; cap.session.pause() }
+        .onChange(of: scannerVisible) { visible in if visible { if onScreen { cap.resume() } } else { cap.session.pause() } }
         .navigationTitle("Foto-scan").navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $showResult) {
             if let id = resultFrame { PhotoResultView(frameId: id).environmentObject(store) }
