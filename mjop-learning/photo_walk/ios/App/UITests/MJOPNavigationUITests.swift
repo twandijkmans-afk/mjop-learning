@@ -6,6 +6,17 @@ import XCTest
 final class MJOPNavigationUITests: XCTestCase {
     override func setUp() { continueAfterFailure = false }
 
+    /// SwiftUI voegt labels/waarden soms samen tot één element (LabeledContent, tikbare banners): zoek daarom op een deel van het label, in elk elementtype.
+    private func element(_ app: XCUIApplication, containing text: String) -> XCUIElement {
+        app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS %@ OR value CONTAINS %@", text, text)).firstMatch
+    }
+
+    /// Tikt via de coördinaat van het midden: omzeilt de "scroll to visible"-accessibility-actie die in de simulator voor elementen in een niet-scrollende kop kan mislukken.
+    private func tapCenter(_ el: XCUIElement) {
+        XCTAssertTrue(el.waitForExistence(timeout: 10), "element niet gevonden: \(el)")
+        el.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+    }
+
     private func launch(_ extra: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-mjop-test-page"] + extra
@@ -30,7 +41,7 @@ final class MJOPNavigationUITests: XCTestCase {
 
         app.webViews.buttons["Start fotoronde"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15), "de website kan de fotoronde starten via de brug")
-        XCTAssertTrue(app.staticTexts["Testgebouw 1"].waitForExistence(timeout: 5), "projectcontext (gebouw) is meegekomen")
+        XCTAssertTrue(element(app, containing: "Testgebouw 1").waitForExistence(timeout: 5), "projectcontext (gebouw) is meegekomen")
         XCTAssertTrue(app.staticTexts["Voorgevel"].exists, "geplande gevel uit de website is voorgesteld")
         XCTAssertFalse(app.buttons["roundFinish"].isEnabled, "zonder foto's valt er niets af te ronden")
 
@@ -43,8 +54,8 @@ final class MJOPNavigationUITests: XCTestCase {
         let app = launch()
         app.webViews.buttons["Scan voor element"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
-        XCTAssertTrue(app.staticTexts["Onderhoud buitenkozijnen"].waitForExistence(timeout: 5), "gekozen onderhoudspost is zichtbaar in de scanner")
-        XCTAssertTrue(app.staticTexts["stuks"].exists, "meeteenheid van de post")
+        XCTAssertTrue(element(app, containing: "Onderhoud buitenkozijnen").waitForExistence(timeout: 5), "gekozen onderhoudspost is zichtbaar in de scanner")
+        XCTAssertTrue(element(app, containing: "stuks").exists, "meeteenheid van de post")
         app.buttons["roundSuspend"].tap()
         XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
     }
@@ -52,7 +63,7 @@ final class MJOPNavigationUITests: XCTestCase {
     func testInvalidBridgeMessageIsRefusedWithoutOpeningTheScanner() {
         let app = launch()
         app.webViews.buttons["Start ongeldig"].tap()
-        XCTAssertTrue(app.otherElements["mjopNotice"].waitForExistence(timeout: 10) || app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", "genegeerd")).firstMatch.waitForExistence(timeout: 10))
+        XCTAssertTrue(element(app, containing: "genegeerd").waitForExistence(timeout: 10), "de gebruiker ziet dat het bericht is geweigerd")
         XCTAssertFalse(app.navigationBars["Fotoronde"].exists)
     }
 
@@ -66,9 +77,9 @@ final class MJOPNavigationUITests: XCTestCase {
         let app = launch()
         app.webViews.buttons["Start fotoronde"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
-        app.buttons["roundReview"].tap()
+        tapCenter(app.buttons["roundReview"])
         XCTAssertTrue(app.navigationBars["Overzicht en controle"].waitForExistence(timeout: 10))
-        XCTAssertTrue(app.staticTexts["Nog geen foto's."].exists)
+        XCTAssertTrue(element(app, containing: "Nog geen foto").waitForExistence(timeout: 10))
         app.navigationBars.buttons.element(boundBy: 0).tap()
         app.buttons["roundSuspend"].tap()
         XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
@@ -97,8 +108,8 @@ final class MJOPNavigationUITests: XCTestCase {
 
     func testScannerTestModeIsReachableFromTheMenu() {
         let app = launch()
-        app.buttons["mjopMenu"].tap()
-        app.buttons["Scanner-testmodus (zonder project)"].tap()
+        tapCenter(app.buttons["mjopMenu"])
+        tapCenter(app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Scanner-testmodus")).firstMatch)
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 15))
         app.buttons["scannerTestClose"].tap()
         XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
