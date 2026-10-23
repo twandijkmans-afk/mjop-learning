@@ -13,6 +13,7 @@ struct PhotoScanView: View {
     @State private var baseOffset: CGSize = .zero
     @State private var resultFrame: String? = nil
     @State private var showResult = false
+    @State private var showTech = false
     private let maxZoom: CGFloat = 4
 
     private func clampOffset(_ o: CGSize, _ size: CGSize, _ z: CGFloat) -> CGSize {
@@ -24,6 +25,10 @@ struct PhotoScanView: View {
         let c = min(max(z, 1), maxZoom)
         let apply = { zoom = c; baseZoom = c; offset = clampOffset(offset, size, c); baseOffset = offset }
         if animated { withAnimation(.easeInOut(duration: 0.25)) { apply() } } else { apply() }
+    }
+
+    static func friendlyHint(_ h: String) -> String {
+        h.contains("Geen dieptebeeld") ? "Van deze foto zijn geen dieptegegevens; maten blijven onbekend tenzij je later een referentiemaat invoert." : h
     }
 
     private func shoot() {
@@ -51,11 +56,24 @@ struct PhotoScanView: View {
                     .simultaneousGesture(TapGesture(count: 2).onEnded { setZoom(1, size: geo.size) })
                 VStack(spacing: 10) {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Tracking: \(cap.trackingText)")
-                        Text(cap.sensorText)
-                        if let h = cap.hint { Text(h).foregroundStyle(.yellow) }
-                        Text("Houd het hele kozijn/de gevel in beeld, recht op de gevel, 2-4 m afstand. Zoom = alleen voorvertoning; de foto wordt volledig en onvergroot vastgelegd.")
-                            .font(.caption2).foregroundStyle(.white.opacity(0.85))
+                        if store.round != nil {
+                            // Fotoronde: korte aanwijzing in gewone taal; de sensorgegevens staan achter "Technische details".
+                            Text("Zorg dat het hele kozijn in beeld staat.").font(.subheadline.bold())
+                            Text("Sta recht voor de gevel, op 2 tot 4 meter afstand.").font(.caption)
+                            if let h = cap.hint { Text(Self.friendlyHint(h)).foregroundStyle(.yellow) }
+                            Button(showTech ? "Technische details verbergen" : "Technische details") { showTech.toggle() }
+                                .font(.caption2).accessibilityIdentifier("scanTechToggle")
+                            if showTech {
+                                Text("Tracking: \(cap.trackingText)")
+                                Text(cap.sensorText)
+                            }
+                        } else {
+                            Text("Tracking: \(cap.trackingText)")
+                            Text(cap.sensorText)
+                            if let h = cap.hint { Text(h).foregroundStyle(.yellow) }
+                            Text("Houd het hele kozijn/de gevel in beeld, recht op de gevel, 2-4 m afstand. Zoom = alleen voorvertoning; de foto wordt volledig en onvergroot vastgelegd.")
+                                .font(.caption2).foregroundStyle(.white.opacity(0.85))
+                        }
                     }
                     .font(.caption).padding(8).background(.black.opacity(0.6)).foregroundStyle(.white).cornerRadius(8)
                     HStack(spacing: 8) {
@@ -86,9 +104,9 @@ struct PhotoScanView: View {
         .ignoresSafeArea(edges: .top)
         .onAppear { cap.start(store: store) }
         .onDisappear { cap.session.pause() }
-        .navigationTitle(store.round != nil && !store.facadeId.isEmpty ? "Gevel: \(store.facadeId)" : "Foto-scan").navigationBarTitleDisplayMode(.inline)
+        .navigationTitle(store.round != nil && !store.facadeId.isEmpty ? "Gevel: \(store.facadeId)" : (store.round != nil ? "Foto's maken" : "Foto-scan")).navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $showResult) {
-            if let id = resultFrame { PhotoResultView(frameId: id).environmentObject(store) }
+            if let id = resultFrame { PhotoResultView(frameId: id, simple: store.round != nil).environmentObject(store) }
         }
     }
 }
