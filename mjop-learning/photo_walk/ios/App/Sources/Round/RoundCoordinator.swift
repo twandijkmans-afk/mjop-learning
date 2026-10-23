@@ -67,8 +67,11 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         guard let store else { return }
         store.newSession()
         store.buildingId = ctx.buildingLabel
-        store.facadeId = ""
-        store.round = RoundState(context: ctx, facades: ctx.plannedFacades.map { .init(id: $0.name, orientation: $0.orientation) })
+        // Geen gevel gepland? Dan maakt de app zelf één gevel aan, zodat de gebruiker meteen foto's kan maken (extra gevels kunnen later).
+        var facades: [RoundState.Facade] = ctx.plannedFacades.map { .init(id: $0.name, orientation: $0.orientation) }
+        if facades.isEmpty { facades = [.init(id: "Gevel 1", orientation: nil)] }
+        store.facadeId = facades[0].id
+        store.round = RoundState(context: ctx, facades: facades)
     }
 
     func resume(_ snap: SessionSnapshot, from dir: URL) {
@@ -76,7 +79,7 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         Persistence.restore(snap, from: dir, into: store)
         if store.round?.status == "COMPLETED" { store.round?.revision += 1 }     // aanvullen van een afgeronde ronde = nieuwe revisie
         store.round?.status = "IN_PROGRESS"
-        store.facadeId = ""
+        store.facadeId = store.round?.facades.first?.id ?? ""
     }
 
     func addFacade(name: String, orientation: String?) -> Bool {
@@ -94,7 +97,7 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
 
     /// Bewaart de ronde en sluit het scherm; later hervatten kan vanuit dezelfde post.
     func suspend() {
-        if let store, !store.keyframes.isEmpty { Persistence.saveNow(store) }
+        if let store, !store.keyframes.isEmpty { Persistence.saveNow(store); notice?("Je foto's zijn bewaard. Je kunt later verdergaan.") }
         presented = nil
     }
 
@@ -117,7 +120,7 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         Persistence.saveNow(store)
         presented = nil
         deliver?(proposalsReply(requestId: nil, planRef: round.context.planRef))
-        notice?("Fotoronde afgerond. De voorstellen staan klaar in Mijn MJOP — er is nog niets overgenomen.")
+        notice?("Klaar. Controleer de voorstellen in Mijn MJOP; er is nog niets overgenomen.")
     }
 
     // MARK: outbox-opslag (Application Support, uitgesloten van back-up, bestandsbescherming)

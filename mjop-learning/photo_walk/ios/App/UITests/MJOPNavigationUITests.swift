@@ -42,7 +42,9 @@ final class MJOPNavigationUITests: XCTestCase {
         app.webViews.buttons["Start fotoronde"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15), "de website kan de fotoronde starten via de brug")
         XCTAssertTrue(element(app, containing: "Testgebouw 1").waitForExistence(timeout: 5), "projectcontext (gebouw) is meegekomen")
-        XCTAssertTrue(app.staticTexts["Voorgevel"].exists, "geplande gevel uit de website is voorgesteld")
+        XCTAssertTrue(element(app, containing: "Voorgevel").waitForExistence(timeout: 5), "geplande gevel uit de website is voorgesteld")
+        XCTAssertTrue(element(app, containing: "Zorg dat het hele kozijn in beeld staat").exists, "korte instructie in gewone taal")
+        XCTAssertTrue(app.buttons["roundShoot-Voorgevel"].exists, "één duidelijke knop om foto's te maken")
         XCTAssertFalse(app.buttons["roundFinish"].isEnabled, "zonder foto's valt er niets af te ronden")
 
         app.buttons["roundSuspend"].tap()

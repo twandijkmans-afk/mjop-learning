@@ -1,3 +1,4 @@
+import ARKit
 import MJOPIntegration
 import SwiftUI
 
@@ -24,13 +25,13 @@ struct RoundFlowView: View {
 
     private var choiceView: some View {
         List {
-            Section("Er staat al een ronde voor dit project op dit toestel") {
+            Section("Er staat al een fotoronde voor dit gebouw op dit toestel") {
                 ForEach(Array(choices.enumerated()), id: \.offset) { _, c in
-                    Button("\(c.0.round?.status == "COMPLETED" ? "Aanvullen" : "Hervatten"): \(c.0.keyframes.count) foto's, \(c.0.drafts.count) kozijnen") {
+                    Button("\(c.0.round?.status == "COMPLETED" ? "Foto's aanvullen" : "Verdergaan"): \(c.0.keyframes.count) foto's, \(c.0.drafts.count) mogelijke kozijnen") {
                         coordinator.resume(c.0, from: c.1); decided = true
                     }.accessibilityIdentifier("roundResume")
                 }
-                Button("Nieuwe ronde starten") { coordinator.startNew(context); decided = true }.accessibilityIdentifier("roundNew")
+                Button("Opnieuw beginnen") { coordinator.startNew(context); decided = true }.accessibilityIdentifier("roundNew")
             }
             Section { Button("Annuleren", role: .cancel) { coordinator.suspend() } }
         }
@@ -44,8 +45,15 @@ struct RoundHomeView: View {
     @State private var showFacadeForm = false
     @State private var goScan = false
     @State private var confirmFinish = false
+    @State private var autoOpened = false
 
     private var round: RoundState? { store.round }
+
+    /// De gevel waarop de volgende foto's komen: de gekozen gevel, anders de eerste.
+    private var activeFacade: String {
+        if let r = round, r.facades.contains(where: { $0.id == store.facadeId }) { return store.facadeId }
+        return round?.facades.first?.id ?? ""
+    }
 
     private func counts(_ facade: String) -> (photos: Int, objects: Int) {
         guard let r = round else { return (0, 0) }
@@ -56,47 +64,91 @@ struct RoundHomeView: View {
         return (frames.count, objs.count)
     }
 
+    private var totals: (photos: Int, objects: Int) {
+        (round?.facades ?? []).reduce((photos: 0, objects: 0)) { acc, f in
+            let c = counts(f.id)
+            return (acc.photos + c.photos, acc.objects + c.objects)
+        }
+    }
+
+    private func foundText(_ n: Int) -> String {
+        n == 0 ? "Er zijn nog geen kozijnen gevonden." : n == 1 ? "Er is 1 mogelijk kozijn gevonden." : "Er zijn \(n) mogelijke kozijnen gevonden."
+    }
+
     var body: some View {
         let ctx = round?.context
+        let t = totals
         List {
-            Section("Project") {
-                LabeledContent("Gebouw", value: ctx?.buildingLabel ?? "")
-                if let e = ctx?.element { LabeledContent("Onderhoudspost", value: e.name); LabeledContent("Eenheid", value: e.unit == "st" ? "stuks" : e.unit) }
-                Text("De uitkomst is een voorstel voor Mijn MJOP. Er wordt niets automatisch overgenomen.").font(.footnote).foregroundStyle(.secondary)
+            Section {
+                Text(ctx?.buildingLabel ?? "").font(.headline)
+                if let e = ctx?.element { Text("Voor: \(e.name) · in \(e.unit == "st" ? "stuks" : e.unit)").font(.subheadline).foregroundStyle(.secondary) }
+                if !activeFacade.isEmpty { Text("Gevel: \(activeFacade)").font(.subheadline).foregroundStyle(.secondary) }
             }
-            Section("Gevels") {
-                ForEach(round?.facades ?? []) { f in
-                    let c = counts(f.id)
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(f.id).font(.headline)
-                            Text("\(c.photos) foto's · \(c.objects) kozijnen" + (f.orientation.map { " · \($0)" } ?? "")).font(.caption).foregroundStyle(.secondary)
-                        }
-                        Spacer()
-                        Button("Foto's maken") { store.facadeId = f.id; goScan = true }.buttonStyle(.borderedProminent).accessibilityIdentifier("roundShoot-\(f.id)")
-                    }
+            if store.keyframes.isEmpty {
+                Section("Zo maak je goede foto's") {
+                    Label("Zorg dat het hele kozijn in beeld staat.", systemImage: "viewfinder")
+                    Label("Sta recht voor de gevel, op 2 tot 4 meter afstand.", systemImage: "arrow.left.and.right")
+                    Label("Maak van elke gevel meerdere foto's.", systemImage: "photo.on.rectangle")
                 }
-                Button("Gevel toevoegen") { showFacadeForm = true }.accessibilityIdentifier("roundAddFacade")
+            } else {
+                Section("Tot nu toe") {
+                    Text("\(t.photos) \(t.photos == 1 ? "foto" : "foto's") gemaakt").font(.subheadline)
+                    Text(foundText(t.objects)).font(.headline).accessibilityIdentifier("roundFound")
+                    Text("Controleer of alle kozijnen kloppen.").font(.footnote).foregroundStyle(.secondary)
+                }
             }
-            Section("Controleren en afronden") {
-                NavigationLink("Overzicht en controle") { RoundReviewView() }.accessibilityIdentifier("roundReview")
-                Button("Onderbreken en bewaren") { coordinator.suspend() }.accessibilityIdentifier("roundSuspend")
-                Button("Afronden en naar Mijn MJOP sturen") { confirmFinish = true }
+            Section {
+                Button { store.facadeId = activeFacade; goScan = true } label: {
+                    Label(store.keyframes.isEmpty ? "Foto's maken" : "Meer foto's maken", systemImage: "camera.fill").frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent).controlSize(.large).accessibilityIdentifier("roundShoot-\(activeFacade)")
+                NavigationLink("Controleer de kozijnen") { RoundReviewView() }.accessibilityIdentifier("roundReview")
+            }
+            Section {
+                Button { confirmFinish = true } label: { Text("Toevoegen aan MJOP").frame(maxWidth: .infinity) }
+                    .buttonStyle(.borderedProminent).tint(.green).controlSize(.large)
                     .disabled(store.keyframes.isEmpty).accessibilityIdentifier("roundFinish")
+                Button("Later verdergaan") { coordinator.suspend() }.accessibilityIdentifier("roundSuspend")
+            } footer: {
+                Text("Je foto's worden bewaard, zodat je later kunt verdergaan. Er wordt niets automatisch overgenomen: jij controleert de voorstellen eerst in Mijn MJOP.")
+            }
+            Section {
+                DisclosureGroup("Meer opties") {
+                    ForEach(round?.facades ?? []) { f in
+                        let c = counts(f.id)
+                        Button { store.facadeId = f.id } label: {
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(f.id)
+                                    Text("\(c.photos) foto's · \(c.objects) mogelijke kozijnen" + (f.orientation.map { " · \($0)" } ?? "")).font(.caption).foregroundStyle(.secondary)
+                                }
+                                Spacer()
+                                if f.id == activeFacade { Image(systemName: "checkmark").foregroundStyle(.tint) }
+                            }
+                        }
+                    }
+                    Button("Nog een gevel toevoegen") { showFacadeForm = true }.accessibilityIdentifier("roundAddFacade")
+                }
             }
         }
         .navigationTitle("Fotoronde").navigationBarTitleDisplayMode(.inline)
         .accessibilityIdentifier("roundHome")
         .navigationDestination(isPresented: $goScan) { PhotoScanView().environmentObject(store) }
         .sheet(isPresented: $showFacadeForm) { FacadeFormView().environmentObject(coordinator) }
-        .confirmationDialog("Ronde afronden?", isPresented: $confirmFinish, titleVisibility: .visible) {
-            Button("Afronden en voorstellen sturen") { coordinator.finish() }
+        .onAppear {
+            // Op een echt toestel opent de camera meteen voor het juiste project; in de simulator (geen AR) blijft dit scherm staan.
+            if !autoOpened, store.keyframes.isEmpty, ARWorldTrackingConfiguration.isSupported, !activeFacade.isEmpty {
+                autoOpened = true; store.facadeId = activeFacade; goScan = true
+            }
+        }
+        .confirmationDialog("Toevoegen aan MJOP?", isPresented: $confirmFinish, titleVisibility: .visible) {
+            Button("Toevoegen aan MJOP") { coordinator.finish() }
             Button("Annuleren", role: .cancel) {}
         } message: {
             let p = coordinator.preview()
-            let warn = Set(p.flatMap { $0.reliability.reasons }).subtracting(["UNVALIDATED_LIDAR"]).sorted()
-            Text(warn.isEmpty ? "De voorstellen zijn voorlopig (LiDAR niet gevalideerd) en worden pas hoeveelheden nadat jij ze in Mijn MJOP kiest."
-                              : "Let op: \(warn.joined(separator: ", ")). De voorstellen zijn voorlopig en worden pas hoeveelheden nadat jij ze in Mijn MJOP kiest.")
+            let warn = Set(p.flatMap { $0.reliability.reasons }).subtracting(["UNVALIDATED_LIDAR"])
+            Text(warn.isEmpty ? "Je krijgt voorlopige voorstellen. Pas als jij ze in Mijn MJOP kiest, worden het hoeveelheden."
+                              : "Sommige maten zijn nog niet betrouwbaar genoeg. Je krijgt voorlopige voorstellen; pas als jij ze in Mijn MJOP kiest, worden het hoeveelheden.")
         }
     }
 }
@@ -138,21 +190,31 @@ struct RoundReviewView: View {
         let proposals = coordinator.preview()
         let dupCount = store.linkSuggestions().count
         List {
-            Section("Voorstellen (voorlopig)") {
+            Section("Wat de app heeft gevonden (voorlopig)") {
+                Text("Controleer of alle kozijnen kloppen.").font(.footnote)
                 if store.keyframes.isEmpty { Text("Nog geen foto's.").foregroundStyle(.secondary) }
                 ForEach(store.keyframes.isEmpty ? [] : proposals, id: \.proposalId) { p in
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("\(p.target.quantityKind == .FRAME_COUNT ? "Aantal kozijnen" : "Bruto kozijnoppervlak") · \(p.target.scope.type == .BUILDING ? "hele gebouw" : "gevel \(p.target.scope.facadeId ?? "")")").font(.subheadline)
+                        Text("\(p.target.quantityKind == .FRAME_COUNT ? "Aantal kozijnen" : "Kozijnoppervlak (bruto)") · \(p.target.scope.type == .BUILDING ? "hele gebouw" : "gevel \(p.target.scope.facadeId ?? "")")").font(.subheadline)
                         Text(valueText(p)).font(.headline)
-                        if p.value == nil, let part = p.partialValue { Text("Alleen gemeten kozijnen: \(fmt(part)) m² — onvolledig").font(.caption).foregroundStyle(.orange) }
+                        if p.value == nil, let part = p.partialValue { Text("Voor een deel van de kozijnen is er een maat: \(fmt(part)) m². Het totaal is nog niet compleet.").font(.caption).foregroundStyle(.orange) }
                         Text(p.reliability.reasons.filter { $0 != "UNVALIDATED_LIDAR" }.map(label).joined(separator: " · ")).font(.caption).foregroundStyle(.secondary)
                     }
                 }
-                Text("Detectie en meting zijn nog niet gevalideerd op echte gebouwen. Een voorstel wordt pas een hoeveelheid als jij het in Mijn MJOP kiest.").font(.caption2).foregroundStyle(.secondary)
+                Text("De herkenning en de maten zijn nog niet getest op echte gebouwen. Een voorstel wordt pas een hoeveelheid als jij het in Mijn MJOP kiest.").font(.caption2).foregroundStyle(.secondary)
             }
             if dupCount > 0 {
-                Section("Mogelijk dubbel geteld") {
+                Section("Misschien dubbel geteld") {
                     NavigationLink("Koppelsuggesties bekijken (\(dupCount))") { LinkSuggestionsView().environmentObject(store) }
+                }
+            }
+            if !store.keyframes.isEmpty {
+                Section {
+                    DisclosureGroup("Technische details") {
+                        ForEach(proposals, id: \.proposalId) { p in
+                            Text("\(p.proposalId) · \(p.reliability.reasons.joined(separator: ", "))").font(.caption2).textSelection(.enabled)
+                        }
+                    }
                 }
             }
             ForEach(store.round?.facades ?? []) { f in
@@ -161,7 +223,7 @@ struct RoundReviewView: View {
                     Section("Gevel \(f.id)") {
                         ForEach(frames) { kf in
                             let n = store.observations.filter { $0.frameId == kf.id && !$0.rejected }.count
-                            NavigationLink("Foto \(kf.id) · \(n) kozijnen") { PhotoResultView(frameId: kf.id).environmentObject(store) }
+                            NavigationLink("Foto \(kf.id) · \(n) \(n == 1 ? "mogelijk kozijn" : "mogelijke kozijnen")") { PhotoResultView(frameId: kf.id, simple: true).environmentObject(store) }
                             Toggle("Niet meetellen (overlapt met andere foto)", isOn: Binding(
                                 get: { store.round?.excludedFrames.contains(kf.id) ?? false },
                                 set: { coordinator.setExcluded(frame: kf.id, $0) })).font(.footnote)
@@ -176,7 +238,7 @@ struct RoundReviewView: View {
 
     private func fmt(_ v: Double) -> String { String(format: "%.2f", v).replacingOccurrences(of: ".", with: ",") }
     private func valueText(_ p: ScanProposalV2) -> String {
-        guard let v = p.value else { return "Niet te bepalen" }
+        guard let v = p.value else { return "Nog niet te bepalen" }
         return p.target.unit == "st" ? "\(Int(v)) st." : "\(fmt(v)) m²"
     }
     private func label(_ r: String) -> String {

@@ -8,6 +8,8 @@ struct PhotoResultView: View {
     @EnvironmentObject var store: ScanStore
     @Environment(\.dismiss) private var dismiss
     let frameId: String
+    /// Fotoronde: gewone taal bovenaan; de bestaande technische weergave staat dan achter "Technische details". De losse scanner houdt de technische weergave.
+    var simple = false
     @State private var image: UIImage? = nil
     @State private var selected: String? = nil
     @State private var showDetail = false
@@ -41,7 +43,6 @@ struct PhotoResultView: View {
     }
 
     var body: some View {
-        let ov = store.overview(frameId: frameId)
         VStack(spacing: 4) {
             if let kf = store.keyframe(frameId), let img = image {
                 FrameImageCanvas(frame: kf, image: img, points: $noPoints, maxPoints: 0, boxes: boxes, boxMode: true,
@@ -50,41 +51,26 @@ struct PhotoResultView: View {
             } else { ProgressView().frame(maxHeight: .infinity) }
             ScrollView {
                 VStack(alignment: .leading, spacing: 4) {
-                    if store.analyzing.contains(frameId) { HStack { ProgressView(); Text("Kozijnen herkennen…").font(.footnote) }.accessibilityIdentifier("analyzing") }
-                    Text("Herkend: \(ov.detected) kandidaat-kozijn(en) op deze foto").font(.footnote.bold()).accessibilityIdentifier("overviewDetected")
-                    Text("Voorlopig unieke kozijnen (alle foto's): \(ov.unique)").font(.footnote).accessibilityIdentifier("overviewUnique")
-                    Text(ov.areaByStatus.isEmpty ? "Bruto m² (voorlopig): nog geen meetbare kozijnen"
-                         : "Bruto m² waar meetbaar (voorlopig, per status, niet opgeteld tot totaal): " + ov.areaByStatus.map { "\($0.status) \($0.area)" }.joined(separator: " · "))
-                        .font(.footnote).accessibilityIdentifier("overviewArea")
-                    Text("Controles (oranje): \(ov.checks) · zonder betrouwbare maat (grijs/UNKNOWN): \(ov.noScale) · meetbaar: \(ov.measurable)").font(.footnote).accessibilityIdentifier("overviewChecks")
-                    if ov.linkSuggestions > 0 { NavigationLink("Koppelsuggesties bekijken (\(ov.linkSuggestions))") { LinkSuggestionsView().environmentObject(store) }.font(.footnote) }
-                    ForEach(frameObservations) { o in
-                        let m = store.measures[o.id]
-                        Button {
-                            selected = o.id; showDetail = true
-                        } label: {
-                            HStack(alignment: .top) {
-                                Circle().fill(m?.feedback == .green ? Color.green : m?.feedback == .orange ? Color.orange : Color.gray).frame(width: 12, height: 12).padding(.top, 3)
-                                VStack(alignment: .leading) {
-                                    Text("\(store.shortName(ofObservation: o.id)) (\(colorName(m?.feedback))) · \(m.map { Self.dimsText($0.result) } ?? "…")").font(.footnote.bold())
-                                    Text("\(o.source == .AUTO_DETECTED_UNCONFIRMED ? "kandidaat, niet bevestigd" : o.source.rawValue) · \(m.map { reason($0.result) } ?? "")").font(.caption2).foregroundStyle(.secondary)
-                                }
-                            }
-                        }.buttonStyle(.plain).accessibilityIdentifier("boxRow-\(o.id)")
+                    if simple {
+                        simpleBlock()
+                        DisclosureGroup("Technische details") { technicalBlock() }.font(.footnote).accessibilityIdentifier("technicalDetails")
+                    } else {
+                        technicalBlock()
                     }
                     HStack {
-                        Button("Nieuwe foto") { dismiss() }.buttonStyle(.borderedProminent).accessibilityIdentifier("newPhotoButton")
-                        Button("Opnieuw detecteren") { Task { await store.analyze(frameId: frameId) } }.buttonStyle(.bordered)
+                        Button(simple ? "Nog een foto" : "Nieuwe foto") { dismiss() }.buttonStyle(.borderedProminent).accessibilityIdentifier("newPhotoButton")
+                        Button(simple ? "Opnieuw zoeken" : "Opnieuw detecteren") { Task { await store.analyze(frameId: frameId) } }.buttonStyle(.bordered)
                     }
                     HStack {
                         if let kf = store.keyframe(frameId) {
                             NavigationLink("Kozijn handmatig toevoegen") { CornerPickerView(frame: kf).environmentObject(store) }.buttonStyle(.bordered)
                         }
-                        Button("Exporteren") { exportPath = (try? ExportService.write(store))?.path ?? "export mislukt" }.buttonStyle(.bordered).accessibilityIdentifier("exportButton")
+                        if !simple { Button("Exporteren") { exportPath = (try? ExportService.write(store))?.path ?? "export mislukt" }.buttonStyle(.bordered).accessibilityIdentifier("exportButton") }
                     }
-                    Toggle("Grijze kaders (zonder maat) op de foto verbergen", isOn: $hideNeutral).font(.footnote).accessibilityIdentifier("hideNeutralToggle")
-                    if let n = store.analysisNotes[frameId] { Text(n).font(.caption2).foregroundStyle(.secondary) }
-                    Text("Groen/oranje/grijs = alleen UI-feedback, geen goedkeuring. Herkenning en metingen zijn NIET gevalideerd op echte gebouwen. Zoom verandert geen meting.")
+                    if !simple { Toggle("Grijze kaders (zonder maat) op de foto verbergen", isOn: $hideNeutral).font(.footnote).accessibilityIdentifier("hideNeutralToggle") }
+                    if !simple, let n = store.analysisNotes[frameId] { Text(n).font(.caption2).foregroundStyle(.secondary) }
+                    Text(simple ? "De herkenning is nog niet getest op echte gebouwen. Het zijn voorlopige schattingen; jij beslist later wat er in je MJOP komt."
+                         : "Groen/oranje/grijs = alleen UI-feedback, geen goedkeuring. Herkenning en metingen zijn NIET gevalideerd op echte gebouwen. Zoom verandert geen meting.")
                         .font(.caption2).foregroundStyle(.secondary)
                     if let p = exportPath { Text("Export: \(p)").font(.caption2).textSelection(.enabled) }
                 }.padding(.horizontal, 8)
@@ -93,6 +79,66 @@ struct PhotoResultView: View {
         .navigationTitle("Foto \(frameId)").navigationBarTitleDisplayMode(.inline)
         .navigationDestination(isPresented: $showDetail) { if let id = selected { BoxDetailView(observationId: id).environmentObject(store) } }
         .onAppear { loadImage(); if store.measures.isEmpty { store.measureAll() }; autoAnalyzeIfNeeded() }
+    }
+
+    /// Het bestaande technische overzicht (ongewijzigd): herkenning, aantallen, m² per status, controles en per kader de bron en reden.
+    @ViewBuilder private func technicalBlock() -> some View {
+        let ov = store.overview(frameId: frameId)
+        VStack(alignment: .leading, spacing: 4) {
+            if store.analyzing.contains(frameId) { HStack { ProgressView(); Text("Kozijnen herkennen…").font(.footnote) }.accessibilityIdentifier("analyzing") }
+            Text("Herkend: \(ov.detected) kandidaat-kozijn(en) op deze foto").font(.footnote.bold()).accessibilityIdentifier("overviewDetected")
+            Text("Voorlopig unieke kozijnen (alle foto's): \(ov.unique)").font(.footnote).accessibilityIdentifier("overviewUnique")
+            Text(ov.areaByStatus.isEmpty ? "Bruto m² (voorlopig): nog geen meetbare kozijnen"
+                 : "Bruto m² waar meetbaar (voorlopig, per status, niet opgeteld tot totaal): " + ov.areaByStatus.map { "\($0.status) \($0.area)" }.joined(separator: " · "))
+                .font(.footnote).accessibilityIdentifier("overviewArea")
+            Text("Controles (oranje): \(ov.checks) · zonder betrouwbare maat (grijs/UNKNOWN): \(ov.noScale) · meetbaar: \(ov.measurable)").font(.footnote).accessibilityIdentifier("overviewChecks")
+            if ov.linkSuggestions > 0 { NavigationLink("Koppelsuggesties bekijken (\(ov.linkSuggestions))") { LinkSuggestionsView().environmentObject(store) }.font(.footnote) }
+            ForEach(frameObservations) { o in
+                let m = store.measures[o.id]
+                Button {
+                    selected = o.id; showDetail = true
+                } label: {
+                    HStack(alignment: .top) {
+                        Circle().fill(m?.feedback == .green ? Color.green : m?.feedback == .orange ? Color.orange : Color.gray).frame(width: 12, height: 12).padding(.top, 3)
+                        VStack(alignment: .leading) {
+                            Text("\(store.shortName(ofObservation: o.id)) (\(colorName(m?.feedback))) · \(m.map { Self.dimsText($0.result) } ?? "…")").font(.footnote.bold())
+                            Text("\(o.source == .AUTO_DETECTED_UNCONFIRMED ? "kandidaat, niet bevestigd" : o.source.rawValue) · \(m.map { reason($0.result) } ?? "")").font(.caption2).foregroundStyle(.secondary)
+                        }
+                    }
+                }.buttonStyle(.plain).accessibilityIdentifier("boxRow-\(o.id)")
+            }
+        }
+    }
+
+    private func friendly(_ m: ObservationMeasure?) -> String {
+        guard let m else { return "Maat wordt berekend…" }
+        if !m.result.ok { return "Deze maat is nog niet betrouwbaar genoeg." }
+        let base = Self.dimsText(m.result)
+        return m.feedback == .green ? base + " · voorlopig" : base + " · controleer deze maat"
+    }
+
+    /// Fotoronde-weergave in gewone taal: hoeveel mogelijke kozijnen, en per kozijn de voorlopige maat of de melding dat die nog niet betrouwbaar is.
+    @ViewBuilder private func simpleBlock() -> some View {
+        let ov = store.overview(frameId: frameId)
+        if store.analyzing.contains(frameId) { HStack { ProgressView(); Text("Kozijnen zoeken…").font(.footnote) }.accessibilityIdentifier("analyzing") }
+        Text(ov.detected == 0 ? "Er zijn nog geen kozijnen gevonden op deze foto."
+             : ov.detected == 1 ? "Er is 1 mogelijk kozijn gevonden." : "Er zijn \(ov.detected) mogelijke kozijnen gevonden.")
+            .font(.headline).accessibilityIdentifier("simpleFound")
+        Text("Controleer of alle kozijnen kloppen. Tik op een kozijn om het aan te passen.").font(.footnote)
+        ForEach(frameObservations) { o in
+            let m = store.measures[o.id]
+            Button {
+                selected = o.id; showDetail = true
+            } label: {
+                HStack(alignment: .top) {
+                    Circle().fill(m?.feedback == .green ? Color.green : m?.feedback == .orange ? Color.orange : Color.gray).frame(width: 12, height: 12).padding(.top, 3)
+                    VStack(alignment: .leading) {
+                        Text("Kozijn \(store.shortName(ofObservation: o.id))").font(.footnote.bold())
+                        Text(friendly(m)).font(.caption)
+                    }
+                }
+            }.buttonStyle(.plain).accessibilityIdentifier("boxRow-\(o.id)")
+        }
     }
 
     private func loadImage() {
