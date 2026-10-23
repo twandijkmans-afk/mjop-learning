@@ -139,8 +139,8 @@ struct RoundReviewView: View {
         let dupCount = store.linkSuggestions().count
         List {
             Section("Voorstellen (voorlopig)") {
-                if proposals.isEmpty { Text("Nog geen foto's.").foregroundStyle(.secondary) }
-                ForEach(proposals, id: \.proposalId) { p in
+                if store.keyframes.isEmpty { Text("Nog geen foto's.").foregroundStyle(.secondary) }
+                ForEach(store.keyframes.isEmpty ? [] : proposals, id: \.proposalId) { p in
                     VStack(alignment: .leading, spacing: 2) {
                         Text("\(p.target.quantityKind == .FRAME_COUNT ? "Aantal kozijnen" : "Bruto kozijnoppervlak") · \(p.target.scope.type == .BUILDING ? "hele gebouw" : "gevel \(p.target.scope.facadeId ?? "")")").font(.subheadline)
                         Text(valueText(p)).font(.headline)
