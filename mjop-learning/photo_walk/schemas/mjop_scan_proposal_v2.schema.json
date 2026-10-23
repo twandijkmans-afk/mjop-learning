@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_scan_proposal_v2",
+  "title": "MJOP-scanvoorstel v2 (Fotoronde -> Mijn MJOP)",
+  "description": "Uitbreiding van mjop_scan_proposal_v1 (dat geldig blijft voor een los kozijn). v2 is een GEAGGREGEERD hoeveelheidsvoorstel van een fotoronde: aantal kozijnen (st) of bruto kozijnoppervlak (m2), voor het gebouw of een gevel, met projectreferentie (plan_ref), basis (aantallen, uitgesloten objecten, onbeoordeelde duplicaten), meetmethode, onzekerheid en betrouwbaarheid. Altijd PROPOSED en nooit een boeking. Een onbekende waarde is null, nooit 0. Een oppervlak wordt niet gepubliceerd zolang kozijnen zonder maat meetellen.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "proposal_id", "round_id", "revision", "created_at", "project", "target", "value", "partial_value", "basis", "measurement", "evidence", "reliability", "confirmation", "booking_allowed"],
+  "definitions": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9_.-]{8,80}$"},
+    "nonneg_int": {"type": "integer", "minimum": 0}
+  },
+  "properties": {
+    "contract": {"const": "mjop_scan_proposal_v2"},
+    "proposal_id": {"$ref": "#/definitions/id"},
+    "round_id": {"$ref": "#/definitions/id"},
+    "revision": {"type": "integer", "minimum": 1, "description": "Verhoogt telkens als een afgeronde ronde opnieuw wordt afgerond; een nieuwere revisie vervangt een onbeslist voorstel in het MJOP."},
+    "created_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"},
+    "project": {
+      "type": "object", "additionalProperties": false,
+      "required": ["plan_ref", "mjop_plan_id", "building_id", "bag_pand_id"],
+      "properties": {
+        "plan_ref": {"type": "string", "pattern": "^[A-Za-z0-9_-]{8,80}$", "description": "Door de website per plan aangemaakt; koppelt scans aan het juiste project, ook voordat het plan is opgeslagen."},
+        "mjop_plan_id": {"type": ["string", "null"], "maxLength": 80},
+        "building_id": {"type": "string", "minLength": 1, "maxLength": 200},
+        "bag_pand_id": {"type": ["string", "null"], "pattern": "^\\d{16}$"}
+      }
+    },
+    "target": {
+      "type": "object", "additionalProperties": false,
+      "required": ["element_key", "quantity_kind", "unit", "scope"],
+      "properties": {
+        "element_key": {"type": ["string", "null"], "maxLength": 80},
+        "quantity_kind": {"enum": ["FRAME_COUNT", "FRAME_AREA_GROSS"]},
+        "unit": {"enum": ["st", "m2"]},
+        "scope": {
+          "type": "object", "additionalProperties": false,
+          "required": ["type", "facade_id", "orientation"],
+          "properties": {
+            "type": {"enum": ["BUILDING", "FACADE"]},
+            "facade_id": {"type": ["string", "null"], "maxLength": 120},
+            "orientation": {"enum": ["N", "NE", "E", "SE", "S", "SW", "W", "NW", null]}
+          }
+        }
+      }
+    },
+    "value": {"type": ["number", "null"], "minimum": 0},
+    "partial_value": {"type": ["number", "null"], "minimum": 0, "description": "Som van de wél gemeten kozijnen wanneer value null is; uitsluitend informatief, nooit als hoeveelheid te gebruiken."},
+    "basis": {
+      "type": "object", "additionalProperties": false,
+      "required": ["objects_total", "objects_measured", "objects_unmeasured", "photos", "duplicates_unresolved", "cross_session_unchecked", "excluded_objects"],
+      "properties": {
+        "objects_total": {"$ref": "#/definitions/nonneg_int"},
+        "objects_measured": {"$ref": "#/definitions/nonneg_int"},
+        "objects_unmeasured": {"$ref": "#/definitions/nonneg_int"},
+        "photos": {"$ref": "#/definitions/nonneg_int"},
+        "duplicates_unresolved": {"$ref": "#/definitions/nonneg_int"},
+        "cross_session_unchecked": {"type": "boolean"},
+        "excluded_objects": {"$ref": "#/definitions/nonneg_int"}
+      }
+    },
+    "measurement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["methods", "dimension_status", "uncertainty"],
+      "properties": {
+        "methods": {"type": "array", "maxItems": 20, "items": {"enum": ["LIDAR_DEPTH_PLANE", "LIDAR_DEPTH_MULTI_FRAME", "AR_TRIANGULATION_VIO", "REFERENCE_DISTANCE", "MANUAL_CORNERS", "NONE"]}},
+        "dimension_status": {"enum": ["MEASURED", "DERIVED", "ESTIMATED", "UNKNOWN"]},
+        "uncertainty": {
+          "type": "object", "additionalProperties": false,
+          "required": ["validated", "area_sigma_m2", "note"],
+          "properties": {
+            "validated": {"type": "boolean"},
+            "area_sigma_m2": {"type": ["number", "null"], "minimum": 0},
+            "note": {"type": "string", "maxLength": 300}
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["photo_ids", "object_ids", "quality_flags", "detection"],
+      "properties": {
+        "photo_ids": {"type": "array", "maxItems": 500, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
+        "object_ids": {"type": "array", "maxItems": 500, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
+        "quality_flags": {"type": "array", "maxItems": 500, "items": {"type": "string", "minLength": 1, "maxLength": 80}},
+        "detection": {
+          "type": "object", "additionalProperties": false,
+          "required": ["auto_detected", "user_corrected", "manual"],
+          "properties": {
+            "auto_detected": {"$ref": "#/definitions/nonneg_int"},
+            "user_corrected": {"$ref": "#/definitions/nonneg_int"},
+            "manual": {"$ref": "#/definitions/nonneg_int"}
+          }
+        }
+      }
+    },
+    "reliability": {
+      "type": "object", "additionalProperties": false,
+      "required": ["level", "reasons"],
+      "properties": {
+        "level": {"enum": ["CHECK_REQUIRED", "INCOMPLETE"]},
+        "reasons": {"type": "array", "maxItems": 20, "items": {"enum": ["UNMEASURED_OBJECTS", "DUPLICATES_UNRESOLVED", "CROSS_SESSION_UNCHECKED", "UNVALIDATED_LIDAR", "NO_OBJECTS", "AUTO_DETECTED"]}}
+      }
+    },
+    "confirmation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "uncertainty_acknowledged", "confirmed_at"],
+      "properties": {
+        "status": {"const": "PROPOSED"},
+        "uncertainty_acknowledged": {"const": false},
+        "confirmed_at": {"type": "null"}
+      }
+    },
+    "booking_allowed": {"const": false}
+  }
+}
