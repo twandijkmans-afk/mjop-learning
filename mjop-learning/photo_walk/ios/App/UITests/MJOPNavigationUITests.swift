@@ -17,6 +17,12 @@ final class MJOPNavigationUITests: XCTestCase {
         el.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
     }
 
+    /// Scrolt zo nodig omhoog tot het element bestaat (lijsten bouwen alleen zichtbare rijen op).
+    private func reveal(_ el: XCUIElement, in app: XCUIApplication) {
+        var n = 0
+        while !el.exists && n < 5 { app.swipeUp(); n += 1 }
+    }
+
     private func launch(_ extra: [String] = []) -> XCUIApplication {
         let app = XCUIApplication()
         app.launchArguments += ["-mjop-test-page"] + extra
@@ -45,8 +51,10 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertTrue(element(app, containing: "Voorgevel").waitForExistence(timeout: 5), "geplande gevel uit de website is voorgesteld")
         XCTAssertTrue(element(app, containing: "Zorg dat het hele kozijn in beeld staat").exists, "korte instructie in gewone taal")
         XCTAssertTrue(app.buttons["roundShoot-Voorgevel"].exists, "één duidelijke knop om foto's te maken")
+        reveal(app.buttons["roundFinish"], in: app)
         XCTAssertFalse(app.buttons["roundFinish"].isEnabled, "zonder foto's valt er niets af te ronden")
 
+        reveal(app.buttons["roundSuspend"], in: app)
         app.buttons["roundSuspend"].tap()
         XCTAssertTrue(app.webViews.staticTexts["Teller: 2"].waitForExistence(timeout: 10), "terug in Mijn MJOP: webstaat behouden, geen herlaad")
         XCTAssertFalse(app.navigationBars["Fotoronde"].exists)
@@ -58,6 +66,7 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
         XCTAssertTrue(element(app, containing: "Onderhoud buitenkozijnen").waitForExistence(timeout: 5), "gekozen onderhoudspost is zichtbaar in de scanner")
         XCTAssertTrue(element(app, containing: "stuks").exists, "meeteenheid van de post")
+        reveal(app.buttons["roundSuspend"], in: app)
         app.buttons["roundSuspend"].tap()
         XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
     }
@@ -83,6 +92,7 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertTrue(app.navigationBars["Overzicht en controle"].waitForExistence(timeout: 10))
         XCTAssertTrue(element(app, containing: "Nog geen foto").waitForExistence(timeout: 10))
         app.navigationBars.buttons.element(boundBy: 0).tap()
+        reveal(app.buttons["roundSuspend"], in: app)
         app.buttons["roundSuspend"].tap()
         XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
     }

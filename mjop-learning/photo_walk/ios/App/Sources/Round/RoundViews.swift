@@ -79,22 +79,26 @@ struct RoundHomeView: View {
         let ctx = round?.context
         let t = totals
         List {
+            // Compact: alles wat de gebruiker nodig heeft past op één scherm, zodat de knoppen niet onder de vouw verdwijnen.
             Section {
-                Text(ctx?.buildingLabel ?? "").font(.headline)
-                if let e = ctx?.element { Text("Voor: \(e.name) · in \(e.unit == "st" ? "stuks" : e.unit)").font(.subheadline).foregroundStyle(.secondary) }
-                if !activeFacade.isEmpty { Text("Gevel: \(activeFacade)").font(.subheadline).foregroundStyle(.secondary) }
-            }
-            if store.keyframes.isEmpty {
-                Section("Zo maak je goede foto's") {
-                    Label("Zorg dat het hele kozijn in beeld staat.", systemImage: "viewfinder")
-                    Label("Sta recht voor de gevel, op 2 tot 4 meter afstand.", systemImage: "arrow.left.and.right")
-                    Label("Maak van elke gevel meerdere foto's.", systemImage: "photo.on.rectangle")
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(ctx?.buildingLabel ?? "").font(.headline)
+                    if let e = ctx?.element { Text("Voor: \(e.name) · in \(e.unit == "st" ? "stuks" : e.unit)").font(.subheadline).foregroundStyle(.secondary) }
+                    if !activeFacade.isEmpty { Text("Gevel: \(activeFacade)").font(.subheadline).foregroundStyle(.secondary) }
                 }
-            } else {
-                Section("Tot nu toe") {
-                    Text("\(t.photos) \(t.photos == 1 ? "foto" : "foto's") gemaakt").font(.subheadline)
-                    Text(foundText(t.objects)).font(.headline).accessibilityIdentifier("roundFound")
-                    Text("Controleer of alle kozijnen kloppen.").font(.footnote).foregroundStyle(.secondary)
+                if store.keyframes.isEmpty {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("Zo maak je goede foto's").font(.subheadline.bold())
+                        Text("Zorg dat het hele kozijn in beeld staat.").font(.footnote)
+                        Text("Sta recht voor de gevel, op 2 tot 4 meter afstand.").font(.footnote)
+                        Text("Maak van elke gevel meerdere foto's.").font(.footnote)
+                    }
+                } else {
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("\(t.photos) \(t.photos == 1 ? "foto" : "foto's") gemaakt").font(.subheadline)
+                        Text(foundText(t.objects)).font(.headline).accessibilityIdentifier("roundFound")
+                        Text("Controleer of alle kozijnen kloppen.").font(.footnote).foregroundStyle(.secondary)
+                    }
                 }
             }
             Section {
@@ -103,8 +107,6 @@ struct RoundHomeView: View {
                 }
                 .buttonStyle(.borderedProminent).controlSize(.large).accessibilityIdentifier("roundShoot-\(activeFacade)")
                 NavigationLink("Controleer de kozijnen") { RoundReviewView() }.accessibilityIdentifier("roundReview")
-            }
-            Section {
                 Button { confirmFinish = true } label: { Text("Toevoegen aan MJOP").frame(maxWidth: .infinity) }
                     .buttonStyle(.borderedProminent).tint(.green).controlSize(.large)
                     .disabled(store.keyframes.isEmpty).accessibilityIdentifier("roundFinish")
