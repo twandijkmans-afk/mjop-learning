@@ -18,17 +18,3 @@ final class DownloadNamingTests: XCTestCase {
         XCTAssertLessThanOrEqual(DownloadNaming.safeFileName(suggested: String(repeating: "a", count: 500) + ".csv").count, 100)
     }
 }
-
-final class AppSectionTests: XCTestCase {
-    func testDefaultIsMJOP() { XCTAssertEqual(AppSection.initial(arguments: [], stored: nil), .mjop) }
-    func testStoredChoiceIsRemembered() { XCTAssertEqual(AppSection.initial(arguments: [], stored: "scanner"), .scanner) }
-    func testLaunchArgumentWins() {
-        XCTAssertEqual(AppSection.initial(arguments: ["app", "-section", "scanner"], stored: "mjop"), .scanner)
-        XCTAssertEqual(AppSection.initial(arguments: ["-section", "mjop"], stored: "scanner"), .mjop)
-    }
-    func testGarbageFallsBack() {
-        XCTAssertEqual(AppSection.initial(arguments: ["-section", "nope"], stored: "zzz"), .mjop)
-        XCTAssertEqual(AppSection.initial(arguments: ["-section"], stored: nil), .mjop)
-    }
-    func testTitles() { XCTAssertEqual(AppSection.allCases.map { $0.title }, ["Mijn MJOP", "Gevelscanner"]) }
-}

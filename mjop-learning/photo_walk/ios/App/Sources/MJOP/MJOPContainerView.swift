@@ -57,7 +57,7 @@ struct MJOPErrorView: View {
             Text(failure.title).font(.title3.bold()).accessibilityIdentifier("mjopErrorTitle")
             Text(failure.message).multilineTextAlignment(.center).foregroundStyle(.secondary).accessibilityIdentifier("mjopErrorMessage")
             if failure.canRetry { Button("Opnieuw proberen", action: retry).buttonStyle(.borderedProminent).accessibilityIdentifier("mjopRetry") }
-            if failure.isOffline { Button("Naar de Gevelscanner", action: openScanner).buttonStyle(.bordered).accessibilityIdentifier("mjopToScanner") }
+            if failure.isOffline { Button("Losse scanner openen (werkt ook offline)", action: openScanner).buttonStyle(.bordered).accessibilityIdentifier("mjopToScanner") }
         }
         .padding(24).frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(.systemBackground))
