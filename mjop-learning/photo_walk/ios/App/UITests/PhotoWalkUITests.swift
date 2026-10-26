@@ -182,7 +182,8 @@ final class PhotoWalkUITests: XCTestCase {
         XCTAssertTrue(measured || !contours.label.contains("glas of kozijn?): 0 "), "voorlopige bruto m² (ESTIMATED) of een gemarkeerde onbevestigde buitencontour")
         let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 10))
-        XCTAssertTrue(row.label.contains("m²") || row.label.contains("UNKNOWN"))
+        // gemeten (m²), zonder schaal (UNKNOWN) of automatisch herkend en nog niet bevestigd (alleen indicatief, geen hoeveelheid)
+        XCTAssertTrue(row.label.contains("m²") || row.label.contains("UNKNOWN") || row.label.contains("indicatief"), row.label)
         if !row.isHittable { app.scrollViews.firstMatch.swipeUp() }
         row.tap()
         let dims = app.staticTexts["detailDims"]
