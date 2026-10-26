@@ -127,6 +127,73 @@ final class FacadeTests: XCTestCase {
         }
     }
 
+    // MARK: contourpoort: automatisch herkende contouren blijven voorlopig tot bevestiging
+
+    private func measured(_ w: Double = 1.2, _ h: Double = 1.5) -> LevelResult {
+        var r = LevelResult(level: .A, scaleMethod: "LIDAR_DEPTH_PLANE", viewIds: ["F000"])
+        r.width = w; r.height = h; r.sigmaW = 0.01; r.sigmaH = 0.01; r.sigmaArea = 0.02
+        return r
+    }
+
+    func testAutomaticContoursNeedConfirmation() {
+        XCTAssertEqual(Set(OuterContourStatus.allCases.filter { $0.blocksArea }), [.DETECTED_ENCLOSING_PANES, .UNVERIFIED, .PROPOSED_EXPANSION])
+        XCTAssertEqual(Set(OuterContourStatus.allCases.filter { !$0.blocksArea }), [.LEGACY, .MANUAL, .USER_CONFIRMED])
+    }
+
+    func testDetectedEnclosingPanesGivesOnlyIndicativeDimsNoQuantity() {
+        for st in [OuterContourStatus.DETECTED_ENCLOSING_PANES, .UNVERIFIED, .PROPOSED_EXPANSION] {
+            let g = ContourGate.apply(measured(), status: st)
+            XCTAssertFalse(g.ok, st.rawValue)
+            XCTAssertTrue(g.flags.contains { $0.code == "OUTER_CONTOUR_UNVERIFIED" && $0.severity == .BLOCKING }, st.rawValue)
+            let ind = ContourGate.indicativeDims(g)
+            XCTAssertEqual(ind?.width ?? 0, 1.2, accuracy: 1e-12, "indicatieve maat blijft zichtbaar")
+            XCTAssertEqual(ind?.height ?? 0, 1.5, accuracy: 1e-12)
+            let obj = makeObject(id: "PROV-1", observations: [], result: g, viewCount: 1)
+            XCTAssertEqual(obj.status, .UNKNOWN, st.rawValue)
+            XCTAssertNil(obj.areaM2, "geen kozijnmaat vóór bevestiging: \(st.rawValue)")
+            XCTAssertNil(obj.widthM); XCTAssertNil(obj.heightM)
+            XCTAssertTrue(obj.reviewRequired)
+            let json = obj.json
+            XCTAssertTrue(json["gross_area_m2"] is NSNull, "export bevat geen waarde vóór bevestiging")
+            XCTAssertEqual(json["dimension_status"] as? String, "UNKNOWN")
+        }
+    }
+
+    func testConfirmedManualAndLegacyKeepTheirQuantity() {
+        for st in [OuterContourStatus.USER_CONFIRMED, .MANUAL, .LEGACY] {
+            let g = ContourGate.apply(measured(), status: st)
+            XCTAssertTrue(g.ok, st.rawValue)
+            XCTAssertNil(ContourGate.indicativeDims(g))
+            let obj = makeObject(id: "PROV-1", observations: [], result: g, viewCount: 1)
+            XCTAssertEqual(obj.status, .ESTIMATED, "één foto: hoogstens ESTIMATED (\(st.rawValue))")
+            XCTAssertEqual(obj.areaM2, "1.8")
+        }
+    }
+
+    func testConfirmationWithoutScaleStillGivesNoQuantity() {
+        var noScale = LevelResult(level: .A, scaleMethod: "NONE")
+        noScale.flags = [Flags.make("NO_DEPTH")]
+        for st in [OuterContourStatus.USER_CONFIRMED, .DETECTED_ENCLOSING_PANES] {
+            let g = ContourGate.apply(noScale, status: st)
+            XCTAssertFalse(g.ok)
+            XCTAssertNil(ContourGate.indicativeDims(g), "zonder schaal ook geen indicatieve maat")
+            XCTAssertNil(makeObject(id: "P", observations: [], result: g, viewCount: 1).areaM2)
+        }
+    }
+
+    func testUnconfirmedFrameIsUnknownInFacadeComposition() {
+        let pose = Pose(rows: [Vec3(-1, 0, 0), Vec3(0, -1, 0), Vec3(0, 0, 1)], t: Vec3(0, 1.5, 0))
+        let intr = Intrinsics(fx: 1000, fy: 1000, cx: 600, cy: 350, width: 1200, height: 700)
+        let t = SyntheticFacade.truth([SyntheticFacade.Window(outer: (200, 150, 420, 450), profile: 14)])
+        // zoals ScanStore: een geblokkeerde meting levert geen oppervlak en status UNKNOWN aan de gevelopbouw
+        let o = FacadeOpeningInput(id: "OBS-1", outerPx: t[0].outer, areaM2: nil, status: .UNKNOWN, planeN: nil, planeD: nil, panesPx: t[0].panes)
+        let r = FacadeComposition.compose(openings: [o], pose: pose, intr: intr, facadePx: [Pixel(100, 80), Pixel(1100, 80), Pixel(1100, 620), Pixel(100, 620)],
+                                          facadePlane: (Vec3(0, 0, 1), 5), facadePlaneStatus: .ESTIMATED)
+        XCTAssertNotNil(r.facadeGross.valueM2)
+        XCTAssertNil(r.frameOuter.valueM2); XCTAssertNil(r.glass.valueM2); XCTAssertNil(r.closedFacadeNet.valueM2)
+        XCTAssertEqual(r.frameOuter.missing, ["OBS-1"])
+    }
+
     func testPlausibilityIsOnlyAdvisory() {
         XCTAssertEqual(FacadeComposition.plausibility3DBAG(facadeGrossTotalM2: Decimal(120), buitenmuurM2: 114.02), ["FACADE_GROSS_EXCEEDS_3DBAG_WALL_AREA"])
         XCTAssertEqual(FacadeComposition.plausibility3DBAG(facadeGrossTotalM2: Decimal(60), buitenmuurM2: 114.02), [])

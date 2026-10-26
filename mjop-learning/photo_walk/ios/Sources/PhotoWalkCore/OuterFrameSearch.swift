@@ -16,7 +16,10 @@ public struct GrayImage {
         func px(_ xx: Int, _ yy: Int) -> Double {
             Double(pixels[min(max(yy, 0), height - 1) * width + min(max(xx, 0), width - 1)])
         }
-        return (1 - fx) * (1 - fy) * px(x0, y0) + fx * (1 - fy) * px(x0 + 1, y0) + (1 - fx) * fy * px(x0, y0 + 1) + fx * fy * px(x0 + 1, y0 + 1)
+        let p00: Double = px(x0, y0), p10: Double = px(x0 + 1, y0), p01: Double = px(x0, y0 + 1), p11: Double = px(x0 + 1, y0 + 1)
+        let top: Double = (1 - fx) * p00 + fx * p10
+        let bottom: Double = (1 - fx) * p01 + fx * p11
+        return (1 - fy) * top + fy * bottom
     }
 }
 
@@ -54,8 +57,9 @@ public enum OuterFrameSearch {
         let mu = (a.u + b.u) / 2, mv = (a.v + b.v) / 2
         if (mu - c.u) * nu + (mv - c.v) * nv < 0 { nu = -nu; nv = -nv }
         let prev = quad[(side + 3) % 4], nxt = quad[(side + 2) % 4]
-        let adj = 0.5 * (((a.u - prev.u) * (a.u - prev.u) + (a.v - prev.v) * (a.v - prev.v)).squareRoot()
-                         + ((b.u - nxt.u) * (b.u - nxt.u) + (b.v - nxt.v) * (b.v - nxt.v)).squareRoot())
+        let la: Double = hypot(a.u - prev.u, a.v - prev.v)
+        let lb: Double = hypot(b.u - nxt.u, b.v - nxt.v)
+        let adj: Double = 0.5 * (la + lb)
         let tMax = Int(floor(cfg.maxOffsetRel * adj))
         var offsets: [Double] = [], strengths: [Double] = [], consistency: [Double] = []
         for t in 0...max(tMax, 0) {

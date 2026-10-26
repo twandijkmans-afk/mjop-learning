@@ -47,6 +47,16 @@ public enum ContourOrganizer {
         return a.count < b.count
     }
     private static func boundsKey(_ p: [Pixel]) -> [Double] { let b = polygonBounds(p); return [b.minU, b.minV, b.maxU, b.maxV] }
+    private static func dedupeKey(_ c: QuadCandidate) -> [Double] {
+        var k: [Double] = [-c.score, -polygonArea(c.corners)]
+        k.append(contentsOf: boundsKey(c.corners))
+        return k
+    }
+    private static func sizeKey(_ c: QuadCandidate) -> [Double] {
+        var k: [Double] = [-polygonArea(c.corners)]
+        k.append(contentsOf: boundsKey(c.corners))
+        return k
+    }
 
     public static func contains(_ big: [Pixel], _ small: [Pixel], _ cfg: ContourConfig) -> Bool {
         let ab = polygonArea(big), asm = polygonArea(small)
@@ -95,14 +105,14 @@ public enum ContourOrganizer {
             valid.append(c)
         }
         // dubbelingen: hoogste score, dan grootste, blijft
-        valid.sort { x, y in lexLess([-x.score, -polygonArea(x.corners)] + boundsKey(x.corners), [-y.score, -polygonArea(y.corners)] + boundsKey(y.corners)) }
+        valid.sort { x, y in lexLess(dedupeKey(x), dedupeKey(y)) }
         var uniq: [QuadCandidate] = []
         for c in valid {
             if uniq.contains(where: { polygonIoU($0.corners, c.corners) > cfg.duplicateIoU }) {
                 ignored.append(IgnoredCandidate(corners: c.corners, detector: c.detector, reason: "DUPLICATE"))
             } else { uniq.append(c) }
         }
-        uniq.sort { x, y in lexLess([-polygonArea(x.corners)] + boundsKey(x.corners), [-polygonArea(y.corners)] + boundsKey(y.corners)) }
+        uniq.sort { x, y in lexLess(sizeKey(x), sizeKey(y)) }
         let n = uniq.count
         var parent = [Int?](repeating: nil, count: n)
         for i in 0..<n {

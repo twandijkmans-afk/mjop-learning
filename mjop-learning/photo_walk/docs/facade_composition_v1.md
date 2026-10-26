@@ -24,7 +24,7 @@ Probleem (diagnose oktober 2026): de scanner nam vaak de **binnenste glasruit** 
 3. `OuterFrameSearch` (randzoeker): stelt vanaf het glas een buitencontour voor door per zijde de eerste duidelijke evenwijdige rand naar buiten te zoeken (profiel -> muur). Altijd `PROPOSED_EXPANSION`; geen rand = geen voorstel (dan tekent de gebruiker zelf).
 
 ## Geen maat zonder bevestigde buitencontour
-`UNVERIFIED` en `PROPOSED_EXPANSION` krijgen de blokkerende code `OUTER_CONTOUR_UNVERIFIED`: geen kozijnmaat, ook niet als de LiDAR-schaal goed is. De gebruiker kan:
+**Alle automatisch herkende buitencontouren** (`DETECTED_ENCLOSING_PANES`, `UNVERIFIED`, `PROPOSED_EXPANSION`) krijgen via `ContourGate` de blokkerende code `OUTER_CONTOUR_UNVERIFIED`: geen kozijnmaat in export, oppervlakvoorstel of gevelopbouw, ook niet als de LiDAR-schaal goed is. In de app is de maat wel zichtbaar als **indicatief** ("indicatief 1,2×1,5 m (niet bevestigd)"). Een maat vraagt dus altijd een betrouwbare schaal **én** een bevestigde of zelf aangegeven buitencontour. De gebruiker kan:
 * **Dit is de buitenmaat** (bevestigen) -> `USER_CONFIRMED`;
 * de hoeken naar de buitenrand **slepen** -> `MANUAL`;
 * **Vergroot naar buitenkozijn (voorstel)** -> de oude vierhoek wordt een glasvlak, het voorstel wordt het kader (`PROPOSED_EXPANSION`, nog steeds geblokkeerd tot bevestiging);

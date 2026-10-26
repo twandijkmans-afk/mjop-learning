@@ -18,6 +18,9 @@ struct PhotoResultView: View {
     @AppStorage("hideNeutralBoxes") private var hideNeutral = false
 
     static func dimsText(_ r: LevelResult) -> String {
+        if !r.ok, let ind = ContourGate.indicativeDims(r) {
+            return "indicatief \(decimalString(roundedMillimeters(ind.width)))×\(decimalString(roundedMillimeters(ind.height))) m (niet bevestigd)"
+        }
         guard r.ok, let w = r.width, let h = r.height else { return "UNKNOWN" }
         let dw = roundedMillimeters(w), dh = roundedMillimeters(h)
         var a = grossAreaM2(width: dw, height: dh), rounded = Decimal()
@@ -32,6 +35,7 @@ struct PhotoResultView: View {
         switch o.outerContour {
         case .UNVERIFIED: return o.evidence == .NESTED_PANES ? "buitenmaat controleren" : "glas of kozijn?"
         case .PROPOSED_EXPANSION: return "voorgestelde buitenmaat: controleren"
+        case .DETECTED_ENCLOSING_PANES: return "buitenmaat bevestigen"
         default: return nil
         }
     }
@@ -135,9 +139,12 @@ struct PhotoResultView: View {
 
     private func friendly(_ m: ObservationMeasure?, _ o: Observation? = nil) -> String {
         if let o, o.outerContour.blocksArea {
-            return o.outerContour == .PROPOSED_EXPANSION ? "Voorgestelde buitenmaat. Controleer of het kader op de buitenrand van het kozijn ligt."
-                : (o.evidence == .NESTED_PANES ? "Controleer of het kader op de buitenrand van het kozijn ligt."
-                   : "Is dit het hele kozijn of alleen het glas? Tik om te controleren.")
+            let ind = m.flatMap { ContourGate.indicativeDims($0.result) }.map { " Indicatief: \(decimalString(roundedMillimeters($0.width)))×\(decimalString(roundedMillimeters($0.height))) m." } ?? ""
+            switch o.outerContour {
+            case .PROPOSED_EXPANSION: return "Voorgestelde buitenmaat. Controleer of het kader op de buitenrand van het kozijn ligt." + ind
+            case .DETECTED_ENCLOSING_PANES: return "Buitenrand automatisch gevonden. Bevestig de buitenmaat; pas dan telt de maat." + ind
+            default: return (o.evidence == .NESTED_PANES ? "Controleer of het kader op de buitenrand van het kozijn ligt." : "Is dit het hele kozijn of alleen het glas? Tik om te controleren.") + ind
+            }
         }
         guard let m else { return "Maat wordt berekend…" }
         if !m.result.ok { return "Deze maat is nog niet betrouwbaar genoeg." }
@@ -284,7 +291,8 @@ struct BoxDetailView: View {
                 Text("Voorgestelde buitenmaat (berekend vanaf het glas). Controleer of het kader precies op de buitenrand van het kozijn ligt; pas dan komt er een maat.")
                     .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
             case .DETECTED_ENCLOSING_PANES:
-                Text("Buitenrand automatisch gevonden rond \(panes.count) glasvlak(ken). Controleer de hoeken.").font(.caption)
+                Text("Buitenrand automatisch gevonden rond \(panes.count) glasvlak(ken). De maat is indicatief tot je 'Dit is de buitenmaat' kiest of de hoeken versleept.")
+                    .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
             default: EmptyView()
             }
             HStack {

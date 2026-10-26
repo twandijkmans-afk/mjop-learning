@@ -7,12 +7,40 @@ public enum FacadeRole: String, Codable, CaseIterable { case FACADE_GROSS, OPENI
 
 /// Hoe zeker de buitencontour van een kozijn is.
 /// LEGACY: waarneming van vóór deze indeling (gedrag ongewijzigd). MANUAL: door de gebruiker getekend. USER_CONFIRMED: door de gebruiker bevestigd.
-/// DETECTED_ENCLOSING_PANES: automatisch, een gedetecteerde vierhoek die glasvlakken omsluit (blijft een onbevestigde kandidaat).
+/// DETECTED_ENCLOSING_PANES: automatisch, een gedetecteerde vierhoek die glasvlakken omsluit (sterkste automatische aanwijzing, maar onbevestigd).
 /// UNVERIFIED: losse rechthoek (glas of kozijn?) of twijfelachtige omsluiting. PROPOSED_EXPANSION: voorgestelde vergroting vanaf het glas.
-/// UNVERIFIED en PROPOSED_EXPANSION leveren GEEN kozijnmaat tot de gebruiker de buitencontour bevestigt of zelf aangeeft.
+/// ALLE automatisch herkende buitencontouren (DETECTED_ENCLOSING_PANES, UNVERIFIED, PROPOSED_EXPANSION) blijven voorlopig: ze leveren alleen een
+/// INDICATIEVE maat (zichtbaar, nooit in export, voorstel of gevelopbouw) tot de gebruiker de buitencontour bevestigt of zelf aangeeft.
+/// LEGACY (oudere scans), MANUAL en USER_CONFIRMED blokkeren niet; een maat vraagt daarnaast altijd een betrouwbare schaal.
 public enum OuterContourStatus: String, Codable, CaseIterable {
     case LEGACY, MANUAL, USER_CONFIRMED, DETECTED_ENCLOSING_PANES, UNVERIFIED, PROPOSED_EXPANSION
-    public var blocksArea: Bool { self == .UNVERIFIED || self == .PROPOSED_EXPANSION }
+    /// De gebruiker moet de buitencontour nog bevestigen.
+    public var requiresConfirmation: Bool { self == .UNVERIFIED || self == .PROPOSED_EXPANSION || self == .DETECTED_ENCLOSING_PANES }
+    /// Geen bruikbare kozijnmaat (export, voorstel, gevelopbouw) zolang de contour niet bevestigd is.
+    public var blocksArea: Bool { requiresConfirmation }
+}
+
+/// Poort tussen meting en hoeveelheid: een meting op een onbevestigde automatische buitencontour wordt INDICATIEF (alleen zichtbaar in de app)
+/// en krijgt de blokkerende code OUTER_CONTOUR_UNVERIFIED, zodat er geen kozijnmaat, exportwaarde of oppervlakvoorstel uit volgt.
+/// Zonder betrouwbare schaal is er sowieso geen maat (ook geen indicatieve).
+public enum ContourGate {
+    public static func apply(_ r: LevelResult, status: OuterContourStatus) -> LevelResult {
+        guard status.blocksArea else { return r }
+        var g = r
+        if r.ok, let w = r.width, let h = r.height {
+            g.diag["indicative_width_m"] = w
+            g.diag["indicative_height_m"] = h
+            g.diag["indicative_note"] = "Indicatief: automatisch herkende buitencontour (\(status.rawValue)), nog niet bevestigd. Geen hoeveelheid."
+        }
+        g.flags.append(Flags.make("OUTER_CONTOUR_UNVERIFIED", status.rawValue))
+        return g
+    }
+
+    /// Indicatieve maat (breedte, hoogte) van een geblokkeerde meting, of nil.
+    public static func indicativeDims(_ r: LevelResult) -> (width: Double, height: Double)? {
+        guard let w = r.diag["indicative_width_m"] as? Double, let h = r.diag["indicative_height_m"] as? Double else { return nil }
+        return (w, h)
+    }
 }
 
 /// Waarop de indeling van een automatisch gevonden opening berust.

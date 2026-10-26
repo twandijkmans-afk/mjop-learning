@@ -12,11 +12,13 @@ Rollen (zie docs/facade_composition_v1.md):
 Uitgangspunten:
 - Een losse rechthoek kan glas of kozijn zijn: status UNVERIFIED, geen kozijnmaat tot de gebruiker de buitencontour bevestigt.
 - Een vergroting van glas naar buitenkozijn is altijd een VOORSTEL (PROPOSED_EXPANSION), nooit vanzelf een maat.
+- Ook een automatisch gevonden buitencontour rond glas (DETECTED_ENCLOSING_PANES) is alleen indicatief tot bevestiging.
 - Meerdere glasvlakken binnen één kozijn vormen één opening (nooit meerdere kozijnen).
 - Zonder betrouwbare schaal geen m² (UNKNOWN). Het onderhouds-/schilderoppervlak van een kozijn wordt NIET afgeleid
   (niet gelijk aan buitenkozijn min glas).
 Alle drempels zijn PROVISIONAL_UNVALIDATED: niet getoetst op echte gevels.
 """
+import math
 from dataclasses import dataclass, field
 from decimal import Decimal, ROUND_HALF_UP
 
@@ -24,7 +26,8 @@ import numpy as np
 
 ROLES = ("FACADE_GROSS", "OPENING", "FRAME_OUTER", "GLASS_PANE")
 OUTER_STATUSES = ("LEGACY", "MANUAL", "USER_CONFIRMED", "DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION")
-AREA_BLOCKING_STATUSES = ("UNVERIFIED", "PROPOSED_EXPANSION")
+# ALLE automatisch herkende buitencontouren blijven voorlopig (alleen indicatief) tot de gebruiker bevestigt; LEGACY/MANUAL/USER_CONFIRMED niet.
+AREA_BLOCKING_STATUSES = ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION")
 STATUS_ORDER = {"UNKNOWN": 0, "ESTIMATED": 1, "DERIVED": 2, "MEASURED": 3}
 
 MAINTAINABLE_FRAME_NOTE = ("Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, "
@@ -322,8 +325,9 @@ def _sample(img, u, v):
     def px(xx, yy):
         return float(img[min(max(yy, 0), h - 1), min(max(xx, 0), w - 1)])
 
-    return ((1 - fx) * (1 - fy) * px(x0, y0) + fx * (1 - fy) * px(x0 + 1, y0)
-            + (1 - fx) * fy * px(x0, y0 + 1) + fx * fy * px(x0 + 1, y0 + 1))
+    top = (1 - fx) * px(x0, y0) + fx * px(x0 + 1, y0)            # zelfde rekenvolgorde als Swift (pariteit)
+    bottom = (1 - fx) * px(x0, y0 + 1) + fx * px(x0 + 1, y0 + 1)
+    return (1 - fy) * top + fy * bottom
 
 
 def _line_intersection(p, d, q, e):
@@ -345,7 +349,7 @@ def edge_profile(img, quad, side, cfg=DEFAULT_EXPANSION):
     if (mu - c[0]) * nu + (mv - c[1]) * nv < 0:
         nu, nv = -nu, -nv
     prev, nxt = quad[(side + 3) % 4], quad[(side + 2) % 4]
-    adj = 0.5 * (((a[0] - prev[0]) ** 2 + (a[1] - prev[1]) ** 2) ** 0.5 + ((b[0] - nxt[0]) ** 2 + (b[1] - nxt[1]) ** 2) ** 0.5)
+    adj = 0.5 * (math.hypot(a[0] - prev[0], a[1] - prev[1]) + math.hypot(b[0] - nxt[0], b[1] - nxt[1]))
     t_max = int(np.floor(cfg.max_offset_rel * adj))
     offsets, strengths, consist = [], [], []
     for t in range(0, max(t_max, 0) + 1):

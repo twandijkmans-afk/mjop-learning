@@ -206,10 +206,12 @@ jobs:
           print("objecten:", len(r["objects"]), "met maat:", len(objs))
           roles = {o["observation_id"]: (o.get("facade_role") or {}) for o in r["observations"]}
           print("buitencontouren:", {k: v.get("outer_contour_status") for k, v in roles.items()})
-          # gevelopbouw: een kozijn met maat heeft nooit een onbevestigde buitencontour (glas of kozijn? / voorgestelde vergroting)
+          # gevelopbouw: een kozijn met maat heeft nooit een onbevestigde (automatisch herkende) buitencontour
           for o in objs:
               for ref in o["observation_refs"]:
-                  assert roles[ref].get("outer_contour_status") not in ("UNVERIFIED", "PROPOSED_EXPANSION"), (ref, roles[ref])
+                  assert roles[ref].get("outer_contour_status") not in ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION"), (ref, roles[ref])
+          # vóór bevestiging: geen enkel automatisch kozijn met maat (alleen indicatief in de app)
+          assert not [o for o in objs if any(roles[ref].get("outer_contour_status") != "LEGACY" and roles[ref].get("outer_contour_status") not in ("MANUAL", "USER_CONFIRMED") for ref in o["observation_refs"])]
           # glasvlakken zijn nooit een kozijnobject
           frames = r["facade_composition"]["frames"]
           panes = [e for f in frames for e in f["elements"] if e["role"] == "GLASS_PANE"]

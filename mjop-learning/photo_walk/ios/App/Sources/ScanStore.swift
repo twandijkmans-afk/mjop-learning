@@ -120,8 +120,8 @@ enum Measurer {
             let rc = measureWithReference(view: v, target: o.corners, ref: ref, anchor: anchor, seed: stableSeed(o.id + "C"))
             if rc.ok { var rc2 = rc; rc2.diag = r.diag; rc2.diag["fallback"] = "REFERENCE_DISTANCE (niveau A gaf geen maat)"; rc2.diag["lidar_flags_before_fallback"] = r.flags.map { $0.code }; r = rc2 } else { r.flags += rc.flags.filter { $0.severity == .BLOCKING }.map { QualityFlag(code: $0.code, severity: $0.severity, detail: "[referentie] \($0.detail ?? "")", instruction_nl: $0.instruction_nl) } }
         }
-        // glas of kozijn? / voorgestelde vergroting: geen kozijnmaat tot de gebruiker de buitencontour bevestigt of zelf aangeeft
-        if o.outerContour.blocksArea { r.flags.append(Flags.make("OUTER_CONTOUR_UNVERIFIED", o.outerContour.rawValue)) }
+        // automatisch herkende buitencontour (rond glas, glas of kozijn?, voorgestelde vergroting): alleen indicatief tot de gebruiker bevestigt
+        r = ContourGate.apply(r, status: o.outerContour)
         if !r.ok && !hasBlocking(r.flags) { r.flags.append(Flags.make("NO_METRIC_SCALE")) }
         return r
     }

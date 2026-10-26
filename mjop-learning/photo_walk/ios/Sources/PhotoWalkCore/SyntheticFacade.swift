@@ -21,8 +21,17 @@ public enum SyntheticFacade {
         let iu0 = w.outer.u0 + w.profile, iv0 = w.outer.v0 + w.profile, iu1 = w.outer.u1 - w.profile, iv1 = w.outer.v1 - w.profile
         let n = w.mullions, bar = max(2, w.profile / 2)
         let innerW = iu1 - iu0
-        let edges = (0...(n + 1)).map { k in iu0 + pyRound(Double(innerW * k) / Double(n + 1)) }
-        let cols: [(Int, Int)] = (0...n).map { k in (edges[k] + (k > 0 ? bar / 2 : 0), edges[k + 1] - (k < n ? bar - bar / 2 : 0)) }
+        var edges: [Int] = []
+        for k in 0...(n + 1) {
+            let frac = Double(innerW * k) / Double(n + 1)
+            edges.append(iu0 + pyRound(frac))
+        }
+        var cols: [(Int, Int)] = []
+        for k in 0...n {
+            let left: Int = k > 0 ? bar / 2 : 0
+            let right: Int = k < n ? bar - bar / 2 : 0
+            cols.append((edges[k] + left, edges[k + 1] - right))
+        }
         var rows: [(Int, Int)] = [(iv0, iv1)]
         if w.transom { let mid = iv0 + (iv1 - iv0) / 3; rows = [(iv0, mid - bar / 2), (mid + bar - bar / 2, iv1)] }
         var out: [(Int, Int, Int, Int)] = []

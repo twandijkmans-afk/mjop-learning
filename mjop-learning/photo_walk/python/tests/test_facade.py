@@ -45,6 +45,12 @@ def test_detected_outer_with_inner_panes():
     assert [(g.evidence, g.status, len(g.panes)) for g in groups] == [("NESTED_PANES", "DETECTED_ENCLOSING_PANES", 4),
                                                                       ("NESTED_PANES", "DETECTED_ENCLOSING_PANES", 1)]
     assert [g.outer for g in groups] == [[tuple(map(float, p)) for p in TRUTH[1]["outer"]], [tuple(map(float, p)) for p in TRUTH[0]["outer"]]]
+    # ook een automatisch gevonden buitencontour rond glas blijft voorlopig: geen kozijnmaat tot de gebruiker bevestigt
+    assert all(g.status in F.AREA_BLOCKING_STATUSES for g in groups)
+
+
+def test_only_confirmed_manual_or_legacy_contours_give_a_frame_area():
+    assert set(F.OUTER_STATUSES) - set(F.AREA_BLOCKING_STATUSES) == {"LEGACY", "MANUAL", "USER_CONFIRMED"}
 
 
 def test_region_containing_frames_is_not_a_frame():
