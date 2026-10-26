@@ -170,6 +170,7 @@ jobs:
           cp "$EXP" "$LOGS/selftest-export.json"
           cp "$DATA"/Documents/mjop_scan_proposal_selftest.json "$LOGS/selftest-proposal.json"
           cp "$DATA"/Documents/mjop_round_proposals_selftest.json "$LOGS/selftest-round-proposals.json"
+          cp "$DATA"/Documents/facade_selftest_export.json "$LOGS/selftest-facade-export.json"
           mkdir -p "$LOGS/diag"; cp "$DATA"/Documents/meetdiagnose_*.json "$LOGS/diag/"; ls -la "$LOGS/diag"
           echo "UDID=$UDID" >> "$GITHUB_ENV"
           echo "export: $EXP"
@@ -200,18 +201,52 @@ jobs:
           r = json.load(open(os.environ["LOGS"] + "/selftest-export.json"))
           assert r["data_origin"] == "SIMULATION" and r["invariants"]["is_final"] is False
           assert r["capture_mode"] == "PHOTO" and r["detection_summary"]["validated_on_real_buildings"] is False
+          import re
           objs = [o for o in r["objects"] if o["gross_area_m2"]]
           print("objecten:", len(r["objects"]), "met maat:", len(objs))
-          assert objs, "geen enkel automatisch gedetecteerd kozijn kreeg een maat"
-          best = min(objs, key=lambda o: abs(float(o["outer_width_m"]) - 1.2) + abs(float(o["outer_height_m"]) - 1.5))
-          w, h = float(best["outer_width_m"]), float(best["outer_height_m"])
-          print("beste:", w, h, best["gross_area_m2"], best["dimension_status"])
-          assert abs(w - 1.2) < 0.08 and abs(h - 1.5) < 0.08, "automatisch gedetecteerd kozijn wijkt te veel af van de synthetische waarheid"
+          roles = {o["observation_id"]: (o.get("facade_role") or {}) for o in r["observations"]}
+          print("buitencontouren:", {k: v.get("outer_contour_status") for k, v in roles.items()})
+          # gevelopbouw: een kozijn met maat heeft nooit een onbevestigde buitencontour (glas of kozijn? / voorgestelde vergroting)
+          for o in objs:
+              for ref in o["observation_refs"]:
+                  assert roles[ref].get("outer_contour_status") not in ("UNVERIFIED", "PROPOSED_EXPANSION"), (ref, roles[ref])
+          # glasvlakken zijn nooit een kozijnobject
+          frames = r["facade_composition"]["frames"]
+          panes = [e for f in frames for e in f["elements"] if e["role"] == "GLASS_PANE"]
+          pane_px = {tuple(map(tuple, e["polygon_px"])) for e in panes}
+          for o in r["objects"]:
+              for cp in o["corner_pixels"]:
+                  assert tuple(map(tuple, cp["points"])) not in pane_px, "een glasvlak staat als kozijn in de export"
+          print("glasvlakken (apart, geen kozijn):", len(panes))
+          # buitenmaat van het synthetische kozijn: automatisch (export) of pas na de gesimuleerde bevestiging door de gebruiker
+          log = open(os.environ["LOGS"] + "/selftest-console.log").read()
+          cands = [("export", float(o["outer_width_m"]), float(o["outer_height_m"])) for o in objs]
+          cands += [("na bevestiging", float(m.group(1)), float(m.group(2))) for m in re.finditer(r"SELFTEST_AFTER_CONFIRM \S+ contour=\S+ w=(\S+) h=(\S+)", log)]
+          assert cands, "geen enkele buitenmaat, ook niet na bevestiging"
+          best = min(cands, key=lambda c: abs(c[1] - 1.2) + abs(c[2] - 1.5))
+          print("beste buitenmaat:", best)
+          assert abs(best[1] - 1.2) < 0.08 and abs(best[2] - 1.5) < 0.08, "buitenmaat wijkt te veel af van de synthetische waarheid (glas i.p.v. buitenkozijn?)"
           assert all(o["dimension_status"] in ("ESTIMATED", "DERIVED", "UNKNOWN") for o in r["objects"]), "een enkele foto mag nooit MEASURED zijn"
           assert all("AUTO_DETECTED_UNCONFIRMED" in [f["code"] for f in o["quality_flags"]] and o["review_required"] for o in r["objects"])
           assert r["scan_label"] == "AUTOMATIC_UNREVIEWED"
           PY
           python -m photo_walk_core.validate "$LOGS"/diag/*.json
+          # gevelopbouw-export (na gesimuleerde bevestiging + getekend gevelvlak): schema 1.2.0, onderhoudsoppervlak nooit afgeleid
+          python -m photo_walk_core.validate "$LOGS/selftest-facade-export.json"
+          python - <<'PY'
+          import json, os
+          r = json.load(open(os.environ["LOGS"] + "/selftest-facade-export.json"))
+          assert r["contract_version"] == "1.2.0"
+          for f in r["facade_composition"]["frames"]:
+              q = f["quantities"]
+              print(f["frame_id"], f["facade_plane_source"], {k: (v["value_m2"], v["status"]) for k, v in q.items()})
+              assert q["maintainable_frame_surface"]["value_m2"] is None
+              for k, v in q.items():
+                  assert (v["value_m2"] is None) == (v["status"] == "UNKNOWN"), (k, v)
+              if f["facade_plane_source"] == "NONE":
+                  assert q["facade_gross"]["value_m2"] is None
+          print("gevelopbouw-export OK")
+          PY
           # Fotoronde-voorstellen (mjop_scan_proposal_v2) uit de app voldoen aan het schema en zijn nooit boeking/bevestigd
           python - <<'PY'
           import json, os, jsonschema
@@ -270,6 +305,8 @@ jobs:
           [ "$(cat "$LOGS/detect-count.txt")" -ge 1 ] || { echo "::error::geen enkele detectie in de selftest"; exit 1; }
           grep "SELFTEST_PERSIST" "$LOGS/selftest-console.log"
           grep -q "SELFTEST_PERSIST observations=[1-9][0-9]* identicalDepth=true" "$LOGS/selftest-console.log" || { echo "::error::lokale opslag/herstel niet identiek"; exit 1; }
+          grep "SELFTEST_ROLE\|SELFTEST_CONFIRM\|SELFTEST_FACADE\|SELFTEST_NOTE" "$LOGS/selftest-console.log" || true
+          grep -q "SELFTEST_PERSIST_FACADE identical=true" "$LOGS/selftest-console.log" || { echo "::error::gevelopbouw (rollen/glasvlakken) niet identiek na opslaan en herstellen"; exit 1; }
 
       - name: Artifacts verzamelen (simulator-app, unsigned device-IPA)
         if: always()

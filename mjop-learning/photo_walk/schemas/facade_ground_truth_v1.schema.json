@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "facade_ground_truth_v1",
+  "title": "Gevelscanner ground truth v1 (door een mens gelabelde contouren + rolmaatmetingen)",
+  "description": "Referentieset om de gevelscanner te beoordelen. Contouren en maten zijn door een MENS vastgelegd. Alleen voor evaluatie (data/evaluation): nooit gebruiken om drempels of herkenning op af te stemmen. Pixels in de native cameraoriëntatie van de app-export (u rechts, v omlaag, oorsprong linkerbovenhoek).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schema_version", "dataset_id", "purpose", "photos"],
+  "properties": {
+    "schema": {"const": "facade_ground_truth_v1"},
+    "schema_version": {"type": "string", "pattern": "^1\\.[0-9]+\\.[0-9]+$"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "purpose": {"enum": ["EVALUATION_ONLY", "SYNTHETIC_REGRESSION"]},
+    "data_origin": {"enum": ["REAL_CAPTURE", "SYNTHETIC"], "description": "SYNTHETIC = getekend testbeeld; zegt niets over echte gevels."},
+    "note": {"type": ["string", "null"]},
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["photo_id", "image_width", "image_height", "label_method", "elements", "tape_measurements"],
+        "properties": {
+          "photo_id": {"type": "string", "description": "frame_id zoals in de app-export (bv. F000)"},
+          "capture_session_id": {"type": ["string", "null"]},
+          "image_file": {"type": ["string", "null"]},
+          "image_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+          "image_width": {"type": "integer", "minimum": 1},
+          "image_height": {"type": "integer", "minimum": 1},
+          "lidar_available": {"type": ["boolean", "null"]},
+          "label_method": {"enum": ["MANUAL_POLYGON", "SYNTHETIC_EXACT"]},
+          "labeled_by": {"type": ["string", "null"]},
+          "labeled_at": {"type": ["string", "null"]},
+          "elements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "role", "polygon_px", "parent"],
+              "properties": {
+                "id": {"type": "string"},
+                "role": {"enum": ["FACADE_GROSS", "OPENING", "FRAME_OUTER", "GLASS_PANE"]},
+                "polygon_px": {"type": "array", "minItems": 3, "items": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}},
+                "parent": {"type": ["string", "null"], "description": "GLASS_PANE -> FRAME_OUTER; FRAME_OUTER -> FACADE_GROSS of null"},
+                "visibility": {"enum": ["FULL", "PARTIAL", "HEAVILY_OCCLUDED", null]},
+                "note": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "tape_measurements": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["element_id", "outer_width_m", "outer_height_m", "tool"],
+              "properties": {
+                "element_id": {"type": "string", "description": "id van een FRAME_OUTER-element"},
+                "outer_width_m": {"type": "string", "pattern": "^[0-9]+\\.[0-9]{1,4}$"},
+                "outer_height_m": {"type": "string", "pattern": "^[0-9]+\\.[0-9]{1,4}$"},
+                "tool": {"enum": ["ROLMAAT", "DUIMSTOK", "LASER", "TEKENING", "SYNTHETIC"]},
+                "measured_by": {"type": ["string", "null"]},
+                "measured_at": {"type": ["string", "null"]},
+                "note": {"type": ["string", "null"]}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

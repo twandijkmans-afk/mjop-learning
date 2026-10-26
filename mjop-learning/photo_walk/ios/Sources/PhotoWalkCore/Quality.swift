@@ -28,6 +28,7 @@ public enum Flags {
         "WRONG_CORNER_SELECTION": (.BLOCKING, "De gekozen hoeken vormen geen rechthoek op het gevelvlak. Corrigeer de hoeken (buitenhoeken van het kozijn)."),
         "DIMENSION_OUT_OF_RANGE": (.BLOCKING, "Berekende maat valt buiten 0,10-10 m; controleer hoeken en schaal."),
         "NO_METRIC_SCALE": (.BLOCKING, "Geen betrouwbare metrische schaal. Voer een referentieafstand in tussen twee punten op het kozijnvlak."),
+        "OUTER_CONTOUR_UNVERIFIED": (.BLOCKING, "Glas of kozijn? De buitencontour van dit kozijn is nog niet bevestigd (losse rechthoek of voorgestelde vergroting vanaf het glas). Controleer of het kader op de BUITENRAND van het kozijn ligt en kies 'Dit is de buitenmaat', of sleep de hoeken naar de buitenrand."),
         "REFERENCE_PLANE_MISMATCH": (.BLOCKING, "De referentie ligt niet op hetzelfde vlak als het kozijn. Geef een nieuwe referentie op het gevelvlak van dit kozijn."),
         "REFERENCE_INVALID": (.BLOCKING, "De referentie is ongeldig (afstand <= 0 of punten vallen samen)."),
         "RECT_ASSUMPTION_VIOLATED": (.BLOCKING, "De hoeken zijn niet consistent met een rechthoek en de cameralenzen. Corrigeer de hoeken."),

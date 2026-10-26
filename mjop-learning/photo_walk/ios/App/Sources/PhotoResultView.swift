@@ -27,12 +27,29 @@ struct PhotoResultView: View {
 
     private var frameObservations: [Observation] { store.observations.filter { $0.frameId == frameId && !$0.rejected } }
 
-    private var boxes: [BoxOverlayItem] {
-        frameObservations.filter { o in !(hideNeutral && store.measures[o.id]?.feedback == .neutral && o.id != selected) }.map { o in
-            let m = store.measures[o.id]
-            let label = "\(store.shortName(ofObservation: o.id)) · \(m.map { Self.dimsText($0.result) } ?? "…")"
-            return BoxOverlayItem(id: o.id, corners: o.corners, feedback: m?.feedback ?? .neutral, label: label, selected: o.id == selected)
+    /// Korte uitleg van de buitencontour in gewone taal.
+    static func contourText(_ o: Observation) -> String? {
+        switch o.outerContour {
+        case .UNVERIFIED: return o.evidence == .NESTED_PANES ? "buitenmaat controleren" : "glas of kozijn?"
+        case .PROPOSED_EXPANSION: return "voorgestelde buitenmaat: controleren"
+        default: return nil
         }
+    }
+
+    private var boxes: [BoxOverlayItem] {
+        var items: [BoxOverlayItem] = []
+        if let f = store.facadePolygon(frameId: frameId) {
+            items.append(BoxOverlayItem(id: f.id, corners: f.corners, feedback: .neutral, label: "", style: .facade))
+        }
+        for o in frameObservations where !(hideNeutral && store.measures[o.id]?.feedback == .neutral && o.id != selected && !o.outerContour.blocksArea) {
+            let m = store.measures[o.id]
+            let label = "\(store.shortName(ofObservation: o.id)) · \(Self.contourText(o) ?? m.map { Self.dimsText($0.result) } ?? "…")"
+            items.append(BoxOverlayItem(id: o.id, corners: o.corners, feedback: m?.feedback ?? .neutral, label: label, selected: o.id == selected,
+                                        style: o.outerContour.blocksArea ? .frameUnverified : .frame))
+            if let p = o.proposedOuter { items.append(BoxOverlayItem(id: o.id + "-voorstel", corners: p, feedback: .neutral, label: "", style: .proposal)) }
+        }
+        for g in store.glassPanes(frameId: frameId) { items.append(BoxOverlayItem(id: g.id, corners: g.corners, feedback: .neutral, label: "", style: .glass)) }
+        return items
     }
 
     private func colorName(_ f: BoxFeedback?) -> String { switch f { case .green?: return "groen"; case .orange?: return "oranje"; default: return "grijs" } }
@@ -64,6 +81,9 @@ struct PhotoResultView: View {
                     HStack {
                         if let kf = store.keyframe(frameId) {
                             NavigationLink("Kozijn handmatig toevoegen") { CornerPickerView(frame: kf).environmentObject(store) }.buttonStyle(.bordered)
+                            NavigationLink(store.facadePolygon(frameId: frameId) == nil ? "Gevelvlak tekenen" : "Gevelvlak opnieuw tekenen") {
+                                FacadePolygonView(frame: kf).environmentObject(store)
+                            }.buttonStyle(.bordered).accessibilityIdentifier("drawFacadeButton")
                         }
                         if !simple { Button("Exporteren") { exportPath = (try? ExportService.write(store))?.path ?? "export mislukt" }.buttonStyle(.bordered).accessibilityIdentifier("exportButton") }
                     }
@@ -92,6 +112,9 @@ struct PhotoResultView: View {
                  : "Bruto m² waar meetbaar (voorlopig, per status, niet opgeteld tot totaal): " + ov.areaByStatus.map { "\($0.status) \($0.area)" }.joined(separator: " · "))
                 .font(.footnote).accessibilityIdentifier("overviewArea")
             Text("Controles (oranje): \(ov.checks) · zonder betrouwbare maat (grijs/UNKNOWN): \(ov.noScale) · meetbaar: \(ov.measurable)").font(.footnote).accessibilityIdentifier("overviewChecks")
+            Text("Buitencontour nog bevestigen (glas of kozijn?): \(ov.outerUnverified) · glasvlakken: \(ov.glassPanes) (tellen niet als kozijn)").font(.footnote)
+                .accessibilityIdentifier("overviewContours")
+            facadeBlock(simple: false)
             if ov.linkSuggestions > 0 { NavigationLink("Koppelsuggesties bekijken (\(ov.linkSuggestions))") { LinkSuggestionsView().environmentObject(store) }.font(.footnote) }
             ForEach(frameObservations) { o in
                 let m = store.measures[o.id]
@@ -102,7 +125,7 @@ struct PhotoResultView: View {
                         Circle().fill(m?.feedback == .green ? Color.green : m?.feedback == .orange ? Color.orange : Color.gray).frame(width: 12, height: 12).padding(.top, 3)
                         VStack(alignment: .leading) {
                             Text("\(store.shortName(ofObservation: o.id)) (\(colorName(m?.feedback))) · \(m.map { Self.dimsText($0.result) } ?? "…")").font(.footnote.bold())
-                            Text("\(o.source == .AUTO_DETECTED_UNCONFIRMED ? "kandidaat, niet bevestigd" : o.source.rawValue) · \(m.map { reason($0.result) } ?? "")").font(.caption2).foregroundStyle(.secondary)
+                            Text("\(o.source == .AUTO_DETECTED_UNCONFIRMED ? "kandidaat, niet bevestigd" : o.source.rawValue) · buitencontour \(o.outerContour.rawValue) · \(m.map { reason($0.result) } ?? "")").font(.caption2).foregroundStyle(.secondary)
                         }
                     }
                 }.buttonStyle(.plain).accessibilityIdentifier("boxRow-\(o.id)")
@@ -110,7 +133,12 @@ struct PhotoResultView: View {
         }
     }
 
-    private func friendly(_ m: ObservationMeasure?) -> String {
+    private func friendly(_ m: ObservationMeasure?, _ o: Observation? = nil) -> String {
+        if let o, o.outerContour.blocksArea {
+            return o.outerContour == .PROPOSED_EXPANSION ? "Voorgestelde buitenmaat. Controleer of het kader op de buitenrand van het kozijn ligt."
+                : (o.evidence == .NESTED_PANES ? "Controleer of het kader op de buitenrand van het kozijn ligt."
+                   : "Is dit het hele kozijn of alleen het glas? Tik om te controleren.")
+        }
         guard let m else { return "Maat wordt berekend…" }
         if !m.result.ok { return "Deze maat is nog niet betrouwbaar genoeg." }
         let base = Self.dimsText(m.result)
@@ -124,7 +152,9 @@ struct PhotoResultView: View {
         Text(ov.detected == 0 ? "Er zijn nog geen kozijnen gevonden op deze foto."
              : ov.detected == 1 ? "Er is 1 mogelijk kozijn gevonden." : "Er zijn \(ov.detected) mogelijke kozijnen gevonden.")
             .font(.headline).accessibilityIdentifier("simpleFound")
-        Text("Controleer of alle kozijnen kloppen. Tik op een kozijn om het aan te passen.").font(.footnote)
+        Text("Controleer of alle kozijnen kloppen. Tik op een kozijn om het aan te passen. Oranje gestreept = nog controleren; blauw gestippeld = glas.").font(.footnote)
+        if ov.glassPanes > 0 { Text("\(ov.glassPanes) glasvlak(ken) herkend. Glas telt niet als apart kozijn.").font(.caption).accessibilityIdentifier("simpleGlass") }
+        facadeBlock(simple: true)
         ForEach(frameObservations) { o in
             let m = store.measures[o.id]
             Button {
@@ -134,10 +164,37 @@ struct PhotoResultView: View {
                     Circle().fill(m?.feedback == .green ? Color.green : m?.feedback == .orange ? Color.orange : Color.gray).frame(width: 12, height: 12).padding(.top, 3)
                     VStack(alignment: .leading) {
                         Text("Kozijn \(store.shortName(ofObservation: o.id))").font(.footnote.bold())
-                        Text(friendly(m)).font(.caption)
+                        Text(friendly(m, o)).font(.caption)
                     }
                 }
             }.buttonStyle(.plain).accessibilityIdentifier("boxRow-\(o.id)")
+        }
+    }
+
+    private func qText(_ q: FacadeQuantity, simple: Bool) -> String {
+        if let v = q.valueM2 {
+            var r = Decimal(), x = v; NSDecimalRound(&r, &x, 2, .plain)
+            return "\(NSDecimalNumber(decimal: r).stringValue) m²" + (simple ? (q.status == .ESTIMATED ? " (schatting)" : "") : " (\(q.status.rawValue))")
+        }
+        if simple { return "nog onbekend" }
+        return "UNKNOWN" + (q.partialValueM2.map { " (deelsom \(decimalString($0)) m²)" } ?? "") + (q.missing.isEmpty ? "" : " · ontbreekt: " + q.missing.joined(separator: ", "))
+    }
+
+    /// Gevelopbouw van deze foto: bruto gevel, openingen, buitenkozijn, glas en netto gesloten gevel. Zonder betrouwbare schaal: onbekend.
+    @ViewBuilder private func facadeBlock(simple: Bool) -> some View {
+        if let fc = store.facadeComposition(frameId: frameId) {
+            let c = fc.result, src = fc.planeSource
+            VStack(alignment: .leading, spacing: 2) {
+                Text(simple ? "Gevel op deze foto (voorlopig)" : "Gevelopbouw (voorlopig, niet gevalideerd) · gevelvlak: \(src.rawValue)").font(.footnote.bold())
+                Text("Bruto gevel: \(qText(c.facadeGross, simple: simple))").font(.caption).accessibilityIdentifier("facadeGross")
+                Text("Ramen en deuren (buitenmaat kozijn): \(qText(c.frameOuter, simple: simple))").font(.caption).accessibilityIdentifier("facadeFrames")
+                Text("Glas: \(qText(c.glass, simple: simple))").font(.caption).accessibilityIdentifier("facadeGlass")
+                Text("Gesloten gevel (bijv. metselwerk): \(qText(c.closedFacadeNet, simple: simple))").font(.caption).accessibilityIdentifier("facadeNet")
+                Text(simple ? "Schilderwerk aan kozijnen wordt niet berekend uit buitenmaat min glas." : "Onderhouds-/schilderoppervlak kozijnen: niet afgeleid. " + FacadeComposition.openingAssumption)
+                    .font(.caption2).foregroundStyle(.secondary)
+                if store.facadePolygon(frameId: frameId) == nil { Text("Teken het gevelvlak om bruto en netto gevel te berekenen.").font(.caption2).foregroundStyle(.secondary) }
+                if !c.flags.isEmpty && !simple { Text("Let op: \(c.flags.joined(separator: ", "))").font(.caption2).foregroundStyle(.orange) }
+            }.accessibilityIdentifier("facadeBlock")
         }
     }
 
@@ -168,7 +225,7 @@ struct BoxDetailView: View {
         let m = store.measures[observationId]
         VStack(spacing: 4) {
             if let obs, let kf, let img = image {
-                FrameImageCanvas(frame: kf, image: img, points: $corners, maxPoints: 4, pointNames: Self.names, fitTo: obs.corners, showReadout: false)
+                FrameImageCanvas(frame: kf, image: img, points: $corners, maxPoints: 4, overlay: obs.proposedOuter ?? [], pointNames: Self.names, fitTo: obs.proposedOuter ?? obs.corners, showReadout: false)
                 ScrollView {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(store.shortName(ofObservation: obs.id)) · \(m.map { PhotoResultView.dimsText($0.result) } ?? "…")").font(.headline).accessibilityIdentifier("detailDims")
@@ -181,11 +238,15 @@ struct BoxDetailView: View {
                                 Text("• \(f.code): \(f.instruction_nl)").font(.caption2).foregroundStyle(f.severity == .BLOCKING ? .red : .secondary)
                             }
                         }
+                        contourControls(obs)
                         Text("Sleep de rode punten naar de BUITENHOEKEN van het kozijn (zoom met twee vingers) en kies 'Toepassen'. Originele hoeken en sensordata blijven bewaard.").font(.caption2)
                         HStack {
                             Button("Toepassen") { apply(obs) }.buttonStyle(.borderedProminent).disabled(corners == obs.corners).accessibilityIdentifier("applyCorners")
                             Button("Herstel detectie") { corners = obs.originalCorners }.buttonStyle(.bordered).disabled(corners == obs.originalCorners)
-                            if obs.source == .AUTO_DETECTED_UNCONFIRMED { Button("Hoeken bevestigen") { store.confirmCorners(observation: obs.id); Task { await store.measureAllInBackground(); store.persist() } }.buttonStyle(.bordered) }
+                            if obs.source == .AUTO_DETECTED_UNCONFIRMED || obs.outerContour.blocksArea {
+                                Button("Dit is de buitenmaat") { store.confirmCorners(observation: obs.id); Task { await store.measureAllInBackground(); store.persist() } }
+                                    .buttonStyle(.bordered).accessibilityIdentifier("confirmOuterButton")
+                            }
                         }
                         if let m, DiagnosticsView.needsMotion(m.result) {
                             Text(CaptureCoordinator.motionHint).font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("detailMotionHint")
@@ -206,6 +267,38 @@ struct BoxDetailView: View {
             if let o = store.observation(observationId) {
                 if corners.isEmpty { corners = o.corners }
                 if image == nil, let u = store.keyframe(o.frameId)?.imageURL, let d = try? Data(contentsOf: u) { image = UIImage(data: d) }
+            }
+        }
+    }
+
+    /// Glas of kozijn? Uitleg en de knoppen om de buitencontour aan te geven. Een voorstel wordt nooit vanzelf een maat.
+    @ViewBuilder private func contourControls(_ obs: Observation) -> some View {
+        let panes = store.glassPanes(ofObservation: obs.id)
+        VStack(alignment: .leading, spacing: 3) {
+            switch obs.outerContour {
+            case .UNVERIFIED:
+                Text(obs.evidence == .NESTED_PANES ? "Dit kader omsluit glas, maar er is weinig glas in verhouding: controleer of het de buitenrand van het kozijn is."
+                     : "Is dit het hele kozijn of alleen het glas? Er komt pas een maat als jij de buitenrand bevestigt of de hoeken zelf versleept.")
+                    .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
+            case .PROPOSED_EXPANSION:
+                Text("Voorgestelde buitenmaat (berekend vanaf het glas). Controleer of het kader precies op de buitenrand van het kozijn ligt; pas dan komt er een maat.")
+                    .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
+            case .DETECTED_ENCLOSING_PANES:
+                Text("Buitenrand automatisch gevonden rond \(panes.count) glasvlak(ken). Controleer de hoeken.").font(.caption)
+            default: EmptyView()
+            }
+            HStack {
+                if obs.proposedOuter != nil {
+                    Button("Vergroot naar buitenkozijn (voorstel)") { store.applyProposedOuter(observation: obs.id); corners = store.observation(obs.id)?.corners ?? corners
+                        Task { await store.measureAllInBackground(); store.persist() } }.buttonStyle(.bordered).accessibilityIdentifier("applyProposalButton")
+                }
+                Button("Dit is een glasvlak") { store.markAsGlass(observation: obs.id); dismiss() }.buttonStyle(.bordered).accessibilityIdentifier("markGlassButton")
+            }
+            if !panes.isEmpty {
+                Text("Glasvlakken in dit kozijn: \(panes.count) (tellen niet als kozijn).").font(.caption2)
+                ForEach(panes) { p in
+                    Button("Glasvlak \(p.id) klopt niet: verwijderen") { store.setElementRejected(p.id, true) }.font(.caption2)
+                }
             }
         }
     }

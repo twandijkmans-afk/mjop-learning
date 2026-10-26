@@ -175,7 +175,11 @@ final class PhotoWalkUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["overviewUnique"].label.contains("Voorlopig unieke kozijnen"))
         XCTAssertTrue(app.staticTexts["overviewChecks"].label.contains("Controles (oranje)"))
         let area = app.staticTexts["overviewArea"]
-        XCTAssertTrue(waitFor(area, "label CONTAINS %@", "ESTIMATED", timeout: 60) || area.label.contains("DERIVED"), "voorlopige bruto m² per status (enkele foto: ESTIMATED)")
+        let contours = app.staticTexts["overviewContours"]
+        XCTAssertTrue(contours.waitForExistence(timeout: 10) && contours.label.contains("glasvlakken"), "gevelopbouw: glasvlakken en onbevestigde buitencontouren apart in het overzicht")
+        let measured = waitFor(area, "label CONTAINS %@", "ESTIMATED", timeout: 60) || area.label.contains("DERIVED")
+        // Glas of kozijn? Zonder bevestigde buitencontour komt er (terecht) geen maat; dan moet het overzicht dat zeggen.
+        XCTAssertTrue(measured || !contours.label.contains("glas of kozijn?): 0 "), "voorlopige bruto m² (ESTIMATED) of een gemarkeerde onbevestigde buitencontour")
         let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch
         XCTAssertTrue(row.waitForExistence(timeout: 10))
         XCTAssertTrue(row.label.contains("m²") || row.label.contains("UNKNOWN"))
@@ -183,7 +187,15 @@ final class PhotoWalkUITests: XCTestCase {
         row.tap()
         let dims = app.staticTexts["detailDims"]
         XCTAssertTrue(dims.waitForExistence(timeout: 15))
-        app.buttons["rejectButton"].tap()                              // "geen kozijn": lokaal bewaard, telt niet meer mee
+        let confirm = app.buttons["confirmOuterButton"]
+        if confirm.exists && app.staticTexts["contourQuestion"].exists {
+            if !confirm.isHittable { app.scrollViews.element(boundBy: 0).swipeUp() }
+            confirm.tap()                                              // gebruiker bevestigt de buitencontour: pas nu een maat
+            XCTAssertTrue(waitFor(dims, "label CONTAINS %@", "m²", timeout: 30), "na 'Dit is de buitenmaat' moet er een voorlopige maat zijn")
+        }
+        let reject = app.buttons["rejectButton"]
+        if !reject.isHittable { app.scrollViews.element(boundBy: 0).swipeUp() }
+        reject.tap()                              // "geen kozijn": lokaal bewaard, telt niet meer mee
         XCTAssertTrue(waitFor(app.staticTexts["overviewDetected"], "label CONTAINS %@", "Herkend: 0 ", timeout: 20) || app.staticTexts["overviewDetected"].label.contains("Herkend:"))
         XCTAssertEqual(app.state, .runningForeground)
     }

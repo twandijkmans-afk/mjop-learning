@@ -1,0 +1,1965 @@
+{
+ "compose": {
+  "camera": {
+   "cx": 600.0,
+   "cy": 350.0,
+   "fx": 1000.0,
+   "fy": 1000.0,
+   "rows": [
+    [
+     -1,
+     0,
+     0
+    ],
+    [
+     0,
+     -1,
+     0
+    ],
+    [
+     0,
+     0,
+     1
+    ]
+   ],
+   "t": [
+    0.0,
+    1.5,
+    0.0
+   ]
+  },
+  "cases": [
+   {
+    "expected": {
+     "closed_facade_net": {
+      "basis": "Bruto gevel min openingen (buitenmaat kozijnen).",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "9.450"
+     },
+     "facade_gross": {
+      "basis": "Getekend gevelvlak geprojecteerd op het gevelvlak.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "13.500"
+     },
+     "flags": [],
+     "frame_outer": {
+      "basis": "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "4.050"
+     },
+     "glass": {
+      "basis": "Som van de glasvlakken, geprojecteerd op het vlak van het eigen kozijn.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "3.264"
+     },
+     "maintainable_frame_surface": {
+      "basis": "Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, roeden, glaslatten en binnen-/buitenzijde ontbreken). Meet of schat dit apart.",
+      "missing": [
+       "NOT_DERIVED"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings": {
+      "basis": "Aanname: opening = buitenmaat van het kozijn (dagkant/sponning niet gemeten). Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "4.050"
+     },
+     "openings_in_facade": [
+      "OBS-1",
+      "OBS-2"
+     ]
+    },
+    "name": "full",
+    "openings": [
+     {
+      "area_m2": "1.650",
+      "id": "OBS-1",
+      "outer_px": [
+       [
+        200.0,
+        150.0
+       ],
+       [
+        420.0,
+        150.0
+       ],
+       [
+        420.0,
+        450.0
+       ],
+       [
+        200.0,
+        450.0
+       ]
+      ],
+      "panes_px": [
+       [
+        [
+         214.0,
+         164.0
+        ],
+        [
+         406.0,
+         164.0
+        ],
+        [
+         406.0,
+         436.0
+        ],
+        [
+         214.0,
+         436.0
+        ]
+       ]
+      ],
+      "plane_d": 5.0,
+      "plane_n": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "status": "ESTIMATED"
+     },
+     {
+      "area_m2": "2.400",
+      "id": "OBS-2",
+      "outer_px": [
+       [
+        600.0,
+        140.0
+       ],
+       [
+        900.0,
+        140.0
+       ],
+       [
+        900.0,
+        460.0
+       ],
+       [
+        600.0,
+        460.0
+       ]
+      ],
+      "panes_px": [
+       [
+        [
+         612.0,
+         152.0
+        ],
+        [
+         747.0,
+         152.0
+        ],
+        [
+         747.0,
+         247.0
+        ],
+        [
+         612.0,
+         247.0
+        ]
+       ],
+       [
+        [
+         612.0,
+         253.0
+        ],
+        [
+         747.0,
+         253.0
+        ],
+        [
+         747.0,
+         448.0
+        ],
+        [
+         612.0,
+         448.0
+        ]
+       ],
+       [
+        [
+         753.0,
+         152.0
+        ],
+        [
+         888.0,
+         152.0
+        ],
+        [
+         888.0,
+         247.0
+        ],
+        [
+         753.0,
+         247.0
+        ]
+       ],
+       [
+        [
+         753.0,
+         253.0
+        ],
+        [
+         888.0,
+         253.0
+        ],
+        [
+         888.0,
+         448.0
+        ],
+        [
+         753.0,
+         448.0
+        ]
+       ]
+      ],
+      "plane_d": 5.0,
+      "plane_n": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "status": "DERIVED"
+     }
+    ],
+    "with_facade_plane": true,
+    "with_scale": true
+   },
+   {
+    "expected": {
+     "closed_facade_net": {
+      "basis": "Bruto gevel en alle openingen zijn nodig.",
+      "missing": [
+       "FACADE_PLANE",
+       "OBS-1"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "facade_gross": {
+      "basis": "Geen betrouwbaar gevelvlak (schaal) voor deze foto.",
+      "missing": [
+       "FACADE_PLANE"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "flags": [],
+     "frame_outer": {
+      "basis": "Niet alle kozijnen hebben een betrouwbare buitenmaat.",
+      "missing": [
+       "OBS-1"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "glass": {
+      "basis": "Niet van alle kozijnen zijn de glasvlakken met schaal bekend.",
+      "missing": [
+       "OBS-1:GEEN_SCHAAL"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "maintainable_frame_surface": {
+      "basis": "Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, roeden, glaslatten en binnen-/buitenzijde ontbreken). Meet of schat dit apart.",
+      "missing": [
+       "NOT_DERIVED"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings": {
+      "basis": "Aanname: opening = buitenmaat van het kozijn (dagkant/sponning niet gemeten). Niet alle kozijnen hebben een betrouwbare buitenmaat.",
+      "missing": [
+       "OBS-1"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings_in_facade": [
+      "OBS-1"
+     ]
+    },
+    "name": "no_scale",
+    "openings": [
+     {
+      "area_m2": null,
+      "id": "OBS-1",
+      "outer_px": [
+       [
+        200.0,
+        150.0
+       ],
+       [
+        420.0,
+        150.0
+       ],
+       [
+        420.0,
+        450.0
+       ],
+       [
+        200.0,
+        450.0
+       ]
+      ],
+      "panes_px": [
+       [
+        [
+         214.0,
+         164.0
+        ],
+        [
+         406.0,
+         164.0
+        ],
+        [
+         406.0,
+         436.0
+        ],
+        [
+         214.0,
+         436.0
+        ]
+       ]
+      ],
+      "plane_d": null,
+      "plane_n": null,
+      "status": "UNKNOWN"
+     }
+    ],
+    "with_facade_plane": false,
+    "with_scale": false
+   },
+   {
+    "expected": {
+     "closed_facade_net": {
+      "basis": "Bruto gevel min openingen (buitenmaat kozijnen).",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "11.850"
+     },
+     "facade_gross": {
+      "basis": "Getekend gevelvlak geprojecteerd op het gevelvlak.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "13.500"
+     },
+     "flags": [],
+     "frame_outer": {
+      "basis": "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "1.650"
+     },
+     "glass": {
+      "basis": "Niet van alle kozijnen zijn de glasvlakken met schaal bekend.",
+      "missing": [
+       "OBS-1:GEEN_GLASVLAKKEN"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "maintainable_frame_surface": {
+      "basis": "Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, roeden, glaslatten en binnen-/buitenzijde ontbreken). Meet of schat dit apart.",
+      "missing": [
+       "NOT_DERIVED"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings": {
+      "basis": "Aanname: opening = buitenmaat van het kozijn (dagkant/sponning niet gemeten). Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "1.650"
+     },
+     "openings_in_facade": [
+      "OBS-1"
+     ]
+    },
+    "name": "missing_panes",
+    "openings": [
+     {
+      "area_m2": "1.650",
+      "id": "OBS-1",
+      "outer_px": [
+       [
+        200.0,
+        150.0
+       ],
+       [
+        420.0,
+        150.0
+       ],
+       [
+        420.0,
+        450.0
+       ],
+       [
+        200.0,
+        450.0
+       ]
+      ],
+      "panes_px": [],
+      "plane_d": 5.0,
+      "plane_n": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "status": "ESTIMATED"
+     }
+    ],
+    "with_facade_plane": true,
+    "with_scale": true
+   }
+  ],
+  "facade_plane": {
+   "d": 5.0,
+   "n": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "status": "ESTIMATED"
+  },
+  "facade_px": [
+   [
+    100.0,
+    80.0
+   ],
+   [
+    1100.0,
+    80.0
+   ],
+   [
+    1100.0,
+    620.0
+   ],
+   [
+    100.0,
+    620.0
+   ]
+  ]
+ },
+ "expansion": [
+  {
+   "name": "single_pane",
+   "quad": [
+    [
+     214.0,
+     164.0
+    ],
+    [
+     406.0,
+     164.0
+    ],
+    [
+     406.0,
+     436.0
+    ],
+    [
+     214.0,
+     436.0
+    ]
+   ],
+   "result": {
+    "offsets_px": [
+     14.0,
+     14.0,
+     14.0,
+     14.0
+    ],
+    "quad": [
+     [
+      200.0,
+      150.0
+     ],
+     [
+      420.0,
+      150.0
+     ],
+     [
+      420.0,
+      450.0
+     ],
+     [
+      200.0,
+      450.0
+     ]
+    ]
+   }
+  },
+  {
+   "name": "pane_of_multipane",
+   "quad": [
+    [
+     612.0,
+     152.0
+    ],
+    [
+     747.0,
+     152.0
+    ],
+    [
+     747.0,
+     247.0
+    ],
+    [
+     612.0,
+     247.0
+    ]
+   ],
+   "result": {
+    "offsets_px": [
+     12.0,
+     6.0,
+     6.0,
+     12.0
+    ],
+    "quad": [
+     [
+      600.0,
+      140.0
+     ],
+     [
+      753.0,
+      140.0
+     ],
+     [
+      753.0,
+      253.0
+     ],
+     [
+      600.0,
+      253.0
+     ]
+    ]
+   }
+  },
+  {
+   "name": "pane_group_bbox",
+   "quad": [
+    [
+     612.0,
+     152.0
+    ],
+    [
+     888.0,
+     152.0
+    ],
+    [
+     888.0,
+     448.0
+    ],
+    [
+     612.0,
+     448.0
+    ]
+   ],
+   "result": {
+    "offsets_px": [
+     12.0,
+     12.0,
+     12.0,
+     12.0
+    ],
+    "quad": [
+     [
+      600.0,
+      140.0
+     ],
+     [
+      900.0,
+      140.0
+     ],
+     [
+      900.0,
+      460.0
+     ],
+     [
+      600.0,
+      460.0
+     ]
+    ]
+   }
+  },
+  {
+   "name": "on_plain_wall",
+   "quad": [
+    [
+     40.0,
+     520.0
+    ],
+    [
+     120.0,
+     520.0
+    ],
+    [
+     120.0,
+     600.0
+    ],
+    [
+     40.0,
+     600.0
+    ]
+   ],
+   "result": null
+  }
+ ],
+ "image": {
+  "height": 700,
+  "width": 1200
+ },
+ "image_checksum": 820888169,
+ "note": "SYNTHETISCH; gegenereerd door photo_walk_core.facade_parity. Niet met de hand bewerken.",
+ "organizer": [
+  {
+   "candidates": [
+    {
+     "corners": [
+      [
+       214.0,
+       164.0
+      ],
+      [
+       406.0,
+       164.0
+      ],
+      [
+       406.0,
+       436.0
+      ],
+      [
+       214.0,
+       436.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       612.0,
+       152.0
+      ],
+      [
+       747.0,
+       152.0
+      ],
+      [
+       747.0,
+       247.0
+      ],
+      [
+       612.0,
+       247.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       612.0,
+       253.0
+      ],
+      [
+       747.0,
+       253.0
+      ],
+      [
+       747.0,
+       448.0
+      ],
+      [
+       612.0,
+       448.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       753.0,
+       152.0
+      ],
+      [
+       888.0,
+       152.0
+      ],
+      [
+       888.0,
+       247.0
+      ],
+      [
+       753.0,
+       247.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       753.0,
+       253.0
+      ],
+      [
+       888.0,
+       253.0
+      ],
+      [
+       888.0,
+       448.0
+      ],
+      [
+       753.0,
+       448.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    }
+   ],
+   "groups": [
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "PANE_GROUP",
+     "glass_coverage": null,
+     "outer": [
+      [
+       612.0,
+       152.0
+      ],
+      [
+       888.0,
+       152.0
+      ],
+      [
+       888.0,
+       448.0
+      ],
+      [
+       612.0,
+       448.0
+      ]
+     ],
+     "outer_detected": false,
+     "panes": [
+      [
+       [
+        612.0,
+        152.0
+       ],
+       [
+        747.0,
+        152.0
+       ],
+       [
+        747.0,
+        247.0
+       ],
+       [
+        612.0,
+        247.0
+       ]
+      ],
+      [
+       [
+        753.0,
+        152.0
+       ],
+       [
+        888.0,
+        152.0
+       ],
+       [
+        888.0,
+        247.0
+       ],
+       [
+        753.0,
+        247.0
+       ]
+      ],
+      [
+       [
+        612.0,
+        253.0
+       ],
+       [
+        747.0,
+        253.0
+       ],
+       [
+        747.0,
+        448.0
+       ],
+       [
+        612.0,
+        448.0
+       ]
+      ],
+      [
+       [
+        753.0,
+        253.0
+       ],
+       [
+        888.0,
+        253.0
+       ],
+       [
+        888.0,
+        448.0
+       ],
+       [
+        753.0,
+        448.0
+       ]
+      ]
+     ],
+     "score": 0.9,
+     "status": "PROPOSED_EXPANSION"
+    },
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "SINGLE",
+     "glass_coverage": null,
+     "outer": [
+      [
+       214.0,
+       164.0
+      ],
+      [
+       406.0,
+       164.0
+      ],
+      [
+       406.0,
+       436.0
+      ],
+      [
+       214.0,
+       436.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [],
+     "score": 0.9,
+     "status": "UNVERIFIED"
+    }
+   ],
+   "ignored": [],
+   "name": "panes_only"
+  },
+  {
+   "candidates": [
+    {
+     "corners": [
+      [
+       214.0,
+       164.0
+      ],
+      [
+       406.0,
+       164.0
+      ],
+      [
+       406.0,
+       436.0
+      ],
+      [
+       214.0,
+       436.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       612.0,
+       152.0
+      ],
+      [
+       747.0,
+       152.0
+      ],
+      [
+       747.0,
+       247.0
+      ],
+      [
+       612.0,
+       247.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       612.0,
+       253.0
+      ],
+      [
+       747.0,
+       253.0
+      ],
+      [
+       747.0,
+       448.0
+      ],
+      [
+       612.0,
+       448.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       753.0,
+       152.0
+      ],
+      [
+       888.0,
+       152.0
+      ],
+      [
+       888.0,
+       247.0
+      ],
+      [
+       753.0,
+       247.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       753.0,
+       253.0
+      ],
+      [
+       888.0,
+       253.0
+      ],
+      [
+       888.0,
+       448.0
+      ],
+      [
+       753.0,
+       448.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       200.0,
+       150.0
+      ],
+      [
+       420.0,
+       150.0
+      ],
+      [
+       420.0,
+       450.0
+      ],
+      [
+       200.0,
+       450.0
+      ]
+     ],
+     "detector": "VN_CONTOUR_QUAD_CANDIDATE",
+     "score": 0.7
+    },
+    {
+     "corners": [
+      [
+       600.0,
+       140.0
+      ],
+      [
+       900.0,
+       140.0
+      ],
+      [
+       900.0,
+       460.0
+      ],
+      [
+       600.0,
+       460.0
+      ]
+     ],
+     "detector": "VN_CONTOUR_QUAD_CANDIDATE",
+     "score": 0.7
+    }
+   ],
+   "groups": [
+    {
+     "detector": "VN_CONTOUR_QUAD_CANDIDATE",
+     "evidence": "NESTED_PANES",
+     "glass_coverage": 0.815625,
+     "outer": [
+      [
+       600.0,
+       140.0
+      ],
+      [
+       900.0,
+       140.0
+      ],
+      [
+       900.0,
+       460.0
+      ],
+      [
+       600.0,
+       460.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [
+      [
+       [
+        612.0,
+        152.0
+       ],
+       [
+        747.0,
+        152.0
+       ],
+       [
+        747.0,
+        247.0
+       ],
+       [
+        612.0,
+        247.0
+       ]
+      ],
+      [
+       [
+        753.0,
+        152.0
+       ],
+       [
+        888.0,
+        152.0
+       ],
+       [
+        888.0,
+        247.0
+       ],
+       [
+        753.0,
+        247.0
+       ]
+      ],
+      [
+       [
+        612.0,
+        253.0
+       ],
+       [
+        747.0,
+        253.0
+       ],
+       [
+        747.0,
+        448.0
+       ],
+       [
+        612.0,
+        448.0
+       ]
+      ],
+      [
+       [
+        753.0,
+        253.0
+       ],
+       [
+        888.0,
+        253.0
+       ],
+       [
+        888.0,
+        448.0
+       ],
+       [
+        753.0,
+        448.0
+       ]
+      ]
+     ],
+     "score": 0.7,
+     "status": "DETECTED_ENCLOSING_PANES"
+    },
+    {
+     "detector": "VN_CONTOUR_QUAD_CANDIDATE",
+     "evidence": "NESTED_PANES",
+     "glass_coverage": 0.791273,
+     "outer": [
+      [
+       200.0,
+       150.0
+      ],
+      [
+       420.0,
+       150.0
+      ],
+      [
+       420.0,
+       450.0
+      ],
+      [
+       200.0,
+       450.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [
+      [
+       [
+        214.0,
+        164.0
+       ],
+       [
+        406.0,
+        164.0
+       ],
+       [
+        406.0,
+        436.0
+       ],
+       [
+        214.0,
+        436.0
+       ]
+      ]
+     ],
+     "score": 0.7,
+     "status": "DETECTED_ENCLOSING_PANES"
+    }
+   ],
+   "ignored": [],
+   "name": "panes_and_outers"
+  },
+  {
+   "candidates": [
+    {
+     "corners": [
+      [
+       214.0,
+       164.0
+      ],
+      [
+       406.0,
+       164.0
+      ],
+      [
+       406.0,
+       436.0
+      ],
+      [
+       214.0,
+       436.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       612.0,
+       152.0
+      ],
+      [
+       747.0,
+       152.0
+      ],
+      [
+       747.0,
+       247.0
+      ],
+      [
+       612.0,
+       247.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       612.0,
+       253.0
+      ],
+      [
+       747.0,
+       253.0
+      ],
+      [
+       747.0,
+       448.0
+      ],
+      [
+       612.0,
+       448.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       753.0,
+       152.0
+      ],
+      [
+       888.0,
+       152.0
+      ],
+      [
+       888.0,
+       247.0
+      ],
+      [
+       753.0,
+       247.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       753.0,
+       253.0
+      ],
+      [
+       888.0,
+       253.0
+      ],
+      [
+       888.0,
+       448.0
+      ],
+      [
+       753.0,
+       448.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       200.0,
+       150.0
+      ],
+      [
+       420.0,
+       150.0
+      ],
+      [
+       420.0,
+       450.0
+      ],
+      [
+       200.0,
+       450.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.8
+    },
+    {
+     "corners": [
+      [
+       600.0,
+       140.0
+      ],
+      [
+       900.0,
+       140.0
+      ],
+      [
+       900.0,
+       460.0
+      ],
+      [
+       600.0,
+       460.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.8
+    },
+    {
+     "corners": [
+      [
+       150.0,
+       100.0
+      ],
+      [
+       950.0,
+       100.0
+      ],
+      [
+       950.0,
+       520.0
+      ],
+      [
+       150.0,
+       520.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.5
+    }
+   ],
+   "groups": [
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "NESTED_PANES",
+     "glass_coverage": 0.815625,
+     "outer": [
+      [
+       600.0,
+       140.0
+      ],
+      [
+       900.0,
+       140.0
+      ],
+      [
+       900.0,
+       460.0
+      ],
+      [
+       600.0,
+       460.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [
+      [
+       [
+        612.0,
+        152.0
+       ],
+       [
+        747.0,
+        152.0
+       ],
+       [
+        747.0,
+        247.0
+       ],
+       [
+        612.0,
+        247.0
+       ]
+      ],
+      [
+       [
+        753.0,
+        152.0
+       ],
+       [
+        888.0,
+        152.0
+       ],
+       [
+        888.0,
+        247.0
+       ],
+       [
+        753.0,
+        247.0
+       ]
+      ],
+      [
+       [
+        612.0,
+        253.0
+       ],
+       [
+        747.0,
+        253.0
+       ],
+       [
+        747.0,
+        448.0
+       ],
+       [
+        612.0,
+        448.0
+       ]
+      ],
+      [
+       [
+        753.0,
+        253.0
+       ],
+       [
+        888.0,
+        253.0
+       ],
+       [
+        888.0,
+        448.0
+       ],
+       [
+        753.0,
+        448.0
+       ]
+      ]
+     ],
+     "score": 0.8,
+     "status": "DETECTED_ENCLOSING_PANES"
+    },
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "NESTED_PANES",
+     "glass_coverage": 0.791273,
+     "outer": [
+      [
+       200.0,
+       150.0
+      ],
+      [
+       420.0,
+       150.0
+      ],
+      [
+       420.0,
+       450.0
+      ],
+      [
+       200.0,
+       450.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [
+      [
+       [
+        214.0,
+        164.0
+       ],
+       [
+        406.0,
+        164.0
+       ],
+       [
+        406.0,
+        436.0
+       ],
+       [
+        214.0,
+        436.0
+       ]
+      ]
+     ],
+     "score": 0.8,
+     "status": "DETECTED_ENCLOSING_PANES"
+    }
+   ],
+   "ignored": [
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "reason": "CONTAINS_OPENINGS"
+    }
+   ],
+   "name": "facade_contains_frames"
+  },
+  {
+   "candidates": [
+    {
+     "corners": [
+      [
+       950.0,
+       200.0
+      ],
+      [
+       1060.0,
+       200.0
+      ],
+      [
+       1060.0,
+       600.0
+      ],
+      [
+       950.0,
+       600.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.8
+    },
+    {
+     "corners": [
+      [
+       980.0,
+       230.0
+      ],
+      [
+       1030.0,
+       230.0
+      ],
+      [
+       1030.0,
+       300.0
+      ],
+      [
+       980.0,
+       300.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    }
+   ],
+   "groups": [
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "NESTED_PANES",
+     "glass_coverage": 0.079545,
+     "outer": [
+      [
+       950.0,
+       200.0
+      ],
+      [
+       1060.0,
+       200.0
+      ],
+      [
+       1060.0,
+       600.0
+      ],
+      [
+       950.0,
+       600.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [
+      [
+       [
+        980.0,
+        230.0
+       ],
+       [
+        1030.0,
+        230.0
+       ],
+       [
+        1030.0,
+        300.0
+       ],
+       [
+        980.0,
+        300.0
+       ]
+      ]
+     ],
+     "score": 0.8,
+     "status": "UNVERIFIED"
+    }
+   ],
+   "ignored": [],
+   "name": "door_small_glass"
+  },
+  {
+   "candidates": [
+    {
+     "corners": [
+      [
+       200.0,
+       150.0
+      ],
+      [
+       420.0,
+       150.0
+      ],
+      [
+       420.0,
+       450.0
+      ],
+      [
+       200.0,
+       450.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.6
+    },
+    {
+     "corners": [
+      [
+       201.0,
+       151.0
+      ],
+      [
+       421.0,
+       151.0
+      ],
+      [
+       421.0,
+       451.0
+      ],
+      [
+       201.0,
+       451.0
+      ]
+     ],
+     "detector": "VN_CONTOUR_QUAD_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       10.0,
+       10.0
+      ],
+      [
+       14.0,
+       10.0
+      ],
+      [
+       14.0,
+       13.0
+      ],
+      [
+       10.0,
+       13.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1200.0,
+       0.0
+      ],
+      [
+       1200.0,
+       700.0
+      ],
+      [
+       0.0,
+       700.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       500.0,
+       500.0
+      ],
+      [
+       560.0,
+       500.0
+      ],
+      [
+       500.0,
+       560.0
+      ],
+      [
+       560.0,
+       560.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    },
+    {
+     "corners": [
+      [
+       300.0,
+       520.0
+      ],
+      [
+       380.0,
+       515.0
+      ],
+      [
+       384.0,
+       600.0
+      ],
+      [
+       304.0,
+       606.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.4
+    }
+   ],
+   "groups": [
+    {
+     "detector": "VN_CONTOUR_QUAD_CANDIDATE",
+     "evidence": "SINGLE",
+     "glass_coverage": null,
+     "outer": [
+      [
+       201.0,
+       151.0
+      ],
+      [
+       421.0,
+       151.0
+      ],
+      [
+       421.0,
+       451.0
+      ],
+      [
+       201.0,
+       451.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [],
+     "score": 0.9,
+     "status": "UNVERIFIED"
+    },
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "SINGLE",
+     "glass_coverage": null,
+     "outer": [
+      [
+       300.0,
+       520.0
+      ],
+      [
+       380.0,
+       515.0
+      ],
+      [
+       384.0,
+       600.0
+      ],
+      [
+       304.0,
+       606.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [],
+     "score": 0.4,
+     "status": "UNVERIFIED"
+    }
+   ],
+   "ignored": [
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "reason": "DUPLICATE"
+    },
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "reason": "INVALID_SHAPE"
+    },
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "reason": "INVALID_SHAPE"
+    },
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "reason": "TOO_LARGE"
+    }
+   ],
+   "name": "duplicates_and_noise"
+  },
+  {
+   "candidates": [
+    {
+     "corners": [
+      [
+       100.0,
+       50.0
+      ],
+      [
+       1100.0,
+       50.0
+      ],
+      [
+       1100.0,
+       650.0
+      ],
+      [
+       100.0,
+       650.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.8
+    },
+    {
+     "corners": [
+      [
+       160.0,
+       110.0
+      ],
+      [
+       1040.0,
+       110.0
+      ],
+      [
+       1040.0,
+       590.0
+      ],
+      [
+       160.0,
+       590.0
+      ]
+     ],
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "score": 0.9
+    }
+   ],
+   "groups": [
+    {
+     "detector": "VN_RECTANGLE_CANDIDATE",
+     "evidence": "NESTED_PANES",
+     "glass_coverage": 0.704,
+     "outer": [
+      [
+       100.0,
+       50.0
+      ],
+      [
+       1100.0,
+       50.0
+      ],
+      [
+       1100.0,
+       650.0
+      ],
+      [
+       100.0,
+       650.0
+      ]
+     ],
+     "outer_detected": true,
+     "panes": [
+      [
+       [
+        160.0,
+        110.0
+       ],
+       [
+        1040.0,
+        110.0
+       ],
+       [
+        1040.0,
+        590.0
+       ],
+       [
+        160.0,
+        590.0
+       ]
+      ]
+     ],
+     "score": 0.8,
+     "status": "DETECTED_ENCLOSING_PANES"
+    }
+   ],
+   "ignored": [],
+   "name": "closeup_single_window"
+  }
+ ],
+ "windows": [
+  {
+   "mullions": 0,
+   "outer": [
+    200,
+    150,
+    420,
+    450
+   ],
+   "profile": 14,
+   "transom": false
+  },
+  {
+   "mullions": 1,
+   "outer": [
+    600,
+    140,
+    900,
+    460
+   ],
+   "profile": 12,
+   "transom": true
+  }
+ ]
+}

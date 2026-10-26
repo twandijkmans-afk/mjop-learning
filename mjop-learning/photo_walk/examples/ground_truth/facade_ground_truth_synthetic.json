@@ -1,0 +1,244 @@
+{
+ "schema": "facade_ground_truth_v1",
+ "schema_version": "1.0.0",
+ "dataset_id": "SYNTHETIC-FACADE-001",
+ "purpose": "SYNTHETIC_REGRESSION",
+ "data_origin": "SYNTHETIC",
+ "note": "Getekend testbeeld (photo_walk_core.facade.synthetic_facade_gray met facade_parity.WINDOWS); camera op 5 m, f = 1000 px. Zegt niets over echte gevels.",
+ "photos": [
+  {
+   "photo_id": "F000",
+   "capture_session_id": null,
+   "image_file": null,
+   "image_sha256": null,
+   "image_width": 1200,
+   "image_height": 700,
+   "lidar_available": null,
+   "label_method": "SYNTHETIC_EXACT",
+   "labeled_by": "generator",
+   "labeled_at": null,
+   "elements": [
+    {
+     "id": "GT-F1",
+     "role": "FACADE_GROSS",
+     "polygon_px": [
+      [
+       100,
+       80
+      ],
+      [
+       1100,
+       80
+      ],
+      [
+       1100,
+       620
+      ],
+      [
+       100,
+       620
+      ]
+     ],
+     "parent": null,
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K1",
+     "role": "FRAME_OUTER",
+     "polygon_px": [
+      [
+       200,
+       150
+      ],
+      [
+       420,
+       150
+      ],
+      [
+       420,
+       450
+      ],
+      [
+       200,
+       450
+      ]
+     ],
+     "parent": "GT-F1",
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K1-G1",
+     "role": "GLASS_PANE",
+     "polygon_px": [
+      [
+       214,
+       164
+      ],
+      [
+       406,
+       164
+      ],
+      [
+       406,
+       436
+      ],
+      [
+       214,
+       436
+      ]
+     ],
+     "parent": "GT-K1",
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K2",
+     "role": "FRAME_OUTER",
+     "polygon_px": [
+      [
+       600,
+       140
+      ],
+      [
+       900,
+       140
+      ],
+      [
+       900,
+       460
+      ],
+      [
+       600,
+       460
+      ]
+     ],
+     "parent": "GT-F1",
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K2-G1",
+     "role": "GLASS_PANE",
+     "polygon_px": [
+      [
+       612,
+       152
+      ],
+      [
+       747,
+       152
+      ],
+      [
+       747,
+       247
+      ],
+      [
+       612,
+       247
+      ]
+     ],
+     "parent": "GT-K2",
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K2-G2",
+     "role": "GLASS_PANE",
+     "polygon_px": [
+      [
+       612,
+       253
+      ],
+      [
+       747,
+       253
+      ],
+      [
+       747,
+       448
+      ],
+      [
+       612,
+       448
+      ]
+     ],
+     "parent": "GT-K2",
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K2-G3",
+     "role": "GLASS_PANE",
+     "polygon_px": [
+      [
+       753,
+       152
+      ],
+      [
+       888,
+       152
+      ],
+      [
+       888,
+       247
+      ],
+      [
+       753,
+       247
+      ]
+     ],
+     "parent": "GT-K2",
+     "visibility": "FULL",
+     "note": null
+    },
+    {
+     "id": "GT-K2-G4",
+     "role": "GLASS_PANE",
+     "polygon_px": [
+      [
+       753,
+       253
+      ],
+      [
+       888,
+       253
+      ],
+      [
+       888,
+       448
+      ],
+      [
+       753,
+       448
+      ]
+     ],
+     "parent": "GT-K2",
+     "visibility": "FULL",
+     "note": null
+    }
+   ],
+   "tape_measurements": [
+    {
+     "element_id": "GT-K1",
+     "outer_width_m": "1.100",
+     "outer_height_m": "1.500",
+     "tool": "SYNTHETIC",
+     "measured_by": null,
+     "measured_at": null,
+     "note": "exact uit de synthetische opzet"
+    },
+    {
+     "element_id": "GT-K2",
+     "outer_width_m": "1.500",
+     "outer_height_m": "1.600",
+     "tool": "SYNTHETIC",
+     "measured_by": null,
+     "measured_at": null,
+     "note": "exact uit de synthetische opzet"
+    }
+   ]
+  }
+ ]
+}
