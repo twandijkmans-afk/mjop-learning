@@ -11,10 +11,11 @@
 ## Welke herkenning is daadwerkelijk geïmplementeerd?
 | Onderdeel | Status |
 |---|---|
-| **Apple Vision `VNDetectRectanglesRequest`** (on-device) als kandidaat-generator | **Geïmplementeerd.** Een algemene rechthoekdetector: vindt ook deuren, borden, steenpatronen, schaduwen en mogelijk de glasruit i.p.v. het kozijn. Daarom alleen *kandidaten*; elke kandidaat heeft `AUTO_DETECTED_UNCONFIRMED` en `CANDIDATE_UNVERIFIED`. Filtering: te klein/te groot/niet-convex weg, overlap (IoU > 0,55) en binnenvakken (> 85 % binnen een grotere, niet-gevelgrote kandidaat) worden ontdubbeld waarbij de grotere (buitenmaat) blijft. |
+| **Apple Vision `VNDetectRectanglesRequest`** (on-device) als kandidaat-generator | **Geïmplementeerd.** Een algemene rechthoekdetector: vindt ook deuren, borden, steenpatronen, schaduwen en mogelijk de glasruit i.p.v. het kozijn. Daarom alleen *kandidaten*; elke kandidaat heeft `AUTO_DETECTED_UNCONFIRMED` en `CANDIDATE_UNVERIFIED`. **Sinds de gevelopbouw v1** worden binnenvakken niet meer weggegooid maar als glasvlakken van het omsluitende kozijn gebruikt, en krijgt een losse rechthoek (glas of kozijn?) geen maat tot de gebruiker de buitencontour bevestigt; zie `facade_composition_v1.md`. |
 | **Core ML-kozijnmodel** | **Haak aanwezig, geen model.** Staat er een `WindowDetector.mlmodelc` (objectdetectie, klasse window/kozijn/raam) in de app-bundle, dan wordt het gebruikt en wordt de uitvoer samengevoegd met de rechthoekdetector. Er is **geen model meegeleverd**: er zijn geen gelabelde kozijnbeelden van Nederlandse gevels in deze repository, en een extern model downloaden of beelden uploaden is niet toegestaan zonder jouw toestemming. |
 | Handmatige selectie | Fallback blijft: "Kozijn handmatig toevoegen" (vier hoeken tikken op de ingezoomde foto) en hoeken slepen in het detail. |
-| Andere iOS-opties onderzocht | `VNDetectContoursRequest` (contouren; zou meer ruis geven), `VNClassifyImageRequest` (scène-labels, geen locaties), RoomPlan (ontworpen voor binnenruimtes; niet voor gevels geverifieerd) — niet gebruikt. |
+| **Apple Vision `VNDetectContoursRequest`** | **Geïmplementeerd (gevelopbouw v1)** als tweede kandidaat-generator: alleen contouren die als convexe vierhoek te benaderen zijn. Niet gevalideerd op echte gevels. |
+| Andere iOS-opties onderzocht | `VNClassifyImageRequest` (scène-labels, geen locaties), RoomPlan (ontworpen voor binnenruimtes; niet voor gevels geverifieerd) — niet gebruikt. |
 
 Verbeterpad voor kwaliteit: met toestemming de door de inspecteur bevestigde/gecorrigeerde hoeken en afgewezen kandidaten (de app bewaart die lokaal) verzamelen als trainingsdata, een objectdetectiemodel trainen (Create ML) en als `WindowDetector.mlmodelc` toevoegen.
 

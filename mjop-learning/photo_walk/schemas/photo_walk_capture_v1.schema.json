@@ -960,6 +960,66 @@
         "const": "CANDIDATE_UNVERIFIED"
        }
       }
+     },
+     "facade_role": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "role",
+       "outer_contour_status"
+      ],
+      "description": "Rol van de contour en zekerheid van de buitencontour. Optioneel, 1.2.0. Ontbreekt bij oudere records: dan geldt FRAME_OUTER/LEGACY.",
+      "properties": {
+       "role": {
+        "const": "FRAME_OUTER"
+       },
+       "outer_contour_status": {
+        "enum": [
+         "LEGACY",
+         "MANUAL",
+         "USER_CONFIRMED",
+         "DETECTED_ENCLOSING_PANES",
+         "UNVERIFIED",
+         "PROPOSED_EXPANSION"
+        ]
+       },
+       "evidence": {
+        "enum": [
+         "NESTED_PANES",
+         "PANE_GROUP",
+         "SINGLE",
+         "MANUAL",
+         "LEGACY",
+         null
+        ]
+       },
+       "proposed_outer_px": {
+        "oneOf": [
+         {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+           "type": "array",
+           "minItems": 2,
+           "maxItems": 2,
+           "items": {
+            "type": "number"
+           }
+          }
+         },
+         {
+          "type": "null"
+         }
+        ]
+       },
+       "glass_pane_refs": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       }
+      }
      }
     }
    }
@@ -1129,6 +1189,405 @@
     },
     "note": {
      "type": "string"
+    }
+   }
+  },
+  "facade_composition": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "version",
+    "note",
+    "frames"
+   ],
+   "description": "Gevelopbouw per foto: bruto gevel, openingen, buitenkozijn, glas en netto gesloten gevel. Optioneel, 1.2.0. Voorlopig en niet gevalideerd; geen boeking.",
+   "properties": {
+    "version": {
+     "const": "1.0.0"
+    },
+    "note": {
+     "type": "string"
+    },
+    "frames": {
+     "type": "array",
+     "items": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "frame_id",
+       "facade_polygon_px",
+       "facade_plane_source",
+       "elements",
+       "quantities",
+       "flags",
+       "plausibility"
+      ],
+      "properties": {
+       "frame_id": {
+        "type": "string"
+       },
+       "facade_polygon_px": {
+        "oneOf": [
+         {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+           "type": "array",
+           "minItems": 2,
+           "maxItems": 2,
+           "items": {
+            "type": "number"
+           }
+          }
+         },
+         {
+          "type": "null"
+         }
+        ]
+       },
+       "facade_plane_source": {
+        "enum": [
+         "LIDAR_FIT",
+         "REFERENCE_COPLANAR",
+         "NONE"
+        ]
+       },
+       "elements": {
+        "type": "array",
+        "items": {
+         "type": "object",
+         "additionalProperties": false,
+         "required": [
+          "element_id",
+          "role",
+          "parent_observation_ref",
+          "polygon_px",
+          "original_polygon_px",
+          "source",
+          "rejected"
+         ],
+         "properties": {
+          "element_id": {
+           "type": "string"
+          },
+          "role": {
+           "enum": [
+            "GLASS_PANE",
+            "FACADE_GROSS"
+           ]
+          },
+          "parent_observation_ref": {
+           "type": [
+            "string",
+            "null"
+           ]
+          },
+          "polygon_px": {
+           "type": "array",
+           "minItems": 3,
+           "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+             "type": "number"
+            }
+           }
+          },
+          "original_polygon_px": {
+           "type": "array",
+           "minItems": 3,
+           "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+             "type": "number"
+            }
+           }
+          },
+          "source": {
+           "enum": [
+            "AUTO_DETECTED_UNCONFIRMED",
+            "AUTO_DETECTED_CONFIRMED",
+            "MANUAL",
+            "MANUAL_CORRECTED"
+           ]
+          },
+          "rejected": {
+           "type": "boolean"
+          },
+          "area_m2": {
+           "$ref": "#/definitions/decimal_or_null"
+          }
+         }
+        }
+       },
+       "quantities": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "facade_gross",
+         "openings",
+         "frame_outer",
+         "glass",
+         "closed_facade_net",
+         "maintainable_frame_surface"
+        ],
+        "properties": {
+         "facade_gross": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+           "value_m2",
+           "status",
+           "basis",
+           "missing",
+           "partial_value_m2"
+          ],
+          "properties": {
+           "value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           },
+           "status": {
+            "enum": [
+             "MEASURED",
+             "DERIVED",
+             "ESTIMATED",
+             "UNKNOWN"
+            ]
+           },
+           "basis": {
+            "type": "string"
+           },
+           "missing": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "partial_value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           }
+          }
+         },
+         "openings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+           "value_m2",
+           "status",
+           "basis",
+           "missing",
+           "partial_value_m2"
+          ],
+          "properties": {
+           "value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           },
+           "status": {
+            "enum": [
+             "MEASURED",
+             "DERIVED",
+             "ESTIMATED",
+             "UNKNOWN"
+            ]
+           },
+           "basis": {
+            "type": "string"
+           },
+           "missing": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "partial_value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           }
+          }
+         },
+         "frame_outer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+           "value_m2",
+           "status",
+           "basis",
+           "missing",
+           "partial_value_m2"
+          ],
+          "properties": {
+           "value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           },
+           "status": {
+            "enum": [
+             "MEASURED",
+             "DERIVED",
+             "ESTIMATED",
+             "UNKNOWN"
+            ]
+           },
+           "basis": {
+            "type": "string"
+           },
+           "missing": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "partial_value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           }
+          }
+         },
+         "glass": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+           "value_m2",
+           "status",
+           "basis",
+           "missing",
+           "partial_value_m2"
+          ],
+          "properties": {
+           "value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           },
+           "status": {
+            "enum": [
+             "MEASURED",
+             "DERIVED",
+             "ESTIMATED",
+             "UNKNOWN"
+            ]
+           },
+           "basis": {
+            "type": "string"
+           },
+           "missing": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "partial_value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           }
+          }
+         },
+         "closed_facade_net": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+           "value_m2",
+           "status",
+           "basis",
+           "missing",
+           "partial_value_m2"
+          ],
+          "properties": {
+           "value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           },
+           "status": {
+            "enum": [
+             "MEASURED",
+             "DERIVED",
+             "ESTIMATED",
+             "UNKNOWN"
+            ]
+           },
+           "basis": {
+            "type": "string"
+           },
+           "missing": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "partial_value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           }
+          }
+         },
+         "maintainable_frame_surface": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+           "value_m2",
+           "status",
+           "basis",
+           "missing",
+           "partial_value_m2"
+          ],
+          "properties": {
+           "value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           },
+           "status": {
+            "enum": [
+             "MEASURED",
+             "DERIVED",
+             "ESTIMATED",
+             "UNKNOWN"
+            ]
+           },
+           "basis": {
+            "type": "string"
+           },
+           "missing": {
+            "type": "array",
+            "items": {
+             "type": "string"
+            }
+           },
+           "partial_value_m2": {
+            "$ref": "#/definitions/decimal_or_null"
+           }
+          }
+         }
+        }
+       },
+       "flags": {
+        "type": "array",
+        "items": {
+         "type": "string"
+        }
+       },
+       "plausibility": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+         "source",
+         "b3_opp_buitenmuur_m2",
+         "flags",
+         "note"
+        ],
+        "properties": {
+         "source": {
+          "const": "3DBAG"
+         },
+         "b3_opp_buitenmuur_m2": {
+          "$ref": "#/definitions/decimal_or_null"
+         },
+         "flags": {
+          "type": "array",
+          "items": {
+           "type": "string"
+          }
+         },
+         "note": {
+          "type": "string"
+         }
+        }
+       }
+      }
+     }
     }
    }
   }

@@ -37,6 +37,26 @@ final class RoundProposalBuilderTests: XCTestCase {
         for p in ps { XCTAssertEqual(p.validate(), []) }
     }
 
+    /// Audit gevelopbouw: een automatisch herkende, onbevestigde buitencontour mag geen aantal of oppervlak in een voorstel opleveren.
+    func testUnconfirmedContoursBlockCountAndArea() throws {
+        let unconfirmed = RoundObject(id: "U", facadeId: "Voor", frameIds: ["F000"], areaM2: nil, areaSigmaM2: nil, status: .unknown, method: "NONE",
+                                      autoDetected: true, userConfirmed: false, manual: false, flags: ["OUTER_CONTOUR_UNVERIFIED"], contourUnconfirmed: true)
+        let ps = RoundProposalBuilder.build(input([obj("A", confirmed: true), unconfirmed]))
+        let c = try XCTUnwrap(find(ps, .FRAME_COUNT)); let a = try XCTUnwrap(find(ps, .FRAME_AREA_GROSS))
+        XCTAssertNil(c.value, "aantal met een onbevestigde contour is onvolledig")
+        XCTAssertNil(c.partialValue, "geen deelaantal dat als hoeveelheid gebruikt kan worden")
+        XCTAssertEqual(c.reliability.level, "INCOMPLETE")
+        XCTAssertNil(a.value); XCTAssertEqual(a.partialValue, 1.8, "deelsom alleen informatief, uit het bevestigde kozijn")
+        XCTAssertTrue(a.reliability.reasons.contains("UNMEASURED_OBJECTS")); XCTAssertTrue(c.reliability.reasons.contains("AUTO_DETECTED"))
+        for p in ps { XCTAssertEqual(p.validate(), [], p.proposalId); XCTAssertFalse(p.bookingAllowed) }
+        // alleen onbevestigde contouren: geen aantal, geen oppervlak, geen deelwaarden
+        let only = RoundProposalBuilder.build(input([unconfirmed]))
+        XCTAssertNil(find(only, .FRAME_COUNT)?.value); XCTAssertNil(find(only, .FRAME_AREA_GROSS)?.value); XCTAssertNil(find(only, .FRAME_AREA_GROSS)?.partialValue)
+        // oude (LEGACY) objecten: contourUnconfirmed = false (standaard) -> gedrag ongewijzigd
+        let legacy = RoundProposalBuilder.build(input([obj("A"), obj("B", area: 2.2)]))
+        XCTAssertEqual(find(legacy, .FRAME_COUNT)?.value, 2); XCTAssertEqual(find(legacy, .FRAME_AREA_GROSS)?.value, 4.0)
+    }
+
     func testNoObjectsGivesNilNotZero() throws {
         let ps = RoundProposalBuilder.build(input([]))
         let c = try XCTUnwrap(find(ps, .FRAME_COUNT))

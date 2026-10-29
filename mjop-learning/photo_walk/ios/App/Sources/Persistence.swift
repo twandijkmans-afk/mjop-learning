@@ -13,7 +13,12 @@ struct SessionSnapshot: Codable {
     struct Sup: Codable { var id: String; var timestamp: Date; var intrinsics: Intrinsics; var pose: Pose; var trackingState: String; var depthFile: String; var depthWidth: Int; var depthHeight: Int }
     struct Rev: Codable { var index: Int; var before: Pixel; var after: Pixel; var editedBy: String; var editedAt: Date; var reason: String? }
     struct Obs: Codable { var id: String; var frameId: String; var corners: [Pixel]; var originalCorners: [Pixel]; var source: String; var revisions: [Rev]
-        var obstruction: Bool; var detector: String?; var score: Double?; var rejected: Bool }
+        var obstruction: Bool; var detector: String?; var score: Double?; var rejected: Bool
+        // gevelopbouw (optioneel: oudere sessies zonder deze velden blijven leesbaar en worden LEGACY)
+        var outerContour: String? = nil; var evidence: String? = nil; var proposedOuter: [Pixel]? = nil }
+    /// Glasvlak of getekend gevelvlak (optioneel; oudere sessies hebben dit niet).
+    struct Elem: Codable { var id: String; var frameId: String; var role: String; var corners: [Pixel]; var originalCorners: [Pixel]; var source: String
+        var parentObservationId: String?; var rejected: Bool }
     struct Ref: Codable { var referenceId: String; var frameId: String; var p1: Pixel; var p2: Pixel; var distanceM: Double; var distanceSigmaM: Double?
         var planeId: String?; var anchorObservationId: String?; var kind: String? = nil }
     struct Draft: Codable { var id: String; var observationIds: [String] }
@@ -30,6 +35,7 @@ struct SessionSnapshot: Codable {
     var dismissedLinks: [String]
     /// Alleen bij een fotoronde (optioneel: oudere sessies zonder dit veld blijven leesbaar).
     var round: RoundSnapshot? = nil
+    var facadeElements: [Elem]? = nil
 }
 
 struct RoundSnapshot: Codable {
@@ -84,14 +90,17 @@ enum Persistence {
             observations: s.observations.map { o in
                 SessionSnapshot.Obs(id: o.id, frameId: o.frameId, corners: o.corners, originalCorners: o.originalCorners, source: o.source.rawValue,
                                     revisions: o.revisions.map { SessionSnapshot.Rev(index: $0.index, before: $0.before, after: $0.after, editedBy: $0.editedBy, editedAt: $0.editedAt, reason: $0.reason) },
-                                    obstruction: o.obstruction, detector: o.detection?.detector, score: o.detection?.score, rejected: o.rejected) },
+                                    obstruction: o.obstruction, detector: o.detection?.detector, score: o.detection?.score, rejected: o.rejected,
+                                    outerContour: o.outerContour.rawValue, evidence: o.evidence.rawValue, proposedOuter: o.proposedOuter) },
             drafts: s.drafts.map { SessionSnapshot.Draft(id: $0.id, observationIds: $0.observationIds) },
             references: s.references.values.sorted { $0.referenceId < $1.referenceId }.map {
                 SessionSnapshot.Ref(referenceId: $0.referenceId, frameId: $0.frameId, p1: $0.p1, p2: $0.p2, distanceM: $0.distanceM, distanceSigmaM: $0.distanceSigmaM,
                                     planeId: $0.planeId, anchorObservationId: $0.anchorObservationId, kind: $0.kind.rawValue) },
             dismissedLinks: s.dismissedLinks.sorted(),
             round: s.round.map { RoundSnapshot(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
-                                               frameWorld: $0.frameWorld, excludedFrames: $0.excludedFrames.sorted()) })
+                                               frameWorld: $0.frameWorld, excludedFrames: $0.excludedFrames.sorted()) },
+            facadeElements: s.facadeElements.map { SessionSnapshot.Elem(id: $0.id, frameId: $0.frameId, role: $0.role.rawValue, corners: $0.corners, originalCorners: $0.originalCorners,
+                                                                        source: $0.source.rawValue, parentObservationId: $0.parentObservationId, rejected: $0.rejected) })
     }
 
     /// Schrijft de sessie (best effort; fouten worden niet gemeld aan de gebruiker maar breken niets). Asynchroon, zodat de UI niet wacht.
@@ -172,7 +181,14 @@ enum Persistence {
         s.observations = snap.observations.map { o in
             Observation(id: o.id, frameId: o.frameId, corners: o.corners, originalCorners: o.originalCorners, source: CornerSource(rawValue: o.source) ?? .MANUAL,
                         revisions: o.revisions.map { CornerRevision(index: $0.index, before: $0.before, after: $0.after, editedBy: $0.editedBy, editedAt: $0.editedAt, reason: $0.reason) },
-                        obstruction: o.obstruction, detection: o.detector.map { DetectionInfo(detector: $0, score: o.score ?? 0) }, rejected: o.rejected)
+                        obstruction: o.obstruction, detection: o.detector.map { DetectionInfo(detector: $0, score: o.score ?? 0) }, rejected: o.rejected,
+                        outerContour: o.outerContour.flatMap { OuterContourStatus(rawValue: $0) } ?? .LEGACY,      // oude sessie: gedrag ongewijzigd
+                        evidence: o.evidence.flatMap { OpeningEvidence(rawValue: $0) } ?? .LEGACY, proposedOuter: o.proposedOuter)
+        }
+        s.facadeElements = (snap.facadeElements ?? []).compactMap { e in
+            guard let role = FacadeRole(rawValue: e.role) else { return nil }
+            return FacadeElement(id: e.id, frameId: e.frameId, role: role, corners: e.corners, originalCorners: e.originalCorners,
+                                 source: CornerSource(rawValue: e.source) ?? .MANUAL, parentObservationId: e.parentObservationId, rejected: e.rejected)
         }
         s.drafts = snap.drafts.map { ObjectDraft(id: $0.id, observationIds: $0.observationIds) }
         for r in snap.references {

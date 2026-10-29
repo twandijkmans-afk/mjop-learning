@@ -25,12 +25,13 @@ enum DetectorCatalog {
         var list: [WindowDetecting] = []
         if let m = CoreMLWindowDetector() { list.append(m) }
         list.append(VisionRectangleDetector())
+        list.append(VisionContourDetector())
         return list
     }
 
     static var statusText: String {
         let ml = coreMLModelURL != nil ? "Core ML-kozijnmodel: geladen (niet gevalideerd)" : "Core ML-kozijnmodel: niet geïnstalleerd"
-        return "Herkenning: Apple Vision-rechthoekdetector als KANDIDAAT-generator (geen kozijndetector, niet gevalideerd). \(ml). Alles lokaal op het toestel."
+        return "Herkenning: Apple Vision-rechthoeken en -contouren als KANDIDAAT-generator, geordend tot buitenkozijn en glasvlakken (geen kozijndetector, niet gevalideerd). \(ml). Alles lokaal op het toestel."
     }
 }
 
@@ -60,7 +61,60 @@ struct VisionRectangleDetector: WindowDetecting {
         let cands: [WindowCandidate] = (req.results ?? []).map {
             WindowCandidate(corners: [native($0.topLeft), native($0.topRight), native($0.bottomRight), native($0.bottomLeft)], detector: name, score: Double($0.confidence))
         }
-        return CandidateFilter.clean(cands, imageWidth: W, imageHeight: H)
+        // GEEN ontdubbeling van binnenvakken meer: geneste vierhoeken zijn juist het bewijs voor buitenkozijn + glas (zie ContourOrganizer).
+        return CandidateFilter.basic(cands, imageWidth: W, imageHeight: H)
+    }
+}
+
+/// Contourherkenning van Apple Vision (VNDetectContoursRequest, on-device). Vindt gesloten contouren met hun hiërarchie (buitenrand met
+/// binnenranden); hier worden alleen contouren gebruikt die als convexe vierhoek te benaderen zijn. Vult de rechthoekdetector aan, vooral voor
+/// de buitenrand van het kozijn tegen metselwerk. Alleen KANDIDATEN; niet gevalideerd op echte gevels.
+struct VisionContourDetector: WindowDetecting {
+    let name = "VN_CONTOUR_QUAD_CANDIDATE"
+    var maxContours = 2000
+
+    func detect(_ image: CGImage) -> [WindowCandidate] {
+        let W = Double(image.width), H = Double(image.height)
+        let req = VNDetectContoursRequest()
+        req.contrastAdjustment = 1.5
+        req.detectsDarkOnLight = true
+        req.maximumImageDimension = 1024
+        #if targetEnvironment(simulator)
+        req.usesCPUOnly = true
+        #endif
+        let handler = VNImageRequestHandler(cgImage: image, orientation: .right, options: [:])
+        do { try handler.perform([req]) } catch { return [] }
+        guard let obs = req.results?.first else { return [] }
+        let vt = ViewportTransform(nativeWidth: W, nativeHeight: H, orientation: .right, viewportWidth: 1, viewportHeight: 1)
+        let dispW = H, dispH = W
+        func native(_ x: Float, _ y: Float) -> Pixel { vt.nativePoint(fromDisplay: Pixel(Double(x) * dispW, (1 - Double(y)) * dispH)) }
+        var out: [WindowCandidate] = []
+        let n = min(obs.contourCount, maxContours)
+        for i in 0..<n {
+            guard let c = try? obs.contour(at: i), c.pointCount >= 4 else { continue }
+            guard let approx = try? c.polygonApproximation(epsilon: 0.01), approx.pointCount == 4 else { continue }
+            let p = approx.normalizedPoints
+            var q = [native(p[0].x, p[0].y), native(p[1].x, p[1].y), native(p[2].x, p[2].y), native(p[3].x, p[3].y)]
+            q = CandidateFilter.orderTLTRBRBL(q, imageWidth: W, imageHeight: H)
+            out.append(WindowCandidate(corners: q, detector: name, score: 0.5))
+        }
+        return CandidateFilter.basic(out, imageWidth: W, imageHeight: H)
+    }
+}
+
+/// CGImage -> grijswaardenbeeld in NATIVE pixels (voor de randzoeker "vergroot naar buitenkozijn"). Alleen lokaal in het geheugen.
+enum GrayImageLoader {
+    static func gray(_ image: CGImage) -> GrayImage? {
+        let w = image.width, h = image.height
+        guard w > 0, h > 0 else { return nil }
+        var px = [UInt8](repeating: 0, count: w * h)
+        let ok: Bool = px.withUnsafeMutableBytes { (buf: UnsafeMutableRawBufferPointer) -> Bool in
+            guard let ctx = CGContext(data: buf.baseAddress, width: w, height: h, bitsPerComponent: 8, bytesPerRow: w, space: CGColorSpaceCreateDeviceGray(),
+                                      bitmapInfo: CGImageAlphaInfo.none.rawValue) else { return false }
+            ctx.draw(image, in: CGRect(x: 0, y: 0, width: w, height: h))
+            return true
+        }
+        return ok ? GrayImage(width: w, height: h, pixels: px) : nil
     }
 }
 
@@ -89,7 +143,7 @@ struct CoreMLWindowDetector: WindowDetecting {
             let corners = [native(b.minX, b.maxY), native(b.maxX, b.maxY), native(b.maxX, b.minY), native(b.minX, b.minY)]
             return WindowCandidate(corners: corners, detector: name, score: Double(top.confidence))
         }
-        return CandidateFilter.clean(cands, imageWidth: W, imageHeight: H)
+        return CandidateFilter.basic(cands, imageWidth: W, imageHeight: H)
     }
 }
 
@@ -114,6 +168,24 @@ enum CandidateFilter {
         return smallBox > 0 && (iw * ih) / smallBox > 0.85 && area(big) < 0.3 * totalArea
     }
 
+    /// Alleen geldige vormen (convexe vierhoek, niet te klein, niet het hele beeld). Ontdubbelen en ordenen gebeurt in ContourOrganizer (PhotoWalkCore, getest).
+    static func basic(_ cands: [WindowCandidate], imageWidth W: Double, imageHeight H: Double) -> [WindowCandidate] {
+        let total = W * H
+        return cands.filter { c in let a = area(c.corners); return a > 0.0015 * total && a < 0.9 * total && isSimpleConvexQuad(c.corners, imageArea: total) }
+    }
+
+    /// Zet vier punten in de volgorde linksboven, rechtsboven, rechtsonder, linksonder zoals het beeld RECHTOP getoond wordt (portret, .right).
+    static func orderTLTRBRBL(_ q: [Pixel], imageWidth W: Double, imageHeight H: Double) -> [Pixel] {
+        let vt = ViewportTransform(nativeWidth: W, nativeHeight: H, orientation: .right, viewportWidth: 1, viewportHeight: 1)
+        let d = q.map { vt.displayPoint(fromNative: $0) }
+        let cu = d.map { $0.u }.reduce(0, +) / 4, cv = d.map { $0.v }.reduce(0, +) / 4
+        // hoek t.o.v. het midden, beginnend linksboven, met de klok mee (v omlaag)
+        let idx = (0..<4).sorted { atan2(d[$0].v - cv, d[$0].u - cu) < atan2(d[$1].v - cv, d[$1].u - cu) }
+        let ordered = idx.map { q[$0] }          // volgorde: linksboven (hoek ~ -135°), rechtsboven, rechtsonder, linksonder
+        return ordered
+    }
+
+    /// Oude filter (v1): hield bij overlap de grotere en verwijderde binnenvakken. Niet meer gebruikt voor de detectie; blijft voor vergelijking.
     static func clean(_ cands: [WindowCandidate], imageWidth W: Double, imageHeight H: Double, maxCount: Int = 25) -> [WindowCandidate] {
         let total = W * H
         let valid = cands.filter { c in

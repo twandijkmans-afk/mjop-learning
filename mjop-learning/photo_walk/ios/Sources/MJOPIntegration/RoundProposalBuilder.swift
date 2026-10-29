@@ -15,10 +15,14 @@ public struct RoundObject: Equatable {
     public var userConfirmed: Bool              // hoeken bevestigd of gecorrigeerd door een persoon
     public var manual: Bool
     public var flags: [String]
+    /// Automatisch herkende buitencontour die de gebruiker nog niet heeft bevestigd (gevelopbouw): het is nog niet zeker dat dit een kozijn is
+    /// (kan glas of een valse kandidaat zijn). Zo'n object telt niet mee in een aantal en heeft geen oppervlak. Standaard false (oude scans: LEGACY).
+    public var contourUnconfirmed: Bool
     public init(id: String, facadeId: String, frameIds: [String], areaM2: Decimal?, areaSigmaM2: Double?, status: Status, method: String,
-                autoDetected: Bool, userConfirmed: Bool, manual: Bool, flags: [String]) {
+                autoDetected: Bool, userConfirmed: Bool, manual: Bool, flags: [String], contourUnconfirmed: Bool = false) {
         self.id = id; self.facadeId = facadeId; self.frameIds = frameIds; self.areaM2 = areaM2; self.areaSigmaM2 = areaSigmaM2; self.status = status
-        self.method = method; self.autoDetected = autoDetected; self.userConfirmed = userConfirmed; self.manual = manual; self.flags = flags }
+        self.method = method; self.autoDetected = autoDetected; self.userConfirmed = userConfirmed; self.manual = manual; self.flags = flags
+        self.contourUnconfirmed = contourUnconfirmed }
 
     /// Een maat telt alleen als er een oppervlak is én de status niet UNKNOWN is.
     public var isMeasured: Bool { areaM2 != nil && status != .unknown }
@@ -110,8 +114,11 @@ public enum RoundProposalBuilder {
                 project: input.project, target: .init(elementKey: input.elementKey, quantityKind: kind, unit: unit, scope: scope), value: value, partialValue: partial,
                 basis: basis, measurement: measurement, evidence: evidence, reliability: .init(level: level, reasons: reasons))
         }
-        // aantal: zonder kozijnen is er geen aantal (nil), niet 0
-        let count = make(.FRAME_COUNT, "st", value: total > 0 ? Double(total) : nil, partial: nil, level: total > 0 ? "CHECK_REQUIRED" : "INCOMPLETE")
+        // aantal: zonder kozijnen is er geen aantal (nil), niet 0. Zolang er een automatisch herkende, onbevestigde buitencontour bij zit, is het
+        // aantal onvolledig (nil): zo'n object kan glas of een valse kandidaat zijn. Geen deelaantal (partial) om misbruik als hoeveelheid te voorkomen.
+        let unconfirmedContours = objects.contains { $0.contourUnconfirmed }
+        let countComplete = total > 0 && !unconfirmedContours
+        let count = make(.FRAME_COUNT, "st", value: countComplete ? Double(total) : nil, partial: nil, level: countComplete ? "CHECK_REQUIRED" : "INCOMPLETE")
         // oppervlak: alleen als ALLE meetellende kozijnen een maat hebben; anders nil + deelsom ter informatie
         let complete = total > 0 && unmeasured == 0
         let area = make(.FRAME_AREA_GROSS, "m2", value: complete ? rounded : nil, partial: (!complete && !measured.isEmpty) ? rounded : nil, level: complete ? "CHECK_REQUIRED" : "INCOMPLETE")
