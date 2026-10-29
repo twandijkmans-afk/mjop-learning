@@ -478,10 +478,9 @@ def compose(openings, pose=None, intr=None, facade_px=None, facade_plane=None, f
     missing_frames = [o.id for o in inside if o not in known]
     part = sum((Decimal(str(o.area_m2)) for o in known), Decimal("0"))
     if not inside:
-        if gross["value_m2"] is not None:
-            frame_outer = _q(Decimal("0.000"), gross["status"], "Geen kozijnen in dit gevelvlak.")
-        else:
-            frame_outer = _q(None, "UNKNOWN", "Geen kozijnen op deze foto.", [])
+        # geen herkende kozijnen is GEEN bewijs dat er geen openingen zijn (herkenning kan ze missen): onbekend, nooit 0
+        frame_outer = _q(None, "UNKNOWN", "Geen kozijnen herkend of aangegeven in dit gevelvlak; dat betekent niet dat er geen openingen zijn.",
+                         ["NO_FRAMES_IN_FACADE"])
     elif missing_frames:
         frame_outer = _q(None, "UNKNOWN", "Niet alle kozijnen hebben een betrouwbare buitenmaat.", missing_frames, part if known else None)
     else:

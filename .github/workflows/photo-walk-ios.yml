@@ -171,6 +171,8 @@ jobs:
           cp "$DATA"/Documents/mjop_scan_proposal_selftest.json "$LOGS/selftest-proposal.json"
           cp "$DATA"/Documents/mjop_round_proposals_selftest.json "$LOGS/selftest-round-proposals.json"
           cp "$DATA"/Documents/facade_selftest_export.json "$LOGS/selftest-facade-export.json"
+          cp "$DATA"/Documents/legacy_selftest_export.json "$LOGS/selftest-legacy-export.json"
+          cp "$DATA"/Documents/mjop_round_proposals_unconfirmed.json "$LOGS/selftest-round-unconfirmed.json"
           mkdir -p "$LOGS/diag"; cp "$DATA"/Documents/meetdiagnose_*.json "$LOGS/diag/"; ls -la "$LOGS/diag"
           echo "UDID=$UDID" >> "$GITHUB_ENV"
           echo "export: $EXP"
@@ -249,6 +251,25 @@ jobs:
                   assert q["facade_gross"]["value_m2"] is None
           print("gevelopbouw-export OK")
           PY
+          # audit: oude sessie (zonder gevelvelden) blijft leesbaar, wordt LEGACY en de export voldoet aan het schema
+          python -m photo_walk_core.validate "$LOGS/selftest-legacy-export.json"
+          python - <<'PY'
+          import json, os, jsonschema
+          L = os.environ["LOGS"]
+          r = json.load(open(L + "/selftest-legacy-export.json"))
+          st = {o["observation_id"]: o["facade_role"]["outer_contour_status"] for o in r["observations"]}
+          assert st and set(st.values()) == {"LEGACY"}, st
+          assert all(e["role"] != "GLASS_PANE" for f in r["facade_composition"]["frames"] for e in f["elements"]), "oude sessie kreeg ongevraagd glasvlakken"
+          # audit: voorstellen uit onbevestigde automatische contouren: geen aantal, geen oppervlak, geen deelwaarde
+          schema = json.load(open("../schemas/mjop_scan_proposal_v2.schema.json"))
+          ps = json.load(open(L + "/selftest-round-unconfirmed.json"))
+          assert ps, "geen voorstellen"
+          for p in ps:
+              jsonschema.Draft7Validator(schema).validate(p)
+              assert p["value"] is None and p["partial_value"] is None, (p["target"], p["value"], p["partial_value"])
+              assert p["booking_allowed"] is False and p["reliability"]["level"] == "INCOMPLETE"
+          print("legacy-export en onbevestigde voorstellen OK:", len(ps))
+          PY
           # Fotoronde-voorstellen (mjop_scan_proposal_v2) uit de app voldoen aan het schema en zijn nooit boeking/bevestigd
           python - <<'PY'
           import json, os, jsonschema
@@ -309,6 +330,11 @@ jobs:
           grep -q "SELFTEST_PERSIST observations=[1-9][0-9]* identicalDepth=true" "$LOGS/selftest-console.log" || { echo "::error::lokale opslag/herstel niet identiek"; exit 1; }
           grep "SELFTEST_ROLE\|SELFTEST_CONFIRM\|SELFTEST_FACADE\|SELFTEST_NOTE" "$LOGS/selftest-console.log" || true
           grep -q "SELFTEST_PERSIST_FACADE identical=true" "$LOGS/selftest-console.log" || { echo "::error::gevelopbouw (rollen/glasvlakken) niet identiek na opslaan en herstellen"; exit 1; }
+          grep "SELFTEST_REANALYZE\|SELFTEST_LEGACY\|SELFTEST_PERSIST_AFTER_EDIT\|SELFTEST_ROUND_UNCONFIRMED" "$LOGS/selftest-console.log" || true
+          grep -q "SELFTEST_REANALYZE added=0 glassAdded=0" "$LOGS/selftest-console.log" || { echo "::error::opnieuw zoeken voegde dubbele kozijnen of glasvlakken toe"; exit 1; }
+          grep -q "SELFTEST_LEGACY decoded=true observations=[1-9][0-9]* allLegacy=true noGate=true elements=0" "$LOGS/selftest-console.log" || { echo "::error::oude sessie niet leesbaar of niet als LEGACY behandeld"; exit 1; }
+          grep -q "SELFTEST_PERSIST_AFTER_EDIT identical=true revisions=[1-9]" "$LOGS/selftest-console.log" || { echo "::error::handmatige correctie niet identiek na opslaan en herstellen"; exit 1; }
+          grep -q "SELFTEST_ROUND_UNCONFIRMED proposals=[1-9][0-9]* valid=true values=null,null" "$LOGS/selftest-console.log" || { echo "::error::voorstel met waarde uit onbevestigde contouren"; exit 1; }
 
       - name: Artifacts verzamelen (simulator-app, unsigned device-IPA)
         if: always()

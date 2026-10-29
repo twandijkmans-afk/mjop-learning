@@ -440,6 +440,66 @@
     ],
     "with_facade_plane": true,
     "with_scale": true
+   },
+   {
+    "expected": {
+     "closed_facade_net": {
+      "basis": "Bruto gevel en alle openingen zijn nodig.",
+      "missing": [
+       "NO_FRAMES_IN_FACADE"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "facade_gross": {
+      "basis": "Getekend gevelvlak geprojecteerd op het gevelvlak.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "13.500"
+     },
+     "flags": [],
+     "frame_outer": {
+      "basis": "Geen kozijnen herkend of aangegeven in dit gevelvlak; dat betekent niet dat er geen openingen zijn.",
+      "missing": [
+       "NO_FRAMES_IN_FACADE"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "glass": {
+      "basis": "Geen kozijnen in dit gevelvlak.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "maintainable_frame_surface": {
+      "basis": "Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, roeden, glaslatten en binnen-/buitenzijde ontbreken). Meet of schat dit apart.",
+      "missing": [
+       "NOT_DERIVED"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings": {
+      "basis": "Aanname: opening = buitenmaat van het kozijn (dagkant/sponning niet gemeten). Geen kozijnen herkend of aangegeven in dit gevelvlak; dat betekent niet dat er geen openingen zijn.",
+      "missing": [
+       "NO_FRAMES_IN_FACADE"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings_in_facade": []
+    },
+    "name": "no_frames_in_facade",
+    "openings": [],
+    "with_facade_plane": true,
+    "with_scale": true
    }
   ],
   "facade_plane": {

@@ -37,16 +37,16 @@ Op de foto: kozijn doorgetrokken (kleur = meetfeedback), **oranje gestreept** = 
 ## Hoeveelheden per foto (`FacadeComposition`, Python-referentie `facade.compose`)
 | Hoeveelheid | Berekening | Zonder schaal |
 |---|---|---|
-| Bruto gevel | getekend gevelvlak geprojecteerd op het gevelvlak (LiDAR-vlakfit buiten de kozijnen; anders het vlak van een kozijn met referentiemaat, met `COPLANARITY_ASSUMED`) | UNKNOWN |
-| Openingen / buitenkozijn | som van de bestaande kozijnmetingen (buitenmaat b x h); alleen als ALLE kozijnen in het gevelvlak een maat hebben (anders deelsom ter informatie) | UNKNOWN |
-| Glas | glasvlakken geprojecteerd op het vlak van het eigen kozijn; alleen als elk kozijn glasvlakken én schaal heeft | UNKNOWN |
+| Bruto gevel | getekend gevelvlak geprojecteerd op het LiDAR-gevelvlak (vlakfit buiten de kozijnen, tracking NORMAL). Het codepad voor een referentievlak (`REFERENCE_COPLANAR`) is aanwezig maar **levert nu niets op**: de referentiemaatmeting (niveau C) geeft geen vlak terug. Zonder LiDAR-gevelvlak blijft de bruto gevel dus UNKNOWN. | UNKNOWN |
+| Openingen / buitenkozijn | som van de bestaande kozijnmetingen (buitenmaat b x h); alleen als ALLE kozijnen in het gevelvlak een bevestigde maat hebben (anders deelsom ter informatie). Geen herkende kozijnen in het gevelvlak = UNKNOWN (`NO_FRAMES_IN_FACADE`), nooit 0: de herkenning kan openingen missen. | UNKNOWN |
+| Glas | glasvlakken geprojecteerd op het vlak van het eigen kozijn; alleen als elk kozijn glasvlakken én een LiDAR-vlak heeft (een kozijn met alleen een referentiemaat heeft geen vlak: glas UNKNOWN) | UNKNOWN |
 | Netto gesloten gevel (bv. metselwerk) | bruto gevel min openingen; groter dan bruto -> `OPENINGS_EXCEED_FACADE`, geen waarde | UNKNOWN |
 | Onderhouds-/schilderoppervlak kozijn | **niet afgeleid**: buitenkozijn min glas is niet het schilderoppervlak (profieldiepte, dagkanten, roeden, glaslatten, binnen/buiten) | altijd UNKNOWN |
 
 Een enkele foto geeft hoogstens `ESTIMATED` (LiDAR) of `DERIVED` (referentiemaat). 3D BAG (`b3_opp_buitenmuur`) is alleen een **aanvullende controle** (`FACADE_GROSS_EXCEEDS_3DBAG_WALL_AREA`), nooit bewijs; in de scanner zelf is de 3D BAG-waarde nog niet beschikbaar (veld blijft `null`).
 
 ## Export en compatibiliteit
-`photo_walk_capture_v1` **1.2.0**: optioneel `observations[].facade_role` en top-level `facade_composition`. Records 1.0.0/1.1.0 blijven geldig (getest). `mjop_scan_proposal_v2` is **ongewijzigd**: er gaan geen nieuwe automatische hoeveelheden (glas, gevel) naar het MJOP. Een kozijn met onbevestigde buitencontour heeft geen maat, dus het oppervlakvoorstel blijft `null` (bestaande regel "niet alle kozijnen gemeten").
+`photo_walk_capture_v1` **1.2.0**: optioneel `observations[].facade_role` en top-level `facade_composition`. Records 1.0.0/1.1.0 blijven geldig (getest). Het schema van `mjop_scan_proposal_v2` is **ongewijzigd**: er gaan geen nieuwe automatische hoeveelheden (glas, gevel) naar het MJOP. Een kozijn met onbevestigde buitencontour heeft geen maat, dus het oppervlakvoorstel blijft `null` (bestaande regel "niet alle kozijnen gemeten"), en het **aantal** is dan ook `null` (`INCOMPLETE`, zonder deelaantal): een onbevestigde contour kan glas of een valse kandidaat zijn. Oude scans (LEGACY) tellen mee zoals vroeger.
 
 ## Wat getest is en wat niet
 * Getest (CI): rekenregels in Python en Swift met gedeelde synthetische cases (zelfde beeld, zelfde uitkomsten), exportschema oud/nieuw, opslaan/herstellen, de app-selftest op een synthetisch kozijn met profiel en tussenstijl, UI-test van de bevestigingsstap.

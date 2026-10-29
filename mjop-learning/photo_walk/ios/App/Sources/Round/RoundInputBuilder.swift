@@ -34,7 +34,9 @@ enum RoundInputBuilder {
                 id: d.id, facadeId: facadeId(of: first.frameId, in: store), frameIds: Array(Set(obs.map { $0.frameId })).sorted(), areaM2: area,
                 areaSigmaM2: area == nil ? nil : res?.result.sigmaArea, status: status, method: methods.contains(scale) ? scale : "NONE",
                 autoDetected: !detected.isEmpty, userConfirmed: !detected.isEmpty && detected.allSatisfy { $0.source != .AUTO_DETECTED_UNCONFIRMED },
-                manual: obs.contains { $0.detection == nil && $0.source == .MANUAL }, flags: res?.flags.map { $0.code } ?? []))
+                manual: obs.contains { $0.detection == nil && $0.source == .MANUAL }, flags: res?.flags.map { $0.code } ?? [],
+                // gevelopbouw: alleen als ALLE waarnemingen van dit object een onbevestigde automatische buitencontour hebben (LEGACY telt niet)
+                contourUnconfirmed: obs.allSatisfy { $0.outerContour.blocksArea }))
         }
 
         // mogelijk dubbele kozijnen (zelfde AR-sessie, nog niet gekoppeld of genegeerd) per gevel

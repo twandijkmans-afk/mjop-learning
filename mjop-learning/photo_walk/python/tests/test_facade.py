@@ -169,6 +169,28 @@ def test_compose_openings_larger_than_facade_flagged():
     assert tiny_plane_area["flags"] == ["OPENINGS_EXCEED_FACADE"] and tiny_plane_area["closed_facade_net"]["value_m2"] is None
 
 
+def test_no_detected_frames_is_unknown_not_zero():
+    # audit: geen herkende kozijnen in het gevelvlak mag geen "0 m² openingen" en dus geen netto = bruto opleveren
+    r = F.compose([], CAM, INTR, FACADE, PLANE, "ESTIMATED")
+    assert r["facade_gross"]["value_m2"] == "13.500"
+    for k in ("openings", "frame_outer", "glass", "closed_facade_net"):
+        assert r[k]["value_m2"] is None and r[k]["status"] == "UNKNOWN", k
+    assert r["frame_outer"]["missing"] == ["NO_FRAMES_IN_FACADE"]
+
+
+def test_unknown_quantities_are_null_never_zero_in_all_compose_paths():
+    o = _openings()
+    cases = [F.compose(o, CAM, INTR, FACADE, PLANE, "ESTIMATED"), F.compose(o, None, None, FACADE, None, "UNKNOWN"),
+             F.compose(o, CAM, INTR, None, None, "UNKNOWN"), F.compose([], None, None, None, None, "UNKNOWN"),
+             F.compose(_openings(panes=False), CAM, INTR, FACADE, PLANE, "ESTIMATED")]
+    for r in cases:
+        for k in ("facade_gross", "openings", "frame_outer", "glass", "closed_facade_net", "maintainable_frame_surface"):
+            q = r[k]
+            assert (q["value_m2"] is None) == (q["status"] == "UNKNOWN"), (k, q)
+            if q["value_m2"] is not None:
+                assert Decimal(q["value_m2"]) > 0, (k, q)
+
+
 def test_3dbag_is_only_an_advisory_plausibility_check():
     assert F.plausibility_3dbag("120.000", 114.02) == ["FACADE_GROSS_EXCEEDS_3DBAG_WALL_AREA"]
     assert F.plausibility_3dbag("60.000", 114.02) == []
@@ -278,3 +300,43 @@ def test_legacy_export_without_roles_is_readable():
     rec = json.loads((ROOT / "examples" / "single_frame_measurement.json").read_text())
     frames, panes, facades = E.predictions(rec)
     assert frames["F000"][0]["outer_contour_status"] == "LEGACY" and panes == {} and facades == {}
+
+
+# ------------------------------------------------------------------ audit: compatibiliteit 1.0 / 1.1 / 1.2 en doorgifte naar de hoeveelheidsmodule
+
+def _as_v11(rec):
+    """Een 1.1.0-record: zoals de app vóór de gevelopbouw exporteerde (detectievelden wel, gevelvelden niet)."""
+    r = copy.deepcopy(rec)
+    r["contract_version"] = "1.1.0"
+    r.pop("facade_composition", None)
+    for o in r["observations"]:
+        o.pop("facade_role", None)
+        o["detection"] = {"detector": "VN_RECTANGLE_CANDIDATE", "score": 0.8, "status": "CANDIDATE_UNVERIFIED"}
+    r["capture_mode"] = "PHOTO"
+    r["rejected_candidates"] = []
+    r["detection_summary"] = {"detectors": ["VN_RECTANGLE_CANDIDATE"], "core_ml_model_installed": False, "validated_on_real_buildings": False, "note": "1.1"}
+    return r
+
+
+def test_v11_record_without_facade_fields_still_valid_and_readable():
+    rec = _as_v11(_export_with_facade())
+    assert list(_validator().iter_errors(rec)) == []
+    frames, panes, facades = E.predictions(rec)
+    assert all(f["outer_contour_status"] == "LEGACY" for fs in frames.values() for f in fs) and panes == {} and facades == {}
+
+
+def test_v12_facade_fields_do_not_leak_into_bruto_intake():
+    from photo_walk_core import to_bruto
+    rec = _export_with_facade()
+    # een geblokkeerd (onbevestigd) kozijn: geen maat in het object
+    o = rec["objects"][0]
+    o.update({"outer_width_m": None, "outer_height_m": None, "gross_area_m2": None, "gross_area_m2_presented": None, "dimension_status": "UNKNOWN",
+              "measurement_uncertainty": None, "outer_corner_coordinates": None})
+    o["measurement_source"] = dict(o["measurement_source"], level=None, scale_method="NONE", views=[])
+    rec["observations"][0]["facade_role"]["outer_contour_status"] = "DETECTED_ENCLOSING_PANES"
+    assert list(_validator().iter_errors(rec)) == []
+    intake = to_bruto.convert(rec)
+    to_bruto.validate(intake)
+    assert all(ob["dimension"]["dimension_status"] == "UNKNOWN" for ob in intake["objects"])
+    assert not any(p.get("proposed_gross_area_m2") for p in intake["sensor_proposals"]), "geen voorstel-m² uit een onbevestigde contour"
+    assert "facade_composition" not in json.dumps(intake) and "GLASS_PANE" not in json.dumps(intake), "glas/gevel gaan niet als kozijnhoeveelheid door"

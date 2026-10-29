@@ -106,6 +106,8 @@ def compose_case():
              "with_scale": False, "with_facade_plane": False, "expected": no_scale},
             {"name": "missing_panes", "openings": [enc(F.OpeningInput("OBS-1", tr[0]["outer"], openings[0].area_m2, "ESTIMATED", tuple(n), d, []))],
              "with_scale": True, "with_facade_plane": True, "expected": missing_panes},
+            {"name": "no_frames_in_facade", "openings": [], "with_scale": True, "with_facade_plane": True,
+             "expected": F.compose([], (R, t), (fx, fy, cx, cy), facade, (n, d), "ESTIMATED")},
         ],
     }
 

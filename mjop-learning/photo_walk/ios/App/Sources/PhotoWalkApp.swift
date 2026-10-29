@@ -14,6 +14,31 @@ struct PhotoWalkApp: App {
 
     /// CI-rooktest (`-selftest`): voert de synthetische simulatie headless uit, schrijft de export naar Documents en logt het pad.
     /// Raakt geen camera en geen netwerk. Zonder dit argument doet de app niets bijzonders.
+    /// Oude sessie (van vóór de gevelopbouw) nabootsen door de nieuwe velden uit het opgeslagen JSON te halen: moet leesbaar blijven, LEGACY worden
+    /// en zich gedragen als vroeger (geen contourpoort). De export daarvan moet aan het schema voldoen.
+    @MainActor private func selfTestLegacy(_ snap: SessionSnapshot, dir: URL) {
+        let enc = JSONEncoder(); enc.dateEncodingStrategy = .iso8601
+        guard let data = try? enc.encode(snap), var obj = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else { print("SELFTEST_LEGACY decoded=false"); return }
+        obj["facadeElements"] = nil
+        if var obs = obj["observations"] as? [[String: Any]] {
+            for i in obs.indices { obs[i]["outerContour"] = nil; obs[i]["evidence"] = nil; obs[i]["proposedOuter"] = nil }
+            obj["observations"] = obs
+        }
+        let dec = JSONDecoder(); dec.dateDecodingStrategy = .iso8601
+        guard let legacyData = try? JSONSerialization.data(withJSONObject: obj), let legacy = try? dec.decode(SessionSnapshot.self, from: legacyData) else {
+            print("SELFTEST_LEGACY decoded=false"); return
+        }
+        let ls = ScanStore()
+        Persistence.restore(legacy, from: dir, into: ls)
+        let allLegacy = ls.observations.allSatisfy { $0.outerContour == .LEGACY && $0.evidence == .LEGACY }
+        let noGate = ls.observations.allSatisfy { o in !(ls.measures[o.id]?.result.flags.contains { $0.code == "OUTER_CONTOUR_UNVERIFIED" } ?? false) }
+        print("SELFTEST_LEGACY decoded=true observations=\(ls.observations.count) allLegacy=\(allLegacy) noGate=\(noGate) elements=\(ls.facadeElements.count)")
+        if let out = try? JSONSerialization.data(withJSONObject: ExportService.record(ls), options: [.sortedKeys, .prettyPrinted]),
+           let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            try? out.write(to: docs.appendingPathComponent("legacy_selftest_export.json"))
+        }
+    }
+
     @MainActor private func runSelfTestIfRequested() async {
         guard CommandLine.arguments.contains("-selftest") else { return }
         // 1) legacy: handmatige hoeken
@@ -37,6 +62,10 @@ struct PhotoWalkApp: App {
         if let n = store.analysisNotes["F000"] { print("SELFTEST_NOTE \(n)") }
         let ov = store.overview(frameId: "F000")
         print("SELFTEST_OVERVIEW detected=\(ov.detected) unique=\(ov.unique) measurable=\(ov.measurable) checks=\(ov.checks) noScale=\(ov.noScale) outerUnverified=\(ov.outerUnverified) glassPanes=\(ov.glassPanes)")
+        // 2b) opnieuw zoeken op dezelfde foto mag geen kozijnen, glasvlakken of afgewezen kandidaten dubbel/terug toevoegen
+        let obsBefore = store.observations.count, elemBefore = store.facadeElements.count
+        await store.analyze(frameId: "F000")
+        print("SELFTEST_REANALYZE added=\(store.observations.count - obsBefore) glassAdded=\(store.facadeElements.count - elemBefore)")
         // 3) lokale opslag: bewaren en terugladen
         Persistence.saveNow(store)
         if let (snap, dir) = Persistence.latestAny() {
@@ -48,9 +77,22 @@ struct PhotoWalkApp: App {
             let sameRoles = other.observations.map { "\($0.id)|\($0.outerContour.rawValue)|\($0.evidence.rawValue)" } == store.observations.map { "\($0.id)|\($0.outerContour.rawValue)|\($0.evidence.rawValue)" }
                 && other.facadeElements == store.facadeElements
             print("SELFTEST_PERSIST_FACADE identical=\(sameRoles) elements=\(other.facadeElements.count)")
+            selfTestLegacy(snap, dir: dir)
         } else { print("SELFTEST_PERSIST none") }
         let path = (try? ExportService.write(store))?.path ?? "EXPORT_FAILED"
         print("SELFTEST_EXPORT=\(path)")
+        // 3a) MJOP-voorstellen uit de ONBEVESTIGDE automatische toestand: geen aantal en geen oppervlak mogen er doorheen glippen
+        store.round = RoundState(context: PhotoRoundContext(planRef: "plan-selftest0002", mjopPlanId: nil, buildingLabel: "Selftestgebouw", bagPandId: nil, mode: .round,
+                                                           element: nil, plannedFacades: []), facades: [.init(id: "Voorgevel", orientation: "S")])
+        if let input = RoundInputBuilder.build(store: store, createdAt: RoundCoordinator.isoNow()) {
+            let ps = RoundProposalBuilder.build(input)
+            if let data = try? JSONSerialization.data(withJSONObject: ps.compactMap { $0.jsonObject() }, options: [.sortedKeys]),
+               let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                try? data.write(to: docs.appendingPathComponent("mjop_round_proposals_unconfirmed.json"))
+            }
+            print("SELFTEST_ROUND_UNCONFIRMED proposals=\(ps.count) valid=\(ps.allSatisfy { $0.validate().isEmpty }) values=\(ps.map { $0.value.map { String($0) } ?? "null" }.joined(separator: ","))")
+        }
+        store.round = nil
         // 3b) gevelopbouw: gesimuleerde gebruiker bevestigt onbevestigde buitencontouren en tekent het gevelvlak (NA de export hierboven,
         //     die dus de automatische, onbevestigde toestand bevat). Toont dat er pas na bevestiging een kozijnmaat komt.
         for o in store.observations where !o.rejected && o.outerContour.blocksArea {
@@ -78,6 +120,22 @@ struct PhotoWalkApp: App {
                 let u = docs.appendingPathComponent("facade_selftest_export.json")
                 try? data.write(to: u)
                 print("SELFTEST_EXPORT_FACADE=\(u.path)")
+            }
+            // 3c) handmatige correctie, opslaan, sluiten en herstellen: hoeken, originele hoeken, revisies, contourstatus, glasvlakken en maten identiek
+            if let o = store.observations.first(where: { !$0.rejected && store.measures[$0.id]?.result.ok == true }) {
+                store.correctCorner(observation: o.id, index: 0, to: Pixel(o.corners[0].u + 1, o.corners[0].v + 1), reason: "selftest: handmatige correctie")
+                store.measureAll()
+            }
+            Persistence.saveNow(store)
+            if let (snap2, dir2) = Persistence.latestAny() {
+                let back = ScanStore()
+                Persistence.restore(snap2, from: dir2, into: back)
+                func sig(_ s: ScanStore) -> [String] {
+                    s.observations.map { o in "\(o.id)|\(o.corners)|\(o.originalCorners)|\(o.revisions.count)|\(o.source.rawValue)|\(o.outerContour.rawValue)|\(o.rejected)|" +
+                        (s.measures[o.id].map { PhotoResultView.dimsText($0.result) } ?? "?") }
+                }
+                let same = sig(back) == sig(store) && back.facadeElements == store.facadeElements
+                print("SELFTEST_PERSIST_AFTER_EDIT identical=\(same) revisions=\(back.observations.map { $0.revisions.count }.reduce(0, +)) contours=\(back.observations.map { $0.outerContour.rawValue }.joined(separator: ","))")
             }
         }
         // 4) LiDAR v2: synthetische scènes met meerdere dieptekaders; diagnose-export per scène

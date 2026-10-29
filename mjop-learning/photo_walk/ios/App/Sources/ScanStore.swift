@@ -375,8 +375,12 @@ final class ScanStore: ObservableObject {
             var proposed: [Pixel]? = nil
             if g.evidence == .PANE_GROUP, let p = out.proposals[k] { corners = p.quad }          // voorstel; blijft geblokkeerd tot bevestiging
             if g.evidence == .SINGLE { proposed = out.proposals[k]?.quad }                      // alleen klaarzetten, niet toepassen
-            let existing = observations.filter { $0.frameId == frameId && !$0.rejected }
-            if existing.contains(where: { CandidateFilter.iou($0.corners, corners) > 0.5 }) { continue }
+            // Opnieuw zoeken mag niets dubbel maken of terugdraaien: sla kandidaten over die samenvallen met of BINNEN een bestaand kozijn liggen
+            // (ook afgewezen kandidaten: "geen kozijn" blijft gelden) of die samenvallen met een bekend glasvlak.
+            let existing = observations.filter { $0.frameId == frameId }
+            let knownGlass = facadeElements.filter { $0.frameId == frameId && $0.role == .GLASS_PANE }
+            if existing.contains(where: { CandidateFilter.iou($0.corners, corners) > 0.5 || (!$0.rejected && ContourOrganizer.contains($0.corners, corners, ContourConfig())) })
+                || knownGlass.contains(where: { CandidateFilter.iou($0.corners, corners) > 0.5 }) { continue }
             let id = "OBS-\(frameId)-\(String(format: "%02d", observations.filter { $0.frameId == frameId }.count + 1))"
             var o = Observation(id: id, frameId: frameId, corners: corners, originalCorners: corners, source: .AUTO_DETECTED_UNCONFIRMED,
                                 detection: DetectionInfo(detector: g.detector, score: g.score))

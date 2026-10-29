@@ -99,8 +99,9 @@ public enum FacadeComposition {
         let part = known.reduce(Decimal(0)) { $0 + $1.areaM2! }
         let frameOuter: FacadeQuantity
         if inside.isEmpty {
-            frameOuter = gross.valueM2 != nil ? FacadeQuantity(valueM2: 0, status: gross.status, basis: "Geen kozijnen in dit gevelvlak.")
-                                              : FacadeQuantity(valueM2: nil, status: .UNKNOWN, basis: "Geen kozijnen op deze foto.")
+            // geen herkende kozijnen is GEEN bewijs dat er geen openingen zijn (herkenning kan ze missen): onbekend, nooit 0
+            frameOuter = FacadeQuantity(valueM2: nil, status: .UNKNOWN,
+                                        basis: "Geen kozijnen herkend of aangegeven in dit gevelvlak; dat betekent niet dat er geen openingen zijn.", missing: ["NO_FRAMES_IN_FACADE"])
         } else if !missingFrames.isEmpty {
             frameOuter = FacadeQuantity(valueM2: nil, status: .UNKNOWN, basis: "Niet alle kozijnen hebben een betrouwbare buitenmaat.", missing: missingFrames,
                                         partialValueM2: known.isEmpty ? nil : part)

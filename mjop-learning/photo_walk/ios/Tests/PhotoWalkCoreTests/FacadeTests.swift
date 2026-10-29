@@ -194,6 +194,57 @@ final class FacadeTests: XCTestCase {
         XCTAssertEqual(r.frameOuter.missing, ["OBS-1"])
     }
 
+    // MARK: audit: referentiemaat, meerdere standpunten, onbetrouwbaar gevelvlak
+
+    func testReferenceFallbackIsAlsoGatedAndNeverMeasured() {
+        var c = LevelResult(level: .C, scaleMethod: "REFERENCE_DISTANCE", viewIds: ["F000"])
+        c.width = 1.2; c.height = 1.5; c.sigmaW = 0.01; c.sigmaH = 0.01; c.sigmaArea = 0.02
+        let blocked = ContourGate.apply(c, status: .DETECTED_ENCLOSING_PANES)
+        XCTAssertFalse(blocked.ok)
+        XCTAssertNil(makeObject(id: "P", observations: [], result: blocked, viewCount: 1).areaM2, "referentiemaat op een onbevestigde contour: geen hoeveelheid")
+        let ok = makeObject(id: "P", observations: [], result: ContourGate.apply(c, status: .USER_CONFIRMED), viewCount: 1)
+        XCTAssertEqual(ok.status, .DERIVED); XCTAssertEqual(ok.areaM2, "1.8")
+        var est = c; est.flags = [Flags.make("REFERENCE_USER_ESTIMATE")]
+        XCTAssertEqual(makeObject(id: "P", observations: [], result: ContourGate.apply(est, status: .MANUAL), viewCount: 1).status, .ESTIMATED)
+        XCTAssertNotEqual(makeObject(id: "P", observations: [], result: ContourGate.apply(c, status: .USER_CONFIRMED), viewCount: 3).status, .MEASURED,
+                          "niveau C (referentiemaat) is nooit MEASURED")
+    }
+
+    /// Measurer.compute (App) fuseert alleen waarnemingen met `ok`; een onbevestigde waarneming valt daar dus buiten. Komt er toch een
+    /// geblokkeerde waarneming in `fuse`, dan blokkeert die de hele fusie (conservatief, nooit een maat uit een onbevestigde contour).
+    func testBlockedViewsNeverContributeToFusion() {
+        let blocked = ContourGate.apply(measured(9.9, 9.9), status: .UNVERIFIED)
+        let views = [blocked, measured(1.2, 1.5)]
+        XCTAssertEqual(views.filter { $0.ok }.count, 1, "alleen de bevestigde waarneming is bruikbaar")
+        XCTAssertFalse(fuse(views).ok, "een geblokkeerde waarneming in de fusie blokkeert de maat")
+        XCTAssertFalse(fuse([blocked]).ok, "alleen onbevestigde waarnemingen: geen maat")
+        let two = fuse([measured(1.2, 1.5), measured(1.201, 1.499)])
+        XCTAssertTrue(two.ok)
+        XCTAssertEqual(makeObject(id: "P", observations: [], result: ContourGate.apply(two, status: .USER_CONFIRMED), viewCount: 2).status, .MEASURED,
+                       "twee bevestigde, consistente standpunten mogen MEASURED zijn")
+    }
+
+    func testSinglePhotoLevelAIsNeverMeasured() {
+        let obj = makeObject(id: "P", observations: [], result: measured(), viewCount: 1)
+        XCTAssertEqual(obj.status, .ESTIMATED)
+        XCTAssertTrue(obj.flags.contains { $0.code == "SINGLE_VIEWPOINT" })
+    }
+
+    func testNoisyOrSparseDepthGivesNoFacadePlane() {
+        let intr = Intrinsics(fx: 1000, fy: 1000, cx: 600, cy: 350, width: 1200, height: 700)
+        let pose = Pose(rows: [Vec3(-1, 0, 0), Vec3(0, -1, 0), Vec3(0, 0, 1)], t: Vec3(0, 1.5, 0))
+        let dw = 120, dh = 70
+        var rng = SplitMix64(seed: 3)
+        let noisy = (0..<(dw * dh)).map { _ in Float(3.0 + Double(rng.next() % 4000) / 1000.0) }        // 3-7 m, geen vlak
+        let facade = [Pixel(100, 80), Pixel(1100, 80), Pixel(1100, 620), Pixel(100, 620)]
+        let v1 = ViewInput(frameId: "F", intrinsics: intr, pose: pose, trackingNormal: true, depth: DepthMap(width: dw, height: dh, values: noisy))
+        XCTAssertNil(FacadeComposition.fitFacadePlane(view: v1, polygon: facade, exclude: [], seed: 7), "onrustige diepte: geen gevelvlak")
+        var sparse = [Float](repeating: .nan, count: dw * dh)
+        for i in 0..<100 { sparse[i * 7] = 5.0 }
+        let v2 = ViewInput(frameId: "F", intrinsics: intr, pose: pose, trackingNormal: true, depth: DepthMap(width: dw, height: dh, values: sparse))
+        XCTAssertNil(FacadeComposition.fitFacadePlane(view: v2, polygon: facade, exclude: [], seed: 7), "te weinig diepte: geen gevelvlak")
+    }
+
     func testPlausibilityIsOnlyAdvisory() {
         XCTAssertEqual(FacadeComposition.plausibility3DBAG(facadeGrossTotalM2: Decimal(120), buitenmuurM2: 114.02), ["FACADE_GROSS_EXCEEDS_3DBAG_WALL_AREA"])
         XCTAssertEqual(FacadeComposition.plausibility3DBAG(facadeGrossTotalM2: Decimal(60), buitenmuurM2: 114.02), [])
