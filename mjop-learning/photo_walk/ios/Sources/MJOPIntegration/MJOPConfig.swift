@@ -11,5 +11,7 @@ public enum MJOPConfig {
     public static let appURLScheme = "mjoplive"
     public static let authCallbackHost = "auth-callback"
     /// Wordt aan de User-Agent toegevoegd zodat de website kan herkennen dat hij in de app draait.
-    public static let userAgentSuffix = "MJOPLiveApp/1"
+    /// Versie 2 = de app toont zelf de tabbalk (native navigatie). De bestaande website herkent elk `MJOPLiveApp/<n>`, dus dit breekt niets;
+    /// een website die de native navigatie niet kent meldt zich nooit met `webReady` en de app valt dan terug op de klassieke weergave.
+    public static let userAgentSuffix = "MJOPLiveApp/\(NativeNav.appLevel)"
 }

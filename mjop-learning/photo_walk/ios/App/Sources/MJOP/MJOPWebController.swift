@@ -24,8 +24,23 @@ final class MJOPWebController: NSObject, ObservableObject {
     @Published var notice: String?
     @Published var sharedFile: SharedFile?
 
+    /// Native navigatie (app-versie 2). `pending` = nog geen antwoord van de website (klassieke weergave, zoals voorheen); `tabs` = de website kent de
+    /// navigatiecommando's en de app toont zijn eigen tabbalk; `classic` = oudere website, klassieke weergave blijft.
+    enum NavMode: Equatable { case pending, tabs, classic }
+    @Published private(set) var navMode: NavMode = .pending
+    /// Laatste status die de website meldde (alleen lezen).
+    @Published private(set) var webStatus: WebStatus?
+    @Published private(set) var webFeatures: [String] = []
+    /// Hoe vaak de pagina volledig is geladen en hoe vaak de gedeelde WebView is verplaatst (diagnose; bewijst dat tabwissels niet herladen).
+    @Published private(set) var loadCount = 0
+    @Published private(set) var hostMoves = 0
+
     let webView: WKWebView
+    let hostRegistry: WebHostRegistry
     weak var bridgeHandler: BridgeHandling?
+    private var pendingCommands: [String: CheckedContinuation<WebCommandResult, Never>] = [:]
+    private var commandSeq = 0
+    private var readyFallback: Task<Void, Never>?
     private let policy = WebNavigationPolicy.production
     private let monitor = NWPathMonitor()
     private var observers: [NSKeyValueObservation] = []
@@ -41,7 +56,9 @@ final class MJOPWebController: NSObject, ObservableObject {
         let shim = "window.print = function () { try { window.webkit.messageHandlers.mjopNative.postMessage({ action: 'print' }); } catch (e) {} };"
         conf.userContentController.addUserScript(WKUserScript(source: shim, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         webView = WKWebView(frame: .zero, configuration: conf)
+        hostRegistry = WebHostRegistry(webView: webView)
         super.init()
+        hostRegistry.onMove = { [weak self] n in self?.hostMoves = n }
         conf.userContentController.add(WeakScriptHandler(self), name: "mjopNative")
         webView.navigationDelegate = self
         webView.uiDelegate = self
@@ -77,6 +94,10 @@ final class MJOPWebController: NSObject, ObservableObject {
             webView.loadHTMLString(Self.testPageHTML, baseURL: MJOPConfig.siteURL)
             return
         }
+        if args.contains("-mjop-tabs-test-page") {       // alleen UI-tests: nagebootste website die de native navigatie kent (zie TabsTestPage.swift)
+            webView.loadHTMLString(Self.tabsTestPageHTML, baseURL: MJOPConfig.siteURL)
+            return
+        }
         if let i = args.firstIndex(of: "-mjop-simulate-failure"), args.indices.contains(i + 1) {
             failure = args[i + 1] == "offline" ? WebLoadFailure.classify(domain: NSURLErrorDomain, code: NSURLErrorNotConnectedToInternet)
                                                 : WebLoadFailure.http(status: 503)
@@ -100,6 +121,65 @@ final class MJOPWebController: NSObject, ObservableObject {
     }
 
     func goBack() { if webView.canGoBack { webView.goBack() } }
+
+    // MARK: native navigatie (app-versie 2)
+
+    /// De website meldt zich. Kent hij de navigatiecommando's, dan toont de app zijn eigen tabbalk en bevestigt dat aan de website (die verbergt dan de zijne).
+    /// Een oudere website meldt zich nooit: de app blijft dan in de klassieke weergave.
+    private func handleWebReady(_ features: [String]) {
+        webFeatures = features
+        guard features.contains(NativeNav.webNavFeature) else { navMode = .classic; return }
+        readyFallback?.cancel(); readyFallback = nil
+        navMode = .tabs
+        deliver(BridgeReply.nativeReady(lidar: DeviceCapabilities.hasLiDAR, appVersion: DeviceCapabilities.appVersion))
+    }
+
+    private func handleWebState(_ value: JSONValue) {
+        if let s = WebStatus.parse(value) { webStatus = s }
+    }
+
+    private func resolveCommand(requestId: String, result: WebCommandResult) {
+        guard let c = pendingCommands.removeValue(forKey: requestId) else { return }
+        c.resume(returning: result)
+    }
+
+    /// Valt terug op de klassieke weergave als de website niet binnen enkele seconden na het laden meldt dat hij de navigatie kent.
+    private func scheduleReadyFallback() {
+        guard navMode == .pending, readyFallback == nil else { return }
+        readyFallback = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: UInt64(NativeNav.readyTimeout * 1_000_000_000))
+            guard !Task.isCancelled, let self else { return }
+            if self.navMode == .pending { self.navMode = .classic }
+            self.readyFallback = nil
+        }
+    }
+
+    /// Stuurt een gevalideerd commando naar de website en wacht op het antwoord. Alleen lezen/navigeren: de app schrijft nooit naar de planopslag.
+    /// Altijd een resultaat, nooit een hangende aanroep: zonder antwoord volgt na `NativeNav.commandTimeout` een TIMEOUT-fout.
+    func send(_ command: NativeCommand) async -> WebCommandResult {
+        guard navMode == .tabs else {
+            return .failure(command: command.name, code: "NOT_READY", message: "De website ondersteunt de nieuwe navigatie nog niet.")
+        }
+        guard command.isValid else {
+            return .failure(command: command.name, code: "INVALID", message: "Dit commando is niet toegestaan.")
+        }
+        commandSeq += 1
+        let rid = "a\(commandSeq)-\(String(UInt32.random(in: 0...UInt32.max), radix: 36))"
+        return await withCheckedContinuation { (cont: CheckedContinuation<WebCommandResult, Never>) in
+            pendingCommands[rid] = cont
+            if !deliverChecked(command.message(requestId: rid)) {
+                pendingCommands.removeValue(forKey: rid)
+                cont.resume(returning: .failure(command: command.name, code: "NOT_DELIVERED", message: "De website is nog niet geladen."))
+                return
+            }
+            let name = command.name
+            Task { [weak self] in
+                try? await Task.sleep(nanoseconds: UInt64(NativeNav.commandTimeout * 1_000_000_000))
+                guard let self, let c = self.pendingCommands.removeValue(forKey: rid) else { return }
+                c.resume(returning: .failure(command: name, code: "TIMEOUT", message: "De website reageerde niet op tijd."))
+            }
+        }
+    }
 
     func openCurrentInSafari() {
         let url = webView.url.flatMap { policy.isAllowedInApp($0) ? $0 : nil } ?? MJOPConfig.siteURL
@@ -211,7 +291,11 @@ extension MJOPWebController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) { isLoading = true }
 
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) { isLoading = false; failure = nil }
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        isLoading = false; failure = nil
+        loadCount += 1
+        scheduleReadyFallback()
+    }
 
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) { handle(error) }
 
@@ -309,6 +393,13 @@ extension MJOPWebController: WKScriptMessageHandler {
         switch BridgeMessage.parse(message.body) {
         case .success(.print):
             presentPrint()
+        // Native navigatie (app-versie 2): wordt hier afgehandeld en bereikt de fotoronde-coördinator niet.
+        case .success(.webReady(_, let features, _)):
+            handleWebReady(features)
+        case .success(.webReply(let rid, let result)):
+            resolveCommand(requestId: rid, result: result)
+        case .success(.webState(_, let state)):
+            handleWebState(state)
         case .success(let request):
             guard let handler = bridgeHandler else { return }
             for reply in handler.handle(request) { deliver(reply) }
@@ -319,9 +410,13 @@ extension MJOPWebController: WKScriptMessageHandler {
     }
 
     /// Stuurt een antwoord naar de pagina, maar nooit naar een pagina buiten het eigen domein.
-    func deliver(_ message: [String: Any]) {
-        guard let url = webView.url, policy.isAllowedInApp(url), let js = BridgeReply.script(for: message) else { return }
+    func deliver(_ message: [String: Any]) { _ = deliverChecked(message) }
+
+    /// Zoals `deliver`, maar meldt of het bericht ook echt is overgedragen (alleen als er een pagina van het eigen domein staat).
+    func deliverChecked(_ message: [String: Any]) -> Bool {
+        guard let url = webView.url, policy.isAllowedInApp(url), let js = BridgeReply.script(for: message) else { return false }
         webView.evaluateJavaScript(js, completionHandler: nil)
+        return true
     }
 }
 

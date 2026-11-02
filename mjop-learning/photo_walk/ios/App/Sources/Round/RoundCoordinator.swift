@@ -36,6 +36,8 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
             return [BridgeReply.capabilities(requestId: rid, lidar: lidar, appVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1")]
         case .print:
             return []
+        case .webReady, .webReply, .webState:
+            return []          // native navigatie (app-versie 2): wordt door MJOPWebController afgehandeld en bereikt de fotoronde niet
         }
     }
 

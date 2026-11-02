@@ -21,8 +21,8 @@ struct MJOPContainerView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            WebViewHost(webView: web.webView)
-                .accessibilityIdentifier("mjopWebView")
+            // Eén gedeelde WebView: wordt aan deze plek gehangen zodra hij zichtbaar is (zie SharedWebHost.swift).
+            SharedWebHost(registry: web.hostRegistry)
             if web.isLoading {
                 ProgressView(value: web.progress).progressViewStyle(.linear).accessibilityIdentifier("mjopLoading")
             }

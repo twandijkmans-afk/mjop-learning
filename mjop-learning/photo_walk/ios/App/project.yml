@@ -41,6 +41,8 @@ targets:
         SWIFT_VERSION: "5.9"
         PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.prototype
         CODE_SIGN_STYLE: Automatic
+        MARKETING_VERSION: "2.0"          # app-versie 2 = native tabs (User-Agent MJOPLiveApp/2)
+        CURRENT_PROJECT_VERSION: "2"
   PhotoWalkUITests:
     type: bundle.ui-testing
     platform: iOS
