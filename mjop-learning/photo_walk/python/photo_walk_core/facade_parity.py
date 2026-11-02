@@ -133,6 +133,15 @@ def viewpoint_cases():
                                             "expected": independent_photo_count(v, b)} for k, v in raw.items()]}
 
 
+def contour_transition_cases():
+    """Statusovergangen van de buitencontour (facade.after_corner_edit / after_explicit_confirmation == Swift OuterContourStatus)."""
+    return [{"status": s, "blocks_area": s in F.AREA_BLOCKING_STATUSES, "after_corner_edit": F.after_corner_edit(s),
+             "after_explicit_confirmation": F.after_explicit_confirmation(s),
+             "after_edit_then_confirm": F.after_explicit_confirmation(F.after_corner_edit(s)),
+             "after_confirm_then_edit": F.after_corner_edit(F.after_explicit_confirmation(s)),
+             "shows_confirm_after_edit": F.shows_confirm_action(F.after_corner_edit(s), False)} for s in F.OUTER_STATUSES]
+
+
 def build_parity_cases():
     img = F.synthetic_facade_gray(IMAGE["width"], IMAGE["height"], _windows())
     return {
@@ -143,6 +152,7 @@ def build_parity_cases():
         "expansion": expansion_cases(),
         "compose": compose_case(),
         "viewpoints": viewpoint_cases(),
+        "contour_transitions": contour_transition_cases(),
     }
 
 

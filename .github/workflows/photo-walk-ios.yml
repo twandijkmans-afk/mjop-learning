@@ -211,7 +211,7 @@ jobs:
           # gevelopbouw: een kozijn met maat heeft nooit een onbevestigde (automatisch herkende) buitencontour
           for o in objs:
               for ref in o["observation_refs"]:
-                  assert roles[ref].get("outer_contour_status") not in ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION"), (ref, roles[ref])
+                  assert roles[ref].get("outer_contour_status") not in ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION", "EDITED_UNCONFIRMED"), (ref, roles[ref])
           # vóór bevestiging: geen enkel automatisch kozijn met maat (alleen indicatief in de app)
           assert not [o for o in objs if any(roles[ref].get("outer_contour_status") != "LEGACY" and roles[ref].get("outer_contour_status") not in ("MANUAL", "USER_CONFIRMED") for ref in o["observation_refs"])]
           # glasvlakken zijn nooit een kozijnobject
@@ -334,11 +334,34 @@ jobs:
           grep -q "SELFTEST_PERSIST observations=[1-9][0-9]* identicalDepth=true" "$LOGS/selftest-console.log" || { echo "::error::lokale opslag/herstel niet identiek"; exit 1; }
           grep "SELFTEST_ROLE\|SELFTEST_CONFIRM\|SELFTEST_FACADE\|SELFTEST_NOTE" "$LOGS/selftest-console.log" || true
           grep -q "SELFTEST_PERSIST_FACADE identical=true" "$LOGS/selftest-console.log" || { echo "::error::gevelopbouw (rollen/glasvlakken) niet identiek na opslaan en herstellen"; exit 1; }
-          grep "SELFTEST_REANALYZE\|SELFTEST_LEGACY\|SELFTEST_PERSIST_AFTER_EDIT\|SELFTEST_ROUND_UNCONFIRMED" "$LOGS/selftest-console.log" || true
+          grep "SELFTEST_REANALYZE\|SELFTEST_LEGACY\|SELFTEST_PERSIST_AFTER_EDIT\|SELFTEST_ROUND_UNCONFIRMED\|SELFTEST_CORNER_EDIT" "$LOGS/selftest-console.log" || true
           grep -q "SELFTEST_REANALYZE added=0 glassAdded=0" "$LOGS/selftest-console.log" || { echo "::error::opnieuw zoeken voegde dubbele kozijnen of glasvlakken toe"; exit 1; }
           grep -q "SELFTEST_LEGACY decoded=true observations=[1-9][0-9]* allLegacy=true noGate=true elements=0" "$LOGS/selftest-console.log" || { echo "::error::oude sessie niet leesbaar of niet als LEGACY behandeld"; exit 1; }
           grep -q "SELFTEST_PERSIST_AFTER_EDIT identical=true revisions=[1-9]" "$LOGS/selftest-console.log" || { echo "::error::handmatige correctie niet identiek na opslaan en herstellen"; exit 1; }
           grep -q "SELFTEST_ROUND_UNCONFIRMED proposals=[1-9][0-9]* valid=true values=null,null" "$LOGS/selftest-console.log" || { echo "::error::voorstel met waarde uit onbevestigde contouren"; exit 1; }
+          # issue D: hoek verslepen bevestigt niets; "Herstel detectie" + "Toepassen" ook niet; alleen "Dit is de buitenmaat" opent de contourpoort
+          python - <<'PY'
+          import os, re
+          log = open(os.environ["LOGS"] + "/selftest-console.log").read()
+          steps = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_CORNER_EDIT step=(\S+) (.*)", log)}
+          print(steps)
+          assert set(steps) == {"edit", "restore", "confirm"}, "selftest hoekcorrectie niet (volledig) uitgevoerd: %s" % steps.keys()
+          for k in ("edit", "restore"):
+              s = steps[k]
+              assert s["contour"] == "EDITED_UNCONFIRMED", (k, s)
+              assert s["measurementOk"] == "false" and s["confirmVisible"] == "true", (k, s)
+              assert s["objectArea"] == "null" and s["exportArea"] == "null", ("geen maat/export uit een bewerkte, onbevestigde contour", k, s)
+              assert s["count"] == "null" and s["area"] == "null" and s["objectUnconfirmed"] == "true" and s["valid"] == "true", (k, s)
+          e = steps["edit"]
+          assert e["gate"] == "true" and e["source"] == "MANUAL_CORRECTED" and e["exportContour"] == "EDITED_UNCONFIRMED", e
+          r = steps["restore"]
+          assert r["restored"] == "true" and int(r["revisions"]) >= 2, ("herstel detectie: oorspronkelijke hoeken terug, revisies bewaard", r)
+          c = steps["confirm"]
+          assert c["contour"] == "USER_CONFIRMED" and c["gate"] == "false" and c["exportContour"] == "USER_CONFIRMED", c
+          assert c["status"] != "MEASURED", ("bevestiging opent alleen de contourpoort; één foto blijft hoogstens ESTIMATED", c)
+          assert c["source"] == "MANUAL_CORRECTED" and int(c["revisions"]) >= 2, ("bewerkte hoeken en revisies blijven bewaard", c)
+          print("hoekcorrectie/bevestiging OK")
+          PY
 
       - name: Artifacts verzamelen (simulator-app, unsigned device-IPA)
         if: always()

@@ -39,6 +39,57 @@ struct PhotoWalkApp: App {
         }
     }
 
+    /// Selftest issue D: één hoek 1 px verschuiven bevestigt niets; "Herstel detectie" + "Toepassen" ook niet; alleen "Dit is de buitenmaat".
+    /// Controleert ook dat er tussendoor geen maat, exportwaarde, aantal of oppervlakvoorstel uit de bewerkte contour komt.
+    @MainActor private func selfTestCornerEdit() {
+        guard let o = store.observations.first(where: { !$0.rejected && $0.detection != nil && $0.outerContour.blocksArea }) else {
+            print("SELFTEST_CORNER_EDIT skipped=no-unconfirmed-detection"); return
+        }
+        let id = o.id
+        func draftId() -> String? { store.draft(of: id)?.id }
+        func objectArea() -> String { draftId().flatMap { d in store.results.first { $0.id == d } }.map { $0.areaM2 ?? "null" } ?? "none" }
+        func exportArea() -> String {
+            let objs = (ExportService.record(store)["objects"] as? [[String: Any]]) ?? []
+            let mine = objs.first { (($0["observation_refs"] as? [String]) ?? []).contains(id) }
+            guard let mine else { return "none" }
+            if let a = mine["gross_area_m2"] as? String { return a }
+            return mine["gross_area_m2"] is NSNull ? "null" : "?"
+        }
+        func exportContour() -> String {
+            let obs = (ExportService.record(store)["observations"] as? [[String: Any]]) ?? []
+            return ((obs.first { ($0["observation_id"] as? String) == id }?["facade_role"] as? [String: Any])?["outer_contour_status"] as? String) ?? "none"
+        }
+        func proposals() -> String {
+            store.round = RoundState(context: PhotoRoundContext(planRef: "plan-selftest0003", mjopPlanId: nil, buildingLabel: "Selftestgebouw", bagPandId: nil, mode: .round,
+                                                               element: nil, plannedFacades: []), facades: [.init(id: "Voorgevel", orientation: "S")])
+            defer { store.round = nil }
+            guard let input = RoundInputBuilder.build(store: store, createdAt: RoundCoordinator.isoNow()) else { return "none" }
+            let ps = RoundProposalBuilder.build(input)
+            func v(_ k: ScanProposalV2.Target.Kind) -> String { ps.first { $0.target.quantityKind == k && $0.target.scope.type == .BUILDING }.map { $0.value.map { String($0) } ?? "null" } ?? "none" }
+            let mineUnconfirmed = input.objects.first { $0.id == draftId() }.map { $0.contourUnconfirmed } ?? false
+            return "count=\(v(.FRAME_COUNT)) area=\(v(.FRAME_AREA_GROSS)) objectUnconfirmed=\(mineUnconfirmed) valid=\(ps.allSatisfy { $0.validate().isEmpty })"
+        }
+        let before = o.corners
+        // 1) één hoek 1 pixel
+        store.correctCorner(observation: id, index: 0, to: Pixel(before[0].u + 1, before[0].v), reason: "selftest: 1 pixel")
+        store.measureAll()
+        guard let e = store.observation(id), let m = store.measures[id] else { print("SELFTEST_CORNER_EDIT lost"); return }
+        let showsConfirm = OuterContourStatus.showsConfirmAction(status: e.outerContour, autoDetectedUnconfirmed: e.source == .AUTO_DETECTED_UNCONFIRMED)
+        print("SELFTEST_CORNER_EDIT step=edit contour=\(e.outerContour.rawValue) source=\(e.source.rawValue) measurementOk=\(m.result.ok) gate=\(m.result.flags.contains { $0.code == "OUTER_CONTOUR_UNVERIFIED" }) confirmVisible=\(showsConfirm) objectArea=\(objectArea()) exportArea=\(exportArea()) exportContour=\(exportContour()) \(proposals())")
+        // 2) "Herstel detectie" + "Toepassen": dezelfde lus als PhotoResultView.apply (alleen gewijzigde hoeken)
+        let detected = e.originalCorners
+        for i in 0..<4 where detected[i] != e.corners[i] { store.correctCorner(observation: id, index: i, to: detected[i], reason: "selftest: herstel detectie + toepassen") }
+        store.measureAll()
+        guard let r = store.observation(id), let mr = store.measures[id] else { return }
+        print("SELFTEST_CORNER_EDIT step=restore contour=\(r.outerContour.rawValue) restored=\(r.corners == r.originalCorners) revisions=\(r.revisions.count) measurementOk=\(mr.result.ok) confirmVisible=\(OuterContourStatus.showsConfirmAction(status: r.outerContour, autoDetectedUnconfirmed: r.source == .AUTO_DETECTED_UNCONFIRMED)) objectArea=\(objectArea()) exportArea=\(exportArea()) \(proposals())")
+        // 3) pas nu expliciet bevestigen: alleen de contourpoort gaat open; schaal, standpunten en overige regels blijven gelden
+        store.confirmCorners(observation: id)
+        store.measureAll()
+        guard let c = store.observation(id), let mc = store.measures[id] else { return }
+        let status = draftId().flatMap { d in store.results.first { $0.id == d } }?.status.rawValue ?? "none"
+        print("SELFTEST_CORNER_EDIT step=confirm contour=\(c.outerContour.rawValue) source=\(c.source.rawValue) revisions=\(c.revisions.count) gate=\(mc.result.flags.contains { $0.code == "OUTER_CONTOUR_UNVERIFIED" }) measurementOk=\(mc.result.ok) status=\(status) exportContour=\(exportContour())")
+    }
+
     @MainActor private func runSelfTestIfRequested() async {
         guard CommandLine.arguments.contains("-selftest") else { return }
         // 1) legacy: handmatige hoeken
@@ -93,6 +144,9 @@ struct PhotoWalkApp: App {
             print("SELFTEST_ROUND_UNCONFIRMED proposals=\(ps.count) valid=\(ps.allSatisfy { $0.validate().isEmpty }) values=\(ps.map { $0.value.map { String($0) } ?? "null" }.joined(separator: ","))")
         }
         store.round = nil
+        // 3a2) hoek verslepen is BEWERKEN, geen bevestiging (issue D): 1 pixel verschuiven, daarna "Herstel detectie" + "Toepassen", daarna pas
+        //      expliciet "Dit is de buitenmaat". Via dezelfde ScanStore-functies als de knoppen; de hoeken komen terug op de detectie.
+        selfTestCornerEdit()
         // 3b) gevelopbouw: gesimuleerde gebruiker bevestigt onbevestigde buitencontouren en tekent het gevelvlak (NA de export hierboven,
         //     die dus de automatische, onbevestigde toestand bevat). Toont dat er pas na bevestiging een kozijnmaat komt.
         for o in store.observations where !o.rejected && o.outerContour.blocksArea {

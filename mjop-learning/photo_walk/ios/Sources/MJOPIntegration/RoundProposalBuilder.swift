@@ -44,11 +44,15 @@ public struct RoundBuildInput {
     public var objects: [RoundObject]           // uniek, niet-uitgesloten
     public var facades: [RoundFacade]
     public var excludedObjectsByFacade: [String: Int]
+    /// Per gevel: onbeoordeelde duplicaatsuggesties waarbij een waarneming van deze gevel betrokken is (een suggestie tussen twee gevels telt bij beide).
     public var duplicatesUnresolvedByFacade: [String: Int]
+    /// Aantal onbeoordeelde suggesties voor het hele gebouw (elke suggestie één keer). nil = som van de gevels (oud gedrag, iedere suggestie bij één gevel).
+    public var duplicatesUnresolvedTotal: Int?
     public init(roundId: String, revision: Int, createdAt: String, project: ScanProposalV2.Project, elementKey: String?, objects: [RoundObject], facades: [RoundFacade],
-                excludedObjectsByFacade: [String: Int], duplicatesUnresolvedByFacade: [String: Int]) {
+                excludedObjectsByFacade: [String: Int], duplicatesUnresolvedByFacade: [String: Int], duplicatesUnresolvedTotal: Int? = nil) {
         self.roundId = roundId; self.revision = revision; self.createdAt = createdAt; self.project = project; self.elementKey = elementKey; self.objects = objects
-        self.facades = facades; self.excludedObjectsByFacade = excludedObjectsByFacade; self.duplicatesUnresolvedByFacade = duplicatesUnresolvedByFacade }
+        self.facades = facades; self.excludedObjectsByFacade = excludedObjectsByFacade; self.duplicatesUnresolvedByFacade = duplicatesUnresolvedByFacade
+        self.duplicatesUnresolvedTotal = duplicatesUnresolvedTotal }
 }
 
 /// Bouwt de voorstellen (aantal en bruto oppervlak, voor het gebouw en per gevel) uit de objecten van een fotoronde. Deterministisch, zonder prijzen of kengetallen:
@@ -62,7 +66,8 @@ public enum RoundProposalBuilder {
         var out: [ScanProposalV2] = []
         let multiFacade = input.facades.count > 1
         out += proposals(input, scope: .init(type: .BUILDING, facadeId: nil, orientation: nil), objects: input.objects,
-                         excluded: input.excludedObjectsByFacade.values.reduce(0, +), duplicates: input.duplicatesUnresolvedByFacade.values.reduce(0, +),
+                         excluded: input.excludedObjectsByFacade.values.reduce(0, +),
+                         duplicates: input.duplicatesUnresolvedTotal ?? input.duplicatesUnresolvedByFacade.values.reduce(0, +),
                          crossSession: input.facades.contains { $0.worldIds.count > 1 }, tag: "bld")
         if multiFacade {
             for f in input.facades {
@@ -114,14 +119,18 @@ public enum RoundProposalBuilder {
                 project: input.project, target: .init(elementKey: input.elementKey, quantityKind: kind, unit: unit, scope: scope), value: value, partialValue: partial,
                 basis: basis, measurement: measurement, evidence: evidence, reliability: .init(level: level, reasons: reasons))
         }
+        // Onbeoordeelde mogelijke duplicaten of foto's uit meerdere AR-sessies (niet onderling gecontroleerd): een kozijn kan dubbel meetellen.
+        // Dan GEEN aantal en GEEN oppervlak, ook geen deelwaarde (alles nil, INCOMPLETE). Basis, bewijs en redenen blijven volledig zichtbaar.
+        let unchecked = ScanProposalV2.quantityBlocked(duplicatesUnresolved: duplicates, crossSessionUnchecked: crossSession)
         // aantal: zonder kozijnen is er geen aantal (nil), niet 0. Zolang er een automatisch herkende, onbevestigde buitencontour bij zit, is het
         // aantal onvolledig (nil): zo'n object kan glas of een valse kandidaat zijn. Geen deelaantal (partial) om misbruik als hoeveelheid te voorkomen.
         let unconfirmedContours = objects.contains { $0.contourUnconfirmed }
-        let countComplete = total > 0 && !unconfirmedContours
+        let countComplete = total > 0 && !unconfirmedContours && !unchecked
         let count = make(.FRAME_COUNT, "st", value: countComplete ? Double(total) : nil, partial: nil, level: countComplete ? "CHECK_REQUIRED" : "INCOMPLETE")
-        // oppervlak: alleen als ALLE meetellende kozijnen een maat hebben; anders nil + deelsom ter informatie
-        let complete = total > 0 && unmeasured == 0
-        let area = make(.FRAME_AREA_GROSS, "m2", value: complete ? rounded : nil, partial: (!complete && !measured.isEmpty) ? rounded : nil, level: complete ? "CHECK_REQUIRED" : "INCOMPLETE")
+        // oppervlak: alleen als ALLE meetellende kozijnen een maat hebben; anders nil + deelsom ter informatie (niet bij mogelijke duplicaten)
+        let complete = total > 0 && unmeasured == 0 && !unchecked
+        let area = make(.FRAME_AREA_GROSS, "m2", value: complete ? rounded : nil, partial: (!complete && !measured.isEmpty && !unchecked) ? rounded : nil,
+                        level: complete ? "CHECK_REQUIRED" : "INCOMPLETE")
         return [count, area]
     }
 }

@@ -10,14 +10,42 @@ public enum FacadeRole: String, Codable, CaseIterable { case FACADE_GROSS, OPENI
 /// DETECTED_ENCLOSING_PANES: automatisch, een gedetecteerde vierhoek die glasvlakken omsluit (sterkste automatische aanwijzing, maar onbevestigd).
 /// UNVERIFIED: losse rechthoek (glas of kozijn?) of twijfelachtige omsluiting. PROPOSED_EXPANSION: voorgestelde vergroting vanaf het glas.
 /// ALLE automatisch herkende buitencontouren (DETECTED_ENCLOSING_PANES, UNVERIFIED, PROPOSED_EXPANSION) blijven voorlopig: ze leveren alleen een
-/// INDICATIEVE maat (zichtbaar, nooit in export, voorstel of gevelopbouw) tot de gebruiker de buitencontour bevestigt of zelf aangeeft.
-/// LEGACY (oudere scans), MANUAL en USER_CONFIRMED blokkeren niet; een maat vraagt daarnaast altijd een betrouwbare schaal.
+/// INDICATIEVE maat (zichtbaar, nooit in export, voorstel of gevelopbouw) tot de gebruiker de buitencontour expliciet bevestigt.
+/// EDITED_UNCONFIRMED: automatisch herkende (of eerder bevestigde) contour waarvan de gebruiker hoeken heeft verschoven, maar die nog NIET
+/// bevestigd is. Hoeken verslepen is bewerken, geen bevestiging: alleen "Dit is de buitenmaat" bevestigt.
+/// LEGACY (oudere scans), MANUAL (volledig zelf getekend) en USER_CONFIRMED blokkeren niet; een maat vraagt daarnaast altijd een betrouwbare schaal.
 public enum OuterContourStatus: String, Codable, CaseIterable {
-    case LEGACY, MANUAL, USER_CONFIRMED, DETECTED_ENCLOSING_PANES, UNVERIFIED, PROPOSED_EXPANSION
+    case LEGACY, MANUAL, USER_CONFIRMED, DETECTED_ENCLOSING_PANES, UNVERIFIED, PROPOSED_EXPANSION, EDITED_UNCONFIRMED
     /// De gebruiker moet de buitencontour nog bevestigen.
-    public var requiresConfirmation: Bool { self == .UNVERIFIED || self == .PROPOSED_EXPANSION || self == .DETECTED_ENCLOSING_PANES }
+    public var requiresConfirmation: Bool {
+        self == .UNVERIFIED || self == .PROPOSED_EXPANSION || self == .DETECTED_ENCLOSING_PANES || self == .EDITED_UNCONFIRMED
+    }
     /// Geen bruikbare kozijnmaat (export, voorstel, gevelopbouw) zolang de contour niet bevestigd is.
     public var blocksArea: Bool { requiresConfirmation }
+
+    /// Status na het verschuiven van één of meer hoeken (ook 1 pixel, ook "Herstel detectie" + "Toepassen"). Een bewerking bevestigt NOOIT:
+    /// een automatische of eerder bevestigde contour wordt EDITED_UNCONFIRMED (opnieuw bevestigen). Een volledig zelf getekende contour (MANUAL)
+    /// blijft MANUAL en een oude waarneming (LEGACY) blijft LEGACY (ongewijzigd gedrag). Python: facade.after_corner_edit.
+    public var afterCornerEdit: OuterContourStatus {
+        switch self {
+        case .LEGACY, .MANUAL: return self
+        case .USER_CONFIRMED, .DETECTED_ENCLOSING_PANES, .UNVERIFIED, .PROPOSED_EXPANSION, .EDITED_UNCONFIRMED: return .EDITED_UNCONFIRMED
+        }
+    }
+
+    /// Status na de expliciete actie "Dit is de buitenmaat". Alleen deze actie maakt een (bewerkte) automatische contour USER_CONFIRMED.
+    /// Dat opent alleen de contourpoort; schaal, standpunten, duplicaatcontrole en betrouwbaarheid blijven gelden. Python: facade.after_explicit_confirmation.
+    public var afterExplicitConfirmation: OuterContourStatus {
+        switch self {
+        case .LEGACY, .MANUAL: return self
+        case .USER_CONFIRMED, .DETECTED_ENCLOSING_PANES, .UNVERIFIED, .PROPOSED_EXPANSION, .EDITED_UNCONFIRMED: return .USER_CONFIRMED
+        }
+    }
+
+    /// Bevestigingsknop "Dit is de buitenmaat" tonen? Ook na een hoekcorrectie (dan EDITED_UNCONFIRMED).
+    public static func showsConfirmAction(status: OuterContourStatus, autoDetectedUnconfirmed: Bool) -> Bool {
+        autoDetectedUnconfirmed || status.requiresConfirmation
+    }
 }
 
 /// Poort tussen meting en hoeveelheid: een meting op een onbevestigde automatische buitencontour wordt INDICATIEF (alleen zichtbaar in de app)

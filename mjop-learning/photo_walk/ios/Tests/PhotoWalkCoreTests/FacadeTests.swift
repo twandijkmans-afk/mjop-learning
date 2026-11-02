@@ -137,7 +137,7 @@ final class FacadeTests: XCTestCase {
     }
 
     func testAutomaticContoursNeedConfirmation() {
-        XCTAssertEqual(Set(OuterContourStatus.allCases.filter { $0.blocksArea }), [.DETECTED_ENCLOSING_PANES, .UNVERIFIED, .PROPOSED_EXPANSION])
+        XCTAssertEqual(Set(OuterContourStatus.allCases.filter { $0.blocksArea }), [.DETECTED_ENCLOSING_PANES, .UNVERIFIED, .PROPOSED_EXPANSION, .EDITED_UNCONFIRMED])
         XCTAssertEqual(Set(OuterContourStatus.allCases.filter { !$0.blocksArea }), [.LEGACY, .MANUAL, .USER_CONFIRMED])
     }
 

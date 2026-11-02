@@ -25,9 +25,32 @@ from decimal import Decimal, ROUND_HALF_UP
 import numpy as np
 
 ROLES = ("FACADE_GROSS", "OPENING", "FRAME_OUTER", "GLASS_PANE")
-OUTER_STATUSES = ("LEGACY", "MANUAL", "USER_CONFIRMED", "DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION")
+OUTER_STATUSES = ("LEGACY", "MANUAL", "USER_CONFIRMED", "DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION", "EDITED_UNCONFIRMED")
 # ALLE automatisch herkende buitencontouren blijven voorlopig (alleen indicatief) tot de gebruiker bevestigt; LEGACY/MANUAL/USER_CONFIRMED niet.
-AREA_BLOCKING_STATUSES = ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION")
+# EDITED_UNCONFIRMED: hoeken verschoven, nog niet bevestigd (hoeken verslepen is bewerken, geen bevestiging).
+AREA_BLOCKING_STATUSES = ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION", "EDITED_UNCONFIRMED")
+
+
+def after_corner_edit(status):
+    """Status na het verschuiven van hoeken (ook 1 pixel, ook 'Herstel detectie' + 'Toepassen'). Bevestigt nooit.
+    LEGACY en MANUAL (volledig zelf getekend) blijven gelijk; al het andere wordt EDITED_UNCONFIRMED. Zelfde regel als
+    OuterContourStatus.afterCornerEdit (Swift)."""
+    if status not in OUTER_STATUSES:
+        raise ValueError(status)
+    return status if status in ("LEGACY", "MANUAL") else "EDITED_UNCONFIRMED"
+
+
+def after_explicit_confirmation(status):
+    """Status na de expliciete actie 'Dit is de buitenmaat': alleen die maakt een (bewerkte) automatische contour USER_CONFIRMED.
+    Opent alleen de contourpoort; schaal, standpunten, duplicaten en betrouwbaarheid blijven gelden. Zelfde als afterExplicitConfirmation."""
+    if status not in OUTER_STATUSES:
+        raise ValueError(status)
+    return status if status in ("LEGACY", "MANUAL") else "USER_CONFIRMED"
+
+
+def shows_confirm_action(status, auto_detected_unconfirmed):
+    """Bevestigingsknop tonen (ook na een hoekcorrectie). Zelfde als OuterContourStatus.showsConfirmAction."""
+    return bool(auto_detected_unconfirmed) or status in AREA_BLOCKING_STATUSES
 STATUS_ORDER = {"UNKNOWN": 0, "ESTIMATED": 1, "DERIVED": 2, "MEASURED": 3}
 
 MAINTAINABLE_FRAME_NOTE = ("Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, "

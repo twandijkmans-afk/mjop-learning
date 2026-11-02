@@ -232,19 +232,21 @@ final class ScanStore: ObservableObject {
         observations[i].corners[index] = p
         observations[i].source = .MANUAL_CORRECTED
         observations[i].revisions.append(CornerRevision(index: index, before: before, after: p, editedBy: "inspecteur", editedAt: Date(), reason: reason))
-        // de inspecteur heeft de hoeken zelf naar de buitenrand gesleept: dit is nu een door de gebruiker aangegeven buitencontour
-        if observations[i].outerContour != .LEGACY { observations[i].outerContour = .MANUAL }
+        // Hoeken verslepen is BEWERKEN, geen bevestiging (ook niet na "Herstel detectie" + "Toepassen"): een automatische of eerder bevestigde
+        // contour wordt EDITED_UNCONFIRMED en blijft geblokkeerd tot "Dit is de buitenmaat". Zelf getekend (MANUAL) en LEGACY blijven gelijk.
+        observations[i].outerContour = observations[i].outerContour.afterCornerEdit
     }
 
     /// "Dit is de buitenmaat": bevestigt de HOEKEN als buitencontour van het kozijn (geen goedkeuring van de hoeveelheid).
     func confirmCorners(observation id: String) {
         guard let i = observations.firstIndex(where: { $0.id == id }) else { return }
         if observations[i].source == .AUTO_DETECTED_UNCONFIRMED { observations[i].source = .AUTO_DETECTED_CONFIRMED }
-        if observations[i].outerContour != .LEGACY && observations[i].outerContour != .MANUAL { observations[i].outerContour = .USER_CONFIRMED }
+        // enige plek waar een (bewerkte) automatische contour bevestigd wordt; de bewerkte hoeken, revisies en de bron blijven bewaard
+        observations[i].outerContour = observations[i].outerContour.afterExplicitConfirmation
     }
 
     /// Past de voorgestelde buitencontour (randzoeker) toe: de oude vierhoek wordt een glasvlak van dit kozijn. Daarna blijft de maat
-    /// geblokkeerd (PROPOSED_EXPANSION) tot de gebruiker "Dit is de buitenmaat" kiest of de hoeken zelf versleept.
+    /// geblokkeerd (PROPOSED_EXPANSION) tot de gebruiker "Dit is de buitenmaat" kiest (hoeken verslepen bevestigt niet).
     func applyProposedOuter(observation id: String) {
         guard let i = observations.firstIndex(where: { $0.id == id }), let prop = observations[i].proposedOuter, prop.count == 4 else { return }
         let o = observations[i]

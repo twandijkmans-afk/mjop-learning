@@ -112,5 +112,24 @@
       }
     },
     "booking_allowed": {"const": false}
-  }
+  },
+  "allOf": [
+    {
+      "description": "Mogelijke dubbeltelling (onbeoordeelde duplicaten of niet onderling gecontroleerde AR-sessies): geen waarde en geen deelwaarde, altijd INCOMPLETE.",
+      "if": {
+        "required": ["basis"],
+        "properties": {"basis": {"anyOf": [
+          {"required": ["duplicates_unresolved"], "properties": {"duplicates_unresolved": {"type": "integer", "minimum": 1}}},
+          {"required": ["cross_session_unchecked"], "properties": {"cross_session_unchecked": {"const": true}}}
+        ]}}
+      },
+      "then": {
+        "properties": {
+          "value": {"type": "null"},
+          "partial_value": {"type": "null"},
+          "reliability": {"properties": {"level": {"const": "INCOMPLETE"}}}
+        }
+      }
+    }
+  ]
 }

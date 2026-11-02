@@ -158,6 +158,23 @@ public struct ScanProposalV2: Codable, Equatable {
     public enum Issue: Equatable {
         case wrongContract, bookingMustBeDisallowed, notProposed, badBasis, unitMismatch, valueWithoutObjects
         case areaWithUnmeasured, nullValueNotIncomplete, uncertaintyNotNamed, negativeValue, facadeWithoutId
+        /// Onbeoordeelde duplicaten of niet-gecontroleerde AR-sessies, maar toch een (deel)waarde of geen INCOMPLETE.
+        case quantityWithUncheckedDuplicates
+    }
+
+    /// Mogelijke dubbeltelling (onbeoordeelde duplicaten of meerdere AR-sessies zonder controle) blokkeert ELKE hoeveelheid in een voorstel.
+    public static func quantityBlocked(duplicatesUnresolved: Int, crossSessionUnchecked: Bool) -> Bool { duplicatesUnresolved > 0 || crossSessionUnchecked }
+    public var quantityBlocked: Bool { Self.quantityBlocked(duplicatesUnresolved: basis.duplicatesUnresolved, crossSessionUnchecked: basis.crossSessionUnchecked) }
+
+    /// Kopie zonder waarde en deelwaarde (INCOMPLETE, redenen aangevuld) als het voorstel een mogelijke dubbeltelling bevat; anders ongewijzigd.
+    /// Vangnet voor eerder opgeslagen voorstellen (outbox) die nog volgens de oude regel een waarde hadden. Basis en bewijs blijven gelijk.
+    public func withUncheckedQuantitiesBlocked() -> ScanProposalV2 {
+        guard quantityBlocked else { return self }
+        var p = self
+        p.value = nil; p.partialValue = nil; p.reliability.level = "INCOMPLETE"
+        if basis.duplicatesUnresolved > 0 && !p.reliability.reasons.contains("DUPLICATES_UNRESOLVED") { p.reliability.reasons.append("DUPLICATES_UNRESOLVED") }
+        if basis.crossSessionUnchecked && !p.reliability.reasons.contains("CROSS_SESSION_UNCHECKED") { p.reliability.reasons.append("CROSS_SESSION_UNCHECKED") }
+        return p
     }
 
     public func validate() -> [Issue] {
@@ -174,6 +191,7 @@ public struct ScanProposalV2: Codable, Equatable {
         if target.quantityKind == .FRAME_AREA_GROSS && value != nil && basis.objectsUnmeasured > 0 { out.append(.areaWithUnmeasured) }
         if !measurement.uncertainty.validated && !reliability.reasons.contains("UNVALIDATED_LIDAR") { out.append(.uncertaintyNotNamed) }
         if target.scope.type == .FACADE && target.scope.facadeId == nil { out.append(.facadeWithoutId) }
+        if quantityBlocked && (value != nil || partialValue != nil || reliability.level != "INCOMPLETE") { out.append(.quantityWithUncheckedDuplicates) }
         return out
     }
 

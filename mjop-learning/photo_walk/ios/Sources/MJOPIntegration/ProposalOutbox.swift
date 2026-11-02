@@ -30,9 +30,11 @@ public struct ProposalOutbox: Codable, Equatable {
         } else { rounds.append(r) }
     }
 
-    /// Alleen voorstellen van dit project (planRef); nooit van een ander project.
+    /// Alleen voorstellen van dit project (planRef); nooit van een ander project. Een voorstel met een mogelijke dubbeltelling gaat altijd
+    /// zonder waarde de deur uit (ook als het eerder, vóór deze regel, met een waarde is opgeslagen); het opgeslagen bestand blijft ongewijzigd.
     public func proposals(forPlan planRef: String) -> [ScanProposalV2] {
         rounds.filter { $0.planRef == planRef && $0.status == "COMPLETED" }.flatMap { $0.proposals }.filter { $0.project.planRef == planRef }
+            .map { $0.withUncheckedQuantitiesBlocked() }
     }
 
     public func summaries(forPlan planRef: String) -> [[String: Any]] {

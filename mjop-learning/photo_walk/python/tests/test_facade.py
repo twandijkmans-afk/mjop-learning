@@ -340,3 +340,58 @@ def test_v12_facade_fields_do_not_leak_into_bruto_intake():
     assert all(ob["dimension"]["dimension_status"] == "UNKNOWN" for ob in intake["objects"])
     assert not any(p.get("proposed_gross_area_m2") for p in intake["sensor_proposals"]), "geen voorstel-m² uit een onbevestigde contour"
     assert "facade_composition" not in json.dumps(intake) and "GLASS_PANE" not in json.dumps(intake), "glas/gevel gaan niet als kozijnhoeveelheid door"
+
+
+# ------------------------------------------------------------------ issue D: hoeken verslepen is bewerken, geen bevestiging
+# Zelfde overgangen als OuterContourStatus.afterCornerEdit / afterExplicitConfirmation (Swift, ScanStore.correctCorner / confirmCorners).
+
+AUTOMATIC = ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION")
+
+
+@pytest.mark.parametrize("status", AUTOMATIC + ("USER_CONFIRMED", "EDITED_UNCONFIRMED"))
+def test_corner_edit_never_confirms(status):
+    e = F.after_corner_edit(status)
+    assert e == "EDITED_UNCONFIRMED" and e in F.AREA_BLOCKING_STATUSES
+    assert e != "MANUAL", "een bewerkte automatische contour is nooit 'zelf getekend'"
+    assert F.after_corner_edit(e) == "EDITED_UNCONFIRMED", "'Herstel detectie' + 'Toepassen' is weer een bewerking: nog steeds onbevestigd"
+    assert F.shows_confirm_action(e, auto_detected_unconfirmed=False), "bevestigingsknop blijft zichtbaar na een hoekcorrectie"
+
+
+@pytest.mark.parametrize("status", AUTOMATIC + ("EDITED_UNCONFIRMED",))
+def test_only_explicit_confirmation_unblocks(status):
+    assert F.after_explicit_confirmation(F.after_corner_edit(status)) == "USER_CONFIRMED"
+    assert "USER_CONFIRMED" not in F.AREA_BLOCKING_STATUSES
+    assert not F.shows_confirm_action("USER_CONFIRMED", auto_detected_unconfirmed=False)
+
+
+def test_self_drawn_and_legacy_unchanged():
+    for s in ("MANUAL", "LEGACY"):
+        assert F.after_corner_edit(s) == s and F.after_explicit_confirmation(s) == s and s not in F.AREA_BLOCKING_STATUSES
+    with pytest.raises(ValueError):
+        F.after_corner_edit("SOMETHING_ELSE")
+
+
+def test_edited_unconfirmed_export_is_valid_but_carries_no_frame_quantity():
+    from photo_walk_core import to_bruto
+    rec = _export_with_facade()
+    rec["observations"][0]["facade_role"]["outer_contour_status"] = "EDITED_UNCONFIRMED"
+    rec["observations"][0]["corner_source"] = "MANUAL_CORRECTED"
+    # zoals de app een geblokkeerde contour exporteert: geen maat in het object
+    o = rec["objects"][0]
+    o.update({"outer_width_m": None, "outer_height_m": None, "gross_area_m2": None, "gross_area_m2_presented": None, "dimension_status": "UNKNOWN",
+              "measurement_uncertainty": None, "outer_corner_coordinates": None})
+    o["measurement_source"] = dict(o["measurement_source"], level=None, scale_method="NONE", views=[])
+    assert list(_validator().iter_errors(rec)) == [], "EDITED_UNCONFIRMED is een geldige status in photo_walk_capture_v1 1.2.0"
+    intake = to_bruto.convert(rec)
+    to_bruto.validate(intake)
+    assert all(ob["dimension"]["dimension_status"] == "UNKNOWN" for ob in intake["objects"])
+    assert not any(p.get("proposed_gross_area_m2") for p in intake["sensor_proposals"]), "geen voorstel-m² uit een bewerkte, onbevestigde contour"
+    bad = copy.deepcopy(rec)
+    bad["observations"][0]["facade_role"]["outer_contour_status"] = "EDITED"
+    assert list(_validator().iter_errors(bad)), "onbekende status wordt geweigerd"
+
+
+def test_contour_transition_parity_fixture_is_current():
+    from photo_walk_core import facade_parity
+    committed = json.loads(facade_parity.OUT.read_text())
+    assert committed["contour_transitions"] == facade_parity.contour_transition_cases()

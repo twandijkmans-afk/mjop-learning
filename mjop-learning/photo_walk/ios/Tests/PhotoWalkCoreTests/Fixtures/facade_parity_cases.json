@@ -741,6 +741,71 @@
    ]
   ]
  },
+ "contour_transitions": [
+  {
+   "after_confirm_then_edit": "LEGACY",
+   "after_corner_edit": "LEGACY",
+   "after_edit_then_confirm": "LEGACY",
+   "after_explicit_confirmation": "LEGACY",
+   "blocks_area": false,
+   "shows_confirm_after_edit": false,
+   "status": "LEGACY"
+  },
+  {
+   "after_confirm_then_edit": "MANUAL",
+   "after_corner_edit": "MANUAL",
+   "after_edit_then_confirm": "MANUAL",
+   "after_explicit_confirmation": "MANUAL",
+   "blocks_area": false,
+   "shows_confirm_after_edit": false,
+   "status": "MANUAL"
+  },
+  {
+   "after_confirm_then_edit": "EDITED_UNCONFIRMED",
+   "after_corner_edit": "EDITED_UNCONFIRMED",
+   "after_edit_then_confirm": "USER_CONFIRMED",
+   "after_explicit_confirmation": "USER_CONFIRMED",
+   "blocks_area": false,
+   "shows_confirm_after_edit": true,
+   "status": "USER_CONFIRMED"
+  },
+  {
+   "after_confirm_then_edit": "EDITED_UNCONFIRMED",
+   "after_corner_edit": "EDITED_UNCONFIRMED",
+   "after_edit_then_confirm": "USER_CONFIRMED",
+   "after_explicit_confirmation": "USER_CONFIRMED",
+   "blocks_area": true,
+   "shows_confirm_after_edit": true,
+   "status": "DETECTED_ENCLOSING_PANES"
+  },
+  {
+   "after_confirm_then_edit": "EDITED_UNCONFIRMED",
+   "after_corner_edit": "EDITED_UNCONFIRMED",
+   "after_edit_then_confirm": "USER_CONFIRMED",
+   "after_explicit_confirmation": "USER_CONFIRMED",
+   "blocks_area": true,
+   "shows_confirm_after_edit": true,
+   "status": "UNVERIFIED"
+  },
+  {
+   "after_confirm_then_edit": "EDITED_UNCONFIRMED",
+   "after_corner_edit": "EDITED_UNCONFIRMED",
+   "after_edit_then_confirm": "USER_CONFIRMED",
+   "after_explicit_confirmation": "USER_CONFIRMED",
+   "blocks_area": true,
+   "shows_confirm_after_edit": true,
+   "status": "PROPOSED_EXPANSION"
+  },
+  {
+   "after_confirm_then_edit": "EDITED_UNCONFIRMED",
+   "after_corner_edit": "EDITED_UNCONFIRMED",
+   "after_edit_then_confirm": "USER_CONFIRMED",
+   "after_explicit_confirmation": "USER_CONFIRMED",
+   "blocks_area": true,
+   "shows_confirm_after_edit": true,
+   "status": "EDITED_UNCONFIRMED"
+  }
+ ],
  "expansion": [
   {
    "name": "single_pane",

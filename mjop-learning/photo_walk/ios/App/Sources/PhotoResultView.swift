@@ -36,6 +36,7 @@ struct PhotoResultView: View {
         case .UNVERIFIED: return o.evidence == .NESTED_PANES ? "buitenmaat controleren" : "glas of kozijn?"
         case .PROPOSED_EXPANSION: return "voorgestelde buitenmaat: controleren"
         case .DETECTED_ENCLOSING_PANES: return "buitenmaat bevestigen"
+        case .EDITED_UNCONFIRMED: return "aangepast: buitenmaat bevestigen"
         default: return nil
         }
     }
@@ -143,6 +144,7 @@ struct PhotoResultView: View {
             switch o.outerContour {
             case .PROPOSED_EXPANSION: return "Voorgestelde buitenmaat. Controleer of het kader op de buitenrand van het kozijn ligt." + ind
             case .DETECTED_ENCLOSING_PANES: return "Buitenrand automatisch gevonden. Bevestig de buitenmaat; pas dan telt de maat." + ind
+            case .EDITED_UNCONFIRMED: return "Hoeken aangepast. Kies 'Dit is de buitenmaat' als het kader op de buitenrand ligt; pas dan telt de maat." + ind
             default: return (o.evidence == .NESTED_PANES ? "Controleer of het kader op de buitenrand van het kozijn ligt." : "Is dit het hele kozijn of alleen het glas? Tik om te controleren.") + ind
             }
         }
@@ -250,7 +252,7 @@ struct BoxDetailView: View {
                         HStack {
                             Button("Toepassen") { apply(obs) }.buttonStyle(.borderedProminent).disabled(corners == obs.corners).accessibilityIdentifier("applyCorners")
                             Button("Herstel detectie") { corners = obs.originalCorners }.buttonStyle(.bordered).disabled(corners == obs.originalCorners)
-                            if obs.source == .AUTO_DETECTED_UNCONFIRMED || obs.outerContour.blocksArea {
+                            if OuterContourStatus.showsConfirmAction(status: obs.outerContour, autoDetectedUnconfirmed: obs.source == .AUTO_DETECTED_UNCONFIRMED) {
                                 Button("Dit is de buitenmaat") { store.confirmCorners(observation: obs.id); Task { await store.measureAllInBackground(); store.persist() } }
                                     .buttonStyle(.bordered).accessibilityIdentifier("confirmOuterButton")
                             }
@@ -285,13 +287,16 @@ struct BoxDetailView: View {
             switch obs.outerContour {
             case .UNVERIFIED:
                 Text(obs.evidence == .NESTED_PANES ? "Dit kader omsluit glas, maar er is weinig glas in verhouding: controleer of het de buitenrand van het kozijn is."
-                     : "Is dit het hele kozijn of alleen het glas? Er komt pas een maat als jij de buitenrand bevestigt of de hoeken zelf versleept.")
+                     : "Is dit het hele kozijn of alleen het glas? Sleep zo nodig de hoeken naar de buitenrand; er komt pas een maat als jij 'Dit is de buitenmaat' kiest.")
                     .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
             case .PROPOSED_EXPANSION:
                 Text("Voorgestelde buitenmaat (berekend vanaf het glas). Controleer of het kader precies op de buitenrand van het kozijn ligt; pas dan komt er een maat.")
                     .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
             case .DETECTED_ENCLOSING_PANES:
-                Text("Buitenrand automatisch gevonden rond \(panes.count) glasvlak(ken). De maat is indicatief tot je 'Dit is de buitenmaat' kiest of de hoeken versleept.")
+                Text("Buitenrand automatisch gevonden rond \(panes.count) glasvlak(ken). De maat is indicatief tot je 'Dit is de buitenmaat' kiest.")
+                    .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
+            case .EDITED_UNCONFIRMED:
+                Text("Je hebt de hoeken aangepast. Hoeken verslepen bevestigt nog niets: kies 'Dit is de buitenmaat' als het kader op de buitenrand van het kozijn ligt.")
                     .font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("contourQuestion")
             default: EmptyView()
             }
