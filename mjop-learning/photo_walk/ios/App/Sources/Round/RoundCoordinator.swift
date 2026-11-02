@@ -89,6 +89,13 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         return true
     }
 
+    /// Handmatige duplicaatcontrole vastleggen of intrekken (alleen de huidige toestand; vervalt vanzelf bij elke wijziging).
+    func setDuplicateReview(_ on: Bool) {
+        guard let store, store.round != nil else { return }
+        store.round?.duplicateReview = on ? DuplicateReview(reviewedAt: Date(), fingerprint: RoundInputBuilder.reviewFingerprint(store: store)) : nil
+        store.persist()
+    }
+
     func setExcluded(frame: String, _ excluded: Bool) {
         guard let store else { return }
         if excluded { store.round?.excludedFrames.insert(frame) } else { store.round?.excludedFrames.remove(frame) }

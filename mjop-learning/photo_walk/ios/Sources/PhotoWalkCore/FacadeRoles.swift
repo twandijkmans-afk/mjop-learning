@@ -123,3 +123,32 @@ public func polygonIoU(_ a: [Pixel], _ b: [Pixel]) -> Double {
     let uni = polygonArea(a) + polygonArea(b) - inter
     return uni > 0 ? inter / uni : 0
 }
+
+/// Herkomst van een vierhoek die de gebruiker in de hoekkiezer (CornerPickerView) opslaat. Python-referentie: facade.classify_picked_quad.
+/// * Volledig zelf getekend (geen voorstel gekozen)            -> bron MANUAL,                  contour MANUAL.
+/// * Voorstel (automatische kandidaat) ongewijzigd opgeslagen    -> bron AUTO_DETECTED_CONFIRMED, contour USER_CONFIRMED.
+/// * Voorstel gekozen en daarna hoeken verschoven, opgeslagen   -> bron MANUAL_CORRECTED,         contour USER_CONFIRMED.
+///   De oorspronkelijke voorstelhoeken blijven de `originalCorners` en elke verschoven hoek wordt een revisie: de herkomst blijft zichtbaar.
+/// Opslaan in de hoekkiezer is een uitdrukkelijke bevestiging ("opslaan telt als bevestigd"); alleen een echt zelf getekende vierhoek is MANUAL.
+/// De contourpoort is daarmee open, maar schaal, standpunten, duplicaatcontrole en betrouwbaarheid blijven gelden.
+public enum PickedQuad {
+    public enum Source: String { case MANUAL, AUTO_DETECTED_CONFIRMED, MANUAL_CORRECTED }
+    public struct Result: Equatable {
+        public var source: Source
+        public var outerContour: OuterContourStatus
+        public var originalCorners: [Pixel]
+        /// Hoeken die afwijken van het gekozen voorstel (index 0..3), voor de revisiegeschiedenis.
+        public var editedCornerIndices: [Int]
+        public var candidateDerived: Bool { source != .MANUAL }
+    }
+
+    /// - final: de vier opgeslagen hoeken. - candidate: het gekozen voorstel (nil = niets gekozen of daarna alles gewist).
+    public static func classify(final: [Pixel], candidate: [Pixel]?) -> Result {
+        guard let c = candidate, c.count == final.count else {
+            return Result(source: .MANUAL, outerContour: .MANUAL, originalCorners: final, editedCornerIndices: [])
+        }
+        let edited = final.indices.filter { final[$0] != c[$0] }
+        return Result(source: edited.isEmpty ? .AUTO_DETECTED_CONFIRMED : .MANUAL_CORRECTED, outerContour: .USER_CONFIRMED,
+                      originalCorners: c, editedCornerIndices: edited)
+    }
+}

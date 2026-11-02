@@ -343,8 +343,8 @@ struct LinkSuggestionsView: View {
     var body: some View {
         let s = store.linkSuggestions()
         List {
-            Text("Mogelijk hetzelfde kozijn op verschillende foto's (zelfde vlak, nabije positie, vergelijkbare maat). Dit is een SUGGESTIE; koppel alleen als je het zeker weet. Niets wordt automatisch samengevoegd.").font(.footnote)
-            ForEach(s, id: \.a) { c in
+            Text("Mogelijk hetzelfde kozijn: op verschillende foto's (zelfde vlak, nabije positie, vergelijkbare maat) of twee overlappende kaders op dezelfde foto (afstand 0). Dit is een SUGGESTIE; koppel alleen als je het zeker weet. Niets wordt automatisch samengevoegd.").font(.footnote)
+            ForEach(s, id: \.pairKey) { c in
                 VStack(alignment: .leading) {
                     Text("\(store.shortName(ofObservation: c.a)) (\(store.observation(c.a)?.frameId ?? "")) ↔ \(store.shortName(ofObservation: c.b)) (\(store.observation(c.b)?.frameId ?? "")) · afstand \(String(format: "%.2f", c.distanceM)) m").font(.footnote)
                     HStack {

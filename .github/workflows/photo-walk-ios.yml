@@ -334,7 +334,7 @@ jobs:
           grep -q "SELFTEST_PERSIST observations=[1-9][0-9]* identicalDepth=true" "$LOGS/selftest-console.log" || { echo "::error::lokale opslag/herstel niet identiek"; exit 1; }
           grep "SELFTEST_ROLE\|SELFTEST_CONFIRM\|SELFTEST_FACADE\|SELFTEST_NOTE" "$LOGS/selftest-console.log" || true
           grep -q "SELFTEST_PERSIST_FACADE identical=true" "$LOGS/selftest-console.log" || { echo "::error::gevelopbouw (rollen/glasvlakken) niet identiek na opslaan en herstellen"; exit 1; }
-          grep "SELFTEST_REANALYZE\|SELFTEST_LEGACY\|SELFTEST_PERSIST_AFTER_EDIT\|SELFTEST_ROUND_UNCONFIRMED\|SELFTEST_CORNER_EDIT" "$LOGS/selftest-console.log" || true
+          grep "SELFTEST_REANALYZE\|SELFTEST_LEGACY\|SELFTEST_PERSIST_AFTER_EDIT\|SELFTEST_ROUND_UNCONFIRMED\|SELFTEST_CORNER_EDIT\|SELFTEST_DUP_COVERAGE\|SELFTEST_PICKED" "$LOGS/selftest-console.log" || true
           grep -q "SELFTEST_REANALYZE added=0 glassAdded=0" "$LOGS/selftest-console.log" || { echo "::error::opnieuw zoeken voegde dubbele kozijnen of glasvlakken toe"; exit 1; }
           grep -q "SELFTEST_LEGACY decoded=true observations=[1-9][0-9]* allLegacy=true noGate=true elements=0" "$LOGS/selftest-console.log" || { echo "::error::oude sessie niet leesbaar of niet als LEGACY behandeld"; exit 1; }
           grep -q "SELFTEST_PERSIST_AFTER_EDIT identical=true revisions=[1-9]" "$LOGS/selftest-console.log" || { echo "::error::handmatige correctie niet identiek na opslaan en herstellen"; exit 1; }
@@ -361,6 +361,36 @@ jobs:
           assert c["status"] != "MEASURED", ("bevestiging opent alleen de contourpoort; één foto blijft hoogstens ESTIMATED", c)
           assert c["source"] == "MANUAL_CORRECTED" and int(c["revisions"]) >= 2, ("bewerkte hoeken en revisies blijven bewaard", c)
           print("hoekcorrectie/bevestiging OK")
+          PY
+          # duplicaatcontrole: nul suggesties is geen bewijs; handmatige controle alleen zolang er niets wijzigt
+          python - <<'PY'
+          import os, re
+          log = open(os.environ["LOGS"] + "/selftest-console.log").read()
+          st = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_DUP_COVERAGE step=(\S+) (.*)", log)}
+          print(st)
+          assert set(st) == {"no-world", "two-worlds", "reviewed", "stale"}, st.keys()
+          for k in ("no-world", "two-worlds", "stale"):
+              s = st[k]
+              assert s["suggestions"] == "0" and s["objects"] == "2" and s["checkable"] == "1", (k, s)
+              assert s["count"] == "null" and s["area"] == "null" and s["partial"] == "null" and s["level"] == "INCOMPLETE", ("geblokkeerd", k, s)
+              assert s["complete"] == "false" and s["valid"] == "true" and s["unchecked"] == "1", (k, s)
+          assert "DUPLICATE_CHECK_INCOMPLETE" in st["no-world"]["reasons"] and st["no-world"]["unknownWorld"] == "2", st["no-world"]
+          assert "CROSS_SESSION_UNCHECKED" in st["two-worlds"]["reasons"] and st["two-worlds"]["cross"] == "true", st["two-worlds"]
+          r = st["reviewed"]
+          assert r["complete"] == "true" and r["manual"] == "true" and r["count"] == "2.0" and r["level"] == "CHECK_REQUIRED" and r["valid"] == "true", r
+          assert "DUPLICATE_CHECK_INCOMPLETE" not in r["reasons"] and "CROSS_SESSION_UNCHECKED" not in r["reasons"], r
+          assert r["area"] == "null", ("F001 heeft geen maat: oppervlak blijft onvolledig", r)
+          assert st["stale"]["manual"] == "false", st["stale"]
+          # hoekkiezer: herkomst
+          pk = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_PICKED name=(\S+) (.*)", log)}
+          print(pk)
+          assert pk["self_drawn"]["source"] == "MANUAL" and pk["self_drawn"]["contour"] == "MANUAL" and pk["self_drawn"]["detector"] == "none", pk
+          u = pk["candidate_unchanged"]
+          assert u["source"] == "AUTO_DETECTED_CONFIRMED" and u["contour"] == "USER_CONFIRMED" and u["originalIsCandidate"] == "true" and u["revisions"] == "0", u
+          m = pk["candidate_moved"]
+          assert m["source"] == "MANUAL_CORRECTED" and m["contour"] == "USER_CONFIRMED" and m["contour"] != "MANUAL", m
+          assert m["originalIsCandidate"] == "true" and m["cornersKept"] == "true" and m["revisions"] == "1" and m["detector"] == "VN_RECTANGLE_CANDIDATE", m
+          print("duplicaatcontrole en hoekkiezer OK")
           PY
 
       - name: Artifacts verzamelen (simulator-app, unsigned device-IPA)

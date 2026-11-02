@@ -37,7 +37,9 @@ enum RoundInputBuilder {
                 autoDetected: !detected.isEmpty, userConfirmed: !detected.isEmpty && detected.allSatisfy { $0.source != .AUTO_DETECTED_UNCONFIRMED && !$0.outerContour.blocksArea },
                 manual: obs.contains { $0.detection == nil && $0.source == .MANUAL }, flags: res?.flags.map { $0.code } ?? [],
                 // gevelopbouw: alleen als ALLE waarnemingen van dit object een onbevestigde automatische buitencontour hebben (LEGACY telt niet)
-                contourUnconfirmed: obs.allSatisfy { $0.outerContour.blocksArea }))
+                contourUnconfirmed: obs.allSatisfy { $0.outerContour.blocksArea },
+                // duplicaatcontrole over foto's heen kan alleen met een ruimtelijke meting (zelfde criterium als de koppelsuggesties)
+                duplicateCheckable: obs.contains { store.linkItem($0) != nil }))
         }
 
         // mogelijk dubbele kozijnen (zelfde AR-sessie, nog niet gekoppeld of genegeerd) per gevel. Een suggestie tussen twee gevels blokkeert
@@ -59,11 +61,29 @@ enum RoundInputBuilder {
             let worlds = Set(frames.compactMap { round.frameWorld[$0] })
             return RoundFacade(id: fid, orientation: round.facades.first { $0.id == fid }?.orientation, worldIds: worlds)
         }
+        // foto -> AR-sessie, alleen voor meetellende foto's; een foto zonder bekende sessie ontbreekt (= onbekend, niet "zelfde sessie")
+        var frameWorld: [String: String] = [:]
+        for kf in store.keyframes where !excludedFrames.contains(kf.id) { if let w = round.frameWorld[kf.id] { frameWorld[kf.id] = w } }
+        let fp = reviewFingerprint(store: store)
+        let reviewed = round.duplicateReview.map { $0.fingerprint == fp } ?? false
         let ctx = round.context
         return RoundBuildInput(
             roundId: store.sessionId, revision: round.revision, createdAt: createdAt,
             project: .init(planRef: ctx.planRef, mjopPlanId: ctx.mjopPlanId, buildingId: ctx.buildingLabel, bagPandId: ctx.bagPandId),
             elementKey: ctx.element?.key, objects: objects, facades: facades, excludedObjectsByFacade: excluded, duplicatesUnresolvedByFacade: dups,
-            duplicatesUnresolvedTotal: dupTotal)
+            duplicatesUnresolvedTotal: dupTotal, frameWorld: frameWorld, duplicateReviewConfirmed: reviewed)
+    }
+
+    /// Vingerafdruk van alles waarop een handmatige duplicaatcontrole betrekking heeft: meetellende foto's (met gevel en AR-sessie), waarnemingen
+    /// (met kozijn en hoeken) en uitsluitingen. Een nieuwe foto, waarneming, koppeling, ontkoppeling, afwijzing of uitsluiting laat de verklaring vervallen.
+    static func reviewFingerprint(store: ScanStore) -> String {
+        guard let round = store.round else { return "" }
+        var parts: [String] = []
+        for kf in store.keyframes { parts.append("photo:\(kf.id)|\(round.frameFacade[kf.id] ?? "-")|\(round.frameWorld[kf.id] ?? "-")|\(round.excludedFrames.contains(kf.id) ? "excluded" : "in")") }
+        for o in store.observations where !o.rejected {
+            let c = o.corners.map { String(format: "%.1f,%.1f", $0.u, $0.v) }.joined(separator: ";")
+            parts.append("obs:\(o.id)|\(o.frameId)|\(store.draft(of: o.id)?.id ?? "-")|\(c)")
+        }
+        return DuplicateCoverage.fingerprint(parts)
     }
 }

@@ -48,6 +48,19 @@ def after_explicit_confirmation(status):
     return status if status in ("LEGACY", "MANUAL") else "USER_CONFIRMED"
 
 
+def classify_picked_quad(final, candidate):
+    """Herkomst van een in de hoekkiezer opgeslagen vierhoek (zelfde als PickedQuad.classify, Swift).
+    Zelf getekend -> (MANUAL, MANUAL); voorstel ongewijzigd -> (AUTO_DETECTED_CONFIRMED, USER_CONFIRMED); voorstel met verschoven hoeken ->
+    (MANUAL_CORRECTED, USER_CONFIRMED) met de voorstelhoeken als originele hoeken. Geeft dict source/outer_contour/original_corners/edited."""
+    final = [tuple(map(float, p)) for p in final]
+    if candidate is None or len(candidate) != len(final):
+        return {"source": "MANUAL", "outer_contour": "MANUAL", "original_corners": final, "edited": []}
+    cand = [tuple(map(float, p)) for p in candidate]
+    edited = [i for i in range(len(final)) if final[i] != cand[i]]
+    return {"source": "MANUAL_CORRECTED" if edited else "AUTO_DETECTED_CONFIRMED", "outer_contour": "USER_CONFIRMED",
+            "original_corners": cand, "edited": edited}
+
+
 def shows_confirm_action(status, auto_detected_unconfirmed):
     """Bevestigingsknop tonen (ook na een hoekcorrectie). Zelfde als OuterContourStatus.showsConfirmAction."""
     return bool(auto_detected_unconfirmed) or status in AREA_BLOCKING_STATUSES

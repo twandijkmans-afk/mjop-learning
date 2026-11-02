@@ -2274,6 +2274,246 @@
    "name": "closeup_single_window"
   }
  ],
+ "picked_quad": [
+  {
+   "candidate": null,
+   "expected": {
+    "edited": [],
+    "original_corners": [
+     [
+      200.0,
+      150.0
+     ],
+     [
+      420.0,
+      150.0
+     ],
+     [
+      420.0,
+      450.0
+     ],
+     [
+      200.0,
+      450.0
+     ]
+    ],
+    "outer_contour": "MANUAL",
+    "source": "MANUAL"
+   },
+   "final": [
+    [
+     200.0,
+     150.0
+    ],
+    [
+     420.0,
+     150.0
+    ],
+    [
+     420.0,
+     450.0
+    ],
+    [
+     200.0,
+     450.0
+    ]
+   ],
+   "name": "self_drawn"
+  },
+  {
+   "candidate": [
+    [
+     200.0,
+     150.0
+    ],
+    [
+     420.0,
+     150.0
+    ],
+    [
+     420.0,
+     450.0
+    ],
+    [
+     200.0,
+     450.0
+    ]
+   ],
+   "expected": {
+    "edited": [],
+    "original_corners": [
+     [
+      200.0,
+      150.0
+     ],
+     [
+      420.0,
+      150.0
+     ],
+     [
+      420.0,
+      450.0
+     ],
+     [
+      200.0,
+      450.0
+     ]
+    ],
+    "outer_contour": "USER_CONFIRMED",
+    "source": "AUTO_DETECTED_CONFIRMED"
+   },
+   "final": [
+    [
+     200.0,
+     150.0
+    ],
+    [
+     420.0,
+     150.0
+    ],
+    [
+     420.0,
+     450.0
+    ],
+    [
+     200.0,
+     450.0
+    ]
+   ],
+   "name": "candidate_unchanged"
+  },
+  {
+   "candidate": [
+    [
+     200.0,
+     150.0
+    ],
+    [
+     420.0,
+     150.0
+    ],
+    [
+     420.0,
+     450.0
+    ],
+    [
+     200.0,
+     450.0
+    ]
+   ],
+   "expected": {
+    "edited": [
+     1
+    ],
+    "original_corners": [
+     [
+      200.0,
+      150.0
+     ],
+     [
+      420.0,
+      150.0
+     ],
+     [
+      420.0,
+      450.0
+     ],
+     [
+      200.0,
+      450.0
+     ]
+    ],
+    "outer_contour": "USER_CONFIRMED",
+    "source": "MANUAL_CORRECTED"
+   },
+   "final": [
+    [
+     200.0,
+     150.0
+    ],
+    [
+     421.0,
+     150.0
+    ],
+    [
+     420.0,
+     450.0
+    ],
+    [
+     200.0,
+     450.0
+    ]
+   ],
+   "name": "candidate_one_corner_moved"
+  },
+  {
+   "candidate": [
+    [
+     200.0,
+     150.0
+    ],
+    [
+     420.0,
+     150.0
+    ],
+    [
+     420.0,
+     450.0
+    ],
+    [
+     200.0,
+     450.0
+    ]
+   ],
+   "expected": {
+    "edited": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "original_corners": [
+     [
+      200.0,
+      150.0
+     ],
+     [
+      420.0,
+      150.0
+     ],
+     [
+      420.0,
+      450.0
+     ],
+     [
+      200.0,
+      450.0
+     ]
+    ],
+    "outer_contour": "USER_CONFIRMED",
+    "source": "MANUAL_CORRECTED"
+   },
+   "final": [
+    [
+     205.0,
+     155.0
+    ],
+    [
+     425.0,
+     155.0
+    ],
+    [
+     425.0,
+     455.0
+    ],
+    [
+     205.0,
+     455.0
+    ]
+   ],
+   "name": "candidate_all_corners_moved"
+  }
+ ],
  "viewpoints": {
   "cases": [
    {

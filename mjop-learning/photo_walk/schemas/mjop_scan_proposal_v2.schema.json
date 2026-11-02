@@ -56,7 +56,11 @@
         "photos": {"$ref": "#/definitions/nonneg_int"},
         "duplicates_unresolved": {"$ref": "#/definitions/nonneg_int"},
         "cross_session_unchecked": {"type": "boolean"},
-        "excluded_objects": {"$ref": "#/definitions/nonneg_int"}
+        "excluded_objects": {"$ref": "#/definitions/nonneg_int"},
+        "duplicate_review_complete": {"type": "boolean", "description": "Optioneel. false = de controle op dubbel getelde kozijnen is onvolledig (objecten zonder vergelijkbare geometrie, foto's zonder of met verschillende AR-sessie); nul suggesties is geen bewijs."},
+        "duplicate_review_manual": {"type": "boolean", "description": "Optioneel. De dekking komt (deels) uit een handmatige verklaring van de gebruiker (alle foto’s nagelopen)."},
+        "duplicate_check_unchecked_objects": {"$ref": "#/definitions/nonneg_int"},
+        "duplicate_check_unknown_world_photos": {"$ref": "#/definitions/nonneg_int"}
       }
     },
     "measurement": {
@@ -99,7 +103,7 @@
       "required": ["level", "reasons"],
       "properties": {
         "level": {"enum": ["CHECK_REQUIRED", "INCOMPLETE"]},
-        "reasons": {"type": "array", "maxItems": 20, "items": {"enum": ["UNMEASURED_OBJECTS", "DUPLICATES_UNRESOLVED", "CROSS_SESSION_UNCHECKED", "UNVALIDATED_LIDAR", "NO_OBJECTS", "AUTO_DETECTED"]}}
+        "reasons": {"type": "array", "maxItems": 20, "items": {"enum": ["UNMEASURED_OBJECTS", "DUPLICATES_UNRESOLVED", "CROSS_SESSION_UNCHECKED", "DUPLICATE_CHECK_INCOMPLETE", "UNVALIDATED_LIDAR", "NO_OBJECTS", "AUTO_DETECTED"]}}
       }
     },
     "confirmation": {
@@ -115,12 +119,13 @@
   },
   "allOf": [
     {
-      "description": "Mogelijke dubbeltelling (onbeoordeelde duplicaten of niet onderling gecontroleerde AR-sessies): geen waarde en geen deelwaarde, altijd INCOMPLETE.",
+      "description": "Mogelijke dubbeltelling (onbeoordeelde duplicaten, niet onderling gecontroleerde AR-sessies of onvolledige duplicaatcontrole): geen waarde en geen deelwaarde, altijd INCOMPLETE.",
       "if": {
         "required": ["basis"],
         "properties": {"basis": {"anyOf": [
           {"required": ["duplicates_unresolved"], "properties": {"duplicates_unresolved": {"type": "integer", "minimum": 1}}},
-          {"required": ["cross_session_unchecked"], "properties": {"cross_session_unchecked": {"const": true}}}
+          {"required": ["cross_session_unchecked"], "properties": {"cross_session_unchecked": {"const": true}}},
+          {"required": ["duplicate_review_complete"], "properties": {"duplicate_review_complete": {"const": false}}}
         ]}}
       },
       "then": {

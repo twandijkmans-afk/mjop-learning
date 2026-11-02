@@ -46,6 +46,7 @@ struct RoundSnapshot: Codable {
     var frameFacade: [String: String]
     var frameWorld: [String: String]
     var excludedFrames: [String]
+    var duplicateReview: DuplicateReview? = nil          // optioneel: oudere sessies hebben dit niet (= niet nagelopen)
 }
 
 enum Persistence {
@@ -98,7 +99,7 @@ enum Persistence {
                                     planeId: $0.planeId, anchorObservationId: $0.anchorObservationId, kind: $0.kind.rawValue) },
             dismissedLinks: s.dismissedLinks.sorted(),
             round: s.round.map { RoundSnapshot(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
-                                               frameWorld: $0.frameWorld, excludedFrames: $0.excludedFrames.sorted()) },
+                                               frameWorld: $0.frameWorld, excludedFrames: $0.excludedFrames.sorted(), duplicateReview: $0.duplicateReview) },
             facadeElements: s.facadeElements.map { SessionSnapshot.Elem(id: $0.id, frameId: $0.frameId, role: $0.role.rawValue, corners: $0.corners, originalCorners: $0.originalCorners,
                                                                         source: $0.source.rawValue, parentObservationId: $0.parentObservationId, rejected: $0.rejected) })
     }
@@ -199,7 +200,7 @@ enum Persistence {
         }
         s.dismissedLinks = Set(snap.dismissedLinks)
         s.round = snap.round.map { RoundState(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
-                                              frameWorld: $0.frameWorld, excludedFrames: Set($0.excludedFrames)) }
+                                              frameWorld: $0.frameWorld, excludedFrames: Set($0.excludedFrames), duplicateReview: $0.duplicateReview) }
         s.measureAll()
     }
 }

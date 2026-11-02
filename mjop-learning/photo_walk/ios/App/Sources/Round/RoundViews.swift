@@ -210,6 +210,7 @@ struct RoundReviewView: View {
                     NavigationLink("Koppelsuggesties bekijken (\(dupCount))") { LinkSuggestionsView().environmentObject(store) }
                 }
             }
+            duplicateReviewSection(proposals)
             if !store.keyframes.isEmpty {
                 Section {
                     DisclosureGroup("Technische details") {
@@ -238,6 +239,35 @@ struct RoundReviewView: View {
         .onAppear { store.measureAll() }
     }
 
+    /// Handmatige duplicaatcontrole: alleen zichtbaar als de automatische controle onvolledig is (of als er al een verklaring is).
+    /// Openstaande koppelsuggesties moeten eerst beoordeeld worden; de verklaring vervangt die niet.
+    @ViewBuilder private func duplicateReviewSection(_ proposals: [ScanProposalV2]) -> some View {
+        let building = proposals.first { $0.target.scope.type == .BUILDING }
+        let gaps = proposals.contains { $0.reliability.reasons.contains("DUPLICATE_CHECK_INCOMPLETE") || $0.reliability.reasons.contains("CROSS_SESSION_UNCHECKED") }
+        let review = store.round?.duplicateReview
+        let valid = review != nil && review?.fingerprint == RoundInputBuilder.reviewFingerprint(store: store)
+        if gaps || review != nil {
+            Section("Dubbel geteld? Controle") {
+                Text("De app kan niet alles zelf vergelijken: foto's uit verschillende scanmomenten, foto's zonder scanmoment en kozijnen zonder ruimtelijke meting. Zolang dat niet is nagelopen, komt er geen aantal of oppervlak.")
+                    .font(.footnote)
+                if let b = building?.basis {
+                    Text("Niet automatisch te vergelijken: \(b.duplicateCheckUncheckedObjects ?? 0) kozijn(en), \(b.duplicateCheckUnknownWorldPhotos ?? 0) foto('s) zonder scanmoment.")
+                        .font(.caption).foregroundStyle(.secondary).accessibilityIdentifier("duplicateCoverageInfo")
+                }
+                if valid, let r = review {
+                    Text("Nagelopen op \(r.reviewedAt.formatted(date: .abbreviated, time: .shortened)): geen kozijn dubbel geteld.").font(.footnote).accessibilityIdentifier("duplicateReviewDone")
+                    Button("Verklaring intrekken") { coordinator.setDuplicateReview(false) }.buttonStyle(.bordered)
+                } else {
+                    if review != nil { Text("Je eerdere verklaring geldt niet meer: er is iets gewijzigd.").font(.caption).foregroundStyle(.orange) }
+                    Button("Ik heb alle foto's nagelopen: geen kozijn dubbel geteld") { coordinator.setDuplicateReview(true) }
+                        .buttonStyle(.bordered).disabled(dupCountOpen > 0).accessibilityIdentifier("duplicateReviewButton")
+                    if dupCountOpen > 0 { Text("Beoordeel eerst de koppelsuggesties hierboven.").font(.caption).foregroundStyle(.secondary) }
+                }
+            }
+        }
+    }
+    private var dupCountOpen: Int { store.linkSuggestions().count }
+
     private func fmt(_ v: Double) -> String { String(format: "%.2f", v).replacingOccurrences(of: ".", with: ",") }
     private func valueText(_ p: ScanProposalV2) -> String {
         guard let v = p.value else { return "Nog niet te bepalen" }
@@ -248,6 +278,7 @@ struct RoundReviewView: View {
         case "UNMEASURED_OBJECTS": return "kozijnen zonder maat"
         case "DUPLICATES_UNRESOLVED": return "mogelijk dubbel"
         case "CROSS_SESSION_UNCHECKED": return "overlap tussen scanmomenten niet gecontroleerd"
+        case "DUPLICATE_CHECK_INCOMPLETE": return "controle op dubbel tellen onvolledig"
         case "AUTO_DETECTED": return "automatisch herkend, niet bevestigd"
         case "NO_OBJECTS": return "geen kozijnen"
         default: return r

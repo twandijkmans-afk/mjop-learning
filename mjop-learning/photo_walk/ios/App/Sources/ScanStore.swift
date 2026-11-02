@@ -176,7 +176,12 @@ struct RoundState: Equatable {
     var frameFacade: [String: String] = [:]    // foto -> gevel
     var frameWorld: [String: String] = [:]     // foto -> AR-sessie (eigen coördinatenstelsel); alleen binnen één sessie zijn kozijnen vergelijkbaar
     var excludedFrames: Set<String> = []       // foto's die de inspecteur niet wil laten meetellen (overlap)
+    /// "Ik heb alle foto's nagelopen: geen kozijn dubbel geteld" (handmatige duplicaatcontrole). Geldt alleen zolang de vingerafdruk van de
+    /// meetellende foto's, waarnemingen, koppelingen en uitsluitingen gelijk is (zie DuplicateCoverage en RoundInputBuilder.reviewFingerprint).
+    var duplicateReview: DuplicateReview? = nil
 }
+
+struct DuplicateReview: Equatable, Codable { var reviewedAt: Date; var fingerprint: String }
 
 @MainActor
 final class ScanStore: ObservableObject {
@@ -215,6 +220,26 @@ final class ScanStore: ObservableObject {
         observations.append(o)
         if let id = draftId, let i = drafts.firstIndex(where: { $0.id == id }) { drafts[i].observationIds.append(o.id) }
         else { drafts.append(ObjectDraft(id: "PROV-\(sessionId.prefix(8))-\(String(format: "%03d", drafts.count + 1))", observationIds: [o.id])) }
+    }
+
+    /// Vierhoek uit de hoekkiezer opslaan (CornerPickerView). Herkomst volgens PickedQuad.classify: zelf getekend = MANUAL; een gekozen
+    /// automatisch voorstel (ook als er daarna hoeken zijn verschoven) blijft herkenbaar als voorstel: originalCorners = voorstelhoeken,
+    /// verschoven hoeken als revisies, detectie-informatie bewaard, contour USER_CONFIRMED (opslaan = uitdrukkelijke bevestiging).
+    @discardableResult
+    func addPickedQuad(frameId: String, corners: [Pixel], candidate: [Pixel]?, candidateScore: Double?, to draftId: String?) -> Observation {
+        let k = PickedQuad.classify(final: corners, candidate: candidate)
+        let source: CornerSource
+        switch k.source { case .MANUAL: source = .MANUAL; case .AUTO_DETECTED_CONFIRMED: source = .AUTO_DETECTED_CONFIRMED; case .MANUAL_CORRECTED: source = .MANUAL_CORRECTED }
+        var o = Observation(id: "OBS-\(frameId)-\(observations.count + 1)", frameId: frameId, corners: corners, originalCorners: k.originalCorners, source: source,
+                            detection: k.candidateDerived ? DetectionInfo(detector: "VN_RECTANGLE_CANDIDATE", score: candidateScore ?? 0) : nil)
+        let now = Date()
+        o.revisions = k.editedCornerIndices.map { i in
+            CornerRevision(index: i, before: k.originalCorners[i], after: corners[i], editedBy: "inspecteur", editedAt: now, reason: "voorstel aangepast in de hoekkiezer vóór opslaan")
+        }
+        o.outerContour = k.outerContour
+        o.evidence = k.candidateDerived ? .SINGLE : .MANUAL
+        addObservation(o, to: draftId)
+        return o
     }
 
     func observation(_ id: String) -> Observation? { observations.first { $0.id == id } }
@@ -305,14 +330,19 @@ final class ScanStore: ObservableObject {
     func setReference(_ r: ReferenceMeasure) { references[r.frameId] = r }
 
     // MARK: koppelen over foto's (alleen op initiatief van de inspecteur)
+    /// Ruimtelijke gegevens om een waarneming met waarnemingen op ANDERE foto's te vergelijken (3D-hoeken + vlak + maat). nil = deze waarneming
+    /// kan niet automatisch op duplicaten over foto's heen worden gecontroleerd (dat telt NIET als "geen duplicaat"; zie DuplicateCoverage).
+    func linkItem(_ o: Observation) -> LinkItem? {
+        guard !o.rejected, let m = measures[o.id], m.result.ok, let c = m.result.cornersWorld, let n = m.result.planeN, let d = m.result.planeD,
+              let w = m.result.width, let h = m.result.height else { return nil }
+        return LinkItem(id: o.id, frameId: o.frameId, center: c.reduce(Vec3.zero, +) * 0.25, planeN: n, planeD: d, width: w, height: h)
+    }
+
     func linkSuggestions() -> [LinkCandidate] {
-        var items: [LinkItem] = []
-        for o in observations where !o.rejected {
-            guard let m = measures[o.id], m.result.ok, let c = m.result.cornersWorld, let n = m.result.planeN, let d = m.result.planeD, let w = m.result.width, let h = m.result.height else { continue }
-            let ctr = c.reduce(Vec3.zero, +) * 0.25
-            items.append(LinkItem(id: o.id, frameId: o.frameId, center: ctr, planeN: n, planeD: d, width: w, height: h))
-        }
-        return Linking.suggest(items).filter { c in
+        let items = observations.compactMap { linkItem($0) }
+        // ook mogelijke duplicaten op DEZELFDE foto (overlappende kaders, in pixels; de ruimtelijke suggesties vergelijken nooit hetzelfde beeld)
+        let sameFrame = Linking.sameFrameOverlaps(observations.filter { !$0.rejected }.map { (id: $0.id, frameId: $0.frameId, corners: $0.corners) })
+        return (Linking.suggest(items) + sameFrame).filter { c in
             let da = draft(of: c.a)?.id, db = draft(of: c.b)?.id
             guard da != db && !dismissedLinks.contains(c.a + "|" + c.b) else { return false }
             // Foto's uit verschillende AR-sessies hebben een eigen coördinatenstelsel: posities zijn dan niet vergelijkbaar, dus geen automatische suggestie.

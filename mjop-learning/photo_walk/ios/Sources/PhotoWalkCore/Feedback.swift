@@ -69,4 +69,24 @@ public enum Linking {
         return pairs.sorted { $0.0 < $1.0 }.filter { !ambiguous.contains($0.1) && !ambiguous.contains($0.2) }
             .map { LinkCandidate(a: items[$0.1].id, b: items[$0.2].id, distanceM: $0.0) }
     }
+
+    /// Mogelijke duplicaten op DEZELFDE foto (die `suggest` nooit vergelijkt): twee vierhoeken die elkaar voor minstens `minOverlap` van de
+    /// kleinste overlappen (ook: de één ligt binnen de ander). Werkt in pixels, dus ook zonder LiDAR-vlak of schaal. Alleen een suggestie
+    /// (afstand 0): de inspecteur koppelt of negeert. PROVISIONAL_UNVALIDATED.
+    public static func sameFrameOverlaps(_ items: [(id: String, frameId: String, corners: [Pixel])], minOverlap: Double = 0.5) -> [LinkCandidate] {
+        var out: [LinkCandidate] = []
+        for i in 0..<items.count { for j in (i + 1)..<max(items.count, i + 1) where j < items.count {
+            let a = items[i], b = items[j]
+            guard a.frameId == b.frameId, a.corners.count >= 3, b.corners.count >= 3 else { continue }
+            let small = min(polygonArea(a.corners), polygonArea(b.corners))
+            guard small > 0 else { continue }
+            if convexIntersectionArea(a.corners, b.corners) / small >= minOverlap { out.append(LinkCandidate(a: a.id, b: b.id, distanceM: 0)) }
+        } }
+        return out
+    }
+}
+
+public extension LinkCandidate {
+    /// Unieke sleutel van het paar (een waarneming kan in meerdere suggesties voorkomen).
+    var pairKey: String { a + "|" + b }
 }

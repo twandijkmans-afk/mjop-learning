@@ -122,4 +122,73 @@ final class ContourEditTests: XCTestCase {
             XCTAssertEqual(OuterContourStatus.showsConfirmAction(status: s.afterCornerEdit, autoDetectedUnconfirmed: false), row["shows_confirm_after_edit"] as? Bool, s.rawValue)
         }
     }
+
+    // MARK: hoekkiezer (CornerPickerView): herkomst blijft zichtbaar (issue D vervolg)
+
+    private let cand = [Pixel(200, 150), Pixel(420, 150), Pixel(420, 450), Pixel(200, 450)]
+
+    func testPickerSavingUnchangedCandidateIsConfirmedCandidate() {
+        let r = PickedQuad.classify(final: cand, candidate: cand)
+        XCTAssertEqual(r.source, .AUTO_DETECTED_CONFIRMED); XCTAssertEqual(r.outerContour, .USER_CONFIRMED)
+        XCTAssertEqual(r.originalCorners, cand); XCTAssertEqual(r.editedCornerIndices, []); XCTAssertTrue(r.candidateDerived)
+    }
+
+    func testPickerCandidateWithOneMovedCornerKeepsItsOrigin() {
+        var moved = cand; moved[1] = Pixel(421, 150)                        // één hoek, 1 pixel
+        let r = PickedQuad.classify(final: moved, candidate: cand)
+        XCTAssertEqual(r.source, .MANUAL_CORRECTED, "voorstel + correctie, niet 'zelf getekend'")
+        XCTAssertNotEqual(r.outerContour, .MANUAL)
+        XCTAssertEqual(r.outerContour, .USER_CONFIRMED, "opslaan in de hoekkiezer is een uitdrukkelijke bevestiging")
+        XCTAssertEqual(r.originalCorners, cand, "de voorstelhoeken blijven de originele hoeken")
+        XCTAssertEqual(r.editedCornerIndices, [1])
+        XCTAssertTrue(r.candidateDerived)
+        // de contourpoort is open, maar zonder schaal nog steeds geen maat
+        var noScale = LevelResult(level: .A, scaleMethod: "NONE", viewIds: ["F000"]); noScale.flags = [Flags.make("NO_METRIC_SCALE")]
+        XCTAssertFalse(ContourGate.apply(noScale, status: r.outerContour).ok)
+    }
+
+    func testPickerFullySelfDrawnQuadIsManual() {
+        let r = PickedQuad.classify(final: cand, candidate: nil)
+        XCTAssertEqual(r.source, .MANUAL); XCTAssertEqual(r.outerContour, .MANUAL); XCTAssertFalse(r.candidateDerived)
+        XCTAssertEqual(r.originalCorners, cand); XCTAssertEqual(r.editedCornerIndices, [])
+        // ook een (ongeldig) voorstel met een ander aantal punten telt niet als herkomst
+        XCTAssertEqual(PickedQuad.classify(final: cand, candidate: Array(cand.prefix(3))).source, .MANUAL)
+    }
+
+    func testPickerDoesNotChangeLegacyOrStoredContours() {
+        // de hoekkiezer maakt alleen NIEUWE waarnemingen; bestaande LEGACY-waarnemingen houden hun gedrag
+        XCTAssertEqual(OuterContourStatus.LEGACY.afterCornerEdit, .LEGACY)
+        XCTAssertFalse([PickedQuad.classify(final: cand, candidate: nil), PickedQuad.classify(final: cand, candidate: cand)].contains { $0.outerContour == .LEGACY })
+    }
+
+    func testPickedQuadMatchesPython() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "facade_parity_cases", withExtension: "json", subdirectory: "Fixtures"))
+        let root = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+        let rows = try XCTUnwrap(root["picked_quad"] as? [[String: Any]])
+        func quad(_ a: Any?) -> [Pixel]? { (a as? [[NSNumber]]).map { $0.map { Pixel($0[0].doubleValue, $0[1].doubleValue) } } }
+        XCTAssertEqual(rows.count, 4)
+        for row in rows {
+            let name = row["name"] as! String, e = row["expected"] as! [String: Any]
+            let r = PickedQuad.classify(final: quad(row["final"])!, candidate: quad(row["candidate"]))
+            XCTAssertEqual(r.source.rawValue, e["source"] as? String, name)
+            XCTAssertEqual(r.outerContour.rawValue, e["outer_contour"] as? String, name)
+            XCTAssertEqual(r.originalCorners, quad(e["original_corners"]), name)
+            XCTAssertEqual(r.editedCornerIndices, (e["edited"] as! [NSNumber]).map { $0.intValue }, name)
+        }
+    }
+
+    // MARK: mogelijke duplicaten op dezelfde foto (worden door de ruimtelijke suggesties nooit vergeleken)
+
+    func testSameFrameOverlapsMatchPythonAndIgnoreOtherPhotos() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "same_frame_overlap_cases", withExtension: "json", subdirectory: "Fixtures"))
+        let root = try XCTUnwrap(JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any])
+        let items = (root["items"] as! [[String: Any]]).map { i in
+            (id: i["id"] as! String, frameId: i["frame_id"] as! String, corners: (i["corners"] as! [[NSNumber]]).map { Pixel($0[0].doubleValue, $0[1].doubleValue) })
+        }
+        let got = Linking.sameFrameOverlaps(items).map { [$0.a, $0.b] }
+        XCTAssertEqual(got, root["expected"] as? [[String]])
+        XCTAssertFalse(got.flatMap { $0 }.contains("O-other-photo"), "andere foto: niet via deze regel (daarvoor de ruimtelijke suggesties)")
+        XCTAssertFalse(got.flatMap { $0 }.contains("O-beside"), "naast elkaar is geen duplicaat")
+        XCTAssertEqual(Linking.sameFrameOverlaps(items).first?.distanceM, 0)
+    }
 }

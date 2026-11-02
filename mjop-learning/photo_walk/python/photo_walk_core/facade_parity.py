@@ -142,6 +142,16 @@ def contour_transition_cases():
              "shows_confirm_after_edit": F.shows_confirm_action(F.after_corner_edit(s), False)} for s in F.OUTER_STATUSES]
 
 
+def picked_quad_cases():
+    """Hoekkiezer: zelf getekend, voorstel ongewijzigd, voorstel met één verschoven hoek (facade.classify_picked_quad == PickedQuad.classify)."""
+    cand = [(200.0, 150.0), (420.0, 150.0), (420.0, 450.0), (200.0, 450.0)]
+    moved = [cand[0], (421.0, 150.0), cand[2], cand[3]]
+    rows = [("self_drawn", cand, None), ("candidate_unchanged", cand, cand), ("candidate_one_corner_moved", moved, cand),
+            ("candidate_all_corners_moved", [(x + 5, y + 5) for x, y in cand], cand)]
+    return [{"name": n, "final": _q(f), "candidate": None if c is None else _q(c),
+             "expected": dict((k, _q(v) if k == "original_corners" else v) for k, v in F.classify_picked_quad(f, c).items())} for n, f, c in rows]
+
+
 def build_parity_cases():
     img = F.synthetic_facade_gray(IMAGE["width"], IMAGE["height"], _windows())
     return {
@@ -153,6 +163,7 @@ def build_parity_cases():
         "compose": compose_case(),
         "viewpoints": viewpoint_cases(),
         "contour_transitions": contour_transition_cases(),
+        "picked_quad": picked_quad_cases(),
     }
 
 

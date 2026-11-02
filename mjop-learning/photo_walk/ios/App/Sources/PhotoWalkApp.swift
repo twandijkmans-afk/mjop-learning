@@ -90,6 +90,55 @@ struct PhotoWalkApp: App {
         print("SELFTEST_CORNER_EDIT step=confirm contour=\(c.outerContour.rawValue) source=\(c.source.rawValue) revisions=\(c.revisions.count) gate=\(mc.result.flags.contains { $0.code == "OUTER_CONTOUR_UNVERIFIED" }) measurementOk=\(mc.result.ok) status=\(status) exportContour=\(exportContour())")
     }
 
+    /// Selftest duplicaatcontrole via RoundInputBuilder + RoundProposalBuilder (dezelfde code als de fotoronde) op een aparte sessie met twee foto's
+    /// van HETZELFDE kozijn: foto F001 heeft geen diepte (dus geen ruimtelijke meting). Er is geen enkele koppelsuggestie, en toch mag er geen
+    /// aantal of oppervlak komen tot de inspecteur alles heeft nagelopen; een wijziging laat die verklaring vervallen.
+    @MainActor private func selfTestDuplicateCoverage() {
+        // bronkader: een waarneming waarvan de meting zelf lukte (vóór de contourpoort: indicatieve maat aanwezig), zodat F000 een ruimtelijke meting heeft
+        let measurable = store.observations.first { o in
+            guard !o.rejected, let m = store.measures[o.id] else { return false }
+            return m.result.ok || ContourGate.indicativeDims(m.result) != nil
+        }
+        guard let k0 = store.keyframe("F000"), let src = measurable ?? store.observations.first(where: { !$0.rejected }) else { print("SELFTEST_DUP_COVERAGE skipped"); return }
+        let dc = ScanStore()
+        dc.isSimulation = true; dc.facadeId = "Voorgevel"
+        let k1 = Keyframe(id: "F001", timestamp: k0.timestamp, intrinsics: k0.intrinsics, pose: k0.pose, trackingState: k0.trackingState, depth: nil, imageURL: k0.imageURL)
+        dc.keyframes = [k0, k1]
+        for f in ["F000", "F001"] {
+            dc.addObservation(Observation(id: "OBS-\(f)-1", frameId: f, corners: src.corners, originalCorners: src.corners, source: .MANUAL), to: nil)
+        }
+        dc.round = RoundState(context: PhotoRoundContext(planRef: "plan-selftest0004", mjopPlanId: nil, buildingLabel: "Selftestgebouw", bagPandId: nil, mode: .round,
+                                                        element: nil, plannedFacades: []), facades: [.init(id: "Voorgevel", orientation: "S")])
+        dc.round?.frameFacade = ["F000": "Voorgevel", "F001": "Voorgevel"]
+        dc.measureAll()
+        func line(_ step: String) {
+            guard let input = RoundInputBuilder.build(store: dc, createdAt: RoundCoordinator.isoNow()) else { print("SELFTEST_DUP_COVERAGE step=\(step) noinput"); return }
+            let ps = RoundProposalBuilder.build(input)
+            guard let c = ps.first(where: { $0.target.quantityKind == .FRAME_COUNT && $0.target.scope.type == .BUILDING }),
+                  let a = ps.first(where: { $0.target.quantityKind == .FRAME_AREA_GROSS && $0.target.scope.type == .BUILDING }) else { return }
+            let reasons = c.reliability.reasons.filter { $0 != "UNVALIDATED_LIDAR" }.joined(separator: ",")
+            print("SELFTEST_DUP_COVERAGE step=\(step) suggestions=\(dc.linkSuggestions().count) objects=\(input.objects.count) checkable=\(input.objects.filter { $0.duplicateCheckable }.count) count=\(c.value.map { String($0) } ?? "null") area=\(a.value.map { String($0) } ?? "null") partial=\(a.partialValue.map { String($0) } ?? "null") level=\(c.reliability.level) complete=\(c.basis.duplicateReviewComplete.map { String($0) } ?? "nil") manual=\(c.basis.duplicateReviewManual.map { String($0) } ?? "nil") unchecked=\(c.basis.duplicateCheckUncheckedObjects ?? -1) unknownWorld=\(c.basis.duplicateCheckUnknownWorldPhotos ?? -1) cross=\(c.basis.crossSessionUnchecked) reasons=\(reasons.isEmpty ? "-" : reasons) valid=\(ps.allSatisfy { $0.validate().isEmpty })")
+        }
+        line("no-world")                                                  // geen AR-sessie bekend (simulatie)
+        dc.round?.frameWorld = ["F000": "w-a", "F001": "w-b"]
+        line("two-worlds")                                                // twee scanmomenten
+        dc.round?.duplicateReview = DuplicateReview(reviewedAt: Date(), fingerprint: RoundInputBuilder.reviewFingerprint(store: dc))
+        line("reviewed")                                                  // inspecteur heeft alles nagelopen
+        dc.round?.frameWorld["F001"] = "w-c"
+        line("stale")                                                     // iets gewijzigd: verklaring vervalt
+    }
+
+    /// Selftest hoekkiezer (ScanStore.addPickedQuad, dezelfde functie als de knop Opslaan) op een aparte sessie.
+    @MainActor private func selfTestPickedQuad() {
+        let pq = ScanStore()
+        let cand = [Pixel(200, 150), Pixel(420, 150), Pixel(420, 450), Pixel(200, 450)]
+        var moved = cand; moved[1] = Pixel(421, 150)
+        for (name, corners, candidate) in [("self_drawn", cand, nil as [Pixel]?), ("candidate_unchanged", cand, cand), ("candidate_moved", moved, cand)] {
+            let o = pq.addPickedQuad(frameId: "F000", corners: corners, candidate: candidate, candidateScore: candidate == nil ? nil : 0.8, to: nil)
+            print("SELFTEST_PICKED name=\(name) source=\(o.source.rawValue) contour=\(o.outerContour.rawValue) originalIsCandidate=\(candidate.map { o.originalCorners == $0 } ?? false) cornersKept=\(o.corners == corners) revisions=\(o.revisions.count) detector=\(o.detection?.detector ?? "none")")
+        }
+    }
+
     @MainActor private func runSelfTestIfRequested() async {
         guard CommandLine.arguments.contains("-selftest") else { return }
         // 1) legacy: handmatige hoeken
@@ -147,6 +196,10 @@ struct PhotoWalkApp: App {
         // 3a2) hoek verslepen is BEWERKEN, geen bevestiging (issue D): 1 pixel verschuiven, daarna "Herstel detectie" + "Toepassen", daarna pas
         //      expliciet "Dit is de buitenmaat". Via dezelfde ScanStore-functies als de knoppen; de hoeken komen terug op de detectie.
         selfTestCornerEdit()
+        // 3a3) duplicaatcontrole: nul suggesties is geen bewijs; aparte sessie zodat de rest van de selftest ongewijzigd blijft
+        selfTestDuplicateCoverage()
+        // 3a4) hoekkiezer: een gekozen voorstel blijft een voorstel, ook na het verschuiven van een hoek (aparte sessie)
+        selfTestPickedQuad()
         // 3b) gevelopbouw: gesimuleerde gebruiker bevestigt onbevestigde buitencontouren en tekent het gevelvlak (NA de export hierboven,
         //     die dus de automatische, onbevestigde toestand bevat). Toont dat er pas na bevestiging een kozijnmaat komt.
         for o in store.observations where !o.rejected && o.outerContour.blocksArea {

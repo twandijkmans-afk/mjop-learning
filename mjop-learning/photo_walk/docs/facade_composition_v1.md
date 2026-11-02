@@ -32,6 +32,13 @@ Probleem (diagnose oktober 2026): de scanner nam vaak de **binnenste glasruit** 
 * een glasvlak verwijderen; het **gevelvlak tekenen**.
 Bevestigen opent alleen de contourpoort: schaal, standpunten (één foto hoogstens `ESTIMATED`), duplicaatcontrole en betrouwbaarheid blijven gelden. Statusovergangen: `OuterContourStatus.afterCornerEdit` / `afterExplicitConfirmation` (Swift) = `facade.after_corner_edit` / `after_explicit_confirmation` (Python), pariteit via `facade_parity_cases.json` (`contour_transitions`). Oudere opgeslagen scans worden `LEGACY` en gedragen zich precies als voorheen (geen ongemerkte wijziging). Originele hoeken, revisies, foto's en dieptekaarten blijven bewaard, zodat verbeterde herkenning later opnieuw kan draaien.
 
+**Hoekkiezer (*Kozijn handmatig toevoegen*).** Herkomst volgens `PickedQuad.classify` (Python: `facade.classify_picked_quad`):
+* volledig zelf getikt, zonder voorstel -> bron `MANUAL`, contour `MANUAL`;
+* een voorstel gekozen en ongewijzigd opgeslagen -> bron `AUTO_DETECTED_CONFIRMED`, contour `USER_CONFIRMED`;
+* een voorstel gekozen, hoeken verschoven, opgeslagen -> bron `MANUAL_CORRECTED`, contour `USER_CONFIRMED`. Daarbij blijven de voorstelhoeken de originele hoeken, wordt elke verschoven hoek een revisie en blijft de detectie-informatie bewaard.
+
+Opslaan in de hoekkiezer is een uitdrukkelijke bevestiging ("opslaan telt als bevestigd"). Een voorstel blijft de herkomst totdat alle punten gewist zijn. Vroeger werd een voorstel met één verschoven hoek als zelf getekend (`MANUAL`) opgeslagen.
+
 **Sessies van eerdere testbuilds van deze branch.** Tot en met commit `f85ad94` maakte één hoekcorrectie een automatische contour `MANUAL`. Zulke opgeslagen sessies worden bij het laden **niet** herschreven (opgeslagen scans blijven ongewijzigd) en blijven dus `MANUAL`. Ze bestaan alleen op toestellen met een testbuild van deze branch; `main` kent de gevelopbouw nog niet.
 
 Op de foto: kozijn doorgetrokken (kleur = meetfeedback), **oranje gestreept** = buitencontour nog bevestigen, **blauw gestippeld** = glas, **paars gestippeld** = klaargezet voorstel, **blauw gestreept** = gevelvlak.
