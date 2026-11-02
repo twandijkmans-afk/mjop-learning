@@ -2514,6 +2514,125 @@
    "name": "candidate_all_corners_moved"
   }
  ],
+ "status_rules": {
+  "cases": [
+   {
+    "expected": "MEASURED",
+    "level": "A",
+    "name": "two_views_clean",
+    "object_flags": [],
+    "result_flags": [],
+    "view_count": 2
+   },
+   {
+    "expected": "ESTIMATED",
+    "level": "A",
+    "name": "one_view",
+    "object_flags": [
+     "SINGLE_VIEWPOINT"
+    ],
+    "result_flags": [],
+    "view_count": 1
+   },
+   {
+    "expected": "ESTIMATED",
+    "level": "A",
+    "name": "two_views_auto_unconfirmed_observation",
+    "object_flags": [
+     "AUTO_DETECTED_UNCONFIRMED"
+    ],
+    "result_flags": [],
+    "view_count": 2
+   },
+   {
+    "expected": "MEASURED",
+    "level": "A",
+    "name": "two_views_manual_corners",
+    "object_flags": [
+     "MANUAL_CORNERS"
+    ],
+    "result_flags": [],
+    "view_count": 2
+   },
+   {
+    "expected": "MEASURED",
+    "level": "A",
+    "name": "two_views_human_corrected",
+    "object_flags": [
+     "HUMAN_CORRECTED_CORNERS"
+    ],
+    "result_flags": [],
+    "view_count": 2
+   },
+   {
+    "expected": "ESTIMATED",
+    "level": "A",
+    "name": "two_views_glass_in_result",
+    "object_flags": [],
+    "result_flags": [
+     "GLASS_DEPTH_UNRELIABLE"
+    ],
+    "view_count": 2
+   },
+   {
+    "expected": "ESTIMATED",
+    "level": "A",
+    "name": "two_views_obstruction_observation",
+    "object_flags": [
+     "OBSTRUCTION_REPORTED"
+    ],
+    "result_flags": [],
+    "view_count": 2
+   },
+   {
+    "expected": "DERIVED",
+    "level": "C",
+    "name": "reference_clean",
+    "object_flags": [],
+    "result_flags": [],
+    "view_count": 1
+   },
+   {
+    "expected": "ESTIMATED",
+    "level": "C",
+    "name": "reference_user_estimate",
+    "object_flags": [],
+    "result_flags": [
+     "REFERENCE_USER_ESTIMATE"
+    ],
+    "view_count": 1
+   },
+   {
+    "expected": "DERIVED",
+    "level": "C",
+    "name": "reference_with_auto_unconfirmed_observation",
+    "object_flags": [
+     "AUTO_DETECTED_UNCONFIRMED"
+    ],
+    "result_flags": [],
+    "view_count": 1
+   }
+  ],
+  "downgrading": [
+   "AMBIGUOUS_ASSOCIATION",
+   "ASSOCIATION_UNVERIFIED",
+   "AUTO_DETECTED_UNCONFIRMED",
+   "COPLANARITY_ASSUMED",
+   "CORNER_DEPTH_MISMATCH",
+   "FACADE_NOT_VERTICAL",
+   "FRAME_OFFSET_FROM_CORNER_DEPTH",
+   "GLASS_DEPTH_UNRELIABLE",
+   "LIMITED_SIDE_COVERAGE",
+   "METRIC_SCALE_UNVERIFIED",
+   "OBSTRUCTION_REPORTED",
+   "QUAD_INSIDE_OPENING",
+   "QUAD_LARGER_THAN_OPENING",
+   "REFERENCE_UNCERTAINTY_NOT_PROVIDED",
+   "REFERENCE_USER_ESTIMATE",
+   "SINGLE_VIEWPOINT",
+   "VIO_SCALE_MISMATCH"
+  ]
+ },
  "viewpoints": {
   "cases": [
    {

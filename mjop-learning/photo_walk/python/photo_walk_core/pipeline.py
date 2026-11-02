@@ -150,6 +150,16 @@ def _triangulation_links(observations, items, vmap, cfg, metric):
     return out
 
 
+def final_status(result, kind, n_views, verified, object_flags):
+    """Eindstatus van een object: _status_from op de meting, daarna sluit ELKE afwaarderende code op het object (ook codes van de
+    waarnemingen zelf, bv. AUTO_DETECTED_UNCONFIRMED) MEASURED uit. Zelfde als makeObject (Swift); pariteit via facade_parity "status_rules"."""
+    ok = result is not None and result.ok
+    status = _status_from(result if ok else None, kind, n_views, verified)
+    if ok and any(f["code"] in DOWNGRADING for f in object_flags) and status == "MEASURED":
+        status = "ESTIMATED"
+    return status
+
+
 def _measure_cluster(ci, obs_list, per_obs, vmap, mode, references, cfg, session, seed0, extra_flags, frame_meta, plane_ids):
     oid = f"PROV-{session['session_id']}-{ci:03d}"
     flags = list(extra_flags)
@@ -228,9 +238,7 @@ def _measure_cluster(ci, obs_list, per_obs, vmap, mode, references, cfg, session
             flags.append(q.flag("OBSTRUCTION_REPORTED"))
     flags = q.dedupe_flags(flags)
     final_ok = final.ok
-    status = _status_from(final if final_ok else None, kind, n_views, verified)
-    if final_ok and any(f["code"] in DOWNGRADING for f in flags) and status == "MEASURED":
-        status = "ESTIMATED"
+    status = final_status(final, kind, n_views, verified, flags)
     meta = {}
     for o in obs_list:
         meta.update(frame_meta.get(o.observation_id, {}))

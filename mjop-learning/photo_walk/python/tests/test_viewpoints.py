@@ -145,3 +145,16 @@ def test_independent_photo_count_rules():
     assert independent_photo_count([("F0", [0, 0, 0]), ("F1", [b * 0.5, 0, 0])], b) == 1, "te dicht bij elkaar"
     assert independent_photo_count([("F0", [0, 0, 0]), ("F1", [b, 0, 0])], b) == 2, "precies de drempel telt (>=)"
     assert independent_photo_count([("F1", [b * 0.6, 0, 0]), ("F0", [0, 0, 0]), ("F2", [b * 1.2, 0, 0])], b) == 2
+
+
+# ------------------------------------------------------------------------------------------------ eindstatus: waarnemingscodes (pariteit met Swift)
+def test_final_status_observation_codes_and_parity_fixture_current():
+    from photo_walk_core import facade_parity as P
+    from photo_walk_core import quality as q
+    from photo_walk_core.levels import LevelResult
+    from photo_walk_core.pipeline import final_status
+    r = LevelResult("A", "LIDAR_DEPTH_PLANE", width_m=1.2, height_m=1.5)
+    assert final_status(r, "A", 2, False, []) == "MEASURED"
+    assert final_status(r, "A", 2, False, [q.flag("AUTO_DETECTED_UNCONFIRMED")]) == "ESTIMATED"
+    assert final_status(r, "A", 2, False, [q.flag("MANUAL_CORNERS")]) == "MEASURED"
+    assert json.loads(P.OUT.read_text())["status_rules"] == json.loads(json.dumps(P.status_rule_cases()))

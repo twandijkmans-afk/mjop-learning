@@ -74,6 +74,13 @@ enum RoundInputBuilder {
             duplicatesUnresolvedTotal: dupTotal, frameWorld: frameWorld, duplicateReviewConfirmed: reviewed)
     }
 
+    /// Mag de inspecteur nu verklaren dat alles is nagelopen? Alleen als er een ronde is en GEEN openstaande koppelsuggestie meer is (in de
+    /// meetellende foto's). Geldt voor de knop én voor het vastleggen zelf (RoundCoordinator.setDuplicateReview), niet alleen in de weergave.
+    static func canRecordDuplicateReview(store: ScanStore) -> Bool {
+        guard let input = build(store: store, createdAt: "1970-01-01T00:00:00Z") else { return false }
+        return (input.duplicatesUnresolvedTotal ?? input.duplicatesUnresolvedByFacade.values.reduce(0, +)) == 0
+    }
+
     /// Vingerafdruk van alles waarop een handmatige duplicaatcontrole betrekking heeft: meetellende foto's (met gevel en AR-sessie), waarnemingen
     /// (met kozijn en hoeken) en uitsluitingen. Een nieuwe foto, waarneming, koppeling, ontkoppeling, afwijzing of uitsluiting laat de verklaring vervallen.
     static func reviewFingerprint(store: ScanStore) -> String {

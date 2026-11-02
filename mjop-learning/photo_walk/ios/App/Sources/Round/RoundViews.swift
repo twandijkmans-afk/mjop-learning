@@ -260,13 +260,13 @@ struct RoundReviewView: View {
                 } else {
                     if review != nil { Text("Je eerdere verklaring geldt niet meer: er is iets gewijzigd.").font(.caption).foregroundStyle(.orange) }
                     Button("Ik heb alle foto's nagelopen: geen kozijn dubbel geteld") { coordinator.setDuplicateReview(true) }
-                        .buttonStyle(.bordered).disabled(dupCountOpen > 0).accessibilityIdentifier("duplicateReviewButton")
-                    if dupCountOpen > 0 { Text("Beoordeel eerst de koppelsuggesties hierboven.").font(.caption).foregroundStyle(.secondary) }
+                        .buttonStyle(.bordered).disabled(!canReview).accessibilityIdentifier("duplicateReviewButton")
+                    if !canReview { Text("Beoordeel eerst de koppelsuggesties hierboven.").font(.caption).foregroundStyle(.secondary) }
                 }
             }
         }
     }
-    private var dupCountOpen: Int { store.linkSuggestions().count }
+    private var canReview: Bool { RoundInputBuilder.canRecordDuplicateReview(store: store) }
 
     private func fmt(_ v: Double) -> String { String(format: "%.2f", v).replacingOccurrences(of: ".", with: ",") }
     private func valueText(_ p: ScanProposalV2) -> String {

@@ -368,7 +368,12 @@ jobs:
           log = open(os.environ["LOGS"] + "/selftest-console.log").read()
           st = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_DUP_COVERAGE step=(\S+) (.*)", log)}
           print(st)
-          assert set(st) == {"no-world", "two-worlds", "reviewed", "stale"}, st.keys()
+          assert set(st) == {"no-world", "two-worlds", "reviewed", "stale", "open-suggestion"}, st.keys()
+          for k in ("no-world", "two-worlds", "reviewed", "stale"):
+              assert st[k]["canReview"] == "true", (k, st[k])
+          o = st["open-suggestion"]
+          assert int(o["suggestions"]) >= 1 and o["canReview"] == "false", ("verklaren kan pas na beoordeling van alle suggesties", o)
+          assert o["count"] == "null" and o["area"] == "null" and o["partial"] == "null" and o["complete"] == "false" and "DUPLICATES_UNRESOLVED" in o["reasons"], o
           for k in ("no-world", "two-worlds", "stale"):
               s = st[k]
               assert s["suggestions"] == "0" and s["objects"] == "2" and s["checkable"] == "1", (k, s)

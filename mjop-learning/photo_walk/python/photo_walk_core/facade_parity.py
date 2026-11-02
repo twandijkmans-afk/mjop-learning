@@ -152,6 +152,33 @@ def picked_quad_cases():
              "expected": dict((k, _q(v) if k == "original_corners" else v) for k, v in F.classify_picked_quad(f, c).items())} for n, f, c in rows]
 
 
+def status_rule_cases():
+    """Eindstatus (pipeline.final_status == makeObject in Swift): meetcodes, waarnemingscodes en standpunten."""
+    from . import quality as q
+    from .levels import LevelResult
+    from .pipeline import DOWNGRADING, final_status
+    rows = [
+        ("two_views_clean", "A", 2, [], []),
+        ("one_view", "A", 1, [], ["SINGLE_VIEWPOINT"]),
+        ("two_views_auto_unconfirmed_observation", "A", 2, [], ["AUTO_DETECTED_UNCONFIRMED"]),
+        ("two_views_manual_corners", "A", 2, [], ["MANUAL_CORNERS"]),
+        ("two_views_human_corrected", "A", 2, [], ["HUMAN_CORRECTED_CORNERS"]),
+        ("two_views_glass_in_result", "A", 2, ["GLASS_DEPTH_UNRELIABLE"], []),
+        ("two_views_obstruction_observation", "A", 2, [], ["OBSTRUCTION_REPORTED"]),
+        ("reference_clean", "C", 1, [], []),
+        ("reference_user_estimate", "C", 1, ["REFERENCE_USER_ESTIMATE"], []),
+        ("reference_with_auto_unconfirmed_observation", "C", 1, [], ["AUTO_DETECTED_UNCONFIRMED"]),
+    ]
+    out = []
+    for name, level, views, result_codes, object_codes in rows:
+        r = LevelResult(level, "LIDAR_DEPTH_PLANE" if level == "A" else "REFERENCE_DISTANCE", flags=[q.flag(c) for c in result_codes],
+                        width_m=1.2, height_m=1.5)
+        flags = list(r.flags) + [q.flag(c) for c in object_codes]
+        out.append({"name": name, "level": level, "view_count": views, "result_flags": result_codes, "object_flags": object_codes,
+                    "expected": final_status(r, level, views, False, flags)})
+    return {"downgrading": sorted(DOWNGRADING), "cases": out}
+
+
 def build_parity_cases():
     img = F.synthetic_facade_gray(IMAGE["width"], IMAGE["height"], _windows())
     return {
@@ -164,6 +191,7 @@ def build_parity_cases():
         "viewpoints": viewpoint_cases(),
         "contour_transitions": contour_transition_cases(),
         "picked_quad": picked_quad_cases(),
+        "status_rules": status_rule_cases(),
     }
 
 

@@ -117,7 +117,7 @@ struct PhotoWalkApp: App {
             guard let c = ps.first(where: { $0.target.quantityKind == .FRAME_COUNT && $0.target.scope.type == .BUILDING }),
                   let a = ps.first(where: { $0.target.quantityKind == .FRAME_AREA_GROSS && $0.target.scope.type == .BUILDING }) else { return }
             let reasons = c.reliability.reasons.filter { $0 != "UNVALIDATED_LIDAR" }.joined(separator: ",")
-            print("SELFTEST_DUP_COVERAGE step=\(step) suggestions=\(dc.linkSuggestions().count) objects=\(input.objects.count) checkable=\(input.objects.filter { $0.duplicateCheckable }.count) count=\(c.value.map { String($0) } ?? "null") area=\(a.value.map { String($0) } ?? "null") partial=\(a.partialValue.map { String($0) } ?? "null") level=\(c.reliability.level) complete=\(c.basis.duplicateReviewComplete.map { String($0) } ?? "nil") manual=\(c.basis.duplicateReviewManual.map { String($0) } ?? "nil") unchecked=\(c.basis.duplicateCheckUncheckedObjects ?? -1) unknownWorld=\(c.basis.duplicateCheckUnknownWorldPhotos ?? -1) cross=\(c.basis.crossSessionUnchecked) reasons=\(reasons.isEmpty ? "-" : reasons) valid=\(ps.allSatisfy { $0.validate().isEmpty })")
+            print("SELFTEST_DUP_COVERAGE step=\(step) suggestions=\(dc.linkSuggestions().count) objects=\(input.objects.count) checkable=\(input.objects.filter { $0.duplicateCheckable }.count) count=\(c.value.map { String($0) } ?? "null") area=\(a.value.map { String($0) } ?? "null") partial=\(a.partialValue.map { String($0) } ?? "null") level=\(c.reliability.level) complete=\(c.basis.duplicateReviewComplete.map { String($0) } ?? "nil") manual=\(c.basis.duplicateReviewManual.map { String($0) } ?? "nil") unchecked=\(c.basis.duplicateCheckUncheckedObjects ?? -1) unknownWorld=\(c.basis.duplicateCheckUnknownWorldPhotos ?? -1) cross=\(c.basis.crossSessionUnchecked) reasons=\(reasons.isEmpty ? "-" : reasons) valid=\(ps.allSatisfy { $0.validate().isEmpty }) canReview=\(RoundInputBuilder.canRecordDuplicateReview(store: dc))")
         }
         line("no-world")                                                  // geen AR-sessie bekend (simulatie)
         dc.round?.frameWorld = ["F000": "w-a", "F001": "w-b"]
@@ -126,6 +126,11 @@ struct PhotoWalkApp: App {
         line("reviewed")                                                  // inspecteur heeft alles nagelopen
         dc.round?.frameWorld["F001"] = "w-c"
         line("stale")                                                     // iets gewijzigd: verklaring vervalt
+        // een tweede, overlappend kader op F000 (eigen kozijn): openstaande suggestie -> verklaren kan niet, en blijft geblokkeerd
+        dc.addObservation(Observation(id: "OBS-F000-2", frameId: "F000", corners: src.corners.map { Pixel($0.u + 2, $0.v + 2) },
+                                      originalCorners: src.corners.map { Pixel($0.u + 2, $0.v + 2) }, source: .MANUAL), to: nil)
+        dc.measureAll()
+        line("open-suggestion")
     }
 
     /// Selftest hoekkiezer (ScanStore.addPickedQuad, dezelfde functie als de knop Opslaan) op een aparte sessie.
