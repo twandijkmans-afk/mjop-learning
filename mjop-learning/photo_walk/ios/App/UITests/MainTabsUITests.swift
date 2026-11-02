@@ -9,16 +9,17 @@ final class MainTabsUITests: XCTestCase {
 
     // MARK: hulpjes
 
-    private func launch(_ extra: [String] = [], tabsPage: Bool = true) -> XCUIApplication {
+    private func launch(_ extra: [String] = [], tabsPage: Bool = true, overrideClassic: Bool = true) -> XCUIApplication {
         let app = XCUIApplication()
-        // "-mjop.classicMode NO" overschrijft de bewaarde keuze, zodat tests elkaar niet beïnvloeden.
-        app.launchArguments += [tabsPage ? "-mjop-tabs-test-page" : "-mjop-test-page", "-mjop.classicMode", "NO"] + extra
+        // "-mjop.classicMode NO" overschrijft de bewaarde keuze, zodat tests elkaar niet beïnvloeden. Let op: een opstartargument blijft ook
+        // gelden als de app de waarde wijzigt; een test die de schakelaar zelf bedient moet dus zonder overschrijving starten.
+        app.launchArguments += [tabsPage ? "-mjop-tabs-test-page" : "-mjop-test-page"] + (overrideClassic ? ["-mjop.classicMode", "NO"] : []) + extra
         app.launch()
         return app
     }
 
-    private func launchWithTabs() -> XCUIApplication {
-        let app = launch()
+    private func launchWithTabs(overrideClassic: Bool = true) -> XCUIApplication {
+        let app = launch(overrideClassic: overrideClassic)
         XCTAssertTrue(app.tabBars.firstMatch.waitForExistence(timeout: 40), "de vijf tabs verschijnen zodra de website meldt dat hij de nieuwe navigatie kent")
         return app
     }
@@ -275,7 +276,7 @@ final class MainTabsUITests: XCTestCase {
     }
 
     func testClassicModeCanBeChosenAndLeftAgain() {
-        let app = launchWithTabs()
+        let app = launchWithTabs(overrideClassic: false)      // de schakelaar moet de bewaarde keuze echt kunnen wijzigen
         tab(app, "Profiel")
         tapCenter(any(app, "profileAdvanced"))
         let classicSwitch = app.switches["advClassic"]
