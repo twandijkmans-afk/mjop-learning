@@ -41,6 +41,12 @@ final class MainTabsUITests: XCTestCase {
         while !el.exists && n < 5 { app.swipeUp(); n += 1 }
     }
 
+    /// Lijsten bouwen alleen zichtbare rijen op: scroll tot het element bestaat en aantikbaar is.
+    private func scrollTo(_ el: XCUIElement, in app: XCUIApplication) {
+        var n = 0
+        while !(el.exists && el.isHittable) && n < 8 { app.swipeUp(); n += 1 }
+    }
+
     private func webText(_ app: XCUIApplication, _ text: String, timeout: TimeInterval = 20) -> Bool {
         app.webViews.staticTexts[text].waitForExistence(timeout: timeout)
     }
@@ -144,6 +150,7 @@ final class MainTabsUITests: XCTestCase {
         // de diagnose bevestigt het: één keer geladen, wel degelijk verplaatst
         tab(app, "Profiel")
         tapCenter(any(app, "profileAdvanced"))
+        scrollTo(any(app, "diagMoves"), in: app)
         XCTAssertTrue(any(app, "diagLoadCount").waitForExistence(timeout: 10))
         XCTAssertEqual(any(app, "diagLoadCount").label, "1×", "de website is in totaal één keer geladen")
         XCTAssertEqual(any(app, "diagWebViewCount").label, "1 exemplaar")
@@ -193,6 +200,7 @@ final class MainTabsUITests: XCTestCase {
         tapCenter(any(app, "measureResults"))
         XCTAssertTrue(any(app, "resultsEmpty").waitForExistence(timeout: 10), "lege staat: nog geen afgeronde fotorondes")
         app.navigationBars.buttons.element(boundBy: 0).tap()
+        scrollTo(any(app, "measureScannerTest"), in: app)
         tapCenter(any(app, "measureScannerTest"))
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 20), "de losse scanner blijft bereikbaar onder Meten")
         app.buttons["scannerTestClose"].tap()
@@ -230,7 +238,9 @@ final class MainTabsUITests: XCTestCase {
         XCTAssertTrue(webText(app, "Tabblad: account"), "de app navigeerde de website naar Account")
         app.navigationBars.buttons.element(boundBy: 0).tap()
         tapCenter(any(app, "profileAdvanced"))
+        // van boven naar beneden, met scrollen: rijen onder de rand bestaan pas als ze in beeld zijn
         for id in ["advReload", "advScannerTest", "advClassic", "diagVersion", "diagLidar", "diagNavMode"] {
+            scrollTo(any(app, id), in: app)
             XCTAssertTrue(any(app, id).waitForExistence(timeout: 10), "\(id) ontbreekt in Geavanceerd")
         }
         XCTAssertEqual(any(app, "diagNavMode").label, "Actief")
@@ -268,7 +278,10 @@ final class MainTabsUITests: XCTestCase {
         let app = launchWithTabs()
         tab(app, "Profiel")
         tapCenter(any(app, "profileAdvanced"))
-        tapCenter(app.switches["advClassic"])
+        let classicSwitch = app.switches["advClassic"]
+        scrollTo(classicSwitch, in: app)
+        XCTAssertTrue(classicSwitch.waitForExistence(timeout: 10))
+        classicSwitch.coordinate(withNormalizedOffset: CGVector(dx: 0.9, dy: 0.5)).tap()      // de schakelaar zelf, niet het label
         XCTAssertTrue(app.buttons["mjopMenu"].waitForExistence(timeout: 15), "klassieke weergave met menu")
         XCTAssertEqual(app.tabBars.count, 0)
         tapCenter(app.buttons["mjopMenu"])
