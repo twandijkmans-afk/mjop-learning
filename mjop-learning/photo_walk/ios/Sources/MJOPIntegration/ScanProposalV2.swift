@@ -56,13 +56,27 @@ public struct ScanProposalV2: Codable, Equatable {
         public var duplicatesUnresolved: Int
         public var crossSessionUnchecked: Bool
         public var excludedObjects: Int
+        /// Dekking van de duplicaatcontrole (optioneel in het contract; oudere voorstellen hebben deze velden niet). false = onvolledig: geen hoeveelheid.
+        public var duplicateReviewComplete: Bool?
+        /// De dekking komt (deels) uit een handmatige verklaring van de inspecteur.
+        public var duplicateReviewManual: Bool?
+        /// Objecten zonder automatisch vergelijkbare geometrie, en foto's met objecten zonder bekende AR-sessie (diagnose).
+        public var duplicateCheckUncheckedObjects: Int?
+        public var duplicateCheckUnknownWorldPhotos: Int?
         enum CodingKeys: String, CodingKey {
             case objectsTotal = "objects_total", objectsMeasured = "objects_measured", objectsUnmeasured = "objects_unmeasured", photos
             case duplicatesUnresolved = "duplicates_unresolved", crossSessionUnchecked = "cross_session_unchecked", excludedObjects = "excluded_objects"
+            case duplicateReviewComplete = "duplicate_review_complete", duplicateReviewManual = "duplicate_review_manual"
+            case duplicateCheckUncheckedObjects = "duplicate_check_unchecked_objects", duplicateCheckUnknownWorldPhotos = "duplicate_check_unknown_world_photos"
         }
-        public init(objectsTotal: Int, objectsMeasured: Int, objectsUnmeasured: Int, photos: Int, duplicatesUnresolved: Int, crossSessionUnchecked: Bool, excludedObjects: Int) {
+        public init(objectsTotal: Int, objectsMeasured: Int, objectsUnmeasured: Int, photos: Int, duplicatesUnresolved: Int, crossSessionUnchecked: Bool, excludedObjects: Int,
+                    duplicateReviewComplete: Bool? = nil, duplicateReviewManual: Bool? = nil, duplicateCheckUncheckedObjects: Int? = nil, duplicateCheckUnknownWorldPhotos: Int? = nil) {
             self.objectsTotal = objectsTotal; self.objectsMeasured = objectsMeasured; self.objectsUnmeasured = objectsUnmeasured; self.photos = photos
-            self.duplicatesUnresolved = duplicatesUnresolved; self.crossSessionUnchecked = crossSessionUnchecked; self.excludedObjects = excludedObjects }
+            self.duplicatesUnresolved = duplicatesUnresolved; self.crossSessionUnchecked = crossSessionUnchecked; self.excludedObjects = excludedObjects
+            self.duplicateReviewComplete = duplicateReviewComplete; self.duplicateReviewManual = duplicateReviewManual
+            self.duplicateCheckUncheckedObjects = duplicateCheckUncheckedObjects; self.duplicateCheckUnknownWorldPhotos = duplicateCheckUnknownWorldPhotos }
+        /// Mogelijke dubbeltelling of onvolledige duplicaatcontrole: geen enkele hoeveelheid.
+        public var quantityBlocked: Bool { duplicatesUnresolved > 0 || crossSessionUnchecked || duplicateReviewComplete == false }
     }
     public struct Measurement: Codable, Equatable {
         public struct Uncertainty: Codable, Equatable {
@@ -158,6 +172,25 @@ public struct ScanProposalV2: Codable, Equatable {
     public enum Issue: Equatable {
         case wrongContract, bookingMustBeDisallowed, notProposed, badBasis, unitMismatch, valueWithoutObjects
         case areaWithUnmeasured, nullValueNotIncomplete, uncertaintyNotNamed, negativeValue, facadeWithoutId
+        /// Onbeoordeelde duplicaten of niet-gecontroleerde AR-sessies, maar toch een (deel)waarde of geen INCOMPLETE.
+        case quantityWithUncheckedDuplicates
+    }
+
+    /// Mogelijke dubbeltelling (onbeoordeelde duplicaten, meerdere AR-sessies zonder controle of onvolledige duplicaatcontrole) blokkeert ELKE
+    /// hoeveelheid in een voorstel.
+    public var quantityBlocked: Bool { basis.quantityBlocked }
+
+    /// Kopie zonder waarde en deelwaarde (INCOMPLETE, redenen aangevuld) als het voorstel een mogelijke dubbeltelling bevat; anders ongewijzigd.
+    /// Vangnet voor eerder opgeslagen voorstellen (outbox) die nog volgens de oude regel een waarde hadden. Basis en bewijs blijven gelijk.
+    public func withUncheckedQuantitiesBlocked() -> ScanProposalV2 {
+        guard quantityBlocked else { return self }
+        var p = self
+        p.value = nil; p.partialValue = nil; p.reliability.level = "INCOMPLETE"
+        if basis.duplicatesUnresolved > 0 && !p.reliability.reasons.contains("DUPLICATES_UNRESOLVED") { p.reliability.reasons.append("DUPLICATES_UNRESOLVED") }
+        if basis.crossSessionUnchecked && !p.reliability.reasons.contains("CROSS_SESSION_UNCHECKED") { p.reliability.reasons.append("CROSS_SESSION_UNCHECKED") }
+        if basis.duplicateReviewComplete == false && basis.duplicatesUnresolved == 0 && !basis.crossSessionUnchecked
+            && !p.reliability.reasons.contains("DUPLICATE_CHECK_INCOMPLETE") { p.reliability.reasons.append("DUPLICATE_CHECK_INCOMPLETE") }
+        return p
     }
 
     public func validate() -> [Issue] {
@@ -165,7 +198,10 @@ public struct ScanProposalV2: Codable, Equatable {
         if contract != Self.contractID { out.append(.wrongContract) }
         if bookingAllowed { out.append(.bookingMustBeDisallowed) }
         if confirmation.status != "PROPOSED" || confirmation.uncertaintyAcknowledged || confirmation.confirmedAt != nil { out.append(.notProposed) }
-        if basis.objectsMeasured + basis.objectsUnmeasured != basis.objectsTotal || [basis.objectsTotal, basis.objectsMeasured, basis.objectsUnmeasured, basis.photos, basis.duplicatesUnresolved, basis.excludedObjects].contains(where: { $0 < 0 }) { out.append(.badBasis) }
+        if basis.objectsMeasured + basis.objectsUnmeasured != basis.objectsTotal || [basis.objectsTotal, basis.objectsMeasured, basis.objectsUnmeasured, basis.photos, basis.duplicatesUnresolved, basis.excludedObjects,
+            basis.duplicateCheckUncheckedObjects ?? 0, basis.duplicateCheckUnknownWorldPhotos ?? 0].contains(where: { $0 < 0 }) { out.append(.badBasis) }
+        // een volledige dekking kan niet samengaan met bekende open punten
+        if basis.duplicateReviewComplete == true && (basis.duplicatesUnresolved > 0 || basis.crossSessionUnchecked) { out.append(.badBasis) }
         let expectedUnit = target.quantityKind == .FRAME_COUNT ? "st" : "m2"
         if target.unit != expectedUnit { out.append(.unitMismatch) }
         if let v = value, !(v.isFinite && v >= 0) { out.append(.negativeValue) }
@@ -174,6 +210,7 @@ public struct ScanProposalV2: Codable, Equatable {
         if target.quantityKind == .FRAME_AREA_GROSS && value != nil && basis.objectsUnmeasured > 0 { out.append(.areaWithUnmeasured) }
         if !measurement.uncertainty.validated && !reliability.reasons.contains("UNVALIDATED_LIDAR") { out.append(.uncertaintyNotNamed) }
         if target.scope.type == .FACADE && target.scope.facadeId == nil { out.append(.facadeWithoutId) }
+        if quantityBlocked && (value != nil || partialValue != nil || reliability.level != "INCOMPLETE") { out.append(.quantityWithUncheckedDuplicates) }
         return out
     }
 

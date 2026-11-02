@@ -29,7 +29,7 @@ enum ExportService {
         let allUnknown = s.results.allSatisfy { $0.status == .UNKNOWN }
         var r: [String: Any] = [:]
         r["contract"] = "photo_walk_capture_v1"
-        r["contract_version"] = "1.1.0"
+        r["contract_version"] = "1.2.0"          // 1.2.0: optionele gevelopbouw (facade_role, facade_composition); oudere records blijven geldig
         r["capture_mode"] = s.keyframes.isEmpty || s.observations.contains(where: { $0.detection == nil }) ? "KEYFRAME_MANUAL" : "PHOTO"
         r["session_id"] = s.sessionId
         r["building_id"] = s.buildingId
@@ -79,11 +79,17 @@ enum ExportService {
         r["observations"] = s.observations.filter { !$0.rejected }.map { o -> [String: Any] in
             var d: [String: Any] = ["observation_id": o.id, "frame_id": o.frameId, "corner_source": o.source.rawValue, "obstruction_reported": o.obstruction]
             if let det = o.detection { d["detection"] = ["detector": det.detector, "score": det.score, "status": "CANDIDATE_UNVERIFIED"] as [String: Any] }
+            d["facade_role"] = ["role": "FRAME_OUTER", "outer_contour_status": o.outerContour.rawValue, "evidence": o.evidence.rawValue,
+                                "proposed_outer_px": o.proposedOuter.map { $0.map { [$0.u, $0.v] } } ?? NSNull(),
+                                "glass_pane_refs": s.glassPanes(ofObservation: o.id).map { $0.id }] as [String: Any]
             return d
         }
         r["rejected_candidates"] = s.observations.filter { $0.rejected }.map { o -> [String: Any] in
-            ["observation_id": o.id, "frame_id": o.frameId, "detector": o.detection?.detector ?? "MANUAL", "reason": "door inspecteur afgewezen: geen kozijn"]
+            let asGlass = s.facadeElements.contains { $0.role == .GLASS_PANE && $0.frameId == o.frameId && $0.corners == o.corners }
+            return ["observation_id": o.id, "frame_id": o.frameId, "detector": o.detection?.detector ?? "MANUAL",
+                    "reason": asGlass ? "door inspecteur gemarkeerd als glasvlak: geen kozijn" : "door inspecteur afgewezen: geen kozijn"]
         }
+        r["facade_composition"] = facadeComposition(s)
         let detectors = DetectorCatalog.available().map { $0.name }
         r["detection_summary"] = ["detectors": detectors, "core_ml_model_installed": DetectorCatalog.coreMLModelURL != nil, "validated_on_real_buildings": false,
                                   "note": "Kandidaten van een algemene rechthoekdetector; niet gevalideerd als kozijndetector."] as [String: Any]
@@ -105,6 +111,30 @@ enum ExportService {
                            "approvals_simulated": false, "cost_link": NSNull(), "kengetal_link": NSNull(), "price_link": NSNull(),
                            "external_vision_calls": 0, "images_uploaded": false] as [String: Any]
         return r
+    }
+
+    /// Gevelopbouw per foto (photo_walk_capture_v1 1.2.0, optioneel). Voorlopig en niet gevalideerd; geen boeking, geen kosten.
+    @MainActor static func facadeComposition(_ s: ScanStore) -> [String: Any] {
+        func pts(_ p: [Pixel]) -> [[Double]] { p.map { [($0.u * 100).rounded() / 100, ($0.v * 100).rounded() / 100] } }
+        var frames: [[String: Any]] = []
+        for k in s.keyframes where s.observations.contains(where: { $0.frameId == k.id }) || s.facadeElements.contains(where: { $0.frameId == k.id }) {
+            guard let fc = s.facadeComposition(frameId: k.id) else { continue }
+            let elems = s.facadeElements.filter { $0.frameId == k.id }.map { e -> [String: Any] in
+                var area: Any = NSNull()
+                if e.role == .GLASS_PANE, !e.rejected, let pid = e.parentObservationId, let r = s.measures[pid]?.result, r.ok, let n = r.planeN, let d = r.planeD,
+                   let a = FacadeComposition.planarPolygonAreaM2(e.corners, pose: k.pose, intr: k.intrinsics, n: n, d: d) {
+                    area = decimalString(FacadeComposition.round3(a))
+                }
+                return ["element_id": e.id, "role": e.role.rawValue, "parent_observation_ref": e.parentObservationId ?? NSNull(), "polygon_px": pts(e.corners),
+                        "original_polygon_px": pts(e.originalCorners), "source": e.source.rawValue, "rejected": e.rejected, "area_m2": area]
+            }
+            frames.append(["frame_id": k.id, "facade_polygon_px": s.facadePolygon(frameId: k.id).map { pts($0.corners) } ?? NSNull(),
+                           "facade_plane_source": fc.planeSource.rawValue, "elements": elems, "quantities": fc.result.quantitiesJSON, "flags": fc.result.flags,
+                           "plausibility": ["source": "3DBAG", "b3_opp_buitenmuur_m2": NSNull(), "flags": [String](),
+                                            "note": "Alleen een aanvullende controle (nooit bewijs dat een fotometing klopt); 3D BAG-waarde niet beschikbaar in de scanner."] as [String: Any]])
+        }
+        return ["version": "1.0.0", "frames": frames,
+                "note": "Voorlopig en niet gevalideerd op echte gebouwen. Opening = buitenmaat kozijn (aanname). Glas en buitenkozijn apart; het onderhouds-/schilderoppervlak van kozijnen wordt niet afgeleid. Zonder betrouwbare schaal: UNKNOWN."]
     }
 
     @MainActor static func write(_ s: ScanStore) throws -> URL {

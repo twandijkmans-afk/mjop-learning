@@ -12,8 +12,8 @@ enum SimulationRunner {
         store.newSession()
         store.isSimulation = true; store.buildingId = "BLD-SYNTHETIC"; store.facadeId = "FACADE-A"
         store.keyframes = [Keyframe(id: "F000", timestamp: Date(), intrinsics: intr, pose: pose, trackingState: "NORMAL", depth: depth,
-                                    imageURL: SyntheticImage.make(width: intr.width, height: intr.height, corners: corners, id: "F000", sessionId: store.sessionId))]
-        return "SIMULATIE-foto geladen; echte kozijn (synthetisch): \(expectW) x \(expectH) m"
+                                    imageURL: SyntheticImage.make(width: intr.width, height: intr.height, corners: corners, id: "F000", sessionId: store.sessionId, framed: true))]
+        return "SIMULATIE-foto geladen; echte kozijn (synthetisch, buitenmaat): \(expectW) x \(expectH) m"
     }
 
     /// Synthetische LiDAR-v2-scène uit de pariteitsfixture (`level_a_v2`): hoofdframe + ondersteunende dieptekaders met eigen pose. Geen sensormeting.

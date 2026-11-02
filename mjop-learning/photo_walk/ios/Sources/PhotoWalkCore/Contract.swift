@@ -64,8 +64,10 @@ public struct MeasuredObject {
 
 public enum Status {
     /// Zelfde regels als pipeline._status_from: MEASURED vereist >= 2 consistente standpunten en geen downgrading-advisories.
-    static let downgrading: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT",
-                                           "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "AUTO_DETECTED_UNCONFIRMED", "REFERENCE_USER_ESTIMATE",
+    /// Zelfde verzameling als pipeline.DOWNGRADING (Python; gelijk getest via facade_parity_cases.json "status_rules").
+    static let downgrading: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT", "METRIC_SCALE_UNVERIFIED",
+                                           "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "ASSOCIATION_UNVERIFIED",
+                                           "AMBIGUOUS_ASSOCIATION", "VIO_SCALE_MISMATCH", "AUTO_DETECTED_UNCONFIRMED", "REFERENCE_USER_ESTIMATE",
                                            "QUAD_LARGER_THAN_OPENING", "QUAD_INSIDE_OPENING", "FRAME_OFFSET_FROM_CORNER_DEPTH", "LIMITED_SIDE_COVERAGE"]
     public static func status(for r: LevelResult, viewCount: Int) -> DimensionStatus {
         guard r.ok else { return .UNKNOWN }
@@ -78,7 +80,10 @@ public enum Status {
 public func makeObject(id: String, observations: [ObservationRecord], result: LevelResult, viewCount: Int, extraFlags: [QualityFlag] = []) -> MeasuredObject {
     var flags = result.flags + extraFlags
     if viewCount == 1 && result.level == .A && result.ok { flags.append(Flags.make("SINGLE_VIEWPOINT")) }
-    let status = Status.status(for: result, viewCount: viewCount)
+    var status = Status.status(for: result, viewCount: viewCount)
+    // Zelfde als pipeline._measure_cluster: ELKE afwaarderende code op het object sluit MEASURED uit, ook codes van de waarnemingen zelf
+    // (extraFlags, bv. AUTO_DETECTED_UNCONFIRMED). Vroeger keek Swift alleen naar de codes van de meting.
+    if status == .MEASURED && flags.contains(where: { Status.downgrading.contains($0.code) }) { status = .ESTIMATED }
     var w: String? = nil, h: String? = nil, a: String? = nil, ap: String? = nil
     if result.ok, let rw = result.width, let rh = result.height {
         let dw = roundedMillimeters(rw), dh = roundedMillimeters(rh)

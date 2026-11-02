@@ -45,6 +45,7 @@ final class MJOPNavigationUITests: XCTestCase {
         teller.tap(); teller.tap()
         XCTAssertTrue(app.webViews.staticTexts["Teller: 2"].waitForExistence(timeout: 10))
 
+        XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
         app.webViews.buttons["Start fotoronde"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15), "de website kan de fotoronde starten via de brug")
         XCTAssertTrue(element(app, containing: "Testgebouw 1").waitForExistence(timeout: 5), "projectcontext (gebouw) is meegekomen")
@@ -62,6 +63,7 @@ final class MJOPNavigationUITests: XCTestCase {
 
     func testElementScanCarriesTheElementContext() {
         let app = launch()
+        XCTAssertTrue(app.webViews.buttons["Scan voor element"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Scan voor element")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
         app.webViews.buttons["Scan voor element"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
         XCTAssertTrue(element(app, containing: "Onderhoud buitenkozijnen").waitForExistence(timeout: 5), "gekozen onderhoudspost is zichtbaar in de scanner")
@@ -73,6 +75,7 @@ final class MJOPNavigationUITests: XCTestCase {
 
     func testInvalidBridgeMessageIsRefusedWithoutOpeningTheScanner() {
         let app = launch()
+        XCTAssertTrue(app.webViews.buttons["Start ongeldig"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start ongeldig")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
         app.webViews.buttons["Start ongeldig"].tap()
         XCTAssertTrue(element(app, containing: "genegeerd").waitForExistence(timeout: 10), "de gebruiker ziet dat het bericht is geweigerd")
         XCTAssertFalse(app.navigationBars["Fotoronde"].exists)
@@ -80,12 +83,14 @@ final class MJOPNavigationUITests: XCTestCase {
 
     func testListProposalsAnswersForTheRightProjectOnly() {
         let app = launch()
+        XCTAssertTrue(app.webViews.buttons["Vraag voorstellen"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Vraag voorstellen")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
         app.webViews.buttons["Vraag voorstellen"].tap()
         XCTAssertTrue(app.webViews.staticTexts["Antwoord: proposals voorstellen=0 fout=-"].waitForExistence(timeout: 10), "lege lijst voor een project zonder afgeronde ronde")
     }
 
     func testReviewScreenWithoutPhotosIsUsable() {
         let app = launch()
+        XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
         app.webViews.buttons["Start fotoronde"].tap()
         XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
         tapCenter(app.buttons["roundReview"])

@@ -35,6 +35,16 @@ final class ScanProposalV2Tests: XCTestCase {
         XCTAssertThrowsError(try ScanProposalV2.decode(Data(conf.utf8))) { XCTAssertEqual($0 as? ScanProposalV2.DecodeError, .invalid([.notProposed])) }
     }
 
+    func testBlockedFixturesAreValidAndCarryNoQuantity() throws {
+        for name in ["count_building_blocked_v2", "area_building_blocked_v2"] {
+            let p = try ScanProposalV2.decode(try fixture(name))
+            XCTAssertTrue(p.quantityBlocked, name); XCTAssertNil(p.value, name); XCTAssertNil(p.partialValue, name); XCTAssertEqual(p.reliability.level, "INCOMPLETE", name)
+            XCTAssertTrue(p.reliability.reasons.contains("DUPLICATES_UNRESOLVED"), name)
+            var withValue = p; withValue.value = 12; withValue.reliability.level = "CHECK_REQUIRED"
+            XCTAssertThrowsError(try ScanProposalV2.decode(try withValue.encoded()), name)
+        }
+    }
+
     func testAreaWithUnmeasuredObjectsMustNotCarryAValue() throws {
         var a = try ScanProposalV2.decode(try fixture("area_building_incomplete_v2"))
         a.value = 17.4

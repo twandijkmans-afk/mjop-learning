@@ -43,6 +43,25 @@ struct Observation: Identifiable {
     var obstruction = false
     var detection: DetectionInfo? = nil
     var rejected = false            // inspecteur: "dit is geen kozijn"; blijft lokaal bewaard, telt niet mee
+    /// Zekerheid van de BUITENCONTOUR (gevelopbouw). Handmatig getekend = MANUAL; oudere opgeslagen waarnemingen worden LEGACY (ongewijzigd gedrag).
+    /// UNVERIFIED (glas of kozijn?) en PROPOSED_EXPANSION (voorstel vanaf het glas) geven geen kozijnmaat tot de gebruiker bevestigt.
+    var outerContour: OuterContourStatus = .MANUAL
+    var evidence: OpeningEvidence = .MANUAL
+    /// Voorgestelde buitencontour (randzoeker) bij een losse rechthoek; wordt alleen op knop toegepast en moet daarna bevestigd worden.
+    var proposedOuter: [Pixel]? = nil
+}
+
+/// Gevelonderdeel dat GEEN kozijn is: een glasvlak binnen een kozijn of het getekende bruto gevelvlak van een foto.
+/// Glasvlakken tellen nooit als kozijn en hebben geen eigen voorlopig object; originele contour en bron blijven bewaard.
+struct FacadeElement: Identifiable, Equatable {
+    let id: String
+    let frameId: String
+    var role: FacadeRole                    // GLASS_PANE | FACADE_GROSS
+    var corners: [Pixel]
+    let originalCorners: [Pixel]
+    var source: CornerSource
+    var parentObservationId: String?        // GLASS_PANE -> het kozijn
+    var rejected = false
 }
 
 struct ObjectDraft: Identifiable { let id: String; var observationIds: [String] }
@@ -61,6 +80,8 @@ struct Overview {
     var checks = 0                  // oranje kaders
     var noScale = 0                 // neutrale kaders (UNKNOWN)
     var linkSuggestions = 0
+    var outerUnverified = 0         // glas of kozijn? / voorgestelde buitencontour: nog bevestigen
+    var glassPanes = 0              // herkende glasvlakken (tellen niet als kozijn)
 }
 
 /// Deterministische seed (FNV-1a); `hashValue` is per proces willekeurig en zou resultaten niet reproduceerbaar maken.
@@ -99,6 +120,8 @@ enum Measurer {
             let rc = measureWithReference(view: v, target: o.corners, ref: ref, anchor: anchor, seed: stableSeed(o.id + "C"))
             if rc.ok { var rc2 = rc; rc2.diag = r.diag; rc2.diag["fallback"] = "REFERENCE_DISTANCE (niveau A gaf geen maat)"; rc2.diag["lidar_flags_before_fallback"] = r.flags.map { $0.code }; r = rc2 } else { r.flags += rc.flags.filter { $0.severity == .BLOCKING }.map { QualityFlag(code: $0.code, severity: $0.severity, detail: "[referentie] \($0.detail ?? "")", instruction_nl: $0.instruction_nl) } }
         }
+        // automatisch herkende buitencontour (rond glas, glas of kozijn?, voorgestelde vergroting): alleen indicatief tot de gebruiker bevestigt
+        r = ContourGate.apply(r, status: o.outerContour)
         if !r.ok && !hasBlocking(r.flags) { r.flags.append(Flags.make("NO_METRIC_SCALE")) }
         return r
     }
@@ -117,11 +140,14 @@ enum Measurer {
             let obs = d.observationIds.compactMap { obsById[$0] }.filter { !$0.rejected }
             if obs.isEmpty { continue }
             let perView = obs.compactMap { measures[$0.id]?.result }
-            let okA = perView.filter { $0.ok && $0.level == .A }
+            // standpunten = apart vastgelegde foto's met eigen camerapositie; ondersteunende LiDAR-kaders van één foto tellen niet (zie Viewpoints)
+            let items = obs.compactMap { o -> Viewpoints.ViewMeasurement? in
+                guard let r = measures[o.id]?.result, let kf = frames[o.frameId] else { return nil }
+                return Viewpoints.ViewMeasurement(capture: .init(keyframeId: o.frameId, position: kf.pose.t), result: r)
+            }
             var final: LevelResult
             var viewCount = 1
-            if okA.count >= 2 { final = fuse(okA); viewCount = final.viewIds.count }
-            else if let a = okA.first { final = a; viewCount = max(1, a.independentFrames) }      // onafhankelijke diepteframes tellen als standpunten
+            if let a = Viewpoints.combineLevelA(items) { final = a.result; viewCount = a.viewCount }
             else if let c = perView.first(where: { $0.ok }) { final = c }
             else { final = perView.first ?? LevelResult(level: .A, scaleMethod: "NONE") }
             if !final.ok && !hasBlocking(final.flags) { final.flags.append(Flags.make("NO_METRIC_SCALE")) }
@@ -150,7 +176,12 @@ struct RoundState: Equatable {
     var frameFacade: [String: String] = [:]    // foto -> gevel
     var frameWorld: [String: String] = [:]     // foto -> AR-sessie (eigen coördinatenstelsel); alleen binnen één sessie zijn kozijnen vergelijkbaar
     var excludedFrames: Set<String> = []       // foto's die de inspecteur niet wil laten meetellen (overlap)
+    /// "Ik heb alle foto's nagelopen: geen kozijn dubbel geteld" (handmatige duplicaatcontrole). Geldt alleen zolang de vingerafdruk van de
+    /// meetellende foto's, waarnemingen, koppelingen en uitsluitingen gelijk is (zie DuplicateCoverage en RoundInputBuilder.reviewFingerprint).
+    var duplicateReview: DuplicateReview? = nil
 }
+
+struct DuplicateReview: Equatable, Codable { var reviewedAt: Date; var fingerprint: String }
 
 @MainActor
 final class ScanStore: ObservableObject {
@@ -168,10 +199,11 @@ final class ScanStore: ObservableObject {
     @Published var dismissedLinks: Set<String> = []
     @Published var isSimulation = false
     @Published var round: RoundState? = nil
+    @Published var facadeElements: [FacadeElement] = []
 
     func newSession() {
         sessionId = UUID().uuidString; keyframes = []; observations = []; drafts = []; references = [:]; results = []; measures = [:]
-        analyzing = []; analysisNotes = [:]; dismissedLinks = []; isSimulation = false; round = nil
+        analyzing = []; analysisNotes = [:]; dismissedLinks = []; isSimulation = false; round = nil; facadeElements = []
     }
 
     /// Legt bij een nieuwe foto vast bij welke gevel en in welk AR-coördinatenstelsel hij is gemaakt (alleen in een fotoronde).
@@ -190,6 +222,26 @@ final class ScanStore: ObservableObject {
         else { drafts.append(ObjectDraft(id: "PROV-\(sessionId.prefix(8))-\(String(format: "%03d", drafts.count + 1))", observationIds: [o.id])) }
     }
 
+    /// Vierhoek uit de hoekkiezer opslaan (CornerPickerView). Herkomst volgens PickedQuad.classify: zelf getekend = MANUAL; een gekozen
+    /// automatisch voorstel (ook als er daarna hoeken zijn verschoven) blijft herkenbaar als voorstel: originalCorners = voorstelhoeken,
+    /// verschoven hoeken als revisies, detectie-informatie bewaard, contour USER_CONFIRMED (opslaan = uitdrukkelijke bevestiging).
+    @discardableResult
+    func addPickedQuad(frameId: String, corners: [Pixel], candidate: [Pixel]?, candidateScore: Double?, to draftId: String?) -> Observation {
+        let k = PickedQuad.classify(final: corners, candidate: candidate)
+        let source: CornerSource
+        switch k.source { case .MANUAL: source = .MANUAL; case .AUTO_DETECTED_CONFIRMED: source = .AUTO_DETECTED_CONFIRMED; case .MANUAL_CORRECTED: source = .MANUAL_CORRECTED }
+        var o = Observation(id: "OBS-\(frameId)-\(observations.count + 1)", frameId: frameId, corners: corners, originalCorners: k.originalCorners, source: source,
+                            detection: k.candidateDerived ? DetectionInfo(detector: "VN_RECTANGLE_CANDIDATE", score: candidateScore ?? 0) : nil)
+        let now = Date()
+        o.revisions = k.editedCornerIndices.map { i in
+            CornerRevision(index: i, before: k.originalCorners[i], after: corners[i], editedBy: "inspecteur", editedAt: now, reason: "voorstel aangepast in de hoekkiezer vóór opslaan")
+        }
+        o.outerContour = k.outerContour
+        o.evidence = k.candidateDerived ? .SINGLE : .MANUAL
+        addObservation(o, to: draftId)
+        return o
+    }
+
     func observation(_ id: String) -> Observation? { observations.first { $0.id == id } }
     func keyframe(_ id: String) -> Keyframe? { keyframes.first { $0.id == id } }
     func draft(of obsId: String) -> ObjectDraft? { drafts.first { $0.observationIds.contains(obsId) } }
@@ -205,11 +257,68 @@ final class ScanStore: ObservableObject {
         observations[i].corners[index] = p
         observations[i].source = .MANUAL_CORRECTED
         observations[i].revisions.append(CornerRevision(index: index, before: before, after: p, editedBy: "inspecteur", editedAt: Date(), reason: reason))
+        // Hoeken verslepen is BEWERKEN, geen bevestiging (ook niet na "Herstel detectie" + "Toepassen"): een automatische of eerder bevestigde
+        // contour wordt EDITED_UNCONFIRMED en blijft geblokkeerd tot "Dit is de buitenmaat". Zelf getekend (MANUAL) en LEGACY blijven gelijk.
+        observations[i].outerContour = observations[i].outerContour.afterCornerEdit
     }
 
+    /// "Dit is de buitenmaat": bevestigt de HOEKEN als buitencontour van het kozijn (geen goedkeuring van de hoeveelheid).
     func confirmCorners(observation id: String) {
-        guard let i = observations.firstIndex(where: { $0.id == id }), observations[i].source == .AUTO_DETECTED_UNCONFIRMED else { return }
-        observations[i].source = .AUTO_DETECTED_CONFIRMED       // bevestigt alleen de HOEKEN; geen goedkeuring van de hoeveelheid
+        guard let i = observations.firstIndex(where: { $0.id == id }) else { return }
+        if observations[i].source == .AUTO_DETECTED_UNCONFIRMED { observations[i].source = .AUTO_DETECTED_CONFIRMED }
+        // enige plek waar een (bewerkte) automatische contour bevestigd wordt; de bewerkte hoeken, revisies en de bron blijven bewaard
+        observations[i].outerContour = observations[i].outerContour.afterExplicitConfirmation
+    }
+
+    /// Past de voorgestelde buitencontour (randzoeker) toe: de oude vierhoek wordt een glasvlak van dit kozijn. Daarna blijft de maat
+    /// geblokkeerd (PROPOSED_EXPANSION) tot de gebruiker "Dit is de buitenmaat" kiest (hoeken verslepen bevestigt niet).
+    func applyProposedOuter(observation id: String) {
+        guard let i = observations.firstIndex(where: { $0.id == id }), let prop = observations[i].proposedOuter, prop.count == 4 else { return }
+        let o = observations[i]
+        facadeElements.append(FacadeElement(id: nextElementId(frameId: o.frameId, prefix: "GLS"), frameId: o.frameId, role: .GLASS_PANE, corners: o.corners,
+                                            originalCorners: o.corners, source: o.source == .AUTO_DETECTED_UNCONFIRMED ? .AUTO_DETECTED_UNCONFIRMED : .MANUAL, parentObservationId: o.id))
+        for k in 0..<4 where o.corners[k] != prop[k] {
+            observations[i].revisions.append(CornerRevision(index: k, before: o.corners[k], after: prop[k], editedBy: "app-voorstel", editedAt: Date(),
+                                                            reason: "voorgestelde buitencontour (randzoeker); nog niet bevestigd"))
+        }
+        observations[i].corners = prop
+        observations[i].outerContour = .PROPOSED_EXPANSION
+        observations[i].proposedOuter = nil
+    }
+
+    /// "Dit is een glasvlak": de vierhoek is geen kozijn. Hij wordt een glasvlak van het kleinste kozijn op dezelfde foto dat hem omsluit
+    /// (indien aanwezig) en telt niet meer als kozijn. Bron en hoeken blijven bewaard.
+    func markAsGlass(observation id: String) {
+        guard let i = observations.firstIndex(where: { $0.id == id }) else { return }
+        let o = observations[i]
+        let parent = observations.filter { $0.id != o.id && $0.frameId == o.frameId && !$0.rejected && ContourOrganizer.contains($0.corners, o.corners, ContourConfig()) }
+            .min { polygonArea($0.corners) < polygonArea($1.corners) }
+        facadeElements.append(FacadeElement(id: nextElementId(frameId: o.frameId, prefix: "GLS"), frameId: o.frameId, role: .GLASS_PANE, corners: o.corners,
+                                            originalCorners: o.originalCorners, source: o.source, parentObservationId: parent?.id))
+        observations[i].rejected = true
+        measureAll(); persist()
+    }
+
+    func setElementRejected(_ id: String, _ rejected: Bool) {
+        guard let i = facadeElements.firstIndex(where: { $0.id == id }) else { return }
+        facadeElements[i].rejected = rejected
+        persist()
+    }
+
+    /// Bruto gevelvlak van een foto (door de gebruiker getekend). Een eerder vlak blijft bewaard maar telt niet meer mee.
+    func setFacadePolygon(frameId: String, corners: [Pixel]) {
+        for k in facadeElements.indices where facadeElements[k].frameId == frameId && facadeElements[k].role == .FACADE_GROSS { facadeElements[k].rejected = true }
+        facadeElements.append(FacadeElement(id: nextElementId(frameId: frameId, prefix: "GEV"), frameId: frameId, role: .FACADE_GROSS, corners: corners,
+                                            originalCorners: corners, source: .MANUAL, parentObservationId: nil))
+        persist()
+    }
+
+    func facadePolygon(frameId: String) -> FacadeElement? { facadeElements.last { $0.frameId == frameId && $0.role == .FACADE_GROSS && !$0.rejected } }
+    func glassPanes(frameId: String) -> [FacadeElement] { facadeElements.filter { $0.frameId == frameId && $0.role == .GLASS_PANE && !$0.rejected } }
+    func glassPanes(ofObservation id: String) -> [FacadeElement] { facadeElements.filter { $0.parentObservationId == id && $0.role == .GLASS_PANE && !$0.rejected } }
+
+    private func nextElementId(frameId: String, prefix: String) -> String {
+        "\(prefix)-\(frameId)-\(String(format: "%02d", facadeElements.filter { $0.frameId == frameId }.count + 1))"
     }
 
     func setRejected(_ id: String, _ rejected: Bool) {
@@ -221,14 +330,19 @@ final class ScanStore: ObservableObject {
     func setReference(_ r: ReferenceMeasure) { references[r.frameId] = r }
 
     // MARK: koppelen over foto's (alleen op initiatief van de inspecteur)
+    /// Ruimtelijke gegevens om een waarneming met waarnemingen op ANDERE foto's te vergelijken (3D-hoeken + vlak + maat). nil = deze waarneming
+    /// kan niet automatisch op duplicaten over foto's heen worden gecontroleerd (dat telt NIET als "geen duplicaat"; zie DuplicateCoverage).
+    func linkItem(_ o: Observation) -> LinkItem? {
+        guard !o.rejected, let m = measures[o.id], m.result.ok, let c = m.result.cornersWorld, let n = m.result.planeN, let d = m.result.planeD,
+              let w = m.result.width, let h = m.result.height else { return nil }
+        return LinkItem(id: o.id, frameId: o.frameId, center: c.reduce(Vec3.zero, +) * 0.25, planeN: n, planeD: d, width: w, height: h)
+    }
+
     func linkSuggestions() -> [LinkCandidate] {
-        var items: [LinkItem] = []
-        for o in observations where !o.rejected {
-            guard let m = measures[o.id], m.result.ok, let c = m.result.cornersWorld, let n = m.result.planeN, let d = m.result.planeD, let w = m.result.width, let h = m.result.height else { continue }
-            let ctr = c.reduce(Vec3.zero, +) * 0.25
-            items.append(LinkItem(id: o.id, frameId: o.frameId, center: ctr, planeN: n, planeD: d, width: w, height: h))
-        }
-        return Linking.suggest(items).filter { c in
+        let items = observations.compactMap { linkItem($0) }
+        // ook mogelijke duplicaten op DEZELFDE foto (overlappende kaders, in pixels; de ruimtelijke suggesties vergelijken nooit hetzelfde beeld)
+        let sameFrame = Linking.sameFrameOverlaps(observations.filter { !$0.rejected }.map { (id: $0.id, frameId: $0.frameId, corners: $0.corners) })
+        return (Linking.suggest(items) + sameFrame).filter { c in
             let da = draft(of: c.a)?.id, db = draft(of: c.b)?.id
             guard da != db && !dismissedLinks.contains(c.a + "|" + c.b) else { return false }
             // Foto's uit verschillende AR-sessies hebben een eigen coördinatenstelsel: posities zijn dan niet vergelijkbaar, dus geen automatische suggestie.
@@ -265,31 +379,96 @@ final class ScanStore: ObservableObject {
         measures = o.measures; results = o.results
     }
 
-    /// Foto -> kandidaten (lokaal, Apple Vision / optioneel Core ML) -> waarnemingen -> meting. Bestaande kandidaten van dezelfde foto blijven staan
-    /// (nieuwe kandidaten die er sterk mee overlappen worden genegeerd): opnieuw detecteren geeft dus geen dubbele kozijnen.
+    /// Foto -> kandidaten (lokaal: Apple Vision-rechthoeken, -contouren, optioneel Core ML) -> ordenen tot kozijnen met glasvlakken -> meting.
+    /// * Een vierhoek die glasvlakken omsluit wordt het kozijn (buitencontour); de glasvlakken worden glas, nooit aparte kozijnen.
+    /// * Losse vierhoeken naast elkaar zijn de glasvlakken van één kozijn: de buitencontour is dan een VOORSTEL (randzoeker), geen maat.
+    /// * Een losse vierhoek kan glas of kozijn zijn: geen maat tot bevestiging; een voorstel voor de buitencontour wordt klaargezet.
+    /// Bestaande kandidaten van dezelfde foto blijven staan (nieuwe die er sterk mee overlappen worden genegeerd): opnieuw zoeken geeft geen dubbele kozijnen.
+    typealias AnalysisOutput = (groups: [OpeningGroup], ignored: Int, raw: Int, proposals: [Int: ExpansionProposal])
+
     func analyze(frameId: String) async {
         guard let kf = keyframe(frameId), let url = kf.imageURL else { analysisNotes[frameId] = "Geen beeld beschikbaar voor detectie."; return }
         analyzing.insert(frameId)
         let detectors = DetectorCatalog.available()
-        let found: [WindowCandidate] = await Task.detached(priority: .userInitiated) { () -> [WindowCandidate] in
-            guard let cg = UIImage(contentsOfFile: url.path)?.cgImage else { return [] }
+        let out: AnalysisOutput = await Task.detached(priority: .userInitiated) { () -> AnalysisOutput in
+            guard let cg = UIImage(contentsOfFile: url.path)?.cgImage else { return ([], 0, 0, [:]) }
             var all: [WindowCandidate] = []
             for d in detectors { all += d.detect(cg) }
-            return CandidateFilter.clean(all, imageWidth: Double(cg.width), imageHeight: Double(cg.height))
+            let cands = all.map { QuadCandidate(corners: $0.corners, detector: $0.detector, score: $0.score) }
+            let (groups, ignored) = ContourOrganizer.organize(cands, imageWidth: Double(cg.width), imageHeight: Double(cg.height))
+            var props: [Int: ExpansionProposal] = [:]
+            if groups.contains(where: { $0.evidence != .NESTED_PANES }), let gray = GrayImageLoader.gray(cg) {
+                for (k, g) in groups.enumerated() where g.evidence != .NESTED_PANES {
+                    if let p = OuterFrameSearch.proposeOuter(gray, quad: g.outer) { props[k] = p }
+                }
+            }
+            return (groups, ignored.count, all.count, props)
         }.value
-        var added = 0
-        for c in found {
-            let existing = observations.filter { $0.frameId == frameId && !$0.rejected }
-            if existing.contains(where: { CandidateFilter.iou($0.corners, c.corners) > 0.5 }) { continue }
+        var added = 0, panesAdded = 0
+        for (k, g) in out.groups.enumerated() {
+            var corners = g.outer
+            var proposed: [Pixel]? = nil
+            if g.evidence == .PANE_GROUP, let p = out.proposals[k] { corners = p.quad }          // voorstel; blijft geblokkeerd tot bevestiging
+            if g.evidence == .SINGLE { proposed = out.proposals[k]?.quad }                      // alleen klaarzetten, niet toepassen
+            // Opnieuw zoeken mag niets dubbel maken of terugdraaien: sla kandidaten over die samenvallen met of BINNEN een bestaand kozijn liggen
+            // (ook afgewezen kandidaten: "geen kozijn" blijft gelden) of die samenvallen met een bekend glasvlak.
+            let existing = observations.filter { $0.frameId == frameId }
+            let knownGlass = facadeElements.filter { $0.frameId == frameId && $0.role == .GLASS_PANE }
+            if existing.contains(where: { CandidateFilter.iou($0.corners, corners) > 0.5 || (!$0.rejected && ContourOrganizer.contains($0.corners, corners, ContourConfig())) })
+                || knownGlass.contains(where: { CandidateFilter.iou($0.corners, corners) > 0.5 }) { continue }
             let id = "OBS-\(frameId)-\(String(format: "%02d", observations.filter { $0.frameId == frameId }.count + 1))"
-            addObservation(Observation(id: id, frameId: frameId, corners: c.corners, originalCorners: c.corners, source: .AUTO_DETECTED_UNCONFIRMED,
-                                       detection: DetectionInfo(detector: c.detector, score: c.score)), to: nil)
+            var o = Observation(id: id, frameId: frameId, corners: corners, originalCorners: corners, source: .AUTO_DETECTED_UNCONFIRMED,
+                                detection: DetectionInfo(detector: g.detector, score: g.score))
+            o.outerContour = g.status
+            o.evidence = g.evidence
+            o.proposedOuter = proposed
+            addObservation(o, to: nil)
             added += 1
+            for p in g.panes {
+                facadeElements.append(FacadeElement(id: "GLS-\(frameId)-\(String(format: "%02d", facadeElements.filter { $0.frameId == frameId }.count + 1))", frameId: frameId,
+                                                    role: .GLASS_PANE, corners: p, originalCorners: p, source: .AUTO_DETECTED_UNCONFIRMED, parentObservationId: id))
+                panesAdded += 1
+            }
         }
         await measureAllInBackground()
         analyzing.remove(frameId)
-        analysisNotes[frameId] = "\(found.count) kandidaat/kandidaten gevonden (\(added) nieuw) met: \(detectors.map { $0.name }.joined(separator: ", ")). Dit zijn KANDIDATEN, geen bevestigde kozijnen."
+        let check = out.groups.filter { $0.status.blocksArea }.count
+        analysisNotes[frameId] = "\(out.raw) vierhoek(en) van \(detectors.map { $0.name }.joined(separator: ", ")) -> \(out.groups.count) mogelijk(e) kozijn(en) (\(added) nieuw), " +
+            "\(panesAdded) glasvlak(ken) (tellen niet als kozijn), \(check) met onbevestigde buitencontour, \(out.ignored) genegeerd. Dit zijn KANDIDATEN, geen bevestigde kozijnen."
         persist()
+    }
+
+    // MARK: gevelopbouw (bruto gevel, openingen, buitenkozijn, glas, netto gesloten gevel) per foto
+    enum FacadePlaneSource: String { case LIDAR_FIT, REFERENCE_COPLANAR, NONE }
+
+    func facadeComposition(frameId: String) -> (result: FacadeCompositionResult, planeSource: FacadePlaneSource)? {
+        guard let kf = keyframe(frameId) else { return nil }
+        let obs = observations.filter { $0.frameId == frameId && !$0.rejected }
+        let openings = obs.map { o -> FacadeOpeningInput in
+            let r = measures[o.id]?.result
+            var area: Decimal? = nil
+            var status: DimensionStatus = .UNKNOWN
+            if let r, r.ok, let w = r.width, let h = r.height {
+                area = grossAreaM2(width: roundedMillimeters(w), height: roundedMillimeters(h))
+                status = Status.status(for: r, viewCount: 1)
+            }
+            return FacadeOpeningInput(id: o.id, outerPx: o.corners, areaM2: area, status: status, planeN: r?.ok == true ? r?.planeN : nil,
+                                      planeD: r?.ok == true ? r?.planeD : nil, panesPx: glassPanes(ofObservation: o.id).map { $0.corners })
+        }
+        let facade = facadePolygon(frameId: frameId)?.corners
+        var plane: (n: Vec3, d: Double)? = nil
+        var source = FacadePlaneSource.NONE
+        if let f = facade, let fit = FacadeComposition.fitFacadePlane(view: Measurer.input(kf), polygon: f, exclude: obs.map { $0.corners }, seed: stableSeed(frameId + "GEVEL")),
+           kf.trackingState == "NORMAL" {
+            plane = (fit.n, fit.d); source = .LIDAR_FIT
+        } else if facade != nil, let ref = obs.compactMap({ measures[$0.id]?.result }).first(where: { $0.ok && $0.level == .C && $0.planeN != nil && $0.planeD != nil }) {
+            plane = (ref.planeN!, ref.planeD!); source = .REFERENCE_COPLANAR        // aanname: gevel ligt in hetzelfde vlak als het kozijn met de referentie
+        }
+        let r = FacadeComposition.compose(openings: openings, pose: kf.pose, intr: kf.intrinsics, facadePx: facade, facadePlane: plane,
+                                          facadePlaneStatus: plane == nil ? .UNKNOWN : .ESTIMATED)
+        var res = r
+        if source == .REFERENCE_COPLANAR { res.flags.append("COPLANARITY_ASSUMED") }
+        return (res, source)
     }
 
     // MARK: overzicht
@@ -307,6 +486,8 @@ final class ScanStore: ObservableObject {
         ov.areaByStatus = ["MEASURED", "DERIVED", "ESTIMATED"].compactMap { s in byStatus[s].map { (s, decimalString($0)) } }
         for o in obs { switch measures[o.id]?.feedback { case .orange?: ov.checks += 1; case .neutral?, nil: ov.noScale += 1; default: break } }
         ov.linkSuggestions = linkSuggestions().count
+        ov.outerUnverified = obs.filter { $0.outerContour.blocksArea }.count
+        ov.glassPanes = facadeElements.filter { $0.role == .GLASS_PANE && !$0.rejected && (frameId == nil || $0.frameId == frameId) }.count
         return ov
     }
 

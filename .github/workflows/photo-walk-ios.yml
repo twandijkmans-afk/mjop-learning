@@ -170,6 +170,9 @@ jobs:
           cp "$EXP" "$LOGS/selftest-export.json"
           cp "$DATA"/Documents/mjop_scan_proposal_selftest.json "$LOGS/selftest-proposal.json"
           cp "$DATA"/Documents/mjop_round_proposals_selftest.json "$LOGS/selftest-round-proposals.json"
+          cp "$DATA"/Documents/facade_selftest_export.json "$LOGS/selftest-facade-export.json"
+          cp "$DATA"/Documents/legacy_selftest_export.json "$LOGS/selftest-legacy-export.json"
+          cp "$DATA"/Documents/mjop_round_proposals_unconfirmed.json "$LOGS/selftest-round-unconfirmed.json"
           mkdir -p "$LOGS/diag"; cp "$DATA"/Documents/meetdiagnose_*.json "$LOGS/diag/"; ls -la "$LOGS/diag"
           echo "UDID=$UDID" >> "$GITHUB_ENV"
           echo "export: $EXP"
@@ -200,18 +203,73 @@ jobs:
           r = json.load(open(os.environ["LOGS"] + "/selftest-export.json"))
           assert r["data_origin"] == "SIMULATION" and r["invariants"]["is_final"] is False
           assert r["capture_mode"] == "PHOTO" and r["detection_summary"]["validated_on_real_buildings"] is False
+          import re
           objs = [o for o in r["objects"] if o["gross_area_m2"]]
           print("objecten:", len(r["objects"]), "met maat:", len(objs))
-          assert objs, "geen enkel automatisch gedetecteerd kozijn kreeg een maat"
-          best = min(objs, key=lambda o: abs(float(o["outer_width_m"]) - 1.2) + abs(float(o["outer_height_m"]) - 1.5))
-          w, h = float(best["outer_width_m"]), float(best["outer_height_m"])
-          print("beste:", w, h, best["gross_area_m2"], best["dimension_status"])
-          assert abs(w - 1.2) < 0.08 and abs(h - 1.5) < 0.08, "automatisch gedetecteerd kozijn wijkt te veel af van de synthetische waarheid"
+          roles = {o["observation_id"]: (o.get("facade_role") or {}) for o in r["observations"]}
+          print("buitencontouren:", {k: v.get("outer_contour_status") for k, v in roles.items()})
+          # gevelopbouw: een kozijn met maat heeft nooit een onbevestigde (automatisch herkende) buitencontour
+          for o in objs:
+              for ref in o["observation_refs"]:
+                  assert roles[ref].get("outer_contour_status") not in ("DETECTED_ENCLOSING_PANES", "UNVERIFIED", "PROPOSED_EXPANSION", "EDITED_UNCONFIRMED"), (ref, roles[ref])
+          # vóór bevestiging: geen enkel automatisch kozijn met maat (alleen indicatief in de app)
+          assert not [o for o in objs if any(roles[ref].get("outer_contour_status") != "LEGACY" and roles[ref].get("outer_contour_status") not in ("MANUAL", "USER_CONFIRMED") for ref in o["observation_refs"])]
+          # glasvlakken zijn nooit een kozijnobject
+          frames = r["facade_composition"]["frames"]
+          panes = [e for f in frames for e in f["elements"] if e["role"] == "GLASS_PANE"]
+          pane_px = {tuple(map(tuple, e["polygon_px"])) for e in panes}
+          for o in r["objects"]:
+              for cp in o["corner_pixels"]:
+                  assert tuple(map(tuple, cp["points"])) not in pane_px, "een glasvlak staat als kozijn in de export"
+          print("glasvlakken (apart, geen kozijn):", len(panes))
+          # buitenmaat van het synthetische kozijn: automatisch (export) of pas na de gesimuleerde bevestiging door de gebruiker
+          log = open(os.environ["LOGS"] + "/selftest-console.log").read()
+          cands = [("export", float(o["outer_width_m"]), float(o["outer_height_m"])) for o in objs]
+          cands += [("na bevestiging", float(m.group(1)), float(m.group(2))) for m in re.finditer(r"SELFTEST_AFTER_CONFIRM \S+ contour=\S+ w=(\S+) h=(\S+)", log)]
+          assert cands, "geen enkele buitenmaat, ook niet na bevestiging"
+          best = min(cands, key=lambda c: abs(c[1] - 1.2) + abs(c[2] - 1.5))
+          print("beste buitenmaat:", best)
+          assert abs(best[1] - 1.2) < 0.08 and abs(best[2] - 1.5) < 0.08, "buitenmaat wijkt te veel af van de synthetische waarheid (glas i.p.v. buitenkozijn?)"
           assert all(o["dimension_status"] in ("ESTIMATED", "DERIVED", "UNKNOWN") for o in r["objects"]), "een enkele foto mag nooit MEASURED zijn"
           assert all("AUTO_DETECTED_UNCONFIRMED" in [f["code"] for f in o["quality_flags"]] and o["review_required"] for o in r["objects"])
           assert r["scan_label"] == "AUTOMATIC_UNREVIEWED"
           PY
           python -m photo_walk_core.validate "$LOGS"/diag/*.json
+          # gevelopbouw-export (na gesimuleerde bevestiging + getekend gevelvlak): schema 1.2.0, onderhoudsoppervlak nooit afgeleid
+          python -m photo_walk_core.validate "$LOGS/selftest-facade-export.json"
+          python - <<'PY'
+          import json, os
+          r = json.load(open(os.environ["LOGS"] + "/selftest-facade-export.json"))
+          assert r["contract_version"] == "1.2.0"
+          for f in r["facade_composition"]["frames"]:
+              q = f["quantities"]
+              print(f["frame_id"], f["facade_plane_source"], {k: (v["value_m2"], v["status"]) for k, v in q.items()})
+              assert q["maintainable_frame_surface"]["value_m2"] is None
+              for k, v in q.items():
+                  assert (v["value_m2"] is None) == (v["status"] == "UNKNOWN"), (k, v)
+              if f["facade_plane_source"] == "NONE":
+                  assert q["facade_gross"]["value_m2"] is None
+          print("gevelopbouw-export OK")
+          PY
+          # audit: oude sessie (zonder gevelvelden) blijft leesbaar, wordt LEGACY en de export voldoet aan het schema
+          python -m photo_walk_core.validate "$LOGS/selftest-legacy-export.json"
+          python - <<'PY'
+          import json, os, jsonschema
+          L = os.environ["LOGS"]
+          r = json.load(open(L + "/selftest-legacy-export.json"))
+          st = {o["observation_id"]: o["facade_role"]["outer_contour_status"] for o in r["observations"]}
+          assert st and set(st.values()) == {"LEGACY"}, st
+          assert all(e["role"] != "GLASS_PANE" for f in r["facade_composition"]["frames"] for e in f["elements"]), "oude sessie kreeg ongevraagd glasvlakken"
+          # audit: voorstellen uit onbevestigde automatische contouren: geen aantal, geen oppervlak, geen deelwaarde
+          schema = json.load(open("../schemas/mjop_scan_proposal_v2.schema.json"))
+          ps = json.load(open(L + "/selftest-round-unconfirmed.json"))
+          assert ps, "geen voorstellen"
+          for p in ps:
+              jsonschema.Draft7Validator(schema).validate(p)
+              assert p["value"] is None and p["partial_value"] is None, (p["target"], p["value"], p["partial_value"])
+              assert p["booking_allowed"] is False and p["reliability"]["level"] == "INCOMPLETE"
+          print("legacy-export en onbevestigde voorstellen OK:", len(ps))
+          PY
           # Fotoronde-voorstellen (mjop_scan_proposal_v2) uit de app voldoen aan het schema en zijn nooit boeking/bevestigd
           python - <<'PY'
           import json, os, jsonschema
@@ -225,6 +283,7 @@ jobs:
               assert d["measurement"]["uncertainty"]["validated"] is False
               if d["target"]["quantity_kind"] == "FRAME_AREA_GROSS" and d["basis"]["objects_unmeasured"] > 0:
                   assert d["value"] is None
+          assert '"MEASURED"' not in json.dumps(docs), "selftest-scènes zijn elk één foto: geen MJOP-voorstel mag MEASURED zijn"
           print("fotoronde-voorstellen (Swift) voldoen aan mjop_scan_proposal_v2:", len(docs))
           PY
           # Swift-gecodeerd MJOP-scanvoorstel moet aan het schema voldoen (nullable sleutels aanwezig, geen boeking)
@@ -248,9 +307,11 @@ jobs:
               return re.search(key + r"=(\S+)", lines[name]).group(1)
           def dj(name):
               return json.load(open(L + "/diag/" + diag[name]))
-          # meerdere onafhankelijke dieptekaders, terugliggend kozijn: automatisch gemeten, multi-frame
-          assert val("recessed_8cm_multi_frame", "status") == "MEASURED" and val("recessed_8cm_multi_frame", "method") == "LIDAR_DEPTH_MULTI_FRAME"
+          # één foto met meerdere onafhankelijke LiDAR-dieptekaders: de kaders worden gebruikt (multi-frame), maar één foto is NOOIT MEASURED
+          assert val("recessed_8cm_multi_frame", "status") == "ESTIMATED" and val("recessed_8cm_multi_frame", "method") == "LIDAR_DEPTH_MULTI_FRAME"
           assert int(val("recessed_8cm_multi_frame", "independent")) >= 2
+          assert "SINGLE_VIEWPOINT" in val("recessed_8cm_multi_frame", "flags")
+          assert not any(val(n, "status") == "MEASURED" for n in lines), "geen enkele scène (één foto) mag MEASURED zijn"
           for n in ("flush", "recessed_8cm", "recessed_8cm_multi_frame"):
               w, h = float(val(n, "w")), float(val(n, "h"))
               assert abs(w - 1.2) < 0.012 and abs(h - 1.5) < 0.015, (n, w, h)
@@ -260,6 +321,7 @@ jobs:
           d = dj("recessed_8cm_multi_frame")
           assert d["algorithm"]["frame_plane"]["final_mode"] == "RECESSED" and 6 < d["algorithm"]["frame_plane"]["recess_cm"] < 10, d["algorithm"]["frame_plane"]
           assert d["measurement"]["scale_method"] == "LIDAR_DEPTH_MULTI_FRAME" and d["privacy"]["point_cloud_included"] is False
+          assert all(dj(n)["measurement"]["status"] != "MEASURED" for n in diag), "diagnose-export van één foto is nooit MEASURED"
           # verspringende gevel: specifieke weigering, geen maat
           assert val("ambiguous_planes", "status") == "UNKNOWN" and "AMBIGUOUS_FACADE_PLANES" in val("ambiguous_planes", "flags")
           dd = dj("ambiguous_planes")
@@ -270,6 +332,71 @@ jobs:
           [ "$(cat "$LOGS/detect-count.txt")" -ge 1 ] || { echo "::error::geen enkele detectie in de selftest"; exit 1; }
           grep "SELFTEST_PERSIST" "$LOGS/selftest-console.log"
           grep -q "SELFTEST_PERSIST observations=[1-9][0-9]* identicalDepth=true" "$LOGS/selftest-console.log" || { echo "::error::lokale opslag/herstel niet identiek"; exit 1; }
+          grep "SELFTEST_ROLE\|SELFTEST_CONFIRM\|SELFTEST_FACADE\|SELFTEST_NOTE" "$LOGS/selftest-console.log" || true
+          grep -q "SELFTEST_PERSIST_FACADE identical=true" "$LOGS/selftest-console.log" || { echo "::error::gevelopbouw (rollen/glasvlakken) niet identiek na opslaan en herstellen"; exit 1; }
+          grep "SELFTEST_REANALYZE\|SELFTEST_LEGACY\|SELFTEST_PERSIST_AFTER_EDIT\|SELFTEST_ROUND_UNCONFIRMED\|SELFTEST_CORNER_EDIT\|SELFTEST_DUP_COVERAGE\|SELFTEST_PICKED" "$LOGS/selftest-console.log" || true
+          grep -q "SELFTEST_REANALYZE added=0 glassAdded=0" "$LOGS/selftest-console.log" || { echo "::error::opnieuw zoeken voegde dubbele kozijnen of glasvlakken toe"; exit 1; }
+          grep -q "SELFTEST_LEGACY decoded=true observations=[1-9][0-9]* allLegacy=true noGate=true elements=0" "$LOGS/selftest-console.log" || { echo "::error::oude sessie niet leesbaar of niet als LEGACY behandeld"; exit 1; }
+          grep -q "SELFTEST_PERSIST_AFTER_EDIT identical=true revisions=[1-9]" "$LOGS/selftest-console.log" || { echo "::error::handmatige correctie niet identiek na opslaan en herstellen"; exit 1; }
+          grep -q "SELFTEST_ROUND_UNCONFIRMED proposals=[1-9][0-9]* valid=true values=null,null" "$LOGS/selftest-console.log" || { echo "::error::voorstel met waarde uit onbevestigde contouren"; exit 1; }
+          # issue D: hoek verslepen bevestigt niets; "Herstel detectie" + "Toepassen" ook niet; alleen "Dit is de buitenmaat" opent de contourpoort
+          python - <<'PY'
+          import os, re
+          log = open(os.environ["LOGS"] + "/selftest-console.log").read()
+          steps = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_CORNER_EDIT step=(\S+) (.*)", log)}
+          print(steps)
+          assert set(steps) == {"edit", "restore", "confirm"}, "selftest hoekcorrectie niet (volledig) uitgevoerd: %s" % steps.keys()
+          for k in ("edit", "restore"):
+              s = steps[k]
+              assert s["contour"] == "EDITED_UNCONFIRMED", (k, s)
+              assert s["measurementOk"] == "false" and s["confirmVisible"] == "true", (k, s)
+              assert s["objectArea"] == "null" and s["exportArea"] == "null", ("geen maat/export uit een bewerkte, onbevestigde contour", k, s)
+              assert s["count"] == "null" and s["area"] == "null" and s["objectUnconfirmed"] == "true" and s["valid"] == "true", (k, s)
+          e = steps["edit"]
+          assert e["gate"] == "true" and e["source"] == "MANUAL_CORRECTED" and e["exportContour"] == "EDITED_UNCONFIRMED", e
+          r = steps["restore"]
+          assert r["restored"] == "true" and int(r["revisions"]) >= 2, ("herstel detectie: oorspronkelijke hoeken terug, revisies bewaard", r)
+          c = steps["confirm"]
+          assert c["contour"] == "USER_CONFIRMED" and c["gate"] == "false" and c["exportContour"] == "USER_CONFIRMED", c
+          assert c["status"] != "MEASURED", ("bevestiging opent alleen de contourpoort; één foto blijft hoogstens ESTIMATED", c)
+          assert c["source"] == "MANUAL_CORRECTED" and int(c["revisions"]) >= 2, ("bewerkte hoeken en revisies blijven bewaard", c)
+          print("hoekcorrectie/bevestiging OK")
+          PY
+          # duplicaatcontrole: nul suggesties is geen bewijs; handmatige controle alleen zolang er niets wijzigt
+          python - <<'PY'
+          import os, re
+          log = open(os.environ["LOGS"] + "/selftest-console.log").read()
+          st = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_DUP_COVERAGE step=(\S+) (.*)", log)}
+          print(st)
+          assert set(st) == {"no-world", "two-worlds", "reviewed", "stale", "open-suggestion"}, st.keys()
+          for k in ("no-world", "two-worlds", "reviewed", "stale"):
+              assert st[k]["canReview"] == "true", (k, st[k])
+          o = st["open-suggestion"]
+          assert int(o["suggestions"]) >= 1 and o["canReview"] == "false", ("verklaren kan pas na beoordeling van alle suggesties", o)
+          assert o["count"] == "null" and o["area"] == "null" and o["partial"] == "null" and o["complete"] == "false" and "DUPLICATES_UNRESOLVED" in o["reasons"], o
+          for k in ("no-world", "two-worlds", "stale"):
+              s = st[k]
+              assert s["suggestions"] == "0" and s["objects"] == "2" and s["checkable"] == "1", (k, s)
+              assert s["count"] == "null" and s["area"] == "null" and s["partial"] == "null" and s["level"] == "INCOMPLETE", ("geblokkeerd", k, s)
+              assert s["complete"] == "false" and s["valid"] == "true" and s["unchecked"] == "1", (k, s)
+          assert "DUPLICATE_CHECK_INCOMPLETE" in st["no-world"]["reasons"] and st["no-world"]["unknownWorld"] == "2", st["no-world"]
+          assert "CROSS_SESSION_UNCHECKED" in st["two-worlds"]["reasons"] and st["two-worlds"]["cross"] == "true", st["two-worlds"]
+          r = st["reviewed"]
+          assert r["complete"] == "true" and r["manual"] == "true" and r["count"] == "2.0" and r["level"] == "CHECK_REQUIRED" and r["valid"] == "true", r
+          assert "DUPLICATE_CHECK_INCOMPLETE" not in r["reasons"] and "CROSS_SESSION_UNCHECKED" not in r["reasons"], r
+          assert r["area"] == "null", ("F001 heeft geen maat: oppervlak blijft onvolledig", r)
+          assert st["stale"]["manual"] == "false", st["stale"]
+          # hoekkiezer: herkomst
+          pk = {m.group(1): dict(kv.split("=", 1) for kv in m.group(2).split()) for m in re.finditer(r"SELFTEST_PICKED name=(\S+) (.*)", log)}
+          print(pk)
+          assert pk["self_drawn"]["source"] == "MANUAL" and pk["self_drawn"]["contour"] == "MANUAL" and pk["self_drawn"]["detector"] == "none", pk
+          u = pk["candidate_unchanged"]
+          assert u["source"] == "AUTO_DETECTED_CONFIRMED" and u["contour"] == "USER_CONFIRMED" and u["originalIsCandidate"] == "true" and u["revisions"] == "0", u
+          m = pk["candidate_moved"]
+          assert m["source"] == "MANUAL_CORRECTED" and m["contour"] == "USER_CONFIRMED" and m["contour"] != "MANUAL", m
+          assert m["originalIsCandidate"] == "true" and m["cornersKept"] == "true" and m["revisions"] == "1" and m["detector"] == "VN_RECTANGLE_CANDIDATE", m
+          print("duplicaatcontrole en hoekkiezer OK")
+          PY
 
       - name: Artifacts verzamelen (simulator-app, unsigned device-IPA)
         if: always()
