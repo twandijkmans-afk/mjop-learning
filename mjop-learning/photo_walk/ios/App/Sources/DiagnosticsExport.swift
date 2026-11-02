@@ -30,7 +30,7 @@ enum DiagnosticsExport {
     @MainActor static func record(_ s: ScanStore, observationId: String) -> [String: Any]? {
         guard let o = s.observation(observationId), let kf = s.keyframe(o.frameId), let m = s.measures[observationId] else { return nil }
         let r = m.result
-        let status = Status.status(for: r, viewCount: max(1, r.independentFrames))
+        let status = Status.status(for: r, viewCount: 1)          // diagnose van één waarneming = één foto: nooit MEASURED
         var width: Any = NSNull(), height: Any = NSNull(), area: Any = NSNull()
         if r.ok, let w = r.width, let h = r.height {
             let dw = roundedMillimeters(w), dh = roundedMillimeters(h)

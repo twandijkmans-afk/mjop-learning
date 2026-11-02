@@ -47,7 +47,7 @@ quantity_layer (=PROVISIONAL), approval_state (=PENDING_HUMAN_APPROVAL)`.
 
 | `dimension_status` | betekenis hier |
 |---|---|
-| `MEASURED` | niveau A, ≥ 2 onderling consistente standpunten, geen verlagende waarschuwing (glas, hoekdiepte, enkel standpunt, …) |
+| `MEASURED` | niveau A, ≥ 2 apart vastgelegde foto's (cameraposities ≥ 2 cm uit elkaar) die onderling consistent meten, bevestigde buitencontour, geen verlagende waarschuwing (glas, hoekdiepte, enkel standpunt, …). Ondersteunende LiDAR-kaders van één foto tellen niet als standpunt: één foto is nooit `MEASURED`. |
 | `DERIVED` | uit een referentieafstand (C) of uit AR-triangulatie waarvan de schaal door een referentie is bevestigd |
 | `ESTIMATED` | metrisch berekend maar niet volledig onderbouwd: één standpunt, onbevestigde AR-schaal, of adviserende waarschuwingen |
 | `UNKNOWN` | geen betrouwbare waarde; waarnemingen blijven bewaard |

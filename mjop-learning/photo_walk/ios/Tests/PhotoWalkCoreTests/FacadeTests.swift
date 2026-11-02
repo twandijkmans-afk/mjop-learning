@@ -108,7 +108,8 @@ final class FacadeTests: XCTestCase {
                                           panesPx: (o["panes_px"] as! [Any]).map(poly))
             }
             let r = FacadeComposition.compose(openings: openings, pose: withScale ? pose : nil, intr: withScale ? intr : nil, facadePx: poly(comp["facade_px"]),
-                                              facadePlane: withPlane ? plane : nil, facadePlaneStatus: withPlane ? .ESTIMATED : .UNKNOWN)
+                                              facadePlane: withPlane ? plane : nil,
+                                              facadePlaneStatus: (cs["facade_plane_status"] as? String).flatMap { DimensionStatus(rawValue: $0) } ?? (withPlane ? .ESTIMATED : .UNKNOWN))
             let e = cs["expected"] as! [String: Any]
             let got: [String: FacadeQuantity] = ["facade_gross": r.facadeGross, "openings": r.openings, "frame_outer": r.frameOuter, "glass": r.glass,
                                                  "closed_facade_net": r.closedFacadeNet, "maintainable_frame_surface": r.maintainableFrameSurface]

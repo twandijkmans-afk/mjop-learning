@@ -57,6 +57,8 @@ public enum FacadeComposition {
 
     static let order: [DimensionStatus: Int] = [.UNKNOWN: 0, .ESTIMATED: 1, .DERIVED: 2, .MEASURED: 3]
     public static func worst(_ s: [DimensionStatus]) -> DimensionStatus { s.min { order[$0]! < order[$1]! } ?? .UNKNOWN }
+    /// De gevelopbouw rekent per FOTO: één foto is nooit MEASURED (hoogstens ESTIMATED), ook als een invoer dat wel zou zeggen.
+    public static func singlePhoto(_ s: DimensionStatus) -> DimensionStatus { s == .MEASURED ? .ESTIMATED : s }
 
     /// m² afgerond op 0,001 (half-up).
     public static func round3(_ x: Double) -> Decimal { Decimal((x * 1000).rounded(.toNearestOrAwayFromZero)) / 1000 }
@@ -89,7 +91,7 @@ public enum FacadeComposition {
         } else if facadePlane == nil || facadePlaneStatus == .UNKNOWN || pose == nil || intr == nil {
             gross = FacadeQuantity(valueM2: nil, status: .UNKNOWN, basis: "Geen betrouwbaar gevelvlak (schaal) voor deze foto.", missing: ["FACADE_PLANE"])
         } else if let a = planarPolygonAreaM2(facadePx!, pose: pose!, intr: intr!, n: facadePlane!.n, d: facadePlane!.d) {
-            gross = FacadeQuantity(valueM2: round3(a), status: facadePlaneStatus, basis: "Getekend gevelvlak geprojecteerd op het gevelvlak.")
+            gross = FacadeQuantity(valueM2: round3(a), status: singlePhoto(facadePlaneStatus), basis: "Getekend gevelvlak geprojecteerd op het gevelvlak.")
         } else {
             gross = FacadeQuantity(valueM2: nil, status: .UNKNOWN, basis: "Projectie op het gevelvlak mislukt.", missing: ["FACADE_PLANE"])
         }
@@ -106,7 +108,7 @@ public enum FacadeComposition {
             frameOuter = FacadeQuantity(valueM2: nil, status: .UNKNOWN, basis: "Niet alle kozijnen hebben een betrouwbare buitenmaat.", missing: missingFrames,
                                         partialValueM2: known.isEmpty ? nil : part)
         } else {
-            frameOuter = FacadeQuantity(valueM2: part, status: worst(known.map { $0.status }), basis: "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.")
+            frameOuter = FacadeQuantity(valueM2: part, status: singlePhoto(worst(known.map { $0.status })), basis: "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.")
         }
         var openingsQ = frameOuter
         openingsQ.basis = openingAssumption + " " + frameOuter.basis

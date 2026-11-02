@@ -92,6 +92,7 @@ def compose_case():
     facade = [(100, 80), (1100, 80), (1100, 620), (100, 620)]
     full = F.compose(openings, (R, t), (fx, fy, cx, cy), facade, (n, d), "ESTIMATED")
     no_scale = F.compose([F.OpeningInput("OBS-1", tr[0]["outer"], None, "UNKNOWN", None, None, tr[0]["panes"])], None, None, facade, None, "UNKNOWN")
+    measured = [F.OpeningInput(o.id, o.outer_px, o.area_m2, "MEASURED", o.plane_n, o.plane_d, o.panes_px) for o in openings]
     missing_panes = F.compose([F.OpeningInput("OBS-1", tr[0]["outer"], openings[0].area_m2, "ESTIMATED", tuple(n), d, [])], (R, t), (fx, fy, cx, cy), facade, (n, d), "ESTIMATED")
 
     def enc(o):
@@ -108,8 +109,28 @@ def compose_case():
              "with_scale": True, "with_facade_plane": True, "expected": missing_panes},
             {"name": "no_frames_in_facade", "openings": [], "with_scale": True, "with_facade_plane": True,
              "expected": F.compose([], (R, t), (fx, fy, cx, cy), facade, (n, d), "ESTIMATED")},
+            # één foto: ook als elke invoer MEASURED zegt, levert de gevelopbouw hoogstens ESTIMATED (single_photo / singlePhoto)
+            {"name": "measured_inputs_single_photo", "openings": [enc(o) for o in measured], "with_scale": True, "with_facade_plane": True,
+             "facade_plane_status": "MEASURED", "expected": F.compose(measured, (R, t), (fx, fy, cx, cy), facade, (n, d), "MEASURED")},
         ],
     }
+
+
+def viewpoint_cases():
+    """Telregel voor onafhankelijke foto's (pipeline.independent_photo_count == Viewpoints.independentPhotoCount)."""
+    from .config import DEFAULT
+    from .pipeline import independent_photo_count
+    b = DEFAULT.min_baseline_m
+    raw = {
+        "single_photo": [("F0", [1.6, 1.6, 4.0])],
+        "same_keyframe_twice": [("F0", [1.6, 1.6, 4.0]), ("F0", [2.6, 1.6, 4.0])],
+        "below_baseline": [("F0", [1.6, 1.6, 4.0]), ("F1", [1.6 + b * 0.5, 1.6, 4.0])],
+        "at_baseline": [("F0", [0.0, 0.0, 0.0]), ("F1", [b, 0.0, 0.0])],
+        "two_separate_photos": [("F0", [1.6, 1.6, 4.0]), ("F1", [2.6, 1.6, 4.0])],
+        "chain_unsorted": [("F1", [b * 0.6, 0.0, 0.0]), ("F0", [0.0, 0.0, 0.0]), ("F2", [b * 1.2, 0.0, 0.0])],
+    }
+    return {"min_baseline_m": b, "cases": [{"name": k, "captures": [{"keyframe_id": i, "position": [float(x) for x in p]} for i, p in v],
+                                            "expected": independent_photo_count(v, b)} for k, v in raw.items()]}
 
 
 def build_parity_cases():
@@ -121,6 +142,7 @@ def build_parity_cases():
         "organizer": organizer_cases(),
         "expansion": expansion_cases(),
         "compose": compose_case(),
+        "viewpoints": viewpoint_cases(),
     }
 
 

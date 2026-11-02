@@ -500,6 +500,217 @@
     "openings": [],
     "with_facade_plane": true,
     "with_scale": true
+   },
+   {
+    "expected": {
+     "closed_facade_net": {
+      "basis": "Bruto gevel min openingen (buitenmaat kozijnen).",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "9.450"
+     },
+     "facade_gross": {
+      "basis": "Getekend gevelvlak geprojecteerd op het gevelvlak.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "13.500"
+     },
+     "flags": [],
+     "frame_outer": {
+      "basis": "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "4.050"
+     },
+     "glass": {
+      "basis": "Som van de glasvlakken, geprojecteerd op het vlak van het eigen kozijn.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "3.264"
+     },
+     "maintainable_frame_surface": {
+      "basis": "Niet afgeleid: buitenkozijn min glas is niet het onderhouds- of schilderoppervlak (profieldiepte, dagkanten, roeden, glaslatten en binnen-/buitenzijde ontbreken). Meet of schat dit apart.",
+      "missing": [
+       "NOT_DERIVED"
+      ],
+      "partial_value_m2": null,
+      "status": "UNKNOWN",
+      "value_m2": null
+     },
+     "openings": {
+      "basis": "Aanname: opening = buitenmaat van het kozijn (dagkant/sponning niet gemeten). Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.",
+      "missing": [],
+      "partial_value_m2": null,
+      "status": "ESTIMATED",
+      "value_m2": "4.050"
+     },
+     "openings_in_facade": [
+      "OBS-1",
+      "OBS-2"
+     ]
+    },
+    "facade_plane_status": "MEASURED",
+    "name": "measured_inputs_single_photo",
+    "openings": [
+     {
+      "area_m2": "1.650",
+      "id": "OBS-1",
+      "outer_px": [
+       [
+        200.0,
+        150.0
+       ],
+       [
+        420.0,
+        150.0
+       ],
+       [
+        420.0,
+        450.0
+       ],
+       [
+        200.0,
+        450.0
+       ]
+      ],
+      "panes_px": [
+       [
+        [
+         214.0,
+         164.0
+        ],
+        [
+         406.0,
+         164.0
+        ],
+        [
+         406.0,
+         436.0
+        ],
+        [
+         214.0,
+         436.0
+        ]
+       ]
+      ],
+      "plane_d": 5.0,
+      "plane_n": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "status": "MEASURED"
+     },
+     {
+      "area_m2": "2.400",
+      "id": "OBS-2",
+      "outer_px": [
+       [
+        600.0,
+        140.0
+       ],
+       [
+        900.0,
+        140.0
+       ],
+       [
+        900.0,
+        460.0
+       ],
+       [
+        600.0,
+        460.0
+       ]
+      ],
+      "panes_px": [
+       [
+        [
+         612.0,
+         152.0
+        ],
+        [
+         747.0,
+         152.0
+        ],
+        [
+         747.0,
+         247.0
+        ],
+        [
+         612.0,
+         247.0
+        ]
+       ],
+       [
+        [
+         612.0,
+         253.0
+        ],
+        [
+         747.0,
+         253.0
+        ],
+        [
+         747.0,
+         448.0
+        ],
+        [
+         612.0,
+         448.0
+        ]
+       ],
+       [
+        [
+         753.0,
+         152.0
+        ],
+        [
+         888.0,
+         152.0
+        ],
+        [
+         888.0,
+         247.0
+        ],
+        [
+         753.0,
+         247.0
+        ]
+       ],
+       [
+        [
+         753.0,
+         253.0
+        ],
+        [
+         888.0,
+         253.0
+        ],
+        [
+         888.0,
+         448.0
+        ],
+        [
+         753.0,
+         448.0
+        ]
+       ]
+      ],
+      "plane_d": 5.0,
+      "plane_n": [
+       0.0,
+       0.0,
+       1.0
+      ],
+      "status": "MEASURED"
+     }
+    ],
+    "with_facade_plane": true,
+    "with_scale": true
    }
   ],
   "facade_plane": {
@@ -1998,6 +2209,143 @@
    "name": "closeup_single_window"
   }
  ],
+ "viewpoints": {
+  "cases": [
+   {
+    "captures": [
+     {
+      "keyframe_id": "F0",
+      "position": [
+       1.6,
+       1.6,
+       4.0
+      ]
+     }
+    ],
+    "expected": 1,
+    "name": "single_photo"
+   },
+   {
+    "captures": [
+     {
+      "keyframe_id": "F0",
+      "position": [
+       1.6,
+       1.6,
+       4.0
+      ]
+     },
+     {
+      "keyframe_id": "F0",
+      "position": [
+       2.6,
+       1.6,
+       4.0
+      ]
+     }
+    ],
+    "expected": 1,
+    "name": "same_keyframe_twice"
+   },
+   {
+    "captures": [
+     {
+      "keyframe_id": "F0",
+      "position": [
+       1.6,
+       1.6,
+       4.0
+      ]
+     },
+     {
+      "keyframe_id": "F1",
+      "position": [
+       1.61,
+       1.6,
+       4.0
+      ]
+     }
+    ],
+    "expected": 1,
+    "name": "below_baseline"
+   },
+   {
+    "captures": [
+     {
+      "keyframe_id": "F0",
+      "position": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "keyframe_id": "F1",
+      "position": [
+       0.02,
+       0.0,
+       0.0
+      ]
+     }
+    ],
+    "expected": 2,
+    "name": "at_baseline"
+   },
+   {
+    "captures": [
+     {
+      "keyframe_id": "F0",
+      "position": [
+       1.6,
+       1.6,
+       4.0
+      ]
+     },
+     {
+      "keyframe_id": "F1",
+      "position": [
+       2.6,
+       1.6,
+       4.0
+      ]
+     }
+    ],
+    "expected": 2,
+    "name": "two_separate_photos"
+   },
+   {
+    "captures": [
+     {
+      "keyframe_id": "F1",
+      "position": [
+       0.012,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "keyframe_id": "F0",
+      "position": [
+       0.0,
+       0.0,
+       0.0
+      ]
+     },
+     {
+      "keyframe_id": "F2",
+      "position": [
+       0.024,
+       0.0,
+       0.0
+      ]
+     }
+    ],
+    "expected": 2,
+    "name": "chain_unsorted"
+   }
+  ],
+  "min_baseline_m": 0.02
+ },
  "windows": [
   {
    "mullions": 0,

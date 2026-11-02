@@ -283,6 +283,7 @@ jobs:
               assert d["measurement"]["uncertainty"]["validated"] is False
               if d["target"]["quantity_kind"] == "FRAME_AREA_GROSS" and d["basis"]["objects_unmeasured"] > 0:
                   assert d["value"] is None
+          assert '"MEASURED"' not in json.dumps(docs), "selftest-scènes zijn elk één foto: geen MJOP-voorstel mag MEASURED zijn"
           print("fotoronde-voorstellen (Swift) voldoen aan mjop_scan_proposal_v2:", len(docs))
           PY
           # Swift-gecodeerd MJOP-scanvoorstel moet aan het schema voldoen (nullable sleutels aanwezig, geen boeking)
@@ -306,9 +307,11 @@ jobs:
               return re.search(key + r"=(\S+)", lines[name]).group(1)
           def dj(name):
               return json.load(open(L + "/diag/" + diag[name]))
-          # meerdere onafhankelijke dieptekaders, terugliggend kozijn: automatisch gemeten, multi-frame
-          assert val("recessed_8cm_multi_frame", "status") == "MEASURED" and val("recessed_8cm_multi_frame", "method") == "LIDAR_DEPTH_MULTI_FRAME"
+          # één foto met meerdere onafhankelijke LiDAR-dieptekaders: de kaders worden gebruikt (multi-frame), maar één foto is NOOIT MEASURED
+          assert val("recessed_8cm_multi_frame", "status") == "ESTIMATED" and val("recessed_8cm_multi_frame", "method") == "LIDAR_DEPTH_MULTI_FRAME"
           assert int(val("recessed_8cm_multi_frame", "independent")) >= 2
+          assert "SINGLE_VIEWPOINT" in val("recessed_8cm_multi_frame", "flags")
+          assert not any(val(n, "status") == "MEASURED" for n in lines), "geen enkele scène (één foto) mag MEASURED zijn"
           for n in ("flush", "recessed_8cm", "recessed_8cm_multi_frame"):
               w, h = float(val(n, "w")), float(val(n, "h"))
               assert abs(w - 1.2) < 0.012 and abs(h - 1.5) < 0.015, (n, w, h)
@@ -318,6 +321,7 @@ jobs:
           d = dj("recessed_8cm_multi_frame")
           assert d["algorithm"]["frame_plane"]["final_mode"] == "RECESSED" and 6 < d["algorithm"]["frame_plane"]["recess_cm"] < 10, d["algorithm"]["frame_plane"]
           assert d["measurement"]["scale_method"] == "LIDAR_DEPTH_MULTI_FRAME" and d["privacy"]["point_cloud_included"] is False
+          assert all(dj(n)["measurement"]["status"] != "MEASURED" for n in diag), "diagnose-export van één foto is nooit MEASURED"
           # verspringende gevel: specifieke weigering, geen maat
           assert val("ambiguous_planes", "status") == "UNKNOWN" and "AMBIGUOUS_FACADE_PLANES" in val("ambiguous_planes", "flags")
           dd = dj("ambiguous_planes")

@@ -56,6 +56,22 @@ def _fmt_point(p):
     return [round(float(x), 4) for x in p]
 
 
+def independent_photo_count(captures, min_baseline_m):
+    """Aantal APART vastgelegde foto's (keyframes) met onderling verschillende cameraposities (>= min_baseline_m).
+
+    captures: lijst (keyframe_id, camerapositie). Ondersteunende LiDAR-kaders van één foto zijn geen aparte foto's en tellen nooit mee;
+    dubbele keyframes tellen één keer. Zelfde regel als Viewpoints.independentPhotoCount (Swift)."""
+    seen, chosen = set(), []
+    for kid, pos in sorted(captures, key=lambda c: c[0]):
+        if kid in seen:
+            continue
+        seen.add(kid)
+        p = np.asarray(pos, float)
+        if all(float(np.linalg.norm(p - q)) >= min_baseline_m for q in chosen):
+            chosen.append(p)
+    return len(chosen)
+
+
 def _status_from(result, kind, n_views, verified):
     if result is None or not result.ok:
         return "UNKNOWN"
@@ -148,7 +164,10 @@ def _measure_cluster(ci, obs_list, per_obs, vmap, mode, references, cfg, session
             attempts.append(("A", fused))
             if fused.ok:
                 final, kind = fused, "A"
-                n_views = len(fused.view_ids) if len(ras) > 1 else max(1, fused.independent_frames)     # onafhankelijke diepteframes tellen als standpunten
+                # standpunten = apart vastgelegde foto's met eigen camerapositie; ondersteunende LiDAR-kaders van één foto tellen NIET
+                ok_views = [vmap[o.frame_id] for o in obs_list if per_obs.get(o.observation_id) is not None and per_obs[o.observation_id].ok]
+                n_views = max(1, independent_photo_count([(v.frame_id, np.asarray(v.pose)[:3, 3]) for v in ok_views], cfg.min_baseline_m)) \
+                    if len(ras) > 1 else 1
             elif any(f["code"] == "VIEWS_INCONSISTENT" for f in fused.flags):
                 final, kind = fused, "A"      # inconsistent: geen terugval die de inconsistentie verbergt
     # B
@@ -196,7 +215,7 @@ def _measure_cluster(ci, obs_list, per_obs, vmap, mode, references, cfg, session
         if r is not final:
             flags += [dict(f, detail=f"[{_}] {f.get('detail')}") for f in r.flags if f["severity"] == q.BLOCKING]
     flags += final.flags
-    if len(obs_list) == 1 and kind == "A" and final.ok:
+    if kind == "A" and final.ok and n_views < 2:          # één foto, of meerdere waarnemingen vanaf (vrijwel) hetzelfde standpunt
         flags.append(q.flag("SINGLE_VIEWPOINT"))
     for o in obs_list:
         if o.corner_source == "MANUAL":

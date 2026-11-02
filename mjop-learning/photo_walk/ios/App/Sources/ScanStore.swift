@@ -140,11 +140,14 @@ enum Measurer {
             let obs = d.observationIds.compactMap { obsById[$0] }.filter { !$0.rejected }
             if obs.isEmpty { continue }
             let perView = obs.compactMap { measures[$0.id]?.result }
-            let okA = perView.filter { $0.ok && $0.level == .A }
+            // standpunten = apart vastgelegde foto's met eigen camerapositie; ondersteunende LiDAR-kaders van één foto tellen niet (zie Viewpoints)
+            let items = obs.compactMap { o -> Viewpoints.ViewMeasurement? in
+                guard let r = measures[o.id]?.result, let kf = frames[o.frameId] else { return nil }
+                return Viewpoints.ViewMeasurement(capture: .init(keyframeId: o.frameId, position: kf.pose.t), result: r)
+            }
             var final: LevelResult
             var viewCount = 1
-            if okA.count >= 2 { final = fuse(okA); viewCount = final.viewIds.count }
-            else if let a = okA.first { final = a; viewCount = max(1, a.independentFrames) }      // onafhankelijke diepteframes tellen als standpunten
+            if let a = Viewpoints.combineLevelA(items) { final = a.result; viewCount = a.viewCount }
             else if let c = perView.first(where: { $0.ok }) { final = c }
             else { final = perView.first ?? LevelResult(level: .A, scaleMethod: "NONE") }
             if !final.ok && !hasBlocking(final.flags) { final.flags.append(Flags.make("NO_METRIC_SCALE")) }

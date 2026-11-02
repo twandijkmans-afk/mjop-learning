@@ -412,6 +412,11 @@ def _mm3(x):
     return Decimal(str(x)).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP)
 
 
+def single_photo(status):
+    """De gevelopbouw rekent per FOTO: één foto is nooit MEASURED (hoogstens ESTIMATED). Zelfde als FacadeComposition.singlePhoto (Swift)."""
+    return "ESTIMATED" if status == "MEASURED" else status
+
+
 def worst_status(statuses):
     if not statuses:
         return "UNKNOWN"
@@ -471,7 +476,7 @@ def compose(openings, pose=None, intr=None, facade_px=None, facade_plane=None, f
         gross = _q(None, "UNKNOWN", "Geen betrouwbaar gevelvlak (schaal) voor deze foto.", ["FACADE_PLANE"])
     else:
         a = planar_polygon_area_m2(facade_px, pose, intr, facade_plane[0], facade_plane[1])
-        gross = (_q(_mm3(a), facade_plane_status, "Getekend gevelvlak geprojecteerd op het gevelvlak.") if a is not None
+        gross = (_q(_mm3(a), single_photo(facade_plane_status), "Getekend gevelvlak geprojecteerd op het gevelvlak.") if a is not None
                  else _q(None, "UNKNOWN", "Projectie op het gevelvlak mislukt.", ["FACADE_PLANE"]))
     # buitenkozijnen (= openingen, aanname)
     known = [o for o in inside if o.area_m2 is not None and o.status != "UNKNOWN"]
@@ -484,7 +489,7 @@ def compose(openings, pose=None, intr=None, facade_px=None, facade_plane=None, f
     elif missing_frames:
         frame_outer = _q(None, "UNKNOWN", "Niet alle kozijnen hebben een betrouwbare buitenmaat.", missing_frames, part if known else None)
     else:
-        frame_outer = _q(part, worst_status([o.status for o in known]), "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.")
+        frame_outer = _q(part, single_photo(worst_status([o.status for o in known])), "Som van de bruto buitenmaten (breedte x hoogte) van de kozijnen.")
     openings_q = dict(frame_outer)
     openings_q["basis"] = OPENING_ASSUMPTION + " " + frame_outer["basis"]
     # glas
