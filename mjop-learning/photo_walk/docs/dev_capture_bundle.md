@@ -1,0 +1,31 @@
+# Ontwikkelbundel (`photo_walk_capture_bundle_v1`)
+
+Alleen voor **ontwikkeling en kalibratie**. Doel: een echte meting later exact kunnen herhalen (replay) zonder ruwe sensordata in Git, in een PR, in CI-artifacts of in externe opslag te zetten.
+
+## Standaard uit, lokaal
+* Schakelaar: meetdiagnose-scherm → *Ontwikkelbundel opslaan* (`UserDefaults`-sleutel `photowalk.devBundle.enabled`, standaard `false`). De volledige foto is een tweede, aparte schakelaar (`photowalk.devBundle.includePhoto`, standaard `false`).
+* Er wordt alleen een bundel geschreven na de expliciete knop *Bewaar ontwikkelbundel van deze meting*. De gewone meetflow, de diagnose-export en de selftest schrijven nooit een bundel.
+* Locatie: `Application Support/devbundles/bundle_<sessie-ref>_<observatie>/` op het toestel, uitgesloten van iCloud/iTunes-back-ups, bestandsbescherming `completeFileProtection`. Er is geen upload, geen netwerkcode en geen deelknop voor de bundel.
+
+## Wat wordt opgeslagen
+| Bestand | Inhoud |
+|---|---|
+| `manifest.json` | contract en versie, tijdstip (UTC), app-build, sessie-ref (12 hex-tekens van een sha256), observatie- en frame-id, kaderhoeken in pixels, intrinsics per frame, tracking per frame, **helling**: de richting van "omhoog" in het camerastelsel van het hoofdframe, poses van de steunframes **relatief aan het hoofdframe**, sha256 van de gebruikte drempels, bestandslijst met sha256, privacyvlaggen |
+| `depth_<frame>.f32` | dieptekaart per frame, little-endian float32, rij-hoofdvolgorde (0/NaN = ongeldig) |
+| `photo.jpg` | volledige foto, **alleen** als *Volledige foto meenemen* aanstaat |
+
+## Wat niet wordt opgeslagen
+Locatie/GPS, kompas of richting op aarde, absolute positie of oriëntatie van het toestel (alleen relatieve poses en de helling), gebruikers-, project- of adresgegevens, de ongehashte sessie-id.
+
+## Verwijderen
+* In de app: meetdiagnose-scherm → *Verwijder ontwikkelbundels* (verwijdert alle bundels met foto's en dieptekaarten; de knop toont het aantal).
+* Of de app van het toestel verwijderen (de sandbox verdwijnt).
+* Een bundel die als bestand wordt gedeeld (bv. handmatig via Bestanden/Xcode) valt buiten de app: verwijder die kopie zelf.
+
+## Replay
+`python/photo_walk_core/capture_bundle.py` (`read_bundle`) controleert alle sha256's en bouwt de views opnieuw op; Swift: `CaptureBundle.read`. Replay geeft dezelfde meetuitkomst (gelijke vlaggen, schaalmethode en frames; maten binnen 1e-4 m) — gedekt door `python/tests/test_capture_bundle.py` en `CaptureBundleTests.swift`.
+
+## Bewaking
+* Python-test: geen `.f32`-, beeld- of `bundle_*`-bestanden in de repository.
+* CI (macOS): de selftest maakt geen `devbundles`-map en er staan geen `.f32`/`photo.jpg`/`bundle_*` in de CI-logs.
+* Bundels worden nergens als CI-artifact geüpload.

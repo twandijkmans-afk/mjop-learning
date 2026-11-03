@@ -326,8 +326,32 @@ jobs:
           assert val("ambiguous_planes", "status") == "UNKNOWN" and "AMBIGUOUS_FACADE_PLANES" in val("ambiguous_planes", "flags")
           dd = dj("ambiguous_planes")
           assert dd["measurement"]["width_m"] is None and any(f["code"] == "AMBIGUOUS_FACADE_PLANES" for f in dd["result_flags"])
+          # Diagnose 1.1.0 (door Swift geschreven): extra blok aanwezig, camera-relatief, geen verboden sleutels
+          for n in diag:
+              e = dj(n)
+              assert e["contract_version"] == "1.1.0", (n, e["contract_version"])
+              x = e["extended_diagnostics"]
+              for k in ("spec_version", "computed_after_result", "frames", "camera_gravity", "quad_from_corners", "gate_constants"):
+                  assert k in x, (n, k)
+              assert x["spec_version"] == "1.1.0" and x["computed_after_result"] is True
+              forbidden = re.compile(r"(latitude|longitude|gps|location|compass|address|pose|image|photo|point_cloud)", re.I)
+              def walk(o, path=""):
+                  if isinstance(o, dict):
+                      for k, v in o.items():
+                          assert not forbidden.search(k), (n, path + "/" + k)
+                          walk(v, path + "/" + k)
+                  elif isinstance(o, list):
+                      for i in o: walk(i, path)
+              walk(x)
+          # de verspringende gevel is in de schaduwpoorten zichtbaar als mislukte selectiepoort, zonder dat er een maat ontstaat
+          gs = dj("ambiguous_planes")["extended_diagnostics"].get("gates_shadow")
+          assert gs is not None, "gates_shadow ontbreekt voor ambiguous_planes"
+          assert dj("ambiguous_planes")["measurement"]["width_m"] is None
           print("LiDAR-v2 selftest OK")
           PY
+          # Ontwikkelbundel is standaard UIT: de selftest schrijft er geen, en er mogen geen ruwe sensorbestanden in de logs staan
+          if [ -d "$DATA/Library/Application Support/devbundles" ]; then echo "::error::ontwikkelbundel aangemaakt zonder dat de dev-modus aan stond"; exit 1; fi
+          if find "$LOGS" -type f \( -name "*.f32" -o -name "photo.jpg" -o -name "bundle_*" \) | grep -q .; then echo "::error::ruwe sensordata of ontwikkelbundel in de CI-logs"; exit 1; fi
           grep -c "SELFTEST_DETECT" "$LOGS/selftest-console.log" | tee "$LOGS/detect-count.txt"
           [ "$(cat "$LOGS/detect-count.txt")" -ge 1 ] || { echo "::error::geen enkele detectie in de selftest"; exit 1; }
           grep "SELFTEST_PERSIST" "$LOGS/selftest-console.log"

@@ -30,7 +30,7 @@ def json_safe(x):
 
 
 def build(result, *, session_id, observation_id, view, corners_px, status, feedback, platform="SIMULATION", data_origin="SIMULATION", app_build=PROCESSING_VERSION,
-          cfg=DEFAULT, created_utc=None):
+          cfg=DEFAULT, created_utc=None, extended=None):
     w, h = result.width_m, result.height_m
     area = None
     if result.ok and w is not None and h is not None:
@@ -52,6 +52,10 @@ def build(result, *, session_id, observation_id, view, corners_px, status, feedb
         "user_hints_nl": list(dict.fromkeys(f["instruction_nl"] for f in result.flags if f["severity"] == "BLOCKING")) or ["Geen blokkerende problemen."],
         "privacy": {"images_included": False, "point_cloud_included": False, "absolute_pose_included": False, "location_included": False},
     }
+    if extended is not None:
+        # spec 1.1.0: uitsluitend een extra blok; alle bestaande velden en hun waarden blijven ongewijzigd (zie ext_diagnostics)
+        rec["contract_version"] = "1.1.0"
+        rec["extended_diagnostics"] = json_safe(extended)
     return rec
 
 
