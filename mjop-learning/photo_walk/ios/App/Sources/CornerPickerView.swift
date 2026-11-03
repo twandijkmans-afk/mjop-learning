@@ -10,7 +10,10 @@ struct CornerPickerView: View {
     @EnvironmentObject var store: ScanStore
     let frame: Keyframe
     @State private var taps: [Pixel] = []
-    @State private var candidates: [[Pixel]] = []
+    @State private var candidates: [(corners: [Pixel], score: Double)] = []
+    /// Het gekozen automatische voorstel. Blijft de herkomst, ook als de gebruiker daarna hoeken verschuift of één punt weghaalt en opnieuw
+    /// zet; pas als alle punten weg zijn (Wissen of alles verwijderd) is wat volgt een volledig zelf getekende vierhoek.
+    @State private var chosenCandidate: (corners: [Pixel], score: Double)? = nil
     @State private var targetDraft: String? = nil
     @State private var uiImage: UIImage? = nil
     @State private var saved: String? = nil
@@ -26,14 +29,14 @@ struct CornerPickerView: View {
             Text(saved ?? prompt).font(.footnote).padding(.horizontal).accessibilityIdentifier("cornerPrompt")
             if let img = uiImage { FrameImageCanvas(frame: frame, image: img, points: $taps, maxPoints: 4, pointNames: Self.names) } else { ProgressView() }
             HStack {
-                Button("Laatste punt weg") { if !taps.isEmpty { taps.removeLast() }; saved = nil }.disabled(taps.isEmpty)
+                Button("Laatste punt weg") { if !taps.isEmpty { taps.removeLast() }; if taps.isEmpty { chosenCandidate = nil }; saved = nil }.disabled(taps.isEmpty)
                 Button("Voorstellen (on-device)") { detectCandidates() }.disabled(uiImage == nil)
-                Button("Wissen") { taps = []; saved = nil }
+                Button("Wissen") { taps = []; chosenCandidate = nil; saved = nil }
                 Button("Opslaan") { save() }.disabled(taps.count != 4).buttonStyle(.borderedProminent)
             }
             if !candidates.isEmpty {
                 ScrollView(.horizontal) { HStack { ForEach(Array(candidates.enumerated()), id: \.offset) { i, c in
-                    Button("Voorstel \(i + 1) (onbevestigd)") { taps = c; saved = "Voorstel overgenomen - controleer de hoeken (zoom in); opslaan telt als bevestigd." }.buttonStyle(.bordered)
+                    Button("Voorstel \(i + 1) (onbevestigd)") { taps = c.corners; chosenCandidate = c; saved = "Voorstel overgenomen - controleer de hoeken (zoom in); opslaan telt als bevestigd." }.buttonStyle(.bordered)
                 } } }
             }
             Picker("Koppel aan kozijn", selection: $targetDraft) {
@@ -46,12 +49,11 @@ struct CornerPickerView: View {
     }
 
     private func save() {
-        let fromAuto = candidates.contains { zip($0, taps).allSatisfy { $0 == $1 } }
-        let o = Observation(id: "OBS-\(frame.id)-\(store.observations.count + 1)", frameId: frame.id, corners: taps, originalCorners: taps,
-                            source: fromAuto ? .AUTO_DETECTED_CONFIRMED : .MANUAL)
-        store.addObservation(o, to: targetDraft)
+        // Herkomst: een gekozen voorstel blijft een voorstel, ook na het verschuiven van hoeken (nooit "zelf getekend"); zie PickedQuad.classify.
+        // Ook vier zelf getikte punten die toevallig exact op een voorstel liggen zonder dat het voorstel is gekozen, gelden als zelf getekend.
+        let o = store.addPickedQuad(frameId: frame.id, corners: taps, candidate: chosenCandidate?.corners, candidateScore: chosenCandidate?.score, to: targetDraft)
         store.measureAll(); store.persist()
-        taps = []; saved = "Opgeslagen (\(o.source.rawValue)). Je kunt een volgend kozijn markeren."
+        taps = []; chosenCandidate = nil; saved = "Opgeslagen (\(o.source.rawValue)). Je kunt een volgend kozijn markeren."
     }
 
     private func detectCandidates() {
@@ -59,8 +61,8 @@ struct CornerPickerView: View {
         let W = Double(cg.width), H = Double(cg.height)
         let req = VNDetectRectanglesRequest { r, _ in
             let obs = (r.results as? [VNRectangleObservation]) ?? []
-            let c = obs.prefix(5).map { o -> [Pixel] in
-                [o.topLeft, o.topRight, o.bottomRight, o.bottomLeft].map { Pixel(Double($0.x) * W, (1 - Double($0.y)) * H) }
+            let c = obs.prefix(5).map { o -> (corners: [Pixel], score: Double) in
+                (corners: [o.topLeft, o.topRight, o.bottomRight, o.bottomLeft].map { Pixel(Double($0.x) * W, (1 - Double($0.y)) * H) }, score: Double(o.confidence))
             }
             DispatchQueue.main.async { candidates = c }
         }

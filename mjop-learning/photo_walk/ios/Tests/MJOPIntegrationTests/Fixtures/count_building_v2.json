@@ -8,10 +8,10 @@
   "target": {"element_key": "kozijnen-onderhoud", "quantity_kind": "FRAME_COUNT", "unit": "st", "scope": {"type": "BUILDING", "facade_id": null, "orientation": null}},
   "value": 12,
   "partial_value": null,
-  "basis": {"objects_total": 12, "objects_measured": 10, "objects_unmeasured": 2, "photos": 4, "duplicates_unresolved": 0, "cross_session_unchecked": true, "excluded_objects": 1},
+  "basis": {"objects_total": 12, "objects_measured": 10, "objects_unmeasured": 2, "photos": 4, "duplicates_unresolved": 0, "cross_session_unchecked": false, "excluded_objects": 1},
   "measurement": {"methods": ["LIDAR_DEPTH_MULTI_FRAME", "LIDAR_DEPTH_PLANE"], "dimension_status": "ESTIMATED", "uncertainty": {"validated": false, "area_sigma_m2": 0.31, "note": "PROVISIONAL_UNVALIDATED"}},
   "evidence": {"photo_ids": ["F000", "F001", "F002", "F003"], "object_ids": ["PROV-1a2b-001", "PROV-1a2b-002"], "quality_flags": ["AUTO_DETECTED_UNCONFIRMED"], "detection": {"auto_detected": 11, "user_corrected": 1, "manual": 0}},
-  "reliability": {"level": "CHECK_REQUIRED", "reasons": ["UNVALIDATED_LIDAR", "CROSS_SESSION_UNCHECKED", "AUTO_DETECTED"]},
+  "reliability": {"level": "CHECK_REQUIRED", "reasons": ["UNVALIDATED_LIDAR", "AUTO_DETECTED"]},
   "confirmation": {"status": "PROPOSED", "uncertainty_acknowledged": false, "confirmed_at": null},
   "booking_allowed": false
 }

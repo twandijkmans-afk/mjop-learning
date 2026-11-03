@@ -33,15 +33,25 @@ enum RoundInputBuilder {
             objects.append(RoundObject(
                 id: d.id, facadeId: facadeId(of: first.frameId, in: store), frameIds: Array(Set(obs.map { $0.frameId })).sorted(), areaM2: area,
                 areaSigmaM2: area == nil ? nil : res?.result.sigmaArea, status: status, method: methods.contains(scale) ? scale : "NONE",
-                autoDetected: !detected.isEmpty, userConfirmed: !detected.isEmpty && detected.allSatisfy { $0.source != .AUTO_DETECTED_UNCONFIRMED },
-                manual: obs.contains { $0.detection == nil && $0.source == .MANUAL }, flags: res?.flags.map { $0.code } ?? []))
+                // bevestigd = elke herkende waarneming expliciet bevestigd; alleen hoeken verschoven (EDITED_UNCONFIRMED) telt niet als bevestigd
+                autoDetected: !detected.isEmpty, userConfirmed: !detected.isEmpty && detected.allSatisfy { $0.source != .AUTO_DETECTED_UNCONFIRMED && !$0.outerContour.blocksArea },
+                manual: obs.contains { $0.detection == nil && $0.source == .MANUAL }, flags: res?.flags.map { $0.code } ?? [],
+                // gevelopbouw: alleen als ALLE waarnemingen van dit object een onbevestigde automatische buitencontour hebben (LEGACY telt niet)
+                contourUnconfirmed: obs.allSatisfy { $0.outerContour.blocksArea },
+                // duplicaatcontrole over foto's heen kan alleen met een ruimtelijke meting (zelfde criterium als de koppelsuggesties)
+                duplicateCheckable: obs.contains { store.linkItem($0) != nil }))
         }
 
-        // mogelijk dubbele kozijnen (zelfde AR-sessie, nog niet gekoppeld of genegeerd) per gevel
+        // mogelijk dubbele kozijnen (zelfde AR-sessie, nog niet gekoppeld of genegeerd) per gevel. Een suggestie tussen twee gevels blokkeert
+        // beide gevels (het mogelijke duplicaat kan in elk van beide meetellen); voor het gebouw telt elke suggestie één keer.
         var dups: [String: Int] = [:]
+        var dupTotal = 0
         for c in store.linkSuggestions() {
             guard let a = store.observation(c.a), let b = store.observation(c.b), counts(a), counts(b) else { continue }
-            dups[facadeId(of: a.frameId, in: store), default: 0] += 1
+            let fa = facadeId(of: a.frameId, in: store), fb = facadeId(of: b.frameId, in: store)
+            dups[fa, default: 0] += 1
+            if fb != fa { dups[fb, default: 0] += 1 }
+            dupTotal += 1
         }
 
         var facadeIds: [String] = round.facades.map { $0.id }
@@ -51,10 +61,36 @@ enum RoundInputBuilder {
             let worlds = Set(frames.compactMap { round.frameWorld[$0] })
             return RoundFacade(id: fid, orientation: round.facades.first { $0.id == fid }?.orientation, worldIds: worlds)
         }
+        // foto -> AR-sessie, alleen voor meetellende foto's; een foto zonder bekende sessie ontbreekt (= onbekend, niet "zelfde sessie")
+        var frameWorld: [String: String] = [:]
+        for kf in store.keyframes where !excludedFrames.contains(kf.id) { if let w = round.frameWorld[kf.id] { frameWorld[kf.id] = w } }
+        let fp = reviewFingerprint(store: store)
+        let reviewed = round.duplicateReview.map { $0.fingerprint == fp } ?? false
         let ctx = round.context
         return RoundBuildInput(
             roundId: store.sessionId, revision: round.revision, createdAt: createdAt,
             project: .init(planRef: ctx.planRef, mjopPlanId: ctx.mjopPlanId, buildingId: ctx.buildingLabel, bagPandId: ctx.bagPandId),
-            elementKey: ctx.element?.key, objects: objects, facades: facades, excludedObjectsByFacade: excluded, duplicatesUnresolvedByFacade: dups)
+            elementKey: ctx.element?.key, objects: objects, facades: facades, excludedObjectsByFacade: excluded, duplicatesUnresolvedByFacade: dups,
+            duplicatesUnresolvedTotal: dupTotal, frameWorld: frameWorld, duplicateReviewConfirmed: reviewed)
+    }
+
+    /// Mag de inspecteur nu verklaren dat alles is nagelopen? Alleen als er een ronde is en GEEN openstaande koppelsuggestie meer is (in de
+    /// meetellende foto's). Geldt voor de knop én voor het vastleggen zelf (RoundCoordinator.setDuplicateReview), niet alleen in de weergave.
+    static func canRecordDuplicateReview(store: ScanStore) -> Bool {
+        guard let input = build(store: store, createdAt: "1970-01-01T00:00:00Z") else { return false }
+        return (input.duplicatesUnresolvedTotal ?? input.duplicatesUnresolvedByFacade.values.reduce(0, +)) == 0
+    }
+
+    /// Vingerafdruk van alles waarop een handmatige duplicaatcontrole betrekking heeft: meetellende foto's (met gevel en AR-sessie), waarnemingen
+    /// (met kozijn en hoeken) en uitsluitingen. Een nieuwe foto, waarneming, koppeling, ontkoppeling, afwijzing of uitsluiting laat de verklaring vervallen.
+    static func reviewFingerprint(store: ScanStore) -> String {
+        guard let round = store.round else { return "" }
+        var parts: [String] = []
+        for kf in store.keyframes { parts.append("photo:\(kf.id)|\(round.frameFacade[kf.id] ?? "-")|\(round.frameWorld[kf.id] ?? "-")|\(round.excludedFrames.contains(kf.id) ? "excluded" : "in")") }
+        for o in store.observations where !o.rejected {
+            let c = o.corners.map { String(format: "%.1f,%.1f", $0.u, $0.v) }.joined(separator: ";")
+            parts.append("obs:\(o.id)|\(o.frameId)|\(store.draft(of: o.id)?.id ?? "-")|\(c)")
+        }
+        return DuplicateCoverage.fingerprint(parts)
     }
 }

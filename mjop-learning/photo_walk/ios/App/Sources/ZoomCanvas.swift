@@ -12,12 +12,23 @@ final class CanvasController: ObservableObject {
 }
 
 /// Een kader op de foto (kandidaat-kozijn). De kleur is UITSLUITEND UI-feedback en geen goedkeuring.
+/// Hoe een contour op de foto getekend wordt (gevelopbouw). Alleen kozijnen zijn aan te tikken.
+enum BoxStyle: Equatable {
+    case frame                 // buitencontour van een kozijn (doorgetrokken, kleur = meetfeedback)
+    case frameUnverified       // glas of kozijn? / voorgestelde buitencontour: oranje gestreept, geen maat tot bevestiging
+    case glass                 // glasvlak: blauw gestippeld, telt niet als kozijn
+    case proposal              // klaargezet voorstel voor de buitencontour: paars gestippeld
+    case facade                // getekend bruto gevelvlak
+    var tappable: Bool { self == .frame || self == .frameUnverified }
+}
+
 struct BoxOverlayItem: Equatable {
     var id: String
     var corners: [Pixel]           // NATIVE pixels, TL, TR, BR, BL
     var feedback: BoxFeedback
     var label: String
     var selected = false
+    var style: BoxStyle = .frame
 }
 
 func polygonContains(_ poly: [Pixel], _ p: Pixel) -> Bool {
@@ -203,7 +214,7 @@ final class ZoomCanvasView: UIView, UIGestureRecognizerDelegate {
         let loc = g.location(in: self)
         if boxMode {
             let n = vp.nativePoint(fromView: px(loc))
-            let hit = boxes.filter { polygonContains($0.corners, n) }.min { CandidateFilter.area($0.corners) < CandidateFilter.area($1.corners) }
+            let hit = boxes.filter { $0.style.tappable && polygonContains($0.corners, n) }.min { CandidateFilter.area($0.corners) < CandidateFilter.area($1.corners) }
             if let h = hit { select.selectionChanged(); onBoxTap?(h.id) }
             return
         }
@@ -253,12 +264,32 @@ final class MarkerOverlayView: UIView {
         switch f { case .green: return .systemGreen; case .orange: return .systemOrange; case .neutral: return UIColor(white: 0.88, alpha: 1) }
     }
 
+    private func drawDashed(_ ctx: CGContext, _ pts: [CGPoint], _ color: UIColor, width: CGFloat, dash: [CGFloat]) {
+        ctx.saveGState()
+        ctx.setLineDash(phase: 0, lengths: dash)
+        for (w, c) in [(width + 2.5, UIColor.black.withAlphaComponent(0.55)), (width, color)] as [(CGFloat, UIColor)] {
+            ctx.setLineWidth(w); ctx.setStrokeColor(c.cgColor)
+            ctx.beginPath(); ctx.move(to: pts[0]); for p in pts.dropFirst() { ctx.addLine(to: p) }; ctx.closePath(); ctx.strokePath()
+        }
+        ctx.restoreGState()
+    }
+
     private func drawBox(_ ctx: CGContext, _ b: BoxOverlayItem, _ v: (Pixel) -> CGPoint) {
-        let pts = b.corners.map(v), color = boxColor(b.feedback)
+        guard b.corners.count >= 3 else { return }
+        switch b.style {
+        case .glass: drawDashed(ctx, b.corners.map(v), .systemCyan, width: 1.5, dash: [3, 3]); return
+        case .proposal: drawDashed(ctx, b.corners.map(v), .systemPurple, width: 2.5, dash: [8, 5]); return
+        case .facade: drawDashed(ctx, b.corners.map(v), .systemBlue, width: 2.5, dash: [12, 6]); return
+        case .frame, .frameUnverified: break
+        }
+        let pts = b.corners.map(v), color = b.style == .frameUnverified ? UIColor.systemOrange : boxColor(b.feedback)
+        if b.style == .frameUnverified {
+            drawDashed(ctx, pts, color, width: b.selected ? 4 : 3, dash: [10, 5])
+        }
         ctx.saveGState()
         ctx.beginPath(); ctx.move(to: pts[0]); for p in pts.dropFirst() { ctx.addLine(to: p) }; ctx.closePath()
-        ctx.setFillColor(color.withAlphaComponent(b.selected ? 0.25 : 0.12).cgColor); ctx.drawPath(using: .fill)
-        for (w, c) in [(b.selected ? 7.0 : 5.0, UIColor.black.withAlphaComponent(0.7)), (b.selected ? 4.0 : 2.5, color)] as [(CGFloat, UIColor)] {
+        ctx.setFillColor(color.withAlphaComponent(b.selected ? 0.25 : (b.style == .frameUnverified ? 0.06 : 0.12)).cgColor); ctx.drawPath(using: .fill)
+        for (w, c) in [(b.selected ? 7.0 : 5.0, UIColor.black.withAlphaComponent(0.7)), (b.selected ? 4.0 : 2.5, color)] as [(CGFloat, UIColor)] where b.style == .frame {
             ctx.setLineWidth(w); ctx.setStrokeColor(c.cgColor)
             ctx.beginPath(); ctx.move(to: pts[0]); for p in pts.dropFirst() { ctx.addLine(to: p) }; ctx.closePath(); ctx.strokePath()
         }

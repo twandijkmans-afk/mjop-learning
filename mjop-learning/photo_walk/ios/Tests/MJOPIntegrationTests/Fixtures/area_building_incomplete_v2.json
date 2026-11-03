@@ -8,7 +8,7 @@
   "target": {"element_key": "kozijnen-onderhoud", "quantity_kind": "FRAME_AREA_GROSS", "unit": "m2", "scope": {"type": "BUILDING", "facade_id": null, "orientation": null}},
   "value": null,
   "partial_value": 17.4,
-  "basis": {"objects_total": 12, "objects_measured": 10, "objects_unmeasured": 2, "photos": 4, "duplicates_unresolved": 0, "cross_session_unchecked": true, "excluded_objects": 1},
+  "basis": {"objects_total": 12, "objects_measured": 10, "objects_unmeasured": 2, "photos": 4, "duplicates_unresolved": 0, "cross_session_unchecked": false, "excluded_objects": 1},
   "measurement": {"methods": ["LIDAR_DEPTH_MULTI_FRAME"], "dimension_status": "ESTIMATED", "uncertainty": {"validated": false, "area_sigma_m2": 0.31, "note": "PROVISIONAL_UNVALIDATED"}},
   "evidence": {"photo_ids": ["F000", "F001"], "object_ids": ["PROV-1a2b-001"], "quality_flags": [], "detection": {"auto_detected": 11, "user_corrected": 1, "manual": 0}},
   "reliability": {"level": "INCOMPLETE", "reasons": ["UNMEASURED_OBJECTS", "UNVALIDATED_LIDAR"]},
