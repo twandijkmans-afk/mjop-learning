@@ -158,3 +158,40 @@ De website accepteert de nieuwe optionele `basis`-velden en de reden `DUPLICATE_
 Automatisch (CI): Swift (brugberichten, contextvalidatie, v2-contract, voorstelbouwer incl. dubbele/uitgesloten/onbemeten/meerdere gevels, outbox met verkeerd project en idempotentie, AuthPaste/foutmapping, navigatiebeleid), Python (schema v1/v2), XCUITest in de simulator (geen schakelaar meer; fotoronde starten **via de echte brug**; terugkeer met behoud van webstaat; element-context; ongeldig bericht geweigerd; offline/foutschermen; scanner-testmodus), selftest (door Swift gemaakte v2-voorstellen valideren tegen het schema), website: Node-unit (5 bestanden) en Playwright (18 bestanden) (inloggen/PKCE/sessie, toetsenbord, dom-patch, fotoronde, bestaande kwantiteit-/inventaristests).
 
 **Alleen op een echte iPhone te controleren** (niet aangetoond): inloggen via e-mail en terugkeer in de app; sessiebehoud na afsluiten; het toetsenbordgedrag (123/ABC); camera, LiDAR en kozijnherkenning in een echte ronde; het schermvullend openen/sluiten van de scanner vanuit de WebView; hervatten van een onderbroken ronde na afsluiten van de app; of voorstellen in de website verschijnen na afronden; synchronisatie van het plan met voorstellen (opslaan, heropenen op een tweede apparaat); Excel/PDF-import, CSV-/PDF-export, delen. Er wordt geen functiepariteit geclaimd.
+
+---
+
+# Fase 3: native navigatie met vijf tabs (app-versie 2)
+
+De app (bundle `nl.mjop.photowalk.prototype`, versie 2.0, User-Agent `MJOPLiveApp/2`) toont zelf vijf tabs: **Home, Projecten, Meten, MJOP, Profiel** (SwiftUI `TabView`).
+Alle websiteonderdelen gebruiken **één gedeelde `WKWebView`**; de scanner en de fotoronde zijn ongewijzigd en openen schermvullend boven de tabs.
+
+## Wat waar zit
+| Tab | Inhoud |
+|---|---|
+| Home | Laatst geopende project, volgende stap, voorstellen/rondes in behandeling, verbindings- en opslagstatus |
+| Projecten | Projecten van de ingelogde gebruiker, rechtstreeks uit de backend (via de website); openen in MJOP; nieuw project via de websiteflow |
+| Meten | Project kiezen, nieuwe fotoronde (de website opent het project en start de bestaande scanner-brug), onderbroken rondes hervatten, meetresultaten en synchronisatiestatus, scanner-testmodus |
+| MJOP | Planning, Maatregelen, Begroting, Rapportage (native keuzebalk; inhoud nog de website) |
+| Profiel | Account, Organisatie, Weergave, Abonnement, Privacy, Uitloggen, Geavanceerd (de vroegere menuopties) |
+
+## Gedeelde WebView
+`App/Sources/MJOP/SharedWebHost.swift`: elke plek waar de website getoond kan worden is een `WebContainerView`. Zodra zo'n plek zichtbaar wordt, hangt `WebHostRegistry` de ene WebView daaraan; is niets zichtbaar (bijvoorbeeld Home of Meten), dan hangt hij aan een onzichtbare standplaats van 1×1 punt zodat de website blijft draaien.
+De WebView wordt dus nooit opnieuw gemaakt of herladen: sessie, `localStorage`, `sessionStorage` en paginastaat blijven. Onder Profiel → Geavanceerd → Diagnose staat hoe vaak de website is geladen en hoe vaak de WebView is verplaatst (bewijs voor jezelf).
+
+## Brug (alleen optellend; zie ook de website: `docs/native-bridge-v2.md`)
+* Website → app: `webReady`, `webReply`, `webState` (`BridgeMessage.swift`).
+* App → website: `nativeReady` en `command` (`navigate`, `getProjects`, `openProject`, `startMeasurement`, `getStatus`, `getProposals`, `signOut`, `newProject`), allemaal gevalideerd (`NativeNav.swift`, `NativeCommand.isValid`).
+* **Alleen lezen/navigeren.** De app schrijft nooit naar `saved_plans`. Een project met niet-opgeslagen wijzigingen wordt nooit stil vervangen: de website weigert (`UNSAVED_CHANGES`) en de app vraagt de gebruiker.
+* Bestaande acties (`startPhotoRound`, `startElementScan`, `listProposals`, `ackProposals`, `getCapabilities`, `print`) zijn ongewijzigd.
+
+## Terugval en compatibiliteit
+* Meldt de website zich niet met `webReady` (oudere website), dan blijft de app in de klassieke weergave (één WebView met kopbalk en menu).
+* Onder Profiel → Geavanceerd kan de gebruiker de klassieke weergave kiezen.
+* Een oudere app (`MJOPLiveApp/1`) merkt niets van de nieuwe website: die stuurt dan geen nieuw bericht en toont zijn eigen tabbalk.
+
+## Gedeelde rekenkern
+Zie `shared_calculation_core.md`. De app bevat geen eigen MJOP-berekeningen.
+
+## Tests
+`MJOPIntegrationTests/NativeNavTests.swift` (contract, gedeeld bestand `Fixtures/contract_v1.json`), `App/UITests/MainTabsUITests.swift` (vijf tabs, gedeelde WebView, fotoronde, projecten, niet-opgeslagen werk, Profiel, terugval). De bestaande tests blijven ongewijzigd.

@@ -23,7 +23,7 @@ concurrency:
 jobs:
   ios:
     runs-on: macos-15
-    timeout-minutes: 45
+    timeout-minutes: 75
     defaults:
       run:
         working-directory: mjop-learning/photo_walk/ios
@@ -178,7 +178,7 @@ jobs:
           echo "export: $EXP"
 
       - name: UI-rooktest in de simulator (XCUITest; app zonder ARKit/sensoren mag niet crashen)
-        timeout-minutes: 20
+        timeout-minutes: 35
         run: |
           set -o pipefail
           cd App
