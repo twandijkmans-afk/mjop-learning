@@ -43,6 +43,12 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         session.run(cfg, options: [.resetTracking, .removeExistingAnchors])
     }
 
+    /// Hervat een eerder gepauzeerde sessie (na wisselen naar Mijn MJOP) ZONDER tracking te resetten, zodat de wereldcoördinaten van al vastgelegde keyframes geldig blijven.
+    func resume() {
+        guard ARWorldTrackingConfiguration.isSupported, let cfg = session.configuration else { return }
+        session.run(cfg)
+    }
+
     nonisolated func session(_ session: ARSession, didUpdate frame: ARFrame) {
         ring.offer(frame)                                   // buiten de hoofdthread; goedkoop begrensd (max ~12 Hz)
         Task { @MainActor in

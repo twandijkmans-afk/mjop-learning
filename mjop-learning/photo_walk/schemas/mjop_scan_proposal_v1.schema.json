@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_scan_proposal_v1",
+  "title": "MJOP-scanvoorstel v1 (Photo Walk -> Mijn MJOP)",
+  "description": "Voorstel van de gevelscanner aan het MJOP. Een voorstel is NOOIT een boeking: booking_allowed is in v1 altijd false en confirmation.status begint als PROPOSED. Bevestigen kan alleen door een gebruikershandeling in het MJOP; onzekere (niet-MEASURED of niet-gevalideerde) maten vereisen daarbij een expliciete bevestiging van de onzekerheid.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract", "proposal_id", "created_at", "project", "element", "quantity", "measurement", "evidence", "confirmation", "booking_allowed"],
+  "properties": {
+    "contract": {"const": "mjop_scan_proposal_v1"},
+    "proposal_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]{8,64}$"},
+    "created_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"},
+    "project": {
+      "type": "object", "additionalProperties": false,
+      "required": ["mjop_plan_id", "building_id", "facade_id", "bag_pand_id"],
+      "properties": {
+        "mjop_plan_id": {"type": ["string", "null"], "description": "saved_plans.id in Supabase; null zolang het voorstel nog niet aan een opgeslagen MJOP is gekoppeld."},
+        "building_id": {"type": "string", "minLength": 1},
+        "facade_id": {"type": "string", "minLength": 1},
+        "bag_pand_id": {"type": ["string", "null"], "pattern": "^\\d{16}$"}
+      }
+    },
+    "element": {
+      "type": "object", "additionalProperties": false,
+      "required": ["type", "mjop_element_key"],
+      "properties": {
+        "type": {"enum": ["FRAME", "FRAME_WITH_DOOR", "DOOR", "UNKNOWN"]},
+        "mjop_element_key": {"type": ["string", "null"], "description": "Sleutel uit ELEMENT_LIBRARY van de website (bijv. schilderwerk-buiten); null = nog te kiezen in het MJOP."}
+      }
+    },
+    "quantity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["unit", "value", "width_m", "height_m"],
+      "properties": {
+        "unit": {"enum": ["m2", "m1", "st"]},
+        "value": {"type": ["number", "null"], "minimum": 0},
+        "width_m": {"type": ["number", "null"], "minimum": 0},
+        "height_m": {"type": ["number", "null"], "minimum": 0}
+      }
+    },
+    "measurement": {
+      "type": "object", "additionalProperties": false,
+      "required": ["method", "dimension_status", "uncertainty"],
+      "properties": {
+        "method": {"enum": ["LIDAR_DEPTH_PLANE", "LIDAR_DEPTH_MULTI_FRAME", "AR_TRIANGULATION_VIO", "REFERENCE_DISTANCE", "MANUAL_CORNERS", "NONE"]},
+        "dimension_status": {"enum": ["MEASURED", "DERIVED", "ESTIMATED", "UNKNOWN"]},
+        "uncertainty": {
+          "type": "object", "additionalProperties": false,
+          "required": ["validated", "area_sigma_m2", "note"],
+          "properties": {
+            "validated": {"type": "boolean"},
+            "area_sigma_m2": {"type": ["number", "null"], "minimum": 0},
+            "note": {"type": "string"}
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_photo_id", "provisional_object_id", "quality_flags"],
+      "properties": {
+        "source_photo_id": {"type": "string", "minLength": 1},
+        "provisional_object_id": {"type": "string", "pattern": "^PROV-"},
+        "quality_flags": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "confirmation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "uncertainty_acknowledged", "confirmed_at"],
+      "properties": {
+        "status": {"enum": ["PROPOSED", "CONFIRMED_BY_USER", "REJECTED_BY_USER"]},
+        "uncertainty_acknowledged": {"type": "boolean"},
+        "confirmed_at": {"type": ["string", "null"]}
+      }
+    },
+    "booking_allowed": {"const": false, "description": "Fase 1: er is geen automatische definitieve boeking in het MJOP."}
+  }
+}

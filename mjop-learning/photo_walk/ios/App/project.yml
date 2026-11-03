@@ -18,15 +18,21 @@ targets:
         buildPhase: resources
     dependencies:
       - package: PhotoWalkCore
+        product: PhotoWalkCore
+      - package: PhotoWalkCore
+        product: MJOPIntegration
     info:
       path: Info.generated.plist          # door XcodeGen gegenereerd; niet committen
       properties:
-        CFBundleDisplayName: Photo Walk
+        CFBundleDisplayName: MJOP Live
         NSCameraUsageDescription: "De camera wordt lokaal gebruikt om kozijnen op te meten. Beelden verlaten het toestel niet."
         UILaunchScreen: {}
         UIRequiredDeviceCapabilities: [arkit]
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         UIRequiresFullScreen: true
+        CFBundleURLTypes:                   # mjoplive://auth-callback?code=... (terugkeer uit de browser na een Supabase-magic-link)
+          - CFBundleURLName: nl.mjop.photowalk.auth
+            CFBundleURLSchemes: [mjoplive]
         UIFileSharingEnabled: true          # exportbestanden zichtbaar in de Bestanden-app (handig zonder Mac)
         LSSupportsOpeningDocumentsInPlace: true
         # Bewust GEEN NSLocationWhenInUseUsageDescription: er worden geen locatiegegevens bewaard.

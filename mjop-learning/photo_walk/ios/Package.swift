@@ -6,9 +6,15 @@ import PackageDescription
 let package = Package(
     name: "PhotoWalkCore",
     platforms: [.iOS(.v16), .macOS(.v13)],
-    products: [.library(name: "PhotoWalkCore", targets: ["PhotoWalkCore"])],
+    products: [
+        .library(name: "PhotoWalkCore", targets: ["PhotoWalkCore"]),
+        .library(name: "MJOPIntegration", targets: ["MJOPIntegration"]),
+    ],
     targets: [
         .target(name: "PhotoWalkCore"),
+        // MJOP-integratie: alleen Foundation (geen WebKit/ARKit), zodat navigatiebeleid, foutafhandeling en contracten op macOS testbaar zijn.
+        .target(name: "MJOPIntegration"),
+        .testTarget(name: "MJOPIntegrationTests", dependencies: ["MJOPIntegration"], resources: [.copy("Fixtures")]),
         .testTarget(name: "PhotoWalkCoreTests", dependencies: ["PhotoWalkCore"], resources: [.copy("Fixtures")]),
     ]
 )
