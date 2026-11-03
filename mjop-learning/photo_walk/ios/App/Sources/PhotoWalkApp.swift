@@ -62,6 +62,18 @@ struct PhotoWalkApp: App {
             try? data.write(to: docs.appendingPathComponent("mjop_scan_proposal_selftest.json"))
             print("SELFTEST_PROPOSAL ok=\(((try? ScanProposal.decode(data)) != nil))")
         }
+        // 6) Fotoronde-voorstellen (mjop_scan_proposal_v2) uit de huidige sessie; CI valideert ze tegen het JSON-schema
+        store.round = RoundState(context: PhotoRoundContext(planRef: "plan-selftest0001", mjopPlanId: nil, buildingLabel: "Selftestgebouw", bagPandId: nil, mode: .round,
+                                                           element: nil, plannedFacades: []), facades: [.init(id: "Voorgevel", orientation: "S")])
+        store.measureAll()
+        if let input = RoundInputBuilder.build(store: store, createdAt: RoundCoordinator.isoNow()) {
+            let ps = RoundProposalBuilder.build(input)
+            let objs = ps.compactMap { $0.jsonObject() }
+            if let data = try? JSONSerialization.data(withJSONObject: objs, options: [.sortedKeys]), let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+                try? data.write(to: docs.appendingPathComponent("mjop_round_proposals_selftest.json"))
+                print("SELFTEST_ROUND proposals=\(ps.count) valid=\(ps.allSatisfy { $0.validate().isEmpty })")
+            }
+        }
         print("SELFTEST_TIMING v2_seconds=\(String(format: "%.1f", Date().timeIntervalSince(t1)))")
         print("SELFTEST_DONE")
     }

@@ -17,7 +17,7 @@ final class PhotoWalkUITests: XCTestCase {
 
     func testStartScreenAndSimulationFlow() {
         let app = XCUIApplication()
-        app.launchArguments += ["-section", "scanner"]; app.launch()
+        app.launchArguments += ["-scanner-test"]; app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         XCTAssertFalse(app.buttons["Foto-scan starten"].isEnabled, "zonder gebouw-/gevel-ID mag geen scan starten")
         let legacySim = app.buttons["Testscan met synthetische data (simulatie)"]
@@ -33,8 +33,7 @@ final class PhotoWalkUITests: XCTestCase {
 
     func testScanWithoutArKitDoesNotCrashAndGivesNoMeasurement() {
         let app = XCUIApplication()
-        app.launchArguments += ["-uitest-prefill"]
-        app.launchArguments += ["-section", "scanner"]; app.launch()
+        app.launchArguments += ["-uitest-prefill", "-scanner-test"]; app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         let start = app.buttons["Keyframe-scan starten (handmatig markeren)"]
         reveal(app, start)
@@ -66,7 +65,7 @@ final class PhotoWalkUITests: XCTestCase {
     }
 
     private func openTestImagePicker(_ app: XCUIApplication) {
-        app.launchArguments += ["-section", "scanner"]; app.launch()
+        app.launchArguments += ["-scanner-test"]; app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         let legacySim = app.buttons["Testscan met synthetische data (simulatie)"]
         reveal(app, legacySim); legacySim.tap()
@@ -146,8 +145,7 @@ final class PhotoWalkUITests: XCTestCase {
 
     func testPhotoScanZoomControlsAndShutterWithoutCamera() {
         let app = XCUIApplication()
-        app.launchArguments += ["-uitest-prefill"]
-        app.launchArguments += ["-section", "scanner"]; app.launch()
+        app.launchArguments += ["-uitest-prefill", "-scanner-test"]; app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         app.buttons["Foto-scan starten"].tap()
         let ind = app.staticTexts["photoZoomIndicator"]
@@ -167,7 +165,7 @@ final class PhotoWalkUITests: XCTestCase {
     /// Foto -> automatische kandidaat-detectie (Apple Vision op de synthetische foto) -> kaders -> voorlopige maat (synthetische LiDAR-diepte) -> overzicht.
     func testPhotoToBoxesToMeasurementWorkflowOnSyntheticPhoto() {
         let app = XCUIApplication()
-        app.launchArguments += ["-section", "scanner"]; app.launch()
+        app.launchArguments += ["-scanner-test"]; app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         app.buttons["Testfoto met synthetische data (simulatie)"].tap()
         let detected = app.staticTexts["overviewDetected"]
@@ -193,7 +191,7 @@ final class PhotoWalkUITests: XCTestCase {
     /// LiDAR-v2 op synthetische dieptekaders: kader -> detail -> Meetdiagnose-scherm -> export van het diagnosebestand.
     func testDiagnosticsScreenAndExportOnSyntheticLidarV2Scene() {
         let app = XCUIApplication()
-        app.launchArguments += ["-section", "scanner"]; app.launch()
+        app.launchArguments += ["-scanner-test"]; app.launch()
         XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
         app.buttons["Testfoto LiDAR-v2: terugliggend kozijn, meerdere dieptekaders (simulatie)"].tap()
         let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch

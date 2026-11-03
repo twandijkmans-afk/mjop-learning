@@ -7,6 +7,11 @@ import WebKit
 
 struct SharedFile: Identifiable { let id = UUID(); let url: URL }
 
+/// Ontvanger van de gevalideerde berichten van de website (de fotoronde-coördinator).
+@MainActor protocol BridgeHandling: AnyObject {
+    func handle(_ request: BridgeRequest) -> [[String: Any]]
+}
+
 /// Beheert de ENIGE WKWebView voor Mijn MJOP. De instantie leeft zolang de app draait, dus wisselen naar de scanner en terug verliest geen
 /// navigatiepositie of niet-opgeslagen invoer. Dit is de enige plek in de app met netwerk-/WebKit-code; de scanner blijft offline.
 @MainActor
@@ -20,6 +25,7 @@ final class MJOPWebController: NSObject, ObservableObject {
     @Published var sharedFile: SharedFile?
 
     let webView: WKWebView
+    weak var bridgeHandler: BridgeHandling?
     private let policy = WebNavigationPolicy.production
     private let monitor = NWPathMonitor()
     private var observers: [NSKeyValueObservation] = []
@@ -113,6 +119,15 @@ final class MJOPWebController: NSObject, ObservableObject {
         }
     }
 
+    /// Handmatige terugkeer: de gebruiker plakt de inloglink of -code uit de e-mail/brugpagina.
+    func pasteLogin(_ text: String) {
+        switch AuthPaste.parse(text) {
+        case .code(let c): handleAuthCallback(.code(c))
+        case .openInWebView(let u): load(u); show("Inloggen wordt afgerond…")
+        case .rejected: show("Dit is geen geldige inloglink of -code voor MJOP Live. Kopieer de link uit de e-mail of de code van de terugkeerpagina.")
+        }
+    }
+
     // MARK: afdrukken / PDF
 
     func presentPrint() {
@@ -144,7 +159,16 @@ final class MJOPWebController: NSObject, ObservableObject {
     private static let testPageHTML = """
     <!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head><body>
     <h1>MJOP testpagina</h1><button onclick="n++;document.getElementById('c').textContent='Teller: '+n">Teller verhogen</button>
-    <p id="c">Teller: 0</p><script>var n=0</script></body></html>
+    <p id="c">Teller: 0</p>
+    <button onclick="post('startPhotoRound', {planRef:'plan-0123456789abcdef01234567', mjopPlanId:null, buildingLabel:'Testgebouw 1', bagPandId:null, mode:'round', element:null, plannedFacades:[{name:'Voorgevel',orientation:'S'}]})">Start fotoronde</button>
+    <button onclick="post('startElementScan', {planRef:'plan-0123456789abcdef01234567', mjopPlanId:null, buildingLabel:'Testgebouw 1', bagPandId:null, mode:'element', element:{key:'kozijnen-onderhoud', name:'Onderhoud buitenkozijnen', unit:'st'}, plannedFacades:[]})">Scan voor element</button>
+    <button onclick="post('startPhotoRound', {planRef:'x', buildingLabel:'', mode:'round'})">Start ongeldig</button>
+    <button onclick="post('listProposals', {planRef:'plan-0123456789abcdef01234567'})">Vraag voorstellen</button>
+    <p id="antwoord">Antwoord: geen</p>
+    <script>var n=0, k=0;
+    function post(a,p){ k++; window.webkit.messageHandlers.mjopNative.postMessage({v:1, action:a, requestId:'t'+k, payload:p}); }
+    window.MJOPNativeBridge = { receive: function(m){ document.getElementById('antwoord').textContent = 'Antwoord: ' + m.type + ' voorstellen=' + (m.proposals ? m.proposals.length : '-') + ' fout=' + (m.message || '-'); } };
+    </script></body></html>
     """
     #endif
 
@@ -278,11 +302,26 @@ extension MJOPWebController: WKDownloadDelegate {
 // MARK: - Berichten van de pagina (alleen 'print', alleen van de eigen site)
 
 extension MJOPWebController: WKScriptMessageHandler {
+    /// Eén smalle brug: alleen berichten van de hoofdpagina op het eigen domein, alleen bekende acties, volledig gevalideerd (versie, requestId, grootte, context).
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard message.name == "mjopNative", message.frameInfo.isMainFrame,
-              let url = message.frameInfo.request.url, policy.isAllowedInApp(url),
-              let body = message.body as? [String: Any], body["action"] as? String == "print" else { return }
-        presentPrint()
+              let url = message.frameInfo.request.url, policy.isAllowedInApp(url) else { return }
+        switch BridgeMessage.parse(message.body) {
+        case .success(.print):
+            presentPrint()
+        case .success(let request):
+            guard let handler = bridgeHandler else { return }
+            for reply in handler.handle(request) { deliver(reply) }
+        case .failure(let e):
+            show("Een bericht van de pagina is genegeerd omdat het niet klopte.")
+            deliver(BridgeReply.error(requestId: nil, message: "Ongeldig bericht (\(String(describing: e).prefix(60)))."))
+        }
+    }
+
+    /// Stuurt een antwoord naar de pagina, maar nooit naar een pagina buiten het eigen domein.
+    func deliver(_ message: [String: Any]) {
+        guard let url = webView.url, policy.isAllowedInApp(url), let js = BridgeReply.script(for: message) else { return }
+        webView.evaluateJavaScript(js, completionHandler: nil)
     }
 }
 

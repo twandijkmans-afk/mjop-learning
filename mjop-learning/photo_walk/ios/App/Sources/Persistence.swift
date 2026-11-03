@@ -1,4 +1,5 @@
 import Foundation
+import MJOPIntegration
 import PhotoWalkCore
 
 /// Lokale opslag van een scansessie (Application Support, uitgesloten van back-up, bestandsbescherming). Geen upload, geen iCloud.
@@ -27,6 +28,18 @@ struct SessionSnapshot: Codable {
     var drafts: [Draft]
     var references: [Ref]
     var dismissedLinks: [String]
+    /// Alleen bij een fotoronde (optioneel: oudere sessies zonder dit veld blijven leesbaar).
+    var round: RoundSnapshot? = nil
+}
+
+struct RoundSnapshot: Codable {
+    var context: PhotoRoundContext
+    var status: String
+    var revision: Int
+    var facades: [RoundState.Facade]
+    var frameFacade: [String: String]
+    var frameWorld: [String: String]
+    var excludedFrames: [String]
 }
 
 enum Persistence {
@@ -76,7 +89,9 @@ enum Persistence {
             references: s.references.values.sorted { $0.referenceId < $1.referenceId }.map {
                 SessionSnapshot.Ref(referenceId: $0.referenceId, frameId: $0.frameId, p1: $0.p1, p2: $0.p2, distanceM: $0.distanceM, distanceSigmaM: $0.distanceSigmaM,
                                     planeId: $0.planeId, anchorObservationId: $0.anchorObservationId, kind: $0.kind.rawValue) },
-            dismissedLinks: s.dismissedLinks.sorted())
+            dismissedLinks: s.dismissedLinks.sorted(),
+            round: s.round.map { RoundSnapshot(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
+                                               frameWorld: $0.frameWorld, excludedFrames: $0.excludedFrames.sorted()) })
     }
 
     /// Schrijft de sessie (best effort; fouten worden niet gemeld aan de gebruiker maar breken niets). Asynchroon, zodat de UI niet wacht.
@@ -119,6 +134,17 @@ enum Persistence {
         return best
     }
 
+    /// Alle bewaarde fotorondes (nieuwste eerst), eventueel beperkt tot één project (planRef).
+    static func rounds(planRef: String? = nil) -> [(SessionSnapshot, URL)] {
+        guard let root, let dirs = try? FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) else { return [] }
+        let dec = JSONDecoder(); dec.dateDecodingStrategy = .iso8601
+        return dirs.compactMap { d -> (SessionSnapshot, URL)? in
+            guard let data = try? Data(contentsOf: d.appendingPathComponent("session.json")), let s = try? dec.decode(SessionSnapshot.self, from: data),
+                  let r = s.round, !s.isSimulation, planRef == nil || r.context.planRef == planRef else { return nil }
+            return (s, d)
+        }.sorted { $0.0.savedAt > $1.0.savedAt }
+    }
+
     static func latestAny() -> (SessionSnapshot, URL)? {      // incl. simulatie (voor tests)
         guard let root, let dirs = try? FileManager.default.contentsOfDirectory(at: root, includingPropertiesForKeys: nil) else { return nil }
         let dec = JSONDecoder(); dec.dateDecodingStrategy = .iso8601
@@ -156,6 +182,8 @@ enum Persistence {
             s.references[r.frameId] = m
         }
         s.dismissedLinks = Set(snap.dismissedLinks)
+        s.round = snap.round.map { RoundState(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
+                                              frameWorld: $0.frameWorld, excludedFrames: Set($0.excludedFrames)) }
         s.measureAll()
     }
 }

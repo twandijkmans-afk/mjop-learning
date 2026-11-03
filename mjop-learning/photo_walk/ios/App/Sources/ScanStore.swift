@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import MJOPIntegration
 import PhotoWalkCore
 
 /// Een vastgelegde foto: originele camerabeeld + intrinsics + pose + trackingstatus + (indien beschikbaar) LiDAR-diepte, alles ONGEWIJZIGD bewaard.
@@ -138,6 +139,19 @@ enum Measurer {
     }
 }
 
+/// Fotoronde-gegevens van een scansessie (alleen aanwezig als de sessie vanuit Mijn MJOP is gestart). De metingen zelf staan in de gewone sessiegegevens.
+struct RoundState: Equatable {
+    struct Facade: Equatable, Codable, Identifiable { var id: String; var orientation: String?
+        init(id: String, orientation: String?) { self.id = id; self.orientation = orientation } }
+    var context: PhotoRoundContext
+    var status = "IN_PROGRESS"                 // IN_PROGRESS | COMPLETED
+    var revision = 1                           // verhoogt als een afgeronde ronde opnieuw wordt afgerond
+    var facades: [Facade] = []
+    var frameFacade: [String: String] = [:]    // foto -> gevel
+    var frameWorld: [String: String] = [:]     // foto -> AR-sessie (eigen coördinatenstelsel); alleen binnen één sessie zijn kozijnen vergelijkbaar
+    var excludedFrames: Set<String> = []       // foto's die de inspecteur niet wil laten meetellen (overlap)
+}
+
 @MainActor
 final class ScanStore: ObservableObject {
     @Published var sessionId = UUID().uuidString
@@ -153,11 +167,21 @@ final class ScanStore: ObservableObject {
     @Published var analysisNotes: [String: String] = [:]
     @Published var dismissedLinks: Set<String> = []
     @Published var isSimulation = false
+    @Published var round: RoundState? = nil
 
     func newSession() {
         sessionId = UUID().uuidString; keyframes = []; observations = []; drafts = []; references = [:]; results = []; measures = [:]
-        analyzing = []; analysisNotes = [:]; dismissedLinks = []; isSimulation = false
+        analyzing = []; analysisNotes = [:]; dismissedLinks = []; isSimulation = false; round = nil
     }
+
+    /// Legt bij een nieuwe foto vast bij welke gevel en in welk AR-coördinatenstelsel hij is gemaakt (alleen in een fotoronde).
+    func tagKeyframe(_ id: String, world: String) {
+        guard round != nil else { return }
+        round?.frameFacade[id] = facadeId
+        round?.frameWorld[id] = world
+        if !facadeId.isEmpty, !(round?.facades.contains { $0.id == facadeId } ?? true) { round?.facades.append(.init(id: facadeId, orientation: nil)) }
+    }
+
 
     // MARK: waarnemingen
     func addObservation(_ o: Observation, to draftId: String?) {
@@ -206,7 +230,10 @@ final class ScanStore: ObservableObject {
         }
         return Linking.suggest(items).filter { c in
             let da = draft(of: c.a)?.id, db = draft(of: c.b)?.id
-            return da != db && !dismissedLinks.contains(c.a + "|" + c.b)
+            guard da != db && !dismissedLinks.contains(c.a + "|" + c.b) else { return false }
+            // Foto's uit verschillende AR-sessies hebben een eigen coördinatenstelsel: posities zijn dan niet vergelijkbaar, dus geen automatische suggestie.
+            if let r = round, let fa = observation(c.a)?.frameId, let fb = observation(c.b)?.frameId, let wa = r.frameWorld[fa], let wb = r.frameWorld[fb], wa != wb { return false }
+            return true
         }
     }
 

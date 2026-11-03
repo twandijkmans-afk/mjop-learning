@@ -16,6 +16,8 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
     @Published var keyframeCount = 0
     @Published var hasFrame = false
     @Published var hint: String? = nil
+    /// Identificeert het AR-coördinatenstelsel (verandert bij elke `start`, want tracking wordt dan gereset). Foto's met verschillende waarden zijn niet onderling vergelijkbaar.
+    private(set) var worldId = UUID().uuidString
     private(set) var capabilities = (lidarDepth: false, worldTracking: ARWorldTrackingConfiguration.isSupported)
     private var lastFrame: ARFrame?
     private weak var store: ScanStore?
@@ -26,6 +28,7 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
 
     func start(store: ScanStore) {
         self.store = store
+        worldId = UUID().uuidString
         guard ARWorldTrackingConfiguration.isSupported else {
             trackingText = "ARWorldTracking niet ondersteund op dit toestel (bv. simulator) -> geen keyframes; alleen niveau C (referentie) mogelijk"
             modeText = "C_REFERENCE"
@@ -41,12 +44,6 @@ final class CaptureCoordinator: NSObject, ObservableObject, ARSessionDelegate {
         modeText = capabilities.lidarDepth ? "A_METRIC_DEPTH (terugval B/C)" : "B_AR_GEOMETRY / C_REFERENCE"
         session.delegate = self
         session.run(cfg, options: [.resetTracking, .removeExistingAnchors])
-    }
-
-    /// Hervat een eerder gepauzeerde sessie (na wisselen naar Mijn MJOP) ZONDER tracking te resetten, zodat de wereldcoördinaten van al vastgelegde keyframes geldig blijven.
-    func resume() {
-        guard ARWorldTrackingConfiguration.isSupported, let cfg = session.configuration else { return }
-        session.run(cfg)
     }
 
     nonisolated func session(_ session: ARSession, didUpdate frame: ARFrame) {

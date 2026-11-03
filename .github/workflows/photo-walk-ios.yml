@@ -169,6 +169,7 @@ jobs:
           EXP=$(ls "$DATA"/Documents/photo_walk_*.json | head -1)
           cp "$EXP" "$LOGS/selftest-export.json"
           cp "$DATA"/Documents/mjop_scan_proposal_selftest.json "$LOGS/selftest-proposal.json"
+          cp "$DATA"/Documents/mjop_round_proposals_selftest.json "$LOGS/selftest-round-proposals.json"
           mkdir -p "$LOGS/diag"; cp "$DATA"/Documents/meetdiagnose_*.json "$LOGS/diag/"; ls -la "$LOGS/diag"
           echo "UDID=$UDID" >> "$GITHUB_ENV"
           echo "export: $EXP"
@@ -211,6 +212,21 @@ jobs:
           assert r["scan_label"] == "AUTOMATIC_UNREVIEWED"
           PY
           python -m photo_walk_core.validate "$LOGS"/diag/*.json
+          # Fotoronde-voorstellen (mjop_scan_proposal_v2) uit de app voldoen aan het schema en zijn nooit boeking/bevestigd
+          python - <<'PY'
+          import json, os, jsonschema
+          L = os.environ["LOGS"]
+          schema = json.load(open("../schemas/mjop_scan_proposal_v2.schema.json"))
+          docs = json.load(open(L + "/selftest-round-proposals.json"))
+          assert len(docs) >= 2, docs
+          for d in docs:
+              jsonschema.Draft7Validator(schema).validate(d)
+              assert d["booking_allowed"] is False and d["confirmation"]["status"] == "PROPOSED"
+              assert d["measurement"]["uncertainty"]["validated"] is False
+              if d["target"]["quantity_kind"] == "FRAME_AREA_GROSS" and d["basis"]["objects_unmeasured"] > 0:
+                  assert d["value"] is None
+          print("fotoronde-voorstellen (Swift) voldoen aan mjop_scan_proposal_v2:", len(docs))
+          PY
           # Swift-gecodeerd MJOP-scanvoorstel moet aan het schema voldoen (nullable sleutels aanwezig, geen boeking)
           python - <<'PY'
           import json, os, jsonschema

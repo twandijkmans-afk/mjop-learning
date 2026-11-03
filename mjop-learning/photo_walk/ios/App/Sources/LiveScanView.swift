@@ -11,8 +11,6 @@ struct ARViewContainer: UIViewRepresentable {
 struct LiveScanView: View {
     @EnvironmentObject var store: ScanStore
     @StateObject private var cap = CaptureCoordinator()
-    @Environment(\.scannerVisible) private var scannerVisible
-    @State private var onScreen = false     // alleen hervatten als dit scherm zelf zichtbaar is (niet als er een resultaatscherm overheen ligt)
     /// VISUELE zoom van de cameravoorvertoning. De ARKit-sessie, de capturedImage, de intrinsics en de LiDAR-diepte blijven onaangetast:
     /// een vastgelegd keyframe is altijd de volledige, onvergrote opname. Visuele zoom geeft GEEN extra metrische nauwkeurigheid.
     @State private var zoom: CGFloat = 1
@@ -77,9 +75,8 @@ struct LiveScanView: View {
             }
         }
         .ignoresSafeArea(edges: .top)
-        .onAppear { onScreen = true; cap.start(store: store) }
-        .onDisappear { onScreen = false; cap.session.pause() }
-        .onChange(of: scannerVisible) { visible in if visible { if onScreen { cap.resume() } } else { cap.session.pause() } }
+        .onAppear { cap.start(store: store) }
+        .onDisappear { cap.session.pause() }
         .navigationTitle("Gevelscan").navigationBarTitleDisplayMode(.inline)
     }
 }
