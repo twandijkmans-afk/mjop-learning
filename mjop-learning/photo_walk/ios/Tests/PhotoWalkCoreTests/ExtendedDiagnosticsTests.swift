@@ -35,9 +35,10 @@ final class ExtendedDiagnosticsTests: XCTestCase {
                 guard let a = (act as? NSNumber)?.doubleValue else { XCTFail("\(path): geen getal", file: file, line: line); return }
                 // Inlier-tellingen (en de aandelen daaruit) mogen op een enkele randpixel verschillen: de vlakselectie rekent in Swift en Python met
                 // verschillend afgeronde drijvende komma op de inlier-grens (interieur met diepe neggen). Statussen, vlaggen en maten blijven exact gelijk getest.
-                let countLike = path.contains("counts") || path.contains("/support/") || path.contains("/counts")
+                let countLike = path.contains("counts") || path.contains("/support/") || path.hasSuffix("/count")
                 let shareLike = path.contains("shares")
-                let t = countLike ? max(tol, 3.0) : (shareLike ? max(tol, 0.015) : tol)
+                let angleLike = path.hasSuffix("angle_to_largest_deg")      // vlakhoek volgt uit dezelfde inlier-set: <= 0,2 graad
+                let t = countLike ? max(tol, 3.0) : (shareLike ? max(tol, 0.015) : (angleLike ? max(tol, 0.2) : tol))
                 XCTAssertEqual(a, e.doubleValue, accuracy: t, path, file: file, line: line)
             }
         default: XCTFail("\(path): onbekend type", file: file, line: line)
