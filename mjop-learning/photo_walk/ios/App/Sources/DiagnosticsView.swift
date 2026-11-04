@@ -1,3 +1,5 @@
+#if DEBUG
+// ONTWIKKELINTERFACE: bestaat alleen in Debug-builds. In Release is dit bestand leeg gecompileerd (zie docs/dev_capture_bundle.md).
 import SwiftUI
 import PhotoWalkCore
 
@@ -8,6 +10,10 @@ struct DiagnosticsView: View {
     let observationId: String
     @State private var exportPath: String? = nil
     @State private var exportURL: URL? = nil
+    @AppStorage(DevBundleStore.enabledKey) private var devBundle = false
+    @AppStorage(DevBundleStore.photoKey) private var devBundlePhoto = false
+    @State private var bundleInfo: String? = nil
+    @State private var bundleCount = DevBundleStore.count()
 
     private func d(_ x: Any?) -> Double? { (x as? NSNumber)?.doubleValue ?? (x as? Double) }
     private func i(_ x: Any?) -> Int? { (x as? NSNumber)?.intValue ?? (x as? Int) }
@@ -17,12 +23,6 @@ struct DiagnosticsView: View {
     }
     private func line(_ k: String, _ v: String) -> some View {
         HStack(alignment: .top) { Text(k).font(.footnote).foregroundStyle(.secondary); Spacer(); Text(v).font(.footnote).multilineTextAlignment(.trailing) }
-    }
-
-    /// Behoefte aan meer beweging: te weinig onafhankelijke frames of een kozijnvlak dat daardoor niet bepaald kon worden.
-    static func needsMotion(_ r: LevelResult) -> Bool {
-        let codes = Set(r.flags.map { $0.code })
-        return r.independentFrames < 2 && r.level == .A || !codes.isDisjoint(with: ["FRAME_PLANE_UNDETERMINED", "FRAME_OFFSET_FROM_CORNER_DEPTH", "FRAMES_INCONSISTENT", "DEPTH_COVERAGE_LOW", "LIMITED_SIDE_COVERAGE"])
     }
 
     var body: some View {
@@ -51,7 +51,7 @@ struct DiagnosticsView: View {
                         }
                     }
                     if r.flags.isEmpty { Text("Geen waarschuwingen.").font(.footnote) }
-                    if Self.needsMotion(r) { Text(CaptureCoordinator.motionHint).font(.footnote.bold()).accessibilityIdentifier("motionHint") }
+                    if MotionAdvice.needsMotion(r) { Text(CaptureCoordinator.motionHint).font(.footnote.bold()).accessibilityIdentifier("motionHint") }
                 }
                 Section("Dieptepunten") {
                     line("Ringpixels (wand rond kozijn)", "\(i(g["ring_pixels"]) ?? 0)")
@@ -131,6 +131,19 @@ struct DiagnosticsView: View {
                     }.buttonStyle(.borderedProminent).accessibilityIdentifier("exportDiagnosticsButton")
                     if let p = exportPath { Text("Bestand: \(p)").font(.caption2).textSelection(.enabled).accessibilityIdentifier("diagnosticsExportPath") }
                     if let u = exportURL { ShareLink(item: u) { Label("Delen (alleen naar jezelf)", systemImage: "square.and.arrow.up") } }
+                    Toggle("Ontwikkelbundel opslaan (alleen ontwikkelmodus)", isOn: $devBundle).accessibilityIdentifier("devBundleToggle")
+                    if devBundle {
+                        Toggle("Volledige foto meenemen", isOn: $devBundlePhoto).accessibilityIdentifier("devBundlePhotoToggle")
+                        Button("Bewaar ontwikkelbundel van deze meting") {
+                            if let u = try? DevBundleStore.writeIfEnabled(store, observationId: observationId) { bundleInfo = "Bundel: \(u.lastPathComponent)" } else { bundleInfo = "bundel mislukt" }
+                            bundleCount = DevBundleStore.count()
+                        }.accessibilityIdentifier("devBundleWriteButton")
+                    }
+                    Button("Verwijder ontwikkelbundels (\(bundleCount))", role: .destructive) { _ = DevBundleStore.deleteAll(); bundleCount = DevBundleStore.count(); bundleInfo = "alle bundels verwijderd" }
+                        .accessibilityIdentifier("devBundleDeleteButton")
+                    if let b = bundleInfo { Text(b).font(.caption2).accessibilityIdentifier("devBundleInfo") }
+                    Text("Ontwikkelbundel: standaard uit. Bevat dieptekaarten, hoeken, intrinsics, tracking, helling t.o.v. de zwaartekracht en relatieve poses van de steunframes, en alleen als jij dat aanzet de volledige foto. Geen locatie, geen kompas, geen absolute positie. Blijft op dit toestel, buiten back-ups, en wordt nooit geüpload.")
+                        .font(.caption2).foregroundStyle(.secondary)
                     Text("Het diagnosebestand bevat alleen getallen (pixelhoeken, aantallen, afstanden, vlakstatistieken, vlaggen en drempels): geen foto's, geen puntenwolk, geen locatie, geen absolute camerapositie. Het gaat nergens heen tenzij jij het deelt.")
                         .font(.caption2).foregroundStyle(.secondary)
                 }
@@ -139,3 +152,4 @@ struct DiagnosticsView: View {
         .navigationTitle("Meetdiagnose").accessibilityIdentifier("diagnosticsView")
     }
 }
+#endif

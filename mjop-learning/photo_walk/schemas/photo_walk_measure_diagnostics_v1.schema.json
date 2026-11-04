@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "photo_walk_measure_diagnostics_v1.schema.json",
   "title": "PhotoWalkMeasureDiagnosticsV1",
-  "description": "Klein, lokaal diagnostiekbestand van EEN kozijnmeting (numerieke meetdiagnostiek om later te analyseren). Bevat bewust GEEN foto's, GEEN puntenwolken, GEEN absolute camerapositie/locatie en geen persoonsgegevens: alleen pixelhoeken, camera-intrinsics, aantallen, afstanden, vlakstatistieken, vlaggen en drempels.",
+  "description": "Klein, lokaal diagnostiekbestand van EEN kozijnmeting (numerieke meetdiagnostiek om later te analyseren). Bevat bewust GEEN foto's, GEEN puntenwolken, GEEN absolute camerapositie/locatie en geen persoonsgegevens: alleen pixelhoeken, camera-intrinsics, aantallen, afstanden, vlakstatistieken, vlaggen en drempels. Versie 1.1.0 voegt het optionele blok `extended_diagnostics` toe (alleen getallen en labels, camera-relatief; geen locatie, geen absolute pose).",
   "type": "object",
   "additionalProperties": false,
   "required": ["contract", "contract_version", "created_utc", "platform", "data_origin", "app_build", "session_ref", "frame_id", "observation_id", "camera",
@@ -28,8 +28,325 @@
     "algorithm": {"type": "object", "description": "Numerieke diagnostiek van het meetalgoritme (zie docs/lidar_measurement_v2.md)."},
     "thresholds": {"type": "object", "description": "Gebruikte (provisional) drempels."},
     "user_hints_nl": {"type": "array", "items": {"type": "string"}},
+    "extended_diagnostics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "spec_version",
+        "computed_after_result",
+        "frames",
+        "camera_gravity",
+        "quad_from_corners",
+        "gate_constants"
+      ],
+      "description": "Uitgebreide diagnostiek (spec 1.1.0); NA het resultaat berekend; heeft geen invloed op de meetuitkomst.",
+      "properties": {
+        "spec_version": {
+          "const": "1.1.0"
+        },
+        "computed_after_result": {
+          "const": true
+        },
+        "privacy_note": {
+          "type": "string"
+        },
+        "frames": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "frame",
+              "role",
+              "used",
+              "reason",
+              "has_depth",
+              "tracking",
+              "dt_to_capture_m",
+              "rot_to_capture_deg"
+            ],
+            "properties": {
+              "frame": {
+                "type": "string"
+              },
+              "role": {
+                "enum": [
+                  "CAPTURE",
+                  "SUPPORT"
+                ]
+              },
+              "used": {
+                "type": "boolean"
+              },
+              "reason": {
+                "enum": [
+                  "CORRELATED_OR_LIMIT",
+                  "TRACKING_OR_DEPTH",
+                  null
+                ]
+              },
+              "has_depth": {
+                "type": "boolean"
+              },
+              "tracking": {
+                "type": "string"
+              },
+              "dt_to_capture_m": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "rot_to_capture_deg": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "meets_baseline": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "meets_rotation": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "camera_gravity": {
+          "type": "object",
+          "required": [
+            "pitch_deg",
+            "roll_sensor_x_deg"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "pitch_deg": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "roll_sensor_x_deg": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        },
+        "quad_from_corners": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "aspect_w_over_h": {
+              "type": "number"
+            },
+            "axes_angle_deg": {
+              "type": "number"
+            },
+            "facing": {
+              "type": "number"
+            },
+            "plane_normal_cam": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              },
+              "minItems": 3,
+              "maxItems": 3
+            }
+          }
+        },
+        "planes_all": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "index",
+              "role",
+              "count",
+              "facing",
+              "normal_cam",
+              "centroid_cam",
+              "sides_counts"
+            ],
+            "properties": {
+              "index": {
+                "type": "integer"
+              },
+              "role": {
+                "type": "string"
+              },
+              "count": {
+                "type": "integer"
+              },
+              "facing": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "vertical": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "normal_cam": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "centroid_cam": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "minItems": 3,
+                "maxItems": 3
+              },
+              "sides_counts": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "sides_shares": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "gates_shadow": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "host_hypothesis",
+            "gates",
+            "reproduces_result_planes"
+          ],
+          "properties": {
+            "host_hypothesis": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "reproduces_result_planes": {
+              "type": "boolean"
+            },
+            "gates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "status"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "enum": [
+                      "PASS",
+                      "FAIL",
+                      "NOT_EVALUATED",
+                      "NOT_APPLICABLE"
+                    ]
+                  },
+                  "value": {},
+                  "limit": {},
+                  "note": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "depth_profiles": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "glass_depth_summary": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "framing": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "edge_ladder_px": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "gate_constants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "value",
+              "where"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "where": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
     "privacy": {"type": "object", "additionalProperties": false,
       "required": ["images_included", "point_cloud_included", "absolute_pose_included", "location_included"],
       "properties": {"images_included": {"const": false}, "point_cloud_included": {"const": false}, "absolute_pose_included": {"const": false}, "location_included": {"const": false}}}
-  }
+  },
+  "allOf": [{"if": {"required": ["extended_diagnostics"]}, "then": {"properties": {"contract_version": {"const": "1.1.0"}}}}]
 }

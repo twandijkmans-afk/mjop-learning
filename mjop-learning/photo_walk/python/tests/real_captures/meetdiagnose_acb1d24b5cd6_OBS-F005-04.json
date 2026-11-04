@@ -1,0 +1,296 @@
+{
+  "algorithm" : {
+    "algorithm" : "LIDAR_PLANE_V2",
+    "baseline_m" : 0,
+    "blocking" : [
+      "AMBIGUOUS_FACADE_PLANES"
+    ],
+    "facade_assessment" : {
+      "gate" : "AMBIGUOUS_FACADE_PLANES",
+      "note_ring_spread" : "alleen diagnostische achtergrondwaarde; geen kwaliteitsgate",
+      "planes" : [
+        {
+          "count" : 5102,
+          "role" : "FACADE_CANDIDATE"
+        },
+        {
+          "count" : 3421,
+          "role" : "FACADE_CANDIDATE"
+        },
+        {
+          "count" : 887,
+          "role" : "FACADE_CANDIDATE"
+        }
+      ],
+      "reasons" : [
+        "twee even grote verticale vlakken met verschillende richting (hoek\/uitbouw)"
+      ],
+      "representative" : false,
+      "ring_points" : 9581
+    },
+    "flags" : [
+      {
+        "code" : "AMBIGUOUS_FACADE_PLANES",
+        "detail" : "twee even grote verticale vlakken met verschillende richting (hoek\/uitbouw)",
+        "severity" : "BLOCKING"
+      }
+    ],
+    "frame_id" : "F005",
+    "frames_independent_candidates" : 1,
+    "frames_rejected" : [
+      {
+        "frame" : "F005-S0",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S1",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S2",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S3",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S4",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S5",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S6",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F005-S7",
+        "why" : "CORRELATED_OR_LIMIT"
+      }
+    ],
+    "frames_total" : 9,
+    "hints_nl" : [
+      "Rond het kozijn liggen meerdere even grote vlakken op verschillende diepte (verspringende gevel). Fotografeer vanaf een standpunt waar één wandvlak duidelijk om het kozijn zit, of gebruik een referentiemaat."
+    ],
+    "ok" : false,
+    "planes" : [
+      {
+        "count" : 5102,
+        "facing" : 0.99909999999999999,
+        "normal" : [
+          0.061600000000000002,
+          0.0035000000000000001,
+          0.99809999999999999
+        ],
+        "offset" : -1.8644000000000001,
+        "rms_m" : 0.013100000000000001,
+        "role" : "FACADE_CANDIDATE",
+        "sides" : [
+          986,
+          2484,
+          5,
+          1627
+        ],
+        "vertical" : 0.0035000000000000001
+      },
+      {
+        "count" : 3421,
+        "facing" : 0.41349999999999998,
+        "normal" : [
+          0.99819999999999998,
+          0.018200000000000001,
+          0.056800000000000003
+        ],
+        "offset" : -0.74139999999999995,
+        "rms_m" : 0.0048999999999999998,
+        "role" : "FACADE_CANDIDATE",
+        "sides" : [
+          0,
+          0,
+          0,
+          3421
+        ],
+        "vertical" : 0.018200000000000001
+      },
+      {
+        "count" : 887,
+        "facing" : 0.83079999999999998,
+        "normal" : [
+          0.33179999999999998,
+          -0.001,
+          0.94330000000000003
+        ],
+        "offset" : -2.5,
+        "rms_m" : 0.011900000000000001,
+        "role" : "FACADE_CANDIDATE",
+        "sides" : [
+          0,
+          887,
+          0,
+          0
+        ],
+        "vertical" : 0.001
+      }
+    ],
+    "points_band" : 1501,
+    "points_glass" : 3831,
+    "points_ring" : 9581,
+    "points_valid_total" : 14913,
+    "range_median_m" : 1.9735,
+    "ring_coverage" : 0.62170000000000003,
+    "ring_pixels" : 15410,
+    "ring_valid" : 9581,
+    "smoothed_cross_check" : {
+      "delta_height_m" : null,
+      "delta_width_m" : null,
+      "height_m" : null,
+      "note" : "gecorreleerd met de hoofdmeting; geen onafhankelijk bewijs",
+      "ok" : false,
+      "width_m" : null
+    },
+    "stats" : {
+      "range_median_m" : 1.9735,
+      "ring_points" : 9581,
+      "sigma_m" : 0.011900000000000001,
+      "threshold_m" : 0.041700000000000001
+    },
+    "tracking_capture" : "NORMAL"
+  },
+  "app_build" : "photo_walk_ios_lidar_v2\/1",
+  "camera" : {
+    "cx" : 964.5103759765625,
+    "cy" : 724.52606201171875,
+    "fx" : 1442.2156982421875,
+    "fy" : 1442.2156982421875,
+    "height" : 1440,
+    "width" : 1920
+  },
+  "contract" : "photo_walk_measure_diagnostics_v1",
+  "contract_version" : "1.0.0",
+  "corners_px" : [
+    [
+      332.87,
+      1047.6900000000001
+    ],
+    [
+      325.11000000000001,
+      384.33999999999997
+    ],
+    [
+      1846.6900000000001,
+      439.31999999999999
+    ],
+    [
+      1848.78,
+      1027.22
+    ]
+  ],
+  "created_utc" : "2026-11-03T13:09:35Z",
+  "data_origin" : "REAL_SENSOR",
+  "frame_id" : "F005",
+  "measurement" : {
+    "area_m2" : null,
+    "feedback" : "orange",
+    "height_m" : null,
+    "level" : null,
+    "scale_method" : "LIDAR_DEPTH_PLANE",
+    "status" : "UNKNOWN",
+    "width_m" : null
+  },
+  "observation_id" : "OBS-F005-04",
+  "platform" : "IOS",
+  "privacy" : {
+    "absolute_pose_included" : false,
+    "images_included" : false,
+    "location_included" : false,
+    "point_cloud_included" : false
+  },
+  "result_flags" : [
+    {
+      "code" : "AMBIGUOUS_FACADE_PLANES",
+      "detail" : "twee even grote verticale vlakken met verschillende richting (hoek\/uitbouw)",
+      "severity" : "BLOCKING"
+    },
+    {
+      "code" : "OUTER_CONTOUR_UNVERIFIED",
+      "detail" : "UNVERIFIED",
+      "severity" : "BLOCKING"
+    }
+  ],
+  "session_ref" : "acb1d24b5cd6",
+  "thresholds" : {
+    "ambiguity_ratio" : 0.59999999999999998,
+    "annulus_inner_scale" : 1.0800000000000001,
+    "annulus_min_points" : 60,
+    "annulus_min_valid_fraction" : 0.34999999999999998,
+    "annulus_outer_scale" : 1.8,
+    "band_cluster_min_share" : 0.34999999999999998,
+    "band_hi_scale" : 0.98499999999999999,
+    "band_lo_scale" : 0.88,
+    "consistency_k" : 3,
+    "corner_depth_block_m" : 0.25,
+    "corner_depth_tol_m" : 0.080000000000000002,
+    "corner_pixel_sigma_px" : 1.5,
+    "corner_tol_k" : 2,
+    "corners_contradict_block" : 3,
+    "depth_max_range_m" : 5,
+    "depth_min_range_m" : 0.29999999999999999,
+    "depth_noise_floor_m" : 0.01,
+    "facade_local_band_k" : 3,
+    "facade_max_vertical" : 0.34999999999999998,
+    "facade_min_extent_ratio" : 0.040000000000000001,
+    "facade_min_facing" : 0.34999999999999998,
+    "facade_rms_k" : 1.5,
+    "facade_support_min" : 0.5,
+    "flush_tol_k" : 1.2,
+    "frame_group_tol_k" : 1.5,
+    "frame_normal_deg" : 4,
+    "frame_search_m" : 0.34999999999999998,
+    "frame_side_min_points" : 12,
+    "frame_tol_abs_m" : 0.01,
+    "frame_tol_rel" : 0.029999999999999999,
+    "glass_beyond_plane_m" : 0.29999999999999999,
+    "glass_inner_scale" : 0.84999999999999998,
+    "glass_max_beyond_fraction" : 0.25,
+    "glass_min_valid_fraction" : 0.5,
+    "glass_scale" : 0.69999999999999996,
+    "lidar_sigma0_m" : 0.0040000000000000001,
+    "lidar_sigma1_per_m" : 0.0040000000000000001,
+    "max_dim_m" : 10,
+    "max_planes" : 3,
+    "max_ransac_points" : 2500,
+    "max_support_frames" : 5,
+    "mc_samples" : 100,
+    "min_baseline_m" : 0.02,
+    "min_dim_m" : 0.10000000000000001,
+    "min_incidence_cos" : 0.34999999999999998,
+    "min_plane_points" : 40,
+    "min_rotation_deg" : 1.5,
+    "plane_effective_samples_cap" : 50,
+    "plane_max_rms_m" : 0.02,
+    "plane_min_fraction" : 0.059999999999999998,
+    "plane_min_inlier_ratio" : 0.59999999999999998,
+    "plane_ransac_iterations" : 200,
+    "plane_ransac_threshold_m" : 0.02,
+    "ransac_iterations_v2" : 150,
+    "rect_angle_tol_deg" : 6,
+    "rect_edge_ratio_tol" : 0.050000000000000003,
+    "ref_orthogonality_tol" : 0.080000000000000002,
+    "ref_plane_tol_m" : 0.050000000000000003,
+    "relief_tol_m" : 0.012,
+    "ring_inner_scale" : 1.0600000000000001,
+    "ring_outer_scale" : 1.6000000000000001,
+    "side_min_points" : 15,
+    "side_min_share" : 0.050000000000000003,
+    "thr_k" : 2.5,
+    "threshold_status" : "PROVISIONAL_UNVALIDATED",
+    "unexplained_max" : 0.59999999999999998
+  },
+  "user_hints_nl" : [
+    "Rond het kozijn liggen meerdere even grote vlakken op verschillende diepte (verspringende gevel). Fotografeer vanaf een standpunt waar één wandvlak duidelijk om het kozijn zit, of gebruik een referentiemaat.",
+    "De buitencontour van dit kozijn is automatisch herkend en nog niet door jou bevestigd (rond glas gevonden, losse rechthoek of voorgestelde vergroting vanaf het glas). De maat is alleen indicatief. Controleer of het kader op de BUITENRAND van het kozijn ligt en kies 'Dit is de buitenmaat', of sleep de hoeken naar de buitenrand."
+  ]
+}

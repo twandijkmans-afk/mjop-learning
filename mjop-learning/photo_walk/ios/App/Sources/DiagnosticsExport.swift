@@ -1,8 +1,11 @@
+#if DEBUG
+// ONTWIKKELINTERFACE: bestaat alleen in Debug-builds. In Release is dit bestand leeg gecompileerd (zie docs/dev_capture_bundle.md).
 import CryptoKit
 import Foundation
 import PhotoWalkCore
+import UIKit
 
-/// Meetdiagnose-export (`photo_walk_measure_diagnostics_v1`): klein, lokaal JSON-bestand met uitsluitend numerieke diagnostiek van EEN kozijnmeting.
+/// Meetdiagnose-export (`photo_walk_measure_diagnostics_v1`, versie 1.1.0: voegt het blok `extended_diagnostics` toe): klein, lokaal JSON-bestand met uitsluitend numerieke diagnostiek van EEN kozijnmeting.
 /// Bevat bewust GEEN foto's, GEEN puntenwolken, GEEN absolute camerapositie en GEEN locatie. De sessie wordt alleen als 12 hex-tekens van een sha256 vermeld.
 /// Valideren/analyseren op een pc: `python -m photo_walk_core.validate <bestand>`.
 enum DiagnosticsExport {
@@ -43,8 +46,15 @@ enum DiagnosticsExport {
         if let dh = r.diag["hints_nl"] as? [String] { for h in dh where !hints.contains(h) { hints.append(h) } }
         if hints.isEmpty { hints = ["Geen blokkerende problemen."] }
         let iso = ISO8601DateFormatter()
+        // Spec 1.1.0: extra, ALLEEN-LEZEN diagnostiek, berekend NA het resultaat (zie ExtendedDiagnostics). Geen invloed op een maat, vlag of status.
+        var labels: [String: String] = [kf.id: kf.trackingState]
+        for sd in kf.supportDepths { labels[sd.id] = sd.trackingState }
+        var gray: GrayImage? = nil, sat: GrayImage? = nil
+        if let url = kf.imageURL, let imgs = ladderImages(url) { gray = imgs.gray; sat = imgs.saturation }
+        let ext = ExtendedDiagnostics.compute(view: Measurer.input(kf), corners: o.corners, result: r, seed: stableSeed(o.id), contourStatus: o.outerContour.rawValue,
+                                              trackingLabels: labels, imageGray: gray, imageSaturation: sat)
         return [
-            "contract": "photo_walk_measure_diagnostics_v1", "contract_version": "1.0.0", "created_utc": iso.string(from: Date()),
+            "contract": "photo_walk_measure_diagnostics_v1", "contract_version": "1.1.0", "created_utc": iso.string(from: Date()),
             "platform": s.isSimulation ? "SIMULATION" : "IOS", "data_origin": s.isSimulation ? "SIMULATION" : "REAL_SENSOR",
             "app_build": "photo_walk_ios_lidar_v2/" + ((Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "dev"),
             "session_ref": sessionRef(s.sessionId), "frame_id": o.frameId, "observation_id": o.id,
@@ -54,7 +64,24 @@ enum DiagnosticsExport {
                             "level": r.ok ? r.level.rawValue : NSNull(), "feedback": m.feedback.rawValue] as [String: Any],
             "result_flags": flags, "algorithm": jsonSafe(r.diag), "thresholds": thresholds(), "user_hints_nl": hints,
             "privacy": ["images_included": false, "point_cloud_included": false, "absolute_pose_included": false, "location_included": false] as [String: Any],
+            "extended_diagnostics": ext,
         ]
+    }
+
+    /// Grijs- en verzadigingsbeeld (alleen voor de randsterkte-getallen in de diagnose) uit het lokaal bewaarde beeld. Het beeld zelf verlaat de functie niet
+    /// en komt niet in het diagnosebestand.
+    static func ladderImages(_ url: URL) -> (gray: GrayImage, saturation: GrayImage)? {
+        guard let cg = UIImage(contentsOfFile: url.path)?.cgImage, let g = GrayImageLoader.gray(cg) else { return nil }
+        let w = cg.width, h = cg.height
+        var rgba = [UInt8](repeating: 0, count: w * h * 4)
+        let ok: Bool = rgba.withUnsafeMutableBytes { (buf: UnsafeMutableRawBufferPointer) -> Bool in
+            guard let ctx = CGContext(data: buf.baseAddress, width: w, height: h, bitsPerComponent: 8, bytesPerRow: w * 4, space: CGColorSpaceCreateDeviceRGB(),
+                                      bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue) else { return false }
+            ctx.draw(cg, in: CGRect(x: 0, y: 0, width: w, height: h))
+            return true
+        }
+        guard ok else { return nil }
+        return (g, ExtendedDiagnostics.saturationChannel(rgba: rgba, width: w, height: h))
     }
 
     @MainActor static func write(_ s: ScanStore, observationId: String) throws -> URL {
@@ -66,3 +93,4 @@ enum DiagnosticsExport {
         return url
     }
 }
+#endif

@@ -103,3 +103,12 @@ Kozijnvlak (terugligging), hoekcontrole en kaderomvang blijven na een goed wandv
 * Referentiemaat (niveau C) is ongewijzigd: `DERIVED` (of `ESTIMATED` bij een geschatte referentie); die status hangt niet af van het aantal standpunten.
 * Gevolg voor bestaande scans: de opgeslagen gegevens veranderen niet, maar een eerder als `MEASURED` getoonde maat uit één foto met meerdere dieptekaders wordt bij openen opnieuw berekend als `ESTIMATED`. Dat is een aanscherping.
 * Wat dit **niet** bewijst: dat twee foto's op een echte gevel nauwkeuriger zijn dan één. Dat vraagt de veldvalidatie (`device_validation.md`).
+
+## Meetdiagnose 1.1.0 (`extended_diagnostics`)
+Optioneel, alleen-lezen blok in `photo_walk_measure_diagnostics_v1`, berekend **na** het resultaat. Meetlogica, drempels en verificatiepoorten zijn ongewijzigd; tests bewijzen dat de meetuitkomst met en zonder dit blok identiek is.
+
+Inhoud: `frames` (waarom een frame wel/niet onafhankelijk is), `camera_gravity`, `quad_from_corners` (pose-vrije homografie: aspect, assenhoek, facing), `planes_all` (camera-relatief), `gates_shadow` (per poort PASS/FAIL/NOT_EVALUATED/NOT_APPLICABLE; nooit een hypothetische maat), `depth_profiles` (2 cm-bins), `glass_depth_summary`, `framing` (informatief, geen eis), `edge_ladder_px` (alleen getallen), `gate_constants` (vaste constanten met bronanker).
+
+Er is **geen verplichte opnameafstand**: close-ups van penant en kozijnprofiel, schuine opnamen en beperkte afstand worden beschreven, niet geweigerd. Echte metingen OBS-F005-04 en OBS-F014-03 staan als replay-tests in `python/tests/real_captures/` (zonder foto's). De profielbreedtes volgen later als aanvullende referentiemeting.
+
+Ontwikkelbundel voor replay van ruwe data: zie `dev_capture_bundle.md`.

@@ -43,6 +43,12 @@ targets:
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "2.0"          # app-versie 2 = native tabs (User-Agent MJOPLiveApp/2)
         CURRENT_PROJECT_VERSION: "2"
+      configs:
+        # Echte build-time afscherming van de ontwikkelinterface (meetdiagnose, ontwikkelbundel): alleen Debug definieert DEBUG. CI controleert dit.
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: RELEASE
   PhotoWalkUITests:
     type: bundle.ui-testing
     platform: iOS

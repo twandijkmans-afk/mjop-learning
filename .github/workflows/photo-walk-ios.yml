@@ -124,6 +124,40 @@ jobs:
           grep -q "UIRequiredDeviceCapabilities" "$LOGS/Info.plist.txt" || { echo "::error::UIRequiredDeviceCapabilities ontbreekt"; exit 1; }
           ls -la "$APP/parity_cases.json"
 
+      - name: Afscherming ontwikkelinterface - Release-binary bevat geen meetdiagnose/ontwikkelbundel (Debug wel)
+        run: |
+          set -o pipefail
+          cd App
+          # 1) build-time vlag per configuratie: alleen Debug definieert DEBUG
+          for cfg in Debug Release; do
+            xcodebuild -project PhotoWalk.xcodeproj -scheme PhotoWalk -configuration "$cfg" -sdk iphoneos -showBuildSettings 2>/dev/null \
+              | grep "SWIFT_ACTIVE_COMPILATION_CONDITIONS" | sort -u | tee "$LOGS/compilation-conditions-$cfg.txt"
+          done
+          grep -q "DEBUG" "$LOGS/compilation-conditions-Debug.txt" || { echo "::error::Debug definieert DEBUG niet"; exit 1; }
+          if grep -q "DEBUG" "$LOGS/compilation-conditions-Release.txt"; then echo "::error::Release definieert DEBUG"; exit 1; fi
+          # 2) inhoud van de gebouwde apps: alle Mach-O-bestanden (executable + debug.dylib) op symbolen en strings
+          scan() { find "$1" -type f | while IFS= read -r f; do if file "$f" | grep -q "Mach-O"; then nm -a "$f" 2>/dev/null; strings -a "$f"; fi; done; }
+          DBG=$(find "$RUNNER_TEMP/dd-sim" -name PhotoWalk.app -type d | head -1)
+          REL=$(find "$RUNNER_TEMP/dd-dev" -name PhotoWalk.app -type d | head -1)
+          [ -n "$DBG" ] && [ -n "$REL" ] || { echo "::error::Debug- of Release-app niet gevonden"; exit 1; }
+          scan "$DBG" > "$RUNNER_TEMP/scan-debug.txt"; scan "$REL" > "$RUNNER_TEMP/scan-release.txt"
+          wc -l "$RUNNER_TEMP"/scan-*.txt
+          # Release-binary: bevat de afgeschermde onderdelen niet. Debug-binary: bevat ze wel (positieve controle: de scan is dus niet blind).
+          MARKERS="DevBundleStore DiagnosticsView DiagnosticsExport devBundleToggle exportDiagnosticsButton photowalk.devBundle meetdiagnose_ diagnosticsLink"
+          for m in $MARKERS; do
+            d=$(grep -c "$m" "$RUNNER_TEMP/scan-debug.txt" || true); r=$(grep -c "$m" "$RUNNER_TEMP/scan-release.txt" || true)
+            echo "marker $m: debug=$d release=$r" | tee -a "$LOGS/release-scan.txt"
+            [ "$d" -ge 1 ] || { echo "::error::positieve controle mislukt: '$m' niet in de Debug-binary; de scan is onbetrouwbaar"; exit 1; }
+            [ "$r" -eq 0 ] || { echo "::error::'$m' gevonden in de Release-binary: ontwikkelinterface niet afgeschermd"; exit 1; }
+          done
+          # Gebruikersfunctie die in Release moet blijven (verplaatst uit DiagnosticsView)
+          grep -q "MotionAdvice" "$RUNNER_TEMP/scan-release.txt" || { echo "::error::MotionAdvice ontbreekt in Release (bewegingsadvies voor gebruikers)"; exit 1; }
+          # Informatief: bibliotheekcode zonder aanroeper in de app (kan door de linker wel of niet worden meegenomen)
+          for m in CaptureBundle ExtendedDiagnostics photo_walk_capture_bundle_v1; do
+            echo "info $m: debug=$(grep -c "$m" "$RUNNER_TEMP/scan-debug.txt" || true) release=$(grep -c "$m" "$RUNNER_TEMP/scan-release.txt" || true)" | tee -a "$LOGS/release-scan.txt"
+          done
+          echo "Release-binary: ontwikkelinterface niet aanwezig"
+
       - name: Simulator-smoketest (headless selftest, export valideren)
         timeout-minutes: 15
         run: |
@@ -174,6 +208,12 @@ jobs:
           cp "$DATA"/Documents/legacy_selftest_export.json "$LOGS/selftest-legacy-export.json"
           cp "$DATA"/Documents/mjop_round_proposals_unconfirmed.json "$LOGS/selftest-round-unconfirmed.json"
           mkdir -p "$LOGS/diag"; cp "$DATA"/Documents/meetdiagnose_*.json "$LOGS/diag/"; ls -la "$LOGS/diag"
+          # Ontwikkelbundel is standaard UIT: de selftest (Debug-build, schakelaar niet aangezet) schrijft er geen. $DATA moet echt een app-container zijn,
+          # anders zou deze controle niets controleren.
+          [ -n "$DATA" ] && [ -d "$DATA/Documents" ] || { echo "::error::app-container niet gevonden; bundel-controle niet mogelijk"; exit 1; }
+          if find "$DATA/Library" "$DATA/Documents" -name 'bundle_*' -o -name 'devbundles' -o -name '*.f32' 2>/dev/null | grep -q .; then
+            echo "::error::ontwikkelbundel aangemaakt zonder dat de schakelaar aan stond"; find "$DATA" -name 'bundle_*' -o -name 'devbundles' -o -name '*.f32'; exit 1; fi
+          echo "ontwikkelbundel: niets geschreven door de selftest (schakelaar standaard uit)"
           echo "UDID=$UDID" >> "$GITHUB_ENV"
           echo "export: $EXP"
 
@@ -326,8 +366,31 @@ jobs:
           assert val("ambiguous_planes", "status") == "UNKNOWN" and "AMBIGUOUS_FACADE_PLANES" in val("ambiguous_planes", "flags")
           dd = dj("ambiguous_planes")
           assert dd["measurement"]["width_m"] is None and any(f["code"] == "AMBIGUOUS_FACADE_PLANES" for f in dd["result_flags"])
+          # Diagnose 1.1.0 (door Swift geschreven): extra blok aanwezig, camera-relatief, geen verboden sleutels
+          for n in diag:
+              e = dj(n)
+              assert e["contract_version"] == "1.1.0", (n, e["contract_version"])
+              x = e["extended_diagnostics"]
+              for k in ("spec_version", "computed_after_result", "frames", "camera_gravity", "quad_from_corners", "gate_constants"):
+                  assert k in x, (n, k)
+              assert x["spec_version"] == "1.1.0" and x["computed_after_result"] is True
+              forbidden = re.compile(r"(latitude|longitude|gps|location|compass|address|pose|image|photo|point_cloud)", re.I)
+              def walk(o, path=""):
+                  if isinstance(o, dict):
+                      for k, v in o.items():
+                          assert not forbidden.search(k), (n, path + "/" + k)
+                          walk(v, path + "/" + k)
+                  elif isinstance(o, list):
+                      for i in o: walk(i, path)
+              walk(x)
+          # de verspringende gevel is in de schaduwpoorten zichtbaar als mislukte selectiepoort, zonder dat er een maat ontstaat
+          gs = dj("ambiguous_planes")["extended_diagnostics"].get("gates_shadow")
+          assert gs is not None, "gates_shadow ontbreekt voor ambiguous_planes"
+          assert dj("ambiguous_planes")["measurement"]["width_m"] is None
           print("LiDAR-v2 selftest OK")
           PY
+          # er mogen geen ruwe sensorbestanden of ontwikkelbundels in de CI-logs staan (de bundel-guard zelf staat in de selftest-stap, waar $DATA bestaat)
+          if find "$LOGS" -type f \( -name "*.f32" -o -name "photo.jpg" -o -name "bundle_*" \) | grep -q .; then echo "::error::ruwe sensordata of ontwikkelbundel in de CI-logs"; exit 1; fi
           grep -c "SELFTEST_DETECT" "$LOGS/selftest-console.log" | tee "$LOGS/detect-count.txt"
           [ "$(cat "$LOGS/detect-count.txt")" -ge 1 ] || { echo "::error::geen enkele detectie in de selftest"; exit 1; }
           grep "SELFTEST_PERSIST" "$LOGS/selftest-console.log"
