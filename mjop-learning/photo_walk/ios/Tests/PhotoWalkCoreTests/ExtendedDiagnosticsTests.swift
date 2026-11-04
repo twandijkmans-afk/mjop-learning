@@ -16,28 +16,30 @@ final class ExtendedDiagnosticsTests: XCTestCase {
     private func px(_ a: Any?) -> Pixel { let v = a as! [Any]; return Pixel(d(v[0]), d(v[1])) }
 
     /// Recursieve vergelijking met tolerantie voor getallen; verwachte sleutels moeten aanwezig en gelijk zijn.
-    private func assertJSON(_ exp: Any, _ act: Any?, _ path: String, tol: Double, skip: Set<String> = [], file: StaticString = #filePath, line: UInt = #line) {
+    private func assertJSON(_ exp: Any, _ act: Any?, _ path: String, tol: Double, relaxed: Bool = false, skip: Set<String> = [], file: StaticString = #filePath, line: UInt = #line) {
         if exp is NSNull { XCTAssertTrue(act == nil || act is NSNull, "\(path): verwacht null, kreeg \(String(describing: act))", file: file, line: line); return }
         guard let act = act, !(act is NSNull) else { XCTFail("\(path): ontbreekt of null (verwacht \(exp))", file: file, line: line); return }
         switch exp {
         case let e as [String: Any]:
             guard let a = act as? [String: Any] else { XCTFail("\(path): geen object", file: file, line: line); return }
-            for (k, v) in e where !skip.contains(k) { assertJSON(v, a[k], path + "/" + k, tol: tol, skip: skip, file: file, line: line) }
+            for (k, v) in e where !skip.contains(k) { assertJSON(v, a[k], path + "/" + k, tol: tol, relaxed: relaxed, skip: skip, file: file, line: line) }
         case let e as [Any]:
             guard let a = act as? [Any] else { XCTFail("\(path): geen array", file: file, line: line); return }
             XCTAssertEqual(e.count, a.count, "\(path): lengte", file: file, line: line)
-            for i in 0..<min(e.count, a.count) { assertJSON(e[i], a[i], "\(path)[\(i)]", tol: tol, skip: skip, file: file, line: line) }
+            for i in 0..<min(e.count, a.count) { assertJSON(e[i], a[i], "\(path)[\(i)]", tol: tol, relaxed: relaxed, skip: skip, file: file, line: line) }
         case let e as String:
             XCTAssertEqual(act as? String, e, path, file: file, line: line)
         case let e as NSNumber:
             if CFGetTypeID(e) == CFBooleanGetTypeID() { XCTAssertEqual(act as? Bool, e.boolValue, path, file: file, line: line) }
             else {
                 guard let a = (act as? NSNumber)?.doubleValue else { XCTFail("\(path): geen getal", file: file, line: line); return }
-                // Inlier-tellingen (en de aandelen daaruit) mogen op een enkele randpixel verschillen: de vlakselectie rekent in Swift en Python met
-                // verschillend afgeronde drijvende komma op de inlier-grens (interieur met diepe neggen). Statussen, vlaggen en maten blijven exact gelijk getest.
-                let countLike = path.contains("counts") || path.contains("/support/") || path.hasSuffix("/count")
-                let shareLike = path.contains("shares")
-                let angleLike = path.hasSuffix("angle_to_largest_deg")      // vlakhoek volgt uit dezelfde inlier-set: <= 0,2 graad
+                // ALLEEN voor scènes met 3 vlakken (diepe neggen, `relaxed`): Python trekt de RANSAC-steekproeven met numpy `default_rng`, Swift met `SplitMix64`.
+                // Dat zijn (bestaande, ongewijzigde) verschillende toevalsreeksen, dus de inlier-set van een vlak kan op enkele punten verschillen.
+                // Dat raakt alleen tellingen/aandelen/vlakhoek. Alle andere scènes (1-2 vlakken) en alle statussen, vlaggen, poortuitkomsten en maten blijven exact (tol) getest.
+                // Zelfconsistentie binnen Swift (diagnose == eigen meting) wordt apart exact getest via `reproduces_result_planes`.
+                let countLike = relaxed && (path.contains("counts") || path.contains("/support/") || path.hasSuffix("/count"))
+                let shareLike = relaxed && path.contains("shares")
+                let angleLike = relaxed && path.hasSuffix("angle_to_largest_deg")
                 let t = countLike ? max(tol, 3.0) : (shareLike ? max(tol, 0.015) : (angleLike ? max(tol, 0.2) : tol))
                 XCTAssertEqual(a, e.doubleValue, accuracy: t, path, file: file, line: line)
             }
@@ -78,7 +80,9 @@ final class ExtendedDiagnosticsTests: XCTestCase {
             let r = measureDepthView(view, corners: corners, cfg: cfg, seed: 1)
             let ext = ExtendedDiagnostics.compute(view: view, corners: corners, result: r, cfg: cfg, seed: 1, contourStatus: "USER_CONFIRMED")
             XCTAssertTrue(JSONSerialization.isValidJSONObject(jsonSafe(ext)), name)
-            assertJSON(c["expect"] as Any, jsonSafe(ext), name, tol: tol)
+            // zelfconsistentie (exact, alle scènes): de diagnose herleidt dezelfde vlakken als de eigen Swift-meting
+            XCTAssertEqual((ext["gates_shadow"] as? [String: Any])?["reproduces_result_planes"] as? Bool, true, "\(name): diagnose wijkt af van de eigen meting")
+            assertJSON(c["expect"] as Any, jsonSafe(ext), name, tol: tol, relaxed: name.hasPrefix("interior_"))
             seen += 1
         }
         XCTAssertEqual(seen, 6)
