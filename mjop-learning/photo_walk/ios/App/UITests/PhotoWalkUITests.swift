@@ -263,15 +263,20 @@ final class PhotoWalkUITests: XCTestCase {
         let write = app.buttons["devBundleWriteButton"]
         reveal(write)
         write.tap()
+        // de resultaatrij staat onder de knop in een lui opgebouwde lijst: eerst in beeld scrollen, anders bestaat hij niet in de hiërarchie
         let info = app.staticTexts["devBundleInfo"]
+        reveal(info)
         XCTAssertTrue(info.waitForExistence(timeout: 10))
         XCTAssertTrue(info.label.hasPrefix("Bundel: bundle_"), info.label)
         let del = app.buttons["devBundleDeleteButton"]
         reveal(del)
         XCTAssertTrue(del.label.contains("(1)"), del.label)
         del.tap()
-        XCTAssertTrue(app.staticTexts["devBundleInfo"].label.contains("verwijderd"))
-        XCTAssertTrue(app.buttons["devBundleDeleteButton"].label.contains("(0)"), app.buttons["devBundleDeleteButton"].label)
+        reveal(info)
+        XCTAssertTrue(info.waitForExistence(timeout: 10))
+        XCTAssertTrue(info.label.contains("verwijderd"), info.label)
+        reveal(del)
+        XCTAssertTrue(del.label.contains("(0)"), del.label)
         // terugzetten
         reveal(toggle)
         toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
