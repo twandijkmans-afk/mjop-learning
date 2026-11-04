@@ -257,11 +257,14 @@ struct BoxDetailView: View {
                                     .buttonStyle(.bordered).accessibilityIdentifier("confirmOuterButton")
                             }
                         }
-                        if let m, DiagnosticsView.needsMotion(m.result) {
+                        if let m, MotionAdvice.needsMotion(m.result) {
                             Text(CaptureCoordinator.motionHint).font(.footnote.bold()).foregroundStyle(.orange).accessibilityIdentifier("detailMotionHint")
                         }
+                        #if DEBUG
+                        // Ontwikkelinterface (meetdiagnose, ontwikkelbundel): bestaat alleen in Debug-builds, niet in Release.
                         NavigationLink("Meetdiagnose") { DiagnosticsView(observationId: obs.id).environmentObject(store) }
                             .buttonStyle(.bordered).accessibilityIdentifier("diagnosticsLink")
+                        #endif
                         HStack {
                             NavigationLink("Referentiemaat") { ReferencePickerView(frame: kf, anchorObservationId: obs.id).environmentObject(store) }.buttonStyle(.bordered)
                             Button("Geen kozijn") { store.setRejected(obs.id, true); dismiss() }.buttonStyle(.bordered).tint(.red).accessibilityIdentifier("rejectButton")

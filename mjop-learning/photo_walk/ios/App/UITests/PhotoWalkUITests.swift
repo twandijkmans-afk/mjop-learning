@@ -228,4 +228,54 @@ final class PhotoWalkUITests: XCTestCase {
         XCTAssertTrue(path.label.contains("meetdiagnose_"), path.label)
         XCTAssertEqual(app.state, .runningForeground)
     }
+
+    /// Ontwikkelbundel (alleen Debug-build, zie docs/dev_capture_bundle.md): standaard UIT; pas na aanzetten verschijnt de schrijfknop; schrijven en verwijderen werken;
+    /// de test zet alles weer terug zodat er na afloop geen bundel op de simulator achterblijft.
+    func testDevBundleIsOffByDefaultAndWriteDeleteCycleWorksInDebug() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-scanner-test"]; app.launch()
+        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
+        app.buttons["Testfoto LiDAR-v2: terugliggend kozijn, meerdere dieptekaders (simulatie)"].tap()
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 30))
+        if !row.isHittable { app.scrollViews.firstMatch.swipeUp() }
+        row.tap()
+        XCTAssertTrue(app.staticTexts["detailDims"].waitForExistence(timeout: 15))
+        let link = app.buttons["diagnosticsLink"]
+        var n = 0
+        while !(link.exists && link.isHittable) && n < 6 { app.scrollViews.firstMatch.swipeUp(); n += 1 }
+        link.tap()
+        XCTAssertTrue(app.navigationBars["Meetdiagnose"].waitForExistence(timeout: 15))
+        func reveal(_ el: XCUIElement) { var k = 0; while !(el.exists && el.isHittable) && k < 14 { app.swipeUp(); k += 1 } }
+        let toggle = app.switches["devBundleToggle"]
+        reveal(toggle)
+        XCTAssertTrue(toggle.exists)
+        // standaard uit: geen foto-schakelaar, geen schrijfknop
+        XCTAssertEqual(toggle.value as? String, "0", "de ontwikkelbundel moet standaard uit staan")
+        XCTAssertFalse(app.switches["devBundlePhotoToggle"].exists)
+        XCTAssertFalse(app.buttons["devBundleWriteButton"].exists)
+        // aanzetten: de foto-schakelaar staat zelf ook standaard uit
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+        XCTAssertEqual(toggle.value as? String, "1")
+        let photo = app.switches["devBundlePhotoToggle"]
+        reveal(photo)
+        XCTAssertEqual(photo.value as? String, "0", "de volledige foto moet standaard NIET worden meegenomen")
+        let write = app.buttons["devBundleWriteButton"]
+        reveal(write)
+        write.tap()
+        let info = app.staticTexts["devBundleInfo"]
+        XCTAssertTrue(info.waitForExistence(timeout: 10))
+        XCTAssertTrue(info.label.hasPrefix("Bundel: bundle_"), info.label)
+        let del = app.buttons["devBundleDeleteButton"]
+        reveal(del)
+        XCTAssertTrue(del.label.contains("(1)"), del.label)
+        del.tap()
+        XCTAssertTrue(app.staticTexts["devBundleInfo"].label.contains("verwijderd"))
+        XCTAssertTrue(app.buttons["devBundleDeleteButton"].label.contains("(0)"), app.buttons["devBundleDeleteButton"].label)
+        // terugzetten
+        reveal(toggle)
+        toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap()
+        XCTAssertEqual(toggle.value as? String, "0")
+        XCTAssertEqual(app.state, .runningForeground)
+    }
 }

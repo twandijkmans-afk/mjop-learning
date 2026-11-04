@@ -1,3 +1,5 @@
+#if DEBUG
+// ONTWIKKELINTERFACE: bestaat alleen in Debug-builds. In Release is dit bestand leeg gecompileerd (zie docs/dev_capture_bundle.md).
 import CryptoKit
 import Foundation
 import PhotoWalkCore
@@ -91,3 +93,4 @@ enum DiagnosticsExport {
         return url
     }
 }
+#endif

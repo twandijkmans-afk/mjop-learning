@@ -255,7 +255,9 @@ struct PhotoWalkApp: App {
         for name in ["flush", "recessed_8cm", "recessed_8cm_multi_frame", "ambiguous_planes"] {
             guard let line = SimulationRunner.runV2(store, name: name) else { print("SELFTEST_V2 name=\(name) NIET GELADEN"); continue }
             print("SELFTEST_V2 \(line)")
+            #if DEBUG
             if let oid = store.observations.first?.id, let u = try? DiagnosticsExport.write(store, observationId: oid) { print("SELFTEST_DIAG name=\(name) path=\(u.path)") }
+            #endif
         }
         // 5) MJOP-scanvoorstel (contract mjop_scan_proposal_v1): Swift-codering naar Documents; CI valideert tegen het JSON-schema
         let proposal = ScanProposal(

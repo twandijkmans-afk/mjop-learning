@@ -1,3 +1,5 @@
+#if DEBUG
+// ONTWIKKELINTERFACE: bestaat alleen in Debug-builds. In Release is dit bestand leeg gecompileerd (zie docs/dev_capture_bundle.md).
 import SwiftUI
 import PhotoWalkCore
 
@@ -21,12 +23,6 @@ struct DiagnosticsView: View {
     }
     private func line(_ k: String, _ v: String) -> some View {
         HStack(alignment: .top) { Text(k).font(.footnote).foregroundStyle(.secondary); Spacer(); Text(v).font(.footnote).multilineTextAlignment(.trailing) }
-    }
-
-    /// Behoefte aan meer beweging: te weinig onafhankelijke frames of een kozijnvlak dat daardoor niet bepaald kon worden.
-    static func needsMotion(_ r: LevelResult) -> Bool {
-        let codes = Set(r.flags.map { $0.code })
-        return r.independentFrames < 2 && r.level == .A || !codes.isDisjoint(with: ["FRAME_PLANE_UNDETERMINED", "FRAME_OFFSET_FROM_CORNER_DEPTH", "FRAMES_INCONSISTENT", "DEPTH_COVERAGE_LOW", "LIMITED_SIDE_COVERAGE"])
     }
 
     var body: some View {
@@ -55,7 +51,7 @@ struct DiagnosticsView: View {
                         }
                     }
                     if r.flags.isEmpty { Text("Geen waarschuwingen.").font(.footnote) }
-                    if Self.needsMotion(r) { Text(CaptureCoordinator.motionHint).font(.footnote.bold()).accessibilityIdentifier("motionHint") }
+                    if MotionAdvice.needsMotion(r) { Text(CaptureCoordinator.motionHint).font(.footnote.bold()).accessibilityIdentifier("motionHint") }
                 }
                 Section("Dieptepunten") {
                     line("Ringpixels (wand rond kozijn)", "\(i(g["ring_pixels"]) ?? 0)")
@@ -156,3 +152,4 @@ struct DiagnosticsView: View {
         .navigationTitle("Meetdiagnose").accessibilityIdentifier("diagnosticsView")
     }
 }
+#endif

@@ -2,8 +2,16 @@
 
 Alleen voor **ontwikkeling en kalibratie**. Doel: een echte meting later exact kunnen herhalen (replay) zonder ruwe sensordata in Git, in een PR, in CI-artifacts of in externe opslag te zetten.
 
+## Alleen in Debug-builds
+De hele ontwikkelinterface (scherm *Meetdiagnose*, de diagnose-export, de ontwikkelbundel met schakelaars, schrijf- en verwijderknop) is afgeschermd met `#if DEBUG` en bestaat **niet** in een Release-build:
+* `DiagnosticsView.swift`, `DiagnosticsExport.swift` en `DevBundleStore.swift` staan volledig binnen `#if DEBUG`; de link *Meetdiagnose* in `PhotoResultView` en de diagnose-aanroep in de selftest ook.
+* `project.yml` zet `DEBUG` alleen in de Debug-configuratie (`SWIFT_ACTIVE_COMPILATION_CONDITIONS`).
+* Het gebruikersadvies "beweeg meer" (voorheen een hulpfunctie in `DiagnosticsView`) staat nu in `MotionAdvice.swift`, ongewijzigd en ook in Release beschikbaar.
+* Bewijs: statische test `python/tests/test_release_isolation.py` (elke PR) en de macOS-CI-stap "Release-binary bevat geen meetdiagnose/ontwikkelbundel", die symbolen en strings van het Release-binary scant en als positieve controle hetzelfde in de Debug-binary vindt.
+* De bibliotheekcode (`CaptureBundle`, `ExtendedDiagnostics` in PhotoWalkCore) is platformonafhankelijk en blijft compileren voor de tests; de app heeft in Release geen aanroeper ervan.
+
 ## Standaard uit, lokaal
-* Schakelaar: meetdiagnose-scherm → *Ontwikkelbundel opslaan* (`UserDefaults`-sleutel `photowalk.devBundle.enabled`, standaard `false`). De volledige foto is een tweede, aparte schakelaar (`photowalk.devBundle.includePhoto`, standaard `false`).
+* Schakelaar (alleen Debug): meetdiagnose-scherm → *Ontwikkelbundel opslaan* (`UserDefaults`-sleutel `photowalk.devBundle.enabled`, standaard `false`). De volledige foto is een tweede, aparte schakelaar (`photowalk.devBundle.includePhoto`, standaard `false`).
 * Er wordt alleen een bundel geschreven na de expliciete knop *Bewaar ontwikkelbundel van deze meting*. De gewone meetflow, de diagnose-export en de selftest schrijven nooit een bundel.
 * Locatie: `Application Support/devbundles/bundle_<sessie-ref>_<observatie>/` op het toestel, uitgesloten van iCloud/iTunes-back-ups, bestandsbescherming `completeFileProtection`. Er is geen upload, geen netwerkcode en geen deelknop voor de bundel.
 
