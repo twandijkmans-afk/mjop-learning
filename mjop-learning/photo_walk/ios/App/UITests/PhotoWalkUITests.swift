@@ -11,6 +11,75 @@ final class PhotoWalkUITests: XCTestCase {
         while !(el.exists && el.isHittable) && n < 8 { app.swipeUp(); n += 1 }
     }
 
+    // MARK: ontwikkelbundel-test: robuuste hulpfuncties en opruiming (de gedeelde `reveal` hierboven blijft ongewijzigd voor de andere tests)
+
+    /// Alleen gezet door de ontwikkelbundel-test; `tearDown` ruimt dan op, ook als die test halverwege faalt (setUp zet `continueAfterFailure = false`).
+    private var devBundleApp: XCUIApplication?
+
+    /// Scrolt tot het element raakbaar is, omhoog EN omlaag: eerst omhoog (rijen onder de knop), dan omlaag (rijen die boven het beeld zijn geraakt), dan nogmaals omhoog.
+    /// Een rij in een lui opgebouwde lijst bestaat pas in de hiërarchie als ze (bijna) in beeld is, dus `exists` alleen volstaat niet.
+    private func revealAnywhere(_ app: XCUIApplication, _ el: XCUIElement) {
+        func ready() -> Bool { el.exists && el.isHittable }
+        if ready() { return }
+        for _ in 0..<8 { app.swipeUp(); if ready() { return } }
+        for _ in 0..<16 { app.swipeDown(); if ready() { return } }
+        for _ in 0..<16 { app.swipeUp(); if ready() { return } }
+    }
+
+    private func flip(_ toggle: XCUIElement) { toggle.coordinate(withNormalizedOffset: CGVector(dx: 0.95, dy: 0.5)).tap() }
+
+    /// Het aantal bundels uit het label van de verwijderknop ("Verwijder ontwikkelbundels (n)").
+    private func bundleCount(_ del: XCUIElement) -> Int? {
+        let l = del.label
+        guard let o = l.lastIndex(of: "("), let c = l.lastIndex(of: ")"), o < c else { return nil }
+        return Int(l[l.index(after: o)..<c])
+    }
+
+    /// Foto -> kozijn -> scherm Meetdiagnose (alleen in Debug-builds aanwezig).
+    private func openDiagnostics(_ app: XCUIApplication) {
+        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 30))
+        app.buttons["Testfoto LiDAR-v2: terugliggend kozijn, meerdere dieptekaders (simulatie)"].tap()
+        let row = app.buttons.matching(NSPredicate(format: "identifier BEGINSWITH %@", "boxRow-")).firstMatch
+        XCTAssertTrue(row.waitForExistence(timeout: 30))
+        if !row.isHittable { app.scrollViews.firstMatch.swipeUp() }
+        row.tap()
+        XCTAssertTrue(app.staticTexts["detailDims"].waitForExistence(timeout: 15))
+        let link = app.buttons["diagnosticsLink"]
+        var n = 0
+        while !(link.exists && link.isHittable) && n < 6 { app.scrollViews.firstMatch.swipeUp(); n += 1 }
+        link.tap()
+        XCTAssertTrue(app.navigationBars["Meetdiagnose"].waitForExistence(timeout: 15))
+    }
+
+    override func tearDown() {
+        defer { devBundleApp = nil }
+        guard let app = devBundleApp else { return }       // alle andere tests: niets te doen
+        cleanUpDevBundle(app)
+    }
+
+    /// Verwijdert alle ontwikkelbundels en zet de schakelaars terug op uit, onafhankelijk van waar de test is gestopt. Idempotent: ook op een schone toestand veilig.
+    private func cleanUpDevBundle(_ app: XCUIApplication) {
+        continueAfterFailure = true                          // de opruiming moet altijd volledig doorlopen en elke mislukking melden
+        if app.state != .runningForeground || !app.navigationBars["Meetdiagnose"].exists {
+            app.terminate(); app.launch()                    // onbekende toestand (bv. halverwege gefaald of gecrasht): opnieuw naar het scherm navigeren
+            openDiagnostics(app)
+        }
+        let del = app.buttons["devBundleDeleteButton"]
+        revealAnywhere(app, del)
+        if del.exists, bundleCount(del) != 0 { del.tap() }
+        revealAnywhere(app, del)
+        XCTAssertEqual(bundleCount(del), 0, "opruiming: er blijft een ontwikkelbundel achter (\(del.label))")
+        let photo = app.switches["devBundlePhotoToggle"]     // alleen zichtbaar als de bundel aanstaat
+        if photo.exists {
+            revealAnywhere(app, photo)
+            if photo.value as? String == "1" { flip(photo) }
+        }
+        let toggle = app.switches["devBundleToggle"]
+        revealAnywhere(app, toggle)
+        if toggle.value as? String == "1" { flip(toggle) }
+        XCTAssertEqual(toggle.value as? String, "0", "opruiming: de ontwikkelbundel-schakelaar staat nog aan")
+    }
+
     private func label(_ app: XCUIApplication, containing s: String) -> XCUIElement {
         app.staticTexts.containing(NSPredicate(format: "label CONTAINS %@", s)).firstMatch
     }
@@ -226,6 +295,55 @@ final class PhotoWalkUITests: XCTestCase {
         let path = app.staticTexts["diagnosticsExportPath"]
         XCTAssertTrue(path.waitForExistence(timeout: 10))
         XCTAssertTrue(path.label.contains("meetdiagnose_"), path.label)
+        XCTAssertEqual(app.state, .runningForeground)
+    }
+
+    /// Ontwikkelbundel (alleen Debug-build, zie docs/dev_capture_bundle.md): standaard UIT; pas na aanzetten verschijnt de schrijfknop; schrijven en verwijderen werken.
+    /// Opruiming (bundels weg, schakelaars uit) gebeurt in `tearDown`, ook als de test halverwege faalt.
+    func testDevBundleIsOffByDefaultAndWriteDeleteCycleWorksInDebug() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-scanner-test"]
+        devBundleApp = app                                   // tearDown ruimt op
+        app.launch()
+        openDiagnostics(app)
+        let toggle = app.switches["devBundleToggle"]
+        revealAnywhere(app, toggle)
+        XCTAssertTrue(toggle.exists)
+        // standaard uit: geen foto-schakelaar, geen schrijfknop
+        XCTAssertEqual(toggle.value as? String, "0", "de ontwikkelbundel moet standaard uit staan")
+        XCTAssertFalse(app.switches["devBundlePhotoToggle"].exists)
+        XCTAssertFalse(app.buttons["devBundleWriteButton"].exists)
+        // aanzetten: de foto-schakelaar staat zelf ook standaard uit
+        flip(toggle)
+        XCTAssertEqual(toggle.value as? String, "1")
+        let photo = app.switches["devBundlePhotoToggle"]
+        revealAnywhere(app, photo)
+        XCTAssertEqual(photo.value as? String, "0", "de volledige foto moet standaard NIET worden meegenomen")
+        // schrijven: het aantal bundels stijgt met precies 1 (relatief, dus ook correct als er al een bundel stond)
+        let del = app.buttons["devBundleDeleteButton"]
+        revealAnywhere(app, del)
+        let before = bundleCount(del)
+        XCTAssertNotNil(before, del.label)
+        let write = app.buttons["devBundleWriteButton"]
+        revealAnywhere(app, write)
+        write.tap()
+        let info = app.staticTexts["devBundleInfo"]          // lui opgebouwde lijst: eerst in beeld scrollen, anders bestaat de rij niet in de hiërarchie
+        revealAnywhere(app, info)
+        XCTAssertTrue(info.waitForExistence(timeout: 10))
+        XCTAssertTrue(info.label.hasPrefix("Bundel: bundle_"), info.label)
+        revealAnywhere(app, del)
+        XCTAssertEqual(bundleCount(del), (before ?? 0) + 1, del.label)
+        // verwijderen: alles weg
+        del.tap()
+        revealAnywhere(app, info)
+        XCTAssertTrue(info.waitForExistence(timeout: 10))
+        XCTAssertTrue(info.label.contains("verwijderd"), info.label)
+        revealAnywhere(app, del)
+        XCTAssertEqual(bundleCount(del), 0, del.label)
+        // terugzetten (tearDown controleert dit nogmaals)
+        revealAnywhere(app, toggle)
+        flip(toggle)
+        XCTAssertEqual(toggle.value as? String, "0")
         XCTAssertEqual(app.state, .runningForeground)
     }
 }

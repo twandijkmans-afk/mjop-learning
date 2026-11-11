@@ -1,0 +1,350 @@
+{
+  "algorithm" : {
+    "algorithm" : "LIDAR_PLANE_V2",
+    "baseline_m" : 0,
+    "blocking" : [
+      "FACADE_ONE_SIDED"
+    ],
+    "facade_assessment" : {
+      "excluded_other_layer" : {
+        "count" : 2710,
+        "planes" : [
+          {
+            "count" : 2161,
+            "role" : "REVEAL_OR_LEDGE"
+          },
+          {
+            "count" : 549,
+            "role" : "REVEAL_OR_LEDGE"
+          }
+        ],
+        "share" : 0.37059999999999998
+      },
+      "extent" : {
+        "major_std_m" : 0.56489999999999996,
+        "min_required_m" : 0.088300000000000003,
+        "minor_std_m" : 0.12989999999999999
+      },
+      "facade_points" : 4509,
+      "gate" : "FACADE_ONE_SIDED",
+      "local" : {
+        "points" : 4509,
+        "rms_limit_m" : 0.025999999999999999,
+        "rms_m" : 0.010500000000000001,
+        "robust_limit_m" : 0.035999999999999997,
+        "robust_sigma_m" : 0.011599999999999999
+      },
+      "note_ring_spread" : "alleen diagnostische achtergrondwaarde; geen kwaliteitsgate",
+      "planes" : [
+        {
+          "count" : 4509,
+          "role" : "FACADE_CANDIDATE"
+        },
+        {
+          "count" : 2161,
+          "role" : "REVEAL_OR_LEDGE"
+        },
+        {
+          "count" : 549,
+          "role" : "REVEAL_OR_LEDGE"
+        }
+      ],
+      "reasons" : [
+        "wand slechts aan 1 zijde(n) gezien"
+      ],
+      "representative" : false,
+      "ring_points" : 7313,
+      "ring_total_spread_m" : 0.0195,
+      "sides" : {
+        "counts" : [
+          0,
+          0,
+          0,
+          4509
+        ],
+        "covered" : [
+          false,
+          false,
+          false,
+          true
+        ],
+        "min_points_per_side" : 226,
+        "shares" : [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "support" : 0.97960000000000003,
+      "unexplained" : {
+        "count" : 94,
+        "share" : 0.0129
+      }
+    },
+    "flags" : [
+      {
+        "code" : "FACADE_ONE_SIDED",
+        "detail" : "wand slechts aan 1 zijde(n) gezien",
+        "severity" : "BLOCKING"
+      }
+    ],
+    "frame_id" : "F014",
+    "frames_independent_candidates" : 1,
+    "frames_rejected" : [
+      {
+        "frame" : "F014-S0",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F014-S1",
+        "why" : "CORRELATED_OR_LIMIT"
+      },
+      {
+        "frame" : "F014-S2",
+        "why" : "TRACKING_OR_DEPTH"
+      },
+      {
+        "frame" : "F014-S3",
+        "why" : "TRACKING_OR_DEPTH"
+      },
+      {
+        "frame" : "F014-S4",
+        "why" : "TRACKING_OR_DEPTH"
+      },
+      {
+        "frame" : "F014-S5",
+        "why" : "TRACKING_OR_DEPTH"
+      },
+      {
+        "frame" : "F014-S6",
+        "why" : "TRACKING_OR_DEPTH"
+      },
+      {
+        "frame" : "F014-S7",
+        "why" : "TRACKING_OR_DEPTH"
+      }
+    ],
+    "frames_total" : 9,
+    "hints_nl" : [
+      "Het wandvlak is maar aan één of twee kanten van het kozijn gezien. Houd het kozijn met wand aan alle kanten in beeld."
+    ],
+    "ok" : false,
+    "planes" : [
+      {
+        "count" : 4509,
+        "facing" : 0.42620000000000002,
+        "normal" : [
+          0.98329999999999995,
+          0.0269,
+          0.1799
+        ],
+        "offset" : -0.77129999999999999,
+        "rms_m" : 0.010500000000000001,
+        "role" : "FACADE",
+        "sides" : [
+          0,
+          0,
+          0,
+          4509
+        ],
+        "vertical" : 0.0269
+      },
+      {
+        "count" : 2161,
+        "facing" : 0.16139999999999999,
+        "normal" : [
+          0.90280000000000005,
+          0.023699999999999999,
+          0.42949999999999999
+        ],
+        "offset" : -0.35880000000000001,
+        "rms_m" : 0.022700000000000001,
+        "role" : "REVEAL_OR_LEDGE",
+        "sides" : [
+          0,
+          2161,
+          0,
+          0
+        ],
+        "vertical" : 0.023699999999999999
+      },
+      {
+        "count" : 549,
+        "facing" : 0.0126,
+        "normal" : [
+          0.95130000000000003,
+          0.059499999999999997,
+          0.30249999999999999
+        ],
+        "offset" : -0.023099999999999999,
+        "rms_m" : 0.0166,
+        "role" : "REVEAL_OR_LEDGE",
+        "sides" : [
+          0,
+          549,
+          0,
+          0
+        ],
+        "vertical" : 0.059499999999999997
+      }
+    ],
+    "points_band" : 973,
+    "points_glass" : 5891,
+    "points_ring" : 7313,
+    "points_valid_total" : 14177,
+    "range_median_m" : 2.0042,
+    "ring_coverage" : 0.4793,
+    "ring_pixels" : 15258,
+    "ring_valid" : 7313,
+    "smoothed_cross_check" : {
+      "delta_height_m" : null,
+      "delta_width_m" : null,
+      "height_m" : null,
+      "note" : "gecorreleerd met de hoofdmeting; geen onafhankelijk bewijs",
+      "ok" : false,
+      "width_m" : null
+    },
+    "stats" : {
+      "range_median_m" : 2.0042,
+      "ring_points" : 7313,
+      "sigma_m" : 0.012,
+      "threshold_m" : 0.042000000000000003
+    },
+    "tracking_capture" : "NORMAL"
+  },
+  "app_build" : "photo_walk_ios_lidar_v2\/1",
+  "camera" : {
+    "cx" : 964.6112060546875,
+    "cy" : 724.6175537109375,
+    "fx" : 1443.5504150390625,
+    "fy" : 1443.5504150390625,
+    "height" : 1440,
+    "width" : 1920
+  },
+  "contract" : "photo_walk_measure_diagnostics_v1",
+  "contract_version" : "1.0.0",
+  "corners_px" : [
+    [
+      192.59999999999999,
+      958.73000000000002
+    ],
+    [
+      182.86000000000001,
+      288.5
+    ],
+    [
+      1670.1800000000001,
+      370.38
+    ],
+    [
+      1669.1700000000001,
+      927.83000000000004
+    ]
+  ],
+  "created_utc" : "2026-11-03T13:31:16Z",
+  "data_origin" : "REAL_SENSOR",
+  "frame_id" : "F014",
+  "measurement" : {
+    "area_m2" : null,
+    "feedback" : "orange",
+    "height_m" : null,
+    "level" : null,
+    "scale_method" : "LIDAR_DEPTH_PLANE",
+    "status" : "UNKNOWN",
+    "width_m" : null
+  },
+  "observation_id" : "OBS-F014-03",
+  "platform" : "IOS",
+  "privacy" : {
+    "absolute_pose_included" : false,
+    "images_included" : false,
+    "location_included" : false,
+    "point_cloud_included" : false
+  },
+  "result_flags" : [
+    {
+      "code" : "FACADE_ONE_SIDED",
+      "detail" : "wand slechts aan 1 zijde(n) gezien",
+      "severity" : "BLOCKING"
+    },
+    {
+      "code" : "OUTER_CONTOUR_UNVERIFIED",
+      "detail" : "UNVERIFIED",
+      "severity" : "BLOCKING"
+    }
+  ],
+  "session_ref" : "acb1d24b5cd6",
+  "thresholds" : {
+    "ambiguity_ratio" : 0.59999999999999998,
+    "annulus_inner_scale" : 1.0800000000000001,
+    "annulus_min_points" : 60,
+    "annulus_min_valid_fraction" : 0.34999999999999998,
+    "annulus_outer_scale" : 1.8,
+    "band_cluster_min_share" : 0.34999999999999998,
+    "band_hi_scale" : 0.98499999999999999,
+    "band_lo_scale" : 0.88,
+    "consistency_k" : 3,
+    "corner_depth_block_m" : 0.25,
+    "corner_depth_tol_m" : 0.080000000000000002,
+    "corner_pixel_sigma_px" : 1.5,
+    "corner_tol_k" : 2,
+    "corners_contradict_block" : 3,
+    "depth_max_range_m" : 5,
+    "depth_min_range_m" : 0.29999999999999999,
+    "depth_noise_floor_m" : 0.01,
+    "facade_local_band_k" : 3,
+    "facade_max_vertical" : 0.34999999999999998,
+    "facade_min_extent_ratio" : 0.040000000000000001,
+    "facade_min_facing" : 0.34999999999999998,
+    "facade_rms_k" : 1.5,
+    "facade_support_min" : 0.5,
+    "flush_tol_k" : 1.2,
+    "frame_group_tol_k" : 1.5,
+    "frame_normal_deg" : 4,
+    "frame_search_m" : 0.34999999999999998,
+    "frame_side_min_points" : 12,
+    "frame_tol_abs_m" : 0.01,
+    "frame_tol_rel" : 0.029999999999999999,
+    "glass_beyond_plane_m" : 0.29999999999999999,
+    "glass_inner_scale" : 0.84999999999999998,
+    "glass_max_beyond_fraction" : 0.25,
+    "glass_min_valid_fraction" : 0.5,
+    "glass_scale" : 0.69999999999999996,
+    "lidar_sigma0_m" : 0.0040000000000000001,
+    "lidar_sigma1_per_m" : 0.0040000000000000001,
+    "max_dim_m" : 10,
+    "max_planes" : 3,
+    "max_ransac_points" : 2500,
+    "max_support_frames" : 5,
+    "mc_samples" : 100,
+    "min_baseline_m" : 0.02,
+    "min_dim_m" : 0.10000000000000001,
+    "min_incidence_cos" : 0.34999999999999998,
+    "min_plane_points" : 40,
+    "min_rotation_deg" : 1.5,
+    "plane_effective_samples_cap" : 50,
+    "plane_max_rms_m" : 0.02,
+    "plane_min_fraction" : 0.059999999999999998,
+    "plane_min_inlier_ratio" : 0.59999999999999998,
+    "plane_ransac_iterations" : 200,
+    "plane_ransac_threshold_m" : 0.02,
+    "ransac_iterations_v2" : 150,
+    "rect_angle_tol_deg" : 6,
+    "rect_edge_ratio_tol" : 0.050000000000000003,
+    "ref_orthogonality_tol" : 0.080000000000000002,
+    "ref_plane_tol_m" : 0.050000000000000003,
+    "relief_tol_m" : 0.012,
+    "ring_inner_scale" : 1.0600000000000001,
+    "ring_outer_scale" : 1.6000000000000001,
+    "side_min_points" : 15,
+    "side_min_share" : 0.050000000000000003,
+    "thr_k" : 2.5,
+    "threshold_status" : "PROVISIONAL_UNVALIDATED",
+    "unexplained_max" : 0.59999999999999998
+  },
+  "user_hints_nl" : [
+    "Het wandvlak is maar aan één of twee kanten van het kozijn gezien. Houd het kozijn met wand aan alle kanten in beeld.",
+    "De buitencontour van dit kozijn is automatisch herkend en nog niet door jou bevestigd (rond glas gevonden, losse rechthoek of voorgestelde vergroting vanaf het glas). De maat is alleen indicatief. Controleer of het kader op de BUITENRAND van het kozijn ligt en kies 'Dit is de buitenmaat', of sleep de hoeken naar de buitenrand."
+  ]
+}
