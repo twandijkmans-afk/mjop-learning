@@ -131,15 +131,18 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         // Ook de inventaris is een VOORSTEL: er wordt niets automatisch in het MJOP geschreven.
         let scan = GevelscanBuilder.contract(store: store, createdAt: Self.isoNow())
         if let scan { store.gevelscan = scan.result }
+        // lukt de inventaris niet (voldoet niet aan het contract), dan blijft een eerdere inventaris van deze ronde staan en hoort de gebruiker dat
+        let previous = outbox.rounds.first { $0.roundId == store.sessionId }?.inventory
         outbox.upsert(.init(roundId: store.sessionId, planRef: round.context.planRef, status: "COMPLETED", photos: photos, objects: input.objects.count,
-                            revision: round.revision, proposals: proposals, inventory: scan?.inventory))
+                            revision: round.revision, proposals: proposals, inventory: scan?.inventory ?? previous))
         saveOutbox()
         Persistence.saveNow(store)
         presented = nil
         deliver?(proposalsReply(requestId: nil, planRef: round.context.planRef))
         // een oudere website kent dit berichttype niet en negeert het (zie photo-round.js `receive`)
         if scan != nil { deliver?(BridgeReply.facadeInventory(requestId: nil, planRef: round.context.planRef, inventories: outbox.inventories(forPlan: round.context.planRef))) }
-        notice?("Klaar. Controleer de voorstellen in Mijn MJOP; er is nog niets overgenomen.")
+        notice?(scan == nil ? "Klaar. De gevelinventaris kon niet worden opgebouwd; de voorstellen staan wel in Mijn MJOP. Er is nog niets overgenomen."
+                            : "Klaar. Controleer de voorstellen in Mijn MJOP; er is nog niets overgenomen.")
     }
 
     // MARK: outbox-opslag (Application Support, uitgesloten van back-up, bestandsbescherming)

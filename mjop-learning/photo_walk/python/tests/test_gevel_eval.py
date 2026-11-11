@@ -16,7 +16,7 @@ REF = json.loads((ROOT / "examples" / "ground_truth" / "gevelscan_reference_synt
 
 def test_reports_all_required_measures_without_verdict():
     r = gevel_eval.evaluate(REF, INV)
-    assert r["sample"] == {"reference_frames": 3, "matched": 3, "double_counted": 0, "missed": 0, "spurious_objects": 0, "unknown_object_ids_in_reference": 0}
+    assert r["sample"] == {"reference_frames": 3, "matched": 3, "double_counted": 0, "missed": 0, "spurious_objects": 0, "merged_objects": 0, "unknown_object_ids_in_reference": 0}
     for k in ("width_m", "height_m", "area_m2", "glass_area_m2", "operable_parts"):
         assert r["errors"][k]["n"] == 3, k
     assert r["rates"] == {"double_counted": 0.0, "missed": 0.0}
@@ -39,6 +39,8 @@ def test_double_counted_missed_and_spurious_are_counted():
     ref["facades"][0]["frames"][0]["matched_object_ids"] = [ids[0]]
     r = gevel_eval.evaluate(ref, INV)
     assert r["spurious_object_ids"] == [ids[1]]                            # app-object dat bij geen enkel echt kozijn hoort
+    ref["facades"][0]["frames"][1]["matched_object_ids"] = [ids[0]]        # twee echte kozijnen, één app-object: onterecht samengevoegd
+    assert gevel_eval.evaluate(ref, INV)["merged_object_ids"] == [ids[0]]
 
 
 def test_unknown_values_are_skipped_not_treated_as_zero():

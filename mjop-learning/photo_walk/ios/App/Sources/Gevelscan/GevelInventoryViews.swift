@@ -63,6 +63,7 @@ enum GevelText {
         case "GEEN_OBJECTEN", "GEEN_OBJECTEN_HERKEND": return "geen kozijnen herkend (dat is geen bewijs dat er geen zijn)"
         case "GEEN_FOTOS": return "nog geen foto's van deze gevel"
         case "DEKKING_ONBEKEND": return "onbekend welk deel van de gevel is gefotografeerd"
+        case "GEVELOMVANG_ONBEKEND": return "de app weet niet hoe groot de gevel is; loop na of alle kozijnen zijn vastgelegd"
         case "GATEN_IN_DEKKING": return "een deel van de gevel is nog niet gefotografeerd"
         case "OBJECTEN_NIET_BETROUWBAAR_VASTGESTELD": return "niet alle kozijnen zijn betrouwbaar vastgesteld"
         case "AANVULLENDE_OPNAMES_NODIG": return "er zijn nog extra foto's nodig"
@@ -276,6 +277,9 @@ struct GevelObjectView: View {
     let objectId: String
 
     private var object: InventoryObject? { store.gevelscan?.objects.first { $0.id == objectId } }
+    @State private var editingParts = false
+    @State private var draftOperable = 0
+    @State private var draftFixed = 0
 
     var body: some View {
         List {
@@ -322,18 +326,26 @@ struct GevelObjectView: View {
 
     @ViewBuilder private func userSection(_ o: InventoryObject) -> some View {
         if let key = o.sightingIds.first {
+            let saved: UserParts? = o.sightingIds.compactMap { store.userParts[$0] }.first
             Section("Zelf aanvullen") {
-                Toggle("Draaiende en vaste delen zelf invullen", isOn: Binding(
-                    get: { store.userParts[key] != nil },
-                    set: { on in
-                        // de invoer hangt aan de eerste waarneming van dit kozijn; eerdere invoer op een andere waarneming van hetzelfde kozijn vervalt
+                // Er wordt pas iets vastgelegd als je op "Vastleggen" tikt: een niet-ingevuld aantal is onbekend, geen 0.
+                if let p = saved, !editingParts {
+                    Text("Door jou ingevuld: \(p.operableParts) draaiend, \(p.fixedParts) vast").font(.subheadline)
+                    Button("Wijzigen") { draftOperable = p.operableParts; draftFixed = p.fixedParts; editingParts = true }
+                    Button("Invoer verwijderen", role: .destructive) { for id in o.sightingIds { store.userParts[id] = nil }; changed() }
+                } else if editingParts {
+                    Stepper("Draaiende delen: \(draftOperable)", value: $draftOperable, in: 0...40)
+                    Stepper("Vaste delen: \(draftFixed)", value: $draftFixed, in: 0...40)
+                    Button("Vastleggen") {
+                        // de invoer hangt aan de eerste waarneming van dit kozijn; invoer op een andere waarneming van hetzelfde kozijn vervalt
                         for id in o.sightingIds { store.userParts[id] = nil }
-                        if on { store.userParts[key] = UserParts(operableParts: 0, fixedParts: 0) }
+                        store.userParts[key] = UserParts(operableParts: draftOperable, fixedParts: draftFixed)
+                        editingParts = false
                         changed()
-                    })).font(.subheadline)
-                if store.userParts[key] != nil {
-                    Stepper("Draaiende delen: \(store.userParts[key]?.operableParts ?? 0)", value: partsBinding(key, \.operableParts), in: 0...40)
-                    Stepper("Vaste delen: \(store.userParts[key]?.fixedParts ?? 0)", value: partsBinding(key, \.fixedParts), in: 0...40)
+                    }.accessibilityIdentifier("gevelPartsSave")
+                    Button("Annuleren", role: .cancel) { editingParts = false }
+                } else {
+                    Button("Draaiende en vaste delen zelf invullen") { draftOperable = 0; draftFixed = 0; editingParts = true }
                 }
                 Picker("Soort", selection: Binding(
                     get: { store.userClasses[key] ?? ElementClass.KOZIJN },
@@ -363,16 +375,6 @@ struct GevelObjectView: View {
                     .font(.caption2).foregroundStyle(.secondary)
             }
         }
-    }
-
-    private func partsBinding(_ key: String, _ kp: WritableKeyPath<UserParts, Int>) -> Binding<Int> {
-        Binding(get: { store.userParts[key]?[keyPath: kp] ?? 0 },
-                set: { v in
-                    var p: UserParts = store.userParts[key] ?? UserParts(operableParts: 0, fixedParts: 0)
-                    p[keyPath: kp] = v
-                    store.userParts[key] = p
-                    changed()
-                })
     }
 
     private func changed() {

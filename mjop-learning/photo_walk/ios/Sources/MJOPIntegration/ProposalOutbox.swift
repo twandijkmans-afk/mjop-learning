@@ -20,6 +20,16 @@ public struct ProposalOutbox: Codable, Equatable {
                     inventory: GevelInventoryV1? = nil, inventoryDelivered: Bool? = nil) {
             self.roundId = roundId; self.planRef = planRef; self.status = status; self.photos = photos; self.objects = objects
             self.revision = revision; self.proposals = proposals; self.deliveredIds = deliveredIds; self.inventory = inventory; self.inventoryDelivered = inventoryDelivered }
+        /// Tolerant voor de inventaris: voldoet een eerder opgeslagen inventaris niet (meer) aan het contract, dan vervalt alleen die inventaris.
+        /// De ronde en haar v2-voorstellen blijven leesbaar; anders zou één onleesbaar veld de hele outbox leegmaken.
+        public init(from decoder: Decoder) throws {
+            let c = try decoder.container(keyedBy: CodingKeys.self)
+            roundId = try c.decode(String.self, forKey: .roundId); planRef = try c.decode(String.self, forKey: .planRef); status = try c.decode(String.self, forKey: .status)
+            photos = try c.decode(Int.self, forKey: .photos); objects = try c.decode(Int.self, forKey: .objects); revision = try c.decode(Int.self, forKey: .revision)
+            proposals = try c.decode([ScanProposalV2].self, forKey: .proposals); deliveredIds = try c.decode([String].self, forKey: .deliveredIds)
+            inventory = try? c.decodeIfPresent(GevelInventoryV1.self, forKey: .inventory)
+            inventoryDelivered = inventory == nil ? nil : (try? c.decodeIfPresent(Bool.self, forKey: .inventoryDelivered))
+        }
         public var isSynced: Bool { !proposals.isEmpty && proposals.allSatisfy { deliveredIds.contains($0.proposalId) } }
     }
     public var rounds: [Round] = []

@@ -120,6 +120,9 @@ public struct GevelInventoryV1: Equatable {
             if !outcomes.contains(f["completeness"]?.string ?? "") { e.append("\(path).completeness") }
             if !validated && f["completeness"]?.string == "BETROUWBAAR_VASTGESTELD" { e.append("\(path): volledig zonder validatie") }
             if f["coverage"]?["determinable"]?.bool == nil || f["capture_requests"]?.array == nil || f["photo_ids"]?.array == nil { e.append("\(path): dekking/verzoeken/foto's") }
+            if !((f["capture_requests"]?.array ?? []).allSatisfy { r in
+                match(r["kind"]?.string, "^[A-Z_]{1,40}$") && ((r["text_nl"]?.string?.count).map { $0 <= 300 } ?? false) && match(r["reason"]?.string, "^[A-Z0-9_]{0,60}$")
+            }) || (f["capture_requests"]?.array?.count ?? 0) > 500 { e.append("\(path): vraag om extra foto's") }
             e += totalsErrors(f["totals"], "\(path).totals")
             if totalKeys.contains(where: { reliableWithoutValidation(f["totals"]?[$0]) }) { e.append("\(path).totals: betrouwbaar zonder validatie") }
             guard let objects = f["objects"]?.array, objects.count <= 500 else { e.append("\(path).objects"); continue }
@@ -129,6 +132,8 @@ public struct GevelInventoryV1: Equatable {
                 guard let oid = o["object_id"]?.string, match(oid, "^[A-Za-z0-9_.-]{4,80}$") else { e.append("\(op).object_id"); continue }
                 if !ids.insert(oid).inserted { e.append("\(op): object_id komt vaker voor") }
                 if !outcomes.contains(o["outcome"]?.string ?? "") { e.append("\(op).outcome") }
+                if !["KOZIJN", "RAAM", "DEUR"].contains(o["element_class"]?.string ?? "") { e.append("\(op).element_class") }
+                if (o["panes"]?.array?.count ?? 0) > 60 { e.append("\(op).panes") }
                 if !validated && o["outcome"]?.string == "BETROUWBAAR_VASTGESTELD" { e.append("\(op): betrouwbaar zonder validatie") }
                 let identity = o["identity"]?.string ?? ""
                 if !["RESOLVED", "RESOLVED_BY_USER", "UNCERTAIN", "UNCHECKED"].contains(identity) { e.append("\(op).identity") }

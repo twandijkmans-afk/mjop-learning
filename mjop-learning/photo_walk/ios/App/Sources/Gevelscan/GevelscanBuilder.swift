@@ -46,7 +46,8 @@ enum GevelscanBuilder {
             let result: LevelResult? = store.measures[o.id].map { SightingMeasurement.ungated($0.result) }
             sightings.append(FrameSighting(id: o.id, photoId: o.frameId, facadeId: RoundInputBuilder.facadeId(of: o.frameId, in: store), worldId: round.frameWorld[o.frameId],
                                            polygon: o.corners, pose: kf.pose, intrinsics: kf.intrinsics, result: result,
-                                           contourUserConfirmed: !o.outerContour.blocksArea, contourStatus: o.outerContour, evidence: o.evidence,
+                                           // alleen zelf getekend of uitdrukkelijk bevestigd; een oude (LEGACY) waarneming telt niet als bevestigd
+                                           contourUserConfirmed: o.outerContour == .MANUAL || o.outerContour == .USER_CONFIRMED, contourStatus: o.outerContour, evidence: o.evidence,
                                            detector: detector, score: o.detection?.score, panes: panes, glareFractionByPane: glare))
         }
         // detecties van een getraind model (alleen als er een model in de app zit): glas, draaiende/vaste delen en raam/deur aan het juiste kozijn hangen
@@ -65,11 +66,11 @@ enum GevelscanBuilder {
     /// Gevelinventaris (`mjop_gevel_inventory_v1`) van de huidige ronde. nil = geen ronde, of de inventaris voldeed niet aan het contract
     /// (dan gaat er niets de deur uit; de bestaande v2-voorstellen blijven gewoon werken).
     static func contract(store: ScanStore, createdAt: String) -> (inventory: GevelInventoryV1, result: GevelscanResult)? {
-        guard let round = store.round, let input = input(store: store) else { return nil }
-        let result = GevelscanPipeline.run(input)
+        guard let round = store.round, let scanInput = input(store: store) else { return nil }
+        let result = GevelscanPipeline.run(scanInput)
         let ctx = round.context
         let project = ScanProposalV2.Project(planRef: ctx.planRef, mjopPlanId: ctx.mjopPlanId, buildingId: ctx.buildingLabel, bagPandId: ctx.bagPandId)
-        guard let inv = try? InventoryContractBuilder.build(result: result, photos: input.photos, project: project, elementKey: ctx.element?.key, revision: round.revision, createdAt: createdAt) else { return nil }
+        guard let inv = try? InventoryContractBuilder.build(result: result, photos: scanInput.photos, project: project, elementKey: ctx.element?.key, revision: round.revision, createdAt: createdAt) else { return nil }
         return (inv, result)
     }
 }
@@ -81,17 +82,20 @@ extension ScanStore {
         guard round != nil else { gevelscan = nil; return }
         if gevelscanRunning { gevelscanPending = true; return }
         gevelscanRunning = true
+        let session = sessionId                 // foto-id's beginnen per sessie opnieuw: een resultaat van een vorige sessie mag hier nooit in belanden
         repeat {
             gevelscanPending = false
             // 1. bewijsrecords van nieuwe foto's buiten de hoofdthread (dieptekwaliteit en gevelvlak)
             let missing: [(String, ViewInput, String)] = keyframes.filter { captureCache[$0.id] == nil }.map { ($0.id, Measurer.input($0), GevelscanBuilder.iso($0.timestamp)) }
             if !missing.isEmpty {
                 let made: [(String, PhotoCapture)] = await Task.detached(priority: .utility) { () -> [(String, PhotoCapture)] in missing.map { ($0.0, GevelscanBuilder.capture(view: $0.1, capturedAt: $0.2)) } }.value
+                if sessionId != session { break }
                 for (id, p) in made { captureCache[id] = p }
             }
             // 2. de pijplijn zelf (zuivere functie op waarden)
             guard let input = GevelscanBuilder.input(store: self) else { break }
             let result: GevelscanResult = await Task.detached(priority: .utility) { () -> GevelscanResult in GevelscanPipeline.run(input) }.value
+            if sessionId != session { break }
             gevelscan = result
         } while gevelscanPending
         gevelscanRunning = false

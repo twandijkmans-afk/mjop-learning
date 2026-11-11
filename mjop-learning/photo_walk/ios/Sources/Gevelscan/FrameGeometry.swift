@@ -80,6 +80,10 @@ public enum FrameGeometryRules {
         var origin = c[0]
         if abs(ex.normalized.dot(worldUp)) > abs(ey.normalized.dot(worldUp)) { swap(&ex, &ey) }      // 90 graden gedraaide hoekvolgorde
         if ey.dot(worldUp) > 0 { origin = origin + ey; ey = ey * -1 }                                 // y loopt omlaag vanaf de bovenrand
+        // x loopt van LINKS naar RECHTS zoals je vóór de gevel staat, ongeacht bij welke hoek de contour begint of hoe de telefoon gehouden is:
+        // rechts = omhoog x (normaal naar de camera). Zonder dit zouden twee foto's met een andere hoekvolgorde gespiegelde vakken geven.
+        let towardCamera: Vec3 = (s.pose.t.dot(sp.n) - sp.d) >= 0 ? sp.n : sp.n * -1
+        if ex.dot(worldUp.cross(towardCamera)) < 0 { origin = origin + ex; ex = ex * -1 }
         let lx = ex.norm, ly = ey.norm
         guard lx > 1e-6, ly > 1e-6 else { return nil }
         let xs = pts.map { ($0 - origin).dot(ex) / (lx * lx) }, ys = pts.map { ($0 - origin).dot(ey) / (ly * ly) }

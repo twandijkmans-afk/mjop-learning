@@ -65,7 +65,7 @@ public struct AssociationConstraints: Equatable {
 
 public struct AssociationDecision: Equatable {
     public enum Kind: String, Codable, Sendable {
-        case SAME_STRONG, SAME_USER, SAME_PHOTO_DUPLICATE, UNCERTAIN_WEAK_OVERLAP, UNCERTAIN_AMBIGUOUS, UNCERTAIN_SAME_PHOTO_OVERLAP, DISTINCT_USER
+        case SAME_STRONG, SAME_USER, SAME_PHOTO_DUPLICATE, UNCERTAIN_WEAK_OVERLAP, UNCERTAIN_AMBIGUOUS, UNCERTAIN_SAME_PHOTO_OVERLAP, UNCERTAIN_PLANE_MISMATCH, DISTINCT_USER
     }
     public var a: String, b: String
     public var kind: Kind
@@ -98,6 +98,9 @@ public struct AssociationResult: Equatable {
     public var objects: [PhysicalObject]
     public var decisions: [AssociationDecision]
     public var requests: [CaptureRequest]
+    /// Zijn er objecten op VERSCHILLENDE gevels die niet met elkaar vergeleken konden worden (bv. een hoekkozijn dat bij twee gevels is
+    /// gefotografeerd in aparte sessies)? Dan is een gebouwtotaal niet vrij van mogelijke dubbeltelling.
+    public var crossFacadeUnchecked: Bool
 }
 
 public enum ObjectAssociator {
@@ -151,12 +154,17 @@ public enum ObjectAssociator {
             }
             guard let wa = a.worldId, let wb = b.worldId, wa == wb, let sa = a.spatial, let sb = b.spatial else { continue }
             let cosA = max(-1, min(1, abs(sa.n.normalized.dot(sb.n.normalized))))
-            if acos(cosA) * 180 / Double.pi > cfg.sameNormalDeg { continue }
             let sgn: Double = sa.n.dot(sb.n) >= 0 ? 1 : -1
-            if abs(sa.d - sgn * sb.d) > cfg.samePlaneOffsetM { continue }
+            let minDim = min(sa.width, sa.height, sb.width, sb.height)
+            if acos(cosA) * 180 / Double.pi > cfg.sameNormalDeg || abs(sa.d - sgn * sb.d) > cfg.samePlaneOffsetM {
+                // Vlakken komen niet overeen (ander vlak, of een slechte vlakfit / tracking-drift). Liggen de middelpunten toch dicht bij elkaar,
+                // dan is "verschillend" niet bewezen: onzeker, niet stil als twee kozijnen tellen.
+                let dist = ((sa.corners.reduce(Vec3.zero, +) * 0.25) - (sb.corners.reduce(Vec3.zero, +) * 0.25)).norm
+                if dist <= cfg.weakCenterFactor * minDim { uncertain.append((i, j, .UNCERTAIN_PLANE_MISMATCH, nil, round(dist, 3))) }
+                continue
+            }
             guard let m = rectIoUOnPlane(a, b) else { continue }
             let ratio = max(max(sa.width, sb.width) / max(min(sa.width, sb.width), 1e-9), max(sa.height, sb.height) / max(min(sa.height, sb.height), 1e-9))
-            let minDim = min(sa.width, sa.height, sb.width, sb.height)
             if m.iou >= cfg.strongIoU && ratio <= cfg.strongSizeRatio { cands.append(Cand(i: i, j: j, iou: m.iou, dist: m.centerDist, strong: true)) }
             else if m.iou >= cfg.weakIoU || m.centerDist <= cfg.weakCenterFactor * minDim { cands.append(Cand(i: i, j: j, iou: m.iou, dist: m.centerDist, strong: false)) }
         } }
@@ -177,12 +185,17 @@ public enum ObjectAssociator {
         var clusters: [Int: [Int]] = [:]
         for i in 0..<n { clusters[find(i), default: []].append(i) }
         let roots = clusters.keys.sorted()
+        var usedIds = Set<String>()
         var objects: [PhysicalObject] = roots.map { r in
             let mem = clusters[r]!
             let facades = Dictionary(grouping: mem) { items[$0].facadeId }
             // gevel = die van de meeste waarnemingen (bij gelijkspel de alfabetisch eerste); verschil wordt gemeld, nooit stil opgelost
             let facade = facades.max { ($0.value.count, $1.key) < ($1.value.count, $0.key) }!.key
-            return PhysicalObject(id: objectId(roundId: roundId, firstSightingId: items[mem[0]].id), facadeId: facade, sightingIds: mem.map { items[$0].id },
+            // de id is een korte hash; bij een (zeldzame) botsing binnen één ronde krijgt het latere object een volgnummer
+            var oid = objectId(roundId: roundId, firstSightingId: items[mem[0]].id)
+            var n = 2
+            while !usedIds.insert(oid).inserted { oid = objectId(roundId: roundId, firstSightingId: items[mem[0]].id) + "-\(n)"; n += 1 }
+            return PhysicalObject(id: oid, facadeId: facade, sightingIds: mem.map { items[$0].id },
                                   photoIds: Array(Set(mem.map { items[$0].photoId })).sorted(), identity: .RESOLVED, identityReasons: [], possibleSameAs: [],
                                   facadeConflict: facades.count > 1)
         }
@@ -197,6 +210,11 @@ public enum ObjectAssociator {
             outer: for x in mem { for y in mem where x < y && items[x].photoId == items[y].photoId {
                 if !dupSamePhoto.contains([items[x].id, items[y].id].sorted().joined(separator: "|")) { addReason(k, "TEGENSTRIJDIGE_KOPPELING"); break outer }
             } }
+        }
+        //     ... en ook een cluster waarin (via een derde waarneming) twee waarnemingen zitten die de gebruiker uitdrukkelijk als verschillend aanmerkte
+        for (k, r) in roots.enumerated() {
+            let mem = clusters[r]!
+            outer2: for x in mem { for y in mem where x < y && isCannot(x, y) { addReason(k, "TEGENSTRIJDIGE_KOPPELING"); break outer2 } }
         }
         // 3b. onzekere paren tussen verschillende objecten
         for (i, j, kind, iou, dist) in uncertain {
@@ -218,10 +236,13 @@ public enum ObjectAssociator {
             if wa.isEmpty || wb.isEmpty { return (false, "ONBEKENDE_SESSIE") }
             return wa.isDisjoint(with: wb) ? (false, "MEERDERE_SESSIES") : (true, "")
         }
-        for a in 0..<objects.count { for b in (a + 1)..<max(objects.count, a + 1) where b < objects.count && objects[a].facadeId == objects[b].facadeId {
+        var crossFacadeUnchecked = false
+        for a in 0..<objects.count { for b in (a + 1)..<max(objects.count, a + 1) where b < objects.count {
             if isUserDistinct(objects[a], objects[b], cannot) { continue }
             let (ok, why) = comparable(a, b)
-            if !ok { addReason(a, why); addReason(b, why) }
+            if ok { continue }
+            // binnen één gevel raakt dit de objecten zelf; tussen gevels alleen het gebouwtotaal
+            if objects[a].facadeId == objects[b].facadeId { addReason(a, why); addReason(b, why) } else { crossFacadeUnchecked = true }
         } }
         var requests: [CaptureRequest] = []
         for k in objects.indices {
@@ -239,7 +260,7 @@ public enum ObjectAssociator {
             objects[k].identityReasons.sort()
         }
         decisions.sort { ($0.a, $0.b, $0.kind.rawValue) < ($1.a, $1.b, $1.kind.rawValue) }
-        return AssociationResult(objects: objects.sorted { $0.id < $1.id }, decisions: decisions, requests: requests)
+        return AssociationResult(objects: objects.sorted { $0.id < $1.id }, decisions: decisions, requests: requests, crossFacadeUnchecked: crossFacadeUnchecked && !userReviewedAll)
     }
 
     /// Heeft de gebruiker ALLE waarnemingsparen van deze twee objecten uitdrukkelijk als verschillend aangemerkt?

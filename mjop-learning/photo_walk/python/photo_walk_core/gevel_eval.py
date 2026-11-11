@@ -85,6 +85,8 @@ def evaluate(reference: dict, inventory: dict) -> dict:
                                  "error": None if app is None else app - len(fac["frames"])})
     ref_facades = {f["facade_id"] for f in reference["facades"] if f["frames_complete"]}
     spurious = sorted(i for i, (fid, _) in objects.items() if i not in used and fid in ref_facades)
+    # één app-object dat bij meerdere echte kozijnen is opgegeven: de app heeft verschillende kozijnen samengevoegd (ondertelling)
+    merged = sorted(i for i, n in used.items() if n > 1)
     return {
         "report": "gevelscan_field_evaluation_v1",
         "reference": {"dataset_id": reference["dataset_id"], "data_origin": reference["data_origin"], "purpose": reference["purpose"],
@@ -92,11 +94,12 @@ def evaluate(reference: dict, inventory: dict) -> dict:
         "inventory": {"inventory_id": inventory["inventory_id"], "pipeline": inventory["versions"]["pipeline"],
                       "thresholds_status": inventory["versions"]["thresholds_status"]},
         "sample": {"reference_frames": n_ref, "matched": matched, "double_counted": double, "missed": missed,
-                   "spurious_objects": len(spurious), "unknown_object_ids_in_reference": unknown_ids},
+                   "spurious_objects": len(spurious), "merged_objects": len(merged), "unknown_object_ids_in_reference": unknown_ids},
         "rates": {"double_counted": round(double / n_ref, 4) if n_ref else None, "missed": round(missed / n_ref, 4) if n_ref else None},
         "errors": {k: _summary(v) for k, v in errs.items()},
         "frame_count_per_facade": count_errors,
         "spurious_object_ids": spurious,
+        "merged_object_ids": merged,
         "frames": rows,
         "verdict": None,
         "note": ("Geen oordeel en geen acceptatiegrenzen: beschrijvende cijfers over deze steekproef. "

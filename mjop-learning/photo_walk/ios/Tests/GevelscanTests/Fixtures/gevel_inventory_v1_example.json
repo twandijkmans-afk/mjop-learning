@@ -15,7 +15,9 @@
     },
     "fixed_parts" : {
       "missing" : [
-        "GEVELS_ONDERLING_NIET_VERGELEKEN"
+        "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+        "GEVELS_ONDERLING_NIET_VERGELEKEN",
+        "HERKENNING_NIET_GEVALIDEERD"
       ],
       "origin" : "USER_INPUT",
       "outcome" : "VOORLOPIG_VASTGESTELD",
@@ -65,7 +67,9 @@
     },
     "operable_parts" : {
       "missing" : [
-        "GEVELS_ONDERLING_NIET_VERGELEKEN"
+        "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+        "GEVELS_ONDERLING_NIET_VERGELEKEN",
+        "HERKENNING_NIET_GEVALIDEERD"
       ],
       "origin" : "USER_INPUT",
       "outcome" : "VOORLOPIG_VASTGESTELD",
@@ -89,6 +93,7 @@
       "completeness" : "VOORLOPIG_VASTGESTELD",
       "completeness_reasons" : [
         "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+        "GEVELOMVANG_ONBEKEND",
         "HERKENNING_NIET_GEVALIDEERD",
         "OBJECTEN_NIET_BETROUWBAAR_VASTGESTELD"
       ],
@@ -547,10 +552,11 @@
         },
         "fixed_parts" : {
           "missing" : [
-
+            "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+            "HERKENNING_NIET_GEVALIDEERD"
           ],
           "origin" : "USER_INPUT",
-          "outcome" : "BETROUWBAAR_VASTGESTELD",
+          "outcome" : "VOORLOPIG_VASTGESTELD",
           "partial" : null,
           "sigma" : null,
           "unit" : "st",
@@ -594,10 +600,11 @@
         },
         "operable_parts" : {
           "missing" : [
-
+            "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+            "HERKENNING_NIET_GEVALIDEERD"
           ],
           "origin" : "USER_INPUT",
-          "outcome" : "BETROUWBAAR_VASTGESTELD",
+          "outcome" : "VOORLOPIG_VASTGESTELD",
           "partial" : null,
           "sigma" : null,
           "unit" : "st",
@@ -612,6 +619,7 @@
       "completeness" : "VOORLOPIG_VASTGESTELD",
       "completeness_reasons" : [
         "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+        "GEVELOMVANG_ONBEKEND",
         "HERKENNING_NIET_GEVALIDEERD",
         "OBJECTEN_NIET_BETROUWBAAR_VASTGESTELD"
       ],
@@ -827,10 +835,11 @@
         },
         "fixed_parts" : {
           "missing" : [
-
+            "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+            "HERKENNING_NIET_GEVALIDEERD"
           ],
           "origin" : "USER_INPUT",
-          "outcome" : "BETROUWBAAR_VASTGESTELD",
+          "outcome" : "VOORLOPIG_VASTGESTELD",
           "partial" : null,
           "sigma" : null,
           "unit" : "st",
@@ -874,10 +883,11 @@
         },
         "operable_parts" : {
           "missing" : [
-
+            "GEOMETRIE_NIET_IN_HET_VELD_GEVALIDEERD",
+            "HERKENNING_NIET_GEVALIDEERD"
           ],
           "origin" : "USER_INPUT",
-          "outcome" : "BETROUWBAAR_VASTGESTELD",
+          "outcome" : "VOORLOPIG_VASTGESTELD",
           "partial" : null,
           "sigma" : null,
           "unit" : "st",

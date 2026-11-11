@@ -69,7 +69,9 @@ public enum GevelscanPipeline {
         var requests: [CaptureRequest] = assoc.requests
         for o in assoc.objects {
             let mine = o.sightingIds.compactMap { sightingById[$0] }
-            let parts = o.sightingIds.compactMap { input.userParts[$0] }.first
+            // invoer van de gebruiker geldt alleen als ze eenduidig is (na samenvoegen kunnen twee waarnemingen elk een andere invoer hebben)
+            let given = o.sightingIds.compactMap { input.userParts[$0] }
+            let parts: UserParts? = Set(given.map { "\($0.operableParts)|\($0.fixedParts)" }).count == 1 ? given.first : nil
             let geo = FrameGeometryRules.compute(object: o, sightings: mine, photos: photoById, recognition: recognition, userParts: parts, validation: input.validation, cfg: cfg)
             let cond = ConditionRules.assess(object: o, sightings: mine, photoFlags: flagsByPhoto, detections: input.defectDetections, conditionDetector: input.conditionDetector, cfg: cfg)
             // afgesneden: alleen als het object op GEEN enkele foto volledig in beeld is
@@ -102,7 +104,7 @@ public enum GevelscanPipeline {
             } else if geo.status != .MEASURED && geo.scaleMethod != "REFERENCE_DISTANCE" && geo.independentViewpoints < 2 {
                 requests.append(.init(kind: .ANDERE_HOEK, facadeId: o.facadeId, objectId: o.id, reason: "ENKEL_STANDPUNT"))
             }
-            if geo.panes.contains(where: { $0.glareSuspected }) || geo.advisoryCodes.contains("GLASS_DEPTH_UNRELIABLE") && geo.glassArea.value == nil && recognition.canRecognize(.GLASVLAK) {
+            if geo.panes.contains(where: { $0.glareSuspected }) || (geo.advisoryCodes.contains("GLASS_DEPTH_UNRELIABLE") && geo.glassArea.value == nil && recognition.canRecognize(.GLASVLAK)) {
                 requests.append(.init(kind: .GLAS_CONTROLEREN, facadeId: o.facadeId, objectId: o.id, reason: "SPIEGELING_IN_GLAS"))
             }
         }
@@ -130,6 +132,9 @@ public enum GevelscanPipeline {
                 if objs.contains(where: { $0.outcome != .BETROUWBAAR_VASTGESTELD }) { why.append("OBJECTEN_NIET_BETROUWBAAR_VASTGESTELD") }
                 if !freq.isEmpty { why.append("AANVULLENDE_OPNAMES_NODIG") }
                 if !input.validation.autoProcessingAllowed { why += input.validation.blockingReasons }
+                // De app kent de werkelijke omvang van de gevel niet: de dekking is relatief aan wat gefotografeerd is. Dat alle kozijnen van de
+                // gevel zijn vastgelegd kan alleen de gebruiker verklaren (de bestaande verklaring "alle foto's nagelopen").
+                if !input.userReviewedAllDuplicates { why.append("GEVELOMVANG_ONBEKEND") }
                 if !why.isEmpty { comp = .VOORLOPIG_VASTGESTELD }
             }
             facades.append(FacadeInventory(facadeId: fid, orientation: input.facades.first { $0.id == fid }?.orientation, objects: objs,
@@ -142,7 +147,8 @@ public enum GevelscanPipeline {
         if withObjects.count > 1 && !input.userReviewedAllDuplicates {
             let worlds = withObjects.map { f in Set(photos.filter { $0.facadeId == f.facadeId }.compactMap { $0.worldId }) }
             let common = worlds.dropFirst().reduce(worlds.first ?? []) { $0.intersection($1) }
-            if common.isEmpty { crossFacade = ["GEVELS_ONDERLING_NIET_VERGELEKEN"] }
+            // per paar objecten nagegaan (associatie), plus de grove controle op een gedeelde scansessie
+            if common.isEmpty || assoc.crossFacadeUnchecked { crossFacade = ["GEVELS_ONDERLING_NIET_VERGELEKEN"] }
         }
         var building = OutcomeRules.totals(objects, recognition: recognition, validation: input.validation)
         if !crossFacade.isEmpty {

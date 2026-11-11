@@ -7,7 +7,7 @@ Het is geen aparte scanner: het is een laag bovenop de bestaande fotoronde, meet
 
 | | Status |
 |---|---|
-| Pijplijnlogica (koppelen, tellen, geometrie, uitkomstklassen, contract) | gebouwd en getest op **synthetische** scènes (Swift, 52 tests) |
+| Pijplijnlogica (koppelen, tellen, geometrie, uitkomstklassen, contract) | gebouwd en getest op **synthetische** scènes (Swift, 60 tests) |
 | App-integratie (schermen, opslag, brug, selftest) | gebouwd; gecompileerd en getest in de **simulator** (CI), **nooit op een echte iPhone gedraaid** |
 | Nauwkeurigheid op echte gevels | **niet bewezen**; er zijn geen referentiemetingen. Zie `gevelscanner_2_meetplan.md` |
 | Getraind herkenningsmodel (raam/deur, draaiend/vast deel, gebreken) | **niet aanwezig**; alleen de aansluiting is gebouwd |
@@ -85,7 +85,8 @@ Doel: hetzelfde kozijn op meerdere foto's is **één object**.
 1. Vergelijken kan alleen met ruimtelijk bewijs: beide waarnemingen hebben 3D-hoeken op een gemeten vlak, in dezelfde AR-sessie.
 2. Zelfde vlak (normaal ≤ 15°, afstand ≤ 15 cm) en overlap van de twee rechthoeken op dat vlak (IoU ≥ 0,50, maatverhouding ≤ 1,3) ⇒ **zelfde object**.
 3. Zwakke overlap (IoU ≥ 0,15 of middelpunten dicht bij elkaar) of twee sterke kandidaten op dezelfde andere foto ⇒ identiteit **UNCERTAIN**: niet samengevoegd en niet als apart geteld.
-4. Niet vergelijkbaar (geen meting, onbekende of andere sessie) ⇒ **UNCHECKED**. Dat telt nooit als "geen duplicaat".
+4. Niet vergelijkbaar (geen meting, onbekende of andere sessie) ⇒ **UNCHECKED**. Dat telt nooit als "geen duplicaat". Tussen gevels geldt hetzelfde voor het gebouwtotaal (`GEVELS_ONDERLING_NIET_VERGELEKEN`).
+   Vlakken die niet overeenkomen terwijl de middelpunten dicht bij elkaar liggen (slechte vlakfit, tracking-drift) ⇒ ook UNCERTAIN. **Grens**: verschuift de AR-tracking tussen twee foto's meer dan ongeveer een halve kozijnbreedte, dan ziet de app twee verschillende kozijnen. Dat is op echte gevels niet gemeten en staat in het meetplan.
 5. Zelfde foto: bijna identieke kaders (IoU ≥ 0,80) zijn één object; een kader dat voor ≥ 50 % in een ander ligt is onzeker.
 6. Keuzes van de gebruiker gaan voor: gekoppelde waarnemingen (`mustLink`, uit de bestaande koppelfunctie) en afgewezen suggesties (`cannotLink`). De bestaande verklaring "alles nagelopen" maakt UNCHECKED tot `RESOLVED_BY_USER`.
 
@@ -104,7 +105,8 @@ Elke beslissing staat in `AssociationResult.decisions` (paar, soort, IoU, afstan
 * over foto's heen worden glasvlakken samengevoegd (IoU ≥ 0,5); een glasvlak dat niet op elke foto gezien is maakt de indeling voorlopig;
 * **vakken** = aantal glasvlakken; **glasoppervlak** = som; herkomst `DERIVED_SEGMENTATION_ON_MEASURED_PLANE`. Dit is nadrukkelijk **geen** directe LiDAR-meting: het contract weigert een glasoppervlak met een meetherkomst;
 * **tussenstijlen/-dorpels**: tussenruimte tussen naburige kolommen/rijen glas (inclusief glaslatten en draaiend kader), herkomst `DERIVED_CALCULATION`;
-* **draaiende en vaste delen**: alleen van een getraind model of de gebruiker. Zonder beide: onbekend (`GEEN_MODEL_VOOR_DRAAIENDE_DELEN`). Er wordt nooit iets uit de vorm afgeleid;
+* de x-as loopt altijd van links naar rechts zoals je vóór de gevel staat, ongeacht bij welke hoek de contour begint of hoe de telefoon gehouden is (getest);
+* **draaiende en vaste delen**: alleen van een getraind model of de gebruiker (pas na *Vastleggen*; een niet-ingevuld aantal is onbekend, geen 0). Zonder beide: onbekend (`GEEN_MODEL_VOOR_DRAAIENDE_DELEN`). Er wordt nooit iets uit de vorm afgeleid;
 * overlappende "glasvlakken" of glas groter dan het kozijn ⇒ geen glasoppervlak.
 
 **Onzekerheid**: de buitenmaat draagt de 1-sigma van de bestaande Monte-Carlo (ruismodel, niet gevalideerd). Het glasoppervlak krijgt een eigen sigma (schaal van het kozijn + hoekpixels + een toeslag van 2 % omdat het glas enkele centimeters achter het kozijnvlak ligt). Alle sigma's zijn een rekenmodel; ze zijn niet aan echte metingen getoetst.
@@ -126,6 +128,8 @@ Er is **geen gebrekenmodel** in dit project. Elk object krijgt daarom de waarnem
 | Klasse | Betekenis |
 |---|---|
 | `BETROUWBAAR_VASTGESTELD` | maat uit ≥ 2 standpunten, identiteit eenduidig, buitencontour zeker, object volledig in beeld, **én een gevalideerde pijplijn** |
+
+Een totaal over objecten (ook door de gebruiker ingevulde draaiende delen) is nooit zekerder dan de telling van die objecten. De **volledigheid** van een gevel is nooit "betrouwbaar" zonder de verklaring van de gebruiker dat alles is nagelopen: de app kent de werkelijke omvang van de gevel niet (`GEVELOMVANG_ONBEKEND`).
 | `VOORLOPIG_VASTGESTELD` | er is een resultaat; in `outcome_reasons` staat wat ontbreekt |
 | `NIET_VAST_TE_STELLEN` | geen waarde (`null`), met de reden |
 
@@ -143,7 +147,7 @@ Inhoud: project (`plan_ref`, `mjop_plan_id`, `building_id`, `bag_pand_id`), `ele
 
 Elke hoeveelheid heeft dezelfde vorm: `value` (null = onbekend), `unit`, `sigma`, `origin`, `outcome`, `missing`, `partial`.
 
-Regels (Swift, JavaScript en schema): altijd `PROPOSED` en `booking_allowed: false`; geen prijs- of kengetalvelden; onbekend is `null`; geen totaal bij mogelijke dubbeltelling; geen totaaloppervlak met onbemeten kozijnen; glas ≤ kozijn en nooit een meetherkomst; geen NEN-score; niets betrouwbaar zonder validatie.
+Regels: altijd `PROPOSED` en `booking_allowed: false`; geen prijs- of kengetalvelden; onbekend is `null`; geen NEN-score; glas nooit een meetherkomst (Swift, JavaScript en schema). De regels over meerdere velden heen — geen totaal bij mogelijke dubbeltelling, geen totaaloppervlak met onbemeten kozijnen, glas ≤ kozijn, niets betrouwbaar zonder validatie — kan een JSON-schema niet uitdrukken; die staan alleen in Swift en JavaScript. Omgekeerd staan sommige vormregels (toegestane windrichtingen, maximale aantallen) alleen in het schema. Bekend verschil: Swift telt tekens, JavaScript UTF-16-eenheden; een gevelnaam met emoji vlak onder de lengtegrens kan daardoor aan de websitekant geweigerd worden.
 
 ### Brug (alleen optellend, versie blijft 1)
 * Website → app: `listFacadeInventory {planRef}`. App → website: `{type: "facade-inventory", planRef, inventories: [...]}`.
@@ -185,6 +189,7 @@ Er zitten geen sleutels in de app. De ontwikkelbundel en meetdiagnose zijn ongew
 | Laag | Waar | Wat |
 |---|---|---|
 | Unit (Swift) | `ios/Tests/GevelscanTests` | capture/kwaliteit/dekking (9), associatie en deduplicatie (8), geometrie/herkomst/onzekerheid/statussen (12), conditie (6), herkenning/modelaansluiting (3) |
+| Regressie review (Swift) | `ReviewRegressionTests` (8) | de bevindingen van de onafhankelijke review, elk met een test |
 | Integratie (Swift) | `PipelineTests` (14) | volledige ronde → objecten per gevel → contract → outbox → brugbericht; verkeerd project; oude outbox; manipulatie van het contract |
 | Schema (Python) | `python/tests/test_mjop_gevel_inventory_v1.py` | app-uitvoer tegen het schema + 18 afgewezen mutaties; v2 ongewijzigd |
 | Evaluatie (Python) | `python/tests/test_gevel_eval.py` | het validatiescript zelf |

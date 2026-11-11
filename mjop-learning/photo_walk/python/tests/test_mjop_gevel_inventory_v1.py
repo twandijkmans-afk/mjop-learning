@@ -83,6 +83,7 @@ def test_evidence_is_traceable():
                                            "region_px": None, "score": 0.9, "detector": None, "reasons": []}),   # gebrek zonder bronfoto/plek/gevalideerd model
     lambda d: d["photos"][0].update(depth_source="ESTIMATED_FROM_PHOTO"),
     lambda d: d["facades"][0]["totals"].pop("glass_area"),
+    lambda d: d["facades"][0]["capture_requests"].append({"kind": "ANDERE_HOEK", "object_id": None, "photo_id": None, "reason": "X", "text_nl": None}),
 ])
 def test_schema_rejects_violations(mutate):
     d = copy.deepcopy(EXAMPLE)

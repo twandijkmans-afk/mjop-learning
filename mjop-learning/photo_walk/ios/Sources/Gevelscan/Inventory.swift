@@ -107,6 +107,14 @@ public enum OutcomeRules {
         return ScanValue(value: sum, unit: unit, sigma: sigma, origin: origin, outcome: oc, missing: Array(Set(vals.flatMap { $0.missing } + missing)).sorted())
     }
 
+    /// Een som over objecten erft de onzekerheid van de objecttelling (bv. niet-gevalideerde associatie of onbevestigde contouren).
+    static func notBetterThanCount(_ v: ScanValue, _ count: ScanValue) -> ScanValue {
+        guard v.value != nil, count.outcome.rank > v.outcome.rank else { return v }
+        var c = v; c.outcome = count.outcome == .NIET_VAST_TE_STELLEN ? .VOORLOPIG_VASTGESTELD : count.outcome
+        c.missing = Array(Set(v.missing + count.missing)).sorted()
+        return c
+    }
+
     public static func totals(_ objects: [InventoryObject], recognition: RecognitionCapability, validation: PipelineValidation, extraMissing: [String] = []) -> InventoryTotals {
         let frames = objects.filter { $0.elementClass.isFrame }
         // aantal kozijnen: elk object telt 1; een object zonder maat telt wel mee als kozijn, maar een onbevestigde automatische contour maakt het aantal voorlopig
@@ -121,17 +129,22 @@ public enum OutcomeRules {
             var c = v; c.outcome = o.outcome == .NIET_VAST_TE_STELLEN ? .VOORLOPIG_VASTGESTELD : o.outcome; c.missing = Array(Set(v.missing + o.outcomeReasons)).sorted(); return c
         }
         let area = total(frames, unit: "m2", origin: .DERIVED_CALCULATION, value: { capped($0.geometry.area, $0) }, extraMissing: extraMissing)
-        let operable = total(frames, unit: "st", origin: frames.contains { $0.geometry.operableParts.origin == .USER_INPUT } ? .USER_INPUT : .MODEL_CLASSIFICATION,
-                             value: { $0.geometry.operableParts }, extraMissing: extraMissing)
-        let fixed = total(frames, unit: "st", origin: frames.contains { $0.geometry.fixedParts.origin == .USER_INPUT } ? .USER_INPUT : .MODEL_CLASSIFICATION,
-                          value: { $0.geometry.fixedParts }, extraMissing: extraMissing)
+        // Herkomst van een totaal wordt nooit opgewaardeerd: USER_INPUT alleen als ELK deel door de gebruiker is ingevuld. En een totaal over
+        // objecten kan nooit zekerder zijn dan de telling van die objecten zelf (die uit de associatie komt).
+        func partsTotal(_ value: @escaping (InventoryObject) -> ScanValue) -> ScanValue {
+            let allUser = !frames.isEmpty && frames.allSatisfy { value($0).origin == .USER_INPUT }
+            return notBetterThanCount(total(frames, unit: "st", origin: allUser ? .USER_INPUT : .MODEL_CLASSIFICATION, value: value, extraMissing: extraMissing), count)
+        }
+        let operable = partsTotal { $0.geometry.operableParts }
+        let fixed = partsTotal { $0.geometry.fixedParts }
         let glass = total(frames, unit: "m2", origin: .DERIVED_SEGMENTATION_ON_MEASURED_PLANE, value: { capped($0.geometry.glassArea, $0) }, extraMissing: extraMissing)
         var doors = ScanValue.unknown("st", ["GEEN_MODEL_VOOR_DEUR_OF_RAAM"] + extraMissing)
         if recognition.learnedClasses.contains(.DEUR) || frames.contains(where: { $0.classOrigin == .USER_INPUT }) {
             if frames.allSatisfy({ $0.elementClass != .KOZIJN }) {
-                doors = total(frames, unit: "st", origin: .MODEL_CLASSIFICATION, value: { o in
+                let allUser = frames.allSatisfy { $0.classOrigin == .USER_INPUT }
+                doors = notBetterThanCount(total(frames, unit: "st", origin: allUser ? .USER_INPUT : .MODEL_CLASSIFICATION, value: { o in
                     ScanValue(value: o.elementClass == .DEUR ? 1 : 0, unit: "st", origin: o.classOrigin, outcome: o.classOrigin == .USER_INPUT ? .BETROUWBAAR_VASTGESTELD : .VOORLOPIG_VASTGESTELD)
-                }, extraMissing: extraMissing)
+                }, extraMissing: extraMissing), count)
             } else { doors = .unknown("st", ["NIET_ALLE_KOZIJNEN_GECLASSIFICEERD"] + extraMissing) }
         }
         return InventoryTotals(frameCount: count, frameAreaGross: area, operableParts: operable, fixedParts: fixed, glassArea: glass, doorCount: doors)
