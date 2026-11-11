@@ -61,6 +61,25 @@
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); }
   td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .sub { border: 1px solid var(--line); border-radius: 8px; padding: 10px; margin: 10px 0; }
+  .sub > strong { font-size: .92rem; }
+  #bagMap svg { width: 100%; max-height: 260px; display: block; margin-top: 6px; }
+  #bagMap .side { stroke: var(--muted); stroke-width: 3; cursor: pointer; }
+  #bagMap .side.on { stroke: var(--accent); stroke-width: 6; }
+  #bagMap .hit { stroke: transparent; stroke-width: 22; cursor: pointer; }
+  #bagMap text { font: 600 11px system-ui, sans-serif; fill: var(--ink); pointer-events: none; }
+  #cam { position: fixed; inset: 0; z-index: 20; background: #000; color: #fff; display: flex; flex-direction: column; }
+  #camView { position: relative; flex: 1; min-height: 0; }
+  #camVideo { width: 100%; height: 100%; object-fit: contain; display: block; }
+  #level { position: absolute; left: 50%; top: 50%; width: 130px; height: 130px; margin: -65px 0 0 -65px; border: 2px solid #fff; border-radius: 50%; box-shadow: 0 0 0 1px #0008; }
+  #level::before, #level::after { content: ""; position: absolute; background: #fff; opacity: .7; }
+  #level::before { left: 50%; top: 35%; width: 1px; height: 30%; } #level::after { top: 50%; left: 35%; height: 1px; width: 30%; }
+  #levelDot { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: #ffb020; border: 2px solid #000; }
+  #level.ok { border-color: #3ddc84; } #level.ok #levelDot { background: #3ddc84; }
+  #level.off { opacity: .35; } #level.off #levelDot { display: none; }
+  #camText { margin: 0; padding: 10px 14px; text-align: center; font-size: .95rem; min-height: 3.2em; background: #111; }
+  #camBar { display: flex; gap: 10px; justify-content: space-between; padding: 10px 14px calc(12px + env(safe-area-inset-bottom)); background: #111; }
+  #camBar button { background: #2a2a2a; color: #fff; border-color: #555; } #camBar button.primary { background: #fff; color: #000; border-color: #fff; min-width: 9em; }
   details summary { cursor: pointer; color: var(--muted); font-size: .9rem; }
 </style>
 </head>
@@ -83,6 +102,7 @@
       <h2>1. Foto</h2>
       <div class="row">
         <label class="filebtn">Foto maken of kiezen<input id="file" type="file" accept="image/*" capture="environment"></label>
+        <button id="camBtn">Camera met waterpas</button>
         <button id="demoBtn">Voorbeeldgevel</button>
       </div>
       <p class="muted">Sta zo recht mogelijk voor de gevel en zorg dat de hele gevel erop staat.</p>
@@ -108,7 +128,18 @@
 
     <section>
       <h2>3. Maat opgeven</h2>
-      <p class="muted">Zonder bekende maat zijn er geen meters. Wijs iets aan waarvan je de echte maat weet.</p>
+      <p class="muted">Zonder bekende maat zijn er geen meters. Haal de gevelbreedte op via het adres, of wijs iets aan waarvan je de echte maat weet.</p>
+      <div class="sub">
+        <strong>Maat via het adres (BAG)</strong>
+        <div class="row">
+          <input id="addr" type="text" placeholder="Adres, bv. Dorpsstraat 12 Utrecht" style="flex:1" autocomplete="off">
+          <button id="addrBtn">Zoek</button>
+        </div>
+        <div class="row" id="addrPickRow" hidden><select id="addrPick" style="flex:1"></select></div>
+        <div id="bagMap"></div>
+        <div id="bagMsg" class="msg"></div>
+      </div>
+      <p class="muted">Of geef zelf een maat op:</p>
       <div class="row">
         <label><input type="radio" name="refmode" value="line" checked> Eén maat (foto recht van voren)</label>
       </div>
@@ -127,6 +158,14 @@
         <label>Hoogte <input id="refH" class="num" type="text" inputmode="decimal" placeholder="bv. 2,31"> m</label>
       </div>
       <div id="refMsg" class="msg"></div>
+      <div class="sub">
+        <strong>Controlemaat</strong> <span class="muted">(aanbevolen bij een maat uit de BAG)</span>
+        <div class="row">
+          <button id="checkPick" disabled>Punten aanwijzen</button>
+          <label>Echte lengte <input id="checkLen" class="num" type="text" inputmode="decimal" placeholder="bv. 2,30"> m</label>
+        </div>
+        <div id="checkMsg" class="msg"></div>
+      </div>
     </section>
 
     <section>
@@ -163,6 +202,12 @@
   </div>
 </main>
 
+<div id="cam" hidden>
+  <div id="camView"><video id="camVideo" playsinline autoplay muted></video><div id="level" class="off"><div id="levelDot"></div></div></div>
+  <p id="camText"></p>
+  <div id="camBar"><button id="camClose">Sluiten</button><button id="camShot" class="primary">Foto maken</button></div>
+</div>
+
 <script>
 "use strict";
 // ---------------------------------------------------------------------------------------------------------------------
@@ -197,7 +242,8 @@ const TYPES = {
 
 const $ = (id) => document.getElementById(id);
 const state = { img: null, W: 0, H: 0, photoName: null, elements: [], active: null, nextId: 1,
-                ref: { mode: "line", pts: null }, tool: null, drag: null, recognition: null };
+                ref: { mode: "line", pts: null }, check: { pts: null }, tool: null, drag: null, recognition: null, capture: null,
+                bag: { docs: [], address: null, pand: null, sides: [], heights: null, side: null } };
 
 // ------------------------------------------------ rekenkern (zuivere functies) ---------------------------------------
 const Geo = {
@@ -387,21 +433,21 @@ function parseModelResponse(data, W, H) {
 }
 
 // ------------------------------------------------ foto laden ---------------------------------------------------------
-async function loadPhoto(file) {
+async function loadPhoto(file, capture) {
   let bmp;
   try { bmp = await createImageBitmap(file, { imageOrientation: "from-image" }); }
   catch (e) { bmp = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = () => no(new Error("Deze afbeelding kan niet worden geopend.")); i.src = URL.createObjectURL(file); }); }
   const k = Math.min(1, MAX_EDGE / Math.max(bmp.width, bmp.height));
   const c = document.createElement("canvas"); c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
   c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
-  setPhoto(c, file.name || "foto");
+  setPhoto(c, file.name || "foto", capture);
 }
 
-function setPhoto(canvas, name) {
-  Object.assign(state, { img: canvas, W: canvas.width, H: canvas.height, photoName: name, elements: [], active: null, nextId: 1, tool: null, drag: null, recognition: null });
-  state.ref = { mode: state.ref.mode, pts: null };
+function setPhoto(canvas, name, capture) {
+  Object.assign(state, { img: canvas, W: canvas.width, H: canvas.height, photoName: name, elements: [], active: null, nextId: 1, tool: null, drag: null, recognition: null, capture: capture || null });
+  state.ref = { mode: state.ref.mode, pts: null }; state.check = { pts: null }; state.bag.side = null;
   $("empty").hidden = true; $("cv").hidden = false;
-  ["refLen", "refW", "refH"].forEach((id) => { $(id).value = ""; });
+  ["refLen", "refW", "refH", "checkLen"].forEach((id) => { $(id).value = ""; });
   ["detectMsg", "itemsMsg", "exportMsg", "photoMsg"].forEach((id) => setMsg(id, ""));
   refresh();
 }
@@ -465,6 +511,9 @@ function draw() {
     path(state.ref.mode === "rect" && rp.length === 4 ? Geo.orderQuad(rp) : rp, state.ref.mode === "rect" && rp.length === 4); g.stroke(); g.setLineDash([]);
     for (const p of rp) { g.beginPath(); g.arc(p[0], p[1], px(6), 0, 7); g.fillStyle = "#ffd400"; g.fill(); g.lineWidth = px(1.5); g.strokeStyle = "#000"; g.stroke(); }
   }
+  const cp = state.check.pts;
+  if (cp && cp.length === 2) { g.strokeStyle = "#00e5ff"; g.lineWidth = px(3); g.setLineDash([px(3), px(4)]); path(cp, false); g.stroke(); g.setLineDash([]);
+    for (const p of cp) { g.beginPath(); g.arc(p[0], p[1], px(5), 0, 7); g.fillStyle = "#00e5ff"; g.fill(); g.lineWidth = px(1.5); g.strokeStyle = "#000"; g.stroke(); } }
   // punten van het lopende gereedschap
   if (state.tool && state.tool.pts.length) {
     g.strokeStyle = "#fff"; g.lineWidth = px(2); path(state.tool.pts, false); g.stroke();
@@ -500,8 +549,8 @@ function renderList() {
     }
     ul.append(li);
   }
-  const big = toM ? state.elements.filter((e) => { const q = quantities(e, toM, state.elements); return TYPES[e.type].opening && (q.width_m > 12 || q.height_m > 12 || q.width_m < 0.15 || q.height_m < 0.15); }) : [];
-  setMsg("itemsMsg", big.length ? `Onwaarschijnlijke maat bij element ${big.map((e) => e.id).join(", ")}. Controleer de referentiemaat en de hoekpunten.` : "", "warn");
+  const big = toM ? state.elements.filter((e) => { const q = quantities(e, toM, state.elements); return TYPES[e.type].opening && (q.width_m > 12 || q.height_m > 12 || q.width_m < 0.15 || q.height_m < 0.15 || (e.type === "kozijn_deur" && (q.height_m < 1.8 || q.height_m > 3.2))); }) : [];
+  setMsg("itemsMsg", big.length ? `Onwaarschijnlijke maat bij element ${big.map((e) => e.id).join(", ")}. Een deurkozijn is meestal 2,0 tot 2,8 m hoog. Controleer de maat en de hoekpunten.` : "", "warn");
 }
 
 function totals() {
@@ -532,11 +581,13 @@ function buildExport() {
   return {
     contract: "gevelfoto_prototype_v0", status: "PROPOSED", booking_allowed: false, validated: false,
     created_at: new Date().toISOString(),
-    photo: { name: state.photoName, width_px: state.W, height_px: state.H, included_in_export: false },
+    photo: { name: state.photoName, width_px: state.W, height_px: state.H, included_in_export: false, capture: state.capture },
+    building: state.bag.pand ? { address: state.bag.address, bag_pand_id: state.bag.pand.id, bouwjaar: state.bag.pand.bouwjaar || null, heights_3dbag: state.bag.heights, source: "PDOK BAG / 3D BAG", retrieved_at: state.bag.retrievedAt } : null,
     recognition: state.recognition || { provider: "none" },
     scale: !toM ? null : ref.mode === "line"
-      ? { method: "REFERENCE_LINE", length_m: ref.length, points_px: ref.pts.map(rp), perspective_corrected: false }
-      : { method: "REFERENCE_RECTANGLE", width_m: ref.w, height_m: ref.h, points_px: Geo.orderQuad(ref.pts).map(rp), perspective_corrected: rectInfo(ref, Geo.orderQuad(ref.pts)).perspective },
+      ? { method: "REFERENCE_LINE", length_m: ref.length, points_px: ref.pts.map(rp), perspective_corrected: false, source: ref.source || { type: "USER_INPUT" } }
+      : { method: "REFERENCE_RECTANGLE", width_m: ref.w, height_m: ref.h, points_px: Geo.orderQuad(ref.pts).map(rp), perspective_corrected: rectInfo(ref, Geo.orderQuad(ref.pts)).perspective, source: { type: "USER_INPUT" } },
+    scale_check: checkResult(),
     items: state.elements.filter((e) => e.chosen).map((e) => { const q = quantities(e, toM, state.elements); const r = {}; for (const [k, v] of Object.entries(q)) r[k] = k === "count" ? v : round2(v);
       return { id: e.id, type: e.type, label: TYPES[e.type].label, geometry_origin: e.source === "hand" ? "USER_DRAWN" : e.edited ? "AI_PROPOSAL_USER_EDITED" : e.source === "demo" ? "DEMO" : "AI_PROPOSAL",
                material_ai_estimate: e.material, confidence_ai: e.confidence, note: e.note, points_px: e.pts.map((p) => [Math.round(p[0]), Math.round(p[1])]),
@@ -570,11 +621,178 @@ function renderRef() {
   if (!state.img) return setMsg("refMsg", "");
   if (!r.pts || r.pts.length !== need) return setMsg("refMsg", r.mode === "line" ? "Wijs twee punten aan en vul de echte afstand ertussen in." : "Wijs de vier hoeken van een rechthoek op de gevel aan en vul breedte en hoogte in. Een groot vlak (bijvoorbeeld de hele gevel) corrigeert ook een schuine foto.", "warn");
   if (!toM) return setMsg("refMsg", r.mode === "line" ? "Vul de lengte in meter in." : "Vul breedte en hoogte in meter in.", "warn");
+  if (r.mode === "line" && r.source) return setMsg("refMsg", `Schaal uit de BAG: gevelbreedte ${fmt(r.length)} m (zijde ${r.source.side_facing}). De BAG-omtrek is van boven ingemeten en kan enkele decimeters afwijken; controleer met een controlemaat. Alleen betrouwbaar als de foto recht van voren is genomen.`, "ok");
   if (r.mode === "line") return setMsg("refMsg", `Schaal: ${fmt(r.length / Geo.dist(r.pts[0], r.pts[1]) * 1000, 1)} mm per pixel. Alleen betrouwbaar als de foto recht van voren is genomen.`, "ok");
   const info = rectInfo(r, Geo.orderQuad(r.pts));
   if (info.perspective) return setMsg("refMsg", "Maat ingesteld met correctie voor een schuine foto.", "ok");
   if (info.mismatch > 0.05) return setMsg("refMsg", `Breedte en hoogte geven een schaal die ${fmt(info.mismatch * 100, 0)}% verschilt: de foto is schuin genomen of een maat klopt niet. De rechthoek is te klein om dat te corrigeren; wijs een groot vlak aan (bijvoorbeeld de hele gevel).`, "warn");
   setMsg("refMsg", "Schaal ingesteld. Deze rechthoek is te klein om een schuine foto te corrigeren; voor correctie wijs je een groot vlak aan (bijvoorbeeld de hele gevel).", "ok");
+}
+
+// ------------------------------------------------ maat via het adres (BAG / 3D BAG) ----------------------------------
+// Openbare, sleutelloze diensten: PDOK Locatieserver (adres -> punt), BAG (omtrek van het pand in meters, RD-stelsel) en 3D BAG (hoogtes).
+// De gevelbreedte is de lengte van de zijde van de BAG-omtrek die de gebruiker aanwijst. De omtrek is van boven ingemeten en kan enkele
+// decimeters afwijken van de gevel op ooghoogte; daarom blijft het een voorstel en is er een controlemaat.
+const PDOK_SEARCH = "https://api.pdok.nl/bzk/locatieserver/search/v3_1/free";
+const BAG_PAND = "https://api.pdok.nl/kadaster/bag/ogc/v2/collections/pand/items";
+const BAG3D_PAND = "https://api.3dbag.nl/collections/pand/items/";
+const RD_CRS = "http://www.opengis.net/def/crs/EPSG/0/28992";
+
+async function getJson(url) {
+  let res; try { res = await fetch(url, { headers: { accept: "application/json" } }); } catch (e) { throw new Error("Geen verbinding met de BAG-dienst."); }
+  if (!res.ok) throw new Error("De BAG-dienst gaf een fout (HTTP " + res.status + ").");
+  return res.json();
+}
+
+// Voegt opeenvolgende, bijna rechte stukken van de omtrek samen tot gevelzijden. Ring in meters; geeft [{a, b, length, facing}].
+function footprintSides(ring, tolDeg = 10) {
+  let pts = ring.map((p) => [p[0], p[1]]);
+  if (pts.length > 1 && Geo.dist(pts[0], pts[pts.length - 1]) < 1e-6) pts.pop();
+  pts = pts.filter((p, i) => Geo.dist(p, pts[(i + 1) % pts.length]) > 0.01);
+  if (pts.length < 3) return [];
+  const n = pts.length, dir = (i) => Math.atan2(pts[(i + 1) % n][1] - pts[i][1], pts[(i + 1) % n][0] - pts[i][0]);
+  const turn = (i) => { let d = Math.abs(dir(i) - dir((i + n - 1) % n)) * 180 / Math.PI; if (d > 180) d = 360 - d; return d; };   // knik bij punt i
+  const corners = []; for (let i = 0; i < n; i++) if (turn(i) > tolDeg) corners.push(i);
+  if (corners.length < 3) return [];
+  let signed = 0; for (let i = 0; i < n; i++) signed += pts[i][0] * pts[(i + 1) % n][1] - pts[(i + 1) % n][0] * pts[i][1];
+  const names = ["noord", "noordoost", "oost", "zuidoost", "zuid", "zuidwest", "west", "noordwest"];
+  return corners.map((c, k) => { const a = pts[c], b = pts[corners[(k + 1) % corners.length]], dx = b[0] - a[0], dy = b[1] - a[1];
+    const nx = signed > 0 ? dy : -dy, ny = signed > 0 ? -dx : dx;                 // naar buiten gerichte normaal (x = oost, y = noord)
+    const az = (Math.atan2(nx, ny) * 180 / Math.PI + 360) % 360;
+    return { a, b, length: Math.hypot(dx, dy), facing: names[Math.round(az / 45) % 8] }; });
+}
+
+function outerRing(geom) {
+  if (!geom) return null;
+  if (geom.type === "Polygon") return geom.coordinates[0];
+  if (geom.type === "MultiPolygon") return geom.coordinates.map((p) => p[0]).sort((a, b) => Geo.area(b) - Geo.area(a))[0];
+  return null;
+}
+
+async function bagSearch(q) {
+  const d = await getJson(`${PDOK_SEARCH}?q=${encodeURIComponent(q)}&fq=type:adres&rows=6&fl=weergavenaam,centroide_rd`);
+  return ((d.response && d.response.docs) || []).map((x) => { const m = /POINT\(([-\d.]+) ([-\d.]+)\)/.exec(x.centroide_rd || ""); return m ? { name: x.weergavenaam, pt: [parseFloat(m[1]), parseFloat(m[2])] } : null; }).filter(Boolean);
+}
+
+async function bagLoad(doc) {
+  const [x, y] = doc.pt, r = 30;
+  const d = await getJson(`${BAG_PAND}?bbox=${x - r},${y - r},${x + r},${y + r}&bbox-crs=${encodeURIComponent(RD_CRS)}&crs=${encodeURIComponent(RD_CRS)}&limit=50&f=json`);
+  const feats = (d.features || []).map((f) => ({ id: f.properties && f.properties.identificatie, bouwjaar: f.properties && f.properties.bouwjaar, ring: outerRing(f.geometry) })).filter((f) => f.ring && f.id);
+  if (!feats.length) throw new Error("Bij dit adres is geen pand gevonden in de BAG.");
+  const distTo = (f) => Geo.inside(doc.pt, f.ring) ? 0 : Math.min(...f.ring.map((p, i) => Geo.distToSegment(doc.pt, p, f.ring[(i + 1) % f.ring.length])));
+  const pand = feats.slice().sort((a, b) => distTo(a) - distTo(b))[0];
+  let heights = null;
+  try { const h = await getJson(BAG3D_PAND + "NL.IMBAG.Pand." + pand.id); const a = Object.values(h.feature.CityObjects)[0].attributes;
+    if (Number.isFinite(a.b3_h_maaiveld)) heights = { eaves_min_m: Number.isFinite(a.b3_h_dak_min) ? round2(a.b3_h_dak_min - a.b3_h_maaiveld) : null, top_max_m: Number.isFinite(a.b3_h_dak_max) ? round2(a.b3_h_dak_max - a.b3_h_maaiveld) : null, roof_type: a.b3_dak_type || null };
+  } catch (e) { /* hoogtes zijn aanvullend; zonder 3D BAG blijven ze onbekend */ }
+  Object.assign(state.bag, { address: doc.name, pand, neighbours: feats.filter((f) => f !== pand), sides: footprintSides(pand.ring), heights, side: null, retrievedAt: new Date().toISOString() });
+}
+
+function renderBag() {
+  const b = state.bag, box = $("bagMap"); box.replaceChildren();
+  if (!b.pand) return;
+  const NS = "http://www.w3.org/2000/svg", mk = (tag, attrs) => { const n = document.createElementNS(NS, tag); for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v); return n; };
+  const xs = b.pand.ring.map((p) => p[0]), ys = b.pand.ring.map((p) => p[1]), pad = 4;
+  const minX = Math.min(...xs) - pad, maxX = Math.max(...xs) + pad, minY = Math.min(...ys) - pad, maxY = Math.max(...ys) + pad, k = 300 / Math.max(maxX - minX, maxY - minY);
+  const P = (p) => [(p[0] - minX) * k, (maxY - p[1]) * k], path = (ring) => ring.map((p) => P(p).map((v) => v.toFixed(1)).join(",")).join(" ");
+  const svg = mk("svg", { viewBox: `0 0 ${((maxX - minX) * k).toFixed(0)} ${((maxY - minY) * k).toFixed(0)}`, role: "img", "aria-label": "Omtrek van het pand volgens de BAG, noorden boven" });
+  for (const n of b.neighbours || []) svg.append(mk("polygon", { points: path(n.ring), fill: "none", stroke: "currentColor", "stroke-opacity": "0.2" }));
+  svg.append(mk("polygon", { points: path(b.pand.ring), fill: "currentColor", "fill-opacity": "0.08", stroke: "none" }));
+  const c = P(Geo.centroid(b.pand.ring));
+  b.sides.forEach((s, i) => { const a = P(s.a), e = P(s.b), mid = [(a[0] + e[0]) / 2, (a[1] + e[1]) / 2], out = Math.hypot(mid[0] - c[0], mid[1] - c[1]) || 1;
+    const line = { x1: a[0], y1: a[1], x2: e[0], y2: e[1] };
+    svg.append(mk("line", { ...line, class: "side" + (b.side === i ? " on" : "") }));
+    if (s.length >= 1.5) { const t = mk("text", { x: mid[0] + (mid[0] - c[0]) / out * 16, y: mid[1] + (mid[1] - c[1]) / out * 16, "text-anchor": "middle", "dominant-baseline": "middle" }); t.textContent = fmt(s.length, 1); svg.append(t); }
+    if (s.length < 0.5) return;                                  // te kort om een gevel te zijn; niet aan te wijzen
+    const hit = mk("line", { ...line, class: "hit" }); hit.dataset.side = i; hit.addEventListener("click", () => chooseBagSide(i)); svg.append(hit); });
+  box.append(svg);
+}
+
+function chooseBagSide(i) {
+  const b = state.bag, s = b.sides[i]; if (!s || !state.img) return setMsg("bagMsg", "Kies eerst een foto en tik daarna op de zijde.", "warn");
+  b.side = i; document.querySelector("input[name=refmode][value=line]").checked = true;
+  state.ref = { mode: "line", pts: null, source: { type: "BAG_FOOTPRINT_SIDE", bag_pand_id: b.pand.id, address: b.address, side_length_m: round2(s.length), side_facing: s.facing, retrieved_at: b.retrievedAt } };
+  $("refLen").value = fmt(s.length);
+  startTool({ isRef: true, need: 2, hint: `Tik op de linker- en de rechterhoek van deze gevel (${fmt(s.length)} m), allebei op dezelfde hoogte, bijvoorbeeld onderaan.`, done: (pts) => { state.ref.pts = pts; } });
+}
+
+function bagText() {
+  const b = state.bag; if (!b.pand) return "";
+  const h = b.heights, parts = [`${b.address} · pand ${b.pand.id}${b.pand.bouwjaar ? " · bouwjaar " + b.pand.bouwjaar : ""}.`, "Tik op de zijde die op de foto staat (maten in meter, noorden boven)."];
+  if (h && (h.eaves_min_m != null || h.top_max_m != null)) parts.push(`Hoogte volgens 3D BAG, ter controle: laagste dakrand ${fmt(h.eaves_min_m, 1)} m, hoogste punt ${fmt(h.top_max_m, 1)} m boven maaiveld.`);
+  return parts.join(" ");
+}
+
+// Controlemaat: een tweede, zelf opgemeten afstand die de ingestelde schaal toetst. Verandert de schaal niet.
+function checkResult() {
+  const toM = metricMap(state.ref), c = state.check, known = parseNum($("checkLen").value);
+  if (!toM || !c.pts || c.pts.length !== 2 || !known) return null;
+  const measured = Geo.dist(toM(c.pts[0]), toM(c.pts[1]));
+  return { known_m: known, measured_m: round2(measured), deviation_pct: Math.round((measured - known) / known * 1000) / 10, points_px: c.pts.map((p) => [Math.round(p[0]), Math.round(p[1])]) };
+}
+function renderCheck() {
+  const c = state.check, r = checkResult();
+  if (!state.img || !c.pts) return setMsg("checkMsg", "");
+  if (!metricMap(state.ref)) return setMsg("checkMsg", "Stel eerst een maat in.", "warn");
+  if (!r) return setMsg("checkMsg", "Vul de echte lengte in.", "warn");
+  const bad = Math.abs(r.deviation_pct) > 5;
+  setMsg("checkMsg", `De pagina meet hier ${fmt(r.measured_m)} m; jij geeft ${fmt(r.known_m)} m op. Verschil ${fmt(Math.abs(r.deviation_pct), 1)}%.` + (bad ? " Dat is veel: controleer de aangewezen punten, of de foto is schuin genomen." : ""), bad ? "warn" : "ok");
+}
+
+// ------------------------------------------------ camera met waterpas ------------------------------------------------
+// Uit de stand van de telefoon (DeviceOrientation: beta, gamma) volgt de richting van 'omhoog' in toestelassen:
+// (-cos b * sin g, sin b, cos b * cos g). Daaruit: pitch = hoek van de camera-as met het horizontale vlak (+ = camera wijst omhoog),
+// roll = scheefstand in het schermvlak ten opzichte van de dichtstbijzijnde staande of liggende stand.
+// De draaiing ten opzichte van de gevel (links/rechts) is met deze sensoren niet te meten.
+const LEVEL_TOL_DEG = 3;
+function tiltFromOrientation(beta, gamma) {
+  if (!Number.isFinite(beta) || !Number.isFinite(gamma)) return null;
+  const b = beta * Math.PI / 180, g = gamma * Math.PI / 180, ux = -Math.cos(b) * Math.sin(g), uy = Math.sin(b), uz = Math.cos(b) * Math.cos(g);
+  const pitch = -Math.asin(Math.max(-1, Math.min(1, uz))) * 180 / Math.PI;
+  if (Math.hypot(ux, uy) < 0.3) return { pitch, roll: null };          // telefoon ligt bijna plat: scheefstand is dan niet te bepalen
+  const ang = Math.atan2(ux, uy) * 180 / Math.PI;
+  return { pitch, roll: ang - Math.round(ang / 90) * 90 };
+}
+
+const Cam = { stream: null, tilt: null, sensor: false };
+function onOrientation(ev) { const t = tiltFromOrientation(ev.beta, ev.gamma); if (t) { Cam.tilt = t; Cam.sensor = true; renderLevel(); } }
+function isLevel(t) { return !!t && t.roll != null && Math.abs(t.pitch) <= LEVEL_TOL_DEG && Math.abs(t.roll) <= LEVEL_TOL_DEG; }
+function renderLevel() {
+  const lv = $("level"), t = Cam.tilt;
+  if (!Cam.sensor || !t) { lv.className = "off"; $("camText").textContent = "Dit apparaat geeft geen hellingsensor door; de waterpas werkt hier niet. Houd de telefoon zelf zo recht mogelijk."; return; }
+  const ok = isLevel(t), clamp = (v) => Math.max(-1, Math.min(1, v / 12)) * 52;
+  lv.className = ok ? "ok" : "";
+  $("levelDot").style.transform = `translate(${clamp(t.roll || 0)}px, ${clamp(-t.pitch)}px)`;
+  const tips = [];
+  if (t.pitch > LEVEL_TOL_DEG) tips.push(`camera wijst ${Math.round(t.pitch)}° omhoog`); else if (t.pitch < -LEVEL_TOL_DEG) tips.push(`camera wijst ${Math.round(-t.pitch)}° omlaag`);
+  if (t.roll == null) tips.push("houd de telefoon rechtop"); else if (Math.abs(t.roll) > LEVEL_TOL_DEG) tips.push(`telefoon staat ${Math.round(Math.abs(t.roll))}° scheef`);
+  $("camText").textContent = ok ? "Recht. Sta je ook recht tegenover het midden van de gevel? Maak dan de foto."
+    : tips.join(", ").replace(/^./, (c) => c.toUpperCase()) + ". Breng het bolletje naar het midden. Past de gevel er niet op? Doe een stap achteruit in plaats van te kantelen.";
+}
+
+async function openCamera() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return setMsg("photoMsg", "De camera met waterpas werkt alleen als de pagina via https is geopend. Gebruik hier 'Foto maken of kiezen'.", "warn");
+  // iOS vraagt apart toestemming voor de bewegingssensor, en alleen direct na een tik.
+  try { if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === "function") await DeviceOrientationEvent.requestPermission(); } catch (e) { /* geweigerd: camera werkt, waterpas niet */ }
+  try { Cam.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: "environment" }, width: { ideal: 3840 }, height: { ideal: 2160 } } }); }
+  catch (e) { return setMsg("photoMsg", "De camera kon niet worden geopend (geen toestemming of geen camera). Gebruik 'Foto maken of kiezen'.", "err"); }
+  Cam.tilt = null; Cam.sensor = false;
+  $("camVideo").srcObject = Cam.stream; $("cam").hidden = false; renderLevel();
+  window.addEventListener("deviceorientation", onOrientation);
+}
+function closeCamera() {
+  window.removeEventListener("deviceorientation", onOrientation);
+  if (Cam.stream) Cam.stream.getTracks().forEach((t) => t.stop()); Cam.stream = null; $("camVideo").srcObject = null; $("cam").hidden = true;
+}
+function shoot() {
+  const v = $("camVideo"); if (!v.videoWidth) return;
+  const k = Math.min(1, MAX_EDGE / Math.max(v.videoWidth, v.videoHeight)), c = document.createElement("canvas");
+  c.width = Math.round(v.videoWidth * k); c.height = Math.round(v.videoHeight * k); c.getContext("2d").drawImage(v, 0, 0, c.width, c.height);
+  const t = Cam.sensor ? Cam.tilt : null, cap = { source: "CAMERA_WITH_LEVEL", pitch_deg: t ? Math.round(t.pitch * 10) / 10 : null, roll_deg: t && t.roll != null ? Math.round(t.roll * 10) / 10 : null, level: t ? isLevel(t) : null, tolerance_deg: LEVEL_TOL_DEG };
+  closeCamera(); setPhoto(c, "camera-" + new Date().toISOString().slice(0, 19).replace(/[:T]/g, "-"), cap);
+  if (cap.level === false) setMsg("photoMsg", `Deze foto is niet recht genomen (${cap.pitch_deg > 0 ? "omhoog" : "omlaag"} ${fmt(Math.abs(cap.pitch_deg), 0)}°${cap.roll_deg != null ? ", scheef " + fmt(Math.abs(cap.roll_deg), 0) + "°" : ""}). Maten kunnen daardoor afwijken; maak hem liever opnieuw of gebruik bij stap 3 een grote rechthoek.`, "warn");
+  else if (cap.level) setMsg("photoMsg", "Foto recht genomen.", "ok");
+  refresh();
 }
 
 // ------------------------------------------------ gereedschap en aanwijzen -------------------------------------------
@@ -628,13 +846,13 @@ function refresh() {
   $("cv").classList.toggle("busy", busy);
   $("hint").textContent = state.tool ? state.tool.hint : state.active != null ? "Sleep de witte punten naar de echte hoeken. Tik naast het element om klaar te zijn." : has ? "Tik op een element om het te selecteren." : "";
   $("detectBtn").disabled = !has || !$("key").value.trim() || state.detecting;
-  $("refPick").disabled = !has; $("addBtn").disabled = !has;
+  $("refPick").disabled = !has; $("addBtn").disabled = !has; $("checkPick").disabled = !has;
   const a = state.elements.find((e) => e.id === state.active);
   $("refFromSel").disabled = !(a && TYPES[a.type].kind === "quad");
   $("polyDone").hidden = !(state.tool && state.tool.open); $("cancelTool").hidden = !state.tool;
   $("allOn").disabled = $("allOff").disabled = !state.elements.length;
   ["copyBtn", "csvBtn", "jsonBtn"].forEach((id) => { $(id).disabled = !any; });
-  readRef(); renderRef(); renderList(); renderTotals(); draw();
+  readRef(); renderRef(); renderCheck(); renderBag(); renderList(); renderTotals(); draw();
 }
 
 // ------------------------------------------------ knoppen ------------------------------------------------------------
@@ -666,12 +884,26 @@ function init() {
     state.detecting = false; $("detectStatus").textContent = ""; refresh();
   });
 
-  document.querySelectorAll("input[name=refmode]").forEach((r) => r.addEventListener("change", () => { state.ref = { mode: r.value, pts: null }; if (state.tool && state.tool.isRef) state.tool = null; refresh(); }));
+  document.querySelectorAll("input[name=refmode]").forEach((r) => r.addEventListener("change", () => { state.ref = { mode: r.value, pts: null }; state.bag.side = null; if (state.tool && state.tool.isRef) state.tool = null; refresh(); }));
   $("refPick").addEventListener("click", () => { const m = state.ref.mode; state.ref.pts = null;
     startTool({ isRef: true, need: m === "line" ? 2 : 4, hint: m === "line" ? "Tik op het begin en het eind van de bekende maat." : "Tik op de vier hoeken van de rechthoek.", done: (pts) => { state.ref.pts = pts; setTimeout(() => $(m === "line" ? "refLen" : "refW").focus(), 0); } }); });
   $("refFromSel").addEventListener("click", () => { const a = state.elements.find((e) => e.id === state.active); if (!a) return;
     document.querySelector("input[name=refmode][value=rect]").checked = true; state.ref = { mode: "rect", pts: a.pts.map((p) => p.slice()) }; state.active = null; refresh(); $("refW").focus(); });
-  ["refLen", "refW", "refH"].forEach((id) => $(id).addEventListener("input", refresh));
+  $("refLen").addEventListener("input", () => { state.ref.source = null; state.bag.side = null; });      // zelf getypte maat is geen BAG-maat meer
+  ["refLen", "refW", "refH", "checkLen"].forEach((id) => $(id).addEventListener("input", refresh));
+  $("checkPick").addEventListener("click", () => { state.check.pts = null; startTool({ need: 2, hint: "Tik op het begin en het eind van een afstand die je zelf hebt opgemeten.", done: (pts) => { state.check.pts = pts; setTimeout(() => $("checkLen").focus(), 0); } }); });
+
+  const pickAddress = async (doc) => { setMsg("bagMsg", "Pand ophalen…"); try { await bagLoad(doc); setMsg("bagMsg", state.bag.sides.length ? bagText() : "De omtrek van dit pand kon niet in zijden worden verdeeld. Geef zelf een maat op.", state.bag.sides.length ? "" : "warn"); } catch (e) { state.bag.pand = null; setMsg("bagMsg", e.message, "err"); } refresh(); };
+  const search = async () => { const q = $("addr").value.trim(); if (!q) return; setMsg("bagMsg", "Zoeken…"); $("addrPickRow").hidden = true;
+    try { const docs = await bagSearch(q); state.bag.docs = docs;
+      if (!docs.length) return setMsg("bagMsg", "Geen adres gevonden. Typ straat, huisnummer en plaats.", "warn");
+      const sel = $("addrPick"); sel.replaceChildren(...docs.map((d, i) => el("option", { value: i, text: d.name }))); $("addrPickRow").hidden = docs.length < 2;
+      await pickAddress(docs[0]);
+    } catch (e) { setMsg("bagMsg", e.message, "err"); } };
+  $("addrBtn").addEventListener("click", search); $("addr").addEventListener("keydown", (ev) => { if (ev.key === "Enter") search(); });
+  $("addrPick").addEventListener("change", () => pickAddress(state.bag.docs[+$("addrPick").value]));
+
+  $("camBtn").addEventListener("click", openCamera); $("camClose").addEventListener("click", closeCamera); $("camShot").addEventListener("click", shoot);
 
   $("addBtn").addEventListener("click", () => { const type = $("addType").value, kind = TYPES[type].kind;
     const finish = (pts) => { if (kind === "quad") pts = Geo.boxToQuad(pts[0], pts[1]); if (kind !== "line" && Geo.area(pts) < 16) return; addElements([{ type, pts }], "hand"); state.active = state.elements[state.elements.length - 1].id; };
@@ -691,7 +923,7 @@ function init() {
 }
 
 // Voor geautomatiseerde controle van de rekenkern (zie README).
-window.Gevelfoto = { Geo, metricMap, quantities, parseModelResponse, buildPrompt, buildExport, state, TYPES, demoScene };
+window.Gevelfoto = { Geo, metricMap, quantities, parseModelResponse, buildPrompt, buildExport, state, TYPES, demoScene, footprintSides, tiltFromOrientation };
 init();
 </script>
 </body>
