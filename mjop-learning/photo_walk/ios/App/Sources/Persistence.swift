@@ -1,4 +1,5 @@
 import Foundation
+import Gevelscan
 import MJOPIntegration
 import PhotoWalkCore
 
@@ -36,6 +37,11 @@ struct SessionSnapshot: Codable {
     /// Alleen bij een fotoronde (optioneel: oudere sessies zonder dit veld blijven leesbaar).
     var round: RoundSnapshot? = nil
     var facadeElements: [Elem]? = nil
+    // Gevelscanner 2.0 (optioneel: oudere sessies zonder deze velden blijven leesbaar)
+    var photoQuality: [String: ImageQuality]? = nil
+    var paneGlare: [String: Double]? = nil
+    var userParts: [String: UserParts]? = nil
+    var userClasses: [String: ElementClass]? = nil
 }
 
 struct RoundSnapshot: Codable {
@@ -101,7 +107,9 @@ enum Persistence {
             round: s.round.map { RoundSnapshot(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
                                                frameWorld: $0.frameWorld, excludedFrames: $0.excludedFrames.sorted(), duplicateReview: $0.duplicateReview) },
             facadeElements: s.facadeElements.map { SessionSnapshot.Elem(id: $0.id, frameId: $0.frameId, role: $0.role.rawValue, corners: $0.corners, originalCorners: $0.originalCorners,
-                                                                        source: $0.source.rawValue, parentObservationId: $0.parentObservationId, rejected: $0.rejected) })
+                                                                        source: $0.source.rawValue, parentObservationId: $0.parentObservationId, rejected: $0.rejected) },
+            photoQuality: s.photoQuality.isEmpty ? nil : s.photoQuality, paneGlare: s.paneGlare.isEmpty ? nil : s.paneGlare,
+            userParts: s.userParts.isEmpty ? nil : s.userParts, userClasses: s.userClasses.isEmpty ? nil : s.userClasses)
     }
 
     /// Schrijft de sessie (best effort; fouten worden niet gemeld aan de gebruiker maar breken niets). Asynchroon, zodat de UI niet wacht.
@@ -201,6 +209,7 @@ enum Persistence {
         s.dismissedLinks = Set(snap.dismissedLinks)
         s.round = snap.round.map { RoundState(context: $0.context, status: $0.status, revision: $0.revision, facades: $0.facades, frameFacade: $0.frameFacade,
                                               frameWorld: $0.frameWorld, excludedFrames: Set($0.excludedFrames), duplicateReview: $0.duplicateReview) }
+        s.photoQuality = snap.photoQuality ?? [:]; s.paneGlare = snap.paneGlare ?? [:]; s.userParts = snap.userParts ?? [:]; s.userClasses = snap.userClasses ?? [:]
         s.measureAll()
     }
 }

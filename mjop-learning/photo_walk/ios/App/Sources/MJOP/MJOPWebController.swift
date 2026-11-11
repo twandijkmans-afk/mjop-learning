@@ -244,10 +244,13 @@ final class MJOPWebController: NSObject, ObservableObject {
     <button onclick="post('startElementScan', {planRef:'plan-0123456789abcdef01234567', mjopPlanId:null, buildingLabel:'Testgebouw 1', bagPandId:null, mode:'element', element:{key:'kozijnen-onderhoud', name:'Onderhoud buitenkozijnen', unit:'st'}, plannedFacades:[]})">Scan voor element</button>
     <button onclick="post('startPhotoRound', {planRef:'x', buildingLabel:'', mode:'round'})">Start ongeldig</button>
     <button onclick="post('listProposals', {planRef:'plan-0123456789abcdef01234567'})">Vraag voorstellen</button>
+    <button onclick="post('listFacadeInventory', {planRef:'plan-0123456789abcdef01234567'})">Vraag gevelinventaris</button>
+    <p id="inventaris">Inventaris: geen</p>
     <p id="antwoord">Antwoord: geen</p>
     <script>var n=0, k=0;
     function post(a,p){ k++; window.webkit.messageHandlers.mjopNative.postMessage({v:1, action:a, requestId:'t'+k, payload:p}); }
-    window.MJOPNativeBridge = { receive: function(m){ document.getElementById('antwoord').textContent = 'Antwoord: ' + m.type + ' voorstellen=' + (m.proposals ? m.proposals.length : '-') + ' fout=' + (m.message || '-'); } };
+    window.MJOPNativeBridge = { receive: function(m){ if (m.type === 'facade-inventory') { document.getElementById('inventaris').textContent = 'Inventaris: ' + (m.inventories ? m.inventories.length : '-') + ' voor ' + m.planRef; return; }
+      document.getElementById('antwoord').textContent = 'Antwoord: ' + m.type + ' voorstellen=' + (m.proposals ? m.proposals.length : '-') + ' fout=' + (m.message || '-'); } };
     </script></body></html>
     """
     #endif

@@ -118,8 +118,8 @@ jobs:
           if grep -rEn "URLSession|NWConnection|CFNetwork|WKWebView|import Network|import WebKit|URLRequest" Sources/PhotoWalkCore App/Sources --exclude-dir=MJOP; then
             echo "::error::netwerkcode buiten App/Sources/MJOP gevonden"; exit 1; fi
           # de testbare integratiekern is platformonafhankelijk (alleen Foundation)
-          if grep -rEn "import (WebKit|UIKit|ARKit|SwiftUI|Network)" Sources/MJOPIntegration; then
-            echo "::error::MJOPIntegration mag alleen Foundation gebruiken"; exit 1; fi
+          if grep -rEn "import (WebKit|UIKit|ARKit|SwiftUI|Network)" Sources/MJOPIntegration Sources/Gevelscan; then
+            echo "::error::MJOPIntegration en Gevelscan mogen alleen Foundation gebruiken"; exit 1; fi
           grep -q "mjoplive" "$LOGS/Info.plist.txt" || { echo "::error::URL-schema mjoplive ontbreekt in Info.plist"; exit 1; }
           grep -q "UIRequiredDeviceCapabilities" "$LOGS/Info.plist.txt" || { echo "::error::UIRequiredDeviceCapabilities ontbreekt"; exit 1; }
           ls -la "$APP/parity_cases.json"
@@ -204,6 +204,7 @@ jobs:
           cp "$EXP" "$LOGS/selftest-export.json"
           cp "$DATA"/Documents/mjop_scan_proposal_selftest.json "$LOGS/selftest-proposal.json"
           cp "$DATA"/Documents/mjop_round_proposals_selftest.json "$LOGS/selftest-round-proposals.json"
+          cp "$DATA"/Documents/mjop_gevel_inventory_selftest.json "$LOGS/selftest-gevel-inventory.json"
           cp "$DATA"/Documents/facade_selftest_export.json "$LOGS/selftest-facade-export.json"
           cp "$DATA"/Documents/legacy_selftest_export.json "$LOGS/selftest-legacy-export.json"
           cp "$DATA"/Documents/mjop_round_proposals_unconfirmed.json "$LOGS/selftest-round-unconfirmed.json"
@@ -309,6 +310,23 @@ jobs:
               assert p["value"] is None and p["partial_value"] is None, (p["target"], p["value"], p["partial_value"])
               assert p["booking_allowed"] is False and p["reliability"]["level"] == "INCOMPLETE"
           print("legacy-export en onbevestigde voorstellen OK:", len(ps))
+          PY
+          # Gevelscanner 2.0: de gevelinventaris (mjop_gevel_inventory_v1) die de app zelf maakt voldoet aan het schema, is een voorstel,
+          # bevat geen prijzen en wordt niet automatisch verwerkt (pijplijn niet gevalideerd).
+          grep -q "SELFTEST_GEVELSCAN facades=[1-9][0-9]* objects=[0-9][0-9]* withArea=[0-9][0-9]* autoProcessing=false" "$LOGS/selftest-console.log" || { echo "::error::selftest gaf geen geldige gevelinventaris"; exit 1; }
+          python - <<'PY'
+          import json, os, jsonschema
+          L = os.environ["LOGS"]
+          schema = json.load(open("../schemas/mjop_gevel_inventory_v1.schema.json"))
+          d = json.load(open(L + "/selftest-gevel-inventory.json"))
+          jsonschema.Draft7Validator(schema).validate(d)
+          assert d["booking_allowed"] is False and d["confirmation"]["status"] == "PROPOSED"
+          assert d["validation"]["auto_processing_allowed"] is False
+          text = json.dumps(d).lower()
+          assert not any(('"' + w) in text for w in ("prijs", "price", "kengetal", "kosten", "tarief")), "prijsveld in de inventaris"
+          objs = [o for f in d["facades"] for o in f["objects"]]
+          assert all(o["outcome"] != "BETROUWBAAR_VASTGESTELD" and o["nen2767_condition_score"] is None for o in objs)
+          print("gevelinventaris: gevels", len(d["facades"]), "objecten", len(objs), "foto's", len(d["photos"]))
           PY
           # Fotoronde-voorstellen (mjop_scan_proposal_v2) uit de app voldoen aan het schema en zijn nooit boeking/bevestigd
           python - <<'PY'

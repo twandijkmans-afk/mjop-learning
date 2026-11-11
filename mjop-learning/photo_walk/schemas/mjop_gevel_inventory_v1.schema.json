@@ -1,0 +1,1310 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_gevel_inventory_v1",
+  "title": "MJOP-gevelinventaris v1 (Gevelscanner 2.0 -> Mijn MJOP)",
+  "description": "Gevelinventaris van een fotoronde: per gevel en per fysiek object de hoeveelheden met herkomst, onzekerheid, uitkomstklasse en bewijs. Staat NAAST mjop_scan_proposal_v2 (ongewijzigd). Altijd een VOORSTEL (booking_allowed=false): geen prijzen, kengetallen of kosten; die blijven bij de kengetallenbibliotheek van het MJOP. Onbekend = null, nooit 0. Regels die een schema niet kan uitdrukken (geen aantal bij mogelijke dubbeltelling, glas <= kozijn, niets 'betrouwbaar' zonder gevalideerde pijplijn) worden in Swift (GevelInventoryV1.validate) en JavaScript (src/gevel-inventory.js) afgedwongen.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "inventory_id",
+    "round_id",
+    "revision",
+    "created_at",
+    "project",
+    "element_key",
+    "versions",
+    "recognition",
+    "validation",
+    "facades",
+    "building_totals",
+    "photos",
+    "confirmation",
+    "booking_allowed"
+  ],
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]{8,80}$"
+    },
+    "outcome": {
+      "enum": [
+        "BETROUWBAAR_VASTGESTELD",
+        "VOORLOPIG_VASTGESTELD",
+        "NIET_VAST_TE_STELLEN"
+      ]
+    },
+    "origin": {
+      "enum": [
+        "LIDAR_PLANE_MEASUREMENT",
+        "REFERENCE_DISTANCE",
+        "DERIVED_SEGMENTATION_ON_MEASURED_PLANE",
+        "DERIVED_CALCULATION",
+        "COUNTED_FROM_ASSOCIATION",
+        "MODEL_CLASSIFICATION",
+        "USER_INPUT",
+        "NONE"
+      ],
+      "description": "LIDAR_PLANE_MEASUREMENT: hoekstralen op een LiDAR-vlak. DERIVED_SEGMENTATION_ON_MEASURED_PLANE: beeldcontour geprojecteerd op het gemeten vlak (geen directe meting). DERIVED_CALCULATION: uit andere waarden berekend."
+    },
+    "element_class": {
+      "enum": [
+        "GEVELVLAK",
+        "KOZIJN",
+        "RAAM",
+        "DEUR",
+        "GLASVLAK",
+        "DRAAIEND_DEEL",
+        "VAST_DEEL",
+        "GEVELPANEEL",
+        "TUSSENSTIJL",
+        "TUSSENDORPEL",
+        "AANSLUITING",
+        "AFWERKING"
+      ]
+    },
+    "quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit",
+        "sigma",
+        "origin",
+        "outcome",
+        "missing",
+        "partial"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "null = niet vast te stellen (nooit 0 invullen voor onbekend)."
+        },
+        "unit": {
+          "enum": [
+            "st",
+            "m",
+            "m2"
+          ]
+        },
+        "sigma": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "1-sigma van een NIET-gevalideerd ruismodel; null = geen onzekerheid bepaald."
+        },
+        "origin": {
+          "$ref": "#/definitions/origin"
+        },
+        "outcome": {
+          "$ref": "#/definitions/outcome"
+        },
+        "missing": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          },
+          "description": "Wat ontbreekt, of waarom geen hogere uitkomstklasse."
+        },
+        "partial": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "description": "Som van wat wel bekend is; alleen informatief, nooit als totaal gebruiken."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "value": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "outcome": {
+                "const": "NIET_VAST_TE_STELLEN"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "outcome": {
+                "enum": [
+                  "BETROUWBAAR_VASTGESTELD",
+                  "VOORLOPIG_VASTGESTELD"
+                ]
+              },
+              "partial": {
+                "type": "null"
+              },
+              "origin": {
+                "not": {
+                  "const": "NONE"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "quantity_st": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/quantity"
+        },
+        {
+          "properties": {
+            "unit": {
+              "const": "st"
+            }
+          }
+        }
+      ]
+    },
+    "quantity_m": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/quantity"
+        },
+        {
+          "properties": {
+            "unit": {
+              "const": "m"
+            }
+          }
+        }
+      ]
+    },
+    "quantity_m2": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/quantity"
+        },
+        {
+          "properties": {
+            "unit": {
+              "const": "m2"
+            }
+          }
+        }
+      ]
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_count",
+        "frame_area_gross",
+        "operable_parts",
+        "fixed_parts",
+        "glass_area",
+        "door_count"
+      ],
+      "description": "Zes GESCHEIDEN hoeveelheden; nooit mengen of in elkaar omrekenen.",
+      "properties": {
+        "frame_count": {
+          "$ref": "#/definitions/quantity_st",
+          "description": "Aantal kozijnen."
+        },
+        "frame_area_gross": {
+          "$ref": "#/definitions/quantity_m2",
+          "description": "Totale bruto kozijnoppervlakte (buitenmaat b x h)."
+        },
+        "operable_parts": {
+          "$ref": "#/definitions/quantity_st",
+          "description": "Aantal draaiende delen."
+        },
+        "fixed_parts": {
+          "$ref": "#/definitions/quantity_st",
+          "description": "Aantal vaste delen."
+        },
+        "glass_area": {
+          "$ref": "#/definitions/quantity_m2",
+          "description": "Totale zichtbare glasoppervlakte."
+        },
+        "door_count": {
+          "$ref": "#/definitions/quantity_st",
+          "description": "Aantal deurkozijnen."
+        }
+      }
+    },
+    "detector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "version",
+        "kind",
+        "validated",
+        "classes"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "version": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "kind": {
+          "enum": [
+            "LEARNED_MODEL",
+            "GEOMETRIC_CANDIDATE",
+            "USER"
+          ]
+        },
+        "validated": {
+          "type": "boolean"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/element_class"
+          }
+        }
+      }
+    },
+    "pane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "x_m",
+        "y_m",
+        "width_m",
+        "height_m",
+        "area_m2",
+        "sigma_area_m2",
+        "seen_in_views",
+        "column",
+        "row",
+        "operability",
+        "glare_suspected",
+        "origin"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "x_m": {
+          "type": "number"
+        },
+        "y_m": {
+          "type": "number"
+        },
+        "width_m": {
+          "type": "number",
+          "minimum": 0
+        },
+        "height_m": {
+          "type": "number",
+          "minimum": 0
+        },
+        "area_m2": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sigma_area_m2": {
+          "type": "number",
+          "minimum": 0
+        },
+        "seen_in_views": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "column": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "row": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operability": {
+          "enum": [
+            "DRAAIEND_DEEL",
+            "VAST_DEEL",
+            null
+          ]
+        },
+        "glare_suspected": {
+          "type": "boolean"
+        },
+        "origin": {
+          "const": "DERIVED_SEGMENTATION_ON_MEASURED_PLANE",
+          "description": "Een glasvlak is nooit een directe LiDAR-meting."
+        }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "category",
+        "label_nl",
+        "photo_id",
+        "region_px",
+        "score",
+        "detector",
+        "reasons"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "ZICHTBAAR_GEBREK",
+            "MOGELIJKE_INDICATIE",
+            "NIET_BEOORDEELBAAR"
+          ]
+        },
+        "category": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z0-9_]{1,60}$",
+          "description": "Uitbreidbare code (bv. SCHILDERWERK_AFBLADDEREND); alleen ZICHTBARE gebreken."
+        },
+        "label_nl": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "photo_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "region_px": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Modelscore; niet gekalibreerd, geen kans."
+        },
+        "detector": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/definitions/detector"
+            }
+          ]
+        },
+        "reasons": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "ZICHTBAAR_GEBREK",
+                  "MOGELIJKE_INDICATIE"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "category": {
+                "type": "string"
+              },
+              "photo_id": {
+                "type": "string"
+              },
+              "region_px": {
+                "type": "array"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "ZICHTBAAR_GEBREK"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "detector": {
+                "type": "object",
+                "properties": {
+                  "validated": {
+                    "const": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "object_id",
+        "element_class",
+        "class_origin",
+        "label_nl",
+        "count",
+        "outcome",
+        "outcome_reasons",
+        "identity",
+        "identity_reasons",
+        "possible_same_as",
+        "contour_evidence",
+        "width",
+        "height",
+        "area",
+        "dimension_status",
+        "scale_method",
+        "independent_viewpoints",
+        "recess_cm",
+        "sections",
+        "glass_area",
+        "operable_parts",
+        "fixed_parts",
+        "panes",
+        "mullions",
+        "transoms",
+        "condition",
+        "nen2767_condition_score",
+        "photo_ids",
+        "sighting_ids",
+        "measured_sighting_ids",
+        "detectors",
+        "quality_flags",
+        "truncated_by",
+        "notes_nl"
+      ],
+      "properties": {
+        "object_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_.-]{4,80}$",
+          "description": "Stabiel binnen de scanronde."
+        },
+        "element_class": {
+          "enum": [
+            "KOZIJN",
+            "RAAM",
+            "DEUR"
+          ]
+        },
+        "class_origin": {
+          "$ref": "#/definitions/origin"
+        },
+        "label_nl": {
+          "type": "string"
+        },
+        "count": {
+          "const": 1,
+          "description": "Eén fysiek kozijn, ook als het uit meerdere vakken bestaat of op meerdere foto's staat."
+        },
+        "outcome": {
+          "$ref": "#/definitions/outcome"
+        },
+        "outcome_reasons": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        },
+        "identity": {
+          "enum": [
+            "RESOLVED",
+            "RESOLVED_BY_USER",
+            "UNCERTAIN",
+            "UNCHECKED"
+          ]
+        },
+        "identity_reasons": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        },
+        "possible_same_as": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "contour_evidence": {
+          "enum": [
+            "USER_CONFIRMED",
+            "AUTO_CORROBORATED",
+            "AUTO_UNCONFIRMED"
+          ]
+        },
+        "width": {
+          "$ref": "#/definitions/quantity_m"
+        },
+        "height": {
+          "$ref": "#/definitions/quantity_m"
+        },
+        "area": {
+          "$ref": "#/definitions/quantity_m2"
+        },
+        "dimension_status": {
+          "enum": [
+            "MEASURED",
+            "DERIVED",
+            "ESTIMATED",
+            "UNKNOWN"
+          ]
+        },
+        "scale_method": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "independent_viewpoints": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "recess_cm": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "sections": {
+          "$ref": "#/definitions/quantity_st",
+          "description": "Aantal vakken (glasvlakken) binnen dit ene kozijn."
+        },
+        "glass_area": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/quantity_m2"
+            },
+            {
+              "properties": {
+                "origin": {
+                  "enum": [
+                    "DERIVED_SEGMENTATION_ON_MEASURED_PLANE",
+                    "USER_INPUT",
+                    "NONE"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "operable_parts": {
+          "$ref": "#/definitions/quantity_st"
+        },
+        "fixed_parts": {
+          "$ref": "#/definitions/quantity_st"
+        },
+        "panes": {
+          "type": "array",
+          "maxItems": 60,
+          "items": {
+            "$ref": "#/definitions/pane"
+          }
+        },
+        "mullions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "position_m",
+              "thickness_m",
+              "origin"
+            ],
+            "properties": {
+              "position_m": {
+                "type": "number"
+              },
+              "thickness_m": {
+                "type": "number",
+                "minimum": 0
+              },
+              "origin": {
+                "const": "DERIVED_CALCULATION"
+              }
+            }
+          }
+        },
+        "transoms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "position_m",
+              "thickness_m",
+              "origin"
+            ],
+            "properties": {
+              "position_m": {
+                "type": "number"
+              },
+              "thickness_m": {
+                "type": "number",
+                "minimum": 0
+              },
+              "origin": {
+                "const": "DERIVED_CALCULATION"
+              }
+            }
+          }
+        },
+        "condition": {
+          "type": "array",
+          "maxItems": 60,
+          "items": {
+            "$ref": "#/definitions/condition"
+          }
+        },
+        "nen2767_condition_score": {
+          "type": "null",
+          "description": "Bewust altijd null: een visuele AI-waarneming is geen NEN 2767-inspectie."
+        },
+        "photo_ids": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "sighting_ids": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "measured_sighting_ids": {
+          "type": "array",
+          "maxItems": 200,
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "detectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/detector"
+          }
+        },
+        "quality_flags": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        },
+        "truncated_by": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "LEFT",
+              "RIGHT",
+              "TOP",
+              "BOTTOM"
+            ]
+          }
+        },
+        "notes_nl": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "maxLength": 300
+          }
+        }
+      }
+    },
+    "capture_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "object_id",
+        "photo_id",
+        "reason",
+        "text_nl"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "ANDERE_HOEK",
+            "VOLLEDIG_OBJECT_IN_BEELD",
+            "ONDERZIJDE_GEVEL",
+            "BETERE_DIEPTE",
+            "GLAS_CONTROLEREN",
+            "SCHERPERE_FOTO",
+            "GEVEL_DEKKING",
+            "ZELFDE_SCANSESSIE",
+            "OVERZICHTSFOTO",
+            "DICHTERBIJ"
+          ]
+        },
+        "object_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "photo_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]{0,60}$"
+        },
+        "text_nl": {
+          "type": "string",
+          "maxLength": 300
+        }
+      }
+    },
+    "facade": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "facade_id",
+        "orientation",
+        "completeness",
+        "completeness_reasons",
+        "coverage",
+        "photo_ids",
+        "totals",
+        "capture_requests",
+        "objects"
+      ],
+      "properties": {
+        "facade_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "orientation": {
+          "enum": [
+            "N",
+            "NE",
+            "E",
+            "SE",
+            "S",
+            "SW",
+            "W",
+            "NW",
+            null
+          ]
+        },
+        "completeness": {
+          "$ref": "#/definitions/outcome"
+        },
+        "completeness_reasons": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        },
+        "coverage": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "determinable",
+            "width_m",
+            "height_m",
+            "covered_fraction",
+            "multi_view_fraction",
+            "photos_used",
+            "photos_without_plane",
+            "flags"
+          ],
+          "properties": {
+            "determinable": {
+              "type": "boolean",
+              "description": "false = dekking ONBEKEND (geen LiDAR-gevelvlak); nooit lezen als volledig."
+            },
+            "width_m": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "height_m": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0
+            },
+            "covered_fraction": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "multi_view_fraction": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "photos_used": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "photos_without_plane": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "flags": {
+              "type": "array",
+              "maxItems": 40,
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Z0-9_]{1,60}$"
+              }
+            }
+          }
+        },
+        "photo_ids": {
+          "type": "array",
+          "maxItems": 2000,
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          }
+        },
+        "totals": {
+          "$ref": "#/definitions/totals"
+        },
+        "capture_requests": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "#/definitions/capture_request"
+          }
+        },
+        "objects": {
+          "type": "array",
+          "maxItems": 500,
+          "items": {
+            "$ref": "#/definitions/object"
+          }
+        }
+      }
+    },
+    "photo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "photo_id",
+        "facade_id",
+        "session_ref",
+        "captured_at",
+        "depth_source",
+        "depth_valid_fraction",
+        "depth_median_range_m",
+        "support_depth_frames",
+        "tracking_normal",
+        "intrinsics",
+        "camera_position_m",
+        "camera_direction",
+        "sharpness",
+        "overexposed_fraction",
+        "flags"
+      ],
+      "properties": {
+        "photo_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "facade_id": {
+          "type": "string"
+        },
+        "session_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "S1, S2, ...: foto's met dezelfde verwijzing zijn in één AR-sessie gemaakt en dus ruimtelijk vergelijkbaar."
+        },
+        "captured_at": {
+          "type": "string"
+        },
+        "depth_source": {
+          "enum": [
+            "LIDAR_SCENE_DEPTH",
+            "NONE"
+          ],
+          "description": "NONE = gewone foto: geen metrische meting mogelijk."
+        },
+        "depth_valid_fraction": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "depth_median_range_m": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "support_depth_frames": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tracking_normal": {
+          "type": "boolean"
+        },
+        "intrinsics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fx",
+            "fy",
+            "cx",
+            "cy",
+            "width",
+            "height"
+          ],
+          "properties": {
+            "fx": {
+              "type": "number"
+            },
+            "fy": {
+              "type": "number"
+            },
+            "cx": {
+              "type": "number"
+            },
+            "cy": {
+              "type": "number"
+            },
+            "width": {
+              "type": "integer"
+            },
+            "height": {
+              "type": "integer"
+            }
+          }
+        },
+        "camera_position_m": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          },
+          "description": "Lokaal stelsel van de AR-sessie (meter, y omhoog). Geen GPS, geen adres."
+        },
+        "camera_direction": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "sharpness": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "overexposed_fraction": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "flags": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        }
+      }
+    }
+  },
+  "properties": {
+    "contract": {
+      "const": "mjop_gevel_inventory_v1"
+    },
+    "inventory_id": {
+      "$ref": "#/definitions/id"
+    },
+    "round_id": {
+      "$ref": "#/definitions/id"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_ref",
+        "mjop_plan_id",
+        "building_id",
+        "bag_pand_id"
+      ],
+      "properties": {
+        "plan_ref": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{8,80}$"
+        },
+        "mjop_plan_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 80
+        },
+        "building_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "bag_pand_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^\\d{16}$"
+        }
+      }
+    },
+    "element_key": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-z0-9-]{1,80}$"
+    },
+    "versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pipeline",
+        "capture",
+        "association",
+        "geometry",
+        "condition",
+        "thresholds_status"
+      ],
+      "properties": {
+        "pipeline": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "capture": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "association": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "geometry": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "condition": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "thresholds_status": {
+          "type": "string",
+          "maxLength": 80
+        }
+      }
+    },
+    "recognition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "detectors",
+        "not_recognizable",
+        "derived_by_geometry"
+      ],
+      "properties": {
+        "detectors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/detector"
+          }
+        },
+        "not_recognizable": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/element_class"
+          },
+          "description": "Klassen waarvoor in deze app GEEN herkenner aanwezig was."
+        },
+        "derived_by_geometry": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/element_class"
+          }
+        }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "geometry_field_validated",
+        "detector_validated",
+        "auto_processing_allowed",
+        "reasons"
+      ],
+      "properties": {
+        "geometry_field_validated": {
+          "type": "boolean"
+        },
+        "detector_validated": {
+          "type": "boolean"
+        },
+        "auto_processing_allowed": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Z0-9_]{1,60}$"
+          }
+        }
+      },
+      "if": {
+        "not": {
+          "properties": {
+            "geometry_field_validated": {
+              "const": true
+            },
+            "detector_validated": {
+              "const": true
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "auto_processing_allowed": {
+            "const": false
+          }
+        }
+      }
+    },
+    "facades": {
+      "type": "array",
+      "maxItems": 40,
+      "items": {
+        "$ref": "#/definitions/facade"
+      }
+    },
+    "building_totals": {
+      "$ref": "#/definitions/totals"
+    },
+    "photos": {
+      "type": "array",
+      "maxItems": 2000,
+      "items": {
+        "$ref": "#/definitions/photo"
+      }
+    },
+    "confirmation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "const": "PROPOSED"
+        }
+      }
+    },
+    "booking_allowed": {
+      "const": false
+    }
+  }
+}

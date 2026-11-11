@@ -88,6 +88,29 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertTrue(app.webViews.staticTexts["Antwoord: proposals voorstellen=0 fout=-"].waitForExistence(timeout: 10), "lege lijst voor een project zonder afgeronde ronde")
     }
 
+    /// Gevelscanner 2.0: de website kan de gevelinventaris opvragen via de echte brug; zonder afgeronde ronde is dat een lege lijst voor dít project.
+    func testFacadeInventoryIsAnsweredOverTheBridge() {
+        let app = launch()
+        XCTAssertTrue(app.webViews.buttons["Vraag gevelinventaris"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Vraag gevelinventaris")
+        app.webViews.buttons["Vraag gevelinventaris"].tap()
+        XCTAssertTrue(app.webViews.staticTexts["Inventaris: 0 voor plan-0123456789abcdef01234567"].waitForExistence(timeout: 10), "lege inventaris voor een project zonder afgeronde ronde")
+    }
+
+    /// Gevelscanner 2.0: het inventarisscherm is bereikbaar vanuit de fotoronde en verzint niets zonder foto's.
+    func testFacadeInventoryScreenWithoutPhotosIsUsable() {
+        let app = launch()
+        XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")
+        app.webViews.buttons["Start fotoronde"].tap()
+        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
+        tapCenter(app.buttons["roundInventory"])
+        XCTAssertTrue(app.navigationBars["Gevelinventarisatie"].waitForExistence(timeout: 10))
+        XCTAssertTrue(element(app, containing: "Nog geen foto").waitForExistence(timeout: 10))
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        reveal(app.buttons["roundSuspend"], in: app)
+        app.buttons["roundSuspend"].tap()
+        XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
+    }
+
     func testReviewScreenWithoutPhotosIsUsable() {
         let app = launch()
         XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat

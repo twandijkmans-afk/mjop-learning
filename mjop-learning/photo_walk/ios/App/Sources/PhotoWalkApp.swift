@@ -1,3 +1,4 @@
+import Gevelscan
 import MJOPIntegration
 import PhotoWalkCore
 import SwiftUI
@@ -284,6 +285,13 @@ struct PhotoWalkApp: App {
                 print("SELFTEST_ROUND proposals=\(ps.count) valid=\(ps.allSatisfy { $0.validate().isEmpty })")
             }
         }
+        // 7) Gevelscanner 2.0: gevelinventaris (mjop_gevel_inventory_v1) uit dezelfde sessie; CI valideert hem tegen het JSON-schema
+        if let scan = GevelscanBuilder.contract(store: store, createdAt: RoundCoordinator.isoNow()), let data = try? scan.inventory.encoded(),
+           let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            try? data.write(to: docs.appendingPathComponent("mjop_gevel_inventory_selftest.json"))
+            let objs = scan.result.objects
+            print("SELFTEST_GEVELSCAN facades=\(scan.result.facades.count) objects=\(objs.count) withArea=\(objs.filter { $0.geometry.area.value != nil }.count) autoProcessing=\(scan.result.autoProcessingAllowed) requests=\(scan.result.requests.count)")
+        } else { print("SELFTEST_GEVELSCAN failed") }
         print("SELFTEST_TIMING v2_seconds=\(String(format: "%.1f", Date().timeIntervalSince(t1)))")
         print("SELFTEST_DONE")
     }

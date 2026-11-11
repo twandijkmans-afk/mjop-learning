@@ -87,3 +87,55 @@ public enum DetectionGeometry {
         return downCam.y > 0 ? .BOTTOM : .TOP
     }
 }
+
+// MARK: aansluiting van een getraind model (nu niet aanwezig)
+
+/// Vertaalt de labels van een getraind objectdetectiemodel naar elementklassen. Zo kan een Core ML-model (`GevelElementDetector.mlmodelc`)
+/// zonder architectuurwijziging worden toegevoegd: de app laadt het als het in de bundle zit en geeft de detecties hier doorheen.
+/// Onbekende labels worden genegeerd (geen gok). Zie docs/gevelscanner_2.md § Model aansluiten.
+public enum ModelLabelMap {
+    static let table: [(ElementClass, [String])] = [
+        (.DRAAIEND_DEEL, ["draaiend", "operable", "opening_sash", "sash", "casement"]),
+        (.VAST_DEEL, ["vast_deel", "vast", "fixed"]),
+        (.GLASVLAK, ["glas", "glass", "pane", "glazing"]),
+        (.DEUR, ["deur", "door"]),
+        (.RAAM, ["raam", "window"]),
+        (.KOZIJN, ["kozijn", "frame"]),
+        (.GEVELPANEEL, ["paneel", "panel", "cladding"]),
+        (.AANSLUITING, ["kitnaad", "sealant", "aansluiting", "flashing", "waterslag"]),
+        (.GEVELVLAK, ["gevel", "facade", "wall"]),
+    ]
+    public static func elementClass(forLabel label: String) -> ElementClass? {
+        let l = label.lowercased().replacingOccurrences(of: " ", with: "_").replacingOccurrences(of: "-", with: "_")
+        return table.first { $0.1.contains { l == $0 || l.hasPrefix($0 + "_") || l.hasSuffix("_" + $0) } }?.0
+    }
+}
+
+public enum PartAssembler {
+    /// Verdeelt modeldetecties van één foto over de kozijnen op die foto: een glasvlak of (draaiend/vast) deel hoort bij het KLEINSTE kozijn
+    /// waar het middelpunt in ligt. Een raam-/deurdetectie die sterk samenvalt met een kozijn bepaalt de klasse van dat kozijn.
+    /// Detecties zonder kozijn worden teruggegeven als `unassigned` (zichtbaar, nooit stil weggegooid).
+    public static func attach(_ detections: [ElementDetection], to sightings: [FrameSighting], minClassIoU: Double = 0.6) -> (sightings: [FrameSighting], unassigned: [ElementDetection]) {
+        var out = sightings
+        var unassigned: [ElementDetection] = []
+        for d in detections.sorted(by: { $0.id < $1.id }) {
+            let onPhoto = out.indices.filter { out[$0].photoId == d.photoId }
+            switch d.elementClass {
+            case .GLASVLAK, .DRAAIEND_DEEL, .VAST_DEEL:
+                let c = polygonCentroid(d.polygon)
+                guard let k = onPhoto.filter({ inConvexPolygon(c, out[$0].polygon) }).min(by: { polygonArea(out[$0].polygon) < polygonArea(out[$1].polygon) }) else { unassigned.append(d); continue }
+                var det = d; det.parentId = out[k].id
+                if d.elementClass == .GLASVLAK {
+                    if !out[k].panes.contains(where: { polygonIoU($0.polygon, d.polygon) > 0.5 }) { out[k].panes.append(det) }
+                } else { out[k].parts.append(det) }
+            case .RAAM, .DEUR:
+                guard let k = onPhoto.max(by: { polygonIoU(out[$0].polygon, d.polygon) < polygonIoU(out[$1].polygon, d.polygon) }), polygonIoU(out[k].polygon, d.polygon) >= minClassIoU,
+                      d.detector.kind == .LEARNED_MODEL else { unassigned.append(d); continue }
+                out[k].elementClass = d.elementClass; out[k].detector = d.detector
+            default:
+                unassigned.append(d)
+            }
+        }
+        return (out, unassigned)
+    }
+}
