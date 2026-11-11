@@ -14,6 +14,10 @@ Upload nieuwe PDF/XLS/XLSX-bestanden naar `data/incoming/`. De GitHub Actions-wo
 `reports/incoming/<batch_id>.json`, zonder AI en zonder canonieke data te wijzigen.
 Uitleg voor niet-programmeurs: `docs/incoming_pipeline_v1.md`.
 
+## Gevelfoto-prototype
+
+`gevelfoto_prototype/index.html`: losse webpagina die uit één gevelfoto elementen met hoeveelheden voorstelt (niet gevalideerd, gebruikt een extern AI-model). Zie `gevelfoto_prototype/README.md`.
+
 ## Status
 
 Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in
