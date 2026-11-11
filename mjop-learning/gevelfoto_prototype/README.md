@@ -9,7 +9,7 @@ Eén webpagina (`index.html`, geen installatie, geen build): foto van een gevel 
 1. Open `index.html` in een browser (Chrome, Edge, Safari).
 2. Kies een foto, maak er een met **Camera met waterpas**, of klik **Voorbeeldgevel** om het zonder foto en zonder sleutel te proberen.
 3. Vul een Anthropic API-sleutel in en klik **Herken elementen**. Zonder sleutel kun je elementen zelf intekenen.
-4. Stel de maat in: zoek het adres op en tik in het kaartje op de gevelzijde die op de foto staat (breedte uit de BAG), of geef zelf één bekende maat op (bijvoorbeeld de deurhoogte). Zonder maat blijven alle meters *onbekend*. Met een **controlemaat** toets je de schaal aan iets wat je zelf hebt opgemeten.
+4. Stel de maat in: zoek het adres op en tik in het kaartje op de gevelzijde die op de foto staat. De maten worden dan vanzelf ingevuld. Zonder adres kun je zelf één bekende maat opgeven (bijvoorbeeld de deurhoogte). Zonder maat blijven alle meters *onbekend*. De **controlemaat** is optioneel en verandert niets aan de hoeveelheden.
 5. Controleer de elementen, sleep hoekpunten goed, vink aan wat je wilt en exporteer (tekst, CSV of JSON).
 
 ## Gehoste variant (claude.ai-artifact)
@@ -22,7 +22,8 @@ Eén webpagina (`index.html`, geen installatie, geen build): foto van een gevel 
 |---|---|
 | Waar zit welk element | AI-model (Claude, `claude-opus-5-5`) geeft posities in pixels en een materiaalinschatting |
 | Meters | vaste rekenregels in de pagina, uit de aangewezen punten en jouw referentiemaat; het model rekent niets uit |
-| Maat via het adres | PDOK Locatieserver → BAG-omtrek van het pand → lengte van de aangewezen zijde. Daarna wijs je op de foto de linker- en rechterhoek van die gevel aan. De omtrek is van boven ingemeten: reken op enkele decimeters afwijking. Hoogtes uit 3D BAG worden alleen ter controle getoond, niet gebruikt |
+| Maat via het adres | PDOK Locatieserver → BAG-omtrek van het pand → lengte van de aangewezen zijde. De breedte van het grootste herkende gevelvlak wordt daaraan gelijkgesteld (herkomst `AUTO_WALL_WIDTH`). Dat is een aanname: de foto moet precies deze gevel van dit pand tonen. De gele punten zijn versleepbaar (`USER_ADJUSTED`) of zelf aan te wijzen (`USER_POINTS`). De omtrek is van boven ingemeten: reken op enkele decimeters afwijking. Hoogtes uit 3D BAG worden alleen ter controle getoond, niet gebruikt |
+| Aanwijzen en slepen | een punt komt waar je loslaat; een vergrootglas laat zien wat onder je vinger ligt. De foto blijft bovenaan in beeld |
 | Controlemaat | vergelijkt de ingestelde schaal met een zelf opgemeten afstand en meldt het verschil; verandert de schaal niet |
 | Camera met waterpas | live camerabeeld met een bolletje dat naar het midden moet; groen binnen 3° (omhoog/omlaag en scheef). De stand bij het afdrukken gaat mee in de export. Draaiing ten opzichte van de gevel (links/rechts) is met de sensoren van een telefoon niet te meten |
 | Metselwerk netto | bruto vlak min de kozijnen en deuren die erin liggen |
