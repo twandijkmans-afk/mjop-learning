@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gevelfoto naar hoeveelheden</title>
 <meta name="claude:viewport-fit-sides" content="cover">
+<meta name="robots" content="noindex">
 <style>
   :root {
     --bg: #f5f4f0; --panel: #ffffff; --ink: #1c1b19; --muted: #6b6860; --line: #dcd9d1;
@@ -58,7 +59,7 @@
   ul#items li input[type=checkbox] { width: 20px; height: 20px; margin-top: 2px; }
   .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
   .qty { font-variant-numeric: tabular-nums; }
-  .tag { font-size: .75rem; padding: 1px 6px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; white-space: nowrap; }
+  .tag { font-size: .75rem; padding: 1px 6px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); margin-left: 6px; display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
   .edit { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding-top: 6px; border-top: 1px dashed var(--line); }
   table { border-collapse: collapse; width: 100%; font-size: .92rem; }
   th, td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); }
