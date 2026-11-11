@@ -3,30 +3,32 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gevelfoto naar hoeveelheden (prototype)</title>
+<title>Gevelfoto naar hoeveelheden</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <style>
   :root {
     --bg: #f5f4f0; --panel: #ffffff; --ink: #1c1b19; --muted: #6b6860; --line: #dcd9d1;
     --accent: #1f5fbf; --accent-ink: #ffffff; --warn-bg: #fff4d6; --warn-ink: #6b4a00; --err-bg: #fde4e1; --err-ink: #8a1c12;
     --ok-bg: #e2f3e6; --ok-ink: #17592b;
   }
-  @media (prefers-color-scheme: dark) {
-    :root {
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
       --bg: #161614; --panel: #201f1d; --ink: #edebe6; --muted: #a09c93; --line: #383632;
       --accent: #6ea4f5; --accent-ink: #0c1626; --warn-bg: #3d3212; --warn-ink: #f3d78a; --err-bg: #47201c; --err-ink: #f6b5ad;
-      --ok-bg: #1b3a24; --ok-ink: #a6e0b5;
-    }
-  }
+      --ok-bg: #1b3a24; --ok-ink: #a6e0b5; color-scheme: dark; } }
+  :root[data-theme="dark"] {
+      --bg: #161614; --panel: #201f1d; --ink: #edebe6; --muted: #a09c93; --line: #383632;
+      --accent: #6ea4f5; --accent-ink: #0c1626; --warn-bg: #3d3212; --warn-ink: #f3d78a; --err-bg: #47201c; --err-ink: #f6b5ad;
+      --ok-bg: #1b3a24; --ok-ink: #a6e0b5; color-scheme: dark; }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
-  header { padding: 14px 16px 6px; max-width: 1280px; margin: 0 auto; }
+  header { padding-block: 14px 6px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1280px; margin: 0 auto; }
   h1 { font-size: 1.25rem; margin: 0 0 4px; }
   header p { margin: 0; color: var(--muted); font-size: .9rem; }
-  main { display: grid; gap: 14px; padding: 10px 16px 40px; max-width: 1280px; margin: 0 auto; grid-template-columns: minmax(0, 1fr); }
+  main { display: grid; gap: 14px; padding-block: 10px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); max-width: 1280px; margin: 0 auto; grid-template-columns: minmax(0, 1fr); }
   @media (min-width: 980px) { main { grid-template-columns: minmax(0, 1.5fr) minmax(340px, 1fr); align-items: start; } #stage { position: sticky; top: 10px; } }
   section, #stage { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
-  #panel { display: grid; gap: 14px; }
+  #panel { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
   h2 { font-size: 1rem; margin: 0 0 8px; }
   h2 small { font-weight: 400; color: var(--muted); }
   p { margin: 6px 0; }
@@ -51,7 +53,7 @@
   #hint { min-height: 1.4em; font-size: .92rem; margin: 8px 0 0; }
   #empty { padding: 60px 10px; text-align: center; color: var(--muted); }
   ul#items { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 6px; }
-  ul#items li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; align-items: start; cursor: pointer; }
+  ul#items li { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 10px; align-items: start; cursor: pointer; }
   ul#items li.active { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 30%, transparent); }
   ul#items li input[type=checkbox] { width: 20px; height: 20px; margin-top: 2px; }
   .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
@@ -111,11 +113,11 @@
 
     <section>
       <h2>2. Elementen herkennen <small>(AI)</small></h2>
-      <div class="msg warn">De foto wordt hiervoor naar Anthropic (Claude) gestuurd. Stuur geen foto's met herkenbare personen of kentekens.</div>
-      <div class="row">
+      <div id="aiNote" class="msg warn">De foto wordt hiervoor naar Anthropic (Claude) gestuurd. Stuur geen foto's met herkenbare personen of kentekens.</div>
+      <div class="row" id="keyRow">
         <input id="key" type="password" placeholder="Anthropic API-sleutel (sk-ant-…)" autocomplete="off" style="flex:1">
       </div>
-      <div class="row">
+      <div class="row" id="rememberRow">
         <label><input id="remember" type="checkbox"> Sleutel onthouden op dit apparaat</label>
       </div>
       <div class="row">
@@ -123,13 +125,14 @@
         <span id="detectStatus" class="muted"></span>
       </div>
       <div id="detectMsg" class="msg"></div>
-      <p class="muted">Geen sleutel? Je kunt elementen ook zelf intekenen bij stap 4.</p>
+      <p class="muted" id="noKeyNote">Geen sleutel? Je kunt elementen ook zelf intekenen bij stap 4.</p>
     </section>
 
     <section>
       <h2>3. Maat opgeven</h2>
       <p class="muted">Zonder bekende maat zijn er geen meters. Haal de gevelbreedte op via het adres, of wijs iets aan waarvan je de echte maat weet.</p>
-      <div class="sub">
+      <div id="hostedNote" class="msg warn" hidden></div>
+      <div class="sub" id="bagBlock">
         <strong>Maat via het adres (BAG)</strong>
         <div class="row">
           <input id="addr" type="text" placeholder="Adres, bv. Dorpsstraat 12 Utrecht" style="flex:1" autocomplete="off">
@@ -139,7 +142,7 @@
         <div id="bagMap"></div>
         <div id="bagMsg" class="msg"></div>
       </div>
-      <p class="muted">Of geef zelf een maat op:</p>
+      <p class="muted" id="orNote">Of geef zelf een maat op:</p>
       <div class="row">
         <label><input type="radio" name="refmode" value="line" checked> Eén maat (foto recht van voren)</label>
       </div>
@@ -368,7 +371,10 @@ Guidelines:
 - "confidence": how sure you are that the element exists and is of this type.
 - "note": at most a few words in Dutch when something limits the result (for example "deels achter boom"), otherwise an empty string.
 
-Do not estimate sizes in metres, condition, defects or costs: measurements are computed separately from your coordinates. Return only the JSON object.`;
+Do not estimate sizes in metres, condition, defects or costs: measurements are computed separately from your coordinates.
+
+Return only a JSON object of this shape, with no other text:
+{"elements": [{"type": "<one of the type keys above>", "points": [{"x": 0, "y": 0}], "material": "", "confidence": "low|medium|high", "note": ""}]}`;
 }
 
 async function callModel(apiKey, jpegBase64, W, H) {
@@ -415,11 +421,16 @@ function parseModelResponse(data, W, H) {
   const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
   let obj = null;
   try { obj = JSON.parse(text); } catch (e) { const m = text.match(/\{[\s\S]*\}/); if (m) { try { obj = JSON.parse(m[0]); } catch (e2) { /* blijft null */ } } }
+  return parseElements(obj, W, H, 1);
+}
+
+// `scale` rekent coördinaten van de (kleinere) afbeelding die het model zag terug naar de werkfoto.
+function parseElements(obj, W, H, scale) {
   if (!obj || !Array.isArray(obj.elements)) throw new Error("Het antwoord van het model was niet leesbaar.");
   const out = []; let skipped = 0;
   for (const raw of obj.elements) {
     const t = TYPES[raw && raw.type];
-    let pts = raw && Array.isArray(raw.points) ? raw.points.map((p) => [Number(p && p.x), Number(p && p.y)]) : [];
+    let pts = raw && Array.isArray(raw.points) ? raw.points.map((p) => [Number(p && p.x) * scale, Number(p && p.y) * scale]) : [];
     if (!t || pts.some((p) => !Number.isFinite(p[0]) || !Number.isFinite(p[1]))) { skipped++; continue; }
     pts = pts.map((p) => [Math.max(0, Math.min(W, p[0])), Math.max(0, Math.min(H, p[1]))]);
     if (t.kind === "quad") { if (pts.length === 2) pts = Geo.boxToQuad(pts[0], pts[1]); else if (pts.length === 4) pts = Geo.orderQuad(pts); else { skipped++; continue; } if (Geo.area(pts) < 16) { skipped++; continue; } }
@@ -430,6 +441,27 @@ function parseModelResponse(data, W, H) {
                note: typeof raw.note === "string" && raw.note.trim() ? raw.note.trim().slice(0, 120) : null });
   }
   return { elements: out, skipped };
+}
+
+// Gehoste variant (claude.ai-artifact): de pagina vraagt Claude via het account van de kijker, zonder API-sleutel. Het platform verkleint
+// een afbeelding tot ongeveer 1,2 megapixel; daarom gaat er een kopie van hooguit 1,1 megapixel heen, met háár afmetingen in de prompt.
+const Host = { claude: window.claude && typeof window.claude.use === "function" ? window.claude : null, sample: null, downloads: null };
+const HOST_MAX_PIXELS = 1100000;
+const HOST_ERRORS = { not_granted: "Je hebt deze pagina geen toestemming gegeven om Claude te gebruiken. Je kunt elementen zelf intekenen bij stap 4.",
+  rate_limited: "Te veel aanvragen of je gebruikslimiet is bereikt. Probeer het later opnieuw.", session_expired: "Je bent uitgelogd. Log opnieuw in en probeer het nog eens.",
+  image_rejected: "Deze foto wordt niet geaccepteerd. Probeer een andere foto.", images_unavailable: "In deze weergave kan de pagina geen foto naar Claude sturen.",
+  refused: "Claude heeft deze foto geweigerd.", invalid_json: "Het antwoord van het model was niet leesbaar. Probeer het opnieuw.", empty_completion: "Het model gaf geen antwoord. Probeer het opnieuw." };
+
+async function callHosted() {
+  const lim = await Host.sample.limits().catch(() => null);
+  if (!lim || !lim.images) throw new Error(HOST_ERRORS.images_unavailable);
+  const k = Math.min(1, Math.sqrt(HOST_MAX_PIXELS / (state.W * state.H))), c = document.createElement("canvas");
+  c.width = Math.round(state.W * k); c.height = Math.round(state.H * k); c.getContext("2d").drawImage(state.img, 0, 0, c.width, c.height);
+  const blob = await new Promise((ok) => c.toBlob(ok, "image/jpeg", 0.9));
+  let obj;
+  try { obj = await Host.sample.json(buildPrompt(c.width, c.height), { images: blob, modelTier: "complex", cache: false }); }
+  catch (e) { throw new Error(HOST_ERRORS[e && e.code] || "Herkennen is niet gelukt" + (e && e.message ? ": " + e.message : ".")); }
+  return { parsed: parseElements(obj, state.W, state.H, state.W / c.width), sent: [c.width, c.height] };
 }
 
 // ------------------------------------------------ foto laden ---------------------------------------------------------
@@ -609,7 +641,10 @@ function exportText() {
     .concat(t.map((r) => `${r.label}: ${r.main === "st" ? r.count + " st, " : ""}${r.total == null ? "maat onbekend" : fmt(r.total) + (r.unit === "m1" ? " m1" : " m2")}`)).join("\n");
 }
 
-function download(name, text, mime) { const a = el("a", { href: URL.createObjectURL(new Blob([text], { type: mime })), download: name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
+async function download(name, text, mime) {
+  if (Host.downloads) { try { await Host.downloads.save({ filename: name, data: text }); } catch (e) { setMsg("exportMsg", "Het bestand is niet opgeslagen. Gebruik 'Kopieer als tekst'.", "warn"); } return; }
+  const a = el("a", { href: URL.createObjectURL(new Blob([text], { type: mime })), download: name }); document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+}
 
 // ------------------------------------------------ referentiemaat -----------------------------------------------------
 function readRef() {
@@ -845,7 +880,7 @@ function refresh() {
   const has = !!state.img, busy = !!state.tool || state.active != null, any = state.elements.some((e) => e.chosen);
   $("cv").classList.toggle("busy", busy);
   $("hint").textContent = state.tool ? state.tool.hint : state.active != null ? "Sleep de witte punten naar de echte hoeken. Tik naast het element om klaar te zijn." : has ? "Tik op een element om het te selecteren." : "";
-  $("detectBtn").disabled = !has || !$("key").value.trim() || state.detecting;
+  $("detectBtn").disabled = !has || !(Host.claude ? Host.sample : $("key").value.trim()) || state.detecting;
   $("refPick").disabled = !has; $("addBtn").disabled = !has; $("checkPick").disabled = !has;
   const a = state.elements.find((e) => e.id === state.active);
   $("refFromSel").disabled = !(a && TYPES[a.type].kind === "quad");
@@ -871,12 +906,12 @@ function init() {
   $("detectBtn").addEventListener("click", async () => {
     state.detecting = true; refresh(); setMsg("detectMsg", ""); $("detectStatus").textContent = "Bezig… dit duurt vaak een halve minuut.";
     try {
-      const b64 = state.img.toDataURL("image/jpeg", 0.85).split(",")[1];
-      const data = await callModel($("key").value.trim(), b64, state.W, state.H);
-      const r = parseModelResponse(data, state.W, state.H);
+      let r, data = {};
+      if (Host.sample) { const h = await callHosted(); r = h.parsed; data.sent = h.sent; }
+      else { data = await callModel($("key").value.trim(), state.img.toDataURL("image/jpeg", 0.85).split(",")[1], state.W, state.H); r = parseModelResponse(data, state.W, state.H); }
       state.elements = state.elements.filter((e) => e.source === "hand"); state.active = null;
       addElements(r.elements, "ai");
-      state.recognition = { provider: "anthropic", requested_model: MODEL, served_model: data.model || null, prompt_version: PROMPT_VERSION, image_sent: true,
+      state.recognition = Host.sample ? { provider: "claude.ai (account van de kijker)", model_tier: "complex", prompt_version: PROMPT_VERSION, image_sent: true, image_sent_px: data.sent } : { provider: "anthropic", requested_model: MODEL, served_model: data.model || null, prompt_version: PROMPT_VERSION, image_sent: true,
                             usage: data.usage ? { input_tokens: data.usage.input_tokens, output_tokens: data.usage.output_tokens } : null };
       const other = data.model && data.model !== MODEL ? ` Beantwoord door ${data.model}.` : "";
       setMsg("detectMsg", r.elements.length ? `${r.elements.length} elementen gevonden${r.skipped ? `, ${r.skipped} overgeslagen omdat de gegevens niet klopten` : ""}. Controleer ze: het model kan iets missen of verkeerd aanwijzen.${other}` : "Het model heeft geen elementen gevonden. Teken ze zelf in bij stap 4.", r.elements.length ? "ok" : "warn");
@@ -919,7 +954,17 @@ function init() {
   $("csvBtn").addEventListener("click", () => download(`gevelfoto-${stamp()}.csv`, exportCsv(), "text/csv;charset=utf-8"));
   $("copyBtn").addEventListener("click", async () => { try { await navigator.clipboard.writeText(exportText()); setMsg("exportMsg", "Gekopieerd.", "ok"); } catch (e) { setMsg("exportMsg", exportText()); } });
 
-  bindCanvas(); window.addEventListener("resize", draw); refresh();
+  if (Host.claude) {
+    ["keyRow", "rememberRow", "noKeyNote", "camBtn", "bagBlock", "orNote"].forEach((id) => { $(id).hidden = true; });
+    $("aiNote").textContent = "De foto wordt hiervoor naar Claude gestuurd, via je eigen Claude-account. Stuur geen foto's met herkenbare personen of kentekens.";
+    $("hostedNote").hidden = false; $("hostedNote").textContent = "In deze gehoste versie werken 'maat via het adres' en de camera met waterpas niet. Geef hier zelf een maat op.";
+    Host.claude.use("sample").then((x) => { Host.sample = x; if (!x) setMsg("detectMsg", "Herkennen met Claude is in deze weergave niet beschikbaar. Je kunt elementen zelf intekenen bij stap 4.", "warn"); refresh(); });
+    Host.claude.use("downloads").then((x) => { Host.downloads = x; if (!x) { $("csvBtn").hidden = true; $("jsonBtn").hidden = true; } });
+  }
+  bindCanvas(); window.addEventListener("resize", draw);
+  // Beginstand: de voorbeeldgevel, zodat meteen te zien is wat de pagina doet.
+  const d = demoScene(); setPhoto(d.canvas, "voorbeeldgevel"); addElements(d.elements, "demo");
+  setMsg("photoMsg", "Dit is een getekende voorbeeldgevel met vooraf ingevulde elementen. Kies je eigen foto om te beginnen.", "ok"); refresh();
 }
 
 // Voor geautomatiseerde controle van de rekenkern (zie README).

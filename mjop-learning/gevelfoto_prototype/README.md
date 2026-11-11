@@ -12,6 +12,10 @@ Eén webpagina (`index.html`, geen installatie, geen build): foto van een gevel 
 4. Stel de maat in: zoek het adres op en tik in het kaartje op de gevelzijde die op de foto staat (breedte uit de BAG), of geef zelf één bekende maat op (bijvoorbeeld de deurhoogte). Zonder maat blijven alle meters *onbekend*. Met een **controlemaat** toets je de schaal aan iets wat je zelf hebt opgemeten.
 5. Controleer de elementen, sleep hoekpunten goed, vink aan wat je wilt en exporteer (tekst, CSV of JSON).
 
+## Gehoste variant (claude.ai-artifact)
+
+`python build_artifact.py <uitvoer.html>` maakt dezelfde pagina zonder documentskelet, om als artifact op claude.ai te publiceren. Daar gebruikt de pagina voor het herkennen Claude via het account van de kijker (geen API-sleutel; de foto gaat verkleind tot ongeveer 1,1 megapixel) en slaat hij bestanden op via de host. **Maat via het adres en de camera met waterpas werken daar niet**: het platform blokkeert verzoeken naar andere websites en de toegang tot camera en bewegingssensor. Die twee werken alleen als `index.html` zelf via https wordt aangeboden.
+
 ## Wat doet wat
 
 | Onderdeel | Hoe |
