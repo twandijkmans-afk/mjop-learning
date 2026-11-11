@@ -1,5 +1,6 @@
 import ARKit
 import Foundation
+import Gevelscan
 import MJOPIntegration
 import SwiftUI
 
@@ -34,6 +35,8 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         case .getCapabilities(let rid):
             let lidar = ARWorldTrackingConfiguration.isSupported && ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth)
             return [BridgeReply.capabilities(requestId: rid, lidar: lidar, appVersion: Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "1")]
+        case .listFacadeInventory(let rid, let planRef):
+            return [BridgeReply.facadeInventory(requestId: rid, planRef: planRef, inventories: outbox.inventories(forPlan: planRef))]
         case .print:
             return []
         case .webReady, .webReply, .webState:
@@ -124,13 +127,22 @@ final class RoundCoordinator: ObservableObject, BridgeHandling {
         guard let input = RoundInputBuilder.build(store: store, createdAt: Self.isoNow()) else { return }
         let proposals = RoundProposalBuilder.build(input)
         let photos = store.keyframes.filter { !round.excludedFrames.contains($0.id) }.count
+        // Gevelscanner 2.0: de gevelinventaris reist mee in dezelfde outbox (apart contract; de v2-voorstellen hierboven zijn ongewijzigd).
+        // Ook de inventaris is een VOORSTEL: er wordt niets automatisch in het MJOP geschreven.
+        let scan = GevelscanBuilder.contract(store: store, createdAt: Self.isoNow())
+        if let scan { store.gevelscan = scan.result }
+        // lukt de inventaris niet (voldoet niet aan het contract), dan blijft een eerdere inventaris van deze ronde staan en hoort de gebruiker dat
+        let previous = outbox.rounds.first { $0.roundId == store.sessionId }?.inventory
         outbox.upsert(.init(roundId: store.sessionId, planRef: round.context.planRef, status: "COMPLETED", photos: photos, objects: input.objects.count,
-                            revision: round.revision, proposals: proposals))
+                            revision: round.revision, proposals: proposals, inventory: scan?.inventory ?? previous))
         saveOutbox()
         Persistence.saveNow(store)
         presented = nil
         deliver?(proposalsReply(requestId: nil, planRef: round.context.planRef))
-        notice?("Klaar. Controleer de voorstellen in Mijn MJOP; er is nog niets overgenomen.")
+        // een oudere website kent dit berichttype niet en negeert het (zie photo-round.js `receive`)
+        if scan != nil { deliver?(BridgeReply.facadeInventory(requestId: nil, planRef: round.context.planRef, inventories: outbox.inventories(forPlan: round.context.planRef))) }
+        notice?(scan == nil ? "Klaar. De gevelinventaris kon niet worden opgebouwd; de voorstellen staan wel in Mijn MJOP. Er is nog niets overgenomen."
+                            : "Klaar. Controleer de voorstellen in Mijn MJOP; er is nog niets overgenomen.")
     }
 
     // MARK: outbox-opslag (Application Support, uitgesloten van back-up, bestandsbescherming)

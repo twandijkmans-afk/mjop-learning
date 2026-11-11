@@ -9,6 +9,8 @@ public enum BridgeRequest: Equatable {
     case ackProposals(requestId: String, planRef: String, proposalIds: [String])
     case getCapabilities(requestId: String)
     case print
+    /// Gevelscanner 2.0 (alleen optellend): de website vraagt de gevelinventaris van een project op. Een oudere website stuurt dit nooit.
+    case listFacadeInventory(requestId: String, planRef: String)
     // Native navigatie (app-versie 2), alleen optellend. Een oudere website stuurt deze nooit; een oudere app kent ze niet en de website stuurt ze dan ook niet.
     case webReady(requestId: String, features: [String], webVersion: String?)
     case webReply(requestId: String, result: WebCommandResult)
@@ -48,6 +50,9 @@ public enum BridgeMessage {
         case "listProposals":
             guard let ref = payload?["planRef"] as? String, ok(ref, "^[A-Za-z0-9_-]{8,80}$") else { return .failure(.invalidPayload) }
             return .success(.listProposals(requestId: rid, planRef: ref))
+        case "listFacadeInventory":
+            guard let ref = payload?["planRef"] as? String, ok(ref, "^[A-Za-z0-9_-]{8,80}$") else { return .failure(.invalidPayload) }
+            return .success(.listFacadeInventory(requestId: rid, planRef: ref))
         case "ackProposals":
             guard let ref = payload?["planRef"] as? String, ok(ref, "^[A-Za-z0-9_-]{8,80}$"),
                   let ids = payload?["proposalIds"] as? [String], ids.count <= 200, ids.allSatisfy({ ok($0, "^[A-Za-z0-9_.-]{8,80}$") }) else { return .failure(.invalidPayload) }
@@ -91,8 +96,16 @@ public enum BridgeReply {
         json = json.replacingOccurrences(of: "\u{2028}", with: "\\u2028").replacingOccurrences(of: "\u{2029}", with: "\\u2029")
         return "window.MJOPNativeBridge && window.MJOPNativeBridge.receive(\(json));"
     }
+    /// `features` is een optellende uitbreiding: een oudere website negeert het veld. "gevelscan2" = deze app kent `listFacadeInventory`.
+    public static let gevelscanFeature = "gevelscan2"
     public static func capabilities(requestId: String, lidar: Bool, appVersion: String) -> [String: Any] {
-        ["type": "capabilities", "requestId": requestId, "lidar": lidar, "appVersion": appVersion]
+        ["type": "capabilities", "requestId": requestId, "lidar": lidar, "appVersion": appVersion, "features": [gevelscanFeature]]
+    }
+    /// Antwoord op `listFacadeInventory` (en ongevraagd na het afronden van een ronde). Een oudere website kent het type niet en negeert het.
+    public static func facadeInventory(requestId: String?, planRef: String, inventories: [GevelInventoryV1]) -> [String: Any] {
+        var m: [String: Any] = ["type": "facade-inventory", "planRef": planRef, "inventories": inventories.compactMap { $0.jsonObject() }]
+        if let r = requestId { m["requestId"] = r }
+        return m
     }
     /// Antwoord op `webReady`: de app toont zelf de tabbalk, dus de website mag zijn eigen verbergen.
     public static func nativeReady(lidar: Bool, appVersion: String) -> [String: Any] {

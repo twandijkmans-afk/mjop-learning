@@ -1,6 +1,7 @@
 import CoreML
 import UIKit
 import Vision
+import Gevelscan
 import PhotoWalkCore
 
 /// Een KANDIDAAT voor een kozijn. Nooit een bevestigd kozijn: de herkenning is niet gevalideerd op echte gebouwen.
@@ -198,5 +199,64 @@ enum CandidateFilter {
         let vt = ViewportTransform(nativeWidth: W, nativeHeight: H, orientation: .right, viewportWidth: 1, viewportHeight: 1)
         func key(_ c: WindowCandidate) -> (Double, Double) { let d = vt.displayPoint(fromNative: c.corners[0]); return (d.u, d.v) }
         return Array(kept.prefix(maxCount)).sorted { key($0) < key($1) }
+    }
+}
+
+// MARK: Gevelscanner 2.0 — beschrijving van de herkenners en de aansluiting van een getraind elementmodel
+
+extension DetectorCatalog {
+    /// Het optionele kozijnmodel (`WindowDetector.mlmodelc`): een getraind model, maar niet gevalideerd en alleen de klasse "kozijn".
+    static let coreMLWindowDescriptor = DetectorDescriptor(name: "COREML_WINDOW_MODEL (WindowDetector.mlmodelc)", version: "bundle", kind: .LEARNED_MODEL, validated: false, classes: [.KOZIJN])
+
+    /// Een getraind ELEMENTmodel (raam/deur, glas, draaiend/vast deel). Er is er geen meegeleverd: er zijn geen trainingsdata en geen vrij te
+    /// gebruiken, gevalideerd model in dit project. Zit `GevelElementDetector.mlmodelc` wel in de bundle, dan wordt het gebruikt.
+    static var elementModelURL: URL? { Bundle.main.url(forResource: "GevelElementDetector", withExtension: "mlmodelc") }
+
+    /// Alle herkenners die nu werkelijk in de app aanwezig zijn (voor het contract en de schermen).
+    static func descriptors() -> [DetectorDescriptor] {
+        var out: [DetectorDescriptor] = [DetectorDescriptor.visionCandidates]
+        if coreMLModelURL != nil { out.append(coreMLWindowDescriptor) }
+        if let m = CoreMLElementDetector() { out.append(m.descriptor) }
+        return out
+    }
+
+    static func descriptor(for detectorName: String) -> DetectorDescriptor {
+        detectorName == "COREML_WINDOW_MODEL" ? coreMLWindowDescriptor : DetectorDescriptor.visionCandidates
+    }
+}
+
+/// Optioneel Core ML-objectdetectiemodel met meerdere klassen. De labels worden via `ModelLabelMap` naar elementklassen vertaald; onbekende
+/// labels worden genegeerd. Draait volledig op het toestel. Zonder modelbestand bestaat dit pad niet (init geeft nil).
+struct CoreMLElementDetector {
+    private let model: VNCoreMLModel
+    let descriptor: DetectorDescriptor
+
+    init?() {
+        guard let url = DetectorCatalog.elementModelURL, let ml = try? MLModel(contentsOf: url), let vm = try? VNCoreMLModel(for: ml) else { return nil }
+        model = vm
+        let version: String = (ml.modelDescription.metadata[MLModelMetadataKey.versionString] as? String) ?? "onbekend"
+        let labels: [String] = (ml.modelDescription.classLabels as? [String]) ?? []
+        var classes: [ElementClass] = []
+        for l in labels { if let c = ModelLabelMap.elementClass(forLabel: l), !classes.contains(c) { classes.append(c) } }
+        descriptor = DetectorDescriptor(name: "COREML_ELEMENT_MODEL (GevelElementDetector.mlmodelc)", version: version, kind: .LEARNED_MODEL, validated: false, classes: classes)
+    }
+
+    func detect(_ image: CGImage, photoId: String) -> [ElementDetection] {
+        let W = Double(image.width), H = Double(image.height)
+        let req = VNCoreMLRequest(model: model)
+        req.imageCropAndScaleOption = .scaleFit
+        let handler = VNImageRequestHandler(cgImage: image, orientation: .right, options: [:])
+        do { try handler.perform([req]) } catch { return [] }
+        let vt = ViewportTransform(nativeWidth: W, nativeHeight: H, orientation: .right, viewportWidth: 1, viewportHeight: 1)
+        let dispW = H, dispH = W
+        func native(_ x: Double, _ y: Double) -> Pixel { vt.nativePoint(fromDisplay: Pixel(x * dispW, (1 - y) * dispH)) }
+        var out: [ElementDetection] = []
+        for (k, o) in ((req.results as? [VNRecognizedObjectObservation]) ?? []).enumerated() {
+            guard let top = o.labels.first, let cls = ModelLabelMap.elementClass(forLabel: top.identifier) else { continue }
+            let b = o.boundingBox          // genormaliseerd, oorsprong linksonder, in het rechtop getoonde beeld
+            let corners = [native(Double(b.minX), Double(b.maxY)), native(Double(b.maxX), Double(b.maxY)), native(Double(b.maxX), Double(b.minY)), native(Double(b.minX), Double(b.minY))]
+            out.append(ElementDetection(id: "MDL-\(photoId)-\(String(format: "%03d", k + 1))", photoId: photoId, elementClass: cls, polygon: corners, score: Double(top.confidence), detector: descriptor))
+        }
+        return out
     }
 }

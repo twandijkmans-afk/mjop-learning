@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Gevelscan
 import MJOPIntegration
 import PhotoWalkCore
 
@@ -201,9 +202,26 @@ final class ScanStore: ObservableObject {
     @Published var round: RoundState? = nil
     @Published var facadeElements: [FacadeElement] = []
 
+    // MARK: Gevelscanner 2.0 (zie Gevelscan/GevelscanBuilder.swift en docs/gevelscanner_2.md)
+    /// Scherpte/belichting per foto en spiegeling per glasvlak (lokaal gemeten bij de analyse van de foto; bewaard met de sessie).
+    @Published var photoQuality: [String: ImageQuality] = [:]
+    @Published var paneGlare: [String: Double] = [:]
+    /// Door de gebruiker opgegeven draaiende/vaste delen en raam/deur, per waarneming (zolang er geen model is dat dit herkent).
+    @Published var userParts: [String: UserParts] = [:]
+    @Published var userClasses: [String: ElementClass] = [:]
+    /// Detecties van een getraind model per foto (alleen als er een model in de app-bundle zit; niet bewaard, opnieuw te berekenen uit de foto).
+    @Published var modelDetections: [String: [ElementDetection]] = [:]
+    /// Laatste resultaat van de pijplijn (gevelinventaris, dekking, gerichte vragen). nil = nog niet berekend.
+    @Published var gevelscan: GevelscanResult? = nil
+    @Published var gevelscanRunning = false
+    var gevelscanPending = false
+    /// Per foto het bewijsrecord (dieptekwaliteit, gevelvlak): afgeleid van onveranderlijke brondata, dus eenmalig berekend. Niet gepubliceerd.
+    var captureCache: [String: PhotoCapture] = [:]
+
     func newSession() {
         sessionId = UUID().uuidString; keyframes = []; observations = []; drafts = []; references = [:]; results = []; measures = [:]
         analyzing = []; analysisNotes = [:]; dismissedLinks = []; isSimulation = false; round = nil; facadeElements = []
+        photoQuality = [:]; paneGlare = [:]; userParts = [:]; userClasses = [:]; modelDetections = [:]; gevelscan = nil; gevelscanPending = false; captureCache = [:]
     }
 
     /// Legt bij een nieuwe foto vast bij welke gevel en in welk AR-coördinatenstelsel hij is gemaakt (alleen in een fotoronde).
@@ -431,11 +449,13 @@ final class ScanStore: ObservableObject {
             }
         }
         await measureAllInBackground()
+        if round != nil { await measureImageQuality(frameId: frameId) }       // Gevelscanner 2.0: scherpte, belichting, spiegeling in glas
         analyzing.remove(frameId)
         let check = out.groups.filter { $0.status.blocksArea }.count
         analysisNotes[frameId] = "\(out.raw) vierhoek(en) van \(detectors.map { $0.name }.joined(separator: ", ")) -> \(out.groups.count) mogelijk(e) kozijn(en) (\(added) nieuw), " +
             "\(panesAdded) glasvlak(ken) (tellen niet als kozijn), \(check) met onbevestigde buitencontour, \(out.ignored) genegeerd. Dit zijn KANDIDATEN, geen bevestigde kozijnen."
         persist()
+        if round != nil { await runGevelscan() }                              // inventaris en gerichte vragen bijwerken
     }
 
     // MARK: gevelopbouw (bruto gevel, openingen, buitenkozijn, glas, netto gesloten gevel) per foto

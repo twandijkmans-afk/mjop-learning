@@ -1,4 +1,5 @@
 import ARKit
+import Gevelscan
 import MJOPIntegration
 import SwiftUI
 
@@ -107,6 +108,7 @@ struct RoundHomeView: View {
                 }
                 .buttonStyle(.borderedProminent).controlSize(.large).accessibilityIdentifier("roundShoot-\(activeFacade)")
                 NavigationLink("Controleer de kozijnen") { RoundReviewView() }.accessibilityIdentifier("roundReview")
+                NavigationLink("Gevelinventarisatie bekijken") { GevelInventoryView().environmentObject(store) }.accessibilityIdentifier("roundInventory")
                 Button { confirmFinish = true } label: { Text("Toevoegen aan MJOP").frame(maxWidth: .infinity) }
                     .buttonStyle(.borderedProminent).tint(.green).controlSize(.large)
                     .disabled(store.keyframes.isEmpty).accessibilityIdentifier("roundFinish")
@@ -114,6 +116,7 @@ struct RoundHomeView: View {
             } footer: {
                 Text("Je foto's worden bewaard, zodat je later kunt verdergaan. Er wordt niets automatisch overgenomen: jij controleert de voorstellen eerst in Mijn MJOP.")
             }
+            GevelNeededSection()
             Section {
                 DisclosureGroup("Meer opties") {
                     ForEach(round?.facades ?? []) { f in

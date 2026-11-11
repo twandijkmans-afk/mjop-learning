@@ -195,3 +195,11 @@ Zie `shared_calculation_core.md`. De app bevat geen eigen MJOP-berekeningen.
 
 ## Tests
 `MJOPIntegrationTests/NativeNavTests.swift` (contract, gedeeld bestand `Fixtures/contract_v1.json`), `App/UITests/MainTabsUITests.swift` (vijf tabs, gedeelde WebView, fotoronde, projecten, niet-opgeslagen werk, Profiel, terugval). De bestaande tests blijven ongewijzigd.
+
+
+---
+
+# Fase 4: Gevelscanner 2.0 (gevelinventaris)
+
+Naast de ongewijzigde v2-voorstellen levert een afgeronde fotoronde nu ook een gevelinventaris (`mjop_gevel_inventory_v1`) via dezelfde outbox en brug (nieuw, optellend: `listFacadeInventory` / `facade-inventory`, `capabilities.features = ["gevelscan2"]`).
+Alles daarover staat in [`gevelscanner_2.md`](gevelscanner_2.md); de veldvalidatie in [`gevelscanner_2_meetplan.md`](gevelscanner_2_meetplan.md).

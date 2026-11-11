@@ -91,3 +91,8 @@ Kwaliteit en onzekerheid zonder confidence-percentage: `docs/quality_and_uncerta
 ## Regels die hier gelden
 
 Eén kozijn = één object; glas, vaste en draaiende delen binnen de buitenmaat; bruto m² = buitenbreedte x buitenhoogte (zelfde regel als Bruto Quantity Model v2, getest tegen `bruto_quantity_core`); gemeten/afgeleid/geschat/onbekend blijven gescheiden (samenvatting per status, nooit opgeteld); alles `PROVISIONAL` met `PENDING_HUMAN_APPROVAL`; **geen** besluitregistratie, goedkeuring, kosten, kengetallen of prijzen; geen externe Vision-aanroepen; geen media of locatie in Git. Bestaande v1/v2-contracten, Maldenhof-besluiten en bevroren stores zijn niet gewijzigd (scope-guard- en schema-tests blijven groen).
+
+## Gevelscanner 2.0 — automatische gevelinventarisatie
+
+Een pijplijn bovenop de fotoronde die foto's + LiDAR-gegevens omzet naar een gevelinventaris per gevel en per fysiek kozijn (aantal kozijnen, kozijnoppervlak, vakken, glasoppervlak, draaiende/vaste delen), met herkomst, onzekerheid, uitkomstklasse, gerichte vragen om extra foto's en bewijs. Swift-package `Gevelscan` (`ios/Sources/Gevelscan`), contract `mjop_gevel_inventory_v1`, schermen in de app, koppeling aan de bestaande kozijn-kengetallen aan de websitekant.
+**Synthetisch getest; niet op een echte iPhone gedraaid; nauwkeurigheid niet bewezen; geen getraind herkenningsmodel; niets wordt automatisch in het MJOP verwerkt.** Zie `docs/gevelscanner_2.md` (handleiding) en `docs/gevelscanner_2_meetplan.md` (veldvalidatie).

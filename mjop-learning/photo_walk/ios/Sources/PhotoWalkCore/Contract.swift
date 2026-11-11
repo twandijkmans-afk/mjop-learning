@@ -65,7 +65,7 @@ public struct MeasuredObject {
 public enum Status {
     /// Zelfde regels als pipeline._status_from: MEASURED vereist >= 2 consistente standpunten en geen downgrading-advisories.
     /// Zelfde verzameling als pipeline.DOWNGRADING (Python; gelijk getest via facade_parity_cases.json "status_rules").
-    static let downgrading: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT", "METRIC_SCALE_UNVERIFIED",
+    public static let downgrading: Set<String> = ["GLASS_DEPTH_UNRELIABLE", "CORNER_DEPTH_MISMATCH", "FACADE_NOT_VERTICAL", "SINGLE_VIEWPOINT", "METRIC_SCALE_UNVERIFIED",
                                            "COPLANARITY_ASSUMED", "REFERENCE_UNCERTAINTY_NOT_PROVIDED", "OBSTRUCTION_REPORTED", "ASSOCIATION_UNVERIFIED",
                                            "AMBIGUOUS_ASSOCIATION", "VIO_SCALE_MISMATCH", "AUTO_DETECTED_UNCONFIRMED", "REFERENCE_USER_ESTIMATE",
                                            "QUAD_LARGER_THAN_OPENING", "QUAD_INSIDE_OPENING", "FRAME_OFFSET_FROM_CORNER_DEPTH", "LIMITED_SIDE_COVERAGE"]

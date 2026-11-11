@@ -21,6 +21,8 @@ targets:
         product: PhotoWalkCore
       - package: PhotoWalkCore
         product: MJOPIntegration
+      - package: PhotoWalkCore
+        product: Gevelscan            # Gevelscanner 2.0: pijplijn en contract (docs/gevelscanner_2.md)
     info:
       path: Info.generated.plist          # door XcodeGen gegenereerd; niet committen
       properties:
