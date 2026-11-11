@@ -1,6 +1,6 @@
 // swift-tools-version:5.9
 // PhotoWalkCore: platformonafhankelijke Swift-port van de meetkern (geen ARKit). De ARKit-app staat in App/.
-// STATUS: gebouwd (geschreven) maar NIET gecompileerd in de ontwikkelomgeving (geen Xcode/Swift beschikbaar). Zie ../README.md.
+// STATUS: wordt door GitHub Actions op macOS gebouwd en getest (photo-walk-ios.yml). Zie ../README.md.
 import PackageDescription
 
 let package = Package(

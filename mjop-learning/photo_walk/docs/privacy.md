@@ -9,3 +9,7 @@
 * **Gevoelige inhoud** (huisnummers, personen, kentekens): niet automatisch herkend of gemaskeerd; daarom blijven beelden lokaal. Voorstel voor een latere fase: gezichts-/kentekenmaskering vóór elke deling.
 * **Bewaartermijn (voorstel, niet vastgesteld)**: ruwe beelden/diepte verwijderen na afronding van de review of uiterlijk 30 dagen na de scan; het exportrecord (zonder media/locatie) mag bij het dossier blijven. Herleidbaarheid: `session_id`, `processing_version`, `measurement_method_version`, drempels en corrigeerrevisies staan in het record.
 * Geen wijziging van Maldenhof-besluiten of andere canonieke brongegevens; geen cost-/kengetalkoppeling.
+
+
+## Gevelscanner 2.0
+De gevelinventaris die naar Mijn MJOP gaat bevat getallen, codes en per foto de camerakenmerken (intrinsics, dieptekwaliteit, positie en richting in het lokale stelsel van de AR-sessie). Geen foto's, geen dieptekaarten, geen GPS of adresgegevens anders dan het gebouwlabel dat de website zelf meegaf. Beeldkwaliteit (scherpte, belichting, spiegeling) wordt lokaal berekend. Er is geen externe AI-dienst; een eventueel Core ML-model draait op het toestel.

@@ -1,0 +1,59 @@
+{
+  "schema": "gevelscan_reference_v1",
+  "dataset_id": "synthetic-pipeline-fixture",
+  "purpose": "SYNTHETIC_REGRESSION",
+  "data_origin": "SYNTHETIC",
+  "measured_by": null,
+  "tool": null,
+  "note": "Werkelijke maten van de SYNTHETISCHE testscene achter gevel_inventory_v1_example.json. Alleen om het evaluatiescript te testen; zegt niets over echte gevels.",
+  "facades": [
+    {
+      "facade_id": "Voorgevel",
+      "frames_complete": true,
+      "frames": [
+        {
+          "reference_id": "A",
+          "width_m": 1.2,
+          "height_m": 1.5,
+          "glass_area_m2": 1.36,
+          "operable_parts": 1,
+          "fixed_parts": 1,
+          "matched_object_ids": [
+            "GO-1f07d9c3"
+          ],
+          "note": null
+        },
+        {
+          "reference_id": "B",
+          "width_m": 1.5,
+          "height_m": 1.5,
+          "glass_area_m2": 1.6864,
+          "operable_parts": 2,
+          "fixed_parts": 1,
+          "matched_object_ids": [
+            "GO-1f07db76"
+          ],
+          "note": null
+        }
+      ]
+    },
+    {
+      "facade_id": "Zijgevel",
+      "frames_complete": true,
+      "frames": [
+        {
+          "reference_id": "C",
+          "width_m": 0.9,
+          "height_m": 1.8,
+          "glass_area_m2": 1.2616,
+          "operable_parts": 1,
+          "fixed_parts": 0,
+          "matched_object_ids": [
+            "GO-7ae01dde"
+          ],
+          "note": null
+        }
+      ]
+    }
+  ]
+}

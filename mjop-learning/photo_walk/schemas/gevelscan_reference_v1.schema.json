@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "gevelscan_reference_v1",
+  "title": "Referentiemetingen voor Gevelscanner 2.0 (handmatig gemeten, voor veldvalidatie)",
+  "description": "Door een MENS gemeten waarheid per gevel en per kozijn, om de gevelinventaris (mjop_gevel_inventory_v1) mee te vergelijken. Alleen voor evaluatie: nooit gebruiken om drempels of herkenning op af te stemmen. De koppeling tussen een echt kozijn en de object-id('s) van de app legt de meter zelf vast (matched_object_ids): één id = goed, meerdere = dubbel geteld, geen = gemist.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "dataset_id", "purpose", "data_origin", "measured_by", "tool", "facades"],
+  "properties": {
+    "schema": {"const": "gevelscan_reference_v1"},
+    "dataset_id": {"type": "string", "minLength": 1},
+    "purpose": {"enum": ["EVALUATION_ONLY", "SYNTHETIC_REGRESSION"]},
+    "data_origin": {"enum": ["REAL_BUILDING", "SYNTHETIC"], "description": "SYNTHETIC zegt niets over echte gevels of echte LiDAR."},
+    "measured_by": {"type": ["string", "null"]},
+    "tool": {"type": ["string", "null"], "description": "bv. rolmaat, laserafstandsmeter"},
+    "note": {"type": ["string", "null"]},
+    "facades": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["facade_id", "frames_complete", "frames"],
+        "properties": {
+          "facade_id": {"type": "string", "minLength": 1},
+          "frames_complete": {"type": "boolean", "description": "true = ALLE kozijnen van deze gevel staan in de lijst (alleen dan telt de fout in het aantal)."},
+          "frames": {
+            "type": "array",
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["reference_id", "width_m", "height_m", "glass_area_m2", "operable_parts", "fixed_parts", "matched_object_ids"],
+              "properties": {
+                "reference_id": {"type": "string", "minLength": 1},
+                "width_m": {"type": ["number", "null"], "exclusiveMinimum": 0, "description": "buitenmaat kozijn; null = niet te meten"},
+                "height_m": {"type": ["number", "null"], "exclusiveMinimum": 0},
+                "glass_area_m2": {"type": ["number", "null"], "minimum": 0, "description": "som van de zichtbare glasvlakken (dagmaat)"},
+                "operable_parts": {"type": ["integer", "null"], "minimum": 0},
+                "fixed_parts": {"type": ["integer", "null"], "minimum": 0},
+                "matched_object_ids": {"type": "array", "items": {"type": "string"}, "description": "object_id's uit de inventaris die dit kozijn voorstellen"},
+                "note": {"type": ["string", "null"]}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
