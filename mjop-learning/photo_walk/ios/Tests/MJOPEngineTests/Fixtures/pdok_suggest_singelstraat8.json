@@ -1,0 +1,69 @@
+{
+  "response":{
+    "numFound":107,
+    "start":0,
+    "maxScore":6.8060164,
+    "numFoundExact":true,
+    "docs":[{
+      "type":"adres",
+      "weergavenaam":"Singelstraat 8, 1381BH Weesp",
+      "adrestype":"hoofdadres",
+      "id":"adr-27186b6c1299e67defda8b1260f7d042",
+      "score":6.8060164
+    },{
+      "type":"adres",
+      "weergavenaam":"Singelstraat 8, 1398BN Muiden",
+      "adrestype":"hoofdadres",
+      "id":"adr-6e2a59707541ce9e13944981f155cc83",
+      "score":6.8060164
+    },{
+      "type":"adres",
+      "weergavenaam":"Singelstraat 8, 2613EP Delft",
+      "adrestype":"hoofdadres",
+      "id":"adr-6df2c0539c6b0a41d92d49aac458905b",
+      "score":6.8060164
+    },{
+      "type":"adres",
+      "weergavenaam":"Singelstraat 8, 2802KX Gouda",
+      "adrestype":"hoofdadres",
+      "id":"adr-5b5ddcc89517f9badd6a0d4bf00172e2",
+      "score":6.8060164
+    },{
+      "type":"adres",
+      "weergavenaam":"Singelstraat 8, 3014JW Rotterdam",
+      "adrestype":"hoofdadres",
+      "id":"adr-d6272633b4c4fbabf632b7a2cde61e9c",
+      "score":6.8060164
+    },{
+      "type":"adres",
+      "weergavenaam":"Singelstraat 8, 3513BN Utrecht",
+      "adrestype":"hoofdadres",
+      "id":"adr-0fbf972c9f3482c1231eb8a4b15692b3",
+      "score":6.8060164
+    }]
+  },
+  "highlighting":{
+    "adr-27186b6c1299e67defda8b1260f7d042":{
+      "suggest":["<b>Singelstraat</b> <b>8</b>, 1381BH Weesp"]
+    },
+    "adr-6e2a59707541ce9e13944981f155cc83":{
+      "suggest":["<b>Singelstraat</b> <b>8</b>, 1398BN Muiden"]
+    },
+    "adr-6df2c0539c6b0a41d92d49aac458905b":{
+      "suggest":["<b>Singelstraat</b> <b>8</b>, 2613EP Delft"]
+    },
+    "adr-5b5ddcc89517f9badd6a0d4bf00172e2":{
+      "suggest":["<b>Singelstraat</b> <b>8</b>, 2802KX Gouda"]
+    },
+    "adr-d6272633b4c4fbabf632b7a2cde61e9c":{
+      "suggest":["<b>Singelstraat</b> <b>8</b>, 3014JW Rotterdam"]
+    },
+    "adr-0fbf972c9f3482c1231eb8a4b15692b3":{
+      "suggest":["<b>Singelstraat</b> <b>8</b>, 3513BN Utrecht"]
+    }
+  },
+  "spellcheck":{
+    "suggestions":[ ],
+    "collations":[ ]
+  }
+}

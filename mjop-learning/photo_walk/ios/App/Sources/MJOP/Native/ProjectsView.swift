@@ -7,6 +7,7 @@ struct ProjectsView: View {
     let startScan: () -> Void
     @State private var query = ""
     @State private var showNew = false
+    @State private var created: Project?
 
     private var shown: [Project] {
         let q = query.trimmingCharacters(in: .whitespaces)
@@ -62,7 +63,10 @@ struct ProjectsView: View {
             .refreshable { await store.refresh(account) }
             .task { if !store.loadedOnce { await store.refresh(account) } }
             .toolbar(.hidden, for: .navigationBar)
-            .sheet(isPresented: $showNew) { ComingNextSheet(title: "Nieuw project", text: "Adres zoeken, het gebouw bevestigen met luchtfoto en BAG-gegevens, en daarna meteen het rondje om het gebouw. Dit bouw ik in het volgende deel.") }
+            .sheet(isPresented: $showNew) { NewProjectFlow(onCreated: { p in created = p }) }
+            .navigationDestination(isPresented: Binding(get: { created != nil }, set: { if !$0 { created = nil } })) {
+                if let p = created { ProjectDetailNativeView(project: p) }
+            }
         }
     }
 }

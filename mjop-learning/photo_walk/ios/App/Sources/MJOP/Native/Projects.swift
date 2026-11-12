@@ -1,4 +1,5 @@
 import Foundation
+import MJOPEngine
 import SwiftUI
 
 /// Een project (gebouw) uit de tabel `projects` (nieuw datamodel, zie supabase/migrations in MJOP-App). Alleen echte gegevens: onbekend is `nil`.
@@ -84,4 +85,45 @@ final class ProjectStore: ObservableObject {
     }
 
     func clear() { projects = []; loadedOnce = false; error = nil }
+
+    /// Maakt een project van een gevonden gebouw: standaardposten en planning met het rekenmodel, opslaan in `projects`.
+    /// In de testbouw met `-mjop-demo` alleen lokaal.
+    func create(from f: FoundBuilding, units: Int, account: Account) async throws -> Project {
+        let year = Calendar.current.component(.year, from: Date())
+        let input = BuildingLookup.buildingInput(pand: f.pand, threeD: f.threeD, units: units)
+        let elements = Engine.defaultElements(for: input, year: year)
+        let plan = Engine.plan(elements, year: year)
+        let total = Engine.roundEuro(plan.reduce(Decimal(0)) { $0 + $1.bedrag })
+        let totalInt = NSDecimalNumber(decimal: total).intValue
+        let straat = [f.address.straat, f.address.huisnummer].compactMap { $0 }.joined(separator: " ")
+        let naam = straat.isEmpty ? f.address.naam : straat
+
+        var project = Project(id: UUID().uuidString.lowercased(), naam: naam, adres: straat.isEmpty ? nil : straat, postcode: f.address.postcode, plaats: f.address.plaats,
+                              bouwjaar: f.pand.bouwjaar, appartementen: units, postenAantal: elements.count, geraamdTotaal: totalInt,
+                              periodeVan: year, periodeTot: year + Engine.horizon - 1, beoordeeld: 0, updatedAt: Date(), rol: "eigenaar")
+        if account.demo { projects.insert(project, at: 0); return project }
+
+        let enc = JSONEncoder()
+        let model: [String: Any] = [
+            "building": (try? JSONSerialization.jsonObject(with: enc.encode(input))) ?? [:],
+            "elements": (try? JSONSerialization.jsonObject(with: enc.encode(elements))) ?? [],
+            "bronnen": ["bag_pand": f.pand.identificatie, "drie_d_bag": f.threeD != nil, "drie_d_kwaliteit_goed": jsonValue(f.threeD?.kwaliteitGoed)],
+            "fonds": NSNull(), "bijdrage": NSNull(),
+        ]
+        let row: [String: Any] = [
+            "id": project.id, "naam": naam, "adres": jsonValue(project.adres), "postcode": jsonValue(project.postcode), "plaats": jsonValue(project.plaats),
+            "bag_pand_id": f.pand.identificatie, "bouwjaar": jsonValue(f.pand.bouwjaar), "aantal_appartementen": units,
+            "posten_aantal": elements.count, "posten_beoordeeld": 0, "geraamd_totaal": totalInt, "periode_van": year, "periode_tot": year + Engine.horizon - 1,
+            "schema_version": 1, "model": model,
+        ]
+        let s = try await account.validSession()
+        let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", method: "POST", body: row, prefer: "return=representation")
+        guard (200..<300).contains(http.statusCode) else { throw BackendError.message(BackendClient.message(data, status: http.statusCode)) }
+        if let rows = (try? JSONSerialization.jsonObject(with: data)) as? [[String: Any]], let saved = rows.first.flatMap(Project.parse) { project = saved }
+        projects.insert(project, at: 0)
+        return project
+    }
 }
+
+/// nil wordt JSON null (JSONSerialization kan geen Swift-Optional schrijven).
+func jsonValue(_ v: Any?) -> Any { v ?? NSNull() }
