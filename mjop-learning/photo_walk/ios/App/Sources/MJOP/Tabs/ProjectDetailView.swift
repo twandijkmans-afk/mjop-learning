@@ -57,6 +57,12 @@ struct ProjectDetailView: View {
                 VStack(spacing: 0) {
                     DetailRow(icon: "arrow.right.circle", title: "Volgende stap", value: nextStep ?? "–", identifier: "detailNextStep")
                     Divider().padding(.leading, 56)
+                    // MJOP staat hoog in de lijst: op een kleine iPhone viel een rij onderaan achter de tabbalk.
+                    Button { openMJOP() } label: {
+                        DetailRow(icon: "calendar", title: "MJOP", value: "Planning, begroting en rapportage", chevron: true, identifier: "detailOpenMJOP")
+                    }
+                    .buttonStyle(.plain)
+                    Divider().padding(.leading, 56)
                     NavigationLink { BuildingFactsView(project: project, web: web, loading: $loading) } label: {
                         DetailRow(icon: "building.2", title: "Gebouwgegevens", value: factsSummary, chevron: true, identifier: "detailFacts")
                     }
@@ -69,11 +75,6 @@ struct ProjectDetailView: View {
                     Divider().padding(.leading, 56)
                     Button { goMeasure() } label: {
                         DetailRow(icon: "camera", title: "Foto's en inspecties", value: inspectionText, chevron: true, identifier: "detailInspections")
-                    }
-                    .buttonStyle(.plain)
-                    Divider().padding(.leading, 56)
-                    Button { openMJOP() } label: {
-                        DetailRow(icon: "calendar", title: "MJOP", value: "Planning, begroting en rapportage", chevron: true, identifier: "detailOpenMJOP")
                     }
                     .buttonStyle(.plain)
                 }

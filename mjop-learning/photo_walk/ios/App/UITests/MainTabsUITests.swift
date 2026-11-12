@@ -68,7 +68,7 @@ final class MainTabsUITests: XCTestCase {
     private func openProjectA(_ app: XCUIApplication) {
         tab(app, "Projecten")
         tapCenter(any(app, "projectRow-Testproject A"))
-        tapCenter(any(app, "detailOpenMJOP"))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "het project is in de website geopend")
         XCTAssertTrue(waitSelected(app.tabBars.buttons["MJOP"]), "na het openen staat de gebruiker in het MJOP-gedeelte")
     }
@@ -193,7 +193,7 @@ final class MainTabsUITests: XCTestCase {
         XCTAssertTrue(any(app, "factDak").label.contains("313"))
         XCTAssertFalse(any(app, "factDak").label.contains("geschat"), "een 3D BAG-waarde is niet geschat")
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        tapCenter(any(app, "detailOpenMJOP"))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(waitSelected(app.tabBars.buttons["MJOP"]), "de rij MJOP schakelt naar het MJOP-gedeelte")
         XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "de rij MJOP opent het project in de website")
     }
@@ -222,12 +222,12 @@ final class MainTabsUITests: XCTestCase {
         showProjectList(app, expecting: "projectRow-Testproject B")
         tapCenter(any(app, "projectRow-Testproject B"))
         XCTAssertTrue(any(app, "detailNotLoaded").waitForExistence(timeout: 20), "het detailscherm vervangt het open project niet stil: het meldt dat de gegevens niet geladen zijn")
-        tapCenter(any(app, "detailOpenMJOP"))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 20), "de website weigert stil vervangen; de gebruiker moet bevestigen")
         XCTAssertTrue(app.alerts.firstMatch.label.contains("Niet-opgeslagen wijzigingen"))
         app.alerts.buttons["Annuleren"].tap()
         XCTAssertTrue(app.tabBars.buttons["Projecten"].isSelected, "bij annuleren blijft de gebruiker waar hij was")
-        tapCenter(any(app, "detailOpenMJOP"))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(app.alerts.buttons["Toch openen"].waitForExistence(timeout: 20))
         app.alerts.buttons["Toch openen"].tap()
         XCTAssertTrue(webText(app, "Project: Testproject B", timeout: 30), "na uitdrukkelijke bevestiging wordt het andere project geopend")
