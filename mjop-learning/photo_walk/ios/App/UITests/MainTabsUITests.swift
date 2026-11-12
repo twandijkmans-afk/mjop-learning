@@ -52,10 +52,17 @@ final class MainTabsUITests: XCTestCase {
         app.webViews.staticTexts[text].waitForExistence(timeout: timeout)
     }
 
-    /// Opent "Testproject A" via de tab Projecten; de app schakelt daarna naar MJOP.
+    /// Terug naar de projectlijst als er nog een detailscherm open staat (de lijst blijft in de tab Projecten staan).
+    private func showProjectList(_ app: XCUIApplication, expecting row: String) {
+        tab(app, "Projecten")
+        if !any(app, row).waitForExistence(timeout: 5) { app.navigationBars.buttons.element(boundBy: 0).tap() }
+    }
+
+    /// Opent "Testproject A" via de tab Projecten (eerst het detailscherm, daarna de rij MJOP); de app schakelt daarna naar MJOP.
     private func openProjectA(_ app: XCUIApplication) {
         tab(app, "Projecten")
         tapCenter(any(app, "projectRow-Testproject A"))
+        tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "het project is in de website geopend")
         XCTAssertTrue(app.tabBars.buttons["MJOP"].isSelected, "na het openen staat de gebruiker in het MJOP-gedeelte")
     }
@@ -177,6 +184,31 @@ final class MainTabsUITests: XCTestCase {
 
     // MARK: Meten
 
+    // MARK: Projectdetails
+
+    func testProjectDetailShowsRealBuildingFactsAndKeepsUnknownUnknown() {
+        let app = launchWithTabs()
+        tab(app, "Projecten")
+        tapCenter(any(app, "projectRow-Testproject A"))
+        XCTAssertTrue(any(app, "detailTitle").waitForExistence(timeout: 20))
+        XCTAssertEqual(any(app, "detailTitle").label, "Testproject A")
+        XCTAssertTrue(any(app, "detailFacts").waitForExistence(timeout: 20))
+        let facts = any(app, "detailFacts")
+        let expect = NSPredicate(format: "label CONTAINS %@", "1972")
+        expectation(for: expect, evaluatedWith: facts)
+        waitForExpectations(timeout: 30)
+        XCTAssertTrue(facts.label.contains("12 appartementen"), "bouwjaar en appartementen komen uit het geopende project")
+        tapCenter(facts)
+        XCTAssertEqual(any(app, "factBouwjaar").label, "1972")
+        XCTAssertEqual(any(app, "factGevel").label, "Onbekend", "een onbekend geveloppervlak blijft onbekend, nooit 0")
+        XCTAssertTrue(any(app, "factDak").label.contains("313"))
+        XCTAssertFalse(any(app, "factDak").label.contains("geschat"), "een 3D BAG-waarde is niet geschat")
+        app.navigationBars.buttons.element(boundBy: 0).tap()
+        tapCenter(any(app, "detailOpenMJOP"))
+        XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "de rij MJOP opent het project in de website")
+        XCTAssertTrue(app.tabBars.buttons["MJOP"].isSelected)
+    }
+
     func testMeasureTabStartsARoundForTheChosenProjectAndReturnsToMeasure() {
         let app = launchWithTabs()
         tab(app, "Meten")
@@ -213,13 +245,15 @@ final class MainTabsUITests: XCTestCase {
     func testSwitchingProjectWithUnsavedChangesAsksForConfirmation() {
         let app = launchWithTabs()
         openProjectA(app)
-        tab(app, "Projecten")
+        showProjectList(app, expecting: "projectRow-Testproject B")
         tapCenter(any(app, "projectRow-Testproject B"))
+        XCTAssertTrue(any(app, "detailNotLoaded").waitForExistence(timeout: 20), "het detailscherm vervangt het open project niet stil: het meldt dat de gegevens niet geladen zijn")
+        tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 20), "de website weigert stil vervangen; de gebruiker moet bevestigen")
         XCTAssertTrue(app.alerts.firstMatch.label.contains("Niet-opgeslagen wijzigingen"))
         app.alerts.buttons["Annuleren"].tap()
         XCTAssertTrue(app.tabBars.buttons["Projecten"].isSelected, "bij annuleren blijft de gebruiker waar hij was")
-        tapCenter(any(app, "projectRow-Testproject B"))
+        tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(app.alerts.buttons["Toch openen"].waitForExistence(timeout: 20))
         app.alerts.buttons["Toch openen"].tap()
         XCTAssertTrue(webText(app, "Project: Testproject B", timeout: 30), "na uitdrukkelijke bevestiging wordt het andere project geopend")

@@ -117,6 +117,29 @@ final class NativeNavTests: XCTestCase {
         XCTAssertNil(WebStatus.parse(.string("geen object")))
     }
 
+    // MARK: gebouwgegevens voor het projectdetailscherm
+
+    func testBuildingDetailsParseKnownValuesAndKeepUnknownAsNil() throws {
+        let raw: [String: Any] = ["loggedIn": true, "details": [
+            "bouwjaar": 1972, "units": 12, "dakM2": 313, "dakGeschat": false, "gevelM2": NSNull(), "gevelGeschat": false,
+            "posten": 10, "geraamdTotaal": 55148, "periodeVan": 2026, "periodeTot": 2035, "gevelfotos": 2] as [String: Any]]
+        let d = try XCTUnwrap(WebStatus.parse(JSONValue.from(any: raw))?.details)
+        XCTAssertEqual(d.bouwjaar, 1972); XCTAssertEqual(d.units, 12); XCTAssertEqual(d.dakM2, 313); XCTAssertFalse(d.dakGeschat)
+        XCTAssertNil(d.gevelM2, "onbekend is nil, nooit 0"); XCTAssertEqual(d.posten, 10); XCTAssertEqual(d.geraamdTotaal, 55148)
+        XCTAssertEqual(d.periodeVan, 2026); XCTAssertEqual(d.periodeTot, 2035); XCTAssertEqual(d.gevelfotos, 2)
+    }
+
+    func testBuildingDetailsAreOptionalAndNeverInventedFromGarbage() throws {
+        // een oudere website of het voorbeeldgebouw: geen details
+        XCTAssertNil(WebStatus.parse(JSONValue.from(any: ["loggedIn": true]))?.details)
+        XCTAssertNil(WebStatus.parse(JSONValue.from(any: ["loggedIn": true, "details": NSNull()]))?.details)
+        // rommelwaarden worden nil (nul en negatief zijn "onbekend", niet 0)
+        let raw: [String: Any] = ["details": ["bouwjaar": 0, "units": -3, "dakM2": "313", "gevelM2": 99_999_999_999, "geraamdTotaal": 0, "posten": -1, "gevelfotos": -2, "dakGeschat": "ja"] as [String: Any]]
+        let d = try XCTUnwrap(WebStatus.parse(JSONValue.from(any: raw))?.details)
+        XCTAssertNil(d.bouwjaar); XCTAssertNil(d.units); XCTAssertNil(d.dakM2); XCTAssertNil(d.gevelM2); XCTAssertNil(d.geraamdTotaal); XCTAssertNil(d.posten)
+        XCTAssertEqual(d.gevelfotos, 0); XCTAssertFalse(d.dakGeschat)
+    }
+
     func testErrorRepliesCarryTheCode() {
         guard case .success(.webReply(_, let r)) = BridgeMessage.parse(envelope("webReply", ["command": "openProject", "ok": false, "error": ["code": "UNSAVED_CHANGES", "message": "Wijzigingen"]])) else { return XCTFail() }
         XCTAssertFalse(r.ok); XCTAssertEqual(r.errorCode, "UNSAVED_CHANGES"); XCTAssertEqual(r.errorMessage, "Wijzigingen"); XCTAssertNil(r.data)

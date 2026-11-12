@@ -118,7 +118,7 @@ struct HomeTabView: View {
         if !list.isEmpty {
             CardView(title: "Recente projecten", icon: "clock") {
                 ForEach(list) { p in
-                    Button { Task { await nav.open(p) } } label: {
+                    NavigationLink { ProjectDetailView(project: p, web: web) } label: {
                         HStack(spacing: 12) {
                             AerialPhotoView(address: p.adres ?? p.label)
                                 .frame(width: 64, height: 48)

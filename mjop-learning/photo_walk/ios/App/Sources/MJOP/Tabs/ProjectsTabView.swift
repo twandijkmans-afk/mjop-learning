@@ -70,14 +70,14 @@ struct ProjectsTabView: View {
                     Text("Geen project gevonden voor \u{201C}\(query)\u{201D}.").font(.subheadline).foregroundStyle(.secondary).padding(.top, 24)
                 }
                 ForEach(shown) { p in
-                    Button { Task { await nav.open(p) } } label: {
+                    NavigationLink { ProjectDetailView(project: p, web: web) } label: {
                         ProjectCard(project: p, isOpen: p.id == web.webStatus?.planId)
                     }
                     .buttonStyle(.plain)
                     .accessibilityElement(children: .combine)
                     .accessibilityIdentifier("projectRow-\(p.label)")
                 }
-                Text("Een project openen toont het in MJOP. Nieuwe projecten maak je voorlopig met de stappen van de website (plusje rechtsboven).")
+                Text("Een project openen toont eerst de details. Nieuwe projecten maak je voorlopig met de stappen van de website (plusje rechtsboven).")
                     .font(.footnote).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading).padding(.top, 4)
             }
             .padding()

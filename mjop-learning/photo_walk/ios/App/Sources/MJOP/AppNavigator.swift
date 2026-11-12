@@ -85,6 +85,15 @@ final class AppNavigator: ObservableObject {
         }
     }
 
+    /// Laadt een project in de website zonder naar MJOP te schakelen, zodat het detailscherm de gebouwgegevens kan tonen.
+    /// Vervangt nooit stil niet-opgeslagen werk (`force: false`): dan blijft het andere project open en geeft dit `false`.
+    func loadForDetails(_ project: ProjectSummary) async -> Bool {
+        guard let web, web.navMode == .tabs else { return false }
+        if web.webStatus?.planId == project.id { return true }
+        let r = await web.send(.openProject(id: project.id, tab: nil, force: false))
+        return r.ok
+    }
+
     /// De gebruiker bevestigde dat het huidige, niet-opgeslagen werk vervangen mag worden.
     func confirmOpenAnyway(_ project: ProjectSummary) async { await open(project, force: true) }
 
