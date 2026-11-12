@@ -37,6 +37,12 @@ final class MainTabsUITests: XCTestCase {
 
     private func tab(_ app: XCUIApplication, _ name: String) { tapCenter(app.tabBars.buttons[name]) }
 
+    /// Wacht tot een tabblad gekozen is: de app schakelt pas nadat de website het project heeft geopend, dus direct controleren is te vroeg.
+    private func waitSelected(_ el: XCUIElement, timeout: TimeInterval = 20) -> Bool {
+        let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isSelected == true"), object: el)
+        return XCTWaiter().wait(for: [expectation], timeout: timeout) == .completed
+    }
+
     private func reveal(_ el: XCUIElement, in app: XCUIApplication) {
         var n = 0
         while !el.exists && n < 5 { app.swipeUp(); n += 1 }
@@ -64,7 +70,7 @@ final class MainTabsUITests: XCTestCase {
         tapCenter(any(app, "projectRow-Testproject A"))
         tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "het project is in de website geopend")
-        XCTAssertTrue(app.tabBars.buttons["MJOP"].isSelected, "na het openen staat de gebruiker in het MJOP-gedeelte")
+        XCTAssertTrue(waitSelected(app.tabBars.buttons["MJOP"]), "na het openen staat de gebruiker in het MJOP-gedeelte")
     }
 
     private func pageId(_ app: XCUIApplication) -> String {
@@ -205,8 +211,8 @@ final class MainTabsUITests: XCTestCase {
         XCTAssertFalse(any(app, "factDak").label.contains("geschat"), "een 3D BAG-waarde is niet geschat")
         app.navigationBars.buttons.element(boundBy: 0).tap()
         tapCenter(any(app, "detailOpenMJOP"))
+        XCTAssertTrue(waitSelected(app.tabBars.buttons["MJOP"]), "de rij MJOP schakelt naar het MJOP-gedeelte")
         XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "de rij MJOP opent het project in de website")
-        XCTAssertTrue(app.tabBars.buttons["MJOP"].isSelected)
     }
 
     func testMeasureTabStartsARoundForTheChosenProjectAndReturnsToMeasure() {

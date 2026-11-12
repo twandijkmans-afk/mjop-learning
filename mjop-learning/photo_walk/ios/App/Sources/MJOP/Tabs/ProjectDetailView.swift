@@ -72,7 +72,7 @@ struct ProjectDetailView: View {
                     }
                     .buttonStyle(.plain)
                     Divider().padding(.leading, 56)
-                    Button { Task { await nav.open(project) } } label: {
+                    Button { openMJOP() } label: {
                         DetailRow(icon: "calendar", title: "MJOP", value: "Planning, begroting en rapportage", chevron: true, identifier: "detailOpenMJOP")
                     }
                     .buttonStyle(.plain)
@@ -99,6 +99,19 @@ struct ProjectDetailView: View {
         let ok = await nav.loadForDetails(project)
         notLoaded = !ok && web.webStatus?.planId != project.id
         loading = false
+    }
+
+    /// Staat het project al in de website (het detailscherm heeft het geladen), dan schakelen we meteen naar MJOP en laten de website op de achtergrond
+    /// naar de planning gaan; anders opent `nav.open` het project eerst (met de bevestiging bij niet-opgeslagen werk).
+    private func openMJOP() {
+        if isOpen {
+            nav.mjopSection = .planning
+            nav.measureProjectId = project.id
+            nav.selected = .mjop
+            Task { await nav.showMJOPSection() }
+        } else {
+            Task { await nav.open(project) }
+        }
     }
 
     private func goMeasure() {
