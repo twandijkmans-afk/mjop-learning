@@ -25,7 +25,7 @@ struct RootView: View {
             } else {
                 VStack(spacing: 0) {
                     header
-                    MJOPContainerView(web: web, openScanner: { nav.showScannerTest = true })
+                    MJOPContainerView(web: web)
                 }
             }
         }
@@ -49,10 +49,6 @@ struct RootView: View {
             guard url.scheme?.lowercased() == MJOPConfig.appURLScheme else { return }
             web.handleAuthCallback(AuthCallback.parse(url))
         }
-        .fullScreenCover(item: $rounds.presented) { p in
-            RoundFlowView(context: p.context).environmentObject(store).environmentObject(rounds)
-        }
-        .fullScreenCover(isPresented: $nav.showScannerTest) { ScannerTestView(close: { nav.showScannerTest = false }).environmentObject(store) }
     }
 
     private var header: some View {
@@ -66,7 +62,6 @@ struct RootView: View {
                 Button { web.pasteLogin(UIPasteboard.general.string ?? "") } label: { Label("Inloglink of code plakken", systemImage: "doc.on.clipboard") }
                 Button { web.presentPrint() } label: { Label("Afdrukken of bewaren als PDF", systemImage: "printer") }
                 Button { web.openCurrentInSafari() } label: { Label("Openen in Safari", systemImage: "safari") }
-                Button { nav.showScannerTest = true } label: { Label("Scanner-testmodus (zonder project)", systemImage: "viewfinder") }
                 if classicMode { Button { classicMode = false } label: { Label("Nieuwe navigatie gebruiken", systemImage: "square.grid.2x2") } }
             } label: { Image(systemName: "ellipsis.circle").font(.title3) }
             .accessibilityIdentifier("mjopMenu").accessibilityLabel("Meer opties voor MJOP Live")
@@ -77,14 +72,3 @@ struct RootView: View {
     }
 }
 
-/// De losse scanner zonder projectcontext (LiDAR-/meetdiagnose en testen). Geen hoofdnavigatie: alleen bereikbaar via het menu.
-struct ScannerTestView: View {
-    let close: () -> Void
-    @EnvironmentObject var store: ScanStore
-    var body: some View {
-        NavigationStack {
-            StartScanView().environmentObject(store)
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Sluiten", action: close).accessibilityIdentifier("scannerTestClose") } }
-        }
-    }
-}

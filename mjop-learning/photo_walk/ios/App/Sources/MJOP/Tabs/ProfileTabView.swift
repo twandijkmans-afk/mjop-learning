@@ -95,9 +95,6 @@ struct AdvancedSettingsView: View {
                 Button { web.openCurrentInSafari() } label: { Label("Openen in Safari", systemImage: "safari") }
                 Button { web.pasteLogin(UIPasteboard.general.string ?? "") } label: { Label("Inloglink of code plakken", systemImage: "doc.on.clipboard") }
             }
-            Section("Scanner") {
-                Button { nav.showScannerTest = true } label: { Label("Scanner-testmodus (zonder project)", systemImage: "viewfinder") }.accessibilityIdentifier("advScannerTest")
-            }
             Section {
                 Toggle("Klassieke weergave gebruiken", isOn: $classicMode).accessibilityIdentifier("advClassic")
             } footer: {

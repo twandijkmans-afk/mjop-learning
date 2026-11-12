@@ -9,7 +9,7 @@ struct WebScreen: View {
     var body: some View {
         VStack(spacing: 0) {
             ProjectContextBar(status: web.webStatus, online: web.isOnline)
-            MJOPContainerView(web: web, openScanner: { nav.showScannerTest = true })
+            MJOPContainerView(web: web)
         }
     }
 }

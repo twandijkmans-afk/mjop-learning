@@ -8,13 +8,11 @@ enum NavAlert: Identifiable {
     case info(title: String, message: String)
     /// Het huidige project heeft niet-opgeslagen wijzigingen: pas na een uitdrukkelijke bevestiging wordt het vervangen (`force`).
     case unsavedOpen(ProjectSummary)
-    case unsavedMeasure(ProjectSummary)
 
     var id: String {
         switch self {
         case .info(let t, let m): return "info-\(t)-\(m)"
         case .unsavedOpen(let p): return "open-\(p.id)"
-        case .unsavedMeasure(let p): return "measure-\(p.id)"
         }
     }
 }
@@ -27,7 +25,6 @@ final class AppNavigator: ObservableObject {
 
     @Published var selected: Tab = .home
     @Published var mjopSection: MJOPSection = .planning
-    @Published var showScannerTest = CommandLine.arguments.contains("-scanner-test")
     @Published var alert: NavAlert?
     @Published private(set) var busy = false
 
@@ -96,25 +93,6 @@ final class AppNavigator: ObservableObject {
 
     /// De gebruiker bevestigde dat het huidige, niet-opgeslagen werk vervangen mag worden.
     func confirmOpenAnyway(_ project: ProjectSummary) async { await open(project, force: true) }
-
-    // MARK: meten
-
-    /// Start een nieuwe fotoronde voor het gekozen project. De website opent het project en start daarna zelf de bestaande scanner-brug
-    /// (`startPhotoRound`); de ronde opent daarna op de gewone manier schermvullend. Er wordt niets geboekt of overgenomen.
-    func startMeasurement(force: Bool = false) async {
-        guard let web else { return }
-        guard let project = measureProject else {
-            alert = .info(title: "Kies eerst een project", message: "Een meting hoort altijd bij een project. Kies hierboven een project.")
-            return
-        }
-        busy = true
-        defer { busy = false }
-        let r = await web.send(.startMeasurement(mode: .round, planId: project.id, elementKey: nil, force: force))
-        if r.ok { return }
-        if r.errorCode == "UNSAVED_CHANGES" { alert = .unsavedMeasure(project) } else {
-            alert = .info(title: "Meting starten mislukt", message: Self.message(for: r))
-        }
-    }
 
     // MARK: onderdelen tonen
 
