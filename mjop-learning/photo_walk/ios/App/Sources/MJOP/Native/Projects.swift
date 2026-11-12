@@ -53,7 +53,7 @@ struct Project: Identifiable, Equatable {
     /// Voorbeeldproject alleen voor de schermafbeeldingen in de testbouw (`-mjop-demo`): gegevens van de gebruiker zelf (Singelstraat 8).
     static let demo: [Project] = [
         Project(id: "demo-1", naam: "Singelstraat 8", adres: "Singelstraat 8", postcode: "1398 BN", plaats: "Muiden", bouwjaar: 1925, appartementen: 1,
-                postenAantal: 11, geraamdTotaal: 14656, periodeVan: 2026, periodeTot: 2035, beoordeeld: 0, updatedAt: Date(), rol: "eigenaar"),
+                postenAantal: 11, geraamdTotaal: 14656, periodeVan: 2026, periodeTot: 2035, beoordeeld: 0, updatedAt: Date().addingTimeInterval(-2 * 3600), rol: "eigenaar"),
     ]
 }
 

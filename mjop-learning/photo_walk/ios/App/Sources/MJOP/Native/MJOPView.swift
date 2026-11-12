@@ -279,7 +279,7 @@ struct RapportSection: View {
                 DSLogo(size: 26)
                 Text("MJOP \(ProjectModel.year)–\(ProjectModel.year + Engine.horizon - 1)").font(.headline).foregroundStyle(Color(hex: 0x0E1424))
                 Text(project.fullAddress ?? project.naam).font(.caption2).foregroundStyle(Color(hex: 0x667085))
-                Color.clear.frame(height: 60).background { AerialPhotoView(address: project.fullAddress ?? project.naam) }.clipShape(RoundedRectangle(cornerRadius: 6))
+                Color.clear.frame(height: 60).background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: nil) }.clipShape(RoundedRectangle(cornerRadius: 6))
                 ForEach(0..<3, id: \.self) { i in RoundedRectangle(cornerRadius: 2).fill(Color(hex: 0xE1E6F0)).frame(width: CGFloat([150, 120, 140][i]), height: 4) }
             }
             .padding(16).frame(width: 200, height: 260, alignment: .topLeading)

@@ -51,6 +51,8 @@ actor AerialPhotoLoader {
 /// Luchtfoto bij een adres, met bronvermelding. Zonder foto: een neutraal vlak met een gebouwsymbool.
 struct AerialPhotoView: View {
     let address: String?
+    /// Waar de bronvermelding staat; nil = niet tonen (kleine miniaturen; de vermelding staat dan bij de grote foto).
+    var attribution: Alignment? = .bottomLeading
     @State private var image: UIImage?
     @State private var finished = false
 
@@ -58,10 +60,14 @@ struct AerialPhotoView: View {
         ZStack(alignment: .bottomLeading) {
             if let image {
                 Image(uiImage: image).resizable().scaledToFill()
-                Text(AerialPhoto.attribution)
-                    .font(.caption2).foregroundStyle(.white)
-                    .padding(.horizontal, 6).padding(.vertical, 2)
-                    .background(Color.black.opacity(0.5))
+                if let attribution {
+                    Text(AerialPhoto.attribution)
+                        .font(.caption2).foregroundStyle(.white)
+                        .padding(.horizontal, 6).padding(.vertical, 2)
+                        .background(Color.black.opacity(0.45), in: Capsule())
+                        .padding(8)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: attribution)
+                }
             } else {
                 Rectangle().fill(Color(.tertiarySystemFill))
                 Image(systemName: finished ? "building.2" : "photo").font(.title2).foregroundStyle(.secondary)

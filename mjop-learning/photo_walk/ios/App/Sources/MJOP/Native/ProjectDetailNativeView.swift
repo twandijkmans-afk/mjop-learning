@@ -14,7 +14,7 @@ struct ProjectDetailNativeView: View {
         ScrollView {
             VStack(spacing: 0) {
                 Color.clear.frame(height: 300)
-                    .background { AerialPhotoView(address: project.fullAddress ?? project.naam) }
+                    .background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: .bottomTrailing) }
                     .clipped()
                 VStack(alignment: .leading, spacing: 16) {
                     HStack(alignment: .top) {

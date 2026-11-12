@@ -115,7 +115,7 @@ struct ProjectHero: View {
             }
         }
         .frame(maxWidth: .infinity).frame(height: 230)
-        .background { AerialPhotoView(address: project.fullAddress ?? project.naam) }
+        .background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: .topTrailing) }
         .clipShape(RoundedRectangle(cornerRadius: DS.radiusHero, style: .continuous))
         .shadow(color: DS.accent.opacity(0.18), radius: 20, x: 0, y: 14)
         .accessibilityElement(children: .combine)
@@ -125,7 +125,7 @@ struct ProjectHero: View {
         var parts: [String] = []
         if let p = project.plaats { parts.append(p) }
         if let n = project.postenAantal { parts.append("\(n) posten") }
-        if let t = project.geraamdTotaal { parts.append(DSFormat.euros(t) + (project.periodeTot.map { " tot \($0)" } ?? "")) }
+        if let t = project.geraamdTotaal { parts.append(DSFormat.euros(t)) }
         return parts.isEmpty ? (project.fullAddress ?? "") : parts.joined(separator: " · ")
     }
 }

@@ -9,6 +9,14 @@ struct NativeRoot: View {
     @State private var showScan = false
     @State private var showSplash = LaunchSplashView.shouldShow
 
+    /// Alleen in de testbouw: `-mjop-dark` toont de app donker, voor de schermafbeeldingen.
+    static var forcedScheme: ColorScheme? {
+        #if DEBUG
+        if CommandLine.arguments.contains("-mjop-dark") { return .dark }
+        #endif
+        return nil
+    }
+
     var body: some View {
         ZStack {
             DS.canvas.ignoresSafeArea()
@@ -29,6 +37,7 @@ struct NativeRoot: View {
         .environmentObject(account)
         .environmentObject(projects)
         .tint(DS.accent)
+        .preferredColorScheme(Self.forcedScheme)
         .overlay { if showSplash { LaunchSplashView(done: { showSplash = false }) } }
         .task { await account.start() }
         .onOpenURL { url in

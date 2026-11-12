@@ -225,8 +225,10 @@ enum DSFormat {
     static func euros(_ v: Int) -> String { euro.string(from: NSNumber(value: v)) ?? "€ \(v)" }
 
     static func relative(_ d: Date) -> String {
+        let now = Date()
+        if abs(now.timeIntervalSince(d)) < 60 { return "zojuist" }
         let f = RelativeDateTimeFormatter(); f.locale = Locale(identifier: "nl_NL"); f.unitsStyle = .full
-        return f.localizedString(for: d, relativeTo: Date())
+        return f.localizedString(for: min(d, now), relativeTo: now)
     }
 
     static func today() -> String {

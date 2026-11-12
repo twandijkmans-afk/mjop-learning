@@ -27,7 +27,7 @@ final class ScreenshotTourUITests: XCTestCase {
         if #available(iOS 17.0, *) { XCUIDevice.shared.appearance = dark ? .dark : .light } else if dark { return }
         let mode = dark ? "donker" : "licht"
         let app = XCUIApplication()
-        app.launchArguments += ["-mjop-demo"]
+        app.launchArguments += ["-mjop-demo"] + (dark ? ["-mjop-dark"] : [])
         app.launch()
 
         XCTAssertTrue(el(app, "homeGreeting").waitForExistence(timeout: 30), "Home na inloggen")
@@ -42,9 +42,20 @@ final class ScreenshotTourUITests: XCTestCase {
         settle(2); shot(app, "3-project-\(mode)")
         app.buttons["Terug"].firstMatch.tap()
 
-        tap(el(app, "tab-MJOP")); settle(); shot(app, "4-mjop-\(mode)")
+        tap(el(app, "tab-MJOP")); settle(2); shot(app, "4-mjop-planning-\(mode)")
+        tap(el(app, "seg-Kosten")); settle(); shot(app, "4b-mjop-kosten-\(mode)")
+        tap(el(app, "seg-Rapport")); settle(); shot(app, "4c-mjop-rapport-\(mode)")
         tap(el(app, "tab-Profiel")); settle(); shot(app, "5-profiel-\(mode)")
-        tap(el(app, "tabScan")); settle(); shot(app, "6-scan-\(mode)")
+        tap(el(app, "tabScan")); settle(2); shot(app, "6-scan-\(mode)")
+        app.buttons["Sluiten"].firstMatch.tap(); settle()
+        tap(el(app, "tab-Projecten")); tap(el(app, "newProject"))
+        let search = el(app, "addressSearch")
+        if search.waitForExistence(timeout: 10) {
+            search.tap(); search.typeText("Singelstraat 8 Muiden")
+            settle(3); shot(app, "7-nieuw-adres-\(mode)")
+            let hit = app.descendants(matching: .any).matching(NSPredicate(format: "identifier BEGINSWITH %@", "address-")).firstMatch
+            if hit.waitForExistence(timeout: 10) { hit.tap(); settle(6); shot(app, "8-nieuw-gebouw-\(mode)") }
+        }
     }
 
     private func el(_ app: XCUIApplication, _ id: String) -> XCUIElement { app.descendants(matching: .any)[id].firstMatch }
