@@ -150,8 +150,9 @@ jobs:
             [ "$d" -ge 1 ] || { echo "::error::positieve controle mislukt: '$m' niet in de Debug-binary; de scan is onbetrouwbaar"; exit 1; }
             [ "$r" -eq 0 ] || { echo "::error::'$m' gevonden in de Release-binary: ontwikkelinterface niet afgeschermd"; exit 1; }
           done
-          # Gebruikersfunctie die in Release moet blijven (verplaatst uit DiagnosticsView)
-          grep -q "MotionAdvice" "$RUNNER_TEMP/scan-release.txt" || { echo "::error::MotionAdvice ontbreekt in Release (bewegingsadvies voor gebruikers)"; exit 1; }
+          # (Vervallen: de controle op MotionAdvice in Release. Dat was het bewegingsadvies van de camera-scanner; die scanner is uit de app gehaald
+          # en vervangen door de gevelfoto, dus de linker laat deze code terecht weg. Informatief blijft hieronder zichtbaar of hij er nog in zit.)
+          echo "info MotionAdvice: release=$(grep -c "MotionAdvice" "$RUNNER_TEMP/scan-release.txt" || true)" | tee -a "$LOGS/release-scan.txt"
           # Informatief: bibliotheekcode zonder aanroeper in de app (kan door de linker wel of niet worden meegenomen)
           for m in CaptureBundle ExtendedDiagnostics photo_walk_capture_bundle_v1; do
             echo "info $m: debug=$(grep -c "$m" "$RUNNER_TEMP/scan-debug.txt" || true) release=$(grep -c "$m" "$RUNNER_TEMP/scan-release.txt" || true)" | tee -a "$LOGS/release-scan.txt"
