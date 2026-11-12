@@ -1,9 +1,10 @@
 import MJOPIntegration
 import SwiftUI
 
-/// Eén rij in de lijst van het projectdetailscherm: pictogram, titel en waarde (of toelichting).
+/// Eén rij in de lijst van het projectdetailscherm: pictogramvlak, titel met toelichting, en een pijltje.
 struct DetailRow: View {
     let icon: String
+    var tint: Color = MJOPTheme.accent
     let title: String
     let value: String
     var chevron = false
@@ -11,25 +12,25 @@ struct DetailRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Image(systemName: icon).font(.body).foregroundStyle(MJOPTheme.accent).frame(width: 26)
+            IconTile(systemName: icon, color: tint)
             VStack(alignment: .leading, spacing: 2) {
-                Text(title).font(.body.weight(.medium)).foregroundStyle(Color.primary)
+                Text(title).font(.body).foregroundStyle(Color.primary)
                 Text(value).font(.subheadline).foregroundStyle(Color.secondary).multilineTextAlignment(.leading)
             }
             Spacer(minLength: 8)
             if chevron { Image(systemName: "chevron.right").font(.footnote.weight(.semibold)).foregroundStyle(.tertiary) }
         }
-        .padding(.horizontal, 16).padding(.vertical, 13)
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 16).padding(.vertical, 12)
+        .frame(maxWidth: .infinity, minHeight: 56, alignment: .leading)
         .contentShape(Rectangle())
         .accessibilityElement(children: .combine)
         .accessibilityIdentifier(identifier ?? "detail-\(title)")
     }
 }
 
-/// Projectdetails zoals in het ontwerp: grote luchtfoto, naam en adres, en rijen naar Gebouwgegevens, Gevels, Foto's en inspecties en MJOP.
+/// Projectdetails: luchtfoto over de volle breedte met de naam erop, een strook met kerncijfers, de knop naar het MJOP en rijen naar de onderdelen.
 /// Alleen echte gegevens. De gebouwgegevens komen uit het geopende project in de website (alleen lezen); is het project niet geladen, dan staat er
-/// "Onbekend" of "–" en nooit een verzonnen getal. Niet-opgeslagen werk in een ander project wordt nooit stil vervangen.
+/// "–" en nooit een verzonnen getal. Niet-opgeslagen werk in een ander project wordt nooit stil vervangen.
 struct ProjectDetailView: View {
     let project: ProjectSummary
     @EnvironmentObject var nav: AppNavigator
@@ -41,58 +42,106 @@ struct ProjectDetailView: View {
     private var details: BuildingDetails? { isOpen ? web.webStatus?.details : nil }
     private var nextStep: String? { (isOpen ? web.webStatus?.nextStep : nil) ?? project.nextStep }
 
+    private let heroHeight: CGFloat = 340
+
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
-                AerialPhotoView(address: project.adres ?? project.label)
-                    .frame(height: 220).frame(maxWidth: .infinity)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(project.label).font(.title2.weight(.bold)).accessibilityIdentifier("detailTitle")
-                    if let a = project.adres, a != project.label { Text(a).font(.subheadline).foregroundStyle(.secondary) }
-                    if let d = project.updatedDate { Text("Laatst bijgewerkt \(relativeDateText(d))").font(.caption).foregroundStyle(.secondary) }
+            VStack(spacing: 0) {
+                hero
+                VStack(spacing: 16) {
+                    statStrip
+                    Button { openMJOP() } label: { Text("Open MJOP") }
+                        .buttonStyle(PrimaryButtonStyle())
+                        .accessibilityHint("Planning, begroting en rapportage")
+                        .accessibilityIdentifier("detailOpenMJOP")
+                    if let step = nextStep {
+                        HStack(alignment: .top, spacing: 10) {
+                            Image(systemName: "arrow.right.circle.fill").foregroundStyle(MJOPTheme.accent).accessibilityHidden(true)
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text("Volgende stap").font(.caption.weight(.semibold)).foregroundStyle(.secondary)
+                                Text(step).font(.subheadline.weight(.medium))
+                            }
+                            Spacer(minLength: 0)
+                        }
+                        .padding(.horizontal, 4)
+                        .accessibilityElement(children: .combine)
+                        .accessibilityIdentifier("detailNextStep")
+                    }
+                    rows
+                    if notLoaded {
+                        Label("De gebouwgegevens zijn nu niet geladen: er zijn niet-opgeslagen wijzigingen in een ander project, of je bent offline. Open het project bij MJOP voor alle gegevens.",
+                              systemImage: "info.circle")
+                            .font(.footnote).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading)
+                            .accessibilityIdentifier("detailNotLoaded")
+                    }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                VStack(spacing: 0) {
-                    DetailRow(icon: "arrow.right.circle", title: "Volgende stap", value: nextStep ?? "–", identifier: "detailNextStep")
-                    Divider().padding(.leading, 56)
-                    // MJOP staat hoog in de lijst: op een kleine iPhone viel een rij onderaan achter de tabbalk.
-                    Button { openMJOP() } label: {
-                        DetailRow(icon: "calendar", title: "MJOP", value: "Planning, begroting en rapportage", chevron: true, identifier: "detailOpenMJOP")
-                    }
-                    .buttonStyle(.plain)
-                    Divider().padding(.leading, 56)
-                    NavigationLink { BuildingFactsView(project: project, web: web, loading: $loading) } label: {
-                        DetailRow(icon: "building.2", title: "Gebouwgegevens", value: factsSummary, chevron: true, identifier: "detailFacts")
-                    }
-                    .buttonStyle(.plain)
-                    Divider().padding(.leading, 56)
-                    Button { goMeasure() } label: {
-                        DetailRow(icon: "square.grid.2x2", title: "Gevels en elementen", value: facadeText, chevron: true, identifier: "detailFacades")
-                    }
-                    .buttonStyle(.plain)
-                    Divider().padding(.leading, 56)
-                    Button { goMeasure() } label: {
-                        DetailRow(icon: "camera", title: "Foto's en inspecties", value: inspectionText, chevron: true, identifier: "detailInspections")
-                    }
-                    .buttonStyle(.plain)
-                }
-                .background(Color(.secondarySystemGroupedBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-
-                if notLoaded {
-                    Label("De gebouwgegevens zijn nu niet geladen: er zijn niet-opgeslagen wijzigingen in een ander project, of je bent offline. Open het project bij MJOP voor alle gegevens.",
-                          systemImage: "info.circle")
-                        .font(.footnote).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading)
-                        .accessibilityIdentifier("detailNotLoaded")
-                }
+                .padding(.horizontal, 16).padding(.top, 16).padding(.bottom, 24)
             }
-            .padding()
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Premium.canvas)
+        .ignoresSafeArea(edges: .top)
         .navigationTitle("Project").navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbarColorScheme(.dark, for: .navigationBar)
         .task { await load() }
+    }
+
+    /// Luchtfoto die meerekt als je naar beneden trekt, met naam en adres erop.
+    private var hero: some View {
+        GeometryReader { g in
+            let pull = max(0, g.frame(in: .global).minY)
+            ZStack(alignment: .bottomLeading) {
+                LinearGradient(stops: [.init(color: .black.opacity(0.45), location: 0), .init(color: .black.opacity(0), location: 0.3),
+                                       .init(color: .black.opacity(0), location: 0.5), .init(color: .black.opacity(0.8), location: 1)],
+                               startPoint: .top, endPoint: .bottom)
+                    .accessibilityHidden(true)
+                VStack(alignment: .leading, spacing: 4) {
+                    if isOpen { GlassChip(text: "Geopend", dot: Premium.ok).padding(.bottom, 6) }
+                    Text(project.label).font(.largeTitle.weight(.bold)).lineLimit(2).minimumScaleFactor(0.7)
+                        .accessibilityIdentifier("detailTitle")
+                    if let a = project.adres, a != project.label { Text(a).font(.subheadline).opacity(0.85) }
+                    if let d = project.updatedDate { Text("Laatst bijgewerkt \(relativeDateText(d))").font(.caption).opacity(0.75) }
+                }
+                .foregroundStyle(.white)
+                .padding(.horizontal, 20).padding(.bottom, 20)
+            }
+            .frame(width: g.size.width, height: heroHeight + pull)
+            .background { AerialPhotoView(address: project.adres ?? project.label) }
+            .clipped()
+            .offset(y: -pull)
+        }
+        .frame(height: heroHeight)
+    }
+
+    private var statStrip: some View {
+        HStack(spacing: 0) {
+            StatCell(value: details?.bouwjaar.map(String.init) ?? "–", label: "Bouwjaar", identifier: "detailStatBouwjaar")
+            Divider().frame(height: 34)
+            StatCell(value: details?.units.map(String.init) ?? "–", label: "Appartementen", identifier: "detailStatUnits")
+            Divider().frame(height: 34)
+            StatCell(value: details?.gevelM2.map { $0.formatted() } ?? "–", label: details?.gevelGeschat == true ? "m² gevel · geschat" : "m² gevel", identifier: "detailStatGevel")
+            Divider().frame(height: 34)
+            StatCell(value: details?.posten.map(String.init) ?? "–", label: "Posten", identifier: "detailStatPosten")
+        }
+        .padding(.vertical, 14)
+        .premiumCard()
+        .redacted(reason: loading && details == nil ? .placeholder : [])
+    }
+
+    private var rows: some View {
+        VStack(spacing: 0) {
+            NavigationLink { BuildingFactsView(project: project, web: web, loading: $loading) } label: {
+                DetailRow(icon: "building.2.fill", tint: Premium.ink, title: "Gebouwgegevens", value: factsSummary, chevron: true, identifier: "detailFacts")
+            }
+            .buttonStyle(PressableRowStyle())
+            Divider().padding(.leading, 60)
+            NavigationLink { GevelfotoScreen(project: project, web: web) } label: {
+                DetailRow(icon: "camera.viewfinder", title: "Gevelfoto's en voorstellen", value: facadeText, chevron: true, identifier: "detailFacades")
+            }
+            .buttonStyle(PressableRowStyle())
+        }
+        .premiumCard(radius: 18)
+        .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 
     private func load() async {
@@ -115,11 +164,6 @@ struct ProjectDetailView: View {
         }
     }
 
-    private func goMeasure() {
-        nav.measureProjectId = project.id
-        nav.selected = .measure
-    }
-
     private var factsSummary: String {
         if let d = details {
             var parts: [String] = []
@@ -131,13 +175,10 @@ struct ProjectDetailView: View {
     }
 
     private var facadeText: String {
-        guard let d = details else { return loading ? "Laden…" : "–" }
-        return d.gevelfotos == 1 ? "1 gevelfoto" : "\(d.gevelfotos) gevelfoto's"
-    }
-
-    private var inspectionText: String {
-        guard isOpen, let n = web.webStatus?.pendingProposals else { return loading ? "Laden…" : "–" }
-        return n == 0 ? "Geen voorstellen om te controleren" : (n == 1 ? "1 voorstel om te controleren" : "\(n) voorstellen om te controleren")
+        guard let d = details else { return loading ? "Laden…" : "Gevelfoto maken en voorstellen controleren" }
+        let fotos = d.gevelfotos == 1 ? "1 gevelfoto" : "\(d.gevelfotos) gevelfoto's"
+        guard let n = web.webStatus?.pendingProposals, n > 0 else { return fotos }
+        return fotos + " · " + (n == 1 ? "1 voorstel te controleren" : "\(n) voorstellen te controleren")
     }
 }
 

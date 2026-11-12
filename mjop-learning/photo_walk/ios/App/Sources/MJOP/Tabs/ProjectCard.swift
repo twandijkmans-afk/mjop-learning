@@ -59,7 +59,7 @@ struct AerialPhotoView: View {
             if let image {
                 Image(uiImage: image).resizable().scaledToFill()
                 Text(AerialPhoto.attribution)
-                    .font(.system(size: 9)).foregroundStyle(.white)
+                    .font(.caption2).foregroundStyle(.white)
                     .padding(.horizontal, 6).padding(.vertical, 2)
                     .background(Color.black.opacity(0.5))
             } else {
@@ -77,37 +77,45 @@ struct AerialPhotoView: View {
     }
 }
 
-/// Eén project als kaart: luchtfoto, naam, adres, laatst bijgewerkt en de volgende stap. Alleen echte gegevens uit het project.
+/// Eén project als kaart: grote luchtfoto met naam erover, daaronder adres, laatst bijgewerkt en de volgende stap. Alleen echte gegevens uit het project.
 struct ProjectCard: View {
     let project: ProjectSummary
     let isOpen: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AerialPhotoView(address: project.adres ?? project.label)
-                .frame(height: 150).frame(maxWidth: .infinity).clipped()
-            VStack(alignment: .leading, spacing: 5) {
-                HStack(alignment: .firstTextBaseline) {
-                    Text(project.label).font(.headline).foregroundStyle(Color.primary).multilineTextAlignment(.leading)
-                    Spacer(minLength: 8)
-                    if isOpen {
-                        Text("Geopend").font(.caption.weight(.semibold)).padding(.horizontal, 8).padding(.vertical, 3)
-                            .background(MJOPTheme.accent.opacity(0.15)).foregroundStyle(MJOPTheme.accent).clipShape(Capsule())
-                    }
-                }
-                if let a = project.adres, a != project.label {
-                    Text(a).font(.subheadline).foregroundStyle(Color.secondary).multilineTextAlignment(.leading)
-                }
-                Text(project.updatedDate.map { "Laatst bijgewerkt \(relativeDateText($0))" } ?? "Laatst bijgewerkt: onbekend")
-                    .font(.caption).foregroundStyle(Color.secondary)
-                if let n = project.nextStep {
-                    Label(n, systemImage: "arrow.right.circle").font(.caption).foregroundStyle(MJOPTheme.accent).multilineTextAlignment(.leading)
+            ZStack(alignment: .bottomLeading) {
+                LinearGradient(colors: [.black.opacity(0), .black.opacity(0.72)], startPoint: .center, endPoint: .bottom)
+                    .accessibilityHidden(true)
+                Text(project.label).font(.title3.weight(.bold)).foregroundStyle(.white).lineLimit(2).multilineTextAlignment(.leading)
+                    .padding(14)
+                if isOpen {
+                    GlassChip(text: "Geopend", dot: Premium.ok)
+                        .padding(12).frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 }
             }
-            .padding(12).frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity).frame(height: 170)
+            .background { AerialPhotoView(address: project.adres ?? project.label) }
+            .clipped()
+            HStack(alignment: .center, spacing: 10) {
+                VStack(alignment: .leading, spacing: 4) {
+                    if let a = project.adres, a != project.label {
+                        Text(a).font(.subheadline.weight(.medium)).foregroundStyle(Color.primary).multilineTextAlignment(.leading)
+                    }
+                    Text(project.updatedDate.map { "Laatst bijgewerkt \(relativeDateText($0))" } ?? "Laatst bijgewerkt: onbekend")
+                        .font(.caption).foregroundStyle(Color.secondary)
+                    if let n = project.nextStep {
+                        Label(n, systemImage: "arrow.right.circle.fill").font(.caption.weight(.medium)).foregroundStyle(MJOPTheme.accent)
+                            .multilineTextAlignment(.leading).padding(.top, 2)
+                    }
+                }
+                Spacer(minLength: 0)
+                Image(systemName: "chevron.right").font(.footnote.weight(.semibold)).foregroundStyle(.tertiary).accessibilityHidden(true)
+            }
+            .padding(14).frame(maxWidth: .infinity, alignment: .leading)
         }
-        .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .contentShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .premiumCard()
+        .clipShape(RoundedRectangle(cornerRadius: Premium.cardRadius, style: .continuous))
+        .contentShape(RoundedRectangle(cornerRadius: Premium.cardRadius, style: .continuous))
     }
 }

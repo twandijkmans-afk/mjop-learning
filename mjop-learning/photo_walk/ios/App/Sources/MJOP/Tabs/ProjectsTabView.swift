@@ -6,6 +6,7 @@ struct ProjectsTabView: View {
     @EnvironmentObject var nav: AppNavigator
     @ObservedObject var web: MJOPWebController
     @State private var query = ""
+    @State private var showNew = false
 
     var body: some View {
         NavigationStack {
@@ -22,6 +23,7 @@ struct ProjectsTabView: View {
                         .accessibilityIdentifier("newProject")
                     }
                 }
+                .navigationDestination(isPresented: $showNew) { WebScreenPage(title: "Nieuw project", command: .newProject, web: web) }
                 .task { await nav.refreshProjects() }
                 .refreshable { await nav.refreshProjects() }
                 .onChange(of: web.webStatus?.loggedIn) { _ in Task { await nav.refreshProjects() } }
@@ -35,7 +37,8 @@ struct ProjectsTabView: View {
                                message: "Log in om je opgeslagen projecten te zien.", actionTitle: "Naar Profiel", action: { nav.selected = .profile })
             } else if list.projects.isEmpty {
                 EmptyStateView(icon: "folder", title: "Nog geen opgeslagen projecten",
-                               message: "Maak een nieuw project met het plusje rechtsboven. Het verschijnt hier zodra het is opgeslagen.")
+                               message: "Maak een nieuw project met het plusje rechtsboven. Het verschijnt hier zodra het is opgeslagen.",
+                               actionTitle: "Nieuw project", action: { showNew = true })
             } else {
                 projectList(list)
             }
@@ -59,7 +62,7 @@ struct ProjectsTabView: View {
     private func projectList(_ list: ProjectList) -> some View {
         let shown = filtered(list)
         return ScrollView {
-            LazyVStack(spacing: 14) {
+            LazyVStack(spacing: 18) {
                 if !web.isOnline { OfflineNote(text: "Je bent offline. Deze lijst kan verouderd zijn.") }
                 if let e = nav.projectsError {
                     Label(e, systemImage: "exclamationmark.triangle").font(.footnote).foregroundStyle(.orange)
@@ -77,12 +80,10 @@ struct ProjectsTabView: View {
                     .accessibilityElement(children: .combine)
                     .accessibilityIdentifier("projectRow-\(p.label)")
                 }
-                Text("Een project openen toont eerst de details. Nieuwe projecten maak je voorlopig met de stappen van de website (plusje rechtsboven).")
-                    .font(.footnote).foregroundStyle(.secondary).frame(maxWidth: .infinity, alignment: .leading).padding(.top, 4)
             }
-            .padding()
+            .padding(.horizontal, 16).padding(.vertical, 8)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(Premium.canvas)
         .searchable(text: $query, prompt: "Zoek een project")
     }
 }

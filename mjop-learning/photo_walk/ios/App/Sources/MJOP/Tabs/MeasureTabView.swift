@@ -17,6 +17,18 @@ struct MeasureTabView: View {
                 if !web.isOnline {
                     Section { Label("Je bent offline. Een gevelfoto maken vraagt internet: het project wordt geopend en de herkenning loopt via Claude.", systemImage: "wifi.slash").font(.footnote).foregroundStyle(.orange) }
                 }
+                Section {
+                    HStack(spacing: 14) {
+                        GradientTile(systemName: "camera.viewfinder")
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Gevelfoto").font(.title3.weight(.bold))
+                            Text("Eén foto per gevel. Claude herkent de elementen, de app rekent de hoeveelheden.")
+                                .font(.subheadline).foregroundStyle(.secondary)
+                        }
+                    }
+                    .padding(.vertical, 6)
+                    .accessibilityElement(children: .combine)
+                }
                 Section("Project") {
                     Button { showPicker = true } label: {
                         HStack {
@@ -39,8 +51,12 @@ struct MeasureTabView: View {
                         }
                         .accessibilityIdentifier("measureStart")
                     } else {
-                        Label("Gevelfoto maken", systemImage: "camera.viewfinder").foregroundStyle(.secondary)
-                            .accessibilityIdentifier("measureStart").accessibilityAddTraits(.isButton)
+                        // Zonder project kan er geen gevelfoto gemaakt worden: deze knop vraagt dan eerst om het project (geen knop die niets doet).
+                        Button { showPicker = true } label: {
+                            Label("Gevelfoto maken", systemImage: "camera.viewfinder")
+                        }
+                        .accessibilityHint("Kies eerst het project")
+                        .accessibilityIdentifier("measureStart")
                     }
                 } header: {
                     Text("Gevel meten")
@@ -82,7 +98,7 @@ struct GevelfotoScreen: View {
             case .loading:
                 ProgressView("Project openen…").frame(maxWidth: .infinity, maxHeight: .infinity)
             case .ready:
-                WebScreen(web: web)
+                WebScreen(web: web, showProject: true)
             case .notOpened:
                 EmptyStateView(icon: "exclamationmark.triangle", title: "Project niet geopend",
                                message: "Er zijn niet-opgeslagen wijzigingen in een ander project, of je bent offline. Sla dat project eerst op, of open dit project bij MJOP.",
@@ -121,7 +137,7 @@ struct ProjectPickerView: View {
                                     if let a = p.adres, a != p.label { Text(a).font(.caption).foregroundStyle(.secondary) }
                                 }
                                 Spacer()
-                                if nav.measureProject?.id == p.id { Image(systemName: "checkmark").foregroundStyle(MJOPTheme.green) }
+                                if nav.measureProject?.id == p.id { Image(systemName: "checkmark").foregroundStyle(MJOPTheme.accent) }
                             }
                             .contentShape(Rectangle())
                         }

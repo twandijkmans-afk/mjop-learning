@@ -34,7 +34,7 @@ struct ProfileTabView: View {
                             .accessibilityIdentifier("profile-\(s.rawValue)")
                         }
                         if web.webStatus?.subscribed == true {
-                            StatusRow(label: "Abonnement", value: "Actief", tint: MJOPTheme.green, identifier: "profileSubscribed")
+                            StatusRow(label: "Abonnement", value: "Actief", tint: Premium.ok, identifier: "profileSubscribed")
                         }
                     }
                     Section {

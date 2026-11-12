@@ -15,7 +15,7 @@ extension SaveStatus {
     }
     var tint: Color {
         switch self {
-        case .saved: return MJOPTheme.green
+        case .saved: return Premium.ok
         case .pending, .notSaved: return .orange
         case .error: return .red
         case .notLoggedIn, .unknown: return .secondary
@@ -67,7 +67,7 @@ struct EmptyStateView: View {
 
     var body: some View {
         VStack(spacing: 12) {
-            Image(systemName: icon).font(.system(size: 40)).foregroundStyle(.secondary)
+            Image(systemName: icon).font(.largeTitle).imageScale(.large).foregroundStyle(MJOPTheme.accent).accessibilityHidden(true)
             Text(title).font(.headline).multilineTextAlignment(.center)
             Text(message).font(.subheadline).foregroundStyle(.secondary).multilineTextAlignment(.center)
             if let actionTitle, let action {
@@ -77,23 +77,6 @@ struct EmptyStateView: View {
         .padding(24)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .accessibilityElement(children: .contain)
-    }
-}
-
-struct CardView<Content: View>: View {
-    let title: String
-    let icon: String
-    @ViewBuilder var content: () -> Content
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Label(title, systemImage: icon).font(.subheadline.weight(.semibold)).foregroundStyle(.secondary)
-            content()
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(14)
-        .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 
@@ -120,30 +103,5 @@ struct OfflineNote: View {
             .font(.footnote).padding(10).frame(maxWidth: .infinity, alignment: .leading)
             .background(Color.orange.opacity(0.15)).clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
             .accessibilityIdentifier("offlineNote")
-    }
-}
-
-struct ProjectRow: View {
-    let project: ProjectSummary
-    let isOpen: Bool
-
-    var body: some View {
-        HStack(alignment: .top, spacing: 10) {
-            VStack(alignment: .leading, spacing: 3) {
-                Text(project.label).font(.headline).foregroundStyle(.primary)
-                if let a = project.adres, a != project.label { Text(a).font(.subheadline).foregroundStyle(.secondary) }
-                Text(project.updatedDate.map { "Laatst bijgewerkt \(relativeDateText($0))" } ?? "Laatst bijgewerkt: onbekend")
-                    .font(.caption).foregroundStyle(.secondary)
-                if let n = project.nextStep { Text("Volgende stap: \(n)").font(.caption).foregroundStyle(.secondary) }
-            }
-            Spacer()
-            if isOpen {
-                Text("Geopend").font(.caption.weight(.semibold)).padding(.horizontal, 8).padding(.vertical, 3)
-                    .background(MJOPTheme.accent.opacity(0.15)).foregroundStyle(MJOPTheme.accent).clipShape(Capsule())
-            } else {
-                Image(systemName: "chevron.right").font(.footnote).foregroundStyle(.tertiary)
-            }
-        }
-        .contentShape(Rectangle())
     }
 }

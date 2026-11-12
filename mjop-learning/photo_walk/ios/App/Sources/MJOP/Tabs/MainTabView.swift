@@ -25,16 +25,31 @@ struct MainTabView: View {
                 .tag(AppNavigator.Tab.profile)
         }
         .tint(MJOPTheme.accent)
-        .alert(item: $nav.alert) { a in
+        .alert(alertTitle, isPresented: alertShown, presenting: nav.alert) { a in
             switch a {
-            case .info(let title, let message):
-                return Alert(title: Text(title), message: Text(message), dismissButton: .default(Text("OK")))
+            case .info:
+                Button("OK", role: .cancel) {}
             case .unsavedOpen(let p):
-                return Alert(title: Text("Niet-opgeslagen wijzigingen"),
-                             message: Text("Het geopende project heeft wijzigingen die nog niet zijn opgeslagen. Als je \"\(p.label)\" opent, gaan die verloren."),
-                             primaryButton: .destructive(Text("Toch openen")) { Task { await nav.confirmOpenAnyway(p) } },
-                             secondaryButton: .cancel(Text("Annuleren")))
+                Button("Toch openen", role: .destructive) { Task { await nav.confirmOpenAnyway(p) } }
+                Button("Annuleren", role: .cancel) {}
+            }
+        } message: { a in
+            switch a {
+            case .info(_, let message): Text(message)
+            case .unsavedOpen(let p): Text("Het geopende project heeft wijzigingen die nog niet zijn opgeslagen. Als je \"\(p.label)\" opent, gaan die verloren.")
             }
         }
+    }
+
+    private var alertTitle: String {
+        switch nav.alert {
+        case .info(let title, _): return title
+        case .unsavedOpen: return "Niet-opgeslagen wijzigingen"
+        case nil: return ""
+        }
+    }
+
+    private var alertShown: Binding<Bool> {
+        Binding(get: { nav.alert != nil }, set: { if !$0 { nav.alert = nil } })
     }
 }

@@ -232,6 +232,36 @@ jobs:
           xcrun simctl io "$UDID" screenshot "$LOGS/after-uitest.png" || true
           xcrun simctl shutdown "$UDID" || true
 
+      - name: Schermafbeeldingen uit de UI-tests halen (ontwerpcontrole)
+        if: always()
+        run: |
+          OUT="$RUNNER_TEMP/screens"; mkdir -p "$OUT"
+          if [ -d "$LOGS/ui-tests.xcresult" ]; then
+            xcrun xcresulttool export attachments --path "$LOGS/ui-tests.xcresult" --output-path "$OUT" || echo "::warning::schermafbeeldingen niet te exporteren"
+            # bestanden een leesbare naam geven (de manifest koppelt de bestandsnaam aan de naam uit de test)
+            python3 - "$OUT" <<'PY' || true
+          import json, os, shutil, sys
+          out = sys.argv[1]
+          man = os.path.join(out, "manifest.json")
+          if os.path.exists(man):
+              for test in json.load(open(man)):
+                  for a in test.get("attachments", []):
+                      src = os.path.join(out, a.get("exportedFileName", ""))
+                      name = a.get("suggestedHumanReadableName", "")
+                      if os.path.isfile(src) and name:
+                          base = name.split("_")[0] if name.startswith(tuple("0123456789")) else name
+                          shutil.move(src, os.path.join(out, base + os.path.splitext(src)[1]))
+          PY
+          fi
+          ls -la "$OUT" | head -40
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: schermafbeeldingen
+          path: ${{ runner.temp }}/screens
+          if-no-files-found: warn
+          retention-days: 14
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
