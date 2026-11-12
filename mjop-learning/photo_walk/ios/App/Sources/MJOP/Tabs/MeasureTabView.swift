@@ -44,6 +44,7 @@ struct MeasureTabView: View {
                             Spacer()
                             Text("Kies").foregroundStyle(.tint)
                         }
+                        .contentShape(Rectangle())     // bij een gewone knopstijl is anders alleen de tekst aanraakbaar
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("measureProjectButton")
@@ -72,6 +73,8 @@ struct MeasureTabView: View {
                                     Text(r.label).font(.headline).foregroundStyle(.primary)
                                     Text("\(r.photos) foto's · bewaard \(relativeDateText(r.savedAt))").font(.caption).foregroundStyle(.secondary)
                                 }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle())
                             }
                             .buttonStyle(.plain)
                             .accessibilityIdentifier("resume-\(r.label)")
@@ -130,6 +133,7 @@ struct ProjectPickerView: View {
                                 Spacer()
                                 if nav.measureProject?.id == p.id { Image(systemName: "checkmark").foregroundStyle(MJOPTheme.green) }
                             }
+                            .contentShape(Rectangle())
                         }
                         .buttonStyle(.plain)
                     .accessibilityIdentifier("pickProject-\(p.label)")
