@@ -10,6 +10,7 @@ let package = Package(
         .library(name: "PhotoWalkCore", targets: ["PhotoWalkCore"]),
         .library(name: "MJOPIntegration", targets: ["MJOPIntegration"]),
         .library(name: "Gevelscan", targets: ["Gevelscan"]),
+        .library(name: "MJOPEngine", targets: ["MJOPEngine"]),
     ],
     targets: [
         .target(name: "PhotoWalkCore"),
@@ -18,6 +19,9 @@ let package = Package(
         // Gevelscanner 2.0: pijplijn foto's -> herkende elementen -> fysieke objecten -> geometrie -> inventaris (docs/gevelscanner_2.md).
         // Alleen Foundation; bouwt op de bestaande meetkern (PhotoWalkCore) en het MJOP-contract (MJOPIntegration). Geen tweede rekenkern.
         .target(name: "Gevelscan", dependencies: ["PhotoWalkCore", "MJOPIntegration"]),
+        // MJOP Live 3: het rekenmodel (posten, kosten, planning, reservefonds), overgezet uit de website. Alleen Foundation, geld als Decimal.
+        .target(name: "MJOPEngine"),
+        .testTarget(name: "MJOPEngineTests", dependencies: ["MJOPEngine"], exclude: ["make_fixtures.js"], resources: [.copy("Fixtures")]),
         .testTarget(name: "GevelscanTests", dependencies: ["Gevelscan", "PhotoWalkCore", "MJOPIntegration"], resources: [.copy("Fixtures")]),
         .testTarget(name: "MJOPIntegrationTests", dependencies: ["MJOPIntegration"], resources: [.copy("Fixtures")]),
         .testTarget(name: "PhotoWalkCoreTests", dependencies: ["PhotoWalkCore"], resources: [.copy("Fixtures")]),

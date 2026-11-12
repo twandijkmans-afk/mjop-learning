@@ -1,0 +1,4268 @@
+{
+ "generated_from": "MJOP-App src/app.js + src/quantity.js",
+ "year": 2026,
+ "cases": [
+  {
+   "name": "singelstraat-achtig / fonds 0 / bijdrage 55",
+   "year": 2026,
+   "building": {
+    "name": "singelstraat-achtig",
+    "bouwjaar": 1925,
+    "units": 1,
+    "unitsBAG": 1,
+    "footprint": 92.4,
+    "omtrek": 41.2,
+    "plat": 6,
+    "schuin": 118.35,
+    "buitenmuur": 286.5,
+    "hoogte": 7.7
+   },
+   "fonds": 0,
+   "bijdrage": 55,
+   "scores": {},
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1925,
+     "quantity": 6,
+     "source": "3D_BAG",
+     "cost": 990,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 390,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1925,
+     "quantity": 124.35,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 668.7,
+     "koz": null
+    },
+    {
+     "id": "dak-hellend",
+     "cyclus": 40,
+     "laatsteBeurt": 1925,
+     "quantity": 118.35,
+     "source": "3D_BAG",
+     "cost": 11243.25,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "ESTIMATED",
+     "cost": 7449,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "ESTIMATED",
+     "cost": 6303,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": null,
+     "source": null,
+     "cost": 414,
+     "koz": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "3D_BAG",
+     "cost": 1719,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 575,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 1220,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 480,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2027,
+     "bedrag": 6303
+    },
+    {
+     "el": "steiger",
+     "jaar": 2027,
+     "bedrag": 1719
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 668.7
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2027,
+     "bedrag": 414
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 668.7
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 480
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2030,
+     "bedrag": 7449
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 668.7
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2033,
+     "bedrag": 6303
+    },
+    {
+     "el": "steiger",
+     "jaar": 2033,
+     "bedrag": 1719
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 668.7
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2033,
+     "bedrag": 414
+    },
+    {
+     "el": "riolering",
+     "jaar": 2035,
+     "bedrag": 1220
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 668.7
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 0,
+     "saldo": 660
+    },
+    {
+     "jaar": 2027,
+     "kosten": 9104.7,
+     "saldo": -7784.700000000001
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": -7124.700000000001
+    },
+    {
+     "jaar": 2029,
+     "kosten": 1148.7,
+     "saldo": -7613.400000000001
+    },
+    {
+     "jaar": 2030,
+     "kosten": 7449,
+     "saldo": -14402.400000000001
+    },
+    {
+     "jaar": 2031,
+     "kosten": 668.7,
+     "saldo": -14411.100000000002
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": -13751.100000000002
+    },
+    {
+     "jaar": 2033,
+     "kosten": 9104.7,
+     "saldo": -22195.800000000003
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": -21535.800000000003
+    },
+    {
+     "jaar": 2035,
+     "kosten": 1888.7,
+     "saldo": -22764.500000000004
+    }
+   ],
+   "benodigdeBijdrage": 380
+  },
+  {
+   "name": "singelstraat-achtig / fonds 25000 / bijdrage 155",
+   "year": 2026,
+   "building": {
+    "name": "singelstraat-achtig",
+    "bouwjaar": 1925,
+    "units": 1,
+    "unitsBAG": 1,
+    "footprint": 92.4,
+    "omtrek": 41.2,
+    "plat": 6,
+    "schuin": 118.35,
+    "buitenmuur": 286.5,
+    "hoogte": 7.7
+   },
+   "fonds": 25000,
+   "bijdrage": 155,
+   "scores": {
+    "schilderwerk-buiten": 3,
+    "dakgoten": 5
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1925,
+     "quantity": 6,
+     "source": "3D_BAG",
+     "cost": 990,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 390,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1925,
+     "quantity": 124.35,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 668.7,
+     "koz": null
+    },
+    {
+     "id": "dak-hellend",
+     "cyclus": 40,
+     "laatsteBeurt": 1925,
+     "quantity": 118.35,
+     "source": "3D_BAG",
+     "cost": 11243.25,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "ESTIMATED",
+     "cost": 7449,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "ESTIMATED",
+     "cost": 6303,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": null,
+     "source": null,
+     "cost": 414,
+     "koz": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "3D_BAG",
+     "cost": 1719,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 575,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 1220,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 480,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "steiger",
+     "jaar": 2027,
+     "bedrag": 1719
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 668.7
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2027,
+     "bedrag": 414
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 668.7
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 480
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2030,
+     "bedrag": 7449
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2030,
+     "bedrag": 6303
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2030,
+     "bedrag": 390
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 668.7
+    },
+    {
+     "el": "steiger",
+     "jaar": 2033,
+     "bedrag": 1719
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 668.7
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2033,
+     "bedrag": 414
+    },
+    {
+     "el": "riolering",
+     "jaar": 2035,
+     "bedrag": 1220
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 668.7
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 0,
+     "saldo": 26860
+    },
+    {
+     "jaar": 2027,
+     "kosten": 2801.7,
+     "saldo": 25918.3
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 27778.3
+    },
+    {
+     "jaar": 2029,
+     "kosten": 1148.7,
+     "saldo": 28489.6
+    },
+    {
+     "jaar": 2030,
+     "kosten": 14142,
+     "saldo": 16207.599999999999
+    },
+    {
+     "jaar": 2031,
+     "kosten": 668.7,
+     "saldo": 17398.899999999998
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 19258.899999999998
+    },
+    {
+     "jaar": 2033,
+     "kosten": 2801.7,
+     "saldo": 18317.199999999997
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 20177.199999999997
+    },
+    {
+     "jaar": 2035,
+     "kosten": 1888.7,
+     "saldo": 20148.499999999996
+    }
+   ],
+   "benodigdeBijdrage": 5
+  },
+  {
+   "name": "singelstraat-achtig / fonds 5000 / bijdrage 90",
+   "year": 2026,
+   "building": {
+    "name": "singelstraat-achtig",
+    "bouwjaar": 1925,
+    "units": 1,
+    "unitsBAG": 1,
+    "footprint": 92.4,
+    "omtrek": 41.2,
+    "plat": 6,
+    "schuin": 118.35,
+    "buitenmuur": 286.5,
+    "hoogte": 7.7
+   },
+   "fonds": 5000,
+   "bijdrage": 90,
+   "scores": {
+    "gevel-metselwerk": 6,
+    "kozijnen-onderhoud": 2,
+    "trappenhuis": 4
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1925,
+     "quantity": 6,
+     "source": "3D_BAG",
+     "cost": 990,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 390,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1925,
+     "quantity": 124.35,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 668.7,
+     "koz": null
+    },
+    {
+     "id": "dak-hellend",
+     "cyclus": 40,
+     "laatsteBeurt": 1925,
+     "quantity": 118.35,
+     "source": "3D_BAG",
+     "cost": 11243.25,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "ESTIMATED",
+     "cost": 7449,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "ESTIMATED",
+     "cost": 6303,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": null,
+     "source": null,
+     "cost": 414,
+     "koz": [
+      1,
+      0,
+      1,
+      0
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1925,
+     "quantity": 286.5,
+     "source": "3D_BAG",
+     "cost": 1719,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 575,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 1220,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1925,
+     "quantity": 1,
+     "source": "BAG",
+     "cost": 480,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 7449
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2027,
+     "bedrag": 6303
+    },
+    {
+     "el": "steiger",
+     "jaar": 2027,
+     "bedrag": 1719
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 668.7
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 668.7
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 480
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 668.7
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 414
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2033,
+     "bedrag": 6303
+    },
+    {
+     "el": "steiger",
+     "jaar": 2033,
+     "bedrag": 1719
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 668.7
+    },
+    {
+     "el": "riolering",
+     "jaar": 2035,
+     "bedrag": 1220
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 668.7
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 7449,
+     "saldo": -1369
+    },
+    {
+     "jaar": 2027,
+     "kosten": 8690.7,
+     "saldo": -8979.7
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": -7899.700000000001
+    },
+    {
+     "jaar": 2029,
+     "kosten": 1148.7,
+     "saldo": -7968.400000000001
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": -6888.400000000001
+    },
+    {
+     "jaar": 2031,
+     "kosten": 1082.7,
+     "saldo": -6891.1
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": -5811.1
+    },
+    {
+     "jaar": 2033,
+     "kosten": 8690.7,
+     "saldo": -13421.800000000001
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": -12341.800000000001
+    },
+    {
+     "jaar": 2035,
+     "kosten": 1888.7,
+     "saldo": -13150.500000000002
+    }
+   ],
+   "benodigdeBijdrage": 465
+  },
+  {
+   "name": "portiekflat / fonds 0 / bijdrage 55",
+   "year": 2026,
+   "building": {
+    "name": "portiekflat",
+    "bouwjaar": 1978,
+    "units": 8,
+    "unitsBAG": 8,
+    "footprint": 140,
+    "omtrek": 60,
+    "plat": 140,
+    "schuin": 0,
+    "buitenmuur": 520.25,
+    "hoogte": 11.4
+   },
+   "fonds": 0,
+   "bijdrage": 55,
+   "scores": {},
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1978,
+     "quantity": 140,
+     "source": "3D_BAG",
+     "cost": 23100,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 1020,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1978,
+     "quantity": 140,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 700,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "ESTIMATED",
+     "cost": 13526.5,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "ESTIMATED",
+     "cost": 11445.5,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": null,
+     "source": null,
+     "cost": 2144,
+     "koz": [
+      8,
+      2,
+      1,
+      1
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "3D_BAG",
+     "cost": 5723,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 4600,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 2060,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 3840,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2026,
+     "bedrag": 11445.5
+    },
+    {
+     "el": "steiger",
+     "jaar": 2026,
+     "bedrag": 5723
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2026,
+     "bedrag": 3840
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2026,
+     "bedrag": 2144
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2026,
+     "bedrag": 700
+    },
+    {
+     "el": "dak-plat",
+     "jaar": 2028,
+     "bedrag": 23100
+    },
+    {
+     "el": "riolering",
+     "jaar": 2028,
+     "bedrag": 2060
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2028,
+     "bedrag": 700
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2030,
+     "bedrag": 700
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2032,
+     "bedrag": 11445.5
+    },
+    {
+     "el": "steiger",
+     "jaar": 2032,
+     "bedrag": 5723
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2032,
+     "bedrag": 2144
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2032,
+     "bedrag": 700
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2034,
+     "bedrag": 3840
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2034,
+     "bedrag": 700
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 23852.5,
+     "saldo": -18572.5
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -13292.5
+    },
+    {
+     "jaar": 2028,
+     "kosten": 25860,
+     "saldo": -33872.5
+    },
+    {
+     "jaar": 2029,
+     "kosten": 0,
+     "saldo": -28592.5
+    },
+    {
+     "jaar": 2030,
+     "kosten": 700,
+     "saldo": -24012.5
+    },
+    {
+     "jaar": 2031,
+     "kosten": 0,
+     "saldo": -18732.5
+    },
+    {
+     "jaar": 2032,
+     "kosten": 20012.5,
+     "saldo": -33465
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": -28185
+    },
+    {
+     "jaar": 2034,
+     "kosten": 4540,
+     "saldo": -27445
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": -22165
+    }
+   ],
+   "benodigdeBijdrage": 250
+  },
+  {
+   "name": "portiekflat / fonds 25000 / bijdrage 155",
+   "year": 2026,
+   "building": {
+    "name": "portiekflat",
+    "bouwjaar": 1978,
+    "units": 8,
+    "unitsBAG": 8,
+    "footprint": 140,
+    "omtrek": 60,
+    "plat": 140,
+    "schuin": 0,
+    "buitenmuur": 520.25,
+    "hoogte": 11.4
+   },
+   "fonds": 25000,
+   "bijdrage": 155,
+   "scores": {
+    "schilderwerk-buiten": 3,
+    "dakgoten": 5
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1978,
+     "quantity": 140,
+     "source": "3D_BAG",
+     "cost": 23100,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 1020,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1978,
+     "quantity": 140,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 700,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "ESTIMATED",
+     "cost": 13526.5,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "ESTIMATED",
+     "cost": 11445.5,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": null,
+     "source": null,
+     "cost": 2144,
+     "koz": [
+      8,
+      2,
+      1,
+      1
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "3D_BAG",
+     "cost": 5723,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 4600,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 2060,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 3840,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "steiger",
+     "jaar": 2026,
+     "bedrag": 5723
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2026,
+     "bedrag": 3840
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2026,
+     "bedrag": 2144
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2026,
+     "bedrag": 700
+    },
+    {
+     "el": "dak-plat",
+     "jaar": 2028,
+     "bedrag": 23100
+    },
+    {
+     "el": "riolering",
+     "jaar": 2028,
+     "bedrag": 2060
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2028,
+     "bedrag": 700
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2030,
+     "bedrag": 11445.5
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2030,
+     "bedrag": 1020
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2030,
+     "bedrag": 700
+    },
+    {
+     "el": "steiger",
+     "jaar": 2032,
+     "bedrag": 5723
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2032,
+     "bedrag": 2144
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2032,
+     "bedrag": 700
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2034,
+     "bedrag": 3840
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2034,
+     "bedrag": 700
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 12407,
+     "saldo": 27473
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": 42353
+    },
+    {
+     "jaar": 2028,
+     "kosten": 25860,
+     "saldo": 31373
+    },
+    {
+     "jaar": 2029,
+     "kosten": 0,
+     "saldo": 46253
+    },
+    {
+     "jaar": 2030,
+     "kosten": 13165.5,
+     "saldo": 47967.5
+    },
+    {
+     "jaar": 2031,
+     "kosten": 0,
+     "saldo": 62847.5
+    },
+    {
+     "jaar": 2032,
+     "kosten": 8567,
+     "saldo": 69160.5
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": 84040.5
+    },
+    {
+     "jaar": 2034,
+     "kosten": 4540,
+     "saldo": 94380.5
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": 109260.5
+    }
+   ],
+   "benodigdeBijdrage": 60
+  },
+  {
+   "name": "portiekflat / fonds 5000 / bijdrage 90",
+   "year": 2026,
+   "building": {
+    "name": "portiekflat",
+    "bouwjaar": 1978,
+    "units": 8,
+    "unitsBAG": 8,
+    "footprint": 140,
+    "omtrek": 60,
+    "plat": 140,
+    "schuin": 0,
+    "buitenmuur": 520.25,
+    "hoogte": 11.4
+   },
+   "fonds": 5000,
+   "bijdrage": 90,
+   "scores": {
+    "gevel-metselwerk": 6,
+    "kozijnen-onderhoud": 2,
+    "trappenhuis": 4
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1978,
+     "quantity": 140,
+     "source": "3D_BAG",
+     "cost": 23100,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 1020,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1978,
+     "quantity": 140,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 700,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "ESTIMATED",
+     "cost": 13526.5,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "ESTIMATED",
+     "cost": 11445.5,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": null,
+     "source": null,
+     "cost": 2144,
+     "koz": [
+      8,
+      2,
+      1,
+      1
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1978,
+     "quantity": 520.25,
+     "source": "3D_BAG",
+     "cost": 5723,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 4600,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 2060,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1978,
+     "quantity": 8,
+     "source": "BAG",
+     "cost": 3840,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 13526.5
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2026,
+     "bedrag": 11445.5
+    },
+    {
+     "el": "steiger",
+     "jaar": 2026,
+     "bedrag": 5723
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2026,
+     "bedrag": 700
+    },
+    {
+     "el": "dak-plat",
+     "jaar": 2028,
+     "bedrag": 23100
+    },
+    {
+     "el": "riolering",
+     "jaar": 2028,
+     "bedrag": 2060
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2028,
+     "bedrag": 700
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 3840
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2030,
+     "bedrag": 700
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 2144
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2032,
+     "bedrag": 11445.5
+    },
+    {
+     "el": "steiger",
+     "jaar": 2032,
+     "bedrag": 5723
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2032,
+     "bedrag": 700
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2034,
+     "bedrag": 700
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 31395,
+     "saldo": -17755
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -9115
+    },
+    {
+     "jaar": 2028,
+     "kosten": 25860,
+     "saldo": -26335
+    },
+    {
+     "jaar": 2029,
+     "kosten": 3840,
+     "saldo": -21535
+    },
+    {
+     "jaar": 2030,
+     "kosten": 700,
+     "saldo": -13595
+    },
+    {
+     "jaar": 2031,
+     "kosten": 2144,
+     "saldo": -7099
+    },
+    {
+     "jaar": 2032,
+     "kosten": 17868.5,
+     "saldo": -16327.5
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": -7687.5
+    },
+    {
+     "jaar": 2034,
+     "kosten": 700,
+     "saldo": 252.5
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": 8892.5
+    }
+   ],
+   "benodigdeBijdrage": 275
+  },
+  {
+   "name": "zonder-3dbag / fonds 0 / bijdrage 55",
+   "year": 2026,
+   "building": {
+    "name": "zonder-3dbag",
+    "bouwjaar": 1965,
+    "units": 24,
+    "unitsBAG": 24,
+    "footprint": 410.5,
+    "omtrek": 102.3,
+    "plat": null,
+    "schuin": null,
+    "buitenmuur": null,
+    "hoogte": null
+   },
+   "fonds": 0,
+   "bijdrage": 55,
+   "scores": {},
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1965,
+     "quantity": 410.5,
+     "source": "ESTIMATED",
+     "cost": 67732.5,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 2460,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1965,
+     "quantity": 410.5,
+     "source": "ESTIMATED",
+     "cost": 1241,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": 23938.2,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": 20255.4,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": null,
+     "source": null,
+     "cost": 6432,
+     "koz": [
+      24,
+      6,
+      3,
+      3
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": null,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 13800,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 3980,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 11520,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 1241
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 11520
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 1241
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2031,
+     "bedrag": 20255.4
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 6432
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 1241
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 1241
+    },
+    {
+     "el": "riolering",
+     "jaar": 2035,
+     "bedrag": 3980
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 1241
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 0,
+     "saldo": 15840
+    },
+    {
+     "jaar": 2027,
+     "kosten": 1241,
+     "saldo": 30439
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 46279
+    },
+    {
+     "jaar": 2029,
+     "kosten": 12761,
+     "saldo": 49358
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": 65198
+    },
+    {
+     "jaar": 2031,
+     "kosten": 27928.4,
+     "saldo": 53109.6
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 68949.6
+    },
+    {
+     "jaar": 2033,
+     "kosten": 1241,
+     "saldo": 83548.6
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 99388.6
+    },
+    {
+     "jaar": 2035,
+     "kosten": 5221,
+     "saldo": 110007.6
+    }
+   ],
+   "benodigdeBijdrage": 25
+  },
+  {
+   "name": "zonder-3dbag / fonds 25000 / bijdrage 155",
+   "year": 2026,
+   "building": {
+    "name": "zonder-3dbag",
+    "bouwjaar": 1965,
+    "units": 24,
+    "unitsBAG": 24,
+    "footprint": 410.5,
+    "omtrek": 102.3,
+    "plat": null,
+    "schuin": null,
+    "buitenmuur": null,
+    "hoogte": null
+   },
+   "fonds": 25000,
+   "bijdrage": 155,
+   "scores": {
+    "schilderwerk-buiten": 3,
+    "dakgoten": 5
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1965,
+     "quantity": 410.5,
+     "source": "ESTIMATED",
+     "cost": 67732.5,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 2460,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1965,
+     "quantity": 410.5,
+     "source": "ESTIMATED",
+     "cost": 1241,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": 23938.2,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": 20255.4,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": null,
+     "source": null,
+     "cost": 6432,
+     "koz": [
+      24,
+      6,
+      3,
+      3
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": null,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 13800,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 3980,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 11520,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 1241
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 11520
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 1241
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2030,
+     "bedrag": 20255.4
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2030,
+     "bedrag": 2460
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 6432
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 1241
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 1241
+    },
+    {
+     "el": "riolering",
+     "jaar": 2035,
+     "bedrag": 3980
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 1241
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 0,
+     "saldo": 69640
+    },
+    {
+     "jaar": 2027,
+     "kosten": 1241,
+     "saldo": 113039
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 157679
+    },
+    {
+     "jaar": 2029,
+     "kosten": 12761,
+     "saldo": 189558
+    },
+    {
+     "jaar": 2030,
+     "kosten": 22715.4,
+     "saldo": 211482.6
+    },
+    {
+     "jaar": 2031,
+     "kosten": 7673,
+     "saldo": 248449.6
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 293089.6
+    },
+    {
+     "jaar": 2033,
+     "kosten": 1241,
+     "saldo": 336488.6
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 381128.6
+    },
+    {
+     "jaar": 2035,
+     "kosten": 5221,
+     "saldo": 420547.6
+    }
+   ],
+   "benodigdeBijdrage": 15
+  },
+  {
+   "name": "zonder-3dbag / fonds 5000 / bijdrage 90",
+   "year": 2026,
+   "building": {
+    "name": "zonder-3dbag",
+    "bouwjaar": 1965,
+    "units": 24,
+    "unitsBAG": 24,
+    "footprint": 410.5,
+    "omtrek": 102.3,
+    "plat": null,
+    "schuin": null,
+    "buitenmuur": null,
+    "hoogte": null
+   },
+   "fonds": 5000,
+   "bijdrage": 90,
+   "scores": {
+    "gevel-metselwerk": 6,
+    "kozijnen-onderhoud": 2,
+    "trappenhuis": 4
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 1965,
+     "quantity": 410.5,
+     "source": "ESTIMATED",
+     "cost": 67732.5,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 2460,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 1965,
+     "quantity": 410.5,
+     "source": "ESTIMATED",
+     "cost": 1241,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": 23938.2,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": 20255.4,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": null,
+     "source": null,
+     "cost": 6432,
+     "koz": [
+      24,
+      6,
+      3,
+      3
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 1965,
+     "quantity": 920.7,
+     "source": "ESTIMATED",
+     "cost": null,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 13800,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 3980,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 1965,
+     "quantity": 24,
+     "source": "BAG",
+     "cost": 11520,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 23938.2
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 1241
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 11520
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 1241
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2031,
+     "bedrag": 20255.4
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 6432
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 1241
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 1241
+    },
+    {
+     "el": "riolering",
+     "jaar": 2035,
+     "bedrag": 3980
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 1241
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 23938.2,
+     "saldo": 6981.799999999999
+    },
+    {
+     "jaar": 2027,
+     "kosten": 1241,
+     "saldo": 31660.800000000003
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 57580.8
+    },
+    {
+     "jaar": 2029,
+     "kosten": 12761,
+     "saldo": 70739.8
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": 96659.8
+    },
+    {
+     "jaar": 2031,
+     "kosten": 27928.4,
+     "saldo": 94651.4
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 120571.4
+    },
+    {
+     "jaar": 2033,
+     "kosten": 1241,
+     "saldo": 145250.4
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 171170.4
+    },
+    {
+     "jaar": 2035,
+     "kosten": 5221,
+     "saldo": 191869.4
+    }
+   ],
+   "benodigdeBijdrage": 70
+  },
+  {
+   "name": "alleen-plat / fonds 0 / bijdrage 55",
+   "year": 2026,
+   "building": {
+    "name": "alleen-plat",
+    "bouwjaar": 2001,
+    "units": 40,
+    "unitsBAG": 36,
+    "footprint": 800,
+    "omtrek": 140,
+    "plat": 780.6,
+    "schuin": null,
+    "buitenmuur": 1900,
+    "hoogte": 18.2
+   },
+   "fonds": 0,
+   "bijdrage": 55,
+   "scores": {},
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 2001,
+     "quantity": 780.6,
+     "source": "3D_BAG",
+     "cost": 128799,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 3900,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2001,
+     "quantity": null,
+     "source": "NOT_AVAILABLE",
+     "cost": null,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "ESTIMATED",
+     "cost": 49400,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "ESTIMATED",
+     "cost": 41800,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": null,
+     "source": null,
+     "cost": 10720,
+     "koz": [
+      40,
+      10,
+      5,
+      5
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "3D_BAG",
+     "cost": 20900,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 23000,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 5900,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 19200,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dak-plat",
+     "jaar": 2026,
+     "bedrag": 128799
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2031,
+     "bedrag": 49400
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2031,
+     "bedrag": 41800
+    },
+    {
+     "el": "steiger",
+     "jaar": 2031,
+     "bedrag": 20900
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 10720
+    },
+    {
+     "el": "riolering",
+     "jaar": 2031,
+     "bedrag": 5900
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2033,
+     "bedrag": 19200
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 128799,
+     "saldo": -102399
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -75999
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": -49599
+    },
+    {
+     "jaar": 2029,
+     "kosten": 0,
+     "saldo": -23199
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": 3201
+    },
+    {
+     "jaar": 2031,
+     "kosten": 128720,
+     "saldo": -99119
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": -72719
+    },
+    {
+     "jaar": 2033,
+     "kosten": 19200,
+     "saldo": -65519
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": -39119
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": -12719
+    }
+   ],
+   "benodigdeBijdrage": 270
+  },
+  {
+   "name": "alleen-plat / fonds 25000 / bijdrage 155",
+   "year": 2026,
+   "building": {
+    "name": "alleen-plat",
+    "bouwjaar": 2001,
+    "units": 40,
+    "unitsBAG": 36,
+    "footprint": 800,
+    "omtrek": 140,
+    "plat": 780.6,
+    "schuin": null,
+    "buitenmuur": 1900,
+    "hoogte": 18.2
+   },
+   "fonds": 25000,
+   "bijdrage": 155,
+   "scores": {
+    "schilderwerk-buiten": 3,
+    "dakgoten": 5
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 2001,
+     "quantity": 780.6,
+     "source": "3D_BAG",
+     "cost": 128799,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 3900,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2001,
+     "quantity": null,
+     "source": "NOT_AVAILABLE",
+     "cost": null,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "ESTIMATED",
+     "cost": 49400,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "ESTIMATED",
+     "cost": 41800,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": null,
+     "source": null,
+     "cost": 10720,
+     "koz": [
+      40,
+      10,
+      5,
+      5
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "3D_BAG",
+     "cost": 20900,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 23000,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 5900,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 19200,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dak-plat",
+     "jaar": 2026,
+     "bedrag": 128799
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2030,
+     "bedrag": 41800
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2030,
+     "bedrag": 3900
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2031,
+     "bedrag": 49400
+    },
+    {
+     "el": "steiger",
+     "jaar": 2031,
+     "bedrag": 20900
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 10720
+    },
+    {
+     "el": "riolering",
+     "jaar": 2031,
+     "bedrag": 5900
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2033,
+     "bedrag": 19200
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 128799,
+     "saldo": -29399
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": 45001
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 119401
+    },
+    {
+     "jaar": 2029,
+     "kosten": 0,
+     "saldo": 193801
+    },
+    {
+     "jaar": 2030,
+     "kosten": 45700,
+     "saldo": 222501
+    },
+    {
+     "jaar": 2031,
+     "kosten": 86920,
+     "saldo": 209981
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 284381
+    },
+    {
+     "jaar": 2033,
+     "kosten": 19200,
+     "saldo": 339581
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 413981
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": 488381
+    }
+   ],
+   "benodigdeBijdrage": 220
+  },
+  {
+   "name": "alleen-plat / fonds 5000 / bijdrage 90",
+   "year": 2026,
+   "building": {
+    "name": "alleen-plat",
+    "bouwjaar": 2001,
+    "units": 40,
+    "unitsBAG": 36,
+    "footprint": 800,
+    "omtrek": 140,
+    "plat": 780.6,
+    "schuin": null,
+    "buitenmuur": 1900,
+    "hoogte": 18.2
+   },
+   "fonds": 5000,
+   "bijdrage": 90,
+   "scores": {
+    "gevel-metselwerk": 6,
+    "kozijnen-onderhoud": 2,
+    "trappenhuis": 4
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 2001,
+     "quantity": 780.6,
+     "source": "3D_BAG",
+     "cost": 128799,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 3900,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2001,
+     "quantity": null,
+     "source": "NOT_AVAILABLE",
+     "cost": null,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "ESTIMATED",
+     "cost": 49400,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "ESTIMATED",
+     "cost": 41800,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": null,
+     "source": null,
+     "cost": 10720,
+     "koz": [
+      40,
+      10,
+      5,
+      5
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2001,
+     "quantity": 1900,
+     "source": "3D_BAG",
+     "cost": 20900,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 23000,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 5900,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2001,
+     "quantity": 40,
+     "source": "MANUAL",
+     "cost": 19200,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dak-plat",
+     "jaar": 2026,
+     "bedrag": 128799
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 49400
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 19200
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2031,
+     "bedrag": 41800
+    },
+    {
+     "el": "steiger",
+     "jaar": 2031,
+     "bedrag": 20900
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 10720
+    },
+    {
+     "el": "riolering",
+     "jaar": 2031,
+     "bedrag": 5900
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 178199,
+     "saldo": -129999
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -86799
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": -43599
+    },
+    {
+     "jaar": 2029,
+     "kosten": 19200,
+     "saldo": -19599
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": 23601
+    },
+    {
+     "jaar": 2031,
+     "kosten": 79320,
+     "saldo": -12519
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 30681
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": 73881
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 117081
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": 160281
+    }
+   ],
+   "benodigdeBijdrage": 365
+  },
+  {
+   "name": "nieuwbouw-laag / fonds 0 / bijdrage 55",
+   "year": 2026,
+   "building": {
+    "name": "nieuwbouw-laag",
+    "bouwjaar": 2019,
+    "units": 6,
+    "unitsBAG": 6,
+    "footprint": 210,
+    "omtrek": 64,
+    "plat": 0,
+    "schuin": 240.8,
+    "buitenmuur": 410,
+    "hoogte": 6.4
+   },
+   "fonds": 0,
+   "bijdrage": 55,
+   "scores": {},
+   "elements": [
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 840,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2019,
+     "quantity": 240.8,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 901.6,
+     "koz": null
+    },
+    {
+     "id": "dak-hellend",
+     "cyclus": 40,
+     "laatsteBeurt": 2019,
+     "quantity": 240.8,
+     "source": "3D_BAG",
+     "cost": 22876,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "ESTIMATED",
+     "cost": 10660,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "ESTIMATED",
+     "cost": 9020,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": null,
+     "source": null,
+     "cost": 1796,
+     "koz": [
+      6,
+      2,
+      1,
+      1
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "3D_BAG",
+     "cost": 2460,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 3450,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 1820,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 2880,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "trappenhuis",
+     "jaar": 2027,
+     "bedrag": 2880
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 901.6
+    },
+    {
+     "el": "riolering",
+     "jaar": 2029,
+     "bedrag": 1820
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 901.6
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2031,
+     "bedrag": 9020
+    },
+    {
+     "el": "steiger",
+     "jaar": 2031,
+     "bedrag": 2460
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 1796
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 901.6
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 901.6
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2034,
+     "bedrag": 10660
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2035,
+     "bedrag": 2880
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 901.6
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 0,
+     "saldo": 3960
+    },
+    {
+     "jaar": 2027,
+     "kosten": 3781.6,
+     "saldo": 4138.4
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 8098.4
+    },
+    {
+     "jaar": 2029,
+     "kosten": 2721.6,
+     "saldo": 9336.8
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": 13296.8
+    },
+    {
+     "jaar": 2031,
+     "kosten": 14177.6,
+     "saldo": 3079.199999999999
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 7039.199999999999
+    },
+    {
+     "jaar": 2033,
+     "kosten": 901.6,
+     "saldo": 10097.599999999999
+    },
+    {
+     "jaar": 2034,
+     "kosten": 10660,
+     "saldo": 3397.5999999999985
+    },
+    {
+     "jaar": 2035,
+     "kosten": 3781.6,
+     "saldo": 3575.9999999999986
+    }
+   ],
+   "benodigdeBijdrage": 55
+  },
+  {
+   "name": "nieuwbouw-laag / fonds 25000 / bijdrage 155",
+   "year": 2026,
+   "building": {
+    "name": "nieuwbouw-laag",
+    "bouwjaar": 2019,
+    "units": 6,
+    "unitsBAG": 6,
+    "footprint": 210,
+    "omtrek": 64,
+    "plat": 0,
+    "schuin": 240.8,
+    "buitenmuur": 410,
+    "hoogte": 6.4
+   },
+   "fonds": 25000,
+   "bijdrage": 155,
+   "scores": {
+    "schilderwerk-buiten": 3,
+    "dakgoten": 5
+   },
+   "elements": [
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 840,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2019,
+     "quantity": 240.8,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 901.6,
+     "koz": null
+    },
+    {
+     "id": "dak-hellend",
+     "cyclus": 40,
+     "laatsteBeurt": 2019,
+     "quantity": 240.8,
+     "source": "3D_BAG",
+     "cost": 22876,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "ESTIMATED",
+     "cost": 10660,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "ESTIMATED",
+     "cost": 9020,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": null,
+     "source": null,
+     "cost": 1796,
+     "koz": [
+      6,
+      2,
+      1,
+      1
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "3D_BAG",
+     "cost": 2460,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 3450,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 1820,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 2880,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "trappenhuis",
+     "jaar": 2027,
+     "bedrag": 2880
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 901.6
+    },
+    {
+     "el": "riolering",
+     "jaar": 2029,
+     "bedrag": 1820
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 901.6
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2030,
+     "bedrag": 9020
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2030,
+     "bedrag": 840
+    },
+    {
+     "el": "steiger",
+     "jaar": 2031,
+     "bedrag": 2460
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 1796
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 901.6
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 901.6
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2034,
+     "bedrag": 10660
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2035,
+     "bedrag": 2880
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 901.6
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 0,
+     "saldo": 36160
+    },
+    {
+     "jaar": 2027,
+     "kosten": 3781.6,
+     "saldo": 43538.4
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 54698.4
+    },
+    {
+     "jaar": 2029,
+     "kosten": 2721.6,
+     "saldo": 63136.799999999996
+    },
+    {
+     "jaar": 2030,
+     "kosten": 9860,
+     "saldo": 64436.79999999999
+    },
+    {
+     "jaar": 2031,
+     "kosten": 5157.6,
+     "saldo": 70439.19999999998
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 81599.19999999998
+    },
+    {
+     "jaar": 2033,
+     "kosten": 901.6,
+     "saldo": 91857.59999999998
+    },
+    {
+     "jaar": 2034,
+     "kosten": 10660,
+     "saldo": 92357.59999999998
+    },
+    {
+     "jaar": 2035,
+     "kosten": 3781.6,
+     "saldo": 99735.99999999997
+    }
+   ],
+   "benodigdeBijdrage": 20
+  },
+  {
+   "name": "nieuwbouw-laag / fonds 5000 / bijdrage 90",
+   "year": 2026,
+   "building": {
+    "name": "nieuwbouw-laag",
+    "bouwjaar": 2019,
+    "units": 6,
+    "unitsBAG": 6,
+    "footprint": 210,
+    "omtrek": 64,
+    "plat": 0,
+    "schuin": 240.8,
+    "buitenmuur": 410,
+    "hoogte": 6.4
+   },
+   "fonds": 5000,
+   "bijdrage": 90,
+   "scores": {
+    "gevel-metselwerk": 6,
+    "kozijnen-onderhoud": 2,
+    "trappenhuis": 4
+   },
+   "elements": [
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 840,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2019,
+     "quantity": 240.8,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 901.6,
+     "koz": null
+    },
+    {
+     "id": "dak-hellend",
+     "cyclus": 40,
+     "laatsteBeurt": 2019,
+     "quantity": 240.8,
+     "source": "3D_BAG",
+     "cost": 22876,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "ESTIMATED",
+     "cost": 10660,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "ESTIMATED",
+     "cost": 9020,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": null,
+     "source": null,
+     "cost": 1796,
+     "koz": [
+      6,
+      2,
+      1,
+      1
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2019,
+     "quantity": 410,
+     "source": "3D_BAG",
+     "cost": 2460,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 3450,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 1820,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2019,
+     "quantity": 6,
+     "source": "BAG",
+     "cost": 2880,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 10660
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2027,
+     "bedrag": 901.6
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 2880
+    },
+    {
+     "el": "riolering",
+     "jaar": 2029,
+     "bedrag": 1820
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2029,
+     "bedrag": 901.6
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2031,
+     "bedrag": 9020
+    },
+    {
+     "el": "steiger",
+     "jaar": 2031,
+     "bedrag": 2460
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 1796
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2031,
+     "bedrag": 901.6
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2033,
+     "bedrag": 901.6
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2035,
+     "bedrag": 901.6
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 10660,
+     "saldo": 820
+    },
+    {
+     "jaar": 2027,
+     "kosten": 901.6,
+     "saldo": 6398.4
+    },
+    {
+     "jaar": 2028,
+     "kosten": 0,
+     "saldo": 12878.4
+    },
+    {
+     "jaar": 2029,
+     "kosten": 5601.6,
+     "saldo": 13756.800000000001
+    },
+    {
+     "jaar": 2030,
+     "kosten": 0,
+     "saldo": 20236.800000000003
+    },
+    {
+     "jaar": 2031,
+     "kosten": 14177.6,
+     "saldo": 12539.200000000003
+    },
+    {
+     "jaar": 2032,
+     "kosten": 0,
+     "saldo": 19019.200000000004
+    },
+    {
+     "jaar": 2033,
+     "kosten": 901.6,
+     "saldo": 24597.600000000006
+    },
+    {
+     "jaar": 2034,
+     "kosten": 0,
+     "saldo": 31077.600000000006
+    },
+    {
+     "jaar": 2035,
+     "kosten": 901.6,
+     "saldo": 36656.00000000001
+    }
+   ],
+   "benodigdeBijdrage": 80
+  },
+  {
+   "name": "bouwjaar-onbekend / fonds 0 / bijdrage 55",
+   "year": 2026,
+   "building": {
+    "name": "bouwjaar-onbekend",
+    "bouwjaar": null,
+    "units": 12,
+    "unitsBAG": 12,
+    "footprint": 300,
+    "omtrek": 80,
+    "plat": 300,
+    "schuin": 0,
+    "buitenmuur": 700,
+    "hoogte": 9.6
+   },
+   "fonds": 0,
+   "bijdrage": 55,
+   "scores": {},
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 2001,
+     "quantity": 300,
+     "source": "3D_BAG",
+     "cost": 49500,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2006,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 1380,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2024,
+     "quantity": 300,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 1020,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2011,
+     "quantity": 700,
+     "source": "ESTIMATED",
+     "cost": 18200,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": 700,
+     "source": "ESTIMATED",
+     "cost": 15400,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": null,
+     "source": null,
+     "cost": 3496,
+     "koz": [
+      12,
+      3,
+      2,
+      2
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": 700,
+     "source": "3D_BAG",
+     "cost": 7700,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2006,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 6900,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2016,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 2540,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2018,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 5760,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dak-plat",
+     "jaar": 2026,
+     "bedrag": 49500
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 18200
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2026,
+     "bedrag": 15400
+    },
+    {
+     "el": "steiger",
+     "jaar": 2026,
+     "bedrag": 7700
+    },
+    {
+     "el": "intercom",
+     "jaar": 2026,
+     "bedrag": 6900
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2026,
+     "bedrag": 5760
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2026,
+     "bedrag": 3496
+    },
+    {
+     "el": "riolering",
+     "jaar": 2026,
+     "bedrag": 2540
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2026,
+     "bedrag": 1380
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2026,
+     "bedrag": 1020
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2028,
+     "bedrag": 1020
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2030,
+     "bedrag": 1020
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2032,
+     "bedrag": 15400
+    },
+    {
+     "el": "steiger",
+     "jaar": 2032,
+     "bedrag": 7700
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2032,
+     "bedrag": 3496
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2032,
+     "bedrag": 1020
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2034,
+     "bedrag": 5760
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2034,
+     "bedrag": 1020
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 111896,
+     "saldo": -103976
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -96056
+    },
+    {
+     "jaar": 2028,
+     "kosten": 1020,
+     "saldo": -89156
+    },
+    {
+     "jaar": 2029,
+     "kosten": 0,
+     "saldo": -81236
+    },
+    {
+     "jaar": 2030,
+     "kosten": 1020,
+     "saldo": -74336
+    },
+    {
+     "jaar": 2031,
+     "kosten": 0,
+     "saldo": -66416
+    },
+    {
+     "jaar": 2032,
+     "kosten": 27616,
+     "saldo": -86112
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": -78192
+    },
+    {
+     "jaar": 2034,
+     "kosten": 6780,
+     "saldo": -77052
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": -69132
+    }
+   ],
+   "benodigdeBijdrage": 780
+  },
+  {
+   "name": "bouwjaar-onbekend / fonds 25000 / bijdrage 155",
+   "year": 2026,
+   "building": {
+    "name": "bouwjaar-onbekend",
+    "bouwjaar": null,
+    "units": 12,
+    "unitsBAG": 12,
+    "footprint": 300,
+    "omtrek": 80,
+    "plat": 300,
+    "schuin": 0,
+    "buitenmuur": 700,
+    "hoogte": 9.6
+   },
+   "fonds": 25000,
+   "bijdrage": 155,
+   "scores": {
+    "schilderwerk-buiten": 3,
+    "dakgoten": 5
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 2001,
+     "quantity": 300,
+     "source": "3D_BAG",
+     "cost": 49500,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2006,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 1380,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2024,
+     "quantity": 300,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 1020,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2011,
+     "quantity": 700,
+     "source": "ESTIMATED",
+     "cost": 18200,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": 700,
+     "source": "ESTIMATED",
+     "cost": 15400,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": null,
+     "source": null,
+     "cost": 3496,
+     "koz": [
+      12,
+      3,
+      2,
+      2
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": 700,
+     "source": "3D_BAG",
+     "cost": 7700,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2006,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 6900,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2016,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 2540,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2018,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 5760,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dak-plat",
+     "jaar": 2026,
+     "bedrag": 49500
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 18200
+    },
+    {
+     "el": "steiger",
+     "jaar": 2026,
+     "bedrag": 7700
+    },
+    {
+     "el": "intercom",
+     "jaar": 2026,
+     "bedrag": 6900
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2026,
+     "bedrag": 5760
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2026,
+     "bedrag": 3496
+    },
+    {
+     "el": "riolering",
+     "jaar": 2026,
+     "bedrag": 2540
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2026,
+     "bedrag": 1020
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2028,
+     "bedrag": 1020
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2030,
+     "bedrag": 15400
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2030,
+     "bedrag": 1380
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2030,
+     "bedrag": 1020
+    },
+    {
+     "el": "steiger",
+     "jaar": 2032,
+     "bedrag": 7700
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2032,
+     "bedrag": 3496
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2032,
+     "bedrag": 1020
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2034,
+     "bedrag": 5760
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2034,
+     "bedrag": 1020
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 95116,
+     "saldo": -47796
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -25476
+    },
+    {
+     "jaar": 2028,
+     "kosten": 1020,
+     "saldo": -4176
+    },
+    {
+     "jaar": 2029,
+     "kosten": 0,
+     "saldo": 18144
+    },
+    {
+     "jaar": 2030,
+     "kosten": 17800,
+     "saldo": 22664
+    },
+    {
+     "jaar": 2031,
+     "kosten": 0,
+     "saldo": 44984
+    },
+    {
+     "jaar": 2032,
+     "kosten": 12216,
+     "saldo": 55088
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": 77408
+    },
+    {
+     "jaar": 2034,
+     "kosten": 6780,
+     "saldo": 92948
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": 115268
+    }
+   ],
+   "benodigdeBijdrage": 490
+  },
+  {
+   "name": "bouwjaar-onbekend / fonds 5000 / bijdrage 90",
+   "year": 2026,
+   "building": {
+    "name": "bouwjaar-onbekend",
+    "bouwjaar": null,
+    "units": 12,
+    "unitsBAG": 12,
+    "footprint": 300,
+    "omtrek": 80,
+    "plat": 300,
+    "schuin": 0,
+    "buitenmuur": 700,
+    "hoogte": 9.6
+   },
+   "fonds": 5000,
+   "bijdrage": 90,
+   "scores": {
+    "gevel-metselwerk": 6,
+    "kozijnen-onderhoud": 2,
+    "trappenhuis": 4
+   },
+   "elements": [
+    {
+     "id": "dak-plat",
+     "cyclus": 25,
+     "laatsteBeurt": 2001,
+     "quantity": 300,
+     "source": "3D_BAG",
+     "cost": 49500,
+     "koz": null
+    },
+    {
+     "id": "dakgoten",
+     "cyclus": 20,
+     "laatsteBeurt": 2006,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 1380,
+     "koz": null
+    },
+    {
+     "id": "dakinspectie",
+     "cyclus": 2,
+     "laatsteBeurt": 2024,
+     "quantity": 300,
+     "source": "GEOMETRY_DERIVED",
+     "cost": 1020,
+     "koz": null
+    },
+    {
+     "id": "gevel-metselwerk",
+     "cyclus": 15,
+     "laatsteBeurt": 2011,
+     "quantity": 700,
+     "source": "ESTIMATED",
+     "cost": 18200,
+     "koz": null
+    },
+    {
+     "id": "schilderwerk-buiten",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": 700,
+     "source": "ESTIMATED",
+     "cost": 15400,
+     "koz": null
+    },
+    {
+     "id": "kozijnen-onderhoud",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": null,
+     "source": null,
+     "cost": 3496,
+     "koz": [
+      12,
+      3,
+      2,
+      2
+     ]
+    },
+    {
+     "id": "steiger",
+     "cyclus": 6,
+     "laatsteBeurt": 2020,
+     "quantity": 700,
+     "source": "3D_BAG",
+     "cost": 7700,
+     "koz": null
+    },
+    {
+     "id": "intercom",
+     "cyclus": 20,
+     "laatsteBeurt": 2006,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 6900,
+     "koz": null
+    },
+    {
+     "id": "riolering",
+     "cyclus": 10,
+     "laatsteBeurt": 2016,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 2540,
+     "koz": null
+    },
+    {
+     "id": "trappenhuis",
+     "cyclus": 8,
+     "laatsteBeurt": 2018,
+     "quantity": 12,
+     "source": "BAG",
+     "cost": 5760,
+     "koz": null
+    }
+   ],
+   "posten": [
+    {
+     "el": "dak-plat",
+     "jaar": 2026,
+     "bedrag": 49500
+    },
+    {
+     "el": "gevel-metselwerk",
+     "jaar": 2026,
+     "bedrag": 18200
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2026,
+     "bedrag": 15400
+    },
+    {
+     "el": "steiger",
+     "jaar": 2026,
+     "bedrag": 7700
+    },
+    {
+     "el": "intercom",
+     "jaar": 2026,
+     "bedrag": 6900
+    },
+    {
+     "el": "riolering",
+     "jaar": 2026,
+     "bedrag": 2540
+    },
+    {
+     "el": "dakgoten",
+     "jaar": 2026,
+     "bedrag": 1380
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2026,
+     "bedrag": 1020
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2028,
+     "bedrag": 1020
+    },
+    {
+     "el": "trappenhuis",
+     "jaar": 2029,
+     "bedrag": 5760
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2030,
+     "bedrag": 1020
+    },
+    {
+     "el": "kozijnen-onderhoud",
+     "jaar": 2031,
+     "bedrag": 3496
+    },
+    {
+     "el": "schilderwerk-buiten",
+     "jaar": 2032,
+     "bedrag": 15400
+    },
+    {
+     "el": "steiger",
+     "jaar": 2032,
+     "bedrag": 7700
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2032,
+     "bedrag": 1020
+    },
+    {
+     "el": "dakinspectie",
+     "jaar": 2034,
+     "bedrag": 1020
+    }
+   ],
+   "saldi": [
+    {
+     "jaar": 2026,
+     "kosten": 102640,
+     "saldo": -84680
+    },
+    {
+     "jaar": 2027,
+     "kosten": 0,
+     "saldo": -71720
+    },
+    {
+     "jaar": 2028,
+     "kosten": 1020,
+     "saldo": -59780
+    },
+    {
+     "jaar": 2029,
+     "kosten": 5760,
+     "saldo": -52580
+    },
+    {
+     "jaar": 2030,
+     "kosten": 1020,
+     "saldo": -40640
+    },
+    {
+     "jaar": 2031,
+     "kosten": 3496,
+     "saldo": -31176
+    },
+    {
+     "jaar": 2032,
+     "kosten": 24120,
+     "saldo": -42336
+    },
+    {
+     "jaar": 2033,
+     "kosten": 0,
+     "saldo": -29376
+    },
+    {
+     "jaar": 2034,
+     "kosten": 1020,
+     "saldo": -17436
+    },
+    {
+     "jaar": 2035,
+     "kosten": 0,
+     "saldo": -4476
+    }
+   ],
+   "benodigdeBijdrage": 680
+  }
+ ]
+}
