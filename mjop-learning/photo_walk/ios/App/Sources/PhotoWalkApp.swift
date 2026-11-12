@@ -8,7 +8,8 @@ struct PhotoWalkApp: App {
     @StateObject private var store = ScanStore()
     var body: some Scene {
         WindowGroup {
-            RootView().environmentObject(store)
+            // MJOP Live 3: volledig native (inloggen, Home, Projecten, Profiel). De oude WebView-weergave (RootView) wordt niet meer getoond.
+            NativeRoot().environmentObject(store)
                 .task { await runSelfTestIfRequested() }
         }
     }
