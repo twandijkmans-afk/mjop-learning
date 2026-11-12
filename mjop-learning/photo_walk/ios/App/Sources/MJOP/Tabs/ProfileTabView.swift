@@ -46,7 +46,7 @@ struct ProfileTabView: View {
                     NavigationLink { AdvancedSettingsView(web: web) } label: { Label("Geavanceerde instellingen", systemImage: "gearshape.2") }
                         .accessibilityIdentifier("profileAdvanced")
                 } footer: {
-                    Text("MJOP Live \(DeviceCapabilities.appVersion)")
+                    Text("MJOP Live \(DeviceCapabilities.appVersion) (build \(DeviceCapabilities.buildNumber))")
                 }
             }
             .navigationTitle("Profiel")

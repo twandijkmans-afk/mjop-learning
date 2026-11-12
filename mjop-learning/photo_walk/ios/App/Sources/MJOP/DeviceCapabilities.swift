@@ -5,4 +5,6 @@ import Foundation
 enum DeviceCapabilities {
     static var hasLiDAR: Bool { ARWorldTrackingConfiguration.isSupported && ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) }
     static var appVersion: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "2" }
+    /// Bouwnummer (in de bouwopdracht het runnummer), zodat te zien is welke versie op het toestel staat.
+    static var buildNumber: String { Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "?" }
 }

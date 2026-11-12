@@ -87,6 +87,7 @@ jobs:
           xcodebuild -project PhotoWalk.xcodeproj -scheme PhotoWalk -configuration Release \
             -sdk iphoneos -destination 'generic/platform=iOS' \
             -derivedDataPath "$RUNNER_TEMP/dd-dev" \
+            CURRENT_PROJECT_VERSION="$GITHUB_RUN_NUMBER" \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
             build 2>&1 | tee "$LOGS/xcodebuild-device.log"
 
