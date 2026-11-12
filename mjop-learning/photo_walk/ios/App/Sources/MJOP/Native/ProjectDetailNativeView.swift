@@ -28,7 +28,7 @@ struct ProjectDetailNativeView: View {
                     tabPicker
                     switch tab {
                     case .overzicht: overzicht
-                    case .mjop: next("Planning, kosten en rapport van dit gebouw komen hier.")
+                    case .mjop: MJOPView(project: project, showsTitle: false)
                     case .gevels: next("Het rondje om het gebouw met per gevel de scan en de voorstellen komt hier.")
                     case .documenten: next("Oude MJOP's, offertes, facturen en inspecties toevoegen; de app maakt er voorstellen van.")
                     }

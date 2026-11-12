@@ -1,0 +1,77 @@
+import Foundation
+import MJOPEngine
+import SwiftUI
+
+/// Het volledige plan van een project (kolom `model` in `projects`, schema_version 1).
+struct ProjectModel: Equatable {
+    var building: BuildingInput
+    var elements: [PlanElement]
+    var fonds: Decimal?
+    var bijdrage: Decimal?
+
+    static func parse(_ o: [String: Any]) -> ProjectModel? {
+        let dec = JSONDecoder()
+        guard let bObj = o["building"], let bData = try? JSONSerialization.data(withJSONObject: bObj),
+              let building = try? dec.decode(BuildingInput.self, from: bData),
+              let eObj = o["elements"], let eData = try? JSONSerialization.data(withJSONObject: eObj),
+              let elements = try? dec.decode([PlanElement].self, from: eData) else { return nil }
+        func decimal(_ k: String) -> Decimal? { (o[k] as? NSNumber).map { $0.decimalValue } }
+        return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"))
+    }
+
+    func json() -> [String: Any] {
+        let enc = JSONEncoder()
+        return [
+            "building": (try? JSONSerialization.jsonObject(with: enc.encode(building))) ?? [:],
+            "elements": (try? JSONSerialization.jsonObject(with: enc.encode(elements))) ?? [],
+            "fonds": fonds.map { NSDecimalNumber(decimal: $0) } ?? NSNull(),
+            "bijdrage": bijdrage.map { NSDecimalNumber(decimal: $0) } ?? NSNull(),
+        ]
+    }
+
+    static var year: Int { Calendar.current.component(.year, from: Date()) }
+
+    var plan: [PlannedCost] { Engine.plan(elements, year: Self.year) }
+    var perYear: [Int: Decimal] { Engine.perYear(plan) }
+    var total: Decimal { plan.reduce(Decimal(0)) { $0 + $1.bedrag } }
+    var beoordeeld: Int { elements.filter { $0.conditie != nil }.count }
+    var peak: (jaar: Int, bedrag: Decimal)? { perYear.max { $0.value < $1.value }.map { ($0.key, $0.value) } }
+    var units: Int { building.units }
+
+    /// Fondsstand per jaar; alleen als saldo en bijdrage bekend zijn (anders zegt het niets).
+    var fund: [FundYear]? {
+        guard let fonds, let bijdrage else { return nil }
+        return Engine.fund(fonds: fonds, bijdrage: bijdrage, units: units, perYear: perYear, year: Self.year)
+    }
+    var required: Int? { fonds.map { Engine.requiredContribution(fonds: $0, units: units, perYear: perYear, year: Self.year) } }
+
+    /// Demo (alleen testbouw): Singelstraat 8 met de echte BAG- en 3D BAG-gegevens.
+    static let demo: ProjectModel = {
+        let b = BuildingInput(bouwjaar: 1925, units: 1, unitsBAG: 1, footprintM2: 51.42, omtrekM: 32.91, dakPlatM2: 6.3, dakSchuinM2: 61.56, buitenmuurM2: 114.02, hoogteM: 7.7)
+        return ProjectModel(building: b, elements: Engine.defaultElements(for: b, year: year), fonds: 5000, bijdrage: 155)
+    }()
+}
+
+extension ProjectStore {
+    func loadModel(_ project: Project, account: Account) async throws -> ProjectModel {
+        if account.demo { return ProjectModel.demo }
+        let s = try await account.validSession()
+        let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", query: [URLQueryItem(name: "id", value: "eq.\(project.id)"), URLQueryItem(name: "select", value: "model")])
+        guard http.statusCode == 200, let rows = (try? JSONSerialization.jsonObject(with: data)) as? [[String: Any]], let m = rows.first?["model"] as? [String: Any] else {
+            throw BackendError.message(BackendClient.message(data, status: http.statusCode))
+        }
+        guard let model = ProjectModel.parse(m) else { throw BackendError.message("Dit plan is gemaakt met een andere versie en kan nog niet worden geopend.") }
+        return model
+    }
+
+    /// Bewaart het plan en de samenvatting (aantal posten, beoordeeld, totaal) die de lijsten tonen.
+    func saveModel(_ model: ProjectModel, for project: Project, account: Account) async throws {
+        if account.demo { return }
+        let s = try await account.validSession()
+        let total = NSDecimalNumber(decimal: Engine.roundEuro(model.total)).intValue
+        let body: [String: Any] = ["model": model.json(), "posten_aantal": model.elements.count, "posten_beoordeeld": model.beoordeeld,
+                                   "geraamd_totaal": total, "aantal_appartementen": model.units]
+        let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", method: "PATCH", query: [URLQueryItem(name: "id", value: "eq.\(project.id)")], body: body)
+        guard (200..<300).contains(http.statusCode) else { throw BackendError.message(BackendClient.message(data, status: http.statusCode)) }
+    }
+}

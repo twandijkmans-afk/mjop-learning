@@ -140,24 +140,44 @@ struct ScanPlaceholderView: View {
     }
 }
 
-/// Plaats voor het MJOP-gedeelte tot dat gebouwd is.
+/// MJOP-tab: het plan van het laatst bijgewerkte project (wisselen via de projectnaam).
 struct MJOPPlaceholderView: View {
     let openTab: (NativeTab) -> Void
+    @EnvironmentObject var account: Account
+    @EnvironmentObject var store: ProjectStore
+    @State private var selectedId: String?
+
+    private var project: Project? { store.projects.first { $0.id == selectedId } ?? store.projects.first }
+
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("MJOP").font(.largeTitle.weight(.bold)).padding(.top, 8)
-                VStack(alignment: .leading, spacing: 10) {
-                    DSIcon(systemName: "calendar", size: 46)
-                    Text("Planning, kosten en rapport").font(.title3.weight(.bold))
-                    Text("Dit deel bouw ik hierna in deze stijl, met het rekenmodel in de app zelf. Kies intussen een project bij Projecten.")
-                        .font(.subheadline).foregroundStyle(DS.text2)
-                    Button("Naar Projecten") { openTab(.projects) }.buttonStyle(DSSecondaryButton()).padding(.top, 6)
+            VStack(alignment: .leading, spacing: 14) {
+                if let p = project {
+                    if store.projects.count > 1 {
+                        Menu {
+                            ForEach(store.projects) { q in Button(q.naam) { selectedId = q.id } }
+                        } label: {
+                            Label(p.naam, systemImage: "chevron.up.chevron.down").font(.subheadline.weight(.semibold))
+                        }
+                        .padding(.horizontal, 4).padding(.top, 12)
+                    }
+                    MJOPView(project: p).padding(.top, store.projects.count > 1 ? 0 : 12)
+                } else if store.loadedOnce {
+                    Text("MJOP").font(.system(size: 32, weight: .bold)).padding(.top, 12)
+                    VStack(alignment: .leading, spacing: 10) {
+                        DSIcon(systemName: "calendar", size: 46)
+                        Text("Nog geen project").font(.title3.weight(.bold))
+                        Text("Maak eerst een project bij Projecten; dan zie je hier de planning, de kosten en het rapport.").font(.subheadline).foregroundStyle(DS.text2)
+                        Button("Naar Projecten") { openTab(.projects) }.buttonStyle(DSSecondaryButton()).padding(.top, 6)
+                    }
+                    .padding(18).dsCard()
+                } else {
+                    ProgressView().frame(maxWidth: .infinity).padding(.top, 60)
                 }
-                .padding(18).dsCard()
             }
-            .padding(.horizontal, DS.pad).padding(.bottom, 110)
+            .padding(.horizontal, DS.pad).padding(.bottom, 120)
         }
         .background(DS.canvas)
+        .task { if !store.loadedOnce { await store.refresh(account) } }
     }
 }
