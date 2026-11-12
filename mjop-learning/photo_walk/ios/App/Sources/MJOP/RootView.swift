@@ -14,6 +14,7 @@ struct RootView: View {
     @StateObject private var rounds = RoundCoordinator()
     @StateObject private var nav = AppNavigator()
     @AppStorage("mjop.classicMode") private var classicMode = false
+    @State private var showSplash = LaunchSplashView.shouldShow
 
     private var showTabs: Bool { web.navMode == .tabs && !classicMode }
 
@@ -35,6 +36,7 @@ struct RootView: View {
         }
         .environmentObject(nav)
         .environmentObject(rounds)
+        .overlay { if showSplash { LaunchSplashView(done: { showSplash = false }) } }
         .onAppear {
             rounds.store = store
             rounds.deliver = { web.deliver($0) }

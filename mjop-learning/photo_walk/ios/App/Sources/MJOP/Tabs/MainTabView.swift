@@ -24,7 +24,7 @@ struct MainTabView: View {
                 .tabItem { Label("Profiel", systemImage: "person.crop.circle") }
                 .tag(AppNavigator.Tab.profile)
         }
-        .tint(MJOPTheme.green)
+        .tint(MJOPTheme.accent)
         .alert(item: $nav.alert) { a in
             switch a {
             case .info(let title, let message):

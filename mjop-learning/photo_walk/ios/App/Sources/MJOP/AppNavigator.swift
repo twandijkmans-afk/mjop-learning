@@ -1,6 +1,7 @@
 import Combine
 import MJOPIntegration
 import SwiftUI
+import UIKit
 
 /// Meldingen die de gebruiker te zien krijgt (één tegelijk).
 enum NavAlert: Identifiable {
@@ -152,6 +153,9 @@ final class AppNavigator: ObservableObject {
 
 /// Huisstijl van de website (`--green` en `--ink` uit src/style.css).
 enum MJOPTheme {
+    /// Alleen voor positieve statussen ("Verbonden", "Overgedragen"). De merkkleur is `accent`.
     static let green = Color(red: 78.0 / 255, green: 143.0 / 255, blue: 110.0 / 255)
+    /// Merkkleur: het kobaltblauw van de website (`--blue`), in donkere weergave lichter zodat het leesbaar blijft.
+    static let accent = Color(UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 126.0 / 255, green: 143.0 / 255, blue: 255.0 / 255, alpha: 1) : UIColor(red: 47.0 / 255, green: 75.0 / 255, blue: 255.0 / 255, alpha: 1) })
     static let ink = Color(red: 16.0 / 255, green: 18.0 / 255, blue: 17.0 / 255)
 }

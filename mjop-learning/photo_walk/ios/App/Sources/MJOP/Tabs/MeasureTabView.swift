@@ -45,6 +45,7 @@ struct MeasureTabView: View {
                             Text("Kies").foregroundStyle(.tint)
                         }
                     }
+                    .buttonStyle(.plain)
                     .accessibilityIdentifier("measureProjectButton")
                 }
                 Section {
@@ -72,6 +73,7 @@ struct MeasureTabView: View {
                                     Text("\(r.photos) foto's · bewaard \(relativeDateText(r.savedAt))").font(.caption).foregroundStyle(.secondary)
                                 }
                             }
+                            .buttonStyle(.plain)
                             .accessibilityIdentifier("resume-\(r.label)")
                         }
                     }
@@ -129,7 +131,8 @@ struct ProjectPickerView: View {
                                 if nav.measureProject?.id == p.id { Image(systemName: "checkmark").foregroundStyle(MJOPTheme.green) }
                             }
                         }
-                        .accessibilityIdentifier("pickProject-\(p.label)")
+                        .buttonStyle(.plain)
+                    .accessibilityIdentifier("pickProject-\(p.label)")
                     }
                 } else if nav.projectList?.loggedIn == false {
                     EmptyStateView(icon: "person.crop.circle.badge.exclamationmark", title: "Niet ingelogd", message: "Log in via Profiel om een project te kiezen.")
