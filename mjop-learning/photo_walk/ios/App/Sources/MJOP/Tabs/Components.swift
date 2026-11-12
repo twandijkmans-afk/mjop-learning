@@ -139,7 +139,7 @@ struct ProjectRow: View {
             Spacer()
             if isOpen {
                 Text("Geopend").font(.caption.weight(.semibold)).padding(.horizontal, 8).padding(.vertical, 3)
-                    .background(MJOPTheme.green.opacity(0.18)).foregroundStyle(MJOPTheme.green).clipShape(Capsule())
+                    .background(MJOPTheme.accent.opacity(0.15)).foregroundStyle(MJOPTheme.accent).clipShape(Capsule())
             } else {
                 Image(systemName: "chevron.right").font(.footnote).foregroundStyle(.tertiary)
             }

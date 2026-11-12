@@ -37,6 +37,12 @@ final class MainTabsUITests: XCTestCase {
 
     private func tab(_ app: XCUIApplication, _ name: String) { tapCenter(app.tabBars.buttons[name]) }
 
+    /// Wacht tot een tabblad gekozen is: de app schakelt pas nadat de website het project heeft geopend, dus direct controleren is te vroeg.
+    private func waitSelected(_ el: XCUIElement, timeout: TimeInterval = 20) -> Bool {
+        let expectation = XCTNSPredicateExpectation(predicate: NSPredicate(format: "isSelected == true"), object: el)
+        return XCTWaiter().wait(for: [expectation], timeout: timeout) == .completed
+    }
+
     private func reveal(_ el: XCUIElement, in app: XCUIApplication) {
         var n = 0
         while !el.exists && n < 5 { app.swipeUp(); n += 1 }
@@ -52,12 +58,19 @@ final class MainTabsUITests: XCTestCase {
         app.webViews.staticTexts[text].waitForExistence(timeout: timeout)
     }
 
-    /// Opent "Testproject A" via de tab Projecten; de app schakelt daarna naar MJOP.
+    /// Terug naar de projectlijst als er nog een detailscherm open staat (de lijst blijft in de tab Projecten staan).
+    private func showProjectList(_ app: XCUIApplication, expecting row: String) {
+        tab(app, "Projecten")
+        if !any(app, row).waitForExistence(timeout: 5) { app.navigationBars.buttons.element(boundBy: 0).tap() }
+    }
+
+    /// Opent "Testproject A" via de tab Projecten (eerst het detailscherm, daarna de rij MJOP); de app schakelt daarna naar MJOP.
     private func openProjectA(_ app: XCUIApplication) {
         tab(app, "Projecten")
         tapCenter(any(app, "projectRow-Testproject A"))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "het project is in de website geopend")
-        XCTAssertTrue(app.tabBars.buttons["MJOP"].isSelected, "na het openen staat de gebruiker in het MJOP-gedeelte")
+        XCTAssertTrue(waitSelected(app.tabBars.buttons["MJOP"]), "na het openen staat de gebruiker in het MJOP-gedeelte")
     }
 
     private func pageId(_ app: XCUIApplication) -> String {
@@ -85,8 +98,8 @@ final class MainTabsUITests: XCTestCase {
         XCTAssertTrue(["Verbonden", "Offline"].contains(any(app, "homeConnection").label))
         XCTAssertEqual(any(app, "homeAccount").label, "Ingelogd")
         XCTAssertTrue(element(app, containing: "Bekijk je voorstel").exists || element(app, containing: "ga verder").exists, "volgende stap")
-        XCTAssertNotNil(Int(any(app, "homeInProgress").label), "aantal onderbroken fotorondes op dit toestel is een getal (lokale opslag)")
-        XCTAssertNotNil(Int(any(app, "homeUnsynced").label), "aantal nog niet overgedragen rondes is een getal")
+        XCTAssertTrue(any(app, "homeGevelfotos").exists, "gevelfoto's van het geopende project (zonder project: –)")
+        XCTAssertTrue(any(app, "homePending").exists, "voorstellen te controleren van het geopende project")
     }
 
     // MARK: projecten
@@ -158,68 +171,63 @@ final class MainTabsUITests: XCTestCase {
         XCTAssertNotEqual(any(app, "diagMoves").label, "0×", "de gedeelde WebView is aantoonbaar tussen tabs verplaatst")
     }
 
-    func testRoundStartedFromTheWebsiteReturnsToTheSameTabAndState() {
-        let app = launchWithTabs()
-        openProjectA(app)
-        XCTAssertTrue(app.webViews.buttons["Teller verhogen"].waitForExistence(timeout: 20))
-        app.webViews.buttons["Teller verhogen"].tap()
-        XCTAssertTrue(webText(app, "Teller: 1"))
-        let id0 = pageId(app)
-        app.webViews.buttons["Start fotoronde"].tap()
-        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 20), "de bestaande brug start de fotoronde")
-        XCTAssertTrue(element(app, containing: "Testproject A").waitForExistence(timeout: 10), "projectcontext is meegekomen")
-        reveal(app.buttons["roundSuspend"], in: app)
-        app.buttons["roundSuspend"].tap()
-        XCTAssertTrue(webText(app, "Teller: 1", timeout: 20), "terug op dezelfde plek met dezelfde paginastaat")
-        XCTAssertTrue(app.tabBars.buttons["MJOP"].isSelected, "terug in dezelfde tab")
-        XCTAssertEqual(pageId(app), id0, "de website is niet opnieuw geladen")
-    }
-
     // MARK: Meten
 
-    func testMeasureTabStartsARoundForTheChosenProjectAndReturnsToMeasure() {
-        let app = launchWithTabs()
-        tab(app, "Meten")
-        XCTAssertTrue(any(app, "measureStart").waitForExistence(timeout: 20))
-        XCTAssertFalse(any(app, "measureStart").isEnabled, "zonder gekozen project kan er niet gemeten worden")
-        tapCenter(any(app, "measureProjectButton"))
-        tapCenter(any(app, "pickProject-Testproject A"))
-        XCTAssertTrue(element(app, containing: "De meting hoort bij dit project").waitForExistence(timeout: 10))
-        XCTAssertTrue(any(app, "measureStart").isEnabled)
-        tapCenter(any(app, "measureStart"))
-        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 30), "de website opent het project en start de bestaande scanner via de brug")
-        XCTAssertTrue(element(app, containing: "Testproject A").waitForExistence(timeout: 10), "projectcontext in de scanner")
-        reveal(app.buttons["roundSuspend"], in: app)
-        app.buttons["roundSuspend"].tap()
-        XCTAssertTrue(app.tabBars.buttons["Meten"].waitForExistence(timeout: 15))
-        XCTAssertTrue(app.tabBars.buttons["Meten"].isSelected, "terug in de tab Meten")
-    }
+    // MARK: Projectdetails
 
-    func testResultsAndScannerTestModeAreReachableFromMeasure() {
+    func testProjectDetailShowsRealBuildingFactsAndKeepsUnknownUnknown() {
         let app = launchWithTabs()
-        tab(app, "Meten")
-        tapCenter(any(app, "measureResults"))
-        XCTAssertTrue(any(app, "resultsEmpty").waitForExistence(timeout: 10), "lege staat: nog geen afgeronde fotorondes")
+        tab(app, "Projecten")
+        tapCenter(any(app, "projectRow-Testproject A"))
+        XCTAssertTrue(any(app, "detailTitle").waitForExistence(timeout: 20))
+        XCTAssertEqual(any(app, "detailTitle").label, "Testproject A")
+        XCTAssertTrue(any(app, "detailFacts").waitForExistence(timeout: 20))
+        let facts = any(app, "detailFacts")
+        let expect = NSPredicate(format: "label CONTAINS %@", "1972")
+        expectation(for: expect, evaluatedWith: facts)
+        waitForExpectations(timeout: 30)
+        XCTAssertTrue(facts.label.contains("12 appartementen"), "bouwjaar en appartementen komen uit het geopende project")
+        tapCenter(facts)
+        XCTAssertEqual(any(app, "factBouwjaar").label, "1972")
+        XCTAssertEqual(any(app, "factGevel").label, "Onbekend", "een onbekend geveloppervlak blijft onbekend, nooit 0")
+        XCTAssertTrue(any(app, "factDak").label.contains("313"))
+        XCTAssertFalse(any(app, "factDak").label.contains("geschat"), "een 3D BAG-waarde is niet geschat")
         app.navigationBars.buttons.element(boundBy: 0).tap()
-        scrollTo(any(app, "measureScannerTest"), in: app)
-        tapCenter(any(app, "measureScannerTest"))
-        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 20), "de losse scanner blijft bereikbaar onder Meten")
-        app.buttons["scannerTestClose"].tap()
-        XCTAssertTrue(any(app, "measureStart").waitForExistence(timeout: 10))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
+        XCTAssertTrue(waitSelected(app.tabBars.buttons["MJOP"]), "de rij MJOP schakelt naar het MJOP-gedeelte")
+        XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "de rij MJOP opent het project in de website")
     }
 
     // MARK: niet-opgeslagen werk
 
+    func testMeasureTabOpensTheGevelfotoForTheChosenProject() {
+        let app = launchWithTabs()
+        tab(app, "Meten")
+        XCTAssertTrue(any(app, "measureStart").waitForExistence(timeout: 20))
+        XCTAssertTrue(element(app, containing: "Kies het project waar de gevelfoto bij hoort").exists, "zonder gekozen project kan er geen gevelfoto gemaakt worden")
+        XCTAssertFalse(element(app, containing: "fotoronde starten").exists, "de oude camera-scanner is weg")
+        tapCenter(any(app, "measureProjectButton"))
+        tapCenter(any(app, "pickProject-Testproject A"))
+        XCTAssertTrue(element(app, containing: "De gevelfoto hoort bij dit project").waitForExistence(timeout: 10))
+        tapCenter(any(app, "measureStart"))
+        XCTAssertTrue(app.navigationBars["Gevelfoto"].waitForExistence(timeout: 30), "Meten opent de gevelfoto van het gekozen project")
+        XCTAssertTrue(webText(app, "Project: Testproject A", timeout: 30), "het gekozen project is in de website geopend")
+        XCTAssertTrue(webText(app, "Tabblad: fotoronde", timeout: 30), "de website toont de pagina Gevelfoto")
+        XCTAssertTrue(app.tabBars.buttons["Meten"].isSelected, "de gebruiker blijft in Meten")
+    }
+
     func testSwitchingProjectWithUnsavedChangesAsksForConfirmation() {
         let app = launchWithTabs()
         openProjectA(app)
-        tab(app, "Projecten")
+        showProjectList(app, expecting: "projectRow-Testproject B")
         tapCenter(any(app, "projectRow-Testproject B"))
+        XCTAssertTrue(any(app, "detailNotLoaded").waitForExistence(timeout: 20), "het detailscherm vervangt het open project niet stil: het meldt dat de gegevens niet geladen zijn")
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(app.alerts.firstMatch.waitForExistence(timeout: 20), "de website weigert stil vervangen; de gebruiker moet bevestigen")
         XCTAssertTrue(app.alerts.firstMatch.label.contains("Niet-opgeslagen wijzigingen"))
         app.alerts.buttons["Annuleren"].tap()
         XCTAssertTrue(app.tabBars.buttons["Projecten"].isSelected, "bij annuleren blijft de gebruiker waar hij was")
-        tapCenter(any(app, "projectRow-Testproject B"))
+        scrollTo(any(app, "detailOpenMJOP"), in: app); tapCenter(any(app, "detailOpenMJOP"))
         XCTAssertTrue(app.alerts.buttons["Toch openen"].waitForExistence(timeout: 20))
         app.alerts.buttons["Toch openen"].tap()
         XCTAssertTrue(webText(app, "Project: Testproject B", timeout: 30), "na uitdrukkelijke bevestiging wordt het andere project geopend")
@@ -240,7 +248,7 @@ final class MainTabsUITests: XCTestCase {
         app.navigationBars.buttons.element(boundBy: 0).tap()
         tapCenter(any(app, "profileAdvanced"))
         // van boven naar beneden, met scrollen: rijen onder de rand bestaan pas als ze in beeld zijn
-        for id in ["advReload", "advScannerTest", "advClassic", "diagVersion", "diagLidar", "diagNavMode"] {
+        for id in ["advReload", "advClassic", "diagVersion", "diagLidar", "diagNavMode"] {
             scrollTo(any(app, id), in: app)
             XCTAssertTrue(any(app, id).waitForExistence(timeout: 10), "\(id) ontbreekt in Geavanceerd")
         }

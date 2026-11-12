@@ -24,7 +24,7 @@ struct MainTabView: View {
                 .tabItem { Label("Profiel", systemImage: "person.crop.circle") }
                 .tag(AppNavigator.Tab.profile)
         }
-        .tint(MJOPTheme.green)
+        .tint(MJOPTheme.accent)
         .alert(item: $nav.alert) { a in
             switch a {
             case .info(let title, let message):
@@ -33,11 +33,6 @@ struct MainTabView: View {
                 return Alert(title: Text("Niet-opgeslagen wijzigingen"),
                              message: Text("Het geopende project heeft wijzigingen die nog niet zijn opgeslagen. Als je \"\(p.label)\" opent, gaan die verloren."),
                              primaryButton: .destructive(Text("Toch openen")) { Task { await nav.confirmOpenAnyway(p) } },
-                             secondaryButton: .cancel(Text("Annuleren")))
-            case .unsavedMeasure(let p):
-                return Alert(title: Text("Niet-opgeslagen wijzigingen"),
-                             message: Text("Het geopende project heeft wijzigingen die nog niet zijn opgeslagen. Als je de meting voor \"\(p.label)\" start, gaan die verloren."),
-                             primaryButton: .destructive(Text("Toch starten")) { Task { await nav.startMeasurement(force: true) } },
                              secondaryButton: .cancel(Text("Annuleren")))
             }
         }

@@ -38,41 +38,6 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertTrue(app.buttons["mjopMenu"].exists)
     }
 
-    func testRoundStartsFromTheWebBridgeAndReturnsToTheSameWebState() {
-        let app = launch()
-        let teller = app.webViews.buttons["Teller verhogen"]
-        XCTAssertTrue(teller.waitForExistence(timeout: 30))
-        teller.tap(); teller.tap()
-        XCTAssertTrue(app.webViews.staticTexts["Teller: 2"].waitForExistence(timeout: 10))
-
-        XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
-        app.webViews.buttons["Start fotoronde"].tap()
-        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15), "de website kan de fotoronde starten via de brug")
-        XCTAssertTrue(element(app, containing: "Testgebouw 1").waitForExistence(timeout: 5), "projectcontext (gebouw) is meegekomen")
-        XCTAssertTrue(element(app, containing: "Voorgevel").waitForExistence(timeout: 5), "geplande gevel uit de website is voorgesteld")
-        XCTAssertTrue(element(app, containing: "Zorg dat het hele kozijn in beeld staat").exists, "korte instructie in gewone taal")
-        XCTAssertTrue(app.buttons["roundShoot-Voorgevel"].exists, "één duidelijke knop om foto's te maken")
-        reveal(app.buttons["roundFinish"], in: app)
-        XCTAssertFalse(app.buttons["roundFinish"].isEnabled, "zonder foto's valt er niets af te ronden")
-
-        reveal(app.buttons["roundSuspend"], in: app)
-        app.buttons["roundSuspend"].tap()
-        XCTAssertTrue(app.webViews.staticTexts["Teller: 2"].waitForExistence(timeout: 10), "terug in Mijn MJOP: webstaat behouden, geen herlaad")
-        XCTAssertFalse(app.navigationBars["Fotoronde"].exists)
-    }
-
-    func testElementScanCarriesTheElementContext() {
-        let app = launch()
-        XCTAssertTrue(app.webViews.buttons["Scan voor element"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Scan voor element")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
-        app.webViews.buttons["Scan voor element"].tap()
-        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
-        XCTAssertTrue(element(app, containing: "Onderhoud buitenkozijnen").waitForExistence(timeout: 5), "gekozen onderhoudspost is zichtbaar in de scanner")
-        XCTAssertTrue(element(app, containing: "stuks").exists, "meeteenheid van de post")
-        reveal(app.buttons["roundSuspend"], in: app)
-        app.buttons["roundSuspend"].tap()
-        XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
-    }
-
     func testInvalidBridgeMessageIsRefusedWithoutOpeningTheScanner() {
         let app = launch()
         XCTAssertTrue(app.webViews.buttons["Start ongeldig"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start ongeldig")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
@@ -96,44 +61,14 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertTrue(app.webViews.staticTexts["Inventaris: 0 voor plan-0123456789abcdef01234567"].waitForExistence(timeout: 10), "lege inventaris voor een project zonder afgeronde ronde")
     }
 
-    /// Gevelscanner 2.0: het inventarisscherm is bereikbaar vanuit de fotoronde en verzint niets zonder foto's.
-    func testFacadeInventoryScreenWithoutPhotosIsUsable() {
-        let app = launch()
-        XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")
-        app.webViews.buttons["Start fotoronde"].tap()
-        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
-        tapCenter(app.buttons["roundInventory"])
-        XCTAssertTrue(app.navigationBars["Gevelinventarisatie"].waitForExistence(timeout: 10))
-        XCTAssertTrue(element(app, containing: "Nog geen foto").waitForExistence(timeout: 10))
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-        reveal(app.buttons["roundSuspend"], in: app)
-        app.buttons["roundSuspend"].tap()
-        XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
-    }
-
-    func testReviewScreenWithoutPhotosIsUsable() {
-        let app = launch()
-        XCTAssertTrue(app.webViews.buttons["Start fotoronde"].waitForExistence(timeout: 15), "testpagina nog niet geladen: Start fotoronde")   // wacht tot de WebView-knop in de toegankelijkheidsboom staat
-        app.webViews.buttons["Start fotoronde"].tap()
-        XCTAssertTrue(app.navigationBars["Fotoronde"].waitForExistence(timeout: 15))
-        tapCenter(app.buttons["roundReview"])
-        XCTAssertTrue(app.navigationBars["Overzicht en controle"].waitForExistence(timeout: 10))
-        XCTAssertTrue(element(app, containing: "Nog geen foto").waitForExistence(timeout: 10))
-        app.navigationBars.buttons.element(boundBy: 0).tap()
-        reveal(app.buttons["roundSuspend"], in: app)
-        app.buttons["roundSuspend"].tap()
-        XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
-    }
-
-    func testOfflineErrorScreenOffersRetryAndTheLooseScanner() {
+    func testOfflineErrorScreenOffersRetryAndNoLongerTheOldScanner() {
         let app = XCUIApplication()
         app.launchArguments += ["-mjop-simulate-failure", "offline"]
         app.launch()
         XCTAssertTrue(app.staticTexts["mjopErrorTitle"].waitForExistence(timeout: 30))
         XCTAssertEqual(app.staticTexts["mjopErrorTitle"].label, "Je bent offline")
         XCTAssertTrue(app.buttons["mjopRetry"].exists)
-        app.buttons["mjopToScanner"].tap()
-        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 15), "de losse scanner blijft bereikbaar zonder internet")
+        XCTAssertFalse(app.buttons["mjopToScanner"].exists, "de oude camera-scanner is uit de app")
     }
 
     func testServerErrorScreenHasNoScannerShortcutButCanRetry() {
@@ -146,12 +81,4 @@ final class MJOPNavigationUITests: XCTestCase {
         XCTAssertFalse(app.buttons["mjopToScanner"].exists)
     }
 
-    func testScannerTestModeIsReachableFromTheMenu() {
-        let app = launch()
-        tapCenter(app.buttons["mjopMenu"])
-        tapCenter(app.buttons.matching(NSPredicate(format: "label CONTAINS %@", "Scanner-testmodus")).firstMatch)
-        XCTAssertTrue(app.navigationBars["Photo Walk"].waitForExistence(timeout: 15))
-        app.buttons["scannerTestClose"].tap()
-        XCTAssertTrue(app.webViews.firstMatch.waitForExistence(timeout: 10))
-    }
 }

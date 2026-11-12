@@ -110,7 +110,7 @@ struct RoundHomeView: View {
                 NavigationLink("Controleer de kozijnen") { RoundReviewView() }.accessibilityIdentifier("roundReview")
                 NavigationLink("Gevelinventarisatie bekijken") { GevelInventoryView().environmentObject(store) }.accessibilityIdentifier("roundInventory")
                 Button { confirmFinish = true } label: { Text("Toevoegen aan MJOP").frame(maxWidth: .infinity) }
-                    .buttonStyle(.borderedProminent).tint(.green).controlSize(.large)
+                    .buttonStyle(.borderedProminent).tint(MJOPTheme.accent).controlSize(.large)
                     .disabled(store.keyframes.isEmpty).accessibilityIdentifier("roundFinish")
                 Button("Later verdergaan") { coordinator.suspend() }.accessibilityIdentifier("roundSuspend")
             } footer: {

@@ -206,6 +206,35 @@ public enum SaveStatus: String, Equatable {
 }
 
 /// Status van de website (alleen lezen): welk project is geopend, op welk tabblad, is er iets niet opgeslagen, hoeveel voorstellen wachten.
+/// Gegevens van het GEOPENDE gebouw voor het projectdetailscherm (komen uit de website, alleen lezen). Onbekend is `nil`, nooit 0.
+public struct BuildingDetails: Equatable {
+    public var bouwjaar: Int?
+    public var units: Int?
+    public var dakM2: Int?
+    /// Afgeleid uit de BAG-pandgeometrie in plaats van een 3D BAG-waarde: geen gemeten oppervlak.
+    public var dakGeschat: Bool
+    public var gevelM2: Int?
+    public var gevelGeschat: Bool
+    public var posten: Int?
+    public var geraamdTotaal: Int?
+    public var periodeVan: Int?
+    public var periodeTot: Int?
+    public var gevelfotos: Int
+
+    static func parse(_ v: JSONValue?) -> BuildingDetails? {
+        guard let v, v.object != nil else { return nil }
+        func known(_ k: String, max: Int) -> Int? { if let x = v[k]?.int, x > 0, x <= max { return x }; return nil }
+        func count(_ k: String, max: Int) -> Int? { if let x = v[k]?.int, x >= 0, x <= max { return x }; return nil }
+        return BuildingDetails(
+            bouwjaar: known("bouwjaar", max: 2200), units: known("units", max: 100_000),
+            dakM2: known("dakM2", max: 10_000_000), dakGeschat: v["dakGeschat"]?.bool ?? false,
+            gevelM2: known("gevelM2", max: 10_000_000), gevelGeschat: v["gevelGeschat"]?.bool ?? false,
+            posten: count("posten", max: 100_000), geraamdTotaal: known("geraamdTotaal", max: 100_000_000_000),
+            periodeVan: known("periodeVan", max: 2300), periodeTot: known("periodeTot", max: 2300),
+            gevelfotos: count("gevelfotos", max: 10_000) ?? 0)
+    }
+}
+
 public struct WebStatus: Equatable {
     public var loggedIn: Bool
     public var subscribed: Bool
@@ -220,6 +249,8 @@ public struct WebStatus: Equatable {
     public var pendingProposals: Int
     public var planRef: String?
     public var nextStep: String?
+    /// Alleen aanwezig voor een echt (geen voorbeeld-)gebouw en een website die het meldt.
+    public var details: BuildingDetails?
 
     public static func parse(_ v: JSONValue?) -> WebStatus? {
         guard let v, v.object != nil else { return nil }
@@ -230,7 +261,8 @@ public struct WebStatus: Equatable {
             hasBuilding: v["hasBuilding"]?.bool ?? false, isExample: v["example"]?.bool ?? false, label: opt("label"),
             tab: opt("tab") ?? "", screen: opt("screen") ?? "", dirty: v["dirty"]?.bool ?? false,
             saveStatus: v["saveStatus"]?.string.flatMap { SaveStatus(rawValue: $0) } ?? .unknown,
-            pendingProposals: max(0, min(v["pendingProposals"]?.int ?? 0, 9999)), planRef: opt("planRef"), nextStep: opt("nextStep"))
+            pendingProposals: max(0, min(v["pendingProposals"]?.int ?? 0, 9999)), planRef: opt("planRef"), nextStep: opt("nextStep"),
+            details: BuildingDetails.parse(v["details"]))
     }
 }
 

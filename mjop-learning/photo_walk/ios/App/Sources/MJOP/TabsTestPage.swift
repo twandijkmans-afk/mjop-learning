@@ -49,7 +49,9 @@ extension MJOPWebController {
     function status() {
       return { loggedIn: S.loggedIn, subscribed: true, planId: S.planId, hasBuilding: !!S.planId, example: false, label: S.label, tab: S.tab, screen: 'app',
                dirty: S.dirty, saveStatus: S.loggedIn ? (S.dirty ? 'PENDING' : 'SAVED') : 'NOT_LOGGED_IN', pendingProposals: 0,
-               planRef: S.planId ? 'plan-0123456789abcdef01234567' : null, nextStep: S.planId ? 'Bekijk je voorstel' : null };
+               planRef: S.planId ? 'plan-0123456789abcdef01234567' : null, nextStep: S.planId ? 'Bekijk je voorstel' : null,
+               details: S.planId ? { bouwjaar: 1972, units: 12, dakM2: 313, dakGeschat: false, gevelM2: null, gevelGeschat: false, posten: 10, geraamdTotaal: 55148,
+                                     periodeVan: 2026, periodeTot: 2035, gevelfotos: 2 } : null };
     }
     function push() { if (ready) post('webState', status()); }
     function ctx(mode) {

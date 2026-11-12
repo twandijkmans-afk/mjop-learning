@@ -1,19 +1,18 @@
 import Combine
 import MJOPIntegration
 import SwiftUI
+import UIKit
 
 /// Meldingen die de gebruiker te zien krijgt (één tegelijk).
 enum NavAlert: Identifiable {
     case info(title: String, message: String)
     /// Het huidige project heeft niet-opgeslagen wijzigingen: pas na een uitdrukkelijke bevestiging wordt het vervangen (`force`).
     case unsavedOpen(ProjectSummary)
-    case unsavedMeasure(ProjectSummary)
 
     var id: String {
         switch self {
         case .info(let t, let m): return "info-\(t)-\(m)"
         case .unsavedOpen(let p): return "open-\(p.id)"
-        case .unsavedMeasure(let p): return "measure-\(p.id)"
         }
     }
 }
@@ -26,7 +25,6 @@ final class AppNavigator: ObservableObject {
 
     @Published var selected: Tab = .home
     @Published var mjopSection: MJOPSection = .planning
-    @Published var showScannerTest = CommandLine.arguments.contains("-scanner-test")
     @Published var alert: NavAlert?
     @Published private(set) var busy = false
 
@@ -84,27 +82,17 @@ final class AppNavigator: ObservableObject {
         }
     }
 
+    /// Laadt een project in de website zonder naar MJOP te schakelen, zodat het detailscherm de gebouwgegevens kan tonen.
+    /// Vervangt nooit stil niet-opgeslagen werk (`force: false`): dan blijft het andere project open en geeft dit `false`.
+    func loadForDetails(_ project: ProjectSummary) async -> Bool {
+        guard let web, web.navMode == .tabs else { return false }
+        if web.webStatus?.planId == project.id { return true }
+        let r = await web.send(.openProject(id: project.id, tab: nil, force: false))
+        return r.ok
+    }
+
     /// De gebruiker bevestigde dat het huidige, niet-opgeslagen werk vervangen mag worden.
     func confirmOpenAnyway(_ project: ProjectSummary) async { await open(project, force: true) }
-
-    // MARK: meten
-
-    /// Start een nieuwe fotoronde voor het gekozen project. De website opent het project en start daarna zelf de bestaande scanner-brug
-    /// (`startPhotoRound`); de ronde opent daarna op de gewone manier schermvullend. Er wordt niets geboekt of overgenomen.
-    func startMeasurement(force: Bool = false) async {
-        guard let web else { return }
-        guard let project = measureProject else {
-            alert = .info(title: "Kies eerst een project", message: "Een meting hoort altijd bij een project. Kies hierboven een project.")
-            return
-        }
-        busy = true
-        defer { busy = false }
-        let r = await web.send(.startMeasurement(mode: .round, planId: project.id, elementKey: nil, force: force))
-        if r.ok { return }
-        if r.errorCode == "UNSAVED_CHANGES" { alert = .unsavedMeasure(project) } else {
-            alert = .info(title: "Meting starten mislukt", message: Self.message(for: r))
-        }
-    }
 
     // MARK: onderdelen tonen
 
@@ -152,6 +140,9 @@ final class AppNavigator: ObservableObject {
 
 /// Huisstijl van de website (`--green` en `--ink` uit src/style.css).
 enum MJOPTheme {
+    /// Alleen voor positieve statussen ("Verbonden", "Overgedragen"). De merkkleur is `accent`.
     static let green = Color(red: 78.0 / 255, green: 143.0 / 255, blue: 110.0 / 255)
+    /// Merkkleur: het kobaltblauw van de website (`--blue`), in donkere weergave lichter zodat het leesbaar blijft.
+    static let accent = Color(UIColor { $0.userInterfaceStyle == .dark ? UIColor(red: 126.0 / 255, green: 143.0 / 255, blue: 255.0 / 255, alpha: 1) : UIColor(red: 47.0 / 255, green: 75.0 / 255, blue: 255.0 / 255, alpha: 1) })
     static let ink = Color(red: 16.0 / 255, green: 18.0 / 255, blue: 17.0 / 255)
 }
