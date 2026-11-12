@@ -505,6 +505,23 @@ jobs:
           path: ${{ runner.temp }}/out/PhotoWalk-UNSIGNED-device.ipa
           if-no-files-found: warn
           retention-days: 14
+      # Faalt een test, dan wordt de IPA toch bewaard, maar onder een naam die zegt dat de tests gefaald zijn. Dit bestand is NIET volledig getest en is
+      # alleen bedoeld om op een toestel te proberen terwijl de mislukte test wordt uitgezocht. De run blijft rood; er is geen test uitgezet.
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: photo-walk-UNSIGNED-device-ipa-TESTS-GEFAALD
+          path: ${{ runner.temp }}/out/PhotoWalk-UNSIGNED-device.ipa
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Waarschuwing in de samenvatting als een test faalde
+        if: failure()
+        run: |
+          {
+            echo "### Niet volledig getest"
+            echo "Een of meer stappen zijn mislukt. De IPA staat onder de naam \`photo-walk-UNSIGNED-device-ipa-TESTS-GEFAALD\` en is NIET volledig getest."
+            echo "De volledig geteste IPA (\`photo-walk-UNSIGNED-device-ipa\`) bestaat alleen als alle tests geslaagd zijn."
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
