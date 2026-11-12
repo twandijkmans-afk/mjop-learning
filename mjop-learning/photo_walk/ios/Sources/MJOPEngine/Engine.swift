@@ -42,6 +42,8 @@ public enum QuantitySource: String, Codable, Equatable {
     case geometryDerived = "GEOMETRY_DERIVED"
     case estimated = "ESTIMATED"
     case manual = "MANUAL"
+    /// Gemeten op een gevelfoto (herkenning door Claude, maat uit de BAG-gevelbreedte) en door de gebruiker overgenomen.
+    case gevelfoto = "GEVELFOTO"
     case notAvailable = "NOT_AVAILABLE"
 }
 

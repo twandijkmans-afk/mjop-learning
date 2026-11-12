@@ -6,6 +6,7 @@ struct ProjectDetailNativeView: View {
     let project: Project
     @Environment(\.dismiss) private var dismiss
     @State private var tab: Tab = .overzicht
+    @State private var showScan = false
 
     enum Tab: String, CaseIterable { case overzicht = "Overzicht", mjop = "MJOP", gevels = "Gevels", documenten = "Documenten" }
 
@@ -29,7 +30,19 @@ struct ProjectDetailNativeView: View {
                     switch tab {
                     case .overzicht: overzicht
                     case .mjop: MJOPView(project: project, showsTitle: false)
-                    case .gevels: next("Het rondje om het gebouw met per gevel de scan en de voorstellen komt hier.")
+                    case .gevels:
+                        VStack(alignment: .leading, spacing: 12) {
+                            HStack(alignment: .top, spacing: 12) {
+                                DSIcon(systemName: "viewfinder")
+                                VStack(alignment: .leading, spacing: 3) {
+                                    Text("Rondje om het gebouw").font(.headline).foregroundStyle(DS.text)
+                                    Text("Per gevel één foto. Claude herkent kozijnen, metselwerk en afvoeren; de app rekent de maten met de gevelbreedte uit de BAG.").font(.subheadline).foregroundStyle(DS.text2)
+                                }
+                            }
+                            Button { showScan = true } label: { Label("Gevels scannen", systemImage: "camera.fill") }.buttonStyle(DSPrimaryButton())
+                                .accessibilityIdentifier("projectScan")
+                        }
+                        .padding(16).dsCard(radius: 20)
                     case .documenten: next("Oude MJOP's, offertes, facturen en inspecties toevoegen; de app maakt er voorstellen van.")
                     }
                 }
@@ -41,6 +54,7 @@ struct ProjectDetailNativeView: View {
         .background(DS.canvas)
         .ignoresSafeArea(edges: .top)
         .toolbar(.hidden, for: .navigationBar)
+        .sheet(isPresented: $showScan) { GevelscanFlow(initialProject: project) }
         .overlay(alignment: .topLeading) {
             Button { dismiss() } label: { DSGlassCircle(systemName: "chevron.left") }
                 .padding(.leading, 16).padding(.top, 6)

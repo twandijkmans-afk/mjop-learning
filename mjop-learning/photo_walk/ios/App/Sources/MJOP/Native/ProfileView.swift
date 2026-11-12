@@ -5,6 +5,7 @@ struct ProfileView: View {
     @EnvironmentObject var account: Account
     @Environment(\.openURL) private var openURL
     @State private var confirmSignOut = false
+    @State private var showKey = false
 
     private var initials: String {
         let n = [account.firstName, account.lastName].compactMap { $0?.first.map(String.init) }.joined()
@@ -52,6 +53,10 @@ struct ProfileView: View {
                         row("faceid", "Face ID", "Volgt")
                         Divider().padding(.leading, 62)
                         row("lock.shield", "Privacy en gegevens", nil)
+                        Divider().padding(.leading, 62)
+                        Button { showKey = true } label: { row("key", "Claude-sleutel voor de gevelscan", ClaudeKey.load() == nil ? "Niet ingesteld" : "Ingesteld") }
+                            .buttonStyle(DSRowStyle())
+                            .accessibilityIdentifier("claudeKey")
                     }
                     .dsCard(radius: 20)
 
@@ -68,6 +73,7 @@ struct ProfileView: View {
             }
             .background(DS.canvas)
             .toolbar(.hidden, for: .navigationBar)
+            .sheet(isPresented: $showKey) { ClaudeKeySheet() }
             .confirmationDialog("Uitloggen?", isPresented: $confirmSignOut, titleVisibility: .visible) {
                 Button("Uitloggen", role: .destructive) { Task { await account.signOut() } }
                 Button("Annuleren", role: .cancel) {}

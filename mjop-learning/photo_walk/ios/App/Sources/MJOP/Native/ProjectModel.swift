@@ -8,6 +8,10 @@ struct ProjectModel: Equatable {
     var elements: [PlanElement]
     var fonds: Decimal?
     var bijdrage: Decimal?
+    /// Gevelscans per gevelzijde (herkende elementen en maat); de foto zelf blijft voorlopig alleen op het toestel.
+    var gevels: [FacadeScan] = []
+    /// Gevelzijden uit de BAG-omtrek.
+    var sides: [FacadeSide] = []
 
     static func parse(_ o: [String: Any]) -> ProjectModel? {
         let dec = JSONDecoder()
@@ -16,7 +20,12 @@ struct ProjectModel: Equatable {
               let eObj = o["elements"], let eData = try? JSONSerialization.data(withJSONObject: eObj),
               let elements = try? dec.decode([PlanElement].self, from: eData) else { return nil }
         func decimal(_ k: String) -> Decimal? { (o[k] as? NSNumber).map { $0.decimalValue } }
-        return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"))
+        func decode<T: Decodable>(_ k: String, _ t: T.Type) -> T? {
+            guard let v = o[k], let d = try? JSONSerialization.data(withJSONObject: v) else { return nil }
+            return try? dec.decode(T.self, from: d)
+        }
+        return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
+                            gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [])
     }
 
     func json() -> [String: Any] {
@@ -26,6 +35,8 @@ struct ProjectModel: Equatable {
             "elements": (try? JSONSerialization.jsonObject(with: enc.encode(elements))) ?? [],
             "fonds": fonds.map { NSDecimalNumber(decimal: $0) } ?? NSNull(),
             "bijdrage": bijdrage.map { NSDecimalNumber(decimal: $0) } ?? NSNull(),
+            "gevels": (try? JSONSerialization.jsonObject(with: enc.encode(gevels))) ?? [],
+            "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
         ]
     }
 
@@ -48,7 +59,9 @@ struct ProjectModel: Equatable {
     /// Demo (alleen testbouw): Singelstraat 8 met de echte BAG- en 3D BAG-gegevens.
     static let demo: ProjectModel = {
         let b = BuildingInput(bouwjaar: 1925, units: 1, unitsBAG: 1, footprintM2: 51.42, omtrekM: 32.91, dakPlatM2: 6.3, dakSchuinM2: 61.56, buitenmuurM2: 114.02, hoogteM: 7.7)
-        return ProjectModel(building: b, elements: Engine.defaultElements(for: b, year: year), fonds: 5000, bijdrage: 155)
+        let sides = [FacadeSide(id: 1, lengthM: 8.49, facing: "noord"), FacadeSide(id: 2, lengthM: 2.88, facing: "west"), FacadeSide(id: 3, lengthM: 2.65, facing: "noord"),
+                     FacadeSide(id: 4, lengthM: 2.4, facing: "west"), FacadeSide(id: 5, lengthM: 11.16, facing: "zuid"), FacadeSide(id: 6, lengthM: 5.32, facing: "oost")]
+        return ProjectModel(building: b, elements: Engine.defaultElements(for: b, year: year), fonds: 5000, bijdrage: 155, sides: sides)
     }()
 }
 
@@ -74,4 +87,24 @@ extension ProjectStore {
         let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", method: "PATCH", query: [URLQueryItem(name: "id", value: "eq.\(project.id)")], body: body)
         guard (200..<300).contains(http.statusCode) else { throw BackendError.message(BackendClient.message(data, status: http.statusCode)) }
     }
+}
+
+/// Eén gescande gevel.
+struct FacadeScan: Codable, Equatable, Identifiable {
+    var id: Int { sideId }
+    var sideId: Int
+    var facing: String
+    var widthM: Double
+    var photoWidth: Double
+    var photoHeight: Double
+    var referenceLeftX: Double
+    var referenceRightX: Double
+    var elements: [FacadeElement]
+    var skipped: Int
+    var model: String
+    var promptVersion: String
+    var scannedAt: Date
+
+    var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
+    var summary: FacadePhoto.Summary { FacadePhoto.summary(elements, mpp: mpp) }
 }

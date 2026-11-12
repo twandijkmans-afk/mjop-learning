@@ -26,6 +26,8 @@ public struct PandInfo: Equatable {
     public var omtrekM: Double
     /// Ligt het adrespunt binnen dit pand (anders: het dichtstbijzijnde pand).
     public var bevatAdres: Bool
+    /// Gevelzijden uit de omtrek (lengte en windrichting), voor de maat van de gevelscan.
+    public var sides: [FacadeSide] = []
 }
 
 public struct ThreeDBAGInfo: Equatable {
@@ -101,7 +103,8 @@ public enum BuildingLookup {
             let dist = hypot(c.0 - lon, c.1 - lat)
             let inside = pointInRing(ring, lon, lat)
             let units = (p["aantal_verblijfsobjecten"] as? Int).flatMap { $0 > 0 ? $0 : nil }
-            let info = PandInfo(identificatie: id, bouwjaar: p["bouwjaar"] as? Int, verblijfsobjecten: units, footprintM2: ringArea(ring), omtrekM: ringPerimeter(ring), bevatAdres: inside)
+            let info = PandInfo(identificatie: id, bouwjaar: p["bouwjaar"] as? Int, verblijfsobjecten: units, footprintM2: ringArea(ring), omtrekM: ringPerimeter(ring), bevatAdres: inside,
+                                sides: FootprintSides.sides(FootprintSides.meters(ring)))
             if let b = best {
                 if (inside && !b.0.bevatAdres) || (inside == b.0.bevatAdres && dist < b.1) { best = (info, dist) }
             } else { best = (info, dist) }

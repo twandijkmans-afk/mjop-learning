@@ -38,7 +38,7 @@ struct NativeRoot: View {
         .onChange(of: account.state) { s in
             if s == .signedOut { projects.clear(); tab = .home }
         }
-        .sheet(isPresented: $showScan) { ScanPlaceholderView() }
+        .sheet(isPresented: $showScan) { GevelscanFlow().environmentObject(account).environmentObject(projects) }
     }
 
     private var tabs: some View {
