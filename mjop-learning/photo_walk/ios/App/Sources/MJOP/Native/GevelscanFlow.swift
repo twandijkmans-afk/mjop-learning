@@ -26,7 +26,7 @@ enum ClaudeKey {
 
 /// Herkenning via de Messages API van Anthropic. Valt bij een 400-fout terug op een aanvraag zonder afgedwongen schema.
 enum ClaudeVision {
-    static func recognize(image: UIImage, key: String) async throws -> (elements: [FacadeElement], skipped: Int, size: CGSize) {
+    static func recognize(image: UIImage, key: String) async throws -> (elements: [FacadePhotoElement], skipped: Int, size: CGSize) {
         let (jpeg, size) = try prepare(image)
         let W = Int(size.width), H = Int(size.height)
         var lastError: Error = BackendError.message("De herkenning is mislukt.")
@@ -210,7 +210,7 @@ struct GevelscanFlow: View {
         guard let photo, let side else { return }
         phase = .working
         do {
-            let r: (elements: [FacadeElement], skipped: Int, size: CGSize)
+            let r: (elements: [FacadePhotoElement], skipped: Int, size: CGSize)
             if account.demo { r = demoRecognition(photo) }
             else { r = try await ClaudeVision.recognize(image: photo, key: ClaudeKey.load() ?? "") }
             let ref = FacadePhoto.defaultReference(r.elements) ?? (left: 0, right: Double(r.size.width))
@@ -225,12 +225,12 @@ struct GevelscanFlow: View {
         }
     }
 
-    private func demoRecognition(_ img: UIImage) -> (elements: [FacadeElement], skipped: Int, size: CGSize) {
+    private func demoRecognition(_ img: UIImage) -> (elements: [FacadePhotoElement], skipped: Int, size: CGSize) {
         let w = Double(img.size.width), h = Double(img.size.height)
         let els = [
-            FacadeElement(id: 1, type: .metselwerk, points: [[0, h * 0.1], [w, h * 0.1], [w, h], [0, h]], material: "baksteen", confidence: "high", note: nil),
-            FacadeElement(id: 2, type: .kozijn_raam, points: [[w * 0.1, h * 0.2], [w * 0.35, h * 0.2], [w * 0.35, h * 0.5], [w * 0.1, h * 0.5]], material: "hout", confidence: "high", note: nil),
-            FacadeElement(id: 3, type: .kozijn_deur, points: [[w * 0.6, h * 0.55], [w * 0.75, h * 0.55], [w * 0.75, h], [w * 0.6, h]], material: "hout", confidence: "medium", note: nil),
+            FacadePhotoElement(id: 1, type: .metselwerk, points: [[0, h * 0.1], [w, h * 0.1], [w, h], [0, h]], material: "baksteen", confidence: "high", note: nil),
+            FacadePhotoElement(id: 2, type: .kozijn_raam, points: [[w * 0.1, h * 0.2], [w * 0.35, h * 0.2], [w * 0.35, h * 0.5], [w * 0.1, h * 0.5]], material: "hout", confidence: "high", note: nil),
+            FacadePhotoElement(id: 3, type: .kozijn_deur, points: [[w * 0.6, h * 0.55], [w * 0.75, h * 0.55], [w * 0.75, h], [w * 0.6, h]], material: "hout", confidence: "medium", note: nil),
         ]
         return (els, 0, img.size)
     }

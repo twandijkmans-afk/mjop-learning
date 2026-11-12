@@ -99,7 +99,7 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var photoHeight: Double
     var referenceLeftX: Double
     var referenceRightX: Double
-    var elements: [FacadeElement]
+    var elements: [FacadePhotoElement]
     var skipped: Int
     var model: String
     var promptVersion: String

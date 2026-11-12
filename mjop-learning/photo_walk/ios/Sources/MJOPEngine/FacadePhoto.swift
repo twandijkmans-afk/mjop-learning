@@ -41,7 +41,7 @@ public enum FacadeElementType: String, Codable, CaseIterable {
     public var isWall: Bool { kind == .poly }
 }
 
-public struct FacadeElement: Codable, Equatable, Identifiable {
+public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     public var id: Int
     public var type: FacadeElementType
     /// Punten in pixels van de foto (quad: linksboven, rechtsboven, rechtsonder, linksonder).
@@ -49,6 +49,10 @@ public struct FacadeElement: Codable, Equatable, Identifiable {
     public var material: String?
     public var confidence: String?
     public var note: String?
+
+    public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?) {
+        self.id = id; self.type = type; self.points = points; self.material = material; self.confidence = confidence; self.note = note
+    }
 }
 
 public struct FacadeQuantities: Equatable {
@@ -138,7 +142,7 @@ public enum FacadePhoto {
     }
 
     /// Haalt de elementen uit het modelantwoord. Ongeldige elementen worden overgeslagen en geteld, nooit gerepareerd door te gokken.
-    public static func parseResponse(_ data: Data, width W: Double, height H: Double, scale: Double = 1) throws -> (elements: [FacadeElement], skipped: Int) {
+    public static func parseResponse(_ data: Data, width W: Double, height H: Double, scale: Double = 1) throws -> (elements: [FacadePhotoElement], skipped: Int) {
         guard let o = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else { throw FacadeError.unreadable }
         if (o["stop_reason"] as? String) == "refusal" { throw FacadeError.refused }
         if (o["stop_reason"] as? String) == "max_tokens" { throw FacadeError.truncated }
@@ -151,8 +155,8 @@ public enum FacadePhoto {
         return parseElements(elements, width: W, height: H, scale: scale)
     }
 
-    public static func parseElements(_ raw: [[String: Any]], width W: Double, height H: Double, scale: Double) -> (elements: [FacadeElement], skipped: Int) {
-        var out: [FacadeElement] = []
+    public static func parseElements(_ raw: [[String: Any]], width W: Double, height H: Double, scale: Double) -> (elements: [FacadePhotoElement], skipped: Int) {
+        var out: [FacadePhotoElement] = []
         var skipped = 0
         for r in raw {
             guard let ts = r["type"] as? String, let t = FacadeElementType(rawValue: ts) else { skipped += 1; continue }
@@ -178,7 +182,7 @@ public enum FacadePhoto {
                 return String(v.prefix(maxLen))
             }
             let conf = (r["confidence"] as? String).flatMap { ["low", "medium", "high"].contains($0) ? $0 : nil }
-            out.append(FacadeElement(id: out.count + 1, type: t, points: pts, material: s("material", 40), confidence: conf, note: s("note", 120)))
+            out.append(FacadePhotoElement(id: out.count + 1, type: t, points: pts, material: s("material", 40), confidence: conf, note: s("note", 120)))
         }
         return (out, skipped)
     }
@@ -229,7 +233,7 @@ public enum FacadePhoto {
     // MARK: maat en hoeveelheden
 
     /// De horizontale uitersten van de gevelvlakken (metselwerk e.d.), als standaardplek voor de referentiepunten van de gevelbreedte.
-    public static func defaultReference(_ els: [FacadeElement]) -> (left: Double, right: Double)? {
+    public static func defaultReference(_ els: [FacadePhotoElement]) -> (left: Double, right: Double)? {
         let xs = els.filter { $0.type.isWall }.flatMap { $0.points.map { $0[0] } }
         guard let l = xs.min(), let r = xs.max(), r - l > 10 else { return nil }
         return (l, r)
@@ -243,7 +247,7 @@ public enum FacadePhoto {
     }
 
     /// Hoeveelheden van één element. Zonder maat (`mpp == nil`) zijn alle maten onbekend; het aantal is altijd 1.
-    public static func quantities(_ el: FacadeElement, mpp: Double?, all: [FacadeElement]) -> FacadeQuantities {
+    public static func quantities(_ el: FacadePhotoElement, mpp: Double?, all: [FacadePhotoElement]) -> FacadeQuantities {
         var q = FacadeQuantities()
         guard let mpp else { return q }
         let m = el.points.map { [$0[0] * mpp, $0[1] * mpp] }
@@ -274,7 +278,7 @@ public enum FacadePhoto {
         public var dakgootM1: Double?
     }
 
-    public static func summary(_ els: [FacadeElement], mpp: Double?) -> Summary {
+    public static func summary(_ els: [FacadePhotoElement], mpp: Double?) -> Summary {
         func sum(_ types: Set<FacadeElementType>, _ f: (FacadeQuantities) -> Double?) -> Double? {
             let sel = els.filter { types.contains($0.type) }
             guard !sel.isEmpty else { return 0 }
@@ -298,6 +302,8 @@ public struct FacadeSide: Codable, Equatable, Identifiable {
     public var lengthM: Double
     /// Windrichting waar de gevel naar kijkt (noord, noordoost, …).
     public var facing: String
+
+    public init(id: Int, lengthM: Double, facing: String) { self.id = id; self.lengthM = lengthM; self.facing = facing }
 }
 
 public enum FootprintSides {
