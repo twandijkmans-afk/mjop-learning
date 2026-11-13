@@ -233,6 +233,8 @@ struct GevelscanFlow: View {
             scan.focal35mm = captureMeta?.focal35mm
             scan.planes = r.recognition.planes
             scan.defects = r.recognition.defects
+            scan.merged = r.recognition.merged
+            scan.conflicts = r.recognition.conflicts
             editCorners = false
             selectedPlane = nil
             lastScan = scan
@@ -291,6 +293,13 @@ struct GevelscanFlow: View {
                 resultRow("drop", "Hemelwaterafvoer", "lengte op de foto", s.hwaM1.map { m1($0) } ?? "–")
             }
             .dsCard(radius: 20)
+            if let n = scan.merged, n > 0 {
+                Text("\(n) dubbel herkend(e) element(en) samengevoegd.").font(.footnote).foregroundStyle(DS.text2)
+            }
+            ForEach(scan.conflicts ?? [], id: \.self) { pair in
+                let names = pair.compactMap { id in scan.elements.first { $0.id == id }.map { "\($0.type.label.lowercased()) \(id)" } }
+                DSNotice(kind: .warn, text: "\(names.joined(separator: " en ")) liggen over elkaar maar zijn verschillend herkend. Ze tellen nu allebei; controleer de foto.")
+            }
             KozijnScanCard(result: KozijnStaat.make(scan.kozijnItems))
             if scan.skipped > 0 { Text("\(scan.skipped) element(en) niet bruikbaar en overgeslagen.").font(.footnote).foregroundStyle(DS.text2) }
             if let r = scan.rectified {
@@ -446,7 +455,8 @@ struct FacadeOverlay: View {
                             pts.dropFirst().forEach { path.addLine(to: $0) }
                             if e.type.kind != .line { path.closeSubpath() }
                         }
-                        .stroke(color(e.type), lineWidth: e.type.kind == .poly ? 2 : 2.5)
+                        .stroke(conflicted.contains(e.id) ? Color.orange : color(e.type),
+                                style: StrokeStyle(lineWidth: e.type.kind == .poly ? 2 : 2.5, dash: conflicted.contains(e.id) ? [5, 4] : []))
                         .allowsHitTesting(false)
                     }
                     ForEach(Array((scan.planes ?? []).enumerated()), id: \.element.id) { idx, pl in
@@ -481,6 +491,7 @@ struct FacadeOverlay: View {
     }
 
     private var active: Int? { activePlane ?? scan.mainPlane?.id }
+    private var conflicted: Set<Int> { Set((scan.conflicts ?? []).flatMap { $0 }) }
     private var activeIndex: Int { scan.planes?.firstIndex { $0.id == active } ?? 0 }
 
     private func color(_ t: FacadeElementType) -> Color {

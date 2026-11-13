@@ -123,6 +123,9 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     /// Gevelvlakken en gebreken (prompt v0.2).
     var planes: [FacadePlane]? = nil
     var defects: [FacadeDefect]? = nil
+    /// Dubbel herkende elementen die zijn samengevoegd, en paren die over elkaar liggen met een verschillende soort.
+    var merged: Int? = nil
+    var conflicts: [[Int]]? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
     /// Het vlak waar de BAG-gevelbreedte bij hoort.

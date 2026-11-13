@@ -53,10 +53,13 @@ public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     public var plane: Int?
     /// Hoeveel van het element achter iets verborgen is (0 = helemaal zichtbaar), volgens Claude.
     public var hiddenFraction: Double?
+    /// Elementen die als dubbel zijn herkend en in dit element zijn opgegaan (herkomst).
+    public var mergedFrom: [Int]?
 
-    public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil) {
+    public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil,
+                mergedFrom: [Int]? = nil) {
         self.id = id; self.type = type; self.points = points; self.material = material; self.confidence = confidence; self.note = note
-        self.plane = plane; self.hiddenFraction = hiddenFraction
+        self.plane = plane; self.hiddenFraction = hiddenFraction; self.mergedFrom = mergedFrom
     }
 }
 
@@ -143,8 +146,12 @@ public struct FacadeRecognition: Equatable {
     public var skipped: Int
     public var planes: [FacadePlane]
     public var defects: [FacadeDefect]
-    public init(elements: [FacadePhotoElement], skipped: Int, planes: [FacadePlane], defects: [FacadeDefect]) {
-        self.elements = elements; self.skipped = skipped; self.planes = planes; self.defects = defects
+    /// Aantal dubbel herkende elementen dat is samengevoegd.
+    public var merged: Int
+    /// Paren elementen (id's) die over elkaar liggen maar als verschillende soort zijn herkend: niet opgelost, de gebruiker beslist.
+    public var conflicts: [[Int]]
+    public init(elements: [FacadePhotoElement], skipped: Int, planes: [FacadePlane], defects: [FacadeDefect], merged: Int = 0, conflicts: [[Int]] = []) {
+        self.elements = elements; self.skipped = skipped; self.planes = planes; self.defects = defects; self.merged = merged; self.conflicts = conflicts
     }
 }
 
@@ -271,7 +278,8 @@ public enum FacadePhoto {
         let ids = Set(planes.map(\.id))
         for i in els.indices where els[i].plane.map({ !ids.contains($0) }) ?? false { els[i].plane = nil }   // onbekend vlak: niet gokken
         let defects = parseDefects((o2["defects"] as? [[String: Any]]) ?? [], width: W, height: H, scale: scale)
-        return FacadeRecognition(elements: els, skipped: skipped, planes: planes, defects: defects)
+        let d = dedupe(els)
+        return FacadeRecognition(elements: d.elements, skipped: skipped, planes: planes, defects: defects, merged: d.merged, conflicts: d.conflicts)
     }
 
     static func point(_ p: Any?, scale: Double) -> [Double]? {
@@ -382,6 +390,69 @@ public enum FacadePhoto {
         var k = 0
         for (i, p) in s.enumerated() where p[0] + p[1] < s[k][0] + s[k][1] { k = i }
         return Array(s[k...] + s[..<k])
+    }
+
+    // MARK: dubbele elementen
+
+    /// Doorsnede van twee bolle veelhoeken (Sutherland–Hodgman).
+    static func intersection(_ subject: [[Double]], _ clip0: [[Double]]) -> [[Double]] {
+        func signed(_ p: [[Double]]) -> Double { (0..<p.count).reduce(0) { s, i in let a = p[i], b = p[(i + 1) % p.count]; return s + a[0] * b[1] - b[0] * a[1] } }
+        let clip = signed(clip0) < 0 ? Array(clip0.reversed()) : clip0
+        var out = subject
+        for i in 0..<clip.count {
+            guard !out.isEmpty else { break }
+            let a = clip[i], b = clip[(i + 1) % clip.count]
+            func side(_ p: [Double]) -> Double { (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0]) }
+            let input = out
+            out = []
+            for j in 0..<input.count {
+                let cur = input[j], prev = input[(j + input.count - 1) % input.count]
+                let sc = side(cur), sp = side(prev)
+                func cut() -> [Double] { let t = sp / (sp - sc); return [prev[0] + t * (cur[0] - prev[0]), prev[1] + t * (cur[1] - prev[1])] }
+                if sc >= 0 {
+                    if sp < 0 { out.append(cut()) }
+                    out.append(cur)
+                } else if sp >= 0 { out.append(cut()) }
+            }
+        }
+        return out
+    }
+
+    /// Overlap van twee vlakken: oppervlak van de doorsnede gedeeld door het kleinste van de twee (1 = het kleine ligt helemaal in het grote).
+    public static func overlap(_ a: [[Double]], _ b: [[Double]]) -> Double {
+        let small = min(area(a), area(b))
+        guard small > 0 else { return 0 }
+        let i = intersection(a, b)
+        return i.count >= 3 ? area(i) / small : 0
+    }
+
+    /// Boven deze overlap gaat het om hetzelfde ding.
+    public static let duplicateOverlap = 0.6
+
+    /// Voegt dubbel herkende kozijnen en andere vlakjes (quads) samen. Zelfde soort en grotendeels over elkaar: het meest zekere, minst verborgen,
+    /// grootste element blijft (met herkomst). Verschillende soort over elkaar (bijv. raam en deur): niet oplossen, maar melden als conflict.
+    public static func dedupe(_ els: [FacadePhotoElement]) -> (elements: [FacadePhotoElement], merged: Int, conflicts: [[Int]]) {
+        func rank(_ e: FacadePhotoElement) -> (Int, Double, Double) {
+            let c = ["high": 2, "medium": 1, "low": 0][e.confidence ?? ""] ?? 0
+            return (c, -(e.hiddenFraction ?? 0), area(e.points))
+        }
+        var keep = els
+        var removed = Set<Int>()
+        var merged = 0
+        var conflicts: [[Int]] = []
+        let quads = els.indices.filter { els[$0].type.kind == .quad }
+        for (n, i) in quads.enumerated() {
+            for j in quads[(n + 1)...] {
+                guard !removed.contains(els[i].id), !removed.contains(els[j].id), els[i].plane == els[j].plane,
+                      overlap(els[i].points, els[j].points) > duplicateOverlap else { continue }
+                if els[i].type != els[j].type { conflicts.append([els[i].id, els[j].id]); continue }
+                let (win, lose) = rank(els[j]) > rank(els[i]) ? (j, i) : (i, j)
+                removed.insert(els[lose].id)
+                keep[win].mergedFrom = (keep[win].mergedFrom ?? []) + [els[lose].id] + (keep[lose].mergedFrom ?? [])
+                merged += 1
+            }
+        }
+        return (keep.filter { !removed.contains($0.id) }, merged, conflicts)
     }
 
     // MARK: maat en hoeveelheden

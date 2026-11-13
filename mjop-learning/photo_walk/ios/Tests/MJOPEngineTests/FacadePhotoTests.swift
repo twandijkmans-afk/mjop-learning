@@ -60,4 +60,37 @@ final class FacadePhotoTests: XCTestCase {
         XCTAssertEqual(p.sides[4].lengthM, 11.16, accuracy: 0.01)
         XCTAssertEqual(p.sides[4].facing, "zuid")
     }
+
+    func el(_ id: Int, _ t: FacadeElementType, _ x1: Double, _ y1: Double, _ x2: Double, _ y2: Double, conf: String = "high", hidden: Double? = nil) -> FacadePhotoElement {
+        FacadePhotoElement(id: id, type: t, points: [[x1, y1], [x2, y1], [x2, y2], [x1, y2]], material: nil, confidence: conf, note: nil, hiddenFraction: hidden)
+    }
+
+    func testDuplicateWindowsAreMergedWithProvenance() {
+        let d = FacadePhoto.dedupe([el(1, .kozijn_raam, 100, 100, 200, 250, conf: "medium"), el(2, .kozijn_raam, 105, 102, 203, 248), el(3, .kozijn_raam, 400, 100, 500, 250)])
+        XCTAssertEqual(d.elements.map(\.id), [2, 3], "het zekerste element blijft")
+        XCTAssertEqual(d.elements[0].mergedFrom, [1])
+        XCTAssertEqual(d.merged, 1)
+        XCTAssertTrue(d.conflicts.isEmpty)
+    }
+
+    func testNeighboursAndHalfOverlapStaySeparate() {
+        let d = FacadePhoto.dedupe([el(1, .kozijn_raam, 0, 0, 100, 100), el(2, .kozijn_raam, 100, 0, 200, 100), el(3, .kozijn_raam, 150, 0, 250, 100)])
+        XCTAssertEqual(d.elements.count, 3, "naast elkaar of maar half over elkaar: geen dubbel")
+        XCTAssertEqual(FacadePhoto.overlap(el(1, .kozijn_raam, 0, 0, 10, 10).points, el(2, .kozijn_raam, 1, 1, 11, 11).points), 0.81, accuracy: 1e-9)
+    }
+
+    func testDifferentTypesOverlappingAreAConflictNotAMerge() {
+        let d = FacadePhoto.dedupe([el(1, .kozijn_raam, 0, 0, 100, 200), el(2, .kozijn_deur, 5, 5, 100, 200)])
+        XCTAssertEqual(d.elements.count, 2)
+        XCTAssertEqual(d.conflicts, [[1, 2]])
+        XCTAssertEqual(d.merged, 0)
+    }
+
+    func testWallsAndLinesAreNotDeduplicated() {
+        let wall = FacadePhotoElement(id: 1, type: .metselwerk, points: [[0, 0], [100, 0], [100, 100], [0, 100]], material: nil, confidence: "high", note: nil)
+        var wall2 = wall; wall2.id = 2
+        let pipe = FacadePhotoElement(id: 3, type: .hwa, points: [[5, 0], [5, 100]], material: nil, confidence: "high", note: nil)
+        var pipe2 = pipe; pipe2.id = 4
+        XCTAssertEqual(FacadePhoto.dedupe([wall, wall2, pipe, pipe2]).elements.count, 4)
+    }
 }
