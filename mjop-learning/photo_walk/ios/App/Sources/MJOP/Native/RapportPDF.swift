@@ -90,6 +90,21 @@ enum RapportPDF {
             ]
             for n in notes { ensure(40); text("• " + n, 10, grey, x: margin, w: page.width - 2 * margin, advance: true); y += 6 }
 
+            // gebreken (door de gebruiker bevestigd)
+            let confirmed = model.gevels.flatMap { g in (g.defects ?? []).filter(\.isConfirmed).map { (g, $0) } }
+            if !confirmed.isEmpty {
+                ensure(80); y += 10
+                text("Gebreken", 16, ink, weight: .bold, x: margin, w: 300, advance: true)
+                y += 6
+                for (g, d) in confirmed {
+                    let el = DefectHints.element(at: d.point, in: g.elements, tolerance: 0.02 * g.photoWidth)
+                    let line = "Gevel op het \(g.facing): \(d.type.label.lowercased())" + (el.map { " op \($0.type.label.lowercased())" } ?? "")
+                        + (DefectHints.assessment(d).map { " — " + $0 } ?? "") + (d.note.map { " (\($0))" } ?? "")
+                    ensure(30); text("• " + line, 10, ink, x: margin, w: page.width - 2 * margin, advance: true); y += 4
+                }
+                text("Vastgelegd op gevelfoto's en bevestigd door de gebruiker; geen gecertificeerde NEN 2767-inspectie.", 9, grey, x: margin, w: page.width - 2 * margin, advance: true)
+            }
+
             // bijlage: gevelfoto's
             if !photos.isEmpty {
                 newPage()

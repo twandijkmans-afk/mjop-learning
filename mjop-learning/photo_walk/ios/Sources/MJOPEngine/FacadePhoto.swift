@@ -154,13 +154,54 @@ public enum FacadeDefectType: String, Codable, CaseIterable {
     }
 }
 
-/// Een zichtbaar gebrek als hint voor de beoordeling. Nooit een score: die geeft de gebruiker.
+/// Een zichtbaar gebrek. Claude stelt het voor; de gebruiker bevestigt of wijst af en legt ernst, omvang en intensiteit vast
+/// (begrippen zoals in NEN 2767). Er wordt nooit automatisch een conditiescore aan gekoppeld: die geeft de gebruiker bij 'Staat beoordelen'.
 public struct FacadeDefect: Codable, Equatable, Identifiable {
     public var id: Int
     public var type: FacadeDefectType
     public var point: [Double]
     public var note: String?
+    public var status: DefectStatus?
+    public var ernst: DefectSeverity?
+    public var omvang: DefectExtent?
+    public var intensiteit: DefectIntensity?
+    public var reviewedAt: Date?
     public init(id: Int, type: FacadeDefectType, point: [Double], note: String?) { self.id = id; self.type = type; self.point = point; self.note = note }
+
+    public var isConfirmed: Bool { status == .bevestigd }
+    public var isRejected: Bool { status == .afgewezen }
+}
+
+public enum DefectStatus: String, Codable, CaseIterable { case bevestigd, afgewezen }
+
+public enum DefectSeverity: String, Codable, CaseIterable {
+    case gering, serieus, ernstig
+    public var label: String { rawValue.capitalized }
+}
+
+/// Omvangklassen: welk deel van het element het gebrek heeft.
+public enum DefectExtent: String, Codable, CaseIterable {
+    case incidenteel, plaatselijk, regelmatig, aanzienlijk, algemeen
+    public var label: String {
+        switch self {
+        case .incidenteel: return "Incidenteel (< 2%)"
+        case .plaatselijk: return "Plaatselijk (2–10%)"
+        case .regelmatig: return "Regelmatig (10–30%)"
+        case .aanzienlijk: return "Aanzienlijk (30–70%)"
+        case .algemeen: return "Algemeen (> 70%)"
+        }
+    }
+}
+
+public enum DefectIntensity: String, Codable, CaseIterable {
+    case beginstadium, gevorderd, eindstadium
+    public var label: String {
+        switch self {
+        case .beginstadium: return "Beginstadium"
+        case .gevorderd: return "Gevorderd stadium"
+        case .eindstadium: return "Eindstadium"
+        }
+    }
 }
 
 /// Alles wat Claude op één foto heeft gevonden (prompt v0.2), na controle.

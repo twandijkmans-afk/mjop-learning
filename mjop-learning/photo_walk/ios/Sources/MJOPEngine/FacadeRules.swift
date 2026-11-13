@@ -6,6 +6,8 @@ public struct DefectHint: Equatable {
     public var defect: FacadeDefect
     /// Het element waar het gebrek op ligt, als dat te bepalen is.
     public var element: FacadePhotoElement?
+    /// Door de gebruiker bevestigd (met ernst, omvang en intensiteit) of nog alleen voorgesteld.
+    public var confirmed: Bool { defect.isConfirmed }
 }
 
 public enum DefectHints {
@@ -45,12 +47,19 @@ public enum DefectHints {
     public static func byKey(_ scans: [(sideId: Int, photoWidth: Double, elements: [FacadePhotoElement], defects: [FacadeDefect])]) -> [String: [DefectHint]] {
         var out: [String: [DefectHint]] = [:]
         for s in scans {
-            for d in s.defects {
+            for d in s.defects where !d.isRejected {   // afgewezen gebreken doen niet meer mee
                 let e = element(at: d.point, in: s.elements, tolerance: 0.02 * s.photoWidth)
                 for k in keys(for: d, on: e) { out[k, default: []].append(DefectHint(sideId: s.sideId, defect: d, element: e)) }
             }
         }
-        return out
+        // Bevestigde gebreken eerst.
+        return out.mapValues { $0.enumerated().sorted { ($0.element.confirmed ? 0 : 1, $0.offset) < ($1.element.confirmed ? 0 : 1, $1.offset) }.map(\.element) }
+    }
+
+    /// Korte omschrijving van een beoordeeld gebrek, bijvoorbeeld "ernstig · plaatselijk (2–10%) · gevorderd stadium".
+    public static func assessment(_ d: FacadeDefect) -> String? {
+        let parts = [d.ernst.map { $0.rawValue }, d.omvang.map { $0.label.lowercased() }, d.intensiteit.map { $0.label.lowercased() }].compactMap { $0 }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }
 }
 

@@ -36,10 +36,13 @@ struct BeoordelenFlow: View {
                                     ForEach(Array(hints.enumerated()), id: \.offset) { _, h in
                                         let side = model.sides.first { $0.id == h.sideId }?.facing ?? "?"
                                         let on = h.element.map { " op \($0.type.label.lowercased()) \($0.id)" } ?? ""
-                                        Text("Gevel op het \(side): \(h.defect.type.label.lowercased())\(on)" + (h.defect.note.map { " — \u{201C}\($0)\u{201D}" } ?? ""))
-                                            .font(.footnote).foregroundStyle(DS.text)
+                                        VStack(alignment: .leading, spacing: 2) {
+                                            Text((h.confirmed ? "Bevestigd: " : "") + "gevel op het \(side): \(h.defect.type.label.lowercased())\(on)" + (h.defect.note.map { " — \u{201C}\($0)\u{201D}" } ?? ""))
+                                                .font(.footnote.weight(h.confirmed ? .semibold : .regular)).foregroundStyle(DS.text)
+                                            if let a = DefectHints.assessment(h.defect) { Text(a).font(.caption).foregroundStyle(DS.text2) }
+                                        }
                                     }
-                                    Text("Een hint uit de herkenning, geen beoordeling. De score geef jij.").font(.caption).foregroundStyle(DS.text2)
+                                    Text("Gebreken uit de gevelfoto's (bevestigd door jou of nog als voorstel). De score geef jij.").font(.caption).foregroundStyle(DS.text2)
                                 }
                                 .padding(14).frame(maxWidth: .infinity, alignment: .leading)
                                 .background(DS.warnSoft, in: RoundedRectangle(cornerRadius: 18, style: .continuous))

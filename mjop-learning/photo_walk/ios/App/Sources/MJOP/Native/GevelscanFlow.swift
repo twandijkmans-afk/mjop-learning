@@ -94,6 +94,7 @@ struct GevelscanFlow: View {
     @State private var part = 1
     @State private var copyTarget: FacadeSide?
     @State private var focusSide: Int?
+    @State private var showDefects = false
     @State private var selectedElement: Int?
     @State private var drawType: FacadeElementType?
     @State private var showEditor = false
@@ -135,6 +136,9 @@ struct GevelscanFlow: View {
             }
             .onChange(of: photo) { p in if p != nil { Task { await recognize() } } }
             .sheet(isPresented: $showKey) { ClaudeKeySheet() }
+            .sheet(isPresented: $showDefects) {
+                if let scan = lastScan, let photo { DefectListView(image: photo, scan: scan) { lastScan = $0 } }
+            }
             .fullScreenCover(isPresented: $showEditor) {
                 if let scan = lastScan, let photo {
                     FacadeEditorView(image: photo, scan: scan, mode: editorMode) { lastScan = $0 }
@@ -414,6 +418,19 @@ struct GevelscanFlow: View {
                     }
                     .dsCard(radius: 20)
                 }
+            }
+            if let ds = scan.defects, !ds.isEmpty {
+                Button { showDefects = true } label: {
+                    HStack {
+                        Label("Gebreken", systemImage: "exclamationmark.triangle").foregroundStyle(DS.text)
+                        Spacer()
+                        Text("\(ds.count) gemarkeerd · \(ds.filter(\.isConfirmed).count) bevestigd").font(.subheadline).foregroundStyle(DS.text2)
+                        Image(systemName: "chevron.right").font(.footnote.weight(.semibold)).foregroundStyle(DS.text2)
+                    }
+                    .padding(.horizontal, 16).frame(minHeight: 54)
+                }
+                .buttonStyle(DSRowStyle()).dsCard(radius: 20)
+                .accessibilityIdentifier("defects")
             }
             if scan.outsideCount > 0 {
                 Text("\(scan.outsideCount) element(en) buiten deze gevel (bijv. van een zijgevel of het buurpand) tellen niet mee.").font(.footnote).foregroundStyle(DS.text2)

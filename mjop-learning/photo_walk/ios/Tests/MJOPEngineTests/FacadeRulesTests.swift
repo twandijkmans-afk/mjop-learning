@@ -28,4 +28,18 @@ final class FacadeRulesTests: XCTestCase {
         XCTAssertTrue(FacadeCopy.allowed(sourceWidthM: 8.49, targetWidthM: 9.2))
         XCTAssertFalse(FacadeCopy.allowed(sourceWidthM: 8.49, targetWidthM: 11.16))
     }
+
+    func testRejectedDefectsDropOutConfirmedComeFirst() {
+        var a = FacadeDefect(id: 1, type: .afbladderende_verf, point: [150, 150], note: nil)
+        var b = FacadeDefect(id: 2, type: .houtrot, point: [160, 160], note: nil)
+        var c = FacadeDefect(id: 3, type: .afbladderende_verf, point: [170, 170], note: nil)
+        b.status = .bevestigd; b.ernst = .ernstig; b.omvang = .plaatselijk; b.intensiteit = .gevorderd
+        c.status = .afgewezen
+        let h = DefectHints.byKey([(sideId: 1, photoWidth: 1000, elements: els, defects: [a, b, c])])
+        XCTAssertEqual(h["kozijnen-onderhoud"]?.map(\.defect.id), [2, 1], "bevestigd eerst, afgewezen weg")
+        XCTAssertEqual(DefectHints.assessment(b), "ernstig · plaatselijk (2–10%) · gevorderd stadium")
+        XCTAssertNil(DefectHints.assessment(a))
+        a.status = .bevestigd
+        XCTAssertTrue(a.isConfirmed)
+    }
 }

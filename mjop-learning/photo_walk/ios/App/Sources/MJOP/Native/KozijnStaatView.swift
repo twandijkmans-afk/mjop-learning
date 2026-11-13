@@ -59,6 +59,7 @@ struct KozijnStaatSection: View {
     @State private var editing: FacadeScan?
     @State private var editImage: UIImage?
     @State private var loadingPhoto: Int?
+    @State private var defectScan: FacadeScan?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -83,6 +84,30 @@ struct KozijnStaatSection: View {
                             }
                         }
                     }
+                }
+                let withDefects = m.gevels.filter { !($0.defects ?? []).isEmpty && $0.copiedFromSide == nil && $0.photoPath != nil }
+                if !withDefects.isEmpty {
+                    Text("Gebreken").font(.title3.weight(.bold)).foregroundStyle(DS.text)
+                    VStack(spacing: 0) {
+                        ForEach(withDefects) { g in
+                            Button { Task { await openDefects(g) } } label: {
+                                HStack(spacing: 12) {
+                                    DSIcon(systemName: "exclamationmark.triangle")
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text("Gevel op het \(g.facing)" + (g.part.map { " · foto \($0)" } ?? "")).font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
+                                        let ds = g.defects ?? []
+                                        Text("\(ds.count) gemarkeerd · \(ds.filter(\.isConfirmed).count) bevestigd · \(ds.filter { $0.status == nil }.count) nog te bekijken").font(.caption).foregroundStyle(DS.text2)
+                                    }
+                                    Spacer()
+                                    if loadingPhoto == g.id { ProgressView() } else { Image(systemName: "chevron.right").font(.footnote.weight(.semibold)).foregroundStyle(DS.text2) }
+                                }
+                                .padding(.horizontal, 14).frame(minHeight: 58)
+                            }
+                            .buttonStyle(DSRowStyle())
+                            if g.id != withDefects.last?.id { Divider().padding(.leading, 60) }
+                        }
+                    }
+                    .dsCard(radius: 20)
                 }
                 let staat = m.kozijnStaat
                 HStack {
@@ -124,9 +149,24 @@ struct KozijnStaatSection: View {
                 }
             }
         }
+        .sheet(item: $defectScan) { g in
+            if let img = editImage {
+                DefectListView(image: img, scan: g) { updated in
+                    save { m in if let i = m.gevels.firstIndex(where: { $0.id == updated.id }) { m.gevels[i] = updated } }
+                }
+            }
+        }
         .sheet(item: $detail) { t in
             if let m = model { KozijnTypeDetail(type: t, staat: m.kozijnStaat, sides: m.sides, overrides: m.kozijnOverrides ?? KozijnOverrides()) { o in save { $0.kozijnOverrides = o } } }
         }
+    }
+
+    private func openDefects(_ g: FacadeScan) async {
+        guard let path = g.photoPath, let s = try? await account.validSession() else { return }
+        loadingPhoto = g.id; defer { loadingPhoto = nil }
+        guard let img = await GevelFotos.load(path, session: s) else { error = "De foto kon niet worden geladen."; return }
+        editImage = img
+        defectScan = g
     }
 
     private func openEditor(_ g: FacadeScan) async {
