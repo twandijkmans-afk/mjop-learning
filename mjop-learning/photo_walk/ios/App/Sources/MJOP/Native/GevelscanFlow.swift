@@ -26,7 +26,7 @@ enum ClaudeKey {
 
 /// Herkenning via de Messages API van Anthropic. Valt bij een 400-fout terug op een aanvraag zonder afgedwongen schema.
 enum ClaudeVision {
-    static func recognize(image: UIImage, key: String) async throws -> (recognition: FacadeRecognition, size: CGSize) {
+    static func recognize(image: UIImage, key: String, facing: String? = nil, facadeWidthM: Double? = nil) async throws -> (recognition: FacadeRecognition, size: CGSize) {
         let (jpeg, size) = try prepare(image)
         let W = Int(size.width), H = Int(size.height)
         var lastError: Error = BackendError.message("De herkenning is mislukt.")
@@ -37,7 +37,7 @@ enum ClaudeVision {
             r.setValue("application/json", forHTTPHeaderField: "content-type")
             r.setValue(key, forHTTPHeaderField: "x-api-key")
             r.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
-            r.httpBody = try JSONSerialization.data(withJSONObject: FacadePhoto.requestBody(jpegBase64: jpeg.base64EncodedString(), width: W, height: H, structured: structured))
+            r.httpBody = try JSONSerialization.data(withJSONObject: FacadePhoto.requestBody(jpegBase64: jpeg.base64EncodedString(), width: W, height: H, structured: structured, facing: facing, facadeWidthM: facadeWidthM))
             let (data, resp): (Data, URLResponse)
             do { (data, resp) = try await URLSession.shared.data(for: r) }
             catch { throw BackendError.message("Geen verbinding met de AI-dienst. Controleer je internet.") }
@@ -272,7 +272,7 @@ struct GevelscanFlow: View {
         do {
             let r: (recognition: FacadeRecognition, size: CGSize)
             if account.demo { r = demoRecognition(photo) }
-            else { r = try await ClaudeVision.recognize(image: photo, key: ClaudeKey.load() ?? "") }
+            else { r = try await ClaudeVision.recognize(image: photo, key: ClaudeKey.load() ?? "", facing: side.facing, facadeWidthM: part > 1 ? nil : side.lengthM) }
             let ref = FacadePhoto.defaultReference(r.recognition.elements) ?? (left: 0, right: Double(r.size.width))
             var scan = FacadeScan(sideId: side.id, facing: side.facing, widthM: side.lengthM, photoWidth: Double(r.size.width), photoHeight: Double(r.size.height),
                                   referenceLeftX: ref.left, referenceRightX: ref.right, elements: r.recognition.elements, skipped: r.recognition.skipped,
@@ -379,6 +379,28 @@ struct GevelscanFlow: View {
                 resultRow("drop", "Hemelwaterafvoer", "lengte op de foto", s.hwaM1.map { $0 > 0 ? m1($0) + " ± " + plain(MeasureBand.band($0, relative: rel, area: false)) : m1($0) } ?? "–")
             }
             .dsCard(radius: 20)
+            let others = scan.elementTotals.filter { ![.kozijn_raam, .kozijn_deur, .metselwerk, .hwa].contains($0.type) }
+            if !others.isEmpty {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Overige elementen").font(.headline).foregroundStyle(DS.text)
+                    VStack(spacing: 0) {
+                        ForEach(Array(others.enumerated()), id: \.offset) { i, t in
+                            HStack {
+                                Circle().fill(FacadeEditorView.color(t.type)).frame(width: 9, height: 9)
+                                Text(t.type.label).font(.subheadline).foregroundStyle(DS.text)
+                                Spacer()
+                                Text(totalText(t)).font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
+                            }
+                            .padding(.horizontal, 14).frame(minHeight: 44)
+                            if i < others.count - 1 { Divider().padding(.leading, 34) }
+                        }
+                    }
+                    .dsCard(radius: 20)
+                }
+            }
+            if scan.outsideCount > 0 {
+                Text("\(scan.outsideCount) element(en) buiten deze gevel (bijv. van een zijgevel of het buurpand) tellen niet mee.").font(.footnote).foregroundStyle(DS.text2)
+            }
             if let n = scan.merged, n > 0 {
                 Text("\(n) dubbel herkend(e) element(en) samengevoegd.").font(.footnote).foregroundStyle(DS.text2)
             }
@@ -548,6 +570,13 @@ struct GevelscanFlow: View {
         case .geschat: return "lens geschat uit de hoeken"
         case .aangenomen: return "foto vrijwel recht van voren"
         }
+    }
+
+    private func totalText(_ t: FacadePhoto.ElementTotal) -> String {
+        var parts = ["\(t.count) st"]
+        if let l = t.lengthM, l > 0 { parts.append(m1(l)) }
+        if let a = t.areaM2, a > 0, t.type.kind != .quad || t.type == .dakkapel { parts.append(m2(a)) }
+        return parts.joined(separator: " · ")
     }
 
     private func m2dec(_ v: Double) -> String { String(format: "%.2f", v).replacingOccurrences(of: ".", with: ",") }

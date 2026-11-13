@@ -54,6 +54,17 @@ public enum FacadePerspective {
         public var focalSource: FocalSource
         /// Elementen die niet op dit vlak liggen of niet af te beelden waren; die tellen hier niet mee.
         public var leftOut: Int
+        /// Elementen die buiten het vlak vallen (bijv. van een zijgevel of het buurpand op de rand van de foto); tellen niet mee.
+        public var outside: Int = 0
+    }
+
+    /// Ruimte rond het vlak voor de binnen-toets: goten, boeidelen en afvoeren zitten vaak net buiten de rand van het muurvlak.
+    public static let planeMargin = 0.15
+
+    /// Het vlak iets vergroot rond het midden (alleen voor de toets of een element bij deze gevel hoort).
+    static func expanded(_ q: [[Double]], by f: Double) -> [[Double]] {
+        let c = [q.reduce(0) { $0 + $1[0] } / Double(q.count), q.reduce(0) { $0 + $1[1] } / Double(q.count)]
+        return q.map { [c[0] + ($0[0] - c[0]) * (1 + f), c[1] + ($0[1] - c[1]) * (1 + f)] }
     }
 
     /// Brandpuntsafstand in pixels uit de 35mm-equivalent (EXIF), over de diagonaal van de foto.
@@ -120,16 +131,26 @@ public enum FacadePerspective {
         let heightM = widthM / a.ratio
         guard let hom = Homography(from: plane.corners, to: [[0, 0], [widthM, 0], [widthM, heightM], [0, heightM]]) else { return nil }
         var out: [FacadePhotoElement] = []
-        var leftOut = 0
-        for e in els {
+        var leftOut = 0, outside = 0
+        let roomy = expanded(plane.corners, by: planeMargin)
+        for e0 in els {
+            var e = e0
             if let p = e.plane, p != plane.id { leftOut += 1; continue }
             if e.plane == nil && !includeUnassigned { leftOut += 1; continue }
+            // Alleen wat bij deze gevel hoort: muren knippen op het vlak, andere elementen op hun midden binnen het (ruime) vlak.
+            if e.type.isWall {
+                let clipped = FacadePhoto.intersection(e.points, plane.corners)
+                guard clipped.count >= 3, FacadePhoto.area(clipped) > 1 else { outside += 1; continue }
+                e.points = clipped
+            } else if e.type != .dakbedekking, !FacadePhoto.inside(FacadePhoto.centroid(e.points), roomy) {
+                outside += 1; continue
+            }
             let pts = e.points.compactMap { hom.apply($0) }
             guard pts.count == e.points.count else { leftOut += 1; continue }
             var r = e; r.points = pts
             out.append(r)
         }
-        return Rectified(elements: out, widthM: widthM, heightM: heightM, focalSource: a.source, leftOut: leftOut)
+        return Rectified(elements: out, widthM: widthM, heightM: heightM, focalSource: a.source, leftOut: leftOut, outside: outside)
     }
 
     /// Standaardhoogte van een buitendeur (kozijn), alleen als duidelijk gemarkeerde aanname.

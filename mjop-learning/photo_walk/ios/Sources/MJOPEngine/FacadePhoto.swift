@@ -8,6 +8,8 @@ public enum FacadeKind: String, Codable { case quad, line, poly }
 
 public enum FacadeElementType: String, Codable, CaseIterable {
     case kozijn_raam, kozijn_deur, garagedeur, metselwerk, stucwerk, gevelbekleding, hwa, dakgoot, boeiboord, waterslag, hekwerk, balkon, luifel, rooster, overig
+    // v0.3: dak, gevelonderdelen en overige buitenzaken
+    case dakkapel, schoorsteen, daktrim, dakbedekking, latei, plint, dilatatie, gevelreclame, zonwering, buitenlamp, brievenbus, bellentableau
 
     public var label: String {
         switch self {
@@ -26,19 +28,32 @@ public enum FacadeElementType: String, Codable, CaseIterable {
         case .luifel: return "Luifel"
         case .rooster: return "Ventilatierooster"
         case .overig: return "Overig"
+        case .dakkapel: return "Dakkapel"
+        case .schoorsteen: return "Schoorsteen"
+        case .daktrim: return "Daktrim / dakrandprofiel"
+        case .dakbedekking: return "Dakbedekking (zichtbaar)"
+        case .latei: return "Latei"
+        case .plint: return "Plint / trasraam"
+        case .dilatatie: return "Dilatatievoeg"
+        case .gevelreclame: return "Gevelreclame / bord"
+        case .zonwering: return "Zonwering"
+        case .buitenlamp: return "Buitenverlichting"
+        case .brievenbus: return "Brievenbus"
+        case .bellentableau: return "Bellentableau / intercom"
         }
     }
 
     public var kind: FacadeKind {
         switch self {
-        case .metselwerk, .stucwerk, .gevelbekleding: return .poly
-        case .hwa, .dakgoot, .boeiboord, .waterslag, .hekwerk: return .line
+        case .metselwerk, .stucwerk, .gevelbekleding, .dakbedekking: return .poly
+        case .hwa, .dakgoot, .boeiboord, .waterslag, .hekwerk, .daktrim, .latei, .plint, .dilatatie: return .line
         default: return .quad
         }
     }
 
     public var isOpening: Bool { self == .kozijn_raam || self == .kozijn_deur || self == .garagedeur }
-    public var isWall: Bool { kind == .poly }
+    /// Gevelvlakken waar openingen van worden afgetrokken (niet de dakbedekking).
+    public var isWall: Bool { self == .metselwerk || self == .stucwerk || self == .gevelbekleding }
 }
 
 public struct FacadePhotoElement: Codable, Equatable, Identifiable {
@@ -60,6 +75,9 @@ public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     public var originalType: FacadeElementType?
     public var originalPoints: [[Double]]?
     public var addedByUser: Bool?
+    /// Kozijndetails (v0.3), alleen als ze duidelijk zichtbaar zijn: aantal vakken (glasvlakken) en aantal draaiende delen.
+    public var panes: Int?
+    public var openingParts: Int?
 
     public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil,
                 mergedFrom: [Int]? = nil) {
@@ -182,11 +200,16 @@ public enum FacadeError: LocalizedError, Equatable {
 }
 
 public enum FacadePhoto {
-    public static let promptVersion = "gevelfoto_v0.2"
+    public static let promptVersion = "gevelfoto_v0.3"
     public static let model = "claude-opus-5-5"
     public static let maxEdge: Double = 2000
 
-    public static func prompt(width W: Int, height H: Int) -> String {
+    public static func prompt(width W: Int, height H: Int, facing: String? = nil, facadeWidthM: Double? = nil) -> String {
+        let target: String
+        if let facing {
+            let w = facadeWidthM.map { String(format: " and is about %.1f m wide according to the land registry", $0) } ?? ""
+            target = "The facade being measured faces \(facing) (Dutch compass direction)\(w). It is the facade the camera looks at most squarely. "
+        } else { target = "" }
         let list = FacadeElementType.allCases.map { t -> String in
             let g: String
             switch t.kind {
@@ -199,15 +222,21 @@ public enum FacadePhoto {
         return """
         This is one photo of a building facade in the Netherlands, taken for a multi-year maintenance plan (MJOP). The image is \(W) x \(H) pixels.
 
-        Find the building elements that are clearly visible on the facade in the foreground and report where they are. Coordinates are pixels in this image: origin at the top-left corner, x to the right, y down.
+        \(target)Report only elements that belong to this one facade. Leave out everything on a side facade that is visible at an angle at the left or right edge, on a neighbouring building, or in the background, even if it is the same kind of element.
+
+        Find the building elements that are clearly visible on this facade and report where they are. Coordinates are pixels in this image: origin at the top-left corner, x to the right, y down.
 
         Element types and the geometry to return for each:
         \(list)
 
+        Before answering, go through the list of element types one by one and look for each of them on the facade. Elements that are often missed: boeiboord (the fascia board along the eaves or roof edge, often painted wood), daktrim, waterslag (sill under each window), latei (steel or concrete lintel above openings), dakgoot, hwa (each downpipe), plint or trasraam (darker band at the foot of the wall), ventilation grilles (rooster), outdoor lights, letter box and door bell panel.
+
         Guidelines:
+        - For each kozijn (kozijn_raam, kozijn_deur): "panes" is the number of glass panes you can count in the frame and "opening_parts" the number of parts that can open (sashes, doors) when that is clearly recognisable; use 0 when you cannot tell. For other elements both are 0.
         - One physical frame (kozijn) is one element, even when it holds several panes or opening sashes. Box the outer edge of the frame, not the glass.
         - For a wall surface (metselwerk, stucwerk, gevelbekleding) return one polygon per continuous surface of one material, following its outer edge and including the window and door openings that lie in it. The openings are subtracted afterwards by the calling program.
-        - For hwa (downpipe), dakgoot (gutter), boeiboord (fascia), waterslag (sill) and hekwerk (railing), follow the centre line of the element from one end to the other.
+        - For hwa (downpipe), dakgoot (gutter), boeiboord (fascia), daktrim, waterslag (sill), latei (lintel), plint, dilatatie (expansion joint) and hekwerk (railing), follow the centre line of the element from one end to the other. A downpipe usually runs from the gutter down to the ground: if part of it is hidden behind plants, still draw the full line as far as you can be sure it runs, and set "hidden_fraction".
+        - dakbedekking: a polygon of the roof covering that is visible above this facade (tiles, slates, bitumen); dakkapel and schoorsteen: a box around each.
         - Report only elements you are sure exist. An element that is partly hidden (behind a plant, tree, car or another object) is still reported when enough of it is visible to be sure it is there: box the whole element as far as its visible edges show it and set "hidden_fraction" to the part that is hidden (0 = fully visible, 0.5 = half hidden). Leave out elements of a neighbouring building and elements you would have to guess.
         - Planes: a facade often has more than one flat surface at a different depth, for example the main facade (hoofdgevel), an extension in front of it (uitbouw), a dormer (dakkapel), a bay window (erker) or a gable top (topgevel). Return each such surface as a plane with its 4 corners in the image: top-left, top-right, bottom-right, bottom-left of the surface itself (not the roof). Where a corner is hidden or outside the image, give the point where the straight edges of the surface meet, even if that point lies outside the image. Plane 1 is always the main facade. Every element gets the id of the plane it lies in ("plane").
         - Defects: mark clearly visible signs of wear as hints for an inspector (afbladderende_verf, scheur, houtrot, mos_algen, roest, voegwerk, losse_delen, vervuiling, overig), each with one point in the image at the defect and a few Dutch words in "note". Only what is clearly visible; never a condition score.
@@ -219,7 +248,7 @@ public enum FacadePhoto {
 
         Return only a JSON object of this shape, with no other text:
         {"planes": [{"id": 1, "kind": "hoofdgevel|uitbouw|dakkapel|erker|topgevel|overig", "corners": [{"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}]}],
-         "elements": [{"type": "<one of the type keys above>", "points": [{"x": 0, "y": 0}], "material": "", "confidence": "low|medium|high", "note": "", "plane": 1, "hidden_fraction": 0}],
+         "elements": [{"type": "<one of the type keys above>", "points": [{"x": 0, "y": 0}], "material": "", "confidence": "low|medium|high", "note": "", "plane": 1, "hidden_fraction": 0, "panes": 0, "opening_parts": 0}],
          "defects": [{"type": "<defect key>", "point": {"x": 0, "y": 0}, "note": ""}]}
         """
     }
@@ -234,7 +263,7 @@ public enum FacadePhoto {
                 "properties": ["id": ["type": "integer"], "kind": ["type": "string", "enum": FacadePlaneKind.allCases.map(\.rawValue)],
                                "corners": ["type": "array", "items": point]]]],
             "elements": ["type": "array", "items": [
-                "type": "object", "additionalProperties": false, "required": ["type", "points", "material", "confidence", "note", "plane", "hidden_fraction"],
+                "type": "object", "additionalProperties": false, "required": ["type", "points", "material", "confidence", "note", "plane", "hidden_fraction", "panes", "opening_parts"],
                 "properties": [
                     "type": ["type": "string", "enum": FacadeElementType.allCases.map(\.rawValue)],
                     "points": ["type": "array", "items": point],
@@ -243,6 +272,8 @@ public enum FacadePhoto {
                     "note": ["type": "string"],
                     "plane": ["type": "integer"],
                     "hidden_fraction": ["type": "number"],
+                    "panes": ["type": "integer"],
+                    "opening_parts": ["type": "integer"],
                 ]]],
             "defects": ["type": "array", "items": [
                 "type": "object", "additionalProperties": false, "required": ["type", "point", "note"],
@@ -251,13 +282,13 @@ public enum FacadePhoto {
     }
 
     /// Body voor de Messages API (afbeelding als base64-JPEG).
-    public static func requestBody(jpegBase64: String, width W: Int, height H: Int, structured: Bool) -> [String: Any] {
+    public static func requestBody(jpegBase64: String, width W: Int, height H: Int, structured: Bool, facing: String? = nil, facadeWidthM: Double? = nil) -> [String: Any] {
         var outputConfig: [String: Any] = ["effort": "high"]
         if structured { outputConfig["format"] = ["type": "json_schema", "schema": schema] }
-        return ["model": model, "max_tokens": 16000, "output_config": outputConfig,
+        return ["model": model, "max_tokens": 32000, "output_config": outputConfig,
                 "messages": [["role": "user", "content": [
                     ["type": "image", "source": ["type": "base64", "media_type": "image/jpeg", "data": jpegBase64]],
-                    ["type": "text", "text": prompt(width: W, height: H)],
+                    ["type": "text", "text": prompt(width: W, height: H, facing: facing, facadeWidthM: facadeWidthM)],
                 ]]]]
     }
 
@@ -348,8 +379,13 @@ public enum FacadePhoto {
             let conf = (r["confidence"] as? String).flatMap { ["low", "medium", "high"].contains($0) ? $0 : nil }
             let plane = (r["plane"] as? NSNumber)?.intValue
             let hidden = ((r["hidden_fraction"] as? NSNumber)?.doubleValue).flatMap { $0.isFinite && $0 >= 0 && $0 <= 1 ? $0 : nil }
-            out.append(FacadePhotoElement(id: out.count + 1, type: t, points: pts, material: s("material", 40), confidence: conf, note: s("note", 120),
-                                          plane: plane, hiddenFraction: hidden))
+            var el = FacadePhotoElement(id: out.count + 1, type: t, points: pts, material: s("material", 40), confidence: conf, note: s("note", 120),
+                                        plane: plane, hiddenFraction: hidden)
+            if t.isOpening {   // 0 of onzin = onbekend, niet gokken
+                el.panes = ((r["panes"] as? NSNumber)?.intValue).flatMap { (1...40).contains($0) ? $0 : nil }
+                el.openingParts = ((r["opening_parts"] as? NSNumber)?.intValue).flatMap { (1...20).contains($0) ? $0 : nil }
+            }
+            out.append(el)
         }
         return (out, skipped)
     }
@@ -506,6 +542,32 @@ public enum FacadePhoto {
         public var kozijnOppervlakM2: Double?
         public var hwaM1: Double?
         public var dakgootM1: Double?
+    }
+
+    /// Totaal per soort element: aantal, en lengte (lijnen) of oppervlak (kaders, vlakken). Zonder maat alleen het aantal.
+    public struct ElementTotal: Equatable {
+        public var type: FacadeElementType
+        public var count: Int
+        public var lengthM: Double?
+        public var areaM2: Double?
+    }
+
+    public static func totals(_ els: [FacadePhotoElement], mpp: Double?) -> [ElementTotal] {
+        FacadeElementType.allCases.compactMap { t in
+            let sel = els.filter { $0.type == t }
+            guard !sel.isEmpty else { return nil }
+            let qs = sel.map { quantities($0, mpp: mpp, all: els) }
+            func sum(_ f: (FacadeQuantities) -> Double?) -> Double? {
+                var total = 0.0
+                for q in qs { guard let v = f(q) else { return nil }; total += v }
+                return round2(total)
+            }
+            switch t.kind {
+            case .line: return ElementTotal(type: t, count: sel.count, lengthM: sum { $0.lengthM }, areaM2: nil)
+            case .quad: return ElementTotal(type: t, count: sel.count, lengthM: nil, areaM2: sum { $0.areaM2 })
+            case .poly: return ElementTotal(type: t, count: sel.count, lengthM: nil, areaM2: sum { $0.netM2 })
+            }
+        }
     }
 
     /// Telt samenvattingen van meerdere vlakken op. Is een maat op één vlak onbekend, dan is het totaal ook onbekend.

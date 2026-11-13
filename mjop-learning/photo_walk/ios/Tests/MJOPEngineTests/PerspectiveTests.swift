@@ -134,4 +134,21 @@ final class PerspectiveTests: XCTestCase {
         // iPhone-hoofdcamera 26 mm-equivalent, foto 3024 × 4032.
         XCTAssertEqual(FacadePerspective.focalPx(focal35mm: 26, width: 3024, height: 4032)!, 26 * 5040 / hypot(36, 24), accuracy: 1e-9)
     }
+
+    func testOnlyTheMeasuredFacadeCounts() throws {
+        // Recht van voren: gevelvlak 0–1000 × 100–700 px. Rechts op de foto nog een stukje zijgevel met een raam (x > 1000).
+        let plane = FacadePlane(id: 1, kind: .hoofdgevel, corners: [[0, 100], [1000, 100], [1000, 700], [0, 700]])
+        let els = [
+            FacadePhotoElement(id: 1, type: .metselwerk, points: [[0, 100], [1300, 100], [1300, 700], [0, 700]], material: nil, confidence: "high", note: nil, plane: 1),
+            FacadePhotoElement(id: 2, type: .kozijn_raam, points: [[100, 200], [300, 200], [300, 400], [100, 400]], material: nil, confidence: "high", note: nil, plane: 1),
+            FacadePhotoElement(id: 3, type: .kozijn_raam, points: [[1100, 200], [1250, 200], [1250, 400], [1100, 400]], material: nil, confidence: "high", note: nil, plane: 1),
+            FacadePhotoElement(id: 4, type: .boeiboord, points: [[0, 85], [1000, 85]], material: nil, confidence: "high", note: nil, plane: 1),
+        ]
+        let r = try XCTUnwrap(FacadePerspective.rectify(els, plane: plane, widthM: 10, focalPx: nil, imageWidth: 1400, imageHeight: 800))
+        XCTAssertEqual(r.outside, 1, "het raam op de zijgevel telt niet mee")
+        XCTAssertEqual(Set(r.elements.map(\.id)), [1, 2, 4], "het boeideel net boven het muurvlak hoort er wel bij")
+        let s = FacadePhoto.summary(r.elements, mpp: 1)
+        XCTAssertEqual(try XCTUnwrap(s.metselwerkNetM2), 60 - 4, accuracy: 0.01, "muur geknipt op de gevel: 10 × 6 m min het raam")
+        XCTAssertEqual(s.raamkozijnen, 1)
+    }
 }

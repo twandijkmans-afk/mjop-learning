@@ -20,7 +20,11 @@ public enum DefectHints {
             case .hekwerk, .balkon: return ["balkonhekken"]
             case .metselwerk, .stucwerk:
                 return d.type == .voegwerk ? ["voegwerk", "gevel-metselwerk"] : ["gevel-metselwerk"]
-            case .rooster, .overig: break
+            case .dakbedekking: return ["dak-hellend", "dak-plat"]
+            case .daktrim, .dakkapel: return ["schilderwerk-buiten", "dak-plat"]
+            case .schoorsteen: return ["dakinspectie"]
+            case .latei, .plint, .dilatatie: return d.type == .voegwerk ? ["voegwerk", "gevel-metselwerk"] : ["gevel-metselwerk"]
+            case .rooster, .overig, .gevelreclame, .zonwering, .buitenlamp, .brievenbus, .bellentableau: break
             }
         }
         switch d.type {

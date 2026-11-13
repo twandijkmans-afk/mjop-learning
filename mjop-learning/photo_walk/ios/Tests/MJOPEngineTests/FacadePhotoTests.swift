@@ -93,4 +93,18 @@ final class FacadePhotoTests: XCTestCase {
         var pipe2 = pipe; pipe2.id = 4
         XCTAssertEqual(FacadePhoto.dedupe([wall, wall2, pipe, pipe2]).elements.count, 4)
     }
+
+    func testTotalsPerTypeIncludeFascia() {
+        let els = [
+            FacadePhotoElement(id: 1, type: .boeiboord, points: [[0, 10], [1000, 10]], material: "hout", confidence: "high", note: nil),
+            FacadePhotoElement(id: 2, type: .latei, points: [[100, 95], [300, 95]], material: "staal", confidence: "high", note: nil),
+            FacadePhotoElement(id: 3, type: .brievenbus, points: [[500, 300], [540, 300], [540, 320], [500, 320]], material: nil, confidence: "medium", note: nil),
+        ]
+        let t = FacadePhoto.totals(els, mpp: 0.01)
+        XCTAssertEqual(t.first { $0.type == .boeiboord }?.lengthM, 10)
+        XCTAssertEqual(t.first { $0.type == .latei }?.lengthM, 2)
+        XCTAssertEqual(t.first { $0.type == .brievenbus }?.count, 1)
+        XCTAssertNil(FacadePhoto.totals(els, mpp: nil).first { $0.type == .boeiboord }?.lengthM, "zonder maat geen lengte")
+        XCTAssertFalse(FacadeElementType.dakbedekking.isWall, "dakbedekking is geen gevelvlak")
+    }
 }

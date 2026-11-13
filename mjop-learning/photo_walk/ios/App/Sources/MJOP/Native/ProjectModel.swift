@@ -198,6 +198,26 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     }
     /// Rechtgetrokken hoofdvlak; nil zonder bruikbare hoeken (dan de oude methode: breedte over de foto).
     var rectified: FacadePerspective.Rectified? { mainPlane.flatMap(rectify) }
+
+    /// Totalen per soort element over de vlakken met maat (of de hele foto bij een scan zonder vlakken).
+    var elementTotals: [FacadePhoto.ElementTotal] {
+        guard rectified != nil else { return FacadePhoto.totals(elements, mpp: mpp) }
+        let parts = (planes ?? []).compactMap(rectify).flatMap { FacadePhoto.totals($0.elements, mpp: 1) }
+        return FacadeElementType.allCases.compactMap { t in
+            let sel = parts.filter { $0.type == t }
+            guard !sel.isEmpty else { return nil }
+            func add(_ f: (FacadePhoto.ElementTotal) -> Double?) -> Double? {
+                var v = 0.0
+                for x in sel { guard let y = f(x) else { return nil }; v += y }
+                return FacadePhoto.round2(v)
+            }
+            return FacadePhoto.ElementTotal(type: t, count: sel.reduce(0) { $0 + $1.count },
+                                            lengthM: t.kind == .line ? add(\.lengthM) : nil, areaM2: t.kind == .line ? nil : add(\.areaM2))
+        }
+    }
+
+    /// Elementen die buiten de gevel vallen (zijgevel, buurpand) en daarom niet meetellen.
+    var outsideCount: Int { (planes ?? []).compactMap(rectify).reduce(0) { $0 + $1.outside } }
     /// Vlakken met elementen maar zonder maat: die tellen (nog) niet mee.
     var unmeasuredPlanes: [FacadePlane] {
         (planes ?? []).filter { p in width(of: p) == nil && elements.contains { $0.plane == p.id } }
