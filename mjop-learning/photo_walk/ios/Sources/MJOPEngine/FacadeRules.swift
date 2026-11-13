@@ -53,7 +53,11 @@ public enum DefectHints {
             }
         }
         // Bevestigde gebreken eerst.
-        return out.mapValues { $0.enumerated().sorted { ($0.element.confirmed ? 0 : 1, $0.offset) < ($1.element.confirmed ? 0 : 1, $1.offset) }.map(\.element) }
+        return out.mapValues { (list: [DefectHint]) -> [DefectHint] in
+            let confirmed: [DefectHint] = list.filter { $0.confirmed }
+            let proposed: [DefectHint] = list.filter { !$0.confirmed }
+            return confirmed + proposed
+        }
     }
 
     /// Korte omschrijving van een beoordeeld gebrek, bijvoorbeeld "ernstig · plaatselijk (2–10%) · gevorderd stadium".

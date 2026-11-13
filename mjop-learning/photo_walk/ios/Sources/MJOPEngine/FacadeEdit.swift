@@ -80,14 +80,27 @@ public enum FacadeEdit {
             let t = l2 == 0 ? 0 : max(0, min(1, ((p[0] - a[0]) * dx + (p[1] - a[1]) * dy) / l2))
             return hypot(p[0] - (a[0] + t * dx), p[1] - (a[1] + t * dy))
         }
-        let quads = els.filter { $0.type.kind == .quad && $0.points.count >= 3 && FacadePhoto.inside(p, $0.points) }
-            .sorted { FacadePhoto.area($0.points) < FacadePhoto.area($1.points) }.map(\.id)
-        let lines = els.filter { $0.type.kind == .line && $0.points.count >= 2 }
-            .map { e in (e.id, (1..<e.points.count).map { segDist(e.points[$0 - 1], e.points[$0]) }.min() ?? .infinity) }
-            .filter { $0.1 <= tolerance }.sorted { $0.1 < $1.1 }.map(\.0)
-        let walls = els.filter { $0.type.kind == .poly && $0.points.count >= 3 && FacadePhoto.inside(p, $0.points) }
-            .sorted { FacadePhoto.area($0.points) < FacadePhoto.area($1.points) }.map(\.id)
-        return quads + lines + walls
+        func minDist(_ e: FacadePhotoElement) -> Double {
+            var best = Double.infinity
+            for i in 1..<e.points.count { best = min(best, segDist(e.points[i - 1], e.points[i])) }
+            return best
+        }
+        func containing(_ kind: FacadeKind) -> [Int] {
+            var hits: [(id: Int, area: Double)] = []
+            for e in els where e.type.kind == kind && e.points.count >= 3 && FacadePhoto.inside(p, e.points) {
+                hits.append((id: e.id, area: FacadePhoto.area(e.points)))
+            }
+            hits.sort { $0.area < $1.area }
+            return hits.map { $0.id }
+        }
+        var near: [(id: Int, d: Double)] = []
+        for e in els where e.type.kind == .line && e.points.count >= 2 {
+            let d = minDist(e)
+            if d <= tolerance { near.append((id: e.id, d: d)) }
+        }
+        near.sort { $0.d < $1.d }
+        let lines: [Int] = near.map { $0.id }
+        return containing(.quad) + lines + containing(.poly)
     }
 
     /// Volgende keuze bij tikken: het eerste element onder het punt, of het volgende na het al gekozen element.
