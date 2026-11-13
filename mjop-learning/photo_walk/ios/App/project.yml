@@ -51,6 +51,7 @@ targets:
       base:
         SWIFT_VERSION: "5.9"
         PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.prototype
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon   # app-icoon: kobaltblauw met witte M (Sources/Assets.xcassets)
         CODE_SIGN_STYLE: Automatic
         MARKETING_VERSION: "2.0"          # app-versie 2 = native tabs (User-Agent MJOPLiveApp/2)
         CURRENT_PROJECT_VERSION: "2"
