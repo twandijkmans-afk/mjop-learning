@@ -90,6 +90,9 @@ struct GevelscanFlow: View {
     @State private var editCorners = false
     @State private var selectedPlane: Int?
     @State private var editReference = false
+    @State private var editElements = false
+    @State private var selectedElement: Int?
+    @State private var drawType: FacadeElementType?
     @State private var widthFor: FacadePlane?
     @State private var widthText = ""
 
@@ -238,6 +241,9 @@ struct GevelscanFlow: View {
             scan.conflicts = r.recognition.conflicts
             editCorners = false
             selectedPlane = nil
+            editElements = false
+            selectedElement = nil
+            drawType = nil
             lastScan = scan
             phase = .result
         } catch {
@@ -264,7 +270,9 @@ struct GevelscanFlow: View {
         if let scan = lastScan, let photo {
             Text("Gevel op het \(scan.facing)").font(.system(size: 26, weight: .bold)).foregroundStyle(DS.text)
             let activePlane = selectedPlane ?? scan.mainPlane?.id
-            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane, editReference: editReference, onReference: { l, r in
+            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane, editReference: editReference,
+                          editElements: editElements, selectedElement: selectedElement, drawType: drawType,
+                          onElementEvent: { handleElementEvent($0, scan: scan) }, onReference: { l, r in
                 guard var s = lastScan else { return }
                 s.referenceLeftX = min(l, r); s.referenceRightX = max(l, r)
                 lastScan = s
@@ -276,7 +284,8 @@ struct GevelscanFlow: View {
                 lastScan = s
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            if scan.mainPlane != nil {
+            elementEditor(scan)
+            if scan.mainPlane != nil && !editElements {
                 Button { withAnimation(.dsSpring) { editCorners.toggle() } } label: {
                     Label(editCorners ? "Klaar met hoeken" : "Hoeken aanpassen", systemImage: editCorners ? "checkmark" : "perspective")
                 }
@@ -406,6 +415,71 @@ struct GevelscanFlow: View {
         }
     }
 
+    @ViewBuilder private func elementEditor(_ scan: FacadeScan) -> some View {
+        Button { withAnimation(.dsSpring) { editElements.toggle(); selectedElement = nil; drawType = nil; if editElements { editCorners = false; editReference = false } } } label: {
+            Label(editElements ? "Klaar met aanpassen" : "Elementen aanpassen", systemImage: editElements ? "checkmark" : "pencil.and.outline")
+        }
+        .buttonStyle(DSSecondaryButton())
+        .accessibilityIdentifier("editElements")
+        if editElements {
+            if let id = selectedElement, let e = scan.elements.first(where: { $0.id == id }) {
+                HStack(spacing: 10) {
+                    Menu {
+                        ForEach(FacadeElementType.allCases.filter { $0.kind == e.type.kind }, id: \.self) { t in
+                            Button { updateScan { _ = FacadeEdit.retype(&$0.elements, id: id, to: t) } } label: {
+                                if t == e.type { Label(t.label, systemImage: "checkmark") } else { Text(t.label) }
+                            }
+                        }
+                    } label: { Label(e.type.label, systemImage: "tag").frame(maxWidth: .infinity) }
+                    .buttonStyle(DSSecondaryButton())
+                    Button(role: .destructive) {
+                        updateScan { s in var rem = s.removedByUser ?? []; FacadeEdit.delete(&s.elements, removed: &rem, id: id); s.removedByUser = rem }
+                        selectedElement = nil
+                    } label: { Image(systemName: "trash").frame(width: 50, height: 50) }
+                    .background(DS.surface, in: Circle())
+                    .accessibilityLabel("Verwijderen")
+                }
+                Text("Sleep het geselecteerde element om het te verschuiven.").font(.footnote).foregroundStyle(DS.text2)
+            } else {
+                Menu {
+                    ForEach([FacadeElementType.kozijn_raam, .kozijn_deur, .garagedeur, .hwa, .dakgoot], id: \.self) { t in
+                        Button(t.label) { drawType = t; selectedElement = nil }
+                    }
+                } label: { Label(drawType.map { "Teken: \($0.label)" } ?? "Element toevoegen", systemImage: "plus") }
+                .buttonStyle(DSSecondaryButton())
+                Text(drawType == nil ? "Tik op een element om het te kiezen; dan kun je de soort wijzigen, het verwijderen of verschuiven."
+                     : (drawType!.kind == .line ? "Sleep over de foto van begin tot eind van de \(drawType!.label.lowercased())." : "Sleep over de foto van hoek tot hoek om het kader te tekenen."))
+                    .font(.footnote).foregroundStyle(DS.text2)
+            }
+            let edited = scan.elements.filter { $0.editedByUser == true || $0.addedByUser == true }.count + (scan.removedByUser?.count ?? 0)
+            if edited > 0 { Text("\(edited) aanpassing(en) door jou; de oorspronkelijke herkenning blijft bewaard.").font(.caption).foregroundStyle(DS.text2) }
+        }
+    }
+
+    private func updateScan(_ change: (inout FacadeScan) -> Void) {
+        guard var s = lastScan else { return }
+        change(&s)
+        lastScan = s
+    }
+
+    private func handleElementEvent(_ ev: FacadeOverlay.ElementEvent, scan: FacadeScan) {
+        switch ev {
+        case .tap(let p):
+            selectedElement = FacadeEdit.hit(scan.elements, at: p, tolerance: 0.02 * scan.photoWidth)
+        case .move(let id, let dx, let dy):
+            updateScan { s in let w = s.photoWidth, h = s.photoHeight; FacadeEdit.move(&s.elements, id: id, dx: dx, dy: dy, width: w, height: h) }
+        case .draw(let a, let b):
+            guard let t = drawType else { return }
+            let c = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+            let plane = scan.planes?.first { FacadePhoto.inside(c, $0.corners) && $0.id != scan.mainPlane?.id }?.id ?? scan.mainPlane?.id
+            updateScan { s in
+                let taken = Set((s.removedByUser ?? []).map(\.id))
+                if let id = FacadeEdit.add(&s.elements, type: t, from: a, to: b, plane: plane, takenIds: taken) { selectedElement = id }
+            }
+            drawType = nil
+        }
+    }
+
     private func setWidth(_ planeId: Int, _ w: Double?, _ source: PlaneWidthSource?) {
         guard var s = lastScan, let i = s.planes?.firstIndex(where: { $0.id == planeId }) else { return }
         s.planes![i].widthM = w
@@ -464,7 +538,14 @@ struct FacadeOverlay: View {
     var editCorners = false
     var activePlane: Int? = nil
     var editReference = false
+    var editElements = false
+    var selectedElement: Int? = nil
+    var drawType: FacadeElementType? = nil
+    var onElementEvent: ((ElementEvent) -> Void)? = nil
     var onReference: ((Double, Double) -> Void)? = nil
+    @State private var drag: (start: CGPoint, now: CGPoint, onSelected: Bool)?
+
+    enum ElementEvent { case tap([Double]), move(Int, Double, Double), draw([Double], [Double]) }
     var onCorners: (([[Double]]) -> Void)? = nil
 
     static func planeColor(_ i: Int) -> Color { [Color.yellow, Color(hex: 0xFF5FD2), Color(hex: 0x22D3EE), Color(hex: 0xA3E635)][i % 4] }
@@ -493,6 +574,41 @@ struct FacadeOverlay: View {
                         }
                         .stroke(FacadeOverlay.planeColor(idx), style: StrokeStyle(lineWidth: editCorners && pl.id == active ? 2.5 : 1.5, dash: editCorners && pl.id == active ? [] : [6, 5]))
                         .allowsHitTesting(false)
+                    }
+                    if editElements {
+                        if let id = selectedElement, let e = scan.elements.first(where: { $0.id == id }) {
+                            let off = drag.map { $0.onSelected && drawType == nil ? CGSize(width: $0.now.x - $0.start.x, height: $0.now.y - $0.start.y) : .zero } ?? .zero
+                            Path { path in
+                                let pts = e.points.map { CGPoint(x: $0[0] * k + off.width, y: $0[1] * k + off.height) }
+                                path.move(to: pts[0]); pts.dropFirst().forEach { path.addLine(to: $0) }
+                                if e.type.kind != .line { path.closeSubpath() }
+                            }
+                            .stroke(.white, lineWidth: 4).shadow(color: .black.opacity(0.5), radius: 2).allowsHitTesting(false)
+                        }
+                        if let d = drag, drawType != nil {
+                            Path { p in
+                                if drawType!.kind == .line { p.move(to: d.start); p.addLine(to: d.now) }
+                                else { p.addRect(CGRect(x: min(d.start.x, d.now.x), y: min(d.start.y, d.now.y), width: abs(d.now.x - d.start.x), height: abs(d.now.y - d.start.y))) }
+                            }
+                            .stroke(.white, style: StrokeStyle(lineWidth: 2.5, dash: [6, 4])).allowsHitTesting(false)
+                        }
+                        Color.clear.contentShape(Rectangle())
+                            .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("facade"))
+                                .onChanged { v in
+                                    if drag == nil {
+                                        let p = [v.startLocation.x / k, v.startLocation.y / k]
+                                        let onSel = selectedElement.map { FacadeEdit.hit(scan.elements, at: p, tolerance: 0.02 * scan.photoWidth) == $0 } ?? false
+                                        drag = (v.startLocation, v.location, onSel)
+                                    } else { drag?.now = v.location }
+                                }
+                                .onEnded { v in
+                                    defer { drag = nil }
+                                    let moved = hypot(v.translation.width, v.translation.height) > 6
+                                    let a = [v.startLocation.x / k, v.startLocation.y / k], b = [v.location.x / k, v.location.y / k]
+                                    if drawType != nil { if moved { onElementEvent?(.draw(a, b)) } }
+                                    else if !moved { onElementEvent?(.tap(a)) }
+                                    else if drag?.onSelected == true, let id = selectedElement { onElementEvent?(.move(id, b[0] - a[0], b[1] - a[1])) }
+                                })
                     }
                     if editReference {
                         ForEach(0..<2, id: \.self) { i in

@@ -55,6 +55,11 @@ public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     public var hiddenFraction: Double?
     /// Elementen die als dubbel zijn herkend en in dit element zijn opgegaan (herkomst).
     public var mergedFrom: [Int]?
+    /// Menselijke controle: aangepast door de gebruiker (met de oorspronkelijke herkenning bewaard), of door de gebruiker toegevoegd.
+    public var editedByUser: Bool?
+    public var originalType: FacadeElementType?
+    public var originalPoints: [[Double]]?
+    public var addedByUser: Bool?
 
     public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil,
                 mergedFrom: [Int]? = nil) {

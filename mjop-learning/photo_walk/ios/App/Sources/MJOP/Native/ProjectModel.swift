@@ -125,6 +125,8 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var defects: [FacadeDefect]? = nil
     /// Dubbel herkende elementen die zijn samengevoegd, en paren die over elkaar liggen met een verschillende soort.
     var merged: Int? = nil
+    /// Herkende elementen die de gebruiker heeft verwijderd (bewaard voor de controle).
+    var removedByUser: [FacadePhotoElement]? = nil
     var conflicts: [[Int]]? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
