@@ -20,6 +20,11 @@ struct ProjectModel: Equatable {
     /// Kozijnen van alle gescande gevels gegroepeerd per type.
     var kozijnStaat: KozijnStaatResult { KozijnStaat.make(sideResults.flatMap(\.items), overrides: kozijnOverrides ?? KozijnOverrides()) }
 
+    /// Zichtbare gebreken op de (eigen) gevelfoto's, per postsleutel, als hint bij het beoordelen.
+    var defectHints: [String: [DefectHint]] {
+        DefectHints.byKey(gevels.filter { $0.copiedFromSide == nil }.map { (sideId: $0.sideId, photoWidth: $0.photoWidth, elements: $0.elements, defects: $0.defects ?? []) })
+    }
+
     /// Uitkomst per gevelzijde. Een lange gevel in meerdere foto's wordt aan elkaar gekoppeld via de kozijnen in de overlap.
     struct SideResult {
         var sideId: Int
@@ -166,6 +171,9 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var merged: Int? = nil
     /// Herkende elementen die de gebruiker heeft verwijderd (bewaard voor de controle).
     var removedByUser: [FacadePhotoElement]? = nil
+    /// Overgenomen van een andere gevel (niet te fotograferen), met de datum van bevestiging door de gebruiker. Een aanname.
+    var copiedFromSide: Int? = nil
+    var copyConfirmedAt: Date? = nil
     var conflicts: [[Int]]? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }

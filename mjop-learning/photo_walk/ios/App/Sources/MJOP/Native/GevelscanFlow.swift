@@ -92,6 +92,7 @@ struct GevelscanFlow: View {
     @State private var editReference = false
     @State private var editElements = false
     @State private var part = 1
+    @State private var copyTarget: FacadeSide?
     @State private var selectedElement: Int?
     @State private var drawType: FacadeElementType?
     @State private var widthFor: FacadePlane?
@@ -131,6 +132,19 @@ struct GevelscanFlow: View {
             }
             .onChange(of: photo) { p in if p != nil { Task { await recognize() } } }
             .sheet(isPresented: $showKey) { ClaudeKeySheet() }
+            .confirmationDialog(copyTarget.map { "Lijkt de gevel op het \($0.facing) op een gescande gevel?" } ?? "", isPresented: Binding(get: { copyTarget != nil }, set: { if !$0 { copyTarget = nil } }), titleVisibility: .visible) {
+                if let t = copyTarget, let m = model {
+                    let sources = Set(m.gevels.filter { $0.copiedFromSide == nil }.map(\.sideId)).sorted()
+                    ForEach(sources, id: \.self) { sid in
+                        if let src = m.sides.first(where: { $0.id == sid }), FacadeCopy.allowed(sourceWidthM: src.lengthM, targetWidthM: t.lengthM) {
+                            Button("Ja, gelijk aan de gevel op het \(src.facing) (\(m1(src.lengthM)))") { Task { await copyFacade(from: sid, to: t) } }
+                        }
+                    }
+                }
+                Button("Annuleer", role: .cancel) { copyTarget = nil }
+            } message: {
+                Text("De uitkomst wordt dan overgenomen als aanname, met jouw bevestiging en de datum. Alleen gevels die volgens de BAG ongeveer even breed zijn (binnen 15%) staan in de lijst.")
+            }
         }
     }
 
@@ -170,7 +184,17 @@ struct GevelscanFlow: View {
                         }
                         .buttonStyle(DSRowStyle())
                         .accessibilityIdentifier("side-\(s.id)")
-                        if done.contains(s.id) {
+                        if !done.contains(s.id), let m = model, !m.gevels.isEmpty {
+                            HStack {
+                                Spacer()
+                                Button { copyTarget = s } label: { Label("Niet te fotograferen?", systemImage: "doc.on.doc") }.font(.caption.weight(.semibold))
+                            }
+                            .padding(.trailing, 14).padding(.bottom, 10)
+                        }
+                        if let src = model?.gevels.first(where: { $0.sideId == s.id })?.copiedFromSide {
+                            Text("Overgenomen van de gevel op het \(model?.sides.first { $0.id == src }?.facing ?? "?") (aanname, door jou bevestigd)")
+                                .font(.caption).foregroundStyle(DS.warn).padding(.leading, 56).padding(.trailing, 14).padding(.bottom, 10)
+                        } else if done.contains(s.id) {
                             let parts = model?.gevels.filter { $0.sideId == s.id }.count ?? 1
                             let failure = model?.sideResults.first { $0.sideId == s.id }?.failure
                             HStack {
@@ -529,14 +553,24 @@ struct GevelscanFlow: View {
         guard var m = model, let p = project else { return }
         m.gevels.removeAll { $0.sideId == scan.sideId && ($0.part ?? 1) == (scan.part ?? 1) }
         m.gevels.append(scan)
+        Self.applyQuantities(&m)
+        model = m
+        do { try await store.saveModel(m, for: p, account: account); await store.refresh(account); phase = .choose; photo = nil }
+        catch { self.error = error.localizedDescription }
+    }
+
+    /// Zet de opgetelde gevelmaten en aantallen als voorstel-overgenomen hoeveelheden in het plan (bron: gevelfoto).
+    /// Overgenomen gevels (aanname) staan in de uitleg apart vermeld.
+    static func applyQuantities(_ m: inout ProjectModel) {
         let results = m.sideResults
         let sums = results.compactMap(\.summary)
         let nSides = results.count
+        let copied = results.filter { $0.parts.first?.copiedFromSide != nil }.count
         if sums.count == results.count && !sums.contains(where: { $0.metselwerkNetM2 == nil }) {
             let total = sums.compactMap(\.metselwerkNetM2).reduce(0, +)
             if let i = m.elements.firstIndex(where: { $0.key == "gevel-metselwerk" }), total > 0 {
                 m.elements[i].quantity = Quantity(value: Decimal(string: String(format: "%.2f", total)), unit: "m2", source: .gevelfoto,
-                                                  basis: "Netto metselwerk van \(nSides) gescande gevel(s), gemeten op gevelfoto's.")
+                                                  basis: "Netto metselwerk van \(nSides) gevel(s), gemeten op gevelfoto's" + (copied > 0 ? "; \(copied) daarvan overgenomen van een gelijke gevel (aanname)." : "."))
             }
         }
         if let i = m.elements.firstIndex(where: { $0.key == "kozijnen-onderhoud" }), var rows = m.elements[i].kozijnen, rows.count >= 3 {
@@ -545,9 +579,24 @@ struct GevelscanFlow: View {
             rows[2].aantal = Quantity(value: Decimal(deuren), unit: "st", source: .gevelfoto, basis: "Geteld op \(sums.count) gescande gevel(s).")
             m.elements[i].kozijnen = rows
         }
+    }
+
+    /// Neemt een gescande gevel over voor een gevel die niet te fotograferen is (alle foto's van die gevel), gemarkeerd als aanname.
+    private func copyFacade(from sid: Int, to t: FacadeSide) async {
+        guard var m = model, let p = project else { return }
+        let now = Date()
+        let copies = m.gevels.filter { $0.sideId == sid }.map { src -> FacadeScan in
+            var c = src
+            c.sideId = t.id; c.facing = t.facing
+            c.copiedFromSide = sid; c.copyConfirmedAt = now
+            return c
+        }
+        m.gevels.removeAll { $0.sideId == t.id }
+        m.gevels += copies
+        Self.applyQuantities(&m)
         model = m
-        do { try await store.saveModel(m, for: p, account: account); await store.refresh(account); phase = .choose; photo = nil }
-        catch { self.error = error.localizedDescription }
+        copyTarget = nil
+        do { try await store.saveModel(m, for: p, account: account); await store.refresh(account) } catch { self.error = error.localizedDescription }
     }
 
     private func loadModel() async {
@@ -634,6 +683,12 @@ struct FacadeOverlay: View {
                                     else if !moved { onElementEvent?(.tap(a)) }
                                     else if drag?.onSelected == true, let id = selectedElement { onElementEvent?(.move(id, b[0] - a[0], b[1] - a[1])) }
                                 })
+                    }
+                    ForEach(scan.defects ?? []) { d in
+                        Image(systemName: "exclamationmark.circle.fill").font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(Color.white, Color.orange)
+                            .position(x: d.point[0] * k, y: d.point[1] * k).allowsHitTesting(false)
+                            .accessibilityLabel(d.type.label)
                     }
                     if editReference {
                         ForEach(0..<2, id: \.self) { i in

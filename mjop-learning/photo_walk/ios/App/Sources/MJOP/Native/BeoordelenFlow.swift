@@ -30,6 +30,20 @@ struct BeoordelenFlow: View {
                                     Text("\(el.categorie) · elke \(el.cyclus) jaar").font(.footnote).foregroundStyle(DS.text2)
                                 }
                             }
+                            if let hints = model.defectHints[el.key], !hints.isEmpty {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Label("Gezien op de gevelfoto's", systemImage: "exclamationmark.triangle").font(.subheadline.weight(.semibold)).foregroundStyle(DS.warn)
+                                    ForEach(Array(hints.enumerated()), id: \.offset) { _, h in
+                                        let side = model.sides.first { $0.id == h.sideId }?.facing ?? "?"
+                                        let on = h.element.map { " op \($0.type.label.lowercased()) \($0.id)" } ?? ""
+                                        Text("Gevel op het \(side): \(h.defect.type.label.lowercased())\(on)" + (h.defect.note.map { " — \u{201C}\($0)\u{201D}" } ?? ""))
+                                            .font(.footnote).foregroundStyle(DS.text)
+                                    }
+                                    Text("Een hint uit de herkenning, geen beoordeling. De score geef jij.").font(.caption).foregroundStyle(DS.text2)
+                                }
+                                .padding(14).frame(maxWidth: .infinity, alignment: .leading)
+                                .background(DS.warnSoft, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                            }
                             Text("Hoe ziet het eruit?").font(.system(size: 28, weight: .bold)).foregroundStyle(DS.text)
                             VStack(spacing: 8) {
                                 ForEach(Self.scale, id: \.0) { s in
