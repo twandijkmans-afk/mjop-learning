@@ -591,6 +591,9 @@ public enum FacadePhoto {
         public var count: Int
         public var lengthM: Double?
         public var areaM2: Double?
+        public init(type: FacadeElementType, count: Int, lengthM: Double?, areaM2: Double?) {
+            self.type = type; self.count = count; self.lengthM = lengthM; self.areaM2 = areaM2
+        }
     }
 
     public static func totals(_ els: [FacadePhotoElement], mpp: Double?) -> [ElementTotal] {
