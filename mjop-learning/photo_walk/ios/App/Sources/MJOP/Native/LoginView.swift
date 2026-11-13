@@ -70,10 +70,12 @@ struct LoginView: View {
                         .padding(.vertical, 6)
                         Button { providerNote = true } label: { Label("Doorgaan met Apple", systemImage: "apple.logo") }
                             .buttonStyle(DSOutlineButton(filledDark: true))
-                        Button { providerNote = true } label: {
+                        Button { Task { await google() } } label: {
                             HStack(spacing: 10) { Text("G").font(.headline.weight(.heavy)).foregroundStyle(Color(hex: 0x4285F4)); Text("Doorgaan met Google") }
                         }
                         .buttonStyle(DSOutlineButton())
+                        .disabled(busy)
+                        .accessibilityIdentifier("googleSignIn")
                     }
 
                     Button(switchTitle) { switchTo(mode == .signIn ? .signUp : .signIn) }
@@ -96,7 +98,7 @@ struct LoginView: View {
         .alert("Nog niet beschikbaar", isPresented: $providerNote) {
             Button("OK", role: .cancel) {}
         } message: {
-            Text("Inloggen met Apple en Google zet ik aan zodra ze in Supabase zijn ingesteld. Log voorlopig in met je e-mailadres.")
+            Text("Inloggen met Apple komt later (daarvoor is een betaald Apple Developer-account nodig). Log in met je e-mailadres of met Google.")
         }
     }
 
@@ -138,6 +140,15 @@ struct LoginView: View {
 
     private func switchTo(_ m: Mode) {
         withAnimation(.dsSpring) { mode = m; error = nil; account.info = nil }
+    }
+
+    private func google() async {
+        guard !busy else { return }
+        busy = true; error = nil
+        defer { busy = false }
+        do { try await account.signInWithGoogle() }
+        catch is CancellationError {}
+        catch { self.error = error.localizedDescription }
     }
 
     private func submit() async {

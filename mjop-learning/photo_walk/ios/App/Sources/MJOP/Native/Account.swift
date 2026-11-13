@@ -1,3 +1,4 @@
+import AuthenticationServices
 import CryptoKit
 import Foundation
 import MJOPIntegration
@@ -129,6 +130,13 @@ final class Account: ObservableObject {
         get { UserDefaults.standard.string(forKey: "mjop.pkce") }
         set { UserDefaults.standard.set(newValue, forKey: "mjop.pkce") }
     }
+    /// Waarvoor de lopende PKCE-aanvraag is: "recovery" (nieuw wachtwoord) of "oauth" (inloggen met Google).
+    private var pkcePurpose: String? {
+        get { UserDefaults.standard.string(forKey: "mjop.pkce.purpose") }
+        set { UserDefaults.standard.set(newValue, forKey: "mjop.pkce.purpose") }
+    }
+    private var webAuth: ASWebAuthenticationSession?
+    private let webAuthAnchor = WebAuthAnchor()
 
     init() {
         #if DEBUG
@@ -194,6 +202,7 @@ final class Account: ObservableObject {
     func sendPasswordReset(email: String) async throws {
         let verifier = Self.randomVerifier()
         pkceVerifier = verifier
+        pkcePurpose = "recovery"
         let challenge = Self.challenge(for: verifier)
         let (data, http) = try await BackendClient(session: nil).request("auth/v1/recover", method: "POST", query: [URLQueryItem(name: "redirect_to", value: Backend.redirect)],
                                                                           body: ["email": email.trimmingCharacters(in: .whitespaces), "code_challenge": challenge, "code_challenge_method": "s256"])
@@ -211,13 +220,51 @@ final class Account: ObservableObject {
                                                                                   body: ["auth_code": code, "code_verifier": verifier])
                 guard http.statusCode == 200, let s = BackendClient.session(from: data) else { info = BackendClient.message(data, status: http.statusCode); return }
                 pkceVerifier = nil
+                let viaOAuth = pkcePurpose == "oauth"
+                pkcePurpose = nil
                 adopt(s)
-                state = .newPassword
+                if !viaOAuth { state = .newPassword }   // wachtwoordherstel: nieuw wachtwoord kiezen; Google: gewoon ingelogd
                 await loadProfile()
             } catch { info = error.localizedDescription }
         case .failure(let m): info = m
         case .rejected: info = "Deze link kan de app niet gebruiken. Vraag een nieuwe aan."
         }
+    }
+
+    /// Staat een externe inlogdienst (bijv. "google") aan in Supabase? Leest de openbare instellingen; nil als dat niet lukt.
+    func providerEnabled(_ provider: String) async -> Bool? {
+        guard let res = try? await BackendClient(session: nil).request("auth/v1/settings"), res.1.statusCode == 200,
+              let o = (try? JSONSerialization.jsonObject(with: res.0)) as? [String: Any],
+              let ext = o["external"] as? [String: Any] else { return nil }
+        return ext[provider] as? Bool
+    }
+
+    /// Inloggen met Google via Supabase (OAuth met PKCE). Het venster van Apple (ASWebAuthenticationSession) opent de inlogpagina;
+    /// de terugkeer (`mjoplive://auth-callback?code=…`) gaat door dezelfde inwisseling als het wachtwoordherstel.
+    func signInWithGoogle() async throws {
+        if await providerEnabled("google") == false {
+            throw BackendError.message("Inloggen met Google is nog niet ingesteld in Supabase. Log voorlopig in met je e-mailadres.")
+        }
+        let verifier = Self.randomVerifier()
+        pkceVerifier = verifier
+        pkcePurpose = "oauth"
+        var c = URLComponents(url: Backend.url.appendingPathComponent("auth/v1/authorize"), resolvingAgainstBaseURL: false)!
+        c.queryItems = [URLQueryItem(name: "provider", value: "google"), URLQueryItem(name: "redirect_to", value: Backend.redirect),
+                        URLQueryItem(name: "code_challenge", value: Self.challenge(for: verifier)), URLQueryItem(name: "code_challenge_method", value: "s256")]
+        guard let url = c.url else { return }
+        let callback: URL = try await withCheckedThrowingContinuation { cont in
+            let session = ASWebAuthenticationSession(url: url, callbackURLScheme: MJOPConfig.appURLScheme) { url, error in
+                if let url { cont.resume(returning: url) }
+                else if let e = error as? ASWebAuthenticationSessionError, e.code == .canceledLogin { cont.resume(throwing: CancellationError()) }
+                else { cont.resume(throwing: BackendError.message("Inloggen met Google is niet gelukt.")) }
+            }
+            session.presentationContextProvider = webAuthAnchor
+            session.prefersEphemeralWebBrowserSession = false
+            webAuth = session
+            session.start()
+        }
+        webAuth = nil
+        await handle(url: callback)
     }
 
     func setPassword(_ password: String) async throws {
@@ -280,5 +327,12 @@ final class Account: ObservableObject {
 extension Data {
     var base64URL: String {
         base64EncodedString().replacingOccurrences(of: "+", with: "-").replacingOccurrences(of: "/", with: "_").replacingOccurrences(of: "=", with: "")
+    }
+}
+
+/// Venster waarin het inlogscherm van Google verschijnt.
+final class WebAuthAnchor: NSObject, ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        UIApplication.shared.connectedScenes.compactMap { ($0 as? UIWindowScene)?.keyWindow }.first ?? ASPresentationAnchor()
     }
 }
