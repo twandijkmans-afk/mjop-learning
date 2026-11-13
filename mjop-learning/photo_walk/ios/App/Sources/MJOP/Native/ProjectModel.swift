@@ -173,6 +173,8 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var removedByUser: [FacadePhotoElement]? = nil
     /// Overgenomen van een andere gevel (niet te fotograferen), met de datum van bevestiging door de gebruiker. Een aanname.
     var copiedFromSide: Int? = nil
+    /// Pad van de foto in de cloud (bucket gevelfotos); nil = alleen op het toestel gebleven.
+    var photoPath: String? = nil
     var copyConfirmedAt: Date? = nil
     var conflicts: [[Int]]? = nil
 

@@ -78,7 +78,7 @@ struct ProjectRowCard: View {
     var body: some View {
         HStack(spacing: 14) {
             Color.clear.frame(width: 76, height: 76)
-                .background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: nil) }
+                .background { ProjectPhotoView(project: project, attribution: nil) }
                 .clipShape(RoundedRectangle(cornerRadius: 15, style: .continuous))
             VStack(alignment: .leading, spacing: 3) {
                 Text(project.naam).font(.headline).foregroundStyle(DS.text).lineLimit(1)

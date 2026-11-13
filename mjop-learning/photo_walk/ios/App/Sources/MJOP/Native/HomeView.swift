@@ -115,7 +115,7 @@ struct ProjectHero: View {
             }
         }
         .frame(maxWidth: .infinity).frame(height: 230)
-        .background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: .topTrailing) }
+        .background { ProjectPhotoView(project: project, attribution: .topTrailing) }
         .clipShape(RoundedRectangle(cornerRadius: DS.radiusHero, style: .continuous))
         .shadow(color: DS.accent.opacity(0.18), radius: 20, x: 0, y: 14)
         .accessibilityElement(children: .combine)

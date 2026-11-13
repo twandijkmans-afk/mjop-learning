@@ -296,6 +296,7 @@ struct KostenSection: View {
 struct RapportSection: View {
     let project: Project
     let model: ProjectModel
+    @EnvironmentObject private var reportAccount: Account
     @State private var pdf: URL?
     @State private var pdfError: String?
     @State private var showShare = false
@@ -330,7 +331,15 @@ struct RapportSection: View {
         .frame(maxWidth: .infinity)
         .padding(.top, 6)
         .task(id: model) {
-            do { pdf = try RapportPDF.make(project: project, model: model) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
+            var photos: [(String, UIImage)] = []
+            if !reportAccount.demo, let s = try? await reportAccount.validSession() {
+                for g in model.gevels.sorted(by: { ($0.sideId, $0.part ?? 1) < ($1.sideId, $1.part ?? 1) }) where g.copiedFromSide == nil {
+                    if let path = g.photoPath, let img = await GevelFotos.load(path, session: s) {
+                        photos.append(("Gevel op het \(g.facing)" + (g.part.map { " · foto \($0)" } ?? ""), img))
+                    }
+                }
+            }
+            do { pdf = try RapportPDF.make(project: project, model: model, photos: photos) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
         }
         .sheet(isPresented: $showShare) { ShareBoardView(project: project, model: model) }
     }

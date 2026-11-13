@@ -18,6 +18,8 @@ struct Project: Identifiable, Equatable {
     var beoordeeld: Int?
     var updatedAt: Date?
     var rol: String?
+    /// Eigen gevelfoto als projectfoto (pad in de bucket gevelfotos); nil = luchtfoto.
+    var photoPath: String? = nil
 
     /// Volledig adres voor de luchtfoto en de weergave.
     var fullAddress: String? {
@@ -39,7 +41,7 @@ struct Project: Identifiable, Equatable {
         return Project(id: id, naam: naam, adres: str("adres"), postcode: str("postcode"), plaats: str("plaats"), bouwjaar: int("bouwjaar"),
                        appartementen: int("aantal_appartementen"), postenAantal: int("posten_aantal"), geraamdTotaal: int("geraamd_totaal"),
                        periodeVan: int("periode_van"), periodeTot: int("periode_tot"), beoordeeld: int("posten_beoordeeld"),
-                       updatedAt: str("updated_at").flatMap(Self.parseDate), rol: nil)
+                       updatedAt: str("updated_at").flatMap(Self.parseDate), rol: nil, photoPath: str("photo_path"))
     }
 
     static func parseDate(_ s: String) -> Date? {
@@ -72,7 +74,11 @@ final class ProjectStore: ObservableObject {
         do {
             let s = try await account.validSession()
             let cols = "id,naam,adres,postcode,plaats,bouwjaar,aantal_appartementen,posten_aantal,geraamd_totaal,periode_van,periode_tot,posten_beoordeeld,updated_at"
-            let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", query: [URLQueryItem(name: "select", value: cols), URLQueryItem(name: "order", value: "updated_at.desc")])
+            let client = BackendClient(session: s)
+            var (data, http) = try await client.request("rest/v1/projects", query: [URLQueryItem(name: "select", value: cols + ",photo_path"), URLQueryItem(name: "order", value: "updated_at.desc")])
+            if http.statusCode == 400 {   // kolom photo_path bestaat nog niet (SQL voor gevelfoto's nog niet uitgevoerd)
+                (data, http) = try await client.request("rest/v1/projects", query: [URLQueryItem(name: "select", value: cols), URLQueryItem(name: "order", value: "updated_at.desc")])
+            }
             guard http.statusCode == 200, let rows = (try? JSONSerialization.jsonObject(with: data)) as? [[String: Any]] else {
                 error = BackendClient.message(data, status: http.statusCode); loadedOnce = true; return
             }

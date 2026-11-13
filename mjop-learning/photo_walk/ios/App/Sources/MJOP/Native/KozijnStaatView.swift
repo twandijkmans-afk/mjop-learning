@@ -61,6 +61,21 @@ struct KozijnStaatSection: View {
         VStack(alignment: .leading, spacing: 10) {
             if let error { DSNotice(kind: .warn, text: error) }
             if let m = model, !m.gevels.isEmpty {
+                let withPhoto = m.gevels.filter { $0.photoPath != nil && $0.copiedFromSide == nil }.sorted { ($0.sideId, $0.part ?? 1) < ($1.sideId, $1.part ?? 1) }
+                if !withPhoto.isEmpty {
+                    Text("Gevelfoto's").font(.title3.weight(.bold)).foregroundStyle(DS.text)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(withPhoto) { g in
+                                VStack(alignment: .leading, spacing: 4) {
+                                    StoragePhotoView(path: g.photoPath) { DS.surface2 }
+                                        .frame(width: 150, height: 110).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                                    Text("Gevel op het \(g.facing)" + (g.part.map { " · \($0)" } ?? "")).font(.caption).foregroundStyle(DS.text2)
+                                }
+                            }
+                        }
+                    }
+                }
                 let staat = m.kozijnStaat
                 HStack {
                     Text("Kozijnstaat").font(.title3.weight(.bold)).foregroundStyle(DS.text)

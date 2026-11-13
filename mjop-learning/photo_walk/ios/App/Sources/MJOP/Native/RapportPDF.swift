@@ -3,7 +3,7 @@ import UIKit
 
 /// Het MJOP-rapport als PDF (A4), gemaakt op het toestel uit het plan. Alleen echte gegevens; onbekend staat er als onbekend.
 enum RapportPDF {
-    static func make(project: Project, model: ProjectModel) throws -> URL {
+    static func make(project: Project, model: ProjectModel, photos: [(String, UIImage)] = []) throws -> URL {
         let page = CGRect(x: 0, y: 0, width: 595, height: 842)
         let margin: CGFloat = 48
         let blue = UIColor(hex: 0x2F4BFF), ink = UIColor(hex: 0x0E1424), grey = UIColor(hex: 0x667085), line = UIColor(hex: 0xE6EAF2)
@@ -89,6 +89,23 @@ enum RapportPDF {
                 model.gevels.isEmpty ? "Er zijn nog geen gevels gescand." : "\(model.gevels.count) gevel(s) gescand met een gevelfoto: elementen herkend door Claude, maten berekend met de gevelbreedte uit de BAG.",
             ]
             for n in notes { ensure(40); text("• " + n, 10, grey, x: margin, w: page.width - 2 * margin, advance: true); y += 6 }
+
+            // bijlage: gevelfoto's
+            if !photos.isEmpty {
+                newPage()
+                text("Bijlage: gevelfoto's", 16, ink, weight: .bold, x: margin, w: 300, advance: true)
+                y += 10
+                let maxW = page.width - 2 * margin
+                for (caption, img) in photos {
+                    let k = min(maxW / img.size.width, 330 / img.size.height)
+                    let size = CGSize(width: img.size.width * k, height: img.size.height * k)
+                    ensure(size.height + 30)
+                    img.draw(in: CGRect(x: margin, y: y, width: size.width, height: size.height))
+                    y += size.height + 4
+                    text(caption, 10, grey, x: margin, w: maxW, advance: true)
+                    y += 14
+                }
+            }
         }
         return url
     }

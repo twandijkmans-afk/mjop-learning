@@ -549,8 +549,21 @@ struct GevelscanFlow: View {
     private func m1(_ v: Double) -> String { String(format: "%.1f m", v).replacingOccurrences(of: ".", with: ",") }
 
     /// Bewaart de scan en zet de opgetelde gevelmaten als voorstel-overgenomen hoeveelheid in het plan (bron: gevelfoto).
-    private func accept(_ scan: FacadeScan) async {
+    private func accept(_ scan0: FacadeScan) async {
         guard var m = model, let p = project else { return }
+        var scan = scan0
+        if !account.demo, let photo, let s = try? await account.validSession() {
+            let path = GevelFotos.path(project: p.id, side: scan.sideId, part: scan.part ?? 1)
+            do {
+                try await GevelFotos.upload(photo, path: path, session: s)
+                scan.photoPath = path
+                if p.photoPath == nil {   // eerste eigen gevelfoto wordt de projectfoto
+                    _ = try? await BackendClient(session: s).request("rest/v1/projects", method: "PATCH", query: [URLQueryItem(name: "id", value: "eq.\(p.id)")], body: ["photo_path": path])
+                }
+            } catch {
+                self.error = "De foto is niet in de cloud bewaard (\(error.localizedDescription)). De maten en elementen worden wel opgeslagen."
+            }
+        }
         m.gevels.removeAll { $0.sideId == scan.sideId && ($0.part ?? 1) == (scan.part ?? 1) }
         m.gevels.append(scan)
         Self.applyQuantities(&m)
