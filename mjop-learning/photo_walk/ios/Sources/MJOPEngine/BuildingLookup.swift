@@ -28,6 +28,8 @@ public struct PandInfo: Equatable {
     public var bevatAdres: Bool
     /// Gevelzijden uit de omtrek (lengte en windrichting), voor de maat van de gevelscan.
     public var sides: [FacadeSide] = []
+    /// De BAG-omtrek als [lengtegraad, breedtegraad], voor de kaart in de gevelscan.
+    public var ring: [[Double]] = []
 }
 
 public struct ThreeDBAGInfo: Equatable {
@@ -104,7 +106,7 @@ public enum BuildingLookup {
             let inside = pointInRing(ring, lon, lat)
             let units = (p["aantal_verblijfsobjecten"] as? Int).flatMap { $0 > 0 ? $0 : nil }
             let info = PandInfo(identificatie: id, bouwjaar: p["bouwjaar"] as? Int, verblijfsobjecten: units, footprintM2: ringArea(ring), omtrekM: ringPerimeter(ring), bevatAdres: inside,
-                                sides: FootprintSides.sides(FootprintSides.meters(ring)))
+                                sides: FootprintSides.sides(FootprintSides.meters(ring)), ring: ring.map { [$0.0, $0.1] })
             if let b = best {
                 if (inside && !b.0.bevatAdres) || (inside == b.0.bevatAdres && dist < b.1) { best = (info, dist) }
             } else { best = (info, dist) }

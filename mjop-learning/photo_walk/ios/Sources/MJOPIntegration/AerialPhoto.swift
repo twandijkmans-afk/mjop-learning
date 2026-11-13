@@ -91,4 +91,24 @@ public enum AerialPhoto {
         ]
         return c.url
     }
+
+    /// Luchtfoto voor een uitsnede in Web Mercator (EPSG:3857), voor de kaart met de BAG-omtrek in de gevelscan.
+    public static func imageURL(mercatorBox b: (minX: Double, minY: Double, maxX: Double, maxY: Double), pixelWidth: Int, pixelHeight: Int) -> URL? {
+        guard b.maxX > b.minX, b.maxY > b.minY, (100...1600).contains(pixelWidth), (100...1600).contains(pixelHeight) else { return nil }
+        func f(_ v: Double) -> String { String(format: "%.2f", v) }
+        guard var c = URLComponents(string: "https://service.pdok.nl/hwh/luchtfotorgb/wms/v1_0") else { return nil }
+        c.queryItems = [
+            URLQueryItem(name: "service", value: "WMS"),
+            URLQueryItem(name: "version", value: "1.3.0"),
+            URLQueryItem(name: "request", value: "GetMap"),
+            URLQueryItem(name: "layers", value: "Actueel_orthoHR"),
+            URLQueryItem(name: "styles", value: ""),
+            URLQueryItem(name: "crs", value: "EPSG:3857"),
+            URLQueryItem(name: "bbox", value: [b.minX, b.minY, b.maxX, b.maxY].map(f).joined(separator: ",")),
+            URLQueryItem(name: "width", value: String(pixelWidth)),
+            URLQueryItem(name: "height", value: String(pixelHeight)),
+            URLQueryItem(name: "format", value: "image/jpeg"),
+        ]
+        return c.url
+    }
 }

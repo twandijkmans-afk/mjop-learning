@@ -606,8 +606,13 @@ public struct FacadeSide: Codable, Equatable, Identifiable {
     public var lengthM: Double
     /// Windrichting waar de gevel naar kijkt (noord, noordoost, …).
     public var facing: String
+    /// Begin- en eindpunt van de zijde in meters rond het eerste punt van de BAG-omtrek (x = oost, y = noord), voor de kaart.
+    public var from: [Double]?
+    public var to: [Double]?
 
-    public init(id: Int, lengthM: Double, facing: String) { self.id = id; self.lengthM = lengthM; self.facing = facing }
+    public init(id: Int, lengthM: Double, facing: String, from: [Double]? = nil, to: [Double]? = nil) {
+        self.id = id; self.lengthM = lengthM; self.facing = facing; self.from = from; self.to = to
+    }
 }
 
 public enum FootprintSides {
@@ -639,7 +644,7 @@ public enum FootprintSides {
             let dx = b[0] - a[0], dy = b[1] - a[1]
             let nx = signed > 0 ? dy : -dy, ny = signed > 0 ? -dx : dx
             let az = (atan2(nx, ny) * 180 / .pi + 360).truncatingRemainder(dividingBy: 360)
-            return FacadeSide(id: k + 1, lengthM: hypot(dx, dy), facing: names[Int((az / 45).rounded(.toNearestOrAwayFromZero)) % 8])
+            return FacadeSide(id: k + 1, lengthM: hypot(dx, dy), facing: names[Int((az / 45).rounded(.toNearestOrAwayFromZero)) % 8], from: a, to: b)
         }
     }
 }

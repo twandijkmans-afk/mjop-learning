@@ -16,6 +16,8 @@ struct ProjectModel: Equatable {
     var documents: [ProjectDocument] = []
     /// Keuzes van de gebruiker in de kozijnstaat (samenvoegen, apart zetten).
     var kozijnOverrides: KozijnOverrides? = nil
+    /// De BAG-omtrek als [lengtegraad, breedtegraad], voor de kaart in de gevelscan.
+    var footprint: [[Double]]? = nil
 
     /// Kozijnen van alle gescande gevels gegroepeerd per type.
     var kozijnStaat: KozijnStaatResult { KozijnStaat.make(sideResults.flatMap(\.items), overrides: kozijnOverrides ?? KozijnOverrides()) }
@@ -75,7 +77,7 @@ struct ProjectModel: Equatable {
         }
         return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
                             gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [],
-                            documents: decode("documents", [ProjectDocument].self) ?? [], kozijnOverrides: decode("kozijn_overrides", KozijnOverrides.self))
+                            documents: decode("documents", [ProjectDocument].self) ?? [], kozijnOverrides: decode("kozijn_overrides", KozijnOverrides.self), footprint: o["footprint"] as? [[Double]])
     }
 
     func json() -> [String: Any] {
@@ -88,6 +90,7 @@ struct ProjectModel: Equatable {
             "gevels": (try? JSONSerialization.jsonObject(with: enc.encode(gevels))) ?? [],
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
             "documents": (try? JSONSerialization.jsonObject(with: enc.encode(documents))) ?? [],
+            "footprint": footprint ?? [],
             "kozijn_overrides": kozijnOverrides.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? [String: Any](),
         ]
     }

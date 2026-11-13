@@ -93,6 +93,7 @@ struct GevelscanFlow: View {
     @State private var editElements = false
     @State private var part = 1
     @State private var copyTarget: FacadeSide?
+    @State private var focusSide: Int?
     @State private var selectedElement: Int?
     @State private var drawType: FacadeElementType?
     @State private var showEditor = false
@@ -167,12 +168,28 @@ struct GevelscanFlow: View {
                 Menu { ForEach(store.projects) { q in Button(q.naam) { projectId = q.id } } } label: { Label("Ander project", systemImage: "chevron.up.chevron.down") }
             }
             let done = Set(model?.gevels.map(\.sideId) ?? [])
+            let footprint = model?.footprint ?? []
+            let hasMap = footprint.count >= 3 && usableSides.contains { $0.from != nil }
+            if hasMap {
+                let focus = focusSide ?? usableSides.first { !done.contains($0.id) }?.id ?? usableSides.first?.id
+                FacadeSiteMap(footprint: footprint, sides: usableSides, selected: focus, done: done) { focusSide = $0 }
+                if let fs = usableSides.first(where: { $0.id == focus }) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Gevel \(fs.id) · op het \(fs.facing) · \(String(format: "%.1f", fs.lengthM).replacingOccurrences(of: ".", with: ",")) m").font(.headline).foregroundStyle(DS.text)
+                        if let adv = FootprintMap.advice(for: fs, footprint: footprint) { Text(adv).font(.subheadline).foregroundStyle(DS.text2) }
+                        Button { side = fs; part = 1; startCamera() } label: { Label(done.contains(fs.id) ? "Opnieuw fotograferen" : "Foto maken", systemImage: "camera.fill") }
+                            .buttonStyle(DSPrimaryButton())
+                            .accessibilityIdentifier("shootFocused")
+                    }
+                    .padding(16).dsCard(radius: 20)
+                }
+            }
             if !usableSides.isEmpty {
                 ProgressView(value: Double(done.intersection(usableSides.map(\.id)).count), total: Double(usableSides.count)).tint(DS.ok)
                 Text("\(done.intersection(usableSides.map(\.id)).count) van \(usableSides.count) gevels klaar").font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
                 VStack(spacing: 0) {
                     ForEach(usableSides) { s in
-                        Button { side = s; part = 1; startCamera() } label: {
+                        Button { if hasMap { withAnimation(.dsSpring) { focusSide = s.id } } else { side = s; part = 1; startCamera() } } label: {
                             HStack(spacing: 12) {
                                 ZStack {
                                     Circle().fill(done.contains(s.id) ? DS.ok : DS.accentSoft).frame(width: 30, height: 30)
@@ -651,7 +668,22 @@ struct GevelscanFlow: View {
 
     private func loadModel() async {
         guard let p = project else { return }
-        do { model = try await store.loadModel(p, account: account) } catch { self.error = error.localizedDescription }
+        do {
+            var m = try await store.loadModel(p, account: account)
+            model = m
+            // Oudere projecten: omtrek en eindpunten van de zijden één keer ophalen voor de kaart.
+            if !account.demo, (m.footprint ?? []).count < 3 || m.sides.contains(where: { $0.from == nil }), let addr = p.fullAddress,
+               let sug = try? await BuildingService.suggest(addr).first, let f = try? await BuildingService.building(for: sug), f.pand.ring.count >= 3 {
+                m.footprint = f.pand.ring
+                if f.pand.sides.count == m.sides.count, zip(f.pand.sides, m.sides).allSatisfy({ abs($0.lengthM - $1.lengthM) < 0.3 }) {
+                    m.sides = zip(m.sides, f.pand.sides).map { old, new in var o = old; o.from = new.from; o.to = new.to; return o }
+                } else if m.sides.isEmpty {
+                    m.sides = f.pand.sides
+                }
+                model = m
+                try? await store.saveModel(m, for: p, account: account)
+            }
+        } catch { self.error = error.localizedDescription }
     }
 }
 
