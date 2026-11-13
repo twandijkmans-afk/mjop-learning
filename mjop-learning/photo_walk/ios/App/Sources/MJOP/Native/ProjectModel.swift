@@ -163,6 +163,22 @@ struct FacadeScan: Codable, Equatable, Identifiable {
         return elements.filter(\.type.isOpening).map { item($0, mpp) }
     }
 
+    /// Relatieve bandbreedte van de maten op deze gevel (vaste regels in MeasureBand); de zwakste maatbron van de meegetelde vlakken telt.
+    var bandRelative: Double {
+        let sources = (planes ?? []).compactMap { width(of: $0)?.source }
+        let worst = sources.max { MeasureBand.relative(.init(widthSource: $0, levelAtCapture: nil, focalSource: nil, rectified: true)) < MeasureBand.relative(.init(widthSource: $1, levelAtCapture: nil, focalSource: nil, rectified: true)) }
+        let r = rectified
+        return MeasureBand.relative(.init(widthSource: worst ?? .bag, levelAtCapture: levelAtCapture, focalSource: r?.focalSource, rectified: r != nil))
+    }
+
+    /// Hoogte van de eerste deur op het hoofdvlak, als controlemaat.
+    var doorHeightM: Double? {
+        if let r = rectified {
+            return r.elements.first { $0.type == .kozijn_deur }.flatMap { FacadePhoto.quantities($0, mpp: 1, all: []).heightM }
+        }
+        return elements.first { $0.type == .kozijn_deur }.flatMap { FacadePhoto.quantities($0, mpp: mpp, all: []).heightM }
+    }
+
     var summary: FacadePhoto.Summary {
         if rectified != nil {
             return FacadePhoto.combine((planes ?? []).compactMap(rectify).map { FacadePhoto.summary($0.elements, mpp: 1) })

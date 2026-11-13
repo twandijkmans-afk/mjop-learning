@@ -89,6 +89,7 @@ struct GevelscanFlow: View {
     @State private var captureMeta: CaptureMeta?
     @State private var editCorners = false
     @State private var selectedPlane: Int?
+    @State private var editReference = false
     @State private var widthFor: FacadePlane?
     @State private var widthText = ""
 
@@ -263,7 +264,11 @@ struct GevelscanFlow: View {
         if let scan = lastScan, let photo {
             Text("Gevel op het \(scan.facing)").font(.system(size: 26, weight: .bold)).foregroundStyle(DS.text)
             let activePlane = selectedPlane ?? scan.mainPlane?.id
-            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane) { corners in
+            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane, editReference: editReference, onReference: { l, r in
+                guard var s = lastScan else { return }
+                s.referenceLeftX = min(l, r); s.referenceRightX = max(l, r)
+                lastScan = s
+            }) { corners in
                 guard var s = lastScan, let i = s.planes?.firstIndex(where: { $0.id == activePlane }) else { return }
                 if s.planes![i].originalCorners == nil { s.planes![i].originalCorners = s.planes![i].corners }
                 s.planes![i].corners = corners
@@ -282,15 +287,32 @@ struct GevelscanFlow: View {
                 }
                 if (scan.planes ?? []).count > 1 { planeList(scan, active: activePlane) }
             }
+            if scan.mainPlane == nil {
+                Button { withAnimation(.dsSpring) { editReference.toggle() } } label: {
+                    Label(editReference ? "Klaar met de maat" : "Maat bijstellen", systemImage: editReference ? "checkmark" : "ruler")
+                }
+                .buttonStyle(DSSecondaryButton())
+                .accessibilityIdentifier("editReference")
+                if editReference {
+                    Text("Sleep de twee gele lijnen naar de linker- en rechterrand van de gevel. Daartussen ligt de gevelbreedte uit de BAG (\(m1(scan.widthM))).").font(.footnote).foregroundStyle(DS.text2)
+                }
+            }
+            if let dh = scan.doorHeightM {
+                switch MeasureBand.doorCheck(dh) {
+                case .ok: Label("Controle: deur \(m2dec(dh)) m hoog (gebruikelijk 2,0–2,4 m)", systemImage: "checkmark.seal").font(.footnote).foregroundStyle(DS.ok)
+                case .tooLow, .tooHigh: DSNotice(kind: .warn, text: "Controleer de maat: de deur komt uit op \(m2dec(dh)) m hoog, gebruikelijk is 2,0–2,4 m. Pas de hoeken of de maat aan.")
+                }
+            }
             let s = scan.summary
+            let rel = scan.bandRelative
             VStack(spacing: 0) {
-                resultRow("square.grid.3x3", "Metselwerk", "netto, openingen afgetrokken", s.metselwerkNetM2.map { m2($0) } ?? "maat onbekend")
+                resultRow("square.grid.3x3", "Metselwerk", "netto, openingen afgetrokken", s.metselwerkNetM2.map { m2($0) + " ± " + plain(MeasureBand.band($0, relative: rel, area: true)) } ?? "maat onbekend")
                 Divider().padding(.leading, 60)
                 resultRow("window.casement", "Raamkozijnen", "herkend door Claude", "\(s.raamkozijnen) st")
                 Divider().padding(.leading, 60)
                 resultRow("door.left.hand.closed", "Deurkozijnen", "herkend door Claude", "\(s.deurkozijnen) st")
                 Divider().padding(.leading, 60)
-                resultRow("drop", "Hemelwaterafvoer", "lengte op de foto", s.hwaM1.map { m1($0) } ?? "–")
+                resultRow("drop", "Hemelwaterafvoer", "lengte op de foto", s.hwaM1.map { $0 > 0 ? m1($0) + " ± " + plain(MeasureBand.band($0, relative: rel, area: false)) : m1($0) } ?? "–")
             }
             .dsCard(radius: 20)
             if let n = scan.merged, n > 0 {
@@ -399,6 +421,9 @@ struct GevelscanFlow: View {
         }
     }
 
+    private func m2dec(_ v: Double) -> String { String(format: "%.2f", v).replacingOccurrences(of: ".", with: ",") }
+    private func plain(_ v: Double) -> String { (v >= 10 ? String(format: "%.0f", v) : String(format: "%.1f", v)).replacingOccurrences(of: ".", with: ",") }
+
     private func m2(_ v: Double) -> String { String(format: "%.1f m²", v).replacingOccurrences(of: ".", with: ",") }
     private func m1(_ v: Double) -> String { String(format: "%.1f m", v).replacingOccurrences(of: ".", with: ",") }
 
@@ -438,6 +463,8 @@ struct FacadeOverlay: View {
     let scan: FacadeScan
     var editCorners = false
     var activePlane: Int? = nil
+    var editReference = false
+    var onReference: ((Double, Double) -> Void)? = nil
     var onCorners: (([[Double]]) -> Void)? = nil
 
     static func planeColor(_ i: Int) -> Color { [Color.yellow, Color(hex: 0xFF5FD2), Color(hex: 0x22D3EE), Color(hex: 0xA3E635)][i % 4] }
@@ -466,6 +493,21 @@ struct FacadeOverlay: View {
                         }
                         .stroke(FacadeOverlay.planeColor(idx), style: StrokeStyle(lineWidth: editCorners && pl.id == active ? 2.5 : 1.5, dash: editCorners && pl.id == active ? [] : [6, 5]))
                         .allowsHitTesting(false)
+                    }
+                    if editReference {
+                        ForEach(0..<2, id: \.self) { i in
+                            let x = (i == 0 ? scan.referenceLeftX : scan.referenceRightX) * k
+                            Path { p in p.move(to: CGPoint(x: x, y: 0)); p.addLine(to: CGPoint(x: x, y: g.size.height)) }
+                                .stroke(Color.yellow, style: StrokeStyle(lineWidth: 2, dash: [6, 4])).allowsHitTesting(false)
+                            Circle().fill(Color.yellow).frame(width: 24, height: 24).overlay(Image(systemName: "arrow.left.and.right").font(.caption2.weight(.bold)).foregroundStyle(.black))
+                                .frame(width: 44, height: 44).contentShape(Rectangle())
+                                .position(x: x, y: g.size.height / 2)
+                                .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("facade")).onChanged { v in
+                                    let nx = min(max(v.location.x, 0), g.size.width) / k
+                                    if i == 0 { onReference?(nx, scan.referenceRightX) } else { onReference?(scan.referenceLeftX, nx) }
+                                })
+                                .accessibilityLabel(i == 0 ? "Linkerrand van de gevel" : "Rechterrand van de gevel")
+                        }
                     }
                     if let plane = scan.planes?.first(where: { $0.id == active }) {
                         if editCorners {
