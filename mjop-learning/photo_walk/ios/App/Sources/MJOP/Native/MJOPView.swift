@@ -298,6 +298,7 @@ struct RapportSection: View {
     let model: ProjectModel
     @State private var pdf: URL?
     @State private var pdfError: String?
+    @State private var showShare = false
 
     var body: some View {
         VStack(spacing: 14) {
@@ -322,12 +323,15 @@ struct RapportSection: View {
             } else {
                 ProgressView()
             }
-            Text("Delen met het bestuur via een bekijklink komt in een volgende stap.").font(.footnote).foregroundStyle(DS.text2).multilineTextAlignment(.center)
+            Button { showShare = true } label: { Label("Delen met het bestuur", systemImage: "person.2") }
+                .buttonStyle(DSSecondaryButton())
+                .accessibilityIdentifier("shareBoard")
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 6)
         .task(id: model) {
             do { pdf = try RapportPDF.make(project: project, model: model) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
         }
+        .sheet(isPresented: $showShare) { ShareBoardView(project: project, model: model) }
     }
 }
