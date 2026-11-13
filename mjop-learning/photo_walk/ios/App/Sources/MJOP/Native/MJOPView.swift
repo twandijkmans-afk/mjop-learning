@@ -11,6 +11,7 @@ struct MJOPView: View {
     @State private var model: ProjectModel?
     @State private var error: String?
     @State private var section: Part = .planning
+    @State private var showAssess = false
 
     enum Part: String, CaseIterable { case planning = "Planning", kosten = "Kosten", rapport = "Rapport" }
 
@@ -27,7 +28,26 @@ struct MJOPView: View {
             if let error { DSNotice(kind: .warn, text: error) }
             if let m = model {
                 switch section {
-                case .planning: PlanningSection(model: m)
+                case .planning:
+                    Button { showAssess = true } label: {
+                        HStack(spacing: 12) {
+                            ZStack {
+                                Circle().stroke(DS.line, lineWidth: 5)
+                                Circle().trim(from: 0, to: CGFloat(m.beoordeeld) / CGFloat(max(1, m.elements.count))).stroke(DS.accent, style: StrokeStyle(lineWidth: 5, lineCap: .round)).rotationEffect(.degrees(-90))
+                            }
+                            .frame(width: 40, height: 40)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("\(m.beoordeeld) van \(m.elements.count) beoordeeld").font(.headline).foregroundStyle(DS.text)
+                                Text(m.beoordeeld == m.elements.count ? "Alle posten beoordeeld" : "Beoordeel de staat; dan klopt de planning beter.").font(.caption).foregroundStyle(DS.text2)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right").font(.footnote.weight(.semibold)).foregroundStyle(DS.text2.opacity(0.6))
+                        }
+                        .padding(14).dsCard(radius: 20)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityIdentifier("assess")
+                    PlanningSection(model: m)
                 case .kosten: KostenSection(model: Binding(get: { m }, set: { model = $0 }), save: save)
                 case .rapport: RapportSection(project: project, model: m)
                 }
@@ -36,6 +56,9 @@ struct MJOPView: View {
             }
         }
         .task(id: project.id) { await load() }
+        .sheet(isPresented: $showAssess) {
+            if let m = model { BeoordelenFlow(model: m, onDone: { save($0) }) }
+        }
     }
 
     private func load() async {
@@ -161,7 +184,7 @@ func elementIcon(for key: String) -> String {
     if key.hasPrefix("dak") { return "house" }
     if key.contains("kozijn") || key.contains("schilder") { return "window.casement" }
     if key.contains("gevel") || key.contains("voeg") { return "square.grid.3x3" }
-    if key == "steiger" { return "ladder" }
+    if key == "steiger" { return "square.stack.3d.up" }
     if key == "intercom" { return "bell" }
     if key == "riolering" { return "drop" }
     if key == "trappenhuis" { return "stairs" }
@@ -273,6 +296,8 @@ struct KostenSection: View {
 struct RapportSection: View {
     let project: Project
     let model: ProjectModel
+    @State private var pdf: URL?
+    @State private var pdfError: String?
 
     var body: some View {
         VStack(spacing: 14) {
@@ -288,9 +313,21 @@ struct RapportSection: View {
             .shadow(color: .black.opacity(0.16), radius: 20, x: 0, y: 14)
             .accessibilityHidden(true)
             DSChip(text: "Indicatie · \(model.beoordeeld) van \(model.elements.count) posten beoordeeld", fg: DS.warn, bg: DS.warnSoft)
-            Text("Het rapport als PDF om te delen met het bestuur maak ik in een volgende stap.").font(.footnote).foregroundStyle(DS.text2).multilineTextAlignment(.center)
+            if let pdf {
+                ShareLink(item: pdf) { Label("Delen als PDF", systemImage: "square.and.arrow.up") }
+                    .buttonStyle(DSPrimaryButton())
+                    .accessibilityIdentifier("sharePDF")
+            } else if let pdfError {
+                DSNotice(kind: .warn, text: pdfError)
+            } else {
+                ProgressView()
+            }
+            Text("Delen met het bestuur via een bekijklink komt in een volgende stap.").font(.footnote).foregroundStyle(DS.text2).multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 6)
+        .task(id: model) {
+            do { pdf = try RapportPDF.make(project: project, model: model) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
+        }
     }
 }

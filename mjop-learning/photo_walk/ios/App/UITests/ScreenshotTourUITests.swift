@@ -43,6 +43,9 @@ final class ScreenshotTourUITests: XCTestCase {
         app.buttons["Terug"].firstMatch.tap()
 
         tap(el(app, "tab-MJOP")); settle(2); shot(app, "4-mjop-planning-\(mode)")
+        tap(el(app, "assess")); settle(); shot(app, "4a-beoordelen-\(mode)")
+        tap(el(app, "score-3")); settle(0.5); shot(app, "4a2-beoordelen-gekozen-\(mode)")
+        app.buttons["Stop"].firstMatch.tap(); settle()
         tap(el(app, "seg-Kosten")); settle(); shot(app, "4b-mjop-kosten-\(mode)")
         tap(el(app, "seg-Rapport")); settle(); shot(app, "4c-mjop-rapport-\(mode)")
         tap(el(app, "tab-Profiel")); settle(); shot(app, "5-profiel-\(mode)")
