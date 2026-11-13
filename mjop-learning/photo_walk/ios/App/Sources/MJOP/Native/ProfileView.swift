@@ -54,7 +54,7 @@ struct ProfileView: View {
                         Divider().padding(.leading, 62)
                         row("lock.shield", "Privacy en gegevens", nil)
                         Divider().padding(.leading, 62)
-                        Button { showKey = true } label: { row("key", "Claude-sleutel voor de gevelscan", ClaudeKey.load() == nil ? "Niet ingesteld" : "Ingesteld") }
+                        Button { showKey = true } label: { row("key", "Claude-sleutel", ClaudeKey.load() == nil ? "Niet ingesteld" : "Ingesteld") }
                             .buttonStyle(DSRowStyle())
                             .accessibilityIdentifier("claudeKey")
                     }

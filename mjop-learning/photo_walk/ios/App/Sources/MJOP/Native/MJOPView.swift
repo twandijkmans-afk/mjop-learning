@@ -92,7 +92,7 @@ struct PlanningSection: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 1) {
-                        Text("Onderhoud \(years.first!)–\(years.last!)").font(.footnote).foregroundStyle(DS.text2)
+                        Text("Onderhoud \(String(years.first!))–\(String(years.last!))").font(.footnote).foregroundStyle(DS.text2)
                         Text(DSFormat.euros(euroInt(model.total))).font(.system(size: 28, weight: .bold)).foregroundStyle(DS.text)
                     }
                     Spacer()
@@ -145,7 +145,7 @@ struct PlanningSection: View {
                     .dsCard(radius: 18)
                 }
             }
-            Text("Bedragen zijn geraamd met standaardbedragen (geen offertes), prijspeil \(ProjectModel.year).").font(.caption).foregroundStyle(DS.text2).padding(.horizontal, 4)
+            Text("Bedragen zijn geraamd met standaardbedragen (geen offertes), prijspeil \(String(ProjectModel.year)).").font(.caption).foregroundStyle(DS.text2).padding(.horizontal, 4)
         }
     }
 
@@ -232,7 +232,7 @@ struct KostenSection: View {
             HStack { Text("€ 0"); Spacer(); Text(DSFormat.euros(Int(sliderMax))) }.font(.caption).foregroundStyle(DS.text2)
                 .accessibilityIdentifier("bijdrageSlider")
             if let r = model.required {
-                Text("Nodig om het fonds tot \(ProjectModel.year + Engine.horizon - 1) niet onder € 0 te laten komen: **\(DSFormat.euros(r))** per maand.").font(.footnote).foregroundStyle(DS.text2)
+                Text("Nodig om het fonds tot \(String(ProjectModel.year + Engine.horizon - 1)) niet onder € 0 te laten komen: **\(DSFormat.euros(r))** per maand.").font(.footnote).foregroundStyle(DS.text2)
             }
         }
         .padding(16).dsCard()
@@ -257,6 +257,7 @@ struct KostenSection: View {
                 }
             }
             .chartXAxis { AxisMarks(values: [ProjectModel.year, ProjectModel.year + 4, ProjectModel.year + 9]) { v in AxisValueLabel { if let y = v.as(Int.self) { Text(String(y)) } } } }
+            .chartXScale(domain: ProjectModel.year...(ProjectModel.year + Engine.horizon - 1))
             .chartYAxis(.hidden)
             .frame(height: 130)
             if let low {
@@ -277,7 +278,7 @@ struct RapportSection: View {
         VStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 8) {
                 DSLogo(size: 26)
-                Text("MJOP \(ProjectModel.year)–\(ProjectModel.year + Engine.horizon - 1)").font(.headline).foregroundStyle(Color(hex: 0x0E1424))
+                Text("MJOP \(String(ProjectModel.year))–\(String(ProjectModel.year + Engine.horizon - 1))").font(.headline).foregroundStyle(Color(hex: 0x0E1424))
                 Text(project.fullAddress ?? project.naam).font(.caption2).foregroundStyle(Color(hex: 0x667085))
                 Color.clear.frame(height: 60).background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: nil) }.clipShape(RoundedRectangle(cornerRadius: 6))
                 ForEach(0..<3, id: \.self) { i in RoundedRectangle(cornerRadius: 2).fill(Color(hex: 0xE1E6F0)).frame(width: CGFloat([150, 120, 140][i]), height: 4) }
