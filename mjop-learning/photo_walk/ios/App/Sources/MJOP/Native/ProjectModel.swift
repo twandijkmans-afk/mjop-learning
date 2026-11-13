@@ -69,7 +69,8 @@ struct ProjectModel: Equatable {
               let elements = try? dec.decode([PlanElement].self, from: eData) else { return nil }
         func decimal(_ k: String) -> Decimal? { (o[k] as? NSNumber).map { $0.decimalValue } }
         func decode<T: Decodable>(_ k: String, _ t: T.Type) -> T? {
-            guard let v = o[k], let d = try? JSONSerialization.data(withJSONObject: v) else { return nil }
+            // Alleen echte objecten of lijsten: een lege waarde (null) laat JSONSerialization crashen (Objective-C-uitzondering, niet te vangen met try?).
+            guard let v = o[k], !(v is NSNull), JSONSerialization.isValidJSONObject(v), let d = try? JSONSerialization.data(withJSONObject: v) else { return nil }
             return try? dec.decode(T.self, from: d)
         }
         return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
@@ -87,7 +88,7 @@ struct ProjectModel: Equatable {
             "gevels": (try? JSONSerialization.jsonObject(with: enc.encode(gevels))) ?? [],
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
             "documents": (try? JSONSerialization.jsonObject(with: enc.encode(documents))) ?? [],
-            "kozijn_overrides": kozijnOverrides.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? NSNull(),
+            "kozijn_overrides": kozijnOverrides.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? [String: Any](),
         ]
     }
 
