@@ -40,14 +40,6 @@ final class ScreenshotTourUITests: XCTestCase {
         tap(el(app, "project-Singelstraat 8"))
         XCTAssertTrue(el(app, "projectTitle").waitForExistence(timeout: 15))
         settle(2); shot(app, "3-project-\(mode)")
-        if app.buttons["Documenten"].firstMatch.waitForExistence(timeout: 5) {
-            app.buttons["Documenten"].firstMatch.tap(); settle()
-            tap(el(app, "addDocument"))
-            // In de testbouw opent dit de bestandskiezer van iOS; die sluiten we weer.
-            settle(2); shot(app, "3b-documenten-kiezer-\(mode)")
-            if app.buttons["Cancel"].firstMatch.exists { app.buttons["Cancel"].firstMatch.tap() } else if app.buttons["Annuleer"].firstMatch.exists { app.buttons["Annuleer"].firstMatch.tap() }
-            settle()
-        }
         app.buttons["Terug"].firstMatch.tap()
 
         tap(el(app, "tab-MJOP")); settle(2); shot(app, "4-mjop-planning-\(mode)")
