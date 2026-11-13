@@ -43,7 +43,7 @@ struct ProjectDetailNativeView: View {
                                 .accessibilityIdentifier("projectScan")
                         }
                         .padding(16).dsCard(radius: 20)
-                    case .documenten: next("Oude MJOP's, offertes, facturen en inspecties toevoegen; de app maakt er voorstellen van.")
+                    case .documenten: DocumentsSection(project: project)
                     }
                 }
                 .padding(.horizontal, DS.pad).padding(.top, 22).padding(.bottom, 120)

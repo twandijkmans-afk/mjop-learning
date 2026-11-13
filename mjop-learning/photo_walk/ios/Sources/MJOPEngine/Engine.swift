@@ -44,6 +44,8 @@ public enum QuantitySource: String, Codable, Equatable {
     case manual = "MANUAL"
     /// Gemeten op een gevelfoto (herkenning door Claude, maat uit de BAG-gevelbreedte) en door de gebruiker overgenomen.
     case gevelfoto = "GEVELFOTO"
+    /// Uit een document (oud MJOP, offerte, inspectie), door de gebruiker overgenomen.
+    case document = "DOCUMENT"
     case notAvailable = "NOT_AVAILABLE"
 }
 
@@ -111,6 +113,9 @@ public struct PlanElement: Equatable, Codable {
     public var werkhoogte: Int?
     /// Staat volgens NEN 2767 (1 uitstekend … 6 zeer slecht); nil = niet beoordeeld.
     public var conditie: Int?
+    /// Prijs van één beurt uit een offerte (actuele prijs); vervangt de standaardraming. nil = standaardbedrag.
+    public var prijsOfferte: Decimal? = nil
+    public var prijsBron: String? = nil
 }
 
 /// Eén geplande uitgave.
@@ -253,6 +258,7 @@ public enum Engine {
 
     /// Kosten van één beurt; nil = niet te berekenen (hoeveelheid of werkhoogte onbekend). Nooit stil € 0.
     public static func cost(_ el: PlanElement) -> Decimal? {
+        if let p = el.prijsOfferte { return p }
         let q = el.quantity?.value
         switch el.type {
         case .dak, .gevel, .perUnit:
@@ -291,7 +297,7 @@ public enum Engine {
     public static func schedule(_ el: PlanElement, year: Int) -> [PlannedCost] {
         let end = year + horizon - 1
         var out: [PlannedCost] = []
-        if el.type == .kozijnen {
+        if el.type == .kozijnen && el.prijsOfferte == nil {
             // per cyclus (materiaal) een groep, in volgorde van eerste voorkomen
             var order: [Int] = []
             var groups: [Int: [KozijnRij]] = [:]

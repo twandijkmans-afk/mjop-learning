@@ -12,6 +12,8 @@ struct ProjectModel: Equatable {
     var gevels: [FacadeScan] = []
     /// Gevelzijden uit de BAG-omtrek.
     var sides: [FacadeSide] = []
+    /// Toegevoegde documenten met hun voorstellen (het bestand zelf blijft voorlopig alleen op het toestel).
+    var documents: [ProjectDocument] = []
 
     static func parse(_ o: [String: Any]) -> ProjectModel? {
         let dec = JSONDecoder()
@@ -25,7 +27,8 @@ struct ProjectModel: Equatable {
             return try? dec.decode(T.self, from: d)
         }
         return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
-                            gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [])
+                            gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [],
+                            documents: decode("documents", [ProjectDocument].self) ?? [])
     }
 
     func json() -> [String: Any] {
@@ -37,6 +40,7 @@ struct ProjectModel: Equatable {
             "bijdrage": bijdrage.map { NSDecimalNumber(decimal: $0) } ?? NSNull(),
             "gevels": (try? JSONSerialization.jsonObject(with: enc.encode(gevels))) ?? [],
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
+            "documents": (try? JSONSerialization.jsonObject(with: enc.encode(documents))) ?? [],
         ]
     }
 
