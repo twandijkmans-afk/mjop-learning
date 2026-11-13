@@ -47,4 +47,34 @@ final class FacadeEditTests: XCTestCase {
         FacadeEdit.delete(&els, removed: &removed, id: id)
         XCTAssertTrue(removed.isEmpty, "zelf toegevoegd en weer weg: niets te bewaren")
     }
+
+    func testTapCyclesThroughOverlappingElements() {
+        var els = sample()
+        els.append(FacadePhotoElement(id: 4, type: .kozijn_deur, points: [[120, 120], [280, 120], [280, 290], [120, 290]], material: nil, confidence: "high", note: nil))
+        XCTAssertEqual(FacadeEdit.candidates(els, at: [150, 150], tolerance: 10), [4, 2, 1])
+        XCTAssertEqual(FacadeEdit.nextSelection(els, at: [150, 150], tolerance: 10, current: nil), 4)
+        XCTAssertEqual(FacadeEdit.nextSelection(els, at: [150, 150], tolerance: 10, current: 4), 2)
+        XCTAssertEqual(FacadeEdit.nextSelection(els, at: [150, 150], tolerance: 10, current: 1), 4, "na de muur weer het kleinste")
+        XCTAssertEqual(FacadeEdit.nextSelection(els, at: [600, 500], tolerance: 10, current: 2), 1, "elders tikken kiest wat daar ligt")
+    }
+
+    func testMoveOneCorner() {
+        var els = sample()
+        FacadeEdit.moveVertex(&els, id: 2, index: 2, to: [320, 310], width: 1000, height: 600)
+        XCTAssertEqual(els[1].points[2], [320, 310])
+        XCTAssertEqual(els[1].points[0], [100, 100])
+        XCTAssertEqual(els[1].originalPoints?[2], [300, 300])
+    }
+
+    func testExtendDownpipeToTheRoofEdge() throws {
+        var els = sample()
+        els[2].points = [[980, 600], [980, 350]]   // afvoer van onder tot halverwege (rest achter planten)
+        let roofEdge = [[0.0, 40.0], [1000.0, 20.0]]
+        XCTAssertTrue(FacadeEdit.extendLine(&els, id: 3, to: roofEdge, upward: true, width: 1000, height: 600))
+        let top = try XCTUnwrap(els[2].points.min { $0[1] < $1[1] })
+        XCTAssertEqual(top[0], 980, accuracy: 1e-9)
+        XCTAssertEqual(top[1], 40 - 20 * 0.98, accuracy: 1e-9, "snijpunt met de schuine dakrand")
+        XCTAssertEqual(els[2].points.first, [980, 600], "onderkant blijft staan")
+        XCTAssertFalse(FacadeEdit.extendLine(&els, id: 2, to: roofEdge, upward: true, width: 1000, height: 600), "een kader is geen lijn")
+    }
 }

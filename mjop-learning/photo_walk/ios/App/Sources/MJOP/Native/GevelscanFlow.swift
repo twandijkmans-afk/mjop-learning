@@ -95,6 +95,8 @@ struct GevelscanFlow: View {
     @State private var copyTarget: FacadeSide?
     @State private var selectedElement: Int?
     @State private var drawType: FacadeElementType?
+    @State private var showEditor = false
+    @State private var editorMode: FacadeEditorView.Mode = .elements
     @State private var widthFor: FacadePlane?
     @State private var widthText = ""
 
@@ -132,6 +134,11 @@ struct GevelscanFlow: View {
             }
             .onChange(of: photo) { p in if p != nil { Task { await recognize() } } }
             .sheet(isPresented: $showKey) { ClaudeKeySheet() }
+            .fullScreenCover(isPresented: $showEditor) {
+                if let scan = lastScan, let photo {
+                    FacadeEditorView(image: photo, scan: scan, mode: editorMode) { lastScan = $0 }
+                }
+            }
             .confirmationDialog(copyTarget.map { "Lijkt de gevel op het \($0.facing) op een gescande gevel?" } ?? "", isPresented: Binding(get: { copyTarget != nil }, set: { if !$0 { copyTarget = nil } }), titleVisibility: .visible) {
                 if let t = copyTarget, let m = model {
                     let sources = Set(m.gevels.filter { $0.copiedFromSide == nil }.map(\.sideId)).sorted()
@@ -331,18 +338,19 @@ struct GevelscanFlow: View {
                 lastScan = s
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            elementEditor(scan)
-            if scan.mainPlane != nil && !editElements {
-                Button { withAnimation(.dsSpring) { editCorners.toggle() } } label: {
-                    Label(editCorners ? "Klaar met hoeken" : "Hoeken aanpassen", systemImage: editCorners ? "checkmark" : "perspective")
+            HStack(spacing: 10) {
+                Button { editorMode = .elements; showEditor = true } label: { Label("Elementen aanpassen", systemImage: "pencil.and.outline") }
+                    .buttonStyle(DSSecondaryButton())
+                    .accessibilityIdentifier("editElements")
+                if scan.mainPlane != nil {
+                    Button { editorMode = .corners; showEditor = true } label: { Label("Hoeken", systemImage: "perspective") }
+                        .buttonStyle(DSSecondaryButton())
+                        .accessibilityIdentifier("editCorners")
                 }
-                .buttonStyle(DSSecondaryButton())
-                .accessibilityIdentifier("editCorners")
-                if editCorners {
-                    Text("Sleep de vier punten naar de hoeken van het gekozen vlak (zonder dak). Kies hieronder een ander vlak om dat aan te passen. De maten rekenen meteen mee.").font(.footnote).foregroundStyle(DS.text2)
-                }
-                if (scan.planes ?? []).count > 1 { planeList(scan, active: activePlane) }
             }
+            let edits = scan.elements.filter { $0.editedByUser == true || $0.addedByUser == true }.count + (scan.removedByUser?.count ?? 0)
+            if edits > 0 { Text("\(edits) aanpassing(en) door jou; de oorspronkelijke herkenning blijft bewaard.").font(.caption).foregroundStyle(DS.text2) }
+            if (scan.planes ?? []).count > 1 { planeList(scan, active: activePlane) }
             if scan.mainPlane == nil {
                 Button { withAnimation(.dsSpring) { editReference.toggle() } } label: {
                     Label(editReference ? "Klaar met de maat" : "Maat bijstellen", systemImage: editReference ? "checkmark" : "ruler")

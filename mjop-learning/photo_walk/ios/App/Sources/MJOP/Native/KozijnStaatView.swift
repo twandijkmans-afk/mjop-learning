@@ -56,6 +56,9 @@ struct KozijnStaatSection: View {
     @State private var model: ProjectModel?
     @State private var detail: KozijnType?
     @State private var error: String?
+    @State private var editing: FacadeScan?
+    @State private var editImage: UIImage?
+    @State private var loadingPhoto: Int?
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -67,11 +70,16 @@ struct KozijnStaatSection: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             ForEach(withPhoto) { g in
-                                VStack(alignment: .leading, spacing: 4) {
-                                    StoragePhotoView(path: g.photoPath) { DS.surface2 }
-                                        .frame(width: 150, height: 110).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                                    Text("Gevel op het \(g.facing)" + (g.part.map { " · \($0)" } ?? "")).font(.caption).foregroundStyle(DS.text2)
+                                Button { Task { await openEditor(g) } } label: {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        StoragePhotoView(path: g.photoPath) { DS.surface2 }
+                                            .frame(width: 150, height: 110).clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                                            .overlay { if loadingPhoto == g.id { ProgressView().tint(.white) } }
+                                        Text("Gevel op het \(g.facing)" + (g.part.map { " · \($0)" } ?? "")).font(.caption).foregroundStyle(DS.text2)
+                                        Text("Tik om aan te passen").font(.caption2).foregroundStyle(DS.accent)
+                                    }
                                 }
+                                .buttonStyle(.plain)
                             }
                         }
                     }
@@ -106,9 +114,27 @@ struct KozijnStaatSection: View {
         }
         .task(id: project.id) { await load() }
         .onReceive(store.$projects) { _ in Task { await load() } }
+        .fullScreenCover(item: $editing) { g in
+            if let img = editImage {
+                FacadeEditorView(image: img, scan: g) { updated in
+                    save { m in
+                        if let i = m.gevels.firstIndex(where: { $0.id == updated.id }) { m.gevels[i] = updated }
+                        GevelscanFlow.applyQuantities(&m)
+                    }
+                }
+            }
+        }
         .sheet(item: $detail) { t in
             if let m = model { KozijnTypeDetail(type: t, staat: m.kozijnStaat, sides: m.sides, overrides: m.kozijnOverrides ?? KozijnOverrides()) { o in save { $0.kozijnOverrides = o } } }
         }
+    }
+
+    private func openEditor(_ g: FacadeScan) async {
+        guard let path = g.photoPath, let s = try? await account.validSession() else { return }
+        loadingPhoto = g.id; defer { loadingPhoto = nil }
+        guard let img = await GevelFotos.load(path, session: s) else { error = "De foto kon niet worden geladen."; return }
+        editImage = img
+        editing = g
     }
 
     private func load() async {
