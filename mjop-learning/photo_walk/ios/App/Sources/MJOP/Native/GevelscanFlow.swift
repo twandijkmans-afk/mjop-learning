@@ -91,6 +91,7 @@ struct GevelscanFlow: View {
     @State private var selectedPlane: Int?
     @State private var editReference = false
     @State private var editElements = false
+    @State private var part = 1
     @State private var selectedElement: Int?
     @State private var drawType: FacadeElementType?
     @State private var widthFor: FacadePlane?
@@ -150,7 +151,7 @@ struct GevelscanFlow: View {
                 Text("\(done.intersection(usableSides.map(\.id)).count) van \(usableSides.count) gevels klaar").font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
                 VStack(spacing: 0) {
                     ForEach(usableSides) { s in
-                        Button { side = s; startCamera() } label: {
+                        Button { side = s; part = 1; startCamera() } label: {
                             HStack(spacing: 12) {
                                 ZStack {
                                     Circle().fill(done.contains(s.id) ? DS.ok : DS.accentSoft).frame(width: 30, height: 30)
@@ -169,6 +170,18 @@ struct GevelscanFlow: View {
                         }
                         .buttonStyle(DSRowStyle())
                         .accessibilityIdentifier("side-\(s.id)")
+                        if done.contains(s.id) {
+                            let parts = model?.gevels.filter { $0.sideId == s.id }.count ?? 1
+                            let failure = model?.sideResults.first { $0.sideId == s.id }?.failure
+                            HStack {
+                                if let failure { Text(failure).font(.caption).foregroundStyle(Color.orange) }
+                                else if parts > 1 { Text("\(parts) foto's, aan elkaar gekoppeld").font(.caption).foregroundStyle(DS.text2) }
+                                Spacer()
+                                Button { side = s; part = parts + 1; startCamera() } label: { Label("Foto erbij (lange gevel)", systemImage: "plus") }
+                                    .font(.caption.weight(.semibold))
+                            }
+                            .padding(.leading, 56).padding(.trailing, 14).padding(.bottom, 10)
+                        }
                         if s.id != usableSides.last?.id { Divider().padding(.leading, 56) }
                     }
                 }
@@ -237,6 +250,7 @@ struct GevelscanFlow: View {
             scan.focal35mm = captureMeta?.focal35mm
             scan.planes = r.recognition.planes
             scan.defects = r.recognition.defects
+            if part > 1 { scan.part = part; scan.overlapWithPrevious = 1 }
             scan.merged = r.recognition.merged
             scan.conflicts = r.recognition.conflicts
             editCorners = false
@@ -268,7 +282,16 @@ struct GevelscanFlow: View {
 
     @ViewBuilder private var result: some View {
         if let scan = lastScan, let photo {
-            Text("Gevel op het \(scan.facing)").font(.system(size: 26, weight: .bold)).foregroundStyle(DS.text)
+            Text("Gevel op het \(scan.facing)" + (scan.part.map { " · foto \($0)" } ?? "")).font(.system(size: 26, weight: .bold)).foregroundStyle(DS.text)
+            if let p = scan.part, p > 1 {
+                Stepper(value: Binding(get: { lastScan?.overlapWithPrevious ?? 1 }, set: { v in updateScan { $0.overlapWithPrevious = v } }), in: 0...4) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Kozijnen in de overlap: \(scan.overlapWithPrevious ?? 1)").font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
+                        Text("Hoeveel kozijnen ook op foto \(p - 1) staan (aan de rechterkant daarvan). Ze tellen één keer en koppelen de foto's.").font(.caption).foregroundStyle(DS.text2)
+                    }
+                }
+                .padding(14).dsCard(radius: 20)
+            }
             let activePlane = selectedPlane ?? scan.mainPlane?.id
             FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane, editReference: editReference,
                           editElements: editElements, selectedElement: selectedElement, drawType: drawType,
@@ -504,20 +527,22 @@ struct GevelscanFlow: View {
     /// Bewaart de scan en zet de opgetelde gevelmaten als voorstel-overgenomen hoeveelheid in het plan (bron: gevelfoto).
     private func accept(_ scan: FacadeScan) async {
         guard var m = model, let p = project else { return }
-        m.gevels.removeAll { $0.sideId == scan.sideId }
+        m.gevels.removeAll { $0.sideId == scan.sideId && ($0.part ?? 1) == (scan.part ?? 1) }
         m.gevels.append(scan)
-        let sums = m.gevels.map(\.summary)
-        if !sums.contains(where: { $0.metselwerkNetM2 == nil }) {
+        let results = m.sideResults
+        let sums = results.compactMap(\.summary)
+        let nSides = results.count
+        if sums.count == results.count && !sums.contains(where: { $0.metselwerkNetM2 == nil }) {
             let total = sums.compactMap(\.metselwerkNetM2).reduce(0, +)
             if let i = m.elements.firstIndex(where: { $0.key == "gevel-metselwerk" }), total > 0 {
                 m.elements[i].quantity = Quantity(value: Decimal(string: String(format: "%.2f", total)), unit: "m2", source: .gevelfoto,
-                                                  basis: "Netto metselwerk van \(m.gevels.count) gescande gevel(s), gemeten op gevelfoto's.")
+                                                  basis: "Netto metselwerk van \(nSides) gescande gevel(s), gemeten op gevelfoto's.")
             }
         }
         if let i = m.elements.firstIndex(where: { $0.key == "kozijnen-onderhoud" }), var rows = m.elements[i].kozijnen, rows.count >= 3 {
-            let ramen = m.gevels.reduce(0) { $0 + $1.summary.raamkozijnen }, deuren = m.gevels.reduce(0) { $0 + $1.summary.deurkozijnen }
-            rows[0].aantal = Quantity(value: Decimal(ramen), unit: "st", source: .gevelfoto, basis: "Geteld op \(m.gevels.count) gevelfoto('s).")
-            rows[2].aantal = Quantity(value: Decimal(deuren), unit: "st", source: .gevelfoto, basis: "Geteld op \(m.gevels.count) gevelfoto('s).")
+            let ramen = sums.reduce(0) { $0 + $1.raamkozijnen }, deuren = sums.reduce(0) { $0 + $1.deurkozijnen }
+            rows[0].aantal = Quantity(value: Decimal(ramen), unit: "st", source: .gevelfoto, basis: "Geteld op \(sums.count) gescande gevel(s).")
+            rows[2].aantal = Quantity(value: Decimal(deuren), unit: "st", source: .gevelfoto, basis: "Geteld op \(sums.count) gescande gevel(s).")
             m.elements[i].kozijnen = rows
         }
         model = m
