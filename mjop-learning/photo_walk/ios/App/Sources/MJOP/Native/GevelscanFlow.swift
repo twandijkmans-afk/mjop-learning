@@ -87,6 +87,7 @@ struct GevelscanFlow: View {
     @State private var phase: Phase = .choose
     @State private var lastScan: FacadeScan?
     @State private var showKey = false
+    @State private var captureMeta: CaptureMeta?
 
     enum Phase { case choose, working, result }
 
@@ -111,7 +112,14 @@ struct GevelscanFlow: View {
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Sluiten") { dismiss() } } }
             .task(id: project?.id) { await loadModel() }
             .fullScreenCover(isPresented: $showCamera) {
-                CameraPicker(image: $photo).ignoresSafeArea()
+                if FacadeCameraSupport.available, let side {
+                    FacadeCameraView(title: "Gevel op het \(side.facing)", step: "\((usableSides.firstIndex(of: side) ?? 0) + 1) van \(usableSides.count)") { img, meta in
+                        captureMeta = meta
+                        photo = img
+                    }
+                } else {
+                    CameraPicker(image: $photo).ignoresSafeArea()
+                }
             }
             .onChange(of: photo) { p in if p != nil { Task { await recognize() } } }
             .sheet(isPresented: $showKey) { ClaudeKeySheet() }
@@ -178,6 +186,7 @@ struct GevelscanFlow: View {
         error = nil
         if ClaudeKey.load() == nil && !account.demo { showKey = true; return }
         photo = nil
+        captureMeta = nil
         showCamera = true
     }
 
@@ -216,7 +225,8 @@ struct GevelscanFlow: View {
             let ref = FacadePhoto.defaultReference(r.elements) ?? (left: 0, right: Double(r.size.width))
             let scan = FacadeScan(sideId: side.id, facing: side.facing, widthM: side.lengthM, photoWidth: Double(r.size.width), photoHeight: Double(r.size.height),
                                   referenceLeftX: ref.left, referenceRightX: ref.right, elements: r.elements, skipped: r.skipped,
-                                  model: FacadePhoto.model, promptVersion: FacadePhoto.promptVersion, scannedAt: Date())
+                                  model: FacadePhoto.model, promptVersion: FacadePhoto.promptVersion, scannedAt: Date(),
+                                  lens: captureMeta?.lens, rollDeg: captureMeta?.rollDeg, pitchDeg: captureMeta?.pitchDeg, levelAtCapture: captureMeta?.level)
             lastScan = scan
             phase = .result
         } catch {

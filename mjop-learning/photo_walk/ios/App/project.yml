@@ -29,7 +29,7 @@ targets:
       path: Info.generated.plist          # door XcodeGen gegenereerd; niet committen
       properties:
         CFBundleDisplayName: MJOP Live
-        NSCameraUsageDescription: "De camera wordt lokaal gebruikt om kozijnen op te meten. Beelden verlaten het toestel niet."
+        NSCameraUsageDescription: "Met de camera maak je foto's van de gevels en papieren documenten. Een gevelfoto gaat alleen naar Claude voor de herkenning als je daarvoor kiest."
         UILaunchScreen: {}
         UIRequiredDeviceCapabilities: [arkit]
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]

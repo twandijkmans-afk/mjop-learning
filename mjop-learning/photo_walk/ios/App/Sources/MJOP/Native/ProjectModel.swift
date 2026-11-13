@@ -108,6 +108,11 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var model: String
     var promptVersion: String
     var scannedAt: Date
+    /// Hoe de foto is genomen (eigen camera). Leeg bij een foto uit de fotobibliotheek.
+    var lens: String? = nil
+    var rollDeg: Double? = nil
+    var pitchDeg: Double? = nil
+    var levelAtCapture: Bool? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
     var summary: FacadePhoto.Summary { FacadePhoto.summary(elements, mpp: mpp) }
