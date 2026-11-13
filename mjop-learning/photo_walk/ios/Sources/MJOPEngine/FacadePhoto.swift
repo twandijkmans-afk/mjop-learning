@@ -49,10 +49,77 @@ public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     public var material: String?
     public var confidence: String?
     public var note: String?
+    /// Op welk gevelvlak het element ligt (id uit `FacadePlane`); nil bij een scan van vóór v0.2.
+    public var plane: Int?
+    /// Hoeveel van het element achter iets verborgen is (0 = helemaal zichtbaar), volgens Claude.
+    public var hiddenFraction: Double?
 
-    public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?) {
+    public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil) {
         self.id = id; self.type = type; self.points = points; self.material = material; self.confidence = confidence; self.note = note
+        self.plane = plane; self.hiddenFraction = hiddenFraction
     }
+}
+
+public enum FacadePlaneKind: String, Codable, CaseIterable {
+    case hoofdgevel, uitbouw, dakkapel, erker, topgevel, overig
+    public var label: String {
+        switch self {
+        case .hoofdgevel: return "Hoofdgevel"
+        case .uitbouw: return "Uitbouw"
+        case .dakkapel: return "Dakkapel"
+        case .erker: return "Erker"
+        case .topgevel: return "Topgevel"
+        case .overig: return "Ander vlak"
+        }
+    }
+}
+
+/// Eén plat gevelvlak op de foto, met de vier hoeken in pixels (linksboven, rechtsboven, rechtsonder, linksonder).
+/// Hoeken mogen buiten de foto liggen als het vlak verder doorloopt.
+public struct FacadePlane: Codable, Equatable, Identifiable {
+    public var id: Int
+    public var kind: FacadePlaneKind
+    public var corners: [[Double]]
+    /// De gebruiker heeft de hoeken verschoven.
+    public var editedByUser: Bool?
+    public var originalCorners: [[Double]]?
+    public init(id: Int, kind: FacadePlaneKind, corners: [[Double]], editedByUser: Bool? = nil, originalCorners: [[Double]]? = nil) {
+        self.id = id; self.kind = kind; self.corners = corners; self.editedByUser = editedByUser; self.originalCorners = originalCorners
+    }
+}
+
+public enum FacadeDefectType: String, Codable, CaseIterable {
+    case afbladderende_verf, scheur, houtrot, mos_algen, roest, voegwerk, losse_delen, vervuiling, overig
+    public var label: String {
+        switch self {
+        case .afbladderende_verf: return "Afbladderende verf"
+        case .scheur: return "Scheur"
+        case .houtrot: return "Mogelijk houtrot"
+        case .mos_algen: return "Mos of algen"
+        case .roest: return "Roest"
+        case .voegwerk: return "Voegwerk aangetast"
+        case .losse_delen: return "Los of beschadigd onderdeel"
+        case .vervuiling: return "Vervuiling"
+        case .overig: return "Overig"
+        }
+    }
+}
+
+/// Een zichtbaar gebrek als hint voor de beoordeling. Nooit een score: die geeft de gebruiker.
+public struct FacadeDefect: Codable, Equatable, Identifiable {
+    public var id: Int
+    public var type: FacadeDefectType
+    public var point: [Double]
+    public var note: String?
+    public init(id: Int, type: FacadeDefectType, point: [Double], note: String?) { self.id = id; self.type = type; self.point = point; self.note = note }
+}
+
+/// Alles wat Claude op één foto heeft gevonden (prompt v0.2), na controle.
+public struct FacadeRecognition: Equatable {
+    public var elements: [FacadePhotoElement]
+    public var skipped: Int
+    public var planes: [FacadePlane]
+    public var defects: [FacadeDefect]
 }
 
 public struct FacadeQuantities: Equatable {
@@ -77,7 +144,7 @@ public enum FacadeError: LocalizedError, Equatable {
 }
 
 public enum FacadePhoto {
-    public static let promptVersion = "gevelfoto_v0.1"
+    public static let promptVersion = "gevelfoto_v0.2"
     public static let model = "claude-opus-5-5"
     public static let maxEdge: Double = 2000
 
@@ -103,31 +170,46 @@ public enum FacadePhoto {
         - One physical frame (kozijn) is one element, even when it holds several panes or opening sashes. Box the outer edge of the frame, not the glass.
         - For a wall surface (metselwerk, stucwerk, gevelbekleding) return one polygon per continuous surface of one material, following its outer edge and including the window and door openings that lie in it. The openings are subtracted afterwards by the calling program.
         - For hwa (downpipe), dakgoot (gutter), boeiboord (fascia), waterslag (sill) and hekwerk (railing), follow the centre line of the element from one end to the other.
-        - Report only what you can actually see. Leave out elements that are hidden, that belong to a neighbouring building, or that you would have to guess.
+        - Report only elements you are sure exist. An element that is partly hidden (behind a plant, tree, car or another object) is still reported when enough of it is visible to be sure it is there: box the whole element as far as its visible edges show it and set "hidden_fraction" to the part that is hidden (0 = fully visible, 0.5 = half hidden). Leave out elements of a neighbouring building and elements you would have to guess.
+        - Planes: a facade often has more than one flat surface at a different depth, for example the main facade (hoofdgevel), an extension in front of it (uitbouw), a dormer (dakkapel), a bay window (erker) or a gable top (topgevel). Return each such surface as a plane with its 4 corners in the image: top-left, top-right, bottom-right, bottom-left of the surface itself (not the roof). Where a corner is hidden or outside the image, give the point where the straight edges of the surface meet, even if that point lies outside the image. Plane 1 is always the main facade. Every element gets the id of the plane it lies in ("plane").
+        - Defects: mark clearly visible signs of wear as hints for an inspector (afbladderende_verf, scheur, houtrot, mos_algen, roest, voegwerk, losse_delen, vervuiling, overig), each with one point in the image at the defect and a few Dutch words in "note". Only what is clearly visible; never a condition score.
         - "material": one short Dutch word when the material is clearly recognisable (for example hout, kunststof, aluminium, staal, baksteen, zink, pvc, beton), otherwise an empty string.
         - "confidence": how sure you are that the element exists and is of this type.
         - "note": at most a few words in Dutch when something limits the result (for example "deels achter boom"), otherwise an empty string.
 
-        Do not estimate sizes in metres, condition, defects or costs: measurements are computed separately from your coordinates.
+        Do not estimate sizes in metres, condition scores or costs: measurements are computed separately from your coordinates.
 
         Return only a JSON object of this shape, with no other text:
-        {"elements": [{"type": "<one of the type keys above>", "points": [{"x": 0, "y": 0}], "material": "", "confidence": "low|medium|high", "note": ""}]}
+        {"planes": [{"id": 1, "kind": "hoofdgevel|uitbouw|dakkapel|erker|topgevel|overig", "corners": [{"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}, {"x": 0, "y": 0}]}],
+         "elements": [{"type": "<one of the type keys above>", "points": [{"x": 0, "y": 0}], "material": "", "confidence": "low|medium|high", "note": "", "plane": 1, "hidden_fraction": 0}],
+         "defects": [{"type": "<defect key>", "point": {"x": 0, "y": 0}, "note": ""}]}
         """
     }
 
     /// JSON-schema voor afgedwongen uitvoer.
     public static var schema: [String: Any] {
-        ["type": "object", "additionalProperties": false, "required": ["elements"],
-         "properties": ["elements": ["type": "array", "items": [
-            "type": "object", "additionalProperties": false, "required": ["type", "points", "material", "confidence", "note"],
-            "properties": [
-                "type": ["type": "string", "enum": FacadeElementType.allCases.map(\.rawValue)],
-                "points": ["type": "array", "items": ["type": "object", "additionalProperties": false, "required": ["x", "y"],
-                                                     "properties": ["x": ["type": "number"], "y": ["type": "number"]]]],
-                "material": ["type": "string"],
-                "confidence": ["type": "string", "enum": ["low", "medium", "high"]],
-                "note": ["type": "string"],
-            ]]]]]
+        let point: [String: Any] = ["type": "object", "additionalProperties": false, "required": ["x", "y"], "properties": ["x": ["type": "number"], "y": ["type": "number"]]]
+        return ["type": "object", "additionalProperties": false, "required": ["planes", "elements", "defects"],
+         "properties": [
+            "planes": ["type": "array", "items": [
+                "type": "object", "additionalProperties": false, "required": ["id", "kind", "corners"],
+                "properties": ["id": ["type": "integer"], "kind": ["type": "string", "enum": FacadePlaneKind.allCases.map(\.rawValue)],
+                               "corners": ["type": "array", "items": point]]]],
+            "elements": ["type": "array", "items": [
+                "type": "object", "additionalProperties": false, "required": ["type", "points", "material", "confidence", "note", "plane", "hidden_fraction"],
+                "properties": [
+                    "type": ["type": "string", "enum": FacadeElementType.allCases.map(\.rawValue)],
+                    "points": ["type": "array", "items": point],
+                    "material": ["type": "string"],
+                    "confidence": ["type": "string", "enum": ["low", "medium", "high"]],
+                    "note": ["type": "string"],
+                    "plane": ["type": "integer"],
+                    "hidden_fraction": ["type": "number"],
+                ]]],
+            "defects": ["type": "array", "items": [
+                "type": "object", "additionalProperties": false, "required": ["type", "point", "note"],
+                "properties": ["type": ["type": "string", "enum": FacadeDefectType.allCases.map(\.rawValue)], "point": point, "note": ["type": "string"]]]],
+         ]]
     }
 
     /// Body voor de Messages API (afbeelding als base64-JPEG).
@@ -143,6 +225,12 @@ public enum FacadePhoto {
 
     /// Haalt de elementen uit het modelantwoord. Ongeldige elementen worden overgeslagen en geteld, nooit gerepareerd door te gokken.
     public static func parseResponse(_ data: Data, width W: Double, height H: Double, scale: Double = 1) throws -> (elements: [FacadePhotoElement], skipped: Int) {
+        let r = try parseRecognition(data, width: W, height: H, scale: scale)
+        return (r.elements, r.skipped)
+    }
+
+    /// Volledige uitkomst (v0.2): elementen, vlakken en gebreken. Ongeldige onderdelen worden overgeslagen, nooit aangevuld.
+    public static func parseRecognition(_ data: Data, width W: Double, height H: Double, scale: Double = 1) throws -> FacadeRecognition {
         guard let o = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] else { throw FacadeError.unreadable }
         if (o["stop_reason"] as? String) == "refusal" { throw FacadeError.refused }
         if (o["stop_reason"] as? String) == "max_tokens" { throw FacadeError.truncated }
@@ -151,8 +239,45 @@ public enum FacadePhoto {
         if obj == nil, let s = text.firstIndex(of: "{"), let e = text.lastIndex(of: "}"), s < e {
             obj = (try? JSONSerialization.jsonObject(with: Data(text[s...e].utf8))) as? [String: Any]
         }
-        guard let elements = obj?["elements"] as? [[String: Any]] else { throw FacadeError.unreadable }
-        return parseElements(elements, width: W, height: H, scale: scale)
+        guard let o2 = obj, let elements = o2["elements"] as? [[String: Any]] else { throw FacadeError.unreadable }
+        let planes = parsePlanes((o2["planes"] as? [[String: Any]]) ?? [], width: W, height: H, scale: scale)
+        var (els, skipped) = parseElements(elements, width: W, height: H, scale: scale)
+        let ids = Set(planes.map(\.id))
+        for i in els.indices where els[i].plane.map({ !ids.contains($0) }) ?? false { els[i].plane = nil }   // onbekend vlak: niet gokken
+        let defects = parseDefects((o2["defects"] as? [[String: Any]]) ?? [], width: W, height: H, scale: scale)
+        return FacadeRecognition(elements: els, skipped: skipped, planes: planes, defects: defects)
+    }
+
+    static func point(_ p: Any?, scale: Double) -> [Double]? {
+        guard let d = p as? [String: Any], let x = (d["x"] as? NSNumber)?.doubleValue, let y = (d["y"] as? NSNumber)?.doubleValue, x.isFinite, y.isFinite else { return nil }
+        return [x * scale, y * scale]
+    }
+
+    /// Vlakken met precies vier hoeken die samen een bolle vierhoek vormen. Hoeken mogen tot één fotomaat buiten de foto liggen.
+    public static func parsePlanes(_ raw: [[String: Any]], width W: Double, height H: Double, scale: Double) -> [FacadePlane] {
+        var out: [FacadePlane] = []
+        for r in raw {
+            guard let id = (r["id"] as? NSNumber)?.intValue, !out.contains(where: { $0.id == id }),
+                  let k = (r["kind"] as? String).flatMap(FacadePlaneKind.init(rawValue:)),
+                  let cs = r["corners"] as? [Any], cs.count == 4 else { continue }
+            let pts = cs.compactMap { point($0, scale: scale) }
+            guard pts.count == 4, pts.allSatisfy({ $0[0] >= -W && $0[0] <= 2 * W && $0[1] >= -H && $0[1] <= 2 * H }) else { continue }
+            let q = orderQuad(pts)
+            guard FacadePerspective.isConvex(q), area(q) >= 400 else { continue }
+            out.append(FacadePlane(id: id, kind: k, corners: q))
+        }
+        return out
+    }
+
+    public static func parseDefects(_ raw: [[String: Any]], width W: Double, height H: Double, scale: Double) -> [FacadeDefect] {
+        var out: [FacadeDefect] = []
+        for r in raw {
+            guard let t = (r["type"] as? String).flatMap(FacadeDefectType.init(rawValue:)), let p = point(r["point"], scale: scale),
+                  p[0] >= 0, p[0] <= W, p[1] >= 0, p[1] <= H else { continue }
+            let note = (r["note"] as? String)?.trimmingCharacters(in: .whitespaces)
+            out.append(FacadeDefect(id: out.count + 1, type: t, point: p, note: note.flatMap { $0.isEmpty ? nil : String($0.prefix(120)) }))
+        }
+        return out
     }
 
     public static func parseElements(_ raw: [[String: Any]], width W: Double, height H: Double, scale: Double) -> (elements: [FacadePhotoElement], skipped: Int) {
@@ -182,7 +307,10 @@ public enum FacadePhoto {
                 return String(v.prefix(maxLen))
             }
             let conf = (r["confidence"] as? String).flatMap { ["low", "medium", "high"].contains($0) ? $0 : nil }
-            out.append(FacadePhotoElement(id: out.count + 1, type: t, points: pts, material: s("material", 40), confidence: conf, note: s("note", 120)))
+            let plane = (r["plane"] as? NSNumber)?.intValue
+            let hidden = ((r["hidden_fraction"] as? NSNumber)?.doubleValue).flatMap { $0.isFinite && $0 >= 0 && $0 <= 1 ? $0 : nil }
+            out.append(FacadePhotoElement(id: out.count + 1, type: t, points: pts, material: s("material", 40), confidence: conf, note: s("note", 120),
+                                          plane: plane, hiddenFraction: hidden))
         }
         return (out, skipped)
     }

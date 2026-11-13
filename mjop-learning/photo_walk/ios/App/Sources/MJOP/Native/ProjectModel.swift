@@ -113,7 +113,21 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var rollDeg: Double? = nil
     var pitchDeg: Double? = nil
     var levelAtCapture: Bool? = nil
+    var focal35mm: Double? = nil
+    /// Gevelvlakken en gebreken (prompt v0.2).
+    var planes: [FacadePlane]? = nil
+    var defects: [FacadeDefect]? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
-    var summary: FacadePhoto.Summary { FacadePhoto.summary(elements, mpp: mpp) }
+    /// Het vlak waar de BAG-gevelbreedte bij hoort.
+    var mainPlane: FacadePlane? { planes?.first { $0.kind == .hoofdgevel } ?? planes?.first }
+    var focalPx: Double? { focal35mm.flatMap { FacadePerspective.focalPx(focal35mm: $0, width: photoWidth, height: photoHeight) } }
+    /// Rechtgetrokken hoofdvlak; nil zonder bruikbare hoeken (dan de oude methode: breedte over de foto).
+    var rectified: FacadePerspective.Rectified? {
+        mainPlane.flatMap { FacadePerspective.rectify(elements, plane: $0, widthM: widthM, focalPx: focalPx, imageWidth: photoWidth, imageHeight: photoHeight) }
+    }
+    var summary: FacadePhoto.Summary {
+        if let r = rectified { return FacadePhoto.summary(r.elements, mpp: 1) }
+        return FacadePhoto.summary(elements, mpp: mpp)
+    }
 }

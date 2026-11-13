@@ -1,4 +1,5 @@
 import AVFoundation
+import ImageIO
 import CoreMotion
 import SwiftUI
 import UIKit
@@ -8,6 +9,7 @@ struct CaptureMeta: Equatable {
     var lens: String          // "0,5×" of "1×"
     var rollDeg: Double       // draaiing om de kijkas (scheef)
     var pitchDeg: Double      // voorover of achterover gekanteld
+    var focal35mm: Double?    // brandpunt (35mm-equivalent) uit de EXIF, voor de perspectiefcorrectie
     var level: Bool { abs(rollDeg) <= 2 && abs(pitchDeg) <= 4 }
 }
 
@@ -87,11 +89,13 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
 
     nonisolated func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         let data = photo.fileDataRepresentation()
+        let exif = photo.metadata[kCGImagePropertyExifDictionary as String] as? [String: Any]
+        let f35 = (exif?[kCGImagePropertyExifFocalLenIn35mmFilm as String] as? NSNumber)?.doubleValue
         Task { @MainActor in
             self.capturing = false
             guard let data, let img = UIImage(data: data) else { return }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self.completion?(img, CaptureMeta(lens: self.wide ? "0,5×" : "1×", rollDeg: self.rollDeg, pitchDeg: self.pitchDeg))
+            self.completion?(img, CaptureMeta(lens: self.wide ? "0,5×" : "1×", rollDeg: self.rollDeg, pitchDeg: self.pitchDeg, focal35mm: f35))
         }
     }
 }

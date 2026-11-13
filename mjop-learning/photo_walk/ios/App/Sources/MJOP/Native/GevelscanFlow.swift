@@ -26,7 +26,7 @@ enum ClaudeKey {
 
 /// Herkenning via de Messages API van Anthropic. Valt bij een 400-fout terug op een aanvraag zonder afgedwongen schema.
 enum ClaudeVision {
-    static func recognize(image: UIImage, key: String) async throws -> (elements: [FacadePhotoElement], skipped: Int, size: CGSize) {
+    static func recognize(image: UIImage, key: String) async throws -> (recognition: FacadeRecognition, size: CGSize) {
         let (jpeg, size) = try prepare(image)
         let W = Int(size.width), H = Int(size.height)
         var lastError: Error = BackendError.message("De herkenning is mislukt.")
@@ -43,8 +43,7 @@ enum ClaudeVision {
             catch { throw BackendError.message("Geen verbinding met de AI-dienst. Controleer je internet.") }
             let status = (resp as? HTTPURLResponse)?.statusCode ?? 0
             if status == 200 {
-                let parsed = try FacadePhoto.parseResponse(data, width: Double(W), height: Double(H))
-                return (parsed.elements, parsed.skipped, size)
+                return (try FacadePhoto.parseRecognition(data, width: Double(W), height: Double(H)), size)
             }
             let detail = (((try? JSONSerialization.jsonObject(with: data)) as? [String: Any])?["error"] as? [String: Any])?["message"] as? String ?? "HTTP \(status)"
             switch status {
@@ -88,6 +87,7 @@ struct GevelscanFlow: View {
     @State private var lastScan: FacadeScan?
     @State private var showKey = false
     @State private var captureMeta: CaptureMeta?
+    @State private var editCorners = false
 
     enum Phase { case choose, working, result }
 
@@ -219,14 +219,18 @@ struct GevelscanFlow: View {
         guard let photo, let side else { return }
         phase = .working
         do {
-            let r: (elements: [FacadePhotoElement], skipped: Int, size: CGSize)
+            let r: (recognition: FacadeRecognition, size: CGSize)
             if account.demo { r = demoRecognition(photo) }
             else { r = try await ClaudeVision.recognize(image: photo, key: ClaudeKey.load() ?? "") }
-            let ref = FacadePhoto.defaultReference(r.elements) ?? (left: 0, right: Double(r.size.width))
-            let scan = FacadeScan(sideId: side.id, facing: side.facing, widthM: side.lengthM, photoWidth: Double(r.size.width), photoHeight: Double(r.size.height),
-                                  referenceLeftX: ref.left, referenceRightX: ref.right, elements: r.elements, skipped: r.skipped,
+            let ref = FacadePhoto.defaultReference(r.recognition.elements) ?? (left: 0, right: Double(r.size.width))
+            var scan = FacadeScan(sideId: side.id, facing: side.facing, widthM: side.lengthM, photoWidth: Double(r.size.width), photoHeight: Double(r.size.height),
+                                  referenceLeftX: ref.left, referenceRightX: ref.right, elements: r.recognition.elements, skipped: r.recognition.skipped,
                                   model: FacadePhoto.model, promptVersion: FacadePhoto.promptVersion, scannedAt: Date(),
                                   lens: captureMeta?.lens, rollDeg: captureMeta?.rollDeg, pitchDeg: captureMeta?.pitchDeg, levelAtCapture: captureMeta?.level)
+            scan.focal35mm = captureMeta?.focal35mm
+            scan.planes = r.recognition.planes
+            scan.defects = r.recognition.defects
+            editCorners = false
             lastScan = scan
             phase = .result
         } catch {
@@ -235,14 +239,15 @@ struct GevelscanFlow: View {
         }
     }
 
-    private func demoRecognition(_ img: UIImage) -> (elements: [FacadePhotoElement], skipped: Int, size: CGSize) {
+    private func demoRecognition(_ img: UIImage) -> (recognition: FacadeRecognition, size: CGSize) {
         let w = Double(img.size.width), h = Double(img.size.height)
         let els = [
             FacadePhotoElement(id: 1, type: .metselwerk, points: [[0, h * 0.1], [w, h * 0.1], [w, h], [0, h]], material: "baksteen", confidence: "high", note: nil),
             FacadePhotoElement(id: 2, type: .kozijn_raam, points: [[w * 0.1, h * 0.2], [w * 0.35, h * 0.2], [w * 0.35, h * 0.5], [w * 0.1, h * 0.5]], material: "hout", confidence: "high", note: nil),
             FacadePhotoElement(id: 3, type: .kozijn_deur, points: [[w * 0.6, h * 0.55], [w * 0.75, h * 0.55], [w * 0.75, h], [w * 0.6, h]], material: "hout", confidence: "medium", note: nil),
         ]
-        return (els, 0, img.size)
+        let plane = FacadePlane(id: 1, kind: .hoofdgevel, corners: [[w * 0.02, h * 0.1], [w * 0.98, h * 0.12], [w * 0.97, h * 0.98], [w * 0.03, h]])
+        return (FacadeRecognition(elements: els.map { var e = $0; e.plane = 1; return e }, skipped: 0, planes: [plane], defects: []), img.size)
     }
 
     // MARK: resultaat
@@ -250,7 +255,24 @@ struct GevelscanFlow: View {
     @ViewBuilder private var result: some View {
         if let scan = lastScan, let photo {
             Text("Gevel op het \(scan.facing)").font(.system(size: 26, weight: .bold)).foregroundStyle(DS.text)
-            FacadeOverlay(image: photo, scan: scan).clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners) { corners in
+                guard var s = lastScan, let i = s.planes?.firstIndex(where: { $0.id == s.mainPlane?.id }) else { return }
+                if s.planes![i].originalCorners == nil { s.planes![i].originalCorners = s.planes![i].corners }
+                s.planes![i].corners = corners
+                s.planes![i].editedByUser = true
+                lastScan = s
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            if scan.mainPlane != nil {
+                Button { withAnimation(.dsSpring) { editCorners.toggle() } } label: {
+                    Label(editCorners ? "Klaar met hoeken" : "Hoeken van de gevel aanpassen", systemImage: editCorners ? "checkmark" : "perspective")
+                }
+                .buttonStyle(DSSecondaryButton())
+                .accessibilityIdentifier("editCorners")
+                if editCorners {
+                    Text("Sleep de vier gele punten naar de hoeken van de gevel (zonder dak). De maten rekenen meteen mee.").font(.footnote).foregroundStyle(DS.text2)
+                }
+            }
             let s = scan.summary
             VStack(spacing: 0) {
                 resultRow("square.grid.3x3", "Metselwerk", "netto, openingen afgetrokken", s.metselwerkNetM2.map { m2($0) } ?? "maat onbekend")
@@ -263,8 +285,16 @@ struct GevelscanFlow: View {
             }
             .dsCard(radius: 20)
             if scan.skipped > 0 { Text("\(scan.skipped) element(en) niet bruikbaar en overgeslagen.").font(.footnote).foregroundStyle(DS.text2) }
-            Text("Maat: gevelbreedte \(m1(scan.widthM)) uit de BAG, gelegd op de buitenranden van het metselwerk. De BAG-omtrek kan enkele decimeters afwijken; dit is een voorstel.")
-                .font(.footnote).foregroundStyle(DS.text2)
+            if let r = scan.rectified {
+                if r.leftOut > 0 {
+                    DSNotice(kind: .info, text: "\(r.leftOut) element(en) liggen op een ander vlak (bijvoorbeeld een uitbouw) en tellen nog niet mee: dat vlak heeft nog geen eigen maat.")
+                }
+                Text("Rechtgetrokken: gevel \(m1(r.widthM)) breed (BAG) en \(m1(r.heightM)) hoog (afgeleid uit de foto, \(focalText(r.focalSource))). De BAG-omtrek kan enkele decimeters afwijken; dit is een voorstel.")
+                    .font(.footnote).foregroundStyle(DS.text2)
+            } else {
+                Text("Maat: gevelbreedte \(m1(scan.widthM)) uit de BAG, gelegd op de buitenranden van het metselwerk, zonder perspectiefcorrectie (de hoeken van de gevel zijn niet gevonden). Dit is een voorstel.")
+                    .font(.footnote).foregroundStyle(DS.text2)
+            }
             Button { Task { await accept(scan) } } label: { Label("Overnemen in het plan", systemImage: "checkmark") }
                 .buttonStyle(DSPrimaryButton())
                 .accessibilityIdentifier("acceptScan")
@@ -283,6 +313,14 @@ struct GevelscanFlow: View {
             Text(value).font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
         }
         .padding(.horizontal, 14).frame(minHeight: 58)
+    }
+
+    private func focalText(_ s: FacadePerspective.FocalSource) -> String {
+        switch s {
+        case .exif: return "lens uit de foto"
+        case .geschat: return "lens geschat uit de hoeken"
+        case .aangenomen: return "foto vrijwel recht van voren"
+        }
     }
 
     private func m2(_ v: Double) -> String { String(format: "%.1f m²", v).replacingOccurrences(of: ".", with: ",") }
@@ -322,6 +360,8 @@ struct GevelscanFlow: View {
 struct FacadeOverlay: View {
     let image: UIImage
     let scan: FacadeScan
+    var editCorners = false
+    var onCorners: (([[Double]]) -> Void)? = nil
 
     var body: some View {
         Image(uiImage: image).resizable().scaledToFit()
@@ -337,9 +377,34 @@ struct FacadeOverlay: View {
                             if e.type.kind != .line { path.closeSubpath() }
                         }
                         .stroke(color(e.type), lineWidth: e.type.kind == .poly ? 2 : 2.5)
+                        .allowsHitTesting(false)
+                    }
+                    if let plane = scan.mainPlane {
+                        Path { path in
+                            let pts = plane.corners.map { CGPoint(x: $0[0] * k, y: $0[1] * k) }
+                            path.move(to: pts[0]); pts.dropFirst().forEach { path.addLine(to: $0) }; path.closeSubpath()
+                        }
+                        .stroke(Color.yellow, style: StrokeStyle(lineWidth: editCorners ? 2.5 : 1.5, dash: editCorners ? [] : [6, 5]))
+                        .allowsHitTesting(false)
+                        if editCorners {
+                            ForEach(0..<4, id: \.self) { i in
+                                let c = plane.corners[i]
+                                Circle().fill(Color.yellow).frame(width: 22, height: 22)
+                                    .overlay(Circle().stroke(.black.opacity(0.4), lineWidth: 1))
+                                    .frame(width: 44, height: 44).contentShape(Rectangle())
+                                    .position(x: min(max(c[0] * k, 0), g.size.width), y: min(max(c[1] * k, 0), g.size.height))
+                                    .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .named("facade")).onChanged { v in
+                                        var cs = plane.corners
+                                        cs[i] = [min(max(v.location.x, 0), g.size.width) / k, min(max(v.location.y, 0), g.size.height) / k]
+                                        if FacadePerspective.isConvex(cs) { onCorners?(cs) }
+                                    })
+                                    .accessibilityLabel(["Hoek linksboven", "Hoek rechtsboven", "Hoek rechtsonder", "Hoek linksonder"][i])
+                            }
+                        }
                     }
                 }
             }
+            .coordinateSpace(name: "facade")
             .accessibilityLabel("Foto van de gevel met \(scan.elements.count) herkende elementen")
     }
 
