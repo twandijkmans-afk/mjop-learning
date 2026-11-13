@@ -49,7 +49,7 @@ enum MaintenanceReminders {
     }
 
     /// Alle projecten opnieuw inplannen (na aanzetten of een andere termijn).
-    static func refreshAll(store: ProjectStore, account: Account) async {
+    @MainActor static func refreshAll(store: ProjectStore, account: Account) async {
         guard enabled else { await removeAll(); return }
         for p in store.projects {
             if let m = try? await store.loadModel(p, account: account) { await schedule(project: p, model: m) }
