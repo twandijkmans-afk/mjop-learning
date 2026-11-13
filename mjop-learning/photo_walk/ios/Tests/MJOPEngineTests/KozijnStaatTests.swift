@@ -3,7 +3,7 @@ import XCTest
 @testable import MJOPEngine
 
 final class KozijnStaatTests: XCTestCase {
-    func item(_ side: Int, _ el: Int, _ t: FacadeElementType = .kozijn_raam, _ w: Double?, _ h: Double?, hidden: Double? = 0, material: String? = "hout") -> KozijnItem {
+    func item(_ side: Int, _ el: Int, _ w: Double?, _ h: Double?, type t: FacadeElementType = .kozijn_raam, hidden: Double? = 0, material: String? = "hout") -> KozijnItem {
         KozijnItem(sideId: side, elementId: el, type: t, material: material, widthM: w, heightM: h, hiddenFraction: hidden)
     }
 
@@ -11,7 +11,7 @@ final class KozijnStaatTests: XCTestCase {
         let r = KozijnStaat.make([
             item(1, 1, 1.20, 1.50), item(1, 2, 1.24, 1.46), item(2, 1, 1.18, 1.52),   // zelfde type (binnen 7%)
             item(1, 3, 1.35, 1.50),                                                   // 12,5% breder: ander type
-            item(1, 4, .kozijn_deur, 1.0, 2.2),
+            item(1, 4, 1.0, 2.2, type: .kozijn_deur),
         ])
         XCTAssertEqual(r.types.map(\.count), [3, 1, 1])
         XCTAssertEqual(r.types[0].letter, "A")
@@ -30,7 +30,7 @@ final class KozijnStaatTests: XCTestCase {
     func testHiddenWindowTakesTheSizeOfItsType() throws {
         let r = KozijnStaat.make([
             item(1, 1, 1.2, 1.5), item(1, 2, 1.2, 1.5),
-            item(1, 3, .kozijn_deur, 1.0, 2.2),
+            item(1, 3, 1.0, 2.2, type: .kozijn_deur),
             item(1, 4, 1.22, 0.7, hidden: 0.55),   // onderste helft achter een struik: hoogte telt niet
         ])
         let a = try XCTUnwrap(r.types.first { $0.type == .kozijn_raam })
@@ -78,7 +78,7 @@ final class KozijnStaatTests: XCTestCase {
     }
 
     func testOnlyOpeningsCount() {
-        let r = KozijnStaat.make([item(1, 1, .hwa, 0.1, 6), item(1, 2, 1.2, 1.5)])
+        let r = KozijnStaat.make([item(1, 1, 0.1, 6, type: .hwa), item(1, 2, 1.2, 1.5)])
         XCTAssertEqual(r.total, 1)
     }
 }
