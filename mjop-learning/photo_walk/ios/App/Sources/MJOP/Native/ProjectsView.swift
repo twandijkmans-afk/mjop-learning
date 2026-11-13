@@ -64,6 +64,11 @@ struct ProjectsView: View {
             .task { if !store.loadedOnce { await store.refresh(account) } }
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showNew) { NewProjectFlow(onCreated: { p in created = p }) }
+            .onReceive(store.$openRequest.combineLatest(store.$projects)) { id, list in
+                guard let id, let p = list.first(where: { $0.id == id }) else { return }
+                created = p
+                store.openRequest = nil
+            }
             .navigationDestination(isPresented: Binding(get: { created != nil }, set: { if !$0 { created = nil } })) {
                 if let p = created { ProjectDetailNativeView(project: p) }
             }

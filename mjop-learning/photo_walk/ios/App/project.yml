@@ -14,6 +14,7 @@ targets:
     platform: iOS
     sources:
       - path: Sources
+      - path: Shared                      # samenvatting voor de widget (ook in MJOPWidget)
       - path: ../Tests/PhotoWalkCoreTests/Fixtures/parity_cases.json   # alleen voor de simulatiemodus (synthetische data)
         buildPhase: resources
     dependencies:
@@ -25,6 +26,11 @@ targets:
         product: Gevelscan            # Gevelscanner 2.0: pijplijn en contract (docs/gevelscanner_2.md)
       - package: PhotoWalkCore
         product: MJOPEngine           # MJOP Live 3: rekenmodel en het lezen van BAG/3D BAG
+      - target: MJOPWidget            # widget op het beginscherm (ingebed)
+    entitlements:
+      path: PhotoWalk.generated.entitlements
+      properties:
+        com.apple.security.application-groups: [group.nl.mjop.photowalk]
     info:
       path: Info.generated.plist          # door XcodeGen gegenereerd; niet committen
       properties:
@@ -54,6 +60,29 @@ targets:
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
         Release:
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: RELEASE
+  MJOPWidget:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widget
+      - path: Shared
+    info:
+      path: MJOPWidget-Info.generated.plist
+      properties:
+        CFBundleDisplayName: MJOP Live
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    entitlements:
+      path: MJOPWidget.generated.entitlements
+      properties:
+        com.apple.security.application-groups: [group.nl.mjop.photowalk]
+    settings:
+      base:
+        SWIFT_VERSION: "5.9"
+        PRODUCT_BUNDLE_IDENTIFIER: nl.mjop.photowalk.prototype.widget
+        CODE_SIGN_STYLE: Automatic
+        MARKETING_VERSION: "2.0"
+        CURRENT_PROJECT_VERSION: "2"
   PhotoWalkUITests:
     type: bundle.ui-testing
     platform: iOS

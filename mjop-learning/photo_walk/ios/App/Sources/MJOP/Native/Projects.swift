@@ -65,6 +65,8 @@ final class ProjectStore: ObservableObject {
     @Published private(set) var projects: [Project] = []
     @Published private(set) var loading = false
     @Published private(set) var error: String?
+    /// Project dat geopend moet worden (bijv. na tikken op de widget).
+    @Published var openRequest: String?
     @Published private(set) var loadedOnce = false
 
     func refresh(_ account: Account) async {

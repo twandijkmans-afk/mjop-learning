@@ -1,6 +1,7 @@
 import Foundation
 import MJOPEngine
 import SwiftUI
+import WidgetKit
 
 /// Het volledige plan van een project (kolom `model` in `projects`, schema_version 1).
 struct ProjectModel: Equatable {
@@ -122,7 +123,7 @@ struct ProjectModel: Equatable {
 
 extension ProjectStore {
     func loadModel(_ project: Project, account: Account) async throws -> ProjectModel {
-        if account.demo { return ProjectModel.demo }
+        if account.demo { ProjectModel.demo.updateWidget(for: project); return ProjectModel.demo }
         let s = try await account.validSession()
         let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", query: [URLQueryItem(name: "id", value: "eq.\(project.id)"), URLQueryItem(name: "select", value: "model")])
         guard http.statusCode == 200, let rows = (try? JSONSerialization.jsonObject(with: data)) as? [[String: Any]], let m = rows.first?["model"] as? [String: Any] else {
@@ -130,6 +131,7 @@ extension ProjectStore {
         }
         guard let model = ProjectModel.parse(m) else { throw BackendError.message("Dit plan is gemaakt met een andere versie en kan nog niet worden geopend.") }
         if MaintenanceReminders.enabled { Task { await MaintenanceReminders.schedule(project: project, model: model) } }
+        model.updateWidget(for: project)
         return model
     }
 
@@ -143,6 +145,26 @@ extension ProjectStore {
         let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", method: "PATCH", query: [URLQueryItem(name: "id", value: "eq.\(project.id)")], body: body)
         guard (200..<300).contains(http.statusCode) else { throw BackendError.message(BackendClient.message(data, status: http.statusCode)) }
         if MaintenanceReminders.enabled { await MaintenanceReminders.schedule(project: project, model: model) }
+        model.updateWidget(for: project)
+    }
+}
+
+extension ProjectModel {
+    /// Zet de samenvatting voor de widget (laatst geopende project) en laat de widget opnieuw tekenen.
+    func updateWidget(for project: Project) {
+        let year = Self.year
+        let low = fund?.min { $0.saldo < $1.saldo }
+        let next = plan.filter { $0.jaar >= year }.map(\.jaar).min()
+        let items = next.map { y in plan.filter { $0.jaar == y } } ?? []
+        var names: [String] = []
+        for i in items where !names.contains(i.naam) { names.append(i.naam) }
+        func euro(_ d: Decimal) -> Int { NSDecimalNumber(decimal: Engine.roundEuro(d)).intValue }
+        WidgetSnapshot(projectId: project.id, naam: project.naam, fondsNu: fonds.map(euro),
+                       laagsteStand: low.map { euro($0.saldo) }, laagsteJaar: low?.jaar,
+                       volgendJaar: next, volgendPosten: Array(names.prefix(3)),
+                       volgendBedrag: next == nil ? nil : euro(items.reduce(Decimal(0)) { $0 + $1.bedrag }),
+                       bijgewerkt: Date()).save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
 

@@ -57,6 +57,11 @@ struct NativeRoot: View {
         .task { await account.start() }
         .onOpenURL { url in
             guard url.scheme?.lowercased() == MJOPConfig.appURLScheme else { return }
+            if url.host == "project" {   // mjoplive://project/<id> vanuit de widget
+                tab = .projects
+                projects.openRequest = url.lastPathComponent
+                return
+            }
             Task { await account.handle(url: url) }
         }
         .onChange(of: account.state) { s in
