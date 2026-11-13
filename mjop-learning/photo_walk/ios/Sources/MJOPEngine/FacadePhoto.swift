@@ -373,7 +373,7 @@ public enum FacadePhoto {
         [pts.reduce(0) { $0 + $1[0] } / Double(pts.count), pts.reduce(0) { $0 + $1[1] } / Double(pts.count)]
     }
 
-    static func inside(_ p: [Double], _ pts: [[Double]]) -> Bool {
+    public static func inside(_ p: [Double], _ pts: [[Double]]) -> Bool {
         var c = false
         var j = pts.count - 1
         for i in 0..<pts.count {
