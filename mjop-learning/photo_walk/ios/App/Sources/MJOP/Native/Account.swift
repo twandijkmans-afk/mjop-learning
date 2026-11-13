@@ -121,6 +121,8 @@ final class Account: ObservableObject {
     @Published var firstName: String?
     @Published var lastName: String?
     @Published var info: String?
+    /// Vergrendeld met Face ID: de sessie is er, maar de app toont het vergrendelscherm tot de gebruiker ontgrendelt.
+    @Published private(set) var locked = false
 
     let demo: Bool
     private var pkceVerifier: String? {
@@ -151,6 +153,7 @@ final class Account: ObservableObject {
         }
         guard let s = SessionVault.load() else { state = .signedOut; return }
         session = s
+        locked = BiometricLock.enabled
         state = .signedIn
         _ = try? await validSession()
         await loadProfile()
@@ -231,8 +234,17 @@ final class Account: ObservableObject {
         signOutLocally()
     }
 
+    /// Vergrendelt na een tijd op de achtergrond (alleen met een sessie en als Face ID aan staat).
+    func lockIfNeeded() {
+        guard !demo, state == .signedIn, BiometricLock.enabled else { return }
+        locked = true
+    }
+
+    func unlock() { locked = false }
+
     private func signOutLocally() {
         session = nil; firstName = nil; lastName = nil
+        locked = false
         SessionVault.save(nil)
         state = .signedOut
     }

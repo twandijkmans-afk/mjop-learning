@@ -6,6 +6,14 @@ struct ProfileView: View {
     @Environment(\.openURL) private var openURL
     @State private var confirmSignOut = false
     @State private var showKey = false
+    @State private var lockOn = BiometricLock.enabled
+
+    /// Aan- of uitzetten vraagt eerst om Face ID, zodat niemand anders het ongemerkt uitzet.
+    private func setLock(_ on: Bool) async {
+        guard await BiometricLock.authenticate(reason: on ? "Zet openen met \(BiometricLock.name) aan" : "Zet openen met \(BiometricLock.name) uit") else { return }
+        BiometricLock.enabled = on
+        lockOn = on
+    }
 
     private var initials: String {
         let n = [account.firstName, account.lastName].compactMap { $0?.first.map(String.init) }.joined()
@@ -50,7 +58,22 @@ struct ProfileView: View {
                     VStack(spacing: 0) {
                         row("bell", "Herinneringen", "Volgt")
                         Divider().padding(.leading, 62)
-                        row("faceid", "Face ID", "Volgt")
+                        if BiometricLock.available {
+                            Toggle(isOn: Binding(get: { lockOn }, set: { v in Task { await setLock(v) } })) {
+                                HStack(spacing: 12) {
+                                    DSIcon(systemName: BiometricLock.icon)
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text("Openen met \(BiometricLock.name)").foregroundStyle(DS.text)
+                                        Text("Bij openen en na 5 minuten weg").font(.caption).foregroundStyle(DS.text2)
+                                    }
+                                }
+                            }
+                            .tint(DS.accent)
+                            .padding(.horizontal, 16).frame(minHeight: 58)
+                            .accessibilityIdentifier("biometricLock")
+                        } else {
+                            row("faceid", "Face ID", "Niet beschikbaar")
+                        }
                         Divider().padding(.leading, 62)
                         row("lock.shield", "Privacy en gegevens", nil)
                         Divider().padding(.leading, 62)

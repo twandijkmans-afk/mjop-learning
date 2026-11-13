@@ -8,6 +8,8 @@ struct NativeRoot: View {
     @State private var tab: NativeTab = .home
     @State private var showScan = false
     @State private var showSplash = LaunchSplashView.shouldShow
+    @State private var backgroundedAt: Date?
+    @Environment(\.scenePhase) private var scenePhase
 
     /// Alleen in de testbouw: `-mjop-dark` toont de app donker, voor de schermafbeeldingen.
     static var forcedScheme: ColorScheme? {
@@ -29,11 +31,24 @@ struct NativeRoot: View {
             case .newPassword:
                 NewPasswordView()
             case .signedIn:
-                tabs
-                    .transition(.opacity)
+                if account.locked {
+                    LockScreenView().transition(.opacity)
+                } else {
+                    tabs.transition(.opacity)
+                }
             }
         }
         .animation(.easeInOut(duration: 0.25), value: account.state)
+        .animation(.easeInOut(duration: 0.25), value: account.locked)
+        .onChange(of: scenePhase) { phase in
+            switch phase {
+            case .background: backgroundedAt = Date()
+            case .active:
+                if let t = backgroundedAt, Date().timeIntervalSince(t) > BiometricLock.backgroundGrace { account.lockIfNeeded() }
+                backgroundedAt = nil
+            default: break
+            }
+        }
         .environmentObject(account)
         .environmentObject(projects)
         .tint(DS.accent)

@@ -30,6 +30,7 @@ targets:
       properties:
         CFBundleDisplayName: MJOP Live
         NSCameraUsageDescription: "Met de camera maak je foto's van de gevels en papieren documenten. Een gevelfoto gaat alleen naar Claude voor de herkenning als je daarvoor kiest."
+        NSFaceIDUsageDescription: "Met Face ID open je MJOP Live zonder je wachtwoord in te typen. Je gezicht blijft op deze iPhone."
         UILaunchScreen: {}
         UIRequiredDeviceCapabilities: [arkit]
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
