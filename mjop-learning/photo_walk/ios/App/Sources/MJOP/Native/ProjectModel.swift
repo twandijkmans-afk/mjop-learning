@@ -14,6 +14,11 @@ struct ProjectModel: Equatable {
     var sides: [FacadeSide] = []
     /// Toegevoegde documenten met hun voorstellen (het bestand zelf blijft voorlopig alleen op het toestel).
     var documents: [ProjectDocument] = []
+    /// Keuzes van de gebruiker in de kozijnstaat (samenvoegen, apart zetten).
+    var kozijnOverrides: KozijnOverrides? = nil
+
+    /// Kozijnen van alle gescande gevels gegroepeerd per type.
+    var kozijnStaat: KozijnStaatResult { KozijnStaat.make(gevels.flatMap(\.kozijnItems), overrides: kozijnOverrides ?? KozijnOverrides()) }
 
     static func parse(_ o: [String: Any]) -> ProjectModel? {
         let dec = JSONDecoder()
@@ -28,7 +33,7 @@ struct ProjectModel: Equatable {
         }
         return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
                             gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [],
-                            documents: decode("documents", [ProjectDocument].self) ?? [])
+                            documents: decode("documents", [ProjectDocument].self) ?? [], kozijnOverrides: decode("kozijn_overrides", KozijnOverrides.self))
     }
 
     func json() -> [String: Any] {
@@ -41,6 +46,7 @@ struct ProjectModel: Equatable {
             "gevels": (try? JSONSerialization.jsonObject(with: enc.encode(gevels))) ?? [],
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
             "documents": (try? JSONSerialization.jsonObject(with: enc.encode(documents))) ?? [],
+            "kozijn_overrides": kozijnOverrides.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? NSNull(),
         ]
     }
 
@@ -142,6 +148,18 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     func doorWidth(_ p: FacadePlane) -> Double? {
         FacadePerspective.planeWidthFromDoor(elements, plane: p, focalPx: focalPx, imageWidth: photoWidth, imageHeight: photoHeight)
     }
+    /// Kozijnen op deze gevel met hun maat, voor de kozijnstaat. Elementen op een vlak zonder maat doen niet mee.
+    var kozijnItems: [KozijnItem] {
+        func item(_ e: FacadePhotoElement, _ mpp: Double?) -> KozijnItem {
+            let q = FacadePhoto.quantities(e, mpp: mpp, all: [])
+            return KozijnItem(sideId: sideId, elementId: e.id, type: e.type, material: e.material, widthM: q.widthM, heightM: q.heightM, hiddenFraction: e.hiddenFraction)
+        }
+        if rectified != nil {
+            return (planes ?? []).compactMap(rectify).flatMap { r in r.elements.filter(\.type.isOpening).map { item($0, 1) } }
+        }
+        return elements.filter(\.type.isOpening).map { item($0, mpp) }
+    }
+
     var summary: FacadePhoto.Summary {
         if rectified != nil {
             return FacadePhoto.combine((planes ?? []).compactMap(rectify).map { FacadePhoto.summary($0.elements, mpp: 1) })

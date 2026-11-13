@@ -43,6 +43,7 @@ struct ProjectDetailNativeView: View {
                                 .accessibilityIdentifier("projectScan")
                         }
                         .padding(16).dsCard(radius: 20)
+                        KozijnStaatSection(project: project) { showScan = true }
                     case .documenten: DocumentsSection(project: project)
                     }
                 }

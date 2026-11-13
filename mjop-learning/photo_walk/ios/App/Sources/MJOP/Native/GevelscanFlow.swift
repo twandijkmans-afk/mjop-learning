@@ -291,6 +291,7 @@ struct GevelscanFlow: View {
                 resultRow("drop", "Hemelwaterafvoer", "lengte op de foto", s.hwaM1.map { m1($0) } ?? "–")
             }
             .dsCard(radius: 20)
+            KozijnScanCard(result: KozijnStaat.make(scan.kozijnItems))
             if scan.skipped > 0 { Text("\(scan.skipped) element(en) niet bruikbaar en overgeslagen.").font(.footnote).foregroundStyle(DS.text2) }
             if let r = scan.rectified {
                 let open = scan.unmeasuredPlanes
