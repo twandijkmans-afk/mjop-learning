@@ -83,8 +83,31 @@ public struct FacadePlane: Codable, Equatable, Identifiable {
     /// De gebruiker heeft de hoeken verschoven.
     public var editedByUser: Bool?
     public var originalCorners: [[Double]]?
-    public init(id: Int, kind: FacadePlaneKind, corners: [[Double]], editedByUser: Bool? = nil, originalCorners: [[Double]]? = nil) {
+    /// Eigen breedte van een vlak dat niet bij de BAG-gevelzijde hoort (uitbouw, dakkapel), met waar die vandaan komt.
+    public var widthM: Double?
+    public var widthSource: PlaneWidthSource?
+    public init(id: Int, kind: FacadePlaneKind, corners: [[Double]], editedByUser: Bool? = nil, originalCorners: [[Double]]? = nil,
+                widthM: Double? = nil, widthSource: PlaneWidthSource? = nil) {
         self.id = id; self.kind = kind; self.corners = corners; self.editedByUser = editedByUser; self.originalCorners = originalCorners
+        self.widthM = widthM; self.widthSource = widthSource
+    }
+}
+
+/// Waar de breedte van een gevelvlak vandaan komt.
+public enum PlaneWidthSource: String, Codable {
+    /// Gevelbreedte uit de BAG-omtrek (gemeten).
+    case bag
+    /// Afgeleid van een deur op het vlak, met een aangenomen deurhoogte van 2,1 m (aanname).
+    case deurAanname
+    /// Door de gebruiker ingevoerd.
+    case gebruiker
+
+    public var label: String {
+        switch self {
+        case .bag: return "BAG"
+        case .deurAanname: return "afgeleid van een deur van 2,1 m (aanname)"
+        case .gebruiker: return "zelf ingevoerd"
+        }
     }
 }
 
@@ -407,6 +430,18 @@ public enum FacadePhoto {
         public var kozijnOppervlakM2: Double?
         public var hwaM1: Double?
         public var dakgootM1: Double?
+    }
+
+    /// Telt samenvattingen van meerdere vlakken op. Is een maat op één vlak onbekend, dan is het totaal ook onbekend.
+    public static func combine(_ parts: [Summary]) -> Summary {
+        func add(_ f: (Summary) -> Double?) -> Double? {
+            var t = 0.0
+            for p in parts { guard let v = f(p) else { return nil }; t += v }
+            return round2(t)
+        }
+        return Summary(metselwerkNetM2: add(\.metselwerkNetM2), gevelvlakNetM2: add(\.gevelvlakNetM2),
+                       raamkozijnen: parts.reduce(0) { $0 + $1.raamkozijnen }, deurkozijnen: parts.reduce(0) { $0 + $1.deurkozijnen },
+                       kozijnOppervlakM2: add(\.kozijnOppervlakM2), hwaM1: add(\.hwaM1), dakgootM1: add(\.dakgootM1))
     }
 
     public static func summary(_ els: [FacadePhotoElement], mpp: Double?) -> Summary {

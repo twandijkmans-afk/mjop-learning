@@ -88,6 +88,9 @@ struct GevelscanFlow: View {
     @State private var showKey = false
     @State private var captureMeta: CaptureMeta?
     @State private var editCorners = false
+    @State private var selectedPlane: Int?
+    @State private var widthFor: FacadePlane?
+    @State private var widthText = ""
 
     enum Phase { case choose, working, result }
 
@@ -231,6 +234,7 @@ struct GevelscanFlow: View {
             scan.planes = r.recognition.planes
             scan.defects = r.recognition.defects
             editCorners = false
+            selectedPlane = nil
             lastScan = scan
             phase = .result
         } catch {
@@ -247,7 +251,8 @@ struct GevelscanFlow: View {
             FacadePhotoElement(id: 3, type: .kozijn_deur, points: [[w * 0.6, h * 0.55], [w * 0.75, h * 0.55], [w * 0.75, h], [w * 0.6, h]], material: "hout", confidence: "medium", note: nil),
         ]
         let plane = FacadePlane(id: 1, kind: .hoofdgevel, corners: [[w * 0.02, h * 0.1], [w * 0.98, h * 0.12], [w * 0.97, h * 0.98], [w * 0.03, h]])
-        return (FacadeRecognition(elements: els.map { var e = $0; e.plane = 1; return e }, skipped: 0, planes: [plane], defects: []), img.size)
+        let uitbouw = FacadePlane(id: 2, kind: .uitbouw, corners: [[w * 0.52, h * 0.5], [w * 0.88, h * 0.5], [w * 0.88, h], [w * 0.52, h]])
+        return (FacadeRecognition(elements: els.map { var e = $0; e.plane = $0.type == .kozijn_deur ? 2 : 1; return e }, skipped: 0, planes: [plane, uitbouw], defects: []), img.size)
     }
 
     // MARK: resultaat
@@ -255,8 +260,9 @@ struct GevelscanFlow: View {
     @ViewBuilder private var result: some View {
         if let scan = lastScan, let photo {
             Text("Gevel op het \(scan.facing)").font(.system(size: 26, weight: .bold)).foregroundStyle(DS.text)
-            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners) { corners in
-                guard var s = lastScan, let i = s.planes?.firstIndex(where: { $0.id == s.mainPlane?.id }) else { return }
+            let activePlane = selectedPlane ?? scan.mainPlane?.id
+            FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane) { corners in
+                guard var s = lastScan, let i = s.planes?.firstIndex(where: { $0.id == activePlane }) else { return }
                 if s.planes![i].originalCorners == nil { s.planes![i].originalCorners = s.planes![i].corners }
                 s.planes![i].corners = corners
                 s.planes![i].editedByUser = true
@@ -265,13 +271,14 @@ struct GevelscanFlow: View {
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             if scan.mainPlane != nil {
                 Button { withAnimation(.dsSpring) { editCorners.toggle() } } label: {
-                    Label(editCorners ? "Klaar met hoeken" : "Hoeken van de gevel aanpassen", systemImage: editCorners ? "checkmark" : "perspective")
+                    Label(editCorners ? "Klaar met hoeken" : "Hoeken aanpassen", systemImage: editCorners ? "checkmark" : "perspective")
                 }
                 .buttonStyle(DSSecondaryButton())
                 .accessibilityIdentifier("editCorners")
                 if editCorners {
-                    Text("Sleep de vier gele punten naar de hoeken van de gevel (zonder dak). De maten rekenen meteen mee.").font(.footnote).foregroundStyle(DS.text2)
+                    Text("Sleep de vier punten naar de hoeken van het gekozen vlak (zonder dak). Kies hieronder een ander vlak om dat aan te passen. De maten rekenen meteen mee.").font(.footnote).foregroundStyle(DS.text2)
                 }
+                if (scan.planes ?? []).count > 1 { planeList(scan, active: activePlane) }
             }
             let s = scan.summary
             VStack(spacing: 0) {
@@ -286,8 +293,10 @@ struct GevelscanFlow: View {
             .dsCard(radius: 20)
             if scan.skipped > 0 { Text("\(scan.skipped) element(en) niet bruikbaar en overgeslagen.").font(.footnote).foregroundStyle(DS.text2) }
             if let r = scan.rectified {
-                if r.leftOut > 0 {
-                    DSNotice(kind: .info, text: "\(r.leftOut) element(en) liggen op een ander vlak (bijvoorbeeld een uitbouw) en tellen nog niet mee: dat vlak heeft nog geen eigen maat.")
+                let open = scan.unmeasuredPlanes
+                if !open.isEmpty {
+                    let n = scan.elements.filter { e in open.contains { $0.id == e.plane } }.count
+                    DSNotice(kind: .info, text: "\(n) element(en) op \(open.map { $0.kind.label.lowercased() }.joined(separator: " en ")) tellen nog niet mee: dat vlak heeft nog geen eigen maat.")
                 }
                 Text("Rechtgetrokken: gevel \(m1(r.widthM)) breed (BAG) en \(m1(r.heightM)) hoog (afgeleid uit de foto, \(focalText(r.focalSource))). De BAG-omtrek kan enkele decimeters afwijken; dit is een voorstel.")
                     .font(.footnote).foregroundStyle(DS.text2)
@@ -313,6 +322,63 @@ struct GevelscanFlow: View {
             Text(value).font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
         }
         .padding(.horizontal, 14).frame(minHeight: 58)
+    }
+
+    private func planeList(_ scan: FacadeScan, active: Int?) -> some View {
+        VStack(spacing: 0) {
+            ForEach(Array((scan.planes ?? []).enumerated()), id: \.element.id) { idx, p in
+                let w = scan.width(of: p)
+                HStack(spacing: 12) {
+                    Button { selectedPlane = p.id } label: {
+                        HStack(spacing: 12) {
+                            Circle().fill(FacadeOverlay.planeColor(idx)).frame(width: 14, height: 14)
+                                .overlay(Circle().stroke(DS.text, lineWidth: p.id == active ? 2 : 0).padding(-3))
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text(p.kind.label).font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
+                                Text(w.map { "\(m1($0.m)) breed · \($0.source.label)" } ?? "nog geen maat · telt niet mee").font(.caption).foregroundStyle(w == nil ? Color.orange : DS.text2)
+                            }
+                            Spacer(minLength: 0)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    if p.id != scan.mainPlane?.id {
+                        Menu {
+                            Button { widthText = p.widthM.map { String(format: "%.2f", $0).replacingOccurrences(of: ".", with: ",") } ?? ""; widthFor = p } label: {
+                                Label("Breedte invoeren", systemImage: "ruler")
+                            }
+                            if let dw = scan.doorWidth(p) {
+                                Button { setWidth(p.id, dw, .deurAanname) } label: { Label("Deur als maat (2,1 m, aanname): \(m1(dw))", systemImage: "door.left.hand.closed") }
+                            }
+                            if w != nil { Button(role: .destructive) { setWidth(p.id, nil, nil) } label: { Label("Maat weghalen", systemImage: "xmark") } }
+                        } label: {
+                            Text(w == nil ? "Maat geven" : "Wijzig").font(.subheadline.weight(.semibold)).foregroundStyle(DS.accent)
+                                .padding(.horizontal, 12).padding(.vertical, 7).background(DS.accentSoft, in: Capsule())
+                        }
+                        .accessibilityIdentifier("planeWidth-\(p.id)")
+                    }
+                }
+                .padding(.horizontal, 14).frame(minHeight: 58)
+                if p.id != scan.planes?.last?.id { Divider().padding(.leading, 40) }
+            }
+        }
+        .dsCard(radius: 20)
+        .alert("Breedte van het vlak", isPresented: Binding(get: { widthFor != nil }, set: { if !$0 { widthFor = nil } })) {
+            TextField("bijv. 3,60", text: $widthText).keyboardType(.decimalPad)
+            Button("Opslaan") {
+                if let p = widthFor, let v = Double(widthText.replacingOccurrences(of: ",", with: ".")), v > 0.3, v < 200 { setWidth(p.id, v, .gebruiker) }
+                widthFor = nil
+            }
+            Button("Annuleer", role: .cancel) { widthFor = nil }
+        } message: {
+            Text("In meters, gemeten langs de bovenrand van het vlak (bijvoorbeeld met een duimstok of uit een tekening).")
+        }
+    }
+
+    private func setWidth(_ planeId: Int, _ w: Double?, _ source: PlaneWidthSource?) {
+        guard var s = lastScan, let i = s.planes?.firstIndex(where: { $0.id == planeId }) else { return }
+        s.planes![i].widthM = w
+        s.planes![i].widthSource = source
+        lastScan = s
     }
 
     private func focalText(_ s: FacadePerspective.FocalSource) -> String {
@@ -361,7 +427,10 @@ struct FacadeOverlay: View {
     let image: UIImage
     let scan: FacadeScan
     var editCorners = false
+    var activePlane: Int? = nil
     var onCorners: (([[Double]]) -> Void)? = nil
+
+    static func planeColor(_ i: Int) -> Color { [Color.yellow, Color(hex: 0xFF5FD2), Color(hex: 0x22D3EE), Color(hex: 0xA3E635)][i % 4] }
 
     var body: some View {
         Image(uiImage: image).resizable().scaledToFit()
@@ -379,17 +448,19 @@ struct FacadeOverlay: View {
                         .stroke(color(e.type), lineWidth: e.type.kind == .poly ? 2 : 2.5)
                         .allowsHitTesting(false)
                     }
-                    if let plane = scan.mainPlane {
+                    ForEach(Array((scan.planes ?? []).enumerated()), id: \.element.id) { idx, pl in
                         Path { path in
-                            let pts = plane.corners.map { CGPoint(x: $0[0] * k, y: $0[1] * k) }
+                            let pts = pl.corners.map { CGPoint(x: $0[0] * k, y: $0[1] * k) }
                             path.move(to: pts[0]); pts.dropFirst().forEach { path.addLine(to: $0) }; path.closeSubpath()
                         }
-                        .stroke(Color.yellow, style: StrokeStyle(lineWidth: editCorners ? 2.5 : 1.5, dash: editCorners ? [] : [6, 5]))
+                        .stroke(FacadeOverlay.planeColor(idx), style: StrokeStyle(lineWidth: editCorners && pl.id == active ? 2.5 : 1.5, dash: editCorners && pl.id == active ? [] : [6, 5]))
                         .allowsHitTesting(false)
+                    }
+                    if let plane = scan.planes?.first(where: { $0.id == active }) {
                         if editCorners {
                             ForEach(0..<4, id: \.self) { i in
                                 let c = plane.corners[i]
-                                Circle().fill(Color.yellow).frame(width: 22, height: 22)
+                                Circle().fill(FacadeOverlay.planeColor(activeIndex)).frame(width: 22, height: 22)
                                     .overlay(Circle().stroke(.black.opacity(0.4), lineWidth: 1))
                                     .frame(width: 44, height: 44).contentShape(Rectangle())
                                     .position(x: min(max(c[0] * k, 0), g.size.width), y: min(max(c[1] * k, 0), g.size.height))
@@ -407,6 +478,9 @@ struct FacadeOverlay: View {
             .coordinateSpace(name: "facade")
             .accessibilityLabel("Foto van de gevel met \(scan.elements.count) herkende elementen")
     }
+
+    private var active: Int? { activePlane ?? scan.mainPlane?.id }
+    private var activeIndex: Int { scan.planes?.firstIndex { $0.id == active } ?? 0 }
 
     private func color(_ t: FacadeElementType) -> Color {
         switch t {

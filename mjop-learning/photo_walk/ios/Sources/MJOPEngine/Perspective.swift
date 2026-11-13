@@ -112,9 +112,10 @@ public enum FacadePerspective {
         return (r, source)
     }
 
-    /// Trekt het vlak recht: de bovenrand van het vlak krijgt de gevelbreedte uit de BAG, de hoogte volgt uit de beeldverhouding.
-    /// Alleen elementen die op dit vlak liggen (of zonder vlak, bij oudere scans) worden meegenomen.
-    public static func rectify(_ els: [FacadePhotoElement], plane: FacadePlane, widthM: Double, focalPx: Double?, imageWidth W: Double, imageHeight H: Double) -> Rectified? {
+    /// Trekt het vlak recht: de bovenrand van het vlak krijgt de opgegeven breedte, de hoogte volgt uit de beeldverhouding.
+    /// Alleen elementen die op dit vlak liggen worden meegenomen; elementen zonder vlak alleen als `includeUnassigned` (het hoofdvlak).
+    public static func rectify(_ els: [FacadePhotoElement], plane: FacadePlane, widthM: Double, focalPx: Double?, imageWidth W: Double, imageHeight H: Double,
+                               includeUnassigned: Bool = true) -> Rectified? {
         guard widthM > 0, let a = aspect(corners: plane.corners, focalPx: focalPx, width: W, height: H) else { return nil }
         let heightM = widthM / a.ratio
         guard let hom = Homography(from: plane.corners, to: [[0, 0], [widthM, 0], [widthM, heightM], [0, heightM]]) else { return nil }
@@ -122,11 +123,26 @@ public enum FacadePerspective {
         var leftOut = 0
         for e in els {
             if let p = e.plane, p != plane.id { leftOut += 1; continue }
+            if e.plane == nil && !includeUnassigned { leftOut += 1; continue }
             let pts = e.points.compactMap { hom.apply($0) }
             guard pts.count == e.points.count else { leftOut += 1; continue }
             var r = e; r.points = pts
             out.append(r)
         }
         return Rectified(elements: out, widthM: widthM, heightM: heightM, focalSource: a.source, leftOut: leftOut)
+    }
+
+    /// Standaardhoogte van een buitendeur (kozijn), alleen als duidelijk gemarkeerde aanname.
+    public static let assumedDoorHeightM = 2.1
+
+    /// Breedte van een vlak afgeleid van de hoogste deur die op dat vlak ligt, uitgaande van een deurhoogte van 2,1 m (aanname).
+    /// Nil als er op het vlak geen deur is of het vlak niet recht te trekken is.
+    public static func planeWidthFromDoor(_ els: [FacadePhotoElement], plane: FacadePlane, focalPx: Double?, imageWidth W: Double, imageHeight H: Double,
+                                          doorHeightM: Double = assumedDoorHeightM) -> Double? {
+        let doors = els.filter { $0.type == .kozijn_deur && $0.plane == plane.id }
+        guard !doors.isEmpty, let r = rectify(doors, plane: plane, widthM: 1, focalPx: focalPx, imageWidth: W, imageHeight: H, includeUnassigned: false) else { return nil }
+        guard let h = r.elements.compactMap({ FacadePhoto.quantities($0, mpp: 1, all: []).heightM }).max(), h > 1e-6 else { return nil }
+        let w = doorHeightM / h
+        return w.isFinite && w > 0.3 && w < 200 ? w : nil
     }
 }

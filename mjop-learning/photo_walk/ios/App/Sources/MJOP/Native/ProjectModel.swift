@@ -122,12 +122,30 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     /// Het vlak waar de BAG-gevelbreedte bij hoort.
     var mainPlane: FacadePlane? { planes?.first { $0.kind == .hoofdgevel } ?? planes?.first }
     var focalPx: Double? { focal35mm.flatMap { FacadePerspective.focalPx(focal35mm: $0, width: photoWidth, height: photoHeight) } }
+    /// Breedte van een vlak en waar die vandaan komt: het hoofdvlak krijgt de BAG-breedte, een ander vlak alleen een eigen maat.
+    func width(of p: FacadePlane) -> (m: Double, source: PlaneWidthSource)? {
+        if p.id == mainPlane?.id { return (widthM, .bag) }
+        if let w = p.widthM, let s = p.widthSource, w > 0 { return (w, s) }
+        return nil
+    }
+    func rectify(_ p: FacadePlane) -> FacadePerspective.Rectified? {
+        guard let w = width(of: p) else { return nil }
+        return FacadePerspective.rectify(elements, plane: p, widthM: w.m, focalPx: focalPx, imageWidth: photoWidth, imageHeight: photoHeight,
+                                         includeUnassigned: p.id == mainPlane?.id)
+    }
     /// Rechtgetrokken hoofdvlak; nil zonder bruikbare hoeken (dan de oude methode: breedte over de foto).
-    var rectified: FacadePerspective.Rectified? {
-        mainPlane.flatMap { FacadePerspective.rectify(elements, plane: $0, widthM: widthM, focalPx: focalPx, imageWidth: photoWidth, imageHeight: photoHeight) }
+    var rectified: FacadePerspective.Rectified? { mainPlane.flatMap(rectify) }
+    /// Vlakken met elementen maar zonder maat: die tellen (nog) niet mee.
+    var unmeasuredPlanes: [FacadePlane] {
+        (planes ?? []).filter { p in width(of: p) == nil && elements.contains { $0.plane == p.id } }
+    }
+    func doorWidth(_ p: FacadePlane) -> Double? {
+        FacadePerspective.planeWidthFromDoor(elements, plane: p, focalPx: focalPx, imageWidth: photoWidth, imageHeight: photoHeight)
     }
     var summary: FacadePhoto.Summary {
-        if let r = rectified { return FacadePhoto.summary(r.elements, mpp: 1) }
+        if rectified != nil {
+            return FacadePhoto.combine((planes ?? []).compactMap(rectify).map { FacadePhoto.summary($0.elements, mpp: 1) })
+        }
         return FacadePhoto.summary(elements, mpp: mpp)
     }
 }

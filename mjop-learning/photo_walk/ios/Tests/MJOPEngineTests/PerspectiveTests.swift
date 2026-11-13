@@ -7,8 +7,8 @@ final class PerspectiveTests: XCTestCase {
     struct Camera {
         var f = 2800.0, W = 3000.0, H = 4000.0
         var yaw = 0.0, pitch = 0.0, roll = 0.0, distance = 25.0
-        func project(_ x: Double, _ y: Double) -> [Double] {   // x naar rechts, y omhoog, in meters op het vlak
-            var p = [x, y, 0.0]
+        func project(_ x: Double, _ y: Double, _ z: Double = 0) -> [Double] {   // x naar rechts, y omhoog, z naar de camera toe, in meters
+            var p = [x, y, -z]
             func rx(_ v: [Double], _ a: Double) -> [Double] { [v[0], cos(a) * v[1] - sin(a) * v[2], sin(a) * v[1] + cos(a) * v[2]] }
             func ry(_ v: [Double], _ a: Double) -> [Double] { [cos(a) * v[0] + sin(a) * v[2], v[1], -sin(a) * v[0] + cos(a) * v[2]] }
             func rz(_ v: [Double], _ a: Double) -> [Double] { [cos(a) * v[0] - sin(a) * v[1], sin(a) * v[0] + cos(a) * v[1], v[2]] }
@@ -17,8 +17,8 @@ final class PerspectiveTests: XCTestCase {
             return [f * p[0] / p[2] + W / 2, H / 2 - f * p[1] / p[2]]
         }
         /// Rechthoek van w × h meter rond het midden: linksboven, rechtsboven, rechtsonder, linksonder.
-        func rect(_ w: Double, _ h: Double, x0: Double = 0, y0: Double = 0) -> [[Double]] {
-            [project(x0 - w / 2, y0 + h / 2), project(x0 + w / 2, y0 + h / 2), project(x0 + w / 2, y0 - h / 2), project(x0 - w / 2, y0 - h / 2)]
+        func rect(_ w: Double, _ h: Double, x0: Double = 0, y0: Double = 0, z: Double = 0) -> [[Double]] {
+            [project(x0 - w / 2, y0 + h / 2, z), project(x0 + w / 2, y0 + h / 2, z), project(x0 + w / 2, y0 - h / 2, z), project(x0 - w / 2, y0 - h / 2, z)]
         }
     }
 
@@ -71,6 +71,42 @@ final class PerspectiveTests: XCTestCase {
         let ref = try XCTUnwrap(FacadePhoto.defaultReference(els))
         let naive = FacadePhoto.quantities(els[2], mpp: FacadePhoto.metersPerPixel(facadeWidthM: 12, leftX: ref.left, rightX: ref.right), all: els)
         XCTAssertGreaterThan(abs(try XCTUnwrap(naive.heightM) - 2.2), 0.2)
+    }
+
+    func testExtensionGetsItsOwnWidthFromADoor() throws {
+        // Hoofdgevel 12 × 8 m; een uitbouw van 4 × 3 m staat 3 m naar voren met een deur van 1 × 2,1 m en een raam van 1,5 × 1 m.
+        let cam = Camera(yaw: 0.4, pitch: 0.1)
+        let hoofd = FacadePlane(id: 1, kind: .hoofdgevel, corners: cam.rect(12, 8))
+        let uitbouw = FacadePlane(id: 2, kind: .uitbouw, corners: cam.rect(4, 3, x0: 2, y0: -2.5, z: 3))
+        let els = [
+            FacadePhotoElement(id: 1, type: .kozijn_raam, points: cam.rect(1.2, 1.5, x0: -3, y0: 2), material: nil, confidence: "high", note: nil, plane: 1),
+            FacadePhotoElement(id: 2, type: .kozijn_deur, points: cam.rect(1, 2.1, x0: 1.2, y0: -2.95, z: 3), material: nil, confidence: "high", note: nil, plane: 2),
+            FacadePhotoElement(id: 3, type: .kozijn_raam, points: cam.rect(1.5, 1, x0: 3, y0: -2.5, z: 3), material: nil, confidence: "high", note: nil, plane: 2),
+        ]
+        let w = try XCTUnwrap(FacadePerspective.planeWidthFromDoor(els, plane: uitbouw, focalPx: cam.f, imageWidth: cam.W, imageHeight: cam.H))
+        XCTAssertEqual(w, 4, accuracy: 1e-6)
+        XCTAssertNil(FacadePerspective.planeWidthFromDoor(els, plane: hoofd, focalPx: cam.f, imageWidth: cam.W, imageHeight: cam.H), "geen deur op dit vlak: geen maat")
+
+        // De maat van de hoofdgevel geldt niet voor de uitbouw: met de BAG-breedte erop zou het raam op de uitbouw fout uitkomen.
+        let main = try XCTUnwrap(FacadePerspective.rectify(els, plane: hoofd, widthM: 12, focalPx: cam.f, imageWidth: cam.W, imageHeight: cam.H))
+        XCTAssertEqual(main.elements.map(\.id), [1])
+        let ext = try XCTUnwrap(FacadePerspective.rectify(els, plane: uitbouw, widthM: w, focalPx: cam.f, imageWidth: cam.W, imageHeight: cam.H, includeUnassigned: false))
+        let raam = FacadePhoto.quantities(try XCTUnwrap(ext.elements.first { $0.id == 3 }), mpp: 1, all: ext.elements)
+        XCTAssertEqual(try XCTUnwrap(raam.widthM), 1.5, accuracy: 1e-6)
+        XCTAssertEqual(ext.heightM, 3, accuracy: 1e-6)
+
+        let total = FacadePhoto.combine([FacadePhoto.summary(main.elements, mpp: 1), FacadePhoto.summary(ext.elements, mpp: 1)])
+        XCTAssertEqual(total.raamkozijnen, 2)
+        XCTAssertEqual(total.deurkozijnen, 1)
+        XCTAssertEqual(total.kozijnOppervlakM2, 5.4)
+    }
+
+    func testCombineKeepsUnknownUnknown() {
+        let a = FacadePhoto.Summary(metselwerkNetM2: 10, gevelvlakNetM2: 10, raamkozijnen: 1, deurkozijnen: 0, kozijnOppervlakM2: 2, hwaM1: 0, dakgootM1: 0)
+        var b = a; b.metselwerkNetM2 = nil
+        XCTAssertNil(FacadePhoto.combine([a, b]).metselwerkNetM2)
+        XCTAssertEqual(FacadePhoto.combine([a, a]).metselwerkNetM2, 20)
+        XCTAssertEqual(FacadePhoto.combine([a, b]).raamkozijnen, 2)
     }
 
     func testParsesPlanesDefectsAndHiddenFraction() throws {
