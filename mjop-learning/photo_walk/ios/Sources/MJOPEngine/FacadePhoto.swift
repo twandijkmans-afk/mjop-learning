@@ -120,6 +120,9 @@ public struct FacadeRecognition: Equatable {
     public var skipped: Int
     public var planes: [FacadePlane]
     public var defects: [FacadeDefect]
+    public init(elements: [FacadePhotoElement], skipped: Int, planes: [FacadePlane], defects: [FacadeDefect]) {
+        self.elements = elements; self.skipped = skipped; self.planes = planes; self.defects = defects
+    }
 }
 
 public struct FacadeQuantities: Equatable {
