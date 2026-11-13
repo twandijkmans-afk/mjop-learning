@@ -125,6 +125,7 @@ extension ProjectStore {
             throw BackendError.message(BackendClient.message(data, status: http.statusCode))
         }
         guard let model = ProjectModel.parse(m) else { throw BackendError.message("Dit plan is gemaakt met een andere versie en kan nog niet worden geopend.") }
+        if MaintenanceReminders.enabled { Task { await MaintenanceReminders.schedule(project: project, model: model) } }
         return model
     }
 
@@ -137,6 +138,7 @@ extension ProjectStore {
                                    "geraamd_totaal": total, "aantal_appartementen": model.units]
         let (data, http) = try await BackendClient(session: s).request("rest/v1/projects", method: "PATCH", query: [URLQueryItem(name: "id", value: "eq.\(project.id)")], body: body)
         guard (200..<300).contains(http.statusCode) else { throw BackendError.message(BackendClient.message(data, status: http.statusCode)) }
+        if MaintenanceReminders.enabled { await MaintenanceReminders.schedule(project: project, model: model) }
     }
 }
 

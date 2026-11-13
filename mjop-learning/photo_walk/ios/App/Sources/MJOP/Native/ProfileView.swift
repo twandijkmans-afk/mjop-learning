@@ -7,6 +7,7 @@ struct ProfileView: View {
     @State private var confirmSignOut = false
     @State private var showKey = false
     @State private var lockOn = BiometricLock.enabled
+    @State private var showReminders = false
 
     /// Aan- of uitzetten vraagt eerst om Face ID, zodat niemand anders het ongemerkt uitzet.
     private func setLock(_ on: Bool) async {
@@ -56,7 +57,9 @@ struct ProfileView: View {
                     .buttonStyle(.plain)
 
                     VStack(spacing: 0) {
-                        row("bell", "Herinneringen", "Volgt")
+                        Button { showReminders = true } label: { row("bell", "Herinneringen", MaintenanceReminders.enabled ? "\(MaintenanceReminders.leadMonths) mnd vooraf" : "Uit") }
+                            .buttonStyle(DSRowStyle())
+                            .accessibilityIdentifier("reminders")
                         Divider().padding(.leading, 62)
                         if BiometricLock.available {
                             Toggle(isOn: Binding(get: { lockOn }, set: { v in Task { await setLock(v) } })) {
@@ -97,6 +100,7 @@ struct ProfileView: View {
             .background(DS.canvas)
             .toolbar(.hidden, for: .navigationBar)
             .sheet(isPresented: $showKey) { ClaudeKeySheet() }
+            .sheet(isPresented: $showReminders) { RemindersSettingsView() }
             .confirmationDialog("Uitloggen?", isPresented: $confirmSignOut, titleVisibility: .visible) {
                 Button("Uitloggen", role: .destructive) { Task { await account.signOut() } }
                 Button("Annuleren", role: .cancel) {}
