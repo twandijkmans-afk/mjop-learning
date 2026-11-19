@@ -101,6 +101,7 @@ struct GevelscanFlow: View {
     @State private var editorMode: FacadeEditorView.Mode = .elements
     @State private var widthFor: FacadePlane?
     @State private var widthText = ""
+    @State private var editorSelect: Int?
 
     enum Phase { case choose, working, result }
 
@@ -126,7 +127,7 @@ struct GevelscanFlow: View {
             .task(id: project?.id) { await loadModel() }
             .fullScreenCover(isPresented: $showCamera) {
                 if FacadeCameraSupport.available, let side {
-                    FacadeCameraView(title: "Gevel op het \(side.facing)", step: "\((usableSides.firstIndex(of: side) ?? 0) + 1) van \(usableSides.count)") { img, meta in
+                    FacadeCameraView(title: "Gevel op het \(side.facing)", step: "\((usableSides.firstIndex(of: side) ?? 0) + 1) van \(usableSides.count)", facing: side.facing) { img, meta in
                         captureMeta = meta
                         photo = img
                     }
@@ -141,7 +142,7 @@ struct GevelscanFlow: View {
             }
             .fullScreenCover(isPresented: $showEditor) {
                 if let scan = lastScan, let photo {
-                    FacadeEditorView(image: photo, scan: scan, mode: editorMode) { lastScan = $0 }
+                    FacadeEditorView(image: photo, scan: scan, mode: editorMode, selected: editorSelect) { lastScan = $0 }
                 }
             }
             .confirmationDialog(copyTarget.map { "Lijkt de gevel op het \($0.facing) op een gescande gevel?" } ?? "", isPresented: Binding(get: { copyTarget != nil }, set: { if !$0 { copyTarget = nil } }), titleVisibility: .visible) {
@@ -305,6 +306,14 @@ struct GevelscanFlow: View {
             if part > 1 { scan.part = part; scan.overlapWithPrevious = 1 }
             scan.merged = r.recognition.merged
             scan.conflicts = r.recognition.conflicts
+            scan.headingDeg = captureMeta?.headingDeg
+            // Vastklikken op randen die de telefoon zelf vindt (Apple Vision). De punten van Claude blijven bewaard.
+            if !account.demo, let up = (try? ClaudeVision.prepare(photo)).flatMap({ UIImage(data: $0.0) }) {
+                let found = await VisionRectangles.detect(in: up, size: r.size)
+                var n = EdgeSnap.apply(&scan.elements, candidates: found)
+                if var ps = scan.planes { n += EdgeSnap.applyPlanes(&ps, candidates: found); scan.planes = ps }
+                scan.snapped = n
+            }
             editCorners = false
             selectedPlane = nil
             editElements = false
@@ -360,17 +369,24 @@ struct GevelscanFlow: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
             HStack(spacing: 10) {
-                Button { editorMode = .elements; showEditor = true } label: { Label("Elementen aanpassen", systemImage: "pencil.and.outline") }
+                Button { editorMode = .elements; editorSelect = nil; showEditor = true } label: { Label("Elementen aanpassen", systemImage: "pencil.and.outline") }
                     .buttonStyle(DSSecondaryButton())
                     .accessibilityIdentifier("editElements")
                 if scan.mainPlane != nil {
-                    Button { editorMode = .corners; showEditor = true } label: { Label("Hoeken", systemImage: "perspective") }
+                    Button { editorMode = .corners; editorSelect = nil; showEditor = true } label: { Label("Hoeken", systemImage: "perspective") }
                         .buttonStyle(DSSecondaryButton())
                         .accessibilityIdentifier("editCorners")
                 }
             }
-            let edits = scan.elements.filter { $0.editedByUser == true || $0.addedByUser == true }.count + (scan.removedByUser?.count ?? 0)
-            if edits > 0 { Text("\(edits) aanpassing(en) door jou; de oorspronkelijke herkenning blijft bewaard.").font(.caption).foregroundStyle(DS.text2) }
+            reviewCard(scan)
+            let st = scan.reviewStats
+            if st.corrections > 0 {
+                Text("Jouw correcties: \(st.corrections) (\(st.added) toegevoegd, \(st.removed) verwijderd, \(st.retyped) andere soort, \(st.reshaped) verschoven). De oorspronkelijke herkenning blijft bewaard.")
+                    .font(.caption).foregroundStyle(DS.text2)
+            }
+            if let n = scan.snapped, n > 0 {
+                Text("\(n) kozijn(en) of vlak(ken) vastgeklikt op de randen in de foto; de punten van Claude blijven bewaard.").font(.caption).foregroundStyle(DS.text2)
+            }
             if (scan.planes ?? []).count > 1 { planeList(scan, active: activePlane) }
             if scan.mainPlane == nil {
                 Button { withAnimation(.dsSpring) { editReference.toggle() } } label: {
@@ -461,6 +477,54 @@ struct GevelscanFlow: View {
                 .accessibilityIdentifier("acceptScan")
             Button("Opnieuw") { phase = .choose; startCamera() }.buttonStyle(DSSecondaryButton())
         }
+    }
+
+    /// Alleen de twijfelgevallen nalopen: de app kiest met vaste regels wat verdacht is; de rest bevestig je in één keer.
+    @ViewBuilder private func reviewCard(_ scan: FacadeScan) -> some View {
+        let items = scan.reviewItems
+        let flagged = Set(items.map(\.elementId))
+        let rest = scan.elements.filter { $0.confirmedByUser != true && $0.editedByUser != true && $0.addedByUser != true && !flagged.contains($0.id) }.count
+        VStack(alignment: .leading, spacing: 10) {
+            if items.isEmpty {
+                Label("Niets opvallends gevonden", systemImage: "checkmark.seal.fill").font(.headline).foregroundStyle(DS.ok)
+                Text("Geen twijfel, ongebruikelijke maten of overlap. Kijk de foto nog even na en bevestig.").font(.footnote).foregroundStyle(DS.text2)
+            } else {
+                Text(items.count == 1 ? "1 ding om te checken" : "\(items.count) dingen om te checken").font(.headline).foregroundStyle(DS.text)
+                VStack(spacing: 0) {
+                    ForEach(items) { it in
+                        if let e = scan.elements.first(where: { $0.id == it.elementId }) {
+                            Button { editorSelect = e.id; editorMode = .elements; showEditor = true } label: {
+                                HStack(spacing: 12) {
+                                    Circle().fill(FacadeEditorView.color(e.type)).frame(width: 10, height: 10)
+                                    VStack(alignment: .leading, spacing: 1) {
+                                        Text("\(e.type.label) \(e.id)").font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
+                                        Text(it.reasons.map(\.label).joined(separator: " · ")).font(.caption).foregroundStyle(Color.orange)
+                                    }
+                                    Spacer()
+                                    Image(systemName: "chevron.right").font(.footnote.weight(.semibold)).foregroundStyle(DS.text2)
+                                }
+                                .padding(.horizontal, 14).frame(minHeight: 52)
+                            }
+                            .buttonStyle(DSRowStyle())
+                            .accessibilityIdentifier("review-\(e.id)")
+                            if it.id != items.last?.id { Divider().padding(.leading, 36) }
+                        }
+                    }
+                }
+                .dsCard(radius: 16)
+                Text("Tik op een punt om het element in de editor te openen. Pas aan of laat het staan als het klopt.").font(.footnote).foregroundStyle(DS.text2)
+            }
+            if rest > 0 {
+                Button { updateScan { _ = FacadeReview.confirmRest(&$0.elements, except: flagged) } } label: {
+                    Label(items.isEmpty ? "Alles klopt (\(rest) bevestigen)" : "De rest klopt (\(rest) bevestigen)", systemImage: "checkmark.circle")
+                }
+                .buttonStyle(DSSecondaryButton())
+                .accessibilityIdentifier("confirmRest")
+            } else if scan.elements.contains(where: { $0.confirmedByUser == true }) {
+                Label("Gecontroleerd door jou", systemImage: "checkmark.circle.fill").font(.footnote.weight(.semibold)).foregroundStyle(DS.ok)
+            }
+        }
+        .padding(16).frame(maxWidth: .infinity, alignment: .leading).dsCard(radius: 20)
     }
 
     private func resultRow(_ icon: String, _ title: String, _ sub: String, _ value: String) -> some View {

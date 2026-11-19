@@ -1,6 +1,7 @@
 import AVFoundation
 import ImageIO
 import CoreMotion
+import MJOPEngine
 import SwiftUI
 import UIKit
 
@@ -10,6 +11,7 @@ struct CaptureMeta: Equatable {
     var rollDeg: Double       // draaiing om de kijkas (scheef)
     var pitchDeg: Double      // voorover of achterover gekanteld
     var focal35mm: Double?    // brandpunt (35mm-equivalent) uit de EXIF, voor de perspectiefcorrectie
+    var headingDeg: Double? = nil   // kijkrichting van de camera volgens het kompas (graden vanaf magnetisch noord), als die bekend was
     var level: Bool { abs(rollDeg) <= 2 && abs(pitchDeg) <= 4 }
 }
 
@@ -22,6 +24,9 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
     @Published var hasWide = false
     @Published var authorized: Bool?
     @Published var capturing = false
+    /// Kijkrichting van de camera volgens het kompas; nil als het kompas niet beschikbaar of niet gekalibreerd is.
+    @Published var headingDeg: Double?
+    private var headingVec: (s: Double, c: Double)?
 
     let session = AVCaptureSession()
     private let output = AVCapturePhotoOutput()
@@ -70,14 +75,31 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
     private func startMotion() {
         guard motion.isDeviceMotionAvailable else { return }
         motion.deviceMotionUpdateInterval = 1.0 / 20
-        motion.startDeviceMotionUpdates(to: .main) { [weak self] m, _ in
-            guard let self, let g = m?.gravity else { return }
+        // Met magneetveld (kompas) als dat kan; geen locatietoestemming nodig.
+        let frame: CMAttitudeReferenceFrame = CMMotionManager.availableAttitudeReferenceFrames().contains(.xMagneticNorthZVertical) ? .xMagneticNorthZVertical : .xArbitraryZVertical
+        motion.startDeviceMotionUpdates(using: frame, to: .main) { [weak self] m, _ in
+            guard let self, let m else { return }
+            let g = m.gravity
+            self.updateHeading(m)
             // Telefoon rechtop (portret) richting de gevel: zwaartekracht ≈ (0, −1, 0).
             let roll = atan2(g.x, -g.y) * 180 / .pi
             let pitch = atan2(g.z, -g.y) * 180 / .pi
             self.rollDeg = (self.rollDeg * 0.6) + (roll * 0.4)      // licht gedempt, zodat het niet trilt
             self.pitchDeg = (self.pitchDeg * 0.6) + (pitch * 0.4)
         }
+    }
+
+    private func updateHeading(_ m: CMDeviceMotion) {
+        let f = m.magneticField
+        guard f.accuracy != .uncalibrated,
+              let h = CompassCheck.heading(gravity: [m.gravity.x, m.gravity.y, m.gravity.z], magnetic: [f.field.x, f.field.y, f.field.z]) else {
+            headingDeg = nil; headingVec = nil; return
+        }
+        // Dempen via sinus en cosinus, zodat de overgang 359° → 0° niet springt.
+        let r = h * .pi / 180
+        let v = headingVec.map { (s: $0.s * 0.8 + sin(r) * 0.2, c: $0.c * 0.8 + cos(r) * 0.2) } ?? (s: sin(r), c: cos(r))
+        headingVec = v
+        headingDeg = (atan2(v.s, v.c) * 180 / .pi + 360).truncatingRemainder(dividingBy: 360)
     }
 
     func capture(_ done: @escaping (UIImage, CaptureMeta) -> Void) {
@@ -95,7 +117,7 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
             self.capturing = false
             guard let data, let img = UIImage(data: data) else { return }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self.completion?(img, CaptureMeta(lens: self.wide ? "0,5×" : "1×", rollDeg: self.rollDeg, pitchDeg: self.pitchDeg, focal35mm: f35))
+            self.completion?(img, CaptureMeta(lens: self.wide ? "0,5×" : "1×", rollDeg: self.rollDeg, pitchDeg: self.pitchDeg, focal35mm: f35, headingDeg: self.headingDeg))
         }
     }
 }
@@ -119,10 +141,20 @@ struct CameraPreview: UIViewRepresentable {
 struct FacadeCameraView: View {
     let title: String
     let step: String
+    /// Windrichting van de gekozen gevel (voor de kompascheck); nil = geen check.
+    var facing: String? = nil
     let done: (UIImage, CaptureMeta) -> Void
     @Environment(\.dismiss) private var dismiss
     @StateObject private var cam = FacadeCameraModel()
     @State private var confirmTilt = false
+    @State private var confirmSide = false
+
+    /// Afwijking van de kijkrichting voor de gekozen gevel, als het kompas iets zegt.
+    private var sideDeviation: Double? {
+        guard let facing, let h = cam.headingDeg else { return nil }
+        return CompassCheck.deviation(cameraHeading: h, facing: facing)
+    }
+    private var wrongSide: Bool { (sideDeviation ?? 0) > CompassCheck.warnAbove }
 
     var body: some View {
         ZStack {
@@ -153,6 +185,13 @@ struct FacadeCameraView: View {
                 .environment(\.colorScheme, .dark)
                 .padding(.horizontal, 16).padding(.top, 8)
                 Spacer()
+                if wrongSide, let facing, let h = cam.headingDeg {
+                    Label("De camera wijst richting \(CompassCheck.name(of: h)). Voor deze gevel kijk je richting \(CompassCheck.viewingHeading(facing: facing).map { CompassCheck.name(of: $0) } ?? "?").", systemImage: "location.north.line")
+                        .font(.footnote.weight(.semibold)).foregroundStyle(.white).multilineTextAlignment(.center)
+                        .padding(.horizontal, 14).padding(.vertical, 9).background(Color.orange.opacity(0.85), in: Capsule())
+                        .padding(.horizontal, 20).padding(.bottom, 10)
+                        .accessibilityIdentifier("compassWarning")
+                }
                 level
                 Spacer().frame(height: 26)
                 HStack {
@@ -191,6 +230,12 @@ struct FacadeCameraView: View {
         } message: {
             Text("Een scheve foto geeft minder nauwkeurige maten. Houd de telefoon recht en sta recht voor de gevel.")
         }
+        .alert("Is dit de goede gevel?", isPresented: $confirmSide) {
+            Button("Ja, foto maken") { take() }
+            Button("Opnieuw richten", role: .cancel) {}
+        } message: {
+            Text("Volgens het kompas wijst de camera niet naar de gevel die je hebt gekozen. Het kompas kan afwijken bij staal of auto's in de buurt; weet je het zeker, maak dan gewoon de foto.")
+        }
     }
 
     private var level: some View {
@@ -224,7 +269,9 @@ struct FacadeCameraView: View {
         }
     }
 
-    private func shoot() { cam.isLevel ? take() : (confirmTilt = true) }
+    private func shoot() {
+        if !cam.isLevel { confirmTilt = true } else if wrongSide { confirmSide = true } else { take() }
+    }
 
     private func take() {
         cam.capture { img, meta in

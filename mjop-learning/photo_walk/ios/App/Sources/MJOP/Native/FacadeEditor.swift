@@ -26,8 +26,9 @@ struct FacadeEditorView: View {
     private enum Target { case vertex(Int, Int), corner(Int, Int), move(Int), draw, pan(CGSize) }
     private struct Active { var target: Target; var start: CGPoint; var now: CGPoint }
 
-    init(image: UIImage, scan: FacadeScan, mode: Mode = .elements, onDone: @escaping (FacadeScan) -> Void) {
+    init(image: UIImage, scan: FacadeScan, mode: Mode = .elements, selected: Int? = nil, onDone: @escaping (FacadeScan) -> Void) {
         self.image = image; self.onDone = onDone
+        _selected = State(initialValue: selected)
         _work = State(initialValue: scan)
         _mode = State(initialValue: mode)
         _plane = State(initialValue: scan.mainPlane?.id)

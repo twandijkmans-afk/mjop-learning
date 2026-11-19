@@ -78,6 +78,11 @@ public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     /// Kozijndetails (v0.3), alleen als ze duidelijk zichtbaar zijn: aantal vakken (glasvlakken) en aantal draaiende delen.
     public var panes: Int?
     public var openingParts: Int?
+    /// Door de gebruiker gezien en goedgekeurd zonder wijziging ("rest bevestigen").
+    public var confirmedByUser: Bool?
+    /// Hoeken vastgeklikt op een rand die de telefoon zelf vond (Apple Vision); `aiPoints` zijn de oorspronkelijke punten van Claude.
+    public var snappedByVision: Bool?
+    public var aiPoints: [[Double]]?
 
     public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil,
                 mergedFrom: [Int]? = nil) {
@@ -112,6 +117,9 @@ public struct FacadePlane: Codable, Equatable, Identifiable {
     /// Eigen breedte van een vlak dat niet bij de BAG-gevelzijde hoort (uitbouw, dakkapel), met waar die vandaan komt.
     public var widthM: Double?
     public var widthSource: PlaneWidthSource?
+    /// Hoeken vastgeklikt op een rand die de telefoon zelf vond; `aiCorners` zijn de hoeken van Claude.
+    public var snappedByVision: Bool?
+    public var aiCorners: [[Double]]?
     public init(id: Int, kind: FacadePlaneKind, corners: [[Double]], editedByUser: Bool? = nil, originalCorners: [[Double]]? = nil,
                 widthM: Double? = nil, widthSource: PlaneWidthSource? = nil) {
         self.id = id; self.kind = kind; self.corners = corners; self.editedByUser = editedByUser; self.originalCorners = originalCorners
@@ -241,7 +249,7 @@ public enum FacadeError: LocalizedError, Equatable {
 }
 
 public enum FacadePhoto {
-    public static let promptVersion = "gevelfoto_v0.3"
+    public static let promptVersion = "gevelfoto_v0.4"
     public static let model = "claude-opus-5-5"
     public static let maxEdge: Double = 2000
 
@@ -254,7 +262,7 @@ public enum FacadePhoto {
         let list = FacadeElementType.allCases.map { t -> String in
             let g: String
             switch t.kind {
-            case .quad: g = "bounding box, exactly 2 points: top-left and bottom-right"
+            case .quad: g = t.isOpening ? "the 4 corners of the outer frame, exactly 4 points: top-left, top-right, bottom-right, bottom-left" : "bounding box, exactly 2 points: top-left and bottom-right"
             case .line: g = "polyline along the element, 2 or more points"
             case .poly: g = "polygon outlining the surface, 3 or more points in order"
             }
@@ -274,7 +282,7 @@ public enum FacadePhoto {
 
         Guidelines:
         - For each kozijn (kozijn_raam, kozijn_deur): "panes" is the number of glass panes you can count in the frame and "opening_parts" the number of parts that can open (sashes, doors) when that is clearly recognisable; use 0 when you cannot tell. For other elements both are 0.
-        - One physical frame (kozijn) is one element, even when it holds several panes or opening sashes. Box the outer edge of the frame, not the glass.
+        - One physical frame (kozijn) is one element, even when it holds several panes or opening sashes. Give the 4 corners of the outer edge of the frame, not the glass. Place each corner exactly on the corner of the frame as it appears in the photo: when the photo is taken at an angle the frame looks like a slanted quadrilateral, and the corners must follow that shape (not an upright box around it).
         - For a wall surface (metselwerk, stucwerk, gevelbekleding) return one polygon per continuous surface of one material, following its outer edge and including the window and door openings that lie in it. The openings are subtracted afterwards by the calling program.
         - For hwa (downpipe), dakgoot (gutter), boeiboord (fascia), daktrim, waterslag (sill), latei (lintel), plint, dilatatie (expansion joint) and hekwerk (railing), follow the centre line of the element from one end to the other. A downpipe usually runs from the gutter down to the ground: if part of it is hidden behind plants, still draw the full line as far as you can be sure it runs, and set "hidden_fraction".
         - dakbedekking: a polygon of the roof covering that is visible above this facade (tiles, slates, bitumen); dakkapel and schoorsteen: a box around each.
@@ -406,7 +414,12 @@ public enum FacadePhoto {
             if bad { skipped += 1; continue }
             switch t.kind {
             case .quad:
-                if pts.count == 2 { pts = boxToQuad(pts[0], pts[1]) } else if pts.count == 4 { pts = orderQuad(pts) } else { skipped += 1; continue }
+                if pts.count == 2 { pts = boxToQuad(pts[0], pts[1]) }
+                else if pts.count == 4 {
+                    pts = orderQuad(pts)
+                    // Geen geldige vierhoek (gekruist of plat): het omsluitende kader van dezelfde punten, zoals bij een scan van vóór v0.4.
+                    if !FacadePerspective.isConvex(pts) { pts = boxToQuad([pts.map { $0[0] }.min()!, pts.map { $0[1] }.min()!], [pts.map { $0[0] }.max()!, pts.map { $0[1] }.max()!]) }
+                } else { skipped += 1; continue }
                 if area(pts) < 16 { skipped += 1; continue }
             case .line:
                 if pts.count < 2 || length(pts) < 4 { skipped += 1; continue }
@@ -660,6 +673,9 @@ public struct FacadeSide: Codable, Equatable, Identifiable {
 }
 
 public enum FootprintSides {
+    /// De acht windrichtingen, met de klok mee vanaf het noorden (stappen van 45°).
+    public static let directionNames = ["noord", "noordoost", "oost", "zuidoost", "zuid", "zuidwest", "west", "noordwest"]
+
     /// Zet een BAG-ring (lon, lat) om naar meters rond het eerste punt.
     public static func meters(_ ring: [(Double, Double)]) -> [[Double]] {
         guard let first = ring.first else { return [] }
@@ -682,7 +698,7 @@ public enum FootprintSides {
         guard corners.count >= 3 else { return [] }
         var signed = 0.0
         for i in 0..<n { signed += pts[i][0] * pts[(i + 1) % n][1] - pts[(i + 1) % n][0] * pts[i][1] }
-        let names = ["noord", "noordoost", "oost", "zuidoost", "zuid", "zuidwest", "west", "noordwest"]
+        let names = directionNames
         return corners.enumerated().map { k, c in
             let a = pts[c], b = pts[corners[(k + 1) % corners.count]]
             let dx = b[0] - a[0], dy = b[1] - a[1]

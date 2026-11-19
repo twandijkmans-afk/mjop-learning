@@ -205,6 +205,10 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     var photoPath: String? = nil
     var copyConfirmedAt: Date? = nil
     var conflicts: [[Int]]? = nil
+    /// Kijkrichting van de camera volgens het kompas bij het fotograferen (graden vanaf magnetisch noord), en hoeveel kozijnen
+    /// en gevelvlakken de telefoon heeft vastgeklikt op randen in de foto.
+    var headingDeg: Double? = nil
+    var snapped: Int? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
     /// Het vlak waar de BAG-gevelbreedte bij hoort.
@@ -223,6 +227,16 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     }
     /// Rechtgetrokken hoofdvlak; nil zonder bruikbare hoeken (dan de oude methode: breedte over de foto).
     var rectified: FacadePerspective.Rectified? { mainPlane.flatMap(rectify) }
+
+    /// Dezelfde elementen in meters (rechtgetrokken vlakken met maat, of de oude schaal over de foto); nil zonder maat.
+    var metricElements: [FacadePhotoElement]? {
+        if rectified != nil { return (planes ?? []).compactMap(rectify).flatMap(\.elements) }
+        guard let k = mpp else { return nil }
+        return elements.map { e in var m = e; m.points = e.points.map { [$0[0] * k, $0[1] * k] }; return m }
+    }
+    /// Wat de gebruiker moet nalopen (vaste regels), en de handwerkteller.
+    var reviewItems: [ReviewItem] { FacadeReview.items(elements, metric: metricElements, conflicts: conflicts ?? []) }
+    var reviewStats: ReviewStats { FacadeReview.stats(elements, removed: removedByUser ?? []) }
 
     /// Totalen per soort element over de vlakken met maat (of de hele foto bij een scan zonder vlakken).
     var elementTotals: [FacadePhoto.ElementTotal] {
