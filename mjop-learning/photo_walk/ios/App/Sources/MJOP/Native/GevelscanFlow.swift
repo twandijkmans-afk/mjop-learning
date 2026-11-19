@@ -81,7 +81,9 @@ struct GevelscanFlow: View {
     @State private var model: ProjectModel?
     @State private var error: String?
     @State private var side: FacadeSide?
-    @State private var showCamera = false
+    /// De gevel waarvoor de camera open staat. Via `fullScreenCover(item:)`, zodat de camera altijd de gekozen gevel krijgt
+    /// (met `isPresented` zag de camera soms nog geen gevel en viel hij terug op de gewone iOS-camera zonder waterpas).
+    @State private var cameraSide: FacadeSide?
     @State private var photo: UIImage?
     @State private var phase: Phase = .choose
     @State private var lastScan: FacadeScan?
@@ -125,8 +127,8 @@ struct GevelscanFlow: View {
             .navigationTitle("Gevelscan").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Sluiten") { dismiss() } } }
             .task(id: project?.id) { await loadModel() }
-            .fullScreenCover(isPresented: $showCamera) {
-                if FacadeCameraSupport.available, let side {
+            .fullScreenCover(item: $cameraSide) { side in
+                if FacadeCameraSupport.available {
                     FacadeCameraView(title: "Gevel op het \(side.facing)", step: "\((usableSides.firstIndex(of: side) ?? 0) + 1) van \(usableSides.count)", facing: side.facing) { img, meta in
                         captureMeta = meta
                         photo = img
@@ -260,7 +262,7 @@ struct GevelscanFlow: View {
         if ClaudeKey.load() == nil && !account.demo { showKey = true; return }
         photo = nil
         captureMeta = nil
-        showCamera = true
+        cameraSide = side
     }
 
     // MARK: verwerken
