@@ -14,6 +14,12 @@ Upload nieuwe PDF/XLS/XLSX-bestanden naar `data/incoming/`. De GitHub Actions-wo
 `reports/incoming/<batch_id>.json`, zonder AI en zonder canonieke data te wijzigen.
 Uitleg voor niet-programmeurs: `docs/incoming_pipeline_v1.md`.
 
+## MJOP actualiseren naar 30 jaar ("Light")
+
+Bestaand MJOP → 30-jaars concept met reservefondsadvies, met review per regel (ACCEPT/EDIT/REJECT):
+`python scripts/mjop_actualisatie.py run --document DOC-010 --building-id <gebouw> --start-year 2027 --opening-balance <€> --annual-contribution <€>`.
+Uitleg, beperkingen en het levensduur-/prijsindexbeheer: `docs/mjop_actualisatie_light_v1.md`.
+
 ## Status
 
 Batch 1 (10 documenten, zie `reports/batch1_selectie_voorstel.csv`) staat in

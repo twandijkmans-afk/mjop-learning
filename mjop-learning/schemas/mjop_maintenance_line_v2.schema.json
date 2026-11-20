@@ -1,0 +1,1180 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "mjop_maintenance_line_v2.schema.json",
+  "title": "MjopMaintenanceLineV2",
+  "description": "Onderhoudsregel van een NIEUW MJOP, versie 2 (scripts/mjop_maintenance_line_v2.py, docs/mjop_actualisatie_light_v1.md). Alle v1-velden en -regels gelden ongewijzigd (financial blijft zonder indexatie); v2 voegt toe: herkomst van de regel (origin, origin_source), planningsvoorstel van de horizon-planner (proposed_planned_year, planning_basis, planner_flags, planning_status, planning_verification) en een expliciet geïndexeerd historisch bedrag (price_update) dat nooit als marktprijs geldt en pas na een menselijke beslissing meetelt.",
+  "type": "object",
+  "definitions": {
+    "nonneg_decimal": {
+      "type": "string",
+      "pattern": "^[0-9]+(\\.[0-9]+)?$"
+    },
+    "positive_decimal": {
+      "type": "string",
+      "pattern": "^(0*[1-9][0-9]*(\\.[0-9]+)?|0*\\.?0*[1-9][0-9]*|0+\\.[0-9]*[1-9][0-9]*)$"
+    },
+    "year": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1000,
+      "maximum": 9999
+    },
+    "vat_basis": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "inclusive",
+        "exclusive",
+        null
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}(:[0-9]{2}(\\.[0-9]+)?)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+    },
+    "planner_flag": {
+      "type": "string",
+      "enum": [
+        "CYCLE_UNKNOWN",
+        "CYCLE_FROM_DOCUMENT_IRREGULAR",
+        "CYCLE_DOCUMENT_TABLE_DIFFER",
+        "OVERDUE_NO_CYCLE",
+        "BASE_YEAR_UNKNOWN",
+        "ASSUMED_FROM_CONSTRUCTION_YEAR",
+        "ELEMENT_CODE_MISSING",
+        "ACTION_UNKNOWN",
+        "NOT_INSPECTED",
+        "BEYOND_HORIZON",
+        "PRICE_LEVEL_UNKNOWN",
+        "INDEX_MISSING"
+      ]
+    }
+  },
+  "properties": {
+    "maintenance_line_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mjop_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "object_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "line_version": {
+      "type": "string",
+      "const": "mjop_maintenance_line_v2"
+    },
+    "element_code_internal": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "object_description": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "action_normalized": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "action_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unit_normalized": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "unit_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "material_normalized": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "material_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "material_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "vat_basis": {
+      "$ref": "#/definitions/vat_basis"
+    },
+    "price_level_requested": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "context": {
+      "type": "object",
+      "description": "Contextvelden, alleen doorgegeven aan de workflow. construction_year wordt nooit als onderhouds- of vervangingsjaar gebruikt.",
+      "properties": {
+        "building_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "construction_year": {
+          "$ref": "#/definitions/year"
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "condition_defect": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "maintenance_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "building_type",
+        "construction_year",
+        "location",
+        "condition_defect",
+        "maintenance_type"
+      ],
+      "additionalProperties": false
+    },
+    "quantity": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/positive_decimal"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "planned_year": {
+      "$ref": "#/definitions/year"
+    },
+    "proposed_planned_year": {
+      "$ref": "#/definitions/year",
+      "description": "Voorstel van de horizon-planner (v2); planned_year wordt pas gezet na een menselijke beslissing."
+    },
+    "cycle_years": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "last_maintenance_year": {
+      "$ref": "#/definitions/year"
+    },
+    "last_replacement_year": {
+      "$ref": "#/definitions/year"
+    },
+    "line_status": {
+      "type": "string",
+      "enum": [
+        "DRAFT",
+        "READY",
+        "REVIEW_REQUIRED"
+      ]
+    },
+    "price_status": {
+      "type": "string",
+      "enum": [
+        "NO_AMOUNT",
+        "SYSTEM_PROPOSED",
+        "HUMAN_ACCEPTED",
+        "HUMAN_ADJUSTED",
+        "MANUALLY_SET",
+        "REJECTED"
+      ]
+    },
+    "kengetal_match": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Samenvatting van het laatst toegepaste workflowresultaat (system-derived).",
+      "properties": {
+        "workflow_status": {
+          "type": "string",
+          "enum": [
+            "NO_KENGETAL",
+            "REVIEW_REQUIRED",
+            "MATCH_PENDING_DECISION",
+            "ACCEPTED",
+            "ADJUSTED",
+            "REJECTED"
+          ]
+        },
+        "match_result_id": {
+          "type": "string"
+        },
+        "match_status": {
+          "type": "string",
+          "enum": [
+            "CANDIDATE_FOUND",
+            "HUMAN_REVIEW_REQUIRED",
+            "NO_SUITABLE_KENGETAL"
+          ]
+        },
+        "match_reasons": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kengetal_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Het door de matching voorgestelde kengetal."
+        },
+        "system_candidate_amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "human_match_decision_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision_status": {
+          "type": "string",
+          "enum": [
+            "NO_DECISION",
+            "ACCEPTED",
+            "ADJUSTED",
+            "REJECTED"
+          ]
+        },
+        "human_selected_kengetal_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "workflow_status",
+        "match_result_id",
+        "match_status",
+        "match_reasons",
+        "kengetal_id",
+        "system_candidate_amount",
+        "human_match_decision_id",
+        "decision_status",
+        "human_selected_kengetal_id"
+      ],
+      "additionalProperties": false
+    },
+    "manual_amount": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "amount": {
+          "$ref": "#/definitions/nonneg_decimal"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "price_level": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "vat_basis": {
+          "$ref": "#/definitions/vat_basis"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "const": "MANUAL_AMOUNT"
+        }
+      },
+      "required": [
+        "amount",
+        "unit",
+        "price_level",
+        "vat_basis",
+        "reason",
+        "source"
+      ],
+      "additionalProperties": false
+    },
+    "financial": {
+      "type": "object",
+      "properties": {
+        "amount_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "SYSTEM_KENGETAL",
+            "HUMAN_SELECTED_KENGETAL",
+            "HUMAN_ADJUSTMENT",
+            "MANUAL_AMOUNT",
+            null
+          ]
+        },
+        "unit_amount": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit_amount_display": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "effective_total": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "effective_total_display": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "total_not_computed_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "NO_EFFECTIVE_AMOUNT",
+            "QUANTITY_MISSING",
+            "QUANTITY_NOT_POSITIVE",
+            "UNIT_MISMATCH",
+            null
+          ]
+        },
+        "price_level": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "vat_basis": {
+          "$ref": "#/definitions/vat_basis"
+        },
+        "indexation": {
+          "type": "string",
+          "const": "none"
+        }
+      },
+      "required": [
+        "amount_source",
+        "unit_amount",
+        "unit_amount_display",
+        "unit",
+        "effective_total",
+        "effective_total_display",
+        "total_not_computed_reason",
+        "price_level",
+        "vat_basis",
+        "indexation"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "unit_amount": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "amount_source": {
+                "type": "null"
+              },
+              "effective_total": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "amount_source": {
+                "type": "string"
+              },
+              "unit": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "amount_source": {
+                "type": "null"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "unit_amount": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Bestaande IDs/hashes uit workflow, matching en human match review; geen eigen provenance-systeem.",
+      "properties": {
+        "workflow_result_id": {
+          "type": "string"
+        },
+        "match_result_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "decision_store_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "rule_versions": {
+          "type": "object"
+        },
+        "input_hashes": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "workflow_result_id",
+        "match_result_sha256",
+        "decision_store_sha256",
+        "rule_versions",
+        "input_hashes"
+      ],
+      "additionalProperties": false
+    },
+    "origin": {
+      "type": "string",
+      "enum": [
+        "FROM_EXISTING_MJOP",
+        "ADDED_FROM_LIFECYCLE",
+        "MANUAL"
+      ],
+      "description": "Waar de regel vandaan komt. Doorrollen verandert de herkomst niet; dat staat in planning_basis."
+    },
+    "origin_source": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "DOCUMENT",
+            "LIFECYCLE_TABLE",
+            "USER"
+          ]
+        },
+        "document_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pages": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "source_action_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_element_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "document_planned_years": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "lifecycle_key": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "element_code": {
+              "type": "string"
+            },
+            "action": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "element_code",
+            "action"
+          ],
+          "additionalProperties": false
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "document_id",
+        "pages",
+        "source_action_ids",
+        "source_element_id",
+        "document_planned_years",
+        "lifecycle_key",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "planning_basis": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Uitleg van het laatste planner-voorstel (system-derived).",
+      "properties": {
+        "planner_version": {
+          "type": "string"
+        },
+        "horizon_start": {
+          "type": "integer"
+        },
+        "horizon_end": {
+          "type": "integer"
+        },
+        "cycle_years_used": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "cycle_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "LINE",
+            "DOCUMENT_INTERVAL",
+            "LIFECYCLE_TABLE",
+            null
+          ]
+        },
+        "base_year": {
+          "$ref": "#/definitions/year"
+        },
+        "base_year_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "DOCUMENT_PLANNED_YEAR",
+            "PLANNED_YEAR",
+            "LAST_REPLACEMENT_YEAR",
+            "LAST_MAINTENANCE_YEAR",
+            "CONSTRUCTION_YEAR_ASSUMPTION",
+            null
+          ]
+        },
+        "rolled_forward": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "planner_version",
+        "horizon_start",
+        "horizon_end",
+        "cycle_years_used",
+        "cycle_source",
+        "base_year",
+        "base_year_source",
+        "rolled_forward"
+      ],
+      "additionalProperties": false
+    },
+    "planner_flags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/planner_flag"
+      },
+      "uniqueItems": true
+    },
+    "planning_status": {
+      "type": "string",
+      "enum": [
+        "NOT_PLANNED",
+        "PROPOSED",
+        "HUMAN_ACCEPTED",
+        "HUMAN_ADJUSTED",
+        "REJECTED"
+      ]
+    },
+    "planning_verification": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "ACCEPT",
+            "EDIT",
+            "REJECT"
+          ]
+        },
+        "original_proposed_year": {
+          "$ref": "#/definitions/year"
+        },
+        "original_cycle_years": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "value_year": {
+          "$ref": "#/definitions/year"
+        },
+        "value_cycle_years": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "$ref": "#/definitions/timestamp"
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "decision",
+        "original_proposed_year",
+        "original_cycle_years",
+        "value_year",
+        "value_cycle_years",
+        "by",
+        "at",
+        "note"
+      ],
+      "additionalProperties": false
+    },
+    "price_update": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Geïndexeerd historisch bedrag per keer (geen marktprijs).",
+      "properties": {
+        "basis": {
+          "type": "string",
+          "const": "HISTORICAL_DOCUMENT_COST"
+        },
+        "source_document_id": {
+          "type": "string"
+        },
+        "source_action_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_total_as_stated": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source_vat_statement": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "base_price_level_year": {
+          "$ref": "#/definitions/year"
+        },
+        "target_price_level_year": {
+          "$ref": "#/definitions/year"
+        },
+        "index_source": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "index_base_value": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "index_target_value": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "indexation_factor": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "indexed_total": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "indexed_total_display": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/nonneg_decimal"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "not_computed_reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "SOURCE_AMOUNT_MISSING",
+            "SOURCE_AMOUNTS_DIFFER",
+            "PRICE_LEVEL_UNKNOWN",
+            "INDEX_MISSING",
+            null
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "PROPOSED",
+            "HUMAN_ACCEPTED",
+            "REJECTED"
+          ]
+        },
+        "verification": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "ACCEPT",
+                "REJECT"
+              ]
+            },
+            "by": {
+              "type": "string",
+              "minLength": 1
+            },
+            "at": {
+              "$ref": "#/definitions/timestamp"
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "decision",
+            "by",
+            "at",
+            "note"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "basis",
+        "source_document_id",
+        "source_action_id",
+        "source_total_as_stated",
+        "source_vat_statement",
+        "base_price_level_year",
+        "target_price_level_year",
+        "index_source",
+        "index_base_value",
+        "index_target_value",
+        "indexation_factor",
+        "indexed_total",
+        "indexed_total_display",
+        "not_computed_reason",
+        "status",
+        "verification"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "maintenance_line_id",
+    "mjop_id",
+    "object_id",
+    "line_version",
+    "element_code_internal",
+    "object_description",
+    "action_normalized",
+    "action_text",
+    "unit_normalized",
+    "unit_text",
+    "material_normalized",
+    "material_text",
+    "material_source",
+    "vat_basis",
+    "price_level_requested",
+    "context",
+    "quantity",
+    "planned_year",
+    "proposed_planned_year",
+    "cycle_years",
+    "last_maintenance_year",
+    "last_replacement_year",
+    "line_status",
+    "price_status",
+    "kengetal_match",
+    "manual_amount",
+    "financial",
+    "provenance",
+    "origin",
+    "origin_source",
+    "planning_basis",
+    "planner_flags",
+    "planning_status",
+    "planning_verification",
+    "price_update"
+  ],
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "price_status": {
+            "enum": [
+              "NO_AMOUNT",
+              "SYSTEM_PROPOSED",
+              "REJECTED"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "unit_amount": {
+                "type": "null"
+              },
+              "amount_source": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "price_status": {
+            "const": "HUMAN_ACCEPTED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "amount_source": {
+                "const": "SYSTEM_KENGETAL"
+              }
+            }
+          },
+          "kengetal_match": {
+            "type": "object",
+            "properties": {
+              "decision_status": {
+                "const": "ACCEPTED"
+              },
+              "human_match_decision_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "price_status": {
+            "const": "HUMAN_ADJUSTED"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "amount_source": {
+                "enum": [
+                  "HUMAN_SELECTED_KENGETAL",
+                  "HUMAN_ADJUSTMENT"
+                ]
+              }
+            }
+          },
+          "kengetal_match": {
+            "type": "object",
+            "properties": {
+              "decision_status": {
+                "const": "ADJUSTED"
+              },
+              "human_match_decision_id": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "price_status": {
+            "const": "MANUALLY_SET"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "amount_source": {
+                "const": "MANUAL_AMOUNT"
+              }
+            }
+          },
+          "manual_amount": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "amount_source": {
+                "enum": [
+                  "SYSTEM_KENGETAL",
+                  "HUMAN_SELECTED_KENGETAL",
+                  "HUMAN_ADJUSTMENT"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "kengetal_match": {
+            "type": "object",
+            "properties": {
+              "human_match_decision_id": {
+                "type": "string"
+              }
+            }
+          },
+          "provenance": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "amount_source": {
+                "const": "MANUAL_AMOUNT"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "price_status": {
+            "const": "MANUALLY_SET"
+          },
+          "manual_amount": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "financial": {
+            "properties": {
+              "effective_total": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "quantity": {
+            "$ref": "#/definitions/positive_decimal"
+          }
+        }
+      }
+    }
+  ]
+}

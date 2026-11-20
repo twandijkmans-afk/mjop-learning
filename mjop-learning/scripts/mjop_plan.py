@@ -5,8 +5,8 @@ mjop_plan.py  (DOMEINMODEL: VERSIE VAN EEN NIEUW MJOP, v1)
 Model: schemas/mjop_plan.schema.json; documentatie: docs/mjop_plan_v1.md.
 
 Een MJOP (mjop_id) heeft versies (version_id = "{mjop_id}-V{version_number:03d}").
-Een versie verwijst naar een vaste set Maintenance Line IDs (Maintenance Line v1,
-ongewijzigd, niet embedded). Vanaf IN_REVIEW legt de versie per regel een sha256
+Een versie verwijst naar een vaste set Maintenance Line IDs (Maintenance Line v1 of v2,
+niet embedded; elke regel wordt met de regels van zijn eigen versie gevalideerd). Vanaf IN_REVIEW legt de versie per regel een sha256
 vast (line_hashes); bij READY een content_sha256. Wijzigingen worden zo
 gedetecteerd; opslag bestaat niet in deze laag.
 
@@ -29,6 +29,7 @@ from decimal import Decimal
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import human_match_review  # noqa: E402  (canonieke hashfunctie)
 import mjop_maintenance_line  # noqa: E402
+import mjop_maintenance_line_v2  # noqa: E402  (valideert v1- en v2-regels)
 
 PLAN_MODEL_VERSION = "mjop_plan_v1"
 DISPLAY = Decimal("0.01")   # alleen presentatie (ROUND_HALF_EVEN), zelfde als de andere lagen
@@ -92,7 +93,7 @@ def _lines_errors(v, lines):
     for l in lines:
         if l["mjop_id"] != v["mjop_id"]:
             errors.append(f"{l['maintenance_line_id']}: hoort bij mjop_id {l['mjop_id']}, niet {v['mjop_id']}")
-        errors += [f"{l['maintenance_line_id']}: {e}" for e in mjop_maintenance_line.line_errors(l)]
+        errors += [f"{l['maintenance_line_id']}: {e}" for e in mjop_maintenance_line_v2.any_line_errors(l)]
     return errors
 
 
