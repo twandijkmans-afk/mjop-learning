@@ -332,14 +332,16 @@ struct RapportSection: View {
         .padding(.top, 6)
         .task(id: model) {
             var photos: [(String, UIImage)] = []
+            var byPath: [String: UIImage] = [:]
             if !reportAccount.demo, let s = try? await reportAccount.validSession() {
                 for g in model.gevels.sorted(by: { ($0.sideId, $0.part ?? 1) < ($1.sideId, $1.part ?? 1) }) where g.copiedFromSide == nil {
                     if let path = g.photoPath, let img = await GevelFotos.load(path, session: s) {
                         photos.append(("Gevel op het \(g.facing)" + (g.part.map { " · foto \($0)" } ?? ""), img))
+                        byPath[path] = img
                     }
                 }
             }
-            do { pdf = try RapportPDF.make(project: project, model: model, photos: photos) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
+            do { pdf = try RapportPDF.make(project: project, model: model, photos: photos, scanPhotos: byPath) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
         }
         .sheet(isPresented: $showShare) { ShareBoardView(project: project, model: model) }
     }
