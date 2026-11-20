@@ -16,6 +16,12 @@ enum BuildingService {
         }
     }
 
+    /// Haalt de panden rond de omtrek op en vult per zijde in welk deel tegen een buurpand ligt. Nil als dat niet lukt.
+    static func partyWalls(_ sides: [FacadeSide], ring: [[Double]]) async -> [FacadeSide]? {
+        guard ring.count >= 3, let data = try? await get(BuildingLookup.neighboursURL(ring: ring)) else { return nil }
+        return PartyWalls.annotate(sides, ownRing: ring, neighbours: BuildingLookup.neighbourRings(data, exceptId: ""))
+    }
+
     static func suggest(_ q: String) async throws -> [AddressSuggestion] {
         BuildingLookup.parseSuggest(try await get(BuildingLookup.suggestURL(q)))
     }
@@ -23,9 +29,11 @@ enum BuildingService {
     /// Adres → pand (BAG) → 3D BAG. De 3D BAG is aanvullend: lukt die niet, dan rekent het plan met de BAG-schatting.
     static func building(for s: AddressSuggestion) async throws -> FoundBuilding {
         guard let a = BuildingLookup.parseLookup(try await get(BuildingLookup.lookupURL(s.id))) else { throw BackendError.message("Geen coördinaat gevonden voor dit adres.") }
-        guard let pand = BuildingLookup.pickPand(try await get(BuildingLookup.bagURL(lon: a.lon, lat: a.lat)), lon: a.lon, lat: a.lat) else {
+        guard var pand = BuildingLookup.pickPand(try await get(BuildingLookup.bagURL(lon: a.lon, lat: a.lat)), lon: a.lon, lat: a.lat) else {
             throw BackendError.message("Geen pand gevonden op dit adres in de BAG.")
         }
+        // Gemeenschappelijke muren: welke zijden tegen een buurpand liggen. Lukt het niet, dan blijven alle zijden zichtbaar.
+        if let sides = await partyWalls(pand.sides, ring: pand.ring) { pand.sides = sides }
         let d3 = try? await BuildingLookup.parse3DBAG(get(BuildingLookup.threeDURL(pand.identificatie), timeout: 15), pandId: pand.identificatie)
         return FoundBuilding(address: a, pand: pand, threeD: d3)
     }

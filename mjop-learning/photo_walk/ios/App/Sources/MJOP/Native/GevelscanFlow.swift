@@ -139,12 +139,19 @@ struct GevelscanFlow: View {
     @State private var qualityAccepted = false
     @State private var detailRunning = false
     @State private var detailInfo: String?
+    /// Na het overnemen: de volgende gevel in het rondje.
+    @State private var nextSide: Int?
+    /// Foto's van deze sessie per gevel (voor de overlaphulp bij een lange gevel).
+    @State private var lastPhotos: [Int: UIImage] = [:]
+    @State private var overlapImage: UIImage?
     @State private var scrollTarget: String?
 
     enum Phase { case choose, working, result }
 
     private var project: Project? { store.projects.first { $0.id == (projectId ?? initialProject?.id) } ?? initialProject ?? store.projects.first }
-    private var usableSides: [FacadeSide] { (model?.sides ?? []).filter { $0.lengthM >= 2 } }
+    /// Zijden in het rondje: niet te kort, en geen gemeenschappelijke muur (tenzij de gebruiker die toch wil scannen).
+    private var usableSides: [FacadeSide] { (model?.sides ?? []).filter { $0.lengthM >= 2 && !($0.isPartyWall && $0.showAnyway != true) } }
+    private var hiddenPartyWalls: [FacadeSide] { (model?.sides ?? []).filter { $0.lengthM >= 2 && $0.isPartyWall && $0.showAnyway != true } }
 
     var body: some View {
         NavigationStack {
@@ -172,7 +179,8 @@ struct GevelscanFlow: View {
             .task(id: project?.id) { await loadModel() }
             .fullScreenCover(item: $cameraSide) { side in
                 if FacadeCameraSupport.available {
-                    FacadeCameraView(title: "Gevel op het \(side.facing)", step: "\((usableSides.firstIndex(of: side) ?? 0) + 1) van \(usableSides.count)", facing: side.facing) { img, meta in
+                    FacadeCameraView(title: "Gevel op het \(side.facing)", step: "\((usableSides.firstIndex(of: side) ?? 0) + 1) van \(usableSides.count)", facing: side.facing,
+                                     overlapImage: part > 1 ? overlapImage : nil) { img, meta in
                         captureMeta = meta
                         photo = img
                     }
@@ -223,6 +231,19 @@ struct GevelscanFlow: View {
             if store.projects.count > 1 {
                 Menu { ForEach(store.projects) { q in Button(q.naam) { projectId = q.id } } } label: { Label("Ander project", systemImage: "chevron.up.chevron.down") }
             }
+            if let m = model, let nid = nextSide, let ns = usableSides.first(where: { $0.id == nid }) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Label("Volgende: gevel op het \(ns.facing)", systemImage: "arrow.turn.up.right").font(.headline).foregroundStyle(DS.text)
+                    if let adv = FootprintMap.advice(for: ns, footprint: m.footprint ?? []) { Text(adv).font(.subheadline).foregroundStyle(DS.text2) }
+                    HStack(spacing: 10) {
+                        Button { side = ns; part = 1; focusSide = ns.id; nextSide = nil; startCamera() } label: { Label("Foto maken", systemImage: "camera.fill") }
+                            .buttonStyle(DSPrimaryButton()).accessibilityIdentifier("shootNext")
+                        Button("Overslaan") { nextSide = nextOpenSide(after: ns.id) }.buttonStyle(DSSecondaryButton())
+                    }
+                }
+                .padding(16).frame(maxWidth: .infinity, alignment: .leading).dsCard(radius: 20)
+            }
+            if let m = model, !usableSides.isEmpty, Set(m.gevels.map(\.sideId)).isSuperset(of: usableSides.map(\.id)) { finishCard(m) }
             if let m = model {
                 RoofStepCard(model: m, demo: account.demo) { s in Task { await acceptRoof(s) } }
                 RoofAdviceCard(model: m) { y in Task { await acceptAdvice(y) } }
@@ -246,7 +267,7 @@ struct GevelscanFlow: View {
             }
             if !usableSides.isEmpty {
                 ProgressView(value: Double(done.intersection(usableSides.map(\.id)).count), total: Double(usableSides.count)).tint(DS.ok)
-                Text("\(done.intersection(usableSides.map(\.id)).count) van \(usableSides.count) gevels klaar").font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
+                Text((model?.roof != nil ? "Dak ✓ · " : "") + "\(done.intersection(usableSides.map(\.id)).count) van \(usableSides.count) gevels klaar").font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
                 VStack(spacing: 0) {
                     ForEach(usableSides) { s in
                         Button { if hasMap { withAnimation(.dsSpring) { focusSide = s.id } } else { side = s; part = 1; startCamera() } } label: {
@@ -260,6 +281,10 @@ struct GevelscanFlow: View {
                                     Text("Gevel op het \(s.facing)").font(.headline).foregroundStyle(DS.text)
                                     Text(String(format: "%.1f m breed volgens de BAG", s.lengthM).replacingOccurrences(of: ".", with: ",") + (done.contains(s.id) ? " · gescand" : ""))
                                         .font(.caption).foregroundStyle(DS.text2)
+                                    if let f = s.sharedFraction, f > 0.05 {
+                                        Text(s.isPartyWall ? "Gemeenschappelijke muur; toch in het rondje gezet" : "\(m1(s.lengthM * f)) grenst aan een buurpand")
+                                            .font(.caption).foregroundStyle(Color.orange)
+                                    }
                                 }
                                 Spacer()
                                 Image(systemName: "camera.fill").foregroundStyle(DS.accent)
@@ -294,6 +319,20 @@ struct GevelscanFlow: View {
                     }
                 }
                 .dsCard(radius: 20)
+                if !hiddenPartyWalls.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(hiddenPartyWalls.count == 1 ? "1 gemeenschappelijke muur verborgen" : "\(hiddenPartyWalls.count) gemeenschappelijke muren verborgen").font(.headline).foregroundStyle(DS.text)
+                        Text("Deze gevels liggen volgens de BAG helemaal tegen een buurpand en zijn niet te fotograferen.").font(.footnote).foregroundStyle(DS.text2)
+                        ForEach(hiddenPartyWalls) { s in
+                            HStack {
+                                Text("Gevel op het \(s.facing) · \(m1(s.lengthM))").font(.subheadline).foregroundStyle(DS.text)
+                                Spacer()
+                                Button("Toch scannen") { Task { await showAnyway(s.id) } }.font(.subheadline.weight(.semibold))
+                            }
+                        }
+                    }
+                    .padding(16).frame(maxWidth: .infinity, alignment: .leading).dsCard(radius: 20)
+                }
             } else if model != nil {
                 DSNotice(kind: .info, text: "Voor dit project zijn geen gevelzijden uit de BAG bekend. Maak het project opnieuw aan via een adres om de gevels te kunnen scannen.")
             } else {
@@ -313,6 +352,13 @@ struct GevelscanFlow: View {
     private func startCamera() {
         error = nil
         if ClaudeKey.load() == nil && !account.demo { showKey = true; return }
+        overlapImage = nil
+        if part > 1, let s = side {
+            if let img = lastPhotos[s.id] { overlapImage = img }
+            else if let path = model?.gevels.filter({ $0.sideId == s.id }).max(by: { ($0.part ?? 1) < ($1.part ?? 1) })?.photoPath {
+                Task { if let sess = try? await account.validSession() { overlapImage = await GevelFotos.load(path, session: sess) } }
+            }
+        }
         photo = nil
         captureMeta = nil
         cameraSide = side
@@ -808,8 +854,50 @@ struct GevelscanFlow: View {
         m.gevels.append(scan)
         Self.applyQuantities(&m)
         model = m
-        do { try await store.saveModel(m, for: p, account: account); await store.refresh(account); phase = .choose; photo = nil }
+        do {
+            try await store.saveModel(m, for: p, account: account); await store.refresh(account)
+            if let photo { lastPhotos[scan.sideId] = photo }
+            phase = .choose; photo = nil
+            nextSide = nextOpenSide(after: scan.sideId)
+            if let n = nextSide { focusSide = n }
+        }
         catch { self.error = error.localizedDescription }
+    }
+
+    /// De eerstvolgende zichtbare gevel die nog niet gescand is, na `id` in de volgorde van de omtrek (daarna weer vooraan).
+    private func nextOpenSide(after id: Int) -> Int? {
+        let done = Set(model?.gevels.map(\.sideId) ?? [])
+        let open = usableSides.filter { !done.contains($0.id) && $0.id != id }
+        return open.first { $0.id > id }?.id ?? open.first?.id
+    }
+
+    /// Een gemeenschappelijke muur toch in het rondje zetten.
+    private func showAnyway(_ sideId: Int) async {
+        guard var m = model, let p = project, let i = m.sides.firstIndex(where: { $0.id == sideId }) else { return }
+        m.sides[i].showAnyway = true
+        model = m
+        do { try await store.saveModel(m, for: p, account: account) } catch { self.error = error.localizedDescription }
+    }
+
+    /// Klaar-scherm: alle zichtbare gevels gescand.
+    private func finishCard(_ m: ProjectModel) -> some View {
+        let groups = m.buildingGroups
+        func total(_ t: FacadeElementType) -> ElementGroup? { groups.first { $0.type == t } }
+        let open = (m.gevels + (m.roof.map { [$0] } ?? [])).reduce(0) { $0 + $1.reviewItems.count }
+        var lines: [String] = []
+        if let g = total(.kozijn_raam) { lines.append("\(g.count) raamkozijnen") }
+        if let g = total(.kozijn_deur) { lines.append("\(g.count) deurkozijnen") }
+        if let g = total(.metselwerk) { lines.append("metselwerk " + ElementFormat.total(g)) }
+        if let g = total(.dakgoot) { lines.append("dakgoot " + ElementFormat.total(g)) }
+        return VStack(alignment: .leading, spacing: 8) {
+            Label("Rondje klaar", systemImage: "checkmark.seal.fill").font(.headline).foregroundStyle(DS.ok)
+            Text("\(Set(m.gevels.map(\.sideId)).count) gevel(s)" + (m.roof != nil ? " en het dak" : "") + " gescand.").font(.subheadline).foregroundStyle(DS.text)
+            if !lines.isEmpty { Text(lines.joined(separator: " · ")).font(.subheadline).foregroundStyle(DS.text2) }
+            if open > 0 { Text("Nog \(open) ding(en) om te checken; open de gevel in de tab Gevels.").font(.footnote).foregroundStyle(Color.orange) }
+            Button { dismiss() } label: { Label("Klaar, naar het plan", systemImage: "checkmark") }.buttonStyle(DSPrimaryButton())
+                .accessibilityIdentifier("finishRound")
+        }
+        .padding(16).frame(maxWidth: .infinity, alignment: .leading).dsCard(radius: 20)
     }
 
     /// Bewaart de dakscan en zet de dakmaten als voorstel in het plan.
@@ -901,6 +989,14 @@ struct GevelscanFlow: View {
                 } else if m.sides.isEmpty {
                     m.sides = f.pand.sides
                 }
+                model = m
+                try? await store.saveModel(m, for: p, account: account)
+            }
+            // Gemeenschappelijke muren één keer bepalen voor projecten van vóór deze functie.
+            if !account.demo, m.partyWallsChecked != true, let ring = m.footprint, ring.count >= 3, m.sides.contains(where: { $0.from != nil }),
+               let annotated = await BuildingService.partyWalls(m.sides, ring: ring) {
+                m.sides = annotated
+                m.partyWallsChecked = true
                 model = m
                 try? await store.saveModel(m, for: p, account: account)
             }

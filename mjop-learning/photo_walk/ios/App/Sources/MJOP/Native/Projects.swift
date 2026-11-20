@@ -119,6 +119,7 @@ final class ProjectStore: ObservableObject {
             "fonds": NSNull(), "bijdrage": NSNull(), "gevels": [],
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(f.pand.sides))) ?? [],
             "footprint": f.pand.ring,
+            "party_walls_checked": f.pand.sides.contains { $0.sharedFraction != nil },
         ]
         let row: [String: Any] = [
             "id": project.id, "naam": naam, "adres": jsonValue(project.adres), "postcode": jsonValue(project.postcode), "plaats": jsonValue(project.plaats),

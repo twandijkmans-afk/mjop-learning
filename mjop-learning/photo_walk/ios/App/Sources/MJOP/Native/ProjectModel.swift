@@ -21,6 +21,8 @@ struct ProjectModel: Equatable {
     var footprint: [[Double]]? = nil
     /// Dakscan van boven (PDOK-luchtfoto), als scan met `sideId` 0. Nil = nog niet gescand.
     var roof: FacadeScan? = nil
+    /// De gemeenschappelijke muren (buurpanden) zijn één keer bepaald.
+    var partyWallsChecked: Bool? = nil
 
     /// Advies voor een dakinspectie met vaste regels: bevestigde dakgebreken en de leeftijd van de dakbedekking.
     /// De leeftijd telt alleen als het bouwjaar bekend is (anders is de laatste beurt in het plan een schatting).
@@ -95,7 +97,7 @@ struct ProjectModel: Equatable {
         return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
                             gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [],
                             documents: decode("documents", [ProjectDocument].self) ?? [], kozijnOverrides: decode("kozijn_overrides", KozijnOverrides.self), footprint: o["footprint"] as? [[Double]],
-                            roof: decode("roof", FacadeScan.self))
+                            roof: decode("roof", FacadeScan.self), partyWallsChecked: o["party_walls_checked"] as? Bool)
     }
 
     func json() -> [String: Any] {
@@ -109,6 +111,7 @@ struct ProjectModel: Equatable {
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
             "documents": (try? JSONSerialization.jsonObject(with: enc.encode(documents))) ?? [],
             "footprint": footprint ?? [],
+            "party_walls_checked": partyWallsChecked ?? false,
             "roof": roof.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? NSNull(),
             "kozijn_overrides": kozijnOverrides.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? [String: Any](),
         ]

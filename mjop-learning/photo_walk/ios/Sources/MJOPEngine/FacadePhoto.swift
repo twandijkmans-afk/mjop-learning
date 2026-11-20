@@ -689,6 +689,12 @@ public struct FacadeSide: Codable, Equatable, Identifiable {
     /// Begin- en eindpunt van de zijde in meters rond het eerste punt van de BAG-omtrek (x = oost, y = noord), voor de kaart.
     public var from: [Double]?
     public var to: [Double]?
+    /// Welk deel van de zijde tegen een buurpand ligt (0–1, gemeenschappelijke muur volgens de BAG); nil = niet bekend.
+    public var sharedFraction: Double?
+    /// De gebruiker wil deze (gemeenschappelijke) muur toch scannen.
+    public var showAnyway: Bool?
+    /// Helemaal tegen een buurpand: niet te fotograferen, dus niet in het rondje (tenzij de gebruiker hem toch toont).
+    public var isPartyWall: Bool { (sharedFraction ?? 0) >= PartyWalls.fullyShared }
 
     public init(id: Int, lengthM: Double, facing: String, from: [Double]? = nil, to: [Double]? = nil) {
         self.id = id; self.lengthM = lengthM; self.facing = facing; self.from = from; self.to = to
@@ -702,9 +708,14 @@ public enum FootprintSides {
     /// Zet een BAG-ring (lon, lat) om naar meters rond het eerste punt.
     public static func meters(_ ring: [(Double, Double)]) -> [[Double]] {
         guard let first = ring.first else { return [] }
-        let lat0 = first.1 * .pi / 180
+        return meters(ring, origin: first)
+    }
+
+    /// Zet een ring om naar meters rond een vaste oorsprong (lon, lat), zodat meerdere panden in hetzelfde assenstelsel komen.
+    public static func meters(_ ring: [(Double, Double)], origin: (Double, Double)) -> [[Double]] {
+        let lat0 = origin.1 * .pi / 180
         let kx = 111_320 * cos(lat0), ky = 110_540.0
-        return ring.map { [($0.0 - first.0) * kx, ($0.1 - first.1) * ky] }
+        return ring.map { [($0.0 - origin.0) * kx, ($0.1 - origin.1) * ky] }
     }
 
     /// Voegt opeenvolgende, bijna rechte stukken van de omtrek samen tot gevelzijden (zoals footprintSides op de website). Ring in meters (x = oost, y = noord).

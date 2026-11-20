@@ -4,6 +4,7 @@ import CoreMotion
 import MJOPEngine
 import SwiftUI
 import UIKit
+import Vision
 
 /// Hoe de foto is genomen: lens en stand van de telefoon. Gaat mee in de scan (voor de bandbreedte van de maten).
 struct CaptureMeta: Equatable {
@@ -18,7 +19,7 @@ struct CaptureMeta: Equatable {
 
 /// Camera en waterpas voor de gevelscan.
 @MainActor
-final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
+final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     @Published var rollDeg: Double = 0
     @Published var pitchDeg: Double = 0
     @Published var wide = false
@@ -27,6 +28,11 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
     @Published var capturing = false
     /// Digitale zoomfactor op de huidige lens (1 = geen zoom).
     @Published var zoomFactor: CGFloat = 1
+    /// Hulplijn: zit de gevel goed in beeld? Nil = geen aanwijzing (of niets gevonden).
+    @Published var framing: FramingHint?
+    private let video = AVCaptureVideoDataOutput()
+    private let videoQueue = DispatchQueue(label: "nl.mjop.camera.video")
+    nonisolated(unsafe) private var lastAnalysis = Date.distantPast
     /// Hoogste zoom die we toestaan: verder inzoomen geeft een vage foto en dus slechtere herkenning.
     static let maxZoom: CGFloat = 5
     /// Zoom zoals de gebruiker hem ziet: 0,5× is de groothoeklens, 1× de gewone, daarboven ingezoomd.
@@ -98,6 +104,11 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
         if let input { session.removeInput(input) }
         if session.canAddInput(newInput) { session.addInput(newInput); input = newInput; zoomFactor = 1 }
         if !session.outputs.contains(output), session.canAddOutput(output) { session.addOutput(output) }
+        if !session.outputs.contains(video), session.canAddOutput(video) {
+            video.alwaysDiscardsLateVideoFrames = true
+            video.setSampleBufferDelegate(self, queue: videoQueue)
+            session.addOutput(video)
+        }
         output.connection(with: .video)?.videoOrientation = .portrait
         session.commitConfiguration()
     }
@@ -139,6 +150,25 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
         output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
 
+    /// Live hulplijn: hooguit twee keer per seconde de grootste rechthoek in het camerabeeld zoeken (op het toestel, geen internet).
+    nonisolated func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        let now = Date()
+        guard now.timeIntervalSince(lastAnalysis) > 0.5, let buffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        lastAnalysis = now
+        let req = VNDetectRectanglesRequest()
+        req.maximumObservations = 1
+        req.minimumSize = 0.3
+        req.minimumConfidence = 0.5
+        req.quadratureTolerance = 30
+        req.minimumAspectRatio = 0.1
+        try? VNImageRequestHandler(cvPixelBuffer: buffer, orientation: .right).perform([req])
+        let quad: [[Double]]? = req.results?.first.map { o in
+            [o.topLeft, o.topRight, o.bottomRight, o.bottomLeft].map { [Double($0.x), 1 - Double($0.y)] }
+        }
+        let hint = FramingHint.hint(quad: quad)
+        Task { @MainActor in self.framing = hint }
+    }
+
     nonisolated func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         let data = photo.fileDataRepresentation()
         let exif = photo.metadata[kCGImagePropertyExifDictionary as String] as? [String: Any]
@@ -177,6 +207,8 @@ struct FacadeCameraView: View {
     let step: String
     /// Windrichting van de gekozen gevel (voor de kompascheck); nil = geen check.
     var facing: String? = nil
+    /// Bij foto 2 of verder van een lange gevel: de vorige foto, waarvan de rechterrand doorzichtig over de linkerrand van het beeld komt.
+    var overlapImage: UIImage? = nil
     let done: (UIImage, CaptureMeta) -> Void
     @Environment(\.dismiss) private var dismiss
     @StateObject private var cam = FacadeCameraModel()
@@ -200,6 +232,7 @@ struct FacadeCameraView: View {
                         .onChanged { v in cam.setZoom(pinchBase * v) }
                         .onEnded { _ in pinchBase = cam.zoomFactor })
                 frameCorners.padding(.horizontal, 34).padding(.vertical, 150).allowsHitTesting(false)
+                if let ov = overlapImage { overlapStrip(ov) }
             } else if cam.authorized == false {
                 VStack(spacing: 12) {
                     Image(systemName: "camera.fill").font(.largeTitle).foregroundStyle(.white)
@@ -223,6 +256,13 @@ struct FacadeCameraView: View {
                 .environment(\.colorScheme, .dark)
                 .padding(.horizontal, 16).padding(.top, 8)
                 Spacer()
+                if let f = cam.framing, !wrongSide {
+                    Label(f.text, systemImage: "viewfinder").font(.footnote.weight(.semibold)).foregroundStyle(.white)
+                        .padding(.horizontal, 14).padding(.vertical, 9).background(.ultraThinMaterial, in: Capsule())
+                        .environment(\.colorScheme, .dark)
+                        .padding(.bottom, 8)
+                        .accessibilityIdentifier("framingHint")
+                }
                 if wrongSide, let facing, let h = cam.headingDeg {
                     Label("De camera wijst richting \(CompassCheck.name(of: h)). Voor deze gevel kijk je richting \(CompassCheck.viewingHeading(facing: facing).map { CompassCheck.name(of: $0) } ?? "?").", systemImage: "location.north.line")
                         .font(.footnote.weight(.semibold)).foregroundStyle(.white).multilineTextAlignment(.center)
@@ -285,6 +325,26 @@ struct FacadeCameraView: View {
         }
         .animation(.easeOut(duration: 0.15), value: ok)
         .accessibilityElement(children: .combine)
+    }
+
+    /// Overlaphulp: de rechter 25% van de vorige foto, doorzichtig over de linkerrand van het beeld.
+    private func overlapStrip(_ img: UIImage) -> some View {
+        GeometryReader { g in
+            let w = g.size.width * 0.25
+            let scale = g.size.height / max(img.size.height, 1)
+            let imgW = img.size.width * scale
+            Image(uiImage: img).resizable().frame(width: imgW, height: g.size.height)
+                .offset(x: -(imgW - w))
+                .frame(width: w, height: g.size.height, alignment: .leading)
+                .clipped()
+                .opacity(0.35)
+                .overlay(alignment: .top) {
+                    Text("Laat dit stuk overlappen").font(.caption2.weight(.bold)).foregroundStyle(.white)
+                        .padding(6).background(.black.opacity(0.5), in: Capsule()).padding(.top, 70)
+                }
+        }
+        .ignoresSafeArea()
+        .allowsHitTesting(false)
     }
 
     /// Zoomknoppen (0,5× alleen als de telefoon een groothoeklens heeft). Knijpen met twee vingers zoomt traploos.

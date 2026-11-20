@@ -67,6 +67,25 @@ public enum BuildingLookup {
 
     public static func threeDURL(_ pandId: String) -> URL? { URL(string: threeDBase + pandId) }
 
+    /// Panden rond een omtrek (lon, lat), om gemeenschappelijke muren te vinden: de omtrek plus ongeveer 5 meter.
+    public static func neighboursURL(ring: [[Double]]) -> URL? {
+        guard ring.count >= 3 else { return nil }
+        let d = 0.00006
+        let lons = ring.map { $0[0] }, lats = ring.map { $0[1] }
+        let bbox = [lons.min()! - d, lats.min()! - d, lons.max()! + d, lats.max()! + d].map { String($0) }.joined(separator: ",")
+        return URL(string: "\(bagBase)?f=json&limit=50&bbox=\(bbox)")
+    }
+
+    /// De omtrekken (lon, lat) van de andere panden in het antwoord.
+    public static func neighbourRings(_ data: Data, exceptId: String) -> [[(Double, Double)]] {
+        let feats = json(data)?["features"] as? [[String: Any]] ?? []
+        return feats.compactMap { f in
+            guard let g = f["geometry"] as? [String: Any], let type = g["type"] as? String, let ring = outerRing(g["coordinates"], type: type), ring.count > 3 else { return nil }
+            let id = (f["properties"] as? [String: Any])?["identificatie"] as? String
+            return id == exceptId ? nil : ring
+        }
+    }
+
     static func json(_ data: Data) -> [String: Any]? { (try? JSONSerialization.jsonObject(with: data)) as? [String: Any] }
 
     public static func parseSuggest(_ data: Data) -> [AddressSuggestion] {
