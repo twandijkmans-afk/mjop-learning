@@ -19,13 +19,23 @@ struct ProjectModel: Equatable {
     var kozijnOverrides: KozijnOverrides? = nil
     /// De BAG-omtrek als [lengtegraad, breedtegraad], voor de kaart in de gevelscan.
     var footprint: [[Double]]? = nil
+    /// Dakscan van boven (PDOK-luchtfoto), als scan met `sideId` 0. Nil = nog niet gescand.
+    var roof: FacadeScan? = nil
 
+    /// Advies voor een dakinspectie met vaste regels: bevestigde dakgebreken en de leeftijd van de dakbedekking.
+    /// De leeftijd telt alleen als het bouwjaar bekend is (anders is de laatste beurt in het plan een schatting).
+    var roofAdvice: InspectionAdvice? {
+        let coverings = elements.filter { $0.key == "dak-plat" || $0.key == "dak-hellend" }.map {
+            RoofInspection.Covering(key: $0.key, naam: $0.naam, lastDone: building.bouwjaar == nil ? nil : $0.laatsteBeurt, cycle: $0.cyclus)
+        }
+        return RoofInspection.advice(confirmed: roof?.defects ?? [], coverings: coverings, year: Self.year)
+    }
     /// Kozijnen van alle gescande gevels gegroepeerd per type.
     var kozijnStaat: KozijnStaatResult { KozijnStaat.make(sideResults.flatMap(\.items), overrides: kozijnOverrides ?? KozijnOverrides()) }
 
     /// Zichtbare gebreken op de (eigen) gevelfoto's, per postsleutel, als hint bij het beoordelen.
     var defectHints: [String: [DefectHint]] {
-        DefectHints.byKey(gevels.filter { $0.copiedFromSide == nil }.map { (sideId: $0.sideId, photoWidth: $0.photoWidth, elements: $0.elements, defects: $0.defects ?? []) })
+        DefectHints.byKey((gevels.filter { $0.copiedFromSide == nil } + (roof.map { [$0] } ?? [])).map { (sideId: $0.sideId, photoWidth: $0.photoWidth, elements: $0.elements, defects: $0.defects ?? []) })
     }
 
     /// Uitkomst per gevelzijde. Een lange gevel in meerdere foto's wordt aan elkaar gekoppeld via de kozijnen in de overlap.
@@ -40,7 +50,7 @@ struct ProjectModel: Equatable {
     }
 
     /// Elementenlijst van het hele gebouw: per soort, over alle gescande gevels.
-    var buildingGroups: [ElementGroup] { ElementList.groups(sideResults.flatMap(\.measures)) }
+    var buildingGroups: [ElementGroup] { ElementList.groups(sideResults.flatMap(\.measures) + (roof?.elementMeasures ?? [])) }
 
     var sideResults: [SideResult] {
         let bySide = Dictionary(grouping: gevels, by: \.sideId)
@@ -84,7 +94,8 @@ struct ProjectModel: Equatable {
         }
         return ProjectModel(building: building, elements: elements, fonds: decimal("fonds"), bijdrage: decimal("bijdrage"),
                             gevels: decode("gevels", [FacadeScan].self) ?? [], sides: decode("sides", [FacadeSide].self) ?? [],
-                            documents: decode("documents", [ProjectDocument].self) ?? [], kozijnOverrides: decode("kozijn_overrides", KozijnOverrides.self), footprint: o["footprint"] as? [[Double]])
+                            documents: decode("documents", [ProjectDocument].self) ?? [], kozijnOverrides: decode("kozijn_overrides", KozijnOverrides.self), footprint: o["footprint"] as? [[Double]],
+                            roof: decode("roof", FacadeScan.self))
     }
 
     func json() -> [String: Any] {
@@ -98,6 +109,7 @@ struct ProjectModel: Equatable {
             "sides": (try? JSONSerialization.jsonObject(with: enc.encode(sides))) ?? [],
             "documents": (try? JSONSerialization.jsonObject(with: enc.encode(documents))) ?? [],
             "footprint": footprint ?? [],
+            "roof": roof.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? NSNull(),
             "kozijn_overrides": kozijnOverrides.flatMap { try? JSONSerialization.jsonObject(with: enc.encode($0)) } ?? [String: Any](),
         ]
     }
@@ -215,6 +227,29 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     /// en gevelvlakken de telefoon heeft vastgeklikt op randen in de foto.
     var headingDeg: Double? = nil
     var snapped: Int? = nil
+    /// Alleen bij de dakscan: de kaartuitsnede (Web Mercator: minX, minY, maxX, maxY) om de luchtfoto opnieuw op te halen,
+    /// het 3D BAG-dakoppervlak bij het scannen, en hoeveel elementen buiten het gebouw vielen (buren).
+    var mercatorBox: [Double]? = nil
+    var bagSchuinM2: Double? = nil
+    var bagPlatM2: Double? = nil
+    var outsideRoof: Int? = nil
+    var isRoof: Bool { sideId == 0 }
+    /// Factor van "van boven" naar "echt" voor de schuine dakvlakken (3D BAG); nil = schuin oppervlak onbekend.
+    var slopeFactor: Double? {
+        guard isRoof, let k = mpp else { return nil }
+        let projected = elements.filter { $0.type == .dakvlak_schuin }.reduce(0.0) { $0 + FacadePhoto.area($1.points) * k * k }
+        return RoofPhoto.slopeFactor(projectedSchuinM2: projected, dakSchuin3DBAG: bagSchuinM2)
+    }
+    /// Plat dak op de luchtfoto (platte vlakken en dakkapellen) tegenover de 3D BAG.
+    var flatCheck: RoofPhoto.FlatCheck? {
+        guard isRoof else { return nil }
+        let flat = elementMeasures.filter { $0.type == .dakvlak_plat || $0.type == .dakkapel }
+        guard !flat.isEmpty else { return nil }
+        var total = 0.0
+        for m in flat { guard let a = m.areaM2 else { return nil }; total += a }
+        return RoofPhoto.flatCheck(photoFlatM2: total, bag: bagPlatM2)
+    }
+
     /// Zoom bij het fotograferen (0,5 = groothoek, 1 = gewoon, 2 = twee keer ingezoomd).
     var zoom: Double? = nil
 
@@ -246,6 +281,7 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     /// staan er wel in, met onbekende maat.
     var elementMeasures: [ElementMeasure] {
         guard let metric = metricElements else { return ElementList.unmeasured(elements, sideId: sideId) }
+        if isRoof { return RoofPhoto.applySlope(ElementList.measures(metric: metric, relative: RoofPhoto.relativeBand, sideId: 0), factor: slopeFactor) }
         let measured = ElementList.measures(metric: metric, relative: bandRelative, sideId: sideId)
         let open = Set(unmeasuredPlanes.map(\.id))
         let ids = Set(metric.map(\.id))

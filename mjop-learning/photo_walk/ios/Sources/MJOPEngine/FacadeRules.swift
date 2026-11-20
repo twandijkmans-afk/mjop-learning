@@ -26,6 +26,9 @@ public enum DefectHints {
             case .daktrim, .dakkapel: return ["schilderwerk-buiten", "dak-plat"]
             case .schoorsteen: return ["dakinspectie"]
             case .latei, .plint, .dilatatie: return d.type == .voegwerk ? ["voegwerk", "gevel-metselwerk"] : ["gevel-metselwerk"]
+            case .dakvlak_plat: return ["dak-plat"]
+            case .dakvlak_schuin: return ["dak-hellend"]
+            case .lichtkoepel, .dakluik, .dakinstallatie, .zonnepaneel: return ["dakinspectie"]
             case .rooster, .overig, .gevelreclame, .zonwering, .buitenlamp, .brievenbus, .bellentableau: break
             }
         }
@@ -35,6 +38,8 @@ public enum DefectHints {
         case .scheur, .mos_algen, .vervuiling: return ["gevel-metselwerk"]
         case .roest: return ["balkonhekken"]
         case .losse_delen, .overig: return []
+        case .plasvorming: return ["dak-plat"]
+        case .veroudering_dakbedekking: return ["dak-hellend", "dak-plat"]
         }
     }
 

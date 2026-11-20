@@ -10,6 +10,8 @@ public enum FacadeElementType: String, Codable, CaseIterable {
     case kozijn_raam, kozijn_deur, garagedeur, metselwerk, stucwerk, gevelbekleding, hwa, dakgoot, boeiboord, waterslag, hekwerk, balkon, luifel, rooster, overig
     // v0.3: dak, gevelonderdelen en overige buitenzaken
     case dakkapel, schoorsteen, daktrim, dakbedekking, latei, plint, dilatatie, gevelreclame, zonwering, buitenlamp, brievenbus, bellentableau
+    // Dakscan van boven (luchtfoto): dakvlakken en dingen op het dak.
+    case dakvlak_plat, dakvlak_schuin, lichtkoepel, zonnepaneel, dakluik, dakinstallatie
 
     public var label: String {
         switch self {
@@ -40,16 +42,27 @@ public enum FacadeElementType: String, Codable, CaseIterable {
         case .buitenlamp: return "Buitenverlichting"
         case .brievenbus: return "Brievenbus"
         case .bellentableau: return "Bellentableau / intercom"
+        case .dakvlak_plat: return "Plat dakvlak"
+        case .dakvlak_schuin: return "Schuin dakvlak"
+        case .lichtkoepel: return "Lichtkoepel / dakraam"
+        case .zonnepaneel: return "Zonnepanelen"
+        case .dakluik: return "Dakluik"
+        case .dakinstallatie: return "Installatie op het dak"
         }
     }
 
     public var kind: FacadeKind {
         switch self {
-        case .metselwerk, .stucwerk, .gevelbekleding, .dakbedekking: return .poly
+        case .metselwerk, .stucwerk, .gevelbekleding, .dakbedekking, .dakvlak_plat, .dakvlak_schuin: return .poly
         case .hwa, .dakgoot, .boeiboord, .waterslag, .hekwerk, .daktrim, .latei, .plint, .dilatatie: return .line
         default: return .quad
         }
     }
+
+    /// Alleen op het dak (luchtfoto), niet op een gevelfoto.
+    public var isRoofOnly: Bool { [.dakvlak_plat, .dakvlak_schuin, .lichtkoepel, .zonnepaneel, .dakluik, .dakinstallatie].contains(self) }
+    /// De soorten die op een gevelfoto herkend worden.
+    public static var facadeCases: [FacadeElementType] { allCases.filter { !$0.isRoofOnly } }
 
     public var isOpening: Bool { self == .kozijn_raam || self == .kozijn_deur || self == .garagedeur }
     /// Gevelvlakken waar openingen van worden afgetrokken (niet de dakbedekking).
@@ -147,6 +160,10 @@ public enum PlaneWidthSource: String, Codable {
 
 public enum FacadeDefectType: String, Codable, CaseIterable {
     case afbladderende_verf, scheur, houtrot, mos_algen, roest, voegwerk, losse_delen, vervuiling, overig
+    // Dak (luchtfoto)
+    case plasvorming, veroudering_dakbedekking
+    public var isRoofOnly: Bool { self == .plasvorming || self == .veroudering_dakbedekking }
+    public static var facadeCases: [FacadeDefectType] { allCases.filter { !$0.isRoofOnly } }
     public var label: String {
         switch self {
         case .afbladderende_verf: return "Afbladderende verf"
@@ -158,6 +175,8 @@ public enum FacadeDefectType: String, Codable, CaseIterable {
         case .losse_delen: return "Los of beschadigd onderdeel"
         case .vervuiling: return "Vervuiling"
         case .overig: return "Overig"
+        case .plasvorming: return "Plasvorming"
+        case .veroudering_dakbedekking: return "Veroudering dakbedekking"
         }
     }
 }
@@ -259,7 +278,7 @@ public enum FacadePhoto {
             let w = facadeWidthM.map { String(format: " and is about %.1f m wide according to the land registry", $0) } ?? ""
             target = "The facade being measured faces \(facing) (Dutch compass direction)\(w). It is the facade the camera looks at most squarely. "
         } else { target = "" }
-        let list = FacadeElementType.allCases.map { t -> String in
+        let list = FacadeElementType.facadeCases.map { t -> String in
             let g: String
             switch t.kind {
             case .quad: g = t.isOpening ? "the 4 corners of the outer frame, exactly 4 points: top-left, top-right, bottom-right, bottom-left" : "bounding box, exactly 2 points: top-left and bottom-right"
@@ -314,7 +333,7 @@ public enum FacadePhoto {
             "elements": ["type": "array", "items": [
                 "type": "object", "additionalProperties": false, "required": ["type", "points", "material", "confidence", "note", "plane", "hidden_fraction", "panes", "opening_parts"],
                 "properties": [
-                    "type": ["type": "string", "enum": FacadeElementType.allCases.map(\.rawValue)],
+                    "type": ["type": "string", "enum": FacadeElementType.facadeCases.map(\.rawValue)],
                     "points": ["type": "array", "items": point],
                     "material": ["type": "string"],
                     "confidence": ["type": "string", "enum": ["low", "medium", "high"]],
@@ -326,7 +345,7 @@ public enum FacadePhoto {
                 ]]],
             "defects": ["type": "array", "items": [
                 "type": "object", "additionalProperties": false, "required": ["type", "point", "note"],
-                "properties": ["type": ["type": "string", "enum": FacadeDefectType.allCases.map(\.rawValue)], "point": point, "note": ["type": "string"]]]],
+                "properties": ["type": ["type": "string", "enum": FacadeDefectType.facadeCases.map(\.rawValue)], "point": point, "note": ["type": "string"]]]],
          ]]
     }
 

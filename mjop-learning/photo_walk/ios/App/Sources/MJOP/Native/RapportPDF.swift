@@ -106,17 +106,20 @@ enum RapportPDF {
             }
 
             // elementen per gevel, met de gemeten maten
-            let measuredSides = model.sideResults.filter { !$0.measures.isEmpty }
+            var measuredSides: [(title: String, measures: [ElementMeasure])] = model.sideResults.filter { !$0.measures.isEmpty }.map { r in
+                let facing = model.sides.first { $0.id == r.sideId }?.facing ?? "?"
+                let copied = r.parts.first?.copiedFromSide != nil
+                return ("Gevel op het \(facing)" + (copied ? " (overgenomen van een gelijke gevel, aanname)" : ""), r.measures)
+            }
+            if let roof = model.roof, !roof.elementMeasures.isEmpty { measuredSides.insert(("Dak (PDOK-luchtfoto, helling uit de 3D BAG)", roof.elementMeasures), at: 0) }
             if !measuredSides.isEmpty {
                 let full = page.width - 2 * margin, leftW: CGFloat = 300
                 ensure(80); y += 10
-                text("Elementen per gevel", 16, ink, weight: .bold, x: margin, w: 300, advance: true)
+                text("Elementen per gevel en dak", 16, ink, weight: .bold, x: margin, w: 300, advance: true)
                 y += 6
                 for r in measuredSides {
-                    let facing = model.sides.first { $0.id == r.sideId }?.facing ?? "?"
-                    let copied = r.parts.first?.copiedFromSide != nil
                     ensure(60)
-                    text("Gevel op het \(facing)" + (copied ? " (overgenomen van een gelijke gevel, aanname)" : ""), 12, ink, weight: .semibold, x: margin, w: full, advance: true)
+                    text(r.title, 12, ink, weight: .semibold, x: margin, w: full, advance: true)
                     y += 3
                     for g in ElementList.groups(r.measures) {
                         ensure(30)
@@ -136,6 +139,24 @@ enum RapportPDF {
                 }
                 ensure(30)
                 text("Maten berekend uit gevelfoto's met de gevelbreedte uit de BAG; ± volgens vaste regels. Een voorstel, geen inmeting.", 9, grey, x: margin, w: full, advance: true)
+            }
+
+            // staat van het dak
+            let roofDefects = (model.roof?.defects ?? []).filter(\.isConfirmed)
+            if let advice = model.roofAdvice ?? (roofDefects.isEmpty ? nil : InspectionAdvice(year: year, reasons: [])) {
+                let full = page.width - 2 * margin
+                ensure(80); y += 10
+                text("Staat van het dak", 16, ink, weight: .bold, x: margin, w: 300, advance: true)
+                y += 6
+                for d in roofDefects {
+                    ensure(24)
+                    text("• " + d.type.label + (DefectHints.assessment(d).map { " — " + $0 } ?? "") + (d.note.map { " (\($0))" } ?? ""), 10, ink, x: margin, w: full, advance: true)
+                }
+                if model.roofAdvice != nil {
+                    ensure(24)
+                    text("Advies: dakinspectie in \(advice.year). " + advice.reasons.joined(separator: "; ") + ".", 10, ink, weight: .semibold, x: margin, w: full, advance: true)
+                }
+                text("Hints uit een luchtfoto, bevestigd door de gebruiker; geen inspectie ter plaatse en geen NEN 2767-certificering.", 9, grey, x: margin, w: full, advance: true)
             }
 
             // bijlage: gevelfoto's

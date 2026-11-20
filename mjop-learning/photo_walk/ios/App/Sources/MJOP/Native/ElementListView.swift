@@ -138,7 +138,7 @@ struct ElementHighlightSheet: View {
                 .padding(DS.pad)
             }
             .background(DS.canvas)
-            .navigationTitle("Gevel op het \(scan.facing)").navigationBarTitleDisplayMode(.inline)
+            .navigationTitle(scan.isRoof ? "Dak (luchtfoto)" : "Gevel op het \(scan.facing)").navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Klaar") { dismiss() } } }
         }
     }

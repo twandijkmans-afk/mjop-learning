@@ -113,6 +113,7 @@ struct KozijnStaatSection: View {
                     }
                     .dsCard(radius: 20)
                 }
+                RoofAdviceCard(model: m) { y in save { RoofAdviceCard.apply(year: y, to: &$0) } }
                 let groups = m.buildingGroups
                 if !groups.isEmpty {
                     ElementListCard(groups: groups, title: "Elementen van het gebouw", subtitle: { meas in sideText(meas, m) }, onSelect: { meas in
@@ -176,6 +177,7 @@ struct KozijnStaatSection: View {
 
     /// Bij welke gevel een element hoort, voor de lijst van het hele gebouw.
     private func sideText(_ meas: ElementMeasure, _ m: ProjectModel) -> String? {
+        if meas.sideId == 0 { return "Dak (luchtfoto)" }
         guard let sid = meas.sideId, let side = m.sides.first(where: { $0.id == sid }) else { return nil }
         let copied = m.gevels.contains { $0.sideId == sid && $0.copiedFromSide != nil }
         return "Gevel op het \(side.facing)" + (copied ? " · overgenomen (aanname)" : "")
@@ -184,6 +186,13 @@ struct KozijnStaatSection: View {
     /// Laat een element oplichten op de foto van zijn gevel. Een lange gevel in meerdere foto's of een overgenomen gevel heeft
     /// geen eigen foto met dezelfde nummers; dan alleen een melding.
     private func openHighlight(_ meas: ElementMeasure, _ m: ProjectModel) async {
+        if meas.sideId == 0, let roof = m.roof {
+            guard let img = await RoofScanner.image(for: roof) else { error = "De luchtfoto kon niet worden opgehaald."; return }
+            error = nil
+            highlightImage = img
+            highlightItem = HighlightItem(scan: roof, measure: meas)
+            return
+        }
         let parts = m.gevels.filter { $0.sideId == meas.sideId }
         guard parts.count == 1, let g = parts.first, g.copiedFromSide == nil else {
             error = "Deze gevel bestaat uit meerdere foto's of is overgenomen van een andere gevel; aanwijzen op de foto kan hier niet."

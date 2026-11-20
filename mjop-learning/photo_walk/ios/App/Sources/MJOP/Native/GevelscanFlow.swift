@@ -58,6 +58,35 @@ enum ClaudeVision {
         throw lastError
     }
 
+    /// Stuurt een aanvraag naar de Messages API; eerst met afgedwongen schema, bij een 400-fout zonder. Geeft het antwoord terug.
+    static func post(key: String, body: (_ structured: Bool) throws -> [String: Any]) async throws -> Data {
+        var lastError: Error = BackendError.message("De herkenning is mislukt.")
+        for structured in [true, false] {
+            var r = URLRequest(url: URL(string: "https://api.anthropic.com/v1/messages")!)
+            r.httpMethod = "POST"
+            r.timeoutInterval = 180
+            r.setValue("application/json", forHTTPHeaderField: "content-type")
+            r.setValue(key, forHTTPHeaderField: "x-api-key")
+            r.setValue("2023-06-01", forHTTPHeaderField: "anthropic-version")
+            r.httpBody = try JSONSerialization.data(withJSONObject: try body(structured))
+            let (data, resp): (Data, URLResponse)
+            do { (data, resp) = try await URLSession.shared.data(for: r) }
+            catch { throw BackendError.message("Geen verbinding met de AI-dienst. Controleer je internet.") }
+            let status = (resp as? HTTPURLResponse)?.statusCode ?? 0
+            if status == 200 { return data }
+            let detail = (((try? JSONSerialization.jsonObject(with: data)) as? [String: Any])?["error"] as? [String: Any])?["message"] as? String ?? "HTTP \(status)"
+            switch status {
+            case 401: throw BackendError.message("De Claude-sleutel is niet geldig.")
+            case 403: throw BackendError.message("Deze Claude-sleutel mag dit niet doen: \(detail)")
+            case 429: throw BackendError.message("Te veel aanvragen of tegoed op. Probeer het zo opnieuw.")
+            case 500...: throw BackendError.message("De AI-dienst heeft een storing. Probeer het zo opnieuw.")
+            case 400: lastError = BackendError.message("De aanvraag is geweigerd: \(detail)")
+            default: throw BackendError.message("De aanvraag is geweigerd: \(detail)")
+            }
+        }
+        throw lastError
+    }
+
     /// Verkleint tot hooguit 2000 pixels aan de lange zijde, rechtop, als JPEG.
     static func prepare(_ image: UIImage) throws -> (Data, CGSize) {
         let s = image.size
@@ -182,6 +211,10 @@ struct GevelscanFlow: View {
             }
             if store.projects.count > 1 {
                 Menu { ForEach(store.projects) { q in Button(q.naam) { projectId = q.id } } } label: { Label("Ander project", systemImage: "chevron.up.chevron.down") }
+            }
+            if let m = model {
+                RoofStepCard(model: m, demo: account.demo) { s in Task { await acceptRoof(s) } }
+                RoofAdviceCard(model: m) { y in Task { await acceptAdvice(y) } }
             }
             let done = Set(model?.gevels.map(\.sideId) ?? [])
             let footprint = model?.footprint ?? []
@@ -713,9 +746,44 @@ struct GevelscanFlow: View {
         catch { self.error = error.localizedDescription }
     }
 
+    /// Bewaart de dakscan en zet de dakmaten als voorstel in het plan.
+    private func acceptRoof(_ s: FacadeScan) async {
+        guard var m = model, let p = project else { return }
+        m.roof = s
+        Self.applyQuantities(&m)
+        model = m
+        do { try await store.saveModel(m, for: p, account: account); await store.refresh(account) } catch { self.error = error.localizedDescription }
+    }
+
+    /// Zet de post Dakinspectie op het geadviseerde jaar (na bevestiging door de gebruiker).
+    private func acceptAdvice(_ year: Int) async {
+        guard var m = model, let p = project else { return }
+        RoofAdviceCard.apply(year: year, to: &m)
+        model = m
+        do { try await store.saveModel(m, for: p, account: account); await store.refresh(account) } catch { self.error = error.localizedDescription }
+    }
+
     /// Zet de opgetelde gevelmaten en aantallen als voorstel-overgenomen hoeveelheden in het plan (bron: gevelfoto).
     /// Overgenomen gevels (aanname) staan in de uitleg apart vermeld.
     static func applyQuantities(_ m: inout ProjectModel) {
+        if let roof = m.roof {
+            let ms = roof.elementMeasures
+            func sum(_ types: Set<FacadeElementType>) -> Double? {
+                let sel = ms.filter { types.contains($0.type) }
+                guard !sel.isEmpty else { return nil }
+                var t = 0.0
+                for x in sel { guard let a = x.areaM2 else { return nil }; t += a }
+                return t
+            }
+            if let plat = sum([.dakvlak_plat, .dakkapel]), plat > 0, let i = m.elements.firstIndex(where: { $0.key == "dak-plat" }) {
+                m.elements[i].quantity = Quantity(value: Decimal(string: String(format: "%.2f", plat)), unit: "m2", source: .luchtfoto,
+                                                  basis: "Platte dakvlakken en dakkapellen, gemeten op de PDOK-luchtfoto (van boven).")
+            }
+            if let schuin = sum([.dakvlak_schuin]), schuin > 0, let i = m.elements.firstIndex(where: { $0.key == "dak-hellend" }) {
+                m.elements[i].quantity = Quantity(value: Decimal(string: String(format: "%.2f", schuin)), unit: "m2", source: .luchtfoto,
+                                                  basis: "Schuine dakvlakken van de luchtfoto, met de helling uit de 3D BAG (naar verhouding verdeeld).")
+            }
+        }
         let results = m.sideResults
         let sums = results.compactMap(\.summary)
         let nSides = results.count

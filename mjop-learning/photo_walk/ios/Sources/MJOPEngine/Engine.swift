@@ -44,6 +44,8 @@ public enum QuantitySource: String, Codable, Equatable {
     case manual = "MANUAL"
     /// Gemeten op een gevelfoto (herkenning door Claude, maat uit de BAG-gevelbreedte) en door de gebruiker overgenomen.
     case gevelfoto = "GEVELFOTO"
+    /// Gemeten op de PDOK-luchtfoto (herkenning door Claude), schuine vlakken met de helling uit de 3D BAG; door de gebruiker overgenomen.
+    case luchtfoto = "LUCHTFOTO"
     /// Uit een document (oud MJOP, offerte, inspectie), door de gebruiker overgenomen.
     case document = "DOCUMENT"
     case notAvailable = "NOT_AVAILABLE"
