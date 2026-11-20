@@ -13,6 +13,8 @@ public enum ReviewReason: String, Codable, CaseIterable {
     case implausibleSize
     /// Staat bijna, maar net niet, op één lijn met een gelijk kozijn ernaast: mogelijk een onnauwkeurige rand.
     case offRow
+    /// Gevonden in de tweede kijkronde (ingezoomde stroken): even nakijken.
+    case detailPass
 
     public var label: String {
         switch self {
@@ -21,6 +23,7 @@ public enum ReviewReason: String, Codable, CaseIterable {
         case .hidden: return "Grotendeels verborgen"
         case .implausibleSize: return "Ongebruikelijke maat"
         case .offRow: return "Net niet op één lijn met de buren"
+        case .detailPass: return "Gevonden in de tweede ronde"
         }
     }
 }
@@ -82,6 +85,7 @@ public enum FacadeReview {
             if (e.hiddenFraction ?? 0) > hiddenLimit { r.append(.hidden) }
             if let s = size[e.id], let p = plausible[e.type], !p.w.contains(s.w) || !p.h.contains(s.h) { r.append(.implausibleSize) }
             if offRow.contains(e.id) { r.append(.offRow) }
+            if e.detailPass == true { r.append(.detailPass) }
             if !r.isEmpty { out.append(ReviewItem(elementId: e.id, reasons: r)) }
         }
         return out.sorted { ($0.reasons.count, -$0.elementId) > ($1.reasons.count, -$1.elementId) }

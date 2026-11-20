@@ -118,6 +118,54 @@ public enum FacadeEdit {
         els[i].points[index] = [min(max(p[0], 0), W), min(max(p[1], 0), H)]
     }
 
+    /// Geeft een kader dezelfde breedte en hoogte als een voorbeeld. Met een gevelvlak gebeurt dat rechtgetrokken (dus gelijk in meters,
+    /// niet in pixels): de linkerbovenhoek van het doel blijft staan. Zonder vlak gelijk in pixels. Alleen kaders van dezelfde vorm.
+    @discardableResult
+    public static func matchSize(_ els: inout [FacadePhotoElement], id: Int, to refId: Int, plane: FacadePlane?, width W: Double, height H: Double) -> Bool {
+        guard let i = els.firstIndex(where: { $0.id == id }), let r = els.first(where: { $0.id == refId }), id != refId,
+              els[i].type.kind == .quad, r.type.kind == .quad, els[i].points.count == 4, r.points.count == 4 else { return false }
+        func size(_ q: [[Double]]) -> (w: Double, h: Double) {
+            ((FacadePhoto.dist(q[0], q[1]) + FacadePhoto.dist(q[3], q[2])) / 2, (FacadePhoto.dist(q[0], q[3]) + FacadePhoto.dist(q[1], q[2])) / 2)
+        }
+        var newPts: [[Double]]
+        // Rechtgetrokken naar een eenheidsvierkant: dat is de echte gevel op een andere schaal per richting. Breedte en hoogte
+        // daarin overnemen is dus ook in meters gelijk, zonder dat de beeldverhouding van de gevel bekend hoeft te zijn.
+        let rect = [[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]]
+        if let pl = plane, pl.corners.count == 4, FacadePerspective.isConvex(pl.corners),
+           let toRect = Homography(from: pl.corners, to: rect), let back = Homography(from: rect, to: pl.corners) {
+            let tq = els[i].points.compactMap { toRect.apply($0) }, rq = r.points.compactMap { toRect.apply($0) }
+            guard tq.count == 4, rq.count == 4 else { return false }
+            let s = size(rq), o = tq[0]
+            let rectPts = [o, [o[0] + s.w, o[1]], [o[0] + s.w, o[1] + s.h], [o[0], o[1] + s.h]]
+            newPts = rectPts.compactMap { back.apply($0) }
+            guard newPts.count == 4 else { return false }
+        } else {
+            let s = size(r.points), o = els[i].points[0]
+            newPts = [o, [o[0] + s.w, o[1]], [o[0] + s.w, o[1] + s.h], [o[0], o[1] + s.h]]
+        }
+        newPts = newPts.map { [min(max($0[0], 0), W), min(max($0[1], 0), H)] }
+        markEdited(&els[i])
+        els[i].points = newPts
+        return true
+    }
+
+    /// Kopieert een element: de kopie staat `dx`, `dy` verderop (binnen de foto), is door de gebruiker toegevoegd en weet waarvan ze een kopie is.
+    @discardableResult
+    public static func duplicate(_ els: inout [FacadePhotoElement], id: Int, dx: Double, dy: Double, width W: Double, height H: Double, takenIds: Set<Int> = []) -> Int? {
+        guard let src = els.first(where: { $0.id == id }) else { return nil }
+        let xs = src.points.map { $0[0] }, ys = src.points.map { $0[1] }
+        let cdx = min(max(dx, -(xs.min() ?? 0)), W - (xs.max() ?? W))
+        let cdy = min(max(dy, -(ys.min() ?? 0)), H - (ys.max() ?? H))
+        let newId = (els.map(\.id) + Array(takenIds)).max().map { $0 + 1 } ?? 1
+        var c = FacadePhotoElement(id: newId, type: src.type, points: src.points.map { [$0[0] + cdx, $0[1] + cdy] }, material: src.material,
+                                   confidence: nil, note: nil, plane: src.plane)
+        c.addedByUser = true
+        c.copiedFrom = id
+        c.panes = src.panes; c.openingParts = src.openingParts
+        els.append(c)
+        return newId
+    }
+
     /// Trekt een lijn (bijv. een hemelwaterafvoer achter planten) door tot een rand: het bovenste of onderste eindpunt
     /// schuift in de richting van de lijn tot waar die de rand (twee punten, bijv. de bovenrand van het gevelvlak) snijdt.
     /// Lukt dat niet (evenwijdig, of de rand ligt aan de verkeerde kant), dan verandert er niets.

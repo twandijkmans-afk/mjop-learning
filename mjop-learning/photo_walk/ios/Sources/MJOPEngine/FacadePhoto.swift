@@ -96,6 +96,10 @@ public struct FacadePhotoElement: Codable, Equatable, Identifiable {
     /// Hoeken vastgeklikt op een rand die de telefoon zelf vond (Apple Vision); `aiPoints` zijn de oorspronkelijke punten van Claude.
     public var snappedByVision: Bool?
     public var aiPoints: [[Double]]?
+    /// Kopie van een ander element (door de gebruiker geplakt).
+    public var copiedFrom: Int?
+    /// Gevonden in de tweede kijkronde op ingezoomde stroken (kleine elementen).
+    public var detailPass: Bool?
 
     public init(id: Int, type: FacadeElementType, points: [[Double]], material: String?, confidence: String?, note: String?, plane: Int? = nil, hiddenFraction: Double? = nil,
                 mergedFrom: [Int]? = nil) {

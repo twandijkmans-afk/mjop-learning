@@ -134,6 +134,11 @@ struct GevelscanFlow: View {
     @State private var widthText = ""
     @State private var editorSelect: Int?
     @State private var highlight: Int?
+    @State private var qualityIssues: [PhotoIssue] = []
+    @State private var showQuality = false
+    @State private var qualityAccepted = false
+    @State private var detailRunning = false
+    @State private var detailInfo: String?
     @State private var scrollTarget: String?
 
     enum Phase { case choose, working, result }
@@ -177,6 +182,12 @@ struct GevelscanFlow: View {
             }
             .onChange(of: photo) { p in if p != nil { Task { await recognize() } } }
             .sheet(isPresented: $showKey) { ClaudeKeySheet() }
+            .alert("Controleer de foto", isPresented: $showQuality) {
+                Button("Opnieuw maken") { qualityIssues = []; startCamera() }
+                Button("Toch gebruiken") { qualityAccepted = true; Task { await recognize() } }
+            } message: {
+                Text(qualityIssues.map(\.label).joined(separator: "\n") + "\nEen betere foto geeft een betere herkenning.")
+            }
             .sheet(isPresented: $showDefects) {
                 if let scan = lastScan, let photo { DefectListView(image: photo, scan: scan) { lastScan = $0 } }
             }
@@ -334,6 +345,14 @@ struct GevelscanFlow: View {
 
     private func recognize() async {
         guard let photo, let side else { return }
+        // Fotokwaliteit vooraf (alleen een waarschuwing; de gebruiker kan de foto toch gebruiken).
+        if !account.demo && !qualityAccepted {
+            let issues = PhotoQualityCheck.issues(photo)
+            if !issues.isEmpty { qualityIssues = issues; showQuality = true; return }
+        }
+        let accepted = qualityAccepted ? qualityIssues : []
+        qualityAccepted = false
+        qualityIssues = []
         phase = .working
         do {
             let r: (recognition: FacadeRecognition, size: CGSize)
@@ -352,6 +371,7 @@ struct GevelscanFlow: View {
             scan.conflicts = r.recognition.conflicts
             scan.headingDeg = captureMeta?.headingDeg
             scan.zoom = captureMeta?.zoom
+            if !accepted.isEmpty { scan.qualityIssues = accepted.map(\.rawValue) }
             // Vastklikken op randen die de telefoon zelf vindt (Apple Vision). De punten van Claude blijven bewaard.
             if !account.demo, let up = (try? ClaudeVision.prepare(photo)).flatMap({ UIImage(data: $0.0) }) {
                 let found = await VisionRectangles.detect(in: up, size: r.size)
@@ -514,6 +534,16 @@ struct GevelscanFlow: View {
             Button { Task { await accept(scan) } } label: { Label("Overnemen in het plan", systemImage: "checkmark") }
                 .buttonStyle(DSPrimaryButton())
                 .accessibilityIdentifier("acceptScan")
+            if !account.demo {
+                Button { Task { await findSmall() } } label: {
+                    Label(detailRunning ? "Zoeken naar kleine elementen…" : "Zoek kleine elementen (extra herkenning)", systemImage: "plus.magnifyingglass")
+                }
+                .buttonStyle(DSSecondaryButton())
+                .disabled(detailRunning || ClaudeKey.load() == nil)
+                .accessibilityIdentifier("findSmall")
+                Text(detailInfo ?? "Claude kijkt nog eens ingezoomd naar de dakrand en de zijkanten, voor afvoeren, goten, boeiboorden, daktrim, waterslagen, lateien en roosters. Kost een extra herkenning.")
+                    .font(.footnote).foregroundStyle(DS.text2)
+            }
             Button("Opnieuw") { phase = .choose; startCamera() }.buttonStyle(DSSecondaryButton())
         }
     }
@@ -564,6 +594,42 @@ struct GevelscanFlow: View {
             }
         }
         .padding(16).frame(maxWidth: .infinity, alignment: .leading).dsCard(radius: 20)
+    }
+
+    /// Tweede kijkronde: ingezoomde stroken uit de originele foto (volle resolutie) naar Claude; alleen nieuwe elementen worden toegevoegd.
+    private func findSmall() async {
+        guard let scan = lastScan, let photo, let key = ClaudeKey.load() else { return }
+        detailRunning = true; detailInfo = nil
+        defer { detailRunning = false }
+        let crops = FacadeDetail.crops(photoW: scan.photoWidth, photoH: scan.photoHeight, plane: scan.mainPlane)
+        let s = photo.size.width / scan.photoWidth
+        var jpegs: [String] = [], sizes: [(Int, Int)] = []
+        for c in crops {
+            let f = min(1, FacadePhoto.maxEdge / max(c.w * s, c.h * s))
+            let out = CGSize(width: (c.w * s * f).rounded(), height: (c.h * s * f).rounded())
+            let fmt = UIGraphicsImageRendererFormat(); fmt.scale = 1
+            let img = UIGraphicsImageRenderer(size: out, format: fmt).image { _ in
+                photo.draw(in: CGRect(x: -c.x * s * f, y: -c.y * s * f, width: photo.size.width * f, height: photo.size.height * f))
+            }
+            guard let d = img.jpegData(compressionQuality: 0.85) else { continue }
+            jpegs.append(d.base64EncodedString()); sizes.append((Int(out.width), Int(out.height)))
+        }
+        guard jpegs.count == crops.count else { error = "De uitsneden konden niet worden gemaakt."; return }
+        do {
+            let data = try await ClaudeVision.post(key: key) { structured in FacadeDetail.requestBody(jpegs: jpegs, crops: crops, sizes: sizes, structured: structured) }
+            let found = try FacadeDetail.parse(data, crops: crops, sizes: sizes, photoW: scan.photoWidth, photoH: scan.photoHeight)
+            guard var cur = lastScan else { return }
+            let before = cur.elements.count
+            cur.elements = FacadeDetail.merge(existing: cur.elements, found: found, photoW: cur.photoWidth, takenIds: Set((cur.removedByUser ?? []).map(\.id)))
+            let added = cur.elements.suffix(cur.elements.count - before)
+            lastScan = cur
+            if added.isEmpty { detailInfo = "Geen nieuwe kleine elementen gevonden." }
+            else {
+                var counts: [String: Int] = [:]
+                for e in added { counts[e.type.label.lowercased(), default: 0] += 1 }
+                detailInfo = "\(added.count) nieuw(e) element(en) gevonden: " + counts.sorted { $0.key < $1.key }.map { "\($0.value)× \($0.key)" }.joined(separator: ", ") + ". Ze staan bij 'dingen om te checken'."
+            }
+        } catch { self.error = error.localizedDescription }
     }
 
     private func resultRow(_ icon: String, _ title: String, _ sub: String, _ value: String) -> some View {
