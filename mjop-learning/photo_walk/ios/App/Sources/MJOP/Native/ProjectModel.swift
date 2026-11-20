@@ -215,6 +215,8 @@ struct FacadeScan: Codable, Equatable, Identifiable {
     /// en gevelvlakken de telefoon heeft vastgeklikt op randen in de foto.
     var headingDeg: Double? = nil
     var snapped: Int? = nil
+    /// Zoom bij het fotograferen (0,5 = groothoek, 1 = gewoon, 2 = twee keer ingezoomd).
+    var zoom: Double? = nil
 
     var mpp: Double? { FacadePhoto.metersPerPixel(facadeWidthM: widthM, leftX: referenceLeftX, rightX: referenceRightX) }
     /// Het vlak waar de BAG-gevelbreedte bij hoort.

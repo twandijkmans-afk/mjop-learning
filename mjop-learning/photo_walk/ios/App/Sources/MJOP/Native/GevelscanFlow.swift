@@ -318,6 +318,7 @@ struct GevelscanFlow: View {
             scan.merged = r.recognition.merged
             scan.conflicts = r.recognition.conflicts
             scan.headingDeg = captureMeta?.headingDeg
+            scan.zoom = captureMeta?.zoom
             // Vastklikken op randen die de telefoon zelf vindt (Apple Vision). De punten van Claude blijven bewaard.
             if !account.demo, let up = (try? ClaudeVision.prepare(photo)).flatMap({ UIImage(data: $0.0) }) {
                 let found = await VisionRectangles.detect(in: up, size: r.size)

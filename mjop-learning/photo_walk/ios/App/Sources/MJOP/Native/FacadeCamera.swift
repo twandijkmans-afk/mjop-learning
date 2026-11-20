@@ -11,6 +11,7 @@ struct CaptureMeta: Equatable {
     var rollDeg: Double       // draaiing om de kijkas (scheef)
     var pitchDeg: Double      // voorover of achterover gekanteld
     var focal35mm: Double?    // brandpunt (35mm-equivalent) uit de EXIF, voor de perspectiefcorrectie
+    var zoom: Double = 1          // ingezoomd t.o.v. de gewone camera (0,5 = groothoek, 2 = twee keer ingezoomd)
     var headingDeg: Double? = nil   // kijkrichting van de camera volgens het kompas (graden vanaf magnetisch noord), als die bekend was
     var level: Bool { abs(rollDeg) <= 2 && abs(pitchDeg) <= 4 }
 }
@@ -24,6 +25,12 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
     @Published var hasWide = false
     @Published var authorized: Bool?
     @Published var capturing = false
+    /// Digitale zoomfactor op de huidige lens (1 = geen zoom).
+    @Published var zoomFactor: CGFloat = 1
+    /// Hoogste zoom die we toestaan: verder inzoomen geeft een vage foto en dus slechtere herkenning.
+    static let maxZoom: CGFloat = 5
+    /// Zoom zoals de gebruiker hem ziet: 0,5× is de groothoeklens, 1× de gewone, daarboven ingezoomd.
+    var displayZoom: Double { Double(zoomFactor) * (wide && hasWide ? 0.5 : 1) }
     /// Kijkrichting van de camera volgens het kompas; nil als het kompas niet beschikbaar of niet gekalibreerd is.
     @Published var headingDeg: Double?
     private var headingVec: (s: Double, c: Double)?
@@ -60,13 +67,36 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
 
     func toggleLens() { wide.toggle(); configure() }
 
+    /// Zet de zoom op de huidige lens, binnen wat de lens kan en hooguit `maxZoom`.
+    func setZoom(_ f: CGFloat) {
+        guard let device = input?.device else { return }
+        let z = min(max(f, device.minAvailableVideoZoomFactor, 1), min(device.maxAvailableVideoZoomFactor, Self.maxZoom))
+        do {
+            try device.lockForConfiguration()
+            device.videoZoomFactor = z
+            device.unlockForConfiguration()
+            zoomFactor = z
+        } catch {}
+    }
+
+    /// Snelknop: 0,5× = groothoeklens zonder zoom; 1× en hoger = gewone lens met zoom.
+    func select(zoom z: Double) {
+        if z < 1, hasWide {
+            if !wide { wide = true; configure() }
+            setZoom(1)
+        } else {
+            if wide { wide = false; configure() }
+            setZoom(CGFloat(z))
+        }
+    }
+
     private func configure() {
         let type: AVCaptureDevice.DeviceType = wide && hasWide ? .builtInUltraWideCamera : .builtInWideAngleCamera
         guard let device = AVCaptureDevice.default(type, for: .video, position: .back), let newInput = try? AVCaptureDeviceInput(device: device) else { return }
         session.beginConfiguration()
         session.sessionPreset = .photo
         if let input { session.removeInput(input) }
-        if session.canAddInput(newInput) { session.addInput(newInput); input = newInput }
+        if session.canAddInput(newInput) { session.addInput(newInput); input = newInput; zoomFactor = 1 }
         if !session.outputs.contains(output), session.canAddOutput(output) { session.addOutput(output) }
         output.connection(with: .video)?.videoOrientation = .portrait
         session.commitConfiguration()
@@ -117,7 +147,11 @@ final class FacadeCameraModel: NSObject, ObservableObject, AVCapturePhotoCapture
             self.capturing = false
             guard let data, let img = UIImage(data: data) else { return }
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            self.completion?(img, CaptureMeta(lens: self.wide ? "0,5×" : "1×", rollDeg: self.rollDeg, pitchDeg: self.pitchDeg, focal35mm: f35, headingDeg: self.headingDeg))
+            // Bij digitale zoom gebruiken we het brandpunt uit de EXIF niet: of dat de zoom meeneemt is niet zeker.
+            // Dan wordt de lens geschat uit de hoeken van de gevel (en de bandbreedte wordt iets ruimer). Niet gokken.
+            let zoomed = self.zoomFactor > 1.01
+            self.completion?(img, CaptureMeta(lens: self.wide ? "0,5×" : "1×", rollDeg: self.rollDeg, pitchDeg: self.pitchDeg, focal35mm: zoomed ? nil : f35,
+                                              zoom: self.displayZoom, headingDeg: self.headingDeg))
         }
     }
 }
@@ -148,6 +182,7 @@ struct FacadeCameraView: View {
     @StateObject private var cam = FacadeCameraModel()
     @State private var confirmTilt = false
     @State private var confirmSide = false
+    @State private var pinchBase: CGFloat = 1
 
     /// Afwijking van de kijkrichting voor de gekozen gevel, als het kompas iets zegt.
     private var sideDeviation: Double? {
@@ -161,6 +196,9 @@ struct FacadeCameraView: View {
             Color.black.ignoresSafeArea()
             if cam.authorized == true {
                 CameraPreview(session: cam.session).ignoresSafeArea()
+                    .gesture(MagnificationGesture()
+                        .onChanged { v in cam.setZoom(pinchBase * v) }
+                        .onEnded { _ in pinchBase = cam.zoomFactor })
                 frameCorners.padding(.horizontal, 34).padding(.vertical, 150).allowsHitTesting(false)
             } else if cam.authorized == false {
                 VStack(spacing: 12) {
@@ -193,7 +231,9 @@ struct FacadeCameraView: View {
                         .accessibilityIdentifier("compassWarning")
                 }
                 level
-                Spacer().frame(height: 26)
+                Spacer().frame(height: 16)
+                zoomChips
+                Spacer().frame(height: 14)
                 HStack {
                     Color.clear.frame(width: 64, height: 64)
                     Spacer()
@@ -207,16 +247,7 @@ struct FacadeCameraView: View {
                     .accessibilityLabel("Foto maken")
                     .accessibilityIdentifier("shutter")
                     Spacer()
-                    if cam.hasWide {
-                        Button { cam.toggleLens() } label: {
-                            Text(cam.wide ? "0,5×" : "1×").font(.footnote.weight(.bold)).frame(width: 52, height: 52)
-                                .foregroundStyle(cam.wide ? Color.black : .white)
-                                .background(cam.wide ? AnyShapeStyle(Color.white) : AnyShapeStyle(.ultraThinMaterial), in: Circle())
-                        }
-                        .environment(\.colorScheme, .dark)
-                        .frame(width: 64)
-                        .accessibilityLabel(cam.wide ? "Groothoek aan" : "Groothoek uit")
-                    } else { Color.clear.frame(width: 64, height: 64) }
+                    Color.clear.frame(width: 64, height: 64)
                 }
                 .padding(.horizontal, 24).padding(.bottom, 30)
             }
@@ -254,6 +285,34 @@ struct FacadeCameraView: View {
         }
         .animation(.easeOut(duration: 0.15), value: ok)
         .accessibilityElement(children: .combine)
+    }
+
+    /// Zoomknoppen (0,5× alleen als de telefoon een groothoeklens heeft). Knijpen met twee vingers zoomt traploos.
+    private var zoomChips: some View {
+        let stops: [Double] = (cam.hasWide ? [0.5] : []) + [1, 2]
+        let current = cam.displayZoom
+        return HStack(spacing: 8) {
+            ForEach(stops, id: \.self) { z in
+                let on = abs(current - z) < 0.05
+                Button { cam.select(zoom: z); pinchBase = cam.zoomFactor } label: {
+                    Text(label(z)).font(.footnote.weight(.bold)).frame(width: 46, height: 46)
+                        .foregroundStyle(on ? Color.black : .white)
+                        .background(on ? AnyShapeStyle(Color.white) : AnyShapeStyle(.ultraThinMaterial), in: Circle())
+                }
+                .accessibilityLabel("Zoom \(label(z))")
+            }
+            if !stops.contains(where: { abs(current - $0) < 0.05 }) {
+                Text(label(current)).font(.footnote.weight(.bold)).foregroundStyle(.black)
+                    .padding(.horizontal, 12).frame(height: 46).background(Color.white, in: Capsule())
+                    .accessibilityLabel("Huidige zoom \(label(current))")
+            }
+        }
+        .environment(\.colorScheme, .dark)
+        .accessibilityIdentifier("zoomChips")
+    }
+
+    private func label(_ z: Double) -> String {
+        (z.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f×", z) : String(format: "%.1f×", z)).replacingOccurrences(of: ".", with: ",")
     }
 
     private var frameCorners: some View {
