@@ -8,7 +8,8 @@ ander bureau) om naar een **30-jaars concept** met een advies voor de reservefon
 
 > Het resultaat is een CONCEPT op basis van een bestaand plan. Het is niet geïnspecteerd (geen
 > NEN 2767-conditiemeting) en bevat geen actuele marktprijzen. Planjaren en bedragen blijven
-> voorstellen tot een mens ze accepteert.
+> voorstellen. De beoordeling gebeurt na import in OPrognose: elke handeling vermeldt daar in de
+> opmerking herkomst, aannames en vlaggen.
 
 Niet in v1: verwerken van uitgevoerd onderhoud, hoeveelheden herijken (3DBAG/gevelscanner), conditie
 via een app-schouw, en de duurzaamheidsparagraaf.
@@ -23,7 +24,8 @@ via een app-schouw, en de duurzaamheidsparagraaf.
 | Prijs | `scripts/mjop_price_index.py`, `config/price_index.json` | expliciete indexatie met een door een mens ingevoerde reeks |
 | Horizon | `scripts/mjop_horizon_planner.py` | 30-jaars jaarvoorstellen, doorrollen en toegevoegde langcyclische vervangingen |
 | Reservefonds | `scripts/mjop_reserve_fund.py` | jaarlijks verloop, tekortjaren en minimale storting |
-| CLI | `scripts/mjop_actualisatie.py` | `run` (alles + review.xlsx + rapport.md) en `apply` (beslissingen terugverwerken) |
+| OPrognose-export | `scripts/mjop_oprognose_export.py`, `config/oprognose/` | XML-importbestand voor OPrognose + formaatcontrole |
+| CLI | `scripts/mjop_actualisatie.py` | `run`: alles in één keer → OPrognose-XML + rapport.md |
 | Tests | `tests/test_mjop_actualisatie.py` | |
 
 ## Levensduurtabel
@@ -101,7 +103,7 @@ Horizon: `start .. start + 29`. Per regel zonder menselijke planningsbeslissing:
   (`--last-replacement CODE=JAAR`), anders het bouwjaar. Dat laatste is altijd een aanname en krijgt
   de vlag `ASSUMED_FROM_CONSTRUCTION_YEAR`.
 - Elementen zonder vastgestelde vervangingscyclus komen op de checklist `lifecycle_unknown`
-  (review.xlsx, tabblad "Levensduur onbekend").
+  (in rapport.md onder "Wat er is gedaan").
 
 ## Reservefonds
 
@@ -119,8 +121,7 @@ geïndexeerd bedrag. De berekening is eerst analytisch (het saldo is lineair in 
 een simulatie bevestigd. Optioneel staat ter vergelijking 0,5% van een opgegeven herbouwwaarde
 vermeld. Alle percentages zijn invoer; de tool vult geen standaardwaarden in.
 
-Statussen: `CONCEPT` (voorstellen tellen mee) of `ACCEPTED_ONLY` (`--accepted-only`). De
-waarschuwingen melden:
+De status is `CONCEPT`: voorstellen tellen mee. De waarschuwingen melden:
 
 - regels zonder cyclus: die komen maar één keer voor, waardoor latere jaren te laag uitvallen;
 - regels zonder bedrag;
@@ -129,32 +130,94 @@ waarschuwingen melden:
 Bedragen uit kengetallen houden hun eigen prijspeil (zie `mjop_plan.plan_totals`). In v1 worden ze
 niet herindexeerd.
 
+## OPrognose-export
+
+Het formaat is overgenomen uit een echte OPrognose-export. Het is een .NET DataSet-XML:
+`<NewDataSet>`, gevolgd door het ingebouwde XSD-schema, gevolgd door één object. Het schemablok
+staat letterlijk in `config/oprognose/dataset_schema.xml`; dat bestand bevat alleen velddefinities.
+Het voorbeeldbestand zelf bevat klantgegevens en staat niet in de repository.
+
+Structuur:
+
+- `opo`: het object, 133 kolommen;
+- `ope`: de elementen, 64 kolommen;
+- `oph`: de handelingen per element, 76 kolommen;
+- daarnaast kent het schema `opu` (uitmeting), `ops` (historie) en `opm` (metingen). Die worden niet
+  gevuld.
+
+Elk record bevat alle kolommen in schemavolgorde. Lege waarden worden geschreven zoals OPrognose dat
+doet: `<veld />`, `0`, `false` of `1900-01-01T00:00:00+01:00`. Het bestand gebruikt CRLF-regeleinden
+en springt 2 spaties in. De kop en het schema van een gegenereerd bestand zijn byte-voor-byte gelijk
+aan de voorbeeldexport.
+
+Deze regels zijn afgeleid uit de voorbeeldexport en gelden voor alle handelingen daarin:
+
+| OPrognose | Waarde |
+|---|---|
+| `ele_nlsfb` / `ele_nlsfbhoofd` | elementcode (4 cijfers) / eerste 2 cijfers |
+| `ele_tekst`, `ele_hvh`, `ele_eenheid`, `ele_locatie` | element uit het oude MJOP |
+| `han_tekst` | actietekst uit het oude MJOP (of "Vervangen" bij een toegevoegde regel) |
+| `han_startjaar`, `han_cyclus` | (voorgesteld) eerste jaar en cyclus; `0`/`0` als er geen jaar is |
+| `han_bitpatroon` | 200 tekens; positie 0 is het jaar 2000; `1` = uitvoering |
+| `han_hvhreken`, `han_prijs`, `han_totaal` | hoeveelheid, eenheidsprijs (afgerond op centen), `hvhreken × prijs` |
+| `han_hvh` | `hvhreken / ele_hvh` (6 decimalen); `1` bij een andere eenheid |
+| `han_opm` | herkomst (document en pagina), VOORSTEL of definitief, cyclusbron, basisjaar, vlaggen en bedragbasis |
+| vaste velden | `config/oprognose/export_defaults.json` (H, A, 101, fonds 10, btw H, …) |
+
+Alleen geplande handelingen worden geëxporteerd (`han_type H`). Bevindingen (`B`) horen bij een
+inspectie en worden niet geëxporteerd.
+
+Prijs:
+
+- Heeft elk historisch bedrag een indexfactor, dan krijgen de handelingen geïndexeerde bedragen en is
+  `obj_prijspeil` het doelprijspeil.
+- Zo niet, dan krijgen ze de historische bedragen en is `obj_prijspeil` het prijspeil van het oude
+  MJOP. OPrognose kan dan zelf indexeren.
+- Is dat prijspeil onbekend, dan is de prijs `0` en staat het historische bedrag in de opmerking.
+  Een bedrag met een verkeerd prijspeil is erger dan geen bedrag.
+
+Het reservefonds wordt doorgerekend op precies dezelfde bedragen en hetzelfde prijspeil als het
+XML-bestand.
+
+`validate_xml` controleert elk bestand vóór het wordt weggeschreven op:
+
+- kolommen en volgorde;
+- typen;
+- unieke sleutels en verwijzingen;
+- of het bitpatroon past bij startjaar en cyclus;
+- of het totaal gelijk is aan hoeveelheid × prijs.
+
+De echte voorbeeldexport komt foutloos door deze controle. Met
+`OPROGNOSE_SAMPLE_XML=<pad>` draait de test daarop.
+
+Nog te verifiëren met een proefimport in OPrognose:
+
+- of OPrognose de primaire sleutels uit het bestand overneemt of zelf nummert (`pk_base` is
+  instelbaar);
+- de betekenis van `han_hierarchie`, `han_blaag` en `han_fonds`;
+- of `obj_saldo` en `obj_reservering` gevuld moeten worden.
+
 ## Gebruik
 
 ```
 python scripts/mjop_actualisatie.py run --document DOC-010 --building-id <gebouw> --start-year 2027 \
     --opening-balance 20000 --annual-contribution 5000 [--cost-inflation 0.02] [--contribution-growth 0.02] \
-    [--rebuild-value 2000000] [--last-replacement 4711=2010] [--target-price-year 2027]
+    [--rebuild-value 2000000] [--last-replacement 4711=2010] [--oprognose-code 9349-2027] [--target-price-year 2027]
 ```
 
 Uitvoer in `reports/actualisatie/<mjop_id>/`:
 
-- `plan.json`: mjop_plan v1, DRAFT, horizon 30 jaar;
+- `<mjop_id>.xml`: het OPrognose-importbestand;
+- `rapport.md`;
+- `plan.json`;
 - `lines.json`;
 - `planner_report.json`;
+- `oprognose_export_report.json`;
 - `reserve_fund.json`;
-- `review.xlsx`: tabbladen Regels (ACCEPT/EDIT/REJECT per regel), Reservefonds, Levensduur onbekend en
-  Toelichting;
-- `rapport.md`;
 - `run_meta.json`.
 
-```
-python scripts/mjop_actualisatie.py apply --dir reports/actualisatie/<mjop_id> --by <naam> [--accepted-only]
-```
-
-`apply` verwerkt BESLISSING_PLANNING en BESLISSING_BEDRAG uit `review.xlsx`, valideert het plan,
-rekent het reservefonds opnieuw door en schrijft alle uitvoer opnieuw. Een tweede beslissing op een
-regel die al beslist is, wordt geweigerd.
+De functies voor menselijke beslissingen per regel (`decide_planning`, `decide_price_update`) blijven
+in het regelmodel bestaan. De tool gebruikt ze niet meer: de beoordeling gebeurt in OPrognose.
 
 ## Waarneming op batch 1 (ter indicatie, geen accuracy-claim)
 

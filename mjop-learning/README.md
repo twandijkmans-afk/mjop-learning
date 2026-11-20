@@ -16,7 +16,7 @@ Uitleg voor niet-programmeurs: `docs/incoming_pipeline_v1.md`.
 
 ## MJOP actualiseren naar 30 jaar ("Light")
 
-Bestaand MJOP → 30-jaars concept met reservefondsadvies, met review per regel (ACCEPT/EDIT/REJECT):
+Bestaand MJOP → 30-jaars concept als OPrognose-importbestand (XML) + rapport met reservefondsadvies:
 `python scripts/mjop_actualisatie.py run --document DOC-010 --building-id <gebouw> --start-year 2027 --opening-balance <€> --annual-contribution <€>`.
 Uitleg, beperkingen en het levensduur-/prijsindexbeheer: `docs/mjop_actualisatie_light_v1.md`.
 

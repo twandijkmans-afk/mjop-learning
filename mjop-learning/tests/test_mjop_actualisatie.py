@@ -1,7 +1,7 @@
 """
 Tests voor de MJOP-actualiseringstool "Light" (docs/mjop_actualisatie_light_v1.md):
 levensduurtabel, Maintenance Line v2, prijsindex, import, horizon-planner, reservefonds en
-de end-to-end CLI inclusief het terugverwerken van review.xlsx. Synthetische documenten;
+de OPrognose XML-export en de end-to-end CLI. Synthetische documenten;
 alleen tmp_path wordt beschreven.
 """
 import copy
@@ -21,6 +21,7 @@ import mjop_import_existing as I  # noqa: E402
 import mjop_lifecycle as LC  # noqa: E402
 import mjop_maintenance_line as L1  # noqa: E402
 import mjop_maintenance_line_v2 as L2  # noqa: E402
+import mjop_oprognose_export as X  # noqa: E402
 import mjop_plan as P  # noqa: E402
 import mjop_price_index as PI  # noqa: E402
 import mjop_reserve_fund as RF  # noqa: E402
@@ -412,46 +413,123 @@ def test_reserve_fund_concept_vs_accepted_and_warnings():
 # End-to-end
 # --------------------------------------------------------------------------
 
-def test_end_to_end_build_outputs_and_apply(tmp_path):
-    doc = make_doc()
-    table = table_with(("4711", "replace", "EDIT", 25))
+def _result(index=INDEX, doc=None, **kw):
     params = {"opening_balance": "5000", "annual_contribution": "500", "contribution_growth": "0", "interest_rate": "0",
-              "cost_inflation": "0", "min_balance": "0", "include_proposals": True, "rebuild_value": "1000000"}
-    result = A.build(doc, mjop_id="M", building_id="BLD", start_year=2027, target_price_year=2027, index=INDEX, table=table,
-                     fund_params=params, at=T0)
-    assert result["plan"]["plan_start_year"] == 2027 and result["plan"]["plan_end_year"] == 2056
-    assert result["reserve_fund"]["status"] == "CONCEPT"
-    assert result["reserve_fund"]["advice"]["comparison_half_percent_rebuild_value"] == "5000.00"
-    meta = {"tool_version": A.TOOL_VERSION, "at": T0, "document_id": doc["document_id"], "target_price_year": 2027,
-            "index_source": "TEST", "fund_params": params, "last_replacement_years": {}}
-    out = tmp_path / "M"
-    A.write_outputs(result, meta, str(out))
-    assert {p.name for p in out.iterdir()} >= {"plan.json", "lines.json", "reserve_fund.json", "review.xlsx", "rapport.md"}
-    report = (out / "rapport.md").read_text(encoding="utf-8")
-    assert "Niet geïnspecteerd" in report and "CONCEPT" in report
-
-    from openpyxl import load_workbook
-    wb = load_workbook(out / "review.xlsx")
-    ws = wb["Regels"]
-    col = {c.value: i + 1 for i, c in enumerate(ws[1])}
-    for r in range(2, ws.max_row + 1):
-        if ws.cell(r, col["planning_status"]).value == "PROPOSED":
-            ws.cell(r, col["BESLISSING_PLANNING"]).value = "ACCEPT"
-        if ws.cell(r, col["bedrag_status"]).value == "PROPOSED" and ws.cell(r, col["bedrag_per_keer_voorstel"]).value:
-            ws.cell(r, col["BESLISSING_BEDRAG"]).value = "ACCEPT"
-    wb.save(out / "review.xlsx")
-    assert A.main(["apply", "--dir", str(out), "--by", "tester", "--accepted-only"]) == 0
-    lines = json.loads((out / "lines.json").read_text(encoding="utf-8"))
-    paint = next(l for l in lines if l["action_normalized"] == "exterior_painting")
-    assert paint["planning_status"] == "HUMAN_ACCEPTED" and paint["planning_verification"]["by"] == "tester"
-    fund = json.loads((out / "reserve_fund.json").read_text(encoding="utf-8"))
-    assert fund["status"] == "ACCEPTED_ONLY" and Decimal(fund["total_expenses"]) > 0
-    assert A.main(["apply", "--dir", str(out), "--by", "tester"]) == 0      # opnieuw: niets dubbel vastgelegd
+              "cost_inflation": "0", "min_balance": "0", "rebuild_value": "1000000"}
+    return A.build(doc or make_doc(), mjop_id="M", building_id="BLD", start_year=2027, target_price_year=2027, index=index,
+                   table=table_with(("4711", "replace", "EDIT", 25)), fund_params=params, at=T0, **kw)
 
 
-def test_apply_rejects_second_decision_on_same_line():
-    lines, _ = _plan()
-    paint = next(l for l in lines if l["action_normalized"] == "exterior_painting")
-    decided = L2.decide_planning(paint, "ACCEPT", by="t", at=T0)
-    with pytest.raises(SystemExit):
-        A.apply_decisions([decided], {decided["maintenance_line_id"]: {"BESLISSING_PLANNING": "EDIT", "JAAR": 2030}}, by="t", at=T0)
+def _xml(result):
+    return X.serialize(result["dataset"], result["fmt"])
+
+
+def test_export_format_columns_and_schema_block_from_real_export():
+    fmt = X.load_format()
+    assert {t: len(c) for t, c in fmt["columns"].items()} == {"opo": 133, "ope": 64, "opu": 22, "oph": 76, "ops": 33, "opm": 18}
+    assert fmt["children"]["opo"] == ["ope"] and "oph" in fmt["children"]["ope"]
+    assert X.bitpattern(2031, 12, fmt)[31] == "1" and X.bitpattern(2031, 12, fmt)[43] == "1"
+    assert X.bitpattern(2031, 12, fmt).count("1") == 15 and len(X.bitpattern(0, 0, fmt)) == 200
+    assert X.bitpattern(2030, 0, fmt).count("1") == 1
+    with pytest.raises(X.ExportError):
+        X.bitpattern(1999, 5, fmt)
+
+
+def test_export_xml_is_valid_crlf_and_contains_schema_verbatim():
+    result = _result()
+    text = _xml(result)
+    assert X.validate_xml(text, result["fmt"]) == []
+    assert text.startswith("<NewDataSet>\r\n  <xs:schema id=\"NewDataSet\"") and text.endswith("</NewDataSet>")
+    assert "\n" not in text.replace("\r\n", "")
+    assert result["fmt"]["schema_text"].replace("\n", "\r\n") in text
+
+
+def test_export_mapping_of_actions_years_and_amounts():
+    result = _result()
+    obj, opes = result["dataset"]
+    assert obj["obj_prijspeil"] == "2027-01-01T00:00:00+01:00" and obj["obj_btw"] == "true" and obj["obj_bouwjaar"] == "1980"
+    assert result["export_report"]["price_mode"] == "indexed"
+    hans = [h for _, hs in opes for h in hs]
+    assert all(h["han_type"] == "H" for h in hans)                                    # geen bevindingen
+    paint = next(h for h in hans if h["han_tekst"] == "tekst exterior_painting")
+    assert (paint["han_startjaar"], paint["han_cyclus"]) == ("2032", "6")
+    assert paint["han_hvhreken"] == "10" and paint["han_prijs"] == "125" and paint["han_totaal"] == "1250"
+    assert "VOORSTEL" in paint["han_opm"] and "DOC-T1" in paint["han_opm"] and "indexfactor 1.250000" in paint["han_opm"]
+    ele = next(e for e, hs in opes if paint in hs)
+    assert ele["ele_nlsfb"] == "4621" and ele["ele_nlsfbhoofd"] == "46" and ele["ele_eenheid"] == "m2"
+    added = next(h for h in hans if h["han_tekst"] == "Vervangen")
+    assert "TOEGEVOEGD" in added["han_opm"] and "AANNAME bouwjaar" in added["han_opm"] and added["han_prijs"] == "0"
+
+
+def test_export_without_year_writes_zero_and_empty_pattern():
+    doc = make_doc(actions=[_act("A1", "E2", "repair", 2020, "500")])                 # verstreken, geen cyclus
+    result = _result(doc=doc)
+    han = result["dataset"][1][0][1][0]
+    assert han["han_startjaar"] == "0" and han["han_cyclus"] == "0" and "1" not in han["han_bitpatroon"]
+    assert "GEEN PLANJAAR" in han["han_opm"] and result["export_report"]["actions_without_year"] == 1
+
+
+def test_export_price_modes_without_index():
+    result = _result(index=EMPTY_INDEX)
+    assert result["export_report"]["price_mode"] == "historical"
+    assert result["dataset"][0]["obj_prijspeil"] == "2020-01-01T00:00:00+01:00"
+    paint = next(h for _, hs in result["dataset"][1] for h in hs if h["han_tekst"] == "tekst exterior_painting")
+    assert paint["han_totaal"] == "1000" and "niet geïndexeerd" in paint["han_opm"]
+    assert result["reserve_fund"]["parameters"]["price_level_year"] == 2020
+    unknown = _result(index=EMPTY_INDEX, doc=make_doc(price_date=None))
+    assert unknown["export_report"]["price_mode"] == "historical_unknown_level"
+    assert unknown["dataset"][0]["obj_prijspeil"] == "1900-01-01T00:00:00+01:00"
+    hans = [h for _, hs in unknown["dataset"][1] for h in hs]
+    assert all(h["han_prijs"] == "0" for h in hans) and any("prijspeil onbekend" in h["han_opm"] for h in hans)
+
+
+def test_export_unit_price_rounding_and_fraction_of_element():
+    doc = make_doc(elements=[_el("E1", "4621", "Kozijnen", qty="9", unit="m2")],
+                   actions=[_act("A1", "E1", "repair", 2030, "100", qty="3")])
+    result = _result(doc=doc)
+    ele, hans = result["dataset"][1][0]
+    h = hans[0]
+    assert h["han_prijs"] == "41.67" and h["han_totaal"] == "125.01" and h["han_hvh"] == "0.333333"
+    assert ele["ele_hvh"] == "9"
+    assert Decimal(result["export_report"]["rounding_deviation_total"]) == Decimal("0.01")
+
+
+def test_validator_detects_broken_files():
+    result = _result()
+    fmt, text = result["fmt"], _xml(result)
+    pattern = result["dataset"][1][0][1][0]["han_bitpatroon"]
+    assert X.validate_xml(text.replace(pattern, "-" * 200, 1), fmt)
+    assert X.validate_xml(text.replace("<han_totaal>1250</han_totaal>", "<han_totaal>1</han_totaal>", 1), fmt)
+    assert X.validate_xml(text.replace("<han_nhg />", "", 1), fmt)
+    assert X.validate_xml("<x/>", fmt) and X.validate_xml("geen xml", fmt)
+
+
+def test_real_oprognose_export_passes_validator_if_available():
+    path = os.environ.get("OPROGNOSE_SAMPLE_XML")
+    if not path or not os.path.exists(path):
+        pytest.skip("geen echte OPrognose-export opgegeven (OPROGNOSE_SAMPLE_XML); bevat klantgegevens, niet in de repo")
+    assert X.validate_xml(open(path, encoding="utf-8").read(), X.load_format()) == []
+
+
+def test_end_to_end_outputs(tmp_path):
+    result = _result()
+    meta = {"tool_version": A.TOOL_VERSION, "at": T0, "document_id": "DOC-T1", "target_price_year": 2027,
+            "index_source": "TEST", "fund_params": {}, "last_replacement_years": {}}
+    xml_path = A.write_outputs(result, meta, str(tmp_path / "M"))
+    names = {p.name for p in (tmp_path / "M").iterdir()}
+    assert {"M.xml", "plan.json", "lines.json", "reserve_fund.json", "oprognose_export_report.json", "rapport.md"} <= names
+    assert "review.xlsx" not in names
+    with open(xml_path, encoding="utf-8", newline="") as f:
+        assert X.validate_xml(f.read(), result["fmt"]) == []
+    report = (tmp_path / "M" / "rapport.md").read_text(encoding="utf-8")
+    assert "M.xml" in report and "Niet geïnspecteerd" in report
+    fund = result["reserve_fund"]
+    assert fund["status"] == "CONCEPT" and fund["advice"]["comparison_half_percent_rebuild_value"] == "5000.00"
+
+
+def test_cli_run_on_real_verified_document(tmp_path):
+    assert A.main(["run", "--document", "DOC-010", "--building-id", "BLD", "--start-year", "2027",
+                   "--opening-balance", "1000", "--annual-contribution", "100", "--out-dir", str(tmp_path)]) == 0
+    out = tmp_path / "MJOP-DOC-010-ACT2027"
+    with open(out / "MJOP-DOC-010-ACT2027.xml", encoding="utf-8", newline="") as f:
+        assert X.validate_xml(f.read(), X.load_format()) == []

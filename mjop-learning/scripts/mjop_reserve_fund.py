@@ -53,7 +53,7 @@ def _s(x):
     return format(_c(x), "f")
 
 
-def yearly_expenses(lines, start, end, *, price_level_year, cost_inflation, include_proposals):
+def yearly_expenses(lines, start, end, *, price_level_year, cost_inflation, include_proposals, amount_fn=None):
     """({jaar: Decimal}, details). Uitgaven op prijspeil price_level_year, verhoogd met kosteninflatie."""
     raw = defaultdict(Decimal)
     basis_count, vat = Counter(), Counter()
@@ -63,7 +63,7 @@ def yearly_expenses(lines, start, end, *, price_level_year, cost_inflation, incl
         if not years:
             without_schedule.append(l["maintenance_line_id"])
             continue
-        amount, basis = line_v2.cost_per_occurrence(l, include_proposals=include_proposals)
+        amount, basis = (amount_fn or line_v2.cost_per_occurrence)(l, include_proposals=include_proposals)
         if amount is None:
             without_amount.append(l["maintenance_line_id"])
             continue
@@ -115,14 +115,17 @@ def minimum_contribution(expenses, start, end, *, opening_balance, contribution_
 
 
 def run(lines, *, start, end, price_level_year, opening_balance, annual_contribution, contribution_growth="0",
-        interest_rate="0", cost_inflation="0", min_balance="0", include_proposals=True, rebuild_value=None):
+        interest_rate="0", cost_inflation="0", min_balance="0", include_proposals=True, rebuild_value=None,
+        amount_fn=None):
+    """amount_fn(line, include_proposals) -> (Decimal of None, basis); standaard cost_per_occurrence.
+    De actualiseringstool geeft hier de bedragen van het OPrognose-bestand mee (zelfde prijspeil)."""
     ob, ac = _d(opening_balance, "opening_balance"), _d(annual_contribution, "annual_contribution")
     g, r, i, mb = (_d(contribution_growth, "contribution_growth"), _d(interest_rate, "interest_rate"),
                    _d(cost_inflation, "cost_inflation"), _d(min_balance, "min_balance"))
     if price_level_year is None:
         raise FundError("price_level_year is verplicht")
     expenses, details = yearly_expenses(lines, start, end, price_level_year=price_level_year, cost_inflation=i,
-                                        include_proposals=include_proposals)
+                                        include_proposals=include_proposals, amount_fn=amount_fn)
     rows = simulate(expenses, start, end, opening_balance=ob, contribution=ac, contribution_growth=g, interest_rate=r)
     shortfall = [row["year"] for row in rows if row["closing"] < mb]
     lowest = min(rows, key=lambda row: (row["closing"], row["year"]))
@@ -135,7 +138,7 @@ def run(lines, *, start, end, price_level_year, opening_balance, annual_contribu
     if rebuild_value is not None:
         advice["comparison_half_percent_rebuild_value"] = _s(_d(rebuild_value, "rebuild_value") * Decimal("0.005"))
     warnings = []
-    if include_proposals and details["cost_basis_counts"].get("PROPOSED_INDEXED_HISTORICAL"):
+    if include_proposals and any(k.startswith(("PROPOSED", "EXPORT_")) for k in details["cost_basis_counts"]):
         warnings.append("CONCEPT: bevat geïndexeerde historische bedragen die nog niet door een mens zijn geaccepteerd.")
     if include_proposals:
         warnings.append("CONCEPT: planjaren omvatten voorstellen van de horizon-planner.")

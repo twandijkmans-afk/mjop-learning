@@ -1,0 +1,418 @@
+  <xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="opo">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="obj_pk" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_code" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_adres" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_postcode" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_plaats" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_telefoon" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_fax" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_bouwjaar" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_klpostadres" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klantcode" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klemail" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_renojaar" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_inspecteur" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_inspectie" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_type" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_kopgevel" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_monument" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_ligging" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_grondm2" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_brutom3" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_achterstal" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_opm" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_btw" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_klnaam" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klcontact" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_kladres" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klpostcode" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klplaats" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klmobiel" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_kltelefoon" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klfax" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_tp3fk" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_planjaar" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_lock" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_stopjaar" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_aantal" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_foto" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_reservering" type="xs:double" minOccurs="0" />
+                <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_userid" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_foto2" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_foto3" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_foto4" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_cno" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_cvo" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_weegfactorvg" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_weegfactorfk" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_weegfactoret" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_grenswaarde1" type="xs:short" minOccurs="0" />
+                <xs:element name="obj_grenswaarde2" type="xs:short" minOccurs="0" />
+                <xs:element name="obj_saldo" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_prijspeil" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_aantapp" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_text1" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_text2" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_memo1" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_memo2" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_memo3" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_memo4" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_memo5" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_memo6" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_verbetering" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_weer" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_nootjaarplan" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_noot5jaren" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_noot10jaren" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_nootvoorblad" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_rapporttitel" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_nootbevinding" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_nootelement" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_nootkapi" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_budget" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_expired" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_created" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_lastopened" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_abonnement" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_opslag1" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_opslag2" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_kapitaljaren" type="xs:int" minOccurs="0" />
+                <xs:element name="obj_footer" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_klfunctie" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_kadastraal" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_btwtarieftoepassen" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_weegfactor" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_planversie" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_beheerder" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_projectleider" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_archetype" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_plattegrond" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_inleiding" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_logboek" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_xmlapmatrix" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_language" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_geolat" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_geolng" type="xs:double" minOccurs="0" />
+                <xs:element name="obj_strategie" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lsprapporttitel" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspdocument" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspopmerkingen" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspeenmalig" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_lspvolledig" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_lspspanningsloos" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_lspsteekproef" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspinspecteur" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspnormen" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspmeetapp" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspsamenvatting" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspinspectiedatum" type="xs:dateTime" minOccurs="0" />
+                <xs:element name="obj_pdfbijlage" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_templatefolder" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_strategieid" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_perceel" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_categorie" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_functie" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_xmlapmatrixnen6059" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspredenverzekering" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_lspredenherkeuring" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_lspredenanders" type="xs:boolean" minOccurs="0" />
+                <xs:element name="obj_lspmeetapptype" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspmeetappserienr" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspconclusie" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lsphandtekekeninginspnaam" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lsphandtekekeningtzvnaam" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspgewichta" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspgewichtb" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspgewichtc" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspgewichtd" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_lspgewichte" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_brandveiligheidsniveau" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_ifcbestand" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_bagid" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_eigendom" type="xs:string" minOccurs="0" />
+                <xs:element name="obj_topdeskbranchid" type="xs:string" minOccurs="0" />
+                <xs:element name="ope" minOccurs="0" maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="ele_pk" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_objfk" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_tekst" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_hvh" type="xs:double" minOccurs="0" />
+                      <xs:element name="ele_eenheid" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_ni3fk" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_cmiddelk" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_ondbouw" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_matcode" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_matrix" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_locatie" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_oms" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_bevindid" type="xs:string" minOccurs="0" />
+                      <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+                      <xs:element name="ele_userid" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_vrij1" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_vrij2" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_erffk" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_nlsfb" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_nlsfbhoofd" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_stabu" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_linkid" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_boocode" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_cvo" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_cno" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_soort" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_type" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_fabrikaat" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_bouwjaar" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_capaciteit" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_foto" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_garantietot" type="xs:dateTime" minOccurs="0" />
+                      <xs:element name="ele_condeis" type="xs:int" minOccurs="0" />
+                      <xs:element name="ele_leverancier" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_tag" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_freonsoort" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_serienummer" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_steknummer" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_alertcode" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_brandklasse" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_energieklasse" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_inzichtklasse" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_duurzaamklasse" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_verzscore" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_bdniveau" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_inframateriaal" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_levensduur" type="xs:short" minOccurs="0" />
+                      <xs:element name="ele_vervangingswaarde" type="xs:double" minOccurs="0" />
+                      <xs:element name="ele_document" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_infrasubcode" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_techcond" type="xs:double" minOccurs="0" />
+                      <xs:element name="ele_ipadstempel" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_strategieid" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_ruimtetype" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_ruimte" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_ruimtegebied" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_aspect" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_proces" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_functie" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_discipline" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_bevindidnen3140" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_bevindidnen6059" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_qrcode" type="xs:string" minOccurs="0" />
+                      <xs:element name="ele_safetyregisterexport" type="xs:boolean" minOccurs="0" />
+                      <xs:element name="opu" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="uit_pk" type="xs:int" minOccurs="0" />
+                            <xs:element name="uit_elefk" type="xs:int" minOccurs="0" />
+                            <xs:element name="uit_tekening" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_tekst" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_aantal" type="xs:double" minOccurs="0" />
+                            <xs:element name="uit_factor" type="xs:double" minOccurs="0" />
+                            <xs:element name="uit_lengte" type="xs:double" minOccurs="0" />
+                            <xs:element name="uit_breedte" type="xs:double" minOccurs="0" />
+                            <xs:element name="uit_hoogte" type="xs:double" minOccurs="0" />
+                            <xs:element name="uit_totaal" type="xs:double" minOccurs="0" />
+                            <xs:element name="uit_opm" type="xs:string" minOccurs="0" />
+                            <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+                            <xs:element name="uit_regelnr" type="xs:int" minOccurs="0" />
+                            <xs:element name="uit_type" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_woningaantal" type="xs:short" minOccurs="0" />
+                            <xs:element name="uit_revitid" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_revitcategorie" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_revittype" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_revitlocatie" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_inventarisatiedeel" type="xs:string" minOccurs="0" />
+                            <xs:element name="uit_converted" type="xs:boolean" minOccurs="0" />
+                            <xs:element name="uit_ipadstempel" type="xs:string" minOccurs="0" />
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="oph" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="han_pk" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_elefk" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_hrffk" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_bevfk" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_wrkcode" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_nhg" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_type" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_tekst" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_gebrek" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_eenheid" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_blaag" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_hvhreken" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_hvh" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_prijs" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_startjaar_scen1" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_startjaar" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_hierarchie" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_cyclus" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_bitpatroon_scen1" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_bitpatroon" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_totaal" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_vakfk" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_urgentie" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_locatie" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_opslag" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_percentage" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_nhgkv" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_fonds" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_soort" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_actie" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_stopjaar" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_opm" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_foto" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_userid" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_label" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_projectcode" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_handelid" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_stabu" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_intensiteit" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_omvang" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_cvo" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_herstelactiviteit" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_ernst" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_begrref" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_lock" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_uren" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_aspect1" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_aspect4" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_aspect6" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_priorscore" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_werkoms" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_factor" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_vrij1" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_kostensoort" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_kostenplaats" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_btwtarief" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_aspect2" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_aspect3" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_aspect5" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_aspect7" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_omvangperc" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_nen2767" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_alertcode" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_discipline" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_gebreksoort" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_gebrekstype" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_cno" type="xs:short" minOccurs="0" />
+                            <xs:element name="han_nen3140" type="xs:boolean" minOccurs="0" />
+                            <xs:element name="han_isverval" type="xs:boolean" minOccurs="0" />
+                            <xs:element name="han_foto2" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_foto3" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_foto4" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_ipadstempel" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_brimexport" type="xs:boolean" minOccurs="0" />
+                            <xs:element name="han_norm" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_sigmasysteem" type="xs:string" minOccurs="0" />
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="ops" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="his_pk" type="xs:int" minOccurs="0" />
+                            <xs:element name="his_opm" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_pk" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_elefk" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_type" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_gebrek" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_tekst" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_eenheid" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_blaag" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_hvhreken" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_hvh" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_prijs" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_startjaar" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_hierarchie" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_cyclus" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_totaal" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_vakfk" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_urgentie" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_locatie" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_percentage" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_fonds" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_actie" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_handelid" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_stopjaar" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_nacalc" type="xs:double" minOccurs="0" />
+                            <xs:element name="han_gereed" type="xs:boolean" minOccurs="0" />
+                            <xs:element name="han_fasering" type="xs:int" minOccurs="0" />
+                            <xs:element name="han_opm" type="xs:string" minOccurs="0" />
+                            <xs:element name="modified" type="xs:dateTime" minOccurs="0" />
+                            <xs:element name="han_foto" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_userid" type="xs:string" minOccurs="0" />
+                            <xs:element name="han_gemeld" type="xs:dateTime" minOccurs="0" />
+                            <xs:element name="han_kostensoort" type="xs:string" minOccurs="0" />
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                      <xs:element name="opm" minOccurs="0" maxOccurs="unbounded">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="mst_pk" type="xs:int" minOccurs="0" />
+                            <xs:element name="mst_elefk" type="xs:int" minOccurs="0" />
+                            <xs:element name="mst_naamstroomkring" type="xs:string" minOccurs="0" />
+                            <xs:element name="mst_typezekering" type="xs:string" minOccurs="0" />
+                            <xs:element name="mst_stroom" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_kabeldoorsnede" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_isolatieweerstand" type="xs:string" minOccurs="0" />
+                            <xs:element name="mst_zi" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_ziik" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_zs" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_zsik" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_als" type="xs:string" minOccurs="0" />
+                            <xs:element name="mst_aanspreekstroom" type="xs:short" minOccurs="0" />
+                            <xs:element name="mst_aanspreektijd" type="xs:short" minOccurs="0" />
+                            <xs:element name="mst_frequentie" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_aardweerstand" type="xs:double" minOccurs="0" />
+                            <xs:element name="mst_stelsel" type="xs:string" minOccurs="0" />
+                            <xs:element name="mst_ipadstempel" type="xs:string" minOccurs="0" />
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+      <xs:unique name="ope_Constraint1" msdata:ConstraintName="Constraint1">
+        <xs:selector xpath=".//ope" />
+        <xs:field xpath="ele_pk" />
+      </xs:unique>
+      <xs:unique name="Constraint1">
+        <xs:selector xpath=".//opo" />
+        <xs:field xpath="obj_pk" />
+      </xs:unique>
+      <xs:keyref name="ObjEle" refer="Constraint1" msdata:IsNested="true">
+        <xs:selector xpath=".//ope" />
+        <xs:field xpath="ele_objfk" />
+      </xs:keyref>
+      <xs:keyref name="EleMst" refer="ope_Constraint1" msdata:IsNested="true">
+        <xs:selector xpath=".//opm" />
+        <xs:field xpath="mst_elefk" />
+      </xs:keyref>
+      <xs:keyref name="EleHis" refer="ope_Constraint1" msdata:IsNested="true">
+        <xs:selector xpath=".//ops" />
+        <xs:field xpath="han_elefk" />
+      </xs:keyref>
+      <xs:keyref name="EleHan" refer="ope_Constraint1" msdata:IsNested="true">
+        <xs:selector xpath=".//oph" />
+        <xs:field xpath="han_elefk" />
+      </xs:keyref>
+      <xs:keyref name="EleUit" refer="ope_Constraint1" msdata:IsNested="true">
+        <xs:selector xpath=".//opu" />
+        <xs:field xpath="uit_elefk" />
+      </xs:keyref>
+    </xs:element>
+  </xs:schema>
