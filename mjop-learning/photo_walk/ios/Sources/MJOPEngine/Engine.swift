@@ -136,6 +136,8 @@ public struct FundYear: Equatable {
 
 public enum Engine {
     public static let horizon = 10
+    /// Looptijden waaruit je bij het rapport kunt kiezen (jaren).
+    public static let reportHorizons = [5, 10, 15, 20, 25, 30]
 
     public static let kozijnDefaults: [(String, Decimal)] = [("Draaiend raam", 174), ("Vast glas", 96), ("Deur", 240), ("Dakkapel", 320)]
     static let kozFactoren: [Double] = [1, 0.25, 0.125, 0.125]
@@ -296,7 +298,7 @@ public enum Engine {
         return max(year, year + rest)
     }
 
-    public static func schedule(_ el: PlanElement, year: Int) -> [PlannedCost] {
+    public static func schedule(_ el: PlanElement, year: Int, horizon: Int = Engine.horizon) -> [PlannedCost] {
         let end = year + horizon - 1
         var out: [PlannedCost] = []
         if el.type == .kozijnen && el.prijsOfferte == nil {
@@ -323,8 +325,8 @@ public enum Engine {
     }
 
     /// Alle uitgaven binnen de planningshorizon, op jaar en daarbinnen het duurste eerst (stabiel, zoals de website).
-    public static func plan(_ elements: [PlanElement], year: Int) -> [PlannedCost] {
-        let all = elements.flatMap { schedule($0, year: year) }
+    public static func plan(_ elements: [PlanElement], year: Int, horizon: Int = Engine.horizon) -> [PlannedCost] {
+        let all = elements.flatMap { schedule($0, year: year, horizon: horizon) }
         return all.enumerated().sorted { a, b in
             if a.element.jaar != b.element.jaar { return a.element.jaar < b.element.jaar }
             if a.element.bedrag != b.element.bedrag { return a.element.bedrag > b.element.bedrag }
@@ -337,7 +339,7 @@ public enum Engine {
     }
 
     /// Fondsstand aan het eind van elk jaar bij een maandbijdrage per appartement.
-    public static func fund(fonds: Decimal, bijdrage: Decimal, units: Int, perYear: [Int: Decimal], year: Int) -> [FundYear] {
+    public static func fund(fonds: Decimal, bijdrage: Decimal, units: Int, perYear: [Int: Decimal], year: Int, horizon: Int = Engine.horizon) -> [FundYear] {
         let inkomen = bijdrage * 12 * Decimal(max(1, units))
         var saldo = fonds
         return (year...(year + horizon - 1)).map { j in
@@ -348,11 +350,11 @@ public enum Engine {
     }
 
     /// Laagste maandbijdrage (stappen van € 5) waarbij het fonds aan het eind van elk jaar niet onder 0 komt; minimaal € 5.
-    public static func requiredContribution(fonds: Decimal, units: Int, perYear: [Int: Decimal], year: Int) -> Int {
+    public static func requiredContribution(fonds: Decimal, units: Int, perYear: [Int: Decimal], year: Int, horizon: Int = Engine.horizon) -> Int {
         var b = 0
         var guardCount = 0
         while guardCount < 10000 {
-            let lowest = fund(fonds: fonds, bijdrage: Decimal(b), units: units, perYear: perYear, year: year).map(\.saldo).min() ?? 0
+            let lowest = fund(fonds: fonds, bijdrage: Decimal(b), units: units, perYear: perYear, year: year, horizon: horizon).map(\.saldo).min() ?? 0
             if lowest >= 0 { break }
             b += 5; guardCount += 1
         }

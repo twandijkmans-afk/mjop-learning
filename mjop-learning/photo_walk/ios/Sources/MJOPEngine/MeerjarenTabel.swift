@@ -61,9 +61,15 @@ public enum MeerjarenTabel {
         return digits.count >= 2 ? String(digits.prefix(2)) : nil
     }
 
+    /// De jaren in blokken van `size` (voor de liggende pagina's): 30 jaar = 3 blokken van 10.
+    public static func blocks(_ years: [Int], size: Int = 10) -> [[Int]] {
+        guard size > 0 else { return [years] }
+        return stride(from: 0, to: years.count, by: size).map { Array(years[$0..<min($0 + size, years.count)]) }
+    }
+
     public static func make(elements: [PlanElement], year: Int, horizon: Int = Engine.horizon) -> Result {
         let years = Array(year...(year + horizon - 1))
-        let plan = Engine.plan(elements, year: year)
+        let plan = Engine.plan(elements, year: year, horizon: horizon)
         let byKey = Dictionary(grouping: plan, by: \.key)
         let sfbByKey = Dictionary(Engine.library.map { ($0.key, $0.sfb) }, uniquingKeysWith: { a, _ in a })
 

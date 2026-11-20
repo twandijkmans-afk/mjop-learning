@@ -7,22 +7,23 @@ import UIKit
 /// Alleen echte gegevens; onbekend staat er als onbekend, een niet te berekenen post als "bedrag onbekend" (nooit € 0).
 enum RapportPDF {
     /// `photos`: bijschrift en foto per gevelfoto (bijlage). `scanPhotos`: dezelfde foto's per opslagpad, voor de uitsnede bij een bevinding.
-    static func make(project: Project, model: ProjectModel, photos: [(String, UIImage)] = [], scanPhotos: [String: UIImage] = [:]) throws -> URL {
-        let year = ProjectModel.year, end = year + Engine.horizon - 1
+    static func make(project: Project, model: ProjectModel, photos: [(String, UIImage)] = [], scanPhotos: [String: UIImage] = [:], horizon: Int = Engine.horizon) throws -> URL {
+        let year = ProjectModel.year, end = year + horizon - 1
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("MJOP \(project.naam) \(year)-\(end).pdf")
         let doc = Doc(project: project)
         let renderer = UIGraphicsPDFRenderer(bounds: Doc.portrait)
         try renderer.writePDF(to: url) { ctx in
             doc.ctx = ctx
-            cover(doc, project: project, model: model, photo: photos.first?.1)
-            objectData(doc, project: project, model: model)
+            let table = MeerjarenTabel.make(elements: model.elements, year: year, horizon: horizon)
+            let money = Money(model: model, table: table, year: year, horizon: horizon)
+            cover(doc, project: project, model: model, photo: photos.first?.1, end: end)
+            objectData(doc, project: project, model: model, money: money)
             elementOverview(doc, model: model)
             findings(doc, model: model, scanPhotos: scanPhotos)
-            let table = MeerjarenTabel.make(elements: model.elements, year: year)
             multiYear(doc, table: table)
             mainGroups(doc, table: table)
             yearPlan(doc, table: table, year: year)
-            fund(doc, model: model)
+            fund(doc, model: model, money: money)
             measured(doc, model: model)
             appendix(doc, photos: photos)
         }
@@ -203,10 +204,26 @@ enum RapportPDF {
         }
     }
 
+    /// Bedragen over de gekozen looptijd (de app zelf rekent met 10 jaar).
+    struct Money {
+        let table: MeerjarenTabel.Result
+        let horizon: Int
+        let fund: [FundYear]?
+        let required: Int?
+        var peak: (jaar: Int, bedrag: Decimal)? { table.perYear.max { $0.value < $1.value }.map { ($0.key, $0.value) } }
+        init(model: ProjectModel, table: MeerjarenTabel.Result, year: Int, horizon: Int) {
+            self.table = table; self.horizon = horizon
+            if let f = model.fonds, let b = model.bijdrage {
+                fund = Engine.fund(fonds: f, bijdrage: b, units: model.units, perYear: table.perYear, year: year, horizon: horizon)
+            } else { fund = nil }
+            required = model.fonds.map { Engine.requiredContribution(fonds: $0, units: model.units, perYear: table.perYear, year: year, horizon: horizon) }
+        }
+    }
+
     // MARK: - Voorblad
 
-    static func cover(_ d: Doc, project: Project, model: ProjectModel, photo: UIImage?) {
-        let year = ProjectModel.year, end = year + Engine.horizon - 1
+    static func cover(_ d: Doc, project: Project, model: ProjectModel, photo: UIImage?, end: Int) {
+        let year = ProjectModel.year
         d.newPage(header: false)
         d.logo(x: d.page.width - d.margin - 92, y: d.margin, size: 26)
         d.y = 150
@@ -237,8 +254,8 @@ enum RapportPDF {
 
     // MARK: - Algemene objectgegevens
 
-    static func objectData(_ d: Doc, project: Project, model: ProjectModel) {
-        let year = ProjectModel.year, end = year + Engine.horizon - 1
+    static func objectData(_ d: Doc, project: Project, model: ProjectModel, money: Money) {
+        let year = ProjectModel.year, end = year + money.horizon - 1
         let b = model.building
         d.newPage()
         d.bar("Algemene objectgegevens")
@@ -257,15 +274,15 @@ enum RapportPDF {
         d.field("Gescand", (model.roof == nil ? "dak niet gescand" : "dak gescand") + " · \(Set(model.gevels.map(\.sideId)).count) gevel(s) gescand")
         d.y += 4
         d.subBar("Financieel")
-        d.field("Planperiode", "\(year) – \(end) (\(Engine.horizon) jaar)")
+        d.field("Planperiode", "\(year) – \(end) (\(money.horizon) jaar)")
         d.field("Prijspeil", "\(year); bedragen zijn niet geïndexeerd")
         d.field("Btw", "niet apart gespecificeerd in de standaardbedragen")
-        d.field("Geraamd onderhoud", euro(model.total))
-        d.field("Duurste jaar", model.peak.map { "\($0.jaar) · \(euro($0.bedrag))" } ?? "onbekend")
+        d.field("Geraamd onderhoud", euro(money.table.total))
+        d.field("Duurste jaar", money.peak.map { "\($0.jaar) · \(euro($0.bedrag))" } ?? "onbekend")
         d.field("Reservefonds (saldo nu)", model.fonds.map(euro) ?? "niet ingevuld")
         d.field("Bijdrage per appartement per maand", model.bijdrage.map(euro) ?? "niet ingevuld")
-        d.field("Nodig om niet onder € 0 te komen", model.required.map { DSFormat.euros($0) + " per appartement per maand" } ?? "onbekend (saldo niet ingevuld)")
-        d.field("Laagste stand reservefonds", model.fund?.min { $0.saldo < $1.saldo }.map { "\(euro($0.saldo)) in \($0.jaar)" } ?? "onbekend")
+        d.field("Nodig om niet onder € 0 te komen", money.required.map { DSFormat.euros($0) + " per appartement per maand" } ?? "onbekend (saldo niet ingevuld)")
+        d.field("Laagste stand reservefonds", money.fund?.min { $0.saldo < $1.saldo }.map { "\(euro($0.saldo)) in \($0.jaar)" } ?? "onbekend")
         d.y += 4
         d.subBar("Opmerkingen")
         let notes = [
@@ -401,15 +418,26 @@ enum RapportPDF {
                        ("Bedragen", "De kosten van de beurt in dat jaar; per hoofdgroep een subtotaal en onderaan het totaal per jaar."),
                        ("Bedrag onbekend", "De kosten zijn niet te berekenen omdat een hoeveelheid ontbreekt; vul die in de app in. Zo'n post telt niet mee in de totalen.")])
         d.text("Bedragen op prijspeil \(first), niet geïndexeerd. Standaardbedragen tenzij gemarkeerd met (offerte). Printdatum \(printDate).", 8.5, grey, x: d.left, w: d.width, advance: true)
+        if table.years.count > Engine.horizon {
+            d.y += 4
+            d.text("Na \(first + Engine.horizon - 1) is de raming onzekerder: standaardbedragen en levensduur, geen indexatie. De tabel staat in blokken van 10 jaar; de kolom Totaal is het totaal over de hele looptijd \(first) – \(last).", 8.5, grey, x: d.left, w: d.width, advance: true)
+        }
+        let blocks = MeerjarenTabel.blocks(table.years)
+        for (n, years) in blocks.enumerated() {
+            multiYearBlock(d, table: table, years: years, index: n, count: blocks.count)
+        }
+    }
 
+    /// Eén blok van (hooguit) 10 jaar op liggende pagina's. Alleen posten met kosten in dit blok, plus posten met een onbekend bedrag.
+    static func multiYearBlock(_ d: Doc, table: MeerjarenTabel.Result, years: [Int], index: Int, count: Int) {
         let yearW: CGFloat = 40, totalW: CGFloat = 56
         let totalX = d.left + d.width - totalW
-        let yearsX = totalX - CGFloat(table.years.count) * yearW
+        let yearsX = totalX - CGFloat(years.count) * yearW
         let nameW = yearsX - d.left - 150
         let qtyX = d.left + 34 + nameW, stjX = qtyX + 70, cyX = stjX + 28
         func yearX(_ i: Int) -> CGFloat { yearsX + CGFloat(i) * yearW }
         func amounts(_ py: [Int: Decimal], total: String, size: CGFloat, weight: UIFont.Weight, at yy: CGFloat, zeros: Bool) {
-            for (i, j) in table.years.enumerated() {
+            for (i, j) in years.enumerated() {
                 if let v = py[j], v != 0 { d.text(euro(v), size, weight: weight, x: yearX(i), w: yearW - 3, align: .right, at: yy) }
                 else if zeros { d.text("€ 0", size, grey, x: yearX(i), w: yearW - 3, align: .right, at: yy) }
             }
@@ -421,19 +449,24 @@ enum RapportPDF {
             d.text("Hvh Ehd", 7.5, .white, weight: .semibold, x: qtyX, w: 66, align: .right, at: d.y + 4)
             d.text("Stj", 7.5, .white, weight: .semibold, x: stjX + 4, w: 26, at: d.y + 4)
             d.text("Cy", 7.5, .white, weight: .semibold, x: cyX + 4, w: 24, at: d.y + 4)
-            for (i, j) in table.years.enumerated() { d.text(String(j), 7.5, .white, weight: .semibold, x: yearX(i), w: yearW - 3, align: .right, at: d.y + 4) }
+            for (i, j) in years.enumerated() { d.text(String(j), 7.5, .white, weight: .semibold, x: yearX(i), w: yearW - 3, align: .right, at: d.y + 4) }
             d.text("Totaal", 7.5, .white, weight: .semibold, x: totalX, w: totalW - 3, align: .right, at: d.y + 4)
             d.y += 20
         }
         d.newPage(landscape: true)
+        if count > 1 {
+            d.text("Meerjarentabel \(years.first!) – \(years.last!) (blok \(index + 1) van \(count))", 11, weight: .bold, x: d.left, w: d.width, advance: true)
+            d.y += 6
+        }
         header()
         d.repeatHeader = header
-        for g in table.groups {
+        let inBlock = { (r: MeerjarenTabel.Row) -> Bool in r.costUnknown || years.contains { (r.perYear[$0] ?? 0) != 0 } || (index == 0 && r.perYear.isEmpty) }
+        for g in table.groups where g.rows.contains(where: inBlock) {
             d.ensure(52)
             d.fill(CGRect(x: d.left, y: d.y, width: d.width, height: 16), blueSoft)
             d.text("\(g.code)   \(g.naam)", 9, weight: .bold, x: d.left + 3, w: 300, at: d.y + 2.5)
             d.y += 18
-            for (i, r) in g.rows.enumerated() {
+            for (i, r) in g.rows.filter(inBlock).enumerated() {
                 let name = r.naam + (r.fromQuote ? " (offerte)" : "")
                 let h = max(d.height(name, 7.5, w: nameW - 4), 10) + 5
                 d.ensure(h)
@@ -445,7 +478,7 @@ enum RapportPDF {
                 d.text(r.startYear.map(String.init) ?? "–", 7.5, x: stjX + 4, w: 26, at: yy)
                 d.text(r.cycles.map(String.init).joined(separator: "/"), 7.5, x: cyX + 4, w: 24, at: yy)
                 if r.costUnknown {
-                    d.text("bedrag onbekend", 7.5, condition(5).0, weight: .semibold, x: yearsX, w: CGFloat(table.years.count) * yearW + totalW - 3, align: .right, at: yy)
+                    d.text("bedrag onbekend", 7.5, condition(5).0, weight: .semibold, x: yearsX, w: CGFloat(years.count) * yearW + totalW - 3, align: .right, at: yy)
                 } else {
                     amounts(r.perYear, total: euro(r.total), size: 7.5, weight: .regular, at: yy, zeros: false)
                 }
@@ -470,14 +503,25 @@ enum RapportPDF {
     static func mainGroups(_ d: Doc, table: MeerjarenTabel.Result) {
         d.newPage(landscape: true)
         d.sectionTitle("Meerjarentabel per hoofdgroep", 14)
+        let blocks = MeerjarenTabel.blocks(table.years)
+        for (n, years) in blocks.enumerated() {
+            mainGroupsBlock(d, table: table, years: years, label: blocks.count > 1 ? "\(years.first!) – \(years.last!) (blok \(n + 1) van \(blocks.count))" : nil)
+        }
+        if table.hasUnknown { d.text("* Bevat een post met een onbekend bedrag; die telt niet mee.", 8.5, grey, x: d.left, w: d.width, advance: true) }
+        if blocks.count > 1 { d.text("De kolom Totaal is het totaal over de hele looptijd \(table.years.first!) – \(table.years.last!).", 8.5, grey, x: d.left, w: d.width, advance: true) }
+    }
+
+    static func mainGroupsBlock(_ d: Doc, table: MeerjarenTabel.Result, years: [Int], label: String?) {
+        d.ensure(CGFloat(table.groups.count) * 17 + 90)
+        if let label { d.text(label, 10.5, weight: .bold, x: d.left, w: d.width, advance: true); d.y += 6 }
         let yearW: CGFloat = 46, totalW: CGFloat = 62
         let totalX = d.left + d.width - totalW
-        let yearsX = totalX - CGFloat(table.years.count) * yearW
+        let yearsX = totalX - CGFloat(years.count) * yearW
         func header() {
             d.fill(CGRect(x: d.left, y: d.y, width: d.width, height: 18), blue)
             d.text("Code", 8, .white, weight: .semibold, x: d.left + 3, w: 40, at: d.y + 4)
             d.text("Hoofdgroep", 8, .white, weight: .semibold, x: d.left + 40, w: 200, at: d.y + 4)
-            for (i, j) in table.years.enumerated() { d.text(String(j), 8, .white, weight: .semibold, x: yearsX + CGFloat(i) * yearW, w: yearW - 3, align: .right, at: d.y + 4) }
+            for (i, j) in years.enumerated() { d.text(String(j), 8, .white, weight: .semibold, x: yearsX + CGFloat(i) * yearW, w: yearW - 3, align: .right, at: d.y + 4) }
             d.text("Totaal", 8, .white, weight: .semibold, x: totalX, w: totalW - 3, align: .right, at: d.y + 4)
             d.y += 22
         }
@@ -488,7 +532,7 @@ enum RapportPDF {
             if n % 2 == 0 { d.fill(CGRect(x: d.left, y: d.y - 2, width: d.width, height: 17), zebra) }
             d.text(g.code, 8, grey, x: d.left + 3, w: 36, at: d.y + 1)
             d.text(g.naam + (g.hasUnknown ? " *" : ""), 8, x: d.left + 40, w: yearsX - d.left - 44, at: d.y + 1)
-            for (i, j) in table.years.enumerated() where (g.perYear[j] ?? 0) != 0 {
+            for (i, j) in years.enumerated() where (g.perYear[j] ?? 0) != 0 {
                 d.text(euro(g.perYear[j]!), 8, x: yearsX + CGFloat(i) * yearW, w: yearW - 3, align: .right, at: d.y + 1)
             }
             d.text(euro(g.total), 8, weight: .semibold, x: totalX, w: totalW - 3, align: .right, at: d.y + 1)
@@ -498,12 +542,11 @@ enum RapportPDF {
         d.y += 6
         d.rule(d.y, color: ink, thickness: 1)
         d.text("Totaal", 9, weight: .bold, x: d.left + 3, w: 150, at: d.y + 5)
-        for (i, j) in table.years.enumerated() {
+        for (i, j) in years.enumerated() {
             d.text(euro(table.perYear[j] ?? 0), 8, weight: .bold, x: yearsX + CGFloat(i) * yearW, w: yearW - 3, align: .right, at: d.y + 6)
         }
         d.text(euro(table.total), 8, weight: .bold, x: totalX, w: totalW - 3, align: .right, at: d.y + 6)
         d.y += 24
-        if table.hasUnknown { d.text("* Bevat een post met een onbekend bedrag; die telt niet mee.", 8.5, grey, x: d.left, w: d.width, advance: true) }
         d.repeatHeader = nil
     }
 
@@ -558,11 +601,11 @@ enum RapportPDF {
 
     // MARK: - Reservefonds
 
-    static func fund(_ d: Doc, model: ProjectModel) {
+    static func fund(_ d: Doc, model: ProjectModel, money: Money) {
         d.ensure(140)
         d.y += 10
         d.sectionTitle("Reservefonds", 14)
-        guard let fund = model.fund else {
+        guard let fund = money.fund else {
             d.text("Het verloop van het reservefonds is niet te berekenen: vul in de app het saldo en de maandelijkse bijdrage in.", 9.5, grey, x: d.left, w: d.width, advance: true)
             return
         }

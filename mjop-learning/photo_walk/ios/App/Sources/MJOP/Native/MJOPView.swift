@@ -300,12 +300,15 @@ struct RapportSection: View {
     @State private var pdf: URL?
     @State private var pdfError: String?
     @State private var showShare = false
+    @AppStorage("rapportHorizon") private var horizon = Engine.horizon
+    @State private var photos: [(String, UIImage)]? = nil
+    @State private var byPath: [String: UIImage] = [:]
 
     var body: some View {
         VStack(spacing: 14) {
             VStack(alignment: .leading, spacing: 8) {
                 DSLogo(size: 26)
-                Text("MJOP \(String(ProjectModel.year))–\(String(ProjectModel.year + Engine.horizon - 1))").font(.headline).foregroundStyle(Color(hex: 0x0E1424))
+                Text("MJOP \(String(ProjectModel.year))–\(String(ProjectModel.year + horizon - 1))").font(.headline).foregroundStyle(Color(hex: 0x0E1424))
                 Text(project.fullAddress ?? project.naam).font(.caption2).foregroundStyle(Color(hex: 0x667085))
                 Color.clear.frame(height: 60).background { AerialPhotoView(address: project.fullAddress ?? project.naam, attribution: nil) }.clipShape(RoundedRectangle(cornerRadius: 6))
                 ForEach(0..<3, id: \.self) { i in RoundedRectangle(cornerRadius: 2).fill(Color(hex: 0xE1E6F0)).frame(width: CGFloat([150, 120, 140][i]), height: 4) }
@@ -315,6 +318,17 @@ struct RapportSection: View {
             .shadow(color: .black.opacity(0.16), radius: 20, x: 0, y: 14)
             .accessibilityHidden(true)
             DSChip(text: "Indicatie · \(model.beoordeeld) van \(model.elements.count) posten beoordeeld", fg: DS.warn, bg: DS.warnSoft)
+            VStack(alignment: .leading, spacing: 6) {
+                Text("Looptijd van het rapport").font(.footnote.weight(.semibold)).foregroundStyle(DS.text2)
+                Picker("Looptijd", selection: $horizon) {
+                    ForEach(Engine.reportHorizons, id: \.self) { Text("\($0)").tag($0) }
+                }
+                .pickerStyle(.segmented)
+                .accessibilityIdentifier("reportHorizon")
+                Text("\(horizon) jaar: \(String(ProjectModel.year)) – \(String(ProjectModel.year + horizon - 1))" + (horizon > Engine.horizon ? ". Na 10 jaar is de raming onzekerder." : ""))
+                    .font(.caption).foregroundStyle(DS.text2)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
             if let pdf {
                 ShareLink(item: pdf) { Label("Delen als PDF", systemImage: "square.and.arrow.up") }
                     .buttonStyle(DSPrimaryButton())
@@ -330,7 +344,18 @@ struct RapportSection: View {
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 6)
-        .task(id: model) {
+        .task(id: ReportKey(model: model, horizon: horizon)) {
+            pdf = nil; pdfError = nil
+            if photos == nil { await loadPhotos() }
+            let h = Engine.reportHorizons.contains(horizon) ? horizon : Engine.horizon
+            do { pdf = try RapportPDF.make(project: project, model: model, photos: photos ?? [], scanPhotos: byPath, horizon: h) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
+        }
+        .sheet(isPresented: $showShare) { ShareBoardView(project: project, model: model) }
+    }
+
+    private struct ReportKey: Equatable { let model: ProjectModel; let horizon: Int }
+
+    private func loadPhotos() async {
             var photos: [(String, UIImage)] = []
             var byPath: [String: UIImage] = [:]
             if !reportAccount.demo, let s = try? await reportAccount.validSession() {
@@ -341,8 +366,7 @@ struct RapportSection: View {
                     }
                 }
             }
-            do { pdf = try RapportPDF.make(project: project, model: model, photos: photos, scanPhotos: byPath) } catch { pdfError = "Het rapport kon niet worden gemaakt." }
-        }
-        .sheet(isPresented: $showShare) { ShareBoardView(project: project, model: model) }
+            self.photos = photos
+            self.byPath = byPath
     }
 }

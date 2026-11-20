@@ -65,3 +65,48 @@ final class MeerjarenTabelTests: XCTestCase {
         XCTAssertEqual(row.conditie, 6)
     }
 }
+
+final class LooptijdTests: XCTestCase {
+    let b = BuildingInput(bouwjaar: 1990, units: 6, unitsBAG: 6, footprintM2: 200, omtrekM: 60, dakPlatM2: 200, dakSchuinM2: 0, buitenmuurM2: 540, hoogteM: 9)
+
+    func testThirtyYearsMatchesThePlan() {
+        let els = Engine.defaultElements(for: b, year: 2026)
+        let t = MeerjarenTabel.make(elements: els, year: 2026, horizon: 30)
+        let plan = Engine.plan(els, year: 2026, horizon: 30)
+        XCTAssertEqual(t.years, Array(2026...2055))
+        XCTAssertEqual(t.total, plan.reduce(Decimal(0)) { $0 + $1.bedrag })
+        XCTAssertEqual(t.perYear, Engine.perYear(plan))
+        XCTAssertGreaterThan(t.total, MeerjarenTabel.make(elements: els, year: 2026).total)
+        XCTAssertLessThan(MeerjarenTabel.make(elements: els, year: 2026, horizon: 5).total, MeerjarenTabel.make(elements: els, year: 2026).total + 1)
+    }
+
+    func testDefaultHorizonUnchanged() {
+        let els = Engine.defaultElements(for: b, year: 2026)
+        XCTAssertEqual(Engine.plan(els, year: 2026), Engine.plan(els, year: 2026, horizon: 10))
+    }
+
+    func testLongCycleRepeatsWithinThirtyYears() {
+        var els = Engine.defaultElements(for: b, year: 2026)
+        let i = try! XCTUnwrap(els.firstIndex { $0.key == "dak-plat" })
+        els[i].laatsteBeurt = 2001   // cyclus 25: 2026 en 2051
+        let row = try! XCTUnwrap(MeerjarenTabel.make(elements: els, year: 2026, horizon: 30).groups.flatMap(\.rows).first { $0.key == "dak-plat" })
+        XCTAssertEqual(row.perYear.keys.sorted(), [2026, 2051])
+    }
+
+    func testBlocks() {
+        XCTAssertEqual(MeerjarenTabel.blocks(Array(2026...2030)), [Array(2026...2030)])
+        XCTAssertEqual(MeerjarenTabel.blocks(Array(2026...2055)).map(\.count), [10, 10, 10])
+        XCTAssertEqual(MeerjarenTabel.blocks(Array(2026...2050)).map(\.count), [10, 10, 5])
+        XCTAssertEqual(MeerjarenTabel.blocks(Array(2026...2040)).last?.first, 2036)
+    }
+
+    func testFundOverThirtyYears() {
+        let els = Engine.defaultElements(for: b, year: 2026)
+        let py = Engine.perYear(Engine.plan(els, year: 2026, horizon: 30))
+        XCTAssertEqual(Engine.fund(fonds: 10000, bijdrage: 50, units: 6, perYear: py, year: 2026, horizon: 30).count, 30)
+        XCTAssertEqual(Engine.reportHorizons, [5, 10, 15, 20, 25, 30])
+        let r30 = Engine.requiredContribution(fonds: 10000, units: 6, perYear: py, year: 2026, horizon: 30)
+        let r10 = Engine.requiredContribution(fonds: 10000, units: 6, perYear: py, year: 2026)
+        XCTAssertGreaterThanOrEqual(r30, r10)
+    }
+}
