@@ -155,6 +155,7 @@ public enum RoofPhoto {
         public var photoM2: Double
         public var bagM2: Double
         public var differs: Bool
+        public init(photoM2: Double, bagM2: Double, differs: Bool) { self.photoM2 = photoM2; self.bagM2 = bagM2; self.differs = differs }
     }
     public static func flatCheck(photoFlatM2: Double?, bag: Double?) -> FlatCheck? {
         guard let p = photoFlatM2, let b = bag, max(p, b) > 0 else { return nil }
@@ -167,6 +168,7 @@ public enum RoofPhoto {
 public struct InspectionAdvice: Equatable {
     public var year: Int
     public var reasons: [String]
+    public init(year: Int, reasons: [String]) { self.year = year; self.reasons = reasons }
 }
 
 public enum RoofInspection {
