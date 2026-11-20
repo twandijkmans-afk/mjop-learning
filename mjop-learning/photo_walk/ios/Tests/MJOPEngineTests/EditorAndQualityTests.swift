@@ -23,8 +23,8 @@ final class EditorAndQualityTests: XCTestCase {
         let plane = FacadePlane(id: 1, kind: .hoofdgevel, corners: [[50, 50], [950, 120], [950, 680], [50, 750]])
         var els = [el(1, .kozijn_raam, [[150, 200], [300, 210], [300, 400], [150, 405]]), el(2, .kozijn_raam, [[600, 230], [700, 236], [700, 380], [600, 384]])]
         XCTAssertTrue(FacadeEdit.matchSize(&els, id: 2, to: 1, plane: plane, width: 1000, height: 800))
-        // Elke rechthoek waar het vlak naartoe wordt getrokken is de echte gevel op schaal; hier 9 bij 7 (willekeurig gekozen).
-        let rect = [[0.0, 0.0], [9.0, 0.0], [9.0, 7.0], [0.0, 7.0]]
+        // Rechtgetrokken in hetzelfde eenheidsvierkant als matchSize (de echte gevel op schaal per richting).
+        let rect = [[0.0, 0.0], [1.0, 0.0], [1.0, 1.0], [0.0, 1.0]]
         let h = try XCTUnwrap(Homography(from: plane.corners, to: rect))
         func size(_ q: [[Double]]) -> (Double, Double) {
             let r = q.compactMap { h.apply($0) }
