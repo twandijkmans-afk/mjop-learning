@@ -105,6 +105,39 @@ enum RapportPDF {
                 text("Vastgelegd op gevelfoto's en bevestigd door de gebruiker; geen gecertificeerde NEN 2767-inspectie.", 9, grey, x: margin, w: page.width - 2 * margin, advance: true)
             }
 
+            // elementen per gevel, met de gemeten maten
+            let measuredSides = model.sideResults.filter { !$0.measures.isEmpty }
+            if !measuredSides.isEmpty {
+                let full = page.width - 2 * margin, leftW: CGFloat = 300
+                ensure(80); y += 10
+                text("Elementen per gevel", 16, ink, weight: .bold, x: margin, w: 300, advance: true)
+                y += 6
+                for r in measuredSides {
+                    let facing = model.sides.first { $0.id == r.sideId }?.facing ?? "?"
+                    let copied = r.parts.first?.copiedFromSide != nil
+                    ensure(60)
+                    text("Gevel op het \(facing)" + (copied ? " (overgenomen van een gelijke gevel, aanname)" : ""), 12, ink, weight: .semibold, x: margin, w: full, advance: true)
+                    y += 3
+                    for g in ElementList.groups(r.measures) {
+                        ensure(30)
+                        line.setFill(); UIRectFill(CGRect(x: margin, y: y, width: full, height: 0.5)); y += 3
+                        let left = "\(g.type.label) · \(g.count) st" + (g.materials.isEmpty ? "" : " · " + g.materials.joined(separator: ", "))
+                        let right = ElementFormat.total(g) + (ElementFormat.totalBand(g).map { "  " + $0 } ?? "")
+                        text(left, 10, ink, weight: .semibold, x: margin, w: leftW)
+                        text(right, 10, ink, weight: .semibold, x: margin + leftW, w: full - leftW, align: .right, advance: true)
+                        for m in g.items {
+                            ensure(14)
+                            text(ElementFormat.name(m) + (m.material.map { " · \($0)" } ?? ""), 9, grey, x: margin + 14, w: leftW - 14)
+                            text(ElementFormat.value(m) + (ElementFormat.band(m).map { "  " + $0 } ?? ""), 9, grey, x: margin + leftW, w: full - leftW, align: .right, advance: true)
+                        }
+                        y += 3
+                    }
+                    y += 8
+                }
+                ensure(30)
+                text("Maten berekend uit gevelfoto's met de gevelbreedte uit de BAG; ± volgens vaste regels. Een voorstel, geen inmeting.", 9, grey, x: margin, w: full, advance: true)
+            }
+
             // bijlage: gevelfoto's
             if !photos.isEmpty {
                 newPage()

@@ -35,13 +35,18 @@ struct ProjectModel: Equatable {
         var summary: FacadePhoto.Summary?
         var items: [KozijnItem]
         var failure: String?
+        /// Alle elementen met hun maat (bij een lange gevel uit de aan elkaar gekoppelde foto's: dubbele kozijnen tellen één keer).
+        var measures: [ElementMeasure] = []
     }
+
+    /// Elementenlijst van het hele gebouw: per soort, over alle gescande gevels.
+    var buildingGroups: [ElementGroup] { ElementList.groups(sideResults.flatMap(\.measures)) }
 
     var sideResults: [SideResult] {
         let bySide = Dictionary(grouping: gevels, by: \.sideId)
         return bySide.keys.sorted().map { sid in
             let parts = bySide[sid]!.sorted { ($0.part ?? 1) < ($1.part ?? 1) }
-            if parts.count == 1 { return SideResult(sideId: sid, parts: parts, summary: parts[0].summary, items: parts[0].kozijnItems, failure: nil) }
+            if parts.count == 1 { return SideResult(sideId: sid, parts: parts, summary: parts[0].summary, items: parts[0].kozijnItems, failure: nil, measures: parts[0].elementMeasures) }
             var strip: [FacadeStrip.Part] = []
             for p in parts {
                 guard let main = p.mainPlane, let r = FacadePerspective.rectify(p.elements, plane: main, widthM: 1, focalPx: p.focalPx, imageWidth: p.photoWidth, imageHeight: p.photoHeight) else {
@@ -55,7 +60,8 @@ struct ProjectModel: Equatable {
                     let q = FacadePhoto.quantities(e, mpp: 1, all: [])
                     return KozijnItem(sideId: sid, elementId: e.id, type: e.type, material: e.material, widthM: q.widthM, heightM: q.heightM, hiddenFraction: e.hiddenFraction)
                 }
-                return SideResult(sideId: sid, parts: parts, summary: FacadePhoto.summary(r.elements, mpp: 1), items: items, failure: nil)
+                return SideResult(sideId: sid, parts: parts, summary: FacadePhoto.summary(r.elements, mpp: 1), items: items, failure: nil,
+                                  measures: ElementList.measures(metric: r.elements, relative: parts[0].bandRelative, sideId: sid))
             case .failure(.noOverlap(let k)):
                 return SideResult(sideId: sid, parts: parts, summary: nil, items: [], failure: "Foto \(k) heeft geen kozijn gemeen met foto \(k - 1); zonder overlap is de maat niet te bepalen.")
             case .failure(.mismatch(let k)):
@@ -234,6 +240,18 @@ struct FacadeScan: Codable, Equatable, Identifiable {
         guard let k = mpp else { return nil }
         return elements.map { e in var m = e; m.points = e.points.map { [$0[0] * k, $0[1] * k] }; return m }
     }
+    /// Elk element met zijn maat en ± (vaste regels). Elementen buiten de gevel tellen niet mee; elementen op een vlak zonder maat
+    /// staan er wel in, met onbekende maat.
+    var elementMeasures: [ElementMeasure] {
+        guard let metric = metricElements else { return ElementList.unmeasured(elements, sideId: sideId) }
+        let measured = ElementList.measures(metric: metric, relative: bandRelative, sideId: sideId)
+        let open = Set(unmeasuredPlanes.map(\.id))
+        let ids = Set(metric.map(\.id))
+        let unknown = elements.filter { e in !ids.contains(e.id) && e.plane.map { open.contains($0) } == true }
+        return measured + ElementList.unmeasured(unknown, sideId: sideId)
+    }
+    var elementGroups: [ElementGroup] { ElementList.groups(elementMeasures) }
+
     /// Wat de gebruiker moet nalopen (vaste regels), en de handwerkteller.
     var reviewItems: [ReviewItem] { FacadeReview.items(elements, metric: metricElements, conflicts: conflicts ?? []) }
     var reviewStats: ReviewStats { FacadeReview.stats(elements, removed: removedByUser ?? []) }

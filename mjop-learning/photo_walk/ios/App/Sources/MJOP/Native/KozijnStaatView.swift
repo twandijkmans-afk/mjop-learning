@@ -60,6 +60,10 @@ struct KozijnStaatSection: View {
     @State private var editImage: UIImage?
     @State private var loadingPhoto: Int?
     @State private var defectScan: FacadeScan?
+    @State private var highlightItem: HighlightItem?
+    @State private var highlightImage: UIImage?
+
+    struct HighlightItem: Identifiable { let scan: FacadeScan; let measure: ElementMeasure; var id: String { measure.id } }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -109,6 +113,12 @@ struct KozijnStaatSection: View {
                     }
                     .dsCard(radius: 20)
                 }
+                let groups = m.buildingGroups
+                if !groups.isEmpty {
+                    ElementListCard(groups: groups, title: "Elementen van het gebouw", subtitle: { meas in sideText(meas, m) }, onSelect: { meas in
+                        Task { await openHighlight(meas, m) }
+                    })
+                }
                 let staat = m.kozijnStaat
                 HStack {
                     Text("Kozijnstaat").font(.title3.weight(.bold)).foregroundStyle(DS.text)
@@ -156,9 +166,38 @@ struct KozijnStaatSection: View {
                 }
             }
         }
+        .sheet(item: $highlightItem) { h in
+            if let img = highlightImage { ElementHighlightSheet(image: img, scan: h.scan, measure: h.measure) }
+        }
         .sheet(item: $detail) { t in
             if let m = model { KozijnTypeDetail(type: t, staat: m.kozijnStaat, sides: m.sides, overrides: m.kozijnOverrides ?? KozijnOverrides()) { o in save { $0.kozijnOverrides = o } } }
         }
+    }
+
+    /// Bij welke gevel een element hoort, voor de lijst van het hele gebouw.
+    private func sideText(_ meas: ElementMeasure, _ m: ProjectModel) -> String? {
+        guard let sid = meas.sideId, let side = m.sides.first(where: { $0.id == sid }) else { return nil }
+        let copied = m.gevels.contains { $0.sideId == sid && $0.copiedFromSide != nil }
+        return "Gevel op het \(side.facing)" + (copied ? " · overgenomen (aanname)" : "")
+    }
+
+    /// Laat een element oplichten op de foto van zijn gevel. Een lange gevel in meerdere foto's of een overgenomen gevel heeft
+    /// geen eigen foto met dezelfde nummers; dan alleen een melding.
+    private func openHighlight(_ meas: ElementMeasure, _ m: ProjectModel) async {
+        let parts = m.gevels.filter { $0.sideId == meas.sideId }
+        guard parts.count == 1, let g = parts.first, g.copiedFromSide == nil else {
+            error = "Deze gevel bestaat uit meerdere foto's of is overgenomen van een andere gevel; aanwijzen op de foto kan hier niet."
+            return
+        }
+        guard let path = g.photoPath, let s = try? await account.validSession() else {
+            error = "De foto van deze gevel is niet in de cloud bewaard; alleen de maat is bekend."
+            return
+        }
+        loadingPhoto = g.id; defer { loadingPhoto = nil }
+        guard let img = await GevelFotos.load(path, session: s) else { error = "De foto kon niet worden geladen."; return }
+        error = nil
+        highlightImage = img
+        highlightItem = HighlightItem(scan: g, measure: meas)
     }
 
     private func openDefects(_ g: FacadeScan) async {

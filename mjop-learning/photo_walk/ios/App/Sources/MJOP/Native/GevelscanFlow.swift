@@ -104,6 +104,8 @@ struct GevelscanFlow: View {
     @State private var widthFor: FacadePlane?
     @State private var widthText = ""
     @State private var editorSelect: Int?
+    @State private var highlight: Int?
+    @State private var scrollTarget: String?
 
     enum Phase { case choose, working, result }
 
@@ -112,16 +114,23 @@ struct GevelscanFlow: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 14) {
-                    if let error { DSNotice(kind: .warn, text: error) }
-                    switch phase {
-                    case .choose: chooser
-                    case .working: working
-                    case .result: result
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 14) {
+                        if let error { DSNotice(kind: .warn, text: error) }
+                        switch phase {
+                        case .choose: chooser
+                        case .working: working
+                        case .result: result
+                        }
                     }
+                    .padding(.horizontal, DS.pad).padding(.bottom, 30)
                 }
-                .padding(.horizontal, DS.pad).padding(.bottom, 30)
+                .onChange(of: scrollTarget) { t in
+                    guard let t else { return }
+                    withAnimation(.easeInOut) { proxy.scrollTo(t, anchor: .top) }
+                    scrollTarget = nil
+                }
             }
             .background(DS.canvas)
             .navigationTitle("Gevelscan").navigationBarTitleDisplayMode(.inline)
@@ -319,6 +328,7 @@ struct GevelscanFlow: View {
             editCorners = false
             selectedPlane = nil
             editElements = false
+            highlight = nil
             selectedElement = nil
             drawType = nil
             lastScan = scan
@@ -357,7 +367,7 @@ struct GevelscanFlow: View {
             }
             let activePlane = selectedPlane ?? scan.mainPlane?.id
             FacadeOverlay(image: photo, scan: scan, editCorners: editCorners, activePlane: activePlane, editReference: editReference,
-                          editElements: editElements, selectedElement: selectedElement, drawType: drawType,
+                          editElements: editElements, selectedElement: selectedElement, drawType: drawType, highlight: highlight,
                           onElementEvent: { handleElementEvent($0, scan: scan) }, onReference: { l, r in
                 guard var s = lastScan else { return }
                 s.referenceLeftX = min(l, r); s.referenceRightX = max(l, r)
@@ -370,6 +380,14 @@ struct GevelscanFlow: View {
                 lastScan = s
             }
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .id("photo")
+            if let h = highlight, let e = scan.elements.first(where: { $0.id == h }) {
+                HStack {
+                    Label("\(e.type.label) \(e.id) licht op", systemImage: "scope").font(.footnote.weight(.semibold)).foregroundStyle(DS.text)
+                    Spacer()
+                    Button("Wis") { highlight = nil }.font(.footnote.weight(.semibold))
+                }
+            }
             HStack(spacing: 10) {
                 Button { editorMode = .elements; editorSelect = nil; showEditor = true } label: { Label("Elementen aanpassen", systemImage: "pencil.and.outline") }
                     .buttonStyle(DSSecondaryButton())
@@ -418,25 +436,10 @@ struct GevelscanFlow: View {
                 resultRow("drop", "Hemelwaterafvoer", "lengte op de foto", s.hwaM1.map { $0 > 0 ? m1($0) + " ± " + plain(MeasureBand.band($0, relative: rel, area: false)) : m1($0) } ?? "–")
             }
             .dsCard(radius: 20)
-            let others = scan.elementTotals.filter { ![.kozijn_raam, .kozijn_deur, .metselwerk, .hwa].contains($0.type) }
-            if !others.isEmpty {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Overige elementen").font(.headline).foregroundStyle(DS.text)
-                    VStack(spacing: 0) {
-                        ForEach(Array(others.enumerated()), id: \.offset) { i, t in
-                            HStack {
-                                Circle().fill(FacadeEditorView.color(t.type)).frame(width: 9, height: 9)
-                                Text(t.type.label).font(.subheadline).foregroundStyle(DS.text)
-                                Spacer()
-                                Text(totalText(t)).font(.subheadline.weight(.semibold)).foregroundStyle(DS.text)
-                            }
-                            .padding(.horizontal, 14).frame(minHeight: 44)
-                            if i < others.count - 1 { Divider().padding(.leading, 34) }
-                        }
-                    }
-                    .dsCard(radius: 20)
-                }
-            }
+            ElementListCard(groups: scan.elementGroups, onSelect: { m in
+                highlight = m.elementId
+                scrollTarget = "photo"
+            })
             if let ds = scan.defects, !ds.isEmpty {
                 Button { showDefects = true } label: {
                     HStack {
@@ -780,6 +783,8 @@ struct FacadeOverlay: View {
     var editElements = false
     var selectedElement: Int? = nil
     var drawType: FacadeElementType? = nil
+    /// Element dat oplicht (vanuit de elementenlijst): wit en dik, de rest gedimd.
+    var highlight: Int? = nil
     var onElementEvent: ((ElementEvent) -> Void)? = nil
     var onReference: ((Double, Double) -> Void)? = nil
     @State private var drag: (start: CGPoint, now: CGPoint, onSelected: Bool)?
@@ -804,7 +809,17 @@ struct FacadeOverlay: View {
                         }
                         .stroke(conflicted.contains(e.id) ? Color.orange : color(e.type),
                                 style: StrokeStyle(lineWidth: e.type.kind == .poly ? 2 : 2.5, dash: conflicted.contains(e.id) ? [5, 4] : []))
+                        .opacity(highlight == nil || highlight == e.id ? 1 : 0.3)
                         .allowsHitTesting(false)
+                    }
+                    if let id = highlight, let e = scan.elements.first(where: { $0.id == id }) {
+                        Path { path in
+                            let pts = e.points.map { CGPoint(x: $0[0] * k, y: $0[1] * k) }
+                            guard let f = pts.first else { return }
+                            path.move(to: f); pts.dropFirst().forEach { path.addLine(to: $0) }
+                            if e.type.kind != .line { path.closeSubpath() }
+                        }
+                        .stroke(.white, lineWidth: 5).shadow(color: .black.opacity(0.6), radius: 3).allowsHitTesting(false)
                     }
                     ForEach(Array((scan.planes ?? []).enumerated()), id: \.element.id) { idx, pl in
                         Path { path in
