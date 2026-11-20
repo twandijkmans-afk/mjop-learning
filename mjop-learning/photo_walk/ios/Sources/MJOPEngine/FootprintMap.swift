@@ -20,6 +20,7 @@ public enum FootprintMap {
     /// Uitsnede rond de omtrek, met marge in echte meters, in de gevraagde beeldverhouding (breedte / hoogte).
     public struct Frame: Equatable {
         public var minX: Double, minY: Double, maxX: Double, maxY: Double
+        public init(minX: Double, minY: Double, maxX: Double, maxY: Double) { self.minX = minX; self.minY = minY; self.maxX = maxX; self.maxY = maxY }
         /// Punt (lengte/breedtegraad) naar pixels in een beeld van `w` × `h` (y omlaag).
         public func pixel(_ ll: [Double], w: Double, h: Double) -> [Double] {
             let m = FootprintMap.mercator(ll)
