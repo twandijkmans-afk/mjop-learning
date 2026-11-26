@@ -937,3 +937,14 @@ def test_repository_group5_finishes_decisions_by_td():
         assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
     for code in ("4211", "4320", "4521"):
         assert LC.entry_for(t, code, "repair")["human_verification"]["decision"] == "REJECT"
+
+
+def test_repository_group6_installations_decisions_by_td():
+    t = LC.load_table()
+    expected = {("5216", "replace"): 18, ("5240", "inspect"): 10, ("5314", "replace"): 15, ("5321", "replace"): 18,
+                ("5731", "replace"): 18, ("5741", "replace"): 20, ("6111", "replace"): 24, ("6311", "replace"): 20,
+                ("6411", "replace"): 15, ("6511", "replace"): 15, ("6513", "replace"): 5, ("6531", "replace"): 18,
+                ("6611", "replace"): 25, ("7411", "replace"): 24, ("9034", "replace"): 20}
+    for key, cycle in expected.items():
+        e = LC.entry_for(t, *key)
+        assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
