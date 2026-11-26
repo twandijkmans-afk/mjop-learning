@@ -116,8 +116,9 @@ def minimum_contribution(expenses, start, end, *, opening_balance, contribution_
 
 def run(lines, *, start, end, price_level_year, opening_balance, annual_contribution, contribution_growth="0",
         interest_rate="0", cost_inflation="0", min_balance="0", include_proposals=True, rebuild_value=None,
-        amount_fn=None):
-    """amount_fn(line, include_proposals) -> (Decimal of None, basis); standaard cost_per_occurrence.
+        amount_fn=None, extra_expenses=None):
+    """extra_expenses: [{id, year, amount, price_level_year}] definitieve eenmalige uitgaven (gebreken).
+    amount_fn(line, include_proposals) -> (Decimal of None, basis); standaard cost_per_occurrence.
     De actualiseringstool geeft hier de bedragen van het OPrognose-bestand mee (zelfde prijspeil)."""
     ob, ac = _d(opening_balance, "opening_balance"), _d(annual_contribution, "annual_contribution")
     g, r, i, mb = (_d(contribution_growth, "contribution_growth"), _d(interest_rate, "interest_rate"),
@@ -126,6 +127,12 @@ def run(lines, *, start, end, price_level_year, opening_balance, annual_contribu
         raise FundError("price_level_year is verplicht")
     expenses, details = yearly_expenses(lines, start, end, price_level_year=price_level_year, cost_inflation=i,
                                         include_proposals=include_proposals, amount_fn=amount_fn)
+    n_extra = 0
+    for x in extra_expenses or []:
+        if start <= x["year"] <= end:
+            expenses[x["year"]] = _c(expenses[x["year"]] + Decimal(x["amount"]) * (1 + i) ** (x["year"] - x["price_level_year"]))
+            n_extra += 1
+    details["defect_expenses_in_horizon"] = n_extra
     rows = simulate(expenses, start, end, opening_balance=ob, contribution=ac, contribution_growth=g, interest_rate=r)
     shortfall = [row["year"] for row in rows if row["closing"] < mb]
     lowest = min(rows, key=lambda row: (row["closing"], row["year"]))

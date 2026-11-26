@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "defect_input.schema.json",
+  "title": "DefectInput",
+  "description": "Door een adviseur ingevoerde gebreken voor de actualiseringstool (scripts/mjop_defects.py). Elk gebrek wordt een eenmalige B-post in OPrognose (cyclus 0, urgentie) en wacht nooit op een koppeling. Met 'restart' herstart het planmatige ritme van die handeling vanaf het gebreksjaar (besluit TD, 2026-11-26). Bevat VvE-specifieke gegevens: niet in de repository bewaren.",
+  "type": "object",
+  "definitions": {
+    "decimal": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" }
+  },
+  "properties": {
+    "defects_version": { "const": "defect_input_v1" },
+    "entered_by": { "type": "string", "minLength": 1 },
+    "entered_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}" },
+    "price_level_year": { "type": "integer", "minimum": 1900, "maximum": 2199, "description": "Prijspeil van de ingevoerde eenheidsprijzen." },
+    "defects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "element_id": { "type": ["string", "null"], "description": "Element uit het oude MJOP (bijv. DOC-010-EL-003)." },
+          "element_code": { "type": ["string", "null"], "pattern": "^[0-9]{4}$" },
+          "text": { "type": "string", "minLength": 1, "description": "Omschrijving van de handeling, bijv. 'Herstellen houtrot kozijn'." },
+          "defect": { "type": ["string", "null"], "description": "Omschrijving van het gebrek." },
+          "year": { "type": "integer", "minimum": 2000, "maximum": 2199 },
+          "urgency": { "type": "integer", "enum": [1, 2, 3] },
+          "quantity": { "$ref": "#/definitions/decimal" },
+          "unit": { "type": "string", "minLength": 1 },
+          "unit_price": { "oneOf": [{ "$ref": "#/definitions/decimal" }, { "type": "null" }] },
+          "nen2767": { "type": ["string", "null"] },
+          "restart": {
+            "type": ["object", "null"],
+            "description": "Het gebrek leidt tot uitvoering van deze planmatige handeling: het ritme herstart vanaf 'year'.",
+            "properties": { "action": { "type": "string", "minLength": 1 } },
+            "required": ["action"],
+            "additionalProperties": false
+          }
+        },
+        "required": ["id", "element_id", "element_code", "text", "defect", "year", "urgency", "quantity", "unit", "unit_price", "nen2767", "restart"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["defects_version", "entered_by", "entered_at", "price_level_year", "defects"],
+  "additionalProperties": false
+}

@@ -1,0 +1,38 @@
+{
+  "defects_version": "defect_input_v1",
+  "entered_by": "TD",
+  "entered_at": "2026-11-26",
+  "price_level_year": 2027,
+  "defects": [
+    {
+      "id": "G1",
+      "element_id": null,
+      "element_code": "3120",
+      "text": "Herstellen houtrot onderdorpel",
+      "defect": "Houtrot onderdorpel achtergevel",
+      "year": 2027,
+      "urgency": 1,
+      "quantity": "4",
+      "unit": "st",
+      "unit_price": "185.00",
+      "nen2767": null,
+      "restart": null
+    },
+    {
+      "id": "G2",
+      "element_id": null,
+      "element_code": "4711",
+      "text": "Vervangen dakbedekking i.v.m. lekkages",
+      "defect": "Lekkages en blaasvorming",
+      "year": 2028,
+      "urgency": 1,
+      "quantity": "120",
+      "unit": "m2",
+      "unit_price": "95.00",
+      "nen2767": null,
+      "restart": {
+        "action": "replace"
+      }
+    }
+  ]
+}

@@ -1,13 +1,23 @@
 {
   "defaults_version": "oprognose_export_defaults_v1",
-  "note": "Vaste waarden voor geplande handelingen (oph, han_type 'H') zoals waargenomen in een echte OPrognose-export (alle H-regels hadden deze waarden). Betekenis niet officieel gedocumenteerd; pas aan als OPrognose andere waarden verwacht. Bevindingen (han_type 'B') worden niet geëxporteerd: een geactualiseerd MJOP is geen inspectie.",
+  "note": "Vaste waarden voor geplande handelingen (oph, han_type 'H') zoals waargenomen in een echte OPrognose-export (alle H-regels hadden deze waarden). Betekenis niet officieel gedocumenteerd; pas aan als OPrognose andere waarden verwacht. oph_bevinding: vaste waarden van bevindingen (han_type 'B') zoals waargenomen in de voorbeeldexport; gebruikt voor door een adviseur ingevoerde gebreken.",
   "pk_base": 8890000,
-  "pk_offsets": { "opo": 1, "ope": 1001, "oph": 4001 },
+  "pk_offsets": {
+    "opo": 1,
+    "ope": 1001,
+    "oph": 4001
+  },
   "timezone": "Europe/Amsterdam",
   "null_datetime": "1900-01-01T00:00:00+01:00",
   "bitpattern_start_year": 2000,
   "bitpattern_length": 200,
-  "unit_map": { "m2": "m2", "m1": "m1", "m3": "m3", "piece": "st", "lump_sum": "pst" },
+  "unit_map": {
+    "m2": "m2",
+    "m1": "m1",
+    "m3": "m3",
+    "piece": "st",
+    "lump_sum": "pst"
+  },
   "oph": {
     "han_type": "H",
     "han_blaag": "A",
@@ -17,6 +27,20 @@
     "han_nhgkv": "1",
     "han_fonds": "10",
     "han_factor": "1",
+    "han_begrref": "*",
+    "han_btwtarief": "H"
+  },
+  "oph_bevinding": {
+    "han_type": "B",
+    "han_blaag": "B",
+    "han_hierarchie": "100",
+    "han_actie": "A",
+    "han_factor": "0",
+    "han_cyclus": "0",
+    "han_opslag": "1",
+    "han_percentage": "1",
+    "han_nhgkv": "1",
+    "han_fonds": "10",
     "han_begrref": "*",
     "han_btwtarief": "H"
   }

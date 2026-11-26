@@ -180,6 +180,29 @@ kilgoot meeschuiven naar een schilderjaar; K07a/b steiger- en bereikbaarheidskos
 buitenschilderwerk; K08 schilderwerk metalen hekwerk samen met schilderwerk buitenkozijnen; K09
 hemelwaterafvoeren samen; K10 liftonderdelen samen.
 
+## Gebreken (B-posten)
+
+Schema: `schemas/defect_input.schema.json`; module: `scripts/mjop_defects.py`; invulvoorbeeld:
+`config/oprognose/defects_template.json`. Gebruik: `--defects <bestand>` bij `run`. Het bestand
+bevat VvE-specifieke gegevens en hoort niet in de repository.
+
+Een adviseur voert de gebreken in. De tool leidt zelf geen gebreken af: een oud MJOP is geen
+inspectie. Besluiten van TD (2026-11-26):
+
+- Elk gebrek wordt een eenmalige **B-post** in OPrognose met cyclus 0, urgentie 1–3, eigen bedrag en
+  eventueel een NEN 2767-code. De vaste waarden komen uit de voorbeeldexport (`oph_bevinding`:
+  B, 100, actie A, factor 0).
+- Een gebrek wacht nooit op een cyclus of koppeling.
+- Leidt een gebrek tot uitvoering van een planmatige handeling (`restart.action`, bijvoorbeeld
+  `replace`), dan **herstart het ritme** vanaf het gebreksjaar. Het gebreksjaar wordt dan het laatste
+  uitvoeringsjaar van die handeling, en de gekoppelde handelingen schuiven mee. Bestaat de regel nog
+  niet, dan geldt het jaar voor een toe te voegen vervanging. De regel krijgt de vlag
+  `RESTARTED_BY_DEFECT`.
+- Een vervanging die al gepland staat, ook na de horizon, wordt niet nogmaals toegevoegd.
+- Gebreken tellen als definitieve uitgaven in het reservefonds, op hun eigen prijspeil
+  (`price_level_year`). Het rapport waarschuwt als dat prijspeil afwijkt van `obj_prijspeil`.
+- Een gebrek zonder prijs krijgt prijs 0 en de opmerking "GEEN PRIJS".
+
 ## Reservefonds
 
 Bij een kosteninflatie `i` ziet de berekening er per jaar `t` zo uit:
@@ -239,8 +262,8 @@ Deze regels zijn afgeleid uit de voorbeeldexport en gelden voor alle handelingen
 | `han_opm` | herkomst (document en pagina), VOORSTEL of definitief, cyclusbron, basisjaar, vlaggen en bedragbasis |
 | vaste velden | `config/oprognose/export_defaults.json` (H, A, 101, fonds 10, btw H, …) |
 
-Alleen geplande handelingen worden geëxporteerd (`han_type H`). Bevindingen (`B`) horen bij een
-inspectie en worden niet geëxporteerd.
+Geplande handelingen worden geëxporteerd als `han_type H`. Gebreken die een adviseur invoert, gaan
+mee als `han_type B` (zie Gebreken).
 
 Prijs:
 

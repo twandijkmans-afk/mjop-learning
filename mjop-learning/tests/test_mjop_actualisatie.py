@@ -767,3 +767,74 @@ def test_planner_adds_overlay_via_coupling_and_exports_remark():
     dataset, _ = X.build_dataset(doc, out, mjop_id="M", start_year=2027, target_price_year=2027, source_price_year=2020, fmt=fmt)
     remarks = [h["han_opm"] for _, hs in dataset[1] for h in hs]
     assert any("GEKOPPELD (verschoven)" in m for m in remarks) and X.validate_xml(X.serialize(dataset, fmt), fmt) == []
+
+
+# --------------------------------------------------------------------------
+# Gebreken (B-posten) en herstart van het ritme
+# --------------------------------------------------------------------------
+
+import mjop_defects as DF  # noqa: E402
+
+
+def _defects(*items, price_year=2027):
+    base = {"element_id": None, "element_code": None, "defect": None, "quantity": "1", "unit": "pst", "unit_price": "500",
+            "nen2767": None, "restart": None, "urgency": 1}
+    return {"defects_version": "defect_input_v1", "entered_by": "TD", "entered_at": "2026-11-26", "price_level_year": price_year,
+            "defects": [{**base, **i} for i in items]}
+
+
+def test_defect_input_validation():
+    doc = make_doc()
+    DF.validate(_defects({"id": "G1", "element_id": "E2", "text": "Herstellen lekkage", "year": 2027}), doc)
+    with pytest.raises(DF.DefectError):
+        DF.validate(_defects({"id": "G1", "text": "x", "year": 2027}), doc)                       # geen element
+    with pytest.raises(DF.DefectError):
+        DF.validate(_defects({"id": "G1", "element_id": "E99", "text": "x", "year": 2027}), doc)  # onbekend element
+    with pytest.raises(DF.DefectError):
+        DF.validate(_defects({"id": "G1", "element_code": "4711", "text": "x", "year": 2027, "urgency": 5}), doc)
+
+
+def test_defect_restarts_rhythm_and_couplings_follow():
+    table = table_with(("4711", "replace", "EDIT", 50), ("4711", "install", "EDIT", 50), ("6710", "replace", "EDIT", 25))
+    doc = make_doc(elements=[_el("E2", "4711", "Dakbedekking"), _el("E9", "6710", "Valbeveiliging", qty="1", unit="pcs")],
+                   actions=[_act("A1", "E2", "replace", 2045, "9000")])
+    defects = DF.validate(_defects({"id": "G1", "element_id": "E2", "text": "Vervangen dakbedekking i.v.m. lekkage",
+                                    "year": 2028, "urgency": 1, "quantity": "100", "unit": "m2", "unit_price": "90",
+                                    "restart": {"action": "replace"}}), doc)
+    lines, _ = I.import_document(doc, mjop_id="M", target_price_year=2027, index=INDEX)
+    out, r = H.run(doc, lines, table, start_year=2027, mjop_id="M", defects=defects)
+    roof = next(l for l in out if l["element_code_internal"] == "4711" and l["action_normalized"] == "replace")
+    assert roof["last_replacement_year"] == 2028 and L2.schedule(roof)[:2] == (2078, 50)
+    assert "RESTARTED_BY_DEFECT" in roof["planner_flags"] and r["lines_restarted_by_defect"] == 1
+    overlay = next(l for l in out if l["action_normalized"] == "install")
+    assert L2.schedule(overlay)[:2] == (2053, 50)                                         # 25 jaar na het gebreksjaar
+    fall = next(l for l in out if l["element_code_internal"] == "6710")
+    assert L2.occurrence_years(fall, 2027, 2100) == [2053, 2078]
+
+
+def test_defect_exported_as_b_row_and_counted_in_fund():
+    doc = make_doc()
+    defects = DF.validate(_defects({"id": "G1", "element_id": "E2", "text": "Herstellen lekkage", "defect": "Lekkage naad",
+                                    "year": 2027, "urgency": 1, "quantity": "2", "unit": "m2", "unit_price": "250.5",
+                                    "nen2767": "B6EW01"},
+                                   {"id": "G2", "element_code": "5314", "text": "Vervangen hydrofoorpomp", "year": 2029,
+                                    "urgency": 2, "unit_price": None}), doc)
+    params = {"opening_balance": "0", "annual_contribution": "0", "contribution_growth": "0", "interest_rate": "0",
+              "cost_inflation": "0", "min_balance": "0", "rebuild_value": None}
+    result = A.build(doc, mjop_id="M", building_id="BLD", start_year=2027, target_price_year=2027, index=INDEX,
+                     table=table_with(), fund_params=params, at=T0, defects=defects)
+    hans = [h for _, hs in result["dataset"][1] for h in hs]
+    b = [h for h in hans if h["han_type"] == "B"]
+    assert len(b) == 2
+    g1 = next(h for h in b if h["han_tekst"] == "Herstellen lekkage")
+    assert (g1["han_startjaar"], g1["han_cyclus"], g1["han_urgentie"], g1["han_nen2767"]) == ("2027", "0", "1", "B6EW01")
+    assert g1["han_totaal"] == "501" and g1["han_blaag"] == "B" and g1["han_hierarchie"] == "100" and g1["han_factor"] == "0"
+    assert g1["han_bitpatroon"].count("1") == 1 and "Gebrek G1 ingevoerd door TD" in g1["han_opm"]
+    g2 = next(h for h in b if h["han_tekst"] == "Vervangen hydrofoorpomp")
+    assert g2["han_prijs"] == "0" and "GEEN PRIJS" in g2["han_opm"]
+    ele_g2 = next(e for e, hs in result["dataset"][1] if g2 in hs)
+    assert ele_g2["ele_nlsfb"] == "5314"                                                      # eigen element aangemaakt
+    assert X.validate_xml(X.serialize(result["dataset"], result["fmt"]), result["fmt"]) == []
+    year2027 = next(y for y in result["reserve_fund"]["years"] if y["year"] == 2027)
+    assert Decimal(year2027["expenses"]) >= Decimal("501") and result["reserve_fund"]["details"]["defect_expenses_in_horizon"] == 1
+    assert result["export_report"]["defects"] == 2 and result["export_report"]["defects_without_price"] == 1

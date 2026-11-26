@@ -32,6 +32,7 @@ from decimal import Decimal, InvalidOperation
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mjop_couplings  # noqa: E402
+import mjop_defects  # noqa: E402
 import mjop_lifecycle  # noqa: E402
 import mjop_maintenance_line_v2 as line_v2  # noqa: E402
 
@@ -126,9 +127,14 @@ def plan_line(line, table, start, end):
 
 
 def _replacement_in_horizon(lines, code, start, end):
+    """Is er al een vervanging gepland: binnen de horizon, of met een (voorgesteld) jaar daarna of een
+    bekend laatste vervangingsjaar? Dan niet nogmaals toevoegen."""
     for l in lines:
         if l["element_code_internal"] == code and l["action_normalized"] == "replace":
             if line_v2.occurrence_years(l, start, end, include_proposals=True):
+                return True
+            sched = line_v2.schedule(l)
+            if (sched and sched[0] > end) or l["last_replacement_year"]:
                 return True
     return False
 
@@ -190,12 +196,16 @@ def added_lifecycle_lines(doc, lines, table, start, end, *, mjop_id, last_replac
 
 
 def run(doc, lines, table, *, start_year, mjop_id, horizon_years=DEFAULT_HORIZON_YEARS,
-        last_replacement_years=None, line_prefix=None, couplings=None):
+        last_replacement_years=None, line_prefix=None, couplings=None, defects=None):
     """Voorstellen voor alle regels + toegevoegde vervangingen + koppelingen. Geeft (lines, report).
     couplings: register (mjop_couplings.load_register()); None = het standaardregister, {} = geen koppelingen."""
     if couplings is None:
         couplings = mjop_couplings.load_register()
     start, end = horizon(start_year, horizon_years)
+    restarted = set()
+    if defects:   # gebrek dat tot uitvoering leidt: ritme herstart vanaf het gebreksjaar
+        lines, by_code, restarted = mjop_defects.apply_restarts(lines, defects)
+        last_replacement_years = {**(last_replacement_years or {}), **by_code}
     out = []
     for l in lines:
         if l["planning_status"] in line_v2.HUMAN_PLANNED + ("REJECTED",):
@@ -210,13 +220,16 @@ def run(doc, lines, table, *, start_year, mjop_id, horizon_years=DEFAULT_HORIZON
     if couplings:
         coupled_added = mjop_couplings.add_missing_followers(all_lines, couplings, table, mjop_id=mjop_id, line_prefix=line_prefix)
         all_lines, coupling_counts = mjop_couplings.apply_all(all_lines + coupled_added, couplings, start, end)
+    if restarted:
+        all_lines = mjop_defects.mark_restarted(all_lines, restarted)
     flag_counts = {}
     for l in all_lines:
         for f in l["planner_flags"]:
             flag_counts[f] = flag_counts.get(f, 0) + 1
     report = {"planner_version": PLANNER_VERSION, "horizon_start": start, "horizon_end": end,
               "lines_existing": len(out), "lines_added_from_lifecycle": len(added) + len(coupled_added),
-              "lines_added_via_coupling": len(coupled_added),
+              "lines_added_via_coupling": len(coupled_added), "lines_restarted_by_defect": len(restarted),
+              "defects": len((defects or {}).get("defects", [])),
               "coupling_counts": {k: v for k, v in coupling_counts.items() if v},
               "lines_with_proposal": sum(1 for l in all_lines if l["planning_status"] == "PROPOSED"),
               "lines_rolled_forward": sum(1 for l in all_lines if (l["planning_basis"] or {}).get("rolled_forward")),

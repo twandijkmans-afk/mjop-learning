@@ -15,8 +15,9 @@ Mapping (waargenomen in de voorbeeldexport):
   han_startjaar, han_cyclus    eerste uitvoeringsjaar, cyclus (0 = eenmalig)
   han_bitpatroon               200 tekens, positie 0 = jaar 2000, '1' = uitvoering, anders '-'
   han_hvhreken x han_prijs     = han_totaal (2 decimalen); han_hvh = han_hvhreken / ele_hvh
-Alleen geplande handelingen (han_type 'H'); geen bevindingen (geen inspectie). Vaste
-handelingsvelden: config/oprognose/export_defaults.json.
+Geplande handelingen als han_type 'H'; door een adviseur ingevoerde gebreken als han_type 'B'
+(cyclus 0, urgentie, NEN 2767-code; scripts/mjop_defects.py). De tool leidt zelf geen gebreken af.
+Vaste velden: config/oprognose/export_defaults.json (oph en oph_bevinding).
 
 Prijs: is voor alle bedragen een indexfactor beschikbaar, dan geïndexeerde bedragen met
 obj_prijspeil = doelprijspeil; anders historische bedragen met obj_prijspeil = prijspeil van het
@@ -211,8 +212,8 @@ def _remark(line, amount_note, scheduled):
 
 
 def build_dataset(doc, lines, *, mjop_id, start_year, target_price_year, source_price_year, fmt, at=None,
-                  obj_code=None, opening_note=None):
-    """Geeft (opo-record met geneste lijsten, rapport)."""
+                  obj_code=None, opening_note=None, defects=None):
+    """Geeft (opo-record met geneste lijsten, rapport). defects: invoer van mjop_defects (B-posten)."""
     d = fmt["defaults"]
     mode = price_mode(lines, source_price_year)
     stamp = local_timestamp(fmt, at)
@@ -245,6 +246,7 @@ def build_dataset(doc, lines, *, mjop_id, start_year, target_price_year, source_
         groups.setdefault(l["object_id"], []).append(l)
 
     ope_records, report_lines, deviation = [], [], Decimal(0)
+    ope_index = {}
     n_ele = n_han = 0
     for object_id, group in groups.items():
         el = elements.get(object_id, {})
@@ -296,13 +298,57 @@ def build_dataset(doc, lines, *, mjop_id, start_year, target_price_year, source_
                                  "startjaar": start, "cyclus": cycle, "scheduled": sched is not None,
                                  "definitive": bool(sched and sched[2]), "prijs": han["han_prijs"], "totaal": han["han_totaal"],
                                  "amount_known": amount is not None})
+        ope_index[object_id] = len(ope_records)
         ope_records.append((ele, han_records))
+
+    # gebreken: eenmalige B-posten, door een adviseur ingevoerd; nooit gekoppeld of verschoven
+    defect_report = []
+    for df in (defects or {}).get("defects", []):
+        idx = ope_index.get(df["element_id"]) if df["element_id"] else next(
+            (i for i, (e, _) in enumerate(ope_records) if e["ele_nlsfb"] == df["element_code"]), None)
+        if idx is None:   # element zonder planmatige regels: eigen element aanmaken
+            el = elements.get(df["element_id"], {}) if df["element_id"] else {}
+            code = df["element_code"] or _v(el.get("element_code")) or ""
+            ele = blank_record("ope", fmt)
+            ele.update({"ele_pk": str(pk + d["pk_offsets"]["ope"] + n_ele), "ele_objfk": str(obj_pk),
+                        "ele_tekst": _v(el.get("element_name")) or df["text"], "ele_hvh": df["quantity"],
+                        "ele_eenheid": df["unit"], "ele_locatie": _v(el.get("location")) or "", "ele_nlsfb": code,
+                        "ele_nlsfbhoofd": code[:2] if code[:2].isdigit() else "", "modified": stamp})
+            n_ele += 1
+            idx = len(ope_records)
+            ope_records.append((ele, []))
+            if df["element_id"]:
+                ope_index[df["element_id"]] = idx
+        ele, hans = ope_records[idx]
+        qty = Decimal(df["quantity"])
+        prijs = Decimal(df["unit_price"]).quantize(CENT, rounding=ROUND_HALF_EVEN) if df["unit_price"] is not None else Decimal(0)
+        totaal = (qty * prijs).quantize(CENT, rounding=ROUND_HALF_EVEN)
+        han = blank_record("oph", fmt)
+        han.update(d["oph_bevinding"])
+        note = [f"Gebrek {df['id']} ingevoerd door {defects['entered_by']} op {defects['entered_at']}",
+                f"urgentie {df['urgency']}", f"prijspeil {defects['price_level_year']}"]
+        if df["unit_price"] is None:
+            note.append("GEEN PRIJS: bedrag bepalen")
+        if df["restart"]:
+            note.append(f"herstart ritme '{df['restart']['action']}' vanaf {df['year']}")
+        han.update({"han_pk": str(pk + d["pk_offsets"]["oph"] + n_han), "han_elefk": ele["ele_pk"], "han_tekst": df["text"],
+                    "han_gebrek": df["defect"] or "", "han_eenheid": df["unit"], "han_hvhreken": num(qty), "han_hvh": "1",
+                    "han_prijs": num(prijs), "han_startjaar": str(df["year"]), "han_cyclus": "0",
+                    "han_bitpatroon": bitpattern(df["year"], 0, fmt), "han_totaal": num(totaal),
+                    "han_urgentie": str(df["urgency"]), "han_nen2767": df["nen2767"] or "", "han_opm": " | ".join(note)})
+        n_han += 1
+        hans.append(han)
+        defect_report.append({"id": df["id"], "ele_pk": int(ele["ele_pk"]), "han_pk": int(han["han_pk"]), "year": df["year"],
+                              "totaal": han["han_totaal"], "price_known": df["unit_price"] is not None})
     report = {"export_version": EXPORT_VERSION, "price_mode": mode, "obj_prijspeil_year": price_year,
               "elements": len(ope_records), "actions": n_han,
               "actions_without_year": sum(1 for r in report_lines if not r["scheduled"]),
               "actions_proposed": sum(1 for r in report_lines if r["scheduled"] and not r["definitive"]),
               "actions_without_amount": sum(1 for r in report_lines if not r["amount_known"]),
-              "rounding_deviation_total": format(deviation, "f"), "lines": report_lines}
+              "rounding_deviation_total": format(deviation, "f"), "defects": len(defect_report),
+              "defects_without_price": sum(1 for r in defect_report if not r["price_known"]),
+              "defect_price_level_differs": bool(defect_report) and defects["price_level_year"] != price_year,
+              "lines": report_lines, "defect_rows": defect_report}
     return (obj, ope_records), report
 
 

@@ -25,12 +25,14 @@ NEN 2767-conditiemeting en geen actuele marktprijzen.
 """
 import argparse
 import datetime
+import hashlib
 import json
 import os
 import sys
 from decimal import Decimal
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import mjop_defects  # noqa: E402
 import mjop_horizon_planner  # noqa: E402
 import mjop_import_existing  # noqa: E402
 import mjop_lifecycle  # noqa: E402
@@ -69,12 +71,13 @@ def _load(path):
 
 
 def build(doc, *, mjop_id, building_id, start_year, target_price_year, index, table, fund_params, at,
-          last_replacement_years=None, by=None, obj_code=None, fmt=None):
-    """Volledige run in het geheugen: regels, plan, OPrognose-dataset en reservefonds."""
+          last_replacement_years=None, by=None, obj_code=None, fmt=None, defects=None):
+    """Volledige run in het geheugen: regels, plan, OPrognose-dataset en reservefonds.
+    defects: gevalideerde invoer van mjop_defects (B-posten, herstart van het ritme)."""
     lines, import_summary = mjop_import_existing.import_document(doc, mjop_id=mjop_id, target_price_year=target_price_year,
                                                                  index=index)
     lines, planner_report = mjop_horizon_planner.run(doc, lines, table, start_year=start_year, mjop_id=mjop_id,
-                                                     last_replacement_years=last_replacement_years)
+                                                     last_replacement_years=last_replacement_years, defects=defects)
     start, end = planner_report["horizon_start"], planner_report["horizon_end"]
     plan = mjop_plan.new_plan(mjop_id, building_id, at=at, by=by)
     plan = mjop_plan.set_horizon(plan, start, end, at=at)
@@ -85,7 +88,7 @@ def build(doc, *, mjop_id, building_id, start_year, target_price_year, index, ta
     when = datetime.datetime.fromisoformat(at.replace("Z", "+00:00"))
     dataset, export_report = mjop_oprognose_export.build_dataset(
         doc, lines, mjop_id=mjop_id, start_year=start, target_price_year=target_price_year,
-        source_price_year=source_year, fmt=fmt, at=when, obj_code=obj_code)
+        source_price_year=source_year, fmt=fmt, at=when, obj_code=obj_code, defects=defects)
     # reservefonds op dezelfde bedragen en hetzelfde prijspeil als het XML-bestand
     mode = export_report["price_mode"]
     fund_price_year = export_report["obj_prijspeil_year"] or target_price_year
@@ -95,7 +98,7 @@ def build(doc, *, mjop_id, building_id, start_year, target_price_year, index, ta
         return (value, f"EXPORT_{mode.upper()}") if value is not None else (None, "NO_AMOUNT")
 
     fund = mjop_reserve_fund.run(lines, start=start, end=end, price_level_year=fund_price_year, amount_fn=amount,
-                                 **fund_params)
+                                 extra_expenses=mjop_defects.fund_expenses(defects) if defects else None, **fund_params)
     return {"plan": plan, "lines": lines, "planner_report": planner_report, "import_summary": import_summary,
             "reserve_fund": fund, "dataset": dataset, "export_report": export_report, "fmt": fmt}
 
@@ -125,6 +128,9 @@ def write_report(result, meta, path):
          f"- {x['actions_proposed']} handelingen met een voorgesteld (niet beoordeeld) planjaar, "
          f"{x['actions_without_year']} zonder planjaar (startjaar 0), {x['actions_without_amount']} zonder bedrag.",
          f"- Afrondingsverschil door eenheidsprijs op centen (totaal): € {x['rounding_deviation_total']}.",
+         f"- Gebreken (B-posten, ingevoerd door een adviseur): {x.get('defects', 0)}"
+         + (f", waarvan {x['defects_without_price']} zonder prijs" if x.get("defects_without_price") else "")
+         + (" — LET OP: prijspeil van de gebreken wijkt af van obj_prijspeil" if x.get("defect_price_level_differs") else "") + ".",
          "- Beoordeel na import in OPrognose vooral de handelingen met 'VOORSTEL', 'GEEN PLANJAAR', 'TOEGEVOEGD' of "
          "'AANNAME' in de opmerking.", "",
          "## Wat er is gedaan", "",
@@ -201,6 +207,7 @@ def main(argv=None):
     r.add_argument("--cost-inflation", default="0")
     r.add_argument("--min-balance", default="0")
     r.add_argument("--rebuild-value")
+    r.add_argument("--defects", help="JSON met door een adviseur ingevoerde gebreken (schemas/defect_input.schema.json)")
     a = p.parse_args(argv)
     at = now()
     doc = _load(os.path.join(ROOT, "data", "verified", f"{a.document}.json"))
@@ -217,12 +224,14 @@ def main(argv=None):
                    "cost_inflation": a.cost_inflation, "min_balance": a.min_balance, "rebuild_value": a.rebuild_value}
     index = mjop_price_index.load_index(a.price_index)
     table = mjop_lifecycle.load_table(a.lifecycle_table)
+    defects = mjop_defects.load(a.defects, doc) if a.defects else None
     result = build(doc, mjop_id=mjop_id, building_id=a.building_id, start_year=a.start_year, target_price_year=target,
                    index=index, table=table, fund_params=fund_params, at=at, last_replacement_years=last_repl, by=a.by,
-                   obj_code=a.oprognose_code)
+                   obj_code=a.oprognose_code, defects=defects)
     meta = {"tool_version": TOOL_VERSION, "at": at, "document_id": a.document, "target_price_year": target,
             "index_source": index.get("index_source"), "lifecycle_table_generated_at": table["generated_at"],
-            "fund_params": fund_params, "last_replacement_years": last_repl}
+            "fund_params": fund_params, "last_replacement_years": last_repl,
+            "defects_file_sha256": None if not a.defects else hashlib.sha256(open(a.defects, "rb").read()).hexdigest()}
     xml_path = write_outputs(result, meta, os.path.join(a.out_dir, mjop_id))
     x, f = result["export_report"], result["reserve_fund"]
     print(f"{x['elements']} elementen, {x['actions']} handelingen ({x['price_mode']}) -> {xml_path}; "
