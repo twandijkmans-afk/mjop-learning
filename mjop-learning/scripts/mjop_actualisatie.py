@@ -50,7 +50,10 @@ FLAG_NL = {
     "OVERDUE_NO_CYCLE": "planjaar verstreken, geen cyclus", "BASE_YEAR_UNKNOWN": "basisjaar onbekend",
     "ASSUMED_FROM_CONSTRUCTION_YEAR": "AANNAME: bouwjaar als laatste vervanging", "ELEMENT_CODE_MISSING": "geen elementcode",
     "ACTION_UNKNOWN": "actie niet genormaliseerd", "BEYOND_HORIZON": "valt na de horizon",
-    "PRICE_LEVEL_UNKNOWN": "prijspeil oud MJOP onbekend", "INDEX_MISSING": "indexjaar ontbreekt"}
+    "PRICE_LEVEL_UNKNOWN": "prijspeil oud MJOP onbekend", "INDEX_MISSING": "indexjaar ontbreekt",
+    "COUPLED": "gekoppeld", "COUPLING_LEADER_ABSENT": "koppeling: leider ontbreekt", "COUPLING_IRREGULAR_LEADER": "koppeling: leider zonder vast ritme",
+    "COUPLING_NO_LEADER_YEAR_IN_RANGE": "koppeling: geen leiderjaar binnen schuifruimte",
+    "COUPLING_REANCHORED_LEADER": "leider verankerd aan oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek"}
 def now():
     return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 

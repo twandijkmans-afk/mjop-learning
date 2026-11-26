@@ -34,7 +34,9 @@ LINE_VERSION = "mjop_maintenance_line_v2"
 V2_FIELDS = ("origin", "origin_source", "planning_basis", "planner_flags", "planning_status",
              "planning_verification", "price_update")
 PLANNING_FLAGS = ("CYCLE_UNKNOWN", "CYCLE_FROM_DOCUMENT_IRREGULAR", "CYCLE_DOCUMENT_TABLE_DIFFER", "OVERDUE_NO_CYCLE",
-                  "BASE_YEAR_UNKNOWN", "ASSUMED_FROM_CONSTRUCTION_YEAR", "BEYOND_HORIZON")
+                  "BASE_YEAR_UNKNOWN", "ASSUMED_FROM_CONSTRUCTION_YEAR", "BEYOND_HORIZON", "COUPLED",
+                  "COUPLING_LEADER_ABSENT", "COUPLING_IRREGULAR_LEADER", "COUPLING_NO_LEADER_YEAR_IN_RANGE",
+                  "COUPLING_REANCHORED_LEADER", "RESTARTED_BY_DEFECT")
 HUMAN_PLANNED = ("HUMAN_ACCEPTED", "HUMAN_ADJUSTED")
 LineError = v1.LineError
 

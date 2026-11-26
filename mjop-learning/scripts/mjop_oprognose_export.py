@@ -54,7 +54,11 @@ FLAG_NL = {
     "OVERDUE_NO_CYCLE": "planjaar verstreken zonder cyclus: jaar bepalen", "BASE_YEAR_UNKNOWN": "basisjaar onbekend",
     "ASSUMED_FROM_CONSTRUCTION_YEAR": "AANNAME bouwjaar als laatste vervanging", "ELEMENT_CODE_MISSING": "geen elementcode",
     "ACTION_UNKNOWN": "actie niet genormaliseerd", "BEYOND_HORIZON": "valt na de horizon",
-    "PRICE_LEVEL_UNKNOWN": "prijspeil oud MJOP onbekend", "INDEX_MISSING": "indexjaar ontbreekt"}
+    "PRICE_LEVEL_UNKNOWN": "prijspeil oud MJOP onbekend", "INDEX_MISSING": "indexjaar ontbreekt",
+    "COUPLED": "gekoppeld", "COUPLING_LEADER_ABSENT": "koppeling: leider ontbreekt in dit plan",
+    "COUPLING_IRREGULAR_LEADER": "koppeling: leider zonder vast ritme, meest voorkomend gekozen",
+    "COUPLING_NO_LEADER_YEAR_IN_RANGE": "koppeling: geen leiderjaar binnen schuifruimte",
+    "COUPLING_REANCHORED_LEADER": "leider verankerd aan jaar oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek"}
 
 
 class ExportError(ValueError):
@@ -192,8 +196,13 @@ def _remark(line, amount_note, scheduled):
         parts.append("GEEN PLANJAAR: jaar en cyclus bepalen")
     else:
         status = "definitief" if scheduled[2] else "VOORSTEL"
-        parts.append(f"planning {status}; cyclusbron {basis.get('cycle_source') or '-'}; "
-                     f"basisjaar {basis.get('base_year') or '-'} ({basis.get('base_year_source') or '-'})")
+        cp = basis.get("coupling")
+        if cp and not scheduled[2]:
+            extra = f", {cp['shift_years']:+d} jr geschoven" if cp.get("shift_years") else ""
+            parts.append(f"planning {status}; GEKOPPELD ({cp['type'].lower()}{extra}): {cp['label_nl']}")
+        else:
+            parts.append(f"planning {status}; cyclusbron {basis.get('cycle_source') or '-'}; "
+                         f"basisjaar {basis.get('base_year') or '-'} ({basis.get('base_year_source') or '-'})")
     flags = [FLAG_NL.get(f, f) for f in line["planner_flags"]]
     if flags:
         parts.append("let op: " + ", ".join(flags))

@@ -50,7 +50,13 @@
         "NOT_INSPECTED",
         "BEYOND_HORIZON",
         "PRICE_LEVEL_UNKNOWN",
-        "INDEX_MISSING"
+        "INDEX_MISSING",
+        "COUPLED",
+        "COUPLING_LEADER_ABSENT",
+        "COUPLING_IRREGULAR_LEADER",
+        "COUPLING_NO_LEADER_YEAR_IN_RANGE",
+        "COUPLING_REANCHORED_LEADER",
+        "RESTARTED_BY_DEFECT"
       ]
     }
   },
@@ -659,6 +665,7 @@
             "LINE",
             "DOCUMENT_INTERVAL",
             "LIFECYCLE_TABLE",
+            "COUPLING",
             null
           ]
         },
@@ -676,11 +683,59 @@
             "LAST_REPLACEMENT_YEAR",
             "LAST_MAINTENANCE_YEAR",
             "CONSTRUCTION_YEAR_ASSUMPTION",
+            "COUPLING_LEADER",
             null
           ]
         },
         "rolled_forward": {
           "type": "boolean"
+        },
+        "coupling": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "Koppeling die het voorstel bepaalde (vocabularies/lifecycle_couplings.json).",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "type": {
+              "enum": [
+                "SAMEN",
+                "ELKE_N",
+                "MEESCHUIVEN",
+                "VERSCHOVEN"
+              ]
+            },
+            "label_nl": {
+              "type": "string"
+            },
+            "leader_years": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            },
+            "shift_years": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "reverse_anchor": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "label_nl",
+            "leader_years",
+            "shift_years",
+            "reverse_anchor"
+          ],
+          "additionalProperties": false
         }
       },
       "required": [

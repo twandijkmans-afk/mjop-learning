@@ -16,7 +16,7 @@ Per bestaande regel:
   eerste jaar : vroegste document-planjaar >= start (niet doorgerold); anders laatste
                 document-planjaar of last_replacement/maintenance_year + n x cyclus (doorgerold).
                 Zonder cyclus en met alleen jaren vóór start -> OVERDUE_NO_CYCLE (geen voorstel).
-                Na het einde van de horizon -> BEYOND_HORIZON (geen voorstel).
+                Na het einde van de horizon -> BEYOND_HORIZON (voorstel blijft staan; telt niet mee in de horizon).
 
 Gaten (langcyclische vervangingen die in een 10-15-jaars plan ontbreken):
   voor elk fysiek element (met code) uit het bron-document waarvoor de levensduurtabel een
@@ -31,6 +31,7 @@ import sys
 from decimal import Decimal, InvalidOperation
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import mjop_couplings  # noqa: E402
 import mjop_lifecycle  # noqa: E402
 import mjop_maintenance_line_v2 as line_v2  # noqa: E402
 
@@ -117,8 +118,7 @@ def plan_line(line, table, start, end):
         else:
             flags.append("OVERDUE_NO_CYCLE")
     if proposed is not None and proposed > end:
-        flags.append("BEYOND_HORIZON")
-        proposed = None
+        flags.append("BEYOND_HORIZON")   # voorstel blijft: telt niet in de horizon, wel voor ritme en OPrognose
     basis = {"planner_version": PLANNER_VERSION, "horizon_start": start, "horizon_end": end,
              "cycle_years_used": cycle, "cycle_source": cycle_source, "base_year": base,
              "base_year_source": base_source, "rolled_forward": rolled}
@@ -182,7 +182,6 @@ def added_lifecycle_lines(doc, lines, table, start, end, *, mjop_id, last_replac
             rolled = install + cycle < start
         if proposed is not None and proposed > end:
             flags.append("BEYOND_HORIZON")
-            proposed = None
         basis = {"planner_version": PLANNER_VERSION, "horizon_start": start, "horizon_end": end,
                  "cycle_years_used": cycle, "cycle_source": "LIFECYCLE_TABLE", "base_year": install,
                  "base_year_source": base_source, "rolled_forward": rolled}
@@ -191,8 +190,11 @@ def added_lifecycle_lines(doc, lines, table, start, end, *, mjop_id, last_replac
 
 
 def run(doc, lines, table, *, start_year, mjop_id, horizon_years=DEFAULT_HORIZON_YEARS,
-        last_replacement_years=None, line_prefix=None):
-    """Voorstellen voor alle regels + toegevoegde vervangingen. Geeft (lines, report)."""
+        last_replacement_years=None, line_prefix=None, couplings=None):
+    """Voorstellen voor alle regels + toegevoegde vervangingen + koppelingen. Geeft (lines, report).
+    couplings: register (mjop_couplings.load_register()); None = het standaardregister, {} = geen koppelingen."""
+    if couplings is None:
+        couplings = mjop_couplings.load_register()
     start, end = horizon(start_year, horizon_years)
     out = []
     for l in lines:
@@ -204,12 +206,18 @@ def run(doc, lines, table, *, start_year, mjop_id, horizon_years=DEFAULT_HORIZON
     added, unknown = added_lifecycle_lines(doc, out, table, start, end, mjop_id=mjop_id,
                                            last_replacement_years=last_replacement_years, line_prefix=line_prefix)
     all_lines = out + added
+    coupling_counts, coupled_added = {}, []
+    if couplings:
+        coupled_added = mjop_couplings.add_missing_followers(all_lines, couplings, table, mjop_id=mjop_id, line_prefix=line_prefix)
+        all_lines, coupling_counts = mjop_couplings.apply_all(all_lines + coupled_added, couplings, start, end)
     flag_counts = {}
     for l in all_lines:
         for f in l["planner_flags"]:
             flag_counts[f] = flag_counts.get(f, 0) + 1
     report = {"planner_version": PLANNER_VERSION, "horizon_start": start, "horizon_end": end,
-              "lines_existing": len(out), "lines_added_from_lifecycle": len(added),
+              "lines_existing": len(out), "lines_added_from_lifecycle": len(added) + len(coupled_added),
+              "lines_added_via_coupling": len(coupled_added),
+              "coupling_counts": {k: v for k, v in coupling_counts.items() if v},
               "lines_with_proposal": sum(1 for l in all_lines if l["planning_status"] == "PROPOSED"),
               "lines_rolled_forward": sum(1 for l in all_lines if (l["planning_basis"] or {}).get("rolled_forward")),
               "flag_counts": dict(sorted(flag_counts.items())), "lifecycle_unknown": unknown}

@@ -136,6 +136,50 @@ Horizon: `start .. start + 29`. Per regel zonder menselijke planningsbeslissing:
 - Elementen zonder vastgestelde vervangingscyclus komen op de checklist `lifecycle_unknown`
   (in rapport.md onder "Wat er is gedaan").
 
+## Koppelingen
+
+Register: `vocabularies/lifecycle_couplings.json`; schema: `schemas/lifecycle_couplings.schema.json`;
+module: `scripts/mjop_couplings.py`. TD heeft het model en de lijst op 2026-11-26 goedgekeurd. Een
+koppeling zonder `human_verification` wordt niet toegepast.
+
+Koppelingen gelden alleen voor planmatig onderhoud. Een gebrek krijgt altijd een eigen eenmalige
+B-post en wacht nooit op een koppeling.
+
+| Soort | Werking |
+|---|---|
+| SAMEN | bij elke ingreep van de leider: eerste leiderjaar, ritme van de leider |
+| ELKE_N | bij elke n-de ingreep: eerste leiderjaar, n × het ritme van de leider |
+| MEESCHUIVEN | eigen cyclus; het eerste jaar schuift naar het dichtstbijzijnde leiderjaar, maximaal 3 jaar (`max_shift_years`) |
+| VERSCHOVEN | `offset_years` na de leider, in het ritme van de leider |
+
+Het **ritme van een leider** is de vereniging van de uitvoeringsjaren van alle passende regels, over
+een venster van 100 jaar voorbij de horizon.
+
+- Is het interval vast, dan is dat het ritme. Zo geven dakbedekking vervangen (50) en overlagen
+  (50, 25 jaar verschoven) samen het ritme van een "dakingreep": elke 25 jaar.
+- Is het interval niet vast, zoals bij buitenschilderwerk met cycli van 6 en 7 jaar, dan wordt het
+  meest voorkomende ritme gekozen. De regel krijgt dan de vlag `COUPLING_IRREGULAR_LEADER`.
+
+Verdere regels:
+
+- Alleen volgers zonder menselijke planningsbeslissing worden aangepast.
+- Omgekeerde verankering bij VERSCHOVEN: berust de dakvervanging alleen op een aanname (het bouwjaar)
+  en staat de overlaging met een jaar in het oude MJOP, dan wordt de vervanging aan dat jaar
+  verankerd (`COUPLING_REANCHORED_LEADER`).
+- Een VERSCHOVEN-volger die ontbreekt, zoals de overlaging bij een toegevoegde dakvervanging, wordt
+  toegevoegd als de levensduurtabel er een vastgestelde cyclus voor heeft.
+- Voorstellen na het einde van de horizon blijven staan, met de vlag `BEYOND_HORIZON`. Ze tellen niet
+  mee in het reservefonds, maar wel voor het ritme. OPrognose slaat ze op dankzij het bitpatroon tot
+  2199.
+- In de OPrognose-opmerking staat `GEKOPPELD (<soort>[, ±n jr geschoven]): <koppeling>`.
+
+Koppelingen in het register: K01 valbeveiliging samen met elke dakingreep; K02 dakrand, vorsten en
+lood samen met dakbedekking vervangen; K03 overlagen 25 jaar na vervangen; K04 houtrotherstel
+kozijnen samen met buitenschilderwerk; K05a/b hang- en sluitwerk bij elke 2e schilderbeurt; K06
+kilgoot meeschuiven naar een schilderjaar; K07a/b steiger- en bereikbaarheidskosten samen met
+buitenschilderwerk; K08 schilderwerk metalen hekwerk samen met schilderwerk buitenkozijnen; K09
+hemelwaterafvoeren samen; K10 liftonderdelen samen.
+
 ## Reservefonds
 
 Bij een kosteninflatie `i` ziet de berekening er per jaar `t` zo uit:

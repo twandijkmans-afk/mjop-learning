@@ -1,0 +1,265 @@
+{
+  "couplings_version": "lifecycle_couplings_v1",
+  "description": "Koppelingen tussen planmatige handelingen (scripts/mjop_couplings.py, docs/mjop_actualisatie_light_v1.md). Alleen planmatig onderhoud: een gebrek krijgt altijd een eigen eenmalige B-post en wacht nooit op een koppeling. Een koppeling werkt alleen met human_verification.",
+  "max_shift_years": 3,
+  "max_shift_note": "MEESCHUIVEN: maximaal 3 jaar naar voren of achteren (besluit TD, 2026-11-26).",
+  "groups": {
+    "BUITENSCHILDERWERK": {
+      "label_nl": "al het buitenschilderwerk van het gebouw",
+      "members": [
+        {
+          "element_code": null,
+          "action": "exterior_painting"
+        }
+      ]
+    },
+    "DAKINGREEP": {
+      "label_nl": "elke dakingreep (vervangen en overlagen dakbedekking)",
+      "members": [
+        {
+          "element_code": "4711",
+          "action": "replace"
+        },
+        {
+          "element_code": "4711",
+          "action": "install"
+        }
+      ]
+    }
+  },
+  "couplings": [
+    {
+      "id": "K03",
+      "label_nl": "Overlagen dakbedekking 25 jaar na vervangen",
+      "follower": {
+        "element_code": "4711",
+        "action": "install"
+      },
+      "leader": {
+        "element_code": "4711",
+        "action": "replace"
+      },
+      "type": "VERSCHOVEN",
+      "offset_years": 25,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K02",
+      "label_nl": "Dakrand, vorsten en lood samen met dakbedekking vervangen",
+      "follower": {
+        "element_code": "4712",
+        "action": "replace"
+      },
+      "leader": {
+        "element_code": "4711",
+        "action": "replace"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K01",
+      "label_nl": "Valbeveiliging samen met elke dakingreep",
+      "follower": {
+        "element_code": "6710",
+        "action": "replace"
+      },
+      "leader": {
+        "group": "DAKINGREEP"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K04",
+      "label_nl": "Houtrotherstel kozijnen samen met buitenschilderwerk",
+      "follower": {
+        "element_code": "3120",
+        "action": "repair"
+      },
+      "leader": {
+        "group": "BUITENSCHILDERWERK"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K05a",
+      "label_nl": "Hang- en sluitwerk kozijnen bij elke 2e schilderbeurt",
+      "follower": {
+        "element_code": "3120",
+        "action": "maintain"
+      },
+      "leader": {
+        "group": "BUITENSCHILDERWERK"
+      },
+      "type": "ELKE_N",
+      "offset_years": null,
+      "every_n": 2,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K05b",
+      "label_nl": "Hang- en sluitwerk buitendeuren bij elke 2e schilderbeurt",
+      "follower": {
+        "element_code": "3130",
+        "action": "maintain"
+      },
+      "leader": {
+        "group": "BUITENSCHILDERWERK"
+      },
+      "type": "ELKE_N",
+      "offset_years": null,
+      "every_n": 2,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K06",
+      "label_nl": "Zinken goot/kilgoot vervangen in een schilderjaar (steiger)",
+      "follower": {
+        "element_code": "2716",
+        "action": "replace"
+      },
+      "leader": {
+        "group": "BUITENSCHILDERWERK"
+      },
+      "type": "MEESCHUIVEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K07a",
+      "label_nl": "Steigerkosten samen met buitenschilderwerk",
+      "follower": {
+        "element_code": null,
+        "action": "scaffolding"
+      },
+      "leader": {
+        "group": "BUITENSCHILDERWERK"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K07b",
+      "label_nl": "Bereikbaarheidskosten samen met buitenschilderwerk",
+      "follower": {
+        "element_code": null,
+        "action": "site_access_cost"
+      },
+      "leader": {
+        "group": "BUITENSCHILDERWERK"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K08",
+      "label_nl": "Schilderwerk metalen hekwerk/galerij samen met schilderwerk buitenkozijnen",
+      "follower": {
+        "element_code": "4634",
+        "action": "exterior_painting"
+      },
+      "leader": {
+        "element_code": "4631",
+        "action": "exterior_painting"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K09",
+      "label_nl": "Hemelwaterafvoeren (staal en pvc) samen vervangen",
+      "follower": {
+        "element_code": "5211",
+        "action": "replace"
+      },
+      "leader": {
+        "element_code": "5211",
+        "action": "replace"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    },
+    {
+      "id": "K10",
+      "label_nl": "Liftonderdelen (tableaus) samen met liftbesturing",
+      "follower": {
+        "element_code": "6611",
+        "action": "replace"
+      },
+      "leader": {
+        "element_code": "6611",
+        "action": "replace"
+      },
+      "type": "SAMEN",
+      "offset_years": null,
+      "every_n": null,
+      "human_verification": {
+        "by": "TD",
+        "at": "2026-11-26T12:00:00Z",
+        "note": "goedgekeurd via chat (koppelingenmodel en lijst van 10)"
+      }
+    }
+  ]
+}

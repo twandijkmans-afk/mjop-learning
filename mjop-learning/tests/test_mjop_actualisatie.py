@@ -318,7 +318,8 @@ def test_planner_uses_lifecycle_table_only_after_human_decision_and_flags_differ
 def test_planner_beyond_horizon():
     doc = make_doc(actions=[_act("A1", "E1", "exterior_painting", 2070, "1")])
     lines, _ = _plan(doc)
-    assert lines[0]["proposed_planned_year"] is None and "BEYOND_HORIZON" in lines[0]["planner_flags"]
+    assert lines[0]["proposed_planned_year"] == 2070 and "BEYOND_HORIZON" in lines[0]["planner_flags"]
+    assert L2.occurrence_years(lines[0], 2027, 2056) == []
 
 
 def test_planner_adds_long_cycle_replacements_with_explicit_assumption():
@@ -641,3 +642,128 @@ def test_repository_group1_roof_decisions_by_td():
         e = LC.entry_for(t, *key)
         assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD"
     assert LC.entry_for(t, "4711", "clean")["human_verification"]["decision"] == "REJECT"
+
+
+# --------------------------------------------------------------------------
+# Koppelingen
+# --------------------------------------------------------------------------
+
+import mjop_couplings as K  # noqa: E402
+
+HV = {"by": "TD", "at": T0, "note": "test"}
+
+
+def _reg(*couplings, groups=None, max_shift=3):
+    return {"couplings_version": "lifecycle_couplings_v1", "description": "t", "max_shift_years": max_shift,
+            "groups": groups or {"PAINT": {"label_nl": "buitenschilderwerk", "members": [{"element_code": None, "action": "exterior_painting"}]}},
+            "couplings": list(couplings)}
+
+
+def _c(cid, follower, leader, typ, offset=None, n=None, hv=HV):
+    return {"id": cid, "label_nl": cid, "follower": follower, "leader": leader, "type": typ, "offset_years": offset,
+            "every_n": n, "human_verification": hv}
+
+
+def _sched_line(lid, code, action, year, cycle, origin="FROM_EXISTING_MJOP", base_source="DOCUMENT_PLANNED_YEAR"):
+    src = (L2.origin_source("DOCUMENT", document_id="D") if origin == "FROM_EXISTING_MJOP" else
+           L2.origin_source("LIFECYCLE_TABLE", lifecycle_key={"element_code": code, "action": action}))
+    line = L2.new_line(lid, "M", f"E-{lid}", origin=origin, origin_source=src, element_code_internal=code, action_normalized=action)
+    basis = {"planner_version": "t", "horizon_start": 2027, "horizon_end": 2056, "cycle_years_used": cycle,
+             "cycle_source": "DOCUMENT_INTERVAL", "base_year": year, "base_year_source": base_source, "rolled_forward": False}
+    return L2.set_planner_proposal(line, year, basis, [] if year else ["OVERDUE_NO_CYCLE"]) if year else line
+
+
+def _by(lines, lid):
+    return next(l for l in lines if l["maintenance_line_id"] == lid)
+
+
+def test_repository_coupling_register_is_valid_and_approved():
+    reg = K.load_register()
+    assert len(reg["couplings"]) == 12 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
+    assert reg["max_shift_years"] == 3
+
+
+def test_coupling_samen_and_elke_n_follow_painting_rhythm():
+    lines = [_sched_line("P1", "4621", "exterior_painting", 2030, 7), _sched_line("H1", "3120", "repair", None, None),
+             _sched_line("S1", "3120", "maintain", 2041, 12)]
+    reg = _reg(_c("K04", {"element_code": "3120", "action": "repair"}, {"group": "PAINT"}, "SAMEN"),
+               _c("K05", {"element_code": "3120", "action": "maintain"}, {"group": "PAINT"}, "ELKE_N", n=2))
+    out, counts = K.apply_all(lines, reg, 2027, 2056)
+    assert counts == {"K04": 1, "K05": 1}
+    assert L2.occurrence_years(_by(out, "H1"), 2027, 2056) == [2030, 2037, 2044, 2051]
+    assert "OVERDUE_NO_CYCLE" not in _by(out, "H1")["planner_flags"] and "COUPLED" in _by(out, "H1")["planner_flags"]
+    assert L2.occurrence_years(_by(out, "S1"), 2027, 2056) == [2030, 2044]
+    assert _by(out, "S1")["planning_basis"]["coupling"]["type"] == "ELKE_N"
+
+
+def test_coupling_meeschuiven_within_and_beyond_max_shift():
+    reg = _reg(_c("K06", {"element_code": "2716", "action": "replace"}, {"group": "PAINT"}, "MEESCHUIVEN"))
+    near = [_sched_line("P1", "4621", "exterior_painting", 2030, 7), _sched_line("G1", "2716", "replace", 2035, 25)]
+    out, _ = K.apply_all(near, reg, 2027, 2056)
+    g = _by(out, "G1")
+    assert L2.schedule(g)[:2] == (2037, 25) and g["planning_basis"]["coupling"]["shift_years"] == 2
+    far = [_sched_line("P1", "4621", "exterior_painting", 2030, 10), _sched_line("G1", "2716", "replace", 2035, 25)]
+    out, _ = K.apply_all(far, _reg(_c("K06", {"element_code": "2716", "action": "replace"}, {"group": "PAINT"}, "MEESCHUIVEN"),
+                                   max_shift=2), 2027, 2056)
+    assert L2.schedule(_by(out, "G1"))[:2] == (2035, 25) and "COUPLING_NO_LEADER_YEAR_IN_RANGE" in _by(out, "G1")["planner_flags"]
+
+
+def test_coupling_verschoven_and_group_rhythm_for_every_roof_intervention():
+    groups = {"DAK": {"label_nl": "dakingreep", "members": [{"element_code": "4711", "action": "replace"},
+                                                            {"element_code": "4711", "action": "install"}]}}
+    reg = _reg(_c("K03", {"element_code": "4711", "action": "install"}, {"element_code": "4711", "action": "replace"}, "VERSCHOVEN", offset=25),
+               _c("K01", {"element_code": "6710", "action": "replace"}, {"group": "DAK"}, "SAMEN"), groups=groups)
+    lines = [_sched_line("R1", "4711", "replace", 2040, 50), _sched_line("O1", "4711", "install", 2050, 25),
+             _sched_line("V1", "6710", "replace", 2033, 25)]
+    out, _ = K.apply_all(lines, reg, 2027, 2056)
+    assert L2.schedule(_by(out, "O1"))[:2] == (2065, 50)                                 # 25 jaar na 2040
+    assert L2.schedule(_by(out, "V1"))[:2] == (2040, 25)                                 # elke dakingreep
+    assert L2.occurrence_years(_by(out, "V1"), 2027, 2100) == [2040, 2065, 2090]
+
+
+def test_coupling_reverse_anchor_when_leader_is_only_an_assumption():
+    reg = _reg(_c("K03", {"element_code": "4711", "action": "install"}, {"element_code": "4711", "action": "replace"}, "VERSCHOVEN", offset=25))
+    lines = [_sched_line("R1", "4711", "replace", 2035, 50, origin="ADDED_FROM_LIFECYCLE", base_source="CONSTRUCTION_YEAR_ASSUMPTION"),
+             _sched_line("O1", "4711", "install", 2030, None)]
+    out, _ = K.apply_all(lines, reg, 2027, 2056)
+    r = _by(out, "R1")
+    assert L2.schedule(r)[:2] == (2055, 50) and "COUPLING_REANCHORED_LEADER" in r["planner_flags"]
+    assert L2.schedule(_by(out, "O1"))[:2] == (2030, 50)
+
+
+def test_coupling_respects_human_decisions_and_approval():
+    paint = _sched_line("P1", "4621", "exterior_painting", 2030, 7)
+    decided = L2.decide_planning(_sched_line("H1", "3120", "repair", 2028, 10), "ACCEPT", by="TD", at=T0)
+    out, counts = K.apply_all([paint, decided], _reg(_c("K04", {"element_code": "3120", "action": "repair"}, {"group": "PAINT"}, "SAMEN")),
+                              2027, 2056)
+    assert counts == {"K04": 0} and L2.schedule(_by(out, "H1"))[:2] == (2028, 10)
+    h = _sched_line("H1", "3120", "repair", 2028, 10)
+    out, counts = K.apply_all([paint, h], _reg(_c("K04", {"element_code": "3120", "action": "repair"}, {"group": "PAINT"}, "SAMEN", hv=None)),
+                              2027, 2056)
+    assert counts == {} and L2.schedule(_by(out, "H1"))[:2] == (2028, 10)
+    alone, _ = K.apply_all([h], _reg(_c("K04", {"element_code": "3120", "action": "repair"}, {"group": "PAINT"}, "SAMEN")), 2027, 2056)
+    assert "COUPLING_LEADER_ABSENT" in alone[0]["planner_flags"]
+
+
+def test_coupling_same_key_aligns_to_first_line():
+    reg = _reg(_c("K09", {"element_code": "5211", "action": "replace"}, {"element_code": "5211", "action": "replace"}, "SAMEN"))
+    out, _ = K.apply_all([_sched_line("A1", "5211", "replace", 2031, 25), _sched_line("A2", "5211", "replace", 2034, 25)], reg, 2027, 2056)
+    assert L2.schedule(_by(out, "A2"))[:2] == (2031, 25) and L2.schedule(_by(out, "A1"))[:2] == (2031, 25)
+
+
+def test_planner_adds_overlay_via_coupling_and_exports_remark():
+    table = table_with(("4711", "replace", "EDIT", 50), ("4711", "install", "EDIT", 50), ("6710", "replace", "EDIT", 25))
+    doc = make_doc(elements=[_el("E2", "4711", "Dakbedekking"), _el("E9", "6710", "Valbeveiliging", qty="1", unit="pcs")],
+                   actions=[_act("A1", "E2", "repair", 2022, "100")])
+    lines, _ = I.import_document(doc, mjop_id="M", target_price_year=2027, index=INDEX)
+    out, r = H.run(doc, lines, table, start_year=2027, mjop_id="M")
+    overlay = next(l for l in out if l["action_normalized"] == "install")
+    assert r["lines_added_via_coupling"] == 1 and overlay["origin"] == "ADDED_FROM_LIFECYCLE"
+    roof = next(l for l in out if l["element_code_internal"] == "4711" and l["action_normalized"] == "replace")
+    assert L2.schedule(roof)[:2] == (2030, 50) and L2.schedule(overlay)[:2] == (2055, 50)   # 1980 + 50; +25
+    fall = next(l for l in out if l["element_code_internal"] == "6710")
+    assert L2.schedule(fall)[:2] == (2030, 25)
+    fmt = X.load_format()
+    dataset, _ = X.build_dataset(doc, out, mjop_id="M", start_year=2027, target_price_year=2027, source_price_year=2020, fmt=fmt)
+    remarks = [h["han_opm"] for _, hs in dataset[1] for h in hs]
+    assert any("GEKOPPELD (verschoven)" in m for m in remarks) and X.validate_xml(X.serialize(dataset, fmt), fmt) == []
