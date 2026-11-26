@@ -915,3 +915,14 @@ def test_policy_excludes_cleaning_from_plan_export_and_fund():
     assert "tekst clean" not in texts and result["export_report"]["lines_not_exported_rejected"] == 1
     assert all(p["maintenance_line_id"] != clean["maintenance_line_id"] for p in result["reserve_fund"]["details"]["per_line"])
     assert X.validate_xml(X.serialize(result["dataset"], result["fmt"]), result["fmt"]) == []
+
+
+def test_repository_group4_painting_decisions_by_td():
+    t = LC.load_table()
+    expected = {("4621", "exterior_painting"): 7, ("4631", "exterior_painting"): 7, ("4623", "exterior_painting"): 14,
+                ("4623", "install"): 14, ("4628", "exterior_painting"): 14, ("4628", "paint"): 14,
+                ("4634", "exterior_painting"): 7, ("4622", "interior_painting"): 14}
+    for key, cycle in expected.items():
+        e = LC.entry_for(t, *key)
+        assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
+    assert not any(c["follower"]["action"] == "interior_painting" for c in K.load_register()["couplings"])   # binnen los
