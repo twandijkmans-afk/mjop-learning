@@ -51,6 +51,37 @@ Pas daarna is `cycle_years` effectief. Bij elke beslissing worden het oorspronke
 waarde, de gebruiker en het tijdstip bewaard. Bij `build` blijven eerdere beslissingen behouden. De
 tabel bevat geen VvE-specifieke inhoud: alleen document-, element-IDs en jaren.
 
+### Tweede bron: cycli uit OPrognose-exports
+
+`python scripts/mjop_lifecycle.py oprognose <exports...> [--local-report <pad buiten de repo>]` leest
+OPrognose-exports in. Dat kunnen losse `.xml`-bestanden zijn, mappen of `.zip`-bestanden; foto's worden
+genegeerd en dubbele exports tellen één keer. Per (elementcode, actie) komen de cycli die adviseurs in
+OPrognose hebben gezet in `observed_oprognose` te staan: aantal bestanden, aantal handelingen, aantal
+eenmalige handelingen, min/mediaan/max, de verdeling en een voorstel bij een gehele mediaan.
+
+- Alleen geplande handelingen (`han_type H`) met een 4-cijferige `ele_nlsfb` tellen mee; `9999` en
+  `ZZZZ` niet.
+- De actie wordt eerst exact opgezocht in `vocabularies/maintenance_action.json`. Daarna gelden de
+  trefwoordregels in `config/oprognose/action_text_rules.json`. Bij schilderwerk beslist "buiten" of
+  "binnen" in de tekst, anders het label van de elementcode. Een tekst die op meer dan één actie past,
+  of op geen enkele, wordt niet ingedeeld. Zulke teksten staan in het lokale rapport.
+- In de tabel komen geen klantgegevens: alleen codes, cycli, aantallen en per bronbestand een sha256
+  (`oprognose_sources`). Het lokale rapport bevat wel handelingsteksten en hoort buiten de repository.
+- Een cyclus wordt pas effectief na een menselijke beslissing:
+  `python scripts/mjop_lifecycle.py decide 6611 replace ACCEPT --source OPROGNOSE --by <naam>`.
+  `proposal_source` legt vast welk voorstel is geaccepteerd.
+
+Waarneming op 6 exports (ter indicatie):
+
+- 82 combinaties, waarvan 54 met een voorstel. Daar zitten vrijwel alle grote vervangingen bij.
+- De waarde 48 komt vaak voor bij kozijnen, balkons en hekwerk. Dat lijkt een vaste waarde voor
+  "buiten de planperiode".
+- Bij 4711 zijn "nieuwe laag aanbrengen" (`install`, 25 jaar) en "vervangen" (`replace`, meestal
+  50 jaar) verschillende ingrepen.
+- Binnenschilderwerk staat in OPrognose op 14–21 jaar, in de oude MJOP's op 5–8 jaar.
+
+Een mens moet deze punten beoordelen.
+
 ## Maintenance Line v2
 
 v2 = alle velden en regels van v1, plus de onderstaande. Een v2-regel wordt gevalideerd door het

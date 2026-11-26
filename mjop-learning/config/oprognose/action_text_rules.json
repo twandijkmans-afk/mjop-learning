@@ -1,0 +1,21 @@
+{
+  "rules_version": "oprognose_action_text_rules_v1",
+  "note": "Deterministische indeling van OPrognose-handelingsteksten (han_tekst) naar vocabularies/maintenance_action.json. Eerst exacte lookup in die vocabulaire; daarna deze trefwoorden (kleine letters, deelstring). Past een tekst op meer dan één actie (bijv. 'Controle en herstel'), dan wordt hij NIET ingedeeld maar gemeld als ambigu. Schilderwerk: 'buiten'/'binnen' in de tekst, anders het label van de elementcode (Buitenschilderwerk/Binnenschilderwerk), anders 'paint'. Pas aan en draai opnieuw; nooit gokken.",
+  "keywords": {
+    "replace": ["vervang", "vernieuw"],
+    "install": ["aanbrengen nieuwe laag", "vervolgsysteem"],
+    "PAINTING": ["schilderwerk", "schilderen", "lakken", "beitsen"],
+    "clean": ["reinig", "schoonmak", "frezen"],
+    "repair": ["herstel", "repar"],
+    "inspect": ["keuren", "inspect", "update mjop", "actualisatie mjop", "herinspectie"],
+    "maintain": ["onderhoud", "afstellen"],
+    "impregnate": ["hydrofob", "impregn"],
+    "scaffolding": ["steiger"],
+    "site_access_cost": ["benadering", "bereikbaar", "hoogwerker"],
+    "advice": ["advies"],
+    "project_management": ["directievoering", "projectbegeleiding"]
+  },
+  "precedence": [
+    ["scaffolding", "site_access_cost"]
+  ]
+}

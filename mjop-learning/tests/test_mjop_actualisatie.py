@@ -533,3 +533,83 @@ def test_cli_run_on_real_verified_document(tmp_path):
     out = tmp_path / "MJOP-DOC-010-ACT2027"
     with open(out / "MJOP-DOC-010-ACT2027.xml", encoding="utf-8", newline="") as f:
         assert X.validate_xml(f.read(), X.load_format()) == []
+
+
+# --------------------------------------------------------------------------
+# Cycli uit OPrognose-exports (tweede bron voor de levensduurtabel)
+# --------------------------------------------------------------------------
+
+import zipfile  # noqa: E402
+
+import mjop_oprognose_cycles as OC  # noqa: E402
+
+
+def _oprognose_xml(actions):
+    """Minimale export: [(nlsfb, han_type, han_tekst, han_cyclus)]."""
+    opes = "".join(f"<ope><ele_pk>{i}</ele_pk><ele_nlsfb>{code}</ele_nlsfb><oph><han_type>{t}</han_type>"
+                   f"<han_tekst>{text}</han_tekst><han_cyclus>{cyc}</han_cyclus></oph></ope>"
+                   for i, (code, t, text, cyc) in enumerate(actions))
+    return f"<NewDataSet><opo><obj_pk>1</obj_pk><obj_klnaam>Klant X</obj_klnaam>{opes}</opo></NewDataSet>"
+
+
+def test_oprognose_classify_rules():
+    rules = OC.load_rules()
+    assert OC.classify("Vervangen hydrofoor", "5314", rules) == ("replace", "EXACT")
+    assert OC.classify("Vervangen groepenkast", "6111", rules) == ("replace", "KEYWORD")
+    assert OC.classify("Groot schilderwerk kozijn en raam hout dekkend", "4631", rules) == ("exterior_painting", "CODE_LABEL")
+    assert OC.classify("Schilderwerk binnen trap", "4621", rules)[0] == "interior_painting"
+    assert OC.classify("Controle en herstel hang en sluitwerk", "3130", rules)[0] == "repair"
+    assert OC.classify("Reinigen en herstellen", "2110", rules) == (None, "AMBIGUOUS")
+    assert OC.classify("Flora en fauna onderzoek", "9999", rules) == (None, "NO_RULE")
+    assert OC.classify("Benaderingskosten / steiger / hoogwerker", "9999", rules)[0] == "scaffolding"
+
+
+def test_oprognose_collect_aggregates_without_client_data(tmp_path):
+    a = tmp_path / "a.xml"
+    a.write_text(_oprognose_xml([("4711", "H", "Aanbrengen nieuwe laag dakbedekking", 25), ("6611", "H", "Vervangen lift", 25),
+                                 ("6611", "B", "Herstellen", 0), ("9999", "H", "Steiger", 6), ("2110", "H", "Iets", 5)]),
+                 encoding="utf-8")
+    z = tmp_path / "b.zip"
+    with zipfile.ZipFile(z, "w") as zf:
+        zf.writestr("b.xml", _oprognose_xml([("6611", "H", "Vervangen lift", 20), ("6611", "H", "Vervangen lift", 0)]))
+        zf.writestr("foto.jpg", b"\xff\xd8")
+    (tmp_path / "dup.xml").write_bytes(a.read_bytes())                                       # dubbel: telt één keer
+    (tmp_path / "kapot.xml").write_text("<x>", encoding="utf-8")
+    obs, summary, local = OC.collect([str(tmp_path)])
+    assert summary["n_files"] == 2 and len(local["failed_files"]) == 1
+    lift = obs[("6611", "replace")]
+    assert lift["n_files"] == 2 and lift["n_actions"] == 3 and lift["n_one_off"] == 1
+    assert lift["cycle_counts"] == {"20": 1, "25": 1} and lift["cycle_median"] == "22.5" and lift["proposed_cycle_years"] is None
+    assert obs[("4711", "install")]["proposed_cycle_years"] == 25
+    assert summary["unmapped_actions"] == 1 and local["unmapped_texts"][0]["text"] == "iets"
+    assert "Klant X" not in json.dumps([{"k": list(k), **v} for k, v in obs.items()]) + json.dumps(summary)
+
+
+def test_lifecycle_oprognose_source_and_decision(tmp_path):
+    p = tmp_path / "a.xml"
+    p.write_text(_oprognose_xml([("6611", "H", "Vervangen lift", 25), ("4621", "H", "Buitenschilderwerk", 7)]), encoding="utf-8")
+    obs, summary, _ = OC.collect([str(p)])
+    t = LC.apply_oprognose(table_with(), obs, summary, T0)
+    assert t["oprognose_sources"]["n_files"] == 1 and len(t["oprognose_sources"]["file_sha256"][0]) == 64
+    assert LC.entry_for(t, "6611", "replace")["observed_oprognose"]["proposed_cycle_years"] == 25
+    assert LC.effective_cycle(t, "6611", "replace") is None                                   # pas na akkoord
+    with pytest.raises(LC.LifecycleError):
+        LC.decide(t, "6611", "replace", "ACCEPT", by="tester", at=T0)                          # eigen MJOP: geen voorstel
+    t2 = LC.decide(t, "6611", "replace", "ACCEPT", by="tester", at=T0, source="OPROGNOSE")
+    hv = LC.entry_for(t2, "6611", "replace")["human_verification"]
+    assert LC.effective_cycle(t2, "6611", "replace") == 25 and hv["proposal_source"] == "OPROGNOSE"
+    paint = LC.entry_for(t2, "4621", "exterior_painting")
+    assert paint["observed"]["proposed_cycle_years"] == 6 and paint["observed_oprognose"]["proposed_cycle_years"] == 7
+    rebuilt = LC.build_table([make_doc()], T0, previous=t2)                                   # rebuild behoudt beide
+    assert LC.entry_for(rebuilt, "6611", "replace")["observed_oprognose"] and rebuilt["oprognose_sources"]
+    assert LC.effective_cycle(rebuilt, "6611", "replace") == 25
+
+
+def test_lifecycle_upgrade_of_old_table_shape():
+    old = table_with(("6612", "replace", "EDIT", 30))
+    old.pop("oprognose_sources")
+    for e in old["entries"]:
+        e.pop("observed_oprognose")
+        if e["human_verification"]:
+            e["human_verification"].pop("proposal_source")
+    assert LC.table_errors(LC.upgrade_table(old)) == []

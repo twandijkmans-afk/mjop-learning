@@ -78,7 +78,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "2110",
@@ -118,7 +119,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 12,
+        "cycle_median": "12",
+        "cycle_max": 12,
+        "cycle_counts": {
+          "12": 1
+        },
+        "proposed_cycle_years": 12
+      }
     },
     {
       "element_code": "2110",
@@ -156,7 +169,17 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      }
     },
     {
       "element_code": "2110",
@@ -199,7 +222,20 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 9,
+        "n_one_off": 4,
+        "cycle_min": 12,
+        "cycle_median": "12",
+        "cycle_max": 25,
+        "cycle_counts": {
+          "12": 4,
+          "25": 1
+        },
+        "proposed_cycle_years": 12
+      }
     },
     {
       "element_code": "2120",
@@ -240,6 +276,35 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "2120",
+      "action": "replace",
+      "label_nl": "Hijsbalk",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -267,7 +332,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "2221",
@@ -292,6 +358,63 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "2221",
+      "action": "replace",
+      "label_nl": "Binnenwanden metselwerk",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "2320",
+      "action": "repair",
+      "label_nl": "Vloerconstructie beton",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
       },
       "cycle_years": null,
       "human_verification": null
@@ -321,6 +444,35 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "2322",
+      "action": "clean",
+      "label_nl": "Balkonconstructie / dakrandoverstek beton of staal",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -346,6 +498,38 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "2322",
+      "action": "replace",
+      "label_nl": "Balkonconstructie / dakrandoverstek beton of staal",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 3,
+        "n_one_off": 0,
+        "cycle_min": 30,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "30": 1,
+          "48": 2
+        },
+        "proposed_cycle_years": 48
       },
       "cycle_years": null,
       "human_verification": null
@@ -378,7 +562,17 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      }
     },
     {
       "element_code": "2410",
@@ -403,6 +597,37 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "2410",
+      "action": "replace",
+      "label_nl": "Trappen (binnen/buiten) en vloertegels trappenhuis",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
       },
       "cycle_years": null,
       "human_verification": null
@@ -472,7 +697,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 7,
+        "cycle_median": "7",
+        "cycle_max": 7,
+        "cycle_counts": {
+          "7": 1
+        },
+        "proposed_cycle_years": 7
+      }
     },
     {
       "element_code": "2716",
@@ -537,7 +774,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "2716",
@@ -562,6 +800,77 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 5,
+        "n_one_off": 0,
+        "cycle_min": 24,
+        "cycle_median": "25",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "24": 1,
+          "25": 2,
+          "30": 1,
+          "48": 1
+        },
+        "proposed_cycle_years": 25
+      }
+    },
+    {
+      "element_code": "2720",
+      "action": "clean",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "2720",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
       },
       "cycle_years": null,
       "human_verification": null
@@ -594,7 +903,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "3120",
@@ -634,7 +944,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 4,
+        "n_one_off": 1,
+        "cycle_min": 12,
+        "cycle_median": "12",
+        "cycle_max": 12,
+        "cycle_counts": {
+          "12": 3
+        },
+        "proposed_cycle_years": 12
+      }
     },
     {
       "element_code": "3120",
@@ -662,6 +984,48 @@
             ]
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 1,
+        "cycle_min": 14,
+        "cycle_median": "14",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "14": 1
+        },
+        "proposed_cycle_years": 14
+      }
+    },
+    {
+      "element_code": "3120",
+      "action": "paint",
+      "label_nl": "Kozijn/raamdorpel/ventilatierooster buiten",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 14,
+        "cycle_median": "14",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "14": 1
+        },
+        "proposed_cycle_years": 14
       },
       "cycle_years": null,
       "human_verification": null
@@ -806,7 +1170,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
+      }
     },
     {
       "element_code": "3120",
@@ -833,7 +1209,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 17,
+        "n_one_off": 14,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 3
+        },
+        "proposed_cycle_years": 48
+      }
     },
     {
       "element_code": "3122",
@@ -874,6 +1262,37 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "3130",
+      "action": "repair",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 12,
+        "cycle_median": "12",
+        "cycle_max": 12,
+        "cycle_counts": {
+          "12": 1
+        },
+        "proposed_cycle_years": 12
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -899,6 +1318,38 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "3230",
+      "action": "replace",
+      "label_nl": "Kozijn binnen / deurdranger",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 4,
+        "n_one_off": 2,
+        "cycle_min": 48,
+        "cycle_median": "54",
+        "cycle_max": 60,
+        "cycle_counts": {
+          "48": 1,
+          "60": 1
+        },
+        "proposed_cycle_years": 54
       },
       "cycle_years": null,
       "human_verification": null
@@ -944,6 +1395,63 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "3231",
+      "action": "replace",
+      "label_nl": "Binnendeur",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3240",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 2,
+        "n_one_off": 2,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -971,7 +1479,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "3410",
@@ -998,7 +1507,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "3410",
@@ -1031,6 +1541,132 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 3,
+        "n_one_off": 3,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      }
+    },
+    {
+      "element_code": "3411",
+      "action": "replace",
+      "label_nl": "Traphek",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 1,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3420",
+      "action": "replace",
+      "label_nl": "Leuning staal",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3421",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3422",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
       },
       "cycle_years": null,
       "human_verification": null
@@ -1074,6 +1710,99 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "3720",
+      "action": "replace",
+      "label_nl": "Dakluik / lichtstraat",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 0,
+        "cycle_min": 25,
+        "cycle_median": "32.5",
+        "cycle_max": 40,
+        "cycle_counts": {
+          "25": 1,
+          "40": 1
+        },
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3721",
+      "action": "replace",
+      "label_nl": "Dakraam / lichtkoepel",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 3,
+        "n_one_off": 1,
+        "cycle_min": 25,
+        "cycle_median": "25",
+        "cycle_max": 25,
+        "cycle_counts": {
+          "25": 2
+        },
+        "proposed_cycle_years": 25
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3724",
+      "action": "replace",
+      "label_nl": "Dakvenster (Velux)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 0,
+        "cycle_min": 24,
+        "cycle_median": "36",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "24": 1,
+          "48": 1
+        },
+        "proposed_cycle_years": 36
       },
       "cycle_years": null,
       "human_verification": null
@@ -1127,7 +1856,17 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      }
     },
     {
       "element_code": "4111",
@@ -1162,6 +1901,44 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      }
+    },
+    {
+      "element_code": "4112",
+      "action": "clean",
+      "label_nl": "Gevelbekleding (hout/natuursteen/volkern)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 3,
+        "n_one_off": 3,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -1190,6 +1967,37 @@
             ]
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "4112",
+      "action": "replace",
+      "label_nl": "Gevelbekleding (hout/natuursteen/volkern)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 4,
+        "n_one_off": 3,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
       },
       "cycle_years": null,
       "human_verification": null
@@ -1227,6 +2035,67 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "4211",
+      "action": "replace",
+      "label_nl": "Wandafwerking stucwerk",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 4,
+        "n_one_off": 3,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "4212",
+      "action": "replace",
+      "label_nl": "Wandafwerking lambrizering/tegels",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 50,
+        "cycle_median": "50",
+        "cycle_max": 50,
+        "cycle_counts": {
+          "50": 1
+        },
+        "proposed_cycle_years": 50
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -1254,7 +2123,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4320",
@@ -1279,6 +2149,38 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "4320",
+      "action": "replace",
+      "label_nl": "Vloerafwerking coating/loodaansluiting/parkeerdek",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 3,
+        "n_one_off": 1,
+        "cycle_min": 15,
+        "cycle_median": "22.5",
+        "cycle_max": 30,
+        "cycle_counts": {
+          "15": 1,
+          "30": 1
+        },
+        "proposed_cycle_years": null
       },
       "cycle_years": null,
       "human_verification": null
@@ -1316,6 +2218,136 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 6,
+        "n_one_off": 3,
+        "cycle_min": 6,
+        "cycle_median": "10",
+        "cycle_max": 12,
+        "cycle_counts": {
+          "6": 1,
+          "10": 1,
+          "12": 1
+        },
+        "proposed_cycle_years": 10
+      }
+    },
+    {
+      "element_code": "4322",
+      "action": "repair",
+      "label_nl": "Vloerafwerking hard (tegels/natuursteen/terrazzo)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 1
+        },
+        "proposed_cycle_years": 48
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "4322",
+      "action": "replace",
+      "label_nl": "Vloerafwerking hard (tegels/natuursteen/terrazzo)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 2,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "4410",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 24,
+        "cycle_median": "24",
+        "cycle_max": 24,
+        "cycle_counts": {
+          "24": 1
+        },
+        "proposed_cycle_years": 24
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "4510",
+      "action": "replace",
+      "label_nl": "Binnenplafond houtwolcementplaat",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -1343,7 +2375,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 3,
+        "n_one_off": 2,
+        "cycle_min": 40,
+        "cycle_median": "40",
+        "cycle_max": 40,
+        "cycle_counts": {
+          "40": 1
+        },
+        "proposed_cycle_years": 40
+      }
     },
     {
       "element_code": "4521",
@@ -1376,6 +2420,38 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "4521",
+      "action": "replace",
+      "label_nl": "Plafondafwerking pleisterwerk/stucwerk",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 4,
+        "n_one_off": 2,
+        "cycle_min": 24,
+        "cycle_median": "36",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "24": 1,
+          "48": 1
+        },
+        "proposed_cycle_years": 36
       },
       "cycle_years": null,
       "human_verification": null
@@ -1784,7 +2860,21 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 10,
+        "n_one_off": 0,
+        "cycle_min": 6,
+        "cycle_median": "6.5",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "6": 5,
+          "7": 2,
+          "14": 3
+        },
+        "proposed_cycle_years": null
+      }
     },
     {
       "element_code": "4621",
@@ -1819,7 +2909,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4621",
@@ -1846,7 +2937,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4621",
@@ -1873,7 +2965,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4622",
@@ -2085,7 +3178,21 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 5,
+        "n_actions": 16,
+        "n_one_off": 2,
+        "cycle_min": 7,
+        "cycle_median": "21",
+        "cycle_max": 21,
+        "cycle_counts": {
+          "7": 1,
+          "14": 5,
+          "21": 8
+        },
+        "proposed_cycle_years": 21
+      }
     },
     {
       "element_code": "4623",
@@ -2112,7 +3219,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4623",
@@ -2164,7 +3272,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4623",
@@ -2223,7 +3332,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 14,
+        "cycle_median": "14",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "14": 1
+        },
+        "proposed_cycle_years": 14
+      }
     },
     {
       "element_code": "4624",
@@ -2269,7 +3390,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 14,
+        "cycle_median": "14",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "14": 1
+        },
+        "proposed_cycle_years": 14
+      }
     },
     {
       "element_code": "4624",
@@ -2296,7 +3429,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4628",
@@ -2431,7 +3565,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4628",
@@ -2464,6 +3599,39 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "4628",
+      "action": "paint",
+      "label_nl": "Schilderwerk betonconstructie/afdekking",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 4,
+        "n_one_off": 1,
+        "cycle_min": 7,
+        "cycle_median": "14",
+        "cycle_max": 21,
+        "cycle_counts": {
+          "7": 1,
+          "14": 1,
+          "21": 1
+        },
+        "proposed_cycle_years": 14
       },
       "cycle_years": null,
       "human_verification": null
@@ -2501,7 +3669,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4631",
@@ -2662,7 +3831,20 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 4,
+        "n_one_off": 0,
+        "cycle_min": 6,
+        "cycle_median": "7",
+        "cycle_max": 7,
+        "cycle_counts": {
+          "6": 1,
+          "7": 3
+        },
+        "proposed_cycle_years": 7
+      }
     },
     {
       "element_code": "4631",
@@ -2689,7 +3871,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4631",
@@ -2732,7 +3915,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4632",
@@ -2799,7 +3983,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 3,
+        "n_one_off": 0,
+        "cycle_min": 21,
+        "cycle_median": "21",
+        "cycle_max": 21,
+        "cycle_counts": {
+          "21": 3
+        },
+        "proposed_cycle_years": 21
+      }
     },
     {
       "element_code": "4634",
@@ -2886,7 +4082,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4634",
@@ -2945,7 +4142,19 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 1,
+        "cycle_min": 21,
+        "cycle_median": "21",
+        "cycle_max": 21,
+        "cycle_counts": {
+          "21": 1
+        },
+        "proposed_cycle_years": 21
+      }
     },
     {
       "element_code": "4634",
@@ -2972,7 +4181,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4645",
@@ -3084,7 +4294,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4645",
@@ -3135,7 +4346,22 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 6,
+        "n_one_off": 1,
+        "cycle_min": 6,
+        "cycle_median": "14",
+        "cycle_max": 21,
+        "cycle_counts": {
+          "6": 2,
+          "14": 1,
+          "18": 1,
+          "21": 1
+        },
+        "proposed_cycle_years": 14
+      }
     },
     {
       "element_code": "4645",
@@ -3162,7 +4388,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4711",
@@ -3221,7 +4448,20 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 9,
+        "n_one_off": 0,
+        "cycle_min": 25,
+        "cycle_median": "25",
+        "cycle_max": 50,
+        "cycle_counts": {
+          "25": 8,
+          "50": 1
+        },
+        "proposed_cycle_years": 25
+      }
     },
     {
       "element_code": "4711",
@@ -3256,7 +4496,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "4711",
@@ -3307,6 +4548,78 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 18,
+        "n_one_off": 1,
+        "cycle_min": 18,
+        "cycle_median": "50",
+        "cycle_max": 50,
+        "cycle_counts": {
+          "18": 1,
+          "20": 1,
+          "25": 5,
+          "48": 1,
+          "50": 9
+        },
+        "proposed_cycle_years": 50
+      }
+    },
+    {
+      "element_code": "4712",
+      "action": "repair",
+      "label_nl": "Dakrandafwerking / dakpan / loodslab hellend dak",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "4712",
+      "action": "replace",
+      "label_nl": "Dakrandafwerking / dakpan / loodslab hellend dak",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 3,
+        "n_one_off": 3,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -3334,7 +4647,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "5124",
@@ -3359,6 +4673,37 @@
             "intervals": []
           }
         ]
+      },
+      "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "5124",
+      "action": "replace",
+      "label_nl": "Schoorsteen / rookgasafvoer",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 4,
+        "n_one_off": 2,
+        "cycle_min": 25,
+        "cycle_median": "25",
+        "cycle_max": 25,
+        "cycle_counts": {
+          "25": 2
+        },
+        "proposed_cycle_years": 25
       },
       "cycle_years": null,
       "human_verification": null
@@ -3388,7 +4733,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "5211",
@@ -3514,6 +4860,49 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 7,
+        "n_one_off": 1,
+        "cycle_min": 24,
+        "cycle_median": "25",
+        "cycle_max": 25,
+        "cycle_counts": {
+          "24": 1,
+          "25": 5
+        },
+        "proposed_cycle_years": 25
+      }
+    },
+    {
+      "element_code": "5216",
+      "action": "replace",
+      "label_nl": "Vuilwaterpompen",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 18,
+        "cycle_median": "18",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "18": 1
+        },
+        "proposed_cycle_years": 18
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -3544,6 +4933,37 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "5240",
+      "action": "inspect",
+      "label_nl": "Standleidingen / binnenriolering",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 10,
+        "cycle_median": "10",
+        "cycle_max": 10,
+        "cycle_counts": {
+          "10": 1
+        },
+        "proposed_cycle_years": 10
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -3571,7 +4991,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "5314",
@@ -3614,6 +5035,49 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 0,
+        "cycle_min": 15,
+        "cycle_median": "16.5",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "15": 1,
+          "18": 1
+        },
+        "proposed_cycle_years": null
+      }
+    },
+    {
+      "element_code": "5321",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 18,
+        "cycle_median": "18",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "18": 1
+        },
+        "proposed_cycle_years": 18
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -3641,7 +5105,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "5710",
@@ -3676,6 +5141,111 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 2,
+        "n_one_off": 1,
+        "cycle_min": 18,
+        "cycle_median": "18",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "18": 1
+        },
+        "proposed_cycle_years": 18
+      }
+    },
+    {
+      "element_code": "5731",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 0,
+        "cycle_min": 16,
+        "cycle_median": "17",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "16": 1,
+          "18": 1
+        },
+        "proposed_cycle_years": 17
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "5741",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 20,
+        "cycle_median": "20",
+        "cycle_max": 20,
+        "cycle_counts": {
+          "20": 1
+        },
+        "proposed_cycle_years": 20
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "6111",
+      "action": "replace",
+      "label_nl": "Groepenkast",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 3,
+        "n_actions": 4,
+        "n_one_off": 1,
+        "cycle_min": 3,
+        "cycle_median": "20",
+        "cycle_max": 24,
+        "cycle_counts": {
+          "3": 1,
+          "20": 1,
+          "24": 1
+        },
+        "proposed_cycle_years": 20
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -3703,7 +5273,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "6311",
@@ -3746,7 +5317,20 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 6,
+        "n_actions": 9,
+        "n_one_off": 6,
+        "cycle_min": 15,
+        "cycle_median": "20",
+        "cycle_max": 20,
+        "cycle_counts": {
+          "15": 1,
+          "20": 2
+        },
+        "proposed_cycle_years": 20
+      }
     },
     {
       "element_code": "6411",
@@ -3789,7 +5373,21 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": {
+        "n_files": 5,
+        "n_actions": 5,
+        "n_one_off": 0,
+        "cycle_min": 15,
+        "cycle_median": "18",
+        "cycle_max": 20,
+        "cycle_counts": {
+          "15": 2,
+          "18": 1,
+          "20": 2
+        },
+        "proposed_cycle_years": 18
+      }
     },
     {
       "element_code": "6422",
@@ -3824,6 +5422,160 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "6511",
+      "action": "replace",
+      "label_nl": "Rookmelders / doorvoeren wanden",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 4,
+        "n_one_off": 0,
+        "cycle_min": 10,
+        "cycle_median": "15",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "10": 1,
+          "15": 2,
+          "18": 1
+        },
+        "proposed_cycle_years": 15
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "6513",
+      "action": "replace",
+      "label_nl": "Brandslanghaspel/poederblusser",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 3,
+        "n_one_off": 1,
+        "cycle_min": 5,
+        "cycle_median": "10",
+        "cycle_max": 15,
+        "cycle_counts": {
+          "5": 1,
+          "15": 1
+        },
+        "proposed_cycle_years": 10
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "6531",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 18,
+        "cycle_median": "18",
+        "cycle_max": 18,
+        "cycle_counts": {
+          "18": 1
+        },
+        "proposed_cycle_years": 18
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "6611",
+      "action": "maintain",
+      "label_nl": "Personenlift elektrisch",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 4,
+        "n_one_off": 4,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "6611",
+      "action": "replace",
+      "label_nl": "Personenlift elektrisch",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 5,
+        "n_one_off": 1,
+        "cycle_min": 10,
+        "cycle_median": "23.5",
+        "cycle_max": 25,
+        "cycle_counts": {
+          "10": 1,
+          "22": 1,
+          "25": 2
+        },
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     },
     {
@@ -3856,7 +5608,8 @@
         ]
       },
       "cycle_years": null,
-      "human_verification": null
+      "human_verification": null,
+      "observed_oprognose": null
     },
     {
       "element_code": "6710",
@@ -3899,7 +5652,236 @@
         ]
       },
       "cycle_years": null,
+      "human_verification": null,
+      "observed_oprognose": null
+    },
+    {
+      "element_code": "6710",
+      "action": "replace",
+      "label_nl": "Valbeveiliging/dakbeveiliging",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 3,
+        "n_one_off": 0,
+        "cycle_min": 25,
+        "cycle_median": "25",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "25": 2,
+          "48": 1
+        },
+        "proposed_cycle_years": 25
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "7411",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 3,
+        "n_one_off": 2,
+        "cycle_min": 24,
+        "cycle_median": "24",
+        "cycle_max": 24,
+        "cycle_counts": {
+          "24": 1
+        },
+        "proposed_cycle_years": 24
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "8111",
+      "action": "replace",
+      "label_nl": "Postkasten",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 4,
+        "n_actions": 4,
+        "n_one_off": 3,
+        "cycle_min": 30,
+        "cycle_median": "30",
+        "cycle_max": 30,
+        "cycle_counts": {
+          "30": 1
+        },
+        "proposed_cycle_years": 30
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "9032",
+      "action": "replace",
+      "label_nl": "Hekwerk metaal (terrein)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 4,
+        "n_one_off": 2,
+        "cycle_min": 48,
+        "cycle_median": "48",
+        "cycle_max": 48,
+        "cycle_counts": {
+          "48": 2
+        },
+        "proposed_cycle_years": 48
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "9033",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "9034",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 20,
+        "cycle_median": "20",
+        "cycle_max": 20,
+        "cycle_counts": {
+          "20": 1
+        },
+        "proposed_cycle_years": 20
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "9074",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
       "human_verification": null
     }
-  ]
+  ],
+  "oprognose_sources": {
+    "rules_version": "oprognose_action_text_rules_v1",
+    "imported_at": "2026-11-26T08:43:22Z",
+    "n_files": 6,
+    "file_sha256": [
+      "85c669bf7584cf47a794787b4ca8f8c47b9d7e28fb01122c5901f8d708b24771",
+      "9e46c0febd112d1d29412534ee048e589259d6629c7c2aa043212a6fde9d61b5",
+      "a0cf23c8c623c14b0dac8905b7223ca53dadc70cad3fb37eb31a991ac12598c1",
+      "b5e606e67809a263e97dd1e9a440f8551e923951d727a3eeb3a1cb48343d6a59",
+      "da53c6a81ab5c36e81f27bf5b6e18b553afc1858cf88f25e19ab5b063cdb1790",
+      "e06368952169606c398d2aebf1bbb68a18b2f5c2611784ba1ccc1359ff96222e"
+    ],
+    "classification_counts": {
+      "CODE_LABEL": 41,
+      "EXACT": 47,
+      "KEYWORD": 174,
+      "NO_PHYSICAL_CODE": 14,
+      "NO_RULE": 16
+    },
+    "unmapped_actions": 16
+  }
 }

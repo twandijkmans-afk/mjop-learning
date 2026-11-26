@@ -123,19 +123,46 @@ def build_table(docs, generated_at, previous=None):
         if groups:
             spans[doc["document_id"]] = plan_span(doc)
     prev = {(e["element_code"], e["action"]): e for e in (previous or {}).get("entries", [])}
+    keep = {k for k, e in prev.items() if e["human_verification"] or e.get("observed_oprognose")}
     entries = []
-    for key in sorted(set(merged) | {k for k, e in prev.items() if e["human_verification"]}):
+    for key in sorted(set(merged) | keep):
         obs = merged.get(key, [])
         max_span = max((spans[d] for d in {o["document_id"] for o in obs} if spans.get(d) is not None), default=None)
         e = {"element_code": key[0], "action": key[1], "label_nl": labels.get(key[0]),
-             "observed": _observed(obs, max_span), "cycle_years": None, "human_verification": None}
+             "observed": _observed(obs, max_span), "observed_oprognose": (prev.get(key) or {}).get("observed_oprognose"),
+             "cycle_years": None, "human_verification": None}
         if key in prev and prev[key]["human_verification"]:
             e["human_verification"] = prev[key]["human_verification"]
             e["cycle_years"] = prev[key]["cycle_years"]
         entries.append(e)
     table = {"table_version": TABLE_VERSION, "generated_at": generated_at,
-             "source_documents": sorted(spans), "skipped": skipped, "entries": entries}
+             "source_documents": sorted(spans), "skipped": skipped,
+             "oprognose_sources": (previous or {}).get("oprognose_sources"), "entries": entries}
     return validated(table)
+
+
+def apply_oprognose(table, observations, summary, imported_at):
+    """Zet de OPrognose-waarnemingen (mjop_oprognose_cycles.collect) als tweede bron in de tabel.
+    Vervangt eerdere OPrognose-waarnemingen volledig; eigen waarnemingen en menselijke
+    beslissingen blijven ongewijzigd. Nieuwe combinaties krijgen een eigen entry."""
+    t = copy.deepcopy(table)
+    labels = _labels()
+    by_key = {(e["element_code"], e["action"]): e for e in t["entries"]}
+    for e in t["entries"]:
+        e["observed_oprognose"] = None
+    for key, obs in observations.items():
+        if key not in by_key:
+            by_key[key] = {"element_code": key[0], "action": key[1], "label_nl": labels.get(key[0]),
+                           "observed": _observed([], None), "observed_oprognose": None, "cycle_years": None,
+                           "human_verification": None}
+            t["entries"].append(by_key[key])
+        by_key[key]["observed_oprognose"] = copy.deepcopy(obs)
+    t["entries"].sort(key=lambda e: (e["element_code"], e["action"]))
+    t["oprognose_sources"] = {"rules_version": summary["rules_version"], "imported_at": imported_at,
+                              "n_files": summary["n_files"], "file_sha256": summary["file_sha256"],
+                              "classification_counts": summary["classification_counts"],
+                              "unmapped_actions": summary["unmapped_actions"]}
+    return validated(t)
 
 
 def table_errors(table):
@@ -164,8 +191,9 @@ def validated(table):
     return table
 
 
-def decide(table, element_code, action, decision, *, by, at, value=None, note=None):
-    """Menselijke beslissing. ACCEPT neemt proposed_cycle_years over (moet bestaan); EDIT vereist
+def decide(table, element_code, action, decision, *, by, at, value=None, note=None, source="OWN_MJOP"):
+    """Menselijke beslissing. ACCEPT neemt proposed_cycle_years van de gekozen bron over
+    (source OWN_MJOP of OPROGNOSE; moet bestaan); EDIT vereist
     een eigen waarde >= 1; REJECT maakt de cyclus leeg. Een niet-waargenomen combinatie kan alleen
     via EDIT worden toegevoegd."""
     if decision not in ("ACCEPT", "EDIT", "REJECT"):
@@ -178,10 +206,14 @@ def decide(table, element_code, action, decision, *, by, at, value=None, note=No
         if decision != "EDIT":
             raise LifecycleError(f"({element_code}, {action}) is niet waargenomen; alleen EDIT met een waarde kan")
         entry = {"element_code": element_code, "action": action, "label_nl": _labels().get(element_code),
-                 "observed": _observed([], None), "cycle_years": None, "human_verification": None}
+                 "observed": _observed([], None), "observed_oprognose": None, "cycle_years": None,
+                 "human_verification": None}
         t["entries"].append(entry)
         t["entries"].sort(key=lambda e: (e["element_code"], e["action"]))
-    proposed = entry["observed"]["proposed_cycle_years"]
+    if source not in ("OWN_MJOP", "OPROGNOSE"):
+        raise LifecycleError(f"onbekende bron {source!r}")
+    block = entry["observed"] if source == "OWN_MJOP" else (entry["observed_oprognose"] or {})
+    proposed = block.get("proposed_cycle_years")
     if decision == "ACCEPT":
         if proposed is None:
             raise LifecycleError(f"({element_code}, {action}) heeft geen voorstel om te accepteren; gebruik EDIT")
@@ -192,7 +224,8 @@ def decide(table, element_code, action, decision, *, by, at, value=None, note=No
     else:
         value = None
     entry["cycle_years"] = value
-    entry["human_verification"] = {"decision": decision, "original_proposed_value": proposed, "value": value,
+    entry["human_verification"] = {"decision": decision, "original_proposed_value": proposed,
+                                   "proposal_source": source if proposed is not None else None, "value": value,
                                    "by": by, "at": at, "note": note}
     return validated(t)
 
@@ -213,8 +246,19 @@ def load_verified_docs(root=ROOT):
     return [json.load(open(p, encoding="utf-8")) for p in sorted(glob.glob(os.path.join(root, "data", "verified", "DOC-*.json")))]
 
 
+def upgrade_table(table):
+    """Tabel van vóór de OPrognose-bron: lege velden toevoegen (geen inhoudelijke wijziging)."""
+    t = copy.deepcopy(table)
+    t.setdefault("oprognose_sources", None)
+    for e in t["entries"]:
+        e.setdefault("observed_oprognose", None)
+        if e["human_verification"] is not None:
+            e["human_verification"].setdefault("proposal_source", "OWN_MJOP" if e["human_verification"]["original_proposed_value"] is not None else None)
+    return t
+
+
 def load_table(path=DEFAULT_TABLE):
-    return validated(json.load(open(path, encoding="utf-8")))
+    return validated(upgrade_table(json.load(open(path, encoding="utf-8"))))
 
 
 def _now():
@@ -240,6 +284,12 @@ def main(argv=None):
     d.add_argument("--value", type=int)
     d.add_argument("--note")
     d.add_argument("--table", default=DEFAULT_TABLE)
+    d.add_argument("--source", choices=["OWN_MJOP", "OPROGNOSE"], default="OWN_MJOP",
+                   help="bron van het voorstel bij ACCEPT")
+    o = sub.add_parser("oprognose", help="cycli uit OPrognose-exports (.xml/.zip/map) als tweede bron toevoegen")
+    o.add_argument("paths", nargs="+")
+    o.add_argument("--table", default=DEFAULT_TABLE)
+    o.add_argument("--local-report", help="JSON met niet-ingedeelde teksten; buiten de repository bewaren")
     a = p.parse_args(argv)
     if a.cmd == "build":
         previous = load_table(a.out) if os.path.exists(a.out) else None
@@ -248,9 +298,19 @@ def main(argv=None):
         n_prop = sum(1 for e in table["entries"] if e["observed"]["proposed_cycle_years"])
         print(f"{len(table['entries'])} entries, {n_prop} met voorstel, "
               f"{sum(1 for e in table['entries'] if e['cycle_years'])} vastgesteld -> {a.out}")
+    elif a.cmd == "oprognose":
+        import mjop_oprognose_cycles
+        observations, summary, local = mjop_oprognose_cycles.collect(a.paths)
+        table = apply_oprognose(load_table(a.table), observations, summary, _now())
+        _write(table, a.table)
+        if a.local_report:
+            _write(local, a.local_report)
+        print(f"{summary['n_files']} exports, {len(observations)} combinaties (code, actie), "
+              f"{sum(1 for o in observations.values() if o['proposed_cycle_years'])} met voorstel; "
+              f"{summary['unmapped_actions']} handelingen niet ingedeeld, {len(local['failed_files'])} bestanden onleesbaar -> {a.table}")
     else:
         table = decide(load_table(a.table), a.element_code, a.action, a.decision, by=a.by, at=_now(),
-                       value=a.value, note=a.note)
+                       value=a.value, note=a.note, source=a.source)
         _write(table, a.table)
         print(f"({a.element_code}, {a.action}) -> {a.decision} cycle_years={effective_cycle(table, a.element_code, a.action)}")
     return 0
