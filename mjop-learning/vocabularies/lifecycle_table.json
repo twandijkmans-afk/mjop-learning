@@ -1,6 +1,6 @@
 {
   "table_version": "lifecycle_table_v1",
-  "generated_at": "2026-11-20T11:17:43Z",
+  "generated_at": "2026-11-26T12:48:26Z",
   "source_documents": [
     "DOC-001",
     "DOC-002",
@@ -18,6 +18,32 @@
   "skipped": {
     "groups_without_element_code": 74,
     "groups_without_action": 107
+  },
+  "oprognose_sources": {
+    "rules_version": "oprognose_action_text_rules_v3",
+    "imported_at": "2026-11-26T09:09:24Z",
+    "n_files": 10,
+    "file_sha256": [
+      "85c669bf7584cf47a794787b4ca8f8c47b9d7e28fb01122c5901f8d708b24771",
+      "9e46c0febd112d1d29412534ee048e589259d6629c7c2aa043212a6fde9d61b5",
+      "a0cf23c8c623c14b0dac8905b7223ca53dadc70cad3fb37eb31a991ac12598c1",
+      "aecef05fac99f987613a7eb6168d9e7131036dce93056cac3ceb16d893039b5d",
+      "b5e606e67809a263e97dd1e9a440f8551e923951d727a3eeb3a1cb48343d6a59",
+      "c28311def8eabbfd1d645e48f6b354505cff1638c7e4b8c525041e36b1da2980",
+      "c36096ad3e6fc5b3ceee169660b8ac5f8257290fd2f9a49aeab9f592abe9e8e9",
+      "d79d782d80575bbcf0c63649b92e13caf78f5d1a601c736c559cb3d861865efb",
+      "da53c6a81ab5c36e81f27bf5b6e18b553afc1858cf88f25e19ab5b063cdb1790",
+      "e06368952169606c398d2aebf1bbb68a18b2f5c2611784ba1ccc1359ff96222e"
+    ],
+    "classification_counts": {
+      "AMBIGUOUS": 2,
+      "CODE_LABEL": 103,
+      "EXACT": 65,
+      "KEYWORD": 265,
+      "NO_PHYSICAL_CODE": 24,
+      "NO_RULE": 27
+    },
+    "unmapped_actions": 29
   },
   "entries": [
     {
@@ -77,8 +103,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 1,
@@ -89,6 +113,16 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
+      },
+      "cycle_years": 7,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 7,
+        "proposal_source": "OWN_MJOP",
+        "value": 7,
+        "by": "TD",
+        "at": "2026-11-26T12:47:04Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
       }
     },
     {
@@ -128,8 +162,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 3,
         "n_actions": 4,
@@ -143,6 +175,16 @@
           "14": 2
         },
         "proposed_cycle_years": 14
+      },
+      "cycle_years": 14,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 14,
+        "proposal_source": "OPROGNOSE",
+        "value": 14,
+        "by": "TD",
+        "at": "2026-11-26T12:47:03Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
       }
     },
     {
@@ -180,8 +222,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 1,
@@ -192,6 +232,16 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
+      },
+      "cycle_years": 10,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 10,
+        "proposal_source": "OWN_MJOP",
+        "value": 10,
+        "by": "TD",
+        "at": "2026-11-26T12:47:04Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
       }
     },
     {
@@ -234,8 +284,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 17,
@@ -250,6 +298,16 @@
           "25": 1
         },
         "proposed_cycle_years": 14
+      },
+      "cycle_years": 14,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 14,
+        "proposal_source": "OPROGNOSE",
+        "value": 14,
+        "by": "TD",
+        "at": "2026-11-26T12:47:03Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
       }
     },
     {
@@ -290,9 +348,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2120",
@@ -347,9 +405,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2221",
@@ -375,9 +433,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2221",
@@ -461,9 +519,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2322",
@@ -518,9 +576,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2322",
@@ -550,8 +608,16 @@
         },
         "proposed_cycle_years": 30
       },
-      "cycle_years": null,
-      "human_verification": null
+      "cycle_years": 60,
+      "human_verification": {
+        "decision": "EDIT",
+        "original_proposed_value": null,
+        "proposal_source": null,
+        "value": 60,
+        "by": "TD",
+        "at": "2026-11-26T12:47:05Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
+      }
     },
     {
       "element_code": "2323",
@@ -609,8 +675,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 1,
@@ -621,6 +685,16 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
+      },
+      "cycle_years": 7,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 7,
+        "proposal_source": "OWN_MJOP",
+        "value": 7,
+        "by": "TD",
+        "at": "2026-11-26T12:47:04Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
       }
     },
     {
@@ -647,9 +721,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2410",
@@ -677,8 +751,16 @@
         "cycle_counts": {},
         "proposed_cycle_years": null
       },
-      "cycle_years": null,
-      "human_verification": null
+      "cycle_years": 60,
+      "human_verification": {
+        "decision": "EDIT",
+        "original_proposed_value": null,
+        "proposal_source": null,
+        "value": 60,
+        "by": "TD",
+        "at": "2026-11-26T12:47:05Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
+      }
     },
     {
       "element_code": "2716",
@@ -744,16 +826,6 @@
           }
         ]
       },
-      "cycle_years": 7,
-      "human_verification": {
-        "decision": "ACCEPT",
-        "original_proposed_value": 7,
-        "proposal_source": "OPROGNOSE",
-        "value": 7,
-        "by": "TD",
-        "at": "2026-11-26T09:09:34Z",
-        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
-      },
       "observed_oprognose": {
         "n_files": 2,
         "n_actions": 5,
@@ -766,6 +838,16 @@
           "7": 1
         },
         "proposed_cycle_years": 7
+      },
+      "cycle_years": 7,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 7,
+        "proposal_source": "OPROGNOSE",
+        "value": 7,
+        "by": "TD",
+        "at": "2026-11-26T09:09:34Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
       }
     },
     {
@@ -830,9 +912,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "2716",
@@ -858,16 +940,6 @@
           }
         ]
       },
-      "cycle_years": 25,
-      "human_verification": {
-        "decision": "ACCEPT",
-        "original_proposed_value": 25,
-        "proposal_source": "OPROGNOSE",
-        "value": 25,
-        "by": "TD",
-        "at": "2026-11-26T09:09:34Z",
-        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
-      },
       "observed_oprognose": {
         "n_files": 5,
         "n_actions": 14,
@@ -882,6 +954,16 @@
           "30": 1
         },
         "proposed_cycle_years": 25
+      },
+      "cycle_years": 25,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 25,
+        "proposal_source": "OPROGNOSE",
+        "value": 25,
+        "by": "TD",
+        "at": "2026-11-26T09:09:34Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
       }
     },
     {
@@ -969,9 +1051,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3120",
@@ -1010,8 +1092,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 4,
@@ -1024,7 +1104,9 @@
           "12": 3
         },
         "proposed_cycle_years": 12
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "3120",
@@ -1053,8 +1135,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 2,
         "n_actions": 2,
@@ -1067,24 +1147,7 @@
           "14": 1
         },
         "proposed_cycle_years": 14
-      }
-    },
-    {
-      "element_code": "3120",
-      "action": "paint",
-      "label_nl": "Kozijn/raamdorpel/ventilatierooster buiten",
-      "observed": {
-        "n_documents": 0,
-        "n_intervals": 0,
-        "n_single_occurrence": 0,
-        "interval_min": null,
-        "interval_median": null,
-        "interval_max": null,
-        "max_observable_interval": null,
-        "proposed_cycle_years": null,
-        "observations": []
       },
-      "observed_oprognose": null,
       "cycle_years": null,
       "human_verification": null
     },
@@ -1227,8 +1290,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 2,
         "n_actions": 2,
@@ -1241,7 +1302,9 @@
           "7": 1
         },
         "proposed_cycle_years": 7
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "3120",
@@ -1267,8 +1330,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 5,
         "n_actions": 19,
@@ -1279,7 +1340,9 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "3122",
@@ -1319,9 +1382,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3130",
@@ -1378,9 +1441,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3230",
@@ -1453,9 +1516,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3231",
@@ -1539,9 +1602,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3410",
@@ -1567,9 +1630,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3410",
@@ -1603,8 +1666,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 2,
         "n_actions": 3,
@@ -1615,7 +1676,9 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "3411",
@@ -1773,9 +1836,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "3720",
@@ -1983,8 +2046,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 1,
@@ -1995,7 +2056,9 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4111",
@@ -2029,8 +2092,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 3,
         "n_actions": 4,
@@ -2041,7 +2102,9 @@
         "cycle_max": null,
         "cycle_counts": {},
         "proposed_cycle_years": null
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4112",
@@ -2099,9 +2162,17 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "observed_oprognose": null,
+      "cycle_years": 6,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 6,
+        "proposal_source": "OWN_MJOP",
+        "value": 6,
+        "by": "TD",
+        "at": "2026-11-26T12:47:04Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
+      }
     },
     {
       "element_code": "4112",
@@ -2129,8 +2200,16 @@
         "cycle_counts": {},
         "proposed_cycle_years": null
       },
-      "cycle_years": null,
-      "human_verification": null
+      "cycle_years": 60,
+      "human_verification": {
+        "decision": "EDIT",
+        "original_proposed_value": null,
+        "proposal_source": null,
+        "value": 60,
+        "by": "TD",
+        "at": "2026-11-26T12:47:05Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 2 gevel en constructie)"
+      }
     },
     {
       "element_code": "4211",
@@ -2164,9 +2243,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4211",
@@ -2252,9 +2331,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4320",
@@ -2280,9 +2359,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4320",
@@ -2349,8 +2428,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 4,
         "n_actions": 6,
@@ -2365,7 +2442,9 @@
           "12": 1
         },
         "proposed_cycle_years": 10
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4322",
@@ -2509,8 +2588,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 3,
         "n_actions": 3,
@@ -2523,7 +2600,9 @@
           "40": 1
         },
         "proposed_cycle_years": 40
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4521",
@@ -2557,9 +2636,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4521",
@@ -2995,8 +3074,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 6,
         "n_actions": 35,
@@ -3011,7 +3088,9 @@
           "14": 3
         },
         "proposed_cycle_years": 7
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4621",
@@ -3045,9 +3124,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4621",
@@ -3073,9 +3152,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4621",
@@ -3101,9 +3180,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4622",
@@ -3314,8 +3393,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 23,
@@ -3330,7 +3407,9 @@
           "21": 14
         },
         "proposed_cycle_years": 21
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4623",
@@ -3356,9 +3435,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4623",
@@ -3409,8 +3488,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 1,
@@ -3423,7 +3500,9 @@
           "14": 1
         },
         "proposed_cycle_years": 14
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4623",
@@ -3481,8 +3560,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 2,
         "n_actions": 3,
@@ -3495,7 +3572,9 @@
           "14": 3
         },
         "proposed_cycle_years": 14
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4623",
@@ -3571,8 +3650,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 1,
@@ -3585,7 +3662,9 @@
           "14": 1
         },
         "proposed_cycle_years": 14
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4624",
@@ -3611,9 +3690,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4628",
@@ -3747,9 +3826,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4628",
@@ -3783,9 +3862,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4628",
@@ -3852,9 +3931,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4631",
@@ -4014,8 +4093,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 6,
         "n_actions": 18,
@@ -4029,7 +4106,9 @@
           "7": 10
         },
         "proposed_cycle_years": 7
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4631",
@@ -4055,9 +4134,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4631",
@@ -4099,9 +4178,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4632",
@@ -4167,8 +4246,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 4,
         "n_actions": 4,
@@ -4181,7 +4258,9 @@
           "21": 4
         },
         "proposed_cycle_years": 21
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4634",
@@ -4189,13 +4268,13 @@
       "label_nl": "Binnenschilderwerk hek",
       "observed": {
         "n_documents": 5,
-        "n_intervals": 8,
+        "n_intervals": 6,
         "n_single_occurrence": 2,
-        "interval_min": 1,
-        "interval_median": "6",
+        "interval_min": 6,
+        "interval_median": "6.5",
         "interval_max": 7,
         "max_observable_interval": 14,
-        "proposed_cycle_years": 6,
+        "proposed_cycle_years": null,
         "observations": [
           {
             "document_id": "DOC-002",
@@ -4240,10 +4319,8 @@
               2039
             ],
             "intervals": [
-              1,
               6,
-              6,
-              1
+              6
             ]
           },
           {
@@ -4267,9 +4344,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4634",
@@ -4327,8 +4404,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 5,
         "n_actions": 13,
@@ -4343,7 +4418,9 @@
           "21": 3
         },
         "proposed_cycle_years": 14
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4634",
@@ -4369,9 +4446,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4645",
@@ -4482,9 +4559,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4645",
@@ -4534,8 +4611,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 5,
         "n_actions": 9,
@@ -4552,7 +4627,9 @@
           "21": 1
         },
         "proposed_cycle_years": 14
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4645",
@@ -4578,9 +4655,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4711",
@@ -4677,16 +4754,6 @@
           }
         ]
       },
-      "cycle_years": 50,
-      "human_verification": {
-        "decision": "EDIT",
-        "original_proposed_value": null,
-        "proposal_source": null,
-        "value": 50,
-        "by": "TD",
-        "at": "2026-11-26T09:09:35Z",
-        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten); overlagen = 50 jaar, 25 jaar na vervangen (koppeling verschoven)"
-      },
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 15,
@@ -4700,6 +4767,16 @@
           "50": 7
         },
         "proposed_cycle_years": 25
+      },
+      "cycle_years": 50,
+      "human_verification": {
+        "decision": "EDIT",
+        "original_proposed_value": null,
+        "proposal_source": null,
+        "value": 50,
+        "by": "TD",
+        "at": "2026-11-26T09:09:35Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten); overlagen = 50 jaar, 25 jaar na vervangen (koppeling verschoven)"
       }
     },
     {
@@ -4734,9 +4811,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "4711",
@@ -4786,16 +4863,6 @@
           }
         ]
       },
-      "cycle_years": 50,
-      "human_verification": {
-        "decision": "ACCEPT",
-        "original_proposed_value": 50,
-        "proposal_source": "OPROGNOSE",
-        "value": 50,
-        "by": "TD",
-        "at": "2026-11-26T09:09:35Z",
-        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
-      },
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 28,
@@ -4811,6 +4878,16 @@
           "50": 16
         },
         "proposed_cycle_years": 50
+      },
+      "cycle_years": 50,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 50,
+        "proposal_source": "OPROGNOSE",
+        "value": 50,
+        "by": "TD",
+        "at": "2026-11-26T09:09:35Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
       }
     },
     {
@@ -4905,9 +4982,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "5124",
@@ -4933,9 +5010,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "5124",
@@ -5000,9 +5077,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "5211",
@@ -5127,16 +5204,6 @@
           }
         ]
       },
-      "cycle_years": 25,
-      "human_verification": {
-        "decision": "ACCEPT",
-        "original_proposed_value": 25,
-        "proposal_source": "OPROGNOSE",
-        "value": 25,
-        "by": "TD",
-        "at": "2026-11-26T09:09:36Z",
-        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
-      },
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 13,
@@ -5150,6 +5217,16 @@
           "25": 11
         },
         "proposed_cycle_years": 25
+      },
+      "cycle_years": 25,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 25,
+        "proposal_source": "OPROGNOSE",
+        "value": 25,
+        "by": "TD",
+        "at": "2026-11-26T09:09:36Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
       }
     },
     {
@@ -5210,9 +5287,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "5240",
@@ -5298,9 +5375,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "5314",
@@ -5342,8 +5419,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 3,
         "n_actions": 3,
@@ -5357,7 +5432,9 @@
           "18": 1
         },
         "proposed_cycle_years": 15
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "5321",
@@ -5414,9 +5491,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "5710",
@@ -5450,16 +5527,6 @@
           }
         ]
       },
-      "cycle_years": 18,
-      "human_verification": {
-        "decision": "ACCEPT",
-        "original_proposed_value": 18,
-        "proposal_source": "OPROGNOSE",
-        "value": 18,
-        "by": "TD",
-        "at": "2026-11-26T09:09:36Z",
-        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
-      },
       "observed_oprognose": {
         "n_files": 1,
         "n_actions": 2,
@@ -5472,6 +5539,16 @@
           "18": 1
         },
         "proposed_cycle_years": 18
+      },
+      "cycle_years": 18,
+      "human_verification": {
+        "decision": "ACCEPT",
+        "original_proposed_value": 18,
+        "proposal_source": "OPROGNOSE",
+        "value": 18,
+        "by": "TD",
+        "at": "2026-11-26T09:09:36Z",
+        "note": "goedgekeurd door TD via chat 2026-11-26 (groep 1 dak en goten)"
       }
     },
     {
@@ -5594,9 +5671,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "6311",
@@ -5638,8 +5715,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 11,
@@ -5653,7 +5728,9 @@
           "20": 2
         },
         "proposed_cycle_years": 20
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "6411",
@@ -5695,8 +5772,6 @@
           }
         ]
       },
-      "cycle_years": null,
-      "human_verification": null,
       "observed_oprognose": {
         "n_files": 7,
         "n_actions": 7,
@@ -5711,7 +5786,9 @@
           "20": 2
         },
         "proposed_cycle_years": 15
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "6422",
@@ -5745,9 +5822,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "6511",
@@ -5937,9 +6014,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "6710",
@@ -5981,9 +6058,9 @@
           }
         ]
       },
+      "observed_oprognose": null,
       "cycle_years": null,
-      "human_verification": null,
-      "observed_oprognose": null
+      "human_verification": null
     },
     {
       "element_code": "6710",
@@ -6262,31 +6339,5 @@
       "cycle_years": null,
       "human_verification": null
     }
-  ],
-  "oprognose_sources": {
-    "rules_version": "oprognose_action_text_rules_v3",
-    "imported_at": "2026-11-26T09:09:24Z",
-    "n_files": 10,
-    "file_sha256": [
-      "85c669bf7584cf47a794787b4ca8f8c47b9d7e28fb01122c5901f8d708b24771",
-      "9e46c0febd112d1d29412534ee048e589259d6629c7c2aa043212a6fde9d61b5",
-      "a0cf23c8c623c14b0dac8905b7223ca53dadc70cad3fb37eb31a991ac12598c1",
-      "aecef05fac99f987613a7eb6168d9e7131036dce93056cac3ceb16d893039b5d",
-      "b5e606e67809a263e97dd1e9a440f8551e923951d727a3eeb3a1cb48343d6a59",
-      "c28311def8eabbfd1d645e48f6b354505cff1638c7e4b8c525041e36b1da2980",
-      "c36096ad3e6fc5b3ceee169660b8ac5f8257290fd2f9a49aeab9f592abe9e8e9",
-      "d79d782d80575bbcf0c63649b92e13caf78f5d1a601c736c559cb3d861865efb",
-      "da53c6a81ab5c36e81f27bf5b6e18b553afc1858cf88f25e19ab5b063cdb1790",
-      "e06368952169606c398d2aebf1bbb68a18b2f5c2611784ba1ccc1359ff96222e"
-    ],
-    "classification_counts": {
-      "AMBIGUOUS": 2,
-      "CODE_LABEL": 103,
-      "EXACT": 65,
-      "KEYWORD": 265,
-      "NO_PHYSICAL_CODE": 24,
-      "NO_RULE": 27
-    },
-    "unmapped_actions": 29
-  }
+  ]
 }

@@ -68,14 +68,36 @@ def _positive(q):
     return format(d, "f") if d > 0 else None
 
 
+PHASE_MAX_INTERVAL = 2   # jaren 1-2 jaar uit elkaar = gefaseerde uitvoering, geen cyclus
+
+
+def _year(a):
+    y = a["planned_year"].get("value")
+    return y if isinstance(y, int) else None
+
+
 def _groups(doc):
+    """{(element_id, actie, fasejaar|None): ([acties], gefaseerd?)}. Een groep waarvan de planjaren
+    1-2 jaar uit elkaar liggen (bijv. riolering per stijgleiding in 2026, 2027, 2028) is gefaseerde
+    uitvoering: elke fase wordt een eigen regel, er wordt geen cyclus van 1 of 2 jaar afgeleid."""
     groups = OrderedDict()
     for a in doc["maintenance_actions"]:
         action = _v(a["action"])
         text = _orig(a["action"])
         key = (a["element_id"], action if action else f"text:{(text or '').strip().lower()}")
         groups.setdefault(key, []).append(a)
-    return groups
+    out = OrderedDict()
+    for key, actions in groups.items():
+        years = sorted({y for y in map(_year, actions) if y is not None})
+        if len(years) >= 2 and min(b - a for a, b in zip(years, years[1:])) <= PHASE_MAX_INTERVAL:
+            for y in years:
+                out[key + (y,)] = ([a for a in actions if _year(a) == y], True)
+            undated = [a for a in actions if _year(a) is None]
+            if undated:
+                out[key + (None,)] = (undated, True)
+        else:
+            out[key + (None,)] = (actions, False)
+    return out
 
 
 def import_document(doc, *, mjop_id, target_price_year, index, line_prefix=None):
@@ -87,14 +109,15 @@ def import_document(doc, *, mjop_id, target_price_year, index, line_prefix=None)
     prefix = line_prefix or mjop_id
     lines, summary = [], {"document_id": doc["document_id"], "source_actions": len(doc["maintenance_actions"]),
                           "lines": 0, "without_element_code": 0, "without_action": 0, "quantity_conflicts": 0,
-                          "amounts_differ": 0, "price_level_year": base_year, "vat_statement": vat_statement}
-    for n, ((element_id, _), actions) in enumerate(_groups(doc).items(), start=1):
+                          "amounts_differ": 0, "phased_lines": 0, "price_level_year": base_year, "vat_statement": vat_statement}
+    for n, ((element_id, _, _), (actions, phased)) in enumerate(_groups(doc).items(), start=1):
         el = elements.get(element_id, {})
         code = _v(el.get("element_code"))
         action = _v(actions[0]["action"])
         units = {_v(a["unit"]) for a in actions}
         quantities = {_positive(_v(a["quantity"])) for a in actions}
-        flags = ["NOT_INSPECTED"]
+        flags = ["NOT_INSPECTED"] + (["PHASED_IN_DOCUMENT"] if phased else [])
+        summary["phased_lines"] += phased
         if not code:
             flags.append("ELEMENT_CODE_MISSING")
             summary["without_element_code"] += 1

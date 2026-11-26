@@ -59,7 +59,8 @@ FLAG_NL = {
     "COUPLED": "gekoppeld", "COUPLING_LEADER_ABSENT": "koppeling: leider ontbreekt in dit plan",
     "COUPLING_IRREGULAR_LEADER": "koppeling: leider zonder vast ritme, meest voorkomend gekozen",
     "COUPLING_NO_LEADER_YEAR_IN_RANGE": "koppeling: geen leiderjaar binnen schuifruimte",
-    "COUPLING_REANCHORED_LEADER": "leider verankerd aan jaar oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek"}
+    "COUPLING_REANCHORED_LEADER": "leider verankerd aan jaar oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek",
+    "PHASED_IN_DOCUMENT": "gefaseerd in oud MJOP: elke fase eenmalig"}
 
 
 class ExportError(ValueError):

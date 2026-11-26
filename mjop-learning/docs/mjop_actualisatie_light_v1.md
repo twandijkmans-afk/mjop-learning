@@ -116,6 +116,17 @@ niets berekend en vermeldt het resultaat de reden: `SOURCE_AMOUNT_MISSING`,
 `INDEX_MISSING`. Een geïndexeerd historisch bedrag is geen marktprijs. Een actueel bedrag loopt via de
 kengetalworkflow of een handmatig bedrag.
 
+## Gefaseerde uitvoering in het oude MJOP
+
+Soms liggen de planjaren van dezelfde post in het oude MJOP 1 of 2 jaar uit elkaar. Een voorbeeld is
+riolering die per stijgleiding wordt vervangen in 2026, 2027 en 2028. Dat is gefaseerde uitvoering,
+geen cyclus.
+
+- `mjop_import_existing` maakt dan per fase een eigen, eenmalige regel met de vlag
+  `PHASED_IN_DOCUMENT`.
+- `mjop_lifecycle` telt zulke intervallen niet mee als levensduur.
+- Vanaf 3 jaar geldt een interval wel als cyclus, zoals een herinspectie om de 3 jaar.
+
 ## Horizon-planner
 
 Horizon: `start .. start + 29`. Per regel zonder menselijke planningsbeslissing:
@@ -178,7 +189,13 @@ lood samen met dakbedekking vervangen; K03 overlagen 25 jaar na vervangen; K04 h
 kozijnen samen met buitenschilderwerk; K05a/b hang- en sluitwerk bij elke 2e schilderbeurt; K06
 kilgoot meeschuiven naar een schilderjaar; K07a/b steiger- en bereikbaarheidskosten samen met
 buitenschilderwerk; K08 schilderwerk metalen hekwerk samen met schilderwerk buitenkozijnen; K09
-hemelwaterafvoeren samen; K10 liftonderdelen samen.
+hemelwaterafvoeren samen; K10 liftonderdelen samen; K11–K13 gevelreiniging, impregneren en
+kitvoegen/voegwerk meeschuiven naar een schilderjaar (groep 2, TD).
+
+Vervangingen met een cyclus van 60 jaar (balkonconstructie 2322, trappen 2410, gevelbekleding 4112)
+vallen bij gebouwen uit ongeveer 1967–1996 binnen de horizon. Zonder bekend laatste vervangingsjaar
+is dat altijd op basis van de bouwjaar-aanname, met de vlag `ASSUMED_FROM_CONSTRUCTION_YEAR`. Geef
+zo nodig het werkelijke jaar mee met `--last-replacement CODE=JAAR`.
 
 ## Gebreken (B-posten)
 

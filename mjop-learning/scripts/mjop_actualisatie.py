@@ -55,7 +55,8 @@ FLAG_NL = {
     "PRICE_LEVEL_UNKNOWN": "prijspeil oud MJOP onbekend", "INDEX_MISSING": "indexjaar ontbreekt",
     "COUPLED": "gekoppeld", "COUPLING_LEADER_ABSENT": "koppeling: leider ontbreekt", "COUPLING_IRREGULAR_LEADER": "koppeling: leider zonder vast ritme",
     "COUPLING_NO_LEADER_YEAR_IN_RANGE": "koppeling: geen leiderjaar binnen schuifruimte",
-    "COUPLING_REANCHORED_LEADER": "leider verankerd aan oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek"}
+    "COUPLING_REANCHORED_LEADER": "leider verankerd aan oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek",
+    "PHASED_IN_DOCUMENT": "gefaseerd in oud MJOP: elke fase eenmalig"}
 def now():
     return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 

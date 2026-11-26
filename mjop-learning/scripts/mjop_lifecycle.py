@@ -89,7 +89,8 @@ def document_groups(doc):
             continue
         ys = sorted(ys)
         groups[(code, action)].append({"document_id": doc["document_id"], "element_id": element_id, "years": ys,
-                                       "intervals": [b - a for a, b in zip(ys, ys[1:])]})
+                                       # 1-2 jaar = gefaseerde uitvoering (zie mjop_import_existing), geen cyclus
+                                       "intervals": [b - a for a, b in zip(ys, ys[1:]) if b - a > 2]})
     return groups, skipped
 
 

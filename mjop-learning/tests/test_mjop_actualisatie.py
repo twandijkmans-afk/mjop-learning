@@ -679,7 +679,7 @@ def _by(lines, lid):
 
 def test_repository_coupling_register_is_valid_and_approved():
     reg = K.load_register()
-    assert len(reg["couplings"]) == 12 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
+    assert len(reg["couplings"]) == 15 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
     assert reg["max_shift_years"] == 3
 
 
@@ -838,3 +838,44 @@ def test_defect_exported_as_b_row_and_counted_in_fund():
     year2027 = next(y for y in result["reserve_fund"]["years"] if y["year"] == 2027)
     assert Decimal(year2027["expenses"]) >= Decimal("501") and result["reserve_fund"]["details"]["defect_expenses_in_horizon"] == 1
     assert result["export_report"]["defects"] == 2 and result["export_report"]["defects_without_price"] == 1
+
+
+def test_repository_group2_facade_decisions_by_td():
+    t = LC.load_table()
+    expected = {("2110", "replace"): 14, ("2110", "impregnate"): 14, ("2110", "clean"): 7, ("2110", "repair"): 10,
+                ("2410", "clean"): 7, ("4112", "repair"): 6, ("2322", "replace"): 60, ("2410", "replace"): 60,
+                ("4112", "replace"): 60}
+    for key, cycle in expected.items():
+        e = LC.entry_for(t, *key)
+        assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
+
+
+def test_coupling_facade_cleaning_moves_to_painting_year():
+    reg = K.load_register()
+    lines = [_sched_line("P1", "4621", "exterior_painting", 2032, 7), _sched_line("R1", "2110", "clean", 2030, 7),
+             _sched_line("V1", "2110", "replace", 2041, 14)]
+    out, counts = K.apply_all(lines, reg, 2027, 2056)
+    assert counts["K11"] == 1 and L2.schedule(_by(out, "R1"))[:2] == (2032, 7)
+    assert L2.schedule(_by(out, "V1"))[:2] == (2039, 14) and _by(out, "V1")["planning_basis"]["coupling"]["shift_years"] == -2
+
+
+def test_import_splits_phased_execution_instead_of_one_year_cycle():
+    doc = make_doc(actions=[_act("A1", "E2", "replace", 2027, "100"), _act("A2", "E2", "replace", 2028, "100"),
+                            _act("A3", "E2", "replace", 2029, "90"), _act("A4", "E1", "exterior_painting", 2030, "5"),
+                            _act("A5", "E1", "exterior_painting", 2036, "5")])
+    lines, s = I.import_document(doc, mjop_id="M", target_price_year=2027, index=INDEX)
+    phased = [l for l in lines if "PHASED_IN_DOCUMENT" in l["planner_flags"]]
+    assert s["phased_lines"] == 3 and len(phased) == 3
+    assert [l["origin_source"]["document_planned_years"] for l in phased] == [[2027], [2028], [2029]]
+    out, _ = H.run(doc, lines, table_with(), start_year=2027, mjop_id="M", couplings={})
+    for l in out:
+        if "PHASED_IN_DOCUMENT" in l["planner_flags"]:
+            assert len(L2.occurrence_years(l, 2027, 2056)) == 1                             # eenmalig, geen cyclus van 1 jaar
+    paint = next(l for l in out if l["action_normalized"] == "exterior_painting")
+    assert L2.schedule(paint)[:2] == (2030, 6)
+
+
+def test_lifecycle_ignores_phasing_intervals():
+    doc = make_doc(actions=[_act("A1", "E2", "replace", 2027, "1"), _act("A2", "E2", "replace", 2028, "1")])
+    e = LC.entry_for(LC.build_table([doc], T0), "4711", "replace")
+    assert e["observed"]["n_intervals"] == 0 and e["observed"]["proposed_cycle_years"] is None
