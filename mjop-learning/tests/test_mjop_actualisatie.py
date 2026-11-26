@@ -679,7 +679,7 @@ def _by(lines, lid):
 
 def test_repository_coupling_register_is_valid_and_approved():
     reg = K.load_register()
-    assert len(reg["couplings"]) == 15 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
+    assert len(reg["couplings"]) == 16 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
     assert reg["max_shift_years"] == 3
 
 
@@ -879,3 +879,14 @@ def test_lifecycle_ignores_phasing_intervals():
     doc = make_doc(actions=[_act("A1", "E2", "replace", 2027, "1"), _act("A2", "E2", "replace", 2028, "1")])
     e = LC.entry_for(LC.build_table([doc], T0), "4711", "replace")
     assert e["observed"]["n_intervals"] == 0 and e["observed"]["proposed_cycle_years"] is None
+
+
+def test_repository_group3_frames_doors_decisions_by_td():
+    t = LC.load_table()
+    expected = {("3120", "replace"): 60, ("3120", "repair"): 7, ("3120", "maintain"): 14, ("3120", "clean"): 6,
+                ("3130", "repair"): 12, ("3131", "replace"): 60, ("3230", "replace"): 60, ("3410", "replace"): 60,
+                ("3411", "replace"): 60, ("3420", "replace"): 60, ("8111", "replace"): 30, ("9032", "replace"): 60}
+    for key, cycle in expected.items():
+        e = LC.entry_for(t, *key)
+        assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
+    assert any(c["id"] == "K14" and c["type"] == "MEESCHUIVEN" for c in K.load_register()["couplings"])

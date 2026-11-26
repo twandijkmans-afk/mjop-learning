@@ -190,7 +190,8 @@ kozijnen samen met buitenschilderwerk; K05a/b hang- en sluitwerk bij elke 2e sch
 kilgoot meeschuiven naar een schilderjaar; K07a/b steiger- en bereikbaarheidskosten samen met
 buitenschilderwerk; K08 schilderwerk metalen hekwerk samen met schilderwerk buitenkozijnen; K09
 hemelwaterafvoeren samen; K10 liftonderdelen samen; K11–K13 gevelreiniging, impregneren en
-kitvoegen/voegwerk meeschuiven naar een schilderjaar (groep 2, TD).
+kitvoegen/voegwerk meeschuiven naar een schilderjaar (groep 2, TD); K14 kozijnen reinigen meeschuiven
+naar een schilderjaar (groep 3, TD).
 
 Vervangingen met een cyclus van 60 jaar (balkonconstructie 2322, trappen 2410, gevelbekleding 4112)
 vallen bij gebouwen uit ongeveer 1967–1996 binnen de horizon. Zonder bekend laatste vervangingsjaar
