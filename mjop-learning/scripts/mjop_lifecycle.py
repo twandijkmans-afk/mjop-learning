@@ -252,6 +252,8 @@ def upgrade_table(table):
     t.setdefault("oprognose_sources", None)
     for e in t["entries"]:
         e.setdefault("observed_oprognose", None)
+        if e["observed_oprognose"] is not None:
+            e["observed_oprognose"].setdefault("n_out_of_plan", 0)
         if e["human_verification"] is not None:
             e["human_verification"].setdefault("proposal_source", "OWN_MJOP" if e["human_verification"]["original_proposed_value"] is not None else None)
     return t

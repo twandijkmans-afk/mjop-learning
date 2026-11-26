@@ -1,10 +1,13 @@
 {
-  "rules_version": "oprognose_action_text_rules_v2",
-  "note": "Deterministische indeling van OPrognose-handelingsteksten (han_tekst) naar vocabularies/maintenance_action.json. Eerst exacte lookup in die vocabulaire; daarna deze trefwoorden (kleine letters, deelstring). Past een tekst op meer dan één actie (bijv. 'Controle en herstel'), dan wordt hij NIET ingedeeld maar gemeld als ambigu. Schilderwerk: 'buiten'/'binnen' in de tekst, anders het label van de elementcode (Buitenschilderwerk/Binnenschilderwerk), anders 'paint'. Pas aan en draai opnieuw; nooit gokken. v2: eerst 'strip_clauses' (tekst vanaf een van deze woorden, en tekst tussen haakjes, telt niet mee voor de indeling: planningsnotities als 'gelijktijdig met schilderwerk ivm steiger'), daarna 'combinations' (alle trefwoorden van een combinatie aanwezig -> die actie wint; bijv. 'vervangen schilderwerk' = volledig nieuw schilderwerk).",
+  "rules_version": "oprognose_action_text_rules_v3",
+  "note": "Deterministische indeling van OPrognose-handelingsteksten (han_tekst) naar vocabularies/maintenance_action.json. Eerst exacte lookup in die vocabulaire; daarna deze trefwoorden (kleine letters, deelstring). Past een tekst op meer dan één actie (bijv. 'Controle en herstel'), dan wordt hij NIET ingedeeld maar gemeld als ambigu. Schilderwerk: 'buiten'/'binnen' in de tekst, anders het label van de elementcode (Buitenschilderwerk/Binnenschilderwerk), anders 'paint'. Pas aan en draai opnieuw; nooit gokken. v2: eerst 'strip_clauses' (tekst vanaf een van deze woorden, en tekst tussen haakjes, telt niet mee voor de indeling: planningsnotities als 'gelijktijdig met schilderwerk ivm steiger'), daarna 'combinations' (alle trefwoorden van een combinatie aanwezig -> die actie wint; bijv. 'vervangen schilderwerk' = volledig nieuw schilderwerk). v3: cycli in 'out_of_plan_cycles' betekenen in OPrognose 'buiten de planperiode' (besluit TD, 2026-11-26) en tellen niet als levensduur; ze worden apart geteld (n_out_of_plan).",
   "strip_clauses": [
     "gelijktijdig met"
   ],
   "strip_parentheses": true,
+  "out_of_plan_cycles": [
+    48
+  ],
   "combinations": [
     {
       "all": [

@@ -623,3 +623,21 @@ def test_oprognose_classify_rules_v2_clauses_and_combinations():
     assert OC.classify("Aanbrengen nieuwe laag dakbedekking gelijktijdig met schilderwerk", "4711", rules)[0] == "install"
     assert OC.classify("Reinigen en herstellen", "2110", rules) == (None, "AMBIGUOUS")
     assert OC.core_text("Herstel (ivm steiger) gelijktijdig met X", rules) == "herstel"
+
+
+def test_oprognose_48_is_out_of_plan_not_a_lifetime(tmp_path):
+    p = tmp_path / "a.xml"
+    p.write_text(_oprognose_xml([("3120", "H", "Vervangen kozijn", 48), ("3120", "H", "Vervangen kozijn", 48),
+                                 ("2716", "H", "Vervangen goot zink", 25), ("2716", "H", "Vervangen goot zink", 48)]),
+                 encoding="utf-8")
+    obs, _, _ = OC.collect([str(p)])
+    assert obs[("3120", "replace")]["n_out_of_plan"] == 2 and obs[("3120", "replace")]["proposed_cycle_years"] is None
+    assert obs[("2716", "replace")]["cycle_counts"] == {"25": 1} and obs[("2716", "replace")]["proposed_cycle_years"] == 25
+
+
+def test_repository_group1_roof_decisions_by_td():
+    t = LC.load_table()
+    for key, cycle in {("4711", "replace"): 50, ("4711", "install"): 50, ("6710", "replace"): 25, ("3724", "replace"): 25}.items():
+        e = LC.entry_for(t, *key)
+        assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD"
+    assert LC.entry_for(t, "4711", "clean")["human_verification"]["decision"] == "REJECT"

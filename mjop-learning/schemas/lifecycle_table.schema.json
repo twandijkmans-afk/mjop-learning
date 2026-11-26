@@ -262,12 +262,18 @@
             "null"
           ],
           "minimum": 1
+        },
+        "n_out_of_plan": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Aantal keer een 'buiten de planperiode'-waarde (48); telt niet als levensduur."
         }
       },
       "required": [
         "n_files",
         "n_actions",
         "n_one_off",
+        "n_out_of_plan",
         "cycle_min",
         "cycle_median",
         "cycle_max",

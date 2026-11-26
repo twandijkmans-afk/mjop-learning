@@ -8,7 +8,8 @@ Leest één of meer OPrognose-exports (.xml, mappen of .zip; buiten de repositor
 klantgegevens) en verzamelt per (elementcode, actie) de cycli die adviseurs in OPrognose hebben gezet.
 
   - alleen geplande handelingen (han_type 'H') met een 4-cijferige ele_nlsfb;
-  - han_cyclus > 0 telt als cyclus; 0 (eenmalig) wordt alleen geteld;
+  - han_cyclus > 0 telt als cyclus; 0 (eenmalig) en de waarden in out_of_plan_cycles (48 =
+    'buiten de planperiode') worden alleen geteld;
   - actie: exacte lookup in vocabularies/maintenance_action.json, daarna de trefwoordregels in
     config/oprognose/action_text_rules.json. Ambigu of onbekend -> niet ingedeeld (gemeld);
   - per bestand wordt alleen een sha256 bewaard. Er worden geen namen, adressen, projectcodes of
@@ -43,7 +44,7 @@ def load_rules(path=RULES_PATH):
     return {"keywords": rules["keywords"], "precedence": rules.get("precedence", []), "exact": exact,
             "code_labels": labels, "version": rules["rules_version"],
             "strip_clauses": rules.get("strip_clauses", []), "strip_parentheses": rules.get("strip_parentheses", False),
-            "combinations": rules.get("combinations", [])}
+            "combinations": rules.get("combinations", []), "out_of_plan": set(rules.get("out_of_plan_cycles", []))}
 
 
 def core_text(text, rules):
@@ -146,7 +147,7 @@ def _stats(cycles):
 def collect(paths, rules=None):
     """Geeft (observations, summary, local_report). observations: {(code, actie): {...}} zonder klantgegevens."""
     rules = rules or load_rules()
-    per_key = defaultdict(lambda: {"cycles": [], "files": set(), "one_off": 0})
+    per_key = defaultdict(lambda: {"cycles": [], "files": set(), "one_off": 0, "out_of_plan": 0})
     files, failed, reasons, unmapped = [], [], Counter(), Counter()
     for name, data in iter_xml_sources(paths):
         sha = hashlib.sha256(data).hexdigest()
@@ -166,15 +167,17 @@ def collect(paths, rules=None):
                 continue
             entry = per_key[(code, action)]
             entry["files"].add(sha)
-            if cycle > 0:
+            if cycle in rules["out_of_plan"]:
+                entry["out_of_plan"] += 1   # 'buiten de planperiode', geen levensduur
+            elif cycle > 0:
                 entry["cycles"].append(cycle)
             else:
                 entry["one_off"] += 1
     observations = {}
     for key, e in sorted(per_key.items()):
         lo, med, hi, proposed = _stats(e["cycles"])
-        observations[key] = {"n_files": len(e["files"]), "n_actions": len(e["cycles"]) + e["one_off"],
-                             "n_one_off": e["one_off"], "cycle_min": lo, "cycle_median": med, "cycle_max": hi,
+        observations[key] = {"n_files": len(e["files"]), "n_actions": len(e["cycles"]) + e["one_off"] + e["out_of_plan"],
+                             "n_one_off": e["one_off"], "n_out_of_plan": e["out_of_plan"], "cycle_min": lo, "cycle_median": med, "cycle_max": hi,
                              "cycle_counts": {str(c): n for c, n in sorted(Counter(e["cycles"]).items())},
                              "proposed_cycle_years": proposed}
     summary = {"rules_version": rules["version"], "n_files": len(files), "file_sha256": sorted(files),
