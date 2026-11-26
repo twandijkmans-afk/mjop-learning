@@ -79,7 +79,16 @@
       },
       "cycle_years": null,
       "human_verification": null,
-      "observed_oprognose": null
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      }
     },
     {
       "element_code": "2110",
@@ -121,16 +130,17 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
-        "n_one_off": 0,
+        "n_files": 3,
+        "n_actions": 4,
+        "n_one_off": 1,
         "cycle_min": 12,
-        "cycle_median": "12",
-        "cycle_max": 12,
+        "cycle_median": "14",
+        "cycle_max": 14,
         "cycle_counts": {
-          "12": 1
+          "12": 1,
+          "14": 2
         },
-        "proposed_cycle_years": 12
+        "proposed_cycle_years": 14
       }
     },
     {
@@ -224,17 +234,18 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 9,
-        "n_one_off": 4,
+        "n_files": 7,
+        "n_actions": 17,
+        "n_one_off": 7,
         "cycle_min": 12,
-        "cycle_median": "12",
+        "cycle_median": "14",
         "cycle_max": 25,
         "cycle_counts": {
           "12": 4,
+          "14": 5,
           "25": 1
         },
-        "proposed_cycle_years": 12
+        "proposed_cycle_years": 14
       }
     },
     {
@@ -519,9 +530,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 3,
-        "n_one_off": 0,
+        "n_files": 2,
+        "n_actions": 5,
+        "n_one_off": 2,
         "cycle_min": 30,
         "cycle_median": "48",
         "cycle_max": 48,
@@ -530,6 +541,34 @@
           "48": 2
         },
         "proposed_cycle_years": 48
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "2323",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
       },
       "cycle_years": null,
       "human_verification": null
@@ -618,9 +657,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
-        "n_one_off": 0,
+        "n_files": 2,
+        "n_actions": 2,
+        "n_one_off": 1,
         "cycle_min": 48,
         "cycle_median": "48",
         "cycle_max": 48,
@@ -699,9 +738,9 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
-        "n_one_off": 0,
+        "n_files": 2,
+        "n_actions": 5,
+        "n_one_off": 4,
         "cycle_min": 7,
         "cycle_median": "7",
         "cycle_max": 7,
@@ -804,15 +843,15 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 3,
-        "n_actions": 5,
-        "n_one_off": 0,
+        "n_files": 5,
+        "n_actions": 14,
+        "n_one_off": 4,
         "cycle_min": 24,
         "cycle_median": "25",
         "cycle_max": 48,
         "cycle_counts": {
           "24": 1,
-          "25": 2,
+          "25": 7,
           "30": 1,
           "48": 1
         },
@@ -1015,18 +1054,7 @@
         "proposed_cycle_years": null,
         "observations": []
       },
-      "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
-        "n_one_off": 0,
-        "cycle_min": 14,
-        "cycle_median": "14",
-        "cycle_max": 14,
-        "cycle_counts": {
-          "14": 1
-        },
-        "proposed_cycle_years": 14
-      },
+      "observed_oprognose": null,
       "cycle_years": null,
       "human_verification": null
     },
@@ -1172,16 +1200,17 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
+        "n_files": 2,
+        "n_actions": 2,
         "n_one_off": 0,
-        "cycle_min": 48,
-        "cycle_median": "48",
+        "cycle_min": 7,
+        "cycle_median": "27.5",
         "cycle_max": 48,
         "cycle_counts": {
+          "7": 1,
           "48": 1
         },
-        "proposed_cycle_years": 48
+        "proposed_cycle_years": null
       }
     },
     {
@@ -1211,9 +1240,9 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 17,
-        "n_one_off": 14,
+        "n_files": 5,
+        "n_actions": 19,
+        "n_one_off": 16,
         "cycle_min": 48,
         "cycle_median": "48",
         "cycle_max": 48,
@@ -1339,9 +1368,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 4,
-        "n_one_off": 2,
+        "n_files": 5,
+        "n_actions": 6,
+        "n_one_off": 4,
         "cycle_min": 48,
         "cycle_median": "54",
         "cycle_max": 60,
@@ -1748,6 +1777,36 @@
     },
     {
       "element_code": "3721",
+      "action": "clean",
+      "label_nl": "Dakraam / lichtkoepel",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 4,
+        "n_one_off": 3,
+        "cycle_min": 7,
+        "cycle_median": "7",
+        "cycle_max": 7,
+        "cycle_counts": {
+          "7": 1
+        },
+        "proposed_cycle_years": 7
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "3721",
       "action": "replace",
       "label_nl": "Dakraam / lichtkoepel",
       "observed": {
@@ -1762,14 +1821,15 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 3,
-        "n_actions": 3,
-        "n_one_off": 1,
+        "n_files": 5,
+        "n_actions": 10,
+        "n_one_off": 6,
         "cycle_min": 25,
         "cycle_median": "25",
-        "cycle_max": 25,
+        "cycle_max": 40,
         "cycle_counts": {
-          "25": 2
+          "25": 3,
+          "40": 1
         },
         "proposed_cycle_years": 25
       },
@@ -1903,9 +1963,9 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
-        "n_one_off": 1,
+        "n_files": 3,
+        "n_actions": 4,
+        "n_one_off": 4,
         "cycle_min": null,
         "cycle_median": null,
         "cycle_max": null,
@@ -1988,9 +2048,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 4,
-        "n_one_off": 3,
+        "n_files": 3,
+        "n_actions": 5,
+        "n_one_off": 4,
         "cycle_min": 48,
         "cycle_median": "48",
         "cycle_max": 48,
@@ -2170,17 +2230,18 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 3,
+        "n_files": 3,
+        "n_actions": 4,
         "n_one_off": 1,
-        "cycle_min": 15,
-        "cycle_median": "22.5",
+        "cycle_min": 14,
+        "cycle_median": "15",
         "cycle_max": 30,
         "cycle_counts": {
+          "14": 1,
           "15": 1,
           "30": 1
         },
-        "proposed_cycle_years": null
+        "proposed_cycle_years": 15
       },
       "cycle_years": null,
       "human_verification": null
@@ -2280,9 +2341,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 2,
-        "n_one_off": 2,
+        "n_files": 3,
+        "n_actions": 3,
+        "n_one_off": 3,
         "cycle_min": null,
         "cycle_median": null,
         "cycle_max": null,
@@ -2441,9 +2502,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 4,
-        "n_one_off": 2,
+        "n_files": 5,
+        "n_actions": 5,
+        "n_one_off": 3,
         "cycle_min": 24,
         "cycle_median": "36",
         "cycle_max": 48,
@@ -2862,18 +2923,18 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 3,
-        "n_actions": 10,
-        "n_one_off": 0,
+        "n_files": 6,
+        "n_actions": 35,
+        "n_one_off": 13,
         "cycle_min": 6,
-        "cycle_median": "6.5",
+        "cycle_median": "7",
         "cycle_max": 14,
         "cycle_counts": {
           "6": 5,
-          "7": 2,
+          "7": 14,
           "14": 3
         },
-        "proposed_cycle_years": null
+        "proposed_cycle_years": 7
       }
     },
     {
@@ -3180,16 +3241,16 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 5,
-        "n_actions": 16,
+        "n_files": 7,
+        "n_actions": 23,
         "n_one_off": 2,
         "cycle_min": 7,
         "cycle_median": "21",
         "cycle_max": 21,
         "cycle_counts": {
-          "7": 1,
+          "7": 2,
           "14": 5,
-          "21": 8
+          "21": 14
         },
         "proposed_cycle_years": 21
       }
@@ -3273,7 +3334,18 @@
       },
       "cycle_years": null,
       "human_verification": null,
-      "observed_oprognose": null
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 14,
+        "cycle_median": "14",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "14": 1
+        },
+        "proposed_cycle_years": 14
+      }
     },
     {
       "element_code": "4623",
@@ -3334,9 +3406,37 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 1,
+        "n_files": 2,
+        "n_actions": 3,
         "n_one_off": 0,
+        "cycle_min": 14,
+        "cycle_median": "14",
+        "cycle_max": 14,
+        "cycle_counts": {
+          "14": 3
+        },
+        "proposed_cycle_years": 14
+      }
+    },
+    {
+      "element_code": "4623",
+      "action": "replace",
+      "label_nl": "Buitenschilderwerk beton coating",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 2,
+        "n_actions": 3,
+        "n_one_off": 2,
         "cycle_min": 14,
         "cycle_median": "14",
         "cycle_max": 14,
@@ -3344,7 +3444,9 @@
           "14": 1
         },
         "proposed_cycle_years": 14
-      }
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4624",
@@ -3620,15 +3722,15 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 4,
+        "n_files": 4,
+        "n_actions": 9,
         "n_one_off": 1,
         "cycle_min": 7,
         "cycle_median": "14",
         "cycle_max": 21,
         "cycle_counts": {
           "7": 1,
-          "14": 1,
+          "14": 6,
           "21": 1
         },
         "proposed_cycle_years": 14
@@ -3833,15 +3935,15 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 4,
-        "n_one_off": 0,
+        "n_files": 6,
+        "n_actions": 18,
+        "n_one_off": 7,
         "cycle_min": 6,
         "cycle_median": "7",
         "cycle_max": 7,
         "cycle_counts": {
           "6": 1,
-          "7": 3
+          "7": 10
         },
         "proposed_cycle_years": 7
       }
@@ -3985,14 +4087,14 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 3,
-        "n_actions": 3,
+        "n_files": 4,
+        "n_actions": 4,
         "n_one_off": 0,
         "cycle_min": 21,
         "cycle_median": "21",
         "cycle_max": 21,
         "cycle_counts": {
-          "21": 3
+          "21": 4
         },
         "proposed_cycle_years": 21
       }
@@ -4144,16 +4246,18 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 2,
-        "n_one_off": 1,
-        "cycle_min": 21,
-        "cycle_median": "21",
+        "n_files": 5,
+        "n_actions": 13,
+        "n_one_off": 3,
+        "cycle_min": 7,
+        "cycle_median": "14",
         "cycle_max": 21,
         "cycle_counts": {
-          "21": 1
+          "7": 3,
+          "14": 4,
+          "21": 3
         },
-        "proposed_cycle_years": 21
+        "proposed_cycle_years": 14
       }
     },
     {
@@ -4348,15 +4452,16 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 3,
-        "n_actions": 6,
+        "n_files": 5,
+        "n_actions": 9,
         "n_one_off": 1,
         "cycle_min": 6,
         "cycle_median": "14",
         "cycle_max": 21,
         "cycle_counts": {
           "6": 2,
-          "14": 1,
+          "7": 1,
+          "14": 3,
           "18": 1,
           "21": 1
         },
@@ -4390,6 +4495,36 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": null
+    },
+    {
+      "element_code": "4711",
+      "action": "clean",
+      "label_nl": "Dakbedekking (APP/bitumen)",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 0,
+        "cycle_min": 50,
+        "cycle_median": "50",
+        "cycle_max": 50,
+        "cycle_counts": {
+          "50": 1
+        },
+        "proposed_cycle_years": 50
+      },
+      "cycle_years": null,
+      "human_verification": null
     },
     {
       "element_code": "4711",
@@ -4450,15 +4585,15 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 9,
+        "n_files": 7,
+        "n_actions": 15,
         "n_one_off": 0,
         "cycle_min": 25,
         "cycle_median": "25",
         "cycle_max": 50,
         "cycle_counts": {
           "25": 8,
-          "50": 1
+          "50": 7
         },
         "proposed_cycle_years": 25
       }
@@ -4550,18 +4685,18 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 18,
-        "n_one_off": 1,
+        "n_files": 7,
+        "n_actions": 28,
+        "n_one_off": 2,
         "cycle_min": 18,
         "cycle_median": "50",
         "cycle_max": 50,
         "cycle_counts": {
           "18": 1,
           "20": 1,
-          "25": 5,
+          "25": 7,
           "48": 1,
-          "50": 9
+          "50": 16
         },
         "proposed_cycle_years": 50
       }
@@ -4610,14 +4745,16 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 3,
-        "n_one_off": 3,
-        "cycle_min": null,
-        "cycle_median": null,
-        "cycle_max": null,
-        "cycle_counts": {},
-        "proposed_cycle_years": null
+        "n_files": 3,
+        "n_actions": 9,
+        "n_one_off": 6,
+        "cycle_min": 25,
+        "cycle_median": "25",
+        "cycle_max": 25,
+        "cycle_counts": {
+          "25": 3
+        },
+        "proposed_cycle_years": 25
       },
       "cycle_years": null,
       "human_verification": null
@@ -4694,9 +4831,9 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 3,
-        "n_actions": 4,
-        "n_one_off": 2,
+        "n_files": 5,
+        "n_actions": 8,
+        "n_one_off": 6,
         "cycle_min": 25,
         "cycle_median": "25",
         "cycle_max": 25,
@@ -4862,15 +4999,15 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 4,
-        "n_actions": 7,
+        "n_files": 7,
+        "n_actions": 13,
         "n_one_off": 1,
         "cycle_min": 24,
         "cycle_median": "25",
         "cycle_max": 25,
         "cycle_counts": {
           "24": 1,
-          "25": 5
+          "25": 11
         },
         "proposed_cycle_years": 25
       }
@@ -4967,6 +5104,34 @@
       "human_verification": null
     },
     {
+      "element_code": "5240",
+      "action": "replace",
+      "label_nl": "Standleidingen / binnenriolering",
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 2,
+        "n_one_off": 2,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
       "element_code": "5310",
       "action": "replace",
       "label_nl": "Waterleiding",
@@ -5037,17 +5202,17 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 2,
+        "n_files": 3,
+        "n_actions": 3,
         "n_one_off": 0,
         "cycle_min": 15,
-        "cycle_median": "16.5",
+        "cycle_median": "15",
         "cycle_max": 18,
         "cycle_counts": {
-          "15": 1,
+          "15": 2,
           "18": 1
         },
-        "proposed_cycle_years": null
+        "proposed_cycle_years": 15
       }
     },
     {
@@ -5319,9 +5484,9 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 6,
-        "n_actions": 9,
-        "n_one_off": 6,
+        "n_files": 7,
+        "n_actions": 11,
+        "n_one_off": 8,
         "cycle_min": 15,
         "cycle_median": "20",
         "cycle_max": 20,
@@ -5375,18 +5540,18 @@
       "cycle_years": null,
       "human_verification": null,
       "observed_oprognose": {
-        "n_files": 5,
-        "n_actions": 5,
+        "n_files": 7,
+        "n_actions": 7,
         "n_one_off": 0,
         "cycle_min": 15,
-        "cycle_median": "18",
+        "cycle_median": "15",
         "cycle_max": 20,
         "cycle_counts": {
-          "15": 2,
+          "15": 4,
           "18": 1,
           "20": 2
         },
-        "proposed_cycle_years": 18
+        "proposed_cycle_years": 15
       }
     },
     {
@@ -5441,15 +5606,15 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 4,
+        "n_files": 3,
+        "n_actions": 5,
         "n_one_off": 0,
         "cycle_min": 10,
         "cycle_median": "15",
         "cycle_max": 18,
         "cycle_counts": {
           "10": 1,
-          "15": 2,
+          "15": 3,
           "18": 1
         },
         "proposed_cycle_years": 15
@@ -5562,18 +5727,19 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 1,
-        "n_actions": 5,
+        "n_files": 2,
+        "n_actions": 9,
         "n_one_off": 1,
         "cycle_min": 10,
-        "cycle_median": "23.5",
+        "cycle_median": "25",
         "cycle_max": 25,
         "cycle_counts": {
           "10": 1,
+          "15": 1,
           "22": 1,
-          "25": 2
+          "25": 5
         },
-        "proposed_cycle_years": null
+        "proposed_cycle_years": 25
       },
       "cycle_years": null,
       "human_verification": null
@@ -5671,14 +5837,14 @@
         "observations": []
       },
       "observed_oprognose": {
-        "n_files": 2,
-        "n_actions": 3,
+        "n_files": 3,
+        "n_actions": 4,
         "n_one_off": 0,
         "cycle_min": 25,
         "cycle_median": "25",
         "cycle_max": 48,
         "cycle_counts": {
-          "25": 2,
+          "25": 3,
           "48": 1
         },
         "proposed_cycle_years": 25
@@ -5742,6 +5908,62 @@
           "30": 1
         },
         "proposed_cycle_years": 30
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "9031",
+      "action": "impregnate",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
+      },
+      "cycle_years": null,
+      "human_verification": null
+    },
+    {
+      "element_code": "9031",
+      "action": "replace",
+      "label_nl": null,
+      "observed": {
+        "n_documents": 0,
+        "n_intervals": 0,
+        "n_single_occurrence": 0,
+        "interval_min": null,
+        "interval_median": null,
+        "interval_max": null,
+        "max_observable_interval": null,
+        "proposed_cycle_years": null,
+        "observations": []
+      },
+      "observed_oprognose": {
+        "n_files": 1,
+        "n_actions": 1,
+        "n_one_off": 1,
+        "cycle_min": null,
+        "cycle_median": null,
+        "cycle_max": null,
+        "cycle_counts": {},
+        "proposed_cycle_years": null
       },
       "cycle_years": null,
       "human_verification": null
@@ -5864,24 +6086,29 @@
     }
   ],
   "oprognose_sources": {
-    "rules_version": "oprognose_action_text_rules_v1",
-    "imported_at": "2026-11-26T08:43:22Z",
-    "n_files": 6,
+    "rules_version": "oprognose_action_text_rules_v2",
+    "imported_at": "2026-11-26T08:56:58Z",
+    "n_files": 10,
     "file_sha256": [
       "85c669bf7584cf47a794787b4ca8f8c47b9d7e28fb01122c5901f8d708b24771",
       "9e46c0febd112d1d29412534ee048e589259d6629c7c2aa043212a6fde9d61b5",
       "a0cf23c8c623c14b0dac8905b7223ca53dadc70cad3fb37eb31a991ac12598c1",
+      "aecef05fac99f987613a7eb6168d9e7131036dce93056cac3ceb16d893039b5d",
       "b5e606e67809a263e97dd1e9a440f8551e923951d727a3eeb3a1cb48343d6a59",
+      "c28311def8eabbfd1d645e48f6b354505cff1638c7e4b8c525041e36b1da2980",
+      "c36096ad3e6fc5b3ceee169660b8ac5f8257290fd2f9a49aeab9f592abe9e8e9",
+      "d79d782d80575bbcf0c63649b92e13caf78f5d1a601c736c559cb3d861865efb",
       "da53c6a81ab5c36e81f27bf5b6e18b553afc1858cf88f25e19ab5b063cdb1790",
       "e06368952169606c398d2aebf1bbb68a18b2f5c2611784ba1ccc1359ff96222e"
     ],
     "classification_counts": {
-      "CODE_LABEL": 41,
-      "EXACT": 47,
-      "KEYWORD": 174,
-      "NO_PHYSICAL_CODE": 14,
-      "NO_RULE": 16
+      "AMBIGUOUS": 2,
+      "CODE_LABEL": 103,
+      "EXACT": 65,
+      "KEYWORD": 265,
+      "NO_PHYSICAL_CODE": 24,
+      "NO_RULE": 27
     },
-    "unmapped_actions": 16
+    "unmapped_actions": 29
   }
 }

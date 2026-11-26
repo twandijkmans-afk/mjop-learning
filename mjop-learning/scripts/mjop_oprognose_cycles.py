@@ -17,6 +17,7 @@ klantgegevens) en verzamelt per (elementcode, actie) de cycli die adviseurs in O
 """
 import hashlib
 import os
+import re
 import statistics
 import sys
 import xml.etree.ElementTree as ET
@@ -40,17 +41,35 @@ def load_rules(path=RULES_PATH):
     labels = {e["normalized_value"]: (e.get("label_nl") or "") for e in
               json.load(open(os.path.join(ROOT, "vocabularies", "element_code.json"), encoding="utf-8"))["entries"]}
     return {"keywords": rules["keywords"], "precedence": rules.get("precedence", []), "exact": exact,
-            "code_labels": labels, "version": rules["rules_version"]}
+            "code_labels": labels, "version": rules["rules_version"],
+            "strip_clauses": rules.get("strip_clauses", []), "strip_parentheses": rules.get("strip_parentheses", False),
+            "combinations": rules.get("combinations", [])}
+
+
+def core_text(text, rules):
+    """Tekst voor de indeling: planningsnotities ('gelijktijdig met ...') en tekst tussen haakjes eruit."""
+    t = (text or "").strip().lower()
+    if rules.get("strip_parentheses"):
+        t = re.sub(r"\([^)]*\)", " ", t)
+    for clause in rules.get("strip_clauses", []):
+        i = t.find(clause)
+        if i >= 0:
+            t = t[:i]
+    return " ".join(t.split())
 
 
 def classify(text, code, rules):
     """(actie of None, reden). Exact > trefwoorden; ambigu of onbekend -> None."""
-    t = (text or "").strip().lower()
-    if not t:
+    raw = (text or "").strip().lower()
+    if not raw:
         return None, "EMPTY_TEXT"
+    if raw in rules["exact"] and rules["exact"][raw]:
+        return rules["exact"][raw], "EXACT"
+    t = core_text(raw, rules)
     if t in rules["exact"] and rules["exact"][t]:
         return rules["exact"][t], "EXACT"
-    hits = {a for a, words in rules["keywords"].items() if any(w in t for w in words)}
+    combo = [c["action"] for c in rules.get("combinations", []) if all(w in t for w in c["all"])]
+    hits = set(combo) if len(combo) == 1 else {a for a, words in rules["keywords"].items() if any(w in t for w in words)}
     for winner, loser in rules["precedence"]:
         if winner in hits:
             hits.discard(loser)

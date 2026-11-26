@@ -1,21 +1,78 @@
 {
-  "rules_version": "oprognose_action_text_rules_v1",
-  "note": "Deterministische indeling van OPrognose-handelingsteksten (han_tekst) naar vocabularies/maintenance_action.json. Eerst exacte lookup in die vocabulaire; daarna deze trefwoorden (kleine letters, deelstring). Past een tekst op meer dan één actie (bijv. 'Controle en herstel'), dan wordt hij NIET ingedeeld maar gemeld als ambigu. Schilderwerk: 'buiten'/'binnen' in de tekst, anders het label van de elementcode (Buitenschilderwerk/Binnenschilderwerk), anders 'paint'. Pas aan en draai opnieuw; nooit gokken.",
+  "rules_version": "oprognose_action_text_rules_v2",
+  "note": "Deterministische indeling van OPrognose-handelingsteksten (han_tekst) naar vocabularies/maintenance_action.json. Eerst exacte lookup in die vocabulaire; daarna deze trefwoorden (kleine letters, deelstring). Past een tekst op meer dan één actie (bijv. 'Controle en herstel'), dan wordt hij NIET ingedeeld maar gemeld als ambigu. Schilderwerk: 'buiten'/'binnen' in de tekst, anders het label van de elementcode (Buitenschilderwerk/Binnenschilderwerk), anders 'paint'. Pas aan en draai opnieuw; nooit gokken. v2: eerst 'strip_clauses' (tekst vanaf een van deze woorden, en tekst tussen haakjes, telt niet mee voor de indeling: planningsnotities als 'gelijktijdig met schilderwerk ivm steiger'), daarna 'combinations' (alle trefwoorden van een combinatie aanwezig -> die actie wint; bijv. 'vervangen schilderwerk' = volledig nieuw schilderwerk).",
+  "strip_clauses": [
+    "gelijktijdig met"
+  ],
+  "strip_parentheses": true,
+  "combinations": [
+    {
+      "all": [
+        "vervang",
+        "schilderwerk"
+      ],
+      "action": "PAINTING"
+    }
+  ],
   "keywords": {
-    "replace": ["vervang", "vernieuw"],
-    "install": ["aanbrengen nieuwe laag", "vervolgsysteem"],
-    "PAINTING": ["schilderwerk", "schilderen", "lakken", "beitsen"],
-    "clean": ["reinig", "schoonmak", "frezen"],
-    "repair": ["herstel", "repar"],
-    "inspect": ["keuren", "inspect", "update mjop", "actualisatie mjop", "herinspectie"],
-    "maintain": ["onderhoud", "afstellen"],
-    "impregnate": ["hydrofob", "impregn"],
-    "scaffolding": ["steiger"],
-    "site_access_cost": ["benadering", "bereikbaar", "hoogwerker"],
-    "advice": ["advies"],
-    "project_management": ["directievoering", "projectbegeleiding"]
+    "replace": [
+      "vervang",
+      "vernieuw"
+    ],
+    "install": [
+      "aanbrengen nieuwe laag",
+      "vervolgsysteem"
+    ],
+    "PAINTING": [
+      "schilderwerk",
+      "schilderen",
+      "lakken",
+      "beitsen"
+    ],
+    "clean": [
+      "reinig",
+      "schoonmak",
+      "frezen"
+    ],
+    "repair": [
+      "herstel",
+      "repar"
+    ],
+    "inspect": [
+      "keuren",
+      "inspect",
+      "update mjop",
+      "actualisatie mjop",
+      "herinspectie"
+    ],
+    "maintain": [
+      "onderhoud",
+      "afstellen"
+    ],
+    "impregnate": [
+      "hydrofob",
+      "impregn"
+    ],
+    "scaffolding": [
+      "steiger"
+    ],
+    "site_access_cost": [
+      "benadering",
+      "bereikbaar",
+      "hoogwerker"
+    ],
+    "advice": [
+      "advies"
+    ],
+    "project_management": [
+      "directievoering",
+      "projectbegeleiding"
+    ]
   },
   "precedence": [
-    ["scaffolding", "site_access_cost"]
+    [
+      "scaffolding",
+      "site_access_cost"
+    ]
   ]
 }

@@ -71,9 +71,9 @@ eenmalige handelingen, min/mediaan/max, de verdeling en een voorstel bij een geh
   `python scripts/mjop_lifecycle.py decide 6611 replace ACCEPT --source OPROGNOSE --by <naam>`.
   `proposal_source` legt vast welk voorstel is geaccepteerd.
 
-Waarneming op 6 exports (ter indicatie):
+Waarneming op 10 exports (ter indicatie; regels v2 strippen planningsnotities als "gelijktijdig met …" en tekst tussen haakjes, en lezen "vervangen schilderwerk" als schilderwerk):
 
-- 82 combinaties, waarvan 54 met een voorstel. Daar zitten vrijwel alle grote vervangingen bij.
+- 90 combinaties, waarvan 61 met een voorstel; 29 handelingen niet ingedeeld. Vrijwel alle grote vervangingen zitten erbij.
 - De waarde 48 komt vaak voor bij kozijnen, balkons en hekwerk. Dat lijkt een vaste waarde voor
   "buiten de planperiode".
 - Bij 4711 zijn "nieuwe laag aanbrengen" (`install`, 25 jaar) en "vervangen" (`replace`, meestal

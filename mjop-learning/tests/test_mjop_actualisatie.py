@@ -613,3 +613,13 @@ def test_lifecycle_upgrade_of_old_table_shape():
         if e["human_verification"]:
             e["human_verification"].pop("proposal_source")
     assert LC.table_errors(LC.upgrade_table(old)) == []
+
+
+def test_oprognose_classify_rules_v2_clauses_and_combinations():
+    rules = OC.load_rules()
+    assert OC.classify("Vervangen schilderwerk kozijn en raam hout dekkend", "4631", rules)[0] == "exterior_painting"
+    assert OC.classify("Vervangen schilderwerk deur hout dekkend", "4622", rules)[0] == "interior_painting"
+    assert OC.classify("Vervangen kilgoot zink (gelijktijdig met schilderwerk ivm steiger)", "2716", rules)[0] == "replace"
+    assert OC.classify("Aanbrengen nieuwe laag dakbedekking gelijktijdig met schilderwerk", "4711", rules)[0] == "install"
+    assert OC.classify("Reinigen en herstellen", "2110", rules) == (None, "AMBIGUOUS")
+    assert OC.core_text("Herstel (ivm steiger) gelijktijdig met X", rules) == "herstel"
