@@ -926,3 +926,14 @@ def test_repository_group4_painting_decisions_by_td():
         e = LC.entry_for(t, *key)
         assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
     assert not any(c["follower"]["action"] == "interior_painting" for c in K.load_register()["couplings"])   # binnen los
+
+
+def test_repository_group5_finishes_decisions_by_td():
+    t = LC.load_table()
+    expected = {("4211", "replace"): 60, ("4212", "replace"): 50, ("4320", "replace"): 15, ("4321", "replace"): 10,
+                ("4322", "repair"): 48, ("4410", "replace"): 24, ("4511", "replace"): 40, ("4521", "replace"): 24}
+    for key, cycle in expected.items():
+        e = LC.entry_for(t, *key)
+        assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
+    for code in ("4211", "4320", "4521"):
+        assert LC.entry_for(t, code, "repair")["human_verification"]["decision"] == "REJECT"
