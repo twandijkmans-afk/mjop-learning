@@ -189,14 +189,26 @@ lood samen met dakbedekking vervangen; K03 overlagen 25 jaar na vervangen; K04 h
 kozijnen samen met buitenschilderwerk; K05a/b hang- en sluitwerk bij elke 2e schilderbeurt; K06
 kilgoot meeschuiven naar een schilderjaar; K07a/b steiger- en bereikbaarheidskosten samen met
 buitenschilderwerk; K08 schilderwerk metalen hekwerk samen met schilderwerk buitenkozijnen; K09
-hemelwaterafvoeren samen; K10 liftonderdelen samen; K11–K13 gevelreiniging, impregneren en
-kitvoegen/voegwerk meeschuiven naar een schilderjaar (groep 2, TD); K14 kozijnen reinigen meeschuiven
-naar een schilderjaar (groep 3, TD).
+hemelwaterafvoeren samen; K10 liftonderdelen samen; K12–K13 impregneren en kitvoegen/voegwerk
+meeschuiven naar een schilderjaar (groep 2, TD). K11 (gevelreiniging) en K14 (kozijnen reinigen)
+zijn vervallen, omdat reinigen niet standaard wordt opgenomen (zie Beleid).
 
 Vervangingen met een cyclus van 60 jaar (balkonconstructie 2322, trappen 2410, gevelbekleding 4112)
 vallen bij gebouwen uit ongeveer 1967–1996 binnen de horizon. Zonder bekend laatste vervangingsjaar
 is dat altijd op basis van de bouwjaar-aanname, met de vlag `ASSUMED_FROM_CONSTRUCTION_YEAR`. Geef
 zo nodig het werkelijke jaar mee met `--last-replacement CODE=JAAR`.
+
+## Beleid: niet standaard opnemen
+
+`vocabularies/planning_policy.json` → `excluded_actions`. Besluit van TD (2026-11-26):
+**reinigen wordt nooit standaard opgenomen**, alleen als gebrek (B-post) als iets echt vervuild is.
+
+- Reinigingsregels uit een oud MJOP krijgen de planningsbeslissing REJECT namens TD, met de vlag
+  `EXCLUDED_BY_POLICY`.
+- Ze gaan niet naar OPrognose en tellen niet mee in het reservefonds.
+- `rapport.md` noemt ze onder "Niet standaard opgenomen".
+- Alle reinigingscycli in de levensduurtabel zijn afgewezen.
+- Een regel die afgewezen is (door een mens of volgens beleid), wordt niet geëxporteerd.
 
 ## Gebreken (B-posten)
 

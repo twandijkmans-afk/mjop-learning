@@ -679,7 +679,7 @@ def _by(lines, lid):
 
 def test_repository_coupling_register_is_valid_and_approved():
     reg = K.load_register()
-    assert len(reg["couplings"]) == 16 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
+    assert len(reg["couplings"]) == 14 and all(c["human_verification"]["by"] == "TD" for c in reg["couplings"])
     assert reg["max_shift_years"] == 3
 
 
@@ -842,8 +842,7 @@ def test_defect_exported_as_b_row_and_counted_in_fund():
 
 def test_repository_group2_facade_decisions_by_td():
     t = LC.load_table()
-    expected = {("2110", "replace"): 14, ("2110", "impregnate"): 14, ("2110", "clean"): 7, ("2110", "repair"): 10,
-                ("2410", "clean"): 7, ("4112", "repair"): 6, ("2322", "replace"): 60, ("2410", "replace"): 60,
+    expected = {("2110", "replace"): 14, ("2110", "impregnate"): 14, ("2110", "repair"): 10, ("4112", "repair"): 6, ("2322", "replace"): 60, ("2410", "replace"): 60,
                 ("4112", "replace"): 60}
     for key, cycle in expected.items():
         e = LC.entry_for(t, *key)
@@ -852,10 +851,10 @@ def test_repository_group2_facade_decisions_by_td():
 
 def test_coupling_facade_cleaning_moves_to_painting_year():
     reg = K.load_register()
-    lines = [_sched_line("P1", "4621", "exterior_painting", 2032, 7), _sched_line("R1", "2110", "clean", 2030, 7),
+    lines = [_sched_line("P1", "4621", "exterior_painting", 2032, 7), _sched_line("R1", "2110", "impregnate", 2030, 14),
              _sched_line("V1", "2110", "replace", 2041, 14)]
     out, counts = K.apply_all(lines, reg, 2027, 2056)
-    assert counts["K11"] == 1 and L2.schedule(_by(out, "R1"))[:2] == (2032, 7)
+    assert counts["K12"] == 1 and L2.schedule(_by(out, "R1"))[:2] == (2032, 14)
     assert L2.schedule(_by(out, "V1"))[:2] == (2039, 14) and _by(out, "V1")["planning_basis"]["coupling"]["shift_years"] == -2
 
 
@@ -883,10 +882,36 @@ def test_lifecycle_ignores_phasing_intervals():
 
 def test_repository_group3_frames_doors_decisions_by_td():
     t = LC.load_table()
-    expected = {("3120", "replace"): 60, ("3120", "repair"): 7, ("3120", "maintain"): 14, ("3120", "clean"): 6,
+    expected = {("3120", "replace"): 60, ("3120", "repair"): 7, ("3120", "maintain"): 14,
                 ("3130", "repair"): 12, ("3131", "replace"): 60, ("3230", "replace"): 60, ("3410", "replace"): 60,
                 ("3411", "replace"): 60, ("3420", "replace"): 60, ("8111", "replace"): 30, ("9032", "replace"): 60}
     for key, cycle in expected.items():
         e = LC.entry_for(t, *key)
         assert e["cycle_years"] == cycle and e["human_verification"]["by"] == "TD", key
-    assert any(c["id"] == "K14" and c["type"] == "MEESCHUIVEN" for c in K.load_register()["couplings"])
+    assert not any(c["id"] in ("K11", "K14") for c in K.load_register()["couplings"])        # reinigen vervallen
+
+
+def test_repository_cleaning_is_never_a_standard_cycle_and_interior_painting_14():
+    t = LC.load_table()
+    for e in t["entries"]:
+        if e["action"] == "clean":
+            assert e["cycle_years"] is None and e["human_verification"]["decision"] == "REJECT"
+    for key in [("4622", "interior_painting"), ("4632", "interior_painting"), ("4645", "exterior_painting")]:
+        assert LC.effective_cycle(t, *key) == 14
+
+
+def test_policy_excludes_cleaning_from_plan_export_and_fund():
+    doc = make_doc(actions=[_act("A1", "E1", "clean", 2030, "800"), _act("A2", "E1", "clean", 2037, "800"),
+                            _act("A3", "E1", "exterior_painting", 2030, "1000"), _act("A4", "E1", "exterior_painting", 2036, "1000")])
+    params = {"opening_balance": "0", "annual_contribution": "0", "contribution_growth": "0", "interest_rate": "0",
+              "cost_inflation": "0", "min_balance": "0", "rebuild_value": None}
+    result = A.build(doc, mjop_id="M", building_id="BLD", start_year=2027, target_price_year=2027, index=INDEX,
+                     table=table_with(), fund_params=params, at=T0)
+    clean = next(l for l in result["lines"] if l["action_normalized"] == "clean")
+    assert clean["planning_status"] == "REJECTED" and "EXCLUDED_BY_POLICY" in clean["planner_flags"]
+    assert clean["planning_verification"]["by"] == "TD" and "beleid" in clean["planning_verification"]["note"]
+    assert result["planner_report"]["excluded_by_policy"][0]["action"] == "clean"
+    texts = [h["han_tekst"] for _, hs in result["dataset"][1] for h in hs]
+    assert "tekst clean" not in texts and result["export_report"]["lines_not_exported_rejected"] == 1
+    assert all(p["maintenance_line_id"] != clean["maintenance_line_id"] for p in result["reserve_fund"]["details"]["per_line"])
+    assert X.validate_xml(X.serialize(result["dataset"], result["fmt"]), result["fmt"]) == []

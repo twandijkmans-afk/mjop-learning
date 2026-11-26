@@ -1,0 +1,12 @@
+{
+  "policy_version": "planning_policy_v1",
+  "description": "Beleid voor de horizon-planner (scripts/mjop_horizon_planner.py). Handelingen in excluded_actions worden niet standaard opgenomen: regels uit een oud MJOP krijgen planningsbeslissing REJECT namens de beslisser, met vlag EXCLUDED_BY_POLICY. Ze gaan niet naar OPrognose en tellen niet mee in het reservefonds; het rapport noemt ze. Is het werk echt nodig, dan voert de adviseur een gebrek (B-post) in.",
+  "excluded_actions": {
+    "clean": {
+      "label_nl": "reinigen",
+      "by": "TD",
+      "at": "2026-11-26T15:00:00Z",
+      "note": "Reinigen nooit standaard opnemen; alleen als gebrek (B-post) als iets echt vervuild is."
+    }
+  }
+}

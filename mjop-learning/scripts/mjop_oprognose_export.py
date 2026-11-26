@@ -60,7 +60,8 @@ FLAG_NL = {
     "COUPLING_IRREGULAR_LEADER": "koppeling: leider zonder vast ritme, meest voorkomend gekozen",
     "COUPLING_NO_LEADER_YEAR_IN_RANGE": "koppeling: geen leiderjaar binnen schuifruimte",
     "COUPLING_REANCHORED_LEADER": "leider verankerd aan jaar oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek",
-    "PHASED_IN_DOCUMENT": "gefaseerd in oud MJOP: elke fase eenmalig"}
+    "PHASED_IN_DOCUMENT": "gefaseerd in oud MJOP: elke fase eenmalig",
+    "EXCLUDED_BY_POLICY": "niet standaard opgenomen (beleid)"}
 
 
 class ExportError(ValueError):
@@ -243,7 +244,10 @@ def build_dataset(doc, lines, *, mjop_id, start_year, target_price_year, source_
     elements = {e["element_id"]: e for e in doc.get("elements", [])}
     unit_map = d["unit_map"]
     groups = OrderedDict()
+    skipped = [l["maintenance_line_id"] for l in lines if l["planning_status"] == "REJECTED"]
     for l in lines:
+        if l["planning_status"] == "REJECTED":   # afgewezen of volgens beleid niet standaard: niet in het plan
+            continue
         groups.setdefault(l["object_id"], []).append(l)
 
     ope_records, report_lines, deviation = [], [], Decimal(0)
@@ -346,7 +350,8 @@ def build_dataset(doc, lines, *, mjop_id, start_year, target_price_year, source_
               "actions_without_year": sum(1 for r in report_lines if not r["scheduled"]),
               "actions_proposed": sum(1 for r in report_lines if r["scheduled"] and not r["definitive"]),
               "actions_without_amount": sum(1 for r in report_lines if not r["amount_known"]),
-              "rounding_deviation_total": format(deviation, "f"), "defects": len(defect_report),
+              "rounding_deviation_total": format(deviation, "f"), "lines_not_exported_rejected": len(skipped),
+              "defects": len(defect_report),
               "defects_without_price": sum(1 for r in defect_report if not r["price_known"]),
               "defect_price_level_differs": bool(defect_report) and defects["price_level_year"] != price_year,
               "lines": report_lines, "defect_rows": defect_report}

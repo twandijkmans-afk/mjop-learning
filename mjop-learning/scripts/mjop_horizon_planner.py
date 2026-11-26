@@ -37,6 +37,23 @@ import mjop_lifecycle  # noqa: E402
 import mjop_maintenance_line_v2 as line_v2  # noqa: E402
 
 PLANNER_VERSION = "mjop_horizon_planner_v1"
+DEFAULT_POLICY = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "vocabularies", "planning_policy.json")
+
+
+def load_policy(path=DEFAULT_POLICY):
+    import json
+    return json.load(open(path, encoding="utf-8"))
+
+
+def apply_policy(line, policy):
+    """Beleid (vocabularies/planning_policy.json): uitgesloten handelingen (bijv. reinigen) worden niet
+    standaard opgenomen. Planningsbeslissing REJECT namens de beslisser van het beleid."""
+    rule = (policy or {}).get("excluded_actions", {}).get(line["action_normalized"] or "")
+    if not rule or line["planning_status"] in line_v2.HUMAN_PLANNED + ("REJECTED",):
+        return line
+    new = line_v2.decide_planning(line, "REJECT", by=rule["by"], at=rule["at"], note=f"beleid: {rule['note']}")
+    new = dict(new, planner_flags=sorted(set(new["planner_flags"]) | {"EXCLUDED_BY_POLICY"}))
+    return line_v2.validated(new)
 DEFAULT_HORIZON_YEARS = 30
 
 
@@ -196,11 +213,14 @@ def added_lifecycle_lines(doc, lines, table, start, end, *, mjop_id, last_replac
 
 
 def run(doc, lines, table, *, start_year, mjop_id, horizon_years=DEFAULT_HORIZON_YEARS,
-        last_replacement_years=None, line_prefix=None, couplings=None, defects=None):
+        last_replacement_years=None, line_prefix=None, couplings=None, defects=None, policy=None):
     """Voorstellen voor alle regels + toegevoegde vervangingen + koppelingen. Geeft (lines, report).
     couplings: register (mjop_couplings.load_register()); None = het standaardregister, {} = geen koppelingen."""
     if couplings is None:
         couplings = mjop_couplings.load_register()
+    if policy is None:
+        policy = load_policy()
+    lines = [apply_policy(l, policy) for l in lines]
     start, end = horizon(start_year, horizon_years)
     restarted = set()
     if defects:   # gebrek dat tot uitvoering leidt: ritme herstart vanaf het gebreksjaar
@@ -230,6 +250,9 @@ def run(doc, lines, table, *, start_year, mjop_id, horizon_years=DEFAULT_HORIZON
               "lines_existing": len(out), "lines_added_from_lifecycle": len(added) + len(coupled_added),
               "lines_added_via_coupling": len(coupled_added), "lines_restarted_by_defect": len(restarted),
               "defects": len((defects or {}).get("defects", [])),
+              "excluded_by_policy": [{"maintenance_line_id": l["maintenance_line_id"], "element_code": l["element_code_internal"],
+                                      "action": l["action_normalized"], "text": l["action_text"]}
+                                     for l in lines if "EXCLUDED_BY_POLICY" in l["planner_flags"]],
               "coupling_counts": {k: v for k, v in coupling_counts.items() if v},
               "lines_with_proposal": sum(1 for l in all_lines if l["planning_status"] == "PROPOSED"),
               "lines_rolled_forward": sum(1 for l in all_lines if (l["planning_basis"] or {}).get("rolled_forward")),

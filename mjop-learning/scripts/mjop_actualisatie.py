@@ -56,7 +56,8 @@ FLAG_NL = {
     "COUPLED": "gekoppeld", "COUPLING_LEADER_ABSENT": "koppeling: leider ontbreekt", "COUPLING_IRREGULAR_LEADER": "koppeling: leider zonder vast ritme",
     "COUPLING_NO_LEADER_YEAR_IN_RANGE": "koppeling: geen leiderjaar binnen schuifruimte",
     "COUPLING_REANCHORED_LEADER": "leider verankerd aan oud MJOP", "RESTARTED_BY_DEFECT": "ritme herstart na gebrek",
-    "PHASED_IN_DOCUMENT": "gefaseerd in oud MJOP: elke fase eenmalig"}
+    "PHASED_IN_DOCUMENT": "gefaseerd in oud MJOP: elke fase eenmalig",
+    "EXCLUDED_BY_POLICY": "niet standaard opgenomen (beleid)"}
 def now():
     return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -142,6 +143,12 @@ def write_report(result, meta, path):
          f"{p['lines_added_from_lifecycle']} langcyclische vervangingen toegevoegd.",
          f"- {len(p['lifecycle_unknown'])} elementen zonder vastgestelde vervangingscyclus:"]
     L += [f"  - {u['element_code']} {u['element_name'] or ''}" for u in p["lifecycle_unknown"]]
+    excl = p.get("excluded_by_policy", [])
+    if excl:
+        L += ["", f"## Niet standaard opgenomen ({len(excl)})", "",
+              "Volgens beleid (bijv. reinigen) niet in het plan en niet in OPrognose. Is het werk echt nodig, voer dan een "
+              "gebrek (B-post) in met `--defects`.", ""]
+        L += [f"- {x['element_code'] or '-'} {x['action']}: {x['text'] or ''}" for x in excl]
     L += ["", "## Aandachtspunten (vlaggen)", "", "| vlag | regels |", "|---|---|"]
     L += [f"| {FLAG_NL.get(k, k)} | {v} |" for k, v in p["flag_counts"].items()]
     L += ["", f"## Reservefonds ({f['status']})", ""]
